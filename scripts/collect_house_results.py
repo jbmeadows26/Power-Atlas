@@ -124,6 +124,44 @@ def main():
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if not OUT.exists() or OUT.read_text(encoding='utf-8')!=output:
         OUT.write_text(output,encoding='utf-8')
+    # The complete district file is deliberately not read by the frontend or
+    # GitHub's small-file API. Publish a compact statewide/yearly index instead.
+    summary_path = ROOT / 'data/elections/house-summary.json'
+    states = {}
+    for row in prior.values():
+        key = (row['year'],row['state'])
+        if key not in states:
+            states[key] = {
+                'year':row['year'], 'state':row['state'],
+                'districts':0, 'districtsWithTwoPartyVotes':0,
+                'contestedTwoPartyDistricts':0,
+                'democraticVotes':0,'republicanVotes':0,'twoPartyVotes':0,
+            }
+        entry=states[key]
+        entry['districts']+=1
+        entry['democraticVotes']+=row['democraticVotes']
+        entry['republicanVotes']+=row['republicanVotes']
+        entry['twoPartyVotes']+=row['twoPartyVotes']
+        if row['twoPartyVotes']>0:
+            entry['districtsWithTwoPartyVotes']+=1
+        if row['democraticVotes']>0 and row['republicanVotes']>0:
+            entry['contestedTwoPartyDistricts']+=1
+    result={
+        'schema':'power-atlas.house-state-year.v1',
+        'sourceDataset':'MIT Election Data and Science Lab US House 1976-2024',
+        'license':'CC0-1.0',
+        'sourceCatalog':'https://doi.org/10.7910/DVN/IG0UN2',
+        'publicationStatus':'derived_requires_validation',
+        'limitations':'Two-party vote totals, not partisan-bias, efficiency-gap or gerrymandering metrics. Uncontested seats and third-party votes limit inference.',
+        'records':sorted(states.values(),key=lambda r:(r['year'],r['state']))
+    }
+    rendered=json.dumps(result,indent=2,ensure_ascii=False)+'\n'
+    if len(rendered.encode())>600000:
+        raise RuntimeError('Unexpectedly large derived summary')
+    if not summary_path.exists() or summary_path.read_text(encoding='utf-8')!=rendered:
+        summary_path.write_text(rendered,encoding='utf-8')
+    print('House state-year summaries:',len(states),'bytes:',len(rendered.encode()))
+
     print('House district-year rows',len(prior),'stored bytes',len(output.encode()))
 
 if __name__=='__main__':
