@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_fec_bulk_links.py'
+      - 'data/people/congress-members.json'
       - '.github/workflows/collect-fec-bulk.yml'
   workflow_dispatch:
   schedule:
