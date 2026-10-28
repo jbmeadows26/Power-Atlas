@@ -1,0 +1,37 @@
+{
+  "schema": "power-atlas.coverage.v1",
+  "publicationStatus": "mixed_source_indexed_coverage_not_completeness",
+  "coverage": {
+    "sourceIndexedRecords": 56,
+    "relationshipRecords": 2602,
+    "FECcandidateCommitteeLinks": 1269,
+    "stateCommitteeRows": 62,
+    "stateCommitteeMembershipEdges": 706,
+    "committeeTotalRows": 2,
+    "paymentRows": 0,
+    "stateSourceReferences": 52,
+    "congressMemberRows": 539,
+    "stateLegislatorRows": 7416,
+    "stateExecutiveRows": 170,
+    "federalJudicialAppointments": 4777,
+    "stateLegislatorJurisdictions": 52,
+    "lobbyingFilingRows": 0,
+    "houseStateYearRows": 402,
+    "uncovered": [
+      "state_campaign_finance",
+      "state_roll_calls",
+      "district_geospatial",
+      "litigation_dockets",
+      "judicial_selection",
+      "national_election_returns"
+    ],
+    "warning": "Index counts are not reviewed unique-case or influence counts"
+  },
+  "relationshipTypes": {
+    "CC0_roster_FEC_candidate_id_crosswalk": 627,
+    "FEC_reported_candidate_committee_linkage": 1269,
+    "documented_committee_membership": 706
+  },
+  "dataset": "https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json",
+  "warning": "Counts represent persisted indexed records, not legal determinations, influence findings or all nationwide sources"
+}
