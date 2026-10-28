@@ -27208,6 +27208,27 @@
       "stateCodeStatus": "verified_official_census_keyless_reference"
     }
   ],
+  "geography": {
+    "congressionalMapEditions": [
+      {
+        "congress": 116,
+        "censusYear": 2020,
+        "features": 437,
+        "source": "https://www2.census.gov/geo/tiger/GENZ2020/shp/cb_2020_us_cd116_20m.zip",
+        "dataset": "https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-116.geojson",
+        "status": "generalized_display_geometry_not_legal_map"
+      },
+      {
+        "congress": 119,
+        "censusYear": 2025,
+        "features": 437,
+        "source": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_20m.zip",
+        "dataset": "https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-119.geojson",
+        "status": "generalized_display_geometry_not_legal_map"
+      }
+    ],
+    "comparisonNote": "116th and 119th maps differ by both nationwide apportionment and boundary changes; a shape difference is not a measure of intent."
+  },
   "organizations": {
     "stateCommittees": [
       {
@@ -44255,6 +44276,7 @@
     "committeeTotalRows": 2,
     "paymentRows": 0,
     "stateSourceReferences": 52,
+    "congressionalMapEditions": 2,
     "congressMemberRows": 539,
     "stateLegislatorRows": 7416,
     "stateExecutiveRows": 170,
