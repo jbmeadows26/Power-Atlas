@@ -82,9 +82,7 @@ def collect():
                 'id':key,'nid':nid,'name':people.get(nid,'Judge FJC '+nid),
                 'court':court[:180], 'appointingPresident':president[:80],
                 'source':'https://www.fjc.gov/node/'+nid,
-                'sourceTable':BASE+'federal-judicial-service.csv',
-                'reviewStatus':'official_FJC_appointment_indexed',
-                'claimScope':'An appointment is a documented government action; this record does not establish partisan judicial conduct'
+                'reviewStatus':'official_FJC_appointment_indexed'
             }
             for target,field in [
                 ('presidentParty','party_of_appointing_president'),
@@ -104,7 +102,9 @@ def collect():
     document={
         'schema':'power-atlas.fjc.article-iii-appointments.v1',
         'publicationStatus':'official_source_indexed_claims_require_review',
-        'sourceCatalog':LANDING,'license':'US federal public domain',
+        'sourceCatalog':LANDING,'sourceTable':BASE+'federal-judicial-service.csv',
+        'license':'US federal public domain',
+        'claimScope':'Nomination and appointment records do not establish judicial ideology or improper map-related conduct',
         'sourceAsOf':'2026-10-23',
         'limitations':'FJC directory updates currently paused; missing termination date is not a guarantee of currently sitting service. Appointing president or party does not establish a judge ideology or wrongful conduct.',
         'appointments':sorted(out.values(),key=lambda x:x['id'])
