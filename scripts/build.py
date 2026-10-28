@@ -167,6 +167,20 @@ state_people_index = state_people_doc.get('jurisdictions', [])
 state_people_count = state_people_doc.get('totalIndexed', 0)
 congress_file = ROOT / 'data/people/congress-members.json'
 congress = json.loads(congress_file.read_text(encoding='utf-8'))['records'] if congress_file.exists() else []
+map_editions = []
+for congress,year in [(116,2020),(119,2025)]:
+    map_path = ROOT / ('data/geography/districts-' + str(congress) + '.geojson')
+    if map_path.exists():
+        doc = json.loads(map_path.read_text(encoding='utf-8'))
+        if doc.get('type') != 'FeatureCollection' or len(doc.get('features',[])) < 435:
+            raise ValueError('Unexpected historical Census district map: '+str(congress))
+        map_editions.append({
+            'congress': congress, 'censusYear': year,
+            'features':len(doc['features']),
+            'source':doc['source'],
+            'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-'+str(congress)+'.geojson',
+            'status':'generalized_display_geometry_not_legal_map'
+        })
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 uncovered = [
@@ -179,6 +193,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'geography': {'congressionalMapEditions':map_editions, 'comparisonNote':'116th and 119th maps differ by both nationwide apportionment and boundary changes; a shape difference is not a measure of intent.'},
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
@@ -200,6 +215,7 @@ feed = {
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
         'stateSourceReferences': len(states),
+        'congressionalMapEditions': len(map_editions),
         'congressMemberRows': len(congress),
         'stateLegislatorRows': state_people_count,
         'stateExecutiveRows': len(executives),
