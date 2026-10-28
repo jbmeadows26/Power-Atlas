@@ -14,7 +14,7 @@ INDEX = ROOT / 'data/batches/fec-committees.json'
 OUT = ROOT / 'data/finance/fec-disbursements.json'
 API = 'https://api.open.fec.gov/v1/schedules/schedule_b/'
 KEY = os.environ.get('FEC_API_KEY') or 'DEMO_KEY'
-MAX_COMMITTEES = 7
+MAX_COMMITTEES = 2 if KEY == 'DEMO_KEY' else 7
 PER_PAGE = 20
 MAX_ITEMS = 250
 
