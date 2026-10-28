@@ -61,6 +61,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="records">Research records</button>
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
+    <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
     <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
   </nav>
@@ -96,6 +97,13 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p class="sub">The public disclosure index lists a lobbying firm or registrant and the reported client. This does not establish a redistricting-related lobbying objective, a government decision, or misconduct.</p>
     <div id="lobbyingList" class="list"></div>
     <p class="note">Attribution: U.S. Senate Office of Public Records. The Office cannot vouch for analyses derived from its data after retrieval. Consult the original filing to confirm its legislative issues and amendments.</p>
+  </section>
+  <section class="panel" data-panel="elections">
+    <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
+    <p class="sub">MIT Election Data and Science Lab source; compact state-year totals. These are <b>not</b> gerrymandering scores. Uncontested districts, changing boundaries, and third-party votes limit comparisons.</p>
+    <div class="filters"><label for="electionYear">Election year</label><select id="electionYear" aria-label="Election year"><option value="2024">2024</option></select><span id="electionCount" class="muted"></span></div>
+    <div id="electionList" class="list"></div>
+    <p class="note">Data source: <a href="https://doi.org/10.7910/DVN/IG0UN2" target="_blank" rel="noopener noreferrer">MIT Election Data and Science Lab U.S. House 1976-2024 ↗</a>, CC0 1.0. Source-specific validation is pending. Neither a vote margin nor a partisan advantage alone proves improper district design.</p>
   </section>
   <section class="panel" data-panel="states">
     <span class="eyebrow">Census geography</span><h2>States & district sources</h2>
@@ -144,6 +152,21 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       return '<article class="card"><div class="meta"><span class="tag">LDA · '+esc(r.year||'year not indexed')+'</span><span class="tag warn">Unreviewed</span></div><h3>'+esc(r.client)+'</h3><p>Reported registrant: '+esc(r.registrant)+'</p><p>'+esc(r.period||'Period not indexed')+' · '+esc(r.type||'Filing')+'</p><p>Income: '+esc(usd(r.incomeUSD))+' · Expenses: '+esc(usd(r.expensesUSD))+'</p><a class="source" href="'+esc(safe(r.sourceApi||r.source))+'" target="_blank" rel="noopener noreferrer">Original filing ↗</a></article>';
     }).join(''):'<div class="card"><p>No lobbying filings have been published by the scoped collector yet. This is a coverage gap, not an assertion that lobbying did not occur.</p></div>';
   }
+  function renderElections(){
+    var items=((data.elections||{}).houseStateYears)||[];
+    var select=document.getElementById('electionYear');
+    var years=[...new Set(items.map(function(x){return x.year}))].sort(function(a,b){return b-a});
+    var chosen=select.value;
+    if(years.length && years.map(String).indexOf(chosen)<0){chosen=String(years[0])}
+    select.innerHTML=years.map(function(y){return '<option value="'+esc(y)+'" '+(String(y)===chosen?'selected':'')+'>'+esc(y)+'</option>'}).join('')||'<option value="">Not collected</option>';
+    var current=items.filter(function(x){return String(x.year)===chosen});
+    set('electionCount',current.length+' state-year entries');
+    document.getElementById('electionList').innerHTML=current.length?current.map(function(x){
+      var d=x.democraticVotes||0,r=x.republicanVotes||0,t=d+r;
+      var share=t>0?100*d/t:0;
+      return '<article class="card"><div class="meta"><span class="tag">State '+esc(x.state)+'</span><span class="tag warn">Derived / unreviewed</span></div><h3>'+esc(x.state)+' · '+esc(x.year)+'</h3><p>'+esc(x.districts)+' districts indexed; '+esc(x.contestedTwoPartyDistricts)+' with both major parties reporting votes.</p><small>Democratic two-party vote share (not map bias)</small><div class="money">'+(t?share.toFixed(1)+'%':'Not available')+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,share))+'%"></div></div><p>D votes: '+d.toLocaleString('en-US')+' · R votes: '+r.toLocaleString('en-US')+'</p></article>';
+    }).join(''):'<div class="card"><p>Election data is not yet published in the compact feed. Check the ingestion and validation workflow; no zero values are assumed.</p></div>';
+  }
   function renderStates(){
     var states=data.states||[];
     document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th Congress · Geometry linked, not hosted</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a></div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
@@ -157,12 +180,13 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('gapQuality').innerHTML=gaps(uncovered);
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderLobbying();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderElections();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
   })});
+  document.getElementById('electionYear').addEventListener('change',renderElections);
   document.getElementById('query').addEventListener('input',renderRecords);
   document.getElementById('stateFilter').addEventListener('change',renderRecords);
   fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(json){
