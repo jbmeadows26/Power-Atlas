@@ -62,6 +62,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
     <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
     <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
+    <button role="tab" aria-selected="false" data-tab="committees">Mapmaking committees</button>
     <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
     <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
@@ -118,6 +119,18 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p id="stateLegislatorStatus" class="mapstatus">Choose this section to load current state legislators.</p>
     <div id="stateLegislatorList" class="list"></div>
     <p class="note">Public CC0 data compiled by <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States ↗</a> from official state legislative sources and curated contributions. State-specific service dates and district numbers may need verification against current official records.</p>
+  </section>
+  <section class="panel" data-panel="committees">
+    <span class="eyebrow">Documented institutional relationships</span><h2>Redistricting & elections committees</h2>
+    <p class="sub">Discover committee chairs, vice chairs, and members with source links. An explicitly named redistricting committee is distinguished from a broader elections committee; membership is not proof of map design, influence, voting, or misconduct.</p>
+    <div class="filters">
+      <input id="committeeQuery" aria-label="Search committees or members" placeholder="Committee, member, chair or state…">
+      <select id="committeeTopic" aria-label="Committee topic"><option value="">Redistricting & elections</option><option value="redistricting">Redistricting/reapportionment only</option><option value="elections_related">Other elections committees</option></select>
+      <span id="committeeCount" class="muted"></span>
+    </div>
+    <p id="committeeStatus" class="mapstatus">Open this section to retrieve source-backed committees.</p>
+    <div id="committeeList" class="list"></div>
+    <p class="note">Source: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States committee registry ↗</a> (CC0). Membership entries may reflect state-specific data refresh dates. Click the original source for dates and confirmation. No person-to-map causality is inferred.</p>
   </section>
   <section class="panel" data-panel="governors">
     <span class="eyebrow">Executive / institutional responsibility</span><h2>Governors & state executives</h2>
@@ -230,6 +243,35 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
         if(rosterState!==state)return;
         stateRoster=j.records;renderStateLegislators()
       }).catch(function(e){if(rosterState===state){set('stateLegislatorStatus','State roster is not yet available: '+e.message);document.getElementById('stateLegislatorList').innerHTML=''}});
+  }
+  var sourceCommittees=null,committeeBusy=false;
+  function renderCommittees(){
+    var root=document.getElementById('committeeList');
+    if(!sourceCommittees){root.innerHTML='';return}
+    var q=document.getElementById('committeeQuery').value.trim().toLowerCase();
+    var topic=document.getElementById('committeeTopic').value;
+    var matches=sourceCommittees.filter(function(c){
+      return (!topic||c.topic===topic)&&(!q||[c.state,c.name,c.chamber].concat((c.members||[]).map(function(m){return m.name+' '+m.role})).join(' ').toLowerCase().includes(q));
+    });
+    set('committeeCount',matches.length+' of '+sourceCommittees.length+' committees');
+    root.innerHTML=matches.length?matches.slice(0,150).map(function(c){
+      var chairs=(c.members||[]).filter(function(m){return /chair|vice|co-chair/i.test(m.role)});
+      var roleList=chairs.length?chairs.slice(0,10):c.members.slice(0,6);
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(c.state)+' · '+esc(c.chamber)+'</span><span class="tag warn">'+esc(c.topic.replace('_',' '))+'</span></div><h3>'+esc(c.name)+'</h3><p>'+esc(c.members.length)+' source-listed memberships</p><p>'+roleList.map(function(m){return '<strong>'+esc(m.name)+'</strong> ('+esc(m.role)+')'}).join(' · ')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.officialLink||c.source))+'">Official committee source ↗</a> · <a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.source))+'">Membership record ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching committee records were indexed for this search.</p></div>';
+  }
+  function loadCommittees(){
+    if(sourceCommittees){renderCommittees();return}
+    if(committeeBusy)return;
+    committeeBusy=true;set('committeeStatus','Loading institutional membership records from the public GitHub corpus...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/organizations/redistricting-committees.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.state-committees.v1'||!Array.isArray(j.committees))throw Error('Unrecognized committee schema');
+        sourceCommittees=j.committees;
+        set('committeeStatus',sourceCommittees.length+' source-indexed committees, including broader elections committees · relationship claims pending review.');
+        renderCommittees()
+      }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
+      .finally(function(){committeeBusy=false});
   }
   function renderExecutives(){
     var rows=((data.people||{}).stateExecutives)||[];
@@ -352,7 +394,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(b.dataset.tab==='states')loadMaps();
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
     if(b.dataset.tab==='judiciary')loadJudiciary();
+    if(b.dataset.tab==='committees')loadCommittees();
   })});
+  document.getElementById('committeeQuery').addEventListener('input',renderCommittees);
+  document.getElementById('committeeTopic').addEventListener('change',renderCommittees);
   document.getElementById('judgeQuery').addEventListener('input',renderJudiciary);
   document.getElementById('judgeStatus').addEventListener('change',renderJudiciary);
   document.getElementById('executiveQuery').addEventListener('input',renderExecutives);
