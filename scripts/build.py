@@ -1,9 +1,18 @@
 from pathlib import Path
 import json
 import hashlib
+import re
 
 ROOT = Path(__file__).resolve().parents[1]
 records = {}
+
+def match_key(row):
+    title = re.sub(r',\s*(?:TX|GA|TN|LA|FL|NY|NC|SC)\s*$', '', row['title'], flags=re.I)
+    normalized = re.sub(r'[^a-z0-9]+', ' ', title.casefold()).strip()
+    # Candidate duplicate only: year must also match; never infer two cases are identical from title alone.
+    year = str(row.get('date', ''))[:4]
+    return normalized, year
+
 for file in sorted((ROOT / 'data/batches').glob('*.json')):
     doc = json.loads(file.read_text(encoding='utf-8'))
     for row in doc['records']:
@@ -15,6 +24,15 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
             raise ValueError(f'Conflicting record ID: {compact["id"]}')
         records[compact['id']] = compact
 
+# Flag likely duplicates for review instead of deleting source-specific records.
+seen = {}
+for item in sorted(records.values(), key=lambda x: (0 if x['id'].startswith('doj-') and not x['id'].startswith('doj-index') else 1, x['id'])):
+    key = match_key(item)
+    if key[1] and key in seen:
+        item['possibleDuplicateOf'] = seen[key]
+    else:
+        seen[key] = item['id']
+
 output = {
     'schema': 'power-atlas.compact.v1',
     'publicationStatus': 'review_required',
@@ -24,4 +42,4 @@ path = ROOT / 'data/research.json'
 content = json.dumps(output, indent=2, ensure_ascii=False) + '\n'
 if not path.exists() or path.read_text(encoding='utf-8') != content:
     path.write_text(content, encoding='utf-8')
-print(f'Validated {len(records)} unique compact records; {len(content.encode())} bytes')
+print(f'Validated {len(records)} source-specific records; {len(content.encode())} bytes')
