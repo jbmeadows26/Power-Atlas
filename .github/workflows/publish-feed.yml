@@ -33,4 +33,4 @@ jobs:
       - name: Validate generated feed and source identities
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Publish changed portable frontend files
-        run: bash scripts/publish_data.sh data/research.json data/app-feed.json data/relationships.json
+        run: bash scripts/publish_data.sh data/research.json data/app-feed.json data/relationships.json data/coverage.json
