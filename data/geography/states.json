@@ -1,474 +1,578 @@
 {
   "schema": "power-atlas.states.v1",
-  "note": "Source references only; no district polygons or election metrics ingested",
+  "note": "Official keyless Census geography index; no district polygons or election scores downloaded",
   "states": [
     {
       "fips": "01",
       "name": "Alabama",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "AL",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_01_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "02",
       "name": "Alaska",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "AK",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_02_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "04",
       "name": "Arizona",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "AZ",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_04_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "05",
       "name": "Arkansas",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "AR",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_05_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "06",
       "name": "California",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "CA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_06_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "08",
       "name": "Colorado",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "CO",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_08_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "09",
       "name": "Connecticut",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "CT",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_09_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "10",
       "name": "Delaware",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "DE",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_10_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "11",
       "name": "District of Columbia",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "DC",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_11_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "12",
       "name": "Florida",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "FL",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_12_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "13",
       "name": "Georgia",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "GA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_13_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "15",
       "name": "Hawaii",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "HI",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_15_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "16",
       "name": "Idaho",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "ID",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_16_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "17",
       "name": "Illinois",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "IL",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_17_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "18",
       "name": "Indiana",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "IN",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_18_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "19",
       "name": "Iowa",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "IA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_19_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "20",
       "name": "Kansas",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "KS",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_20_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "21",
       "name": "Kentucky",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "KY",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_21_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "22",
       "name": "Louisiana",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "LA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_22_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "23",
       "name": "Maine",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "ME",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_23_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "24",
       "name": "Maryland",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MD",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_24_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "25",
       "name": "Massachusetts",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_25_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "26",
       "name": "Michigan",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MI",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_26_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "27",
       "name": "Minnesota",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MN",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_27_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "28",
       "name": "Mississippi",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MS",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_28_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "29",
       "name": "Missouri",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MO",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_29_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "30",
       "name": "Montana",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "MT",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_30_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "31",
       "name": "Nebraska",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NE",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_31_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "32",
       "name": "Nevada",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NV",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_32_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "33",
       "name": "New Hampshire",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NH",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_33_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "34",
       "name": "New Jersey",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NJ",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_34_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "35",
       "name": "New Mexico",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NM",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_35_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "36",
       "name": "New York",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NY",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_36_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "37",
       "name": "North Carolina",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "NC",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_37_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "38",
       "name": "North Dakota",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "ND",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_38_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "39",
       "name": "Ohio",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "OH",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_39_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "40",
       "name": "Oklahoma",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "OK",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_40_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "41",
       "name": "Oregon",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "OR",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_41_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "42",
       "name": "Pennsylvania",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "PA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_42_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "44",
       "name": "Rhode Island",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "RI",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_44_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "45",
       "name": "South Carolina",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "SC",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_45_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "46",
       "name": "South Dakota",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "SD",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_46_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "47",
       "name": "Tennessee",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "TN",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_47_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "48",
       "name": "Texas",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "TX",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_48_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "49",
       "name": "Utah",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "UT",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_49_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "50",
       "name": "Vermont",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "VT",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_50_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "51",
       "name": "Virginia",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "VA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_51_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "53",
       "name": "Washington",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "WA",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_53_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "54",
       "name": "West Virginia",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "WV",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_54_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "55",
       "name": "Wisconsin",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "WI",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_55_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "56",
       "name": "Wyoming",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "WY",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_56_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     },
     {
       "fips": "72",
       "name": "Puerto Rico",
-      "stateSource": "https://api.census.gov/data/2020/dec/pl?get=NAME&for=state%3A%2A",
+      "postal": "PR",
+      "stateSource": "https://www2.census.gov/geo/docs/reference/state.txt",
       "districtMapSource": "https://www2.census.gov/geo/tiger/TIGER2025/CD/tl_2025_72_cd119.zip",
       "congress": "119",
       "geometryStatus": "linked_not_downloaded",
-      "sourceAuthority": "US_Census_Bureau"
+      "sourceAuthority": "US_Census_Bureau",
+      "stateCodeStatus": "verified_official_census_keyless_reference"
     }
   ]
 }
