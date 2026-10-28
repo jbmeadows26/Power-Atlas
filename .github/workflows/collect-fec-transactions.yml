@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-main-writes
+  group: atlas-fec-payments
   cancel-in-progress: false
 jobs:
   collect:
