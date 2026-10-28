@@ -1,7 +1,10 @@
-"""Anonymous, bounded Senate LDA filing index. No personal lobbyist details or documents."""
+"""Bounded lobbying disclosure collector from US Senate Office of Public Records.
+Anonymous API, only confirmed issue-text matches, no individual lobbyist details.
+"""
 from pathlib import Path
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from urllib.error import HTTPError, URLError
 import json
 import re
 import datetime
@@ -9,12 +12,17 @@ import datetime
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / 'data/lobbying/lda-filings.json'
 API = 'https://lda.gov/api/v1/filings/'
-TERMS = ('redistricting', 'voting rights', 'election integrity')
+TERMS = ('redistricting', 'voting rights', 'congressional district')
+YEARS = (2026, 2025)
 MAX_BYTES = 350000
 
-def fetch(term):
-    query=urlencode({'client_name':term,'filing_year':2026,'page_size':20})
-    req=Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index'})
+def fetch(term, year):
+    # The previous script incorrectly used client_name for topical phrases.
+    # This is the documented field for issue-description keyword filtering.
+    query = urlencode({'filing_specific_lobbying_issues':term,
+                       'filing_year':year,'page_size':20})
+    req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
+                                          'Accept':'application/json'})
     with urlopen(req,timeout=25) as response:
         if response.status!=200:
             raise RuntimeError('Senate API HTTP error')
@@ -26,61 +34,91 @@ def fetch(term):
         raise ValueError('Unexpected LDA schema')
     return doc['results']
 
+def matching_issue(filing):
+    activities = filing.get('lobbying_activities') or []
+    if not isinstance(activities,list):
+        return ''
+    for row in activities:
+        if not isinstance(row,dict):
+            continue
+        detail = str(row.get('specific_issues') or '')
+        if any(q in detail.lower() for q in TERMS):
+            return ' '.join(detail.split())[:180]
+    return ''
+
 def collect():
     old=json.loads(DEST.read_text(encoding='utf-8'))['records'] if DEST.exists() else []
     by_id={r['id']:r for r in old}
     successes=0
     failures=[]
     for term in TERMS:
-        try:
-            filings=fetch(term)
-        except Exception as exc:
-            failures.append((term,type(exc).__name__))
-            continue
-        successes+=1
-        for filing in filings:
-            uid=str(filing.get('filing_uuid') or '')
-            if not re.fullmatch(r'[0-9a-fA-F-]{36}',uid):
+        for query_year in YEARS:
+            try:
+                filings=fetch(term,query_year)
+            except HTTPError as exc:
+                # Do not switch identities/hosts to circumvent 403/429.
+                if exc.code in (401,403,429):
+                    raise RuntimeError(f'LDA access or rate restriction: HTTP {exc.code}') from exc
+                failures.append((term,query_year,'HTTP '+str(exc.code)))
                 continue
-            registrant=filing.get('registrant') or {}
-            client=filing.get('client') or {}
-            if not isinstance(registrant,dict) or not isinstance(client,dict):
+            except (URLError,TimeoutError,ValueError,RuntimeError,OSError) as exc:
+                failures.append((term,query_year,type(exc).__name__))
                 continue
-            client_name=str(client.get('name') or '')[:125]
-            firm=str(registrant.get('name') or '')[:125]
-            if not client_name or not firm:
-                continue
-            year=filing.get('filing_year')
-            if year!=2026:
-                continue
-            record={
-                'id':'lda-'+uid,
-                'filingId':uid,'client':client_name,'registrant':firm,
-                'year':year,'period':str(filing.get('filing_period') or '')[:35],
-                'type':str(filing.get('filing_type') or '')[:20],
-                'source':'https://lda.gov/filings/public/filing/search/',
-                'sourceApi':API+uid+'/',
-                'dateAccessed':datetime.date.today().isoformat(),
-                'reviewStatus':'federal_lobbying_filing_unreviewed',
-                'claimScope':'Filing existence only; neither the lobbying issue nor redistricting involvement is verified'
-            }
-            for k in ('income','expenses'):
-                value=filing.get(k)
-                if isinstance(value,(int,float)) and not isinstance(value,bool):
-                    record[k+'USD']=round(float(value),2)
-            by_id[record['id']]=record
+            successes+=1
+            for filing in filings:
+                if not isinstance(filing,dict):
+                    continue
+                issue=matching_issue(filing)
+                if not issue:
+                    continue
+                uid=str(filing.get('filing_uuid') or '')
+                if not re.fullmatch(r'[0-9a-fA-F-]{36}',uid):
+                    continue
+                registrant=filing.get('registrant') or {}
+                client=filing.get('client') or {}
+                if not isinstance(registrant,dict) or not isinstance(client,dict):
+                    continue
+                client_name=str(client.get('name') or '')[:125]
+                firm=str(registrant.get('name') or '')[:125]
+                try:
+                    year=int(filing.get('filing_year'))
+                except (TypeError,ValueError):
+                    continue
+                if not client_name or not firm or year!=query_year:
+                    continue
+                record={
+                    'id':'lda-'+uid,
+                    'filingId':uid,'client':client_name,'registrant':firm,
+                    'year':year,'period':str(filing.get('filing_period') or '')[:35],
+                    'type':str(filing.get('filing_type') or '')[:20],
+                    'source':'https://lda.gov/filings/public/filing/search/',
+                    'sourceApi':API+uid+'/',
+                    'dateAccessed':datetime.date.today().isoformat(),
+                    'specificIssuesExcerpt':issue,
+                    'reviewStatus':'issue_text_matched_unreviewed',
+                    'claimScope':'Text-matched lobbying disclosure only. No connection to map outcomes established.'
+                }
+                for k in ('income','expenses'):
+                    value=filing.get(k)
+                    if isinstance(value,(int,float)) and not isinstance(value,bool):
+                        record[k+'USD']=round(float(value),2)
+                by_id[record['id']]=record
     if not successes:
-        raise RuntimeError('No Senate API queries succeeded; preserve prior data: '+str(failures))
+        raise RuntimeError('All Senate API queries failed; preserve prior data: '+str(failures))
     if len(by_id)>150:
         by_id=dict(sorted(by_id.items(),reverse=True)[:150])
     body={'schema':'power-atlas.lda-filings.v1','publicationStatus':'review_required',
-          'attribution':'Data retrieved from US Senate Office of Public Records. The Office cannot vouch for analyses derived after retrieval.',
+          'method':'bounded top-20 page for each issue term/year; incomplete search coverage',
+          'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
+          'successfulQueries':successes,'failedQueries':len(failures),
           'records':sorted(by_id.values(),key=lambda r:r['id'])}
     rendered=json.dumps(body,indent=2,ensure_ascii=False)+'\n'
     DEST.parent.mkdir(parents=True,exist_ok=True)
     if not DEST.exists() or DEST.read_text(encoding='utf-8')!=rendered:
         DEST.write_text(rendered,encoding='utf-8')
-    print('Senate LDA filings:',len(by_id),'queries succeeded:',successes,'failed:',failures)
+    print('LDA issue-matched filings:',len(by_id),'successful queries:',successes,'failed:',len(failures))
+    if failures:
+        print('Partial failures:',failures)
 
 if __name__=='__main__':
     collect()
