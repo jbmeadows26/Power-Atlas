@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_congress_members.py'
+      - 'tests/test_corpus.py'
       - '.github/workflows/collect-congress-members.yml'
   workflow_dispatch:
   schedule:
