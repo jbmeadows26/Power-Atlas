@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_doj.py'
+      - 'scripts/build.py'
       - '.github/workflows/collect-doj.yml'
   workflow_dispatch:
   schedule:
