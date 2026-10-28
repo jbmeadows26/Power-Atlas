@@ -41,7 +41,7 @@ def matching_issue(filing):
     for row in activities:
         if not isinstance(row,dict):
             continue
-        detail = str(row.get('specific_issues') or '')
+        detail = str(row.get('specific_lobbying_issues') or row.get('specific_issues') or '')
         if any(q in detail.lower() for q in TERMS):
             return ' '.join(detail.split())[:180]
     return ''
@@ -51,6 +51,8 @@ def collect():
     by_id={r['id']:r for r in old}
     successes=0
     failures=[]
+    fetched=0
+    matched=0
     for term in TERMS:
         for query_year in YEARS:
             try:
@@ -65,6 +67,7 @@ def collect():
                 failures.append((term,query_year,type(exc).__name__))
                 continue
             successes+=1
+            fetched+=len(filings)
             for filing in filings:
                 if not isinstance(filing,dict):
                     continue
@@ -103,6 +106,7 @@ def collect():
                     if isinstance(value,(int,float)) and not isinstance(value,bool):
                         record[k+'USD']=round(float(value),2)
                 by_id[record['id']]=record
+                matched+=1
     if not successes:
         raise RuntimeError('All Senate API queries failed; preserve prior data: '+str(failures))
     if len(by_id)>150:
@@ -111,12 +115,14 @@ def collect():
           'method':'bounded top-20 page for each issue term/year; incomplete search coverage',
           'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
           'successfulQueries':successes,'failedQueries':len(failures),
+          'fetchedRowsInBoundedPages':fetched,'matchedRowsInBoundedPages':matched,
+          'failedQueryDetails':[{'term':t,'year':y,'error':e} for t,y,e in failures],
           'records':sorted(by_id.values(),key=lambda r:r['id'])}
     rendered=json.dumps(body,indent=2,ensure_ascii=False)+'\n'
     DEST.parent.mkdir(parents=True,exist_ok=True)
     if not DEST.exists() or DEST.read_text(encoding='utf-8')!=rendered:
         DEST.write_text(rendered,encoding='utf-8')
-    print('LDA issue-matched filings:',len(by_id),'successful queries:',successes,'failed:',len(failures))
+    print('LDA issue-matched filings:',len(by_id),'fetched:',fetched,'matched:',matched,'successful queries:',successes,'failed:',len(failures))
     if failures:
         print('Partial failures:',failures)
 
