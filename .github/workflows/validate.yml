@@ -19,4 +19,5 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/build.py
+      - run: python -m unittest discover -s tests -p 'test_*.py' -v
       - run: git diff --exit-code -- data/research.json data/relationships.json data/app-feed.json
