@@ -83,6 +83,8 @@ def read_finance(filename):
 
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
+lda_path = ROOT / 'data/lobbying/lda-filings.json'
+lobbying = json.loads(lda_path.read_text(encoding='utf-8'))['records'] if lda_path.exists() else []
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 uncovered = [
@@ -95,6 +97,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
         'committeeTotals': totals,
         'committeePayments': payments
@@ -105,6 +108,7 @@ feed = {
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
         'stateSourceReferences': len(states),
+        'lobbyingFilingRows': len(lobbying),
         'uncovered': uncovered,
         'warning': 'Index counts are not reviewed unique-case or influence counts'
     }
