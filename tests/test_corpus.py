@@ -115,6 +115,32 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['people']['stateLegislatorIndex'], index['jurisdictions'])
         self.assertEqual(feed['coverage']['stateLegislatorRows'], summed)
 
+    def test_state_committee_memberships_and_graph(self):
+        file = ROOT / 'data/organizations/redistricting-committees.json'
+        if not file.exists():
+            self.skipTest('State redistricting committees not yet collected')
+        corpus = load('data/organizations/redistricting-committees.json')
+        committees = corpus['committees']
+        self.assertGreaterEqual(len(committees), 10)
+        self.assertEqual(len({c['id'] for c in committees}), len(committees))
+        source_edges = 0
+        for c in committees:
+            self.assertTrue(c['source'].startswith('https://github.com/openstates/people/'))
+            self.assertIn(c['topic'], ('redistricting', 'elections_related'))
+            self.assertFalse(SENSITIVE.intersection(c.keys()))
+            for person in c.get('members', []):
+                self.assertTrue(person['personId'].startswith('ocd-person/'))
+                self.assertIn('role', person)
+                source_edges += 1
+        self.assertEqual(source_edges, corpus['coverage']['memberLinks'])
+        graph = load('data/relationships.json')['relationships']
+        actual = [e for e in graph if e.get('type') == 'documented_committee_membership']
+        self.assertEqual(len(actual), source_edges)
+        feed = load('data/app-feed.json')
+        self.assertEqual(len(feed['organizations']['stateCommittees']), len(committees))
+        self.assertEqual(feed['coverage']['stateCommitteeRows'], len(committees))
+        self.assertEqual(feed['coverage']['stateCommitteeMembershipEdges'], source_edges)
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
