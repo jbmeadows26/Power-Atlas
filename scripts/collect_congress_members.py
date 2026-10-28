@@ -78,7 +78,7 @@ def collect():
                 result['district']=district
         fec_ids=ids.get('fec') or []
         if isinstance(fec_ids,list):
-            valid=sorted(set(x for x in fec_ids if isinstance(x,str) and re.fullmatch(r'[HS][0-9]{8}',x)))
+            valid=sorted(set(x for x in fec_ids if isinstance(x,str) and re.fullmatch(r'[HSP][A-Z0-9]{8}',x)))
             if valid:
                 result['fecCandidateIds']=valid[:6]
         people[result['id']]=result
