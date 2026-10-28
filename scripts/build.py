@@ -83,6 +83,8 @@ def read_finance(filename):
 
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
+elections_path = ROOT / 'data/elections/house-summary.json'
+house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
 lda_path = ROOT / 'data/lobbying/lda-filings.json'
 lobbying = json.loads(lda_path.read_text(encoding='utf-8'))['records'] if lda_path.exists() else []
 state_file = ROOT / 'data/geography/states.json'
@@ -97,6 +99,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'elections': {'houseStateYears': house_summary, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
         'committeeTotals': totals,
@@ -109,6 +112,7 @@ feed = {
         'paymentRows': len(payments),
         'stateSourceReferences': len(states),
         'lobbyingFilingRows': len(lobbying),
+        'houseStateYearRows': len(house_summary),
         'uncovered': uncovered,
         'warning': 'Index counts are not reviewed unique-case or influence counts'
     }
