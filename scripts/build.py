@@ -63,3 +63,44 @@ edge_content = json.dumps(edges, indent=2, ensure_ascii=False) + '\n'
 if not edges_path.exists() or edges_path.read_text(encoding='utf-8') != edge_content:
     edges_path.write_text(edge_content, encoding='utf-8')
 print(f'Validated {len(records)} source-specific records and {len(relationships)} FEC links')
+
+def read_finance(filename):
+    file = ROOT / 'data/finance' / filename
+    if not file.exists():
+        return []
+    doc = json.loads(file.read_text(encoding='utf-8'))
+    rows = doc.get('records', [])
+    if not isinstance(rows, list):
+        raise ValueError('Expected finance records array: ' + filename)
+    return rows
+
+totals = read_finance('fec-totals.json')
+payments = read_finance('fec-disbursements.json')
+uncovered = [
+    'state_campaign_finance', 'state_roll_calls', 'district_geospatial',
+    'litigation_dockets', 'judicial_selection', 'national_election_returns'
+]
+feed = {
+    'schema': 'power-atlas.frontend.v1',
+    'publicationStatus': 'review_required',
+    'records': output['records'],
+    'relationships': edges['relationships'],
+    'finance': {
+        'committeeTotals': totals,
+        'committeePayments': payments
+    },
+    'coverage': {
+        'sourceIndexedRecords': len(records),
+        'relationshipRecords': len(relationships),
+        'committeeTotalRows': len(totals),
+        'paymentRows': len(payments),
+        'uncovered': uncovered,
+        'warning': 'Index counts are not reviewed unique-case or influence counts'
+    }
+}
+feed_path = ROOT / 'data/app-feed.json'
+feed_content = json.dumps(feed, ensure_ascii=False, indent=2) + '\n'
+if not feed_path.exists() or feed_path.read_text(encoding='utf-8') != feed_content:
+    feed_path.write_text(feed_content, encoding='utf-8')
+print('Frontend feed: ' + str(len(feed_content.encode('utf-8'))) + ' bytes')
+
