@@ -196,7 +196,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     var rows=stateRoster.filter(function(x){return !q||[x.name,x.state,x.district,x.party,x.chamber].join(' ').toLowerCase().includes(q)});
     set('stateLegislatorStatus',rows.length+' matches from '+stateRoster.length+' indexed serving legislators in '+rosterState+'.');
     root.innerHTML=rows.length?rows.slice(0,150).map(function(r){
-      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.chamber==='legislature'?'Unicameral legislature':(r.chamber==='upper'?'State Senate':'State House'))+'</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.party)+' · '+esc(r.state)+' District '+esc(r.district)+'</p><p class="muted">Open Civic Data ID: '+esc(r.ocdPersonId)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">View original public record ↗</a></article>';
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.chamber==='legislature'?'Unicameral legislature':(r.chamber==='upper'?'State Senate':'State House'))+'</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.party)+' · '+esc(r.state)+' District '+esc(r.district)+'</p><p class="muted">Open Civic Data ID: '+esc(r.id)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">View original public record ↗</a></article>';
     }).join(''):'<article class="card"><p>No records matched this state's search.</p></article>';
   }
   function loadStateLegislators(){
