@@ -35,6 +35,12 @@ class CollectorChecks(unittest.TestCase):
         mod = load_module("lda_test", "collect_lda.py")
         self.assertEqual(
             mod.matching_issue({"lobbying_activities": [
+                {"description": "Federal redistricting policy and voting rights."}
+            ]}),
+            "Federal redistricting policy and voting rights."
+        )
+        self.assertEqual(
+            mod.matching_issue({"lobbying_activities": [
                 {"specific_lobbying_issues": "Federal redistricting policy and voting rights."}
             ]}),
             "Federal redistricting policy and voting rights."
