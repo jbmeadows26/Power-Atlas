@@ -41,7 +41,7 @@ def matching_issue(filing):
     for row in activities:
         if not isinstance(row,dict):
             continue
-        detail = str(row.get('specific_lobbying_issues') or row.get('specific_issues') or '')
+        detail = str(row.get('description') or row.get('specific_lobbying_issues') or row.get('specific_issues') or '')
         if any(q in detail.lower() for q in TERMS):
             return ' '.join(detail.split())[:180]
     return ''
@@ -69,7 +69,7 @@ def collect():
                 failures.append((term,query_year,'HTTP '+str(exc.code)))
                 continue
             except (URLError,TimeoutError,ValueError,RuntimeError,OSError) as exc:
-                failures.append((term,query_year,type(exc).__name__))
+                failures.append((term,query_year,type(exc).__name__+': '+str(exc)[:130]))
                 continue
             successes+=1
             fetched+=len(filings)
