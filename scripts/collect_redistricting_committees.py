@@ -13,7 +13,6 @@ ROOT=Path(__file__).resolve().parents[1]
 UPSTREAM=Path(os.environ.get('OPENSTATES_PEOPLE_DIR','../openstates-people')).resolve()
 OUT=ROOT/'data/organizations/redistricting-committees.json'
 STATES='AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY DC PR'.split()
-STATES+=['UT']
 TOPICS=('redistrict','reapportion','election','voting right','electoral','districting')
 
 def main():
