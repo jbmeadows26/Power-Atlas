@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-census-index
+  group: atlas-main-writes
   cancel-in-progress: false
 jobs:
   collect:
@@ -25,12 +25,5 @@ jobs:
         run: python scripts/collect_states.py
       - name: Rebuild portable frontend feed
         run: python scripts/build.py
-      - name: Commit compact references
-        run: |
-          git add data/geography/states.json data/app-feed.json data/research.json data/relationships.json
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m "data: refresh Census geography source index"
-            git push
-          fi
+      - name: Publish with bounded rebase retries
+        run: bash scripts/publish_data.sh data/geography/states.json data/app-feed.json data/research.json data/relationships.json
