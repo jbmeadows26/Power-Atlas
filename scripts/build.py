@@ -87,6 +87,8 @@ elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
 lda_path = ROOT / 'data/lobbying/lda-filings.json'
 lobbying = json.loads(lda_path.read_text(encoding='utf-8'))['records'] if lda_path.exists() else []
+congress_file = ROOT / 'data/people/congress-members.json'
+congress = json.loads(congress_file.read_text(encoding='utf-8'))['records'] if congress_file.exists() else []
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 uncovered = [
@@ -99,6 +101,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'people': {'congressMembers': congress, 'source': 'https://github.com/unitedstates/congress-legislators', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
     'elections': {'houseStateYears': house_summary, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
@@ -111,6 +114,7 @@ feed = {
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
         'stateSourceReferences': len(states),
+        'congressMemberRows': len(congress),
         'lobbyingFilingRows': len(lobbying),
         'houseStateYearRows': len(house_summary),
         'uncovered': uncovered,
