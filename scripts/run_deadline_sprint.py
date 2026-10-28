@@ -9,6 +9,7 @@ from pathlib import Path
 import json
 import subprocess
 import sys
+import os
 
 ROOT=Path(__file__).resolve().parents[1]
 HEALTH=ROOT/'data/health/ingestion-status.json'
@@ -29,7 +30,17 @@ def run():
         print('Deadline sprint expired; no collection or data changes.')
         return 0
     report={}
+    previous=json.loads(HEALTH.read_text(encoding='utf-8')) if HEALTH.exists() else {}
+    past_status=previous.get('sourceStatuses',{}) if previous.get('checkedDateUTC')==today.isoformat() else {}
+    restricted_today=not os.environ.get('FEC_API_KEY') and any(
+        '429' in str(v.get('error','')) for v in past_status.values())
     for name,script in COLLECTORS:
+        if name=='fec_committee_identity' and (ROOT/'data/batches/fec-committees.json').exists() and not os.environ.get('FEC_API_KEY'):
+            report[name]={'status':'cached','note':'Existing seven committee IDs retained to conserve free API calls'}
+            continue
+        if name.startswith('fec_') and restricted_today:
+            report[name]={'status':'deferred','note':'DEMO_KEY rate limit encountered today; retry after daily reset, no bypass'}
+            continue
         print('Collecting:',name,flush=True)
         try:
             result=subprocess.run([sys.executable,str(ROOT/script)],
