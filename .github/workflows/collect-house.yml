@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-write-main
+  group: atlas-main-writes
   cancel-in-progress: false
 jobs:
   collect:
@@ -27,12 +27,5 @@ jobs:
         run: python scripts/build.py
       - name: Verify schema and links
         run: python -m unittest discover -s tests -p 'test_*.py'
-      - name: Commit changed data only
-        run: |
-          git add data/elections/house-districts.json data/elections/house-summary.json data/app-feed.json data/research.json data/relationships.json
-          if ! git diff --cached --quiet; then
-            git config user.name "github-actions[bot]"
-            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-            git commit -m "data: House district-level party vote summaries"
-            git push
-          fi
+      - name: Publish with bounded rebase retries
+        run: bash scripts/publish_data.sh data/elections/house-districts.json data/elections/house-summary.json data/app-feed.json data/research.json data/relationships.json
