@@ -1,0 +1,36 @@
+name: Collect bounded Senate lobbying filing index
+on:
+  push:
+    paths:
+      - 'scripts/collect_lda.py'
+      - '.github/workflows/collect-lda.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '40 7 * * 5'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-lda-ingestion
+  cancel-in-progress: false
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch compact official LDA filings
+        run: python scripts/collect_lda.py
+      - name: Refresh portable app feed
+        run: python scripts/build.py
+      - name: Commit incremental data
+        run: |
+          git add data/lobbying/lda-filings.json data/app-feed.json data/research.json data/relationships.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "data: refresh Senate lobbying index"
+            git push
+          fi
