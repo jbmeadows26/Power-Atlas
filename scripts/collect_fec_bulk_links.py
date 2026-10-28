@@ -68,7 +68,7 @@ def collect():
             if len(row)!=7:
                 continue
             candidate,cyear,fy,committee,kind,designation,linkage=[x.strip() for x in row]
-            if not re.fullmatch(r'[HSP][0-9]{8}',candidate):
+            if not re.fullmatch(r'[HSP][A-Z0-9]{8}',candidate):
                 continue
             if not re.fullmatch(r'C[0-9]{8}',committee):
                 continue
