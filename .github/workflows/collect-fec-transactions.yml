@@ -25,9 +25,11 @@ jobs:
         run: python scripts/collect_fec_transactions.py
         env:
           FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+      - name: Refresh unified research feed
+        run: python scripts/build.py
       - name: Commit minimal financial data
         run: |
-          git add data/finance/fec-disbursements.json
+          git add data/finance/fec-disbursements.json data/app-feed.json data/research.json data/relationships.json
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
