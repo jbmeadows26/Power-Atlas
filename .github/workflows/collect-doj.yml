@@ -1,5 +1,9 @@
 name: Collect official DOJ Section 2 case index
 on:
+  push:
+    paths:
+      - 'scripts/collect_doj.py'
+      - '.github/workflows/collect-doj.yml'
   workflow_dispatch:
   schedule:
     - cron: '30 9 * * 1,4'
