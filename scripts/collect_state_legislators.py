@@ -82,17 +82,14 @@ def read_state(abbr):
         role=choose_role(obj.get('roles'))
         if not name or not role:
             continue
-        id='state-person-'+uid.split('/')[-1]
         record={
-            'id':id,'ocdPersonId':uid,'name':name[:110],'state':abbr,
+            'id':uid,'name':name[:110],'state':abbr,
             'chamber':role['type'],'district':str(role['district'])[:60],
             'party':choose_party(obj.get('party')),
             'source':'https://github.com/openstates/people/blob/main/data/'+abbr.lower()+'/legislature/'+path.name,
-            'sourceCatalog':'https://github.com/openstates/people',
-            'sourceLicense':LICENSE,'reviewStatus':'third_party_legislator_registry_unreviewed',
-            'claimScope':'Current state legislative role only; does not establish redistricting action or misconduct'
+            'reviewStatus':'third_party_legislator_registry_unreviewed'
         }
-        result[id]=record
+        result[uid]=record
     if len(result)<5:
         raise RuntimeError('No usable serving state legislators from '+abbr)
     return sorted(result.values(),key=lambda r:r['id'])
@@ -108,6 +105,8 @@ def collect():
         body=json.dumps({
             'schema':'power-atlas.state-legislators.state.v1',
             'publicationStatus':'source_registry_crosscheck_pending',
+            'claimScope':'Current state legislative role only; no evidence of redistricting action or misconduct',
+            'sourceCatalog':'https://github.com/openstates/people',
             'state':abbr,'license':LICENSE,'records':people
         },ensure_ascii=False,separators=(',',':'))+'\n'
         if len(body.encode())>210000:
