@@ -212,5 +212,20 @@ feed_path = ROOT / 'data/app-feed.json'
 feed_content = json.dumps(feed, ensure_ascii=False, indent=2) + '\n'
 if not feed_path.exists() or feed_path.read_text(encoding='utf-8') != feed_content:
     feed_path.write_text(feed_content, encoding='utf-8')
+coverage_file = ROOT / 'data/coverage.json'
+coverage_body = json.dumps({
+    'schema': 'power-atlas.coverage.v1',
+    'publicationStatus': 'mixed_source_indexed_coverage_not_completeness',
+    'coverage': feed['coverage'],
+    'relationshipTypes': {
+        typ: sum(1 for rel in relationships.values() if rel.get('type') == typ)
+        for typ in sorted({rel['type'] for rel in relationships.values()})
+    },
+    'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json',
+    'warning': 'Counts represent persisted indexed records, not legal determinations, influence findings or all nationwide sources'
+}, ensure_ascii=False, indent=2) + '\n'
+if not coverage_file.exists() or coverage_file.read_text(encoding='utf-8') != coverage_body:
+    coverage_file.write_text(coverage_body, encoding='utf-8')
 print('Frontend feed: ' + str(len(feed_content.encode('utf-8'))) + ' bytes')
+print('Relationship types:', sorted({rel['type'] for rel in relationships.values()}))
 
