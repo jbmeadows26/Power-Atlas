@@ -152,6 +152,7 @@ def read_finance(filename):
 
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
+committee_master = read_finance('fec-committee-master.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
 lda_path = ROOT / 'data/lobbying/lda-filings.json'
@@ -186,12 +187,14 @@ feed = {
     'finance': {
         'committeeTotals': totals,
         'committeePayments': payments,
-        'candidateCommitteeLinks': {'count':len(fec_links),'cycles': fec_link_doc.get('sources', {}), 'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json'}
+        'candidateCommitteeLinks': {'count':len(fec_links),'cycles': fec_link_doc.get('sources', {}), 'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json'},
+        'committeeMaster': {'count':len(committee_master), 'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json'}
     },
     'coverage': {
         'sourceIndexedRecords': len(records),
         'relationshipRecords': len(relationships),
         'FECcandidateCommitteeLinks': len(fec_links),
+        'FECcommitteeMasterRows': len(committee_master),
         'stateCommitteeRows': len(committees),
         'stateCommitteeMembershipEdges': sum(len(c.get('members', [])) for c in committees),
         'committeeTotalRows': len(totals),
