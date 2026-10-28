@@ -42,7 +42,7 @@ input,select{background:#fff;border:1px solid #d4e0e9;padding:12px;border-radius
 .source{display:inline-flex;margin-top:4px;font-weight:700;font-size:12px}
 .muted{color:#788b9b;font-size:12px}.money{font-size:25px;font-weight:800;color:#173b51}
 .bar{height:9px;background:#e5eff1;border-radius:9px;overflow:hidden;margin:7px 0 12px}.fill{height:100%;background:#2aa8a1;border-radius:9px}
-.note{font-size:12px;color:#758b98;line-height:1.6;margin-top:15px}
+.note{font-size:12px;color:#758b98;line-height:1.6;margin-top:15px}.mapbox{background:#fff;border:1px solid #d9e5ec;border-radius:12px;padding:12px;margin-bottom:17px;overflow:hidden}.mapbox svg{width:100%;height:auto;background:#f6fafb;border-radius:9px}.mapbox path{fill:#8ccbc6;stroke:#fff;stroke-width:1.4;cursor:pointer;transition:fill .13s}.mapbox path:hover,.mapbox path:focus{fill:#167d8c;outline:none}.mapbox path.picked{fill:#15647b}.mapstatus{color:#5e7d8d;font-size:12px;margin:8px 0}
 button.retry{border:1px solid #2a8a8c;background:#e0f4f1;color:#126c6b;border-radius:8px;padding:10px;cursor:pointer}
 footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24px 40px;font-size:12px;color:#7c8996}
 @media(max-width:720px){.wrap{padding:20px 14px 45px}.hero{padding:20px}.hero .eyebrow{margin-top:30px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.columns,.list{grid-template-columns:1fr}.tabs button{padding:11px 13px}.card{padding:16px}.metric{padding:15px}.metric strong{font-size:27px}}
@@ -116,7 +116,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   </section>
   <section class="panel" data-panel="states">
     <span class="eyebrow">Census geography</span><h2>States & district sources</h2>
-    <p class="sub">Pointers to official Census congressional-district boundary products. The boundary files are not mirrored in GitHub; map geometry, election results and partisan-bias scores require separate processing.</p>
+    <p class="sub">Explore generalized 119th Congressional District boundaries from the U.S. Census Bureau. The compressed source archive is not stored; this site loads a compact, display-only geometry file when a map is requested. No partisan-bias score is implied.</p>
+    <div class="filters"><label for="districtState">State or district</label><select id="districtState" aria-label="Map state"><option value="37">North Carolina</option></select><a class="source" href="https://www.census.gov/geographies/mapping-files/2025/geo/carto-boundary-file.html" target="_blank" rel="noopener noreferrer">Census methodology ↗</a></div>
+    <div class="mapbox"><p id="mapStatus" class="mapstatus">Select this tab to load the compact 119th Congress map.</p><div id="districtMap" aria-live="polite"></div><p id="districtSelected" class="note">Click a congressional district to inspect its Census identifier.</p></div>
+    <h3>Official state geography source links</h3>
     <div id="stateList" class="list"></div>
   </section>
   <section class="panel" data-panel="quality">
@@ -190,8 +193,58 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       return '<article class="card"><div class="meta"><span class="tag">State '+esc(x.state)+'</span><span class="tag warn">Derived / unreviewed</span></div><h3>'+esc(x.state)+' · '+esc(x.year)+'</h3><p>'+esc(x.districts)+' districts indexed; '+esc(x.contestedTwoPartyDistricts)+' with both major parties reporting votes.</p><small>Democratic two-party vote share (not map bias)</small><div class="money">'+(t?share.toFixed(1)+'%':'Not available')+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,share))+'%"></div></div><p>D votes: '+d.toLocaleString('en-US')+' · R votes: '+r.toLocaleString('en-US')+'</p></article>';
     }).join(''):'<div class="card"><p>Election data is not yet published in the compact feed. Check the ingestion and validation workflow; no zero values are assumed.</p></div>';
   }
+  var districtGeo=null,geoStatus='idle';
+  function toGeometries(shape){
+    return shape.type==='Polygon'?[shape.coordinates]:shape.coordinates;
+  }
+  function renderMap(){
+    if(!districtGeo)return;
+    var fips=document.getElementById('districtState').value;
+    var features=(districtGeo.features||[]).filter(function(f){return f.properties&&f.properties.STATEFP===fips});
+    var holder=document.getElementById('districtMap');
+    if(!features.length){holder.innerHTML='<p class="muted">No map geometry indexed for this state.</p>';return}
+    var longitude=function(lon){return fips==='02'&&lon<0?lon+360:lon};
+    var minx=Infinity,miny=Infinity,maxx=-Infinity,maxy=-Infinity;
+    features.forEach(function(f){toGeometries(f.geometry).forEach(function(poly){poly.forEach(function(ring){ring.forEach(function(p){
+      var x=longitude(p[0]),y=p[1];if(x<minx)minx=x;if(x>maxx)maxx=x;if(y<miny)miny=y;if(y>maxy)maxy=y;
+    })})})});
+    var width=Math.max(0.1,maxx-minx),height=Math.max(0.1,maxy-miny);
+    var scale=Math.min(920/width,550/height),left=(1000-width*scale)/2,top=(620-height*scale)/2;
+    var paths=features.map(function(f){
+      var rings=toGeometries(f.geometry),segments=[];
+      rings.forEach(function(poly){poly.forEach(function(ring){if(ring.length<3)return;
+        segments.push(ring.map(function(p,i){
+          var x=left+(longitude(p[0])-minx)*scale,y=top+(maxy-p[1])*scale;
+          return (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)
+        }).join(' ')+' Z');
+      })});
+      var label=f.properties.CD119FP==='00'?'At-large district':'Congressional district '+f.properties.CD119FP;
+      return '<path tabindex="0" role="button" aria-label="'+esc(label)+'" data-geoid="'+esc(f.id)+'" d="'+segments.join(' ')+'"><title>'+esc(label)+'</title></path>';
+    });
+    holder.innerHTML='<svg id="districtSvg" viewBox="0 0 1000 620" role="group" aria-label="Generalized Census congressional district shapes">'+paths.join('')+'</svg>';
+    set('mapStatus',features.length+' congressional district geometry records · 119th Congress · display-only simplification');
+    holder.querySelectorAll('path').forEach(function(path){
+      function pick(){holder.querySelectorAll('path').forEach(function(p){p.classList.remove('picked')});path.classList.add('picked');
+        set('districtSelected','Selected Census district GEOID '+path.getAttribute('data-geoid')+' · generalized cartographic boundaries, not legal parcel mapping');
+      }
+      path.addEventListener('click',pick);
+      path.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});
+    });
+  }
+  function loadMaps(){
+    if(geoStatus!=='idle')return;
+    geoStatus='loading';
+    set('mapStatus','Loading the compact Census 119th Congressional District boundaries...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-119.geojson',{cache:'force-cache'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.type!=='FeatureCollection'||!Array.isArray(j.features))throw Error('Map format mismatch');
+        districtGeo=j;geoStatus='ready';renderMap()})
+      .catch(function(e){geoStatus='idle';set('mapStatus','Map unavailable: '+e.message+'. Original Census source links remain below.')});
+  }
   function renderStates(){
     var states=data.states||[];
+    var districtState=document.getElementById('districtState'),chosen=districtState.value||'37';
+    districtState.innerHTML=states.map(function(s){return '<option value="'+esc(s.fips)+'" '+(s.fips===chosen?'selected':'')+'>'+esc(s.name)+'</option>'}).join('');
     document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th Congress · Geometry linked, not hosted</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a></div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
   }
   function gaps(items){return (items||[]).map(function(x){return '<div class="coverage">○ '+esc(String(x).replace(/_/g,' '))+'</div>'}).join('')||'<p>No coverage report available.</p>'}
@@ -208,7 +261,9 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
+    if(b.dataset.tab==='states')loadMaps();
   })});
+  document.getElementById('districtState').addEventListener('change',renderMap);
   document.getElementById('electionYear').addEventListener('change',renderElections);
   document.getElementById('peopleQuery').addEventListener('input',renderPeople);
   document.getElementById('peopleChamber').addEventListener('change',renderPeople);
