@@ -19,4 +19,4 @@ jobs:
         with:
           python-version: '3.12'
       - run: python scripts/build.py
-      - run: git diff --exit-code -- data/research.json
+      - run: git diff --exit-code -- data/research.json data/relationships.json data/app-feed.json
