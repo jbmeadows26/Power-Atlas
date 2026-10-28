@@ -63,6 +63,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
     <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
     <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
+    <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
     <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
@@ -124,6 +125,16 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <div class="filters"><input id="executiveQuery" aria-label="Search governors and executives" placeholder="Search name, state or office…"><span id="executiveCount" class="muted"></span></div>
     <div class="list" id="executiveList"></div>
     <p class="note">Data: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States People CC0 source ↗</a>. Office records are cross-check pending against state government sources.</p>
+  </section>
+  <section class="panel" data-panel="judiciary">
+    <span class="eyebrow">Judicial appointments / Federal Judicial Center</span><h2>Who appointed the judges?</h2>
+    <p class="sub">Historical Article III judicial appointments from the Federal Judicial Center: court, appointing president, nomination, Senate confirmation and commission dates. An appointment is a documented institutional relationship—not evidence of a ruling's motive or improper influence.</p>
+    <div class="filters"><input id="judgeQuery" placeholder="Judge, court, president or seat…" aria-label="Search federal judicial appointments">
+      <select id="judgeStatus" aria-label="Judge service date filter"><option value="">All appointments</option><option value="no-termination">No termination date recorded</option></select>
+      <span id="judgeCount" class="muted"></span></div>
+    <p id="judgeStatusText" class="mapstatus">Select this section to load official Federal Judicial Center appointment records.</p>
+    <div id="judgeList" class="list"></div>
+    <p class="note">Source: <a href="https://www.fjc.gov/node/7436" target="_blank" rel="noopener noreferrer">Federal Judicial Center Biographical Directory ↗</a>. The agency reports its data current as of October 23, 2026; missing termination data does not itself prove active service. State judges are outside this federal dataset.</p>
   </section>
   <section class="panel" data-panel="elections">
     <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
@@ -229,6 +240,29 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       return '<article class="card"><div class="meta"><span class="tag">'+esc(x.state)+'</span><span class="tag warn">Unreviewed registry</span></div><h3>'+esc(x.name)+'</h3><p>'+esc(x.party)+' · '+esc(String(x.role).replace(/_/g,' '))+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(x.source))+'">Original public source ↗</a></article>';
     }).join(''):'<article class="card"><p>No source-indexed state executives matched, or ingestion is still pending.</p></article>';
   }
+  var judicialData=null,judiciaryBusy=false;
+  function renderJudiciary(){
+    var rows=judicialData||[],q=document.getElementById('judgeQuery').value.trim().toLowerCase();
+    var onlyNoTerm=document.getElementById('judgeStatus').value==='no-termination';
+    var selected=rows.filter(function(x){return (!onlyNoTerm||!x.terminationDate)&&(!q||[x.name,x.court,x.appointingPresident,x.presidentParty,x.seatId].join(' ').toLowerCase().includes(q))});
+    set('judgeCount',selected.length+' of '+rows.length+' appointment records');
+    var ordered=selected.slice().sort(function(a,b){return (b.commissionDate||'').localeCompare(a.commissionDate||'')}).slice(0,100);
+    document.getElementById('judgeList').innerHTML=ordered.length?ordered.map(function(x){
+      return '<article class="card"><div class="meta"><span class="tag">FJC appointment</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(x.name)+'</h3><p>'+esc(x.court)+'</p><p>Appointed by: <b>'+esc(x.appointingPresident)+'</b> · '+esc(x.presidentParty||'Party not indexed')+'</p><p class="muted">Nominated: '+esc(x.nominationDate||'Not recorded')+' · Confirmed: '+esc(x.confirmationDate||'Not recorded')+' · Commissioned: '+esc(x.commissionDate||'Not recorded')+'</p><p class="muted">Termination: '+esc(x.terminationDate||'Not recorded')+' · Seat '+esc(x.seatId||'not indexed')+'</p><a class="source" href="'+esc(safe(x.source))+'" target="_blank" rel="noopener noreferrer">FJC judge biography ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching appointments are indexed for this filter.</p></div>';
+  }
+  function loadJudiciary(){
+    if(judicialData){renderJudiciary();return}
+    if(judiciaryBusy)return;
+    judiciaryBusy=true;
+    set('judgeStatusText','Retrieving compact official FJC appointment export from GitHub...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/judiciary/fjc-appointments.json',{cache:'force-cache'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.fjc.article-iii-appointments.v1'||!Array.isArray(j.appointments))throw Error('FJC schema mismatch');
+        judicialData=j.appointments;set('judgeStatusText','Official-source FJC appointment archive · records require independent claim verification');renderJudiciary()
+      }).catch(function(e){set('judgeStatusText','FJC appointment file is not yet published: '+e.message)})
+      .finally(function(){judiciaryBusy=false});
+  }
   function renderElections(){
     var items=((data.elections||{}).houseStateYears)||[];
     var select=document.getElementById('electionYear');
@@ -317,7 +351,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
     if(b.dataset.tab==='states')loadMaps();
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
+    if(b.dataset.tab==='judiciary')loadJudiciary();
   })});
+  document.getElementById('judgeQuery').addEventListener('input',renderJudiciary);
+  document.getElementById('judgeStatus').addEventListener('change',renderJudiciary);
   document.getElementById('executiveQuery').addEventListener('input',renderExecutives);
   document.getElementById('stateLegislatorQuery').addEventListener('input',renderStateLegislators);
   document.getElementById('stateLegislatorState').addEventListener('change',loadStateLegislators);
