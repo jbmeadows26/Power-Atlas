@@ -11,7 +11,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-main-writes
+  group: atlas-fec-identity
   cancel-in-progress: false
 jobs:
   collect:
