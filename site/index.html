@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10253b">
+<title>Power Atlas | Research Intelligence</title>
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1c3245;background:#f3f6f9;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}
+a{color:#147a86;text-decoration:none}a:hover{text-decoration:underline}
+.hero{background:linear-gradient(132deg,#0c1d31 0%,#112b43 70%,#124659 100%);color:#fff;padding:26px max(24px,calc((100vw - 1140px)/2));}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#a8c0d0;font-size:12px;letter-spacing:.09em}
+.logo{font-size:17px;font-weight:800;letter-spacing:.06em;color:#fff}.logo b{color:#55dfce}
+.pill{display:inline-flex;gap:7px;align-items:center;border:1px solid #456477;border-radius:40px;padding:7px 11px;font-size:11px;letter-spacing:.04em}
+.dot{width:7px;height:7px;background:#58d8ae;border-radius:50%;display:inline-block}
+.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:800;color:#39958e;text-transform:uppercase}
+.hero .eyebrow{color:#6fdbd0;margin-top:42px}
+h1{font-size:clamp(32px,6vw,60px);line-height:1.08;letter-spacing:-.05em;margin:13px 0 12px;max-width:750px}
+.hero p{color:#bfd1df;max-width:660px;font-size:15px;line-height:1.65}
+.wrap{max-width:1140px;margin:auto;padding:26px 24px 60px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;border-bottom:1px solid #dce5ec;position:sticky;top:0;background:#f3f6f9;z-index:2}
+.tabs button{border:0;border-radius:8px;background:transparent;padding:12px 17px;cursor:pointer;color:#64798a;white-space:nowrap;font-size:13px;font-weight:700}
+.tabs button[aria-selected="true"]{color:#116c72;background:#dcefed}
+.panel{display:none;padding-top:26px}.panel.active{display:block}h2{font-size:27px;letter-spacing:-.04em;margin:8px 0 7px}h3{margin:2px 0 8px;font-size:16px}
+.sub{color:#617587;line-height:1.55;margin:5px 0 22px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:25px}
+.metric,.card,.filters,.alert{background:white;border:1px solid #e0e8ee;border-radius:13px;padding:20px;box-shadow:0 2px 12px #0e294008}
+.metric strong{display:block;font-size:30px;letter-spacing:-.04em;color:#173950}.metric span{color:#667c8b;font-size:12px}
+.columns{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.card{margin-bottom:15px}.card small{color:#698493}.card p{color:#50667a;line-height:1.55;font-size:14px}
+.tag{display:inline-block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:800;background:#e8f2f5;border-radius:5px;color:#276477;padding:5px 7px}
+.tag.warn{background:#f6eddf;color:#865c28}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.coverage{padding:9px 0;border-bottom:1px solid #e9eef2;font-size:13px;color:#456376}
+.coverage:last-child{border:0}
+input,select{background:#fff;border:1px solid #d4e0e9;padding:12px;border-radius:8px;min-width:0;color:#18384c}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.filters input{flex:2;min-width:170px}.filters select{flex:1;min-width:150px}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.list .card{margin:0}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.source{display:inline-flex;margin-top:4px;font-weight:700;font-size:12px}
+.muted{color:#788b9b;font-size:12px}.money{font-size:25px;font-weight:800;color:#173b51}
+.bar{height:9px;background:#e5eff1;border-radius:9px;overflow:hidden;margin:7px 0 12px}.fill{height:100%;background:#2aa8a1;border-radius:9px}
+.note{font-size:12px;color:#758b98;line-height:1.6;margin-top:15px}
+button.retry{border:1px solid #2a8a8c;background:#e0f4f1;color:#126c6b;border-radius:8px;padding:10px;cursor:pointer}
+footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24px 40px;font-size:12px;color:#7c8996}
+@media(max-width:720px){.wrap{padding:20px 14px 45px}.hero{padding:20px}.hero .eyebrow{margin-top:30px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.columns,.list{grid-template-columns:1fr}.tabs button{padding:11px 13px}.card{padding:16px}.metric{padding:15px}.metric strong{font-size:27px}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="top"><div class="logo">P<b>/</b>A &nbsp; POWER ATLAS</div><span class="pill"><span class="dot"></span> OPEN RESEARCH CORPUS</span></div>
+  <div class="eyebrow">Evidence / Democracy / Accountability</div>
+  <h1>Follow the evidence.<br>Understand the power.</h1>
+  <p>Explore source-indexed litigation, political committees, reported finances, and geographic records surrounding U.S. redistricting. Every dataset is labeled by verification status; correlation is not proof of wrongdoing.</p>
+</header>
+<div class="wrap">
+  <nav class="tabs" role="tablist" aria-label="Research sections">
+    <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+    <button role="tab" aria-selected="false" data-tab="records">Research records</button>
+    <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
+    <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
+    <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
+  </nav>
+  <section class="panel active" data-panel="overview">
+    <div class="eyebrow">Live GitHub feed</div><h2>Research coverage</h2>
+    <p class="sub" id="connection">Loading latest published source records…</p>
+    <div class="metrics">
+      <div class="metric"><strong id="countRecords">—</strong><span>Source-indexed records</span></div>
+      <div class="metric"><strong id="countStates">—</strong><span>Census geographic references</span></div>
+      <div class="metric"><strong id="countMoney">—</strong><span>FEC financial summaries</span></div>
+      <div class="metric"><strong id="countLinks">—</strong><span>Indexed formal relationships</span></div>
+    </div>
+    <div class="columns"><div class="card"><span class="eyebrow">Research charter</span><h2>What is — and isn't — established</h2>
+      <p>This platform publishes source-linked references, not accusations. Litigation listings do not establish a judgment. Committee names do not prove relationships. Aggregate receipts and disbursements do not identify a beneficiary or influence over a map.</p>
+      <a class="source" href="https://github.com/jbmeadows26/Power-Atlas" rel="noopener noreferrer" target="_blank">Inspect the full public GitHub repository ↗</a>
+    </div><div class="card"><span class="eyebrow">Coverage gaps</span><h3>Still being collected</h3><div id="gapOverview"></div></div></div>
+  </section>
+  <section class="panel" data-panel="records">
+    <span class="eyebrow">Document provenance</span><h2>Research records</h2>
+    <p class="sub">Search the indexed dataset. All rows are references that require claim-level verification; duplicate-source candidates may still be present.</p>
+    <div class="filters"><input id="query" placeholder="Search cases, organizations or identifiers…" aria-label="Search research records"><select id="stateFilter" aria-label="Filter by state"><option value="">All states</option></select><span id="matchCount" class="muted"></span></div>
+    <div id="recordList" class="list"></div>
+  </section>
+  <section class="panel" data-panel="finance">
+    <span class="eyebrow">Federal Election Commission</span><h2>Money & committees</h2>
+    <p class="sub">Source-reported committee-cycle aggregates and indexed committee-to-committee records. An empty data section means not yet collected, not zero financial activity.</p>
+    <div id="financialList" class="list"></div>
+    <h3>Reported committee payments</h3><div id="paymentList"></div>
+    <p class="note">Do not combine reporting periods to infer an actual transfer or count candidate support from monetary aggregates. See the original FEC filing for any substantive claim.</p>
+  </section>
+  <section class="panel" data-panel="states">
+    <span class="eyebrow">Census geography</span><h2>States & district sources</h2>
+    <p class="sub">Pointers to official Census congressional-district boundary products. The boundary files are not mirrored in GitHub; map geometry, election results and partisan-bias scores require separate processing.</p>
+    <div id="stateList" class="list"></div>
+  </section>
+  <section class="panel" data-panel="quality">
+    <span class="eyebrow">Evidence governance</span><h2>What the data actually supports</h2>
+    <div class="columns"><div class="card"><h3>Source evidence policy</h3><p>Research records are published with source URLs, review statuses, stable identifiers and coverage notes. A tentative name match never proves causation or misconduct.</p><p>Directly attributable filings are kept distinct from inferred networks. Unreviewed relationships should not be used as allegations.</p></div><div class="card"><h3>Remaining gaps</h3><div id="gapQuality"></div></div></div>
+    <div class="card"><h3>Data access</h3><p><a href="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json" target="_blank" rel="noopener noreferrer">Unified machine-readable feed ↗</a></p><p><a href="https://github.com/jbmeadows26/Power-Atlas/actions" target="_blank" rel="noopener noreferrer">Ingestion and validation workflows ↗</a></p><p class="note">This view reads from a public read-only GitHub data feed. It does not independently verify court decisions or authenticate the accuracy of source filings.</p></div>
+  </section>
+</div>
+<footer>POWER ATLAS · RESEARCH EDITION · INDEPENDENT PUBLIC RECORDS EXPLORER · NOT AN OFFICIAL GOVERNMENT SERVICE</footer>
+<script>
+(function(){
+  'use strict';
+  var url='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json';
+  var data=null;
+  function esc(x){return String(x===null||x===undefined?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function safe(url){try{var u=new URL(url);return u.protocol==='https:'?u.href:'#'}catch(e){return '#'}}
+  function set(id,value){document.getElementById(id).textContent=String(value)}
+  function card(record){var label=record.reviewStatus||record.status||'source_indexed_unreviewed';
+    return '<article class="card"><div class="meta"><span class="tag warn">'+esc(label.replace(/_/g,' '))+'</span><span class="muted">'+esc(record.state||'State not indexed')+'</span></div><h3>'+esc(record.title)+'</h3><p>'+esc(record.date||record.asOf||'Date not indexed')+' · '+esc(record.id)+'</p>'+(record.possibleDuplicateOf?'<p class="note">Possible duplicate of '+esc(record.possibleDuplicateOf)+' — requires review</p>':'')+'<a class="source" href="'+esc(safe(record.source))+'" target="_blank" rel="noopener noreferrer">Original source ↗</a></article>';
+  }
+  function renderRecords(){
+    if(!data)return;var q=document.getElementById('query').value.trim().toLowerCase();var state=document.getElementById('stateFilter').value;
+    var items=data.records.filter(function(x){return (!state||x.state===state)&&(!q||[x.title,x.id,x.state,x.status].join(' ').toLowerCase().includes(q))});
+    set('matchCount',items.length+' of '+data.records.length);
+    document.getElementById('recordList').innerHTML=items.slice(0,300).map(card).join('')||'<div class="card"><p>No indexed records match these filters.</p></div>';
+  }
+  function usd(x){return typeof x==='number'?x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}):'Not reported'}
+  function renderFinance(){
+    var fin=data.finance||{};var totals=fin.committeeTotals||[];var records=data.records||[];
+    var html=totals.length?totals.map(function(r){
+      var name=(records.find(function(x){return x.id==='fec-'+r.committeeId})||{}).title||r.committeeId;
+      var receipts=r.receipts;var spending=r.disbursements;var m=Math.max(receipts||0,spending||0,1);
+      return '<article class="card"><div class="meta"><span class="tag">FEC · '+esc(r.cycle)+'</span><span class="tag warn">Unreviewed filing</span></div><h3>'+esc(name)+'</h3><p>'+esc(r.committeeId)+'</p><small>Reported receipts</small><div class="money">'+esc(usd(receipts))+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,(receipts||0)/m*100))+'%"></div></div><small>Reported disbursements</small><div class="money">'+esc(usd(spending))+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,(spending||0)/m*100))+'%"></div></div><a class="source" href="'+esc(safe(r.source))+'" target="_blank" rel="noopener noreferrer">View FEC filing ↗</a></article>';
+    }).join(''):'<article class="card"><p>Financial summaries have not yet been published to this feed.</p></article>';
+    document.getElementById('financialList').innerHTML=html;
+    var payments=fin.committeePayments||[];
+    document.getElementById('paymentList').innerHTML=payments.length?payments.slice(0,50).map(function(r){return '<div class="card"><h3>'+esc(r.committeeId)+' → '+esc(r.recipientCommitteeId)+'</h3><p>'+esc(usd(r.amountUSD))+' · '+esc(r.date)+'</p><a href="'+esc(safe(r.source))+'" class="source">Source record ↗</a></div>'}).join(''):'<div class="card"><p>No committee-to-committee payment records have yet been confirmed by this collector. This is a coverage gap, not evidence of no payments.</p></div>';
+  }
+  function renderStates(){
+    var states=data.states||[];
+    document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th Congress · Geometry linked, not hosted</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a></div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
+  }
+  function gaps(items){return (items||[]).map(function(x){return '<div class="coverage">○ '+esc(String(x).replace(/_/g,' '))+'</div>'}).join('')||'<p>No coverage report available.</p>'}
+  function render(){
+    set('countRecords',data.records.length);set('countStates',(data.states||[]).length);
+    set('countMoney',((data.finance||{}).committeeTotals||[]).length);set('countLinks',(data.relationships||[]).length);
+    var uncovered=(data.coverage||{}).uncovered||[];
+    document.getElementById('gapOverview').innerHTML=gaps(uncovered);
+    document.getElementById('gapQuality').innerHTML=gaps(uncovered);
+    var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
+    document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
+    renderRecords();renderFinance();renderStates();
+  }
+  document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
+    document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
+  })});
+  document.getElementById('query').addEventListener('input',renderRecords);
+  document.getElementById('stateFilter').addEventListener('change',renderRecords);
+  fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(json){
+    if(json.schema!=='power-atlas.frontend.v1'||!Array.isArray(json.records))throw Error('Unsupported feed schema');
+    data=json;render();set('connection','Connected to the live GitHub corpus · Fetched '+new Date().toLocaleString()+'. Review status applies to all indexed records.');
+  }).catch(function(e){set('connection','Public research feed is temporarily unavailable ('+e.message+'). Open the GitHub data link below; the existing Power Atlas application is unaffected.')});
+})();
+</script>
+</body>
+</html>
