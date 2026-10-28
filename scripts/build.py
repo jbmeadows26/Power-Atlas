@@ -168,17 +168,17 @@ state_people_count = state_people_doc.get('totalIndexed', 0)
 congress_file = ROOT / 'data/people/congress-members.json'
 congress = json.loads(congress_file.read_text(encoding='utf-8'))['records'] if congress_file.exists() else []
 map_editions = []
-for congress,year in [(116,2020),(119,2025)]:
-    map_path = ROOT / ('data/geography/districts-' + str(congress) + '.geojson')
+for map_congress,year in [(116,2020),(119,2025)]:
+    map_path = ROOT / ('data/geography/districts-' + str(map_congress) + '.geojson')
     if map_path.exists():
         doc = json.loads(map_path.read_text(encoding='utf-8'))
         if doc.get('type') != 'FeatureCollection' or len(doc.get('features',[])) < 435:
-            raise ValueError('Unexpected historical Census district map: '+str(congress))
+            raise ValueError('Unexpected historical Census district map: '+str(map_congress))
         map_editions.append({
-            'congress': congress, 'censusYear': year,
+            'congress': map_congress, 'censusYear': year,
             'features':len(doc['features']),
             'source':doc['source'],
-            'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-'+str(congress)+'.geojson',
+            'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-'+str(map_congress)+'.geojson',
             'status':'generalized_display_geometry_not_legal_map'
         })
 state_file = ROOT / 'data/geography/states.json'
