@@ -57,6 +57,24 @@ class CorpusChecks(unittest.TestCase):
             self.assertEqual(row['geometryStatus'], 'linked_not_downloaded')
             self.assertTrue(row['districtMapSource'].startswith('https://www2.census.gov/'))
 
+    def test_house_votes_have_provenance(self):
+        path = ROOT / 'data/elections/house-summary.json'
+        if not path.exists():
+            self.skipTest('House summary has not yet initialized')
+        summaries = load('data/elections/house-summary.json')['records']
+        self.assertGreaterEqual(len(summaries), 50)
+        keys = set()
+        for r in summaries:
+            key = (r['year'], r['state'])
+            self.assertNotIn(key, keys)
+            keys.add(key)
+            self.assertGreaterEqual(r['districts'], r['districtsWithTwoPartyVotes'])
+            self.assertEqual(r['democraticVotes'] + r['republicanVotes'], r['twoPartyVotes'])
+            self.assertGreaterEqual(r['twoPartyVotes'], 0)
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['elections']['houseStateYears'], summaries)
+        self.assertEqual(feed['coverage']['houseStateYearRows'], len(summaries))
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
