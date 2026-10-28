@@ -90,6 +90,31 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['people']['congressMembers'], people)
         self.assertEqual(feed['coverage']['congressMemberRows'], len(people))
 
+    def test_state_legislators_partition_consistency(self):
+        index_path = ROOT / 'data/people/state-legislators-index.json'
+        if not index_path.exists():
+            self.skipTest('State legislators not yet indexed')
+        index = load('data/people/state-legislators-index.json')
+        self.assertGreaterEqual(len(index['jurisdictions']), 50)
+        summed = 0
+        for state in index['jurisdictions']:
+            abbr = state['state']
+            self.assertIsNotNone(re.fullmatch(r'[A-Z]{2}', abbr))
+            part = load('data/people/states/' + abbr + '.json')
+            self.assertEqual(part['state'], abbr)
+            self.assertEqual(part['license'], 'CC0-1.0')
+            self.assertEqual(len(part['records']), state['members'])
+            for person in part['records']:
+                self.assertEqual(person['state'], abbr)
+                self.assertFalse(SENSITIVE.intersection(person.keys()))
+                self.assertIn('reviewStatus', person)
+            summed += len(part['records'])
+        self.assertEqual(index['totalIndexed'], summed)
+        self.assertGreater(summed, 4000)
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['people']['stateLegislatorIndex'], index['jurisdictions'])
+        self.assertEqual(feed['coverage']['stateLegislatorRows'], summed)
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
