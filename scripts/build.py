@@ -45,6 +45,33 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
                 'reviewStatus': 'official_fec_link_unreviewed'
             }
 
+# Committee membership is a documented relationship, not proof of map control.
+committee_file = ROOT / 'data/organizations/redistricting-committees.json'
+committee_doc = json.loads(committee_file.read_text(encoding='utf-8')) if committee_file.exists() else {}
+committees = committee_doc.get('committees', [])
+committee_index = []
+for committee in committees:
+    committee_index.append({
+        'id': committee['id'], 'state': committee['state'],
+        'name': committee['name'], 'chamber': committee['chamber'],
+        'topic': committee['topic'], 'members': len(committee.get('members', [])),
+        'source': committee['source'], 'officialLink': committee.get('officialLink') or '',
+        'reviewStatus': committee['reviewStatus']
+    })
+    for member in committee.get('members', []):
+        member_id = str(member.get('personId') or '')
+        if not re.fullmatch(r'ocd-person/[A-Za-z0-9-]{20,50}', member_id):
+            continue
+        key = 'state-committee-edge-' + hashlib.sha256(
+            (committee['id'] + '/' + member_id).encode()
+        ).hexdigest()[:16]
+        relationships[key] = {
+            'id': key, 'from': member_id, 'to': committee['id'],
+            'type': 'documented_committee_membership', 'role': member.get('role') or 'member',
+            'source': committee['source'], 'officialSource': committee.get('officialLink') or '',
+            'reviewStatus': 'curated_CC0_state_committee_membership_unreviewed'
+        }
+
 # Flag likely duplicates for review instead of deleting source-specific records.
 seen = {}
 for item in sorted(records.values(), key=lambda x: (0 if x['id'].startswith('doj-') and not x['id'].startswith('doj-index') else 1, x['id'])):
@@ -109,6 +136,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
     'elections': {'houseStateYears': house_summary, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
@@ -120,6 +148,8 @@ feed = {
     'coverage': {
         'sourceIndexedRecords': len(records),
         'relationshipRecords': len(relationships),
+        'stateCommitteeRows': len(committees),
+        'stateCommitteeMembershipEdges': sum(len(c.get('members', [])) for c in committees),
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
         'stateSourceReferences': len(states),
