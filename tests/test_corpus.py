@@ -115,6 +115,31 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['people']['stateLegislatorIndex'], index['jurisdictions'])
         self.assertEqual(feed['coverage']['stateLegislatorRows'], summed)
 
+    def test_fec_official_candidate_committee_linkage(self):
+        file = ROOT / 'data/finance/fec-candidate-links.json'
+        if not file.exists():
+            self.skipTest('FEC bulk candidate linkage not yet collected')
+        doc = load('data/finance/fec-candidate-links.json')
+        links = doc['records']
+        self.assertGreaterEqual(len(links), 300)
+        self.assertEqual(len({r['id'] for r in links}), len(links))
+        for item in links:
+            self.assertIsNotNone(re.fullmatch(r'[HSP][A-Z0-9]{8}',item['fecCandidateId']))
+            self.assertIsNotNone(re.fullmatch(r'C[0-9]{8}',item['committeeId']))
+            self.assertIn(item['fecYear'], (2024,2026))
+            self.assertIn('reviewStatus', item)
+            self.assertFalse(SENSITIVE.intersection(item.keys()))
+        edges = load('data/relationships.json')['relationships']
+        kinds = {}
+        for edge in edges:
+            kinds[edge['type']] = kinds.get(edge['type'],0) + 1
+        self.assertEqual(kinds.get('FEC_reported_candidate_committee_linkage',0),len(links))
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['finance']['candidateCommitteeLinks']['count'],len(links))
+        coverage = load('data/coverage.json')
+        self.assertEqual(coverage['coverage'],feed['coverage'])
+        self.assertEqual(coverage['relationshipTypes'].get('FEC_reported_candidate_committee_linkage'),len(links))
+
     def test_state_committee_memberships_and_graph(self):
         file = ROOT / 'data/organizations/redistricting-committees.json'
         if not file.exists():
