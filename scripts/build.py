@@ -19,7 +19,14 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
     for row in doc['records']:
         if not row.get('id') or not str(row.get('source', '')).startswith('https://'):
             raise ValueError(f'Invalid record in {file}')
-        compact = {k: row[k] for k in ('id', 'title', 'state', 'date', 'source', 'status', 'reviewStatus', 'claimScope') if k in row}
+        compact = {k: row[k] for k in (
+            'id', 'title', 'state', 'date', 'asOf', 'source', 'status',
+            'reviewStatus', 'claimScope'
+        ) if k in row}
+        if not compact.get('status') and not compact.get('reviewStatus'):
+            compact['status'] = doc.get('status') or doc.get('publicationStatus') or 'source_indexed_unreviewed'
+        if compact.get('date'):
+            compact['datePrecision'] = 'year' if re.fullmatch(r'[0-9]{4}', str(compact['date'])) else 'day'
         compact['source_sha256'] = hashlib.sha256(compact['source'].encode()).hexdigest()[:16]
         if compact['id'] in records and records[compact['id']] != compact:
             raise ValueError(f'Conflicting record ID: {compact["id"]}')
