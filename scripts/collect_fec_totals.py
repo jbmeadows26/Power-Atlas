@@ -14,7 +14,7 @@ INPUT = ROOT / 'data/batches/fec-committees.json'
 OUTPUT = ROOT / 'data/finance/fec-totals.json'
 API = 'https://api.open.fec.gov/v1/committee/'
 CYCLES = (2026, 2024)
-MAX_COMMITTEES = 7
+MAX_COMMITTEES = 2 if KEY == 'DEMO_KEY' else 7
 KEY = os.environ.get('FEC_API_KEY') or 'DEMO_KEY'
 FIELDS = ('receipts', 'disbursements', 'cash_on_hand_end_period', 'debts_owed_by_committee')
 MAX_BYTES = 160000
@@ -56,7 +56,10 @@ def collect():
         raise FileNotFoundError('FEC committee discovery is missing')
     source = json.loads(INPUT.read_text(encoding='utf-8'))['records']
     committees = [row['id'][4:] for row in source if
-                  re.fullmatch(r'fec-C[0-9]{8}', row.get('id', ''))][:MAX_COMMITTEES]
+                  re.fullmatch(r'fec-C[0-9]{8}', row.get('id', ''))]
+    # Disclosed federal PACs with previously observed reporting rows first.
+    preferred = ('C00630707', 'C00747279')
+    committees = sorted(committees, key=lambda cid: (cid not in preferred, cid))[:MAX_COMMITTEES]
     old = json.loads(OUTPUT.read_text(encoding='utf-8'))['records'] if OUTPUT.exists() else []
     indexed = {item['id']: item for item in old}
     successes, missing, errors = 0, 0, []
@@ -65,7 +68,10 @@ def collect():
             try:
                 entries = read_api(committee_id, cycle)
             except (HTTPError, URLError, ValueError, OSError, RuntimeError) as exc:
-                errors.append((committee_id, cycle, type(exc).__name__))
+                code = getattr(exc, 'code', None)
+                errors.append((committee_id, cycle, 'HTTP '+str(code) if code else type(exc).__name__))
+                if code in (401,403,429):
+                    raise RuntimeError('FEC access or rate restriction; wait for permitted reset: HTTP '+str(code)) from exc
                 continue
             successes += 1
             matched = False
