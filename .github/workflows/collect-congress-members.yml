@@ -1,0 +1,31 @@
+name: Collect current congressional legislators
+on:
+  push:
+    paths:
+      - 'scripts/collect_congress_members.py'
+      - '.github/workflows/collect-congress-members.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '30 5 * * 2'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-congress-roster
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch and validate public congressional registry
+        run: python scripts/collect_congress_members.py
+      - name: Refresh compact frontend feed
+        run: python scripts/build.py
+      - name: Run offline data-contract tests
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish with bounded retries
+        run: bash scripts/publish_data.sh data/people/congress-members.json data/app-feed.json data/research.json data/relationships.json
