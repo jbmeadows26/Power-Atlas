@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-main-writes
+  group: atlas-lobbying
   cancel-in-progress: false
 jobs:
   ingest:
