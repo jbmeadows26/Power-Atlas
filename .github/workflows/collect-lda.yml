@@ -10,7 +10,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-lda-ingestion
+  group: atlas-main-writes
   cancel-in-progress: false
 jobs:
   ingest:
@@ -25,12 +25,5 @@ jobs:
         run: python scripts/collect_lda.py
       - name: Refresh portable app feed
         run: python scripts/build.py
-      - name: Commit incremental data
-        run: |
-          git add data/lobbying/lda-filings.json data/app-feed.json data/research.json data/relationships.json
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit -m "data: refresh Senate lobbying index"
-            git push
-          fi
+      - name: Publish with bounded rebase retries
+        run: bash scripts/publish_data.sh data/lobbying/lda-filings.json data/app-feed.json data/research.json data/relationships.json
