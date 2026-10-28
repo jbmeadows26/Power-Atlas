@@ -1,0 +1,58 @@
+"""Data-contract tests: deterministic, offline and zero paid services."""
+import json
+import re
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+SENSITIVE = {
+    'contributor_name', 'contributor_address', 'street_address', 'street_1',
+    'street_2', 'zip_code', 'email', 'phone', 'occupation', 'employer'
+}
+
+def load(relative):
+    return json.loads((ROOT / relative).read_text(encoding='utf-8'))
+
+class CorpusChecks(unittest.TestCase):
+    def test_source_records_and_unique_ids(self):
+        records = load('data/research.json')['records']
+        ids = [r['id'] for r in records]
+        self.assertEqual(len(ids), len(set(ids)))
+        self.assertGreaterEqual(len(ids), 8)
+        for record in records:
+            self.assertTrue(record['source'].startswith('https://'))
+            self.assertTrue(record.get('status') or record.get('reviewStatus'),
+                            'Unreviewed item must carry an evidence status: ' + record['id'])
+            self.assertTrue(record.get('title'))
+            self.assertTrue(record.get('source_sha256'))
+            self.assertFalse(SENSITIVE.intersection(record.keys()))
+
+    def test_frontend_feed_matches_outputs(self):
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['publicationStatus'], 'review_required')
+        self.assertEqual(feed['records'], load('data/research.json')['records'])
+        self.assertEqual(feed['relationships'], load('data/relationships.json')['relationships'])
+        self.assertEqual(feed['coverage']['sourceIndexedRecords'], len(feed['records']))
+        self.assertEqual(feed['coverage']['relationshipRecords'], len(feed['relationships']))
+        totals_path = ROOT / 'data/finance/fec-totals.json'
+        totals = load('data/finance/fec-totals.json')['records'] if totals_path.exists() else []
+        payments = load('data/finance/fec-disbursements.json')['records']
+        self.assertEqual(feed['finance']['committeeTotals'], totals)
+        self.assertEqual(feed['finance']['committeePayments'], payments)
+        self.assertEqual(feed['coverage']['committeeTotalRows'], len(totals))
+        self.assertEqual(feed['coverage']['paymentRows'], len(payments))
+
+    def test_fec_finance_minimal_provenance(self):
+        feed = load('data/app-feed.json')
+        for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
+            self.assertRegex(row['committeeId'], r'^C[0-9]{8}$')
+            self.assertTrue(row['source'].startswith('https://www.fec.gov/'))
+            self.assertFalse(SENSITIVE.intersection(row.keys()))
+            self.assertIn('reviewStatus', row)
+
+    def test_no_giant_derived_feeds(self):
+        for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
+            self.assertLess((ROOT / name).stat().st_size, 3_000_000, name)
+
+if __name__ == '__main__':
+    unittest.main()
