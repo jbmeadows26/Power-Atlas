@@ -206,7 +206,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('recordList').innerHTML=items.slice(0,300).map(card).join('')||'<div class="card"><p>No indexed records match these filters.</p></div>';
   }
   function usd(x){return typeof x==='number'?x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}):'Not reported'}
-  var fecLinks=null,fecLinkBusy=false;
+  var fecLinks=null,fecLinkBusy=false,fecMasterById={};
   function renderFECLinks(){
     if(!fecLinks){return}
     var q=document.getElementById('fecLinkQuery').value.trim().toLowerCase();
@@ -216,13 +216,15 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       (person.fecCandidateIds||[]).forEach(function(id){names[id]=person.name})
     });
     var rows=fecLinks.filter(function(x){
-      return (!year||String(x.fecYear)===year)&&(!q||[x.fecCandidateId,x.committeeId,names[x.fecCandidateId]||'',x.designation,x.fecYear].join(' ').toLowerCase().includes(q))
+      return (!year||String(x.fecYear)===year)&&(!q||[x.fecCandidateId,x.committeeId,names[x.fecCandidateId]||'',(fecMasterById[x.committeeId]||{}).name||'',x.designation,x.fecYear].join(' ').toLowerCase().includes(q))
     });
     set('fecLinkCount',rows.length+' of '+fecLinks.length+' source-link records');
     document.getElementById('fecLinkList').innerHTML=rows.length?rows.slice(0,100).map(function(r){
       var candidateName=names[r.fecCandidateId]||r.fecCandidateId;
+      var committeeName=(fecMasterById[r.committeeId]||{}).name||r.committeeId;
+      var officialConnected=(fecMasterById[r.committeeId]||{}).connectedOrganization||'';
       var desc=r.designation==='P'?'Principal campaign':r.designation==='A'?'Authorized':r.designation==='U'?'Unauthorized':r.designation==='J'?'Joint fundraising':r.designation==='D'?'Leadership PAC':r.designation||'Unknown';
-      return '<article class="card"><div class="meta"><span class="tag">FEC '+esc(r.fecYear)+'</span><span class="tag warn">Registration link · '+esc(desc)+'</span></div><h3>'+esc(candidateName)+'</h3><p>'+esc(r.fecCandidateId)+' → committee '+esc(r.committeeId)+'</p><a href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" class="source" target="_blank" rel="noopener noreferrer">FEC committee profile ↗</a> · <a href="'+esc(safe(r.source))+'" class="source" target="_blank" rel="noopener noreferrer">Official source bulk file ↗</a></article>';
+      return '<article class="card"><div class="meta"><span class="tag">FEC '+esc(r.fecYear)+'</span><span class="tag warn">Registration link · '+esc(desc)+'</span></div><h3>'+esc(candidateName)+'</h3><p>'+esc(r.fecCandidateId)+' → <strong>'+esc(committeeName)+'</strong> ('+esc(r.committeeId)+')</p>'+(officialConnected && officialConnected.toUpperCase()!=='NONE'?'<p class="muted">FEC listed connected organization: '+esc(officialConnected)+'</p>':'')<a href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" class="source" target="_blank" rel="noopener noreferrer">FEC committee profile ↗</a> · <a href="'+esc(safe(r.source))+'" class="source" target="_blank" rel="noopener noreferrer">Official source bulk file ↗</a></article>';
     }).join(''):'<div class="card"><p>No matching official candidate–committee associations are indexed.</p></div>';
   }
   function loadFECLinks(){
@@ -230,10 +232,12 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(fecLinkBusy)return;
     fecLinkBusy=true;
     set('fecLinkCount','Loading official FEC linkage index...');
-    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json',{cache:'no-store'})
-      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
-      .then(function(j){if(j.schema!=='power-atlas.fec.candidate-committee-links.v1'||!Array.isArray(j.records))throw Error('FEC schema mismatch');
-        fecLinks=j.records;renderFECLinks();
+    Promise.all([fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}),
+      fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).catch(function(){return {records:[]}})])
+      .then(function(pair){var j=pair[0],master=pair[1];if(j.schema!=='power-atlas.fec.candidate-committee-links.v1'||!Array.isArray(j.records))throw Error('FEC schema mismatch');
+        fecLinks=j.records;
+        (master.records||[]).forEach(function(x){fecMasterById[x.committeeId]=x});
+        renderFECLinks();renderFinance();
       }).catch(function(e){set('fecLinkCount','Candidate association records not available yet: '+e.message)})
       .finally(function(){fecLinkBusy=false});
   }
