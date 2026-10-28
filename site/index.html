@@ -62,6 +62,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
     <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
     <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
+    <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
     <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
@@ -116,6 +117,13 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p id="stateLegislatorStatus" class="mapstatus">Choose this section to load current state legislators.</p>
     <div id="stateLegislatorList" class="list"></div>
     <p class="note">Public CC0 data compiled by <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States ↗</a> from official state legislative sources and curated contributions. State-specific service dates and district numbers may need verification against current official records.</p>
+  </section>
+  <section class="panel" data-panel="governors">
+    <span class="eyebrow">Executive / institutional responsibility</span><h2>Governors & state executives</h2>
+    <p class="sub">Source-indexed state governors and executives. Their office gives them defined institutional powers; it does not establish that they approved a map, influenced a court, or directed a particular redistricting process.</p>
+    <div class="filters"><input id="executiveQuery" aria-label="Search governors and executives" placeholder="Search name, state or office…"><span id="executiveCount" class="muted"></span></div>
+    <div class="list" id="executiveList"></div>
+    <p class="note">Data: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States People CC0 source ↗</a>. Office records are cross-check pending against state government sources.</p>
   </section>
   <section class="panel" data-panel="elections">
     <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
@@ -212,6 +220,15 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
         stateRoster=j.records;renderStateLegislators()
       }).catch(function(e){if(rosterState===state){set('stateLegislatorStatus','State roster is not yet available: '+e.message);document.getElementById('stateLegislatorList').innerHTML=''}});
   }
+  function renderExecutives(){
+    var rows=((data.people||{}).stateExecutives)||[];
+    var q=document.getElementById('executiveQuery').value.trim().toLowerCase();
+    var chosen=rows.filter(function(x){return !q||[x.name,x.state,x.role,x.party].join(' ').toLowerCase().includes(q)});
+    set('executiveCount',chosen.length+' source-indexed office records');
+    document.getElementById('executiveList').innerHTML=chosen.length?chosen.slice(0,150).map(function(x){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(x.state)+'</span><span class="tag warn">Unreviewed registry</span></div><h3>'+esc(x.name)+'</h3><p>'+esc(x.party)+' · '+esc(String(x.role).replace(/_/g,' '))+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(x.source))+'">Original public source ↗</a></article>';
+    }).join(''):'<article class="card"><p>No source-indexed state executives matched, or ingestion is still pending.</p></article>';
+  }
   function renderElections(){
     var items=((data.elections||{}).houseStateYears)||[];
     var select=document.getElementById('electionYear');
@@ -293,7 +310,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderLobbying();renderPeople();renderElections();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderElections();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
@@ -301,6 +318,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(b.dataset.tab==='states')loadMaps();
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
   })});
+  document.getElementById('executiveQuery').addEventListener('input',renderExecutives);
   document.getElementById('stateLegislatorQuery').addEventListener('input',renderStateLegislators);
   document.getElementById('stateLegislatorState').addEventListener('change',loadStateLegislators);
   document.getElementById('districtState').addEventListener('change',renderMap);
