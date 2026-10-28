@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/collect_state_legislators.py'
       - 'scripts/collect_state_executives.py'
+      - 'scripts/collect_redistricting_committees.py'
       - '.github/workflows/collect-state-legislators.yml'
   workflow_dispatch:
   schedule:
@@ -32,9 +33,11 @@ jobs:
         run: python scripts/collect_state_legislators.py
       - name: Index governors and state executives
         run: python scripts/collect_state_executives.py
+      - name: Index redistricting and elections committee membership
+        run: python scripts/collect_redistricting_committees.py
       - name: Update live portable feed
         run: python scripts/build.py
       - name: Check data integrity
         run: python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Publish compact state rosters
-        run: bash scripts/publish_data.sh data/people/states data/people/state-legislators-index.json data/people/state-executives.json data/app-feed.json data/research.json data/relationships.json
+        run: bash scripts/publish_data.sh data/people/states data/people/state-legislators-index.json data/people/state-executives.json data/organizations/redistricting-committees.json data/app-feed.json data/research.json data/relationships.json
