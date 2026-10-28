@@ -3,6 +3,14 @@
 set -euo pipefail
 if [ "$#" -eq 0 ]; then echo "Expected output paths" >&2; exit 2; fi
 git add -- "$@"
+# build.py may regenerate dependent tracked files not listed by the caller.
+# Stage all *tracked* data-tree updates so rebase never sees dirty derived data.
+# Never add untracked documents, secrets, or raw source archives.
+git add -u -- data/
+if [ -f data/coverage.json ]; then git add -- data/coverage.json; fi
+if [ -f data/app-feed.json ]; then git add -- data/app-feed.json; fi
+if [ -f data/relationships.json ]; then git add -- data/relationships.json; fi
+if [ -f data/research.json ]; then git add -- data/research.json; fi
 if git diff --cached --quiet; then
   echo "No data changes; nothing to publish."
   exit 0
