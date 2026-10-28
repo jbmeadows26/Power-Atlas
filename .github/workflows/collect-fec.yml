@@ -11,7 +11,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: atlas-fec-ingest
+  group: atlas-main-writes
   cancel-in-progress: false
 jobs:
   collect:
@@ -28,13 +28,5 @@ jobs:
           FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
       - name: Merge compact feed
         run: python scripts/build.py
-      - name: Commit changed records only
-        run: |
-          git add data/batches/fec-committees.json data/research.json data/relationships.json data/app-feed.json
-          if ! git diff --cached --quiet; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add data/batches/fec-committees.json data/research.json data/relationships.json
-            git commit -m "data: bounded FEC committee discovery"
-            git push
-          fi
+      - name: Publish with bounded rebase retries
+        run: bash scripts/publish_data.sh data/batches/fec-committees.json data/research.json data/relationships.json data/app-feed.json
