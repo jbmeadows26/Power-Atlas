@@ -60,6 +60,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
     <button role="tab" aria-selected="false" data-tab="records">Research records</button>
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
+    <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
     <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
@@ -97,6 +98,14 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p class="sub">The public disclosure index lists a lobbying firm or registrant and the reported client. This does not establish a redistricting-related lobbying objective, a government decision, or misconduct.</p>
     <div id="lobbyingList" class="list"></div>
     <p class="note">Attribution: U.S. Senate Office of Public Records. The Office cannot vouch for analyses derived from its data after retrieval. Consult the original filing to confirm its legislative issues and amendments.</p>
+  </section>
+  <section class="panel" data-panel="legislators">
+    <span class="eyebrow">Legislative power / Identity register</span><h2>Serving members of Congress</h2>
+    <p class="sub">Search the House, nonvoting delegates, and Senate. Bioguide and FEC identifiers are reference crosswalks only; membership does not imply an official's involvement in a particular district-map decision.</p>
+    <div class="filters"><input id="peopleQuery" placeholder="Search name, state or FEC ID…" aria-label="Search legislators">
+    <select id="peopleChamber" aria-label="Chamber"><option value="">Both chambers</option><option value="House">House and delegates</option><option value="Senate">Senate</option></select><span id="peopleCount" class="muted"></span></div>
+    <div id="peopleList" class="list"></div>
+    <p class="note">Registry source: <a href="https://github.com/unitedstates/congress-legislators" target="_blank" rel="noopener noreferrer">congress-legislators ↗</a> (CC0 1.0). Party, office and terms require a current official Bioguide cross-check. The House count includes nonvoting delegates.</p>
   </section>
   <section class="panel" data-panel="elections">
     <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
@@ -152,6 +161,20 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       return '<article class="card"><div class="meta"><span class="tag">LDA · '+esc(r.year||'year not indexed')+'</span><span class="tag warn">Unreviewed</span></div><h3>'+esc(r.client)+'</h3><p>Reported registrant: '+esc(r.registrant)+'</p><p>'+esc(r.period||'Period not indexed')+' · '+esc(r.type||'Filing')+'</p><p>Income: '+esc(usd(r.incomeUSD))+' · Expenses: '+esc(usd(r.expensesUSD))+'</p><a class="source" href="'+esc(safe(r.sourceApi||r.source))+'" target="_blank" rel="noopener noreferrer">Original filing ↗</a></article>';
     }).join(''):'<div class="card"><p>No lobbying filings have been published by the scoped collector yet. This is a coverage gap, not an assertion that lobbying did not occur.</p></div>';
   }
+  function renderPeople(){
+    var people=((data.people||{}).congressMembers)||[];
+    var q=document.getElementById('peopleQuery').value.trim().toLowerCase();
+    var chamber=document.getElementById('peopleChamber').value;
+    var matched=people.filter(function(p){
+      return (!chamber||p.chamber===chamber)&&(!q||[p.name,p.party,p.state,p.chamber,p.bioguideId].concat(p.fecCandidateIds||[]).join(' ').toLowerCase().includes(q))
+    });
+    set('peopleCount',matched.length+' of '+people.length+' members');
+    document.getElementById('peopleList').innerHTML=matched.length?matched.slice(0,120).map(function(p){
+      var office=p.chamber==='House'?(p.district===0?'At-large / delegate':'District '+p.district):'Senator';
+      var ids=(p.fecCandidateIds||[]).slice(0,5).map(function(id){return '<a href="https://www.fec.gov/data/candidate/'+esc(id)+'/" target="_blank" rel="noopener noreferrer">'+esc(id)+'</a>'}).join(', ')||'None in registry';
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(p.chamber)+'</span><span class="tag warn">Identity / unreviewed</span></div><h3>'+esc(p.name)+'</h3><p>'+esc(p.party)+' · '+esc(p.state)+' · '+esc(office)+'</p><p class="muted">Bioguide '+esc(p.bioguideId)+' · '+esc(p.termStart)+' to '+esc(p.termEnd)+'</p><p class="muted">FEC candidate IDs: '+ids+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(p.source))+'">Official biographical directory ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching members are indexed. Check the registry feed or broaden your search.</p></div>';
+  }
   function renderElections(){
     var items=((data.elections||{}).houseStateYears)||[];
     var select=document.getElementById('electionYear');
@@ -180,13 +203,15 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('gapQuality').innerHTML=gaps(uncovered);
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderLobbying();renderElections();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderPeople();renderElections();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
   })});
   document.getElementById('electionYear').addEventListener('change',renderElections);
+  document.getElementById('peopleQuery').addEventListener('input',renderPeople);
+  document.getElementById('peopleChamber').addEventListener('change',renderPeople);
   document.getElementById('query').addEventListener('input',renderRecords);
   document.getElementById('stateFilter').addEventListener('change',renderRecords);
   fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(json){
