@@ -10,7 +10,7 @@ ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / 'data/batches/fec-committees.json'
 API = 'https://api.open.fec.gov/v1/committees/'
 TERMS = ('redistricting', 'republican state leadership', 'democratic legislative campaign')
-KEY = os.environ.get('FEC_API_KEY', 'DEMO_KEY')
+KEY = os.environ.get('FEC_API_KEY') or 'DEMO_KEY'
 
 def api_get(url):
     req = Request(url, headers={'User-Agent':'PowerAtlasResearch/1.0'})
