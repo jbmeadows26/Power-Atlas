@@ -72,6 +72,48 @@ for committee in committees:
             'reviewStatus': 'curated_CC0_state_committee_membership_unreviewed'
         }
 
+# FEC candidate-committee links are direct registration associations, not money transfers.
+fec_link_path = ROOT / 'data/finance/fec-candidate-links.json'
+fec_link_doc = json.loads(fec_link_path.read_text(encoding='utf-8')) if fec_link_path.exists() else {}
+fec_links = fec_link_doc.get('records', [])
+for link in fec_links:
+    candidate_id = str(link.get('fecCandidateId') or '')
+    committee_id = str(link.get('committeeId') or '')
+    if not re.fullmatch(r'[HSP][A-Z0-9]{8}', candidate_id) or not re.fullmatch(r'C[0-9]{8}', committee_id):
+        continue
+    link_id = str(link.get('id') or '')
+    edge_id = 'fec-bulk-edge-' + hashlib.sha256(link_id.encode()).hexdigest()[:16]
+    relationships[edge_id] = {
+        'id': edge_id, 'from': 'fec-candidate-' + candidate_id,
+        'to': 'fec-' + committee_id,
+        'type': 'FEC_reported_candidate_committee_linkage',
+        'designation': link.get('designation') or '',
+        'fecElectionYear': link.get('fecYear'),
+        'source': link['source'],
+        'sourceDetails': 'https://www.fec.gov/campaign-finance-data/candidate-committee-linkage-file-description/',
+        'reviewStatus': 'official_FEC_linkage_requires_designation_interpretation'
+    }
+
+# Current congressional member -> FEC candidate ID mapping comes from a
+# separate CC0 registry, not from the FEC itself; mark crosswalks accordingly.
+congress_source_file = ROOT / 'data/people/congress-members.json'
+congress_members_source = json.loads(congress_source_file.read_text(encoding='utf-8'))['records'] if congress_source_file.exists() else []
+for person in congress_members_source:
+    bio = str(person.get('bioguideId') or '')
+    if not re.fullmatch(r'[A-Z][0-9]{6}',bio):
+        continue
+    for candidate_id in person.get('fecCandidateIds', []):
+        if not re.fullmatch(r'[HSP][A-Z0-9]{8}', candidate_id):
+            continue
+        cross_id = 'fec-roster-edge-' + hashlib.sha256((bio+'/'+candidate_id).encode()).hexdigest()[:16]
+        relationships[cross_id] = {
+            'id': cross_id, 'from': 'bioguide-' + bio,
+            'to': 'fec-candidate-' + candidate_id,
+            'type': 'CC0_roster_FEC_candidate_id_crosswalk',
+            'source': 'https://github.com/unitedstates/congress-legislators',
+            'reviewStatus': 'third_party_identity_crosswalk_requires_primary_FEC_confirmation'
+        }
+
 # Flag likely duplicates for review instead of deleting source-specific records.
 seen = {}
 for item in sorted(records.values(), key=lambda x: (0 if x['id'].startswith('doj-') and not x['id'].startswith('doj-index') else 1, x['id'])):
@@ -143,11 +185,13 @@ feed = {
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
         'committeeTotals': totals,
-        'committeePayments': payments
+        'committeePayments': payments,
+        'candidateCommitteeLinks': {'count':len(fec_links),'cycles': fec_link_doc.get('sources', {}), 'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json'}
     },
     'coverage': {
         'sourceIndexedRecords': len(records),
         'relationshipRecords': len(relationships),
+        'FECcandidateCommitteeLinks': len(fec_links),
         'stateCommitteeRows': len(committees),
         'stateCommitteeMembershipEdges': sum(len(c.get('members', [])) for c in committees),
         'committeeTotalRows': len(totals),
