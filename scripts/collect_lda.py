@@ -53,6 +53,11 @@ def collect():
     failures=[]
     fetched=0
     matched=0
+    issue_hits=0
+    activity_rows=0
+    activity_filings=0
+    example_activity_fields=[]
+    example_filing_fields=[]
     for term in TERMS:
         for query_year in YEARS:
             try:
@@ -71,9 +76,18 @@ def collect():
             for filing in filings:
                 if not isinstance(filing,dict):
                     continue
+                if not example_filing_fields:
+                    example_filing_fields=sorted(filing.keys())[:55]
+                activities=filing.get('lobbying_activities') or []
+                if isinstance(activities,list):
+                    activity_rows+=len(activities)
+                    activity_filings+=bool(activities)
+                    if not example_activity_fields and activities and isinstance(activities[0],dict):
+                        example_activity_fields=sorted(activities[0].keys())[:45]
                 issue=matching_issue(filing)
                 if not issue:
                     continue
+                issue_hits+=1
                 uid=str(filing.get('filing_uuid') or '')
                 if not re.fullmatch(r'[0-9a-fA-F-]{36}',uid):
                     continue
@@ -116,13 +130,17 @@ def collect():
           'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
           'successfulQueries':successes,'failedQueries':len(failures),
           'fetchedRowsInBoundedPages':fetched,'matchedRowsInBoundedPages':matched,
+          'issueTextMatchedRows':issue_hits,'filingsWithActivities':activity_filings,
+          'activityRowsInspected':activity_rows,
+          'sampleFilingFieldNames':example_filing_fields,
+          'sampleActivityFieldNames':example_activity_fields,
           'failedQueryDetails':[{'term':t,'year':y,'error':e} for t,y,e in failures],
           'records':sorted(by_id.values(),key=lambda r:r['id'])}
     rendered=json.dumps(body,indent=2,ensure_ascii=False)+'\n'
     DEST.parent.mkdir(parents=True,exist_ok=True)
     if not DEST.exists() or DEST.read_text(encoding='utf-8')!=rendered:
         DEST.write_text(rendered,encoding='utf-8')
-    print('LDA issue-matched filings:',len(by_id),'fetched:',fetched,'matched:',matched,'successful queries:',successes,'failed:',len(failures))
+    print('LDA issue-matched filings:',len(by_id),'fetched:',fetched,'issue matches:',issue_hits,'matched:',matched,'activities:',activity_rows,'successful queries:',successes,'failed:',len(failures))
     if failures:
         print('Partial failures:',failures)
 
