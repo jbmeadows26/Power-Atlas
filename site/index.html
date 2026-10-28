@@ -60,6 +60,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
     <button role="tab" aria-selected="false" data-tab="records">Research records</button>
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
+    <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
     <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
   </nav>
@@ -89,6 +90,12 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <div id="financialList" class="list"></div>
     <h3>Reported committee payments</h3><div id="paymentList"></div>
     <p class="note">Do not combine reporting periods to infer an actual transfer or count candidate support from monetary aggregates. See the original FEC filing for any substantive claim.</p>
+  </section>
+  <section class="panel" data-panel="lobbying">
+    <span class="eyebrow">Senate / House lobbying disclosure</span><h2>Federal lobbying filings</h2>
+    <p class="sub">The public disclosure index lists a lobbying firm or registrant and the reported client. This does not establish a redistricting-related lobbying objective, a government decision, or misconduct.</p>
+    <div id="lobbyingList" class="list"></div>
+    <p class="note">Attribution: U.S. Senate Office of Public Records. The Office cannot vouch for analyses derived from its data after retrieval. Consult the original filing to confirm its legislative issues and amendments.</p>
   </section>
   <section class="panel" data-panel="states">
     <span class="eyebrow">Census geography</span><h2>States & district sources</h2>
@@ -131,6 +138,12 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     var payments=fin.committeePayments||[];
     document.getElementById('paymentList').innerHTML=payments.length?payments.slice(0,50).map(function(r){return '<div class="card"><h3>'+esc(r.committeeId)+' → '+esc(r.recipientCommitteeId)+'</h3><p>'+esc(usd(r.amountUSD))+' · '+esc(r.date)+'</p><a href="'+esc(safe(r.source))+'" class="source">Source record ↗</a></div>'}).join(''):'<div class="card"><p>No committee-to-committee payment records have yet been confirmed by this collector. This is a coverage gap, not evidence of no payments.</p></div>';
   }
+  function renderLobbying(){
+    var rows=((data.lobbying||{}).filings)||[];
+    document.getElementById('lobbyingList').innerHTML=rows.length?rows.slice(0,120).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">LDA · '+esc(r.year||'year not indexed')+'</span><span class="tag warn">Unreviewed</span></div><h3>'+esc(r.client)+'</h3><p>Reported registrant: '+esc(r.registrant)+'</p><p>'+esc(r.period||'Period not indexed')+' · '+esc(r.type||'Filing')+'</p><p>Income: '+esc(usd(r.incomeUSD))+' · Expenses: '+esc(usd(r.expensesUSD))+'</p><a class="source" href="'+esc(safe(r.sourceApi||r.source))+'" target="_blank" rel="noopener noreferrer">Original filing ↗</a></article>';
+    }).join(''):'<div class="card"><p>No lobbying filings have been published by the scoped collector yet. This is a coverage gap, not an assertion that lobbying did not occur.</p></div>';
+  }
   function renderStates(){
     var states=data.states||[];
     document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th Congress · Geometry linked, not hosted</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a></div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
@@ -144,7 +157,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('gapQuality').innerHTML=gaps(uncovered);
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
