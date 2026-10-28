@@ -85,7 +85,7 @@ class CorpusChecks(unittest.TestCase):
             self.assertIn('reviewStatus', person)
             self.assertFalse(SENSITIVE.intersection(person.keys()))
             for candidate_id in person.get('fecCandidateIds', []):
-                self.assertIsNotNone(re.fullmatch(r'[HS][0-9]{8}', candidate_id))
+                self.assertIsNotNone(re.fullmatch(r'[HSP][A-Z0-9]{8}', candidate_id))
         feed = load('data/app-feed.json')
         self.assertEqual(feed['people']['congressMembers'], people)
         self.assertEqual(feed['coverage']['congressMemberRows'], len(people))
