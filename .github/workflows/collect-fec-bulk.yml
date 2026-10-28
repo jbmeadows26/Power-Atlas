@@ -1,0 +1,31 @@
+name: Collect official FEC candidate committee links (bulk)
+on:
+  push:
+    paths:
+      - 'scripts/collect_fec_bulk_links.py'
+      - '.github/workflows/collect-fec-bulk.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '55 9 * * 4'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-fec-bulk-links
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Parse bounded official FEC bulk association data
+        run: python scripts/collect_fec_bulk_links.py
+      - name: Build and validate graph export
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish link-only source dataset
+        run: bash scripts/publish_data.sh data/finance/fec-candidate-links.json data/relationships.json data/app-feed.json data/research.json
