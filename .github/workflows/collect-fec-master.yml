@@ -1,0 +1,31 @@
+name: Enrich FEC committee IDs with public master metadata
+on:
+  push:
+    paths:
+      - 'scripts/collect_fec_committee_master.py'
+      - '.github/workflows/collect-fec-master.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '25 10 * * 5'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-fec-committee-master
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Read filtered official FEC committee master records
+        run: python scripts/collect_fec_committee_master.py
+      - name: Rebuild and test unified evidence corpus
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish compact FEC committee identity registry
+        run: bash scripts/publish_data.sh data/finance/fec-committee-master.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
