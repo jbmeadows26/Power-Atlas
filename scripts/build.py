@@ -83,6 +83,8 @@ def read_finance(filename):
 
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
+state_file = ROOT / 'data/geography/states.json'
+states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 uncovered = [
     'state_campaign_finance', 'state_roll_calls', 'district_geospatial',
     'litigation_dockets', 'judicial_selection', 'national_election_returns'
@@ -92,6 +94,7 @@ feed = {
     'publicationStatus': 'review_required',
     'records': output['records'],
     'relationships': edges['relationships'],
+    'states': states,
     'finance': {
         'committeeTotals': totals,
         'committeePayments': payments
@@ -101,6 +104,7 @@ feed = {
         'relationshipRecords': len(relationships),
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
+        'stateSourceReferences': len(states),
         'uncovered': uncovered,
         'warning': 'Index counts are not reviewed unique-case or influence counts'
     }
