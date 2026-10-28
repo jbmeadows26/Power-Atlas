@@ -61,6 +61,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="records">Research records</button>
     <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
     <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
+    <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
     <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
@@ -106,6 +107,15 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <select id="peopleChamber" aria-label="Chamber"><option value="">Both chambers</option><option value="House">House and delegates</option><option value="Senate">Senate</option></select><span id="peopleCount" class="muted"></span></div>
     <div id="peopleList" class="list"></div>
     <p class="note">Registry source: <a href="https://github.com/unitedstates/congress-legislators" target="_blank" rel="noopener noreferrer">congress-legislators ↗</a> (CC0 1.0). Party, office and terms require a current official Bioguide cross-check. The House count includes nonvoting delegates.</p>
+  </section>
+  <section class="panel" data-panel="state-legislators">
+    <span class="eyebrow">State legislative mapmaking / Office identity</span><h2>Serving state legislators</h2>
+    <p class="sub">Search a state's current legislative roster by chamber, district, party, or name. Office-holding alone is not evidence of voting on a redistricting bill, influencing judges, or drawing a map.</p>
+    <div class="filters"><label for="stateLegislatorState">Jurisdiction</label><select id="stateLegislatorState" aria-label="State legislature"><option value="NJ">New Jersey</option></select>
+      <input id="stateLegislatorQuery" aria-label="Search state legislators" placeholder="Name, district, party…"></div>
+    <p id="stateLegislatorStatus" class="mapstatus">Choose this section to load current state legislators.</p>
+    <div id="stateLegislatorList" class="list"></div>
+    <p class="note">Public CC0 data compiled by <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States ↗</a> from official state legislative sources and curated contributions. State-specific service dates and district numbers may need verification against current official records.</p>
   </section>
   <section class="panel" data-panel="elections">
     <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
@@ -177,6 +187,30 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       var ids=(p.fecCandidateIds||[]).slice(0,5).map(function(id){return '<a href="https://www.fec.gov/data/candidate/'+esc(id)+'/" target="_blank" rel="noopener noreferrer">'+esc(id)+'</a>'}).join(', ')||'None in registry';
       return '<article class="card"><div class="meta"><span class="tag">'+esc(p.chamber)+'</span><span class="tag warn">Identity / unreviewed</span></div><h3>'+esc(p.name)+'</h3><p>'+esc(p.party)+' · '+esc(p.state)+' · '+esc(office)+'</p><p class="muted">Bioguide '+esc(p.bioguideId)+' · '+esc(p.termStart)+' to '+esc(p.termEnd)+'</p><p class="muted">FEC candidate IDs: '+ids+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(p.source))+'">Official biographical directory ↗</a></article>';
     }).join(''):'<div class="card"><p>No matching members are indexed. Check the registry feed or broaden your search.</p></div>';
+  }
+  var stateRoster=null,rosterState='';
+  function renderStateLegislators(){
+    var q=document.getElementById('stateLegislatorQuery').value.trim().toLowerCase();
+    var root=document.getElementById('stateLegislatorList');
+    if(!stateRoster){root.innerHTML='';return}
+    var rows=stateRoster.filter(function(x){return !q||[x.name,x.state,x.district,x.party,x.chamber].join(' ').toLowerCase().includes(q)});
+    set('stateLegislatorStatus',rows.length+' matches from '+stateRoster.length+' indexed serving legislators in '+rosterState+'.');
+    root.innerHTML=rows.length?rows.slice(0,150).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.chamber==='upper'?'State Senate':'State House')+'</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.party)+' · '+esc(r.state)+' District '+esc(r.district)+'</p><p class="muted">Open Civic Data ID: '+esc(r.ocdPersonId)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">View original public record ↗</a></article>';
+    }).join(''):'<article class="card"><p>No records matched this state's search.</p></article>';
+  }
+  function loadStateLegislators(){
+    var state=document.getElementById('stateLegislatorState').value;
+    if(!/^[A-Z]{2}$/.test(state))return;
+    if(rosterState===state && stateRoster){renderStateLegislators();return}
+    rosterState=state;stateRoster=null;
+    set('stateLegislatorStatus','Loading '+state+' public legislative identities...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/people/states/'+state+'.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.state-legislators.state.v1'||!Array.isArray(j.records)||j.state!==state)throw Error('Schema mismatch');
+        if(rosterState!==state)return;
+        stateRoster=j.records;renderStateLegislators()
+      }).catch(function(e){if(rosterState===state){set('stateLegislatorStatus','State roster is not yet available: '+e.message);document.getElementById('stateLegislatorList').innerHTML=''}});
   }
   function renderElections(){
     var items=((data.elections||{}).houseStateYears)||[];
@@ -254,6 +288,9 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     var uncovered=(data.coverage||{}).uncovered||[];
     document.getElementById('gapOverview').innerHTML=gaps(uncovered);
     document.getElementById('gapQuality').innerHTML=gaps(uncovered);
+    var stateList=((data.people||{}).stateLegislatorIndex)||[];
+    var selector=document.getElementById('stateLegislatorState'),prev=selector.value||'NJ';
+    selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
     renderRecords();renderFinance();renderLobbying();renderPeople();renderElections();renderStates();
@@ -262,7 +299,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
     if(b.dataset.tab==='states')loadMaps();
+    if(b.dataset.tab==='state-legislators')loadStateLegislators();
   })});
+  document.getElementById('stateLegislatorQuery').addEventListener('input',renderStateLegislators);
+  document.getElementById('stateLegislatorState').addEventListener('change',loadStateLegislators);
   document.getElementById('districtState').addEventListener('change',renderMap);
   document.getElementById('electionYear').addEventListener('change',renderElections);
   document.getElementById('peopleQuery').addEventListener('input',renderPeople);
