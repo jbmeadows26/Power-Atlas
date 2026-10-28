@@ -5,6 +5,7 @@ import re
 
 ROOT = Path(__file__).resolve().parents[1]
 records = {}
+relationships = {}
 
 def match_key(row):
     title = re.sub(r',\s*(?:TX|GA|TN|LA|FL|NY|NC|SC)\s*$', '', row['title'], flags=re.I)
@@ -23,6 +24,19 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
         if compact['id'] in records and records[compact['id']] != compact:
             raise ValueError(f'Conflicting record ID: {compact["id"]}')
         records[compact['id']] = compact
+        for link in row.get('candidateLinks', []):
+            cid = link.get('candidateId', '')
+            if not re.fullmatch(r'[A-Z][0-9]{8}', cid):
+                continue
+            edge_id = 'fec-edge-' + hashlib.sha256((compact['id'] + ':' + cid).encode()).hexdigest()[:16]
+            relationships[edge_id] = {
+                'id': edge_id,
+                'from': compact['id'],
+                'to': 'fec-candidate-' + cid,
+                'type': 'reported_candidate_committee_association',
+                'source': 'https://api.open.fec.gov/v1/committee/' + compact['id'].removeprefix('fec-') + '/candidates/',
+                'reviewStatus': 'official_fec_link_unreviewed'
+            }
 
 # Flag likely duplicates for review instead of deleting source-specific records.
 seen = {}
@@ -42,4 +56,10 @@ path = ROOT / 'data/research.json'
 content = json.dumps(output, indent=2, ensure_ascii=False) + '\n'
 if not path.exists() or path.read_text(encoding='utf-8') != content:
     path.write_text(content, encoding='utf-8')
-print(f'Validated {len(records)} source-specific records; {len(content.encode())} bytes')
+edges_path = ROOT / 'data/relationships.json'
+edges = {'schema': 'power-atlas.relationships.v1', 'publicationStatus': 'review_required',
+         'relationships': sorted(relationships.values(), key=lambda row: row['id'])}
+edge_content = json.dumps(edges, indent=2, ensure_ascii=False) + '\n'
+if not edges_path.exists() or edges_path.read_text(encoding='utf-8') != edge_content:
+    edges_path.write_text(edge_content, encoding='utf-8')
+print(f'Validated {len(records)} source-specific records and {len(relationships)} FEC links')
