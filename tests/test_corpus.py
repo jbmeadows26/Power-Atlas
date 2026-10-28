@@ -75,6 +75,53 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['elections']['houseStateYears'], summaries)
         self.assertEqual(feed['coverage']['houseStateYearRows'], len(summaries))
 
+    def test_congress_roster_and_fec_crosswalk(self):
+        path = ROOT / 'data/people/congress-members.json'
+        if not path.exists():
+            self.skipTest('Congress member registry not yet ingested')
+        people = load('data/people/congress-members.json')['records']
+        self.assertGreaterEqual(len(people), 520)
+        self.assertEqual(len(people), len({p['bioguideId'] for p in people}))
+        self.assertGreaterEqual(sum(p['chamber']=='Senate' for p in people), 90)
+        for person in people:
+            self.assertRegex(person['bioguideId'], r'^[A-Z][0-9]{6}
+        feed = load('data/app-feed.json')
+        for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
+            self.assertRegex(row['committeeId'], r'^C[0-9]{8}$')
+            self.assertTrue(row['source'].startswith('https://www.fec.gov/'))
+            self.assertFalse(SENSITIVE.intersection(row.keys()))
+            self.assertIn('reviewStatus', row)
+
+    def test_no_giant_derived_feeds(self):
+        for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
+            self.assertLess((ROOT / name).stat().st_size, 3_000_000, name)
+
+if __name__ == '__main__':
+    unittest.main()
+)
+            self.assertEqual(person['sourceLicense'], 'CC0-1.0')
+            self.assertIn('reviewStatus', person)
+            self.assertFalse(SENSITIVE.intersection(person.keys()))
+            for candidate_id in person.get('fecCandidateIds', []):
+                self.assertRegex(candidate_id, r'^[HS][0-9]{8}
+        feed = load('data/app-feed.json')
+        for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
+            self.assertRegex(row['committeeId'], r'^C[0-9]{8}$')
+            self.assertTrue(row['source'].startswith('https://www.fec.gov/'))
+            self.assertFalse(SENSITIVE.intersection(row.keys()))
+            self.assertIn('reviewStatus', row)
+
+    def test_no_giant_derived_feeds(self):
+        for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
+            self.assertLess((ROOT / name).stat().st_size, 3_000_000, name)
+
+if __name__ == '__main__':
+    unittest.main()
+)
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['people']['congressMembers'], people)
+        self.assertEqual(feed['coverage']['congressMemberRows'], len(people))
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
