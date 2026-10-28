@@ -2,8 +2,11 @@ name: Validate compact evidence
 on:
   push:
     paths:
-      - 'data/**'
+      - 'data/app-feed.json'
+      - 'data/research.json'
+      - 'data/relationships.json'
       - 'scripts/**'
+      - 'tests/**'
       - '.github/workflows/validate.yml'
   workflow_dispatch:
   schedule:
