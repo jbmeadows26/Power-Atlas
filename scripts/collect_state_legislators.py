@@ -35,7 +35,7 @@ def day(value):
 def choose_role(roles):
     valid=[]
     for role in roles or []:
-        if not isinstance(role,dict) or role.get('type') not in ('upper','lower'):
+        if not isinstance(role,dict) or role.get('type') not in ('upper','lower','legislature'):
             continue
         start=day(role.get('start_date'))
         end=day(role.get('end_date'))
