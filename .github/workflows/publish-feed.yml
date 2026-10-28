@@ -1,0 +1,33 @@
+name: Publish unified Power Atlas frontend feed
+on:
+  push:
+    paths:
+      - 'data/batches/**'
+      - 'data/finance/**'
+      - 'data/elections/**'
+      - 'data/geography/**'
+      - 'data/people/**'
+      - 'data/lobbying/**'
+      - 'scripts/build.py'
+      - '.github/workflows/publish-feed.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-unified-feed
+  cancel-in-progress: false
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Merge all persisted normalized sources
+        run: python scripts/build.py
+      - name: Validate generated feed and source identities
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish changed portable frontend files
+        run: bash scripts/publish_data.sh data/research.json data/app-feed.json data/relationships.json
