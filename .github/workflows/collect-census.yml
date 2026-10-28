@@ -1,0 +1,36 @@
+name: Collect Census state and district source index
+on:
+  push:
+    paths:
+      - 'scripts/collect_states.py'
+      - '.github/workflows/collect-census.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '0 7 1 * *'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-census-index
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Index official Census geography
+        run: python scripts/collect_states.py
+      - name: Rebuild portable frontend feed
+        run: python scripts/build.py
+      - name: Commit compact references
+        run: |
+          git add data/geography/states.json data/app-feed.json data/research.json data/relationships.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "data: refresh Census geography source index"
+            git push
+          fi
