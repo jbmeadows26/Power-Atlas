@@ -32,6 +32,10 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['publicationStatus'], 'review_required')
         self.assertEqual(feed['records'], load('data/research.json')['records'])
         self.assertEqual(feed['relationships'], load('data/relationships.json')['relationships'])
+        states_path = ROOT / 'data/geography/states.json'
+        states = load('data/geography/states.json')['states'] if states_path.exists() else []
+        self.assertEqual(feed.get('states', []), states)
+        self.assertEqual(feed['coverage'].get('stateSourceReferences', 0), len(states))
         self.assertEqual(feed['coverage']['sourceIndexedRecords'], len(feed['records']))
         self.assertEqual(feed['coverage']['relationshipRecords'], len(feed['relationships']))
         totals_path = ROOT / 'data/finance/fec-totals.json'
@@ -41,6 +45,17 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['finance']['committeePayments'], payments)
         self.assertEqual(feed['coverage']['committeeTotalRows'], len(totals))
         self.assertEqual(feed['coverage']['paymentRows'], len(payments))
+
+    def test_census_map_source_index(self):
+        path = ROOT / 'data/geography/states.json'
+        if not path.exists():
+            self.skipTest('Geography ingestion has not yet initialized')
+        states = load('data/geography/states.json')['states']
+        self.assertGreaterEqual(len(states), 51)
+        self.assertEqual(len({s['fips'] for s in states}), len(states))
+        for row in states:
+            self.assertEqual(row['geometryStatus'], 'linked_not_downloaded')
+            self.assertTrue(row['districtMapSource'].startswith('https://www2.census.gov/'))
 
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
