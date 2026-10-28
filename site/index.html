@@ -95,6 +95,12 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <span class="eyebrow">Federal Election Commission</span><h2>Money & committees</h2>
     <p class="sub">Source-reported committee-cycle aggregates and indexed committee-to-committee records. An empty data section means not yet collected, not zero financial activity.</p>
     <div id="financialList" class="list"></div>
+    <h3>Reported candidate–committee associations</h3>
+    <p class="note">These FEC linkages describe reported candidate/committee associations, including unauthorized designations, and do not establish payments or candidate endorsement. The current congressional roster is matched by published candidate IDs.</p>
+    <div class="filters"><input id="fecLinkQuery" aria-label="Search FEC associations" placeholder="Candidate, committee ID or designation…">
+      <select id="fecLinkYear" aria-label="FEC linkage cycle"><option value="">2024 and 2026</option><option value="2026">2026</option><option value="2024">2024</option></select>
+      <span class="muted" id="fecLinkCount"></span></div>
+    <div id="fecLinkList" class="list"></div>
     <h3>Reported committee payments</h3><div id="paymentList"></div>
     <p class="note">Do not combine reporting periods to infer an actual transfer or count candidate support from monetary aggregates. See the original FEC filing for any substantive claim.</p>
   </section>
@@ -200,6 +206,37 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('recordList').innerHTML=items.slice(0,300).map(card).join('')||'<div class="card"><p>No indexed records match these filters.</p></div>';
   }
   function usd(x){return typeof x==='number'?x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}):'Not reported'}
+  var fecLinks=null,fecLinkBusy=false;
+  function renderFECLinks(){
+    if(!fecLinks){return}
+    var q=document.getElementById('fecLinkQuery').value.trim().toLowerCase();
+    var year=document.getElementById('fecLinkYear').value;
+    var names={};
+    ((data.people||{}).congressMembers||[]).forEach(function(person){
+      (person.fecCandidateIds||[]).forEach(function(id){names[id]=person.name})
+    });
+    var rows=fecLinks.filter(function(x){
+      return (!year||String(x.fecYear)===year)&&(!q||[x.fecCandidateId,x.committeeId,names[x.fecCandidateId]||'',x.designation,x.fecYear].join(' ').toLowerCase().includes(q))
+    });
+    set('fecLinkCount',rows.length+' of '+fecLinks.length+' source-link records');
+    document.getElementById('fecLinkList').innerHTML=rows.length?rows.slice(0,100).map(function(r){
+      var candidateName=names[r.fecCandidateId]||r.fecCandidateId;
+      var desc=r.designation==='P'?'Principal campaign':r.designation==='A'?'Authorized':r.designation==='U'?'Unauthorized':r.designation==='J'?'Joint fundraising':r.designation==='D'?'Leadership PAC':r.designation||'Unknown';
+      return '<article class="card"><div class="meta"><span class="tag">FEC '+esc(r.fecYear)+'</span><span class="tag warn">Registration link · '+esc(desc)+'</span></div><h3>'+esc(candidateName)+'</h3><p>'+esc(r.fecCandidateId)+' → committee '+esc(r.committeeId)+'</p><a href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" class="source" target="_blank" rel="noopener noreferrer">FEC committee profile ↗</a> · <a href="'+esc(safe(r.source))+'" class="source" target="_blank" rel="noopener noreferrer">Official source bulk file ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching official candidate–committee associations are indexed.</p></div>';
+  }
+  function loadFECLinks(){
+    if(fecLinks){renderFECLinks();return}
+    if(fecLinkBusy)return;
+    fecLinkBusy=true;
+    set('fecLinkCount','Loading official FEC linkage index...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.fec.candidate-committee-links.v1'||!Array.isArray(j.records))throw Error('FEC schema mismatch');
+        fecLinks=j.records;renderFECLinks();
+      }).catch(function(e){set('fecLinkCount','Candidate association records not available yet: '+e.message)})
+      .finally(function(){fecLinkBusy=false});
+  }
   function renderFinance(){
     var fin=data.finance||{};var totals=fin.committeeTotals||[];var records=data.records||[];
     var html=totals.length?totals.map(function(r){
@@ -441,7 +478,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(b.dataset.tab==='judiciary')loadJudiciary();
     if(b.dataset.tab==='committees')loadCommittees();
     if(b.dataset.tab==='network')loadCommittees();
+    if(b.dataset.tab==='finance')loadFECLinks();
   })});
+  document.getElementById('fecLinkQuery').addEventListener('input',renderFECLinks);
+  document.getElementById('fecLinkYear').addEventListener('change',renderFECLinks);
   document.getElementById('networkState').addEventListener('change',function(){document.getElementById('networkCommittee').value='';renderNetwork()});
   document.getElementById('networkCommittee').addEventListener('change',renderNetwork);
   document.getElementById('committeeQuery').addEventListener('input',renderCommittees);
