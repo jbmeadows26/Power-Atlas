@@ -1,0 +1,36 @@
+name: Collect FEC committee cycle totals
+on:
+  push:
+    paths:
+      - 'scripts/collect_fec_totals.py'
+      - '.github/workflows/collect-fec-totals.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '10 11 * * 4'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-fec-financial-totals
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch compact committee summary data
+        run: python scripts/collect_fec_totals.py
+        env:
+          FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+      - name: Publish changed summaries
+        run: |
+          git add data/finance/fec-totals.json
+          if ! git diff --cached --quiet; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git commit -m "data: incrementally refresh official FEC cycle totals"
+            git push
+          fi
