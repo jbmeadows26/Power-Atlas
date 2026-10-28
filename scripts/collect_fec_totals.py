@@ -14,8 +14,8 @@ INPUT = ROOT / 'data/batches/fec-committees.json'
 OUTPUT = ROOT / 'data/finance/fec-totals.json'
 API = 'https://api.open.fec.gov/v1/committee/'
 CYCLES = (2026, 2024)
-MAX_COMMITTEES = 2 if KEY == 'DEMO_KEY' else 7
 KEY = os.environ.get('FEC_API_KEY') or 'DEMO_KEY'
+MAX_COMMITTEES = 2 if KEY == 'DEMO_KEY' else 7
 FIELDS = ('receipts', 'disbursements', 'cash_on_hand_end_period', 'debts_owed_by_committee')
 MAX_BYTES = 160000
 
