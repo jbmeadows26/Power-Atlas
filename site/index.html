@@ -63,6 +63,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
     <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
     <button role="tab" aria-selected="false" data-tab="committees">Mapmaking committees</button>
+    <button role="tab" aria-selected="false" data-tab="network">Evidence network</button>
     <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
     <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
     <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
@@ -131,6 +132,16 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p id="committeeStatus" class="mapstatus">Open this section to retrieve source-backed committees.</p>
     <div id="committeeList" class="list"></div>
     <p class="note">Source: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States committee registry ↗</a> (CC0). Membership entries may reflect state-specific data refresh dates. Click the original source for dates and confirmation. No person-to-map causality is inferred.</p>
+  </section>
+  <section class="panel" data-panel="network">
+    <span class="eyebrow">Source-attributed institutional graph</span><h2>Who sits on the mapmaking committees?</h2>
+    <p class="sub">Select a state and committee to see an interactive, evidence-linked network of documented membership and leadership roles. Connecting a person to a committee does not demonstrate influence over maps, judge appointments, or improper conduct.</p>
+    <div class="filters"><label for="networkState">State</label><select id="networkState" aria-label="Network state"><option value="TX">Texas</option></select>
+      <select id="networkCommittee" aria-label="Network committee"><option value="">Choose a committee</option></select></div>
+    <div class="mapbox"><p id="networkStatus" class="mapstatus">Choose this section to load committee membership connections.</p>
+      <div id="networkGraph"></div>
+      <p id="networkSelection" class="note">Select a person to inspect their original membership record.</p></div>
+    <p class="note">Connections in this view represent only roles published by Open States. Committee listings may be historical or incomplete; check the source's current membership before attributing a specific decision.</p>
   </section>
   <section class="panel" data-panel="governors">
     <span class="eyebrow">Executive / institutional responsibility</span><h2>Governors & state executives</h2>
@@ -260,8 +271,42 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       return '<article class="card"><div class="meta"><span class="tag">'+esc(c.state)+' · '+esc(c.chamber)+'</span><span class="tag warn">'+esc(c.topic.replace('_',' '))+'</span></div><h3>'+esc(c.name)+'</h3><p>'+esc(c.members.length)+' source-listed memberships</p><p>'+roleList.map(function(m){return '<strong>'+esc(m.name)+'</strong> ('+esc(m.role)+')'}).join(' · ')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.officialLink||c.source))+'">Official committee source ↗</a> · <a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.source))+'">Membership record ↗</a></article>';
     }).join(''):'<div class="card"><p>No matching committee records were indexed for this search.</p></div>';
   }
+  function renderNetwork(){
+    if(!sourceCommittees)return;
+    var stateSelect=document.getElementById('networkState'),committeeSelect=document.getElementById('networkCommittee');
+    var states=[...new Set(sourceCommittees.map(function(c){return c.state}))].sort();
+    var priorState=stateSelect.value||'TX';
+    if(states.indexOf(priorState)<0)priorState=states[0]||'';
+    stateSelect.innerHTML=states.map(function(st){return '<option value="'+esc(st)+'" '+(st===priorState?'selected':'')+'>'+esc(st)+'</option>'}).join('');
+    var available=sourceCommittees.filter(function(c){return c.state===priorState}).sort(function(a,b){return a.topic==='redistricting'&&b.topic!=='redistricting'?-1:a.name.localeCompare(b.name)});
+    var priorCommittee=committeeSelect.value;
+    if(!available.some(function(c){return c.id===priorCommittee}))priorCommittee=(available[0]||{}).id||'';
+    committeeSelect.innerHTML=available.map(function(c){return '<option value="'+esc(c.id)+'" '+(c.id===priorCommittee?'selected':'')+'>'+esc(c.name)+'</option>'}).join('');
+    var committee=available.find(function(c){return c.id===priorCommittee}),holder=document.getElementById('networkGraph');
+    if(!committee){holder.innerHTML='<p>No committee membership index is available for this state.</p>';return}
+    var members=(committee.members||[]),display=members.slice(0,35),many=display.length;
+    var centerX=450,centerY=260,rx=370,ry=200;
+    var lines=[],nodes=[];
+    display.forEach(function(m,i){
+      var angle=-Math.PI/2+2*Math.PI*i/Math.max(1,many);
+      var x=centerX+rx*Math.cos(angle),y=centerY+ry*Math.sin(angle);
+      var isLeader=/chair/i.test(m.role);
+      lines.push('<line x1="450" y1="260" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+(isLeader?'#ce9b59':'#a4c3cc')+'" stroke-width="'+(isLeader?3:1.2)+'"/>');
+      nodes.push('<g class="network-member" tabindex="0" role="button" data-person="'+esc(m.personId)+'" data-name="'+esc(m.name)+'" data-role="'+esc(m.role)+'"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(isLeader?13:10)+'" fill="'+(isLeader?'#d6a05a':'#328f9d')+'" stroke="white" stroke-width="2"/><text x="'+x.toFixed(1)+'" y="'+(y+22).toFixed(1)+'" font-size="10" fill="#1d4659" text-anchor="middle">'+esc(m.name.slice(0,24))+'</text><title>'+esc(m.name)+' — '+esc(m.role)+'</title></g>');
+    });
+    holder.innerHTML='<svg viewBox="0 0 900 520" role="group" aria-label="Committee and member institutional graph">'+lines.join('')+'<rect x="326" y="220" width="248" height="80" rx="12" fill="#173d54"/><text x="450" y="247" text-anchor="middle" font-size="12" fill="#e9fbfa">'+esc(committee.state)+' · '+esc(committee.chamber)+'</text><text x="450" y="269" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">'+esc(committee.name.slice(0,30))+'</text><text x="450" y="287" text-anchor="middle" font-size="10" fill="#9fc6d0">'+esc(String(members.length))+' memberships</text>'+nodes.join('')+'</svg>';
+    set('networkStatus',committee.name+' · '+members.length+' listed memberships · '+committee.topic.replace('_',' ')+' topic');
+    document.getElementById('networkSelection').innerHTML='Original committee evidence: <a href="'+esc(safe(committee.officialLink||committee.source))+'" target="_blank" rel="noopener noreferrer">Official source ↗</a> · <a href="'+esc(safe(committee.source))+'" target="_blank" rel="noopener noreferrer">Open States membership record ↗</a>'+(members.length>many?' · Display limited to '+many+' connections':'');
+    holder.querySelectorAll('.network-member').forEach(function(el){
+      function choose(){
+        var name=el.getAttribute('data-name'),role=el.getAttribute('data-role');
+        document.getElementById('networkSelection').innerHTML='<strong>'+esc(name)+'</strong> · '+esc(role)+' · documented committee membership, not evidence of misconduct. <a href="'+esc(safe(committee.source))+'" target="_blank" rel="noopener noreferrer">Membership source ↗</a>';
+      }
+      el.addEventListener('click',choose);el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
+    });
+  }
   function loadCommittees(){
-    if(sourceCommittees){renderCommittees();return}
+    if(sourceCommittees){renderCommittees();renderNetwork();return}
     if(committeeBusy)return;
     committeeBusy=true;set('committeeStatus','Loading institutional membership records from the public GitHub corpus...');
     fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/organizations/redistricting-committees.json',{cache:'no-store'})
@@ -269,7 +314,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       .then(function(j){if(j.schema!=='power-atlas.state-committees.v1'||!Array.isArray(j.committees))throw Error('Unrecognized committee schema');
         sourceCommittees=j.committees;
         set('committeeStatus',sourceCommittees.length+' source-indexed committees, including broader elections committees · relationship claims pending review.');
-        renderCommittees()
+        renderCommittees();renderNetwork()
       }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
       .finally(function(){committeeBusy=false});
   }
@@ -395,7 +440,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
     if(b.dataset.tab==='judiciary')loadJudiciary();
     if(b.dataset.tab==='committees')loadCommittees();
+    if(b.dataset.tab==='network')loadCommittees();
   })});
+  document.getElementById('networkState').addEventListener('change',function(){document.getElementById('networkCommittee').value='';renderNetwork()});
+  document.getElementById('networkCommittee').addEventListener('change',renderNetwork);
   document.getElementById('committeeQuery').addEventListener('input',renderCommittees);
   document.getElementById('committeeTopic').addEventListener('change',renderCommittees);
   document.getElementById('judgeQuery').addEventListener('input',renderJudiciary);
