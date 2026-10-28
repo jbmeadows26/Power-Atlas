@@ -25,9 +25,11 @@ jobs:
         run: python scripts/collect_fec_totals.py
         env:
           FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+      - name: Refresh unified research feed
+        run: python scripts/build.py
       - name: Publish changed summaries
         run: |
-          git add data/finance/fec-totals.json
+          git add data/finance/fec-totals.json data/app-feed.json data/research.json data/relationships.json
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
