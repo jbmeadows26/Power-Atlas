@@ -30,10 +30,11 @@ jobs:
         run: python scripts/build.py
       - name: Commit changed dataset only
         run: |
-          if ! git diff --quiet -- data/batches/doj-auto.json data/research.json; then
+          git add data/batches/doj-auto.json data/research.json data/relationships.json data/app-feed.json
+          if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git add data/batches/doj-auto.json data/research.json
+            git add data/batches/doj-auto.json data/research.json data/relationships.json data/app-feed.json
             git commit -m "data: incremental DOJ Section 2 index refresh"
             git push
           else
