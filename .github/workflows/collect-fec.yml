@@ -30,7 +30,7 @@ jobs:
         run: python scripts/build.py
       - name: Commit changed records only
         run: |
-          git add data/batches/fec-committees.json data/research.json data/relationships.json
+          git add data/batches/fec-committees.json data/research.json data/relationships.json data/app-feed.json
           if ! git diff --cached --quiet; then
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
