@@ -23,11 +23,17 @@
       "attempts": 1,
       "persistedRecords": 0
     },
+    "fec_recipient_aggregates": {
+      "status": "partial_empty_cached",
+      "note": "Two official 2024 PAC queries returned zero committee-recipient aggregates; does not imply zero overall spending",
+      "persistedRecords": 0,
+      "successfulQueries": 2,
+      "failedQueries": 0,
+      "rawAggregateRowsInspected": 0
+    },
     "lobbying_disclosures": {
-      "status": "blocked",
-      "attempts": 1,
-      "error": "ror.HTTPError: HTTP Error 429: Too Many Requests\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 166, in <module>\n    collect()\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 86, in collect\n    raise RuntimeError(f'LDA access or rate restriction: HTTP {exc.code}') from exc\nRuntimeError: LDA access or rate restriction: HTTP 429",
-      "workaroundOrPreservation": "Official Senate LDA issue-text search uses smaller 5/10-row pages after 20-row responses exceeded safety bound; bounded 5xx retry.",
+      "status": "cached_verified",
+      "note": "All six bounded Senate issue/year queries previously succeeded; preserve indexed filings without repeat calls",
       "persistedRecords": 56,
       "successfulQueries": 6,
       "failedQueries": 0,
@@ -58,7 +64,7 @@
   "unresolvedSources": [
     "fec_committee_identity",
     "fec_intercommittee_payments",
-    "lobbying_disclosures"
+    "fec_recipient_aggregates"
   ],
   "statusMeaning": "success means collector completed; persistedRecords/expectedDistrictKeys describe actual local source yield, not nationwide completeness"
 }
