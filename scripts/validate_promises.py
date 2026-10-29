@@ -19,6 +19,7 @@ OUTCOMES = {
 }
 ACTIVITY = {
     "proposed_policy", "executive_action", "narrower_executive_action",
+    "legislative_consent", "international_election",
     "international_entry_into_force", "final_rule", "enacted_statute",
     "legislative_introduction", "budget_appropriation", "spending_outlay",
 }
@@ -26,6 +27,7 @@ IMPLEMENTATION = {
     "international_entry_into_force", "executive_action", "final_rule",
     "enacted_statute", "spending_outlay",
 }
+EVENT_KINDS = ACTIVITY | IMPLEMENTATION | {"post_term_policy_reversal", "end_term_assessment"}
 STATUSES = {"provisional_source_checked", "adjudicated", "candidate_unreviewed"}
 CONFIDENCES = {"high", "medium", "low", "unknown"}
 
@@ -109,6 +111,8 @@ def validate(doc):
             raise ValueError(f"{p}: events must be an array")
         for j, e in enumerate(events):
             e_path = f"{p}.events[{j}]"
+            if e.get("kind") not in EVENT_KINDS:
+                raise ValueError(f"{e_path}: invalid event kind")
             event_date = date(e.get("date"), e_path)
             if event_date < pledge_date:
                 raise ValueError(f"{e_path}: implementation before pledged text")
