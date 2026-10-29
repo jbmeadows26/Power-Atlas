@@ -1,0 +1,446 @@
+{
+  "schema": "power-atlas.promise-research-feed.v1",
+  "asOf": "2026-10-29",
+  "publicationStatus": "provisional_purposive_case_ledger_no_population_estimates",
+  "coverage": {
+    "jurisdictions": [
+      "US"
+    ],
+    "electionYears": [
+      2020
+    ],
+    "scoredProvisionalCases": 8,
+    "unscoredCandidateQueue": 24,
+    "catalogedSourcesNotIngested": 19,
+    "denominatorFrozen": false,
+    "verifiedIndependentDualCoderCases": 0,
+    "fiscalSeriesObservations": 0
+  },
+  "inference": {
+    "promiseFulfillmentRate": null,
+    "promiseFulfillmentConfidenceInterval": null,
+    "electoralSpendingCycleCoefficient": null,
+    "causalAttribution": null,
+    "reason": "Purposive, singly reviewed cases and unscored candidate queue; no complete denominator or harmonized spending panel."
+  },
+  "provisionalCases": [
+    {
+      "id": "US-2020-BIDEN-MINWAGE-01",
+      "source": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+      "sourceLocator": "Build Back Better Fact Sheet / Build worker power, raise wages, and secure stronger benefits",
+      "pledgeParaphrase": "Raise the nationwide federal minimum wage to $15 per hour.",
+      "successCriterion": "Federal minimum wage of $15 per hour applicable to covered workers nationally, rather than only to federal contractors.",
+      "policyArea": "labor_economy",
+      "outcome": "attempted_not_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-03-02",
+          "kind": "legislative_introduction",
+          "description": "The Senate-printed H.R. 1319 proposal contained Subtitle B, section 2101, to phase in a $15 federal minimum wage; it did not become enacted law in that form.",
+          "source": "https://www.govinfo.gov/app/details/BILLS-117hr1319pcs"
+        },
+        {
+          "date": "2021-04-27",
+          "kind": "narrower_executive_action",
+          "description": "Executive Order 14026 required a $15 minimum for covered federal contract workers; did not establish a nationwide private-sector wage floor.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100345/html/DCPD-202100345.htm"
+        },
+        {
+          "date": "2024-12-05",
+          "kind": "end_term_assessment",
+          "description": "External assessment finds the nationwide federal minimum remained at $7.25 and the national pledge was not enacted.",
+          "source": "https://api.politifact.com/truth-o-meter/promises/biden-promise-tracker/promise/1575/increase-federal-minimum-wage-15hour/article/3012/"
+        },
+        {
+          "date": "2025-03-14",
+          "kind": "post_term_policy_reversal",
+          "description": "Successor administration revoked the contractor-specific executive order; do not score this as Biden's end-term pledge outcome.",
+          "source": "https://www.dol.gov/agencies/whd/government-contracts/eo14026"
+        }
+      ],
+      "ambiguityNotes": [
+        "The legislative route included a procedural constraint; evidence does not demonstrate every possible legislative path was impossible.",
+        "Narrower contractor coverage is implementation activity, not attainment of a nationwide statutory minimum wage.",
+        "Policy reversal in 2025 is recorded as persistence information, not scored against Biden's 2021–2025 term.",
+        "Separate campaign commitments to end tipped subminimum wages and subminimum wages for workers with disabilities are intentionally not evaluated within this atomic nationwide $15 pledge.",
+        "A previous unverified PolitiFact deep-link identifier has been replaced with the article URL independently retrieved in the public source audit."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-BEARS-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Combating the Climate Crisis and Pursuing Environmental Justice / public land protections",
+      "pledgeParaphrase": "Restore federal monument protections for the Bears Ears landscape.",
+      "successCriterion": "Federal restoration of Bears Ears National Monument protections through proclamation.",
+      "policyArea": "environment_public_lands",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-10-08",
+          "kind": "executive_action",
+          "description": "Proclamation 10285 expanded the Bears Ears National Monument reservation to approximately 1.36 million acres.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100834/html/DCPD-202100834.htm"
+        },
+        {
+          "date": "2026-07-13",
+          "kind": "post_term_policy_reversal",
+          "description": "A successor proclamation reduced the monument reservation to approximately 121,096 acres; this does not change the 2021–2025 fulfillment assessment.",
+          "source": "https://www.whitehouse.gov/presidential-actions/2026/07/modifying-the-bears-ears-national-monument/"
+        }
+      ],
+      "ambiguityNotes": [
+        "This atom tests Bears Ears restoration only, not the platform's other national monuments and public lands.",
+        "Later modification is recorded as durability, not attributed to Biden's in-term behavior.",
+        "A proclamation can be contested; this entry does not adjudicate litigation or legal finality."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-BORDER-EMERGENCY-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Creating a 21st Century Immigration System / rescind national emergency",
+      "pledgeParaphrase": "Terminate the national emergency declaration used to redirect funds for a southern border wall.",
+      "successCriterion": "The national emergency invoked for the border wall is formally terminated.",
+      "policyArea": "immigration_executive_authority",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "Proclamation 10142 formally terminated the border-wall national emergency and directed a review of diverted funds.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100053/html/DCPD-202100053.htm"
+        },
+        {
+          "date": "2025-01-20",
+          "kind": "post_term_policy_reversal",
+          "description": "The successor's proclamation revoked Proclamation 10142 on the first day of the following administration.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202500111/html/DCPD-202500111.htm"
+        }
+      ],
+      "ambiguityNotes": [
+        "Terminating the emergency is the test, not whether all border-wall spending ended.",
+        "The January 20, 2025 reversal belongs to the successor administration and is recorded as durability only.",
+        "The campaign platform also made other border-wall commitments; these require separate records."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-HRC-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Rebuilding America's Tool of First Resort / rejoin and reform the UN Human Rights Council",
+      "pledgeParaphrase": "Restore U.S. membership in the United Nations Human Rights Council.",
+      "successCriterion": "The United States is elected and begins serving a regular term as UN Human Rights Council member.",
+      "policyArea": "human_rights_foreign_policy",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-10-14",
+          "kind": "proposed_policy",
+          "description": "United States elected to UN Human Rights Council for the 2022–2024 term.",
+          "source": "https://2021-2025.state.gov/election-of-the-united-states-to-the-un-human-rights-council-hrc/"
+        },
+        {
+          "date": "2022-01-01",
+          "kind": "international_entry_into_force",
+          "description": "Membership term began; UN official membership lists include the U.S. for 2022.",
+          "source": "https://research.un.org/en/unmembers/hrcmembers"
+        }
+      ],
+      "ambiguityNotes": [
+        "This record tests Council membership only, not the separate pledge to reform the Council.",
+        "Election to the Council required votes from other member states; this is not unilateral action."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-KIGALI-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Mobilizing the World to Address Transnational Challenges / Climate Change / Kigali Amendment",
+      "pledgeParaphrase": "Secure U.S. ratification of the Kigali Amendment to the Montreal Protocol.",
+      "successCriterion": "The U.S. deposits an instrument of ratification and the treaty becomes effective for the U.S.",
+      "policyArea": "climate_treaties",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2022-09-21",
+          "kind": "legislative_introduction",
+          "description": "U.S. Senate gave advice and consent to ratification, confirmed by State Department.",
+          "source": "https://2021-2025.state.gov/u-s-ratification-of-the-kigali-amendment/"
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "executive_action",
+          "description": "The United Nations Treaty Collection records U.S. ratification on October 31, 2022.",
+          "source": "https://treaties.un.org/Pages/showActionDetails.aspx?clang=_en&objid=08000002805fbed3"
+        },
+        {
+          "date": "2023-01-29",
+          "kind": "international_entry_into_force",
+          "description": "The Amendment entered into force for the United States, per the UN Treaty Collection.",
+          "source": "https://treaties.un.org/Pages/showDetails.aspx?objid=080000028048cd90"
+        }
+      ],
+      "ambiguityNotes": [
+        "The Kigali clause also promised domestic hydrofluorocarbon phaseout; this atom measures treaty ratification only.",
+        "Senate advice and consent, instrument deposit, and legal entry into force are separate milestones."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-PARIS-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Combating the Climate Crisis and Pursuing Environmental Justice / Paris Agreement; also Climate Change",
+      "pledgeParaphrase": "Rejoin the Paris Climate Agreement promptly after taking office.",
+      "successCriterion": "United States becomes a party to the Paris Agreement again.",
+      "policyArea": "climate_foreign_policy",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "President signed the instrument of acceptance.",
+          "source": "https://2021-2025.state.gov/the-united-states-officially-rejoins-the-paris-agreement/"
+        },
+        {
+          "date": "2021-02-19",
+          "kind": "international_entry_into_force",
+          "description": "The United States officially became a party again.",
+          "source": "https://2021-2025.state.gov/the-united-states-officially-rejoins-the-paris-agreement/"
+        }
+      ],
+      "ambiguityNotes": [
+        "Party platform language contains multiple climate commitments; only Paris reentry is coded here.",
+        "Outcome at February 2021 does not infer later administrations' policy or persistence.",
+        "A previously stored PolitiFact deep link could not be verified; it has been removed pending source-link review."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-TRAVELBANS-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Creating a 21st Century Immigration System / immediately terminate travel and immigration bans",
+      "pledgeParaphrase": "End the previous administration's targeted travel and entry bans affecting primarily Muslim and African countries.",
+      "successCriterion": "The specified Trump-era entry bans are formally revoked by federal presidential action.",
+      "policyArea": "immigration_civil_rights",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "Proclamation 10141 revoked specified earlier orders and proclamations restricting entry.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100052/html/DCPD-202100052.htm"
+        }
+      ],
+      "ambiguityNotes": [
+        "The promise to invite denied visa applicants to reapply is a separate atomic commitment not scored here.",
+        "Repeal of the named orders is not evidence that no replacement restriction existed or was later enacted.",
+        "The proclamation concerns specific orders; this entry does not rate all immigration restrictions."
+      ]
+    },
+    {
+      "id": "US-2020-DEM-WHO-01",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "sourceLocator": "Rebuilding America's Tool of First Resort / Rejoin and reform the WHO",
+      "pledgeParaphrase": "Restore participation in the World Health Organization by withdrawing the previous administration's announced plan to exit.",
+      "successCriterion": "The U.S. reverses its 2020 notice of intent to withdraw from WHO and remains a member.",
+      "policyArea": "public_health_foreign_policy",
+      "outcome": "fully_enacted",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "President Biden informed the UN Secretary-General that the U.S. retracts the July 2020 notice of intent to withdraw from WHO.",
+          "source": "https://www.presidency.ucsb.edu/documents/letter-secretary-general-antonio-manuel-de-oliveira-guterres-the-united-nations"
+        }
+      ],
+      "ambiguityNotes": [
+        "The U.S. had not legally completed withdrawal, so this is a rescission of a pending withdrawal, not literal re-accession.",
+        "The original platform also pledged WHO reform; this record tests only restored participation.",
+        "The American Presidency Project notes an original copy of the letter was not available for its verification."
+      ]
+    }
+  ],
+  "unscoredCandidates": [
+    {
+      "id": "US-2020-BIDEN-12WEEKS-LEAVE-01",
+      "pledgeParaphrase": "Provide twelve weeks of paid family and medical leave",
+      "source": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-BIDEN-CIVILIAN-CLIMATE-CORPS-01",
+      "pledgeParaphrase": "Establish a civilian climate corps",
+      "source": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-BIDEN-DISABILITY-SUBWAGE-01",
+      "pledgeParaphrase": "End subminimum wages for workers with disabilities",
+      "source": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-BIDEN-TIPPEDWAGE-01",
+      "pledgeParaphrase": "End the federal tipped minimum wage",
+      "source": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-20-30-10-01",
+      "pledgeParaphrase": "Support the 10-20-30 allocation approach for persistently poor communities",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-CAMPAIGN-AMENDMENT-01",
+      "pledgeParaphrase": "Pursue a constitutional amendment eliminating private financing of federal elections",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-CARBON-ADJUSTMENT-01",
+      "pledgeParaphrase": "Apply a carbon adjustment fee at the U.S. border",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-CEDAW-01",
+      "pledgeParaphrase": "Pursue U.S. ratification of CEDAW",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-CLIMATE-DISCLOSURE-01",
+      "pledgeParaphrase": "Require public companies to disclose climate risks and greenhouse-gas emissions",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-CORP-PACS-01",
+      "pledgeParaphrase": "Ban corporate PAC donations to federal candidates",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-EXPUNGEMENT-01",
+      "pledgeParaphrase": "Support automatic expungement for certain criminal records",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-GUANTANAMO-01",
+      "pledgeParaphrase": "Close the Guantanamo Bay detention center",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-HFC-PHASEOUT-01",
+      "pledgeParaphrase": "Phase out super-polluting hydrofluorocarbons",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-HRC-REFORM-01",
+      "pledgeParaphrase": "Work to reform the United Nations Human Rights Council",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-HYDE-01",
+      "pledgeParaphrase": "Repeal the Hyde Amendment",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-MICRO-DONATIONS-01",
+      "pledgeParaphrase": "Create a stronger public financing program matching small donations",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-PFAS-01",
+      "pledgeParaphrase": "Establish science-based drinking water standards for PFOA and PFAS",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-PUBLIC-OPTION-01",
+      "pledgeParaphrase": "Establish an affordable public health insurance option",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-REFUGEE-CAP-01",
+      "pledgeParaphrase": "Significantly increase the annual refugee admissions target",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-TAXRETURNS-01",
+      "pledgeParaphrase": "Require federal-office candidates to publish at least ten years of tax returns",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-TRAVEL-VISA-01",
+      "pledgeParaphrase": "Invite people denied visas under discriminatory entry bans to reapply",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-UNFPA-01",
+      "pledgeParaphrase": "Restore U.S. contributions to the United Nations Population Fund",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-VRA-01",
+      "pledgeParaphrase": "Restore and strengthen the Voting Rights Act",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    },
+    {
+      "id": "US-2020-DEM-WHO-REFORM-01",
+      "pledgeParaphrase": "Work to reform the World Health Organization",
+      "source": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "reviewStatus": "no_outcome_research_completed",
+      "outcome": null
+    }
+  ],
+  "methodology": "research/campaign-promises/deep-gap-audit.md",
+  "warning": "This pilot is a case-study evidence ledger, not a representative measure of politician honesty or government performance."
+}
