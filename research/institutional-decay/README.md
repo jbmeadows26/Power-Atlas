@@ -1,5 +1,14 @@
 # Institutional Decay — evidence baseline and empirical protocol
 
+## Causal study and dashboard implementation status (2026-10-29)
+
+- [Causal validation, ethical fieldwork, estimator eligibility, and production gates](causal-validation-protocol-2026-10-29.md).
+- [Factorial 2×2 OLS/HC3 analysis](../../scripts/institutional_decay_factorial.py): implemented for **real de-identified survey CSV only**; 3,000 participants **not recruited** and no causal estimate published.
+- [One-step difference-GMM demonstration](../../scripts/institutional_decay_gmm_demo.py): synthetic-data mathematics with guarded rejection of the actual two-wave OECD extract. **Not a real feedback-cycle finding.**
+- [Static institutional-decay dashboard](../../site/index.html) and [client-side research visualization](../../site/institutional-decay.js), using [407 observed survey cells in a static JSON feed](../../site/api/trust-metrics.json). The existing site is plain HTML/JavaScript, **not** Next.js. Browser correlations are descriptive.
+- [GitHub Actions CI run](https://github.com/jbmeadows26/Power-Atlas/actions/runs/40884175276): all model and frontend data-mapping tests passed.
+- **Production deployment NOT verified**: Vercel Hobby project has recent `CANCELED` deployments and `live=false`; do not describe the static dashboard as publicly live until a new production deployment is `READY` and endpoints have been tested. Existing controlled free-tier release path is not bypassed.
+
 ## Final assessment (2026-10-29)
 
 **The evidence review is closed, but the interaction/causal hypothesis is not established.** Read the [final scientific assessment](FINAL-ASSESSMENT-2026-10-29.md) for the verdict, full evidence matrix, 2023–2025 institutional trend and cross-country correlation analyses, implementation-gap interpretation, country examples, policy decisions and explicit research limits. The claim scope is a **source-backed descriptive/literature assessment**, not a causal demonstration or full national performance index.
