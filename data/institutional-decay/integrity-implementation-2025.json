@@ -1,0 +1,144 @@
+{
+  "schema": "power-atlas.institutional-decay.integrity-implementation.v1",
+  "asOf": "2026-10-29",
+  "publishedOn": "2026-03-24",
+  "sourceTitle": "OECD Anti-Corruption and Integrity Outlook 2026 / OECD Public Integrity Indicators",
+  "publication": "https://doi.org/10.1787/16708b78-en",
+  "publicationStatus": "curated_selected_cases_and_oecd_aggregates_not_full_country_panel",
+  "licensingNote": "OECD 2026 publication generally CC BY 4.0 with original attribution; third-party material excluded. Numeric extracts and derived differences from official country notes.",
+  "interpretation": "Share of specified OECD criteria fulfilled, separately for regulation (de jure) and practice (de facto). A zero practice value is not proof of criminal behavior or universal non-enforcement; missing monitoring may affect fulfillment.",
+  "causalStatus": "descriptive_noncausal",
+  "requiredControls": [
+    "country-specific criteria applicability",
+    "availability of supporting official evidence",
+    "year of latest underlying observation",
+    "OECD data extract date",
+    "regulatory versus practical criterion denominator",
+    "country coverage and missingness"
+  ],
+  "useRestriction": "Do not merge these selected country records with trust country panel to estimate population-level correlation. Obtain complete comparable PII country-by-criterion series first.",
+  "oecdAverages": [
+    {
+      "id": "oecd-all-areas",
+      "area": "all_public_integrity_areas",
+      "implementationGapPercentagePoints": 19,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_16708b78-en/full-report/component-4.html",
+      "population": "OECD member countries in OECD Public Integrity Indicators",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-10",
+      "status": "official_oecd_criteria_averages_rounded"
+    },
+    {
+      "id": "oecd-coi",
+      "area": "conflict_of_interest",
+      "regulationPercent": 80,
+      "practicePercent": 45,
+      "implementationGapPercentagePoints": 35,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_16708b78-en/full-report/component-4.html",
+      "population": "OECD member countries in OECD Public Integrity Indicators",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-10",
+      "status": "official_oecd_criteria_averages_rounded"
+    },
+    {
+      "id": "oecd-civil-discipline",
+      "area": "civil_service_discipline",
+      "regulationPercent": 66,
+      "practicePercent": 22,
+      "implementationGapPercentagePoints": 44,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_16708b78-en/full-report/component-4.html",
+      "population": "OECD member countries in OECD Public Integrity Indicators",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-10",
+      "status": "official_oecd_criteria_averages_rounded"
+    }
+  ],
+  "countryCases": [
+    {
+      "code": "POL",
+      "country": "Poland",
+      "area": "conflict_of_interest",
+      "regulationPercent": 89,
+      "practicePercent": 11,
+      "implementationGapPercentagePoints": 78,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/poland_6733ca8f-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    },
+    {
+      "code": "SVK",
+      "country": "Slovakia",
+      "area": "conflict_of_interest",
+      "regulationPercent": 78,
+      "practicePercent": 0,
+      "implementationGapPercentagePoints": 78,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    },
+    {
+      "code": "SVK",
+      "country": "Slovakia",
+      "area": "civil_service_discipline",
+      "regulationPercent": 42,
+      "practicePercent": 0,
+      "implementationGapPercentagePoints": 42,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    },
+    {
+      "code": "SVK",
+      "country": "Slovakia",
+      "area": "judicial_integrity",
+      "regulationPercent": 82,
+      "practicePercent": 80,
+      "implementationGapPercentagePoints": 2,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    },
+    {
+      "code": "SVK",
+      "country": "Slovakia",
+      "area": "political_finance",
+      "regulationPercent": 90,
+      "practicePercent": 0,
+      "implementationGapPercentagePoints": 90,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    },
+    {
+      "code": "SVK",
+      "country": "Slovakia",
+      "area": "lobbying",
+      "regulationPercent": 20,
+      "practicePercent": 0,
+      "implementationGapPercentagePoints": 20,
+      "source": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "sourcePeriod": "2025_or_latest_available",
+      "sourceExtracted": "2026-03-07",
+      "status": "official_oecd_assessed_criteria_not_case_adjudication"
+    }
+  ],
+  "sourceDirectory": [
+    {
+      "url": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_16708b78-en/full-report/component-4.html",
+      "label": "OECD integrity report 2026 overview"
+    },
+    {
+      "url": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/poland_6733ca8f-en.html",
+      "label": "Poland OECD 2026 note"
+    },
+    {
+      "url": "https://www.oecd.org/en/publications/anti-corruption-and-integrity-outlook-2026_0c8910f8-en/slovak-republic_2c69a236-en.html",
+      "label": "Slovak Republic OECD 2026 note"
+    }
+  ]
+}
