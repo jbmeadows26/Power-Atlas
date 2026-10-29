@@ -1,0 +1,43 @@
+name: Publish Power Atlas research site to GitHub Pages
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - '.github/workflows/deploy-pages.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+concurrency:
+  group: power-atlas-gh-pages
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify no frontend build or paid dependency needed
+        run: |
+          test -f site/index.html
+          test ! -f site/.env
+          echo "Static source: site/index.html"
+      - name: Configure public Pages site
+        uses: actions/configure-pages@v5
+      - name: Upload static site artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./site
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish mobile research site
+        id: deployment
+        uses: actions/deploy-pages@v4
