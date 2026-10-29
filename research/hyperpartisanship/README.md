@@ -1,5 +1,8 @@
 # Hyper-partisanship, performative outrage and gridlock — Power Atlas
 
+**Final source-backed assessment:** [FINAL_ASSESSMENT_2026-10-29.md](FINAL_ASSESSMENT_2026-10-29.md) — 38/38 historical chamber-periods, 19 complete Congresses, 119th co-sponsorship uncertainty bounds, peer-reviewed evidence on attention and political incivility, and explicit causal-inference exclusions. The complete descriptive assessment is published; the empirical causal program is not represented as finished.
+
+
 **As-of 2026-10-29. This is a source-attributed, descriptive 20-Congress baseline, NOT a causal finding or a claim of complete research ingestion.** Independent of gerrymandering and institutional-decay research. A validated compact research feed and a **Congress & gridlock** tab are committed in the frontend; production publication awaits a free-tier deployment window, not further data collection.
 
 ## New verified ingestion outputs (29 October 2026)
