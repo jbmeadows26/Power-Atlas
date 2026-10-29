@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 12,
+  "jurisdictionsScanned": 16,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -100,23 +100,45 @@
       "totalMatchesReported": 3,
       "newIndexedRecords": 2,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "FL": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 25,
+      "newIndexedRecords": 14,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "IA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 9,
+      "newIndexedRecords": 9,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "KS": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 1,
+      "newIndexedRecords": 1,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "KY": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 9,
+      "newIndexedRecords": 9,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "latestBatch": [
     {
-      "state": "DE",
-      "status": "indexed_first_page",
-      "newRows": 4
-    },
-    {
       "state": "FL",
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError"
-    },
-    {
-      "state": "GA",
       "status": "indexed_first_page",
-      "newRows": 12
+      "newRows": 14
     },
     {
       "state": "HI",
@@ -125,13 +147,8 @@
     },
     {
       "state": "IA",
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError"
-    },
-    {
-      "state": "ID",
       "status": "indexed_first_page",
-      "newRows": 0
+      "newRows": 9
     },
     {
       "state": "IL",
@@ -139,18 +156,29 @@
       "errorType": "TimeoutError"
     },
     {
-      "state": "IN",
+      "state": "KS",
       "status": "indexed_first_page",
-      "newRows": 2
+      "newRows": 1
+    },
+    {
+      "state": "KY",
+      "status": "indexed_first_page",
+      "newRows": 9
+    },
+    {
+      "state": "LA",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
+    },
+    {
+      "state": "MA",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     }
   ],
   "remainingJurisdictions": [
-    "FL",
     "HI",
-    "IA",
     "IL",
-    "KS",
-    "KY",
     "LA",
     "MA",
     "MD",
