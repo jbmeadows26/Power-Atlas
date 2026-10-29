@@ -135,8 +135,9 @@ def collect():
     members, ideology = parse_members(stream_csv(MEMBERS_URL))
     records, n, unmatched = summarize_votes(stream_csv(VOTES_URL), members, ideology)
     complete = [r for r in records if r["congress"] <= 118]
-    if len(complete) != 38 or any(r["rollCallsEligibleBothParties"] < 100 for r in complete):
-        raise RuntimeError("Historical chamber/congress coverage incomplete: refusing publication")
+    gaps = [(r["congress"], r["chamber"], r["rollCallsObserved"], r["rollCallsEligibleBothParties"]) for r in complete if r["rollCallsEligibleBothParties"] < 100]
+    if len(complete) != 38 or gaps:
+        raise RuntimeError(f"Historical coverage incomplete (congress, chamber, rollcalls, eligible): {gaps}; refusing publication")
     document = {
         "schema": "power-atlas.hyperpartisanship.voteview-party-divisions.v1",
         "status": "derived_voteview_aggregates_not_legislative_intent",
