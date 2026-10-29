@@ -156,6 +156,9 @@ recipient_aggregates = read_finance('fec-recipient-aggregates.json')
 committee_master = read_finance('fec-committee-master.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
+representation_path = ROOT / 'data/elections/representation-gaps.json'
+representation = json.loads(representation_path.read_text(encoding='utf-8')) if representation_path.exists() else {}
+representation_rows = representation.get('records', [])
 house_district_path = ROOT / 'data/elections/house-districts.json'
 house_district_rows = json.loads(house_district_path.read_text(encoding='utf-8'))['records'] if house_district_path.exists() else []
 house_audit_path = ROOT / 'data/health/house-2024-audit.json'
@@ -212,7 +215,7 @@ feed = {
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436', 'supremeCourtRedistrictingDecisions': scotus_decisions, 'supremeCourtDocketSource': 'https://www.supremecourt.gov/Docket/docket.aspx', 'scopeNote': 'Selected Supreme Court dispositions only; not a nationwide case docket census or state judicial record.'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
-    'elections': {'houseStateYears': house_summary, 'house2024KeyAudit': house_2024_audit, 'house2024UnopposedStatusOnly': house_unopposed, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
+    'elections': {'houseStateYears': house_summary, 'representationByStateYear': representation_rows, 'representationMetric': 'Descriptive two-party seat share minus vote share; not a gerrymandering or fairness score', 'house2024KeyAudit': house_2024_audit, 'house2024UnopposedStatusOnly': house_unopposed, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
         'committeeTotals': totals,
@@ -241,6 +244,8 @@ feed = {
         'stateLegislatorJurisdictions': len(state_people_index),
         'lobbyingFilingRows': len(lobbying),
         'houseStateYearRows': len(house_summary),
+        'representationStateYearRows': len(representation_rows),
+        'representationComparableOnIndexedReturns': sum(bool(row.get('comparableOnIndexedReturns')) for row in representation_rows),
         'houseDistrictYearRows': len(house_district_rows),
         'house2024VoteDistrictRows': sum(row.get('year')==2024 for row in house_district_rows),
         'house2024AccountedForDistrictKeys': house_2024_audit.get('accountedForDistrictKeys'),
