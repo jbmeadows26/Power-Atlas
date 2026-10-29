@@ -4,6 +4,7 @@ on:
     paths:
       - 'scripts/expand_state_bill_coverage.py'
       - 'tests/test_corpus.py'
+      - 'tests/test_state_coverage_scheduler.py'
       - '.github/workflows/expand-state-bills.yml'
   workflow_dispatch:
   schedule:
