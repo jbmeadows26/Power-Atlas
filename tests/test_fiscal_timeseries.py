@@ -6,14 +6,14 @@ import io
 import unittest
 import zipfile
 
-from scripts.collect_census_state_timeseries import METRICS, process_archive, YEAR_SET
+from scripts.collect_census_state_timeseries import METRICS, process_archive, YEAR_SET, STATE_FIPS_CODES
 
 
 def build_fixture(error=None):
     header=["#GEO_ID","GEO_LABEL","ST","GEOTYPE","GOVTYPE","YEAR","CATEGORY","AGG_DESC",
             "AGG_DESC_LABEL","ITEM_CODE","AMOUNT","AMOUNT_F"]
     lines=["|".join(header)]
-    states=[f"{i:02d}" for i in list(range(1,9))+list(range(10,52))]
+    states=sorted(STATE_FIPS_CODES)
     for state in states:
         for year in sorted(YEAR_SET):
             for code,(key,label) in METRICS.items():
@@ -46,6 +46,13 @@ class CensusStateTimeSeriesTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.correct=build_fixture()
+
+    def test_fips_state_ids_are_not_legacy_census_government_codes(self):
+        self.assertEqual(len(STATE_FIPS_CODES),50)
+        self.assertIn("09",STATE_FIPS_CODES)  # Connecticut
+        self.assertNotIn("11",STATE_FIPS_CODES)  # District of Columbia
+        self.assertNotIn("03",STATE_FIPS_CODES)
+        self.assertIn("56",STATE_FIPS_CODES)  # Wyoming
 
     def test_state_and_year_keys_are_complete(self):
         d=process_archive(self.correct,enforce_source_hash=False)
