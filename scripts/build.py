@@ -152,6 +152,7 @@ def read_finance(filename):
 
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
+recipient_aggregates = read_finance('fec-recipient-aggregates.json')
 committee_master = read_finance('fec-committee-master.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
@@ -208,6 +209,7 @@ feed = {
     'finance': {
         'committeeTotals': totals,
         'committeePayments': payments,
+        'committeeRecipientAggregates': recipient_aggregates,
         'candidateCommitteeLinks': {'count':len(fec_links),'cycles': fec_link_doc.get('sources', {}), 'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json'},
         'committeeMaster': {'count':len(committee_master), 'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json'}
     },
@@ -220,6 +222,7 @@ feed = {
         'stateCommitteeMembershipEdges': sum(len(c.get('members', [])) for c in committees),
         'committeeTotalRows': len(totals),
         'paymentRows': len(payments),
+        'recipientAggregateRows': len(recipient_aggregates),
         'stateSourceReferences': len(states),
         'congressionalMapEditions': len(map_editions),
         'congressMemberRows': len(congress),
