@@ -7,6 +7,7 @@ Official source reconciliation is a separate, future signed-off action.
 from __future__ import annotations
 from pathlib import Path
 from collections import Counter
+from urllib.parse import urlparse
 import json
 import re
 
@@ -183,6 +184,34 @@ def main():
         'productionBills':[],
         'certifiedLegislativeRollCalls':[],
         'explanation':'Production remains empty until bill text/status and each motion, chamber, yea/nay/abstain count are individually verified with the authoritative state records.'
+    })
+    # A majority of offices use government domains. The two FEC-listed
+    # official exceptions are independently confirmed at their public sites.
+    domain_exceptions={'DC':'www.dcboe.org','FL':'dos.myflorida.com'}
+    election_domains=[]
+    for state_entry in elections['records']:
+        host=(urlparse(state_entry['electionOfficeURL']).hostname or '').lower()
+        state=state_entry['state']
+        if state in domain_exceptions:
+            if host!=domain_exceptions[state]:
+                raise ValueError('Unexpected election-office host for '+state)
+            evidence='official_exception_crosschecked'
+        elif host.endswith(('.gov','.us')):
+            evidence='government_or_us_domain_FEC_directory_indexed'
+        else:
+            raise ValueError('Official election directory contains unverified external host '+state+': '+host)
+        election_domains.append({
+            'jurisdictionId':state,'hostname':host,
+            'source':state_entry['electionOfficeURL'],'sourceDirectory':state_entry['directorySource'],
+            'domainReviewStatus':evidence,
+            'actualCanvassDownloaded':False
+        })
+    write('election-office-domain-audit.json',{
+        'schema':'power-atlas.election-office-domain-audit.v1',
+        'publicationStatus':'trusted_FEC_directory_links_and_two_crosschecked_exceptions_not_contest_canvasses',
+        'jurisdictions':len(election_domains),
+        'officialExceptions':sorted(domain_exceptions),
+        'records':election_domains
     })
     official_entries=[]
     for x in elections['records']:
