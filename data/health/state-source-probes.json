@@ -1,0 +1,51 @@
+{
+  "schema": "power-atlas.state-source-probes.v1",
+  "checkedDateUTC": "2026-10-29",
+  "policy": "Source discovery is not dataset ingestion; preserve existing verified data; do not bypass authentication, terms, rate limits or paywalls.",
+  "sources": [
+    {
+      "id": "ca_campaign_finance_raw",
+      "jurisdiction": "CA",
+      "domain": "state_campaign_finance",
+      "status": "official_export_discovered_not_ingested",
+      "primary": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
+      "download": "https://campaignfinance.cdn.sos.ca.gov/dbwebexport.zip",
+      "evidence": "California Secretary of State publishes a daily updated tab-delimited raw-data ZIP; the research web reader returned unsupported binary content-type, not a source outage.",
+      "attemptedAlternatives": [
+        "Official CAL-ACCESS Power Search is an individual-record search interface, not a substitute for bulk export.",
+        "Official Secretary of State documentation and downloadable ZIP URL located."
+      ],
+      "unresolved": "ZIP size, member schemas, access from GitHub Actions and safe compact extraction not yet verified; no CA finance transactions persisted.",
+      "nextFreeStep": "Check HEAD Content-Length from GitHub Actions and download only within bounded size; parse documented committee-level aggregates excluding private addresses; fail closed without deleting prior records."
+    },
+    {
+      "id": "nj_campaign_finance_pay_to_play",
+      "jurisdiction": "NJ",
+      "domain": "state_campaign_finance",
+      "status": "official_bulk_portal_discovered_not_ingested",
+      "primary": "https://www.elec.nj.gov/pay2play/quickdownload.html",
+      "evidence": "New Jersey ELEC lists 2024 and 2025 pay-to-play business-entity, contracts and contributions downloads. Research web reader received HTTP 403 for this page; this is an access failure in the research environment, not evidence the public site is down.",
+      "attemptedAlternatives": [
+        "Official ELEC searchable campaign-finance database: https://www.elec.nj.gov/publicinformation/searchdatabase.htm",
+        "Official ELEC reports portal: https://www.elec.nj.gov/publicinformation/viewreports.htm"
+      ],
+      "unresolved": "Direct downloadable file URL and machine-readable schema not established; no NJ pay-to-play rows persisted. Pay-to-play disclosures are not all state campaign finance.",
+      "nextFreeStep": "Try official CSV download link in a normal permitted browser or GitHub runner; inspect headers and privacy fields before any compact, committee-level extraction."
+    },
+    {
+      "id": "state_roll_call_bulk",
+      "jurisdiction": "US_states",
+      "domain": "state_roll_calls",
+      "status": "public_data_path_requires_access_or_terms_review",
+      "primary": "https://open.pluralpolicy.com/data/session-csv/",
+      "evidence": "Open States publishes per-session bill/vote CSV archives but archive links redirected research browser to a login page on 2026-10-29. Its public page describes public-domain dedication, subject to exceptions.",
+      "attemptedAlternatives": [
+        "Official state legislative roll-call pages are jurisdiction-specific and require separate validated collectors.",
+        "Bill Commons public read API https://billcommons.org/docs/api has anonymous rate limits; its service terms require attribution and include no-resale constraints: https://billcommons.org/terms."
+      ],
+      "unresolved": "No authenticated Open States session; no state official roll-call parser tested; Bill Commons commercial redistribution terms and quota constraints require review. No state roll-call rows persisted.",
+      "nextFreeStep": "Pilot one official state legislature's downloadable roll-call export with stable vote IDs and member-level votes, and validate against its published roll call; do not bulk crawl a rate-limited service."
+    }
+  ],
+  "disclaimer": "Discovery links and access probes are not evidence of case outcomes, money flows, influence, or nationwide coverage."
+}
