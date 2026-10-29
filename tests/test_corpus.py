@@ -171,6 +171,45 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['coverage']['stateCommitteeRows'], len(committees))
         self.assertEqual(feed['coverage']['stateCommitteeMembershipEdges'], source_edges)
 
+    def test_house_representation_gaps_not_causal_and_unopposed(self):
+        file = ROOT / 'data/elections/representation-gaps.json'
+        if not file.exists():
+            self.skipTest('Derived representation records not yet present')
+        doc=load('data/elections/representation-gaps.json')
+        records=doc['records']
+        self.assertGreaterEqual(len(records),300)
+        self.assertEqual(len(records),len({r['id'] for r in records}))
+        by={(r['year'],r['state']):r for r in records}
+        for abbr in ('FL','OK'):
+            if (2024,abbr) in by:
+                self.assertFalse(by[(2024,abbr)]['comparableOnIndexedReturns'])
+                self.assertTrue(by[(2024,abbr)]['knownOfficialUnopposedDistrictExcluded'])
+                self.assertNotIn('observedSeatMinusVotePctPoints',by[(2024,abbr)])
+        feed=load('data/app-feed.json')
+        self.assertEqual(feed['elections']['representationByStateYear'],records)
+        self.assertEqual(feed['coverage']['representationStateYearRows'],len(records))
+
+    def test_federal_bill_sponsorship_evidence(self):
+        file=ROOT/'data/legislation/federal-bill-candidates.json'
+        if not file.exists():
+            self.skipTest('Federal bill index not collected')
+        doc=load('data/legislation/federal-bill-candidates.json')
+        bills=doc['records']
+        self.assertGreaterEqual(len(bills),3)
+        self.assertEqual(len(bills),len({r['id'] for r in bills}))
+        for bill in bills:
+            self.assertTrue(bill['source'].startswith('https://www.congress.gov/'))
+            self.assertEqual(bill['congress'],119)
+            self.assertIn(bill['issueClass'],('redistricting_specific_title','broader_voting_or_elections_title','keyword_hit_not_title_verified'))
+            self.assertFalse(SENSITIVE.intersection(bill.keys()))
+            self.assertIn('reviewStatus',bill)
+        feed=load('data/app-feed.json')
+        self.assertEqual(feed['legislation']['federalBillCandidates'],bills)
+        self.assertEqual(feed['coverage']['federalBillCandidateRows'],len(bills))
+        graph=load('data/relationships.json')['relationships']
+        sponsored=[e for e in graph if e.get('type')=='source_reported_federal_bill_sponsorship']
+        self.assertEqual(len(sponsored),feed['coverage']['federalBillSponsorEdges'])
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
