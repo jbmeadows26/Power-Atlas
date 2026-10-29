@@ -1,15 +1,14 @@
 {
   "schema": "power-atlas.state-redistricting-bill-candidates.v1",
-  "publicationStatus": "candidate_search_scope_is_not_exhaustive",
+  "publicationStatus": "search_candidate_needs_primary_source_verification",
   "provider": "https://billcommons.org/docs/api",
   "attribution": "Bill Commons (official state/Open States and possibly optional CC-BY-4.0 LegiScan, record-specific source licensing must be checked before reuse); metadata and source references only",
-  "coverageWarning": "Combined bounded national keyword searches plus at most first 20 per jurisdiction. Some years, sessions and bills absent; original state record controls.",
+  "coverageWarning": "First 40 results per query; not complete nationwide or state legislative coverage. An empty result is not evidence that a bill does not exist.",
   "searches": [
     {
       "query": "redistricting",
-      "rowsReturned": 40,
-      "totalReported": 623,
-      "pagesQueried": 1
+      "status": "temporary_network_failure",
+      "errorType": "TimeoutError"
     },
     {
       "query": "gerrymandering",
@@ -29,7 +28,7 @@
       "errorType": "TimeoutError"
     }
   ],
-  "successfulSearches": 3,
+  "successfulSearches": 2,
   "jurisdictionsLookupCount": 51,
   "incrementalJurisdictionsScanned": 49,
   "records": [
