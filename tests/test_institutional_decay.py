@@ -45,7 +45,7 @@ class InstitutionalDecayEvidenceTests(unittest.TestCase):
         for event in self.events:
             with self.subTest(id=event["id"]):
                 self.assertTrue(event["source"].startswith("https://"))
-                self.assertTrue(re.match(r"^\\d{4}-\\d{2}(?:-\\d{2})?$", event["eventDate"]))
+                self.assertTrue(re.match(r"^\d{4}-\d{2}(?:-\d{2})?$", event["eventDate"]))
                 inferred = [v for k, v in event.items() if k.lower().startswith("causallink")]
                 self.assertTrue(inferred)
                 self.assertTrue(all(v == "not_established" for v in inferred))
