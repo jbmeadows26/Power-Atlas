@@ -1,0 +1,201 @@
+{
+  "assessmentDate": "2026-10-29",
+  "completionStatus": "evidence_assessment_complete_primary_research_not_ready_for_causal_claims",
+  "historicalSourceAudit": {
+    "GandKMayOverlap": true,
+    "cannotCombineWithModernWithoutYearSpecificCodebook": true,
+    "categoryBreaks": [
+      {
+        "reason": "Observed source-record count discontinuity between 2012 and 2013; scope/coding investigation required, not an observed spending change",
+        "status": "requires_review",
+        "year": 2013
+      },
+      {
+        "reason": "Census formally consolidated historic F/G/K categories into a new F capital code, and changed some other accounting treatments",
+        "source": "https://www2.census.gov/programs-surveys/state/technical-documentation/complete-technical-documentation/statetechdoc2022.pdf",
+        "status": "verified_documented_break",
+        "year": 2022
+      }
+    ],
+    "explicitMissingValueMarkers": 66,
+    "rawCapitalCodeRows": 65554,
+    "years": 16
+  },
+  "inputProvenance": {
+    "candidateQueue": "data/promises/us-2020-review-queue.json",
+    "fiscalClockTemplate": "data/fiscal/state-timeseries/fiscal-calendar-template-2012-2024.json",
+    "historicalCodeAudit": "data/fiscal/state-legacy/quality-audit.json",
+    "literature": "research/campaign-promises/assessment-complete-2026-10-29.md",
+    "modernFiscal": "data/fiscal/state-timeseries/aggregate-capital-2012-2024.json",
+    "pilot": "data/promises/us-2020-pilot.json",
+    "verifiedExpansion": "data/promises/us-2020-source-verified-expansion.json"
+  },
+  "qualityAssurance": "Format, coverage, sourcing and recomputation verified. Factual independent pledge adjudication, causal identification and completeness of historical source sampling not certified.",
+  "researchQuestions": {
+    "electoralShortTermism": {
+      "calendarTemplateRowsProvisional": 650,
+      "capitalOutlayRatio": "official SF0178 direct capital outlay divided by official SF0175 total direct expenditure",
+      "causalConfidenceInterval": null,
+      "cross2022Comparability": "blocked_by_documented_census_classification_and_social_insurance_change",
+      "electoralTreatmentEffects": null,
+      "gubernatorialElectionsMatched": false,
+      "modernFiscalYears": 13,
+      "modernStateYears": 650,
+      "officialFinanceAggregateRows": 3250,
+      "ratioPercentagesByFiscalYear": [
+        {
+          "fiscalYear": 2012,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.67,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.85,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2013,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.4,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.89,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2014,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 7.81,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.38,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2015,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.27,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.87,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2016,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.31,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.68,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2017,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.14,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.47,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2018,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 7.95,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.68,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2019,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 7.92,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.75,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2020,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 7.6,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 6.94,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2021,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 6.83,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 6.32,
+          "regime": "pre_2022"
+        },
+        {
+          "fiscalYear": 2022,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 7.81,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.18,
+          "regime": "post_2022_reclassified"
+        },
+        {
+          "fiscalYear": 2023,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 8.37,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 7.44,
+          "regime": "post_2022_reclassified"
+        },
+        {
+          "fiscalYear": 2024,
+          "interpretation": "descriptive_ratio_not_election_effect",
+          "meanOf50StateCapitalOutlaySharesPct": 9.22,
+          "observations": 50,
+          "pooledCapitalOutlaySharePct": 8.26,
+          "regime": "post_2022_reclassified"
+        }
+      ],
+      "sampleOf50StateMeanTrend2012to2021Pp": -1.84,
+      "sampleOf50StateMeanTrend2022to2024Pp": 1.41,
+      "verdict": "descriptive_state_finance_ready_election_cycle_causal_effect_unestimated",
+      "verifiedHistoricalFiscalBoundaries": false,
+      "warnings": [
+        "Annual financial records cannot identify a within-year spending spike by month.",
+        "Election-related shifts require official poll dates, governors and institutional controls.",
+        "Visible transfers, spending announcements and project return-on-investment are not measured by the capital-outlay proxy.",
+        "2012–21 and 2022–24 comparisons are separately descriptive, not a causal election-cycle test.",
+        "Equal-weighted state averages are not identical to pooled expenditure-weighted shares."
+      ]
+    },
+    "pledgeFulfillment": {
+      "confidenceInterval": null,
+      "frozenPopulationDenominator": false,
+      "independentlyDualAdjudicatedCases": 0,
+      "observedProvisionalPilotCases": 8,
+      "overallPledgeFulfillmentRate": null,
+      "provisionalAttemptedNotEnactedCases": 1,
+      "provisionalFullyEnactedCases": 7,
+      "provisionalOutcomeCounts": {
+        "attempted_not_enacted": 1,
+        "fully_enacted": 7
+      },
+      "unscoredCandidateRows": 24,
+      "verdict": "not_estimable_from_local_nonrandom_provisional_pilot",
+      "warning": "Seven of eight deliberately selected and singly reviewed examples cannot be extrapolated to the 2020 administration, an electorate, or any party. Unscored rows are NOT failed pledges."
+    }
+  },
+  "schema": "power-atlas.campaign-promises-final-evidence-assessment.v1",
+  "sourceRegistryStaleness": {
+    "correctSeparateModernIngestionObserved": 650,
+    "interpretation": "Old pledge-specific registry and feed are stale about finance data; this derived assessment uses actual official finance products and does not silently rewrite the source catalog.",
+    "promiseSourceRegistryListsFiscalSourceAsNotIngested": true,
+    "researchFeedFiscalSeriesCount": 0
+  },
+  "studyReadiness": {
+    "budgetAuthorizationObligationOutlayClocks": "missing",
+    "causalClaims": "prohibited_pending_identification_validation",
+    "comparativeMultiCountryEmpiricalReplication": "not_completed",
+    "electionCalendarJoin": "missing",
+    "electoralCycleRegression": "not_estimated",
+    "exhaustiveManifestoDenominator": "missing",
+    "independentDualCoding": "missing",
+    "normativeBadFaithJudgments": "not_supported_without_independent_intent_evidence",
+    "partyResponsibilityModel": "not_estimated",
+    "pledgeSourceLinkedCases": "available_provisional_only",
+    "pre2012CapitalCodeFamilies": "source_audited_not_financially_harmonized",
+    "verifiedUSStateFinanceAnnualAggregates": "complete_2012_to_2024"
+  }
+}
