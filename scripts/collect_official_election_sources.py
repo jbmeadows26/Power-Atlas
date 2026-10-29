@@ -58,7 +58,8 @@ class TableLinks(HTMLParser):
 
 def collect():
     master=json.loads(STATES.read_text(encoding='utf-8'))['states']
-    target={r['name'].lower():r for r in master}
+    target={r['name'].lower():r for r in master if r['postal'] != 'PR'}
+    # 50 states plus DC; Puerto Rico belongs in a separate territorial scope.
     target['district of columbia']=next(r for r in master if r['fips']=='11')
     html=''
     try:
@@ -99,6 +100,22 @@ def collect():
         # Prefer a separately listed election-results entry for split states.
         if state not in index or 'election results' in row[0]['text'].lower():
             index[state]=new
+    # FEC's North Dakota directory entry is HTTP-only, filtered by HTTPS
+    # policy. Use the independently verified official .gov HTTPS results site.
+    if 'ND' not in index:
+        nd=target['north dakota']
+        index['ND']={
+            'state':'ND','stateName':nd['name'],'fips':nd['fips'],
+            'certificationAuthority':'North Dakota Secretary of State / State Canvassing Board',
+            'electionOfficeURL':'https://www.sos.nd.gov/elections/election-results',
+            'directorySource':FEC_DIR,
+            'officialCertifiedResultURL':None,
+            'stateCertifiedVoteTotalsRetrieved':False,
+            'officialResultStatus':'official_HTTPS_state_source_crosschecked_not_canvass',
+            'researchAction':'Retrieve official canvass for exact election contest before setting certification'
+        }
+    if len(index)!=51 or set(index)!={r['postal'] for r in target.values()}:
+        raise RuntimeError('Expected exactly 50 state offices + DC; got '+str(sorted(index)))
     if len(index)<48:
         raise RuntimeError('Only '+str(len(index))+' official election office URLs parsed, preserve existing output')
     records=sorted(index.values(),key=lambda x:x['state'])
