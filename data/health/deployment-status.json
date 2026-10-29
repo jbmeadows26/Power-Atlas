@@ -1,0 +1,36 @@
+{
+  "schema": "power-atlas.deployment-health.v1",
+  "checkedDateUTC": "2026-10-29",
+  "project": "power-atlas-research",
+  "productionDomain": "https://power-atlas-research.vercel.app/",
+  "lastVerifiedProductionCommit": "cf5c8442019c988aff756ffe85b5baba707fc28f",
+  "frontendSyntaxVerifiedCommit": "4cca533bd191423369675adf4ae0987c4e3301fd",
+  "frontendSyntaxWorkflowRun": 40791734533,
+  "deploymentStatus": "blocked_free_daily_api_deployment_limit",
+  "blocker": {
+    "provider": "Vercel",
+    "httpStatus": 402,
+    "code": "api-deployments-free-per-day",
+    "message": "Free API deployment allowance exceeded (more than 100 deployments in one day)",
+    "retryAfterSeconds": 86400,
+    "costPolicy": "Do not upgrade or use paid capacity"
+  },
+  "attempts": [
+    {
+      "action": "Create production deployment from current GitHub main commit",
+      "result": "blocked HTTP 402; no deployment created"
+    },
+    {
+      "action": "Set ignored build step to avoid data-only rebuilds",
+      "result": "project setting update accepted",
+      "command": "git diff HEAD^ HEAD --quiet -- site/index.html index.html"
+    },
+    {
+      "action": "Validate frontend JavaScript via free GitHub Actions",
+      "result": "success",
+      "workflowRun": 40791734533
+    }
+  ],
+  "nextAction": "After free quota resets, deploy current validated main to production and verify deployed commit SHA and actual served frontend; do not claim production updated until verified.",
+  "warning": "A READY Vercel deployment can be stale relative to the latest GitHub main. The frontend feed is served separately from GitHub raw data."
+}
