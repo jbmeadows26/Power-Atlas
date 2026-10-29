@@ -1,0 +1,60 @@
+name: Validate state fiscal-year clock template
+on:
+  push:
+    paths:
+      - 'scripts/build_fiscal_calendar_template.py'
+      - 'tests/test_fiscal_calendar_template.py'
+      - '.github/workflows/build-state-fiscal-calendar.yml'
+  pull_request:
+    paths:
+      - 'scripts/build_fiscal_calendar_template.py'
+      - 'tests/test_fiscal_calendar_template.py'
+      - '.github/workflows/build-state-fiscal-calendar.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-state-fiscal-calendar
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate no-assumed-election-data fiscal calendar
+        run: python -m unittest discover -s tests -p 'test_fiscal_calendar_template.py' -v
+      - name: Build 650 provisional state fiscal-year clocks
+        run: python -m scripts.build_fiscal_calendar_template
+      - name: Verify source-backed annual observation alignment
+        run: python -m scripts.build_fiscal_calendar_template --check
+      - name: Publish only provisional fiscal calendar template
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/fiscal/state-timeseries/fiscal-calendar-template-2012-2024.json
+          if git diff --cached --quiet; then
+            echo 'State fiscal clock unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: stage provisional state fiscal calendar for review'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Refusing to overwrite concurrent project changes'
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            sleep "$((2*attempt))"
+          done
+          exit 1
