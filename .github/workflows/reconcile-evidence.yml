@@ -1,0 +1,36 @@
+name: Reconcile candidate legislation and evidence domains
+on:
+  push:
+    paths:
+      - 'scripts/reconcile_evidence.py'
+      - 'data/redistricting/analytics-sources.json'
+      - 'data/elections/official-source-index.json'
+      - 'data/legislation/state-redistricting-jurisdictions.json'
+      - 'data/legislation/state-redistricting-votes.json'
+      - 'data/legislation/state-redistricting-bills.json'
+      - '.github/workflows/reconcile-evidence.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '12 7 * * *'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-reconcile-evidence
+  cancel-in-progress: false
+jobs:
+  reconcile:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Derive verification states from source-indexed evidence
+        run: python scripts/reconcile_evidence.py
+      - name: Rebuild and validate unified app feed
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish evidence staging and coverage without overriding source datasets
+        run: bash scripts/publish_data.sh data/reconciliation data/app-feed.json data/coverage.json data/research.json data/relationships.json
