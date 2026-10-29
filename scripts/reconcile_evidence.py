@@ -14,7 +14,7 @@ import re
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/'data'
 OUT=DATA/'reconciliation'
-VOTE_STATUSES=('unverified','partially_parsed','certified_tally')
+VOTE_STATUSES=('unverified','partially_parsed','official_aggregate_crosschecked','certified_tally')
 COVERAGE_STATUSES=('pending','page1_complete','full_sweep')
 LEGAL_STANDARDS=(
     {'id':'VRA_Sec2_Milligan_2023','decisionDate':'2023-06-08',
@@ -46,6 +46,7 @@ def date_standard(date):
 def main():
     source=read('legislation/state-redistricting-bills.json')
     votes=read('legislation/state-redistricting-votes.json')
+    official_crosschecks=read('legislation/official-rollcall-aggregate-crosschecks.json')
     progress=read('legislation/state-redistricting-jurisdictions.json')
     elections=read('elections/official-source-index.json')
     all_states=sorted({r['state'] for r in elections['records']})
@@ -140,8 +141,29 @@ def main():
         'pendingBaselineStates':[x['jurisdictionId'] for x in tasks if x['priority']=='baseline_gap'],
         'count':len(tasks),'tasks':tasks
     })
+    if official_crosschecks.get('schema') != 'power-atlas.official-state-legislative-aggregate-crosschecks.v1':
+        raise ValueError('Unexpected official aggregate crosscheck schema')
+    crosschecks=official_crosschecks['records']
+    crosschecked_by_id={r['id']:r for r in crosschecks}
+    if len(crosschecked_by_id)!=len(crosschecks):
+        raise ValueError('Duplicate official aggregate crosscheck IDs')
+    if not set(crosschecked_by_id).issubset({v['id'] for v in vote_rows}):
+        raise ValueError('Official aggregate crosscheck references an unknown vote ID')
+    for r in crosschecks:
+        if r.get('evidenceLevel')!='official_legislative_staff_summary_aggregate_crosschecked':
+            raise ValueError('Unexpected official aggregate evidence level')
+        if r.get('certifiedRollCall') is not False:
+            raise ValueError('Staff summary must not be labeled certified roll call')
+        if urlparse(r['source']).hostname!='www.azleg.gov':
+            raise ValueError('Official aggregate source must be Arizona legislature')
+        if urlparse(r['calendarSource']).hostname!='www.azleg.gov':
+            raise ValueError('Official calendar must be Arizona legislature')
+        values=r.get('counts',{})
+        if set(values)!={'yes_count','no_count','other_count'} or any(type(n) is not int or n<0 for n in values.values()) or sum(values.values())==0:
+            raise ValueError('Official aggregate crosscheck must have complete positive counts')
     state_roll_rows=[]
     verified=[]
+    official_aggregate_crosschecked=[]
     for v in vote_rows:
         if v['billId'] not in bill_ids:
             raise ValueError('Orphaned vote reference: '+v['id'])
@@ -149,30 +171,42 @@ def main():
         if not isinstance(counts,dict):raise ValueError('Bad vote tally structure')
         yea,nay,other=(counts.get('yes_count'),counts.get('no_count'),counts.get('other_count'))
         numeric=all(isinstance(q,int) and not isinstance(q,bool) and q>=0 for q in (yea,nay,other))
-        # A complete secondary-source numeric tally is not yet independently
-        # matched to an official state chamber's recorded division.
-        status='partially_parsed' if numeric else 'unverified'
+        # Secondary tallies remain unverified unless an independently linked
+        # official legislative source confirms this exact bill, date and count.
+        crosscheck=crosschecked_by_id.get(v['id'])
+        if crosscheck:
+            if not numeric or (crosscheck['billId'],crosscheck['state'],crosscheck['identifier'],crosscheck['date']) != (v['billId'],v['state'],v['identifier'],v['date']):
+                raise ValueError('Official aggregate crosscheck identity/date mismatch: '+v['id'])
+            if crosscheck['counts']!={'yes_count':yea,'no_count':nay,'other_count':other}:
+                raise ValueError('Official aggregate crosscheck tally mismatch: '+v['id'])
+        status='official_aggregate_crosschecked' if crosscheck else ('partially_parsed' if numeric else 'unverified')
         if status not in VOTE_STATUSES:raise ValueError('Bad vote status')
         item={
             'id':v['id'],'billId':v['billId'],'jurisdictionId':v['state'],
             'motion':v.get('motion') or 'Motion not indexed',
             'date':v.get('date'),'voteVerificationStatus':status,
             'tally':{'yea':yea,'nay':nay,'abstainOrOther':other} if numeric else None,
-            'officialTallyVerified':False,
-            'officialSource':v['source'],
+            'officialTallyVerified':bool(crosscheck),
+            'officialSource':crosscheck['source'] if crosscheck else v['source'],
+            'officialCalendarSource':crosscheck['calendarSource'] if crosscheck else None,
+            'officialEvidenceLevel':crosscheck['evidenceLevel'] if crosscheck else None,
+            'certifiedRollCall':False,
             'secondaryIndexURL':v.get('sourceIndex'),
-            'reviewStatus':'official_state_chamber_rollcall_crosscheck_required',
+            'reviewStatus':'official_aggregate_crosschecked_member_level_rollcall_not_verified' if crosscheck else 'official_state_chamber_rollcall_crosscheck_required',
             'evidenceMeaning':'Legislative roll call, never a statewide election vote or campaign finance transaction'
         }
+        if crosscheck:
+            official_aggregate_crosschecked.append(item)
         if item['voteVerificationStatus']=='certified_tally':
             verified.append(item)
         state_roll_rows.append(item)
     write('rollcall-staging.json',{
         'schema':'power-atlas.rollcall-staging.v1',
-        'publicationStatus':'no_official_aggregate_tallies_yet',
+        'publicationStatus':'limited_official_aggregate_crosscheck_not_certified_rollcall',
         'voteVerificationEnum':list(VOTE_STATUSES),
         'counts':{'unverified':sum(x['voteVerificationStatus']=='unverified' for x in state_roll_rows),
                   'partially_parsed':sum(x['voteVerificationStatus']=='partially_parsed' for x in state_roll_rows),
+                  'official_aggregate_crosschecked':len(official_aggregate_crosschecked),
                   'certified_tally':len(verified)},
         'records':state_roll_rows
     })
@@ -268,7 +302,7 @@ def main():
           'redistrictingTitleMatches':staging['counts']['topicKeywordMatches'],
           'legislativeVoteReferencesStaged':len(state_roll_rows),
           'legislativeVotesWithPartiallyParsedTallies':sum(x['voteVerificationStatus']=='partially_parsed' for x in state_roll_rows),
-          'officiallyVerifiedLegislativeTallies':len(verified),
+          'officiallyVerifiedLegislativeTallies':len(official_aggregate_crosschecked),
           'candidateBillsPromotedToProduction':0,
           'electionDirectoryPendingCanvasses':len(official_entries),
           'jurisdictionPageOneCompleted':summary['page1Complete'],
@@ -277,7 +311,7 @@ def main():
         }
     })
     print('Reconciliation: staged bill candidates',len(bills),
-          'roll references',len(state_roll_rows),'official verified',len(verified),
+          'roll references',len(state_roll_rows),'official aggregate crosschecked',len(official_aggregate_crosschecked),
           'jurisdiction first page',summary['page1Complete'],'pending',summary['pendingFirstPage'])
 
 if __name__=='__main__':
