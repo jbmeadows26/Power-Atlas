@@ -3,15 +3,11 @@
   "status": "missing_keys",
   "comparisonYear": 2024,
   "congress": 119,
-  "scope": "50 states and DC; excludes Puerto Rico resident commissioner and other territorial delegates",
+  "scope": "50 states and DC; excludes Puerto Rico resident commissioner and other territorial delegates; normalizes DC MEDSL district 0 to Census delegate code 98",
   "expectedCensusDistrictKeys": 436,
   "observedMEDSLDistrictKeys": 434,
-  "missingCount": 3,
+  "missingCount": 2,
   "missing": [
-    {
-      "state": "DC",
-      "district": 98
-    },
     {
       "state": "FL",
       "district": 20
@@ -21,13 +17,8 @@
       "district": 3
     }
   ],
-  "extraCount": 1,
-  "extra": [
-    {
-      "state": "DC",
-      "district": 0
-    }
-  ],
+  "extraCount": 0,
+  "extra": [],
   "geographySource": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_20m.zip",
   "electionSource": "https://doi.org/10.7910/DVN/IG0UN2",
   "interpretation": "A missing key identifies a gap in this derived dataset, not a missing election, a vote discrepancy, or evidence of gerrymandering. Key coverage does not validate vote totals."
