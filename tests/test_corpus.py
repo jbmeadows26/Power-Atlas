@@ -185,6 +185,33 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(len(doc['features']), len({f['id'] for f in doc['features']}))
         self.assertLess(path.stat().st_size, 3000000)
 
+    def test_2024_house_missing_vote_totals_are_not_fabricated(self):
+        audit_path = ROOT / 'data/health/house-2024-audit.json'
+        official_path = ROOT / 'data/elections/house-2024-unopposed.json'
+        if not audit_path.exists() or not official_path.exists():
+            self.skipTest('2024 key audit and Clerk status records not initialized')
+        audit = load('data/health/house-2024-audit.json')
+        official = load('data/elections/house-2024-unopposed.json')['records']
+        self.assertEqual(audit['comparisonYear'], 2024)
+        self.assertEqual(audit['congress'], 119)
+        self.assertEqual(audit['expectedCensusDistrictKeys'],
+                         audit['observedMEDSLDistrictKeys'] +
+                         audit['officialUnopposedStatusOnlyKeys'] +
+                         audit['missingCount'])
+        self.assertEqual(len(official), audit['officialUnopposedStatusOnlyKeys'])
+        self.assertEqual(len({(r['state'],r['district']) for r in official}),len(official))
+        for r in official:
+            self.assertIsNone(r['reportedVoteTotal'])
+            self.assertEqual(r['year'], 2024)
+            self.assertEqual(r['reviewStatus'], 'official_house_clerk_2024_status_only')
+            self.assertTrue(r['source'].startswith('https://clerk.house.gov/'))
+            self.assertNotIn((r['state'],r['district']),
+                             {(m['state'],m['district']) for m in audit['missing']})
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['elections']['house2024UnopposedStatusOnly'],official)
+        self.assertEqual(feed['elections']['house2024KeyAudit'],audit)
+        self.assertEqual(feed['coverage']['house2024MissingDistrictKeys'],audit['missingCount'])
+
     def test_compact_derived_feeds(self):
         for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
             self.assertLess((ROOT / name).stat().st_size, 3000000, name)
