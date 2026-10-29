@@ -44218,28 +44218,22 @@
     ],
     "house2024KeyAudit": {
       "schema": "power-atlas.house-2024-key-audit.v1",
-      "status": "missing_keys",
+      "status": "all_keys_accounted_for_vote_totals_not_complete",
       "comparisonYear": 2024,
       "congress": 119,
       "scope": "50 states and DC; excludes Puerto Rico resident commissioner and other territorial delegates; normalizes DC MEDSL district 0 to Census delegate code 98",
       "expectedCensusDistrictKeys": 436,
       "observedMEDSLDistrictKeys": 434,
-      "missingCount": 2,
-      "missing": [
-        {
-          "state": "FL",
-          "district": 20
-        },
-        {
-          "state": "OK",
-          "district": 3
-        }
-      ],
+      "officialUnopposedStatusOnlyKeys": 2,
+      "accountedForDistrictKeys": 436,
+      "unopposedStatusSource": "https://clerk.house.gov/member_info/electionInfo/2024/statistics2024.pdf",
+      "missingCount": 0,
+      "missing": [],
       "extraCount": 0,
       "extra": [],
       "geographySource": "https://www2.census.gov/geo/tiger/GENZ2025/shp/cb_2025_us_cd119_20m.zip",
       "electionSource": "https://doi.org/10.7910/DVN/IG0UN2",
-      "interpretation": "A missing key identifies a gap in this derived dataset, not a missing election, a vote discrepancy, or evidence of gerrymandering. Key coverage does not validate vote totals."
+      "interpretation": "Districts without reported general-election vote totals may be documented as elected unopposed using the official House Clerk publication. Never replace unavailable totals with zero; key coverage is not vote-total validation or a gerrymandering measure."
     },
     "source": "https://doi.org/10.7910/DVN/IG0UN2",
     "limitations": "Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules."
@@ -45000,7 +44994,7 @@
     "stateLegislatorJurisdictions": 52,
     "lobbyingFilingRows": 46,
     "houseStateYearRows": 402,
-    "house2024MissingDistrictKeys": 2,
+    "house2024MissingDistrictKeys": 0,
     "uncovered": [
       "state_campaign_finance",
       "state_roll_calls",
