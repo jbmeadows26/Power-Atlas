@@ -29,8 +29,23 @@
       "action": "Validate frontend JavaScript via free GitHub Actions",
       "result": "success",
       "workflowRun": 40791734533
+    },
+    {
+      "action": "Disable Vercel automatic Git deployments through site/vercel.json, retaining manual production deployment capability",
+      "result": "GitHub commit 74756b7 persisted; subsequent test commit 35dc236 did not trigger a new Vercel deployment entry at inspection; GitHub Actions 169 tests passed"
     }
   ],
   "nextAction": "After free quota resets, deploy current validated main to production and verify deployed commit SHA and actual served frontend; do not claim production updated until verified.",
-  "warning": "A READY Vercel deployment can be stale relative to the latest GitHub main. The frontend feed is served separately from GitHub raw data."
+  "warning": "Production remains on cf5c844 until a new READY production deployment is independently verified. CANCELED ignored builds can consume Hobby deployment quota. Static site currently responds HTTP 200 but serves stale UI.",
+  "quotaChurnMitigation": {
+    "finding": "Ignored Build Step creates CANCELED deployments that can still count toward Hobby daily deployment quota; not sufficient to prevent API deployment churn.",
+    "officialDocumentation": "https://vercel.com/docs/project-configuration/git-configuration",
+    "configurationFile": "site/vercel.json",
+    "gitAutomaticDeploymentsEnabled": false,
+    "previewDeploymentsDisabledRequested": true,
+    "affectedProjectsDeploymentsEnabledRequested": true,
+    "verifiedEvidence": "After disabling automatic Git deployments, subsequent GitHub commits 74756b7 and 35dc236 did not appear as new Vercel deployment entries when checked at 2026-10-29T15:10Z.",
+    "manualReleasePolicy": "Only one manual REST API production deployment after free quota resets; inspect GitHub main SHA, Vercel READY state, alias and served HTML. Manual deployment must not be blocked by ignored build configuration.",
+    "tests": "169 tests passed in GitHub Actions run 40898828747"
+  }
 }
