@@ -197,6 +197,15 @@ def ingest_zip(kind, parties):
                 if info.file_size > MAX_ENTRY_BYTES:
                     raise RuntimeError(f"GovInfo individual XML too large: {filename}")
                 source_url = f"{URL_BASE}/BILLSTATUS/{CONGRESS}/{kind}/{filename}"
+                if not rows and kind == "hr":
+                    example = ET.fromstring(archive.read(info))
+                    example_bill = child(example, "bill")
+                    example_sponsors = items(example_bill, "sponsors")
+                    example_cosponsors = items(example_bill, "cosponsors")
+                    tag_names = lambda elem: [part.tag.rsplit("}", 1)[-1] for part in elem.iter()][:30]
+                    print("Official source schema tags:",
+                          "sponsors", tag_names(example_sponsors[0]) if example_sponsors else [],
+                          "cosponsors", tag_names(example_cosponsors[0]) if example_cosponsors else [], flush=True)
                 rows.append(parse_bill(archive.read(info), kind, source_url, parties))
             if kind == "hr" and len(rows) < 3000:
                 raise RuntimeError("House corpus unexpectedly sparse")
