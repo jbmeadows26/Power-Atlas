@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - 'scripts/collect_district_geometry.py'
-      - 'tests/test_corpus.py'
       - '.github/workflows/collect-district-geometry.yml'
   workflow_dispatch:
   schedule:
