@@ -51,7 +51,10 @@ class CensusLegacyFormatTests(unittest.TestCase):
             legacy.parse_records(fixture()+b"\xff",2013)
 
     def test_no_state_code_09_for_dc(self):
-        raw = fixture().decode().replace(row(1,"F01"),row(9,"F01")).encode()
+        raw = fixture().decode()
+        for code in ("F01", "G01", "K01"):
+            raw = raw.replace(row(1,code),row(9,code))
+        raw = raw.encode()
         result=legacy.parse_records(raw,2013)
         self.assertEqual(result["stateGovernmentCount"],49)
         self.assertNotIn("09", {r["stateGovernmentCode"][:2] for r in result["records"]})
