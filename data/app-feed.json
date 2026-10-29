@@ -44235,6 +44235,38 @@
       "electionSource": "https://doi.org/10.7910/DVN/IG0UN2",
       "interpretation": "Districts without reported general-election vote totals may be documented as elected unopposed using the official House Clerk publication. Never replace unavailable totals with zero; key coverage is not vote-total validation or a gerrymandering measure."
     },
+    "house2024UnopposedStatusOnly": [
+      {
+        "id": "house-2024-FL-20-unopposed",
+        "year": 2024,
+        "state": "FL",
+        "district": 20,
+        "candidate": "Sheila Cherfilus-McCormick",
+        "party": "Democratic",
+        "electionStatus": "elected_unopposed_no_general_ballot_vote_total",
+        "reportedVoteTotal": null,
+        "sourcePageIndex": 16,
+        "footnotePageIndex": 18,
+        "source": "https://clerk.house.gov/member_info/electionInfo/2024/statistics2024.pdf",
+        "reviewStatus": "official_house_clerk_2024_status_only",
+        "sourceNote": "House Clerk lists district 20 with footnote (1); Florida unopposed candidates are not printed on the ballot."
+      },
+      {
+        "id": "house-2024-OK-03-unopposed",
+        "year": 2024,
+        "state": "OK",
+        "district": 3,
+        "candidate": "Frank D. Lucas",
+        "party": "Republican",
+        "electionStatus": "elected_unopposed_no_general_ballot_vote_total",
+        "reportedVoteTotal": null,
+        "sourcePageIndex": 57,
+        "footnotePageIndex": 57,
+        "source": "https://clerk.house.gov/member_info/electionInfo/2024/statistics2024.pdf",
+        "reviewStatus": "official_house_clerk_2024_status_only",
+        "sourceNote": "House Clerk lists district 3 with footnote (1); Oklahoma unopposed candidates are not printed on the ballot."
+      }
+    ],
     "source": "https://doi.org/10.7910/DVN/IG0UN2",
     "limitations": "Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules."
   },
@@ -45115,6 +45147,7 @@
     "lobbyingFilingRows": 54,
     "houseStateYearRows": 402,
     "house2024MissingDistrictKeys": 0,
+    "house2024OfficialUnopposedStatusRows": 2,
     "uncovered": [
       "state_campaign_finance",
       "state_roll_calls",
