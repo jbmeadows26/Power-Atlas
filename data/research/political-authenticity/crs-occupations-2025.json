@@ -1,0 +1,91 @@
+{
+  "schema": "power-atlas.crs-119th-occupation-education-baseline.v1",
+  "publicationStatus": "SOURCE_REPORTED_AGGREGATE_NOT_MEMBER_LEVEL_CLASS_ASSIGNMENT",
+  "source": "https://www.everycrsreport.com/reports/R48535.html",
+  "report": "Congressional Research Service R48535, Membership of the 119th Congress: A Profile",
+  "sourceVersionDate": "2025-08-04",
+  "scope": "119th Congress; occupational examples and education primarily as of opening in January 2025 unless noted, NOT the October 2026 roster",
+  "warning": [
+    "People can have more than one prior occupation; categories overlap and must not be summed.",
+    "Counts are reported historical aggregate categories, not member-level joinable background fields.",
+    "Working-class status cannot be reconstructed from reported examples, a degree or business ownership.",
+    "House counts may include delegates in ways specified by the report; do not infer precise member denominator.",
+    "Do not directly join to 2026 active member cohort without reconstructing January 2025 membership."
+  ],
+  "professions": [
+    {
+      "category": "practiced_law_with_law_degree",
+      "houseSharePct": 31,
+      "senateSharePct": 47,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "prior_elected_office",
+      "houseCount": 305,
+      "senateCount": 82,
+      "houseSharePct": 70,
+      "senateSharePct": 82,
+      "kind": "experience"
+    },
+    {
+      "category": "business_owner_founder_executive",
+      "houseCountMinimum": 135,
+      "senateCountMinimum": 28,
+      "houseSharePct": 31,
+      "senateSharePct": 28,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "education_work",
+      "houseCount": 100,
+      "senateCount": 19,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "labor_union_representative",
+      "houseCount": 5,
+      "senateCount": 0,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "nurse",
+      "houseCount": 4,
+      "senateCount": 0,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "emergency_medical_technician",
+      "houseCount": 1,
+      "senateCount": 0,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "consultant",
+      "houseCount": 38,
+      "senateCount": 9,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "engineer",
+      "houseCount": 9,
+      "senateCount": 1,
+      "kind": "historical_profession"
+    },
+    {
+      "category": "agriculture_farming_ranching_ownership",
+      "houseCount": 25,
+      "senateCount": 8,
+      "kind": "overlapping_owner_worker_history"
+    }
+  ],
+  "education": {
+    "fourYearCollegeGraduateShareHousePct": 96,
+    "fourYearCollegeGraduateShareSenatePct": 99,
+    "advancedDegreeHousePct": 66,
+    "advancedDegreeSenatePct": 78,
+    "houseNoDegreeBeyondHighSchoolCount": 19,
+    "houseAssociateHighestCount": 1,
+    "senateAssociateHighestCount": 1
+  },
+  "researchAction": "Use as pre-ingestion 2025 secondary published congressional occupational baseline; collect official member-level career history separately with coding uncertainty."
+}
