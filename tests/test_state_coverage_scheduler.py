@@ -64,5 +64,26 @@ class StateCoverageSchedulerTests(unittest.TestCase):
             self.assertNotIn('errorMessage', failure)
 
 
+    def test_official_search_fallbacks_do_not_fake_jurisdiction_coverage(self):
+        """Official bill spotchecks are evidence, not completed first-page searches."""
+        import json
+        root = Path(__file__).resolve().parents[1]
+        checkpoint = json.loads((root / 'data/legislation/state-redistricting-jurisdictions.json').read_text(encoding='utf-8'))
+        probes = json.loads((root / 'data/health/state-source-probes.json').read_text(encoding='utf-8'))
+        for state, prefix in (('IL', 'https://www.ilga.gov/'),
+                              ('TX', 'https://capitol.texas.gov/')):
+            matches = [row for row in probes['sources']
+                       if row.get('jurisdiction') == state
+                       and row.get('domain') == 'state_legislation']
+            self.assertEqual(len(matches), 1)
+            self.assertTrue(matches[0]['officialSearch'].startswith(prefix))
+            self.assertIn('spotcheck', matches[0]['persistedOfficialSpotchecks'])
+            if state in checkpoint['remainingJurisdictions']:
+                self.assertNotIn(state, checkpoint['jurisdictions'])
+                self.assertIn(state, checkpoint['sourceFailures'])
+                self.assertTrue(matches[0]['unresolved'])
+
+
+
 if __name__ == '__main__':
     unittest.main()
