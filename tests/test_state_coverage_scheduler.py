@@ -4,10 +4,17 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from expand_state_bill_coverage import select_jurisdictions
+from expand_state_bill_coverage import select_jurisdictions, STATES, MAX_PER_RUN
 
 
 class StateCoverageSchedulerTests(unittest.TestCase):
+    def test_exact_51_jurisdictions_and_eight_request_batch_limit(self):
+        self.assertEqual(len(STATES), 51)
+        self.assertEqual(len(STATES), len(set(STATES)))
+        self.assertIn('DC', STATES)
+        self.assertEqual(MAX_PER_RUN, 8)
+        self.assertLessEqual(len(select_jurisdictions(STATES, {}, {}, MAX_PER_RUN)), 8)
+
     def test_unattempted_states_precede_repeated_timeouts(self):
         states = ['HI', 'IL', 'LA', 'MA', 'MD', 'ME']
         attempts = {'HI': 3, 'IL': 2, 'LA': 1, 'MA': 1}
