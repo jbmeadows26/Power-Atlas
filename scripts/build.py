@@ -155,6 +155,8 @@ payments = read_finance('fec-disbursements.json')
 committee_master = read_finance('fec-committee-master.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
+house_district_path = ROOT / 'data/elections/house-districts.json'
+house_district_rows = json.loads(house_district_path.read_text(encoding='utf-8'))['records'] if house_district_path.exists() else []
 house_audit_path = ROOT / 'data/health/house-2024-audit.json'
 house_2024_audit = json.loads(house_audit_path.read_text(encoding='utf-8')) if house_audit_path.exists() else {}
 unopposed_path = ROOT / 'data/elections/house-2024-unopposed.json'
@@ -227,6 +229,9 @@ feed = {
         'stateLegislatorJurisdictions': len(state_people_index),
         'lobbyingFilingRows': len(lobbying),
         'houseStateYearRows': len(house_summary),
+        'houseDistrictYearRows': len(house_district_rows),
+        'house2024VoteDistrictRows': sum(row.get('year')==2024 for row in house_district_rows),
+        'house2024AccountedForDistrictKeys': house_2024_audit.get('accountedForDistrictKeys'),
         'house2024MissingDistrictKeys': house_2024_audit.get('missingCount'),
         'house2024OfficialUnopposedStatusRows': len(house_unopposed),
         'uncovered': uncovered,
