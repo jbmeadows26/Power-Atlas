@@ -50,11 +50,13 @@ def probe(body):
             if name.startswith("/") or ".." in name.split("/") or "\\" in name:
                 raise ValueError("Unsafe archive member")
             item={"filename":name,"bytes":info.file_size,"compressedBytes":info.compress_size}
-            if name.lower().endswith((".csv",".txt",".tsv",".json",".xml")) and info.file_size<MAX_UNCOMPRESSED_BYTES:
+            if name.lower().endswith((".csv",".txt",".tsv",".json",".xml",".dat")) and info.file_size<MAX_UNCOMPRESSED_BYTES:
                 with z.open(info) as f:
                     txt=io.TextIOWrapper(f,encoding="utf-8-sig",errors="replace",newline="")
                     preview=[next(txt,"")[:420] for _ in range(4)]
                     item["first4Lines"]=preview
+                    if name.endswith("_FIELDS.txt"):
+                        item["fullFieldsText"]=z.read(info).decode("utf-8-sig",errors="replace")
                     if name.lower().endswith((".csv",".tsv")):
                         delimiter="\t" if name.lower().endswith(".tsv") else ","
                         try:
