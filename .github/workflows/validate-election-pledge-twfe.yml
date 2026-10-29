@@ -1,0 +1,79 @@
+name: Verify pledge adjudication and TWFE research architecture
+on:
+  push:
+    paths:
+      - 'scripts/estimate_electoral_twfe.py'
+      - 'scripts/prepare_pledge_adjudication.py'
+      - 'tests/test_pledge_review_2020.py'
+      - 'checks/twfe_architecture_checks.py'
+      - 'research/campaign-promises/causal-identification-gates.md'
+      - '.github/workflows/validate-election-pledge-twfe.yml'
+  pull_request:
+    paths:
+      - 'scripts/estimate_electoral_twfe.py'
+      - 'scripts/prepare_pledge_adjudication.py'
+      - 'tests/test_pledge_review_2020.py'
+      - 'checks/twfe_architecture_checks.py'
+      - 'research/campaign-promises/causal-identification-gates.md'
+      - '.github/workflows/validate-election-pledge-twfe.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-twfe-review-template
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source-only pledge review template and missing scores
+        run: |
+          python -m scripts.prepare_pledge_adjudication
+          python -m unittest discover -s tests -p 'test_pledge_review_2020.py' -v
+      - name: Install free pinned numerical dependencies for architecture tests
+        run: |
+          python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'statsmodels==0.14.6'
+      - name: Validate synthetic TWFE recovery, not real electoral causal effects
+        run: python -m unittest discover -s checks -p 'twfe_architecture_checks.py' -v
+      - name: Run explicitly labeled synthetic architecture smoke test
+        run: python -m scripts.estimate_electoral_twfe --simulate
+      - name: Ensure real regression fails closed when unverified elections are absent
+        run: |
+          python - <<'PY'
+          from scripts.estimate_electoral_twfe import main
+          result=main(['--real'])
+          assert result==2, "Must never estimate a real electoral effect without documented covariates"
+          PY
+      - name: Publish reviewer template with null scores only
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/promises/adjudication-2020-template.json
+          if git diff --cached --quiet; then
+            echo 'No change in independently unscored review template'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: publish unscored 2020 pledge dual-review template'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'No force push permitted; review data conflict'
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Review template published on attempt $attempt"
+              exit 0
+            fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
