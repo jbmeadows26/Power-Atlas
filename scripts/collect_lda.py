@@ -17,22 +17,39 @@ YEARS = (2026, 2025)
 MAX_BYTES = 350000
 
 def fetch(term, year):
-    # The previous script incorrectly used client_name for topical phrases.
-    # This is the documented field for issue-description keyword filtering.
-    query = urlencode({'filing_specific_lobbying_issues':term,
-                       'filing_year':year,'page_size':20})
-    req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
-                                          'Accept':'application/json'})
-    with urlopen(req,timeout=25) as response:
-        if response.status!=200:
-            raise RuntimeError('Senate API HTTP error')
-        content=response.read(MAX_BYTES+1)
-        if len(content)>MAX_BYTES:
-            raise RuntimeError('LDA response exceeded safety limit')
-    doc=json.loads(content)
-    if not isinstance(doc.get('results'),list):
-        raise ValueError('Unexpected LDA schema')
-    return doc['results']
+    # Keep response bodies under the 350KB bound. A single page of 20
+    # rich filings exceeded it; use two 10-row pages, same 20-row cap.
+    found = []
+    for page in (1, 2):
+        query = urlencode({'filing_specific_lobbying_issues':term,
+                           'filing_year':year,'page_size':10,'page':page})
+        req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
+                                              'Accept':'application/json'})
+        for attempt in range(2):
+            try:
+                with urlopen(req,timeout=25) as response:
+                    if response.status!=200:
+                        raise RuntimeError('Senate API HTTP error: '+str(response.status))
+                    content=response.read(MAX_BYTES+1)
+                    if len(content)>MAX_BYTES:
+                        raise RuntimeError('LDA response exceeded safety limit at page_size=10')
+                break
+            except (HTTPError, URLError, TimeoutError) as exc:
+                # Retry temporary server/network faults only. Never retry 401,
+                # 403 or 429 within the same run or evade access restrictions.
+                if isinstance(exc,HTTPError) and exc.code not in (500,502,503,504):
+                    raise
+                if attempt:
+                    raise
+                import time
+                time.sleep(1.0)
+        doc=json.loads(content)
+        if not isinstance(doc.get('results'),list):
+            raise ValueError('Unexpected LDA schema')
+        found.extend(doc['results'])
+        if not doc.get('next'):
+            break
+    return found
 
 def matching_issue(filing):
     activities = filing.get('lobbying_activities') or []
@@ -126,7 +143,7 @@ def collect():
     if len(by_id)>150:
         by_id=dict(sorted(by_id.items(),reverse=True)[:150])
     body={'schema':'power-atlas.lda-filings.v1','publicationStatus':'review_required',
-          'method':'bounded top-20 page for each issue term/year; incomplete search coverage',
+          'method':'up to two 10-row pages per issue term/year; incomplete search coverage',
           'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
           'successfulQueries':successes,'failedQueries':len(failures),
           'fetchedRowsInBoundedPages':fetched,'matchedRowsInBoundedPages':matched,
