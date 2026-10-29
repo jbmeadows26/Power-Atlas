@@ -24,10 +24,8 @@
       "persistedRecords": 0
     },
     "lobbying_disclosures": {
-      "status": "blocked",
-      "attempts": 1,
-      "error": "ror.HTTPError: HTTP Error 429: Too Many Requests\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 166, in <module>\n    collect()\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 86, in collect\n    raise RuntimeError(f'LDA access or rate restriction: HTTP {exc.code}') from exc\nRuntimeError: LDA access or rate restriction: HTTP 429",
-      "workaroundOrPreservation": "Official Senate LDA issue-text search uses smaller 5/10-row pages after 20-row responses exceeded safety bound; bounded 5xx retry.",
+      "status": "deferred",
+      "note": "Senate LDA HTTP 429 observed earlier today; wait for permitted quota reset; preserve existing filings",
       "persistedRecords": 56,
       "successfulQueries": 6,
       "failedQueries": 0,
