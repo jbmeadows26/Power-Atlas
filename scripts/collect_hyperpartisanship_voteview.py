@@ -112,8 +112,9 @@ def summarize_votes(rows, member_party, ideology):
                 split += 1
             if (d_yes > 0.5 and r_yes < 0.5) or (r_yes > 0.5 and d_yes < 0.5):
                 disagree += 1
-        dem = ideology[(congress, chamber)]["D"]
-        rep = ideology[(congress, chamber)]["R"]
+        party_ideology = ideology.get((congress, chamber), {})
+        dem = party_ideology.get("D", [])
+        rep = party_ideology.get("R", [])
         out.append({
             "congress": congress, "chamber": chamber,
             "periodStatus": "incomplete_congress" if congress == LAST_CONGRESS else "completed_congress",
