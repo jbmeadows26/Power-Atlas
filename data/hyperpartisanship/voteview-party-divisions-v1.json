@@ -37,32 +37,41 @@
     "inference": "Descriptive only. Party voting divergence is not proof that a member acted against constituents."
   },
   "diagnostics": {
+    "perCongressMemberFallback": {
+      "114": {
+        "source": "https://voteview.com/static/data/out/members/HS114_members.csv",
+        "memberRows": {
+          "House": 441,
+          "Senate": 98
+        }
+      },
+      "115": {
+        "source": "https://voteview.com/static/data/out/members/HS115_members.csv",
+        "memberRows": {
+          "House": 450,
+          "Senate": 103
+        }
+      },
+      "116": {
+        "source": "https://voteview.com/static/data/out/members/HS116_members.csv",
+        "memberRows": {
+          "House": 449,
+          "Senate": 100
+        }
+      },
+      "117": {
+        "source": "https://voteview.com/static/data/out/members/HS117_members.csv",
+        "memberRows": {
+          "House": 455,
+          "Senate": 100
+        }
+      }
+    },
     "perCongressFallback": {
       "114": {
         "sources": [
           "https://voteview.com/static/data/out/votes/H114_votes.csv",
           "https://voteview.com/static/data/out/votes/S114_votes.csv"
-        ],
-        "status": "empty_or_sparse_per_congress_export"
-      },
-      "115": {
-        "sources": [
-          "https://voteview.com/static/data/out/votes/H115_votes.csv",
-          "https://voteview.com/static/data/out/votes/S115_votes.csv"
-        ],
-        "status": "empty_or_sparse_per_congress_export"
-      },
-      "116": {
-        "sources": [
-          "https://voteview.com/static/data/out/votes/H116_votes.csv",
-          "https://voteview.com/static/data/out/votes/S116_votes.csv"
-        ],
-        "status": "empty_or_sparse_per_congress_export"
-      },
-      "117": {
-        "sources": [
-          "https://voteview.com/static/data/out/votes/H117_votes.csv",
-          "https://voteview.com/static/data/out/votes/S117_votes.csv"
         ],
         "status": "empty_or_sparse_per_congress_export"
       }
@@ -79,49 +88,13 @@
         "chamber": "Senate",
         "rollCallsObserved": 0,
         "eligibleRollCalls": 0
-      },
-      {
-        "congress": 115,
-        "chamber": "House",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
-      },
-      {
-        "congress": 115,
-        "chamber": "Senate",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
-      },
-      {
-        "congress": 116,
-        "chamber": "House",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
-      },
-      {
-        "congress": 116,
-        "chamber": "Senate",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
-      },
-      {
-        "congress": 117,
-        "chamber": "House",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
-      },
-      {
-        "congress": 117,
-        "chamber": "Senate",
-        "rollCallsObserved": 0,
-        "eligibleRollCalls": 0
       }
     ],
     "historicalCoverageComplete": false,
     "doNotInterpolateOrTreatMissingAsZero": true,
-    "memberKeys": 9281,
+    "memberKeys": 10938,
     "voteRowsScanned": 26401508,
-    "voteRowsNoMatchingMajorPartyMember": 2257929
+    "voteRowsNoMatchingMajorPartyMember": 675604
   },
   "records": [
     {
@@ -578,91 +551,91 @@
       "congress": 115,
       "chamber": "House",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 1207,
+      "rollCallsEligibleBothParties": 1206,
+      "opposed90PctPartyRollCalls": 649,
+      "opposed90PctShare": 0.538143,
+      "oppositePartyMajorityRollCalls": 830,
+      "oppositePartyMajorityShare": 0.688226,
+      "democraticMemberIdeologyN": 200,
+      "republicanMemberIdeologyN": 250,
+      "firstDimensionMeanPartyGap": 0.877509,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 115,
       "chamber": "Senate",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 599,
+      "rollCallsEligibleBothParties": 598,
+      "opposed90PctPartyRollCalls": 246,
+      "opposed90PctShare": 0.411371,
+      "oppositePartyMajorityRollCalls": 360,
+      "oppositePartyMajorityShare": 0.602007,
+      "democraticMemberIdeologyN": 48,
+      "republicanMemberIdeologyN": 55,
+      "firstDimensionMeanPartyGap": 0.821865,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 116,
       "chamber": "House",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 952,
+      "rollCallsEligibleBothParties": 951,
+      "opposed90PctPartyRollCalls": 493,
+      "opposed90PctShare": 0.518402,
+      "oppositePartyMajorityRollCalls": 651,
+      "oppositePartyMajorityShare": 0.684543,
+      "democraticMemberIdeologyN": 240,
+      "republicanMemberIdeologyN": 208,
+      "firstDimensionMeanPartyGap": 0.871986,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 116,
       "chamber": "Senate",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 720,
+      "rollCallsEligibleBothParties": 719,
+      "opposed90PctPartyRollCalls": 290,
+      "opposed90PctShare": 0.403338,
+      "oppositePartyMajorityRollCalls": 419,
+      "oppositePartyMajorityShare": 0.582754,
+      "democraticMemberIdeologyN": 46,
+      "republicanMemberIdeologyN": 54,
+      "firstDimensionMeanPartyGap": 0.841585,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 117,
       "chamber": "House",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 996,
+      "rollCallsEligibleBothParties": 996,
+      "opposed90PctPartyRollCalls": 454,
+      "opposed90PctShare": 0.455823,
+      "oppositePartyMajorityRollCalls": 574,
+      "oppositePartyMajorityShare": 0.576305,
+      "democraticMemberIdeologyN": 232,
+      "republicanMemberIdeologyN": 223,
+      "firstDimensionMeanPartyGap": 0.881785,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 117,
       "chamber": "Senate",
       "periodStatus": "completed_congress",
-      "rollCallsObserved": 0,
-      "rollCallsEligibleBothParties": 0,
-      "opposed90PctPartyRollCalls": 0,
-      "opposed90PctShare": null,
-      "oppositePartyMajorityRollCalls": 0,
-      "oppositePartyMajorityShare": null,
-      "democraticMemberIdeologyN": 0,
-      "republicanMemberIdeologyN": 0,
-      "firstDimensionMeanPartyGap": null,
-      "evidenceStatus": "insufficient_source_coverage_no_rate_published"
+      "rollCallsObserved": 949,
+      "rollCallsEligibleBothParties": 949,
+      "opposed90PctPartyRollCalls": 433,
+      "opposed90PctShare": 0.45627,
+      "oppositePartyMajorityRollCalls": 768,
+      "oppositePartyMajorityShare": 0.809273,
+      "democraticMemberIdeologyN": 49,
+      "republicanMemberIdeologyN": 51,
+      "firstDimensionMeanPartyGap": 0.877571,
+      "evidenceStatus": "derived_voted_member_aggregates"
     },
     {
       "congress": 118,
