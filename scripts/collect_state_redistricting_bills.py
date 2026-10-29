@@ -142,6 +142,10 @@ def collect():
             if not re.fullmatch(r'[A-Fa-f0-9-]{36}',vid):continue
             counts={k:v.get(k) for k in ('yes_count','no_count','other_count')
                     if isinstance(v.get(k),int) and v.get(k)>=0}
+            if counts and not any(value>0 for value in counts.values()):
+                # Zero-coded placeholders in upstream vote fixtures may mean
+                # missing tallies; do not present these as 0-to-0 roll calls.
+                counts={}
             record={
                 'id':'state-roll-'+vid,
                 'billId':item['id'],'state':item['state'],
@@ -151,6 +155,7 @@ def collect():
                 'date':str(v.get('start_date') or '')[:20],
                 'result':str(v.get('result') or '')[:75],
                 'counts':counts,
+                'tallyStatus':'reported_positive_tally' if counts else 'not_reported_or_unverifiable',
                 'source':item['source'],
                 'sourceIndex':url,
                 'reviewStatus':'secondary_recorded_state_rollcall_needs_official_verification',
@@ -178,6 +183,7 @@ def collect():
         'provider':'https://billcommons.org/docs/api',
         'sourceScope':'Only first ten strongly titled bill candidates; tallies only and source URLs; zero rows does not mean no votes occurred',
         'attempts':attempts,
+        'warning':'Zero-coded unverified upstream tallies are treated as unavailable, never as confirmed zero votes.',
         'records':sorted(merged_votes.values(),key=lambda x:x['id'])
     }
     rendered_bills=json.dumps(bill_data,indent=2,ensure_ascii=False)+'\n'
