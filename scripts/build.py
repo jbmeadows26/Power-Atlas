@@ -187,6 +187,20 @@ def read_finance(filename):
         raise ValueError('Expected finance records array: ' + filename)
     return rows
 
+def read_reconciliation(filename):
+    file = ROOT / 'data/reconciliation' / filename
+    if not file.exists():
+        return {}
+    return json.loads(file.read_text(encoding='utf-8'))
+
+reconcile_domain = read_reconciliation('domain-integrity.json')
+reconcile_search = read_reconciliation('search-coverage.json')
+reconcile_queue = read_reconciliation('ingestion-queue.json')
+reconcile_vote = read_reconciliation('rollcall-staging.json')
+reconcile_elections = read_reconciliation('official-election-sources.json')
+reconcile_legal = read_reconciliation('legal-framework-timeline.json')
+source_catalog_path = ROOT / 'data/redistricting/analytics-sources.json'
+analytics_catalog = json.loads(source_catalog_path.read_text(encoding='utf-8')) if source_catalog_path.exists() else {}
 totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
 recipient_aggregates = read_finance('fec-recipient-aggregates.json')
@@ -248,6 +262,23 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'evidenceReconciliation': {
+        'summary': reconcile_domain.get('summary', {}),
+        'scope': reconcile_domain.get('productionStatus','unavailable'),
+        'searchCoverage': {'jurisdictionsTotal':reconcile_search.get('jurisdictionsTotal',0),
+                           'page1Complete':reconcile_search.get('page1Complete',0),
+                           'pendingFirstPage':reconcile_search.get('pendingFirstPage',0),
+                           'fullSweep':reconcile_search.get('fullSweep',0)},
+        'ingestionQueue': {'count':reconcile_queue.get('count',0),
+                            'pendingBaselineStates':reconcile_queue.get('pendingBaselineStates',[])},
+        'rollcallVerification': reconcile_vote.get('counts',{}),
+        'certificationStatus': reconcile_elections.get('counts',{}),
+        'legalFrameworks': reconcile_legal.get('frameworks',[]),
+        'legalCaseTimeline': reconcile_legal.get('cases',[]),
+        'analyticsSourceCatalog': {'sources': len(analytics_catalog.get('sources',[])),
+                                   'metrics':len(analytics_catalog.get('metrics',[]))}
+    },
+
     'geography': {'congressionalMapEditions':map_editions, 'comparisonNote':'116th and 119th maps differ by both nationwide apportionment and boundary changes; a shape difference is not a measure of intent.'},
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436', 'supremeCourtRedistrictingDecisions': scotus_decisions, 'supremeCourtDocketSource': 'https://www.supremecourt.gov/Docket/docket.aspx', 'scopeNote': 'Selected Supreme Court dispositions only; not a nationwide case docket census or state judicial record.'},
@@ -271,6 +302,16 @@ feed = {
     },
     'coverage': {
         'sourceIndexedRecords': len(records),
+        'rawLegislativeBillCandidatesStaged':reconcile_domain.get('summary',{}).get('billCandidatesStaged',0),
+        'rollcallOfficialVerifiedTallies':reconcile_domain.get('summary',{}).get('officiallyVerifiedLegislativeTallies',0),
+        'rollcallPartiallyParsedTallies':reconcile_domain.get('summary',{}).get('legislativeVotesWithPartiallyParsedTallies',0),
+        'stateBillFirstPageJurisdictions':reconcile_search.get('page1Complete',0),
+        'stateBillFullSweepJurisdictions':reconcile_search.get('fullSweep',0),
+        'stateBillPendingFirstPageJurisdictions':reconcile_search.get('pendingFirstPage',0),
+        'electionAuthorityCanvassesPending':reconcile_elections.get('counts',{}).get('pendingDownload',0),
+        'legalFrameworksVersioned':len(reconcile_legal.get('frameworks',[])),
+        'redistrictingAnalyticsSourcesIndexed':len(analytics_catalog.get('sources',[])),
+
         'relationshipRecords': len(relationships),
         'FECcandidateCommitteeLinks': len(fec_links),
         'FECcommitteeMasterRows': len(committee_master),
