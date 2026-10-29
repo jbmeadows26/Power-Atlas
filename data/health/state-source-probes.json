@@ -45,7 +45,39 @@
       ],
       "unresolved": "No authenticated Open States session; no state official roll-call parser tested; Bill Commons commercial redistribution terms and quota constraints require review. No state roll-call rows persisted.",
       "nextFreeStep": "Pilot one official state legislature's downloadable roll-call export with stable vote IDs and member-level votes, and validate against its published roll call; do not bulk crawl a rate-limited service."
+    },
+    {
+      "id": "il_billcommons_page_one_timeout_official_fallback",
+      "jurisdiction": "IL",
+      "domain": "state_legislation",
+      "status": "official_bill_spotchecks_persisted_secondary_page_one_unavailable",
+      "primary": "https://api.billcommons.org/api/v1/search",
+      "officialAlternative": "https://www.ilga.gov/legislation",
+      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Official Illinois General Assembly bill-status pages independently identify HJRCA 5, HJRCA 27, and HJRCA 28.",
+      "attemptedAlternatives": [
+        "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
+        "Official 104th General Assembly bill-status records reviewed and stored as a separate four-record IL/TX spotcheck dataset."
+      ],
+      "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
+      "unresolved": "Bill Commons first-page state query not obtained. Official individual bill pages do not constitute complete IL keyword search, so IL remains unscanned in the 51-jurisdiction first-page checkpoint.",
+      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved."
+    },
+    {
+      "id": "tx_billcommons_page_one_timeout_official_fallback",
+      "jurisdiction": "TX",
+      "domain": "state_legislation",
+      "status": "official_bill_spotcheck_persisted_secondary_page_one_unavailable",
+      "primary": "https://api.billcommons.org/api/v1/search",
+      "officialAlternative": "https://capitol.texas.gov/search/billsearch.aspx",
+      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Texas Legislature Online independently confirms 89th Legislature 2nd Called Session HB 4 congressional-district legislation signed on 2025-08-29, with reported effective date 2025-12-04.",
+      "attemptedAlternatives": [
+        "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
+        "Official Texas bill history page reviewed and stored as an individual bill metadata spotcheck."
+      ],
+      "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
+      "unresolved": "Bill Commons first-page state query not obtained. Existing Texas bill candidates and official HB 4 spotcheck do not establish complete TX legislative coverage, so TX remains unscanned in the first-page checkpoint.",
+      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved."
     }
   ],
-  "disclaimer": "Discovery links and access probes are not evidence of case outcomes, money flows, influence, or nationwide coverage."
+  "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage."
 }
