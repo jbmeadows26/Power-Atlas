@@ -18,7 +18,7 @@ ROOT=Path(__file__).resolve().parents[1]
 BILLS=ROOT/'data/legislation/state-redistricting-bills.json'
 CHECKPOINT=ROOT/'data/legislation/state-redistricting-jurisdictions.json'
 API='https://api.billcommons.org/api/v1/search'
-STATES='AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WY DC'.split()+['WY']
+STATES='AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV DC'.split()+['WY']
 # Correct the US set against the public source's 51 jurisdictions.
 STATES=sorted(set(STATES))
 MAX_PER_RUN=8
