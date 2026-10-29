@@ -116,7 +116,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
             raise ValueError(f"Conflicting XML/official filename bill numbers: {source_url}")
     sponsor_ids = []
     for item in items(bill, "sponsors"):
-        ident = textof(item, "identifiers", "bioguideId")
+        ident = textof(item, "identifiers", "bioguideId") or next((v for node in item.iter() if node.tag.rsplit("}", 1)[-1].lower() == "bioguideid" for v in [(node.text or "").strip()] if v), "")
         if re.fullmatch(r"[A-Z][0-9]{6}", ident):
             sponsor_ids.append(ident)
     if len(set(sponsor_ids)) != len(sponsor_ids):
@@ -124,7 +124,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
     cosponsors = []
     seen_events = set()
     for position, item in enumerate(items(bill, "cosponsors")):
-        ident = textof(item, "identifiers", "bioguideId")
+        ident = textof(item, "identifiers", "bioguideId") or next((v for node in item.iter() if node.tag.rsplit("}", 1)[-1].lower() == "bioguideid" for v in [(node.text or "").strip()] if v), "")
         if not re.fullmatch(r"[A-Z][0-9]{6}", ident or ""):
             # Some official XML source records lack a stable ID. Preserve
             # each unknown independently; NEVER guess identity from a name.
