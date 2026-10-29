@@ -100,7 +100,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
     number = textof(bill, "billNumber")
     if congress != str(CONGRESS):
         raise ValueError(f"Wrong Congress in {source_url}: {congress!r}")
-    official_match = re.search(rf"BILLSTATUS-{CONGRESS}{kind}([1-9][0-9]*)\\.xml$", source_url)
+    official_match = re.search(rf"BILLSTATUS-{CONGRESS}{kind}([1-9][0-9]*)[.]xml$", source_url)
     if number and not number.isdecimal():
         raise ValueError(f"Malformed XML bill number in {source_url}: {number!r}")
     if not number:
