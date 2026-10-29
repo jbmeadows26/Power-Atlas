@@ -1,0 +1,75 @@
+name: Stage official Census state fiscal vintages
+on:
+  push:
+    paths:
+      - 'scripts/collect_state_fiscal_legacy.py'
+      - 'tests/test_fiscal_legacy.py'
+      - '.github/workflows/collect-state-fiscal-legacy.yml'
+  pull_request:
+    paths:
+      - 'scripts/collect_state_fiscal_legacy.py'
+      - 'tests/test_fiscal_legacy.py'
+      - '.github/workflows/collect-state-fiscal-legacy.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-fiscal-state-vintage
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Offline format and safety tests
+        run: python -m unittest discover -s tests -p 'test_fiscal_legacy.py' -v
+      - name: Stage official fixed-width data (2012-2015 pilot)
+        run: python -m scripts.collect_state_fiscal_legacy --years 2012 2013 2014 2015
+      - name: Prevent forged inferences and inspect record persistence
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/fiscal/state-legacy/index.json')
+          d=json.loads(p.read_text())
+          assert d['years']==[2012,2013,2014,2015]
+          assert d['spendingShares'] is None and d['electionCycleEstimates'] is None
+          for year in d['years']:
+              doc=json.loads(Path(f'data/fiscal/state-legacy/fy{year}.json').read_text())
+              assert doc['coverage']['stateGovernmentCount']>=40
+              assert doc['publicationStatus']=='official_raw_code_family_staged_not_harmonized'
+              print(year,doc['coverage'],doc['source']['sha256OriginalBytes'][:20])
+          PY
+      - name: Publish only the new fiscal evidence files with bounded retries
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/fiscal/state-legacy/
+          if git diff --cached --quiet; then
+            echo 'Official source observations unchanged; no commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: stage source-linked Census 2012-2015 capital component records'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Source record conflict requires review; refusing force push.'
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Published source-derived evidence on attempt $attempt"
+              exit 0
+            fi
+            sleep "$((attempt*2))"
+          done
+          echo 'Remote changed too frequently; no unsafe write.'
+          exit 1
