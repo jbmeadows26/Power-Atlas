@@ -37,7 +37,9 @@ def build_summary(path: Path = INPUT) -> dict:
         for column in (
             "nationalGovernment2023", "nationalGovernment2025", "localGovernment2025",
             "nationalParliament2025", "nationalCivilService2025", "courts2025",
-            "politicalParties2025",
+            "politicalParties2025", "localGovernment2023",
+            "nationalParliament2023", "nationalCivilService2023",
+            "courts2023", "politicalParties2023",
         ):
             v = r[column]
             if v is not None:
@@ -108,6 +110,38 @@ def build_summary(path: Path = INPUT) -> dict:
             "largestDecreases": sorted_changes[:6],
         },
         "institutionalGaps2025": by_gap,
+        "institutionChanges2023to2025": {
+            "matchedCountries": len(paired),
+            "meanChangePercentagePoints": {
+                "nationalGovernment": round(mean(
+                    r["nationalGovernment2025"] - r["nationalGovernment2023"] for r in paired
+                ), 3),
+                "civilService": round(mean(
+                    r["nationalCivilService2025"] - r["nationalCivilService2023"] for r in paired
+                ), 3),
+                "localGovernment": round(mean(
+                    r["localGovernment2025"] - r["localGovernment2023"] for r in paired
+                ), 3),
+                "nationalParliament": round(mean(
+                    r["nationalParliament2025"] - r["nationalParliament2023"] for r in paired
+                ), 3),
+            },
+            "oppositeDirectionNationalVsCivilService": [
+                {
+                    "countryCode": r["countryCode"],
+                    "country": r["country"],
+                    "nationalGovernmentChangePp":
+                        r["nationalGovernment2025"] - r["nationalGovernment2023"],
+                    "civilServiceChangePp":
+                        r["nationalCivilService2025"] - r["nationalCivilService2023"],
+                }
+                for r in paired
+                if (
+                    (r["nationalGovernment2025"] - r["nationalGovernment2023"])
+                    * (r["nationalCivilService2025"] - r["nationalCivilService2023"]) < 0
+                )
+            ],
+        },
         "limitations": [
             "Rounded percentages omit within-country sampling variance and question-level uncertainty.",
             "2023-2025 repeated cross-sections do not track the same respondents.",
