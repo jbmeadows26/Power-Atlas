@@ -26,6 +26,11 @@ EXPECTED_SOURCE_SHA256="888dfbb3f8eeebce01b409e4e86178ac04c596c7fc355047beef2433
 DAT_NAME="GOVSSTATEFINTIMESERIES.dat"
 FIELDS_NAME="GOVSSTATEFINTIMESERIES_FIELDS.txt"
 YEAR_SET=set(range(2012,2025))
+# Modern Census ST column is two-digit *FIPS state code*, not the
+# historical Census government-ID sequence used in legacy state35 files.
+STATE_FIPS_CODES=frozenset("01 02 04 05 06 08 09 10 12 13 15 16 17 18 19 20 "
+                           "21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 "
+                           "37 38 39 40 41 42 44 45 46 47 48 49 50 51 53 54 55 56".split())
 METRICS={
     "SF0132":("totalExpenditure","Expenditure - Total Expenditure"),
     "SF0175":("directExpenditure","Expenditure - Total Direct Expenditure"),
@@ -43,7 +48,7 @@ def process_archive(body, enforce_source_hash=True):
     digest=hashlib.sha256(body).hexdigest()
     if enforce_source_hash and digest!=EXPECTED_SOURCE_SHA256:
         raise ValueError("Official source ZIP changed; require review before publishing new vintage")
-    state_codes={f"{i:02}" for i in list(range(1,9))+list(range(10,52))}
+    state_codes=STATE_FIPS_CODES
     records={}
     counts=Counter()
     sample_labels={}
