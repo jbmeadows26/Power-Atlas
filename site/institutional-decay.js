@@ -95,10 +95,12 @@
       pending=false;status.textContent='Country feed unavailable: '+e.message+'. Read the source dataset or final assessment using the links below.';
     });
   }
-  document.addEventListener('DOMContentLoaded',function(){
+  function initialize(){
     var tab=document.querySelector('[data-tab="institutional-decay"]');
     if(!tab)return;
     tab.addEventListener('click',load);
     document.getElementById('idComparison').addEventListener('change',function(){if(dataset)draw(dataset.rows);});
-  });
+  }
+  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',initialize);
+  else initialize();
 })();
