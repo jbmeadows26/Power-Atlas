@@ -211,14 +211,36 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(len(sponsored),feed['coverage']['federalBillSponsorEdges'])
 
     def test_state_bill_source_links_and_vote_tally_status(self):
-        p=ROOT/'data/legislation/state-redistricting-bills.json'
+        p = ROOT / 'data/legislation/state-redistricting-bills.json'
         if not p.exists():
             self.skipTest('State bill index has not yet completed')
-        bills=load('data/legislation/state-redistricting-bills.json')
-        ids=[row['id'] for row in bills['records']]
-        self.assertEqual(len(ids),len(set(ids)))
+        bills = load('data/legislation/state-redistricting-bills.json')
+        ids = [row['id'] for row in bills['records']]
+        self.assertEqual(len(ids), len(set(ids)))
         for r in bills['records']:
-            self.assertRegex(r['state'],r'^[A-Z]{2}
+            self.assertTrue(re.fullmatch('[A-Z]{2}', r['state']))
+            self.assertTrue(r['source'].startswith('https://'))
+            self.assertIn(r['issueClass'], ('redistricting_specific_title', 'keyword_search_candidate_unverified'))
+            self.assertFalse(SENSITIVE.intersection(r.keys()))
+        vote_file = ROOT / 'data/legislation/state-redistricting-votes.json'
+        if vote_file.exists():
+            votes = load('data/legislation/state-redistricting-votes.json')['records']
+            self.assertEqual(len(votes), len({r['id'] for r in votes}))
+            for v in votes:
+                self.assertTrue(v['source'].startswith('https://'))
+                self.assertFalse(SENSITIVE.intersection(v.keys()))
+                if v['counts']:
+                    self.assertGreater(sum(v['counts'].values()), 0)
+                    self.assertEqual(v['tallyStatus'], 'reported_positive_tally')
+                else:
+                    self.assertEqual(v['tallyStatus'], 'not_reported_or_unverifiable')
+            feed = load('data/app-feed.json')
+            self.assertEqual(feed['legislation']['stateRedistrictingRecordedVotes'], votes)
+            self.assertEqual(feed['legislation']['stateRedistrictingBillCandidates'], bills['records'])
+            self.assertEqual(feed['coverage']['stateRecordedVoteRows'], len(votes))
+            self.assertEqual(feed['coverage']['stateBillCandidateRows'], len(bills['records']))
+
+    def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
             self.assertIsNotNone(re.fullmatch(r'C[0-9]{8}', row['committeeId']))
