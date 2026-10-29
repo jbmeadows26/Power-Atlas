@@ -43,6 +43,11 @@ jobs:
           assert d['coverage']['count']>=4000
           assert d['coverage']['count']==len(d['records'])
           assert d['coverage']['crossPartyTrue']+d['coverage']['crossPartyFalseWithCompletePartyData']+d['coverage']['crossPartyUnknown']==len(d['records'])
+          classified=d['coverage']['crossPartyTrue']+d['coverage']['crossPartyFalseWithCompletePartyData']
+          assert classified>=0.7*len(d['records']), 'Known sponsor and cosponsor crosswalk coverage regressed'
+          assert d['coverage']['crossPartyTrue']>100, 'Potentially broken Bioguide crosswalk: no verifiable opposition-party cosponsors'
+          assert d['coverage']['crossPartyUnknown']<0.3*len(d['records'])
+          print('Bills with known classifications:',classified,'unknown:',d['coverage']['crossPartyUnknown'])
           assert len(d['sources'])==2
           assert all(s.startswith('https://www.govinfo.gov/bulkdata/') for s in d['sources'])
           ids=[row['id'] for row in d['records']]
