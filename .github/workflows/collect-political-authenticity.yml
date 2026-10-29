@@ -1,0 +1,51 @@
+name: Collect political authenticity research evidence
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '32 13 * * 2,5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: political-authenticity-biographies
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Validate evidence collector
+        run: python -m unittest discover -s tests -p 'test_political_authenticity.py' -v
+      - name: Collect free CC0 congressional biography records
+        run: python scripts/collect_political_authenticity.py
+      - name: Validate output completeness and missingness
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('data/research/political-authenticity/coverage.json')
+          c=json.loads(path.read_text())
+          assert c['rosterTotal'] >= 500
+          assert c['ageKnown'] > 0
+          assert c['ageKnown']+c['ageUnknown']==c['rosterTotal']
+          assert c['wealthKnown']==c['occupationKnown']==c['educationKnown']==0
+          print(c['rosterTotal'],c['ageKnown'],c['ageUnknown'])
+          PY
+      - name: Publish validated research records if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/political-authenticity/members.json data/research/political-authenticity/coverage.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: update validated political representation biography snapshot'
+            git push
+          else
+            echo 'No source data changes'
+          fi
