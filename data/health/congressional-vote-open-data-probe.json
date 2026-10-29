@@ -15,5 +15,136 @@
       "meta"
     ],
     "source": "https://www.ballotwatch.io/api/v1/stats"
-  }
+  },
+  "searchProbes": [
+    {
+      "query": "redistricting",
+      "source": "https://www.ballotwatch.io/api/v1/search?q=redistricting&limit=5",
+      "status": "reachable",
+      "rootKeys": [
+        "data",
+        "meta"
+      ],
+      "dataType": "dict",
+      "dataKeys": [
+        "members",
+        "bills"
+      ],
+      "collections": {
+        "members": {
+          "count": 0,
+          "sampleKeys": []
+        },
+        "bills": {
+          "count": 5,
+          "sampleKeys": [
+            "id",
+            "title",
+            "introduced_at",
+            "summary",
+            "source_url",
+            "created_at",
+            "updated_at",
+            "crs_summary",
+            "policy_area",
+            "sponsor_bioguide_id",
+            "sponsor_name",
+            "sponsor_party",
+            "sponsor_state",
+            "legislative_stage"
+          ],
+          "example": {
+            "id": "119-hr-4889",
+            "title": "To prohibit States from carrying out more than one Congressional redistricting after a decennial census and ap"
+          }
+        }
+      }
+    },
+    {
+      "query": "voting rights",
+      "source": "https://www.ballotwatch.io/api/v1/search?q=voting+rights&limit=5",
+      "status": "reachable",
+      "rootKeys": [
+        "data",
+        "meta"
+      ],
+      "dataType": "dict",
+      "dataKeys": [
+        "members",
+        "bills"
+      ],
+      "collections": {
+        "members": {
+          "count": 0,
+          "sampleKeys": []
+        },
+        "bills": {
+          "count": 5,
+          "sampleKeys": [
+            "id",
+            "title",
+            "introduced_at",
+            "summary",
+            "source_url",
+            "created_at",
+            "updated_at",
+            "crs_summary",
+            "policy_area",
+            "sponsor_bioguide_id",
+            "sponsor_name",
+            "sponsor_party",
+            "sponsor_state",
+            "legislative_stage"
+          ],
+          "example": {
+            "id": "119-sres-854",
+            "title": "A resolution designating September 2026 as \"National Voting Rights Month\"."
+          }
+        }
+      }
+    },
+    {
+      "query": "election",
+      "source": "https://www.ballotwatch.io/api/v1/search?q=election&limit=5",
+      "status": "reachable",
+      "rootKeys": [
+        "data",
+        "meta"
+      ],
+      "dataType": "dict",
+      "dataKeys": [
+        "members",
+        "bills"
+      ],
+      "collections": {
+        "members": {
+          "count": 0,
+          "sampleKeys": []
+        },
+        "bills": {
+          "count": 5,
+          "sampleKeys": [
+            "id",
+            "title",
+            "introduced_at",
+            "summary",
+            "source_url",
+            "created_at",
+            "updated_at",
+            "crs_summary",
+            "policy_area",
+            "sponsor_bioguide_id",
+            "sponsor_name",
+            "sponsor_party",
+            "sponsor_state",
+            "legislative_stage"
+          ],
+          "example": {
+            "id": "119-hr-10907",
+            "title": "Stop Harassment and Intimidations in Elections through Legal Defenses (SHIELD) Our Elections Act"
+          }
+        }
+      }
+    }
+  ]
 }
