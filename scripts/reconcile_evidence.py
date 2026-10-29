@@ -2,7 +2,8 @@
 
 No database needed at runtime. Staged candidates never become verified bills
 or certified roll calls just because a provider returned rows.
-Official source reconciliation is a separate, future signed-off action.
+A cited official staff-summary aggregate crosscheck is not a certified member-level roll call.
+Production roll calls remain gated on independently verified chamber evidence.
 """
 from __future__ import annotations
 from pathlib import Path
