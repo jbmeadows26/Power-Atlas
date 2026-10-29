@@ -1,5 +1,10 @@
 # Institutional Decay — evidence baseline and empirical protocol
 
+## Final assessment (2026-10-29)
+
+**The evidence review is closed, but the interaction/causal hypothesis is not established.** Read the [final scientific assessment](FINAL-ASSESSMENT-2026-10-29.md) for the verdict, full evidence matrix, 2023–2025 institutional trend and cross-country correlation analyses, implementation-gap interpretation, country examples, policy decisions and explicit research limits. The claim scope is a **source-backed descriptive/literature assessment**, not a causal demonstration or full national performance index.
+
+
 **Status:** Initial primary-source aggregate extracts verified and persisted on 2026-10-29. **No causal model or survey experiment has been executed.** This topic is a separate research track from Power Atlas's redistricting coverage. The extract is in [evidence-v1.json](../../data/institutional-decay/evidence-v1.json); it is **not** yet part of the redistricting `data/app-feed.json` and must not be represented as integrated into the production frontend.
 
 ## Question and neutral framing
