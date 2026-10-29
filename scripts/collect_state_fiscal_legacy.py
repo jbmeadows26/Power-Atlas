@@ -78,7 +78,7 @@ def parse_records(raw: bytes, source_year: int):
             continue
         all_count += 1
         if len(line) != 35:
-            raise ValueError(f"Invalid record width at line {line_number}: {len(line)} (expected 35)")
+            raise ValueError(f"Invalid record width at line {line_number}: {len(line)} (expected 35); public-source prefix={line[:65]!r}")
         gov, item, amount, survey, data_year, origin = (
             line[:14], line[14:17], line[17:29],
             line[29:31], line[31:33], line[33:35]
