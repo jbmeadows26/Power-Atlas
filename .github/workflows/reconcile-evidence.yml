@@ -3,6 +3,8 @@ on:
   push:
     paths:
       - 'scripts/reconcile_evidence.py'
+      - 'tests/test_reconciliation.py'
+      - 'scripts/source_access.py'
       - 'data/redistricting/analytics-sources.json'
       - 'data/elections/official-source-index.json'
       - 'data/legislation/state-redistricting-jurisdictions.json'
