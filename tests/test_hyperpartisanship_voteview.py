@@ -74,6 +74,23 @@ class VoteviewCodingTests(unittest.TestCase):
         self.assertEqual(ideology[(115, "House")]["D"], [-0.5])
         self.assertEqual(ideology[(115, "House")]["R"], [0.5])
 
+    def test_decimal_icpsr_join_is_exact_and_not_name_based(self):
+        self.assertEqual(collector.canonical_icpsr("10713.0"), "10713")
+        self.assertEqual(collector.canonical_icpsr("10713"), "10713")
+        self.assertEqual(collector.canonical_icpsr("00004.000"), "4")
+        self.assertIsNone(collector.canonical_icpsr("10713.5"))
+        self.assertIsNone(collector.canonical_icpsr("unknown"))
+        records = [{"congress":"114","chamber":"House","rollnumber":"1",
+                    "icpsr":f"{i}.0","cast_code":"1" if i <= 100 else "6"}
+                   for i in range(1,201)]
+        identities={(114,"House",str(i)):("D" if i<=100 else "R") for i in range(1,201)}
+        ideology={(114,"House"):{"D":[-.4]*100,"R":[.5]*100}}
+        rows,_,missed=collector.summarize_votes(records*6,identities,ideology)
+        row=next(r for r in rows if r["congress"]==114 and r["chamber"]=="House")
+        self.assertEqual(row["rollCallsEligibleBothParties"],1)
+        self.assertEqual(row["opposed90PctPartyRollCalls"],1)
+        self.assertEqual(missed,0)
+
     def test_whitelist_blocks_unapproved_hosts(self):
         with self.assertRaises(ValueError):
             next(collector.stream_csv("https://example.org/malicious.csv"))
