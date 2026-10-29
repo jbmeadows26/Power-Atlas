@@ -26,25 +26,44 @@ END=date(2026,10,30)
 MAX_BYTES=220000
 
 def fetch_state(state):
-    q=urlencode({'q':'redistricting','jurisdiction':state,'per_page':20,'page':1})
-    url=API+'?'+q
-    req=Request(url,headers={'User-Agent':'PowerAtlasPublicResearch/1.0 state legislative index',
-                             'Accept':'application/json'})
-    for attempt in range(2):
-        try:
-            with urlopen(req,timeout=18) as resp:
-                if resp.status!=200:raise RuntimeError('Unexpected source response')
-                raw=resp.read(MAX_BYTES+1)
-                if len(raw)>MAX_BYTES:raise RuntimeError('State search exceeded bounded size')
-            body=json.loads(raw)
-            if not isinstance(body.get('data'),list):raise ValueError('Unexpected state search schema')
-            return body,url
-        except HTTPError as exc:
-            # Never retry access controls or 429. Retry bounded 5xx only.
-            if exc.code not in (500,502,503,504) or attempt:raise
-        except (URLError,OSError,TimeoutError):
-            if attempt:raise
-        time.sleep(1.5)
+    """Bounded official-link index search; shrink page only for slow IL/TX.
+
+    A smaller page is explicitly checkpointed and never called an exhaustive
+    jurisdiction search. Access/rate errors stop immediately, without fallback.
+    """
+    page_sizes=(20,10,5) if state in ('IL','TX') else (20,)
+    failures=[]
+    requests=0
+    for per_page in page_sizes:
+        q=urlencode({'q':'redistricting','jurisdiction':state,'per_page':per_page,'page':1})
+        url=API+'?'+q
+        req=Request(url,headers={'User-Agent':'PowerAtlasPublicResearch/1.0 state legislative index',
+                                 'Accept':'application/json'})
+        retries=2 if per_page==20 else 1
+        for attempt in range(retries):
+            requests+=1
+            try:
+                with urlopen(req,timeout=18) as resp:
+                    if resp.status!=200:raise RuntimeError('Unexpected source response')
+                    raw=resp.read(MAX_BYTES+1)
+                    if len(raw)>MAX_BYTES:raise RuntimeError('State search exceeded bounded size')
+                body=json.loads(raw)
+                if not isinstance(body.get('data'),list):raise ValueError('Unexpected state search schema')
+                return body,url,per_page
+            except HTTPError as exc:
+                if exc.code not in (500,502,503,504):
+                    exc.requestsAttempted=requests
+                    exc.pageSizesAttempted=list(page_sizes[:page_sizes.index(per_page)+1])
+                    raise
+                failures.append(exc)
+            except (URLError,OSError,TimeoutError) as exc:
+                failures.append(exc)
+            if attempt+1<retries:
+                time.sleep(1.5)
+    last=failures[-1]
+    last.requestsAttempted=requests
+    last.pageSizesAttempted=list(page_sizes)
+    raise last
 
 def record(raw,state):
     uid=str(raw.get('id') or '')
@@ -101,14 +120,15 @@ def run():
     for state in selected:
         attempts[state]=int(attempts.get(state,0))+1
         try:
-            response,url=fetch_state(state)
+            response,url,per_page=fetch_state(state)
         except HTTPError as exc:
             restricted=exc.code in (401,403,429)
             status='access_or_rate_deferred' if restricted else 'http_failure'
             failures[state]={'status':status,'httpStatus':exc.code,
                              'lastAttemptUTC':date.today().isoformat(),
                              'sourceEndpoint':API,
-                             'requestsAttempted':2 if exc.code in (500,502,503,504) else 1,
+                             'requestsAttempted':getattr(exc,'requestsAttempted',1),
+                             'perPageVariantsAttempted':getattr(exc,'pageSizesAttempted',[20]),
                              'retryPolicy':'do_not_retry_access_or_rate_restrictions' if restricted else 'bounded_retry_only_for_5xx'}
             results.append({'state':state,'status':status,'http':exc.code})
             if restricted:break
@@ -118,7 +138,8 @@ def run():
             failures[state]={'status':'temporary_unavailable','errorType':error_type,
                              'lastAttemptUTC':date.today().isoformat(),
                              'sourceEndpoint':API,
-                             'requestsAttempted':2 if isinstance(exc,(URLError,OSError,TimeoutError)) else 1,
+                             'requestsAttempted':getattr(exc,'requestsAttempted',1),
+                             'perPageVariantsAttempted':getattr(exc,'pageSizesAttempted',[20]),
                              'retryPolicy':'bounded_network_retry_then_later_batch'}
             results.append({'state':state,'status':'temporary_unavailable','errorType':error_type})
             continue
@@ -130,7 +151,7 @@ def run():
             if parsed['id'] not in indexed:
                 indexed[parsed['id']]=parsed;new+=1
         done[state]={
-            'query':'redistricting','searchPage':1,'perPage':20,
+            'query':'redistricting','searchPage':1,'perPage':per_page,
             'totalMatchesReported':response.get('pagination',{}).get('total'),
             'newIndexedRecords':new,
             'status':'first_page_indexed_not_exhaustive'
