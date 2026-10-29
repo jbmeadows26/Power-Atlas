@@ -309,7 +309,7 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(source['publicationStatus'], 'curated_scotus_decision_index_not_nationwide_docket_coverage')
         self.assertEqual(len(rows), 4)
         self.assertEqual(len({r['docket'] for r in rows}), len(rows))
-        allowed = {'affirmed', 'vacated_and_remanded', 'reversed_in_part_remanded_in_part', 'appeal_dismissed'}
+        allowed = {'affirmed', 'affirmed_and_remanded', 'vacated_and_remanded', 'reversed_in_part_remanded_in_part', 'appeal_dismissed'}
         for r in rows:
             self.assertIsNotNone(re.fullmatch(r'[0-9]{2}-[0-9]{1,5}', r['docket']))
             self.assertEqual(r['id'], 'scotus-'+r['docket'])
@@ -320,8 +320,8 @@ class CorpusChecks(unittest.TestCase):
             self.assertFalse(SENSITIVE.intersection(r.keys()))
         feed = load('data/app-feed.json')
         indexed = feed['judiciary']['supremeCourtRedistrictingDecisions']
-        self.assertEqual(len(indexed), 7)
-        expected = {r['id'] for r in rows} | {'scotus-allen-2023','scotus-moore-2023','scotus-rucho-2019'}
+        new_decisions=load('data/batches/scotus-2026-updates.json')['records']
+        expected = {r['id'] for r in rows} | {r['id'] for r in new_decisions} | {'scotus-allen-2023','scotus-moore-2023','scotus-rucho-2019'}
         self.assertEqual({r['id'] for r in indexed}, expected)
         self.assertEqual(feed['coverage']['supremeCourtRedistrictingDecisions'],len(indexed))
         for r in indexed:
