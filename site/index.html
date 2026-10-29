@@ -206,9 +206,9 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <span class="eyebrow">State legislation / Bills & recorded votes</span><h2>State redistricting proposals</h2>
     <p class="sub">Source-indexed state bills from bounded public searches. Coverage varies widely by jurisdiction and may omit bills. A recorded vote is labeled separately from bill status and does not, by itself, prove a redistricting map was adopted.</p>
     <div class="filters"><input id="stateBillQuery" aria-label="Search state bills" placeholder="State, title, bill number…">
-      <select id="stateBillTopic" aria-label="State bill topic"><option value="">All search candidates</option><option value="redistricting_specific_title">Titles specifically about districting</option><option value="keyword_search_candidate_unverified">Other keyword matches</option></select>
+      <select id="stateBillTopic" aria-label="State bill topic"><option value="redistricting_specific_title" selected>Directly related titles</option><option value="">All candidates (including unverified matches)</option><option value="keyword_search_candidate_unverified">Other keyword matches</option></select>
       <span id="stateBillCount" class="muted"></span></div>
-    <p id="stateBillStatus" class="mapstatus">State bill collection is partial. Search source links for original details and recent actions.</p>
+    <p id="stateBillStatus" class="mapstatus">Showing title-specific proposals by default. Broader keyword candidates are unverified and can be displayed with the topic filter.</p>
     <div id="stateBillList" class="list"></div>
     <h3>Recorded state bill votes</h3><div id="stateVoteList" class="list"></div>
     <p class="note">Metadata source: <a href="https://billcommons.org/docs/api" target="_blank" rel="noopener noreferrer">Bill Commons public API ↗</a>. Official state bill sources control, and the API does not offer a complete verified national legislative-vote census. An empty vote list means no matching vote collected.</p>
