@@ -73,11 +73,14 @@ def party_roster():
     if doc.get("license") != "CC0-1.0":
         raise RuntimeError("Missing source license for 119th identity crosswalk")
     ids = {}
+    roster_date = doc.get("asOfDate", "")
+    if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}", roster_date):
+        raise RuntimeError("Legislator roster lacks a verifiable snapshot date")
     for m in doc["records"]:
         ident = m.get("bioguideId")
         if not re.fullmatch(r"[A-Z][0-9]{6}", ident or ""):
             continue
-        if not (m.get("termStart", "") <= "2026-10-29" < m.get("termEnd", "9999")):
+        if not (m.get("termStart", "") <= roster_date < m.get("termEnd", "9999")):
             continue
         p = str(m.get("party", "")).lower()
         party = "D" if p.startswith("democrat") else ("R" if p.startswith("republican") else None)
@@ -105,21 +108,23 @@ def parse_bill(xml_bytes, kind, source_url, parties):
     if len(set(sponsor_ids)) != len(sponsor_ids):
         raise ValueError("Repeated sponsor identity")
     cosponsors = []
-    seen_cos = set()
+    seen_events = set()
     for item in items(bill, "cosponsors"):
         ident = textof(item, "identifiers", "bioguideId")
         if not re.fullmatch(r"[A-Z][0-9]{6}", ident or ""):
             raise ValueError("Cosponsor missing uniquely parseable bioguide ID")
-        if ident in seen_cos:
-            raise ValueError("Repeated cosponsor identity; cannot derive accurate count")
-        seen_cos.add(ident)
         started = textof(item, "sponsorshipDate")
         withdrawn = textof(item, "sponsorshipWithdrawnDate")
+        event = (ident, started or None, withdrawn or None)
+        if event in seen_events:
+            continue  # identical duplicate source event is not a second cosponsorship
+        seen_events.add(event)
         cosponsors.append([ident, started or None, withdrawn or None])
     sponsor_party = parties.get(sponsor_ids[0]) if len(sponsor_ids) == 1 else None
-    current = [c for c in cosponsors if c[2] is None]
-    distinct_known = {parties.get(c[0]) for c in current if parties.get(c[0]) in ("D", "R")}
-    unknown = sum(parties.get(c[0]) not in ("D", "R") for c in current)
+    current_ids = {c[0] for c in cosponsors if c[2] is None}
+    withdrawn_ids = {c[0] for c in cosponsors if c[2] is not None} - current_ids
+    distinct_known = {parties.get(ident) for ident in current_ids if parties.get(ident) in ("D", "R")}
+    unknown = sum(parties.get(ident) not in ("D", "R") for ident in current_ids)
     cross_known = bool(sponsor_party in ("D", "R") and ({"D", "R"} - {sponsor_party}) & distinct_known)
     if cross_known:
         cross = True
@@ -137,8 +142,8 @@ def parse_bill(xml_bytes, kind, source_url, parties):
         "sponsorIds": sponsor_ids,
         "sponsorPartyCrosswalk": sponsor_party,
         "cosponsorEvents": cosponsors,
-        "activeCosponsorCount": len(current),
-        "withdrawnCosponsorCount": len(cosponsors) - len(current),
+        "activeCosponsorCount": len(current_ids),
+        "withdrawnCosponsorCount": len(withdrawn_ids),
         "activeCosponsorUnknownPartyCount": unknown,
         "knownCrossPartyCosponsor": cross,
         "source": source_url,
