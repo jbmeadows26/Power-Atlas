@@ -4,6 +4,102 @@
   "schema": "power-atlas.census-legacy-vintage-index.v1",
   "sources": [
     {
+      "capitalFamilyRowsRetained": 3878,
+      "path": "data/fiscal/state-legacy/fy2000.json",
+      "sha256OriginalBytes": "f086f46f2f53aba04bdda37e66e881f7e16a0f78fd3e9a7519e3d7a0f16889a5",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/00state35.txt",
+      "year": 2000
+    },
+    {
+      "capitalFamilyRowsRetained": 3884,
+      "path": "data/fiscal/state-legacy/fy2001.json",
+      "sha256OriginalBytes": "528c6622f737157141815d6801f5951ecb59cd3733b6520b038f20aae4dcfee0",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/01state35.txt",
+      "year": 2001
+    },
+    {
+      "capitalFamilyRowsRetained": 3803,
+      "path": "data/fiscal/state-legacy/fy2002.json",
+      "sha256OriginalBytes": "0c8b6f6f884130a71e95ed4d8f5a6c3bd25059f42b68b488a3be0ef082b99372",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/02state35.txt",
+      "year": 2002
+    },
+    {
+      "capitalFamilyRowsRetained": 3941,
+      "path": "data/fiscal/state-legacy/fy2003.json",
+      "sha256OriginalBytes": "d5de4c1d2368c64bb2ed03a65c88b8fe33fac930a053ea9022e331e381af16f4",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/03state35.txt",
+      "year": 2003
+    },
+    {
+      "capitalFamilyRowsRetained": 4023,
+      "path": "data/fiscal/state-legacy/fy2004.json",
+      "sha256OriginalBytes": "505b264632535d7de342f6eca6c8cd139d3fa72909ec6ab59cdb7301a1806976",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/04state35.txt",
+      "year": 2004
+    },
+    {
+      "capitalFamilyRowsRetained": 3895,
+      "path": "data/fiscal/state-legacy/fy2005.json",
+      "sha256OriginalBytes": "50419c442ceeb25ba60d1b9d2bf04a76935df7b9440b03d0cec444d44b4aef62",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/05state35.txt",
+      "year": 2005
+    },
+    {
+      "capitalFamilyRowsRetained": 3927,
+      "path": "data/fiscal/state-legacy/fy2006.json",
+      "sha256OriginalBytes": "a69732c4374991a902bd4b6cc3130e54dd664a457d2a056a11f480bf910ff5b2",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/06state35.txt",
+      "year": 2006
+    },
+    {
+      "capitalFamilyRowsRetained": 4113,
+      "path": "data/fiscal/state-legacy/fy2007.json",
+      "sha256OriginalBytes": "44fd319c4beab5caf2aa1f051588e13d30d79fe62f602bd28e2d36076f998bd8",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/07state35.txt",
+      "year": 2007
+    },
+    {
+      "capitalFamilyRowsRetained": 4109,
+      "path": "data/fiscal/state-legacy/fy2008.json",
+      "sha256OriginalBytes": "06e9530e648ede8d26f2b93886addda6a8da73ef6adc8793b5cee2538ad2e140",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/08state35.txt",
+      "year": 2008
+    },
+    {
+      "capitalFamilyRowsRetained": 4034,
+      "path": "data/fiscal/state-legacy/fy2009.json",
+      "sha256OriginalBytes": "411c18bbfbcc959da510d8ee240fbcd61e19c08782e939ba059644ef766b2164",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/09state35.txt",
+      "year": 2009
+    },
+    {
+      "capitalFamilyRowsRetained": 3995,
+      "path": "data/fiscal/state-legacy/fy2010.json",
+      "sha256OriginalBytes": "5f3661d2007cb4e125b3e84c0ba559d088d7fec4862ab10375106906facdb34c",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/10state35.txt",
+      "year": 2010
+    },
+    {
+      "capitalFamilyRowsRetained": 4002,
+      "path": "data/fiscal/state-legacy/fy2011.json",
+      "sha256OriginalBytes": "ff8bb9dfca7a4fdebc39dfc6e634dc44c700e6c0cc34d43a7e108683f5729d34",
+      "stateGovernmentCount": 50,
+      "url": "https://www2.census.gov/govs/state/11state35.txt",
+      "year": 2011
+    },
+    {
       "capitalFamilyRowsRetained": 3959,
       "path": "data/fiscal/state-legacy/fy2012.json",
       "sha256OriginalBytes": "86b30b26f134200a69c4c4cb35cbac7983f3907084ed0a8e4682b4e325508714",
@@ -39,6 +135,18 @@
   "spendingShares": null,
   "warning": "Only raw coded record families have been staged; no fiscal comparisons or spending ratios are authorized.",
   "years": [
+    2000,
+    2001,
+    2002,
+    2003,
+    2004,
+    2005,
+    2006,
+    2007,
+    2008,
+    2009,
+    2010,
+    2011,
     2012,
     2013,
     2014,
