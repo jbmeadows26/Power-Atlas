@@ -1,10 +1,8 @@
 name: Publish Power Atlas research site to GitHub Pages
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'site/**'
-      - '.github/workflows/deploy-pages.yml'
+  # GitHub Pages repository Settings > Pages > Source: GitHub Actions must
+  # be enabled by an authorized repo admin before publishing.
+  # Do not auto-trigger failing builds or attempt Pages enablement with GITHUB_TOKEN.
   workflow_dispatch:
 permissions:
   contents: read
