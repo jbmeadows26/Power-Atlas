@@ -1,0 +1,583 @@
+{
+  "schema": "power-atlas.hyperpartisanship.app-summary.v1",
+  "asOf": "2026-10-29",
+  "status": "descriptive_not_causal",
+  "sources": {
+    "pew": "https://www.pewresearch.org/chart/congress-productivity-continues-to-dwindle/",
+    "senate": "https://www.senate.gov/legislative/cloture/clotureCounts.htm",
+    "voteview": "https://voteview.com/articles/data_help_votes",
+    "govinfo": "https://www.govinfo.gov/bulkdata/BILLSTATUS/119"
+  },
+  "coverage": {
+    "bills119": 16585,
+    "classifiedBills119": 15241,
+    "crossPartyBills119": 6704,
+    "noCrossPartyBills119": 8537,
+    "unknownPartyBills119": 1344,
+    "knownCrossPartyShareClassified": 0.439866,
+    "observedCompletedChamberCongresses": 30,
+    "totalCompletedChamberCongresses": 38,
+    "sourceMissingCongresses": [
+      114,
+      115,
+      116,
+      117
+    ]
+  },
+  "limitations": [
+    "119th Congress unfinished",
+    "GovInfo bill crossparty is cosponsorship, not enactment or floor voting",
+    "Current party roster may not reflect party at each cosponsorship date",
+    "Voteview bulk file omits historical Congresses; null is not zero",
+    "Cloture includes nominations; law and cloture cutoffs differ",
+    "No constituent-preference model, viral rhetoric causality or documented corrupt influence"
+  ],
+  "methods": {
+    "strictOpposition": "At least 90% of one major party voted yea and 90% of the other nay on an eligible recorded vote",
+    "billCrossParty": "At least one non-withdrawn opposite-major-party cosponsor, unknown identity remains unclassified"
+  },
+  "voting": [
+    {
+      "congress": 100,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 933,
+      "strictPartyOppositionShare": 0.07717,
+      "oppositePartyMajorityShare": 0.554126,
+      "nominateFirstDimensionMeanGap": 0.644612
+    },
+    {
+      "congress": 100,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 795,
+      "strictPartyOppositionShare": 0.062893,
+      "oppositePartyMajorityShare": 0.416352,
+      "nominateFirstDimensionMeanGap": 0.608429
+    },
+    {
+      "congress": 101,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 878,
+      "strictPartyOppositionShare": 0.060364,
+      "oppositePartyMajorityShare": 0.534169,
+      "nominateFirstDimensionMeanGap": 0.652637
+    },
+    {
+      "congress": 101,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 638,
+      "strictPartyOppositionShare": 0.043887,
+      "oppositePartyMajorityShare": 0.449843,
+      "nominateFirstDimensionMeanGap": 0.61645
+    },
+    {
+      "congress": 102,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 898,
+      "strictPartyOppositionShare": 0.122494,
+      "oppositePartyMajorityShare": 0.597996,
+      "nominateFirstDimensionMeanGap": 0.65888
+    },
+    {
+      "congress": 102,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 550,
+      "strictPartyOppositionShare": 0.076364,
+      "oppositePartyMajorityShare": 0.510909,
+      "nominateFirstDimensionMeanGap": 0.618991
+    },
+    {
+      "congress": 103,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1094,
+      "strictPartyOppositionShare": 0.201097,
+      "oppositePartyMajorityShare": 0.638026,
+      "nominateFirstDimensionMeanGap": 0.7048
+    },
+    {
+      "congress": 103,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 724,
+      "strictPartyOppositionShare": 0.172652,
+      "oppositePartyMajorityShare": 0.600829,
+      "nominateFirstDimensionMeanGap": 0.633965
+    },
+    {
+      "congress": 104,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1321,
+      "strictPartyOppositionShare": 0.233914,
+      "oppositePartyMajorityShare": 0.673732,
+      "nominateFirstDimensionMeanGap": 0.757875
+    },
+    {
+      "congress": 104,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 919,
+      "strictPartyOppositionShare": 0.229597,
+      "oppositePartyMajorityShare": 0.667029,
+      "nominateFirstDimensionMeanGap": 0.652859
+    },
+    {
+      "congress": 105,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1166,
+      "strictPartyOppositionShare": 0.184391,
+      "oppositePartyMajorityShare": 0.527444,
+      "nominateFirstDimensionMeanGap": 0.77713
+    },
+    {
+      "congress": 105,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 612,
+      "strictPartyOppositionShare": 0.169935,
+      "oppositePartyMajorityShare": 0.531046,
+      "nominateFirstDimensionMeanGap": 0.684119
+    },
+    {
+      "congress": 106,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1209,
+      "strictPartyOppositionShare": 0.163772,
+      "oppositePartyMajorityShare": 0.45244,
+      "nominateFirstDimensionMeanGap": 0.776811
+    },
+    {
+      "congress": 106,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 672,
+      "strictPartyOppositionShare": 0.294643,
+      "oppositePartyMajorityShare": 0.565476,
+      "nominateFirstDimensionMeanGap": 0.658585
+    },
+    {
+      "congress": 107,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 990,
+      "strictPartyOppositionShare": 0.192929,
+      "oppositePartyMajorityShare": 0.416162,
+      "nominateFirstDimensionMeanGap": 0.786356
+    },
+    {
+      "congress": 107,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 633,
+      "strictPartyOppositionShare": 0.14218,
+      "oppositePartyMajorityShare": 0.510269,
+      "nominateFirstDimensionMeanGap": 0.66354
+    },
+    {
+      "congress": 108,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1218,
+      "strictPartyOppositionShare": 0.284072,
+      "oppositePartyMajorityShare": 0.495895,
+      "nominateFirstDimensionMeanGap": 0.792966
+    },
+    {
+      "congress": 108,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 675,
+      "strictPartyOppositionShare": 0.340741,
+      "oppositePartyMajorityShare": 0.620741,
+      "nominateFirstDimensionMeanGap": 0.649523
+    },
+    {
+      "congress": 109,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1210,
+      "strictPartyOppositionShare": 0.263636,
+      "oppositePartyMajorityShare": 0.514876,
+      "nominateFirstDimensionMeanGap": 0.809919
+    },
+    {
+      "congress": 109,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 645,
+      "strictPartyOppositionShare": 0.246512,
+      "oppositePartyMajorityShare": 0.603101,
+      "nominateFirstDimensionMeanGap": 0.685679
+    },
+    {
+      "congress": 110,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1861,
+      "strictPartyOppositionShare": 0.355723,
+      "oppositePartyMajorityShare": 0.587856,
+      "nominateFirstDimensionMeanGap": 0.807746
+    },
+    {
+      "congress": 110,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 657,
+      "strictPartyOppositionShare": 0.159817,
+      "oppositePartyMajorityShare": 0.572298,
+      "nominateFirstDimensionMeanGap": 0.686509
+    },
+    {
+      "congress": 111,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1646,
+      "strictPartyOppositionShare": 0.253341,
+      "oppositePartyMajorityShare": 0.464763,
+      "nominateFirstDimensionMeanGap": 0.805008
+    },
+    {
+      "congress": 111,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 696,
+      "strictPartyOppositionShare": 0.367816,
+      "oppositePartyMajorityShare": 0.75,
+      "nominateFirstDimensionMeanGap": 0.705295
+    },
+    {
+      "congress": 112,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1600,
+      "strictPartyOppositionShare": 0.433125,
+      "oppositePartyMajorityShare": 0.745625,
+      "nominateFirstDimensionMeanGap": 0.860434
+    },
+    {
+      "congress": 112,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 486,
+      "strictPartyOppositionShare": 0.201646,
+      "oppositePartyMajorityShare": 0.553498,
+      "nominateFirstDimensionMeanGap": 0.744081
+    },
+    {
+      "congress": 113,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1201,
+      "strictPartyOppositionShare": 0.473772,
+      "oppositePartyMajorityShare": 0.705246,
+      "nominateFirstDimensionMeanGap": 0.866044
+    },
+    {
+      "congress": 113,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 657,
+      "strictPartyOppositionShare": 0.417047,
+      "oppositePartyMajorityShare": 0.680365,
+      "nominateFirstDimensionMeanGap": 0.795738
+    },
+    {
+      "congress": 114,
+      "chamber": "House",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 114,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 115,
+      "chamber": "House",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 115,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 116,
+      "chamber": "House",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 116,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 117,
+      "chamber": "House",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 117,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": false,
+      "eligibleRollCalls": 0,
+      "strictPartyOppositionShare": null,
+      "oppositePartyMajorityShare": null,
+      "nominateFirstDimensionMeanGap": null
+    },
+    {
+      "congress": 118,
+      "chamber": "House",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 1235,
+      "strictPartyOppositionShare": 0.487449,
+      "oppositePartyMajorityShare": 0.705263,
+      "nominateFirstDimensionMeanGap": 0.892257
+    },
+    {
+      "congress": 118,
+      "chamber": "Senate",
+      "complete": true,
+      "observed": true,
+      "eligibleRollCalls": 685,
+      "strictPartyOppositionShare": 0.521168,
+      "oppositePartyMajorityShare": 0.776642,
+      "nominateFirstDimensionMeanGap": 0.894906
+    },
+    {
+      "congress": 119,
+      "chamber": "House",
+      "complete": false,
+      "observed": true,
+      "eligibleRollCalls": 674,
+      "strictPartyOppositionShare": 0.581602,
+      "oppositePartyMajorityShare": 0.700297,
+      "nominateFirstDimensionMeanGap": 0.909968
+    },
+    {
+      "congress": 119,
+      "chamber": "Senate",
+      "complete": false,
+      "observed": true,
+      "eligibleRollCalls": 915,
+      "strictPartyOppositionShare": 0.770492,
+      "oppositePartyMajorityShare": 0.919126,
+      "nominateFirstDimensionMeanGap": 0.922608
+    }
+  ],
+  "legislation": [
+    {
+      "congress": 100,
+      "substantive": 388,
+      "ceremonial": 247,
+      "clotureAllTypes": 54,
+      "congressComplete": true
+    },
+    {
+      "congress": 101,
+      "substantive": 299,
+      "ceremonial": 224,
+      "clotureAllTypes": 38,
+      "congressComplete": true
+    },
+    {
+      "congress": 102,
+      "substantive": 387,
+      "ceremonial": 197,
+      "clotureAllTypes": 60,
+      "congressComplete": true
+    },
+    {
+      "congress": 103,
+      "substantive": 324,
+      "ceremonial": 139,
+      "clotureAllTypes": 80,
+      "congressComplete": true
+    },
+    {
+      "congress": 104,
+      "substantive": 286,
+      "ceremonial": 46,
+      "clotureAllTypes": 82,
+      "congressComplete": true
+    },
+    {
+      "congress": 105,
+      "substantive": 306,
+      "ceremonial": 43,
+      "clotureAllTypes": 69,
+      "congressComplete": true
+    },
+    {
+      "congress": 106,
+      "substantive": 344,
+      "ceremonial": 105,
+      "clotureAllTypes": 71,
+      "congressComplete": true
+    },
+    {
+      "congress": 107,
+      "substantive": 199,
+      "ceremonial": 77,
+      "clotureAllTypes": 71,
+      "congressComplete": true
+    },
+    {
+      "congress": 108,
+      "substantive": 304,
+      "ceremonial": 110,
+      "clotureAllTypes": 62,
+      "congressComplete": true
+    },
+    {
+      "congress": 109,
+      "substantive": 247,
+      "ceremonial": 120,
+      "clotureAllTypes": 68,
+      "congressComplete": true
+    },
+    {
+      "congress": 110,
+      "substantive": 286,
+      "ceremonial": 162,
+      "clotureAllTypes": 139,
+      "congressComplete": true
+    },
+    {
+      "congress": 111,
+      "substantive": 194,
+      "ceremonial": 90,
+      "clotureAllTypes": 137,
+      "congressComplete": true
+    },
+    {
+      "congress": 112,
+      "substantive": 143,
+      "ceremonial": 53,
+      "clotureAllTypes": 115,
+      "congressComplete": true
+    },
+    {
+      "congress": 113,
+      "substantive": 141,
+      "ceremonial": 44,
+      "clotureAllTypes": 252,
+      "congressComplete": true
+    },
+    {
+      "congress": 114,
+      "substantive": 172,
+      "ceremonial": 72,
+      "clotureAllTypes": 128,
+      "congressComplete": true
+    },
+    {
+      "congress": 115,
+      "substantive": 206,
+      "ceremonial": 71,
+      "clotureAllTypes": 201,
+      "congressComplete": true
+    },
+    {
+      "congress": 116,
+      "substantive": 150,
+      "ceremonial": 43,
+      "clotureAllTypes": 328,
+      "congressComplete": true
+    },
+    {
+      "congress": 117,
+      "substantive": 160,
+      "ceremonial": 54,
+      "clotureAllTypes": 336,
+      "congressComplete": true
+    },
+    {
+      "congress": 118,
+      "substantive": 84,
+      "ceremonial": 22,
+      "clotureAllTypes": 266,
+      "congressComplete": true
+    },
+    {
+      "congress": 119,
+      "substantive": 109,
+      "ceremonial": 12,
+      "clotureAllTypes": 294,
+      "congressComplete": false
+    }
+  ]
+}
