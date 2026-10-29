@@ -83,6 +83,7 @@ def run():
     restricted_today=not os.environ.get('FEC_API_KEY') and any(
         name.startswith('fec_') and '429' in str(status.get('error',''))
         for name,status in past.items())
+    restricted_lda_today='429' in str(past.get('lobbying_disclosures',{}).get('error',''))
     report={}
     for name,script in COLLECTORS:
         if name=='fec_committee_identity' and (ROOT/'data/batches/fec-committees.json').exists() and not os.environ.get('FEC_API_KEY'):
@@ -90,6 +91,9 @@ def run():
             continue
         if name.startswith('fec_') and restricted_today:
             report[name]={'status':'deferred','note':'DEMO_KEY HTTP 429 observed earlier today; wait for permitted quota reset',**persistence(name)}
+            continue
+        if name=='lobbying_disclosures' and restricted_lda_today:
+            report[name]={'status':'deferred','note':'Senate LDA HTTP 429 observed earlier today; wait for permitted quota reset; preserve existing filings',**persistence(name)}
             continue
         print('Collecting:',name,flush=True)
         result=None
