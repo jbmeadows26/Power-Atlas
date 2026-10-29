@@ -26,8 +26,10 @@ jobs:
           test -f site/index.html
           test ! -f site/.env
           echo "Static source: site/index.html"
-      - name: Configure public Pages site
+      - name: Configure public Pages site (zero-cost automatic enablement)
         uses: actions/configure-pages@v5
+        with:
+          enablement: true
       - name: Upload static site artifact
         uses: actions/upload-pages-artifact@v3
         with:
