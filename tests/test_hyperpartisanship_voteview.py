@@ -61,6 +61,19 @@ class VoteviewCodingTests(unittest.TestCase):
         self.assertEqual(house["firstDimensionMeanPartyGap"], 0.7)
         self.assertEqual(missing, 6)
 
+    def test_member_archive_decimal_party_codes_are_normalized_exactly(self):
+        rows = [
+            {"congress":"115","chamber":"House","icpsr":"50001","party_code":"100.0","nominate_dim1":"-0.5"},
+            {"congress":"115","chamber":"House","icpsr":"50002","party_code":"200.0","nominate_dim1":"0.5"},
+            {"congress":"115","chamber":"House","icpsr":"50003","party_code":"200.5","nominate_dim1":"0.6"},
+        ]
+        members, ideology = collector.parse_members(rows, min_rows=2)
+        self.assertEqual(members[(115, "House", "50001")], "D")
+        self.assertEqual(members[(115, "House", "50002")], "R")
+        self.assertNotIn((115, "House", "50003"), members)
+        self.assertEqual(ideology[(115, "House")]["D"], [-0.5])
+        self.assertEqual(ideology[(115, "House")]["R"], [0.5])
+
     def test_whitelist_blocks_unapproved_hosts(self):
         with self.assertRaises(ValueError):
             next(collector.stream_csv("https://example.org/malicious.csv"))
