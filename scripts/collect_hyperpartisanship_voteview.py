@@ -15,6 +15,7 @@ import io
 import json
 import math
 import urllib.request
+from urllib.error import HTTPError
 
 ROOT = Path(__file__).resolve().parents[1]
 OUT = ROOT / "data/hyperpartisanship/voteview-party-divisions-v1.json"
@@ -134,6 +135,31 @@ def summarize_votes(rows, member_party, ideology):
 def collect():
     members, ideology = parse_members(stream_csv(MEMBERS_URL))
     records, n, unmatched = summarize_votes(stream_csv(VOTES_URL), members, ideology)
+    # Voteview's all-Congress CSV currently omits four complete Congresses.
+    # Its documented data-download template also offers per-Congress CSVs.
+    # Try those *verified Voteview paths* without inventing missing rows.
+    fallback_status = {}
+    for congress in range(114, 118):
+        by_chamber = [x for x in records if x["congress"] == congress]
+        if all(x["rollCallsEligibleBothParties"] >= 100 for x in by_chamber):
+            continue
+        source = f"https://voteview.com/static/data/out/votes/HS{congress}_votes.csv"
+        try:
+            alternate, alternate_n, alternate_unknown = summarize_votes(stream_csv(source), members, ideology)
+        except HTTPError as exc:
+            if exc.code in (404, 410):
+                fallback_status[str(congress)] = {"source": source, "status": f"http_{exc.code}_not_available"}
+                continue
+            raise
+        candidate = [x for x in alternate if x["congress"] == congress]
+        if len(candidate) != 2 or not all(x["rollCallsEligibleBothParties"] >= 100 for x in candidate):
+            fallback_status[str(congress)] = {"source": source, "status": "incomplete_source"}
+            continue
+        records = [x for x in records if x["congress"] != congress] + candidate
+        n += alternate_n
+        unmatched += alternate_unknown
+        fallback_status[str(congress)] = {"source": source, "status": "verified_per_congress_fallback"}
+    records.sort(key=lambda r: (r["congress"], r["chamber"]))
     complete = [r for r in records if r["congress"] <= 118]
     gaps = [(r["congress"], r["chamber"], r["rollCallsObserved"], r["rollCallsEligibleBothParties"]) for r in complete if r["rollCallsEligibleBothParties"] < 100]
     if len(complete) != 38:
@@ -167,6 +193,7 @@ def collect():
             "inference": "Descriptive only. Party voting divergence is not proof that a member acted against constituents."
         },
         "diagnostics": {
+            "perCongressFallback": fallback_status,
             "historicalMissingChamberPeriods": [{"congress": c, "chamber": h, "rollCallsObserved": observed, "eligibleRollCalls": eligible} for c, h, observed, eligible in gaps],
             "historicalCoverageComplete": len(gaps) == 0,
             "doNotInterpolateOrTreatMissingAsZero": True,
