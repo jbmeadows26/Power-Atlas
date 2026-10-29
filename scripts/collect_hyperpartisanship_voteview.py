@@ -151,6 +151,11 @@ def collect():
                 fallback_status[str(congress)] = {"source": source, "status": f"http_{exc.code}_not_available"}
                 continue
             raise
+        except ValueError as exc:
+            if str(exc) == "Voteview vote input unexpectedly sparse":
+                fallback_status[str(congress)] = {"source": source, "status": "empty_or_sparse_per_congress_export"}
+                continue
+            raise
         candidate = [x for x in alternate if x["congress"] == congress]
         if len(candidate) != 2 or not all(x["rollCallsEligibleBothParties"] >= 100 for x in candidate):
             fallback_status[str(congress)] = {"source": source, "status": "incomplete_source"}
