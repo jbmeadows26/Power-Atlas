@@ -65,6 +65,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="committees">Mapmaking committees</button>
     <button role="tab" aria-selected="false" data-tab="bills">Federal mapmaking bills</button>
     <button role="tab" aria-selected="false" data-tab="state-bills">State mapmaking bills</button>
+    <button role="tab" aria-selected="false" data-tab="audit">Evidence audit</button>
     <button role="tab" aria-selected="false" data-tab="network">Evidence network</button>
     <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
     <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
@@ -159,6 +160,22 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       <span id="billCount" class="muted"></span></div>
     <div id="billList" class="list"></div>
     <p class="note">Indexed by <a href="https://www.ballotwatch.io/developers" target="_blank" rel="noopener noreferrer">BallotWatch's free, CC0 public API ↗</a> with source links to Congress.gov. These are bounded search candidates, not a census of legislation or verified roll-call outcomes.</p>
+  </section>
+  <section class="panel" data-panel="audit">
+    <span class="eyebrow">Data integrity / Evidence review</span><h2>What has actually been verified?</h2>
+    <p class="sub">Source search hits, parsed tallies, official certifications, and legal determinations have distinct evidence standards. Counts here are about the research pipeline, not proof of improper redistricting.</p>
+    <div class="grid">
+      <div class="card"><div class="eyebrow">Bill candidates staged</div><h3 id="auditBillCandidates">Not loaded</h3><p>Search results, not verified enacted laws</p></div>
+      <div class="card"><div class="eyebrow">Official legislative vote tallies</div><h3 id="auditCertifiedVotes">Not loaded</h3><p>No secondary-index-only count qualifies</p></div>
+      <div class="card"><div class="eyebrow">Partial vote tallies</div><h3 id="auditPartialVotes">Not loaded</h3><p>Await independent chamber record cross-check</p></div>
+      <div class="card"><div class="eyebrow">Election canvasses reconciled</div><h3 id="auditElectionCanvasses">Not loaded</h3><p>Directory links aren't certified contest returns</p></div>
+    </div>
+    <h3>Jurisdiction search completion</h3><p id="auditCoverage" class="sub"></p>
+    <h3>First-page searches still pending</h3><p id="auditPendingStates" class="sub"></p>
+    <h3>Applicable judicial precedent</h3>
+    <p class="note">For research on the law at the time a map was drawn, retain its drawing date. For a case being decided, also retain adjudication date, precedent and procedural posture. The April 29, 2026 decision in <em>Louisiana v. Callais</em> may affect litigation over maps drawn earlier; this site does not assign a legal-risk score from dates alone.</p>
+    <p><a class="source" href="https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html" target="_blank" rel="noopener noreferrer">Read Callais docket ↗</a></p>
+    <p class="note"><a href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/reconciliation" target="_blank" rel="noopener noreferrer">Inspect source reconciliation records ↗</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/schema/0001_evidence_domain_separation.sql" target="_blank" rel="noopener noreferrer">Review domain schema ↗</a></p>
   </section>
   <section class="panel" data-panel="state-bills">
     <span class="eyebrow">State legislation / Bills & recorded votes</span><h2>State redistricting proposals</h2>
@@ -383,6 +400,17 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
       .finally(function(){committeeBusy=false});
   }
+  function renderEvidenceAudit(){
+    var audit=data.evidenceReconciliation||{}, summary=audit.summary||{}, c=audit.searchCoverage||{},
+        votes=audit.rollcallVerification||{}, cert=audit.certificationStatus||{},
+        pending=(audit.ingestionQueue||{}).pendingBaselineStates||[];
+    set('auditBillCandidates',summary.billCandidatesStaged===undefined?'Pending':summary.billCandidatesStaged.toLocaleString('en-US'));
+    set('auditCertifiedVotes',votes.certified_tally===undefined?'Pending':votes.certified_tally);
+    set('auditPartialVotes',votes.partially_parsed===undefined?'Pending':votes.partially_parsed);
+    set('auditElectionCanvasses',cert.reconciledOfficial===undefined?'Pending':cert.reconciledOfficial);
+    set('auditCoverage',c.page1Complete===undefined?'Reconciliation not published yet':c.page1Complete+' of '+c.jurisdictionsTotal+' first pages indexed · '+c.fullSweep+' fully swept · '+c.pendingFirstPage+' pending. First-page access is not a complete search of state laws.');
+    set('auditPendingStates',pending.length?pending.join(', '):'None currently pending in baseline queue; full search sweeps still require separate verification.');
+  }
   function renderStateBills(){
     var legislative=(data.legislation||{});
     var rows=legislative.stateRedistrictingBillCandidates||[];
@@ -546,7 +574,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderStateBills();renderElections();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderStateBills();renderEvidenceAudit();renderElections();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
