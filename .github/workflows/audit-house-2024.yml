@@ -1,0 +1,29 @@
+name: Audit 2024 House district key coverage
+on:
+  push:
+    paths:
+      - 'scripts/audit_house_2024.py'
+      - '.github/workflows/audit-house-2024.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-house-key-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compare persisted 2024 district keys with Census 119th map
+        run: python scripts/audit_house_2024.py
+      - name: Build and validate compact feed
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish audit and feed
+        run: bash scripts/publish_data.sh data/health/house-2024-audit.json data/app-feed.json data/coverage.json
