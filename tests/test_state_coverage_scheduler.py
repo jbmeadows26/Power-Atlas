@@ -4,7 +4,7 @@ import unittest
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'scripts'))
-from expand_state_bill_coverage import select_jurisdictions, STATES, MAX_PER_RUN
+from expand_state_bill_coverage import select_jurisdictions, retry_allowed, STATES, MAX_PER_RUN
 
 
 class StateCoverageSchedulerTests(unittest.TestCase):
@@ -14,6 +14,17 @@ class StateCoverageSchedulerTests(unittest.TestCase):
         self.assertIn('DC', STATES)
         self.assertEqual(MAX_PER_RUN, 8)
         self.assertLessEqual(len(select_jurisdictions(STATES, {}, {}, MAX_PER_RUN)), 8)
+
+    def test_same_day_retry_ceiling_and_access_restrictions(self):
+        today = '2026-10-29'
+        transient = {'IL': {'status': 'temporary_unavailable', 'lastAttemptUTC': today}}
+        self.assertFalse(retry_allowed('IL', {'IL': 3}, transient, today))
+        self.assertTrue(retry_allowed('IL', {'IL': 3}, transient, '2026-10-30'))
+        denied = {'IL': {'httpStatus': 403, 'lastAttemptUTC': today}}
+        self.assertFalse(retry_allowed('IL', {'IL': 1}, denied, '2026-10-30'))
+        limited = {'IL': {'httpStatus': 429, 'lastAttemptUTC': today}}
+        self.assertFalse(retry_allowed('IL', {'IL': 1}, limited, today))
+        self.assertTrue(retry_allowed('IL', {'IL': 1}, limited, '2026-10-30'))
 
     def test_unattempted_states_precede_repeated_timeouts(self):
         states = ['HI', 'IL', 'LA', 'MA', 'MD', 'ME']

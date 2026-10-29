@@ -89,6 +89,18 @@ def select_jurisdictions(states,completed,attempts,limit):
     return sorted((s for s in states if s not in completed),
                   key=lambda s:(int(attempts.get(s,0)),s))[:limit]
 
+def retry_allowed(state,attempts,failures,today):
+    """Do not hammer a repeatedly timing-out source or retry access denials."""
+    failure=failures.get(state,{})
+    status=failure.get('httpStatus')
+    if status in (401,403):
+        return False  # Authentication/access restrictions require authorized review.
+    if status==429 and failure.get('lastAttemptUTC')==today:
+        return False  # No same-day retry after an explicit rate-limit response.
+    if failure.get('lastAttemptUTC')==today and int(attempts.get(state,0))>=3:
+        return False  # Retry on a later day, preserving all previous records.
+    return True
+
 def run():
     if date.today()>END:
         print('Deadline passed; no new source requests')
@@ -115,7 +127,8 @@ def run():
             state=item.get('state')
             if state in STATES and state not in done:
                 attempts[state]=max(1,int(attempts.get(state,0)))
-    selected=select_jurisdictions(STATES,done,attempts,MAX_PER_RUN)
+    eligible=[s for s in STATES if retry_allowed(s,attempts,failures,date.today().isoformat())]
+    selected=select_jurisdictions(eligible,done,attempts,MAX_PER_RUN)
     results=[]
     for state in selected:
         attempts[state]=int(attempts.get(state,0))+1
