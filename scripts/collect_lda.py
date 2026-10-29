@@ -8,6 +8,7 @@ from urllib.error import HTTPError, URLError
 import json
 import re
 import datetime
+import time
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / 'data/lobbying/lda-filings.json'
@@ -22,6 +23,9 @@ def fetch(term, year):
     page_size = 5 if term == 'congressional district' else 10
     found = []
     for page in range(1, (20 // page_size) + 1):
+        # LDA.gov documents a 15-request/minute anonymous limit. Pace well
+        # below that threshold; never retry a 429 or change identity/host.
+        time.sleep(4.5)
         query = urlencode({'filing_specific_lobbying_issues':term,
                            'filing_year':year,'page_size':page_size,'page':page})
         req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
@@ -65,7 +69,15 @@ def matching_issue(filing):
     return ''
 
 def collect():
-    old=json.loads(DEST.read_text(encoding='utf-8'))['records'] if DEST.exists() else []
+    prior=json.loads(DEST.read_text(encoding='utf-8')) if DEST.exists() else {}
+    old=prior.get('records',[])
+    # Six bounded issue/year queries have already been collected today. Avoid
+    # repeat requests that would consume the official anonymous rate budget.
+    if (old and prior.get('successfulQueries',0)>=len(TERMS)*len(YEARS)
+            and prior.get('failedQueries',0)==0
+            and all(row.get('dateAccessed')==datetime.date.today().isoformat() for row in old)):
+        print('Cached verified Senate LDA sample retained:',len(old),'records; no API requests')
+        return
     by_id={r['id']:r for r in old}
     successes=0
     failures=[]
