@@ -602,6 +602,36 @@
       "source_sha256": "c1f9ad034fa2e740"
     },
     {
+      "id": "scotus-24-109",
+      "title": "Louisiana v. Callais",
+      "state": "Louisiana",
+      "date": "2026-04-29",
+      "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html",
+      "reviewStatus": "primary_supreme_court_disposition_source_indexed",
+      "claimScope": "April 29 2026 Court updated the Gingles Section 2 vote-dilution framework and affirmed the racial-gerrymandering judgment as to Louisiana's SB8; discuss majority and dissent separately, and apply only to cases within the decision's scope.",
+      "court": "Supreme Court of the United States",
+      "docket": "24-109",
+      "disposition": "affirmed_and_remanded",
+      "secondarySource": "https://www.law.cornell.edu/supremecourt/text/24-109_2026-04-29",
+      "datePrecision": "day",
+      "source_sha256": "0713e35e6b31d085"
+    },
+    {
+      "id": "scotus-25-243",
+      "title": "Allen v. Caster and related Alabama redistricting appeals",
+      "state": "Alabama",
+      "date": "2026-05-11",
+      "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/25-243.html",
+      "reviewStatus": "primary_supreme_court_disposition_source_indexed",
+      "claimScope": "May 11 2026 vacatur and remand for reconsideration in light of Callais. Does not imply final merits resolution of Alabama map legality.",
+      "court": "Supreme Court of the United States",
+      "docket": "25-243",
+      "disposition": "vacated_and_remanded",
+      "secondarySource": "https://www.law.cornell.edu/supremecourt/text/25-243",
+      "datePrecision": "day",
+      "source_sha256": "8a91a457bea7aad3"
+    },
+    {
       "id": "scotus-allen-2023",
       "title": "Allen v. Milligan",
       "state": "Alabama",
@@ -27467,6 +27497,28 @@
       "stateCodeStatus": "verified_official_census_keyless_reference"
     }
   ],
+  "evidenceReconciliation": {
+    "summary": {},
+    "scope": "unavailable",
+    "searchCoverage": {
+      "jurisdictionsTotal": 0,
+      "page1Complete": 0,
+      "pendingFirstPage": 0,
+      "fullSweep": 0
+    },
+    "ingestionQueue": {
+      "count": 0,
+      "pendingBaselineStates": []
+    },
+    "rollcallVerification": {},
+    "certificationStatus": {},
+    "legalFrameworks": [],
+    "legalCaseTimeline": [],
+    "analyticsSourceCatalog": {
+      "sources": 9,
+      "metrics": 9
+    }
+  },
   "geography": {
     "congressionalMapEditions": [
       {
@@ -28432,6 +28484,36 @@
         "disposition": "reversed_in_part_remanded_in_part",
         "datePrecision": "day",
         "source_sha256": "c1f9ad034fa2e740"
+      },
+      {
+        "id": "scotus-24-109",
+        "title": "Louisiana v. Callais",
+        "state": "Louisiana",
+        "date": "2026-04-29",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html",
+        "reviewStatus": "primary_supreme_court_disposition_source_indexed",
+        "claimScope": "April 29 2026 Court updated the Gingles Section 2 vote-dilution framework and affirmed the racial-gerrymandering judgment as to Louisiana's SB8; discuss majority and dissent separately, and apply only to cases within the decision's scope.",
+        "court": "Supreme Court of the United States",
+        "docket": "24-109",
+        "disposition": "affirmed_and_remanded",
+        "secondarySource": "https://www.law.cornell.edu/supremecourt/text/24-109_2026-04-29",
+        "datePrecision": "day",
+        "source_sha256": "0713e35e6b31d085"
+      },
+      {
+        "id": "scotus-25-243",
+        "title": "Allen v. Caster and related Alabama redistricting appeals",
+        "state": "Alabama",
+        "date": "2026-05-11",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/25-243.html",
+        "reviewStatus": "primary_supreme_court_disposition_source_indexed",
+        "claimScope": "May 11 2026 vacatur and remand for reconsideration in light of Callais. Does not imply final merits resolution of Alabama map legality.",
+        "court": "Supreme Court of the United States",
+        "docket": "25-243",
+        "disposition": "vacated_and_remanded",
+        "secondarySource": "https://www.law.cornell.edu/supremecourt/text/25-243",
+        "datePrecision": "day",
+        "source_sha256": "8a91a457bea7aad3"
       },
       {
         "id": "scotus-allen-2023",
@@ -59800,7 +59882,16 @@
     }
   },
   "coverage": {
-    "sourceIndexedRecords": 60,
+    "sourceIndexedRecords": 62,
+    "rawLegislativeBillCandidatesStaged": 0,
+    "rollcallOfficialVerifiedTallies": 0,
+    "rollcallPartiallyParsedTallies": 0,
+    "stateBillFirstPageJurisdictions": 0,
+    "stateBillFullSweepJurisdictions": 0,
+    "stateBillPendingFirstPageJurisdictions": 0,
+    "electionAuthorityCanvassesPending": 0,
+    "legalFrameworksVersioned": 0,
+    "redistrictingAnalyticsSourcesIndexed": 9,
     "relationshipRecords": 2625,
     "FECcandidateCommitteeLinks": 1269,
     "FECcommitteeMasterRows": 673,
@@ -59821,7 +59912,7 @@
     "federalBillRedistrictingTitleMatches": 14,
     "federalBillSponsorEdges": 8,
     "federalJudicialAppointments": 4777,
-    "supremeCourtRedistrictingDecisions": 7,
+    "supremeCourtRedistrictingDecisions": 9,
     "stateLegislatorJurisdictions": 52,
     "lobbyingFilingRows": 56,
     "houseStateYearRows": 402,
