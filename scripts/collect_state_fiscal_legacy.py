@@ -2,7 +2,7 @@
 """Stage original Census legacy state-finance code families, without harmonizing them.
 
 Official archived file listing: https://www2.census.gov/govs/state/
-Format reference: 2024 State Government Finances Technical Documentation pp. 3-4,
+Format reference: 2024 State Government Finances Technical Documentation pp. 3-4; official 2012 archive file was observed with 38 columns despite the newer 35-column documented layout,
 https://www2.census.gov/programs-surveys/state/technical-documentation/complete-technical-documentation/statetechdoc2024.pdf
 
 THIS IS A PROVENANCE/FORMAT INGESTION ONLY, NOT A CAPITAL-SPENDING ANALYSIS.
@@ -29,7 +29,7 @@ AVAILABLE = range(2000, 2016)
 STATE_CODES = {f"{i:02d}" for i in list(range(1, 9)) + list(range(10, 52))}
 CAPITAL_FAMILIES = frozenset("FGK")
 MAX_SOURCE_BYTES = 1_500_000
-SOURCE_FORMAT = "census.legacy_state35.fixed_width_35.v1"
+SOURCE_FORMAT = "census.legacy_state35.fixed_width_vintage_detected.v1"
 SCHEMA = "power-atlas.census-legacy-capital-components.v1"
 
 
@@ -69,6 +69,7 @@ def parse_records(raw: bytes, source_year: int):
     except UnicodeDecodeError as exc:
         raise ValueError("Expected ASCII fixed-width Census file") from exc
     all_count = 0
+    record_width = None
     selected = []
     state_seen = set()
     unique = set()
@@ -77,15 +78,24 @@ def parse_records(raw: bytes, source_year: int):
         if not line:
             continue
         all_count += 1
-        if len(line) != 35:
-            raise ValueError(f"Invalid record width at line {line_number}: {len(line)} (expected 35); public-source prefix={line[:65]!r}")
+        if len(line) not in (35, 38):
+            raise ValueError(f"Invalid record width at line {line_number}: {len(line)} (expected documented 35 or observed legacy 38); public-source prefix={line[:65]!r}")
+        if record_width is None:
+            record_width = len(line)
+        elif len(line) != record_width:
+            raise ValueError(f"Mixed fixed-width layouts at line {line_number}: {record_width} vs {len(line)}")
+        # Census archival state35 files from 2012 have 38 columns: a 15-character
+        # amount, not the 12-character amount shown in the newer 2024 codebook.
+        amount_end = 29 if record_width == 35 else 32
         gov, item, amount, survey, data_year, origin = (
-            line[:14], line[14:17], line[17:29],
-            line[29:31], line[31:33], line[33:35]
+            line[:14], line[14:17], line[17:amount_end],
+            line[amount_end:amount_end + 2],
+            line[amount_end + 2:amount_end + 4],
+            line[amount_end + 4:amount_end + 6],
         )
         if not gov.isascii() or not gov.isdigit() or not re.fullmatch(r"[A-Z0-9]{3}", item):
             raise ValueError(f"Invalid government code or item code at line {line_number}")
-        if not re.fullmatch(r"-?[0-9 ]{11,12}", amount):
+        if not re.fullmatch(r"-?[0-9]+", amount.strip()):
             raise ValueError(f"Unexpected amount encoding at line {line_number}: {amount!r}")
         if not survey.isdigit() or not data_year.isdigit() or not re.fullmatch(r"[A-Z0-9 ]{2}", origin):
             raise ValueError(f"Invalid source year/origin columns at line {line_number}")
@@ -114,6 +124,7 @@ def parse_records(raw: bytes, source_year: int):
     selected.sort(key=lambda r: (r["stateGovernmentCode"], r["itemCode"], r["surveyYearTwoDigits"], r["dataYearTwoDigits"], r["originCode"]))
     return {
         "year": source_year,
+        "recordWidthChars": record_width,
         "allRecordsInspected": all_count,
         "capitalFamilyRowsRetained": len(selected),
         "stateGovernmentCount": len(state_seen),
@@ -131,6 +142,7 @@ def make_document(year, raw, url):
         "source": {
             "url": url,
             "sourceFormat": SOURCE_FORMAT,
+            "recordWidthChars": parsed["recordWidthChars"],
             "sha256OriginalBytes": hashlib.sha256(raw).hexdigest(),
             "bytesRead": len(raw),
             "documentation": "https://www2.census.gov/programs-surveys/state/technical-documentation/complete-technical-documentation/statetechdoc2024.pdf",
