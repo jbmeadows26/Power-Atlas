@@ -27498,22 +27498,187 @@
     }
   ],
   "evidenceReconciliation": {
-    "summary": {},
-    "scope": "unavailable",
+    "summary": {
+      "billCandidatesStaged": 377,
+      "redistrictingTitleMatches": 109,
+      "legislativeVoteReferencesStaged": 15,
+      "legislativeVotesWithPartiallyParsedTallies": 1,
+      "officiallyVerifiedLegislativeTallies": 0,
+      "candidateBillsPromotedToProduction": 0,
+      "electionDirectoryPendingCanvasses": 51,
+      "jurisdictionPageOneCompleted": 39,
+      "jurisdictionFirstPagePending": 12,
+      "jurisdictionFullSearchSweeps": 0
+    },
+    "scope": "reconciliation_staging_no_live_database_migration",
     "searchCoverage": {
-      "jurisdictionsTotal": 0,
-      "page1Complete": 0,
-      "pendingFirstPage": 0,
+      "jurisdictionsTotal": 51,
+      "page1Complete": 39,
+      "pendingFirstPage": 12,
       "fullSweep": 0
     },
     "ingestionQueue": {
-      "count": 0,
-      "pendingBaselineStates": []
+      "count": 19,
+      "pendingBaselineStates": [
+        "HI",
+        "IL",
+        "LA",
+        "MA",
+        "TX",
+        "UT",
+        "VA",
+        "VT",
+        "WA",
+        "WI",
+        "WV",
+        "WY"
+      ]
     },
-    "rollcallVerification": {},
-    "certificationStatus": {},
-    "legalFrameworks": [],
-    "legalCaseTimeline": [],
+    "rollcallVerification": {
+      "unverified": 14,
+      "partially_parsed": 1,
+      "certified_tally": 0
+    },
+    "certificationStatus": {
+      "jurisdictions": 51,
+      "pendingDownload": 51,
+      "reconciledOfficial": 0
+    },
+    "legalFrameworks": [
+      {
+        "id": "VRA_Sec2_Milligan_2023",
+        "decisionDate": "2023-06-08",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/21-1086.html"
+      },
+      {
+        "id": "VRA_Sec2_Callais_2026",
+        "decisionDate": "2026-04-29",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html"
+      }
+    ],
+    "legalCaseTimeline": [
+      {
+        "caseId": "scotus-15-1262",
+        "caseName": "Cooper v. Harris",
+        "decisionDate": "2017-05-22",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/15-1262.html"
+      },
+      {
+        "caseId": "scotus-16-1161",
+        "caseName": "Gill v. Whitford",
+        "decisionDate": "2018-06-18",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/16-1161.html"
+      },
+      {
+        "caseId": "scotus-18-281",
+        "caseName": "Virginia House of Delegates v. Bethune-Hill",
+        "decisionDate": "2019-06-17",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/18-281.html"
+      },
+      {
+        "caseId": "scotus-22-807",
+        "caseName": "Alexander v. South Carolina State Conference of the NAACP",
+        "decisionDate": "2024-05-23",
+        "historicalFrameworkMarker": "VRA_Sec2_Milligan_2023",
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": "VRA_Sec2_Milligan_2023",
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/22-807.html"
+      },
+      {
+        "caseId": "scotus-24-109",
+        "caseName": "Louisiana v. Callais",
+        "decisionDate": "2026-04-29",
+        "historicalFrameworkMarker": "VRA_Sec2_Callais_2026",
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": "VRA_Sec2_Callais_2026",
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html"
+      },
+      {
+        "caseId": "scotus-25-243",
+        "caseName": "Allen v. Caster and related Alabama redistricting appeals",
+        "decisionDate": "2026-05-11",
+        "historicalFrameworkMarker": "VRA_Sec2_Callais_2026",
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": "VRA_Sec2_Callais_2026",
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/25-243.html"
+      },
+      {
+        "caseId": "scotus-allen-2023",
+        "caseName": "Allen v. Milligan",
+        "decisionDate": "2023-06-08",
+        "historicalFrameworkMarker": "VRA_Sec2_Milligan_2023",
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": "VRA_Sec2_Milligan_2023",
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/21-1086.html"
+      },
+      {
+        "caseId": "scotus-arizona-irc-2015",
+        "caseName": "Arizona State Legislature v. Arizona Independent Redistricting Commission",
+        "decisionDate": "2015-06-29",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.law.cornell.edu/supremecourt/text/13-1314"
+      },
+      {
+        "caseId": "scotus-moore-2023",
+        "caseName": "Moore v. Harper",
+        "decisionDate": "2023-06-27",
+        "historicalFrameworkMarker": "VRA_Sec2_Milligan_2023",
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": "VRA_Sec2_Milligan_2023",
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/21-1271.html"
+      },
+      {
+        "caseId": "scotus-rucho-2019",
+        "caseName": "Rucho v. Common Cause",
+        "decisionDate": "2019-06-27",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.supremecourt.gov/docket/docketfiles/html/public/18-422.html"
+      },
+      {
+        "caseId": "scotus-shelby-2013",
+        "caseName": "Shelby County v. Holder",
+        "decisionDate": "2013-06-25",
+        "historicalFrameworkMarker": null,
+        "frameworkAtDrawing": null,
+        "frameworkAtAdjudication": null,
+        "mapDrawingDate": null,
+        "legalApplicability": "requires_case_specific_review_no_automated_retroactivity",
+        "source": "https://www.justice.gov/crt/shelby-county-decision"
+      }
+    ],
     "analyticsSourceCatalog": {
       "sources": 9,
       "metrics": 9
@@ -60498,14 +60663,14 @@
   },
   "coverage": {
     "sourceIndexedRecords": 62,
-    "rawLegislativeBillCandidatesStaged": 0,
+    "rawLegislativeBillCandidatesStaged": 377,
     "rollcallOfficialVerifiedTallies": 0,
-    "rollcallPartiallyParsedTallies": 0,
-    "stateBillFirstPageJurisdictions": 0,
+    "rollcallPartiallyParsedTallies": 1,
+    "stateBillFirstPageJurisdictions": 39,
     "stateBillFullSweepJurisdictions": 0,
-    "stateBillPendingFirstPageJurisdictions": 0,
-    "electionAuthorityCanvassesPending": 0,
-    "legalFrameworksVersioned": 0,
+    "stateBillPendingFirstPageJurisdictions": 12,
+    "electionAuthorityCanvassesPending": 51,
+    "legalFrameworksVersioned": 2,
     "redistrictingAnalyticsSourcesIndexed": 9,
     "relationshipRecords": 2625,
     "FECcandidateCommitteeLinks": 1269,

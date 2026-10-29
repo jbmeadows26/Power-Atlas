@@ -1,0 +1,33 @@
+{
+  "schema": "power-atlas.domain-integrity.v1",
+  "productionStatus": "reconciliation_staging_no_live_database_migration",
+  "domainDefinitions": {
+    "election_results": {
+      "table": "election_returns",
+      "countMeaning": "certified votes in a particular election contest",
+      "crossDomainVoteAggregationAllowed": false
+    },
+    "legislative_roll_calls": {
+      "table": "roll_calls",
+      "countMeaning": "recorded votes on a legislative motion",
+      "crossDomainVoteAggregationAllowed": false
+    },
+    "campaign_finance": {
+      "table": "finance_transactions",
+      "countMeaning": "reported transaction amount in USD",
+      "crossDomainVoteAggregationAllowed": false
+    }
+  },
+  "summary": {
+    "billCandidatesStaged": 377,
+    "redistrictingTitleMatches": 109,
+    "legislativeVoteReferencesStaged": 15,
+    "legislativeVotesWithPartiallyParsedTallies": 1,
+    "officiallyVerifiedLegislativeTallies": 0,
+    "candidateBillsPromotedToProduction": 0,
+    "electionDirectoryPendingCanvasses": 51,
+    "jurisdictionPageOneCompleted": 39,
+    "jurisdictionFirstPagePending": 12,
+    "jurisdictionFullSearchSweeps": 0
+  }
+}
