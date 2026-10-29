@@ -5,6 +5,7 @@ on:
       - 'data/promises/**'
       - 'research/campaign-promises/**'
       - 'scripts/validate_promises.py'
+      - 'scripts/build_promises.py'
       - 'tests/test_promises*.py'
       - '.github/workflows/validate-campaign-promises.yml'
   pull_request:
@@ -30,5 +31,7 @@ jobs:
         run: python scripts/validate_promises.py
       - name: Validate expanded source-linked records (not factual adjudication)
         run: python scripts/validate_promises.py data/promises/us-2020-source-verified-expansion.json
+      - name: Verify bounded research feed is current and suppresses invalid estimates
+        run: python -m scripts.build_promises --check
       - name: Test research data quality safeguards
         run: python -m unittest discover -s tests -p 'test_promises*.py' -v
