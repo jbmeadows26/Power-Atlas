@@ -45,6 +45,18 @@ class GovInfoParsingTests(unittest.TestCase):
         self.assertIsNone(r["knownCrossPartyCosponsor"])
         self.assertEqual(r["activeCosponsorUnknownPartyCount"],1)
 
+    def test_missing_xml_number_uses_verified_filename(self):
+        official = "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr23.xml"
+        xml = sample().replace(b"<billNumber>23</billNumber>", b"<billNumber></billNumber>")
+        r = mod.parse_bill(xml, "hr", official, {"A000001":"D", "A000002":"R"})
+        self.assertEqual(r["billNumber"], 23)
+        self.assertEqual(r["billNumberOrigin"], "official_BILLSTATUS_filename_fallback")
+
+    def test_conflicting_xml_and_verified_filename_is_rejected(self):
+        official = "https://www.govinfo.gov/bulkdata/BILLSTATUS/119/hr/BILLSTATUS-119hr24.xml"
+        with self.assertRaises(ValueError):
+            mod.parse_bill(sample(), "hr", official, {"A000001":"D", "A000002":"R"})
+
     def test_wrong_congress_is_rejected(self):
         with self.assertRaises(ValueError):
             mod.parse_bill(sample().replace(b"<congress>119</congress>",b"<congress>118</congress>"),"hr","https://www.govinfo.gov/example",{"A000001":"D"})
