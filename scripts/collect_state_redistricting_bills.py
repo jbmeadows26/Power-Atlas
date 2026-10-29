@@ -24,7 +24,7 @@ TERMS=('redistricting','gerrymandering','reapportionment','congressional distric
 TOPIC=('redistrict','gerrymander','reapportion','congressional district')
 MAX_REQUEST_BYTES=250_000
 MAX_VOTE_BILLS=4
-MAX_SEARCH_BILLS=240
+MAX_SEARCH_BILLS=1200
 
 def get(url):
     req=Request(url,headers={'User-Agent':'PowerAtlasPublicResearch/1.0 (source-linked civic research)',
@@ -59,7 +59,9 @@ def jurisdictions():
 
 def collect():
     codes=jurisdictions()
-    bills={}
+    previous=json.loads(OUT.read_text(encoding='utf-8')) if OUT.exists() else {}
+    # Never drop state-by-state checkpointed records when refreshing national search.
+    bills={str(row.get('billUuid')):row for row in previous.get('records', []) if row.get('billUuid')}
     query_stats=[]
     successful_searches=0
     for term in TERMS:
@@ -175,6 +177,7 @@ def collect():
         'attribution':'Bill Commons (official state/Open States and possibly optional CC-BY-4.0 LegiScan, record-specific source licensing must be checked before reuse); metadata and source references only',
         'coverageWarning':'First 40 results per query; not complete nationwide or state legislative coverage. An empty result is not evidence that a bill does not exist.',
         'searches':query_stats,'successfulSearches':successful_searches,'jurisdictionsLookupCount':len(codes),
+        'incrementalJurisdictionsScanned':previous.get('incrementalJurisdictionsScanned',0),
         'records':sorted(bills.values(),key=lambda x:x['id'])
     }
     vote_data={
@@ -188,7 +191,7 @@ def collect():
     }
     rendered_bills=json.dumps(bill_data,indent=2,ensure_ascii=False)+'\n'
     rendered_votes=json.dumps(vote_data,indent=2,ensure_ascii=False)+'\n'
-    if len(rendered_bills.encode())>240000 or len(rendered_votes.encode())>200000:
+    if len(rendered_bills.encode())>850000 or len(rendered_votes.encode())>200000:
         raise RuntimeError('Source-indexed outputs exceed compact storage caps')
     OUT.parent.mkdir(parents=True,exist_ok=True)
     for p,text in ((OUT,rendered_bills),(VOTES,rendered_votes)):
