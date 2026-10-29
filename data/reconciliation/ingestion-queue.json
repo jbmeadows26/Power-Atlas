@@ -3,11 +3,9 @@
   "publicationStatus": "queued_not_claimed_scheduled",
   "pendingBaselineStates": [
     "IL",
-    "LA",
-    "MA",
     "TX"
   ],
-  "count": 11,
+  "count": 10,
   "tasks": [
     {
       "id": "state-bills-AZ-page2",
@@ -60,23 +58,13 @@
       "state": "pending"
     },
     {
-      "id": "state-bills-LA-page1",
+      "id": "state-bills-LA-page2",
       "jurisdictionId": "LA",
       "domain": "state_legislation",
       "query": "redistricting",
-      "nextPage": 1,
-      "priority": "baseline_gap",
-      "reason": "No successful page-one query indexed",
-      "state": "pending"
-    },
-    {
-      "id": "state-bills-MA-page1",
-      "jurisdictionId": "MA",
-      "domain": "state_legislation",
-      "query": "redistricting",
-      "nextPage": 1,
-      "priority": "baseline_gap",
-      "reason": "No successful page-one query indexed",
+      "nextPage": 2,
+      "priority": "pagination_gap",
+      "reason": "First page insufficient or reported matches unknown",
       "state": "pending"
     },
     {

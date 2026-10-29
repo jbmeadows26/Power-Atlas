@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 47,
+  "jurisdictionsScanned": 49,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -380,13 +380,29 @@
       "totalMatchesReported": 16,
       "newIndexedRecords": 14,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "LA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 23,
+      "newIndexedRecords": 18,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "MA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 11,
+      "newIndexedRecords": 11,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "attemptCounts": {
     "HI": 2,
-    "IL": 1,
-    "LA": 1,
-    "MA": 1,
+    "IL": 2,
+    "LA": 2,
+    "MA": 2,
     "MD": 1,
     "ME": 1,
     "MI": 1,
@@ -410,7 +426,7 @@
     "SC": 1,
     "SD": 1,
     "TN": 1,
-    "TX": 1,
+    "TX": 2,
     "UT": 1,
     "VA": 1,
     "VT": 1,
@@ -427,54 +443,40 @@
       "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
       "requestsAttempted": 2,
       "retryPolicy": "bounded_network_retry_then_later_batch"
+    },
+    "IL": {
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError",
+      "lastAttemptUTC": "2026-10-29",
+      "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
+      "requestsAttempted": 2,
+      "retryPolicy": "bounded_network_retry_then_later_batch"
     }
   },
   "latestBatch": [
     {
-      "state": "UT",
-      "status": "indexed_first_page",
-      "newRows": 15
+      "state": "IL",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     },
     {
-      "state": "VA",
+      "state": "LA",
+      "status": "indexed_first_page",
+      "newRows": 18
+    },
+    {
+      "state": "MA",
       "status": "indexed_first_page",
       "newRows": 11
     },
     {
-      "state": "VT",
-      "status": "indexed_first_page",
-      "newRows": 0
-    },
-    {
-      "state": "WA",
-      "status": "indexed_first_page",
-      "newRows": 13
-    },
-    {
-      "state": "WI",
-      "status": "indexed_first_page",
-      "newRows": 4
-    },
-    {
-      "state": "WV",
-      "status": "indexed_first_page",
-      "newRows": 6
-    },
-    {
-      "state": "WY",
-      "status": "indexed_first_page",
-      "newRows": 3
-    },
-    {
-      "state": "HI",
-      "status": "indexed_first_page",
-      "newRows": 14
+      "state": "TX",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     }
   ],
   "remainingJurisdictions": [
     "IL",
-    "LA",
-    "MA",
     "TX"
   ],
   "meaning": "First-page search coverage only. No source implies zero bills or no state-level redistricting activity."
