@@ -10,7 +10,7 @@ from scripts.collect_census_state_timeseries import METRICS, process_archive, YE
 
 
 def build_fixture(error=None):
-    header=["#GEO_ID","ST","GEOTYPE","GOVTYPE","YEAR","CATEGORY","AGG_DESC",
+    header=["#GEO_ID","GEO_LABEL","ST","GEOTYPE","GOVTYPE","YEAR","CATEGORY","AGG_DESC",
             "AGG_DESC_LABEL","ITEM_CODE","AMOUNT","AMOUNT_F"]
     lines=["|".join(header)]
     states=[f"{i:02d}" for i in list(range(1,9))+list(range(10,52))]
@@ -27,7 +27,7 @@ def build_fixture(error=None):
                     amount="."
                 if error=="wrong_label" and state=="01" and year==2013 and code=="SF0178":
                     label="Not Official Label"
-                fields=[f"0400000US{state}",state,"02","002",str(year),"02",code,
+                fields=[f"0400000US{state}",f"State {state}",state,"02","002",str(year),"02",code,
                         label,"AGG",str(amount),""]
                 lines.append("|".join(fields))
     if error=="duplicate":
