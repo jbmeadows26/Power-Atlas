@@ -1,14 +1,16 @@
 {
   "schema": "power-atlas.rollcall-staging.v1",
-  "publicationStatus": "no_official_aggregate_tallies_yet",
+  "publicationStatus": "limited_official_aggregate_crosscheck_not_certified_rollcall",
   "voteVerificationEnum": [
     "unverified",
     "partially_parsed",
+    "official_aggregate_crosschecked",
     "certified_tally"
   ],
   "counts": {
     "unverified": 14,
-    "partially_parsed": 1,
+    "partially_parsed": 0,
+    "official_aggregate_crosschecked": 1,
     "certified_tally": 0
   },
   "records": [
@@ -22,6 +24,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -36,6 +41,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -50,6 +58,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -64,6 +75,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -78,6 +92,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -88,16 +105,19 @@
       "jurisdictionId": "AZ",
       "motion": "Passed",
       "date": "2026-03-09",
-      "voteVerificationStatus": "partially_parsed",
+      "voteVerificationStatus": "official_aggregate_crosschecked",
       "tally": {
         "yea": 16,
         "nay": 13,
         "abstainOrOther": 1
       },
-      "officialTallyVerified": false,
-      "officialSource": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "officialTallyVerified": true,
+      "officialSource": "https://www.azleg.gov/legtext/57leg/2R/summary/H.SCR1023_032626_CAUCUSCOW.DOCX.htm",
+      "officialCalendarSource": "https://www.azleg.gov/calendar/s0309014130.docx.htm",
+      "officialEvidenceLevel": "official_legislative_staff_summary_aggregate_crosschecked",
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
-      "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
+      "reviewStatus": "official_aggregate_crosschecked_member_level_rollcall_not_verified",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
     },
     {
@@ -110,6 +130,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -124,6 +147,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -138,6 +164,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -152,6 +181,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -166,6 +198,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -180,6 +215,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -194,6 +232,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -208,6 +249,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
@@ -222,6 +266,9 @@
       "tally": null,
       "officialTallyVerified": false,
       "officialSource": "https://leg.colorado.gov/bills/HB26-1038",
+      "officialCalendarSource": null,
+      "officialEvidenceLevel": null,
+      "certifiedRollCall": false,
       "secondaryIndexURL": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
       "reviewStatus": "official_state_chamber_rollcall_crosscheck_required",
       "evidenceMeaning": "Legislative roll call, never a statewide election vote or campaign finance transaction"
