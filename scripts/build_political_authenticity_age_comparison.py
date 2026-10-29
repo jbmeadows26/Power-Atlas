@@ -51,7 +51,10 @@ def check_members(snapshot):
         if chamber == "Senate" and calculated < 30:
             raise ValueError("Senate age below legal threshold")
     if len(seen_senators) != 50:
-        raise ValueError("Expected two senators from each of 50 states")
+        raise ValueError("Expected representation from each of 50 states")
+    for state in STATES:
+        if sum(r["chamber"] == "Senate" and r["state"] == state for r in snapshot["records"]) != 2:
+            raise ValueError("Expected exactly two distinct senators for state " + state)
     if sum(r["chamber"] == "Senate" for r in snapshot["records"]) != 100:
         raise ValueError("Expected 100 distinct senators")
 
