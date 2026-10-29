@@ -1,0 +1,36 @@
+{
+  "schema": "power-atlas.source-blockers.v1",
+  "asOfUTC": "2026-10-29",
+  "purpose": "Prevent unsupported vote completeness assertions and repeated failed scheduled requests",
+  "items": [
+    {
+      "id": "us-senate-119-rollcall-direct",
+      "source": "https://www.senate.gov/legislative/LIS/roll_call_lists/vote_menu_119_2.xml",
+      "status": "official_endpoint_access_restricted_from_github_actions",
+      "httpStatus": 403,
+      "verification": "GitHub Actions 40813756506, October 29 2026",
+      "attempted": "Official keyless XML via standard GitHub-hosted CI runner; no credentials",
+      "alternate": "Assess openly published CC0 vote exports or publicly accessible official Congressional Record data",
+      "dataPersisted": false
+    },
+    {
+      "id": "us-house-119-index-direct",
+      "source": "https://clerk.house.gov/evs/2025/ROLL_000.asp",
+      "status": "official_endpoint_unavailable_in_github_actions",
+      "httpStatus": 404,
+      "verification": "GitHub Actions 40813994717, October 29 2026",
+      "attempted": "Official House Clerk static 2025/2026 HTML roll-call indexes in GitHub Actions",
+      "alternate": "Try openly licensed public congressional vote data with explicit official-source links",
+      "dataPersisted": false
+    },
+    {
+      "id": "state-rollcalls-openstates-bulk",
+      "source": "https://open.pluralpolicy.com/data/session-csv/",
+      "status": "session_csv_archive_links_require_login",
+      "verification": "Public Open States session download page displayed login requirement on October 29 2026",
+      "attempted": "Reviewed bulk session archive listing and free licensing; source login not bypassed",
+      "alternate": "Source official state legislative roll-call files or freely accessible versioned CC0 state-legislator data",
+      "dataPersisted": false
+    }
+  ]
+}
