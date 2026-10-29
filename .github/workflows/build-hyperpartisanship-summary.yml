@@ -1,0 +1,64 @@
+name: Publish compact congressional gridlock research summary
+
+on:
+  push:
+    paths:
+      - 'scripts/build_hyperpartisanship_summary.py'
+      - 'data/hyperpartisanship/baseline-v1.json'
+      - 'data/hyperpartisanship/voteview-party-divisions-v1.json'
+      - 'data/hyperpartisanship/govinfo-119-bill-cosponsors-v1.json'
+      - '.github/workflows/build-hyperpartisanship-summary.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '11 10 * * 5'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-hyperpartisanship-app-summary
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Derive bounded, evidence-attributed mobile research chart data
+        run: python scripts/build_hyperpartisanship_summary.py
+      - name: Validate source denominator, missingness and output size
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/hyperpartisanship/app-summary-v1.json')
+          d=json.loads(p.read_text())
+          c=d['coverage']
+          assert d['schema']=='power-atlas.hyperpartisanship.app-summary.v1'
+          assert c['classifiedBills119']+c['unknownPartyBills119']==c['bills119']
+          assert c['crossPartyBills119']+c['noCrossPartyBills119']==c['classifiedBills119']
+          assert 0<c['knownCrossPartyShareClassified']<1
+          assert len(d['voting'])==40 and len(d['legislation'])==20
+          assert 0<c['observedCompletedChamberCongresses']<=38
+          assert all(x['strictPartyOppositionShare'] is None for x in d['voting'] if not x['observed'])
+          assert p.stat().st_size<100000
+          print('Verified research dashboard summary:',c)
+          PY
+      - name: Publish compact snapshot without altering primary app feed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/hyperpartisanship/app-summary-v1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: publish compact evidence-linked gridlock research summary'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'No research summary changes'
+          fi
