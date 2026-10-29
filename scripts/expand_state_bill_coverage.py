@@ -65,7 +65,7 @@ def fetch_state(state):
     last.pageSizesAttempted=list(page_sizes)
     raise last
 
-def record(raw,state):
+def record(raw,state,per_page):
     uid=str(raw.get('id') or '')
     if not re.fullmatch(r'[A-Fa-f0-9-]{36}',uid):return None
     source=str(raw.get('source_url') or '')
@@ -81,7 +81,7 @@ def record(raw,state):
             'status':str(raw.get('status') or 'not_indexed')[:70],
             'source':source,
             'sourceIndex':'https://billcommons.org/',
-            'retrievalScope':'first_20_state_specific_keyword_results_only',
+            'retrievalScope':f'first_{per_page}_state_specific_keyword_results_only',
             'reviewStatus':'third_party_index_official_source_review_required'}
 
 def select_jurisdictions(states,completed,attempts,limit):
@@ -146,7 +146,7 @@ def run():
         failures.pop(state,None)
         new=0
         for row in response['data']:
-            parsed=record(row,state)
+            parsed=record(row,state,per_page)
             if parsed is None:continue
             if parsed['id'] not in indexed:
                 indexed[parsed['id']]=parsed;new+=1
