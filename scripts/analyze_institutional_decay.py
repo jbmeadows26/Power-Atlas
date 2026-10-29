@@ -15,6 +15,17 @@ ROOT = Path(__file__).resolve().parents[1]
 INPUT = ROOT / "data/institutional-decay/trust-country-waves-2023-2025.json"
 
 
+def _pearson(xs: list[float], ys: list[float]) -> float:
+    """Descriptive country-level Pearson correlation; no causal or individual interpretation."""
+    assert len(xs) == len(ys) and len(xs) >= 3
+    mx, my = mean(xs), mean(ys)
+    numerator = sum((x - mx) * (y - my) for x, y in zip(xs, ys))
+    denom_x = sum((x - mx) ** 2 for x in xs)
+    denom_y = sum((y - my) ** 2 for y in ys)
+    assert denom_x > 0 and denom_y > 0, "All values must not be equal"
+    return numerator / ((denom_x * denom_y) ** 0.5)
+
+
 def build_summary(path: Path = INPUT) -> dict:
     data = json.loads(path.read_text(encoding="utf-8"))
     assert data["schema"] == "power-atlas.institutional-decay.trust-country-waves.v1"
@@ -79,6 +90,45 @@ def build_summary(path: Path = INPUT) -> dict:
         }
         for key, values in gaps.items()
     }
+    dg = [r["nationalGovernment2025"] - r["nationalGovernment2023"] for r in paired]
+    dc = [r["nationalCivilService2025"] - r["nationalCivilService2023"] for r in paired]
+    dl = [r["localGovernment2025"] - r["localGovernment2023"] for r in paired]
+    country_sensitivity = [
+        {
+            "countryCodeExcluded": r["countryCode"],
+            "correlation": _pearson(
+                [x for j, x in enumerate(dg) if j != idx],
+                [x for j, x in enumerate(dc) if j != idx],
+            ),
+        }
+        for idx, r in enumerate(paired)
+    ]
+    correlations = {
+        "population": "countries as units, weighted national survey estimates aggregated by OECD",
+        "notFor": "No causal inference, no p-value, no country ranking of misconduct",
+        "nationalGovernmentVsCivilService2025": round(_pearson(
+            [r["nationalGovernment2025"] for r in oecd25],
+            [r["nationalCivilService2025"] for r in oecd25],
+        ), 4),
+        "nationalGovernmentVsLocalGovernment2025": round(_pearson(
+            [r["nationalGovernment2025"] for r in oecd25],
+            [r["localGovernment2025"] for r in oecd25],
+        ), 4),
+        "changeNationalGovernmentVsCivilService2023to2025": round(_pearson(dg, dc), 4),
+        "changeNationalGovernmentVsLocalGovernment2023to2025": round(_pearson(dg, dl), 4),
+        "nCountries2025": len(oecd25),
+        "nPairedCountries": len(paired),
+        "leaveOneCountryOutChangeGovCivil": {
+            "minimum": round(min(x["correlation"] for x in country_sensitivity), 4),
+            "maximum": round(max(x["correlation"] for x in country_sensitivity), 4),
+        },
+        "limitations": [
+            "All values are aggregate percentages rounded to whole integers.",
+            "These are Pearson relationships across countries, not individuals.",
+            "Confounding by political support, income and survey mode is not resolved.",
+            "Leave-one-out range is sensitivity to omitting one country; it is not a confidence interval.",
+        ],
+    }
     out = {
         "schema": "power-atlas.institutional-decay.trust-comparisons.v1",
         "input": "data/institutional-decay/trust-country-waves-2023-2025.json",
@@ -110,6 +160,7 @@ def build_summary(path: Path = INPUT) -> dict:
             "largestDecreases": sorted_changes[:6],
         },
         "institutionalGaps2025": by_gap,
+        "institutionalAssociations": correlations,
         "institutionChanges2023to2025": {
             "matchedCountries": len(paired),
             "meanChangePercentagePoints": {
