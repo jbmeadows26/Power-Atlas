@@ -1,0 +1,31 @@
+{
+  "schema": "power-atlas.political-authenticity-age-descriptive.v1",
+  "legislatorSnapshotDate": "2026-10-29",
+  "populationReferenceYear": 2024,
+  "publicationStatus": "descriptive_two_vintage_not_causal_and_not_eligibility_adjusted",
+  "populationSource": "https://data.census.gov/table/ACSSE2024.K200104",
+  "memberSource": "https://raw.githubusercontent.com/unitedstates/congress-legislators/gh-pages/legislators-current.json",
+  "memberSourceSha256": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c",
+  "populationUniverse": "all U.S. residents aged 25+; includes noncitizens; NOT a pool of legally eligible candidates or voting adults",
+  "legislatorUniverse": "voting House members in roster snapshot; excludes six nonvoting delegates",
+  "populationAge25plus": 235910719,
+  "populationAge25to34": 46198405,
+  "populationAge25to34Share": 0.19583,
+  "houseVotingCount": 433,
+  "houseVotingAge25to34Count": 5,
+  "houseVotingAge25to34Share": 0.011547,
+  "houseMinusPopulation25to34PercentagePoints": -18.428,
+  "houseVsPopulation25to34Ratio": 0.059,
+  "houseAge65plusCount": 137,
+  "houseAge65plusShare": 0.316397,
+  "populationAge65plusShareAmongAge25plus": 0.259612,
+  "senateMeanAgeYears": 65.39,
+  "houseVotingMeanAgeYears": 58.54,
+  "cautions": [
+    "2024 population vs 2026 member snapshot",
+    "resident rather than citizenship-and-years-of-citizenship eligible universe",
+    "raw counts only; source margins of error not imported; no statistical significance claim",
+    "age differences do not show policy responsiveness or moral conduct",
+    "voting House membership count can vary because of vacancies"
+  ]
+}
