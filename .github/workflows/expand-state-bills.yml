@@ -25,9 +25,11 @@ jobs:
           python-version: '3.12'
       - name: Index eight remaining states using no-key bounded search
         run: python scripts/expand_state_bill_coverage.py
-      - name: Rebuild and validate unified evidence
+      - name: Rebuild, reconcile source staging, and validate unified evidence
         run: |
           python scripts/build.py
+          python scripts/reconcile_evidence.py
+          python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
-      - name: Publish source metadata and checkpoint
-        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-jurisdictions.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
+      - name: Publish source metadata, reconciliation, and checkpoint atomically
+        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-jurisdictions.json data/reconciliation data/app-feed.json data/coverage.json data/relationships.json data/research.json
