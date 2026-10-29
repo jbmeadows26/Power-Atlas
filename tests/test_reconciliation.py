@@ -68,10 +68,15 @@ class ReconciliationTests(unittest.TestCase):
         self.assertEqual(staged['counts']['rawLegislativeBillCandidates'],len(bills['records']))
         self.assertEqual(len(votes['records']),len(src['records']))
         self.assertEqual(votes['counts']['certified_tally'],0)
+        crosschecks=load('data/legislation/official-rollcall-aggregate-crosschecks.json')['records']
+        official_ids={r['id'] for r in crosschecks}
+        self.assertEqual(votes['counts']['official_aggregate_crosschecked'],len(crosschecks))
         self.assertEqual(votes['counts']['partially_parsed'],sum(
-            1 for x in src['records'] if {'yes_count','no_count','other_count'}.issubset(x.get('counts',{}))))
+            1 for x in src['records'] if x['id'] not in official_ids and
+            {'yes_count','no_count','other_count'}.issubset(x.get('counts',{}))))
         self.assertEqual(sum(votes['counts'].values()),len(src['records']))
-        self.assertTrue(all(v['officialTallyVerified'] is False for v in votes['records']))
+        self.assertEqual({v['id'] for v in votes['records'] if v['officialTallyVerified']},official_ids)
+        self.assertTrue(all(not v['certifiedRollCall'] for v in votes['records']))
         self.assertEqual(load('data/reconciliation/verified-production.json')['certifiedLegislativeRollCalls'],[])
         self.assertFalse(d['domainDefinitions']['campaign_finance']['crossDomainVoteAggregationAllowed'])
         self.assertEqual(d['summary']['candidateBillsPromotedToProduction'],0)
