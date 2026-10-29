@@ -13,7 +13,7 @@
   "requiredAttribution": "OECD (2026), OECD Survey on Drivers of Trust in Public Institutions 2026 Results: Navigating Rising Expectations and New Horizons, OECD Publishing, Paris, https://doi.org/10.1787/9eb63fec-en. This dataset is an adaptation of an original work by the OECD. The opinions expressed and arguments employed in this adaptation should not be reported as representing the official views of the OECD or its Member countries.",
   "indicatorDefinition": "Share reporting trust 6-10 on the 0-10 institutional trust question; rounded whole percentages. Institution names vary to national context.",
   "sampling": "Country survey percentages are respondent weighted. The OECD's aggregate is an unweighted average of weighted country averages; figures in this extract are rounded.",
-  "coverage": "33 OECD 2025 member surveys and five accession candidate surveys; Czechia has 2023 only. Colombia participated in both waves but its 2023 national-government trust cell is missing in the published table. US did not participate. Never impute missing cells.",
+  "coverage": "33 OECD 2025 member surveys and five accession candidate surveys; Czechia has 2023 only. Colombia participated in both waves but its 2023 national-government trust cell is missing in the published table. US did not participate. Never impute missing cells. The 2023 wave has 30 participant countries, including Czechia but with a missing national-government trust estimate for Colombia.",
   "methodologicalWarnings": [
     "Participation in both survey waves does not guarantee the national-government trust item is published in both waves.",
     "Round-to-integer country percentages cannot reproduce published OECD average values exactly.",
@@ -21,7 +21,8 @@
     "2023 and 2025 samples are repeated cross-sections, not the same surveyed individuals.",
     "Do not treat cross-country associations as individual-level effects (ecological fallacy).",
     "Missing is null; null is neither zero nor an absence of trust.",
-    "Only surveys published as of the asOf date are represented; newer survey waves require separate review."
+    "Only surveys published as of the asOf date are represented; newer survey waves require separate review.",
+    "2023 country-level values across institutions are transcribed from OECD Table 1.3; 2023 data are absent for countries not in that wave."
   ],
   "fields": {
     "nationalGovernment2023": "2023 percent; null = country not surveyed or item unavailable",
@@ -30,7 +31,12 @@
     "nationalParliament2025": "2025 percent",
     "nationalCivilService2025": "2025 percent",
     "courts2025": "2025 percent",
-    "politicalParties2025": "2025 percent"
+    "politicalParties2025": "2025 percent",
+    "localGovernment2023": "2023 percent; null if this item or wave was unavailable",
+    "nationalParliament2023": "2023 percent; null if this item or wave was unavailable",
+    "nationalCivilService2023": "2023 percent; null if this item or wave was unavailable",
+    "courts2023": "2023 percent; null if this item or wave was unavailable",
+    "politicalParties2023": "2023 percent; null if this item or wave was unavailable"
   },
   "rows": [
     {
@@ -43,7 +49,12 @@
       "nationalParliament2025": 49,
       "nationalCivilService2025": 60,
       "courts2025": 58,
-      "politicalParties2025": 40
+      "politicalParties2025": 40,
+      "localGovernment2023": 51,
+      "nationalParliament2023": 43,
+      "nationalCivilService2023": 50,
+      "courts2023": 59,
+      "politicalParties2023": 34
     },
     {
       "countryCode": "AUT",
@@ -55,7 +66,12 @@
       "nationalParliament2025": 33,
       "nationalCivilService2025": 48,
       "courts2025": 58,
-      "politicalParties2025": 21
+      "politicalParties2025": 21,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "BEL",
@@ -67,7 +83,12 @@
       "nationalParliament2025": 37,
       "nationalCivilService2025": 46,
       "courts2025": 53,
-      "politicalParties2025": 27
+      "politicalParties2025": 27,
+      "localGovernment2023": 52,
+      "nationalParliament2023": 42,
+      "nationalCivilService2023": 49,
+      "courts2023": 53,
+      "politicalParties2023": 29
     },
     {
       "countryCode": "BRA",
@@ -79,7 +100,12 @@
       "nationalParliament2025": 32,
       "nationalCivilService2025": 41,
       "courts2025": 45,
-      "politicalParties2025": 20
+      "politicalParties2025": 20,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "BGR",
@@ -91,7 +117,12 @@
       "nationalParliament2025": 13,
       "nationalCivilService2025": 15,
       "courts2025": 20,
-      "politicalParties2025": 10
+      "politicalParties2025": 10,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "CAN",
@@ -103,7 +134,12 @@
       "nationalParliament2025": 50,
       "nationalCivilService2025": 51,
       "courts2025": 61,
-      "politicalParties2025": 37
+      "politicalParties2025": 37,
+      "localGovernment2023": 54,
+      "nationalParliament2023": 47,
+      "nationalCivilService2023": 54,
+      "courts2023": 63,
+      "politicalParties2023": 34
     },
     {
       "countryCode": "CHL",
@@ -115,7 +151,12 @@
       "nationalParliament2025": 16,
       "nationalCivilService2025": 20,
       "courts2025": 24,
-      "politicalParties2025": 11
+      "politicalParties2025": 11,
+      "localGovernment2023": 36,
+      "nationalParliament2023": 19,
+      "nationalCivilService2023": 24,
+      "courts2023": 25,
+      "politicalParties2023": 14
     },
     {
       "countryCode": "COL",
@@ -127,7 +168,12 @@
       "nationalParliament2025": 22,
       "nationalCivilService2025": 25,
       "courts2025": 33,
-      "politicalParties2025": 15
+      "politicalParties2025": 15,
+      "localGovernment2023": 34,
+      "nationalParliament2023": 23,
+      "nationalCivilService2023": 27,
+      "courts2023": 33,
+      "politicalParties2023": 19
     },
     {
       "countryCode": "CRI",
@@ -139,7 +185,12 @@
       "nationalParliament2025": 22,
       "nationalCivilService2025": 31,
       "courts2025": 39,
-      "politicalParties2025": 17
+      "politicalParties2025": 17,
+      "localGovernment2023": 34,
+      "nationalParliament2023": 26,
+      "nationalCivilService2023": 28,
+      "courts2023": 44,
+      "politicalParties2023": 13
     },
     {
       "countryCode": "HRV",
@@ -151,7 +202,12 @@
       "nationalParliament2025": 22,
       "nationalCivilService2025": 27,
       "courts2025": 29,
-      "politicalParties2025": 12
+      "politicalParties2025": 12,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "CZE",
@@ -163,7 +219,12 @@
       "nationalParliament2025": null,
       "nationalCivilService2025": null,
       "courts2025": null,
-      "politicalParties2025": null
+      "politicalParties2025": null,
+      "localGovernment2023": 44,
+      "nationalParliament2023": 20,
+      "nationalCivilService2023": 34,
+      "courts2023": 50,
+      "politicalParties2023": 14
     },
     {
       "countryCode": "DNK",
@@ -175,7 +236,12 @@
       "nationalParliament2025": 45,
       "nationalCivilService2025": 43,
       "courts2025": 77,
-      "politicalParties2025": 35
+      "politicalParties2025": 35,
+      "localGovernment2023": 47,
+      "nationalParliament2023": 47,
+      "nationalCivilService2023": 44,
+      "courts2023": 75,
+      "politicalParties2023": 37
     },
     {
       "countryCode": "EST",
@@ -187,7 +253,12 @@
       "nationalParliament2025": 31,
       "nationalCivilService2025": 47,
       "courts2025": 61,
-      "politicalParties2025": 18
+      "politicalParties2025": 18,
+      "localGovernment2023": 46,
+      "nationalParliament2023": 27,
+      "nationalCivilService2023": 49,
+      "courts2023": 62,
+      "politicalParties2023": 17
     },
     {
       "countryCode": "FIN",
@@ -199,7 +270,12 @@
       "nationalParliament2025": 54,
       "nationalCivilService2025": 69,
       "courts2025": 75,
-      "politicalParties2025": 42
+      "politicalParties2025": 42,
+      "localGovernment2023": 56,
+      "nationalParliament2023": 54,
+      "nationalCivilService2023": 62,
+      "courts2023": 74,
+      "politicalParties2023": 37
     },
     {
       "countryCode": "FRA",
@@ -211,7 +287,12 @@
       "nationalParliament2025": 24,
       "nationalCivilService2025": 51,
       "courts2025": 45,
-      "politicalParties2025": 15
+      "politicalParties2025": 15,
+      "localGovernment2023": 56,
+      "nationalParliament2023": 33,
+      "nationalCivilService2023": 54,
+      "courts2023": 50,
+      "politicalParties2023": 18
     },
     {
       "countryCode": "DEU",
@@ -223,7 +304,12 @@
       "nationalParliament2025": 35,
       "nationalCivilService2025": 49,
       "courts2025": 58,
-      "politicalParties2025": 25
+      "politicalParties2025": 25,
+      "localGovernment2023": 42,
+      "nationalParliament2023": 35,
+      "nationalCivilService2023": 50,
+      "courts2023": 58,
+      "politicalParties2023": 26
     },
     {
       "countryCode": "GRC",
@@ -235,7 +321,12 @@
       "nationalParliament2025": 25,
       "nationalCivilService2025": 24,
       "courts2025": 39,
-      "politicalParties2025": 15
+      "politicalParties2025": 15,
+      "localGovernment2023": 39,
+      "nationalParliament2023": 32,
+      "nationalCivilService2023": 31,
+      "courts2023": 47,
+      "politicalParties2023": 17
     },
     {
       "countryCode": "ISL",
@@ -247,7 +338,12 @@
       "nationalParliament2025": 52,
       "nationalCivilService2025": 68,
       "courts2025": 65,
-      "politicalParties2025": 29
+      "politicalParties2025": 29,
+      "localGovernment2023": 42,
+      "nationalParliament2023": 36,
+      "nationalCivilService2023": 64,
+      "courts2023": 48,
+      "politicalParties2023": 20
     },
     {
       "countryCode": "IRL",
@@ -259,7 +355,12 @@
       "nationalParliament2025": 46,
       "nationalCivilService2025": 64,
       "courts2025": 68,
-      "politicalParties2025": 27
+      "politicalParties2025": 27,
+      "localGovernment2023": 42,
+      "nationalParliament2023": 49,
+      "nationalCivilService2023": 67,
+      "courts2023": 69,
+      "politicalParties2023": 26
     },
     {
       "countryCode": "ITA",
@@ -271,7 +372,12 @@
       "nationalParliament2025": 32,
       "nationalCivilService2025": 37,
       "courts2025": 44,
-      "politicalParties2025": 22
+      "politicalParties2025": 22,
+      "localGovernment2023": 41,
+      "nationalParliament2023": 31,
+      "nationalCivilService2023": 35,
+      "courts2023": 43,
+      "politicalParties2023": 19
     },
     {
       "countryCode": "JPN",
@@ -283,7 +389,12 @@
       "nationalParliament2025": 35,
       "nationalCivilService2025": 45,
       "courts2025": 59,
-      "politicalParties2025": 29
+      "politicalParties2025": 29,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "KOR",
@@ -295,7 +406,12 @@
       "nationalParliament2025": 34,
       "nationalCivilService2025": 41,
       "courts2025": 41,
-      "politicalParties2025": 29
+      "politicalParties2025": 29,
+      "localGovernment2023": 35,
+      "nationalParliament2023": 21,
+      "nationalCivilService2023": 36,
+      "courts2023": 34,
+      "politicalParties2023": 20
     },
     {
       "countryCode": "LVA",
@@ -307,7 +423,12 @@
       "nationalParliament2025": 23,
       "nationalCivilService2025": 37,
       "courts2025": 47,
-      "politicalParties2025": 12
+      "politicalParties2025": 12,
+      "localGovernment2023": 41,
+      "nationalParliament2023": 25,
+      "nationalCivilService2023": 39,
+      "courts2023": 48,
+      "politicalParties2023": 13
     },
     {
       "countryCode": "LTU",
@@ -319,7 +440,12 @@
       "nationalParliament2025": 27,
       "nationalCivilService2025": 43,
       "courts2025": 52,
-      "politicalParties2025": 19
+      "politicalParties2025": 19,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "LUX",
@@ -331,7 +457,12 @@
       "nationalParliament2025": 55,
       "nationalCivilService2025": 58,
       "courts2025": 73,
-      "politicalParties2025": 35
+      "politicalParties2025": 35,
+      "localGovernment2023": 62,
+      "nationalParliament2023": 57,
+      "nationalCivilService2023": 57,
+      "courts2023": 70,
+      "politicalParties2023": 32
     },
     {
       "countryCode": "MEX",
@@ -343,7 +474,12 @@
       "nationalParliament2025": 41,
       "nationalCivilService2025": 56,
       "courts2025": 51,
-      "politicalParties2025": 34
+      "politicalParties2025": 34,
+      "localGovernment2023": 48,
+      "nationalParliament2023": 43,
+      "nationalCivilService2023": 55,
+      "courts2023": 53,
+      "politicalParties2023": 33
     },
     {
       "countryCode": "NLD",
@@ -355,7 +491,12 @@
       "nationalParliament2025": 38,
       "nationalCivilService2025": 47,
       "courts2025": 70,
-      "politicalParties2025": 33
+      "politicalParties2025": 33,
+      "localGovernment2023": 54,
+      "nationalParliament2023": 43,
+      "nationalCivilService2023": 52,
+      "courts2023": 72,
+      "politicalParties2023": 37
     },
     {
       "countryCode": "NZL",
@@ -367,7 +508,12 @@
       "nationalParliament2025": 43,
       "nationalCivilService2025": 62,
       "courts2025": 64,
-      "politicalParties2025": 36
+      "politicalParties2025": 36,
+      "localGovernment2023": 45,
+      "nationalParliament2023": 42,
+      "nationalCivilService2023": 59,
+      "courts2023": 60,
+      "politicalParties2023": 32
     },
     {
       "countryCode": "NOR",
@@ -379,7 +525,12 @@
       "nationalParliament2025": 58,
       "nationalCivilService2025": 50,
       "courts2025": 76,
-      "politicalParties2025": 38
+      "politicalParties2025": 38,
+      "localGovernment2023": 51,
+      "nationalParliament2023": 54,
+      "nationalCivilService2023": 54,
+      "courts2023": 77,
+      "politicalParties2023": 36
     },
     {
       "countryCode": "PER",
@@ -391,7 +542,12 @@
       "nationalParliament2025": 15,
       "nationalCivilService2025": 19,
       "courts2025": 23,
-      "politicalParties2025": 17
+      "politicalParties2025": 17,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "POL",
@@ -403,7 +559,12 @@
       "nationalParliament2025": 28,
       "nationalCivilService2025": 34,
       "courts2025": 38,
-      "politicalParties2025": 20
+      "politicalParties2025": 20,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "PRT",
@@ -415,7 +576,12 @@
       "nationalParliament2025": 37,
       "nationalCivilService2025": 45,
       "courts2025": 49,
-      "politicalParties2025": 26
+      "politicalParties2025": 26,
+      "localGovernment2023": 38,
+      "nationalParliament2023": 31,
+      "nationalCivilService2023": 43,
+      "courts2023": 45,
+      "politicalParties2023": 18
     },
     {
       "countryCode": "ROU",
@@ -427,7 +593,12 @@
       "nationalParliament2025": 25,
       "nationalCivilService2025": 29,
       "courts2025": 36,
-      "politicalParties2025": 18
+      "politicalParties2025": 18,
+      "localGovernment2023": null,
+      "nationalParliament2023": null,
+      "nationalCivilService2023": null,
+      "courts2023": null,
+      "politicalParties2023": null
     },
     {
       "countryCode": "SVK",
@@ -439,7 +610,12 @@
       "nationalParliament2025": 21,
       "nationalCivilService2025": 33,
       "courts2025": 32,
-      "politicalParties2025": 14
+      "politicalParties2025": 14,
+      "localGovernment2023": 40,
+      "nationalParliament2023": 30,
+      "nationalCivilService2023": 33,
+      "courts2023": 31,
+      "politicalParties2023": 19
     },
     {
       "countryCode": "SVN",
@@ -451,7 +627,12 @@
       "nationalParliament2025": 25,
       "nationalCivilService2025": 30,
       "courts2025": 43,
-      "politicalParties2025": 14
+      "politicalParties2025": 14,
+      "localGovernment2023": 38,
+      "nationalParliament2023": 27,
+      "nationalCivilService2023": 30,
+      "courts2023": 41,
+      "politicalParties2023": 14
     },
     {
       "countryCode": "ESP",
@@ -463,7 +644,12 @@
       "nationalParliament2025": 37,
       "nationalCivilService2025": 45,
       "courts2025": 50,
-      "politicalParties2025": 21
+      "politicalParties2025": 21,
+      "localGovernment2023": 44,
+      "nationalParliament2023": 34,
+      "nationalCivilService2023": 38,
+      "courts2023": 45,
+      "politicalParties2023": 18
     },
     {
       "countryCode": "SWE",
@@ -475,7 +661,12 @@
       "nationalParliament2025": 44,
       "nationalCivilService2025": 41,
       "courts2025": 65,
-      "politicalParties2025": 31
+      "politicalParties2025": 31,
+      "localGovernment2023": 42,
+      "nationalParliament2023": 46,
+      "nationalCivilService2023": 42,
+      "courts2023": 64,
+      "politicalParties2023": 31
     },
     {
       "countryCode": "CHE",
@@ -487,7 +678,12 @@
       "nationalParliament2025": 61,
       "nationalCivilService2025": 62,
       "courts2025": 72,
-      "politicalParties2025": 49
+      "politicalParties2025": 49,
+      "localGovernment2023": 63,
+      "nationalParliament2023": 56,
+      "nationalCivilService2023": 56,
+      "courts2023": 69,
+      "politicalParties2023": 38
     },
     {
       "countryCode": "GBR",
@@ -499,7 +695,12 @@
       "nationalParliament2025": 30,
       "nationalCivilService2025": 39,
       "courts2025": 55,
-      "politicalParties2025": 24
+      "politicalParties2025": 24,
+      "localGovernment2023": 35,
+      "nationalParliament2023": 24,
+      "nationalCivilService2023": 45,
+      "courts2023": 62,
+      "politicalParties2023": 12
     }
   ]
 }
