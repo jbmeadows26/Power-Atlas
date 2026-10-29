@@ -1,0 +1,64 @@
+name: Collect official GovInfo cosponsorship graph (119th Congress)
+
+on:
+  push:
+    paths:
+      - 'scripts/collect_hyperpartisanship_govinfo.py'
+      - 'tests/test_hyperpartisanship_govinfo.py'
+      - '.github/workflows/collect-hyperpartisanship-govinfo.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '41 7 * * 4'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-hyperpartisanship-govinfo
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate official-XML parsing and uncertainty guards
+        run: python -m unittest discover -s tests -p 'test_hyperpartisanship_govinfo.py' -v
+      - name: Download official 119th Congress H.R. and S. Bill Status archives
+        run: python scripts/collect_hyperpartisanship_govinfo.py
+      - name: Reject incomplete or wrongly attributed output
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/hyperpartisanship/govinfo-119-bill-cosponsors-v1.json')
+          d=json.loads(p.read_text())
+          assert d['schema']=='power-atlas.hyperpartisanship.govinfo-bill-cosponsors.v1'
+          assert d['coverage']['count']>=4000
+          assert d['coverage']['count']==len(d['records'])
+          assert d['coverage']['crossPartyTrue']+d['coverage']['crossPartyFalseWithCompletePartyData']+d['coverage']['crossPartyUnknown']==len(d['records'])
+          assert len(d['sources'])==2
+          assert all(s.startswith('https://www.govinfo.gov/bulkdata/') for s in d['sources'])
+          ids=[row['id'] for row in d['records']]
+          assert len(ids)==len(set(ids))
+          assert all(row['source'].startswith('https://www.govinfo.gov/bulkdata/BILLSTATUS/119/') for row in d['records'])
+          print('Verified official BillStatus graph records:',len(ids))
+          PY
+      - name: Publish only official compact evidence if validated and changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/hyperpartisanship/govinfo-119-bill-cosponsors-v1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: update source-verified 119th Congress sponsorship and cosponsor graph'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'No official source changes'
+          fi
