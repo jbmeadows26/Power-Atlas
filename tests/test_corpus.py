@@ -328,6 +328,32 @@ class CorpusChecks(unittest.TestCase):
             self.assertIn(r['disposition'],allowed)
             self.assertTrue(r['claimScope'])
 
+    def test_state_redistricting_checkpoint_contract(self):
+        path = ROOT / 'data/legislation/state-redistricting-jurisdictions.json'
+        if not path.exists():
+            self.skipTest('Incremental jurisdiction checkpoint not initialized')
+        checkpoint = load('data/legislation/state-redistricting-jurisdictions.json')
+        expected = set('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY DC'.split())
+        scanned = checkpoint['jurisdictions']
+        remaining = checkpoint['remainingJurisdictions']
+        self.assertEqual(len(expected), 51)
+        self.assertEqual(checkpoint['jurisdictionsTotal'], 51)
+        self.assertEqual(checkpoint['jurisdictionsScanned'], len(scanned))
+        self.assertEqual(set(scanned) | set(remaining), expected)
+        self.assertFalse(set(scanned) & set(remaining))
+        self.assertEqual(len(remaining), len(set(remaining)))
+        self.assertLessEqual(len(checkpoint['latestBatch']), 8)
+        for state, scope in scanned.items():
+            self.assertEqual(scope['status'], 'first_page_indexed_not_exhaustive')
+            self.assertEqual(scope['searchPage'], 1)
+            self.assertLessEqual(scope['perPage'], 20)
+        bills = load('data/legislation/state-redistricting-bills.json')
+        self.assertEqual(bills['incrementalJurisdictionsScanned'], len(scanned))
+        self.assertEqual(len(bills['records']), len({r['id'] for r in bills['records']}))
+        self.assertLess((ROOT / 'data/legislation/state-redistricting-bills.json').stat().st_size, 850000)
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['legislation']['stateRedistrictingBillCandidates'], bills['records'])
+
     def test_compact_derived_feeds(self):
         for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
             self.assertLess((ROOT / name).stat().st_size, 3000000, name)
