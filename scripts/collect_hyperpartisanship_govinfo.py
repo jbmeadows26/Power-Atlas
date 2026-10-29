@@ -99,7 +99,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
     congress = textof(bill, "congress")
     number = textof(bill, "billNumber")
     if congress != str(CONGRESS) or not number.isdecimal():
-        raise ValueError("Wrong Congress or malformed bill number")
+        raise ValueError(f"Wrong Congress or malformed bill number: {source_url}, congress={congress!r}, billNumber={number!r}")
     sponsor_ids = []
     for item in items(bill, "sponsors"):
         ident = textof(item, "identifiers", "bioguideId")
