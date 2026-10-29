@@ -1,6 +1,11 @@
 name: Collect political authenticity research evidence
 
 on:
+  push:
+    paths:
+      - 'scripts/collect_political_authenticity.py'
+      - 'tests/test_political_authenticity.py'
+      - '.github/workflows/collect-political-authenticity.yml'
   workflow_dispatch:
   schedule:
     - cron: '32 13 * * 2,5'
