@@ -1,15 +1,15 @@
 {
   "schema": "power-atlas.lda-filings.v1",
   "publicationStatus": "review_required",
-  "method": "up to two 10-row pages per issue term/year; incomplete search coverage",
+  "method": "up to 20 filings per issue term/year; 5- or 10-row pages to bound response size; incomplete search coverage",
   "attribution": "Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.",
-  "successfulQueries": 5,
-  "failedQueries": 1,
-  "fetchedRowsInBoundedPages": 91,
-  "matchedRowsInBoundedPages": 79,
-  "issueTextMatchedRows": 79,
-  "filingsWithActivities": 91,
-  "activityRowsInspected": 674,
+  "successfulQueries": 6,
+  "failedQueries": 0,
+  "fetchedRowsInBoundedPages": 70,
+  "matchedRowsInBoundedPages": 54,
+  "issueTextMatchedRows": 54,
+  "filingsWithActivities": 70,
+  "activityRowsInspected": 523,
   "sampleFilingFieldNames": [
     "affiliated_organizations",
     "client",
@@ -50,13 +50,7 @@
     "government_entities",
     "lobbyists"
   ],
-  "failedQueryDetails": [
-    {
-      "term": "congressional district",
-      "year": 2026,
-      "error": "RuntimeError: LDA response exceeded safety limit at page_size=10"
-    }
-  ],
+  "failedQueryDetails": [],
   "records": [
     {
       "id": "lda-06640f8f-a516-4293-a208-c4f9a4470006",
@@ -644,6 +638,21 @@
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
     },
     {
+      "id": "lda-b3e709ea-e3ef-4c52-a246-d65c3460af38",
+      "filingId": "b3e709ea-e3ef-4c52-a246-d65c3460af38",
+      "client": "LEAGUE OF CONSERVATION VOTERS",
+      "registrant": "LEAGUE OF CONSERVATION VOTERS",
+      "year": 2026,
+      "period": "first_quarter",
+      "type": "Q1",
+      "source": "https://lda.gov/filings/public/filing/search/",
+      "sourceApi": "https://lda.gov/api/v1/filings/b3e709ea-e3ef-4c52-a246-d65c3460af38/",
+      "dateAccessed": "2026-10-29",
+      "specificIssuesExcerpt": "Opposed H.R. 7300, the Make Elections Great Again Act Opposed H.R. 7296/S.3752/S.1383, the SAVE America Act Opposed H.R.22/S.128, the SAVE Act Supported the Freedom to Vote Act. Su",
+      "reviewStatus": "issue_text_matched_unreviewed",
+      "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
+    },
+    {
       "id": "lda-bbfa197c-a78a-4d8d-b2f6-f45796c795c2",
       "filingId": "bbfa197c-a78a-4d8d-b2f6-f45796c795c2",
       "client": "AMERICAN CIVIL LIBERTIES UNION",
@@ -805,6 +814,21 @@
       "sourceApi": "https://lda.gov/api/v1/filings/de9d4247-e1c4-49da-807d-f052fd224c67/",
       "dateAccessed": "2026-10-29",
       "specificIssuesExcerpt": "Washington, DC Admissions Act (HR 51/S 51) - to provide for the admission of the State of Washington, D.C. into the Union. Transparent Representation Upholding Service and Trust in",
+      "reviewStatus": "issue_text_matched_unreviewed",
+      "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
+    },
+    {
+      "id": "lda-e00c4483-52f0-44d5-abb7-5c8ace4762a2",
+      "filingId": "e00c4483-52f0-44d5-abb7-5c8ace4762a2",
+      "client": "NATIONAL TREASURY EMPLOYEES UNION",
+      "registrant": "NATIONAL TREASURY EMPLOYEES UNION",
+      "year": 2026,
+      "period": "first_quarter",
+      "type": "Q1",
+      "source": "https://lda.gov/filings/public/filing/search/",
+      "sourceApi": "https://lda.gov/api/v1/filings/e00c4483-52f0-44d5-abb7-5c8ace4762a2/",
+      "dateAccessed": "2026-10-29",
+      "specificIssuesExcerpt": "H. Res. 186, Of inquiry requesting the President to transmit certain documents to the House of Representatives relating to the conflicts of interest of Elon Musk and related inform",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
     },
