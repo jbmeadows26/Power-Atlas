@@ -114,6 +114,22 @@ for person in congress_members_source:
             'reviewStatus': 'third_party_identity_crosswalk_requires_primary_FEC_confirmation'
         }
 
+# Public legislative sponsorship is an explicit role, not a recorded roll call vote.
+federal_bill_path = ROOT / 'data/legislation/federal-bill-candidates.json'
+federal_bill_doc = json.loads(federal_bill_path.read_text(encoding='utf-8')) if federal_bill_path.exists() else {}
+federal_bills = federal_bill_doc.get('records', [])
+for bill in federal_bills:
+    sponsor = str(bill.get('sponsorBioguideId') or '')
+    if not re.fullmatch(r'[A-Z][0-9]{6}', sponsor):
+        continue
+    relation_id = 'bill-sponsor-' + hashlib.sha256((bill['id']+'/'+sponsor).encode()).hexdigest()[:16]
+    relationships[relation_id] = {
+        'id': relation_id, 'from': 'bioguide-'+sponsor, 'to': bill['id'],
+        'type': 'source_reported_federal_bill_sponsorship',
+        'source': bill['source'],
+        'reviewStatus': 'secondary_index_primary_Congressgov_confirmation_pending'
+    }
+
 # Flag likely duplicates for review instead of deleting source-specific records.
 seen = {}
 for item in sorted(records.values(), key=lambda x: (0 if x['id'].startswith('doj-') and not x['id'].startswith('doj-index') else 1, x['id'])):
@@ -215,6 +231,11 @@ feed = {
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436', 'supremeCourtRedistrictingDecisions': scotus_decisions, 'supremeCourtDocketSource': 'https://www.supremecourt.gov/Docket/docket.aspx', 'scopeNote': 'Selected Supreme Court dispositions only; not a nationwide case docket census or state judicial record.'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
+    'legislation': {
+        'federalBillCandidates': federal_bills,
+        'sourceProvider':'https://www.ballotwatch.io/developers',
+        'scopeNote':'Keyword search of public bill titles and secondary-source sponsor IDs. Not exhaustive. No recorded voting outcomes implied.'
+    },
     'elections': {'houseStateYears': house_summary, 'representationByStateYear': representation_rows, 'representationMetric': 'Descriptive two-party seat share minus vote share; not a gerrymandering or fairness score', 'house2024KeyAudit': house_2024_audit, 'house2024UnopposedStatusOnly': house_unopposed, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
@@ -239,6 +260,9 @@ feed = {
         'congressMemberRows': len(congress),
         'stateLegislatorRows': state_people_count,
         'stateExecutiveRows': len(executives),
+        'federalBillCandidateRows': len(federal_bills),
+        'federalBillRedistrictingTitleMatches': sum(r['issueClass']=='redistricting_specific_title' for r in federal_bills),
+        'federalBillSponsorEdges': sum(bool(re.fullmatch(r'[A-Z][0-9]{6}',str(r.get('sponsorBioguideId') or ''))) for r in federal_bills),
         'federalJudicialAppointments': fjc_index.get('appointmentRecords', 0),
         'supremeCourtRedistrictingDecisions': len(scotus_decisions),
         'stateLegislatorJurisdictions': len(state_people_index),
