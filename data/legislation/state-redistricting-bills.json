@@ -1,9 +1,9 @@
 {
   "schema": "power-atlas.state-redistricting-bill-candidates.v1",
-  "publicationStatus": "candidate_search_scope_is_not_exhaustive",
+  "publicationStatus": "search_candidate_needs_primary_source_verification",
   "provider": "https://billcommons.org/docs/api",
   "attribution": "Bill Commons (official state/Open States and possibly optional CC-BY-4.0 LegiScan, record-specific source licensing must be checked before reuse); metadata and source references only",
-  "coverageWarning": "Combined bounded national keyword searches plus at most first 20 per jurisdiction. Some years, sessions and bills absent; original state record controls.",
+  "coverageWarning": "First 40 results per query; not complete nationwide or state legislative coverage. An empty result is not evidence that a bill does not exist.",
   "searches": [
     {
       "query": "redistricting",
@@ -25,13 +25,13 @@
     },
     {
       "query": "congressional district",
-      "rowsReturned": 40,
-      "totalReported": 2256,
-      "pagesQueried": 1
+      "status": "temporary_network_failure",
+      "errorType": "TimeoutError"
     }
   ],
-  "successfulSearches": 4,
+  "successfulSearches": 3,
   "jurisdictionsLookupCount": 51,
+  "incrementalJurisdictionsScanned": 8,
   "records": [
     {
       "id": "state-bill-00a2b287-f6ce-43b8-9119-ac194bb1d7d2",
@@ -2433,6 +2433,5 @@
       "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     }
-  ],
-  "incrementalJurisdictionsScanned": 8
+  ]
 }

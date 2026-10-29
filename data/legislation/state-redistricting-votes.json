@@ -5,24 +5,24 @@
   "sourceScope": "Only first ten strongly titled bill candidates; tallies only and source URLs; zero rows does not mean no votes occurred",
   "attempts": [
     {
+      "billId": "state-bill-f6c7bd7c-26c1-4b6a-9343-f1cc883736af",
+      "status": "read",
+      "returnedVoteRows": 0
+    },
+    {
       "billId": "state-bill-88f22d68-854e-4053-9217-d90b97f4ee20",
       "status": "read",
       "returnedVoteRows": 0
     },
     {
+      "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "status": "read",
+      "returnedVoteRows": 3
+    },
+    {
       "billId": "state-bill-a79d0c45-7334-4083-9ff9-39bc75015468",
       "status": "read",
       "returnedVoteRows": 12
-    },
-    {
-      "billId": "state-bill-227f8cef-dc60-4db7-abd6-df0c865236ee",
-      "status": "read",
-      "returnedVoteRows": 0
-    },
-    {
-      "billId": "state-bill-1aea9311-9e97-4bce-be31-ba195855a530",
-      "status": "read",
-      "returnedVoteRows": 0
     }
   ],
   "warning": "Zero-coded unverified upstream tallies are treated as unavailable, never as confirmed zero votes.",
@@ -88,6 +88,42 @@
       "tallyStatus": "not_reported_or_unverifiable",
       "source": "https://leg.colorado.gov/bills/HB26-1038",
       "sourceIndex": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
+      "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+      "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+    },
+    {
+      "id": "state-roll-40d57d84-9539-4ff6-b122-2130ffa9f0e7",
+      "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "state": "AZ",
+      "identifier": "SCR 1023",
+      "motion": "retained",
+      "classification": "passage",
+      "date": "2026-03-02",
+      "result": "fail",
+      "counts": {},
+      "tallyStatus": "not_reported_or_unverifiable",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
+      "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+      "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+    },
+    {
+      "id": "state-roll-62c63b6e-e4c0-47f2-89cc-fa0fa700a1e5",
+      "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "state": "AZ",
+      "identifier": "SCR 1023",
+      "motion": "Passed",
+      "classification": "passage",
+      "date": "2026-03-09",
+      "result": "pass",
+      "counts": {
+        "yes_count": 16,
+        "no_count": 13,
+        "other_count": 1
+      },
+      "tallyStatus": "reported_positive_tally",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
       "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
       "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
     },
@@ -200,6 +236,22 @@
       "tallyStatus": "not_reported_or_unverifiable",
       "source": "https://leg.colorado.gov/bills/HB26-1038",
       "sourceIndex": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
+      "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+      "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+    },
+    {
+      "id": "state-roll-b7ac4812-f154-4477-b31e-02ea025dcec3",
+      "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "state": "AZ",
+      "identifier": "SCR 1023",
+      "motion": "do pass amended",
+      "classification": "passage",
+      "date": "2026-03-03",
+      "result": "fail",
+      "counts": {},
+      "tallyStatus": "not_reported_or_unverifiable",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
       "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
       "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
     },

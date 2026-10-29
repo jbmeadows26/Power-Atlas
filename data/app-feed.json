@@ -26781,6 +26781,14 @@
       "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
     },
     {
+      "id": "state-vote-edge-1d5a402dcbf0e3a4",
+      "from": "state-roll-b7ac4812-f154-4477-b31e-02ea025dcec3",
+      "to": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "type": "third_party_indexed_bill_recorded_vote",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
+    },
+    {
       "id": "state-vote-edge-24f84027326b573e",
       "from": "state-roll-6e4f1d72-5f7d-426d-a05c-481ba9817162",
       "to": "state-bill-a79d0c45-7334-4083-9ff9-39bc75015468",
@@ -26797,11 +26805,27 @@
       "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
     },
     {
+      "id": "state-vote-edge-47becb172184cac8",
+      "from": "state-roll-40d57d84-9539-4ff6-b122-2130ffa9f0e7",
+      "to": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "type": "third_party_indexed_bill_recorded_vote",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+      "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
+    },
+    {
       "id": "state-vote-edge-4c2d3e7226ed24d6",
       "from": "state-roll-67088daa-b93e-44fd-9f17-91bd131322d3",
       "to": "state-bill-a79d0c45-7334-4083-9ff9-39bc75015468",
       "type": "third_party_indexed_bill_recorded_vote",
       "source": "https://leg.colorado.gov/bills/HB26-1038",
+      "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
+    },
+    {
+      "id": "state-vote-edge-6737e4297e1a193e",
+      "from": "state-roll-62c63b6e-e4c0-47f2-89cc-fa0fa700a1e5",
+      "to": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+      "type": "third_party_indexed_bill_recorded_vote",
+      "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
       "reviewStatus": "third_party_rollcall_official_chamber_crosscheck_required"
     },
     {
@@ -43555,6 +43579,42 @@
         "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
       },
       {
+        "id": "state-roll-40d57d84-9539-4ff6-b122-2130ffa9f0e7",
+        "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+        "state": "AZ",
+        "identifier": "SCR 1023",
+        "motion": "retained",
+        "classification": "passage",
+        "date": "2026-03-02",
+        "result": "fail",
+        "counts": {},
+        "tallyStatus": "not_reported_or_unverifiable",
+        "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+        "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
+        "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+        "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+      },
+      {
+        "id": "state-roll-62c63b6e-e4c0-47f2-89cc-fa0fa700a1e5",
+        "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+        "state": "AZ",
+        "identifier": "SCR 1023",
+        "motion": "Passed",
+        "classification": "passage",
+        "date": "2026-03-09",
+        "result": "pass",
+        "counts": {
+          "yes_count": 16,
+          "no_count": 13,
+          "other_count": 1
+        },
+        "tallyStatus": "reported_positive_tally",
+        "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+        "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
+        "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+        "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+      },
+      {
         "id": "state-roll-67088daa-b93e-44fd-9f17-91bd131322d3",
         "billId": "state-bill-a79d0c45-7334-4083-9ff9-39bc75015468",
         "state": "CO",
@@ -43663,6 +43723,22 @@
         "tallyStatus": "not_reported_or_unverifiable",
         "source": "https://leg.colorado.gov/bills/HB26-1038",
         "sourceIndex": "https://api.billcommons.org/api/v1/bills/a79d0c45-7334-4083-9ff9-39bc75015468/votes",
+        "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
+        "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
+      },
+      {
+        "id": "state-roll-b7ac4812-f154-4477-b31e-02ea025dcec3",
+        "billId": "state-bill-bd5820df-528a-49f2-8e6a-d1b38ddd73c8",
+        "state": "AZ",
+        "identifier": "SCR 1023",
+        "motion": "do pass amended",
+        "classification": "passage",
+        "date": "2026-03-03",
+        "result": "fail",
+        "counts": {},
+        "tallyStatus": "not_reported_or_unverifiable",
+        "source": "https://apps.azleg.gov/BillStatus/BillOverview/85001?SessionId=130",
+        "sourceIndex": "https://api.billcommons.org/api/v1/bills/bd5820df-528a-49f2-8e6a-d1b38ddd73c8/votes",
         "reviewStatus": "secondary_recorded_state_rollcall_needs_official_verification",
         "limitations": "Only aggregate member voting counts; incomplete bill sample; official source controls"
       },
@@ -57085,7 +57161,7 @@
   },
   "coverage": {
     "sourceIndexedRecords": 60,
-    "relationshipRecords": 2622,
+    "relationshipRecords": 2625,
     "FECcandidateCommitteeLinks": 1269,
     "FECcommitteeMasterRows": 673,
     "stateCommitteeRows": 62,
@@ -57101,7 +57177,7 @@
     "federalBillCandidateRows": 34,
     "stateBillCandidateRows": 160,
     "stateRedistrictingTitleMatches": 77,
-    "stateRecordedVoteRows": 12,
+    "stateRecordedVoteRows": 15,
     "federalBillRedistrictingTitleMatches": 14,
     "federalBillSponsorEdges": 8,
     "federalJudicialAppointments": 4777,
