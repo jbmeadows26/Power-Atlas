@@ -1,0 +1,84 @@
+name: Collect Census modern state fiscal aggregates
+on:
+  push:
+    paths:
+      - 'scripts/probe_census_state_timeseries_zip.py'
+      - 'scripts/collect_census_state_timeseries.py'
+      - 'tests/test_fiscal_timeseries.py'
+      - '.github/workflows/collect-state-fiscal-timeseries.yml'
+  pull_request:
+    paths:
+      - 'scripts/probe_census_state_timeseries_zip.py'
+      - 'scripts/collect_census_state_timeseries.py'
+      - 'tests/test_fiscal_timeseries.py'
+      - '.github/workflows/collect-state-fiscal-timeseries.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-modern-state-finance
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test original-source validation and spending inference guardrails
+        run: python -m unittest discover -s tests -p 'test_fiscal_timeseries.py' -v
+      - name: Collect official 2012-2024 state government aggregates
+        run: python -m scripts.collect_census_state_timeseries
+      - name: Verify actual state-year coverage, source SHA and non-causal scope
+        run: |
+          python - <<'PY'
+          import json
+          from collections import Counter
+          from pathlib import Path
+          d=json.loads(Path('data/fiscal/state-timeseries/aggregate-capital-2012-2024.json').read_text())
+          assert d['coverage']['stateYearObservations']==650
+          assert d['coverage']['yearCount']==13
+          assert d['coverage']['stateGovernmentsPerYear']==50
+          assert d['coverage']['officialAggregateRowsRetained']==3250
+          assert not d['electionClockAttached']
+          assert d['electoralShortTermismModel'] is None
+          assert d['causalEstimates'] is None
+          assert d['source']['sha256OriginalBytes']=='888dfbb3f8eeebce01b409e4e86178ac04c596c7fc355047beef2433a9b5be48'
+          grouped=Counter(row['fiscalYear'] for row in d['records'])
+          assert set(grouped)==set(range(2012,2025))
+          assert set(grouped.values())=={50}
+          assert all(0<=r['capitalOutlayShareOfDirectExpenditureBasisPoints']<=10000 for r in d['records'])
+          assert all(r['classificationRegime']==('pre_2022' if r['fiscalYear']<2022 else 'post_2022_reclassified') for r in d['records'])
+          print('Verified official aggregate state-year dataset:',len(d['records']),'rows, 13 years, 50 states, no causal claims')
+          PY
+      - name: Publish only compact modern fiscal research output with bounded retries
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/fiscal/state-timeseries/
+          if git diff --cached --quiet; then
+            echo 'Official source aggregates unchanged; no new commit.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: stage Census state-government fiscal aggregates 2012-2024'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Refusing to overwrite conflicting data or unrelated research.'
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Published modern Census aggregate evidence on attempt $attempt"
+              exit 0
+            fi
+            sleep "$((attempt*2))"
+          done
+          echo 'No unsafe force-push or remote overwrite.'
+          exit 1
