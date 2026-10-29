@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_official_election_sources.py'
+      - 'tests/test_corpus.py'
       - '.github/workflows/collect-official-election-sources.yml'
   workflow_dispatch:
   schedule:
