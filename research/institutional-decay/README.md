@@ -63,3 +63,12 @@ Do not claim H3/H6 until an appropriately identified test is actually conducted.
 - Bendtsen (2026), *Increasing Take-Up of Social Benefits: A Meta-Analysis of Field Experiments*, `Journal of Policy Analysis and Management`. Synthesis of 51 field experiments and 187 effect sizes; final benefit receipt and applications are distinct outcomes. [Paper](https://consensus.app/papers/increasing-take‐up-of-social-benefits-a-meta‐analysis-of-bendtsen/30acbc794c1e5379a6c5ec78e8f59c02/).
 
 **Research ethics:** No private contact details or identifying information of uncharged private individuals; do not infer corruption from social ties. Report unknown as unknown. Do not equate accusation, parliamentary finding, civil penalty, and criminal conviction. Distinguish direct quotes, documented numbers, estimates and hypotheses. 
+
+## Newly validated empirical datasets (2026-10-29)
+
+- [OECD country and institutional trust 2023–2025](../../data/institutional-decay/trust-country-waves-2023-2025.json): 39 countries with some observations, 33 OECD respondents in 2025 and 28 paired national-government trust estimates. Other trust series (civil service, local government, parliament, parties and courts) are kept separate.
+- [OECD integrity implementation extracts](../../data/institutional-decay/integrity-implementation-2025.json): assessed **regulation versus practice** criteria, three OECD averages and curated country examples; not an inferred corruption or impunity probability.
+- [Research findings and exact denominator checks](empirical-update-2026-10-29.md) documents sample limitations, contradictory institutional trust directions and source licensing.
+- Run `python scripts/analyze_institutional_decay.py` for deterministic descriptive analysis; `tests/test_institutional_decay_country_panel.py` and `tests/test_institutional_decay_integrity.py` enforce sample and causal-language guardrails.
+
+**Important:** These are descriptive published survey percentages, not microdata and not a completed causal study. The country pairs exclude the missing 2023 government trust cell for Colombia. Only 28 national-government trust item pairs are available even though 29 OECD countries participated in both waves. The repository's production redistricting feed is unchanged.
