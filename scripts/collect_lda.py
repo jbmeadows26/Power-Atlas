@@ -21,7 +21,7 @@ def fetch(term, year):
     # need smaller pages. Same 20-record cap, not expanded search access.
     page_size = 5 if term == 'congressional district' else 10
     found = []
-    for page in range(1, 21 // page_size):
+    for page in range(1, (20 // page_size) + 1):
         query = urlencode({'filing_specific_lobbying_issues':term,
                            'filing_year':year,'page_size':page_size,'page':page})
         req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
