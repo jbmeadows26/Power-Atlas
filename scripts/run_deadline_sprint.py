@@ -62,6 +62,10 @@ def persistence(name):
             }
         records=doc.get('records',doc.get('states'))
         info={'persistedRecords':len(records) if isinstance(records,list) else None}
+        if name=='fec_recipient_aggregates':
+            info.update({'successfulQueries':doc.get('successfulQueries'),
+                         'failedQueries':len(doc.get('failedQueries',[])),
+                         'rawAggregateRowsInspected':doc.get('rawAggregateRowsInspected')})
         if name=='lobbying_disclosures':
             info.update({
                 'successfulQueries':doc.get('successfulQueries'),
@@ -94,9 +98,12 @@ def run():
             continue
         if name=='fec_recipient_aggregates' and (ROOT/DATA_FILES[name]).exists() and not os.environ.get('FEC_API_KEY'):
             info=persistence(name)
-            if info.get('persistedRecords',0)>0:
-                report[name]={'status':'cached_verified',
-                              'note':'Previously collected bounded official FEC recipient-ID aggregates retained to conserve DEMO_KEY quota',
+            if info.get('successfulQueries')==2 and info.get('failedQueries')==0:
+                status='cached_verified' if info.get('persistedRecords',0)>0 else 'partial_empty_cached'
+                report[name]={'status':status,
+                              'note':('Bounded official recipient-ID aggregate query retained; no repeat DEMO_KEY calls'
+                                      if info.get('persistedRecords',0)>0 else
+                                      'Two official 2024 PAC queries returned zero committee-recipient aggregates; does not imply zero overall spending'),
                               **info}
                 continue
         if name.startswith('fec_') and restricted_today:
