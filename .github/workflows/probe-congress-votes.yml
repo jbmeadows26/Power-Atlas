@@ -1,0 +1,25 @@
+name: Verify public CC0 congressional voting archive
+on:
+  push:
+    paths:
+      - 'scripts/probe_congress_votes.py'
+      - '.github/workflows/probe-congress-votes.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-congress-votes-source-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify alternate public data access without credentials
+        run: python scripts/probe_congress_votes.py
+      - name: Preserve bounded diagnostic
+        run: bash scripts/publish_data.sh data/health/congressional-vote-open-data-probe.json
