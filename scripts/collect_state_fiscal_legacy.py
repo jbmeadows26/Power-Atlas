@@ -96,8 +96,8 @@ def parse_records(raw: bytes, source_year: int):
         if not gov.isascii() or not gov.isdigit() or not re.fullmatch(r"[A-Z0-9]{3}", item):
             raise ValueError(f"Invalid government code or item code at line {line_number}")
         amount_normalized = amount.strip()
-        if amount_normalized == ".":
-            amount_status = "published_missing_marker"
+        if amount_normalized in ("", "."):
+            amount_status = "published_missing_marker_blank" if not amount_normalized else "published_missing_marker_dot"
         elif re.fullmatch(r"-?[0-9]+", amount_normalized):
             amount_status = "numeric_reported"
         else:
@@ -135,7 +135,7 @@ def parse_records(raw: bytes, source_year: int):
         "capitalFamilyRowsRetained": len(selected),
         "stateGovernmentCount": len(state_seen),
         "capitalFamilyRowCounts": {k: code_families.get(k, 0) for k in sorted(CAPITAL_FAMILIES)},
-        "missingMarkerRows": sum(r["amountStatus"] == "published_missing_marker" for r in selected),
+        "missingMarkerRows": sum(r["amountStatus"].startswith("published_missing_marker") for r in selected),
         "records": selected,
     }
 
