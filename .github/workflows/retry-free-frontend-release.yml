@@ -1,0 +1,63 @@
+name: One-time free-tier Vercel UI release retry
+on:
+  schedule:
+    - cron: '37 13 * * *'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-free-ui-release-retry
+  cancel-in-progress: false
+jobs:
+  retry-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: Enforce one-time date gate after the daily free deployment quota resets
+        id: gate
+        run: |
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" || "$(date -u +%F)" == "2026-10-30" ]]; then
+            echo "release=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release=false" >> "$GITHUB_OUTPUT"
+            echo "One-time free release date has passed; no action"
+          fi
+      - name: Validate research UI and source-backed dashboard feed
+        if: steps.gate.outputs.release == 'true'
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          html=Path('site/index.html').read_text()
+          assert 'data-tab="gridlock"' in html
+          d=json.loads(Path('data/hyperpartisanship/app-summary-v1.json').read_text())
+          assert d['schema']=='power-atlas.hyperpartisanship.app-summary.v1'
+          assert d['coverage']['observedCompletedChamberCongresses']>=30
+          assert d['coverage']['billClassified119']>10000 if 'billClassified119' in d['coverage'] else d['coverage']['classifiedBills119']>10000
+          PY
+      - name: Push one verifiable UI-only revision to trigger the existing Git-to-Vercel connection
+        if: steps.gate.outputs.release == 'true'
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path=Path('site/index.html')
+          text=path.read_text(encoding='utf-8')
+          tag='<!-- power-atlas-ui-free-retry-2026-10-30 -->'
+          if tag not in text:
+            assert '</body>' in text
+            text=text.replace('</body>',tag+'\n</body>')
+            path.write_text(text,encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add site/index.html
+          if ! git diff --cached --quiet; then
+            git commit -m 'deploy: publish validated Congress research tab after free quota reset'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo "UI release trigger already committed; no duplicate deployment"
+          fi
