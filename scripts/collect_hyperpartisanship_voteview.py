@@ -41,6 +41,14 @@ def stream_csv(url):
         with io.TextIOWrapper(response, encoding="utf-8-sig", newline="") as reader:
             yield from csv.DictReader(reader)
 
+def canonical_icpsr(value):
+    # Voteview per-Congress CSVs may encode integer ICPSR IDs with '.0'.
+    # Only an exact integral representation is accepted. Do not match by name.
+    raw = str(value).strip()
+    if not re.fullmatch(r"[0-9]{1,7}(?:[.]0+)?", raw):
+        return None
+    return str(int(raw.split(".", 1)[0]))
+
 def parse_members(rows, min_rows=1000):
     member_party = {}
     ideology = defaultdict(lambda: {"D": [], "R": []})
@@ -61,7 +69,9 @@ def parse_members(rows, min_rows=1000):
         party = PARTIES.get(party_code)
         if not party:
             continue
-        icpsr = str(row["icpsr"])
+        icpsr = canonical_icpsr(row["icpsr"])
+        if icpsr is None:
+            continue
         key = (congress, chamber, icpsr)
         if key in member_party:
             # Ambiguous source membership is a hard stop; never multiply vote rows.
@@ -90,7 +100,8 @@ def summarize_votes(rows, member_party, ideology):
         chamber = row["chamber"]
         if not (FIRST_CONGRESS <= congress <= LAST_CONGRESS and chamber in CHAMBERS):
             continue
-        party = member_party.get((congress, chamber, str(row["icpsr"])))
+        icpsr = canonical_icpsr(row["icpsr"])
+        party = member_party.get((congress, chamber, icpsr)) if icpsr is not None else None
         if not party:
             unmatched += 1
             continue
