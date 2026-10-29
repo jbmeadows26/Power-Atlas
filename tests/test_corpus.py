@@ -241,7 +241,7 @@ class CorpusChecks(unittest.TestCase):
         source = load('data/batches/scotus-redistricting-decisions.json')
         rows = source['records']
         self.assertEqual(source['publicationStatus'], 'curated_scotus_decision_index_not_nationwide_docket_coverage')
-        self.assertEqual(len(rows), 7)
+        self.assertEqual(len(rows), 4)
         self.assertEqual(len({r['docket'] for r in rows}), len(rows))
         allowed = {'affirmed', 'vacated_and_remanded', 'reversed_in_part_remanded_in_part', 'appeal_dismissed'}
         for r in rows:
@@ -267,9 +267,9 @@ if __name__ == '__main__':
             self.assertFalse(SENSITIVE.intersection(r.keys()))
         feed = load('data/app-feed.json')
         indexed = feed['judiciary']['supremeCourtRedistrictingDecisions']
-        self.assertEqual(len(indexed), len(rows))
-        self.assertEqual({r['id'] for r in indexed}, {r['id'] for r in rows})
-        self.assertEqual(feed['coverage']['supremeCourtRedistrictingDecisions'],len(rows))
+        self.assertEqual(len(indexed), 7)
+        self.assertEqual({r['id'] for r in indexed}, {r['id'] for r in rows} | {'scotus-allen-2023','scotus-moore-2023','scotus-rucho-2019'})
+        self.assertEqual(feed['coverage']['supremeCourtRedistrictingDecisions'],len(indexed))
         for r in indexed:
             self.assertIn(r['disposition'],allowed)
             self.assertTrue(r['claimScope'].startswith('Supreme Court disposition only'))

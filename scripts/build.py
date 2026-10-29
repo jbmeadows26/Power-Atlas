@@ -21,7 +21,7 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
             raise ValueError(f'Invalid record in {file}')
         compact = {k: row[k] for k in (
             'id', 'title', 'state', 'date', 'asOf', 'source', 'status',
-            'reviewStatus', 'claimScope', 'court', 'docket', 'disposition'
+            'reviewStatus', 'claimScope', 'court', 'docket', 'disposition', 'secondarySource'
         ) if k in row}
         if not compact.get('status') and not compact.get('reviewStatus'):
             compact['status'] = doc.get('status') or doc.get('publicationStatus') or 'source_indexed_unreviewed'
@@ -190,7 +190,7 @@ for map_congress,year in [(116,2020),(119,2025)]:
         })
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
-scotus_decisions = [row for row in output['records'] if row['id'].startswith('scotus-')]
+scotus_decisions = [row for row in output['records'] if row['id'].startswith('scotus-') and row.get('docket')]
 for decision in scotus_decisions:
     if decision.get('court') != 'Supreme Court of the United States':
         raise ValueError('Unexpected court label in Supreme Court decision index')
