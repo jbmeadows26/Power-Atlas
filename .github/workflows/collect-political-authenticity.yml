@@ -5,6 +5,8 @@ on:
     paths:
       - 'scripts/collect_political_authenticity.py'
       - 'tests/test_political_authenticity.py'
+      - 'scripts/build_political_authenticity_age_comparison.py'
+      - 'tests/test_political_authenticity_age_comparison.py'
       - '.github/workflows/collect-political-authenticity.yml'
   workflow_dispatch:
   schedule:
@@ -30,6 +32,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_political_authenticity.py' -v
       - name: Collect free CC0 congressional biography records
         run: python scripts/collect_political_authenticity.py
+      - name: Build sourced age comparison from verified 2024 Census age band
+        run: python scripts/build_political_authenticity_age_comparison.py
       - name: Validate output completeness and missingness
         run: |
           python - <<'PY'
@@ -41,13 +45,16 @@ jobs:
           assert c['ageKnown'] > 0
           assert c['ageKnown']+c['ageUnknown']==c['rosterTotal']
           assert c['wealthKnown']==c['occupationKnown']==c['educationKnown']==0
+          b=json.loads(Path('data/research/political-authenticity/age-comparison.json').read_text())
+          assert b['populationAge25plus']==235910719
+          assert b['houseVotingCount'] >= 400
           print(c['rosterTotal'],c['ageKnown'],c['ageUnknown'])
           PY
       - name: Publish validated research records if changed
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/research/political-authenticity/members.json data/research/political-authenticity/coverage.json
+          git add data/research/political-authenticity/members.json data/research/political-authenticity/coverage.json data/research/political-authenticity/age-comparison.json
           if ! git diff --cached --quiet; then
             git commit -m 'data: update validated political representation biography snapshot'
             git push
