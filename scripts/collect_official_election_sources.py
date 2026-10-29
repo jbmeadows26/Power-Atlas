@@ -94,6 +94,7 @@ def collect():
             'directorySource':FEC_DIR,
             'officialCertifiedResultURL':None,
             'stateCertifiedVoteTotalsRetrieved':False,
+            'certification_status':'pending_download',
             'officialResultStatus':'election_office_link_only_not_certified_canvass',
             'researchAction':'Find official canvass of votes for exact state, year, office, district and stage'
         }
@@ -111,6 +112,7 @@ def collect():
             'directorySource':FEC_DIR,
             'officialCertifiedResultURL':None,
             'stateCertifiedVoteTotalsRetrieved':False,
+            'certification_status':'pending_download',
             'officialResultStatus':'official_HTTPS_state_source_crosschecked_not_canvass',
             'researchAction':'Retrieve official canvass for exact election contest before setting certification'
         }
