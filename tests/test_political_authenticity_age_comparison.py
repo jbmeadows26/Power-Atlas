@@ -55,6 +55,11 @@ class CensusRepresentationTests(unittest.TestCase):
         snap=snapshot_fixture()
         snap["records"][-1]["votingMember"]=True
         with self.assertRaises(ValueError):build(snap)
+    def test_reject_three_senators_from_one_state(self):
+        snap=snapshot_fixture()
+        senators=[r for r in snap["records"] if r["chamber"]=="Senate"]
+        senators[0]["state"]=senators[2]["state"]
+        with self.assertRaises(ValueError):build(snap)
     def test_reject_missing_birth_date(self):
         snap=snapshot_fixture()
         snap["records"][0]["birthDate"]=None
