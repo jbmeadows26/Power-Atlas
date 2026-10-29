@@ -81,6 +81,38 @@ def probe():
         doc['statsEndpoint']={'status':'http_error','code':exc.code}
     except (URLError,OSError,ValueError,RuntimeError) as exc:
         doc['statsEndpoint']={'status':type(exc).__name__}
+    # The no-key search endpoint is publicly documented. Test targeted terms,
+    # save only response schema and two sanitized public record examples.
+    from urllib.parse import urlencode
+    doc['searchProbes']=[]
+    for phrase in ('redistricting', 'voting rights', 'election'):
+        query=BASE+'/api/v1/search?'+urlencode({'q':phrase,'limit':5})
+        probe={'query':phrase,'source':query}
+        try:
+            body=json.loads(read(query,MAX_JSON))
+            probe['status']='reachable'
+            probe['rootKeys']=list(body.keys()) if isinstance(body,dict) else []
+            data=body.get('data') if isinstance(body,dict) else None
+            probe['dataType']=type(data).__name__
+            if isinstance(data,dict):
+                probe['dataKeys']=list(data.keys())
+                probe['collections']={}
+                for name,rows in data.items():
+                    if isinstance(rows,list):
+                        probe['collections'][name]={'count':len(rows),'sampleKeys':list(rows[0].keys()) if rows and isinstance(rows[0],dict) else []}
+                        if rows and isinstance(rows[0],dict):
+                            first=rows[0]
+                            probe['collections'][name]['example']={
+                                k:str(first[k])[:110] for k in ('id','title','bill_id','vote_id','source','url') if k in first
+                            }
+            elif isinstance(data,list):
+                probe['dataCount']=len(data)
+                probe['firstKeys']=list(data[0].keys()) if data and isinstance(data[0],dict) else []
+        except HTTPError as exc:
+            probe['status']='http_error';probe['httpStatus']=exc.code
+        except (URLError,OSError,ValueError,RuntimeError) as exc:
+            probe['status']=type(exc).__name__
+        doc['searchProbes'].append(probe)
     rendered=json.dumps(doc,indent=2,ensure_ascii=False)+'\n'
     OUT.parent.mkdir(parents=True,exist_ok=True)
     if not OUT.exists() or OUT.read_text(encoding='utf-8')!=rendered:
