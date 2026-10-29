@@ -23,9 +23,11 @@ jobs:
           python-version: '3.12'
       - name: Query no-key bounded bill candidate search and recorded votes
         run: python scripts/collect_state_redistricting_bills.py
-      - name: Refresh and validate published data
+      - name: Refresh, reconcile, and validate published data
         run: |
           python scripts/build.py
+          python scripts/reconcile_evidence.py
+          python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
-      - name: Publish compact bill and vote index
-        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-votes.json data/coverage.json data/app-feed.json data/relationships.json data/research.json
+      - name: Publish compact bill, vote, and reconciled staging index
+        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-votes.json data/reconciliation data/coverage.json data/app-feed.json data/relationships.json data/research.json
