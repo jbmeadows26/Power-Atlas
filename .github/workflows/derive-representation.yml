@@ -1,0 +1,30 @@
+name: Derive audited House seat-versus-vote descriptive gaps
+on:
+  push:
+    paths:
+      - 'scripts/derive_representation.py'
+      - '.github/workflows/derive-representation.yml'
+      - 'data/elections/house-districts.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-representation
+  cancel-in-progress: false
+jobs:
+  derive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Derive only supported descriptive state-year measures
+        run: python scripts/derive_representation.py
+      - name: Build and validate portable data
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish bounded descriptive indexes
+        run: bash scripts/publish_data.sh data/elections/representation-gaps.json data/app-feed.json data/coverage.json data/research.json data/relationships.json
