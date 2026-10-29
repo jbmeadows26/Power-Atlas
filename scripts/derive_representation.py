@@ -15,6 +15,11 @@ OUT=ROOT/'data/elections/representation-gaps.json'
 
 def run():
     raw=json.loads(SOURCE.read_text(encoding='utf-8'))
+    unopposed_path=ROOT/'data/elections/house-2024-unopposed.json'
+    unopposed_states=set()
+    if unopposed_path.exists():
+        statuses=json.loads(unopposed_path.read_text(encoding='utf-8'))['records']
+        unopposed_states={row['state'] for row in statuses if row.get('year')==2024}
     groups=defaultdict(list)
     for row in raw['records']:
         year=row.get('year')
@@ -35,7 +40,8 @@ def run():
         d_seats=sum(1 for r in valid if r['democraticVotes']>r['republicanVotes'])
         r_seats=sum(1 for r in valid if r['republicanVotes']>r['democraticVotes'])
         tied=len(valid)-d_seats-r_seats
-        complete_contested=bool(total and len(contested)==len(rows) and not tied)
+        known_missing=(year==2024 and state in unopposed_states)
+        complete_contested=bool(total and len(contested)==len(rows) and not tied and not known_missing)
         values={
             'id':f'representation-{year}-{state}', 'year':year, 'state':state,
             'districtsWithIndexedReturns':len(rows),
@@ -46,6 +52,7 @@ def run():
             'democraticVotes':d_votes,'republicanVotes':r_votes,
             'twoPartyVotes':total,
             'comparableOnIndexedReturns':complete_contested,
+            'knownOfficialUnopposedDistrictExcluded':known_missing,
             'evidenceSource':raw.get('sourceCatalog') or 'https://doi.org/10.7910/DVN/IG0UN2',
             'status':'derived_from_unreviewed_house_returns',
             'limitations':'Descriptive gap is not partisan bias, gerrymandering causality, or judicial evidence. Missing election districts and candidate-party coding may affect interpretation.'
@@ -65,7 +72,7 @@ def run():
         'sourceDataset':raw.get('sourceDataset','MIT Election Data and Science Lab US House'),
         'sourceLicense':raw.get('sourceLicense','CC0-1.0'),
         'publicationStatus':'derived_unreviewed_descriptive_not_causal',
-        'interpretation':'Seat-vote gap is descriptive only. Values are calculated only for observed fully two-party-contested district datasets; additional per-year district completeness checks are needed.',
+        'interpretation':'Seat-vote gap is descriptive only. Values exclude known 2024 official unopposed districts without vote totals. Other years and source-vs-official completeness are not fully reconciled.',
         'years':years,
         'counts':{
             'indexedStateYears':len(result),
