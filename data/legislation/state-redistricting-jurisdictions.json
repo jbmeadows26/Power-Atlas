@@ -400,7 +400,7 @@
   },
   "attemptCounts": {
     "HI": 2,
-    "IL": 2,
+    "IL": 3,
     "LA": 2,
     "MA": 2,
     "MD": 1,
@@ -426,7 +426,7 @@
     "SC": 1,
     "SD": 1,
     "TN": 1,
-    "TX": 2,
+    "TX": 3,
     "UT": 1,
     "VA": 1,
     "VT": 1,
@@ -441,7 +441,12 @@
       "errorType": "TimeoutError",
       "lastAttemptUTC": "2026-10-29",
       "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
-      "requestsAttempted": 2,
+      "requestsAttempted": 4,
+      "perPageVariantsAttempted": [
+        20,
+        10,
+        5
+      ],
       "retryPolicy": "bounded_network_retry_then_later_batch"
     },
     "IL": {
@@ -449,7 +454,12 @@
       "errorType": "TimeoutError",
       "lastAttemptUTC": "2026-10-29",
       "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
-      "requestsAttempted": 2,
+      "requestsAttempted": 4,
+      "perPageVariantsAttempted": [
+        20,
+        10,
+        5
+      ],
       "retryPolicy": "bounded_network_retry_then_later_batch"
     }
   },
@@ -458,16 +468,6 @@
       "state": "IL",
       "status": "temporary_unavailable",
       "errorType": "TimeoutError"
-    },
-    {
-      "state": "LA",
-      "status": "indexed_first_page",
-      "newRows": 18
-    },
-    {
-      "state": "MA",
-      "status": "indexed_first_page",
-      "newRows": 11
     },
     {
       "state": "TX",
