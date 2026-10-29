@@ -3,7 +3,6 @@ on:
   push:
     paths:
       - 'scripts/collect_fec.py'
-      - 'scripts/build.py'
       - '.github/workflows/collect-fec.yml'
   workflow_dispatch:
   schedule:
