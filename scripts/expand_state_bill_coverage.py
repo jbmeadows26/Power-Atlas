@@ -88,6 +88,9 @@ def run():
     # timeouts while preserving all failed jurisdictions for later retries.
     attempts=previous.get('attemptCounts',{})
     if not isinstance(attempts,dict):raise ValueError('Invalid jurisdiction attempt checkpoint')
+    # Persist state-level failures across batches; latestBatch alone is overwritten.
+    failures=previous.get('sourceFailures',{})
+    if not isinstance(failures,dict):raise ValueError('Invalid state source failure checkpoint')
     if 'attemptCounts' not in previous:
         for item in previous.get('latestBatch',[]):
             state=item.get('state')
@@ -100,14 +103,26 @@ def run():
         try:
             response,url=fetch_state(state)
         except HTTPError as exc:
-            if exc.code in (401,403,429):
-                results.append({'state':state,'status':'access_or_rate_deferred','http':exc.code})
-                break
-            results.append({'state':state,'status':'http_failure','http':exc.code})
+            restricted=exc.code in (401,403,429)
+            status='access_or_rate_deferred' if restricted else 'http_failure'
+            failures[state]={'status':status,'httpStatus':exc.code,
+                             'lastAttemptUTC':date.today().isoformat(),
+                             'sourceEndpoint':API,
+                             'requestsAttempted':2 if exc.code in (500,502,503,504) else 1,
+                             'retryPolicy':'do_not_retry_access_or_rate_restrictions' if restricted else 'bounded_retry_only_for_5xx'}
+            results.append({'state':state,'status':status,'http':exc.code})
+            if restricted:break
             continue
         except (URLError,OSError,TimeoutError,RuntimeError,ValueError) as exc:
-            results.append({'state':state,'status':'temporary_unavailable','errorType':type(exc).__name__})
+            error_type=type(exc).__name__
+            failures[state]={'status':'temporary_unavailable','errorType':error_type,
+                             'lastAttemptUTC':date.today().isoformat(),
+                             'sourceEndpoint':API,
+                             'requestsAttempted':2 if isinstance(exc,(URLError,OSError,TimeoutError)) else 1,
+                             'retryPolicy':'bounded_network_retry_then_later_batch'}
+            results.append({'state':state,'status':'temporary_unavailable','errorType':error_type})
             continue
+        failures.pop(state,None)
         new=0
         for row in response['data']:
             parsed=record(row,state)
@@ -139,6 +154,7 @@ def run():
            'jurisdictionsScanned':len(done),
            'jurisdictions':done,
            'attemptCounts':attempts,
+           'sourceFailures':failures,
            'latestBatch':results,
            'remainingJurisdictions':[s for s in STATES if s not in done],
            'meaning':'First-page search coverage only. No source implies zero bills or no state-level redistricting activity.'}

@@ -25,6 +25,25 @@ class StateCoverageSchedulerTests(unittest.TestCase):
         self.assertEqual(select_jurisdictions(states, {'IL': {}}, {}, 8),
                          ['HI', 'LA'])
 
+    def test_failure_checkpoint_records_have_safe_source_metadata(self):
+        import json
+        root = Path(__file__).resolve().parents[1]
+        path = root / 'data/legislation/state-redistricting-jurisdictions.json'
+        if not path.exists():
+            self.skipTest('State checkpoint not initialized')
+        checkpoint = json.loads(path.read_text(encoding='utf-8'))
+        scanned = checkpoint['jurisdictions']
+        for state, failure in checkpoint.get('sourceFailures', {}).items():
+            self.assertNotIn(state, scanned)
+            self.assertIn(state, checkpoint['remainingJurisdictions'])
+            self.assertIn(failure['status'], ('temporary_unavailable', 'http_failure', 'access_or_rate_deferred'))
+            self.assertEqual(failure['sourceEndpoint'], 'https://api.billcommons.org/api/v1/search')
+            self.assertIn(failure['requestsAttempted'], (1, 2))
+            self.assertRegex(failure['lastAttemptUTC'], r'^20[0-9]{2}-[0-9]{2}-[0-9]{2}
+    unittest.main()
+)
+            self.assertNotIn('errorMessage', failure)
+
 
 if __name__ == '__main__':
     unittest.main()
