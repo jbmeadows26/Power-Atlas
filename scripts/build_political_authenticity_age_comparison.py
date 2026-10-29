@@ -1,15 +1,62 @@
 #!/usr/bin/env python3
 """Reproduce age-gap descriptive comparisons; never infer motive or causality."""
 import json
+import re
+from datetime import date
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 TARGET=ROOT/"data/research/political-authenticity"
 # U.S. Census Bureau, 2024 ACS one-year supplemental Table K200104.
 # Source: https://data.census.gov/table/ACSSE2024.K200104
+STATES = set('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VT VA WA WV WI WY'.split())
 ACS={"allResidents":340110990,"under18":72929312,"age18to24":31270959,
      "age25to34":46198405,"age35to44":45956885,"age45to54":40822885,
      "age55to64":41687261,"age65plus":61245283}
+def check_members(snapshot):
+    """Fail closed on duplicate seats/IDs and stale age fields before publication."""
+    as_of = date.fromisoformat(snapshot["asOf"])
+    if not isinstance(snapshot.get("records"), list):
+        raise ValueError("Missing congressional records")
+    seen_ids, seen_house_seats, seen_senators = set(), set(), set()
+    for row in snapshot["records"]:
+        ident = row.get("bioguideId")
+        if not isinstance(ident, str) or not re.fullmatch(r"[A-Z][0-9]{6}", ident) or ident in seen_ids:
+            raise ValueError("Malformed or duplicate Bioguide ID")
+        seen_ids.add(ident)
+        chamber, state = row.get("chamber"), row.get("state")
+        if chamber not in ("House", "Senate"):
+            raise ValueError("Invalid congressional chamber")
+        if chamber == "House" and row.get("votingMember") is True:
+            if state not in STATES or row.get("district") is None:
+                raise ValueError("Voting House representative needs a state and district")
+            seat = (state, str(row["district"]))
+            if seat in seen_house_seats:
+                raise ValueError("Duplicate House voting district")
+            seen_house_seats.add(seat)
+        elif chamber == "House":
+            if state in STATES or row.get("votingMember") is not False:
+                raise ValueError("House delegate incorrectly classified")
+        else:
+            if state not in STATES or row.get("votingMember") is not True or row.get("district") is not None:
+                raise ValueError("Invalid senator classification")
+            seen_senators.add(state)
+        born = row.get("birthDate")
+        years = row.get("ageYears")
+        if born is None or years is None:
+            raise ValueError("Unknown ages must not be silently included in complete-case comparison")
+        birthday = date.fromisoformat(born)
+        calculated = as_of.year - birthday.year - ((as_of.month, as_of.day) < (birthday.month, birthday.day))
+        if years != calculated or not (25 <= calculated <= 110):
+            raise ValueError("Incorrect/stale member age")
+        if chamber == "Senate" and calculated < 30:
+            raise ValueError("Senate age below legal threshold")
+    if len(seen_senators) != 50:
+        raise ValueError("Expected two senators from each of 50 states")
+    if sum(r["chamber"] == "Senate" for r in snapshot["records"]) != 100:
+        raise ValueError("Expected 100 distinct senators")
+
 def build(snapshot):
+    check_members(snapshot)
     if sum(v for k,v in ACS.items() if k!="allResidents")!=ACS["allResidents"]:
         raise ValueError("ACS source categories do not add to national total")
     records=snapshot["records"]
