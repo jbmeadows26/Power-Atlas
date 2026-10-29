@@ -30,6 +30,23 @@ class CensusLegacyFormatTests(unittest.TestCase):
         self.assertEqual(r["capitalFamilyRowCounts"], {"F":50,"G":50,"K":50})
         self.assertEqual(r["records"][0]["amountAsPublished"], "000000001234")
 
+    def test_2012_archival_layout_uses_38_chars_and_15_char_amount(self):
+        def historical(state, item):
+            line = f"{state:02d}" + "0"*12 + item + "   000000001234" + "12" + "12" + "24"
+            self.assertEqual(len(line), 38)
+            return line
+        states=sorted(int(c) for c in legacy.STATE_CODES)
+        archive=("\n".join(historical(s, k) for s in states for k in ("F01","G01","K01"))+"\n").encode("ascii")
+        rows=legacy.parse_records(archive,2012)
+        self.assertEqual(rows["recordWidthChars"],38)
+        self.assertEqual(rows["stateGovernmentCount"],50)
+        self.assertEqual(rows["records"][0]["amountAsPublished"],"   000000001234")
+
+    def test_reject_mixed_width_data(self):
+        mix=fixture()+ (row(1, "F02")[:17]+"   000000001234"+"13"+"13"+"24"+"\n").encode("ascii")
+        with self.assertRaisesRegex(ValueError,"Mixed fixed-width layouts"):
+            legacy.parse_records(mix,2013)
+
     def test_reject_misaligned_fixed_width(self):
         bad = fixture().splitlines()
         bad[0] += b"X"
