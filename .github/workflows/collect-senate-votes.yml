@@ -4,9 +4,7 @@ on:
     paths:
       - 'scripts/collect_senate_votes.py'
       - '.github/workflows/collect-senate-votes.yml'
-  workflow_dispatch:
-  schedule:
-    - cron: '20 11 * * 3'
+  workflow_dispatch: # manual probe only until public source access is verified from CI
 permissions:
   contents: write
 concurrency:
