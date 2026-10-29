@@ -1,36 +1,64 @@
 {
-  "schema": "power-atlas.ingestion-health.v1",
-  "checkedDateUTC": "2026-10-28",
-  "policy": "no paid services, no source access bypass, preserve previous data",
+  "schema": "power-atlas.ingestion-health.v2",
+  "checkedDateUTC": "2026-10-29",
+  "policy": "zero paid services; no rate, license, access, or auth bypass; preserve prior data",
   "sourceStatuses": {
     "justice_cases": {
-      "status": "success"
+      "status": "success",
+      "attempts": 1,
+      "persistedRecords": 36
     },
     "fec_committee_identity": {
       "status": "cached",
-      "note": "Existing seven committee IDs retained to conserve free API calls"
+      "note": "Retained previously indexed official committee identities to conserve DEMO_KEY requests",
+      "persistedRecords": 7
     },
     "fec_committee_totals": {
-      "status": "deferred",
-      "note": "DEMO_KEY rate limit encountered today; retry after daily reset, no bypass"
+      "status": "success",
+      "attempts": 1,
+      "persistedRecords": 2
     },
     "fec_intercommittee_payments": {
-      "status": "deferred",
-      "note": "DEMO_KEY rate limit encountered today; retry after daily reset, no bypass"
+      "status": "partial_empty",
+      "attempts": 1,
+      "persistedRecords": 0
     },
     "lobbying_disclosures": {
-      "status": "success"
+      "status": "blocked",
+      "attempts": 1,
+      "error": "ror.HTTPError: HTTP Error 429: Too Many Requests\n\nThe above exception was the direct cause of the following exception:\n\nTraceback (most recent call last):\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 166, in <module>\n    collect()\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 86, in collect\n    raise RuntimeError(f'LDA access or rate restriction: HTTP {exc.code}') from exc\nRuntimeError: LDA access or rate restriction: HTTP 429",
+      "workaroundOrPreservation": "Official Senate LDA issue-text search uses smaller 5/10-row pages after 20-row responses exceeded safety bound; bounded 5xx retry.",
+      "persistedRecords": 56,
+      "successfulQueries": 6,
+      "failedQueries": 0,
+      "fetchedRowsInBoundedPages": 70,
+      "matchedRowsInBoundedPages": 54,
+      "failedQueryDetails": []
     },
     "census_state_sources": {
-      "status": "success"
+      "status": "success",
+      "attempts": 1,
+      "persistedRecords": 52
     },
     "house_election_results": {
-      "status": "success"
+      "status": "success",
+      "attempts": 1,
+      "persistedRecords": 3461,
+      "persisted2024VoteDistrictRows": 434
+    },
+    "house_2024_key_audit": {
+      "status": "success",
+      "attempts": 1,
+      "expectedDistrictKeys": 436,
+      "accountedForDistrictKeys": 436,
+      "unresolvedDistrictKeys": 0,
+      "officialUnopposedStatusOnlyKeys": 2
     }
   },
   "unresolvedSources": [
     "fec_committee_identity",
-    "fec_committee_totals",
-    "fec_intercommittee_payments"
-  ]
+    "fec_intercommittee_payments",
+    "lobbying_disclosures"
+  ],
+  "statusMeaning": "success means collector completed; persistedRecords/expectedDistrictKeys describe actual local source yield, not nationwide completeness"
 }
