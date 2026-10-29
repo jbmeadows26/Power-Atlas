@@ -98,8 +98,22 @@ def parse_bill(xml_bytes, kind, source_url, parties):
         raise ValueError("Missing bill container")
     congress = textof(bill, "congress")
     number = textof(bill, "billNumber")
-    if congress != str(CONGRESS) or not number.isdecimal():
-        raise ValueError(f"Wrong Congress or malformed bill number: {source_url}, congress={congress!r}, billNumber={number!r}")
+    if congress != str(CONGRESS):
+        raise ValueError(f"Wrong Congress in {source_url}: {congress!r}")
+    official_match = re.search(rf"BILLSTATUS-{CONGRESS}{kind}([1-9][0-9]*)\\.xml$", source_url)
+    if number and not number.isdecimal():
+        raise ValueError(f"Malformed XML bill number in {source_url}: {number!r}")
+    if not number:
+        # GovInfo occasionally leaves <billNumber> blank while the official ZIP
+        # member filename supplies the issued numeric identifier. Track fallback.
+        if not official_match:
+            raise ValueError(f"No XML bill number and no official filename fallback: {source_url}")
+        number = official_match.group(1)
+        number_origin = "official_BILLSTATUS_filename_fallback"
+    else:
+        number_origin = "billStatus_XML_field"
+        if official_match and int(number) != int(official_match.group(1)):
+            raise ValueError(f"Conflicting XML/official filename bill numbers: {source_url}")
     sponsor_ids = []
     for item in items(bill, "sponsors"):
         ident = textof(item, "identifiers", "bioguideId")
@@ -135,6 +149,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
     return {
         "id": f"{CONGRESS}-{kind}-{int(number)}",
         "billNumber": int(number),
+        "billNumberOrigin": number_origin,
         "billTypeSource": textof(bill, "billType") or None,
         "title": textof(bill, "title")[:220] or None,
         "introducedDate": textof(bill, "introducedDate") or None,
