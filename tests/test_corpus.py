@@ -240,6 +240,25 @@ class CorpusChecks(unittest.TestCase):
             self.assertEqual(feed['coverage']['stateRecordedVoteRows'], len(votes))
             self.assertEqual(feed['coverage']['stateBillCandidateRows'], len(bills['records']))
 
+    def test_official_state_bill_spotchecks_are_separate_from_first_page_coverage(self):
+        path = ROOT / 'data/legislation/official-state-bill-spotchecks.json'
+        if not path.exists():
+            self.skipTest('Official state spotchecks not staged')
+        rows = load('data/legislation/official-state-bill-spotchecks.json')['records']
+        self.assertEqual(len(rows), 4)
+        self.assertEqual(len({r['id'] for r in rows}), len(rows))
+        for r in rows:
+            self.assertIn(r['state'], ('IL', 'TX'))
+            self.assertTrue(r['source'].startswith(('https://www.ilga.gov/', 'https://ilga.gov/', 'https://capitol.texas.gov/')))
+            self.assertIn('spotcheck', r['reviewStatus'])
+            self.assertFalse(r['legalOutcomeVerified'])
+            self.assertFalse(SENSITIVE.intersection(r.keys()))
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['legislation']['officialStateBillSpotchecks'], rows)
+        self.assertEqual(feed['coverage']['officialStateBillSpotcheckRows'], len(rows))
+        checkpoint = load('data/legislation/state-redistricting-jurisdictions.json')
+        self.assertEqual(feed['coverage']['stateBillFirstPageJurisdictions'], len(checkpoint['jurisdictions']))
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:

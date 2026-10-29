@@ -1,0 +1,78 @@
+{
+  "schema": "power-atlas.official-state-bill-spotchecks.v1",
+  "publicationStatus": "individual_official_bill_pages_checked_not_a_jurisdiction_census",
+  "checkedDateUTC": "2026-10-29",
+  "sourceScope": "Selected Illinois and Texas legislative bill-status metadata to preserve official-source leads when secondary keyword page-one API timed out. No bulk collection, bill-text reuse, individual vote attribution, or claims of exhaustive coverage.",
+  "secondarySearchBlockers": [
+    {
+      "state": "IL",
+      "provider": "Bill Commons",
+      "status": "first_page_query_timeout_after_bounded_20_10_5_result_sizes"
+    },
+    {
+      "state": "TX",
+      "provider": "Bill Commons",
+      "status": "first_page_query_timeout_after_bounded_20_10_5_result_sizes"
+    }
+  ],
+  "records": [
+    {
+      "id": "official-IL-104-HJRCA-0005",
+      "state": "IL",
+      "session": "104th General Assembly, 2025–2026",
+      "identifier": "HJRCA 5",
+      "title": "Proposed constitutional amendment to Illinois legislative redistricting procedures",
+      "issueClass": "redistricting_specific_title",
+      "lastActionDate": "2025-01-28",
+      "lastAction": "Referred to House Rules Committee",
+      "reportedStatus": "referred_to_committee_not_final_disposition",
+      "source": "https://www.ilga.gov/Legislation/BillStatus?DocNum=5&DocTypeID=HJRCA&GAID=18&LegID=157213&SessionID=114",
+      "reviewStatus": "official_bill_status_page_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    },
+    {
+      "id": "official-IL-104-HJRCA-0027",
+      "state": "IL",
+      "session": "104th General Assembly, 2025–2026",
+      "identifier": "HJRCA 27",
+      "title": "Proposed constitutional amendment concerning Illinois legislative redistricting criteria",
+      "issueClass": "redistricting_specific_title",
+      "lastActionDate": "2026-07-01",
+      "lastAction": "Re-referred to House Rules Committee",
+      "reportedStatus": "referred_to_committee_not_final_disposition",
+      "source": "https://www.ilga.gov/Legislation/BillStatus?DocNum=27&DocTypeID=HJRCA&GA=104&GAID=18&SessionID=114",
+      "reviewStatus": "official_bill_status_page_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    },
+    {
+      "id": "official-IL-104-HJRCA-0028",
+      "state": "IL",
+      "session": "104th General Assembly, 2025–2026",
+      "identifier": "HJRCA 28",
+      "title": "Proposed constitutional amendment concerning Illinois legislative redistricting criteria",
+      "issueClass": "redistricting_specific_title",
+      "lastActionDate": "2026-04-28",
+      "lastAction": "Referred to Senate Assignments Committee",
+      "reportedStatus": "referred_to_committee_not_final_disposition",
+      "source": "https://ilga.gov/Legislation/BillStatus?DocNum=28&DocTypeID=HJRCA&GAID=18&LegId=168325&Print=1&SessionID=114",
+      "reviewStatus": "official_bill_status_page_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    },
+    {
+      "id": "official-TX-89S2-HB-0004",
+      "state": "TX",
+      "session": "89th Legislature, second called session, 2025",
+      "identifier": "HB 4",
+      "title": "Texas congressional district composition legislation",
+      "issueClass": "redistricting_specific_title",
+      "lastActionDate": "2025-08-29",
+      "lastAction": "Signed by governor",
+      "reportedStatus": "signed_into_law_per_official_legislative_history",
+      "reportedEffectiveDate": "2025-12-04",
+      "source": "https://capitol.texas.gov/billlookup/History.aspx?Bill=HB4&LegSess=892",
+      "reviewStatus": "official_bill_history_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    }
+  ],
+  "limitations": "This is a four-record targeted official-source spotcheck, separate from the Bill Commons first-page checkpoint. Texas legal challenges or later court actions are not adjudicated here. Illinois pending referrals are not proof of defeat or enactment. Titles are concise descriptions, not reproduced bill texts."
+}

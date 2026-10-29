@@ -138,6 +138,9 @@ state_bill_rows = state_bill_doc.get('records', [])
 state_votes_path = ROOT / 'data/legislation/state-redistricting-votes.json'
 state_votes_doc = json.loads(state_votes_path.read_text(encoding='utf-8')) if state_votes_path.exists() else {}
 state_vote_rows = state_votes_doc.get('records', [])
+official_spotchecks_path = ROOT / 'data/legislation/official-state-bill-spotchecks.json'
+official_spotchecks_doc = json.loads(official_spotchecks_path.read_text(encoding='utf-8')) if official_spotchecks_path.exists() else {}
+official_spotcheck_rows = official_spotchecks_doc.get('records', [])
 for v in state_vote_rows:
     bill_id = str(v.get('billId') or '')
     vote_id = str(v.get('id') or '')
@@ -287,6 +290,7 @@ feed = {
         'federalBillCandidates': federal_bills,
         'stateRedistrictingBillCandidates': state_bill_rows,
         'stateRedistrictingRecordedVotes': state_vote_rows,
+        'officialStateBillSpotchecks': official_spotcheck_rows,
         'stateBillSource': 'https://billcommons.org/docs/api',
         'sourceProvider':'https://www.ballotwatch.io/developers',
         'scopeNote':'Keyword search of public bill titles and secondary-source sponsor IDs. Not exhaustive. No recorded voting outcomes implied.'
@@ -327,6 +331,7 @@ feed = {
         'stateExecutiveRows': len(executives),
         'federalBillCandidateRows': len(federal_bills),
         'stateBillCandidateRows': len(state_bill_rows),
+        'officialStateBillSpotcheckRows': len(official_spotcheck_rows),
         'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
         'stateRecordedVoteRows': len(state_vote_rows),
         'federalBillRedistrictingTitleMatches': sum(r['issueClass']=='redistricting_specific_title' for r in federal_bills),
