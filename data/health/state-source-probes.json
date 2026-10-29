@@ -56,11 +56,14 @@
       "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Official Illinois General Assembly bill-status pages independently identify HJRCA 5, HJRCA 27, and HJRCA 28.",
       "attemptedAlternatives": [
         "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
-        "Official 104th General Assembly bill-status records reviewed and stored as a separate four-record IL/TX spotcheck dataset."
+        "Official 104th General Assembly bill-status records reviewed and stored as a separate four-record IL/TX spotcheck dataset.",
+        "Verified 2026-10-29: Illinois General Assembly offers keyword search for the 104th General Assembly at https://www.ilga.gov/search/; no tested stable machine-readable bulk/search response. Its site guide cautions that online legislative database text is not an authoritative official legal publication."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "Bill Commons first-page state query not obtained. Official individual bill pages do not constitute complete IL keyword search, so IL remains unscanned in the 51-jurisdiction first-page checkpoint.",
-      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved."
+      "unresolved": "State-scoped Bill Commons first-page search timed out after bounded 20/10/5 requests. Illinois official keyword search exists, but no validated machine-readable export or reproducible equivalent page-one extraction has been obtained. Individual bill metadata spotchecks remain separate; no verified legislative roll-call totals.",
+      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved.",
+      "officialSearch": "https://www.ilga.gov/search/",
+      "officialLegislativeGuide": "https://ilga.gov/guide/"
     },
     {
       "id": "tx_billcommons_page_one_timeout_official_fallback",
@@ -72,11 +75,14 @@
       "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Texas Legislature Online independently confirms 89th Legislature 2nd Called Session HB 4 congressional-district legislation signed on 2025-08-29, with reported effective date 2025-12-04.",
       "attemptedAlternatives": [
         "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
-        "Official Texas bill history page reviewed and stored as an individual bill metadata spotcheck."
+        "Official Texas bill history page reviewed and stored as an individual bill metadata spotcheck.",
+        "Verified 2026-10-29: Texas Legislature Online provides session-scoped bill text search and bill-specific vote lookup; no tested anonymous structured export equivalent to the failed third-party query."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "Bill Commons first-page state query not obtained. Existing Texas bill candidates and official HB 4 spotcheck do not establish complete TX legislative coverage, so TX remains unscanned in the first-page checkpoint.",
-      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved."
+      "unresolved": "State-scoped Bill Commons first-page search timed out after bounded 20/10/5 requests. Texas official bill text search and vote lookup are interactive and not yet parsed as a validated equivalent keyword first page; HB 4 spotcheck does not establish statewide coverage or independently verified roll-call tallies.",
+      "nextFreeStep": "After the next-day retry window, perform at most the bounded permitted request sequence; retain 49/51 if unresolved.",
+      "officialSearch": "https://capitol.texas.gov/search/textsearch.aspx",
+      "officialVoteLookup": "https://capitol.texas.gov/billlookup/voteinfo.aspx"
     }
   ],
   "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage."
