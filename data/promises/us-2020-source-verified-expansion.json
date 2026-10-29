@@ -1,0 +1,284 @@
+{
+  "schema": "power-atlas.campaign-promises.v1",
+  "asOf": "2026-10-29",
+  "publicationStatus": "provisional_pilot_not_representative",
+  "coverage": {
+    "country": "US",
+    "electionYear": 2020,
+    "pledgeSourceType": "archived_party_platform",
+    "selection": "six hand-selected illustrative atomic platform commitments with primary action evidence; intentionally not representative",
+    "denominatorDefined": false
+  },
+  "methodology": "research/campaign-promises/protocol.md",
+  "allowedOutcomes": [
+    "fully_enacted",
+    "partially_enacted",
+    "attempted_not_enacted",
+    "unattempted",
+    "unresolved"
+  ],
+  "records": [
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "executive_action",
+      "rightCensored": false,
+      "id": "US-2020-DEM-WHO-01",
+      "policyArea": "public_health_foreign_policy",
+      "pledgeParaphrase": "Restore participation in the World Health Organization by withdrawing the previous administration's announced plan to exit.",
+      "sourceLocator": "Rebuilding America's Tool of First Resort / Rejoin and reform the WHO",
+      "successCriterion": "The U.S. reverses its 2020 notice of intent to withdraw from WHO and remains a member.",
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "President Biden informed the UN Secretary-General that the U.S. retracts the July 2020 notice of intent to withdraw from WHO.",
+          "source": "https://www.presidency.ucsb.edu/documents/letter-secretary-general-antonio-manuel-de-oliveira-guterres-the-united-nations"
+        }
+      ],
+      "ambiguityNotes": [
+        "The U.S. had not legally completed withdrawal, so this is a rescission of a pending withdrawal, not literal re-accession.",
+        "The original platform also pledged WHO reform; this record tests only restored participation.",
+        "The American Presidency Project notes an original copy of the letter was not available for its verification."
+      ]
+    },
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "executive_action",
+      "rightCensored": false,
+      "id": "US-2020-DEM-TRAVELBANS-01",
+      "policyArea": "immigration_civil_rights",
+      "pledgeParaphrase": "End the previous administration's targeted travel and entry bans affecting primarily Muslim and African countries.",
+      "sourceLocator": "Creating a 21st Century Immigration System / immediately terminate travel and immigration bans",
+      "successCriterion": "The specified Trump-era entry bans are formally revoked by federal presidential action.",
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "Proclamation 10141 revoked specified earlier orders and proclamations restricting entry.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100052/html/DCPD-202100052.htm"
+        }
+      ],
+      "ambiguityNotes": [
+        "The promise to invite denied visa applicants to reapply is a separate atomic commitment not scored here.",
+        "Repeal of the named orders is not evidence that no replacement restriction existed or was later enacted.",
+        "The proclamation concerns specific orders; this entry does not rate all immigration restrictions."
+      ]
+    },
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "executive_action",
+      "rightCensored": false,
+      "id": "US-2020-DEM-BEARS-01",
+      "policyArea": "environment_public_lands",
+      "pledgeParaphrase": "Restore federal monument protections for the Bears Ears landscape.",
+      "sourceLocator": "Combating the Climate Crisis and Pursuing Environmental Justice / public land protections",
+      "successCriterion": "Federal restoration of Bears Ears National Monument protections through proclamation.",
+      "events": [
+        {
+          "date": "2021-10-08",
+          "kind": "executive_action",
+          "description": "Proclamation 10285 expanded the Bears Ears National Monument reservation to approximately 1.36 million acres.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100834/html/DCPD-202100834.htm"
+        },
+        {
+          "date": "2026-07-13",
+          "kind": "post_term_policy_reversal",
+          "description": "A successor proclamation reduced the monument reservation to approximately 121,096 acres; this does not change the 2021–2025 fulfillment assessment.",
+          "source": "https://www.whitehouse.gov/presidential-actions/2026/07/modifying-the-bears-ears-national-monument/"
+        }
+      ],
+      "ambiguityNotes": [
+        "This atom tests Bears Ears restoration only, not the platform's other national monuments and public lands.",
+        "Later modification is recorded as durability, not attributed to Biden's in-term behavior.",
+        "A proclamation can be contested; this entry does not adjudicate litigation or legal finality."
+      ]
+    },
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "high",
+      "attribution": "executive_legislative_cooperation",
+      "rightCensored": false,
+      "id": "US-2020-DEM-KIGALI-01",
+      "policyArea": "climate_treaties",
+      "pledgeParaphrase": "Secure U.S. ratification of the Kigali Amendment to the Montreal Protocol.",
+      "sourceLocator": "Mobilizing the World to Address Transnational Challenges / Climate Change / Kigali Amendment",
+      "successCriterion": "The U.S. deposits an instrument of ratification and the treaty becomes effective for the U.S.",
+      "events": [
+        {
+          "date": "2022-09-21",
+          "kind": "legislative_introduction",
+          "description": "U.S. Senate gave advice and consent to ratification, confirmed by State Department.",
+          "source": "https://2021-2025.state.gov/u-s-ratification-of-the-kigali-amendment/"
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "executive_action",
+          "description": "The United Nations Treaty Collection records U.S. ratification on October 31, 2022.",
+          "source": "https://treaties.un.org/Pages/showActionDetails.aspx?clang=_en&objid=08000002805fbed3"
+        },
+        {
+          "date": "2023-01-29",
+          "kind": "international_entry_into_force",
+          "description": "The Amendment entered into force for the United States, per the UN Treaty Collection.",
+          "source": "https://treaties.un.org/Pages/showDetails.aspx?objid=080000028048cd90"
+        }
+      ],
+      "ambiguityNotes": [
+        "The Kigali clause also promised domestic hydrofluorocarbon phaseout; this atom measures treaty ratification only.",
+        "Senate advice and consent, instrument deposit, and legal entry into force are separate milestones."
+      ]
+    },
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "international_election",
+      "rightCensored": false,
+      "id": "US-2020-DEM-HRC-01",
+      "policyArea": "human_rights_foreign_policy",
+      "pledgeParaphrase": "Restore U.S. membership in the United Nations Human Rights Council.",
+      "sourceLocator": "Rebuilding America's Tool of First Resort / rejoin and reform the UN Human Rights Council",
+      "successCriterion": "The United States is elected and begins serving a regular term as UN Human Rights Council member.",
+      "events": [
+        {
+          "date": "2021-10-14",
+          "kind": "proposed_policy",
+          "description": "United States elected to UN Human Rights Council for the 2022–2024 term.",
+          "source": "https://2021-2025.state.gov/election-of-the-united-states-to-the-un-human-rights-council-hrc/"
+        },
+        {
+          "date": "2022-01-01",
+          "kind": "international_entry_into_force",
+          "description": "Membership term began; UN official membership lists include the U.S. for 2022.",
+          "source": "https://research.un.org/en/unmembers/hrcmembers"
+        }
+      ],
+      "ambiguityNotes": [
+        "This record tests Council membership only, not the separate pledge to reform the Council.",
+        "Election to the Council required votes from other member states; this is not unilateral action."
+      ]
+    },
+    {
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-17",
+        "isPreElection": true
+      },
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "executive_action",
+      "rightCensored": false,
+      "id": "US-2020-DEM-BORDER-EMERGENCY-01",
+      "policyArea": "immigration_executive_authority",
+      "pledgeParaphrase": "Terminate the national emergency declaration used to redirect funds for a southern border wall.",
+      "sourceLocator": "Creating a 21st Century Immigration System / rescind national emergency",
+      "successCriterion": "The national emergency invoked for the border wall is formally terminated.",
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "Proclamation 10142 formally terminated the border-wall national emergency and directed a review of diverted funds.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100053/html/DCPD-202100053.htm"
+        },
+        {
+          "date": "2025-01-20",
+          "kind": "post_term_policy_reversal",
+          "description": "The successor's proclamation revoked Proclamation 10142 on the first day of the following administration.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202500111/html/DCPD-202500111.htm"
+        }
+      ],
+      "ambiguityNotes": [
+        "Terminating the emergency is the test, not whether all border-wall spending ended.",
+        "The January 20, 2025 reversal belongs to the successor administration and is recorded as durability only.",
+        "The campaign platform also made other border-wall commitments; these require separate records."
+      ]
+    }
+  ]
+}
