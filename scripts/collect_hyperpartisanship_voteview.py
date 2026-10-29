@@ -143,27 +143,34 @@ def collect():
         by_chamber = [x for x in records if x["congress"] == congress]
         if all(x["rollCallsEligibleBothParties"] >= 100 for x in by_chamber):
             continue
-        source = f"https://voteview.com/static/data/out/votes/HS{congress}_votes.csv"
+        # The Voteview download UI exposes H and S chamber-specific archives.
+        # Never assume a combined HS file contains both chambers for a given era.
+        house_url = f"https://voteview.com/static/data/out/votes/H{congress}_votes.csv"
+        senate_url = f"https://voteview.com/static/data/out/votes/S{congress}_votes.csv"
+        sources = [house_url, senate_url]
+        from itertools import chain
         try:
-            alternate, alternate_n, alternate_unknown = summarize_votes(stream_csv(source), members, ideology)
+            alternate, alternate_n, alternate_unknown = summarize_votes(chain(stream_csv(house_url), stream_csv(senate_url)), members, ideology)
         except HTTPError as exc:
             if exc.code in (404, 410):
-                fallback_status[str(congress)] = {"source": source, "status": f"http_{exc.code}_not_available"}
+                fallback_status[str(congress)] = {"sources": sources, "status": f"http_{exc.code}_not_available"}
                 continue
             raise
         except ValueError as exc:
             if str(exc) == "Voteview vote input unexpectedly sparse":
-                fallback_status[str(congress)] = {"source": source, "status": "empty_or_sparse_per_congress_export"}
+                fallback_status[str(congress)] = {"sources": sources, "status": "empty_or_sparse_per_congress_export"}
                 continue
             raise
         candidate = [x for x in alternate if x["congress"] == congress]
         if len(candidate) != 2 or not all(x["rollCallsEligibleBothParties"] >= 100 for x in candidate):
-            fallback_status[str(congress)] = {"source": source, "status": "incomplete_source"}
+            fallback_status[str(congress)] = {"sources": sources, "status": "incomplete_source"}
             continue
         records = [x for x in records if x["congress"] != congress] + candidate
         n += alternate_n
         unmatched += alternate_unknown
-        fallback_status[str(congress)] = {"source": source, "status": "verified_per_congress_fallback"}
+        fallback_status[str(congress)] = {"sources": sources, "status": "verified_per_chamber_fallback",
+                                          "houseEligible": candidate[0]["rollCallsEligibleBothParties"] if candidate[0]["chamber"] == "House" else candidate[1]["rollCallsEligibleBothParties"],
+                                          "senateEligible": candidate[0]["rollCallsEligibleBothParties"] if candidate[0]["chamber"] == "Senate" else candidate[1]["rollCallsEligibleBothParties"]}
     records.sort(key=lambda r: (r["congress"], r["chamber"]))
     complete = [r for r in records if r["congress"] <= 118]
     gaps = [(r["congress"], r["chamber"], r["rollCallsObserved"], r["rollCallsEligibleBothParties"]) for r in complete if r["rollCallsEligibleBothParties"] < 100]
