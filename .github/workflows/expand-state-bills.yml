@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/expand_state_bill_coverage.py'
+      - 'tests/test_corpus.py'
       - '.github/workflows/expand-state-bills.yml'
   workflow_dispatch:
   schedule:
