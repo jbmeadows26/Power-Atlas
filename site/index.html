@@ -171,6 +171,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p class="sub">MIT Election Data and Science Lab source; compact state-year totals. These are <b>not</b> gerrymandering scores. Uncontested districts, changing boundaries, and third-party votes limit comparisons.</p>
     <div class="filters"><label for="electionYear">Election year</label><select id="electionYear" aria-label="Election year"><option value="2024">2024</option></select><span id="electionCount" class="muted"></span></div>
     <div id="electionAudit" class="card" aria-live="polite"></div>
+    <p class="note">State-level observed seat-versus-vote figures are shown only for datasets with both major parties reporting votes in every indexed district and without known missing unopposed returns. These are descriptive—not gerrymandering scores.</p>
     <div id="electionList" class="list"></div>
     <p class="note">Data source: <a href="https://doi.org/10.7910/DVN/IG0UN2" target="_blank" rel="noopener noreferrer">MIT Election Data and Science Lab U.S. House 1976-2024 ↗</a>, CC0 1.0. Source-specific validation is pending. Neither a vote margin nor a partisan advantage alone proves improper district design.</p>
   </section>
@@ -396,6 +397,8 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     var items=((data.elections||{}).houseStateYears)||[];
     var audit=((data.elections||{}).house2024KeyAudit)||{};
     var unopposed=((data.elections||{}).house2024UnopposedStatusOnly)||[];
+    var representation=((data.elections||{}).representationByStateYear)||[];
+    var representationById={};representation.forEach(function(row){representationById[row.id]=row});
     var select=document.getElementById('electionYear');
     var years=[...new Set(items.map(function(x){return x.year}))].sort(function(a,b){return b-a});
     var chosen=select.value;
@@ -414,7 +417,12 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       var share=t>0?100*d/t:0;
       var statusRows=String(chosen)==='2024'?unopposed.filter(function(r){return r.state===x.state}):[];
       var statusNote=statusRows.length?'<p class="note">'+esc(statusRows.length)+' unopposed district(s) with no reported vote total: '+statusRows.map(function(r){return esc(r.candidate)+' ('+esc(r.state)+'-'+esc(r.district)+')'}).join(', ')+'</p>':'';
-      return '<article class="card"><div class="meta"><span class="tag">State '+esc(x.state)+'</span><span class="tag warn">Derived / unreviewed</span></div><h3>'+esc(x.state)+' · '+esc(x.year)+'</h3><p>'+esc(x.districts)+' districts indexed; '+esc(x.contestedTwoPartyDistricts)+' with both major parties reporting votes.</p><small>Democratic two-party vote share (not map bias)</small><div class="money">'+(t?share.toFixed(1)+'%':'Not available')+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,share))+'%"></div></div><p>D votes: '+d.toLocaleString('en-US')+' · R votes: '+r.toLocaleString('en-US')+'</p>'+statusNote+'</article>';
+      var gap=representationById['representation-'+chosen+'-'+x.state];
+      var descriptiveGap=gap?(gap.comparableOnIndexedReturns?
+        '<p class="note"><strong>Observed D seat share:</strong> '+esc(gap.democraticObservedSeatSharePct)+'% · <strong>D seat minus two-party vote share:</strong> '+(gap.observedSeatMinusVotePctPoints>0?'+':'')+esc(gap.observedSeatMinusVotePctPoints)+' percentage points. Descriptive only, not a map-bias or misconduct score.</p>':
+        '<p class="note"><strong>Seat-vote comparison withheld:</strong> incomplete contested returns or officially documented unopposed district(s). No unsupported seats or vote totals were imputed.</p>'):'';
+
+      return '<article class="card"><div class="meta"><span class="tag">State '+esc(x.state)+'</span><span class="tag warn">Derived / unreviewed</span></div><h3>'+esc(x.state)+' · '+esc(x.year)+'</h3><p>'+esc(x.districts)+' districts indexed; '+esc(x.contestedTwoPartyDistricts)+' with both major parties reporting votes.</p><small>Democratic two-party vote share (not map bias)</small><div class="money">'+(t?share.toFixed(1)+'%':'Not available')+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,share))+'%"></div></div><p>D votes: '+d.toLocaleString('en-US')+' · R votes: '+r.toLocaleString('en-US')+'</p>'+statusNote+descriptiveGap+'</article>';
     }).join(''):'<div class="card"><p>Election data is not yet published in the compact feed. Check the ingestion and validation workflow; no zero values are assumed.</p></div>';
   }
   var districtGeo=null,geoStatus='idle',mapLoadedEdition='';
