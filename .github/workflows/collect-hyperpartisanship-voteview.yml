@@ -1,0 +1,61 @@
+name: Collect hyperpartisanship Voteview historical aggregates
+
+on:
+  push:
+    paths:
+      - 'scripts/collect_hyperpartisanship_voteview.py'
+      - 'tests/test_hyperpartisanship_voteview.py'
+      - '.github/workflows/collect-hyperpartisanship-voteview.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '17 9 * * 2'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: atlas-hyperpartisanship-voteview
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source baseline crosswalk and vote coding
+        run: python -m unittest discover -s tests -p 'test_hyperpartisanship_voteview.py' -v
+      - name: Stream Voteview public CSV and derive chamber-level statistics
+        run: python scripts/collect_hyperpartisanship_voteview.py
+      - name: Verify no incomplete history is published as a completed term
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/hyperpartisanship/voteview-party-divisions-v1.json').read_text())
+          assert d['schema']=='power-atlas.hyperpartisanship.voteview-party-divisions.v1'
+          r=d['records']
+          assert len(r)==40
+          assert sum(x['periodStatus']=='completed_congress' for x in r)==38
+          assert sum(x['periodStatus']=='incomplete_congress' for x in r)==2
+          assert all(x['evidenceStatus']=='derived_voted_member_aggregates' for x in r if x['congress']<119)
+          assert all(x['rollCallsEligibleBothParties']>=100 for x in r if x['congress']<119)
+          print('Historical vote panels validated:',len(r))
+          PY
+      - name: Publish bounded, sourced aggregates only if changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/hyperpartisanship/voteview-party-divisions-v1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: refresh source-attributed Voteview party voting panel'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          else
+            echo 'Source-derived aggregates unchanged'
+          fi
