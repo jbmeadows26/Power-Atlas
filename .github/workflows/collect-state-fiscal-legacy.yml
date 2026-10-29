@@ -11,6 +11,8 @@ on:
     paths:
       - 'scripts/collect_state_fiscal_legacy.py'
       - 'tests/test_fiscal_legacy.py'
+      - 'tests/test_fiscal_code_audit.py'
+      - 'scripts/audit_state_fiscal_codes.py'
       - '.github/workflows/collect-state-fiscal-legacy.yml'
   workflow_dispatch:
 permissions:
