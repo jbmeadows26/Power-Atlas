@@ -1,0 +1,86 @@
+{
+  "schema": "power-atlas.political-authenticity-rhetoric-codebook.v1",
+  "status": "PROPOSED_NOT_CODED",
+  "unitOfAnalysis": "one complete interviewer-or-constituent question and corresponding politician response",
+  "requiredProvenance": [
+    "speakerBioguideOrStableId",
+    "eventUTC",
+    "eventType",
+    "fullOriginalRecordingUrl",
+    "transcriptUrl",
+    "questionStartSeconds",
+    "answerEndSeconds",
+    "questionVerbatim",
+    "answerVerbatim",
+    "codingDateUTC",
+    "coderIds",
+    "codebookVersion"
+  ],
+  "codes": {
+    "DIRECT_ANSWER": {
+      "type": "binary",
+      "rule": "materially answers the question asked rather than merely repeating the subject"
+    },
+    "PARTIAL_ANSWER": {
+      "type": "binary",
+      "rule": "addresses some but not all salient components"
+    },
+    "PIVOT": {
+      "type": "binary",
+      "rule": "moves to a substantially different preferred topic without answering"
+    },
+    "EXPLICIT_REFUSAL": {
+      "type": "binary",
+      "rule": "states an unwillingness to answer; separate justified legal constraints"
+    },
+    "ACKNOWLEDGED_UNCERTAINTY": {
+      "type": "binary",
+      "rule": "openly states limits of present knowledge and whether/how answer will be supplied"
+    },
+    "REPETITIVE_SLOGAN": {
+      "type": "binary",
+      "rule": "same phrasing repeated verbatim in unrelated Q/A units; require comparison examples"
+    },
+    "SOURCE_VERIFIED_CONTRADICTION": {
+      "type": "binary",
+      "rule": "two otherwise comparable statements genuinely conflict; requires two primary sources and temporal context"
+    },
+    "COMPARISON_WITHOUT_RELEVANCE": {
+      "type": "binary",
+      "rule": "invokes different actor/event without answering original causal or normative question"
+    },
+    "VERIFIABLE_COMMITMENT": {
+      "type": "binary",
+      "rule": "concrete authority/action/delivery milestone that can be checked later"
+    },
+    "QUESTION_ATTACK": {
+      "type": "binary",
+      "rule": "attacks interviewer or premise rather than addressing evidence"
+    }
+  },
+  "separateConstructs": [
+    "perceived_authenticity",
+    "truth_status",
+    "answer_directness",
+    "policy_delivery",
+    "observer_party"
+  ],
+  "notPermittedInferences": [
+    "psychological_motive",
+    "deception_intent",
+    "paid_focus_group_origin",
+    "lawbreaking",
+    "source_unverified_corruption"
+  ],
+  "procedure": {
+    "sampling": "stratify by party, chamber, medium, topic, calendar period, and question difficulty; retain full context; include null and counterexamples",
+    "blinding": "coders blind to candidate identity when feasible; provenance preserved separately",
+    "pilot": "30 events",
+    "proposedScale": "120 events",
+    "doubleCoding": "all pilot units plus random 25% full sample",
+    "reliability": "Krippendorff alpha per nominal variable; report category-specific estimates and uncertainty",
+    "targetAlpha": 0.8,
+    "underperformingCategories": "revise coding instructions, recode and disclose initial disagreement; do not silently discard",
+    "fielding": "Not executed"
+  }
+}
