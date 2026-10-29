@@ -65,8 +65,51 @@ def probe(body):
                             header=[]
                         item["firstRowFields"]=[h[:75] for h in header[:35]]
             out.append(item)
+        dat_name="GOVSSTATEFINTIMESERIES.dat"
+        if dat_name not in z.namelist():
+            raise ValueError("Required official DAT member missing")
+        from collections import Counter
+        fields=("YEAR","GEOTYPE","ST","GOVTYPE","CATEGORY","AMOUNT_F")
+        counts={k:Counter() for k in fields}
+        relevant={}
+        sample_states=[]
+        nrows=0
+        with z.open(dat_name) as stream:
+            txt=io.TextIOWrapper(stream,encoding="utf-8-sig",errors="strict",newline="")
+            reader=csv.DictReader(txt,delimiter="|")
+            if not reader.fieldnames or not reader.fieldnames[0].startswith("#GEO_ID"):
+                raise ValueError("Unexpected DAT header; do not guess column offsets")
+            reader.fieldnames[0]="GEO_ID"
+            for row in reader:
+                nrows+=1
+                if nrows>1_000_000:
+                    raise ValueError("Unexpectedly large Census DAT file")
+                for k in fields:
+                    counts[k][row[k]]+=1
+                label=row["AGG_DESC_LABEL"].strip()
+                if any(x in label.lower() for x in ("capital", "expenditure", "construction", "assistance", "subsid", "fixed")):
+                    code=row["AGG_DESC"].strip()
+                    if code not in relevant:
+                        relevant[code]={"code":code,"label":label,"item":row["ITEM_CODE"],"itemLabel":row["ITEM_CODE_LABEL"],
+                                        "category":row["CATEGORY"],"categoryLabel":row["CATEGORY_LABEL"],"count":0}
+                    relevant[code]["count"]+=1
+                if row["ST"] not in ("","00") and len(sample_states)<6:
+                    sample_states.append({k:row.get(k) for k in ("GEO_ID","GEO_LABEL","GEOTYPE","ST","AGG_DESC","AGG_DESC_LABEL",
+                                             "GOVTYPE","ITEM_CODE","ITEM_CODE_LABEL","CATEGORY","YEAR","AMOUNT","AMOUNT_F")})
+        profile={
+            "totalDataRows":nrows,
+            "years":dict(counts["YEAR"].most_common()),
+            "geotypes":counts["GEOTYPE"].most_common(12),
+            "governmentTypes":counts["GOVTYPE"].most_common(12),
+            "categories":counts["CATEGORY"].most_common(20),
+            "amountFlags":counts["AMOUNT_F"].most_common(10),
+            "uniqueStateCodes":len([k for k in counts["ST"] if k not in ("","00")]),
+            "stateSamples":sample_states,
+            "spendingRelatedDefinitions":sorted(relevant.values(),key=lambda x:x["code"])[:125],
+            "spendingRelatedCodeCount":len(relevant)
+        }
         return {"url":URL,"sha256OriginalZip":hashlib.sha256(body).hexdigest(),
-                "compressedBytes":len(body),"members":out,
+                "compressedBytes":len(body),"members":out,"profile":profile,
                 "dataPublished":False,"spendingShares":None,"electionCycleEstimates":None}
 
 
