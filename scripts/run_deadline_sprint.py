@@ -93,7 +93,15 @@ def run():
             report[name]={'status':'deferred','note':'DEMO_KEY HTTP 429 observed earlier today; wait for permitted quota reset',**persistence(name)}
             continue
         if name=='lobbying_disclosures' and restricted_lda_today:
-            report[name]={'status':'deferred','note':'Senate LDA HTTP 429 observed earlier today; wait for permitted quota reset; preserve existing filings',**persistence(name)}
+            info=persistence(name)
+            scoped_complete=(info.get('successfulQueries')==6 and info.get('failedQueries')==0
+                             and info.get('persistedRecords',0)>0)
+            report[name]={
+                'status':'cached_verified' if scoped_complete else 'deferred',
+                'note':('All six bounded Senate issue/year queries previously succeeded; preserve indexed filings without repeat calls'
+                        if scoped_complete else 'Senate LDA HTTP 429 observed earlier today; wait for permitted quota reset'),
+                **info
+            }
             continue
         print('Collecting:',name,flush=True)
         result=None
@@ -148,7 +156,7 @@ def run():
         'checkedDateUTC':today.isoformat(),
         'policy':'zero paid services; no rate, license, access, or auth bypass; preserve prior data',
         'sourceStatuses':report,
-        'unresolvedSources':[name for name,status in report.items() if status['status']!='success'],
+        'unresolvedSources':[name for name,status in report.items() if status['status'] not in ('success','cached_verified')],
         'statusMeaning':'success means collector completed; persistedRecords/expectedDistrictKeys describe actual local source yield, not nationwide completeness'
     }
     HEALTH.parent.mkdir(parents=True,exist_ok=True)
