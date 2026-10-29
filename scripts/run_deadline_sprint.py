@@ -20,6 +20,7 @@ COLLECTORS=[
     ('fec_committee_identity','scripts/collect_fec.py'),
     ('fec_committee_totals','scripts/collect_fec_totals.py'),
     ('fec_intercommittee_payments','scripts/collect_fec_transactions.py'),
+    ('fec_recipient_aggregates','scripts/collect_fec_recipient_aggregates.py'),
     ('lobbying_disclosures','scripts/collect_lda.py'),
     ('census_state_sources','scripts/collect_states.py'),
     ('house_election_results','scripts/collect_house_results.py'),
@@ -30,6 +31,7 @@ DATA_FILES={
     'fec_committee_identity':'data/batches/fec-committees.json',
     'fec_committee_totals':'data/finance/fec-totals.json',
     'fec_intercommittee_payments':'data/finance/fec-disbursements.json',
+    'fec_recipient_aggregates':'data/finance/fec-recipient-aggregates.json',
     'lobbying_disclosures':'data/lobbying/lda-filings.json',
     'census_state_sources':'data/geography/states.json',
     'house_election_results':'data/elections/house-districts.json',
@@ -39,6 +41,7 @@ SOURCE_ALTERNATIVES={
     'fec_committee_identity':'Existing official FEC candidate-committee bulk crosswalk and committee master index retained; DEMO_KEY quota must reset or a permitted key be configured.',
     'fec_committee_totals':'Official FEC aggregate cycle totals retained from earlier successful queries; no quota circumvention.',
     'fec_intercommittee_payments':'Previously persisted official Schedule B committee-only rows retained; no individual payee data collected.',
+    'fec_recipient_aggregates':'Official FEC Schedule B by_recipient_id aggregation avoids individual payee records; existing scoped rows retained.',
     'lobbying_disclosures':'Official Senate LDA issue-text search uses smaller 5/10-row pages after 20-row responses exceeded safety bound; bounded 5xx retry.',
     'house_election_results':'Previously validated MEDSL CC0 election rows retained; Clerk-certified unopposed seat statuses are separate and contain no invented vote totals.',
     'house_2024_key_audit':'Official Census 119th geography compared with 2024 vote rows and Clerk unopposed status-only records.',
@@ -89,6 +92,13 @@ def run():
         if name=='fec_committee_identity' and (ROOT/'data/batches/fec-committees.json').exists() and not os.environ.get('FEC_API_KEY'):
             report[name]={'status':'cached','note':'Retained previously indexed official committee identities to conserve DEMO_KEY requests',**persistence(name)}
             continue
+        if name=='fec_recipient_aggregates' and (ROOT/DATA_FILES[name]).exists() and not os.environ.get('FEC_API_KEY'):
+            info=persistence(name)
+            if info.get('persistedRecords',0)>0:
+                report[name]={'status':'cached_verified',
+                              'note':'Previously collected bounded official FEC recipient-ID aggregates retained to conserve DEMO_KEY quota',
+                              **info}
+                continue
         if name.startswith('fec_') and restricted_today:
             report[name]={'status':'deferred','note':'DEMO_KEY HTTP 429 observed earlier today; wait for permitted quota reset',**persistence(name)}
             continue
