@@ -136,8 +136,16 @@ def collect():
     records, n, unmatched = summarize_votes(stream_csv(VOTES_URL), members, ideology)
     complete = [r for r in records if r["congress"] <= 118]
     gaps = [(r["congress"], r["chamber"], r["rollCallsObserved"], r["rollCallsEligibleBothParties"]) for r in complete if r["rollCallsEligibleBothParties"] < 100]
-    if len(complete) != 38 or gaps:
-        raise RuntimeError(f"Historical coverage incomplete (congress, chamber, rollcalls, eligible): {gaps}; refusing publication")
+    if len(complete) != 38:
+        raise RuntimeError("Missing chamber-congress output rows: refusing publication")
+    # The upstream HSall_votes bulk export can omit entire Congresses; never
+    # turn these into zero polarization, nor suppress all otherwise valid years.
+    for row in records:
+        if row["rollCallsEligibleBothParties"] < 100:
+            row["opposed90PctShare"] = None
+            row["oppositePartyMajorityShare"] = None
+            row["evidenceStatus"] = "insufficient_source_coverage_no_rate_published"
+
     document = {
         "schema": "power-atlas.hyperpartisanship.voteview-party-divisions.v1",
         "status": "derived_voteview_aggregates_not_legislative_intent",
@@ -159,6 +167,9 @@ def collect():
             "inference": "Descriptive only. Party voting divergence is not proof that a member acted against constituents."
         },
         "diagnostics": {
+            "historicalMissingChamberPeriods": [{"congress": c, "chamber": h, "rollCallsObserved": observed, "eligibleRollCalls": eligible} for c, h, observed, eligible in gaps],
+            "historicalCoverageComplete": len(gaps) == 0,
+            "doNotInterpolateOrTreatMissingAsZero": True,
             "memberKeys": len(members),
             "voteRowsScanned": n,
             "voteRowsNoMatchingMajorPartyMember": unmatched
