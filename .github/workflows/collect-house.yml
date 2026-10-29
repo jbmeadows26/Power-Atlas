@@ -23,9 +23,11 @@ jobs:
           python-version: '3.12'
       - name: Fetch and validate year partitions
         run: python scripts/collect_house_results.py
+      - name: Reconcile 2024 districts with official Census and Clerk status-only records
+        run: python scripts/audit_house_2024.py
       - name: Build compact frontend data feed
         run: python scripts/build.py
       - name: Verify schema and links
         run: python -m unittest discover -s tests -p 'test_*.py'
       - name: Publish with bounded rebase retries
-        run: bash scripts/publish_data.sh data/elections/house-districts.json data/elections/house-summary.json data/app-feed.json data/research.json data/relationships.json
+        run: bash scripts/publish_data.sh data/elections/house-districts.json data/elections/house-summary.json data/health/house-2024-audit.json data/app-feed.json data/research.json data/relationships.json
