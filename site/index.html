@@ -64,6 +64,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
     <button role="tab" aria-selected="false" data-tab="committees">Mapmaking committees</button>
     <button role="tab" aria-selected="false" data-tab="bills">Federal mapmaking bills</button>
+    <button role="tab" aria-selected="false" data-tab="state-bills">State mapmaking bills</button>
     <button role="tab" aria-selected="false" data-tab="network">Evidence network</button>
     <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
     <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
@@ -158,6 +159,17 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       <span id="billCount" class="muted"></span></div>
     <div id="billList" class="list"></div>
     <p class="note">Indexed by <a href="https://www.ballotwatch.io/developers" target="_blank" rel="noopener noreferrer">BallotWatch's free, CC0 public API ↗</a> with source links to Congress.gov. These are bounded search candidates, not a census of legislation or verified roll-call outcomes.</p>
+  </section>
+  <section class="panel" data-panel="state-bills">
+    <span class="eyebrow">State legislation / Bills & recorded votes</span><h2>State redistricting proposals</h2>
+    <p class="sub">Source-indexed state bills from bounded public searches. Coverage varies widely by jurisdiction and may omit bills. A recorded vote is labeled separately from bill status and does not, by itself, prove a redistricting map was adopted.</p>
+    <div class="filters"><input id="stateBillQuery" aria-label="Search state bills" placeholder="State, title, bill number…">
+      <select id="stateBillTopic" aria-label="State bill topic"><option value="">All search candidates</option><option value="redistricting_specific_title">Titles specifically about districting</option><option value="keyword_search_candidate_unverified">Other keyword matches</option></select>
+      <span id="stateBillCount" class="muted"></span></div>
+    <p id="stateBillStatus" class="mapstatus">State bill collection is partial. Search source links for original details and recent actions.</p>
+    <div id="stateBillList" class="list"></div>
+    <h3>Recorded state bill votes</h3><div id="stateVoteList" class="list"></div>
+    <p class="note">Metadata source: <a href="https://billcommons.org/docs/api" target="_blank" rel="noopener noreferrer">Bill Commons public API ↗</a>. Official state bill sources control, and the API does not offer a complete verified national legislative-vote census. An empty vote list means no matching vote collected.</p>
   </section>
   <section class="panel" data-panel="governors">
     <span class="eyebrow">Executive / institutional responsibility</span><h2>Governors & state executives</h2>
@@ -371,6 +383,24 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
       }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
       .finally(function(){committeeBusy=false});
   }
+  function renderStateBills(){
+    var legislative=(data.legislation||{});
+    var rows=legislative.stateRedistrictingBillCandidates||[];
+    var votes=legislative.stateRedistrictingRecordedVotes||[];
+    var q=document.getElementById('stateBillQuery').value.trim().toLowerCase();
+    var topic=document.getElementById('stateBillTopic').value;
+    var filtered=rows.filter(function(r){return (!topic||r.issueClass===topic)&&(!q||[r.state,r.title,r.identifier,r.latestAction].join(' ').toLowerCase().includes(q))});
+    set('stateBillCount',filtered.length+' of '+rows.length+' candidates');
+    document.getElementById('stateBillList').innerHTML=filtered.length?filtered.slice(0,160).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.state)+' · '+esc(r.identifier)+'</span><span class="tag warn">'+esc(r.issueClass.replaceAll('_',' '))+'</span></div><h3>'+esc(r.title)+'</h3><p>Latest indexed action: '+esc(r.latestAction||'Not verified')+'</p><p class="muted">Indexed date: '+esc(r.latestActionDate||'Not indexed')+' · status '+esc(r.status||'Unknown')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">Original state bill source ↗</a></article>';
+    }).join(''):'<div class="card"><p>There are no source-indexed bills matching this filter. This is not a statement about all bills nationally.</p></div>';
+    var allowed=new Set(filtered.map(function(r){return r.id}));
+    var matchingVotes=votes.filter(function(r){return allowed.has(r.billId)});
+    document.getElementById('stateVoteList').innerHTML=matchingVotes.length?matchingVotes.slice(0,80).map(function(v){
+      var c=v.counts||{};
+      return '<article class="card"><div class="meta"><span class="tag">Recorded vote · '+esc(v.state)+'</span><span class="tag warn">Official review pending</span></div><h3>'+esc(v.identifier)+' — '+esc(v.motion||'Recorded vote')+'</h3><p>Result: '+esc(v.result||'Not indexed')+' · '+esc(v.date||'Date not indexed')+'</p><p>Yes '+esc(c.yes_count===undefined?'not reported':c.yes_count)+' · No '+esc(c.no_count===undefined?'not reported':c.no_count)+' · Other '+esc(c.other_count===undefined?'not reported':c.other_count)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(v.source))+'">Original bill evidence ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching recorded vote tallies have been captured in this bounded subset. Do not assume that no votes took place.</p></div>';
+  }
   function renderFederalBills(){
     var rows=((data.legislation||{}).federalBillCandidates)||[];
     var q=document.getElementById('billQuery').value.trim().toLowerCase();
@@ -516,7 +546,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
     var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
-    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderElections();renderStates();
+    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderStateBills();renderElections();renderStates();
   }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
@@ -536,6 +566,8 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   document.getElementById('committeeTopic').addEventListener('change',renderCommittees);
   document.getElementById('judgeQuery').addEventListener('input',renderJudiciary);
   document.getElementById('judgeStatus').addEventListener('change',renderJudiciary);
+  document.getElementById('stateBillQuery').addEventListener('input',renderStateBills);
+  document.getElementById('stateBillTopic').addEventListener('change',renderStateBills);
   document.getElementById('billQuery').addEventListener('input',renderFederalBills);
   document.getElementById('billTopic').addEventListener('change',renderFederalBills);
   document.getElementById('executiveQuery').addEventListener('input',renderExecutives);
