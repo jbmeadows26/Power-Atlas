@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 24,
+  "jurisdictionsScanned": 32,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -196,6 +196,70 @@
       "totalMatchesReported": 11,
       "newIndexedRecords": 11,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "ND": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 5,
+      "newIndexedRecords": 5,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NE": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 3,
+      "newIndexedRecords": 3,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NH": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 2,
+      "newIndexedRecords": 0,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NJ": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 14,
+      "newIndexedRecords": 11,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NM": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 4,
+      "newIndexedRecords": 1,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NV": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 4,
+      "newIndexedRecords": 3,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "NY": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 21,
+      "newIndexedRecords": 14,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "OH": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 11,
+      "newIndexedRecords": 9,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "attemptCounts": {
@@ -210,48 +274,57 @@
     "MO": 1,
     "MS": 1,
     "MT": 1,
-    "NC": 1
+    "NC": 1,
+    "ND": 1,
+    "NE": 1,
+    "NH": 1,
+    "NJ": 1,
+    "NM": 1,
+    "NV": 1,
+    "NY": 1,
+    "OH": 1
   },
+  "sourceFailures": {},
   "latestBatch": [
     {
-      "state": "MD",
+      "state": "ND",
+      "status": "indexed_first_page",
+      "newRows": 5
+    },
+    {
+      "state": "NE",
+      "status": "indexed_first_page",
+      "newRows": 3
+    },
+    {
+      "state": "NH",
       "status": "indexed_first_page",
       "newRows": 0
     },
     {
-      "state": "ME",
+      "state": "NJ",
+      "status": "indexed_first_page",
+      "newRows": 11
+    },
+    {
+      "state": "NM",
       "status": "indexed_first_page",
       "newRows": 1
     },
     {
-      "state": "MI",
+      "state": "NV",
       "status": "indexed_first_page",
-      "newRows": 10
+      "newRows": 3
     },
     {
-      "state": "MN",
+      "state": "NY",
       "status": "indexed_first_page",
-      "newRows": 11
+      "newRows": 14
     },
     {
-      "state": "MO",
+      "state": "OH",
       "status": "indexed_first_page",
-      "newRows": 16
-    },
-    {
-      "state": "MS",
-      "status": "indexed_first_page",
-      "newRows": 20
-    },
-    {
-      "state": "MT",
-      "status": "indexed_first_page",
-      "newRows": 10
-    },
-    {
-      "state": "NC",
-      "status": "indexed_first_page",
-      "newRows": 11
+      "newRows": 9
     }
   ],
   "remainingJurisdictions": [
@@ -259,14 +332,6 @@
     "IL",
     "LA",
     "MA",
-    "ND",
-    "NE",
-    "NH",
-    "NJ",
-    "NM",
-    "NV",
-    "NY",
-    "OH",
     "OK",
     "OR",
     "PA",
