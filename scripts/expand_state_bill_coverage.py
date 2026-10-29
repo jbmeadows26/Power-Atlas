@@ -65,6 +65,11 @@ def record(raw,state):
             'retrievalScope':'first_20_state_specific_keyword_results_only',
             'reviewStatus':'third_party_index_official_source_review_required'}
 
+def select_jurisdictions(states,completed,attempts,limit):
+    """Least-attempted first; keep failures eligible, never skip a state forever."""
+    return sorted((s for s in states if s not in completed),
+                  key=lambda s:(int(attempts.get(s,0)),s))[:limit]
+
 def run():
     if date.today()>END:
         print('Deadline passed; no new source requests')
@@ -78,9 +83,20 @@ def run():
     if not isinstance(done,dict):raise ValueError('Invalid previous coverage checkpoint')
     if len(STATES)!=51:
         raise RuntimeError('Expected 50 states and District of Columbia; received '+str(len(STATES)))
-    selected=[state for state in STATES if state not in done][:MAX_PER_RUN]
+    # Try never-attempted jurisdictions before retrying slow/failed ones.
+    # This avoids repeatedly spending the entire bounded run on the same
+    # timeouts while preserving all failed jurisdictions for later retries.
+    attempts=previous.get('attemptCounts',{})
+    if not isinstance(attempts,dict):raise ValueError('Invalid jurisdiction attempt checkpoint')
+    if 'attemptCounts' not in previous:
+        for item in previous.get('latestBatch',[]):
+            state=item.get('state')
+            if state in STATES and state not in done:
+                attempts[state]=max(1,int(attempts.get(state,0)))
+    selected=select_jurisdictions(STATES,done,attempts,MAX_PER_RUN)
     results=[]
     for state in selected:
+        attempts[state]=int(attempts.get(state,0))+1
         try:
             response,url=fetch_state(state)
         except HTTPError as exc:
@@ -122,6 +138,7 @@ def run():
            'jurisdictionsTotal':len(STATES),
            'jurisdictionsScanned':len(done),
            'jurisdictions':done,
+           'attemptCounts':attempts,
            'latestBatch':results,
            'remainingJurisdictions':[s for s in STATES if s not in done],
            'meaning':'First-page search coverage only. No source implies zero bills or no state-level redistricting activity.'}
