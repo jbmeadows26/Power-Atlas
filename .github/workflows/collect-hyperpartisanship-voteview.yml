@@ -45,10 +45,10 @@ jobs:
           assert sum(x['periodStatus']=='incomplete_congress' for x in r)==2
           observed=[x for x in r if x['congress']<119 and x['rollCallsEligibleBothParties']>=100]
           gaps=[x for x in r if x['congress']<119 and x['rollCallsEligibleBothParties']<100]
-          assert len(observed)>=26, 'Too few historical fully observed chamber-Congress panels'
+          assert len(observed)==38, 'Verified 100th–118th Congress coverage regressed: source panels missing'
           assert all(x['evidenceStatus']=='derived_voted_member_aggregates' for x in observed)
           assert all(x['evidenceStatus']=='insufficient_source_coverage_no_rate_published' and x['opposed90PctShare'] is None and x['oppositePartyMajorityShare'] is None for x in gaps)
-          assert d['diagnostics']['historicalCoverageComplete']==(len(gaps)==0)
+          assert not gaps and d['diagnostics']['historicalCoverageComplete'], 'No false full-coverage publication'
           assert d['diagnostics']['doNotInterpolateOrTreatMissingAsZero']
           print('Validated historical panels:',len(observed),'incomplete upstream panels:',[(x['congress'],x['chamber']) for x in gaps])
           PY
