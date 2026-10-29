@@ -77,6 +77,18 @@ class InstitutionalDecayCountryPanelTests(unittest.TestCase):
         self.assertEqual(opposite["NOR"]["nationalGovernmentChangePp"], 9)
         self.assertEqual(opposite["NOR"]["civilServiceChangePp"], -4)
 
+    def test_descriptive_correlations_and_sensitivity(self):
+        a = self.summary["institutionalAssociations"]
+        self.assertEqual(a["nCountries2025"], 33)
+        self.assertEqual(a["nPairedCountries"], 28)
+        self.assertAlmostEqual(a["nationalGovernmentVsCivilService2025"], 0.7391, places=4)
+        self.assertAlmostEqual(a["nationalGovernmentVsLocalGovernment2025"], 0.7267, places=4)
+        self.assertAlmostEqual(a["changeNationalGovernmentVsCivilService2023to2025"], 0.4901, places=4)
+        self.assertAlmostEqual(a["changeNationalGovernmentVsLocalGovernment2023to2025"], 0.6925, places=4)
+        self.assertAlmostEqual(a["leaveOneCountryOutChangeGovCivil"]["minimum"], 0.4471, places=4)
+        self.assertAlmostEqual(a["leaveOneCountryOutChangeGovCivil"]["maximum"], 0.5602, places=4)
+        self.assertIn("No causal inference", a["notFor"])
+
     def test_no_causality_claim_or_imputation(self):
         self.assertIn("noncausal", self.summary["status"])
         self.assertTrue(any("no ecological causal" in s for s in self.summary["limitations"]))
