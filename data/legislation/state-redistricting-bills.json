@@ -1,9 +1,9 @@
 {
   "schema": "power-atlas.state-redistricting-bill-candidates.v1",
-  "publicationStatus": "search_candidate_needs_primary_source_verification",
+  "publicationStatus": "candidate_search_scope_is_not_exhaustive",
   "provider": "https://billcommons.org/docs/api",
   "attribution": "Bill Commons (official state/Open States and possibly optional CC-BY-4.0 LegiScan, record-specific source licensing must be checked before reuse); metadata and source references only",
-  "coverageWarning": "First 40 results per query; not complete nationwide or state legislative coverage. An empty result is not evidence that a bill does not exist.",
+  "coverageWarning": "Combined bounded national keyword searches plus at most first 20 per jurisdiction. Some years, sessions and bills absent; original state record controls.",
   "searches": [
     {
       "query": "redistricting",
@@ -31,7 +31,7 @@
   ],
   "successfulSearches": 3,
   "jurisdictionsLookupCount": 51,
-  "incrementalJurisdictionsScanned": 8,
+  "incrementalJurisdictionsScanned": 12,
   "records": [
     {
       "id": "state-bill-00a2b287-f6ce-43b8-9119-ac194bb1d7d2",
@@ -151,6 +151,21 @@
       "source": "https://www.palegis.us/legislation/bills/2025/hb31",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-08d7fc19-8b6f-4f26-90f4-7eae4cfc215f",
+      "billUuid": "08d7fc19-8b6f-4f26-90f4-7eae4cfc215f",
+      "state": "IN",
+      "identifier": "SB 53",
+      "title": "Redistricting.",
+      "issueClass": "redistricting_specific_title",
+      "latestActionDate": "2025-12-10",
+      "latestAction": "Senator Ford J.D. added as coauthor",
+      "status": "died_on_adjournment",
+      "source": "https://api.iga.in.gov/2026/bills/sb0053",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -454,6 +469,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-1f9a494e-6f63-4751-99ee-d57b057f68ee",
+      "billUuid": "1f9a494e-6f63-4751-99ee-d57b057f68ee",
+      "state": "GA",
+      "identifier": "SB 199",
+      "title": "State Ethics Commission; shall not accept or reject complaints made against candidates 60 days prior to an election; provide",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-01-01",
+      "latestAction": "Effective Date",
+      "status": "enacted",
+      "source": "https://www.legis.ga.gov/legislation/70479",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-2268f5a0-2e03-46ce-ac71-8406bd130411",
       "billUuid": "2268f5a0-2e03-46ce-ac71-8406bd130411",
       "state": "MO",
@@ -754,6 +784,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-3ba7875a-9ff3-4ac1-860e-a1fa68c1821b",
+      "billUuid": "3ba7875a-9ff3-4ac1-860e-a1fa68c1821b",
+      "state": "GA",
+      "identifier": "HR 838",
+      "title": "O'Connor; Daniel; service in redistricting and celebrating his birthday; commend",
+      "issueClass": "redistricting_specific_title",
+      "latestActionDate": "2025-03-27",
+      "latestAction": "House Read and Adopted",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/71830",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-3ce7c3b3-f178-4acb-a6f1-d03ef66db9aa",
       "billUuid": "3ce7c3b3-f178-4acb-a6f1-d03ef66db9aa",
       "state": "AK",
@@ -829,6 +874,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-4496857d-5fa7-415f-9d6a-97450133d40b",
+      "billUuid": "4496857d-5fa7-415f-9d6a-97450133d40b",
+      "state": "GA",
+      "identifier": "HR 1033",
+      "title": "State government; changes to apportionment and districts of the General Assembly and Congress shall only be made in the first odd-numbered year subsequent to each United States decennial census; provide - CA",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-01-28",
+      "latestAction": "House Second Readers",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/72297",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-452ddbc5-4e80-42f4-b3eb-aeb8f0082523",
       "billUuid": "452ddbc5-4e80-42f4-b3eb-aeb8f0082523",
       "state": "DC",
@@ -839,6 +899,21 @@
       "latestAction": "Withdrawn",
       "status": "withdrawn",
       "source": "https://lims.dccouncil.gov/Legislation/PR26-0452",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-4633308a-9485-4b89-ad30-5d02efdd24b9",
+      "billUuid": "4633308a-9485-4b89-ad30-5d02efdd24b9",
+      "state": "IN",
+      "identifier": "HB 1032",
+      "title": "Redistricting.",
+      "issueClass": "redistricting_specific_title",
+      "latestActionDate": "2025-12-11",
+      "latestAction": "Third reading: defeated; Roll Call 8: yeas 19, nays 31",
+      "status": "died_on_adjournment",
+      "source": "https://api.iga.in.gov/2026/bills/hb1032",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
@@ -934,6 +1009,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-4d1b733a-f778-4009-92d7-7356183f90dc",
+      "billUuid": "4d1b733a-f778-4009-92d7-7356183f90dc",
+      "state": "DE",
+      "identifier": "HB 10",
+      "title": "AN ACT CONCURRING IN PROPOSED AMENDMENTS TO THE DELAWARE CONSTITUTION RELATING TO TECHNICAL CORRECTIONS.",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-03-25",
+      "latestAction": "Passed By Senate. Votes: 21 YES",
+      "status": "passed_both",
+      "source": "https://legis.delaware.gov/BillDetail?LegislationId=141791",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-4d2c8de1-3a4a-4a53-a128-54e1f507f7cd",
       "billUuid": "4d2c8de1-3a4a-4a53-a128-54e1f507f7cd",
       "state": "NM",
@@ -1006,6 +1096,21 @@
       "source": "https://www.revisor.mn.gov/bills/94/2025/0/HF/3270?list=open&body=House",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-5092dc65-f57a-4e90-bf9b-b46800c43fd9",
+      "billUuid": "5092dc65-f57a-4e90-bf9b-b46800c43fd9",
+      "state": "GA",
+      "identifier": "HR 564",
+      "title": "Mainor, Mesha; commend",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-03-13",
+      "latestAction": "House Second Readers",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/71283",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -1234,6 +1339,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-6392161a-6942-4e76-96ca-a2e399bd1c01",
+      "billUuid": "6392161a-6942-4e76-96ca-a2e399bd1c01",
+      "state": "GA",
+      "identifier": "SR 983",
+      "title": "Harbison, Senator Ed; recognize",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-03-19",
+      "latestAction": "Senate Read and Adopted",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/74202",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-64e6d27d-fbfb-482a-ba24-069d3a2ed6e8",
       "billUuid": "64e6d27d-fbfb-482a-ba24-069d3a2ed6e8",
       "state": "AZ",
@@ -1366,6 +1486,21 @@
       "source": "https://app.leg.wa.gov/billsummary/?BillNumber=1963&Year=2025&Initiative=false",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-76bee722-37d2-4b53-88b4-9ba47d39521b",
+      "billUuid": "76bee722-37d2-4b53-88b4-9ba47d39521b",
+      "state": "DE",
+      "identifier": "HB 25",
+      "title": "AN ACT TO AMEND THE CHARTER OF THE TOWN OF MILLSBORO RELATING TO TOWN OF MILLSBORO ELECTION DISTRICTS, VACANCIES, AND THE TOWN SECRETARY.",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-05-07",
+      "latestAction": "Signed by Governor",
+      "status": "enacted",
+      "source": "https://legis.delaware.gov/BillDetail?LegislationId=141712",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -1654,6 +1789,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-9e1d5481-26cd-4be6-9523-722c2e1769f6",
+      "billUuid": "9e1d5481-26cd-4be6-9523-722c2e1769f6",
+      "state": "GA",
+      "identifier": "HR 1300",
+      "title": "Representative Penny Houston Roundabout; Cook County; dedicate",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-05-12",
+      "latestAction": "Act 720",
+      "status": "enacted",
+      "source": "https://www.legis.ga.gov/legislation/73073",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-9f84847f-05a3-4f11-a035-ecf6bcab6e19",
       "billUuid": "9f84847f-05a3-4f11-a035-ecf6bcab6e19",
       "state": "PA",
@@ -1666,6 +1816,21 @@
       "source": "https://www.palegis.us/legislation/bills/2025/hr55",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-a24ce2ee-3411-403f-bc6d-a2521c34ce2c",
+      "billUuid": "a24ce2ee-3411-403f-bc6d-a2521c34ce2c",
+      "state": "GA",
+      "identifier": "SR 494",
+      "title": "O'Connor, Daniel; recognize",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-03-31",
+      "latestAction": "Senate Read and Referred",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/71850",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -1889,6 +2054,21 @@
       "latestAction": "Governor Signed",
       "status": "enacted",
       "source": "https://leg.colorado.gov/bills/HB26-1113",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-b1f5d2ed-5607-45f6-8158-f8e2505b515c",
+      "billUuid": "b1f5d2ed-5607-45f6-8158-f8e2505b515c",
+      "state": "GA",
+      "identifier": "SR 558",
+      "title": "Apportionment for General Assembly; changes to apportionment and districts; provide",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-01-13",
+      "latestAction": "Senate Read and Referred",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/72160",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
@@ -2119,6 +2299,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-cb6add61-9676-4eac-b843-e226607fefb6",
+      "billUuid": "cb6add61-9676-4eac-b843-e226607fefb6",
+      "state": "GA",
+      "identifier": "HR 934",
+      "title": "Mainor, Mesha; commend",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-04-02",
+      "latestAction": "House Read and Adopted",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/72038",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-cba7c541-b102-4b36-b6dc-25e81e0573ae",
       "billUuid": "cba7c541-b102-4b36-b6dc-25e81e0573ae",
       "state": "AL",
@@ -2284,6 +2479,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-e0e5412e-69be-482c-9a15-71b9339171b2",
+      "billUuid": "e0e5412e-69be-482c-9a15-71b9339171b2",
+      "state": "DE",
+      "identifier": "HB 444",
+      "title": "AN ACT TO AMEND TITLE 15 OF THE DELAWARE CODE RELATING TO THE DELAWARE JOHN LEWIS VOTING RIGHTS ACT.",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-08-06",
+      "latestAction": "Signed by Governor",
+      "status": "enacted",
+      "source": "https://legis.delaware.gov/BillDetail?LegislationId=143415",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-e1661c16-6b4a-47ef-b910-96f72bb6ffd4",
       "billUuid": "e1661c16-6b4a-47ef-b910-96f72bb6ffd4",
       "state": "FL",
@@ -2296,6 +2506,21 @@
       "source": "https://flsenate.gov/Session/Bill/2026/619/ByCategory",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-e679bbc6-799f-4c21-b81b-1014a673cc3a",
+      "billUuid": "e679bbc6-799f-4c21-b81b-1014a673cc3a",
+      "state": "GA",
+      "identifier": "SB 536",
+      "title": "\"Henry McNeal Turner Voting Rights Act\"; enact",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-02-20",
+      "latestAction": "Senate Read and Referred",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/73416",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -2389,6 +2614,21 @@
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
+      "id": "state-bill-f1b3dc37-ab57-4cb8-82b3-6b0eef70dcde",
+      "billUuid": "f1b3dc37-ab57-4cb8-82b3-6b0eef70dcde",
+      "state": "GA",
+      "identifier": "SR 437",
+      "title": "Senator Greg Dolezal Intersection; Forsyth County; dedicate",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2025-03-21",
+      "latestAction": "Senate Read and Referred",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/71544",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
       "id": "state-bill-f3e01c20-a564-43c7-8b99-a93f58bf6e1b",
       "billUuid": "f3e01c20-a564-43c7-8b99-a93f58bf6e1b",
       "state": "NY",
@@ -2401,6 +2641,21 @@
       "source": "https://legislation.nysenate.gov/api/3/bills/2025-2026/A9014?summary=&detail=",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "top_40_per_query_no_complete_jurisdiction_census",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-f5458329-6123-4836-a168-e651587c87bd",
+      "billUuid": "f5458329-6123-4836-a168-e651587c87bd",
+      "state": "GA",
+      "identifier": "HR 11",
+      "title": "Independent redistricting commission; provide for creation and establishment - CA",
+      "issueClass": "redistricting_specific_title",
+      "latestActionDate": "2026-06-20",
+      "latestAction": "House Second Readers",
+      "status": "died_on_adjournment",
+      "source": "https://www.legis.ga.gov/legislation/74833",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"
     },
     {
@@ -2429,6 +2684,21 @@
       "latestAction": "Currently Indefinitely Postponed",
       "status": "dead",
       "source": "https://alison.legislature.state.al.us/bill-search",
+      "sourceIndex": "https://billcommons.org/",
+      "retrievalScope": "first_20_state_specific_keyword_results_only",
+      "reviewStatus": "third_party_index_official_source_review_required"
+    },
+    {
+      "id": "state-bill-ff5b782e-a4f3-486e-b3de-50c4bcd8c1d3",
+      "billUuid": "ff5b782e-a4f3-486e-b3de-50c4bcd8c1d3",
+      "state": "DE",
+      "identifier": "HB 251",
+      "title": "AN ACT TO AMEND TITLE 9 OF THE DELAWARE CODE RELATING TO THE NEW CASTLE COUNTY COUNCIL.",
+      "issueClass": "keyword_search_candidate_unverified",
+      "latestActionDate": "2026-01-28",
+      "latestAction": "Reported Out of Committee (Elections & Government Affairs) in House with 3 Favorable, 3 On Its Merits",
+      "status": "in_committee",
+      "source": "https://legis.delaware.gov/BillDetail?LegislationId=142734",
       "sourceIndex": "https://billcommons.org/",
       "retrievalScope": "first_20_state_specific_keyword_results_only",
       "reviewStatus": "third_party_index_official_source_review_required"

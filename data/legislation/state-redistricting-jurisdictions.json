@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 8,
+  "jurisdictionsScanned": 12,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -68,59 +68,87 @@
       "totalMatchesReported": 32,
       "newIndexedRecords": 19,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "DE": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 6,
+      "newIndexedRecords": 4,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "GA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 17,
+      "newIndexedRecords": 12,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "ID": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 0,
+      "newIndexedRecords": 0,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "IN": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 3,
+      "newIndexedRecords": 2,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "latestBatch": [
     {
-      "state": "AK",
+      "state": "DE",
       "status": "indexed_first_page",
-      "newRows": 10
+      "newRows": 4
     },
     {
-      "state": "AL",
-      "status": "indexed_first_page",
-      "newRows": 3
+      "state": "FL",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     },
     {
-      "state": "AR",
+      "state": "GA",
+      "status": "indexed_first_page",
+      "newRows": 12
+    },
+    {
+      "state": "HI",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
+    },
+    {
+      "state": "IA",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
+    },
+    {
+      "state": "ID",
       "status": "indexed_first_page",
       "newRows": 0
     },
     {
-      "state": "AZ",
-      "status": "indexed_first_page",
-      "newRows": 20
+      "state": "IL",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     },
     {
-      "state": "CA",
+      "state": "IN",
       "status": "indexed_first_page",
-      "newRows": 0
-    },
-    {
-      "state": "CO",
-      "status": "indexed_first_page",
-      "newRows": 6
-    },
-    {
-      "state": "CT",
-      "status": "indexed_first_page",
-      "newRows": 1
-    },
-    {
-      "state": "DC",
-      "status": "indexed_first_page",
-      "newRows": 19
+      "newRows": 2
     }
   ],
   "remainingJurisdictions": [
-    "DE",
     "FL",
-    "GA",
     "HI",
     "IA",
-    "ID",
     "IL",
-    "IN",
     "KS",
     "KY",
     "LA",
