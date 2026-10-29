@@ -1,0 +1,72 @@
+name: Validate and publish final campaign pledge research assessment
+on:
+  push:
+    paths:
+      - 'data/promises/us-2020-pilot.json'
+      - 'data/promises/us-2020-source-verified-expansion.json'
+      - 'data/promises/us-2020-review-queue.json'
+      - 'data/promises/research-feed.json'
+      - 'data/promises/source-registry.json'
+      - 'data/fiscal/state-timeseries/aggregate-capital-2012-2024.json'
+      - 'data/fiscal/state-timeseries/fiscal-calendar-template-2012-2024.json'
+      - 'data/fiscal/state-legacy/quality-audit.json'
+      - 'scripts/build_campaign_assessment.py'
+      - 'tests/test_campaign_final_assessment.py'
+      - 'research/campaign-promises/assessment-complete-2026-10-29.md'
+      - '.github/workflows/build-campaign-final-assessment.yml'
+  pull_request:
+    paths:
+      - 'scripts/build_campaign_assessment.py'
+      - 'tests/test_campaign_final_assessment.py'
+      - 'research/campaign-promises/assessment-complete-2026-10-29.md'
+      - '.github/workflows/build-campaign-final-assessment.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-final-pledge-assessment
+  cancel-in-progress: false
+jobs:
+  assess:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build from already published primary-source-verified records
+        run: python -m scripts.build_campaign_assessment
+      - name: Verify all 650 fiscal and 32 pledge source/candidate identities
+        run: python -m unittest discover -s tests -p 'test_campaign_final_assessment.py' -v
+      - name: Verify deterministic final assessment
+        run: python -m scripts.build_campaign_assessment --check
+      - name: Publish machine-readable assessment (not causal claims)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/promises/assessment-2026-10-29.json
+          if git diff --cached --quiet; then
+            echo 'Evidence assessment unchanged'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: publish source-verified final campaign assessment with unresolved causal gates'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Refusing force push over concurrent research edits'
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              echo "Successfully published assessment on attempt $attempt"
+              exit 0
+            fi
+            sleep "$((2*attempt))"
+          done
+          echo 'Could not publish safely; source data unchanged'
+          exit 1
