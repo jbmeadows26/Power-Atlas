@@ -1,0 +1,387 @@
+{
+  "schema": "power-atlas.hyperpartisanship.congress-baseline.v1",
+  "asOf": "2026-10-29",
+  "status": "source_reported_aggregates_not_production_integrated",
+  "scope": "100th-119th Congress (1987-2026), with 119th partial",
+  "sourceRegistry": [
+    {
+      "id": "pew-public-laws-2026",
+      "url": "https://www.pewresearch.org/chart/congress-productivity-continues-to-dwindle/",
+      "publisher": "Pew Research Center",
+      "published": "2026-10-15",
+      "upstream": "Congress.gov",
+      "measurement": "Public laws enacted before Election Day, independently classified as substantive or ceremonial",
+      "limitations": "Substantive includes even limited real-world changes; excludes vetoed bills and private laws. 119th is as of 2026-10-14; legacy years use pre-election windows. Counts are not landmark legislation. Third-party data rights to be checked before downstream redistribution."
+    },
+    {
+      "id": "senate-cloture-counts",
+      "url": "https://www.senate.gov/legislative/cloture/clotureCounts.htm",
+      "publisher": "United States Senate",
+      "measurement": "Total Senate cloture motions filed, votes, invocations per full Congress",
+      "limitations": "Includes nomination-related motions; not identical to the number of filibusters, unique bills blocked, or motions on legislation. Different cutoff from Pew pre-election counts."
+    }
+  ],
+  "measurementSafeguards": {
+    "differentTimeWindows": true,
+    "nominationAndLegislationNotSeparated": true,
+    "denominatorOfBillsIntroducedNotAvailable": true,
+    "causalInterpretationProhibited": true,
+    "year119SenateClotureExcludedBecauseIncomplete": true,
+    "joinPolicy": "Descriptive side-by-side only until time window and motion type are harmonized. Never infer filibuster rate from motionsFiled without denominator."
+  },
+  "records": [
+    {
+      "congress": 100,
+      "calendarYears": "1987-1988",
+      "pewPreElection": {
+        "substantivePublicLaws": 388,
+        "ceremonialPublicLaws": 247,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 54,
+        "clotureVotes": 43,
+        "clotureInvoked": 12,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 101,
+      "calendarYears": "1989-1990",
+      "pewPreElection": {
+        "substantivePublicLaws": 299,
+        "ceremonialPublicLaws": 224,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 38,
+        "clotureVotes": 24,
+        "clotureInvoked": 11,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 102,
+      "calendarYears": "1991-1992",
+      "pewPreElection": {
+        "substantivePublicLaws": 387,
+        "ceremonialPublicLaws": 197,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 60,
+        "clotureVotes": 48,
+        "clotureInvoked": 23,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 103,
+      "calendarYears": "1993-1994",
+      "pewPreElection": {
+        "substantivePublicLaws": 324,
+        "ceremonialPublicLaws": 139,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 80,
+        "clotureVotes": 46,
+        "clotureInvoked": 14,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 104,
+      "calendarYears": "1995-1996",
+      "pewPreElection": {
+        "substantivePublicLaws": 286,
+        "ceremonialPublicLaws": 46,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 82,
+        "clotureVotes": 50,
+        "clotureInvoked": 9,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 105,
+      "calendarYears": "1997-1998",
+      "pewPreElection": {
+        "substantivePublicLaws": 306,
+        "ceremonialPublicLaws": 43,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 69,
+        "clotureVotes": 53,
+        "clotureInvoked": 18,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 106,
+      "calendarYears": "1999-2000",
+      "pewPreElection": {
+        "substantivePublicLaws": 344,
+        "ceremonialPublicLaws": 105,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 71,
+        "clotureVotes": 58,
+        "clotureInvoked": 28,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 107,
+      "calendarYears": "2001-2002",
+      "pewPreElection": {
+        "substantivePublicLaws": 199,
+        "ceremonialPublicLaws": 77,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 71,
+        "clotureVotes": 61,
+        "clotureInvoked": 34,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 108,
+      "calendarYears": "2003-2004",
+      "pewPreElection": {
+        "substantivePublicLaws": 304,
+        "ceremonialPublicLaws": 110,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 62,
+        "clotureVotes": 49,
+        "clotureInvoked": 12,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 109,
+      "calendarYears": "2005-2006",
+      "pewPreElection": {
+        "substantivePublicLaws": 247,
+        "ceremonialPublicLaws": 120,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 68,
+        "clotureVotes": 54,
+        "clotureInvoked": 34,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 110,
+      "calendarYears": "2007-2008",
+      "pewPreElection": {
+        "substantivePublicLaws": 286,
+        "ceremonialPublicLaws": 162,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 139,
+        "clotureVotes": 112,
+        "clotureInvoked": 61,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 111,
+      "calendarYears": "2009-2010",
+      "pewPreElection": {
+        "substantivePublicLaws": 194,
+        "ceremonialPublicLaws": 90,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 137,
+        "clotureVotes": 91,
+        "clotureInvoked": 63,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 112,
+      "calendarYears": "2011-2012",
+      "pewPreElection": {
+        "substantivePublicLaws": 143,
+        "ceremonialPublicLaws": 53,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 115,
+        "clotureVotes": 73,
+        "clotureInvoked": 41,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 113,
+      "calendarYears": "2013-2014",
+      "pewPreElection": {
+        "substantivePublicLaws": 141,
+        "ceremonialPublicLaws": 44,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 252,
+        "clotureVotes": 218,
+        "clotureInvoked": 187,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 114,
+      "calendarYears": "2015-2016",
+      "pewPreElection": {
+        "substantivePublicLaws": 172,
+        "ceremonialPublicLaws": 72,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 128,
+        "clotureVotes": 123,
+        "clotureInvoked": 60,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 115,
+      "calendarYears": "2017-2018",
+      "pewPreElection": {
+        "substantivePublicLaws": 206,
+        "ceremonialPublicLaws": 71,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 201,
+        "clotureVotes": 168,
+        "clotureInvoked": 157,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 116,
+      "calendarYears": "2019-2020",
+      "pewPreElection": {
+        "substantivePublicLaws": 150,
+        "ceremonialPublicLaws": 43,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 328,
+        "clotureVotes": 298,
+        "clotureInvoked": 270,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 117,
+      "calendarYears": "2021-2022",
+      "pewPreElection": {
+        "substantivePublicLaws": 160,
+        "ceremonialPublicLaws": 54,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 336,
+        "clotureVotes": 289,
+        "clotureInvoked": 270,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 118,
+      "calendarYears": "2023-2024",
+      "pewPreElection": {
+        "substantivePublicLaws": 84,
+        "ceremonialPublicLaws": 22,
+        "cutoff": "pre_general_election_of_second_year",
+        "status": "historical_pre_election_count"
+      },
+      "senateCloture": {
+        "motionsFiled": 266,
+        "clotureVotes": 241,
+        "clotureInvoked": 227,
+        "cutoff": "whole_congress",
+        "includesNominations": true,
+        "status": "historical_full_congress_count"
+      }
+    },
+    {
+      "congress": 119,
+      "calendarYears": "2025-2026",
+      "pewPreElection": {
+        "substantivePublicLaws": 109,
+        "ceremonialPublicLaws": 12,
+        "cutoff": "2026-10-14",
+        "status": "in_progress_before_election_snapshot"
+      },
+      "senateCloture": null
+    }
+  ]
+}
