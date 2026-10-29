@@ -19,9 +19,13 @@ jobs:
     timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Verify supervisor syntax before source requests
+        run: python -m py_compile scripts/run_deadline_sprint.py
       - name: Collect independent public sources and record blockers
         run: python scripts/run_deadline_sprint.py
         env:
@@ -31,4 +35,4 @@ jobs:
           python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Commit data and ingestion health safely
-        run: bash scripts/publish_data.sh data
+        run: bash scripts/publish_data.sh data/health/ingestion-status.json data/health/house-2024-audit.json data/finance/fec-recipient-aggregates.json data/app-feed.json data/coverage.json
