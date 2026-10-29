@@ -73,7 +73,32 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
     <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
+    <button role="tab" aria-selected="false" data-tab="gridlock">Congress & gridlock</button>
   </nav>
+  <section class="panel" data-panel="gridlock">
+    <span class="eyebrow">Congressional research / 100th–119th</span><h2>Hyper-partisanship and legislative gridlock</h2>
+    <p class="sub">Source-attributed measures of partisan floor voting, bipartisan co-sponsorship and legislative throughput. These are descriptive, not findings of misconduct or causation.</p>
+    <p class="muted" id="hpStatus">Loading compact validated research data…</p>
+    <div class="metrics" id="hpMetrics"></div>
+    <div class="columns">
+      <article class="card"><span class="eyebrow">Recorded floor votes</span><h3>Strict party opposition over time</h3>
+        <p>Share of eligible recorded roll calls where 90% or more of one party voted yes and 90% or more of the other voted no.</p>
+        <div id="hpVoteTrend"></div>
+        <p class="note">Unavailable periods are displayed as missing, never zero. The 119th Congress is incomplete and shown separately.</p>
+      </article>
+      <article class="card"><span class="eyebrow">119th Congress bill universe</span><h3>Cross-party co-sponsorship</h3>
+        <div id="hpCosponsor"></div>
+        <p class="note">A co-sponsor relationship is not a completed compromise, floor vote, enacted law or proof of a constituent-aligned position.</p>
+      </article>
+    </div>
+    <div class="card"><h3>Legislative throughput and procedure</h3><div id="hpLawComparison"></div>
+      <p class="note">Pew counts substantive laws before Election Day; Senate cloture totals cover the full Congress and include nominations. Do not combine these as a causal model or compare the unfinished 119th as a completed term.</p>
+    </div>
+    <div class="card"><h3>Sources, scope and gaps</h3>
+      <p>Read the <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/hyperpartisanship/README.md" target="_blank" rel="noopener noreferrer">research protocol and quality audit</a>, <a href="https://www.pewresearch.org/chart/congress-productivity-continues-to-dwindle/" target="_blank" rel="noopener noreferrer">Pew's law counts</a>, <a href="https://www.senate.gov/legislative/cloture/clotureCounts.htm" target="_blank" rel="noopener noreferrer">official Senate cloture records</a>, <a href="https://voteview.com/articles/data_help_votes" target="_blank" rel="noopener noreferrer">Voteview voting definitions</a>, and <a href="https://www.govinfo.gov/bulkdata/BILLSTATUS/119" target="_blank" rel="noopener noreferrer">GovInfo's bill-status records</a>.</p>
+      <p class="note" id="hpLimitations"></p>
+    </div>
+  </section>
   <section class="panel active" data-panel="overview">
     <div class="eyebrow">Live GitHub feed</div><h2>Research coverage</h2>
     <p class="sub" id="connection">Loading latest published source records…</p>
@@ -576,9 +601,51 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
     renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderStateBills();renderEvidenceAudit();renderElections();renderStates();
   }
+  var hpLoaded=false;
+  function loadGridlock(){
+    if(hpLoaded)return;
+    hpLoaded=true;
+    var hpUrl='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/hyperpartisanship/app-summary-v1.json';
+    fetch(hpUrl,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(d){
+      if(d.schema!=='power-atlas.hyperpartisanship.app-summary.v1')throw Error('Unsupported research schema');
+      var c=d.coverage;
+      var pct=function(v){return (v===null||v===undefined)?'Unavailable':(100*v).toFixed(1)+'%'};
+      var num=function(v){return Number(v).toLocaleString('en-US')};
+      var get=function(n,ch){return d.voting.find(function(v){return v.congress===n&&v.chamber===ch})};
+      var metric=function(v,title){return '<div class="metric"><strong>'+esc(v)+'</strong><span>'+esc(title)+'</span></div>'};
+      document.getElementById('hpMetrics').innerHTML=
+        metric(pct(get(100,'House').strictPartyOppositionShare),'House: 100th Congress')+
+        metric(pct(get(118,'House').strictPartyOppositionShare),'House: 118th Congress')+
+        metric(pct(get(100,'Senate').strictPartyOppositionShare),'Senate: 100th Congress')+
+        metric(pct(get(118,'Senate').strictPartyOppositionShare),'Senate: 118th Congress');
+      var roll=d.voting.filter(function(v){return v.congress<119}).map(function(v){
+        var label=v.congress+'th '+v.chamber;
+        if(!v.observed)return '<div class="coverage">'+esc(label)+' · <span class="tag warn">Source missing</span></div>';
+        var val=Math.max(0,Math.min(100,100*v.strictPartyOppositionShare));
+        return '<div class="coverage">'+esc(label)+' <b>'+pct(v.strictPartyOppositionShare)+'</b><div class="bar"><div class="fill" style="width:'+val.toFixed(3)+'%"></div></div></div>';
+      }).join('');
+      document.getElementById('hpVoteTrend').innerHTML=roll;
+      document.getElementById('hpCosponsor').innerHTML=
+        metric(pct(c.knownCrossPartyShareClassified),'Of classifiable H.R./S. bills with active opposite-party cosponsor')+
+        '<div class="coverage">Documented cross-party: <b>'+num(c.crossPartyBills119)+'</b></div>'+
+        '<div class="coverage">Classified no cross-party: <b>'+num(c.noCrossPartyBills119)+'</b></div>'+
+        '<div class="coverage">Identity unresolved: <b>'+num(c.unknownPartyBills119)+'</b></div>'+
+        '<div class="coverage">Total bills: <b>'+num(c.bills119)+'</b></div>';
+      var early=d.legislation.find(function(x){return x.congress===102});
+      var late=d.legislation.find(function(x){return x.congress===118});
+      document.getElementById('hpLawComparison').innerHTML=
+        '<div class="coverage">Substantive laws before Election Day, 102nd: <b>'+num(early.substantive)+'</b></div>'+
+        '<div class="coverage">Substantive laws before Election Day, 118th: <b>'+num(late.substantive)+'</b></div>'+
+        '<div class="coverage">Total cloture motions (all types), 102nd: <b>'+num(early.clotureAllTypes)+'</b></div>'+
+        '<div class="coverage">Total cloture motions (all types), 118th: <b>'+num(late.clotureAllTypes)+'</b></div>';
+      document.getElementById('hpLimitations').textContent=d.limitations.join(' · ');
+      set('hpStatus','Published source-backed research snapshot · '+d.asOf+' · '+c.observedCompletedChamberCongresses+'/'+c.totalCompletedChamberCongresses+' historical chamber-periods observed');
+    }).catch(function(e){hpLoaded=false;set('hpStatus','Research feed unavailable: '+e.message+' · Source data remain available in GitHub')});
+  }
   document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
     document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
+    if(b.dataset.tab==='gridlock')loadGridlock();
     if(b.dataset.tab==='states')loadMaps();
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
     if(b.dataset.tab==='judiciary')loadJudiciary();
