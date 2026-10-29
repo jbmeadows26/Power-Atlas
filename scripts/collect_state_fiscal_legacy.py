@@ -95,7 +95,12 @@ def parse_records(raw: bytes, source_year: int):
         )
         if not gov.isascii() or not gov.isdigit() or not re.fullmatch(r"[A-Z0-9]{3}", item):
             raise ValueError(f"Invalid government code or item code at line {line_number}")
-        if not re.fullmatch(r"-?[0-9]+", amount.strip()):
+        amount_normalized = amount.strip()
+        if amount_normalized == ".":
+            amount_status = "published_missing_marker"
+        elif re.fullmatch(r"-?[0-9]+", amount_normalized):
+            amount_status = "numeric_reported"
+        else:
             raise ValueError(f"Unexpected amount encoding at line {line_number}: {amount!r}")
         if not survey.isdigit() or not data_year.isdigit() or not re.fullmatch(r"[A-Z0-9 ]{2}", origin):
             raise ValueError(f"Invalid source year/origin columns at line {line_number}")
@@ -114,6 +119,7 @@ def parse_records(raw: bytes, source_year: int):
             "stateGovernmentCode": gov,
             "itemCode": item,
             "amountAsPublished": amount,
+            "amountStatus": amount_status,
             "surveyYearTwoDigits": survey,
             "dataYearTwoDigits": data_year,
             "originCode": origin,
@@ -129,6 +135,7 @@ def parse_records(raw: bytes, source_year: int):
         "capitalFamilyRowsRetained": len(selected),
         "stateGovernmentCount": len(state_seen),
         "capitalFamilyRowCounts": {k: code_families.get(k, 0) for k in sorted(CAPITAL_FAMILIES)},
+        "missingMarkerRows": sum(r["amountStatus"] == "published_missing_marker" for r in selected),
         "records": selected,
     }
 
@@ -147,7 +154,7 @@ def make_document(year, raw, url):
             "bytesRead": len(raw),
             "documentation": "https://www2.census.gov/programs-surveys/state/technical-documentation/complete-technical-documentation/statetechdoc2024.pdf",
         },
-        "coverage": {k: parsed[k] for k in ("allRecordsInspected", "capitalFamilyRowsRetained", "stateGovernmentCount", "capitalFamilyRowCounts")},
+        "coverage": {k: parsed[k] for k in ("allRecordsInspected", "capitalFamilyRowsRetained", "stateGovernmentCount", "capitalFamilyRowCounts", "missingMarkerRows")},
         "currencyUnits": "unverified_do_not_assume_raw_amount_scale",
         "fiscalYearInterpretation": "source collection year; source data-year and survey-year fields retained separately",
         "warning": "Not a harmonized state spending series; 2022 redefined capital F item codes and social insurance expenditure totals. Do not estimate political business cycles from this raw table.",
