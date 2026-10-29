@@ -1,7 +1,7 @@
 {
   "schema": "power-atlas.promise-source-registry.v1",
   "asOf": "2026-10-29",
-  "sourceCount": 17,
+  "sourceCount": 19,
   "publicationStatus": "source_catalog_only_no_data_ingestion",
   "sources": [
     {
@@ -205,6 +205,30 @@
       "purpose": "ratification_dates_entry_into_force",
       "verificationStatus": "verified_specific_record",
       "limitation": "Ratification and treaty entry into force distinct; use official depositary",
+      "recordCountIngested": 0,
+      "licensesChecked": false
+    },
+    {
+      "id": "US-CENSUS-ASFIN-BULK",
+      "country": "US",
+      "domain": "state_government_finance",
+      "url": "https://www.census.gov/programs-surveys/state/data.html",
+      "frequency": "annual_fiscal_year",
+      "purpose": "state_budget_revenue_current_spending_and_capital_outlays",
+      "verificationStatus": "verified_catalog_only",
+      "limitation": "Historical files and public downloadable annual data exist; Census 2012–2024 API requires an API key; do not infer monthly election-quarter fluctuations from annual data; verify variable codes, fiscal-year bounds and comparable vintages",
+      "recordCountIngested": 0,
+      "licensesChecked": false
+    },
+    {
+      "id": "US-URBAN-TPC-STATE-LOCAL",
+      "country": "US",
+      "domain": "independent_finance_index",
+      "url": "https://slfdqs-stg.urban.org/",
+      "frequency": "annual",
+      "purpose": "discovery_and_reconciliation_of_1977_2024_state_and_local_finance_series",
+      "verificationStatus": "verified_catalog_only",
+      "limitation": "Uses mainly Census finance data; independently check reuse conditions and distinguish state-only from state-plus-local government series; not an independent second primary source",
       "recordCountIngested": 0,
       "licensesChecked": false
     }
