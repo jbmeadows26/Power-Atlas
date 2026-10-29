@@ -22,7 +22,10 @@ URLS=[
 "https://voteview.com/static/data/out/votes/HS114_votes.csv",
 "https://voteview.com/static/data/out/members/H114_members.csv",
 "https://voteview.com/static/data/out/members/S114_members.csv",
-"https://voteview.com/static/data/out/members/HS114_members.csv"
+"https://voteview.com/static/data/out/members/HS114_members.csv",
+"https://voteview.com/static/data/out/members/HS115_members.csv",
+"https://voteview.com/static/data/out/members/HS116_members.csv",
+"https://voteview.com/static/data/out/members/HS117_members.csv"
 ]
 LIMIT=180000
 for url in URLS:
@@ -48,7 +51,7 @@ for url in URLS:
         if b',' in raw[:500] and url.endswith(".csv"):
             lines=raw.decode("utf-8",errors="replace").splitlines()
             rows=[line.split(",") for line in lines[1:8]]
-            tags={"csv_header":lines[0],"sample_bytes":len(raw),"csv_lines_first_chunk":len(lines),"first_rows":[row[:4] for row in rows],"last_row":lines[-2].split(",")[:4]}
+            tags={"csv_header":lines[0],"sample_bytes":len(raw),"csv_lines_first_chunk":len(lines),"first_rows":[[row[i] if i < len(row) else "" for i in (0,1,6,13)] for row in rows],"last_row":lines[-2].split(",")[:4]}
         print("SOURCE",url,"HTTP",status,"bytes_first_chunk",len(raw),"TAGS",tags,flush=True)
     except (HTTPError,URLError,TimeoutError) as exc:
         print("SOURCE",url,"ERROR",str(exc)[:180],flush=True)
