@@ -123,10 +123,12 @@ def parse_bill(xml_bytes, kind, source_url, parties):
         raise ValueError("Repeated sponsor identity")
     cosponsors = []
     seen_events = set()
-    for item in items(bill, "cosponsors"):
+    for position, item in enumerate(items(bill, "cosponsors")):
         ident = textof(item, "identifiers", "bioguideId")
         if not re.fullmatch(r"[A-Z][0-9]{6}", ident or ""):
-            raise ValueError("Cosponsor missing uniquely parseable bioguide ID")
+            # Some official XML source records lack a stable ID. Preserve
+            # each unknown independently; NEVER guess identity from a name.
+            ident = f"unresolved-source-cosponsor-{position}"
         started = textof(item, "sponsorshipDate")
         withdrawn = textof(item, "sponsorshipWithdrawnDate")
         event = (ident, started or None, withdrawn or None)
@@ -160,6 +162,7 @@ def parse_bill(xml_bytes, kind, source_url, parties):
         "activeCosponsorCount": len(current_ids),
         "withdrawnCosponsorCount": len(withdrawn_ids),
         "activeCosponsorUnknownPartyCount": unknown,
+        "cosponsorSourceMissingBioguideCount": sum(c[0].startswith("unresolved-source-cosponsor-") for c in cosponsors),
         "knownCrossPartyCosponsor": cross,
         "source": source_url,
         "reviewStatus": "official_billstatus_crosswalk_requires_review" if cross is None else "official_billstatus_derived_cosponsor_link"
