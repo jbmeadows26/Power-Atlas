@@ -53,7 +53,12 @@ def parse_members(rows, min_rows=1000):
         chamber = row["chamber"]
         if congress < FIRST_CONGRESS or congress > LAST_CONGRESS or chamber not in CHAMBERS:
             continue
-        party = PARTIES.get(str(row["party_code"]))
+        # Voteview CSV vintages encode numeric party codes as 100/200 or 100.0/200.0.
+        # Normalize only equivalent integral spellings; never infer parties.
+        party_code = str(row["party_code"]).strip()
+        if party_code.endswith(".0"):
+            party_code = party_code[:-2]
+        party = PARTIES.get(party_code)
         if not party:
             continue
         icpsr = str(row["icpsr"])
