@@ -21,7 +21,7 @@ for file in sorted((ROOT / 'data/batches').glob('*.json')):
             raise ValueError(f'Invalid record in {file}')
         compact = {k: row[k] for k in (
             'id', 'title', 'state', 'date', 'asOf', 'source', 'status',
-            'reviewStatus', 'claimScope'
+            'reviewStatus', 'claimScope', 'court', 'docket', 'disposition'
         ) if k in row}
         if not compact.get('status') and not compact.get('reviewStatus'):
             compact['status'] = doc.get('status') or doc.get('publicationStatus') or 'source_indexed_unreviewed'
@@ -190,9 +190,17 @@ for map_congress,year in [(116,2020),(119,2025)]:
         })
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
+scotus_decisions = [row for row in output['records'] if row['id'].startswith('scotus-')]
+for decision in scotus_decisions:
+    if decision.get('court') != 'Supreme Court of the United States':
+        raise ValueError('Unexpected court label in Supreme Court decision index')
+    if not re.fullmatch(r'[0-9]{2}-[0-9]{1,5}',decision.get('docket','')):
+        raise ValueError('Unexpected Supreme Court docket ID')
+    if decision['source'] != 'https://www.supremecourt.gov/docket/docketfiles/html/public/'+decision['docket']+'.html':
+        raise ValueError('Supreme Court docket source mismatch')
 uncovered = [
     'state_campaign_finance', 'state_roll_calls', 'state_legislative_district_polygons_and_legal_boundary_history',
-    'litigation_dockets', 'state_judicial_selection_and_election_outcomes', 'statewide_local_returns_and_official_vote_reconciliation'
+    'lower_court_litigation_dockets_and_state_cases', 'state_judicial_selection_and_election_outcomes', 'statewide_local_returns_and_official_vote_reconciliation'
 ]
 feed = {
     'schema': 'power-atlas.frontend.v1',
@@ -202,7 +210,7 @@ feed = {
     'states': states,
     'geography': {'congressionalMapEditions':map_editions, 'comparisonNote':'116th and 119th maps differ by both nationwide apportionment and boundary changes; a shape difference is not a measure of intent.'},
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
-    'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436'},
+    'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436', 'supremeCourtRedistrictingDecisions': scotus_decisions, 'supremeCourtDocketSource': 'https://www.supremecourt.gov/Docket/docket.aspx', 'scopeNote': 'Selected Supreme Court dispositions only; not a nationwide case docket census or state judicial record.'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
     'elections': {'houseStateYears': house_summary, 'house2024KeyAudit': house_2024_audit, 'house2024UnopposedStatusOnly': house_unopposed, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
@@ -229,6 +237,7 @@ feed = {
         'stateLegislatorRows': state_people_count,
         'stateExecutiveRows': len(executives),
         'federalJudicialAppointments': fjc_index.get('appointmentRecords', 0),
+        'supremeCourtRedistrictingDecisions': len(scotus_decisions),
         'stateLegislatorJurisdictions': len(state_people_index),
         'lobbyingFilingRows': len(lobbying),
         'houseStateYearRows': len(house_summary),
