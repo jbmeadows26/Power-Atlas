@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 39,
+  "jurisdictionsScanned": 47,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -316,10 +316,74 @@
       "totalMatchesReported": 9,
       "newIndexedRecords": 6,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "UT": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 15,
+      "newIndexedRecords": 15,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "VA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 16,
+      "newIndexedRecords": 11,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "VT": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 10,
+      "newIndexedRecords": 0,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "WA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 15,
+      "newIndexedRecords": 13,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "WI": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 6,
+      "newIndexedRecords": 4,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "WV": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 6,
+      "newIndexedRecords": 6,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "WY": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 3,
+      "newIndexedRecords": 3,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "HI": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 16,
+      "newIndexedRecords": 14,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "attemptCounts": {
-    "HI": 1,
+    "HI": 2,
     "IL": 1,
     "LA": 1,
     "MA": 1,
@@ -346,7 +410,14 @@
     "SC": 1,
     "SD": 1,
     "TN": 1,
-    "TX": 1
+    "TX": 1,
+    "UT": 1,
+    "VA": 1,
+    "VT": 1,
+    "WA": 1,
+    "WI": 1,
+    "WV": 1,
+    "WY": 1
   },
   "sourceFailures": {
     "TX": {
@@ -360,59 +431,51 @@
   },
   "latestBatch": [
     {
-      "state": "OK",
+      "state": "UT",
+      "status": "indexed_first_page",
+      "newRows": 15
+    },
+    {
+      "state": "VA",
+      "status": "indexed_first_page",
+      "newRows": 11
+    },
+    {
+      "state": "VT",
       "status": "indexed_first_page",
       "newRows": 0
     },
     {
-      "state": "OR",
+      "state": "WA",
       "status": "indexed_first_page",
-      "newRows": 20
+      "newRows": 13
     },
     {
-      "state": "PA",
+      "state": "WI",
       "status": "indexed_first_page",
-      "newRows": 3
+      "newRows": 4
     },
     {
-      "state": "RI",
-      "status": "indexed_first_page",
-      "newRows": 5
-    },
-    {
-      "state": "SC",
-      "status": "indexed_first_page",
-      "newRows": 5
-    },
-    {
-      "state": "SD",
-      "status": "indexed_first_page",
-      "newRows": 2
-    },
-    {
-      "state": "TN",
+      "state": "WV",
       "status": "indexed_first_page",
       "newRows": 6
     },
     {
-      "state": "TX",
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError"
+      "state": "WY",
+      "status": "indexed_first_page",
+      "newRows": 3
+    },
+    {
+      "state": "HI",
+      "status": "indexed_first_page",
+      "newRows": 14
     }
   ],
   "remainingJurisdictions": [
-    "HI",
     "IL",
     "LA",
     "MA",
-    "TX",
-    "UT",
-    "VA",
-    "VT",
-    "WA",
-    "WI",
-    "WV",
-    "WY"
+    "TX"
   ],
   "meaning": "First-page search coverage only. No source implies zero bills or no state-level redistricting activity."
 }
