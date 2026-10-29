@@ -17,12 +17,13 @@ YEARS = (2026, 2025)
 MAX_BYTES = 350000
 
 def fetch(term, year):
-    # Keep response bodies under the 350KB bound. A single page of 20
-    # rich filings exceeded it; use two 10-row pages, same 20-row cap.
+    # Keep response bodies under 350KB; dense congressional-district filings
+    # need smaller pages. Same 20-record cap, not expanded search access.
+    page_size = 5 if term == 'congressional district' else 10
     found = []
-    for page in (1, 2):
+    for page in range(1, 21 // page_size):
         query = urlencode({'filing_specific_lobbying_issues':term,
-                           'filing_year':year,'page_size':10,'page':page})
+                           'filing_year':year,'page_size':page_size,'page':page})
         req = Request(API+'?'+query,headers={'User-Agent':'PowerAtlasResearch/1.0; public filing index',
                                               'Accept':'application/json'})
         for attempt in range(2):
@@ -32,7 +33,7 @@ def fetch(term, year):
                         raise RuntimeError('Senate API HTTP error: '+str(response.status))
                     content=response.read(MAX_BYTES+1)
                     if len(content)>MAX_BYTES:
-                        raise RuntimeError('LDA response exceeded safety limit at page_size=10')
+                        raise RuntimeError('LDA response exceeded safety limit at page_size='+str(page_size))
                 break
             except (HTTPError, URLError, TimeoutError) as exc:
                 # Retry temporary server/network faults only. Never retry 401,
@@ -143,7 +144,7 @@ def collect():
     if len(by_id)>150:
         by_id=dict(sorted(by_id.items(),reverse=True)[:150])
     body={'schema':'power-atlas.lda-filings.v1','publicationStatus':'review_required',
-          'method':'up to two 10-row pages per issue term/year; incomplete search coverage',
+          'method':'up to 20 filings per issue term/year; 5- or 10-row pages to bound response size; incomplete search coverage',
           'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
           'successfulQueries':successes,'failedQueries':len(failures),
           'fetchedRowsInBoundedPages':fetched,'matchedRowsInBoundedPages':matched,
