@@ -41,7 +41,7 @@ def stream_csv(url):
         with io.TextIOWrapper(response, encoding="utf-8-sig", newline="") as reader:
             yield from csv.DictReader(reader)
 
-def parse_members(rows):
+def parse_members(rows, min_rows=1000):
     member_party = {}
     ideology = defaultdict(lambda: {"D": [], "R": []})
     count = 0
@@ -68,7 +68,7 @@ def parse_members(rows):
                 ideology[(congress, chamber)][party].append(loc)
         except (ValueError, TypeError):
             pass
-    if count < 1000 or not member_party:
+    if count < min_rows or not member_party:
         raise ValueError("Voteview members unexpectedly sparse")
     return member_party, ideology
 
@@ -134,6 +134,31 @@ def summarize_votes(rows, member_party, ideology):
 
 def collect():
     members, ideology = parse_members(stream_csv(MEMBERS_URL))
+    member_fallback = {}
+    for congress in range(114, 118):
+        # Voteview's all-member export omitted complete congressional periods.
+        # The official Voteview per-Congress membership archive is still present.
+        member_url = f"https://voteview.com/static/data/out/members/HS{congress}_members.csv"
+        extra_members, extra_ideology = parse_members(stream_csv(member_url), min_rows=200)
+        coverage = {"House": 0, "Senate": 0}
+        for key, party in extra_members.items():
+            if key[0] != congress:
+                raise ValueError(f"Wrong Congress in member fallback {member_url}")
+            if key in members and members[key] != party:
+                raise ValueError(f"Conflicting party identity for {key} across Voteview sources")
+            members[key] = party
+            coverage[key[1]] += 1
+        for k, by_party in extra_ideology.items():
+            if k[0] != congress:
+                raise ValueError("Ideology fallback Congress mismatch")
+            existing = ideology[k]
+            if not existing["D"] and not existing["R"]:
+                ideology[k] = by_party
+            elif len(existing["D"]) + len(existing["R"]) != len(by_party["D"]) + len(by_party["R"]):
+                raise ValueError(f"Conflicting historical ideology memberships for {k}")
+        if coverage["House"] < 400 or coverage["Senate"] < 90:
+            raise RuntimeError(f"Party roster fallback sparse for {congress}: {coverage}")
+        member_fallback[str(congress)] = {"source": member_url, "memberRows": coverage}
     records, n, unmatched = summarize_votes(stream_csv(VOTES_URL), members, ideology)
     # Voteview's all-Congress CSV currently omits four complete Congresses.
     # Its documented data-download template also offers per-Congress CSVs.
@@ -205,6 +230,7 @@ def collect():
             "inference": "Descriptive only. Party voting divergence is not proof that a member acted against constituents."
         },
         "diagnostics": {
+            "perCongressMemberFallback": member_fallback,
             "perCongressFallback": fallback_status,
             "historicalMissingChamberPeriods": [{"congress": c, "chamber": h, "rollCallsObserved": observed, "eligibleRollCalls": eligible} for c, h, observed, eligible in gaps],
             "historicalCoverageComplete": len(gaps) == 0,
