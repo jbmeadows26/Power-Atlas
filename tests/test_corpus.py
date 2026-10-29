@@ -71,6 +71,11 @@ class CorpusChecks(unittest.TestCase):
         feed = load('data/app-feed.json')
         self.assertEqual(feed['elections']['houseStateYears'], summaries)
         self.assertEqual(feed['coverage']['houseStateYearRows'], len(summaries))
+        if (ROOT / 'data/elections/house-districts.json').exists():
+            districts = load('data/elections/house-districts.json')['records']
+            self.assertEqual(feed['coverage']['houseDistrictYearRows'],len(districts))
+            self.assertEqual(feed['coverage']['house2024VoteDistrictRows'],
+                             sum(r['year']==2024 for r in districts))
 
     def test_congress_roster_and_crosswalks(self):
         if not (ROOT / 'data/people/congress-members.json').exists():
