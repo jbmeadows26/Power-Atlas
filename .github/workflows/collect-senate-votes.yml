@@ -1,0 +1,31 @@
+name: Ingest official 119th Senate roll-call index
+on:
+  push:
+    paths:
+      - 'scripts/collect_senate_votes.py'
+      - '.github/workflows/collect-senate-votes.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '20 11 * * 3'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-senate-rollcalls
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download bounded official Senate roll-call menus
+        run: python scripts/collect_senate_votes.py
+      - name: Merge and validate feed
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish compact metadata
+        run: bash scripts/publish_data.sh data/legislation/senate-119-rollcalls.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
