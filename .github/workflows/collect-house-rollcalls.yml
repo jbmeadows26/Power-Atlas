@@ -4,9 +4,7 @@ on:
     paths:
       - 'scripts/collect_house_rollcalls.py'
       - '.github/workflows/collect-house-rollcalls.yml'
-  workflow_dispatch:
-  schedule:
-    - cron: '40 11 * * 2'
+  workflow_dispatch: # manual probe only until public source access is verified from CI
 permissions:
   contents: write
 concurrency:
