@@ -1,0 +1,411 @@
+{
+  "schema": "power-atlas.institutional-decay.evidence.v1",
+  "asOf": "2026-10-29",
+  "publicationStatus": "primary_source_aggregate_extract_not_harmonized_panel",
+  "scope": "Comparative cross-national trust plus UK/US institutional performance and case evidence",
+  "dataUse": "Cite primary source; no wholesale redistribution of controlled microdata. Check reuse restrictions before publishing transformed bulk data.",
+  "causality": "None of these aggregate observations demonstrates that misconduct causes service failure or that either causes changes in trust.",
+  "observations": [
+    {
+      "id": "oecd-trust-high-2025",
+      "dimension": "institutional_trust",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 40,
+      "unit": "percent",
+      "measure": "Respondents with high/moderately high trust in national government",
+      "population": "OECD country respondents, not candidate country respondents",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Do not conflate with 43% low/no trust; remainder is neutral or uncertain."
+    },
+    {
+      "id": "oecd-trust-low-2025",
+      "dimension": "institutional_trust",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 43,
+      "unit": "percent",
+      "measure": "Respondents with low/no trust in national government",
+      "population": "OECD country respondents",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Not the mathematical complement of high trust."
+    },
+    {
+      "id": "oecd-political-voice-2025",
+      "dimension": "political_agency",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 31,
+      "unit": "percent",
+      "measure": "Believe people like them have a say in government decisions",
+      "population": "OECD country respondents",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Political agency, not a direct performance measure."
+    },
+    {
+      "id": "oecd-voice-trust-gap-2025",
+      "dimension": "political_agency",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 47,
+      "unit": "percentage_points",
+      "measure": "Trust gap by whether respondents report political voice",
+      "population": "OECD country respondents split by perceived political voice",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Descriptive association, not a causal treatment effect."
+    },
+    {
+      "id": "oecd-government-supporter-gap-2025",
+      "dimension": "partisanship",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 26,
+      "unit": "percentage_points",
+      "measure": "Trust gap for government-party supporters compared with others",
+      "population": "OECD survey respondents by reported governing-party support",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/socioeconomic-conditions-political-agency-and-trust_bb385ad9.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Observed gap; partisanship is a confounder."
+    },
+    {
+      "id": "oecd-administrative-service-satisfied-2025",
+      "dimension": "service_satisfaction",
+      "geography": "OECD participating countries",
+      "period": "2025",
+      "value": 68,
+      "unit": "percent",
+      "measure": "Satisfied with administrative services among recent service users",
+      "population": "Respondents with recent administrative-service contact",
+      "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Not all respondents; not the national-government trust item."
+    },
+    {
+      "id": "ons-uk-national-government-trust-2022",
+      "dimension": "institutional_trust",
+      "geography": "United Kingdom",
+      "period": "2022-03",
+      "value": 35,
+      "unit": "percent",
+      "measure": "Trust in national government",
+      "population": "UK ONS Trust in Government Survey respondents",
+      "source": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/trustingovernmentuk/2022",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "UK-specific experimental statistics."
+    },
+    {
+      "id": "ons-uk-civil-service-trust-2022",
+      "dimension": "institutional_trust",
+      "geography": "United Kingdom",
+      "period": "2022-03",
+      "value": 55,
+      "unit": "percent",
+      "measure": "Trust in civil service",
+      "population": "UK ONS Trust in Government Survey respondents",
+      "source": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/trustingovernmentuk/2022",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Institution differs from national government."
+    },
+    {
+      "id": "ons-uk-nhs-trust-2022",
+      "dimension": "institutional_trust",
+      "geography": "United Kingdom",
+      "period": "2022-03",
+      "value": 80,
+      "unit": "percent",
+      "measure": "Trust in NHS as public service",
+      "population": "UK ONS Trust in Government Survey respondents",
+      "source": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/trustingovernmentuk/2022",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Trust in NHS, not satisfaction with current NHS performance."
+    },
+    {
+      "id": "nao-passport-total-applications-2022",
+      "dimension": "service_volume",
+      "geography": "United Kingdom",
+      "period": "2022-01/2022-09",
+      "value": 7200000,
+      "unit": "approximate_count",
+      "measure": "Applications received by HM Passport Office January–September 2022",
+      "population": "HM Passport Office applications in period",
+      "source": "https://www.nao.org.uk/reports/investigation-into-the-performance-of-hm-passport-office/",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Approximately 7.2 million; not unique persons."
+    },
+    {
+      "id": "nao-passport-within-10-weeks-2022",
+      "dimension": "service_timeliness",
+      "geography": "United Kingdom",
+      "period": "2022-01/2022-09",
+      "value": 95,
+      "unit": "approximate_percent",
+      "measure": "Customers receiving passports within published 10-week period",
+      "population": "Passport applicants in January–September 2022",
+      "source": "https://www.nao.org.uk/reports/investigation-into-the-performance-of-hm-passport-office/",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Approximately 95%, rounded."
+    },
+    {
+      "id": "nao-passport-over-10-weeks-2022",
+      "dimension": "service_timeliness",
+      "geography": "United Kingdom",
+      "period": "2022-01/2022-09",
+      "value": 360000,
+      "unit": "approximate_count",
+      "measure": "Applicants experiencing waits longer than 10 weeks",
+      "population": "Passport applicants in January–September 2022",
+      "source": "https://www.nao.org.uk/reports/investigation-into-the-performance-of-hm-passport-office/",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Approximately 360,000. Not evidence of causation from political scandal."
+    },
+    {
+      "id": "gao-irs-correspondence-fy2019",
+      "dimension": "service_backlog",
+      "geography": "United States",
+      "period": "FY2019-end",
+      "value": 1800000,
+      "unit": "approximate_count",
+      "measure": "IRS taxpayer correspondence inventory",
+      "population": "Correspondence pieces outstanding at fiscal year end",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Historic comparator; not equivalent to total unprocessed returns."
+    },
+    {
+      "id": "gao-irs-correspondence-fy2024",
+      "dimension": "service_backlog",
+      "geography": "United States",
+      "period": "FY2024-end",
+      "value": 6600000,
+      "unit": "approximate_count",
+      "measure": "IRS taxpayer correspondence inventory",
+      "population": "Correspondence pieces outstanding at fiscal year end",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "GAO cited year-end inventory."
+    },
+    {
+      "id": "gao-irs-correspondence-fy2025",
+      "dimension": "service_backlog",
+      "geography": "United States",
+      "period": "FY2025-end",
+      "value": 6300000,
+      "unit": "approximate_count",
+      "measure": "IRS taxpayer correspondence inventory",
+      "population": "Correspondence pieces outstanding at fiscal year end",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Approximately 6.3 million; inventory includes different correspondence categories."
+    },
+    {
+      "id": "gao-irs-overage-correspondence-fy2025",
+      "dimension": "service_backlog",
+      "geography": "United States",
+      "period": "FY2025-end",
+      "value": 4100000,
+      "unit": "approximate_count",
+      "measure": "Late IRS taxpayer correspondence items",
+      "population": "Correspondence pieces outstanding at FY2025 end",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "GAO reports 4.1 million / 65% late."
+    },
+    {
+      "id": "gao-irs-overage-share-fy2025",
+      "dimension": "service_backlog",
+      "geography": "United States",
+      "period": "FY2025-end",
+      "value": 65,
+      "unit": "percent",
+      "measure": "Share of taxpayer correspondence inventory overage",
+      "population": "IRS taxpayer correspondence inventory at fiscal year end",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Agency-reported GAO share; rounded, not derived from rounded totals."
+    },
+    {
+      "id": "gao-irs-paper-returns-2024",
+      "dimension": "service_timeliness",
+      "geography": "United States",
+      "period": "2024 filing season",
+      "value": 20,
+      "unit": "days",
+      "measure": "Average paper return processing time",
+      "population": "IRS paper returns in 2024 filing season",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Different operation from correspondence processing."
+    },
+    {
+      "id": "gao-irs-paper-returns-2025",
+      "dimension": "service_timeliness",
+      "geography": "United States",
+      "period": "2025 filing season",
+      "value": 16,
+      "unit": "days",
+      "measure": "Average paper return processing time",
+      "population": "IRS paper returns in 2025 filing season",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Shows improvement despite remaining backlog."
+    },
+    {
+      "id": "wjp-rule-of-law-declines-2025",
+      "dimension": "rule_of_law",
+      "geography": "143 countries and jurisdictions assessed",
+      "period": "2024/2025",
+      "value": 68,
+      "unit": "percent",
+      "measure": "Share with lower WJP rule-of-law scores in 2025 than 2024",
+      "population": "Countries and jurisdictions in 2025 WJP index",
+      "source": "https://worldjusticeproject.org/news/wjp-rule-law-index-2025-global-press-release",
+      "evidenceStatus": "source_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Not a measure of citizen trust; not an annual government-service metric."
+    }
+  ],
+  "events": [
+    {
+      "id": "uk-commons-privileges-johnson-2023",
+      "geography": "United Kingdom",
+      "eventDate": "2023-06-15",
+      "eventType": "legislative_ethics_finding",
+      "subject": "Boris Johnson",
+      "finding": "House of Commons Privileges Committee concluded he deliberately misled the House and committed serious contempt.",
+      "disposition": "Recommended 90-day suspension had he remained an MP; he had announced resignation before report publication.",
+      "legalStatus": "parliamentary_committee_finding_not_criminal_conviction",
+      "source": "https://publications.parliament.uk/pa/cm5803/cmselect/cmprivi/564/summary.html",
+      "causalLinkToServiceFailure": "not_established"
+    },
+    {
+      "id": "uk-passport-delays-2022",
+      "geography": "United Kingdom",
+      "eventDate": "2022-09",
+      "datePrecision": "month_period_end",
+      "eventType": "administrative_service_failure",
+      "subject": "HM Passport Office",
+      "finding": "Approximately 360,000 waited longer than ten weeks; about 95% received passports within ten weeks.",
+      "disposition": "NAO investigation identified demand and processing-system and supplier constraints.",
+      "legalStatus": "government_audit_not_personal_misconduct_finding",
+      "source": "https://www.nao.org.uk/reports/investigation-into-the-performance-of-hm-passport-office/",
+      "causalLinkToEthicsFinding": "not_established"
+    },
+    {
+      "id": "us-irs-backlog-2025",
+      "geography": "United States",
+      "eventDate": "2025-09",
+      "datePrecision": "fiscal_year_end",
+      "eventType": "administrative_service_performance",
+      "subject": "Internal Revenue Service",
+      "finding": "Correspondence backlog remained high, despite some improvements in paper return processing.",
+      "disposition": "GAO recommended workforce and backlog planning.",
+      "legalStatus": "government_audit_not_personal_misconduct_finding",
+      "source": "https://www.gao.gov/products/gao-26-108116",
+      "causalLinkToEliteConduct": "not_established"
+    }
+  ],
+  "sourceCatalog": [
+    {
+      "id": "oecd_trust_2026",
+      "url": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/executive-summary_4319a992.html",
+      "published": "2026-06-29",
+      "kind": "international_survey_summary",
+      "access": "summary_public_microdata_permission_required",
+      "microdataAccess": "https://www.oecd.org/en/data/datasets/oecd-trust-survey-data.html"
+    },
+    {
+      "id": "ons_uk_trust_2022",
+      "url": "https://www.ons.gov.uk/peoplepopulationandcommunity/wellbeing/bulletins/trustingovernmentuk/2022",
+      "published": "2022-07-13",
+      "kind": "national_survey_summary",
+      "access": "public_summary"
+    },
+    {
+      "id": "wjp_2025",
+      "url": "https://worldjusticeproject.org/news/wjp-rule-law-index-2025-global-press-release",
+      "published": "2025-10-28",
+      "kind": "crossnational_rule_of_law_summary",
+      "access": "public_summary_check_data_license"
+    },
+    {
+      "id": "nao_passports_2022",
+      "url": "https://www.nao.org.uk/reports/investigation-into-the-performance-of-hm-passport-office/",
+      "published": "2022-12-09",
+      "kind": "official_audit",
+      "access": "public"
+    },
+    {
+      "id": "gao_irs_2026",
+      "url": "https://www.gao.gov/products/gao-26-108116",
+      "published": "2026-03-16",
+      "kind": "official_audit",
+      "access": "public"
+    },
+    {
+      "id": "commons_privileges_2023",
+      "url": "https://publications.parliament.uk/pa/cm5803/cmselect/cmprivi/564/summary.html",
+      "published": "2023-06-15",
+      "kind": "legislative_committee_report",
+      "access": "public"
+    },
+    {
+      "id": "vdem_v16",
+      "url": "https://www.v-dem.net/data/dataset-archive/",
+      "published": "2026-03",
+      "kind": "dataset_candidate_not_ingested",
+      "access": "requires_terms_review"
+    },
+    {
+      "id": "qog_timeseries",
+      "url": "https://datafinder.qog.gu.se/downloads",
+      "published": "version_varies",
+      "kind": "dataset_candidate_not_ingested",
+      "access": "requires_provenance_and_reuse_review"
+    }
+  ],
+  "researchQuestions": [
+    {
+      "key": "RQ1",
+      "question": "Does perceived elite impunity independently predict subsequent institutional trust, after controlling for political identity, economic conditions and prior trust?",
+      "status": "not_tested"
+    },
+    {
+      "key": "RQ2",
+      "question": "Does directly experienced administrative burden independently predict trust in the delivering institution?",
+      "status": "not_tested"
+    },
+    {
+      "key": "RQ3",
+      "question": "Is the interaction between perceived impunity and administrative burden superadditive in reducing trust?",
+      "status": "not_tested"
+    },
+    {
+      "key": "RQ4",
+      "question": "Do transparency, sanctions, appeals and measured service improvements reduce or reverse any decline?",
+      "status": "not_tested"
+    }
+  ]
+}
