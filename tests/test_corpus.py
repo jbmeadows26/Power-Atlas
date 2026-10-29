@@ -199,8 +199,8 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(feed['finance']['committeeRecipientAggregates'], rows)
         self.assertEqual(feed['coverage']['recipientAggregateRows'], len(rows))
         for row in rows:
-            self.assertRegex(row['sourceCommitteeId'], r'^C[0-9]{8}\\Z')
-            self.assertRegex(row['recipientCommitteeId'], r'^C[0-9]{8}\\Z')
+            self.assertRegex(row['sourceCommitteeId'], r'^C[0-9]{8}$')
+            self.assertRegex(row['recipientCommitteeId'], r'^C[0-9]{8}$')
             self.assertIsInstance(row['amountUSD'], (int,float))
             self.assertGreaterEqual(row['disbursementCount'], 0)
             self.assertNotIn('recipientAddress', row)
