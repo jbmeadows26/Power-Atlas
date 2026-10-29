@@ -4,7 +4,7 @@
 The purpose-selected pilot must never produce a population fulfillment rate.
 This script has no network dependency, no secrets, and never mutates the
 existing Power Atlas gerrymandering/app-feed.json.
-Usage: python scripts/build_promises.py [--check]
+Usage: python -m scripts.build_promises [--check]
 """
 import json
 import sys
