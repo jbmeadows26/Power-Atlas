@@ -191,8 +191,8 @@ for map_congress,year in [(116,2020),(119,2025)]:
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 uncovered = [
-    'state_campaign_finance', 'state_roll_calls', 'district_geospatial',
-    'litigation_dockets', 'judicial_selection', 'national_election_returns'
+    'state_campaign_finance', 'state_roll_calls', 'state_legislative_district_polygons_and_legal_boundary_history',
+    'litigation_dockets', 'state_judicial_selection_and_election_outcomes', 'statewide_local_returns_and_official_vote_reconciliation'
 ]
 feed = {
     'schema': 'power-atlas.frontend.v1',
