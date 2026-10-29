@@ -47,6 +47,21 @@ class CensusLegacyFormatTests(unittest.TestCase):
         with self.assertRaisesRegex(ValueError,"Mixed fixed-width layouts"):
             legacy.parse_records(mix,2013)
 
+    def test_published_missing_markers_remain_unknown_not_zero(self):
+        rows=fixture().decode("ascii").splitlines()
+        original=rows[0]
+        rows[0]=original[:17]+" "*11+"."+original[29:]
+        other=rows[1]
+        rows[1]=other[:17]+" "*12+other[29:]
+        parsed=legacy.parse_records(("\n".join(rows)+"\n").encode("ascii"),2013)
+        self.assertEqual(parsed["missingMarkerRows"],2)
+        statuses={r["itemCode"]:r["amountStatus"] for r in parsed["records"]
+                  if r["stateGovernmentCode"].startswith("01")}
+        self.assertEqual(statuses["F01"],"published_missing_marker_dot")
+        self.assertEqual(statuses["G01"],"published_missing_marker_blank")
+        self.assertEqual(statuses["K01"],"numeric_reported")
+        self.assertNotIn("normalizedAmount",parsed["records"][0])
+
     def test_reject_misaligned_fixed_width(self):
         bad = fixture().splitlines()
         bad[0] += b"X"
