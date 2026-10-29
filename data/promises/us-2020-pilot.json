@@ -1,0 +1,132 @@
+{
+  "schema": "power-atlas.campaign-promises.v1",
+  "asOf": "2026-10-29",
+  "publicationStatus": "provisional_pilot_not_representative",
+  "coverage": {
+    "country": "US",
+    "electionYear": 2020,
+    "pledgeSourceType": "campaign_or_party_platform",
+    "selection": "two hand-audited illustrative policies; not probability sampled",
+    "denominatorDefined": false
+  },
+  "methodology": "research/campaign-promises/protocol.md",
+  "allowedOutcomes": [
+    "fully_enacted",
+    "partially_enacted",
+    "attempted_not_enacted",
+    "unattempted",
+    "unresolved"
+  ],
+  "records": [
+    {
+      "id": "US-2020-DEM-PARIS-01",
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Democratic Party",
+      "pledgeMakerType": "party",
+      "governingActor": "Biden administration",
+      "policyArea": "climate_foreign_policy",
+      "pledgeParaphrase": "Rejoin the Paris Climate Agreement promptly after taking office.",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+        "sourceType": "archived_party_platform",
+        "documentDate": "2020-08-18",
+        "isPreElection": true
+      },
+      "successCriterion": "United States becomes a party to the Paris Agreement again.",
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "fully_enacted",
+      "outcomeAsOf": "2021-02-19",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "high",
+      "attribution": "executive_action",
+      "rightCensored": false,
+      "events": [
+        {
+          "date": "2021-01-20",
+          "kind": "executive_action",
+          "description": "President signed the instrument of acceptance.",
+          "source": "https://2021-2025.state.gov/the-united-states-officially-rejoins-the-paris-agreement/"
+        },
+        {
+          "date": "2021-02-19",
+          "kind": "international_entry_into_force",
+          "description": "The United States officially became a party again.",
+          "source": "https://2021-2025.state.gov/the-united-states-officially-rejoins-the-paris-agreement/"
+        }
+      ],
+      "secondaryComparison": {
+        "source": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/promise/387035/rejoin-paris-climate-agreement/",
+        "classification": "Promise Kept",
+        "note": "External benchmark; source promise also includes other climate diplomacy actions. This record isolates the rejoin commitment."
+      },
+      "ambiguityNotes": [
+        "Party platform language contains multiple climate commitments; only Paris reentry is coded here.",
+        "Outcome at February 2021 does not infer later administrations' policy or persistence."
+      ]
+    },
+    {
+      "id": "US-2020-BIDEN-MINWAGE-01",
+      "country": "US",
+      "electionYear": 2020,
+      "pledgeMaker": "Joe Biden campaign",
+      "pledgeMakerType": "candidate",
+      "governingActor": "Biden administration",
+      "policyArea": "labor_economy",
+      "pledgeParaphrase": "Raise the nationwide federal minimum wage to $15 an hour and end the tipped minimum wage.",
+      "pledgeSource": {
+        "url": "https://www.presidency.ucsb.edu/documents/biden-campaign-press-release-fact-sheet-joe-bidens-plan-build-back-better-for-american",
+        "sourceType": "archived_campaign_press_release",
+        "documentDate": "2020-07-09",
+        "isPreElection": true
+      },
+      "successCriterion": "Federal minimum wage of $15 applies nationally to covered workers, with elimination of federal tipped subminimum wage.",
+      "evaluationWindowEnd": "2025-01-20",
+      "outcome": "attempted_not_enacted",
+      "outcomeAsOf": "2025-01-20",
+      "codingStatus": "provisional_source_checked",
+      "reviewerCount": 1,
+      "confidence": "medium",
+      "attribution": "mixed_or_unresolved",
+      "rightCensored": false,
+      "events": [
+        {
+          "date": "2021-01-21",
+          "kind": "proposed_policy",
+          "description": "Administration included a nationwide $15 minimum-wage proposal in its American Rescue Plan policy package; provision removed during legislative process.",
+          "source": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/promise/387174/increase-federal-minimum-wage-15hour/article/387176/"
+        },
+        {
+          "date": "2021-04-27",
+          "kind": "narrower_executive_action",
+          "description": "Executive Order 14026 required a $15 minimum for covered federal contract workers; did not establish a nationwide private-sector wage floor.",
+          "source": "https://www.govinfo.gov/content/pkg/DCPD-202100345/html/DCPD-202100345.htm"
+        },
+        {
+          "date": "2024-12-05",
+          "kind": "end_term_assessment",
+          "description": "External assessment finds the nationwide federal minimum remained at $7.25 and the national pledge was not enacted.",
+          "source": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/promise/387174/increase-federal-minimum-wage-15hour/article/387178/"
+        },
+        {
+          "date": "2025-03-14",
+          "kind": "post_term_policy_reversal",
+          "description": "Successor administration revoked the contractor-specific executive order; do not score this as Biden's end-term pledge outcome.",
+          "source": "https://www.dol.gov/agencies/whd/government-contracts/eo14026"
+        }
+      ],
+      "secondaryComparison": {
+        "source": "https://www.politifact.com/truth-o-meter/promises/biden-promise-tracker/promise/387174/increase-federal-minimum-wage-15hour/",
+        "classification": "Promise Broken",
+        "note": "Independent outlet's outcome classification differs from our action-sensitive four-point coding; not evidence of bad faith."
+      },
+      "ambiguityNotes": [
+        "The legislative route included a procedural constraint; evidence does not demonstrate every possible legislative path was impossible.",
+        "Narrower contractor coverage is implementation activity, not attainment of a nationwide statutory minimum wage.",
+        "The campaign pledged an end to tipped minimums; verify nationwide tipped-wage status independently before final adjudication.",
+        "Policy reversal in 2025 is recorded as persistence information, not scored against Biden's 2021–2025 term."
+      ]
+    }
+  ]
+}
