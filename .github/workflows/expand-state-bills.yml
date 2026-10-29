@@ -1,0 +1,31 @@
+name: Incremental 51-jurisdiction redistricting bill coverage
+on:
+  push:
+    paths:
+      - 'scripts/expand_state_bill_coverage.py'
+      - '.github/workflows/expand-state-bills.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '25 */3 29,30 10 *'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-state-redistricting-expansion
+  cancel-in-progress: false
+jobs:
+  expand:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Index eight remaining states using no-key bounded search
+        run: python scripts/expand_state_bill_coverage.py
+      - name: Rebuild and validate unified evidence
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Publish source metadata and checkpoint
+        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-jurisdictions.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
