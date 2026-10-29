@@ -4,6 +4,10 @@ on:
   # be enabled by an authorized repo admin before publishing.
   # Do not auto-trigger failing builds or attempt Pages enablement with GITHUB_TOKEN.
   workflow_dispatch:
+  push:
+    paths:
+      - 'site/index.html'
+      - '.github/workflows/deploy-pages.yml'
 permissions:
   contents: read
   pages: write
