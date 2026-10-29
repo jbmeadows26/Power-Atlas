@@ -29,7 +29,12 @@ def audit():
     observed = set()
     for row in votes["records"]:
         if row.get("year") == 2024 and row.get("state") in set(state_by_fips.values()):
-            observed.add((row["state"], int(row["district"])))
+            # Census labels DC's nonvoting delegate CD=98; MEDSL uses 0.
+            # Normalize only this known identifier convention, not vote totals.
+            district = int(row["district"])
+            if row["state"] == "DC" and district == 0:
+                district = 98
+            observed.add((row["state"], district))
     if not 430 <= len(expected) <= 440 or not 400 <= len(observed) <= 440:
         raise RuntimeError("Unexpected 2024 House geographic key totals")
     missing = sorted(expected - observed)
@@ -39,7 +44,7 @@ def audit():
         "status": "missing_keys" if missing else "key_coverage_only",
         "comparisonYear": 2024,
         "congress": 119,
-        "scope": "50 states and DC; excludes Puerto Rico resident commissioner and other territorial delegates",
+        "scope": "50 states and DC; excludes Puerto Rico resident commissioner and other territorial delegates; normalizes DC MEDSL district 0 to Census delegate code 98",
         "expectedCensusDistrictKeys": len(expected),
         "observedMEDSLDistrictKeys": len(observed),
         "missingCount": len(missing),
