@@ -1,0 +1,273 @@
+{
+  "schema": "power-atlas.redistricting-analytics-sources.v1",
+  "reviewedAt": "2026-10-29",
+  "publicationStatus": "reviewed_source_access_metadata_no_automatic_bulk_reuse",
+  "sources": [
+    {
+      "id": "planscore",
+      "name": "PlanScore",
+      "category": "predictive_partisan_metrics",
+      "url": "https://planscore.org/",
+      "docs": "https://github.com/PlanScore/PlanScore/blob/main/API.md",
+      "access": "public_report_cards_token_required_for_scoring_API",
+      "reuse": "public_metadata_links_only_until_terms_and_token_confirmed",
+      "intendedMetrics": [
+        "efficiency_gap",
+        "partisan_bias",
+        "mean_median"
+      ],
+      "independentModel": true,
+      "readiness": "catalogued_not_ingested",
+      "caveat": "Model-based expected vote shares and uncertainty are not certified returns or legal findings"
+    },
+    {
+      "id": "dra2020",
+      "name": "Dave's Redistricting",
+      "category": "precinct_block_map_data",
+      "url": "https://davesredistricting.org/",
+      "docs": "https://github.com/dra2020/block_data",
+      "access": "some_public_GitHub_repos_downloads_may_have_dataset_specific_terms",
+      "reuse": "metadata_only_until_individual_archive_license_checked",
+      "intendedMetrics": [
+        "compactness",
+        "minority_representation",
+        "partisan_fairness"
+      ],
+      "readiness": "catalogued_not_ingested",
+      "caveat": "Block datasets may carry additional attribution/no-sale conditions; derive no data redistribution rights from open repository visibility"
+    },
+    {
+      "id": "princeton",
+      "name": "Princeton Gerrymandering Project Redistricting Report Card",
+      "category": "independent_map_scores",
+      "url": "https://gerrymander.princeton.edu/redistricting-report-card/",
+      "docs": "https://gerrymander.princeton.edu/redistricting-report-card/",
+      "access": "public_interactive_reports_but_bulk_API_unverified",
+      "reuse": "links_and_manual_source_citations_only",
+      "intendedMetrics": [
+        "partisan_fairness",
+        "compactness",
+        "competitiveness"
+      ],
+      "readiness": "catalogued_not_ingested",
+      "caveat": "Grades are model-based map assessments; preserve plan ID, version, election inputs and grading date"
+    },
+    {
+      "id": "redistricting_data_hub",
+      "name": "Redistricting Data Hub",
+      "category": "precinct_population_boundaries",
+      "url": "https://redistrictingdatahub.org/",
+      "docs": "https://redistrictingdatahub.org/data/download-data/api-redistricting/",
+      "access": "verified_account_and_application_and_identity_verification_required_for_bulk_API",
+      "reuse": "public_dataset_metadata_and_original_links_only_until_approved",
+      "intendedMetrics": [
+        "precinct_return_overlay",
+        "PL_94_171",
+        "CVAP",
+        "VTD_shapefile"
+      ],
+      "readiness": "access_approval_required",
+      "caveat": "Do not bypass approval, logins, rate limits or dataset-specific usage terms"
+    },
+    {
+      "id": "mggg_gerrychain",
+      "name": "MGGG GerryChain",
+      "category": "simulation_ensemble",
+      "url": "https://github.com/mggg/GerryChain",
+      "docs": "https://gerrychain.readthedocs.io/en/stable/",
+      "access": "public_open_source",
+      "reuse": "BSD_3_Clause_software_license_check_input_dataset_rights",
+      "intendedMetrics": [
+        "ensemble_outlier_percentile",
+        "null_model_comparison"
+      ],
+      "readiness": "software_available_inputs_missing",
+      "caveat": "A legitimate plan ensemble requires geographically valid adjacency, population, constraints, seeded reproducible sampling and convergence diagnostics"
+    },
+    {
+      "id": "census_2020_pl94",
+      "name": "U.S. Census 2020 PL 94-171 Redistricting Data",
+      "category": "official_block_population_race_vap",
+      "url": "https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html",
+      "docs": "https://www.census.gov/programs-surveys/decennial-census/about/rdo/summary-files.html",
+      "access": "public_official_census",
+      "reuse": "US_federal_public_domain",
+      "intendedMetrics": [
+        "total_population",
+        "race_ethnicity",
+        "voting_age_population",
+        "equal_population"
+      ],
+      "readiness": "catalogued_no_block_level_ingestion",
+      "caveat": "2020 redistricting race/VAP is not ACS CVAP, and neither by itself identifies voters' preferred candidates"
+    },
+    {
+      "id": "census_cartographic",
+      "name": "Census 116th and 119th Congressional District Cartographic Boundaries",
+      "category": "official_generalized_geometry",
+      "url": "https://www.census.gov/geographies/mapping-files/2025/geo/carto-boundary-file.html",
+      "docs": "https://www2.census.gov/geo/tiger/GENZ2025/shp/",
+      "access": "public",
+      "reuse": "US_federal_public_domain",
+      "intendedMetrics": [
+        "visual_boundary_comparison"
+      ],
+      "readiness": "ingested_2_editions",
+      "caveat": "Generalized 1:20m cartographic geometry is insufficient for precise area/perimeter, block split, contiguity or legal-boundary metrics"
+    },
+    {
+      "id": "state_official_elections",
+      "name": "State certified election canvasses",
+      "category": "official_certified_votes",
+      "url": "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/",
+      "docs": "https://www.fec.gov/introduction-campaign-finance/election-results-and-voting-information/",
+      "access": "state_specific_public_exports",
+      "reuse": "metadata_only_until_state_year_office_stage_match",
+      "intendedMetrics": [
+        "official_house_district_votes",
+        "reconciled_precinct_results"
+      ],
+      "readiness": "51_office_links_ingested_canvasses_not_reconciled",
+      "caveat": "FEC republishes state reported federal counts, while certification is performed by state election authorities"
+    },
+    {
+      "id": "mggg_map_analysis",
+      "name": "MGGG GerryTools and MAUP",
+      "category": "reproducible_geospatial_analysis",
+      "url": "https://github.com/mggg",
+      "docs": "https://github.com/mggg/maup",
+      "access": "public_code_project_license_per_repo",
+      "reuse": "require_individual_code_and_data_license_review",
+      "intendedMetrics": [
+        "reproducible_plan_overlays",
+        "geographic_unit_reaggregation"
+      ],
+      "readiness": "catalogued_not_executed",
+      "caveat": "Do not compare district plans across vintages without geographic unit reconciliation"
+    }
+  ],
+  "metrics": [
+    {
+      "id": "efficiency_gap",
+      "family": "partisan",
+      "definition": "(Democratic wasted votes - Republican wasted votes)/all two-party votes",
+      "prerequisites": [
+        "district_votes_same_election_stage_year_and_plan",
+        "complete_and_validated_two_party_district_returns",
+        "uncontested_handling_and_turnout_review",
+        "official_canvass_reconciled"
+      ],
+      "calculationStatus": "blocked_by_unreconciled_certification",
+      "warning": "No 7-8% threshold determines illegality; sign convention and elections included must be shown."
+    },
+    {
+      "id": "mean_median",
+      "family": "partisan",
+      "definition": "median of district Democratic two-party vote shares minus unweighted mean",
+      "prerequisites": [
+        "complete_validated_two_party_district_vote_shares",
+        "documented_uncontested_imputation_policy",
+        "certified_and_vintage_aligned_returns"
+      ],
+      "calculationStatus": "blocked_by_unreconciled_certification",
+      "warning": "Unweighted district mean is not statewide popular vote; turnout variation and uncontested races affect interpretation."
+    },
+    {
+      "id": "declination",
+      "family": "partisan",
+      "definition": "Angular asymmetry statistic from sorted two-party district vote shares using winning and losing district subsets",
+      "prerequisites": [
+        "at_least_one_seat_won_by_each_party",
+        "validated_complete_district_vote_shares",
+        "specified_version_and_treatment_of_ties"
+      ],
+      "calculationStatus": "not_implemented_input_gate",
+      "warning": "Undefined in one-party sweeps; do not substitute seat-vote gaps."
+    },
+    {
+      "id": "partisan_bias",
+      "family": "partisan",
+      "definition": "Predicted seat difference under tied statewide vote using a disclosed uniform-swing or simulation model",
+      "prerequisites": [
+        "multiple_election_model_and_version",
+        "validated_precinct_vote_history",
+        "map_and_boundary_alignment",
+        "uncertainty_intervals"
+      ],
+      "calculationStatus": "requires_model_outputs",
+      "warning": "Not derivable from the raw seat-minus-vote share statistic."
+    },
+    {
+      "id": "polsby_popper",
+      "family": "geometric",
+      "definition": "4π×district area / squared district perimeter",
+      "prerequisites": [
+        "full_resolution_authoritative_district_geometry",
+        "valid_projected_area_and_perimeter_units",
+        "topology_validation"
+      ],
+      "calculationStatus": "blocked_by_generalized_maps",
+      "warning": "Never compute from 1:20m generalized boundary coordinates in latitude/longitude degrees."
+    },
+    {
+      "id": "reock",
+      "family": "geometric",
+      "definition": "Area of district divided by area of minimum enclosing circle",
+      "prerequisites": [
+        "full_resolution_geometry",
+        "consistent_equal_area_projection",
+        "validated_minimum_enclosing_circle"
+      ],
+      "calculationStatus": "not_implemented_input_gate"
+    },
+    {
+      "id": "convex_hull",
+      "family": "geometric",
+      "definition": "Area of district divided by area of its convex hull",
+      "prerequisites": [
+        "full_resolution_geometry",
+        "equal_area_projection",
+        "complete_multipart_handling"
+      ],
+      "calculationStatus": "not_implemented_input_gate"
+    },
+    {
+      "id": "ensemble_outlier",
+      "family": "counterfactual",
+      "definition": "Observed plan's position in legally constrained, sampled map-plan distribution",
+      "prerequisites": [
+        "block_population_and_CVAP",
+        "VTD_or_block_adjacency",
+        "legal_map_constraints_by_state_and_year",
+        "seeded_multiple_independent_chains",
+        "stationarity_and_effective_sample_size",
+        "enacted_map_and_sample_plan_comparison"
+      ],
+      "calculationStatus": "no_valid_ensemble_available",
+      "warning": "Not equivalent to a p-value or a legal finding without justified null model."
+    },
+    {
+      "id": "VRA_section2_racial_vote_dilution",
+      "family": "legal_demographic",
+      "definition": "Legal and contextual analysis under updated Gingles framework and 2026 Callais decision",
+      "prerequisites": [
+        "versioned_legal_standard_as_of_claim_date",
+        "full_precinct_race_and_turnout_evidence",
+        "racial_bloc_voting_analysis_controlling_for_partisanship",
+        "comparator_maps_meeting_other_legitimate_state_objectives",
+        "individual_court_findings"
+      ],
+      "calculationStatus": "legal_analysis_not_automated_score",
+      "warning": "Race and party should not be inferred from names or coarse district demographics; demographic differences do not automatically prove unlawful discrimination."
+    }
+  ],
+  "policy": {
+    "redistrictingOutcomeIsNotSingleMetric": true,
+    "thresholdIsNotLegalFinding": true,
+    "legalBaseline2026": "Louisiana v. Callais, 2026-04-29; Allen v. Milligan 2023 remains part of precedent but was clarified",
+    "requireOfficialResultsForVerifiedVoteLabels": true,
+    "requireMapVersionAndElectionPeriod": true,
+    "doNotInferIndividualIntentFromScores": true,
+    "licensing": "No authenticated APIs or dataset rehosting without permission, approval and rights"
+  }
+}
