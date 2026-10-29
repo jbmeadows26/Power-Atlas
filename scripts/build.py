@@ -130,6 +130,27 @@ for bill in federal_bills:
         'reviewStatus': 'secondary_index_primary_Congressgov_confirmation_pending'
     }
 
+# State bill/vote relationships use Bill Commons as a secondary index.
+# Recorded vote edges refer to a specific bill only; no person-level vote inferred.
+state_bill_path = ROOT / 'data/legislation/state-redistricting-bills.json'
+state_bill_doc = json.loads(state_bill_path.read_text(encoding='utf-8')) if state_bill_path.exists() else {}
+state_bill_rows = state_bill_doc.get('records', [])
+state_votes_path = ROOT / 'data/legislation/state-redistricting-votes.json'
+state_votes_doc = json.loads(state_votes_path.read_text(encoding='utf-8')) if state_votes_path.exists() else {}
+state_vote_rows = state_votes_doc.get('records', [])
+for v in state_vote_rows:
+    bill_id = str(v.get('billId') or '')
+    vote_id = str(v.get('id') or '')
+    if not re.fullmatch(r'state-bill-[A-Fa-f0-9-]{36}', bill_id) or not re.fullmatch(r'state-roll-[A-Fa-f0-9-]{36}', vote_id):
+        continue
+    edge_id = 'state-vote-edge-' + hashlib.sha256((vote_id+'/'+bill_id).encode()).hexdigest()[:16]
+    relationships[edge_id] = {
+        'id':edge_id, 'from':vote_id, 'to':bill_id,
+        'type':'third_party_indexed_bill_recorded_vote',
+        'source':v['source'],
+        'reviewStatus':'third_party_rollcall_official_chamber_crosscheck_required'
+    }
+
 # Flag likely duplicates for review instead of deleting source-specific records.
 seen = {}
 for item in sorted(records.values(), key=lambda x: (0 if x['id'].startswith('doj-') and not x['id'].startswith('doj-index') else 1, x['id'])):
@@ -233,6 +254,9 @@ feed = {
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
     'legislation': {
         'federalBillCandidates': federal_bills,
+        'stateRedistrictingBillCandidates': state_bill_rows,
+        'stateRedistrictingRecordedVotes': state_vote_rows,
+        'stateBillSource': 'https://billcommons.org/docs/api',
         'sourceProvider':'https://www.ballotwatch.io/developers',
         'scopeNote':'Keyword search of public bill titles and secondary-source sponsor IDs. Not exhaustive. No recorded voting outcomes implied.'
     },
@@ -261,6 +285,9 @@ feed = {
         'stateLegislatorRows': state_people_count,
         'stateExecutiveRows': len(executives),
         'federalBillCandidateRows': len(federal_bills),
+        'stateBillCandidateRows': len(state_bill_rows),
+        'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
+        'stateRecordedVoteRows': len(state_vote_rows),
         'federalBillRedistrictingTitleMatches': sum(r['issueClass']=='redistricting_specific_title' for r in federal_bills),
         'federalBillSponsorEdges': sum(bool(re.fullmatch(r'[A-Z][0-9]{6}',str(r.get('sponsorBioguideId') or ''))) for r in federal_bills),
         'federalJudicialAppointments': fjc_index.get('appointmentRecords', 0),
