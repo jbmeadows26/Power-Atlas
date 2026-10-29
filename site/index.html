@@ -74,7 +74,54 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
     <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
     <button role="tab" aria-selected="false" data-tab="gridlock">Congress & gridlock</button>
+    <button role="tab" aria-selected="false" data-tab="institutional-decay">Institutional decay</button>
   </nav>
+  <section class="panel" data-panel="institutional-decay">
+    <span class="eyebrow">Comparative governance / OECD 2023–2025</span>
+    <h2>Institutional trust, without the shortcuts</h2>
+    <p class="sub">Explore how political and administrative trust differ. Source: OECD Trust Survey 2026, Table 1.3. This view is descriptive research, <strong>not a causal finding or corruption ranking</strong>.</p>
+    <div class="metrics" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="metric"><strong id="idR">—</strong><span>Cross-country Pearson correlation (r)</span></div>
+      <div class="metric"><strong id="idN">—</strong><span>Comparable countries shown</span></div>
+      <div class="metric"><strong>407</strong><span>Published country–year–institution cells</span></div>
+    </div>
+    <div class="filters">
+      <label for="idComparison" style="font-size:13px;font-weight:700">Compare institutions</label>
+      <select id="idComparison" style="flex:2">
+        <option value="civil-2025">2025 — Civil service vs national government</option>
+        <option value="local-2025">2025 — Local vs national government</option>
+        <option value="parliament-2025">2025 — Parliament vs national government</option>
+        <option value="civil-change">2023–25 change — Civil service vs national government</option>
+        <option value="local-change">2023–25 change — Local vs national government</option>
+      </select>
+    </div>
+    <div class="card">
+      <p id="idStatus" role="status">Select this research tab to load the verified OECD country feed.</p>
+      <div class="mapbox" style="border:0;padding:0" id="idPlot">
+        <svg id="idScatter" viewBox="0 0 740 460" style="display:block;width:100%;height:auto;min-height:220px" aria-label="Country trust scatter plot"></svg>
+      </div>
+      <p class="muted" id="idRecordStatus"></p>
+      <p class="note">Correlation is not causation. Country scores are rounded survey estimates; the same respondents were not interviewed in both waves. The United States did not participate in the 2025 OECD Trust Survey. No results here establish that elite impunity or administrative failure caused a trust change.</p>
+    </div>
+    <div class="card">
+      <h3>Inspectable country observations</h3>
+      <div style="overflow-x:auto">
+        <table style="border-collapse:collapse;width:100%;font-size:13px;text-align:left">
+          <thead><tr><th style="padding:8px 12px">Country</th><th id="idXAxis" style="padding:8px 12px">X measure</th><th id="idYAxis" style="padding:8px 12px">Y measure</th></tr></thead>
+          <tbody id="idCountryRows"></tbody>
+        </table>
+      </div>
+      <p class="note">Positive and negative country changes should not be interpreted as statistically significant without respondent-level uncertainty estimates.</p>
+    </div>
+    <div class="card">
+      <h3>Research status and provenance</h3>
+      <div class="coverage">Causal 2×2 survey experiment — <span class="tag warn">Designed, not fielded</span></div>
+      <div class="coverage">Arellano–Bond feedback model — <span class="tag warn">Not identified with two OECD waves</span></div>
+      <div class="coverage">2025 cross-country descriptive correlations — <span class="tag">Reproducible</span></div>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/institutional-decay/FINAL-ASSESSMENT-2026-10-29.md" target="_blank" rel="noopener noreferrer">Read the evidence assessment</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/institutional-decay/trust-country-waves-2023-2025.json" target="_blank" rel="noopener noreferrer">Inspect source data and missing values</a></p>
+    </div>
+  </section>
   <section class="panel" data-panel="gridlock">
     <span class="eyebrow">Congressional research / 100th–119th</span><h2>Hyper-partisanship and legislative gridlock</h2>
     <p class="sub">Source-attributed measures of partisan floor voting, bipartisan co-sponsorship and legislative throughput. These are descriptive, not findings of misconduct or causation.</p>
@@ -679,6 +726,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(json.schema!=='power-atlas.frontend.v1'||!Array.isArray(json.records))throw Error('Unsupported feed schema');
     data=json;render();set('connection','Connected to the live GitHub corpus · Fetched '+new Date().toLocaleString()+'. Review status applies to all indexed records.');
   }).catch(function(e){set('connection','Public research feed is temporarily unavailable ('+e.message+'). Open the GitHub data link below; the existing Power Atlas application is unaffected.')});
+  var decayScript=document.createElement('script');
+  decayScript.src='institutional-decay.js';
+  decayScript.onerror=function(){var el=document.getElementById('idStatus');if(el)el.textContent='Research component failed to load. Inspect the GitHub evidence links below.';};
+  document.head.appendChild(decayScript);
 })();
 </script>
 </body>
