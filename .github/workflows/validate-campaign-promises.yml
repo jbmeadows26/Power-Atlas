@@ -1,18 +1,18 @@
-name: Validate campaign pledge research pilot
+name: Validate campaign pledge research evidence
 on:
   push:
     paths:
       - 'data/promises/**'
       - 'research/campaign-promises/**'
       - 'scripts/validate_promises.py'
-      - 'tests/test_promises.py'
+      - 'tests/test_promises*.py'
       - '.github/workflows/validate-campaign-promises.yml'
   pull_request:
     paths:
       - 'data/promises/**'
       - 'research/campaign-promises/**'
       - 'scripts/validate_promises.py'
-      - 'tests/test_promises.py'
+      - 'tests/test_promises*.py'
       - '.github/workflows/validate-campaign-promises.yml'
   workflow_dispatch:
 permissions:
@@ -28,5 +28,7 @@ jobs:
           python-version: '3.12'
       - name: Validate evidence-linked pilot records (not substantive adjudication)
         run: python scripts/validate_promises.py
+      - name: Validate expanded source-linked records (not factual adjudication)
+        run: python scripts/validate_promises.py data/promises/us-2020-source-verified-expansion.json
       - name: Test research data quality safeguards
-        run: python -m unittest discover -s tests -p 'test_promises.py' -v
+        run: python -m unittest discover -s tests -p 'test_promises*.py' -v
