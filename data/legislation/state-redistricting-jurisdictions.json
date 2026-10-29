@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 32,
+  "jurisdictionsScanned": 39,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -260,6 +260,62 @@
       "totalMatchesReported": 11,
       "newIndexedRecords": 9,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "OK": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 7,
+      "newIndexedRecords": 0,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "OR": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 29,
+      "newIndexedRecords": 20,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "PA": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 7,
+      "newIndexedRecords": 3,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "RI": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 5,
+      "newIndexedRecords": 5,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "SC": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 7,
+      "newIndexedRecords": 5,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "SD": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 2,
+      "newIndexedRecords": 2,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "TN": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 9,
+      "newIndexedRecords": 6,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "attemptCounts": {
@@ -282,49 +338,66 @@
     "NM": 1,
     "NV": 1,
     "NY": 1,
-    "OH": 1
+    "OH": 1,
+    "OK": 1,
+    "OR": 1,
+    "PA": 1,
+    "RI": 1,
+    "SC": 1,
+    "SD": 1,
+    "TN": 1,
+    "TX": 1
   },
-  "sourceFailures": {},
+  "sourceFailures": {
+    "TX": {
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError",
+      "lastAttemptUTC": "2026-10-29",
+      "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
+      "requestsAttempted": 2,
+      "retryPolicy": "bounded_network_retry_then_later_batch"
+    }
+  },
   "latestBatch": [
     {
-      "state": "ND",
-      "status": "indexed_first_page",
-      "newRows": 5
-    },
-    {
-      "state": "NE",
-      "status": "indexed_first_page",
-      "newRows": 3
-    },
-    {
-      "state": "NH",
+      "state": "OK",
       "status": "indexed_first_page",
       "newRows": 0
     },
     {
-      "state": "NJ",
+      "state": "OR",
       "status": "indexed_first_page",
-      "newRows": 11
+      "newRows": 20
     },
     {
-      "state": "NM",
-      "status": "indexed_first_page",
-      "newRows": 1
-    },
-    {
-      "state": "NV",
+      "state": "PA",
       "status": "indexed_first_page",
       "newRows": 3
     },
     {
-      "state": "NY",
+      "state": "RI",
       "status": "indexed_first_page",
-      "newRows": 14
+      "newRows": 5
     },
     {
-      "state": "OH",
+      "state": "SC",
       "status": "indexed_first_page",
-      "newRows": 9
+      "newRows": 5
+    },
+    {
+      "state": "SD",
+      "status": "indexed_first_page",
+      "newRows": 2
+    },
+    {
+      "state": "TN",
+      "status": "indexed_first_page",
+      "newRows": 6
+    },
+    {
+      "state": "TX",
+      "status": "temporary_unavailable",
+      "errorType": "TimeoutError"
     }
   ],
   "remainingJurisdictions": [
@@ -332,13 +405,6 @@
     "IL",
     "LA",
     "MA",
-    "OK",
-    "OR",
-    "PA",
-    "RI",
-    "SC",
-    "SD",
-    "TN",
     "TX",
     "UT",
     "VA",
