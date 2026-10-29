@@ -41,6 +41,21 @@ def classify(title):
     t=title.lower()
     return 'redistricting_specific_title' if any(x in t for x in TOPIC) else 'keyword_search_candidate_unverified'
 
+def merge_vote_records(existing, incoming):
+    """Retain a previously reported positive tally if a refresh returns missing counts.
+
+    Secondary tallies remain unverified until checked against official roll calls.
+    A later all-zero placeholder must not erase a prior positive observation.
+    """
+    merged = {row['id']: row for row in existing}
+    for row in incoming:
+        previous = merged.get(row['id'])
+        if previous and previous.get('counts') and not row.get('counts'):
+            continue
+        merged[row['id']] = row
+    return merged
+
+
 def jurisdictions():
     mapped={}
     for page in (1,2):
@@ -168,8 +183,7 @@ def collect():
         time.sleep(0.17)
     # Preserve old record-level observations if no new vote data returned.
     existing_votes=json.loads(VOTES.read_text(encoding='utf-8'))['records'] if VOTES.exists() else []
-    merged_votes={v['id']:v for v in existing_votes}
-    merged_votes.update({v['id']:v for v in votes})
+    merged_votes=merge_vote_records(existing_votes,votes)
     bill_data={
         'schema':'power-atlas.state-redistricting-bill-candidates.v1',
         'publicationStatus':'search_candidate_needs_primary_source_verification',
@@ -184,7 +198,7 @@ def collect():
         'schema':'power-atlas.state-redistricting-bill-rollcalls.v1',
         'publicationStatus':'partial_secondary_vote_tallies_need_official_review',
         'provider':'https://billcommons.org/docs/api',
-        'sourceScope':'Only first ten strongly titled bill candidates; tallies only and source URLs; zero rows does not mean no votes occurred',
+        'sourceScope':'Only first four strongly titled bill candidates; tallies only and source URLs; zero rows does not mean no votes occurred',
         'attempts':attempts,
         'warning':'Zero-coded unverified upstream tallies are treated as unavailable, never as confirmed zero votes.',
         'records':sorted(merged_votes.values(),key=lambda x:x['id'])
