@@ -155,6 +155,8 @@ payments = read_finance('fec-disbursements.json')
 committee_master = read_finance('fec-committee-master.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
+house_audit_path = ROOT / 'data/health/house-2024-audit.json'
+house_2024_audit = json.loads(house_audit_path.read_text(encoding='utf-8')) if house_audit_path.exists() else {}
 lda_path = ROOT / 'data/lobbying/lda-filings.json'
 lobbying = json.loads(lda_path.read_text(encoding='utf-8'))['records'] if lda_path.exists() else []
 fjc_file = ROOT / 'data/judiciary/fjc-appointment-index.json'
@@ -197,7 +199,7 @@ feed = {
     'organizations': {'stateCommittees': committee_index, 'source': 'https://github.com/openstates/people', 'reviewStatus': 'topic_matching_and_membership_review_required'},
     'judiciary': {'federalAppointments': fjc_index, 'source': 'https://www.fjc.gov/node/7436'},
     'people': {'congressMembers': congress, 'stateLegislatorIndex': state_people_index, 'stateExecutives': executives, 'source': 'https://github.com/unitedstates/congress-legislators', 'stateSource': 'https://github.com/openstates/people', 'sourceLicense': 'CC0-1.0', 'reviewStatus': 'third_party_registry_crosscheck_pending'},
-    'elections': {'houseStateYears': house_summary, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
+    'elections': {'houseStateYears': house_summary, 'house2024KeyAudit': house_2024_audit, 'source': 'https://doi.org/10.7910/DVN/IG0UN2', 'limitations': 'Two-party totals are not gerrymandering scores; compare only within equal reporting and mapping rules.'},
     'lobbying': {'filings': lobbying, 'attribution': 'US Senate Office of Public Records: cannot vouch for analyses after retrieval'},
     'finance': {
         'committeeTotals': totals,
@@ -223,6 +225,7 @@ feed = {
         'stateLegislatorJurisdictions': len(state_people_index),
         'lobbyingFilingRows': len(lobbying),
         'houseStateYearRows': len(house_summary),
+        'house2024MissingDistrictKeys': house_2024_audit.get('missingCount'),
         'uncovered': uncovered,
         'warning': 'Index counts are not reviewed unique-case or influence counts'
     }
