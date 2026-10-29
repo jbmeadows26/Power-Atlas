@@ -39,9 +39,7 @@ class StateCoverageSchedulerTests(unittest.TestCase):
             self.assertIn(failure['status'], ('temporary_unavailable', 'http_failure', 'access_or_rate_deferred'))
             self.assertEqual(failure['sourceEndpoint'], 'https://api.billcommons.org/api/v1/search')
             self.assertIn(failure['requestsAttempted'], (1, 2))
-            self.assertRegex(failure['lastAttemptUTC'], r'^20[0-9]{2}-[0-9]{2}-[0-9]{2}
-    unittest.main()
-)
+            self.assertRegex(failure['lastAttemptUTC'], r'^20[0-9]{2}-[0-9]{2}-[0-9]{2}'+chr(36))
             self.assertNotIn('errorMessage', failure)
 
 
