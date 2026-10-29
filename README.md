@@ -1,17 +1,26 @@
 # Power Atlas — evidence-linked redistricting research
 
-Public, low-storage data repository for Power Atlas. This repository indexes **candidate research records**, not verified allegations or final case dispositions.
+Power Atlas is a public, low-storage research index connecting redistricting cases, public officials, campaign committees, congressional elections, judicial appointments and geographic boundaries. **A source-indexed record is not a verified allegation of influence or misconduct.**
 
-## Architecture
-- `data/batches/`: source-indexed incremental batches.
-- `scripts/build.py`: deterministic deduplication, schema checks, compact export.
-- `data/research.json`: versioned read-only frontend feed.
-- `.github/workflows/validate.yml`: free-tier GitHub Actions validation on push and weekly.
+## Read-only datasets
 
-Run `python scripts/build.py`. The workflow checks the export is committed and matches its inputs. No AI credits, scraping, or paid API keys required.
+- [Verified current coverage and known gaps](data/coverage.json)
+- [Unified frontend JSON feed](data/app-feed.json) (compact; published separately from the frontend)
+- [Original source-specific records](data/batches/) and [relationship evidence](data/relationships.json)
+- [Federal judicial appointment index](data/judiciary/) and seven selected, official Supreme Court redistricting dispositions (three existing landmark records upgraded; four newly indexed)
+- [2024 U.S. House district-key audit](data/health/house-2024-audit.json), distinguishing 434 reported-vote districts from two official unopposed-status-only districts
+- [Source refresh outcomes and preserved blockers](data/health/ingestion-status.json)
+- [State finance and roll-call source probes](data/health/state-source-probes.json)
+- [Frontend deployment health](data/health/deployment-status.json)
 
-**Data policy:** No mirrored PDFs, HTML pages, transcripts, personal contact details, or embeddings. Retain stable IDs, dates, short titles, source URLs, and verification labels. Unreviewed records must not be presented as proven influence. Do not redistribute third-party datasets without checking their licenses.
+Data comes from public DOJ, FEC, U.S. Senate LDA, U.S. House Clerk, Census, Federal Judicial Center and Supreme Court records, plus explicitly attributed public/CC0 third-party sources. Each data product has a narrower scope than nationwide completeness; see its review status and limitations. Candidate-to-committee associations, memberships and judicial appointments are **not** findings of improper influence.
 
-**Frontend:** https://gerrymandering-power-atlas-0ythxx.v2.appdeploy.ai/ — connecting it to this feed requires a future AppDeploy release. JSON feed: https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/research.json
+## Rebuild and verify
 
-**Scope:** The first eight litigation index entries are not a nationally complete dataset and require independent primary-docket verification. The scheduled workflow currently validates existing files; it does not autonomously collect new cases.
+Run `python scripts/build.py`, then `python -m unittest discover -s tests -p 'test_*.py' -v`. GitHub Actions workflows collect bounded official-source data, publish compact JSON only after validation, and preserve existing source files when refreshes fail. A green collector run alone does **not** prove new rows were persisted: inspect source files, the coverage manifest and commit diffs.
+
+## Deployment and free-service policy
+
+[Production app](https://power-atlas-research.vercel.app/) is deployed separately from the GitHub-hosted feed. A READY Vercel deployment may serve an older frontend commit even while GitHub data is current; check [deployment health](data/health/deployment-status.json) before describing production as updated. No paid capacity, access bypass, rate-limit circumvention or unauthorized data redistribution is permitted.
+
+The temporary deadline sprint ends after **October 30, 2026**. Remaining gaps include state campaign-finance transactions, state legislative roll calls, lower-court litigation dockets, state judicial-selection outcomes, and verified local/state election returns. The project intentionally excludes private addresses, contact details and unreviewed person-to-person allegations.
