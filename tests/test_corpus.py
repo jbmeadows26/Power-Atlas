@@ -190,6 +190,89 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(len(doc['features']), len({f['id'] for f in doc['features']}))
         self.assertLess(path.stat().st_size, 3000000)
 
+    def test_fec_recipient_aggregates_do_not_include_individual_payees(self):
+        file = ROOT / 'data/finance/fec-recipient-aggregates.json'
+        if not file.exists():
+            self.skipTest('FEC aggregate recipient source not yet ingested')
+        rows = load('data/finance/fec-recipient-aggregates.json')['records']
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['finance']['committeeRecipientAggregates'], rows)
+        self.assertEqual(feed['coverage']['recipientAggregateRows'], len(rows))
+        for row in rows:
+            self.assertRegex(row['sourceCommitteeId'],r'^C[0-9]{8}
+        audit_path = ROOT / 'data/health/house-2024-audit.json'
+        official_path = ROOT / 'data/elections/house-2024-unopposed.json'
+        if not audit_path.exists() or not official_path.exists():
+            self.skipTest('2024 key audit and Clerk status records not initialized')
+        audit = load('data/health/house-2024-audit.json')
+        official = load('data/elections/house-2024-unopposed.json')['records']
+        self.assertEqual(audit['comparisonYear'], 2024)
+        self.assertEqual(audit['congress'], 119)
+        self.assertEqual(audit['expectedCensusDistrictKeys'],
+                         audit['observedMEDSLDistrictKeys'] +
+                         audit['officialUnopposedStatusOnlyKeys'] +
+                         audit['missingCount'])
+        self.assertEqual(len(official), audit['officialUnopposedStatusOnlyKeys'])
+        self.assertEqual(len({(r['state'],r['district']) for r in official}),len(official))
+        for r in official:
+            self.assertIsNone(r['reportedVoteTotal'])
+            self.assertEqual(r['year'], 2024)
+            self.assertEqual(r['reviewStatus'], 'official_house_clerk_2024_status_only')
+            self.assertTrue(r['source'].startswith('https://clerk.house.gov/'))
+            self.assertNotIn((r['state'],r['district']),
+                             {(m['state'],m['district']) for m in audit['missing']})
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['elections']['house2024UnopposedStatusOnly'],official)
+        self.assertEqual(feed['elections']['house2024KeyAudit'],audit)
+        self.assertEqual(feed['coverage']['house2024MissingDistrictKeys'],audit['missingCount'])
+
+    def test_compact_derived_feeds(self):
+        for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
+            self.assertLess((ROOT / name).stat().st_size, 3000000, name)
+
+if __name__ == '__main__':
+    unittest.main()
+)
+            self.assertRegex(row['recipientCommitteeId'],r'^C[0-9]{8}
+        audit_path = ROOT / 'data/health/house-2024-audit.json'
+        official_path = ROOT / 'data/elections/house-2024-unopposed.json'
+        if not audit_path.exists() or not official_path.exists():
+            self.skipTest('2024 key audit and Clerk status records not initialized')
+        audit = load('data/health/house-2024-audit.json')
+        official = load('data/elections/house-2024-unopposed.json')['records']
+        self.assertEqual(audit['comparisonYear'], 2024)
+        self.assertEqual(audit['congress'], 119)
+        self.assertEqual(audit['expectedCensusDistrictKeys'],
+                         audit['observedMEDSLDistrictKeys'] +
+                         audit['officialUnopposedStatusOnlyKeys'] +
+                         audit['missingCount'])
+        self.assertEqual(len(official), audit['officialUnopposedStatusOnlyKeys'])
+        self.assertEqual(len({(r['state'],r['district']) for r in official}),len(official))
+        for r in official:
+            self.assertIsNone(r['reportedVoteTotal'])
+            self.assertEqual(r['year'], 2024)
+            self.assertEqual(r['reviewStatus'], 'official_house_clerk_2024_status_only')
+            self.assertTrue(r['source'].startswith('https://clerk.house.gov/'))
+            self.assertNotIn((r['state'],r['district']),
+                             {(m['state'],m['district']) for m in audit['missing']})
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['elections']['house2024UnopposedStatusOnly'],official)
+        self.assertEqual(feed['elections']['house2024KeyAudit'],audit)
+        self.assertEqual(feed['coverage']['house2024MissingDistrictKeys'],audit['missingCount'])
+
+    def test_compact_derived_feeds(self):
+        for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
+            self.assertLess((ROOT / name).stat().st_size, 3000000, name)
+
+if __name__ == '__main__':
+    unittest.main()
+)
+            self.assertIsInstance(row['amountUSD'],(int,float))
+            self.assertGreaterEqual(row['disbursementCount'],0)
+            self.assertNotIn('recipientAddress',row)
+            self.assertNotIn('recipientCity',row)
+            self.assertEqual(row['reviewStatus'],'official_fec_aggregate_unreviewed')
+
     def test_2024_house_missing_vote_totals_are_not_fabricated(self):
         audit_path = ROOT / 'data/health/house-2024-audit.json'
         official_path = ROOT / 'data/elections/house-2024-unopposed.json'
