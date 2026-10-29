@@ -373,6 +373,32 @@ class CorpusChecks(unittest.TestCase):
         feed = load('data/app-feed.json')
         self.assertEqual(feed['legislation']['stateRedistrictingBillCandidates'], bills['records'])
 
+    def test_official_arizona_aggregate_crosscheck_not_mislabeled_certified(self):
+        official = load('data/legislation/official-rollcall-aggregate-crosschecks.json')
+        rows = official['records']
+        self.assertEqual(len(rows), 1)
+        self.assertEqual(len({r['id'] for r in rows}), len(rows))
+        source_votes = {v['id']: v for v in load('data/legislation/state-redistricting-votes.json')['records']}
+        for r in rows:
+            self.assertEqual(r['state'], 'AZ')
+            self.assertEqual(r['identifier'], 'SCR 1023')
+            self.assertEqual(r['date'], '2026-03-09')
+            self.assertEqual(r['counts'], {'yes_count': 16, 'no_count': 13, 'other_count': 1})
+            self.assertTrue(r['source'].startswith('https://www.azleg.gov/'))
+            self.assertTrue(r['calendarSource'].startswith('https://www.azleg.gov/'))
+            self.assertFalse(r['certifiedRollCall'])
+            self.assertEqual(r['counts'], source_votes[r['id']]['counts'])
+            self.assertFalse(SENSITIVE.intersection(r.keys()))
+        staged = load('data/reconciliation/rollcall-staging.json')
+        matches = [r for r in staged['records'] if r['voteVerificationStatus'] == 'official_aggregate_crosschecked']
+        self.assertEqual(len(matches), len(rows))
+        self.assertTrue(all(r['officialTallyVerified'] and not r['certifiedRollCall'] for r in matches))
+        self.assertEqual(staged['counts']['certified_tally'], 0)
+        production = load('data/reconciliation/verified-production.json')
+        self.assertEqual(production['certifiedLegislativeRollCalls'], [])
+        feed = load('data/app-feed.json')
+        self.assertEqual(feed['coverage']['rollcallOfficialVerifiedTallies'], len(rows))
+
     def test_compact_derived_feeds(self):
         for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
             self.assertLess((ROOT / name).stat().st_size, 3000000, name)
