@@ -57,6 +57,13 @@ class GovInfoParsingTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             mod.parse_bill(sample(), "hr", official, {"A000001":"D", "A000002":"R"})
 
+    def test_missing_cosponsor_identity_is_preserved_unknown_not_guessed(self):
+        xml=sample().replace(b"<bioguideId>A000002</bioguideId>",b"<bioguideId></bioguideId>")
+        r=mod.parse_bill(xml,"hr","https://www.govinfo.gov/example",{"A000001":"D"})
+        self.assertEqual(r["cosponsorSourceMissingBioguideCount"],1)
+        self.assertEqual(r["activeCosponsorUnknownPartyCount"],1)
+        self.assertIsNone(r["knownCrossPartyCosponsor"])
+
     def test_wrong_congress_is_rejected(self):
         with self.assertRaises(ValueError):
             mod.parse_bill(sample().replace(b"<congress>119</congress>",b"<congress>118</congress>"),"hr","https://www.govinfo.gov/example",{"A000001":"D"})
