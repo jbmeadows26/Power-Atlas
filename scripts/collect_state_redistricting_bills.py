@@ -20,17 +20,16 @@ ROOT=Path(__file__).resolve().parents[1]
 OUT=ROOT/'data/legislation/state-redistricting-bills.json'
 VOTES=ROOT/'data/legislation/state-redistricting-votes.json'
 BASE='https://api.billcommons.org/api/v1'
-TERMS=('redistricting','gerrymandering','reapportionment','congressional district',
-       'independent redistricting','district boundaries')
+TERMS=('redistricting','gerrymandering','reapportionment','congressional district')
 TOPIC=('redistrict','gerrymander','reapportion','congressional district')
 MAX_REQUEST_BYTES=250_000
-MAX_VOTE_BILLS=10
+MAX_VOTE_BILLS=4
 MAX_SEARCH_BILLS=240
 
 def get(url):
     req=Request(url,headers={'User-Agent':'PowerAtlasPublicResearch/1.0 (source-linked civic research)',
                              'Accept':'application/json'})
-    with urlopen(req,timeout=25) as response:
+    with urlopen(req,timeout=10) as response:
         if response.status!=200:
             raise RuntimeError('Public API returned non-200')
         payload=response.read(MAX_REQUEST_BYTES+1)
@@ -62,9 +61,20 @@ def collect():
     codes=jurisdictions()
     bills={}
     query_stats=[]
+    successful_searches=0
     for term in TERMS:
         url=BASE+'/search?'+urlencode({'q':term,'per_page':40,'page':1})
-        response=get(url)
+        try:
+            response=get(url)
+        except HTTPError as exc:
+            if exc.code in (401,403,429):
+                raise RuntimeError('Source access or rate restriction HTTP '+str(exc.code)+'; existing corpus preserved') from exc
+            query_stats.append({'query':term,'status':'http_error','httpCode':exc.code})
+            continue
+        except (TimeoutError,URLError,OSError,RuntimeError) as exc:
+            query_stats.append({'query':term,'status':'temporary_network_failure','errorType':type(exc).__name__})
+            continue
+        successful_searches+=1
         rows=response.get('data')
         if not isinstance(rows,list):
             raise RuntimeError('Unexpected public state search records')
@@ -97,8 +107,10 @@ def collect():
                             'totalReported':response.get('pagination',{}).get('total'),
                             'pagesQueried':1})
         time.sleep(0.17)
-    if not 5<=len(bills)<=MAX_SEARCH_BILLS:
-        raise RuntimeError('Unexpected state legislative search results '+str(len(bills)))
+    if successful_searches<1:
+        raise RuntimeError('All bounded state bill source searches failed; retained previous output')
+    if not 1<=len(bills)<=MAX_SEARCH_BILLS:
+        raise RuntimeError('Unexpected state legislative candidate volume '+str(len(bills)))
     # Capture explicit recorded roll-call tallies for bills with a directly
     # redistricting-related title. Do not infer any legislator's vote by name.
     votes=[]
@@ -114,8 +126,12 @@ def collect():
             details=get(url)
         except HTTPError as exc:
             if exc.code in (401,403,429):
-                raise RuntimeError('Public Bill Commons rate/access restriction HTTP '+str(exc.code)+'; old data retained') from exc
+                attempts.append({'billId':item['id'],'status':'deferred_rate_or_auth_restriction','http':exc.code})
+                break
             attempts.append({'billId':item['id'],'status':'HTTP '+str(exc.code)})
+            continue
+        except (TimeoutError,URLError,OSError,RuntimeError) as exc:
+            attempts.append({'billId':item['id'],'status':'detail_unavailable','errorType':type(exc).__name__})
             continue
         if not isinstance(details,list):
             attempts.append({'billId':item['id'],'status':'unexpected_schema'})
@@ -153,7 +169,7 @@ def collect():
         'provider':'https://billcommons.org/docs/api',
         'attribution':'Bill Commons (official state/Open States and possibly optional CC-BY-4.0 LegiScan, record-specific source licensing must be checked before reuse); metadata and source references only',
         'coverageWarning':'First 40 results per query; not complete nationwide or state legislative coverage. An empty result is not evidence that a bill does not exist.',
-        'searches':query_stats,'jurisdictionsLookupCount':len(codes),
+        'searches':query_stats,'successfulSearches':successful_searches,'jurisdictionsLookupCount':len(codes),
         'records':sorted(bills.values(),key=lambda x:x['id'])
     }
     vote_data={
