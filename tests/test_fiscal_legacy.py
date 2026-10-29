@@ -61,7 +61,7 @@ class CensusLegacyFormatTests(unittest.TestCase):
 
     def test_reject_undercoverage(self):
         with self.assertRaisesRegex(ValueError,"Incomplete"):
-            legacy.parse_records((row(1)+"\n")*9,2013)
+            legacy.parse_records(((row(1)+"\n")*9).encode("ascii"),2013)
 
     def test_preserve_but_dont_sum_raw_amounts(self):
         obj=legacy.make_document(2013, fixture(), "https://www2.census.gov/govs/state/13state35.txt")
