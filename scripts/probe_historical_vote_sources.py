@@ -19,7 +19,10 @@ URLS=[
 "https://www.senate.gov/legislative/LIS/roll_call_votes/vote1172/vote_117_2_00001.xml",
 "https://voteview.com/static/data/out/votes/H114_votes.csv",
 "https://voteview.com/static/data/out/votes/S114_votes.csv",
-"https://voteview.com/static/data/out/votes/HS114_votes.csv"
+"https://voteview.com/static/data/out/votes/HS114_votes.csv",
+"https://voteview.com/static/data/out/members/H114_members.csv",
+"https://voteview.com/static/data/out/members/S114_members.csv",
+"https://voteview.com/static/data/out/members/HS114_members.csv"
 ]
 LIMIT=180000
 for url in URLS:
@@ -45,7 +48,7 @@ for url in URLS:
         if b',' in raw[:500] and url.endswith(".csv"):
             lines=raw.decode("utf-8",errors="replace").splitlines()
             rows=[line.split(",") for line in lines[1:8]]
-            tags={"csv_header":lines[0],"sample_bytes":len(raw),"csv_lines_first_chunk":len(lines),"first_row_congress_chamber_roll":[row[:3] for row in rows],"last_row_congress_chamber_roll":lines[-2].split(",")[:3]}
+            tags={"csv_header":lines[0],"sample_bytes":len(raw),"csv_lines_first_chunk":len(lines),"first_rows":[row[:4] for row in rows],"last_row":lines[-2].split(",")[:4]}
         print("SOURCE",url,"HTTP",status,"bytes_first_chunk",len(raw),"TAGS",tags,flush=True)
     except (HTTPError,URLError,TimeoutError) as exc:
         print("SOURCE",url,"ERROR",str(exc)[:180],flush=True)
