@@ -25,7 +25,7 @@ PARTIES = {"100": "D", "200": "R"}
 FIRST_CONGRESS = 100
 LAST_CONGRESS = 119  # 119th is necessarily partial; mark it explicitly.
 MAX_MEMBER_ROWS = 250000
-MAX_VOTE_ROWS = 7500000
+MAX_VOTE_ROWS = 35000000
 MIN_PARTY_CAST = {"House": 100, "Senate": 20}
 THRESHOLD = 0.90
 
