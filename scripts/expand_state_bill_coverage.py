@@ -30,13 +30,21 @@ def fetch_state(state):
     url=API+'?'+q
     req=Request(url,headers={'User-Agent':'PowerAtlasPublicResearch/1.0 state legislative index',
                              'Accept':'application/json'})
-    with urlopen(req,timeout=11) as resp:
-        if resp.status!=200:raise RuntimeError('Unexpected source response')
-        raw=resp.read(MAX_BYTES+1)
-        if len(raw)>MAX_BYTES:raise RuntimeError('State search exceeded bounded size')
-    body=json.loads(raw)
-    if not isinstance(body.get('data'),list):raise ValueError('Unexpected state search schema')
-    return body,url
+    for attempt in range(2):
+        try:
+            with urlopen(req,timeout=18) as resp:
+                if resp.status!=200:raise RuntimeError('Unexpected source response')
+                raw=resp.read(MAX_BYTES+1)
+                if len(raw)>MAX_BYTES:raise RuntimeError('State search exceeded bounded size')
+            body=json.loads(raw)
+            if not isinstance(body.get('data'),list):raise ValueError('Unexpected state search schema')
+            return body,url
+        except HTTPError as exc:
+            # Never retry access controls or 429. Retry bounded 5xx only.
+            if exc.code not in (500,502,503,504) or attempt:raise
+        except (URLError,OSError,TimeoutError):
+            if attempt:raise
+        time.sleep(1.5)
 
 def record(raw,state):
     uid=str(raw.get('id') or '')
