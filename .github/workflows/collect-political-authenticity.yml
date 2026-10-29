@@ -29,7 +29,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Validate evidence collector
-        run: python -m unittest discover -s tests -p 'test_political_authenticity.py' -v
+        run: python -m unittest discover -s tests -p 'test_political_authenticity*.py' -v
       - name: Collect free CC0 congressional biography records
         run: python scripts/collect_political_authenticity.py
       - name: Build sourced age comparison from verified 2024 Census age band
