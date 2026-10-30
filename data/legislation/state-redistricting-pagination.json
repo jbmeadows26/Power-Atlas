@@ -1,0 +1,100 @@
+{
+  "schema": "power-atlas.state-bill-keyword-pagination.v1",
+  "status": "partial_keyword_pagination_not_complete_all_legislation",
+  "scope": "Only public redistricting keyword/state results with more matches than page one; many bills, terms and sessions omitted",
+  "provider": "https://billcommons.org/docs/api",
+  "maxPagesPerRun": 6,
+  "pages": {
+    "IL": {
+      "2": {
+        "rowsReturned": 20,
+        "newUniqueRows": 20,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=IL&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    },
+    "TX": {
+      "2": {
+        "rowsReturned": 20,
+        "newUniqueRows": 9,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=TX&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    },
+    "MS": {
+      "2": {
+        "rowsReturned": 20,
+        "newUniqueRows": 19,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=MS&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    },
+    "DC": {
+      "2": {
+        "rowsReturned": 12,
+        "newUniqueRows": 11,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=DC&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    },
+    "OR": {
+      "2": {
+        "rowsReturned": 9,
+        "newUniqueRows": 9,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=OR&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    },
+    "FL": {
+      "2": {
+        "rowsReturned": 5,
+        "newUniqueRows": 5,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=FL&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
+    }
+  },
+  "paused": {},
+  "lastRun": [
+    {
+      "state": "IL",
+      "page": 2,
+      "status": "indexed",
+      "new": 20
+    },
+    {
+      "state": "TX",
+      "page": 2,
+      "status": "indexed",
+      "new": 9
+    },
+    {
+      "state": "MS",
+      "page": 2,
+      "status": "indexed",
+      "new": 19
+    },
+    {
+      "state": "DC",
+      "page": 2,
+      "status": "indexed",
+      "new": 11
+    },
+    {
+      "state": "OR",
+      "page": 2,
+      "status": "indexed",
+      "new": 9
+    },
+    {
+      "state": "FL",
+      "page": 2,
+      "status": "indexed",
+      "new": 5
+    }
+  ],
+  "additionalPagesIndexed": 6,
+  "jurisdictionsWithAdditionalPages": 6,
+  "candidateBillRows": 568,
+  "sourceRateStop": false
+}
