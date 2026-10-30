@@ -1,0 +1,50 @@
+name: Ingest official OECD Public Integrity XML baseline
+on:
+  push:
+    paths:
+      - '.github/workflows/ingest-institutional-decay-pii-xml.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: institutional-decay-pii-xml-ingestion
+  cancel-in-progress: false
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Fetch official OECD open public integrity data and preserve missingness
+        run: python scripts/collect_institutional_decay_pii.py
+      - name: Enforce numeric and source provenance invariants
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/institutional-decay/oecd-pii-raw-2020-2025.json')
+          d=json.loads(p.read_text())
+          assert d['schema']=='power-atlas.institutional-decay.oecd-pii-raw.v1'
+          rows=d['rows']
+          assert len(rows)>100 and d['coverage']['numericRecords']>0
+          assert len(rows)==d['coverage']['totalRecords']
+          assert all(r['value'] is None for r in rows if not r['rawObservedValue'].replace('.','',1).replace('-','',1).isdigit() or r['rawObservedValue'].strip()=='')
+          assert all(2020<=r['referenceYear']<=2025 for r in rows)
+          assert all(r['countryIso3'] in d['coverage']['requestedCountries'] for r in rows)
+          assert d['researchStatus']=='raw_code_level_source_data_not_harmonized_to_trust_or_causally_identified'
+          print('PASS',d['coverage']['totalRecords'],'source observations')
+          PY
+      - name: Commit verified source-coded extract on research branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/institutional-decay/oecd-pii-raw-2020-2025.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'research: ingest official OECD PII source codes with missingness'
+            git push origin HEAD:research/institutional-decay-pii-xml-20261030
+          else
+            echo 'Already at same extract; no commit'
+          fi
