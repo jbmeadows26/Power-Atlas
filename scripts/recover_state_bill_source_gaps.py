@@ -144,6 +144,11 @@ def main():
     if date.today() > END:
         print("Deadline passed; no source requests")
         return
+    if AUDIT.exists():
+        previous = json.loads(AUDIT.read_text(encoding="utf-8"))
+        if previous.get("auditVersion") == 2 and previous.get("dateUTC") == date.today().isoformat():
+            print("Version-2 bounded audit already completed today; no repeated source requests")
+            return
     bills = json.loads(BILLS.read_text(encoding="utf-8"))
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     indexed = {row["id"]: row for row in bills["records"]}
