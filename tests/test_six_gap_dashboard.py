@@ -33,9 +33,15 @@ class SixDomainDashboardTests(unittest.TestCase):
         self.assertEqual(j["jurisdictionsCompleted"],0)
 
     def test_uncollected_state_facts_are_not_fabricated(self):
-        for name in ("state_campaign_finance","state_roll_calls",
+        for name in ("state_campaign_finance",
                      "lower_court_litigation_dockets_and_state_cases"):
             self.assertEqual(self.data["coverage"][name]["sourceVerifiedJurisdictions"],0)
+
+    def test_wa_official_votes_are_counted_but_not_claimed_full(self):
+        c=self.data["coverage"]["state_roll_calls"]
+        self.assertEqual(c["sourceVerifiedJurisdictions"],1)
+        self.assertEqual(c["officialSourceRecordsIngested"],4017)
+        self.assertEqual(c["jurisdictionsCompleted"],0)
 
     def test_ui_explicitly_warns_about_legal_lineage_and_vote_reconciliation(self):
         self.assertIn("legal effective dates remain incomplete",self.html)

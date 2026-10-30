@@ -35,6 +35,7 @@ def build():
     auth={r["state"]:r for r in read("data/elections/official-source-index.json")["records"]}
     geom=read("data/geography/state-legislative-2024/index.json")
     nc=read("data/elections/nc-2024/reconciliation.json")
+    wa=read("data/legislation/wa-2023-24-rollcalls/source-rollcalls.json")
     if len(states)!=50 or len(set(s["postal"] for s in states))!=50:
         raise ValueError("Expected 50 unique US states")
     if not set(x["postal"] for x in states).issubset(auth):
@@ -42,6 +43,9 @@ def build():
     if (geom.get("chamberGeometriesDownloaded")!=99 or geom.get("notApplicable")!=1 or
         geom.get("distinctGEOIDFeatures")!=6785 or geom.get("legalPlanHistoryComplete") is not False):
         raise ValueError("2024 Census state legislative geometry has not been validated")
+    if (wa.get("state")!="WA" or wa.get("rollCalls")!=56 or
+        wa.get("memberVoteRows")!=4017 or wa.get("allStateRollCallsComplete") is not False):
+        raise ValueError("WA official member rollcall sample count mismatch")
     if (nc.get("state")!="NC" or nc.get("precinctCandidateRowsInspected")!=233510 or
         nc.get("countiesWithVotes")!=100 or nc.get("certifiedSpotcheckDiscrepancyCount")!=4 or
         nc.get("spotChecksAllMatch") is not False):
@@ -90,6 +94,21 @@ def build():
                     {"chamber":g["chamber"],"url":g["source"],"path":g["path"],
                      "sha256OriginalZIP":g["sha256OriginalZIP"],"polygonRecords":g["features"]}
                     for g in ready]
+            elif postal=="WA" and domain=="state_roll_calls":
+                record.update({
+                    "recordsIngested":wa["memberVoteRows"],
+                    "officialRecordsSourceLinked":True,
+                    "coverageStatus":"official_2023_24_member_votes_sample_not_full_biennium",
+                    "certificationStatus":"official_WA_legislative_web_services_member_tallies_reconciled",
+                    "reconciliationStatus":"56_rollcall_member_vote_counts_match_original_summary",
+                    "blockingDependency":"Enumerate and ingest every WA 2023-24 bill/session rollcall plus all other states, link official session rosters and journal vote identifiers",
+                })
+                record["sourceDiscovery"].update({
+                    "officialRollCallService":wa["officialSourceService"],
+                    "dataPath":"data/legislation/wa-2023-24-rollcalls/source-rollcalls.json",
+                    "rollCalls":wa["rollCalls"],
+                    "billsRequested":wa["billsRequested"],
+                })
             elif postal=="NC" and domain=="statewide_local_returns_and_official_vote_reconciliation":
                 record.update({
                     "recordsIngested":nc["precinctCandidateRowsInspected"],
