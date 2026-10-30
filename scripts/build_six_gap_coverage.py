@@ -60,11 +60,11 @@ def build():
     if len(ids)!=len(set(ids)):
         raise ValueError("Duplicate coverage keys")
     counts=Counter(x["domain"] for x in result)
-    if len(states)!=len(auth):
+    if not (len(states)==50 and set(x["postal"] for x in states).issubset(auth)):
         raise ValueError("State/election authority jurisdiction universe differs")
     return {"schema":"power-atlas.six-domain-coverage.v1",
             "publicationStatus":"source_discovery_only_not_coverage_completion",
-            "jurisdictions":len(states),"domains":list(DOMAINS),
+            "jurisdictions":len(states),"additionalDistrictOfColumbiaElectionAuthorityKnown":"DC" in auth,"domains":list(DOMAINS),
             "coverage":{k:{"jurisdictionsIndexed":v,"jurisdictionsCompleted":0,
                          "sourceVerifiedJurisdictions":0} for k,v in counts.items()},
             "knownExistingSeparateDatasets":{
