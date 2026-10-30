@@ -19,6 +19,7 @@ CHECK=ROOT/'data/legislation/state-redistricting-pagination.json'
 API='https://api.billcommons.org/api/v1/search'
 MAX_PAGES=6
 MAX_BYTES=210000
+DEADLINE=date(2026,10,30)  # Deadline sprint must not request new pages after this date.
 from expand_state_bill_coverage import record
 
 def get(state,page,per_page):
@@ -33,6 +34,9 @@ def get(state,page,per_page):
     return doc,url
 
 def main():
+    if date.today()>DEADLINE:
+        print('October 30 ingestion deadline passed; no further keyword pagination requests or writes.')
+        return
     base=json.loads(BASELINE.read_text(encoding='utf-8'))['jurisdictions']
     previous=json.loads(CHECK.read_text(encoding='utf-8')) if CHECK.exists() else {}
     pages=previous.get('pages',{})
