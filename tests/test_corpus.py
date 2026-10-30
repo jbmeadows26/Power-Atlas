@@ -435,6 +435,58 @@ class CorpusChecks(unittest.TestCase):
         feed = load('data/app-feed.json')
         self.assertEqual(feed['coverage']['rollcallOfficialVerifiedTallies'], len(rows))
 
+    def test_state_keyword_pagination_vote_integrity(self):
+        """Preserve all state bill candidates and distinguish missing evidence from zero."""
+        checkpoint = load('data/legislation/state-redistricting-jurisdictions.json')
+        pagination = load('data/legislation/state-redistricting-pagination.json')
+        rows = load('data/legislation/state-redistricting-bills.json')['records']
+        votes = load('data/legislation/state-redistricting-votes.json')['records']
+        official = load('data/legislation/official-rollcall-aggregate-crosschecks.json')['records']
+        coverage = load('data/coverage.json')['coverage']
+        expected = set('AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA RI SC SD TN TX UT VA VT WA WI WV WY DC'.split())
+        states = checkpoint['jurisdictions']
+        self.assertEqual(set(states), expected)
+        self.assertEqual(checkpoint['jurisdictionsScanned'], 51)
+        self.assertEqual(checkpoint['remainingJurisdictions'], [])
+        self.assertEqual(coverage['stateBillFirstPageJurisdictions'], 51)
+        self.assertEqual(coverage['stateBillFullSweepJurisdictions'], 0)
+        self.assertEqual(coverage['stateBillCandidateRows'], len(rows))
+        self.assertEqual(pagination['candidateBillRows'], len(rows))
+        by_state = {}
+        for row in rows:
+            self.assertIn(row['state'], expected)
+            by_state[row['state']] = by_state.get(row['state'], 0) + 1
+        self.assertEqual(sum(by_state.values()), len(rows))
+        for state, entry in states.items():
+            observed = by_state.get(state, 0)
+            self.assertEqual(entry['persistedCandidateRows'], observed, state)
+            total = entry['totalMatchesReported']
+            per_page = entry['perPage']
+            self.assertIsInstance(total, int)
+            self.assertGreaterEqual(total, 0)
+            self.assertGreater(per_page, 0)
+            if observed == 0:
+                expected_status = ('first_page_matches_reported_no_candidates_persisted'
+                                   if total > 0 else 'first_page_empty_search_not_no_bills')
+                self.assertEqual(entry['status'], expected_status, state)
+            for page in range(2, (total + per_page - 1) // per_page + 1):
+                self.assertIn(str(page), pagination['pages'].get(state, {}), (state, page))
+        self.assertEqual(pagination['additionalPagesIndexed'],
+                         sum(len(pages) for pages in pagination['pages'].values()))
+        self.assertEqual(coverage['stateRecordedVoteRows'], len(votes))
+        self.assertEqual(coverage['rollcallOfficialVerifiedTallies'], len(official))
+        indexed_votes = {v['id']: v for v in votes}
+        self.assertEqual(len(indexed_votes), len(votes))
+        for record in official:
+            self.assertIn(record['id'], indexed_votes)
+            self.assertEqual(record['counts'], indexed_votes[record['id']]['counts'])
+            self.assertFalse(record['certifiedRollCall'])
+        for vote in votes:
+            if not vote['counts']:
+                self.assertEqual(vote['tallyStatus'], 'not_reported_or_unverifiable')
+            else:
+                self.assertGreater(sum(vote['counts'].values()), 0)
+
     def test_compact_derived_feeds(self):
         for name in ['data/research.json', 'data/relationships.json', 'data/app-feed.json']:
             self.assertLess((ROOT / name).stat().st_size, 3000000, name)
