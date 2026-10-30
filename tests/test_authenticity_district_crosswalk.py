@@ -38,5 +38,6 @@ class Tests(unittest.TestCase):
         paths=[root/"data/research/political-authenticity/members.json",root/"data/geography/states.json",root/"data/research/political-authenticity/house-district-crosswalk-119.json"]
         if not all(p.exists() for p in paths):self.skipTest("Dataset not yet committed")
         a,b,c=[json.loads(p.read_text()) for p in paths]
+        self.assertEqual(c["memberSnapshotDate"], a["asOf"], "Crosswalk must track current member snapshot date")
         self.assertEqual(build(a,b),c)
 if __name__=="__main__":unittest.main()
