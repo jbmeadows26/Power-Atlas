@@ -26,7 +26,7 @@ PAGINATION = ROOT / "data/legislation/state-redistricting-pagination.json"
 AUDIT = ROOT / "data/health/state-bill-record-filter-audit.json"
 BASE = "https://api.billcommons.org/api/v1"
 STATES = ("MD", "OK", "VT")
-OFFICIAL_HOSTS = {"MD": "mgaleg.maryland.gov", "OK": "www.oklegislature.gov", "VT": "legislature.vermont.gov"}
+OFFICIAL_HOSTS = {"CA": "leginfo.legislature.ca.gov", "MD": "mgaleg.maryland.gov", "OK": "www.oklegislature.gov", "VT": "legislature.vermont.gov"}
 PER_PAGE = 5
 MAX_DETAILS_PER_STATE = 2
 MAX_HEAD_PER_STATE = 3
@@ -152,6 +152,13 @@ def process_state(state, indexed, get=get_json):
                 reason = reject_reason(raw)
         if reason:
             rejected[reason] += 1
+            continue
+        # A source URL supplied by a secondary index (including bill detail)
+        # is not automatically an official state record. Only allow the
+        # jurisdiction's explicitly recognized legislative host.
+        official = urlparse(str(raw.get("source_url") or ""))
+        if official.scheme != "https" or official.hostname != OFFICIAL_HOSTS.get(state):
+            rejected["non_official_source_host"] += 1
             continue
         candidate = record(raw, state, PER_PAGE)
         if candidate is None:

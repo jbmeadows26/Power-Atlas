@@ -78,14 +78,37 @@ class StateBillSourceRecoveryTests(unittest.TestCase):
             if "/search?" in url:
                 return {"data": [bill("http://example.org/old")],
                         "pagination": {"total": 3}}
-            return {"id": UID, "source_url": "https://example.org/official"}
+            return {"id": UID, "source_url": "https://legislature.vermont.gov/bill/status/2026/H.123"}
         indexed = {}
         result = process_state("VT", indexed, fake_get)
         self.assertEqual(result["newCandidateRows"], 1)
         self.assertEqual(result["nonHttpsSourceSchemes"]["http"], 1)
         self.assertEqual(result["nonHttpsSourceHosts"]["example.org"], 1)
         self.assertEqual(next(iter(indexed.values()))["source"],
-                         "https://example.org/official")
+                         "https://legislature.vermont.gov/bill/status/2026/H.123")
+
+    def test_unrecognized_host_is_not_published_as_official(self):
+        def fake_get(url):
+            if "/search?" in url:
+                return {"data": [bill("https://example.org/not-an-official-bill")],
+                        "pagination": {"total": 1}}
+            self.fail("An already linked result must not trigger detail requests")
+        indexed = {}
+        result = process_state("MD", indexed, fake_get)
+        self.assertEqual(result["newCandidateRows"], 0)
+        self.assertEqual(result["rejectionCounts"]["non_official_source_host"], 1)
+        self.assertFalse(indexed)
+
+    def test_unrecognized_detail_host_cannot_recover_missing_source(self):
+        def fake_get(url):
+            if "/search?" in url:
+                return {"data": [bill()], "pagination": {"total": 1}}
+            return {"id": UID, "source_url": "https://example.org/not-an-official-bill"}
+        indexed = {}
+        result = process_state("VT", indexed, fake_get)
+        self.assertEqual(result["newCandidateRows"], 0)
+        self.assertEqual(result["rejectionCounts"]["non_official_source_host"], 1)
+        self.assertFalse(indexed)
 
     def test_missing_source_stays_unverified_without_official_url(self):
         def fake_get(url):
