@@ -1,0 +1,47 @@
+{
+  "schema": "power-atlas.voting-access.additional-comparative-v1",
+  "publicationStatus": "secondary_source_summary_not_official_current_law",
+  "asOf": "2026-10-30",
+  "observations": [
+    {
+      "topic": "early_in_person_voting",
+      "source": "https://www.ncsl.org/elections-and-campaigns/early-in-person-voting",
+      "sourceUpdated": "2026-08-11",
+      "referencePeriod": "2026-04",
+      "totalStates": 50,
+      "statesOfferingEarly": 47,
+      "statesWithoutEarly": [
+        "AL",
+        "MS",
+        "NH"
+      ],
+      "districtOfColumbiaOffersEarly": true,
+      "definition": "Broad NCSL category includes in-person absentee and primarily mail voting states; precise procedures differ."
+    },
+    {
+      "topic": "mail_voting_access",
+      "source": "https://www.ncsl.org/elections-and-campaigns/table-1-states-with-no-excuse-absentee-voting",
+      "sourceUpdated": "2026-07-17",
+      "referencePeriod": "2026-07",
+      "noExcuseRequestStates": 29,
+      "automaticMailStates": [
+        "CA",
+        "CO",
+        "HI",
+        "NV",
+        "OR",
+        "UT",
+        "VT",
+        "WA"
+      ],
+      "automaticMailDC": true,
+      "excuseRequiredStatesCount": 13,
+      "definition": "Broad NCSL classifications; voter-specific eligibility and election types must be checked."
+    }
+  ],
+  "limitations": [
+    "Cross-state summaries are a research index rather than legal advice.",
+    "2026 changes and litigation may supersede published classifications; individual state current rules require primary-source confirmation.",
+    "Absentee, mail, early in-person and ID requirements are separate policy dimensions."
+  ]
+}
