@@ -77,8 +77,22 @@ def main():
     p.add_argument("--output",type=Path,default=Path("data/research/political-authenticity/house-rollcalls-2025.json"))
     args=p.parse_args()
     data=run(args.year,args.first,args.last)
+    if args.output.exists():
+        previous=json.loads(args.output.read_text(encoding="utf-8"))
+        if previous.get("year")==args.year and previous.get("schema")==data["schema"]:
+            retained={r["rollCall"]:r for r in previous.get("records",[]) if args.first<=r["rollCall"]<=args.last}
+            retained.update({r["rollCall"]:r for r in data["records"]})
+            data["records"]=sorted(retained.values(),key=lambda r:r["rollCall"])
+            data["retrieved"]=len(data["records"])
+    requested=args.last-args.first+1
+    data["coverageStatus"]="complete_window" if data["retrieved"]==requested else "partial_window"
+    observed={r["rollCall"] for r in data["records"]}
+    data["missingRollNumbers"]=[n for n in range(args.first,args.last+1) if n not in observed]
+    data["completionNote"]="Partial coverage preserved; missing roll numbers are not Nay votes or proof a vote did not happen."
     args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(data,sort_keys=True,separators=(",",":"))+"\n",encoding="utf-8")
+    rendered=json.dumps(data,sort_keys=True,separators=(",",":"))+"\n"
+    if not args.output.exists() or args.output.read_text(encoding="utf-8")!=rendered:
+        args.output.write_text(rendered,encoding="utf-8")
     print(json.dumps({"retrieved":data["retrieved"],"errors":len(data["requestErrors"]),
         "memberVotes":sum(len(r["votes"]) for r in data["records"])}))
 if __name__=="__main__": main()
