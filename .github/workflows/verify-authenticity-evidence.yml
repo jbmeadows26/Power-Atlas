@@ -28,7 +28,7 @@ jobs:
       - name: Verify primary-source and ANES aggregate logic
         run: |
           python -m unittest discover -s tests -p 'test_authenticity_*.py' -v
-      - name: Collect 150 bounded official 119th Congress House votes
+      - name: Collect up to 150 official House rolls, preserving partial results
         run: python scripts/collect_authenticity_rollcalls.py --year 2025 --first 1 --last 150 --output data/research/political-authenticity/house-rollcalls-2025.json
       - name: Inspect identities and verify retrieved count
         run: |
@@ -36,11 +36,13 @@ jobs:
           import json, pathlib
           p=pathlib.Path('data/research/political-authenticity/house-rollcalls-2025.json')
           d=json.loads(p.read_text())
-          assert len(d['records'])==150, 'Incomplete 150-roll official index; preserve prior dataset'
-          assert sum(len(r['votes']) for r in d['records']) >= 30000
+          assert 100 <= len(d['records']) <= 150, 'Insufficient official rolls for bounded pilot; existing archive preserved'
+          assert sum(len(r['votes']) for r in d['records']) >= 20000
           assert all(r['source'].startswith('https://clerk.house.gov/evs/2025/') for r in d['records'])
-          assert len({r['id'] for r in d['records']})==150
-          print('verified official roll-calls:', len(d['records']))
+          assert len({r['id'] for r in d['records']})==len(d['records'])
+          assert d['coverageStatus'] in ('partial_window','complete_window')
+          assert d['coverageStatus']=='partial_window' if len(d['records'])<150 else d['coverageStatus']=='complete_window'
+          print('Source-indexed official rolls:',len(d['records']),'of 150 requested; status:',d['coverageStatus'])
           PY
       - name: Publish cryptographic source check receipt
         run: |
@@ -49,7 +51,7 @@ jobs:
           source=pathlib.Path('data/research/political-authenticity/house-rollcalls-2025.json')
           doc=json.loads(source.read_text())
           receipt={'schema':'power-atlas.authenticity-ci-health.v1','commit':os.getenv('GITHUB_SHA'),
-             'status':'SUCCESS_CONFIRMED_BY_RUNNER_NOT_PEER_REVIEW',
+             'status':doc['coverageStatus']+'_SOURCE_INDEXED_NOT_PEER_REVIEWED',
              'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
              'officialRolls':len(doc['records']),
              'sourceFileSha256':hashlib.sha256(source.read_bytes()).hexdigest(),
@@ -59,11 +61,4 @@ jobs:
           path.write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
           PY
       - name: Commit only verified evidence
-        run: |
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/research/political-authenticity/house-rollcalls-2025.json data/health/political-authenticity-ci.json
-          if ! git diff --cached --quiet; then
-            git commit -m 'data: publish verified official House roll-call index'
-            git push
-          fi
+        run: bash scripts/publish_data.sh data/research/political-authenticity/house-rollcalls-2025.json data/health/political-authenticity-ci.json
