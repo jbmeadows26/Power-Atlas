@@ -9,6 +9,7 @@ Power Atlas is a public, low-storage research index connecting redistricting cas
 - [Original source-specific records](data/batches/) and [relationship evidence](data/relationships.json)
 - [Federal judicial appointment index](data/judiciary/) and seven selected, official Supreme Court redistricting dispositions (three existing landmark records upgraded; four newly indexed)
 - [2024 U.S. House district-key audit](data/health/house-2024-audit.json), distinguishing 434 reported-vote districts from two official unopposed-status-only districts
+- [Voting Access & Electoral Representation integration plan](research/voting-access/POWER-ATLAS-INTEGRATION.md) and [source-attributed historical research seed](data/voting-access/evidence-seed-v1.json) — **not live state-law coverage**
 - [Source refresh outcomes and preserved blockers](data/health/ingestion-status.json)
 - [State finance and roll-call source probes](data/health/state-source-probes.json)
 - [Frontend deployment health](data/health/deployment-status.json)
