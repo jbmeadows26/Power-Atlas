@@ -1,0 +1,56 @@
+{
+  "schema": "power-atlas.idi-results.v1",
+  "dataKind": "synthetic",
+  "publicationStatus": "SYNTHETIC_ONLY_NOT_VALIDATED",
+  "weights": {
+    "W": "0.25",
+    "O": "0.25",
+    "S": "0.35",
+    "C": "0.15"
+  },
+  "formula": "0.25 W + 0.25 O + 0.35 (1-S) + 0.15 C",
+  "records": [
+    {
+      "memberId": "SYNTH-001",
+      "status": "synthetic_calculation_only",
+      "missing": [],
+      "low": 0.8105,
+      "high": 0.8105,
+      "point": 0.8105
+    },
+    {
+      "memberId": "SYNTH-002",
+      "status": "synthetic_calculation_only",
+      "missing": [],
+      "low": 0.152,
+      "high": 0.152,
+      "point": 0.152
+    },
+    {
+      "memberId": "SYNTH-003",
+      "status": "synthetic_calculation_only",
+      "missing": [],
+      "low": 0.345,
+      "high": 0.465,
+      "point": null
+    },
+    {
+      "memberId": "SYNTH-004",
+      "status": "insufficient_evidence",
+      "missing": [
+        "W"
+      ],
+      "low": null,
+      "high": null,
+      "point": null
+    },
+    {
+      "memberId": "SYNTH-005",
+      "status": "synthetic_calculation_only",
+      "missing": [],
+      "low": 0.0,
+      "high": 0.0,
+      "point": 0.0
+    }
+  ]
+}
