@@ -170,6 +170,11 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <span class="eyebrow">Federal Election Commission</span><h2>Money & committees</h2>
     <p class="sub">Source-reported committee-cycle aggregates and indexed committee-to-committee records. An empty data section means not yet collected, not zero financial activity.</p>
     <div id="financialList" class="list"></div>
+    <h3>Official PAC and party financial-cycle summaries</h3>
+    <p class="note">FEC bulk-file totals for indexed PACs and party committees. Financial activity is not evidence that a particular committee funded redistricting or transferred money to a specific person.</p>
+    <div class="filters"><input id="pacQuery" aria-label="Search PAC and party committees" placeholder="Committee name or FEC ID…">
+      <select id="pacCycle" aria-label="PAC summary cycle"><option value="">2024 and 2026</option><option value="2026">2026</option><option value="2024">2024</option></select><span id="pacCount" class="muted"></span></div>
+    <div id="pacList" class="list"></div>
     <h3>Reported candidate–committee associations</h3>
     <p class="note">These FEC linkages describe reported candidate/committee associations, including unauthorized designations, and do not establish payments or candidate endorsement. The current congressional roster is matched by published candidate IDs.</p>
     <div class="filters"><input id="fecLinkQuery" aria-label="Search FEC associations" placeholder="Candidate, committee ID or designation…">
@@ -319,6 +324,28 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.getElementById('recordList').innerHTML=items.slice(0,300).map(card).join('')||'<div class="card"><p>No indexed records match these filters.</p></div>';
   }
   function usd(x){return typeof x==='number'?x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}):'Not reported'}
+  var pacSummaries=null,pacBusy=false;
+  function renderPACs(){
+    if(!pacSummaries)return;
+    var query=document.getElementById('pacQuery').value.trim().toLowerCase();
+    var cycle=document.getElementById('pacCycle').value;
+    var filtered=pacSummaries.filter(function(r){return (!cycle||String(r.cycle)===cycle)&&(!query||[r.name,r.committeeId].join(' ').toLowerCase().includes(query))});
+    set('pacCount',filtered.length+' of '+pacSummaries.length+' source-indexed cycle summaries');
+    document.getElementById('pacList').innerHTML=filtered.length?filtered.slice(0,100).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">Official FEC · '+esc(r.cycle)+'</span><span class="tag warn">Cycle aggregate, not payment edge</span></div><h3>'+esc(r.name)+'</h3><p>FEC ID '+esc(r.committeeId)+' · coverage through '+esc(r.coverageEnd||'not reported')+'</p><p><strong>Receipts:</strong> '+esc(usd(r.totalReceiptsUSD))+' · <strong>Disbursements:</strong> '+esc(usd(r.totalDisbursementsUSD))+'</p><p><strong>Contributions to other committees:</strong> '+esc(usd(r.contributionsToOtherCommitteesUSD))+' · <strong>Independent expenditures:</strong> '+esc(usd(r.independentExpendituresUSD))+'</p><a class="source" href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" target="_blank" rel="noopener noreferrer">Official committee financial filings ↗</a></article>';
+    }).join(''):'<article class="card"><p>No matching FEC PAC/party summaries in the limited indexed committee set.</p></article>';
+  }
+  function loadPACs(){
+    if(pacSummaries){renderPACs();return}
+    if(pacBusy)return;
+    pacBusy=true;set('pacCount','Loading official FEC summary records...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-pac-party-summaries.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.fec-pac-party-summaries.v1'||!Array.isArray(j.records))throw Error('Unrecognized PAC summary format');
+        pacSummaries=j.records;renderPACs()})
+      .catch(function(e){set('pacCount','FEC summary file not yet published: '+e.message)})
+      .finally(function(){pacBusy=false});
+  }
   var fecLinks=null,fecLinkBusy=false,fecMasterById={};
   function renderFECLinks(){
     if(!fecLinks){return}
@@ -702,8 +729,10 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     if(b.dataset.tab==='judiciary')loadJudiciary();
     if(b.dataset.tab==='committees')loadCommittees();
     if(b.dataset.tab==='network')loadCommittees();
-    if(b.dataset.tab==='finance')loadFECLinks();
+    if(b.dataset.tab==='finance'){loadFECLinks();loadPACs();}
   })});
+  document.getElementById('pacQuery').addEventListener('input',renderPACs);
+  document.getElementById('pacCycle').addEventListener('change',renderPACs);
   document.getElementById('fecLinkQuery').addEventListener('input',renderFECLinks);
   document.getElementById('fecLinkYear').addEventListener('change',renderFECLinks);
   document.getElementById('networkState').addEventListener('change',function(){document.getElementById('networkCommittee').value='';renderNetwork()});
