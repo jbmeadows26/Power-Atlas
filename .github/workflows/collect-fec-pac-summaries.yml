@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_fec_pac_summaries.py'
+      - 'tests/test_institutional_decay_dashboard.py'
       - '.github/workflows/collect-fec-pac-summaries.yml'
   workflow_dispatch:
   schedule:
