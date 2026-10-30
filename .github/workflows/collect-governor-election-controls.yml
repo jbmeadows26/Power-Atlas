@@ -1,0 +1,61 @@
+name: Validate historical governor election and fiscal controls discovery
+on:
+  push:
+    paths:
+      - 'scripts/build_governor_election_calendar.py'
+      - 'tests/test_governor_election_calendar.py'
+      - 'scripts/probe_fiscal_controls_sources.py'
+      - '.github/workflows/collect-governor-election-controls.yml'
+  pull_request:
+    paths:
+      - 'scripts/build_governor_election_calendar.py'
+      - 'tests/test_governor_election_calendar.py'
+      - 'scripts/probe_fiscal_controls_sources.py'
+      - '.github/workflows/collect-governor-election-controls.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-governor-election-calendar
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Independently test state election cohorts, unusual dates and fiscal clocks
+        run: python -m unittest discover -s tests -p 'test_governor_election_calendar.py' -v
+      - name: Rebuild explicitly provisional historical governor/FY join
+        run: |
+          python -m scripts.build_governor_election_calendar
+          python -m scripts.build_governor_election_calendar --check
+      - name: Probe source response metadata only (not a data ingestion)
+        run: python -m scripts.probe_fiscal_controls_sources
+      - name: Publish only crosswalk with disclosure on main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/fiscal/state-timeseries/governor-elections-fiscaljoin-2012-2024.json
+          if git diff --cached --quiet; then
+            echo 'No new state election schedule data'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: publish historical governor election cohorts with fiscal verification warnings'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              exit 1
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
