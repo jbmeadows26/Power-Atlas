@@ -21,20 +21,37 @@ def parse_roll(xml_bytes, source, year, number):
     question=field("vote-question")
     if not question: raise ValueError("Missing roll-call question")
     votes={}
+    original_labels={}
+    speaker_choice = "speaker" in question.casefold() and ("election" in question.casefold() or "choice" in question.casefold())
     for vote in root.findall(".//vote-data/recorded-vote"):
         person=vote.find("legislator")
         val=vote.findtext("vote","").strip()
         identity=person.get("name-id","") if person is not None else ""
-        if not re.fullmatch(r"[A-Z][0-9]{6}",identity) or val not in VALID_VOTES:
+        if not re.fullmatch(r"[A-Z][0-9]{6}",identity):
+            continue
+        if val in VALID_VOTES:
+            normalized=val
+        elif val in ("Aye","No"):
+            # The House Clerk XML sometimes labels procedural votes Aye/No.
+            # Preserve the original label counts while normalizing for analysis.
+            normalized={"Aye":"Yea","No":"Nay"}[val]
+        elif speaker_choice and re.fullmatch(r"[A-Za-z][A-Za-z .()'\\-]{0,49}",val):
+            # Speaker elections are named-choice selections, not yes/no votes.
+            normalized=val
+        else:
             continue
         if identity in votes: raise ValueError("Duplicate member recorded on same roll")
-        votes[identity]=val
+        votes[identity]=normalized
+        original_labels[val]=original_labels.get(val,0)+1
     if len(votes)<200: raise ValueError("Unexpectedly incomplete House roll call")
     return {"id":f"house-{year}-{number:03d}","congress":119,"year":year,
       "rollCall":number,"date":field("action-date"),"question":question,
       "description":field("vote-desc"),"result":field("vote-result"),
       "source":source,"sourceSha256":hashlib.sha256(xml_bytes).hexdigest(),
-      "votes":votes,"memberVotes":len(votes),"reviewStatus":"official_house_rollcall_not_dyadic_policy_responsiveness"}
+      "votes":votes,"memberVotes":len(votes),
+      "voteKind":"speaker_candidate_selection" if speaker_choice else "recorded_yea_nay_or_procedural",
+      "originalVoteLabelCounts":original_labels,
+      "reviewStatus":"official_house_rollcall_not_dyadic_policy_responsiveness"}
 def fetch(year,number,seconds=18):
     url=f"{BASE}/{year}/roll{number:03d}.xml"
     req=request.Request(url,headers={"User-Agent":"PowerAtlasPublicResearch/1.0 (official public evidence)"})
