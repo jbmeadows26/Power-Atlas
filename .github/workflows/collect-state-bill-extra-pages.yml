@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: '25 4,7,10,13,16,19,22 30 10 *'
+    - cron: '17 10 * * 1,3,5'
 permissions:
   contents: write
 concurrency:
@@ -25,7 +26,8 @@ jobs:
         run: python scripts/collect_state_bill_extra_pages.py
       - name: Rebuild and validate evidence
         run: |
+          python scripts/reconcile_evidence.py
           python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Persist compact checkpoint and candidate records
-        run: bash scripts/publish_data.sh data/legislation/state-redistricting-pagination.json data/legislation/state-redistricting-bills.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
+        run: bash scripts/publish_data.sh data/reconciliation data/legislation/state-redistricting-pagination.json data/legislation/state-redistricting-bills.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
