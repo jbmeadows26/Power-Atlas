@@ -1,0 +1,59 @@
+{
+  "schema": "power-atlas.rq2-experiment-protocol.v1",
+  "status": "PREREGISTRATION_DRAFT_NOT_FIELDED",
+  "population": "U.S. adults 18+ recruited with consent and appropriate human-subject review",
+  "targetN": 2400,
+  "design": "2x2 factorial",
+  "targetPerCell": 600,
+  "factors": [
+    {
+      "name": "delivery",
+      "levels": [
+        "talking_point_heavy",
+        "conversational_grounded"
+      ]
+    },
+    {
+      "name": "partisan_identity",
+      "levels": [
+        "in_party",
+        "out_party"
+      ],
+      "note": "Cue relative to respondent's prior party identification; independents must be prespecified as distinct/handled through explicit exclusion with disclosure"
+    }
+  ],
+  "hypothesis": "Delivery style influences perceived authenticity; effects may differ by partisan congruence",
+  "primaryOutcome": "Validated perceived political authenticity measure; use and scoring require instrument/license review",
+  "sourceScale": "https://doi.org/10.1371/journal.pone.0285344",
+  "secondaryOutcomes": [
+    "trustworthiness",
+    "answer_directness",
+    "factual_recall"
+  ],
+  "stimulus": {
+    "scenario": "Fictional congressional candidate answering a question about spending transparency",
+    "fixedFacts": [
+      "Quarterly public meetings",
+      "Post spending records within 30 days",
+      "Publish reasons for delays"
+    ],
+    "high": "Our commitment is to accountability, transparency, and results. We will hold quarterly public meetings, publish spending records within 30 days, and publicly explain delays.",
+    "low": "You should be able to see where the money goes. I'd meet with people every quarter, put the spending records online within 30 days, and explain any delays.",
+    "note": "Both original, fictitious scripts; pretest that factual commitments and perceived competence are balanced before fielding; do not claim real politician speech."
+  },
+  "randomization": "Computer-generated block randomization within preregistered party strata; allocation audit before human contact",
+  "analysis": "Intention-to-treat regression with both factors, interaction, prespecified controls, design weights if appropriate, 95% CIs, multiplicity correction on secondary outcomes",
+  "ethics": [
+    "IRB/human-subject determination before recruitment",
+    "informed consent and privacy",
+    "no deceptive real-person attribution",
+    "preregister instrument and power simulation",
+    "separate pretests from analysis sample"
+  ],
+  "currentEvidence": {
+    "participantsRecruited": 0,
+    "responsesObserved": 0,
+    "factoriesExecuted": 0
+  },
+  "publicationWarning": "Protocol completion does not validate a causal experiment; do not present treatment effects until actual consented randomized responses are analyzed"
+}
