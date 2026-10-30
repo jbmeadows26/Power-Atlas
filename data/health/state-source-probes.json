@@ -41,16 +41,17 @@
       "evidence": "Open States publishes per-session bill/vote CSV archives but archive links redirected research browser to a login page on 2026-10-29. Its public page describes public-domain dedication, subject to exceptions.",
       "attemptedAlternatives": [
         "Official state legislative roll-call pages are jurisdiction-specific and require separate validated collectors.",
-        "Bill Commons public read API https://billcommons.org/docs/api has anonymous rate limits; its service terms require attribution and include no-resale constraints: https://billcommons.org/terms."
+        "Bill Commons public read API https://billcommons.org/docs/api has anonymous rate limits; its service terms require attribution and include no-resale constraints: https://billcommons.org/terms.",
+        "Persisted official Washington 2023–24 sample: data/legislation/wa-2023-24-rollcalls/source-rollcalls.json (56 roll calls; 4,017 member positions; 42 sampled bills)."
       ],
-      "unresolved": "No authenticated Open States session; no state official roll-call parser tested; Bill Commons commercial redistribution terms and quota constraints require review. No state roll-call rows persisted.",
-      "nextFreeStep": "Pilot one official state legislature's downloadable roll-call export with stable vote IDs and member-level votes, and validate against its published roll call; do not bulk crawl a rate-limited service."
+      "unresolved": "Open States session archives remain behind a login; no authenticated bulk ingestion. No nationwide official roll-call parser is verified. Washington has a separate bounded official-source pilot: 56 roll calls and 4,017 member positions from 21 bills with recorded votes among 42 sampled bills (2023–24), not a full biennium and not 56 redistricting votes. Bill Commons redistribution/licensing and rate constraints still require review.",
+      "nextFreeStep": "Extend official state roll-call ingestion only via separately validated, permission-compliant state sources; reconcile member-level tallies and explicitly distinguish redistricting-specific votes from general legislative votes."
     },
     {
       "id": "il_billcommons_page_one_timeout_official_fallback",
       "jurisdiction": "IL",
       "domain": "state_legislation",
-      "status": "first_page_keyword_search_indexed_not_exhaustive",
+      "status": "all_reported_redistricting_keyword_pages_processed_not_exhaustive",
       "primary": "https://api.billcommons.org/api/v1/search",
       "officialAlternative": "https://www.ilga.gov/legislation",
       "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Official Illinois General Assembly bill-status pages independently identify HJRCA 5, HJRCA 27, and HJRCA 28. Resolved 2026-10-30: GitHub Actions run 40994752099 completed an authorized Bill Commons 20-result state-scoped first-page query; checkpoint records 62 total matches reported, 20 newly indexed records. Published commit dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb passed 171 tests. Earlier timeout remains historical, not a current first-page blocker.",
@@ -62,8 +63,8 @@
         "2026-10-30 alternative licensing/access review: LegiScan offers CC BY 4.0 CSV snapshots but requires login to download; Delilah REST requires an issued API key. Neither source was downloaded or accessed without authorization; no paid export purchased."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "First-page query is now indexed, but only 20 of 62 provider-reported keyword matches were returned for IL; deeper pages, other search terms and sessions, official state vote certification and complete legislative inventory remain unverified. Individual official bill spotchecks are still a separate evidence tier.",
-      "nextFreeStep": "After October 30 deadline, separately scope any expanded official-source pagination, licensing review, and roll-call certification; do not imply exhaustive coverage from one keyword page.",
+      "unresolved": "The IL 'redistricting' keyword search's 4 reported pages (62 upstream matches) have now been processed, but not every match is a persisted valid candidate; 64 total candidate records currently belong to IL, including retained records from other collection stages. Other terms, sessions, official content verification and certified member-level votes remain incomplete. Historical timeout notes describe an earlier resolved failure.",
+      "nextFreeStep": "Preserve completed IL keyword pagination; prioritize official bill-content and roll-call verification, broader legislative terms/sessions, and source licensing review without re-querying completed pages or bypassing access controls.",
       "officialSearch": "https://www.ilga.gov/search/",
       "officialLegislativeGuide": "https://ilga.gov/guide/",
       "resolution": {
@@ -75,13 +76,23 @@
         "totalMatchesReported": 62,
         "newIndexedRecords": 20,
         "classification": "first_page_indexed_not_exhaustive"
+      },
+      "paginationResolution": {
+        "checkedDateUTC": "2026-10-30",
+        "keyword": "redistricting",
+        "reportedKeywordMatches": 62,
+        "reportedPagesProcessed": 4,
+        "persistedCandidateRows": 64,
+        "checkpoint": "data/legislation/state-redistricting-jurisdictions.json",
+        "paginationCheckpoint": "data/legislation/state-redistricting-pagination.json",
+        "coverageStatus": "reported_keyword_pages_processed_not_legislative_inventory"
       }
     },
     {
       "id": "tx_billcommons_page_one_timeout_official_fallback",
       "jurisdiction": "TX",
       "domain": "state_legislation",
-      "status": "first_page_keyword_search_indexed_not_exhaustive",
+      "status": "all_reported_redistricting_keyword_pages_processed_not_exhaustive",
       "primary": "https://api.billcommons.org/api/v1/search",
       "officialAlternative": "https://capitol.texas.gov/search/billsearch.aspx",
       "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Texas Legislature Online independently confirms 89th Legislature 2nd Called Session HB 4 congressional-district legislation signed on 2025-08-29, with reported effective date 2025-12-04. Resolved 2026-10-30: GitHub Actions run 40994752099 completed an authorized Bill Commons 20-result state-scoped first-page query; checkpoint records 53 total matches reported, 3 newly indexed records. Published commit dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb passed 171 tests. Earlier timeout remains historical, not a current first-page blocker.",
@@ -93,8 +104,8 @@
         "2026-10-30 alternative licensing/access review: LegiScan offers CC BY 4.0 CSV snapshots but requires login to download; Delilah REST requires an issued API key. Neither source was downloaded or accessed without authorization; no paid export purchased."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "First-page query is now indexed, but only 20 of 53 provider-reported keyword matches were returned for TX; deeper pages, other search terms and sessions, official state vote certification and complete legislative inventory remain unverified. Individual official bill spotchecks are still a separate evidence tier.",
-      "nextFreeStep": "After October 30 deadline, separately scope any expanded official-source pagination, licensing review, and roll-call certification; do not imply exhaustive coverage from one keyword page.",
+      "unresolved": "The TX 'redistricting' keyword search's 3 reported pages (53 upstream matches) have now been processed, but not every match is a persisted valid candidate; 28 total candidate records currently belong to TX, including retained records from other collection stages. Other terms, sessions, official content verification and certified member-level votes remain incomplete. Historical timeout notes describe an earlier resolved failure.",
+      "nextFreeStep": "Preserve completed TX keyword pagination; prioritize official bill-content and roll-call verification, broader legislative terms/sessions, and source licensing review without re-querying completed pages or bypassing access controls.",
       "officialSearch": "https://capitol.texas.gov/search/textsearch.aspx",
       "officialVoteLookup": "https://capitol.texas.gov/billlookup/voteinfo.aspx",
       "resolution": {
@@ -106,8 +117,38 @@
         "totalMatchesReported": 53,
         "newIndexedRecords": 3,
         "classification": "first_page_indexed_not_exhaustive"
+      },
+      "paginationResolution": {
+        "checkedDateUTC": "2026-10-30",
+        "keyword": "redistricting",
+        "reportedKeywordMatches": 53,
+        "reportedPagesProcessed": 3,
+        "persistedCandidateRows": 28,
+        "checkpoint": "data/legislation/state-redistricting-jurisdictions.json",
+        "paginationCheckpoint": "data/legislation/state-redistricting-pagination.json",
+        "coverageStatus": "reported_keyword_pages_processed_not_legislative_inventory"
       }
     }
   ],
-  "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage."
+  "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage.",
+  "coverageSnapshot": {
+    "checkedDateUTC": "2026-10-30",
+    "keyword": "redistricting",
+    "jurisdictionsFirstPageScanned": 51,
+    "jurisdictionsWithPersistedCandidateRows": 48,
+    "reportedKeywordMatches": 655,
+    "persistedCandidateRows": 617,
+    "redistrictingSpecificTitleMatches": 141,
+    "recordedVoteReferences": 15,
+    "unverifiedVoteReferences": 14,
+    "officialAggregateCrosschecks": 1,
+    "certifiedMemberLevelRedistrictingRollCalls": 0,
+    "additionalKeywordPagesIndexed": 14,
+    "missingCandidateJurisdictions": [
+      "AR",
+      "CA",
+      "ID"
+    ],
+    "limits": "First-page and reported extra keyword-page coverage only; 617 candidates are not official-content-verified bills; zero search hits and unavailable vote tallies are not evidence of zero activity or 0-0 votes."
+  }
 }
