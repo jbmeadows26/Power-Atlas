@@ -175,7 +175,7 @@ def build():
         "futureCueCount":d["heuristicFutureTenseCues"],
         "path":f"data/promises/primary-2020-sentence-inventory/{d['sourceId']}.json"
       } for d in documents],
-      "warning":"No full promise denominator: only five selected originals, with heuristic candidate tags and zero independent human inclusion decisions. Do not infer a fulfillment percentage."
+      "warning":"No full promise denominator: only six selected originals (including a historical 2016 platform reaffirmed in 2020), with heuristic candidate tags and zero independent human inclusion decisions. Do not infer a fulfillment percentage."
     }
 
 def main():
