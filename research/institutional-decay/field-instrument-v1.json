@@ -1,0 +1,209 @@
+{
+  "schema": "power-atlas.institutional-decay.field-instrument.v1",
+  "asOf": "2026-10-30",
+  "status": "ready_for_ethics_and_pilot_review_not_fielded",
+  "language": "en-US",
+  "target": "US civilian adults 18+",
+  "plannedN": 3000,
+  "targetPerArm": 750,
+  "design": "between_subjects_independent_2x2",
+  "consent": {
+    "intro": "This research asks how people judge hypothetical government situations. Participation is voluntary. You may skip any question or stop at any time. Your decision will not affect government services, benefits, or employment. No actual government official is described.",
+    "dataPolicy": "Do not collect names, addresses, IP addresses, government IDs, precise locations, or contact information in this instrument. Recruit through an ethically approved provider maintaining identifiers separately. Before live fieldwork, supply the final privacy notice, contact for research questions, review/approval reference, retention period, and compensation terms.",
+    "requiredAffirmativeConsent": true
+  },
+  "allocation": {
+    "method": "platform_verified_secure_pseudorandom_assignment",
+    "levels": {
+      "impunity": [
+        0,
+        1
+      ],
+      "high_burden": [
+        0,
+        1
+      ]
+    },
+    "preTreatmentBlocking": [
+      "region",
+      "party_affiliation_if_collected_and_lawful"
+    ],
+    "targetAllocation": {
+      "10": 750,
+      "11": 750,
+      "00": 750,
+      "01": 750
+    },
+    "requireAssignmentLog": true,
+    "recruitment": "Probability-representative claim only if recruitment frame, response probabilities and weights justify it; opt-in quota panels must be labeled accordingly."
+  },
+  "vignetteCommon": "Imagine the national government has an agency that processes an application for a routine public service. You are applying for that service. Separately, an independent investigation finds that a senior government official breached a published conflict-of-interest rule. The investigation's findings are not disputed.",
+  "factorClauses": {
+    "accountability": {
+      "0": "The prescribed consequence is applied after due process, and the official is removed from the position.",
+      "1": "The prescribed consequence is not applied despite the confirmed finding, and the official remains in the position."
+    },
+    "administrativeBurden": {
+      "0": "Your application requires one clear form. It is processed correctly and completed within two days.",
+      "1": "Your application requires several repeated forms and follow-up contacts. It is not completed for 45 days."
+    }
+  },
+  "arms": [
+    {
+      "cell": "00",
+      "accountabilityTreatment": "sanction_applied",
+      "administrativeTreatment": "low_burden",
+      "impunity": 0,
+      "high_burden": 0,
+      "script": "Imagine the national government has an agency that processes an application for a routine public service. You are applying for that service. Separately, an independent investigation finds that a senior government official breached a published conflict-of-interest rule. The investigation's findings are not disputed.\n\nThe prescribed consequence is applied after due process, and the official is removed from the position.\n\nYour application requires one clear form. It is processed correctly and completed within two days."
+    },
+    {
+      "cell": "01",
+      "accountabilityTreatment": "sanction_applied",
+      "administrativeTreatment": "high_burden",
+      "impunity": 0,
+      "high_burden": 1,
+      "script": "Imagine the national government has an agency that processes an application for a routine public service. You are applying for that service. Separately, an independent investigation finds that a senior government official breached a published conflict-of-interest rule. The investigation's findings are not disputed.\n\nThe prescribed consequence is applied after due process, and the official is removed from the position.\n\nYour application requires several repeated forms and follow-up contacts. It is not completed for 45 days."
+    },
+    {
+      "cell": "10",
+      "accountabilityTreatment": "elite_impunity",
+      "administrativeTreatment": "low_burden",
+      "impunity": 1,
+      "high_burden": 0,
+      "script": "Imagine the national government has an agency that processes an application for a routine public service. You are applying for that service. Separately, an independent investigation finds that a senior government official breached a published conflict-of-interest rule. The investigation's findings are not disputed.\n\nThe prescribed consequence is not applied despite the confirmed finding, and the official remains in the position.\n\nYour application requires one clear form. It is processed correctly and completed within two days."
+    },
+    {
+      "cell": "11",
+      "accountabilityTreatment": "elite_impunity",
+      "administrativeTreatment": "high_burden",
+      "impunity": 1,
+      "high_burden": 1,
+      "script": "Imagine the national government has an agency that processes an application for a routine public service. You are applying for that service. Separately, an independent investigation finds that a senior government official breached a published conflict-of-interest rule. The investigation's findings are not disputed.\n\nThe prescribed consequence is not applied despite the confirmed finding, and the official remains in the position.\n\nYour application requires several repeated forms and follow-up contacts. It is not completed for 45 days."
+    }
+  ],
+  "preTreatmentMeasures": [
+    {
+      "id": "baseline_national_trust",
+      "question": "Before reading the scenario, how much do you trust the national government?",
+      "scale": "integer_1_to_7",
+      "optional": true
+    },
+    {
+      "id": "political_affiliation",
+      "question": "Which party do you currently feel closest to, if any?",
+      "values": [
+        "Democratic",
+        "Republican",
+        "Independent",
+        "Another party",
+        "No preference",
+        "Prefer not to say"
+      ],
+      "optional": true
+    }
+  ],
+  "primaryOutcome": {
+    "id": "trust_score",
+    "question": "Based on the situation described, how much would you trust the national government?",
+    "range": [
+      1,
+      7
+    ],
+    "anchors": {
+      "1": "No trust at all",
+      "7": "Complete trust"
+    },
+    "required": false,
+    "missingness": "record_missing_never_impute"
+  },
+  "secondaryOutcomes": [
+    {
+      "id": "agency_trust",
+      "question": "How much would you trust the agency in the scenario?",
+      "range": [
+        1,
+        7
+      ]
+    },
+    {
+      "id": "procedural_fairness",
+      "question": "How fairly do you think the government acted in this scenario?",
+      "range": [
+        1,
+        7
+      ]
+    },
+    {
+      "id": "democratic_rules_support",
+      "question": "How important is it that government officials are held to the same rules as everyone else?",
+      "range": [
+        1,
+        7
+      ]
+    },
+    {
+      "id": "willingness_to_use_service",
+      "question": "How willing would you be to apply for the service in the future?",
+      "range": [
+        1,
+        7
+      ]
+    }
+  ],
+  "manipulationChecks": [
+    {
+      "id": "accountability_recall",
+      "question": "According to the scenario, did the official face the prescribed sanction?",
+      "options": [
+        "Yes",
+        "No",
+        "Not sure"
+      ],
+      "excludeFromPrimaryITT": false
+    },
+    {
+      "id": "service_recall",
+      "question": "According to the scenario, was the application completed in two days or delayed for 45 days?",
+      "options": [
+        "Two days",
+        "45 days",
+        "Not sure"
+      ],
+      "excludeFromPrimaryITT": false
+    }
+  ],
+  "analysis": {
+    "primarySpecification": "trust_score = intercept + b1*impunity + b2*high_burden + b3*(impunity*high_burden) + error",
+    "primaryEstimand": "b3 = mean11 - mean10 - mean01 + mean00",
+    "hypothesizedSign": "negative",
+    "primaryAnalysis": "unweighted_intention_to_treat_with_hc3_robust_se",
+    "reportAllFourArms": true,
+    "exploratory": "weighted population sensitivity, ordinal response alternative, pretreatment baseline adjustment, moderation by party identification",
+    "missingness": "report by randomized arm, preregistered bounds and sensitivity",
+    "multiplicity": "primary one test, adjust secondary family",
+    "preregistrationRequiredBeforeFieldwork": true
+  },
+  "dataDictionary": {
+    "impunity": "0 = accountability sanction applied, 1 = official impunity",
+    "high_burden": "0 = easy short application, 1 = repeated forms and 45-day delay",
+    "trust_score": "Post-treatment trust integer from 1 to 7 or blank",
+    "assignment_id": "Opaque non-PII assignment ID generated by research provider",
+    "recruitment_stratum": "Coarse sampling stratum, no exact location",
+    "survey_weight": "Poststratification weight if justified and documented"
+  },
+  "ethicsGate": {
+    "completed": false,
+    "approvalReference": null,
+    "consentFinalized": false,
+    "providerSelected": false,
+    "pilotApproved": false,
+    "recruitedN": 0
+  },
+  "notes": [
+    "Do not present these texts as real events.",
+    "Do not analyze data fabricated to appear like actual human responses.",
+    "The 3000-sample claim requires actual documented recruitment and weighting.",
+    "No backend endpoint for personal response collection is part of the public dashboard."
+  ]
+}
