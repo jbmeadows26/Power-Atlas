@@ -34,6 +34,28 @@ def build():
                or wa.get('memberVoteRows')!=sum(len(row.get('memberVotes',[])) for row in wa_rows)):
         raise ValueError('WA source sample has invalid provenance or counts; do not publish misleading readiness')
     wa_count=len(wa_rows) if wa else 0
+    # All pages of ONE exact keyword query can be complete while the actual
+    # legislative history remains nowhere near exhaustive.
+    jurisdictions=bills.get('jurisdictions',{})
+    page_map=pagination.get('pages',{})
+    unknown_totals=0
+    pending_reported_pages=0
+    reported_keyword_matches=0
+    for state,entry in jurisdictions.items():
+        total=entry.get('totalMatchesReported')
+        per_page=entry.get('perPage',20)
+        if not isinstance(total,int) or total<0 or not isinstance(per_page,int) or per_page<1:
+            unknown_totals+=1
+            continue
+        reported_keyword_matches+=total
+        page_count=(total+per_page-1)//per_page
+        for number in range(2,page_count+1):
+            if str(number) not in page_map.get(state,{}):
+                pending_reported_pages+=1
+    bounded_keyword_pages_complete=(
+        len(jurisdictions)==51 and unknown_totals==0
+        and pending_reported_pages==0 and not pagination.get('paused')
+        and c.get('stateBillCandidateRows')==pagination.get('candidateBillRows'))
     gates=[
         metric('federal_house_2025_150_roll_window',
                'Official House roll calls in requested 1–150 pilot window',
@@ -53,8 +75,8 @@ def build():
                'Additional state redistricting keyword search pages persisted',
                pagination.get('additionalPagesIndexed',0),
                'more_than_first_page_of_same_keyword_only',
-               'partial_keyword_pagination',
-               'Continue free source-compliant bounded pagination and record gaps',
+               'complete_reported_single_keyword_pages_only' if bounded_keyword_pages_complete else 'partial_keyword_pagination',
+               'Expand search terms, years and official source adjudication; this is not an exhaustive legislative census' if bounded_keyword_pages_complete else 'Continue bounded permitted pagination and document source gaps',
                'https://billcommons.org/docs/api'),
         metric('state_bill_full_history',
                'States/DC with verified exhaustive historical legislative redistricting census',
@@ -123,6 +145,11 @@ def build():
                'not_established',
                'Require dated primary sources for each action; graph affiliations are not guilt or causation')
     ]
+    keyword_gate=next(g for g in gates if g['id']=='state_bill_extra_keyword_pages')
+    keyword_gate['pendingReportedPages']=pending_reported_pages
+    keyword_gate['unknownReportedTotals']=unknown_totals
+    keyword_gate['reportedSingleKeywordMatchesAcrossJurisdictions']=reported_keyword_matches
+    keyword_gate['scopeWarning']='Only the redistricting keyword as reported by a secondary index; no multi-term, multi-session or official statewide bill census'
     blocking=[g['id'] for g in gates if g['status'] in ('incomplete','not_established','not_verified_nationwide','not_proven_by_aggregates','partial_sample_not_member_ballot_census','partial_not_exhaustive')]
     out={
         'schema':'power-atlas.completion-gates.v1',
