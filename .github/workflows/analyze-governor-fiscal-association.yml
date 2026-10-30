@@ -1,0 +1,61 @@
+name: Validate real state fiscal election association diagnostics
+on:
+  push:
+    paths:
+      - 'scripts/analyze_state_election_association.py'
+      - 'checks/real_state_election_association_checks.py'
+      - '.github/workflows/analyze-governor-fiscal-association.yml'
+  pull_request:
+    paths:
+      - 'scripts/analyze_state_election_association.py'
+      - 'checks/real_state_election_association_checks.py'
+      - '.github/workflows/analyze-governor-fiscal-association.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-state-fiscal-observational-analysis
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned free statistical libraries
+        run: |
+          python -m pip install --disable-pip-version-check 'numpy==2.3.5' 'pandas==2.2.3' 'statsmodels==0.14.6'
+      - name: Generate election and fiscal year source-linked join
+        run: python -m scripts.build_governor_election_calendar
+      - name: Collect complete real BEA/BLS/Census economic controls
+        run: python -m scripts.collect_state_economic_controls
+      - name: Estimate six observational sensitivity models (NOT CAUSAL)
+        run: |
+          python -m scripts.analyze_state_election_association
+          python -m scripts.analyze_state_election_association --check
+      - name: Test all published statistical estimates against observational-only gates
+        run: python -m unittest discover -s checks -p 'real_state_election_association_checks.py' -v
+      - name: Publish only strictly labeled observational outputs to main
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: publish source-linked real fiscal associations with causal inference blocked'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              exit 1
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
