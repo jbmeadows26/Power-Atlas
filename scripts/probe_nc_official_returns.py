@@ -4,7 +4,7 @@ The distinct published NCSBE 'precinct sorted' data contains privacy noise and
 MUST NOT be used to reconcile certified vote totals. This script probes only
 the official original 2024-11-05 results download linked by NCSBE.
 """
-import csv,io,json,zipfile,hashlib,urllib.request
+import csv,io,json,zipfile,hashlib,urllib.request,urllib.parse
 URL="https://s3.amazonaws.com/dl.ncsbe.gov/ENRS/2024_11_05/results_pct_20241105.zip"
 PUBLISHER="https://www.ncsbe.gov/results-data/election-results/historical-election-results-data"
 def probe():
