@@ -39,6 +39,12 @@ class LdaRequestSafetyTests(unittest.TestCase):
         self.assertEqual(open_url.call_count, 2)
         self.assertEqual([c.args[0] for c in sleep.call_args_list], [4.5, 1.0])
 
+    def test_oversized_2026_query_uses_two_row_pages(self):
+        with patch.object(lda.time, "sleep"), patch.object(lda, "urlopen", return_value=_Response()) as open_url:
+            self.assertEqual(lda.fetch("congressional district", 2026), [])
+        self.assertIn("page_size=2", open_url.call_args.args[0].full_url)
+        self.assertEqual(open_url.call_count, 1)
+
     def test_429_stops_without_retry(self):
         blocked = HTTPError("https://lda.gov/api/v1/filings/", 429, "Too Many Requests", {}, None)
         with patch.object(lda.time, "sleep") as sleep, patch.object(lda, "urlopen", side_effect=blocked) as open_url:
