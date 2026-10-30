@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.ingestion-health.v2",
-  "checkedDateUTC": "2026-10-29",
+  "checkedDateUTC": "2026-10-30",
   "policy": "zero paid services; no rate, license, access, or auth bypass; preserve prior data",
   "sourceStatuses": {
     "justice_cases": {
@@ -32,8 +32,10 @@
       "rawAggregateRowsInspected": 0
     },
     "lobbying_disclosures": {
-      "status": "success",
+      "status": "blocked",
       "attempts": 1,
+      "error": "last):\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 178, in <module>\n    collect()\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 94, in collect\n    filings=fetch(term,query_year)\n            ^^^^^^^^^^^^^^^^^^^^^^\n  File \"/home/runner/work/Power-Atlas/Power-Atlas/scripts/collect_lda.py\", line 28, in fetch\n    time.sleep(4.5)\n    ^^^^\nUnboundLocalError: cannot access local variable 'time' where it is not associated with a value",
+      "workaroundOrPreservation": "Official Senate LDA issue-text search uses smaller 5/10-row pages after 20-row responses exceeded safety bound; bounded 5xx retry.",
       "persistedRecords": 56,
       "successfulQueries": 6,
       "failedQueries": 0,
@@ -64,7 +66,8 @@
   "unresolvedSources": [
     "fec_committee_identity",
     "fec_intercommittee_payments",
-    "fec_recipient_aggregates"
+    "fec_recipient_aggregates",
+    "lobbying_disclosures"
   ],
   "statusMeaning": "success means collector completed; persistedRecords/expectedDistrictKeys describe actual local source yield, not nationwide completeness"
 }
