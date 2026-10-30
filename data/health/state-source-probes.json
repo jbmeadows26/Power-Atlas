@@ -140,6 +140,18 @@
       "persistedOfficialSpotchecks": "data/legislation/official-arkansas-redistricting-2021.json",
       "unresolved": "Arkansas third-party keyword index still has zero candidate rows; 2021 official records are separately stored and not yet integrated into the live frontend. Other sessions, terms, official member-level votes and legal challenges are not comprehensively reviewed.",
       "nextFreeStep": "Integrate separately validated official Arkansas metadata into a future frontend evidence tier with provenance and coverage labels; do not fabricate third-party UUIDs or treat identical acts as separate maps."
+    },
+    {
+      "id": "id_official_commission_redistricting_2021_nonbill",
+      "jurisdiction": "ID",
+      "domain": "redistricting_commission",
+      "status": "official_historical_commission_plans_confirmed_nonbill_evidence",
+      "primary": "https://sos.idaho.gov/elections/data/redistricting/2021/Final_Report.pdf",
+      "officialOverview": "https://voteidaho.gov/redistricting/",
+      "evidence": "Idaho Secretary of State's official 2021 commission final report identifies congressional Plan C03 and legislative Plan L03. Idaho uses a bipartisan commission, so a bill-only keyword search is not an adequate measure of redistricting activity.",
+      "persistedOfficialSpotchecks": "data/legislation/official-idaho-commission-redistricting-2021.json",
+      "unresolved": "No comprehensive historical plan inventory, commission member roll-call certification, current litigation determination, or 2026 redistricting status verified; no third-party bill candidates are fabricated.",
+      "nextFreeStep": "Retain separate commission-plan evidence tier and independently validate plan versions, official votes, map geometry and judicial history before causal or legal claims."
     }
   ],
   "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage.",
@@ -161,8 +173,10 @@
       "CA",
       "ID"
     ],
-    "limits": "First-page and reported extra keyword-page coverage only; 617 candidates are not official-content-verified bills; zero search hits and unavailable vote tallies are not evidence of zero activity or 0-0 votes. Arkansas official 2021 Acts 1114 and 1116 demonstrate an exact-keyword false negative; historical spotchecks are not merged into the 617 candidates.",
+    "limits": "First-page and reported extra keyword-page coverage only; 617 candidates are not official-content-verified bills; zero search hits and unavailable vote tallies are not evidence of zero activity or 0-0 votes. Arkansas official 2021 Acts 1114 and 1116 demonstrate an exact-keyword false negative; historical spotchecks are not merged into the 617 candidates. Idaho's official 2021 C03/L03 commission plans are non-bill actions and cannot be counted as missing bill records.",
     "officialArkansasHistoricalSpotcheckRows": 2,
-    "arkansasOfficialHistoricalEvidence": "data/legislation/official-arkansas-redistricting-2021.json"
+    "arkansasOfficialHistoricalEvidence": "data/legislation/official-arkansas-redistricting-2021.json",
+    "officialIdahoHistoricalCommissionPlanRows": 2,
+    "idahoOfficialHistoricalEvidence": "data/legislation/official-idaho-commission-redistricting-2021.json"
   }
 }
