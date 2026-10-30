@@ -18,6 +18,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Build deterministic feed
+        run: python scripts/build_voting_access.py
       - name: Validate voting access data and scope warnings
         run: python -m unittest discover -s tests -p 'test_voting_access*.py' -v
       - name: Check standalone research page references
