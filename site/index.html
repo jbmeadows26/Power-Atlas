@@ -74,8 +74,60 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
     <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
     <button role="tab" aria-selected="false" data-tab="gridlock">Congress & gridlock</button>
+    <button role="tab" aria-selected="false" data-tab="campaign-promises">Promises &amp; elections</button>
     <button role="tab" aria-selected="false" data-tab="institutional-decay">Institutional decay</button>
   </nav>
+  <section class="panel" data-panel="campaign-promises">
+    <span class="eyebrow">Political Promises / U.S. states, FY2012–2024</span>
+    <h2>What elections might change — and what the data can show</h2>
+    <p class="sub">Source-linked U.S. 2020 pledge cases and 50-state spending research. The cases are <strong>not</strong> an exhaustive campaign-promise denominator, and the regression estimates below are <strong>observational associations, not causal or intent findings</strong>.</p>
+    <div class="metrics">
+      <div class="metric"><strong id="promiseCaseCount">—</strong><span>Provisional, selected pledge cases</span></div>
+      <div class="metric"><strong id="promiseReviewCount">—</strong><span>Primary-source sentences indexed</span></div>
+      <div class="metric"><strong id="promiseStateYears">—</strong><span>Official Census state–fiscal-year records</span></div>
+      <div class="metric"><strong id="promiseModelCount">—</strong><span>Observed-data model variants</span></div>
+    </div>
+    <p class="muted" role="status" id="promiseStatus">Select this tab to load the source-verified Political Promises research feed.</p>
+    <div class="card">
+      <span class="eyebrow">A falsifiable hypothesis</span>
+      <h3>Is capital investment lower around gubernatorial elections?</h3>
+      <p>The first actual-source fixed-effects models produce generally <strong>positive</strong> estimates, not the hypothesized negative association. But their uncertainty intervals and the unresolved historical fiscal-clock and election-timing identification problems prevent causal claims.</p>
+      <div style="overflow-x:auto" id="promiseCoefficientChart" aria-label="Six models' election-fiscal-year coefficients and confidence intervals"></div>
+      <p class="note">Dots indicate the fitted election-fiscal-year association in percentage points; horizontal whiskers are 95% state-clustered confidence intervals. The zero line means no conditional association. The number and direction do not prove individual politician intent.</p>
+    </div>
+    <div class="card">
+      <h3>Inspectable regression models</h3>
+      <div style="overflow-x:auto">
+        <table style="border-collapse:collapse;width:100%;font-size:12px;text-align:left">
+          <thead><tr>
+            <th style="padding:9px 12px">Model</th><th style="padding:9px 12px">State–FYs</th>
+            <th style="padding:9px 12px">Election FY</th><th style="padding:9px 12px">95% CI</th>
+            <th style="padding:9px 12px">Pre-election FY</th><th style="padding:9px 12px">95% CI</th>
+          </tr></thead>
+          <tbody id="promiseModelRows"></tbody>
+        </table>
+      </div>
+      <p class="note">TWFE = state and fiscal-year fixed effects. "Macro" includes lagged BEA real GDP and BLS unemployment. The transfers-only sensitivity includes same-year Census federal revenues, a potential post-treatment variable. The 2022 Census classification break and fiscal-year alignment require independent validation. None of the displayed estimates proves elections caused spending changes.</p>
+    </div>
+    <div class="card">
+      <h3>Campaign pledges: observed evidence versus unknown outcomes</h3>
+      <p id="promisePledgeNotice">The selected 2020 records are currently provisional case studies. Source coverage and independent adjudication must be completed before publishing any overall pledge fulfillment percentage.</p>
+      <p class="note">A fulfilled pledge can later be reversed; a blocked promise can have meaningful effort; an abandoned proposal is not, by itself, evidence of intentional deception. Heuristic future-tense matches are candidate review signals, not verified promises.</p>
+    </div>
+    <div class="card">
+      <h3>Primary data, research safeguards and unresolved work</h3>
+      <div class="coverage">2020 source-text inventory — <span class="tag">Source-indexed; incomplete source universe</span></div>
+      <div class="coverage">2020 independent pledge outcome adjudication — <span class="tag warn">Not completed</span></div>
+      <div class="coverage">Census 2012–24 annual state finance — <span class="tag">Official values verified</span></div>
+      <div class="coverage">Governor election and economic data — <span class="tag">Source-linked; fiscal dates provisional</span></div>
+      <div class="coverage">Election-year observational regressions — <span class="tag">Reproducible</span></div>
+      <div class="coverage">Causal identification and political intent — <span class="tag warn">Not established</span></div>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/campaign-promises/observed-election-associations-2012-2024.md" target="_blank" rel="noopener noreferrer">Read the six-model evidence assessment</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json" target="_blank" rel="noopener noreferrer">Inspect full observed model coefficients and uncertainty</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/promises/primary-2020-sentence-inventory/index.json" target="_blank" rel="noopener noreferrer">Inspect original 2020 source-document inventory</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/campaign-promises/causal-identification-gates.md" target="_blank" rel="noopener noreferrer">Read the adjudication and causal-identification gates</a></p>
+    </div>
+  </section>
   <section class="panel" data-panel="institutional-decay">
     <span class="eyebrow">Comparative governance / OECD 2023–2025</span>
     <h2>Institutional trust, without the shortcuts</h2>
@@ -766,5 +818,6 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
 })();
 </script>
 <script src="political-authenticity.js"></script>
+<script src="campaign-promises.js"></script>
 </body>
 </html>
