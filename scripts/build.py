@@ -166,6 +166,9 @@ official_spotcheck_rows = official_spotchecks_doc.get('records', [])
 official_arkansas_spotcheck_path = ROOT / 'data/legislation/official-arkansas-redistricting-2021.json'
 official_arkansas_spotcheck_doc = json.loads(official_arkansas_spotcheck_path.read_text(encoding='utf-8')) if official_arkansas_spotcheck_path.exists() else {}
 official_arkansas_spotcheck_rows = official_arkansas_spotcheck_doc.get('records', [])
+official_idaho_commission_path = ROOT / 'data/legislation/official-idaho-commission-redistricting-2021.json'
+official_idaho_commission_doc = json.loads(official_idaho_commission_path.read_text(encoding='utf-8')) if official_idaho_commission_path.exists() else {}
+official_idaho_commission_rows = official_idaho_commission_doc.get('records', [])
 for v in state_vote_rows:
     bill_id = str(v.get('billId') or '')
     vote_id = str(v.get('id') or '')
@@ -328,6 +331,13 @@ feed = {
             'keywordIndexCandidateRows': 0,
             'officialSourceControls': True
         },
+        'officialIdahoCommissionPlans': {
+            'records': official_idaho_commission_rows,
+            'publicationStatus': official_idaho_commission_doc.get('publicationStatus', 'not_collected'),
+            'limitations': official_idaho_commission_doc.get('limitations', 'Commission actions are not legislative bills'),
+            'keywordIndexBillCandidateRows': 0,
+            'officialSourceControls': True
+        },
         'officialWashingtonMemberRollcallSample': wa_sample_summary,
         'stateBillSource': 'https://billcommons.org/docs/api',
         'sourceProvider':'https://www.ballotwatch.io/developers',
@@ -375,6 +385,7 @@ feed = {
         'stateBillCandidateRows': len(state_bill_rows),
         'officialStateBillSpotcheckRows': len(official_spotcheck_rows),
         'officialArkansasHistoricalSpotcheckRows': len(official_arkansas_spotcheck_rows),
+        'officialIdahoCommissionPlanRows': len(official_idaho_commission_rows),
         'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
         'stateRecordedVoteRows': len(state_vote_rows),
         'officialStateMemberRollcallSampleRows': len(wa_source_rows),
