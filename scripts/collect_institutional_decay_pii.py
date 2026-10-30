@@ -20,18 +20,29 @@ TRUST=ROOT/"data/institutional-decay/trust-country-waves-2023-2025.json"
 OUT=ROOT/"data/institutional-decay/oecd-pii-raw-2020-2025.json"
 API="https://sdmx.oecd.org/public/rest/data/OECD.GOV.PSI,DSD_PII@DF_PUBLIC_INTEGRITY,"
 ACCEPT="application/vnd.sdmx.structurespecificdata+xml"
-MISSING={"","Data pending","Data not available","Data not provided","Not tracking","Not applicable","Data missing"}
+MISSING={"","Data pending","Not available","Data not available","Data not provided","Not tracking","Not applicable","Data missing"}
 
 
 def normalize(raw, series):
     v=raw.get("OBS_VALUE","")
     value=None
-    try:
-        parsed=float(v)
-        if math.isfinite(parsed):
-            value=parsed
-    except (TypeError,ValueError):
-        pass
+    numerator=None
+    denominator=None
+    fraction=re.fullmatch(r"(\\d+)/(\\d+)",str(v))
+    if fraction:
+        numerator,denominator=(int(fraction.group(1)),int(fraction.group(2)))
+        if denominator==0 or numerator>denominator:
+            raise ValueError("Invalid source criteria fraction: "+v)
+        value_kind="reported_fraction"
+    else:
+        try:
+            parsed=float(v)
+            if math.isfinite(parsed):
+                value=parsed
+        except (TypeError,ValueError):
+            pass
+        value_kind=("numeric" if value is not None else
+                    "source_missing" if v in MISSING else "unrecognized_text")
     record={
         "countryIso3":series["REF_AREA"],
         "referenceYear":int(raw["TIME_PERIOD"]),
@@ -44,6 +55,9 @@ def normalize(raw, series):
         "statusCode":raw.get("OBS_STATUS"),
         "unitMultiplier":raw.get("UNIT_MULT"),
         "value":value,
+        "valueKind":value_kind,
+        "reportedNumerator":numerator,
+        "reportedDenominator":denominator,
         "rawObservedValue":v,
     }
     if v in MISSING or value is None:
@@ -84,7 +98,10 @@ def collect():
         raise ValueError("Source yielded no verified numeric observations")
     rows.sort(key=lambda r:(r["countryIso3"],r["measureCode"],r["referenceYear"],str(r["ddId"]),str(r["criteriaCode"])))
     nums=[r for r in rows if r["value"] is not None]
-    labels=Counter(r["rawObservedValue"] for r in rows if r["value"] is None)
+    fractions=[r for r in rows if r["valueKind"]=="reported_fraction"]
+    status_records=[r for r in rows if r["valueKind"]=="source_missing"]
+    unexpected=[r for r in rows if r["valueKind"]=="unrecognized_text"]
+    labels=Counter(r["rawObservedValue"] for r in status_records)
     byyear=Counter(str(r["referenceYear"]) for r in nums)
     bycountry=Counter(r["countryIso3"] for r in nums)
     output={
@@ -102,12 +119,17 @@ def collect():
             "countriesWithNumericData":len(bycountry),
             "yearCountsNumeric":dict(sorted(byyear.items())),
             "seriesCount":seriesCount,"totalRecords":len(rows),"numericRecords":len(nums),
-            "missingOrTextRecords":len(rows)-len(nums),"missingReasonCounts":dict(labels),
+            "nonDecimalRecords":len(rows)-len(nums),
+            "fractionRecords":len(fractions),
+            "missingStatusRecords":len(status_records),
+            "unrecognizedTextRecords":len(unexpected),
+            "missingReasonCounts":dict(labels),
             "measureCodeCount":len(set(r["measureCode"] for r in rows)),
         },
         "dataQualityWarnings":[
             "Numeric values have official MEASURE and UNIT_MEASURE codes, not yet user-facing labels.",
-            "Records are missing when OBS_VALUE is textual, including Data pending; missing is not zero.",
+            "Only documented missing-status tokens such as Data pending are marked source_missing; a fraction such as 3/7 is a reported fraction, not missing.",
+            "Reported fractions preserve numerator/denominator without an unjustified percentage conversion; use official unit metadata before harmonizing.",
             "Reference year varies by measurement; OECD survey trust dates cannot be joined by forward-fill.",
             "A measure with criteria denominator or percentage score is not a direct rate of corruption or elite impunity.",
             "Source OBS_STATUS code meaning must be verified from metadata before selecting causal predictors.",
