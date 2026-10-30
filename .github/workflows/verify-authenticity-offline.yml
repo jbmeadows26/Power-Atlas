@@ -1,0 +1,57 @@
+name: Political authenticity independent verification
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/idi_research_gate.py'
+      - 'scripts/rq1_gee.py'
+      - 'scripts/rq2_corpus_metrics.py'
+      - 'scripts/rq3_responsiveness.py'
+      - 'tests/test_authenticity_*.py'
+      - 'site/political-authenticity.js'
+      - '.github/workflows/verify-authenticity-offline.yml'
+permissions:
+  contents: write
+concurrency:
+  group: political-authenticity-offline
+  cancel-in-progress: false
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Test ANES, IDI, rhetoric, regression and rollcall gates
+        run: python -m unittest discover -s tests -p 'test_authenticity_*.py' -v
+      - name: Recompute illustrative IDI output
+        run: python scripts/idi_research_gate.py
+      - name: Validate static research tab
+        run: |
+          node --check site/political-authenticity.js
+          grep -q 'src="political-authenticity.js"' site/index.html
+      - name: Write integrity receipt
+        run: |
+          python - <<'PY'
+          import datetime,hashlib,json,os,pathlib
+          paths=['scripts/idi_research_gate.py','scripts/rq1_gee.py',
+                 'scripts/rq2_corpus_metrics.py','scripts/rq3_responsiveness.py',
+                 'site/political-authenticity.js',
+                 'data/research/political-authenticity/idi-synthetic-results.json']
+          output={'schema':'power-atlas.political-authenticity-offline-verification.v1',
+            'status':'TESTS_PASSED_NOT_CAUSAL_VALIDATION',
+            'sourceCommit':os.getenv('GITHUB_SHA'),
+            'atUTC':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+            'sha256':{p:hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest() for p in paths},
+            'notCompleted':['human_subject_experiment','1000_human_coded_communications',
+                            'observed_socioeconomic_survey_join',
+                            '150_issue_income_voter_preference_joins',
+                            'externally_validated_observed_IDI']}
+          target=pathlib.Path('data/health/political-authenticity-tests.json')
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_text(json.dumps(output,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Persist test receipt safely
+        run: bash scripts/publish_data.sh data/research/political-authenticity/idi-synthetic-results.json data/health/political-authenticity-tests.json
