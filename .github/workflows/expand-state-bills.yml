@@ -3,8 +3,10 @@ on:
   push:
     paths:
       - 'scripts/expand_state_bill_coverage.py'
+      - 'scripts/recover_state_bill_source_gaps.py'
       - 'tests/test_corpus.py'
       - 'tests/test_state_coverage_scheduler.py'
+      - 'tests/test_state_bill_source_recovery.py'
       - '.github/workflows/expand-state-bills.yml'
   workflow_dispatch:
   schedule:
@@ -24,9 +26,11 @@ jobs:
         with:
           python-version: '3.12'
       - name: Preflight Python syntax for collector and corpus contracts
-        run: python -m py_compile scripts/expand_state_bill_coverage.py tests/test_corpus.py tests/test_state_coverage_scheduler.py
+        run: python -m py_compile scripts/expand_state_bill_coverage.py scripts/recover_state_bill_source_gaps.py tests/test_corpus.py tests/test_state_coverage_scheduler.py tests/test_state_bill_source_recovery.py
       - name: Index eight remaining states using no-key bounded search
         run: python scripts/expand_state_bill_coverage.py
+      - name: Probe four source-link gaps with a bounded five-hit sample each
+        run: python scripts/recover_state_bill_source_gaps.py
       - name: Rebuild, reconcile source staging, and validate unified evidence
         run: |
           python scripts/build.py
@@ -34,4 +38,4 @@ jobs:
           python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Publish source metadata, reconciliation, and checkpoint atomically
-        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-jurisdictions.json data/reconciliation data/app-feed.json data/coverage.json data/relationships.json data/research.json
+        run: bash scripts/publish_data.sh data/legislation/state-redistricting-bills.json data/legislation/state-redistricting-jurisdictions.json data/health/state-bill-record-filter-audit.json data/reconciliation data/app-feed.json data/coverage.json data/relationships.json data/research.json
