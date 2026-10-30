@@ -259,6 +259,38 @@ class CorpusChecks(unittest.TestCase):
         checkpoint = load('data/legislation/state-redistricting-jurisdictions.json')
         self.assertEqual(feed['coverage']['stateBillFirstPageJurisdictions'], len(checkpoint['jurisdictions']))
 
+    def test_official_fec_pac_party_financial_summaries(self):
+        path = ROOT / 'data/finance/fec-pac-party-summaries.json'
+        if not path.exists():
+            self.skipTest('Official FEC PAC party cycle summaries not published')
+        doc = load('data/finance/fec-pac-party-summaries.json')
+        rows = doc['records']
+        self.assertGreaterEqual(len(rows), 50)
+        self.assertEqual(len(rows), len({r['id'] for r in rows}))
+        master_ids={r['committeeId'] for r in load('data/finance/fec-committee-master.json')['records']}
+        for r in rows:
+            self.assertIn(r['committeeId'],master_ids)
+            self.assertIn(r['cycle'],(2024,2026))
+            self.assertTrue(r['source'].startswith('https://www.fec.gov/files/bulk-downloads/'))
+            self.assertEqual(r['reviewStatus'],'FEC_official_cycle_summary_unreviewed')
+            self.assertFalse(SENSITIVE.intersection(r.keys()))
+            self.assertIn('contributionsToOtherCommitteesUSD',r)
+        feed=load('data/app-feed.json')
+        self.assertEqual(feed['finance']['pacCycleSummaries']['count'],len(rows))
+        self.assertEqual(feed['coverage']['FECpacPartyCycleSummaryRows'],len(rows))
+
+    def test_official_election_authority_links_are_not_certified_canvasses(self):
+        authorities=load('data/elections/official-source-index.json')['records']
+        self.assertEqual(len(authorities),51)
+        self.assertEqual(len({r['state'] for r in authorities}),51)
+        feed=load('data/app-feed.json')
+        self.assertEqual(feed['officialElectionAuthorities']['records'],authorities)
+        self.assertEqual(feed['coverage']['officialStateElectionAuthorityLinks'],51)
+        self.assertEqual(feed['coverage']['officialStateCanvassesRetrieved'],0)
+        for r in authorities:
+            self.assertTrue(r['electionOfficeURL'].startswith('https://'))
+            self.assertIs(r['stateCertifiedVoteTotalsRetrieved'],False)
+
     def test_fec_finance_minimal_provenance(self):
         feed = load('data/app-feed.json')
         for row in feed['finance']['committeeTotals'] + feed['finance']['committeePayments']:
