@@ -128,6 +128,18 @@
         "paginationCheckpoint": "data/legislation/state-redistricting-pagination.json",
         "coverageStatus": "reported_keyword_pages_processed_not_legislative_inventory"
       }
+    },
+    {
+      "id": "ar_official_congressional_redistricting_2021_keyword_false_negative",
+      "jurisdiction": "AR",
+      "domain": "state_legislation",
+      "status": "official_historical_legislation_confirmed_keyword_index_false_negative",
+      "primary": "https://www.arkleg.state.ar.us/Bills/Detail?ddBienniumSession=2021%2F2021R&id=HB1982",
+      "secondary": "https://www.arkleg.state.ar.us/Acts/SearchByRange?ddBienniumSession=2021%2F2021R&start=1100",
+      "evidence": "Official Arkansas legislative archive lists HB 1982 as Act 1114 and SB 743 as Act 1116 (2021 congressional district boundary legislation), despite Bill Commons 'redistricting' exact keyword returning zero Arkansas matches. Official legislative research summary calls the acts identical. This is evidence of a search coverage false-negative, not 2026 bill activity.",
+      "persistedOfficialSpotchecks": "data/legislation/official-arkansas-redistricting-2021.json",
+      "unresolved": "Arkansas third-party keyword index still has zero candidate rows; 2021 official records are separately stored and not yet integrated into the live frontend. Other sessions, terms, official member-level votes and legal challenges are not comprehensively reviewed.",
+      "nextFreeStep": "Integrate separately validated official Arkansas metadata into a future frontend evidence tier with provenance and coverage labels; do not fabricate third-party UUIDs or treat identical acts as separate maps."
     }
   ],
   "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage.",
@@ -149,6 +161,8 @@
       "CA",
       "ID"
     ],
-    "limits": "First-page and reported extra keyword-page coverage only; 617 candidates are not official-content-verified bills; zero search hits and unavailable vote tallies are not evidence of zero activity or 0-0 votes."
+    "limits": "First-page and reported extra keyword-page coverage only; 617 candidates are not official-content-verified bills; zero search hits and unavailable vote tallies are not evidence of zero activity or 0-0 votes. Arkansas official 2021 Acts 1114 and 1116 demonstrate an exact-keyword false negative; historical spotchecks are not merged into the 617 candidates.",
+    "officialArkansasHistoricalSpotcheckRows": 2,
+    "arkansasOfficialHistoricalEvidence": "data/legislation/official-arkansas-redistricting-2021.json"
   }
 }
