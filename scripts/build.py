@@ -208,6 +208,7 @@ totals = read_finance('fec-totals.json')
 payments = read_finance('fec-disbursements.json')
 recipient_aggregates = read_finance('fec-recipient-aggregates.json')
 committee_master = read_finance('fec-committee-master.json')
+pac_cycle_summaries = read_finance('fec-pac-party-summaries.json')
 elections_path = ROOT / 'data/elections/house-summary.json'
 house_summary = json.loads(elections_path.read_text(encoding='utf-8'))['records'] if elections_path.exists() else []
 representation_path = ROOT / 'data/elections/representation-gaps.json'
@@ -306,7 +307,8 @@ feed = {
         'committeePayments': payments,
         'committeeRecipientAggregates': recipient_aggregates,
         'candidateCommitteeLinks': {'count':len(fec_links),'cycles': fec_link_doc.get('sources', {}), 'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json'},
-        'committeeMaster': {'count':len(committee_master), 'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json'}
+        'committeeMaster': {'count':len(committee_master), 'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json'},
+        'pacCycleSummaries': {'count':len(pac_cycle_summaries),'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-pac-party-summaries.json', 'scope':'FEC official aggregated PAC/party summaries for listed committee IDs only; not transfers to named recipients'}
     },
     'coverage': {
         'sourceIndexedRecords': len(records),
@@ -323,6 +325,7 @@ feed = {
         'relationshipRecords': len(relationships),
         'FECcandidateCommitteeLinks': len(fec_links),
         'FECcommitteeMasterRows': len(committee_master),
+        'FECpacPartyCycleSummaryRows': len(pac_cycle_summaries),
         'stateCommitteeRows': len(committees),
         'stateCommitteeMembershipEdges': sum(len(c.get('members', [])) for c in committees),
         'committeeTotalRows': len(totals),
