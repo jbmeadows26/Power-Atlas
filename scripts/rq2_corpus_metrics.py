@@ -3,7 +3,8 @@ import argparse,csv,json,re
 from pathlib import Path
 HEDGES={"may","might","could","perhaps","possibly","probably","generally","roughly","likely"}
 BINARY={"DIRECT_ANSWER","PARTIAL_ANSWER","PIVOT","ACKNOWLEDGED_UNCERTAINTY","REPETITIVE_SLOGAN",
-        "SOURCE_VERIFIED_CONTRADICTION","VERIFIABLE_COMMITMENT","QUESTION_ATTACK"}
+        "SOURCE_VERIFIED_CONTRADICTION","VERIFIABLE_COMMITMENT","QUESTION_ATTACK",
+        "EXPLICIT_REFUSAL","COMPARISON_WITHOUT_RELEVANCE"}
 def hedging(text):
     if not isinstance(text,str) or not text.strip():return None
     words=re.findall(r"[a-z']+",text.lower())
@@ -34,6 +35,9 @@ def analyze(rows):
             raise ValueError("Require independent identified triple-coding")
         if annotations and any(set(a.get("codes",{}))!=BINARY or any(v not in (0,1) for v in a["codes"].values()) for a in annotations):
             raise ValueError("Coding categories are fixed and binary")
+        if annotations and any(a["codes"]["SOURCE_VERIFIED_CONTRADICTION"] == 1 for a in annotations):
+            if not str(x.get("secondPrimarySourceUrl","")).startswith("https://"):
+                raise ValueError("A verified contradiction needs two independently identified primary sources")
         results.append({"id":x["id"],"unitType":kind,"sourceUrl":x["sourceUrl"],
             "hedgingDensity":hedging(x.get("answerText") or x.get("text") or ""),
             "annotations":annotations})
