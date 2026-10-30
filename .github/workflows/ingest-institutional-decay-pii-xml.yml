@@ -32,6 +32,16 @@ jobs:
           assert len(rows)>100 and d['coverage']['numericRecords']>0
           assert len(rows)==d['coverage']['totalRecords']
           assert all(r['value'] is None for r in rows if not r['rawObservedValue'].replace('.','',1).replace('-','',1).isdigit() or r['rawObservedValue'].strip()=='')
+          fractions=[r for r in rows if r['valueKind']=='reported_fraction']
+          status=[r for r in rows if r['valueKind']=='source_missing']
+          assert len(fractions)==d['coverage']['fractionRecords']
+          assert len(status)==d['coverage']['missingStatusRecords']
+          assert len(rows)==sum(d['coverage'][k] for k in (
+            'numericRecords','fractionRecords','missingStatusRecords','unrecognizedTextRecords'))
+          assert all(r['value'] is None and r['reportedDenominator']>0 and
+                     0<=r['reportedNumerator']<=r['reportedDenominator'] for r in fractions)
+          assert all(r['value'] is None for r in status)
+          assert d['coverage']['unrecognizedTextRecords']==0
           assert all(2020<=r['referenceYear']<=2025 for r in rows)
           assert all(r['countryIso3'] in d['coverage']['requestedCountries'] for r in rows)
           assert d['researchStatus']=='raw_code_level_source_data_not_harmonized_to_trust_or_causally_identified'
