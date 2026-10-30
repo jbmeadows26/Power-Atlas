@@ -1,0 +1,4123 @@
+{
+  "schema": "power-atlas.voting-access.coverage.v1",
+  "asOf": "2026-10-30",
+  "scope": "all_50_states_plus_DC",
+  "jurisdictionCount": 51,
+  "topicCount": 12,
+  "verifiedRuleCount": 0,
+  "publicationStatus": "coverage_scaffold_not_current_law",
+  "sources": [
+    {
+      "name": "EAC Election Administration and Voting Survey",
+      "url": "https://www.eac.gov/research-and-data/studies-and-reports",
+      "topic": "election_administration",
+      "status": "discovery_only_not_automatically_ingested"
+    },
+    {
+      "name": "NCSL Voter ID",
+      "url": "https://www.ncsl.org/elections-and-campaigns/voter-id",
+      "topic": "voter_identification",
+      "status": "discovery_only_not_automatically_ingested"
+    },
+    {
+      "name": "DOJ Voting Section",
+      "url": "https://www.justice.gov/crt/voting-section",
+      "topic": "federal_voting_rights",
+      "status": "discovery_only_not_automatically_ingested"
+    },
+    {
+      "name": "US Census voting data",
+      "url": "https://www.census.gov/topics/public-sector/voting.html",
+      "topic": "voting_registration",
+      "status": "discovery_only_not_automatically_ingested"
+    },
+    {
+      "name": "US Census CVAP",
+      "url": "https://www.census.gov/programs-surveys/decennial-census/about/voting-rights/cvap.html",
+      "topic": "citizen_voting_age_population",
+      "status": "discovery_only_not_automatically_ingested"
+    }
+  ],
+  "jurisdictions": [
+    {
+      "id": "US-AL",
+      "name": "Alabama",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-AK",
+      "name": "Alaska",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-AZ",
+      "name": "Arizona",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-AR",
+      "name": "Arkansas",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-CA",
+      "name": "California",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-CO",
+      "name": "Colorado",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-CT",
+      "name": "Connecticut",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-DE",
+      "name": "Delaware",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-FL",
+      "name": "Florida",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-GA",
+      "name": "Georgia",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-HI",
+      "name": "Hawaii",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-ID",
+      "name": "Idaho",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-IL",
+      "name": "Illinois",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-IN",
+      "name": "Indiana",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-IA",
+      "name": "Iowa",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-KS",
+      "name": "Kansas",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-KY",
+      "name": "Kentucky",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-LA",
+      "name": "Louisiana",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-ME",
+      "name": "Maine",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MD",
+      "name": "Maryland",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MA",
+      "name": "Massachusetts",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MI",
+      "name": "Michigan",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MN",
+      "name": "Minnesota",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MS",
+      "name": "Mississippi",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MO",
+      "name": "Missouri",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-MT",
+      "name": "Montana",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NE",
+      "name": "Nebraska",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NV",
+      "name": "Nevada",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NH",
+      "name": "New Hampshire",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NJ",
+      "name": "New Jersey",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NM",
+      "name": "New Mexico",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NY",
+      "name": "New York",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-NC",
+      "name": "North Carolina",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-ND",
+      "name": "North Dakota",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-OH",
+      "name": "Ohio",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-OK",
+      "name": "Oklahoma",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-OR",
+      "name": "Oregon",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-PA",
+      "name": "Pennsylvania",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-RI",
+      "name": "Rhode Island",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-SC",
+      "name": "South Carolina",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-SD",
+      "name": "South Dakota",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-TN",
+      "name": "Tennessee",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-TX",
+      "name": "Texas",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-UT",
+      "name": "Utah",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-VT",
+      "name": "Vermont",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-VA",
+      "name": "Virginia",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-WA",
+      "name": "Washington",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-WV",
+      "name": "West Virginia",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-WI",
+      "name": "Wisconsin",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-WY",
+      "name": "Wyoming",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    },
+    {
+      "id": "US-DC",
+      "name": "District of Columbia",
+      "asOf": "2026-10-30",
+      "verificationStatus": "not_yet_verified",
+      "topics": {
+        "voter_identification": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "proof_of_citizenship": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "registration": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "list_maintenance": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "felony_disenfranchisement": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "early_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "mail_voting": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "polling_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "ballot_cure": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "language_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "disability_access": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        },
+        "district_vote_dilution": {
+          "status": "not_yet_verified",
+          "rule": null,
+          "officialSource": null,
+          "effectiveDate": null
+        }
+      }
+    }
+  ]
+}
