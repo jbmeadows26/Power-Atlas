@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'site/index.html'
+      - 'site/*.js'
       - '.github/workflows/validate-frontend.yml'
   workflow_dispatch:
 permissions:
@@ -19,9 +20,12 @@ jobs:
           from pathlib import Path
           import re
           html=Path('site/index.html').read_text(encoding='utf-8')
-          blocks=re.findall(r'<script[^>]*>(.*?)</script>',html,re.S)
+          blocks=re.findall(r'<script\\s*>(.*?)</script>',html,re.S)
           if len(blocks)!=1:
               raise SystemExit('Expected exactly one inline JS script')
           Path('/tmp/power-atlas-frontend.js').write_text(blocks[0],encoding='utf-8')
           PY
           node --check /tmp/power-atlas-frontend.js
+          for script in site/*.js; do
+            if test -f "$script"; then node --check "$script"; fi
+          done
