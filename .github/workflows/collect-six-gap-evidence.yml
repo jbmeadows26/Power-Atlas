@@ -1,0 +1,73 @@
+name: Validate and collect six-domain state coverage evidence
+on:
+  push:
+    paths:
+      - 'scripts/build_six_gap_coverage.py'
+      - 'scripts/collect_state_legislative_polygons.py'
+      - 'tests/test_six_gap_coverage.py'
+      - '.github/workflows/collect-six-gap-evidence.yml'
+  pull_request:
+    paths:
+      - 'scripts/build_six_gap_coverage.py'
+      - 'scripts/collect_state_legislative_polygons.py'
+      - 'tests/test_six_gap_coverage.py'
+      - '.github/workflows/collect-six-gap-evidence.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-six-gap-official-geometry
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 19
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Build 50-state six-domain actual coverage register
+        run: python -m scripts.build_six_gap_coverage
+      - name: Validate source directory and no false completed counts
+        run: python -m unittest discover -s tests -p 'test_six_gap_coverage.py' -v
+      - name: Collect current official Census state legislative district geometry
+        run: python -m scripts.collect_state_legislative_polygons
+      - name: Validate geometry record integrity and map coverage
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/geography/state-legislative-2024/index.json')
+          d=json.loads(p.read_text())
+          assert d['year']==2024
+          assert d['districtGeometryFeatures']>1000
+          assert d['boundaryLegalHistoryComplete'] is False
+          for x in d['records']:
+              q=json.loads(Path(x['path']).read_text())
+              assert len(q['features'])==x['features']
+              assert q['stateFIPS']==x['fips']
+              assert q['publicationStatus']=='official_2024_geometric_baseline_not_legal_plan_history'
+          print('Verified geometry records:',d['districtGeometryFeatures'])
+          PY
+      - name: Publish only validated official source evidence
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/coverage-six-domains.json data/geography/state-legislative-2024/
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: stage official 50-state legislative geography with coverage limitations'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              exit 1
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*3))"
+          done
+          exit 1
