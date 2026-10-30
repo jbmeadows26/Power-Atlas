@@ -1,0 +1,3517 @@
+{
+  "schema": "power-atlas.institutional-decay.indicator-join-readiness.v1",
+  "asOf": "2026-10-30",
+  "sourcePII": "data/institutional-decay/oecd-pii-raw-2020-2025.json",
+  "sourceLabels": "data/institutional-decay/oecd-pii-measure-labels.json",
+  "sourceTrust": "data/institutional-decay/trust-country-waves-2023-2025.json",
+  "analysisGrain": "country + exact PII measure code + source reference year + unit/dimension; no imputation",
+  "trustCountriesWith2025Observation": 33,
+  "trustCountriesWith2023And2025Pairs": 28,
+  "sourceRows": 5776,
+  "fullyLabeledIndicators": 44,
+  "summary": {
+    "indicatorsWithAny2025Observed": 34,
+    "indicatorsWithSameYear2025OECDTrustMatch": 34,
+    "indicatorsWithSameYear2023PairedTrustMatch": 18,
+    "sourceReportedMissing": 1718,
+    "sourceReportedFractions": 1640,
+    "sourceNumericValues": 2418,
+    "outcomeLeakageCodes": [
+      "PII_31314",
+      "PII_31315"
+    ]
+  },
+  "conclusion": "source_data_harmonization_audit_only_no_causal_model_identified",
+  "cautions": [
+    "OECD integrity source indicator PII_31314 (Trust in government) and PII_31315 (Trust in parliament) are themselves trust outcomes; never treat them as independent accountability predictors in trust regressions.",
+    "PII indicator values represent official criterion scores or counts, not observations of a sanction after a substantiated personal violation.",
+    "No administrative burden observations of individual repeated filings, elapsed case time, appeals or agency errors are included.",
+    "Values for 2020/2022/2023/2024/2025 do not form a complete annual series for any arbitrary source measure; no carried-forward values.",
+    "Overlapping countries and source years alone do not identify the interaction or the reverse causal feedback cycle.",
+    "Reported fractions retain official numerators and denominators. Scale harmonization requires official unit definitions; ratios are not automatically 0–100 percentages.",
+    "No confidence intervals, significance or causal coefficients can be inferred from this coverage report."
+  ],
+  "indicators": [
+    {
+      "code": "PII_131",
+      "officialEnglishLabel": "Coverage of strategic framework",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_132",
+      "officialEnglishLabel": "Evidence-based problem analysis and use of diagnostic tools",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_133",
+      "officialEnglishLabel": "Minimum content in public integrity strategies",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_134",
+      "officialEnglishLabel": "Inclusiveness and transparency of intergovernmental and public consultations",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_135",
+      "officialEnglishLabel": "Adequacy of implementation structures and reporting",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_136",
+      "officialEnglishLabel": "Implementation of activities (%)",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 18,
+          "fraction": 0,
+          "sourceMissing": 56,
+          "observedCountries": 9,
+          "sameYearOECD25TrustEligibleCountries": 7,
+          "sameYearPairedTrustEligibleCountries": 5
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 14,
+          "fraction": 0,
+          "sourceMissing": 64,
+          "observedCountries": 7,
+          "sameYearOECD25TrustEligibleCountries": 4,
+          "sameYearPairedTrustEligibleCountries": 4
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 4,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 14,
+          "fraction": 0,
+          "sourceMissing": 56,
+          "observedCountries": 7,
+          "sameYearOECD25TrustEligibleCountries": 6,
+          "sameYearPairedTrustEligibleCountries": 4
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_137",
+      "officialEnglishLabel": "Financial sustainability",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_138",
+      "officialEnglishLabel": "Transparency of evaluation practices and use in decision making",
+      "totalRawObservations": 226,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2020,
+        2023,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 74,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 78,
+          "decimal": 26,
+          "fraction": 26,
+          "sourceMissing": 26,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 18
+        },
+        {
+          "year": 2024,
+          "allRows": 4,
+          "decimal": 1,
+          "fraction": 1,
+          "sourceMissing": 2,
+          "observedCountries": 1,
+          "sameYearOECD25TrustEligibleCountries": 1,
+          "sameYearPairedTrustEligibleCountries": 1
+        },
+        {
+          "year": 2025,
+          "allRows": 70,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 4,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3101",
+      "officialEnglishLabel": "Regulatory framework for internal control",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 28,
+          "fraction": 28,
+          "sourceMissing": 16,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31010",
+      "officialEnglishLabel": "Adoption rate for internal audit recommendations",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 30,
+          "fraction": 0,
+          "sourceMissing": 42,
+          "observedCountries": 15,
+          "sameYearOECD25TrustEligibleCountries": 13,
+          "sameYearPairedTrustEligibleCountries": 11
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3102",
+      "officialEnglishLabel": "Regulatory framework for internal audit",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 29,
+          "fraction": 29,
+          "sourceMissing": 14,
+          "observedCountries": 29,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 22
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3103",
+      "officialEnglishLabel": "Risk management framework",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 29,
+          "fraction": 29,
+          "sourceMissing": 14,
+          "observedCountries": 29,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 22
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3104",
+      "officialEnglishLabel": "Coverage of central functions to implement internal control and internal audit",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 28,
+          "fraction": 28,
+          "sourceMissing": 16,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3105",
+      "officialEnglishLabel": "Central reporting on internal control and internal audit",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 28,
+          "fraction": 28,
+          "sourceMissing": 16,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3106",
+      "officialEnglishLabel": "Internal audit and risk-based approaches in practice",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 28,
+          "fraction": 28,
+          "sourceMissing": 16,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3107",
+      "officialEnglishLabel": "Use of integrity risk management in budget organisations in practice",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 28,
+          "fraction": 28,
+          "sourceMissing": 16,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 21
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3108",
+      "officialEnglishLabel": "National budget organisations covered by internal audit",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 40,
+          "fraction": 0,
+          "sourceMissing": 32,
+          "observedCountries": 20,
+          "sameYearOECD25TrustEligibleCountries": 17,
+          "sameYearPairedTrustEligibleCountries": 15
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3109",
+      "officialEnglishLabel": "National budget organisations audited in the past five years",
+      "totalRawObservations": 80,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2023
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 72,
+          "decimal": 34,
+          "fraction": 0,
+          "sourceMissing": 38,
+          "observedCountries": 17,
+          "sameYearOECD25TrustEligibleCountries": 15,
+          "sameYearPairedTrustEligibleCountries": 13
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 8,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 8,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3111",
+      "officialEnglishLabel": "Regulatory framework for judicial integrity",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 31,
+          "fraction": 31,
+          "sourceMissing": 16,
+          "observedCountries": 31,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 22
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31110",
+      "officialEnglishLabel": "Judicial vacancies",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 30,
+          "fraction": 0,
+          "sourceMissing": 48,
+          "observedCountries": 15,
+          "sameYearOECD25TrustEligibleCountries": 12,
+          "sameYearPairedTrustEligibleCountries": 10
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31111",
+      "officialEnglishLabel": "Share of provisional/temporary judges",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 20,
+          "fraction": 0,
+          "sourceMissing": 58,
+          "observedCountries": 10,
+          "sameYearOECD25TrustEligibleCountries": 9,
+          "sameYearPairedTrustEligibleCountries": 8
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3112",
+      "officialEnglishLabel": "Regulatory framework for prosecutorial integrity",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 18,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 24,
+          "sameYearPairedTrustEligibleCountries": 22
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3113",
+      "officialEnglishLabel": "Disciplinary framework for civil servants",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 34,
+          "fraction": 34,
+          "sourceMissing": 10,
+          "observedCountries": 34,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 24
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3114",
+      "officialEnglishLabel": "Anti-corruption and integrity safeguards for judges in practice",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 31,
+          "fraction": 31,
+          "sourceMissing": 16,
+          "observedCountries": 31,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 22
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3115",
+      "officialEnglishLabel": "Anti-corruption and integrity safeguards for public prosecutors in practice",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 30,
+          "fraction": 30,
+          "sourceMissing": 18,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 24,
+          "sameYearPairedTrustEligibleCountries": 22
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3116",
+      "officialEnglishLabel": "Integrity safeguards for the application of disciplinary frameworks for civil servants in practice",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 34,
+          "fraction": 34,
+          "sourceMissing": 10,
+          "observedCountries": 34,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 24
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3117",
+      "officialEnglishLabel": "Public availability of data",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 33,
+          "fraction": 33,
+          "sourceMissing": 12,
+          "observedCountries": 33,
+          "sameYearOECD25TrustEligibleCountries": 27,
+          "sameYearPairedTrustEligibleCountries": 23
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3118",
+      "officialEnglishLabel": "Whistleblower protection within the justice system in practice",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 14,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 26,
+          "sameYearPairedTrustEligibleCountries": 23
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3119",
+      "officialEnglishLabel": "Submission rate of interest declarations for national judges",
+      "totalRawObservations": 78,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 78,
+          "decimal": 14,
+          "fraction": 0,
+          "sourceMissing": 64,
+          "observedCountries": 7,
+          "sameYearOECD25TrustEligibleCountries": 5,
+          "sameYearPairedTrustEligibleCountries": 5
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3131",
+      "officialEnglishLabel": "Regulatory framework for access to information and open data",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 10,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 29,
+          "sameYearPairedTrustEligibleCountries": 25
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31310",
+      "officialEnglishLabel": "Legislative procedural scrutiny",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 52,
+          "fraction": 0,
+          "sourceMissing": 22,
+          "observedCountries": 26,
+          "sameYearOECD25TrustEligibleCountries": 24,
+          "sameYearPairedTrustEligibleCountries": 20
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 6,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 54,
+          "fraction": 0,
+          "sourceMissing": 20,
+          "observedCountries": 27,
+          "sameYearOECD25TrustEligibleCountries": 24,
+          "sameYearPairedTrustEligibleCountries": 21
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31311",
+      "officialEnglishLabel": "Public share of political parties financing",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 44,
+          "fraction": 0,
+          "sourceMissing": 30,
+          "observedCountries": 22,
+          "sameYearOECD25TrustEligibleCountries": 20,
+          "sameYearPairedTrustEligibleCountries": 17
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 6,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 44,
+          "fraction": 0,
+          "sourceMissing": 30,
+          "observedCountries": 22,
+          "sameYearOECD25TrustEligibleCountries": 19,
+          "sameYearPairedTrustEligibleCountries": 18
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31312",
+      "officialEnglishLabel": "Post employment integrity in practice (ministers)",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 18,
+          "fraction": 0,
+          "sourceMissing": 56,
+          "observedCountries": 9,
+          "sameYearOECD25TrustEligibleCountries": 8,
+          "sameYearPairedTrustEligibleCountries": 8
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 6,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 10,
+          "fraction": 0,
+          "sourceMissing": 64,
+          "observedCountries": 5,
+          "sameYearOECD25TrustEligibleCountries": 4,
+          "sameYearPairedTrustEligibleCountries": 3
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31313",
+      "officialEnglishLabel": "Post employment integrity in practice (top officials)",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 18,
+          "fraction": 0,
+          "sourceMissing": 56,
+          "observedCountries": 9,
+          "sameYearOECD25TrustEligibleCountries": 8,
+          "sameYearPairedTrustEligibleCountries": 8
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 6,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 10,
+          "fraction": 0,
+          "sourceMissing": 64,
+          "observedCountries": 5,
+          "sameYearOECD25TrustEligibleCountries": 4,
+          "sameYearPairedTrustEligibleCountries": 3
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31314",
+      "officialEnglishLabel": "Trust in government",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 36,
+          "fraction": 0,
+          "sourceMissing": 38,
+          "observedCountries": 18,
+          "sameYearOECD25TrustEligibleCountries": 18,
+          "sameYearPairedTrustEligibleCountries": 16
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 6,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 60,
+          "fraction": 0,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": true,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_31315",
+      "officialEnglishLabel": "Trust in parliament",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 36,
+          "fraction": 0,
+          "sourceMissing": 38,
+          "observedCountries": 18,
+          "sameYearOECD25TrustEligibleCountries": 18,
+          "sameYearPairedTrustEligibleCountries": 16
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 6,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 60,
+          "fraction": 0,
+          "sourceMissing": 14,
+          "observedCountries": 30,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": true,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3132",
+      "officialEnglishLabel": "Regulatory framework for transparency in lobbying, conflict-of-interest, and political finance",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 10,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 29,
+          "sameYearPairedTrustEligibleCountries": 25
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3133",
+      "officialEnglishLabel": "Coverage of basic functions to implement access to information and open data",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 31,
+          "fraction": 31,
+          "sourceMissing": 12,
+          "observedCountries": 31,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 24
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3134",
+      "officialEnglishLabel": "Openness of the government decision-making process",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 10,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 29,
+          "sameYearPairedTrustEligibleCountries": 25
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3135",
+      "officialEnglishLabel": "Use of conflict-of-interest prevention mechanisms for senior officials",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 31,
+          "fraction": 31,
+          "sourceMissing": 12,
+          "observedCountries": 31,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 24
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3136",
+      "officialEnglishLabel": "Use of oversight and prevention mechanisms for financing of political parties and election\ncampaigns",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 31,
+          "fraction": 31,
+          "sourceMissing": 12,
+          "observedCountries": 31,
+          "sameYearOECD25TrustEligibleCountries": 28,
+          "sameYearPairedTrustEligibleCountries": 24
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3137",
+      "officialEnglishLabel": "Transparency of lobbying activities and prevention of undue influence",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 10,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 29,
+          "sameYearPairedTrustEligibleCountries": 25
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": true,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3138",
+      "officialEnglishLabel": "Proactive disclosure of datasets",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 32,
+          "fraction": 32,
+          "sourceMissing": 10,
+          "observedCountries": 32,
+          "sameYearOECD25TrustEligibleCountries": 29,
+          "sameYearPairedTrustEligibleCountries": 25
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 3,
+          "fraction": 3,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 35,
+          "fraction": 35,
+          "sourceMissing": 4,
+          "observedCountries": 35,
+          "sameYearOECD25TrustEligibleCountries": 31,
+          "sameYearPairedTrustEligibleCountries": 27
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    },
+    {
+      "code": "PII_3139",
+      "officialEnglishLabel": "Legislative stability",
+      "totalRawObservations": 154,
+      "units": [
+        "PO",
+        "PT_SCR_POS_MAX"
+      ],
+      "yearsWithAnyObservedValue": [
+        2022,
+        2024,
+        2025
+      ],
+      "yearCoverage": [
+        {
+          "year": 2020,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2021,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2022,
+          "allRows": 74,
+          "decimal": 48,
+          "fraction": 0,
+          "sourceMissing": 26,
+          "observedCountries": 24,
+          "sameYearOECD25TrustEligibleCountries": 22,
+          "sameYearPairedTrustEligibleCountries": 19
+        },
+        {
+          "year": 2023,
+          "allRows": 0,
+          "decimal": 0,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 0,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2024,
+          "allRows": 6,
+          "decimal": 6,
+          "fraction": 0,
+          "sourceMissing": 0,
+          "observedCountries": 3,
+          "sameYearOECD25TrustEligibleCountries": 0,
+          "sameYearPairedTrustEligibleCountries": 0
+        },
+        {
+          "year": 2025,
+          "allRows": 74,
+          "decimal": 56,
+          "fraction": 0,
+          "sourceMissing": 18,
+          "observedCountries": 28,
+          "sameYearOECD25TrustEligibleCountries": 25,
+          "sameYearPairedTrustEligibleCountries": 22
+        }
+      ],
+      "containsSurveyTrustOutcome": false,
+      "relatedButNotDirectMeasureOfImpunity": false,
+      "comparableAnnualPanelEstablished": false,
+      "canEnterCausalRegression": false
+    }
+  ]
+}
