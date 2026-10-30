@@ -23,6 +23,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Preflight Python syntax for collector and corpus contracts
+        run: python -m py_compile scripts/expand_state_bill_coverage.py tests/test_corpus.py tests/test_state_coverage_scheduler.py
       - name: Index eight remaining states using no-key bounded search
         run: python scripts/expand_state_bill_coverage.py
       - name: Rebuild, reconcile source staging, and validate unified evidence
