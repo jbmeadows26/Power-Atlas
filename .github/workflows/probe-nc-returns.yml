@@ -1,0 +1,24 @@
+name: Probe North Carolina 2024 official precinct election results
+on:
+  push:
+    paths:
+      - 'scripts/probe_nc_official_returns.py'
+      - '.github/workflows/probe-nc-returns.yml'
+  pull_request:
+    paths:
+      - 'scripts/probe_nc_official_returns.py'
+      - '.github/workflows/probe-nc-returns.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Inspect exact original 2024 NCSBE precinct archive structure
+        run: python -m scripts.probe_nc_official_returns
