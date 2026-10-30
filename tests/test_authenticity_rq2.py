@@ -24,7 +24,7 @@ class RhetoricQC(unittest.TestCase):
         with self.assertRaises(ValueError):analyze([{"id":"TEST","sourceUrl":"https://example.org","eventUTC":"2026-01-02","unitType":"interview_question_answer","answerText":"Yes"}])
     def test_triple_coding_unique_and_complete(self):
         x={"id":"TEST","sourceUrl":"https://example.org","eventUTC":"2026-01-02",
-           "unitType":"standalone_speech","text":"Hello","annotations":[{"coderId":f"c{i}","codes":{k:1 for k in BINARY}} for i in range(3)]}
+           "unitType":"standalone_speech","text":"Hello","secondPrimarySourceUrl":"https://example.org/second-original","annotations":[{"coderId":f"c{i}","codes":{k:1 for k in BINARY}} for i in range(3)]}
         self.assertEqual(analyze([x])["tripleCoded"],1)
         x["annotations"][1]["coderId"]="c0"
         with self.assertRaises(ValueError):analyze([x])
