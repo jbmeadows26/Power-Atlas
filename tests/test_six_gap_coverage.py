@@ -42,11 +42,20 @@ class SixGaps(unittest.TestCase):
         self.assertEqual(r["reconciliationStatus"],"four_certified_spotchecks_unresolved")
 
     def test_missing_four_domains_are_not_fabricated(self):
-        for name in ("state_campaign_finance","state_roll_calls",
+        for name in ("state_campaign_finance",
                      "lower_court_litigation_dockets_and_state_cases"):
             self.assertEqual(self.c[name]["sourceVerifiedJurisdictions"],0)
             self.assertEqual(self.c[name]["officialSourceRecordsIngested"],0)
             self.assertEqual(self.c[name]["jurisdictionsCompleted"],0)
+
+    def test_wa_member_rollcall_sample_is_source_verified_but_not_complete(self):
+        x=self.c["state_roll_calls"]
+        self.assertEqual(x["sourceVerifiedJurisdictions"],1)
+        self.assertEqual(x["officialSourceRecordsIngested"],4017)
+        self.assertEqual(x["jurisdictionsCompleted"],0)
+        sample=self.rows[("WA","state_roll_calls")]
+        self.assertEqual(sample["sourceDiscovery"]["rollCalls"],56)
+        self.assertIn("not_full_biennium",sample["coverageStatus"])
 
     def test_no_domains_falsely_complete(self):
         self.assertTrue(all(v["jurisdictionsCompleted"]==0 for v in self.c.values()))
