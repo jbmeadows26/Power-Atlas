@@ -1,13 +1,27 @@
 {
   "schema": "power-atlas.state-bill-filter-audit.v1",
+  "auditVersion": 2,
   "dateUTC": "2026-10-30",
   "status": "bounded_four_jurisdiction_source_link_recovery",
   "scope": "First five redistricting keyword hits only; not exhaustive state legislation",
   "jurisdictions": {
     "CA": {
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError",
-      "newCandidateRows": 0
+      "status": "bounded_five_hit_source_link_audit_not_exhaustive",
+      "searchHitsSampled": 5,
+      "providerTotalMatches": 21,
+      "newCandidateRows": 0,
+      "rejectionCounts": {
+        "non_https_source_url": 5
+      },
+      "nonHttpsSourceSchemes": {
+        "http": 5
+      },
+      "nonHttpsSourceHosts": {
+        "leginfo.legislature.ca.gov": 5
+      },
+      "billDetailRequests": 2,
+      "billDetailFailures": 0,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=CA&page=1&per_page=5"
     },
     "MD": {
       "status": "bounded_five_hit_source_link_audit_not_exhaustive",
@@ -17,7 +31,13 @@
       "rejectionCounts": {
         "non_https_source_url": 5
       },
-      "billDetailRequests": 0,
+      "nonHttpsSourceSchemes": {
+        "http": 5
+      },
+      "nonHttpsSourceHosts": {
+        "mgaleg.maryland.gov": 5
+      },
+      "billDetailRequests": 2,
       "billDetailFailures": 0,
       "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=MD&page=1&per_page=5"
     },
@@ -29,7 +49,13 @@
       "rejectionCounts": {
         "non_https_source_url": 5
       },
-      "billDetailRequests": 0,
+      "nonHttpsSourceSchemes": {
+        "http": 5
+      },
+      "nonHttpsSourceHosts": {
+        "www.oklegislature.gov": 5
+      },
+      "billDetailRequests": 2,
       "billDetailFailures": 0,
       "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=OK&page=1&per_page=5"
     },
@@ -41,7 +67,13 @@
       "rejectionCounts": {
         "non_https_source_url": 5
       },
-      "billDetailRequests": 0,
+      "nonHttpsSourceSchemes": {
+        "http": 5
+      },
+      "nonHttpsSourceHosts": {
+        "legislature.vermont.gov": 5
+      },
+      "billDetailRequests": 2,
       "billDetailFailures": 0,
       "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=VT&page=1&per_page=5"
     }
