@@ -19,6 +19,29 @@ class OfficialHouseVoteTests(unittest.TestCase):
         self.assertEqual(item["votes"]["A000001"],"Yea")
         self.assertEqual(len(item["sourceSha256"]),64)
         self.assertNotIn("wealthBias",item)
+    def test_aye_no_normalization_with_auditable_original_labels(self):
+        raw=xml_fixture().replace(b"<vote>Yea</vote>",b"<vote>Aye</vote>").replace(b"<vote>Nay</vote>",b"<vote>No</vote>")
+        result=parse_roll(raw,"https://clerk.house.gov/evs/2025/roll021.xml",2025,21)
+        self.assertEqual(result["memberVotes"],240)
+        self.assertEqual(result["voteKind"],"recorded_yea_nay_or_procedural")
+        self.assertEqual(result["votes"]["A000001"],"Yea")
+        self.assertEqual(result["votes"]["A000002"],"Nay")
+        self.assertEqual(result["originalVoteLabelCounts"],{"Aye":120,"No":120})
+
+    def test_speaker_choice_preserves_named_candidates(self):
+        raw=xml_fixture().replace(b"On Passage",b"Election of the Speaker").replace(b"<vote>Yea</vote>",b"<vote>Candidate One</vote>").replace(b"<vote>Nay</vote>",b"<vote>Candidate Two</vote>")
+        result=parse_roll(raw,"https://clerk.house.gov/evs/2025/roll002.xml",2025,2)
+        self.assertEqual(result["memberVotes"],240)
+        self.assertEqual(result["voteKind"],"speaker_candidate_selection")
+        self.assertEqual(result["votes"]["A000001"],"Candidate One")
+        self.assertEqual(result["votes"]["A000002"],"Candidate Two")
+        self.assertNotIn("Yea",result["originalVoteLabelCounts"])
+
+    def test_named_candidates_not_admitted_into_ordinary_yes_no_roll(self):
+        raw=xml_fixture().replace(b"<vote>Yea</vote>",b"<vote>Candidate One</vote>")
+        with self.assertRaises(ValueError):
+            parse_roll(raw,"https://clerk.house.gov/evs/2025/roll021.xml",2025,21)
+
     def test_duplicate_member_cannot_be_accepted(self):
         with self.assertRaises(ValueError):parse_roll(xml_fixture(240,True),"https://clerk.house.gov/x",2025,1)
     def test_incomplete_data_rejected(self):
