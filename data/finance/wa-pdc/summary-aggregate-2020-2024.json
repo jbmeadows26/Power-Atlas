@@ -1,0 +1,97 @@
+{
+  "all50StatesComplete": false,
+  "authority": "Washington Public Disclosure Commission via official State Open Data Socrata",
+  "campaignFinanceCompleteForWA": false,
+  "categoryRows": 9,
+  "dataStatus": "public_coarse_aggregate_only_not_statewide_itemized_filings_or_licensed_personal_lists",
+  "electionYears": [
+    2020,
+    2022,
+    2024
+  ],
+  "financialInterpretation": "Sum of published PDC finance summary rows, NOT certified donation transactions, not filing-amendment reconciliation",
+  "groupBy": "election_year, filer_type",
+  "licensingGate": "PDC imposes noncommercial restrictions on lists of individuals; no personal list is republished. Review license/policy before commercial reuse of any derived fields.",
+  "minFilerRowsPerPublishedGroup": 5,
+  "notIncluded": "individual contributors, identities, filer names, addresses, treasurers, personal contact details, loans at transaction level, filing amendments, independent expenditure detail",
+  "originalJSONResponseSHA256": "93cbaa005ca344952ec6d235edcc170f642f1e7a3414af09a50d4a5a426a4e69",
+  "records": [
+    {
+      "electionYear": 2020,
+      "filerType": "CA",
+      "publishedSummaryRows": 1069,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "66901035.16",
+      "sumOfPublishedExpendituresUSD": "65789021.23"
+    },
+    {
+      "electionYear": 2020,
+      "filerType": "CO",
+      "publishedSummaryRows": 1159,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "80494331.16",
+      "sumOfPublishedExpendituresUSD": "82975391.47"
+    },
+    {
+      "electionYear": 2020,
+      "filerType": "OS",
+      "publishedSummaryRows": 61,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "0.00",
+      "sumOfPublishedExpendituresUSD": "7336111.56"
+    },
+    {
+      "electionYear": 2022,
+      "filerType": "CA",
+      "publishedSummaryRows": 1087,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "47125779.72",
+      "sumOfPublishedExpendituresUSD": "46357695.22"
+    },
+    {
+      "electionYear": 2022,
+      "filerType": "CO",
+      "publishedSummaryRows": 1272,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "91590021.40",
+      "sumOfPublishedExpendituresUSD": "93940154.55"
+    },
+    {
+      "electionYear": 2022,
+      "filerType": "OS",
+      "publishedSummaryRows": 40,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "0.00",
+      "sumOfPublishedExpendituresUSD": "3126578.27"
+    },
+    {
+      "electionYear": 2024,
+      "filerType": "CA",
+      "publishedSummaryRows": 1057,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "79211512.06",
+      "sumOfPublishedExpendituresUSD": "79737282.84"
+    },
+    {
+      "electionYear": 2024,
+      "filerType": "CO",
+      "publishedSummaryRows": 1406,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "153605083.93",
+      "sumOfPublishedExpendituresUSD": "164750228.29"
+    },
+    {
+      "electionYear": 2024,
+      "filerType": "OS",
+      "publishedSummaryRows": 61,
+      "status": "official_grouped_source_not_original_filing_reconciled",
+      "sumOfPublishedContributionsUSD": "20014210.71",
+      "sumOfPublishedExpendituresUSD": "28166417.86"
+    }
+  ],
+  "schema": "power-atlas.wa-pdc-campaign-aggregate.v1",
+  "sourcePublisherURL": "https://www.pdc.wa.gov/political-disclosure-reporting-data/open-data",
+  "sourceURL": "https://data.wa.gov/resource/3h9x-7bvm.json?%24select=election_year%2C+filer_type%2C+count%28%2A%29+as+rows%2Csum%28contributions_amount%29+as+contributions%2Csum%28expenditures_amount%29+as+expenditures&%24where=election_year+in%28%272020%27%2C%272022%27%2C%272024%27%29&%24group=election_year%2Cfiler_type&%24order=election_year%2Cfiler_type&%24limit=1000",
+  "state": "WA",
+  "suppressedSmallGroupsCount": 0
+}
