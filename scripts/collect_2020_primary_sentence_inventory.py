@@ -133,7 +133,11 @@ def index_source(src,raw):
     }
 
 def build():
-    d=json.loads(MANIFEST.read_text(encoding="utf-8"))
+    # Use current authoritative source-manifest builder in branch CI. The
+    # persisted JSON manifest can still reflect the previous version until
+    # main-branch publication catches up.
+    from scripts.prepare_pledge_adjudication import make as make_manifest
+    d=make_manifest()
     sources=d.get("knownPrimaryDocuments",[])
     if len(sources)!=6 or d["sourceCollectionRule"]["fullDenominatorFrozen"] is not False:
         raise ValueError("Unexpected campaign source scope; fresh manual review necessary")
