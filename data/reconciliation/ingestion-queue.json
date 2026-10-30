@@ -1,10 +1,7 @@
 {
   "schema": "power-atlas.ingestion-queue.v1",
   "publicationStatus": "queued_not_claimed_scheduled",
-  "pendingBaselineStates": [
-    "IL",
-    "TX"
-  ],
+  "pendingBaselineStates": [],
   "count": 10,
   "tasks": [
     {
@@ -48,13 +45,13 @@
       "state": "pending"
     },
     {
-      "id": "state-bills-IL-page1",
+      "id": "state-bills-IL-page2",
       "jurisdictionId": "IL",
       "domain": "state_legislation",
       "query": "redistricting",
-      "nextPage": 1,
-      "priority": "baseline_gap",
-      "reason": "No successful page-one query indexed",
+      "nextPage": 2,
+      "priority": "pagination_gap",
+      "reason": "First page insufficient or reported matches unknown",
       "state": "pending"
     },
     {
@@ -98,13 +95,13 @@
       "state": "pending"
     },
     {
-      "id": "state-bills-TX-page1",
+      "id": "state-bills-TX-page2",
       "jurisdictionId": "TX",
       "domain": "state_legislation",
       "query": "redistricting",
-      "nextPage": 1,
-      "priority": "baseline_gap",
-      "reason": "No successful page-one query indexed",
+      "nextPage": 2,
+      "priority": "pagination_gap",
+      "reason": "First page insufficient or reported matches unknown",
       "state": "pending"
     }
   ]

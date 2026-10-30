@@ -3,7 +3,7 @@
   "status": "partial_keyword_page_one_not_complete",
   "provider": "https://billcommons.org/docs/api",
   "jurisdictionsTotal": 51,
-  "jurisdictionsScanned": 49,
+  "jurisdictionsScanned": 51,
   "jurisdictions": {
     "AK": {
       "query": "redistricting",
@@ -396,11 +396,27 @@
       "totalMatchesReported": 11,
       "newIndexedRecords": 11,
       "status": "first_page_indexed_not_exhaustive"
+    },
+    "IL": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 62,
+      "newIndexedRecords": 20,
+      "status": "first_page_indexed_not_exhaustive"
+    },
+    "TX": {
+      "query": "redistricting",
+      "searchPage": 1,
+      "perPage": 20,
+      "totalMatchesReported": 53,
+      "newIndexedRecords": 3,
+      "status": "first_page_indexed_not_exhaustive"
     }
   },
   "attemptCounts": {
     "HI": 2,
-    "IL": 4,
+    "IL": 5,
     "LA": 2,
     "MA": 2,
     "MD": 1,
@@ -426,7 +442,7 @@
     "SC": 1,
     "SD": 1,
     "TN": 1,
-    "TX": 4,
+    "TX": 5,
     "UT": 1,
     "VA": 1,
     "VT": 1,
@@ -435,38 +451,19 @@
     "WV": 1,
     "WY": 1
   },
-  "sourceFailures": {
-    "TX": {
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError",
-      "lastAttemptUTC": "2026-10-29",
-      "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
-      "requestsAttempted": 4,
-      "perPageVariantsAttempted": [
-        20,
-        10,
-        5
-      ],
-      "retryPolicy": "bounded_network_retry_then_later_batch"
+  "sourceFailures": {},
+  "latestBatch": [
+    {
+      "state": "IL",
+      "status": "indexed_first_page",
+      "newRows": 20
     },
-    "IL": {
-      "status": "temporary_unavailable",
-      "errorType": "TimeoutError",
-      "lastAttemptUTC": "2026-10-29",
-      "sourceEndpoint": "https://api.billcommons.org/api/v1/search",
-      "requestsAttempted": 4,
-      "perPageVariantsAttempted": [
-        20,
-        10,
-        5
-      ],
-      "retryPolicy": "bounded_network_retry_then_later_batch"
+    {
+      "state": "TX",
+      "status": "indexed_first_page",
+      "newRows": 3
     }
-  },
-  "latestBatch": [],
-  "remainingJurisdictions": [
-    "IL",
-    "TX"
   ],
+  "remainingJurisdictions": [],
   "meaning": "First-page search coverage only. No source implies zero bills or no state-level redistricting activity."
 }
