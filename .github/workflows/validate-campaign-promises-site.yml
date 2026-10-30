@@ -1,0 +1,46 @@
+name: Validate Political Promises live research frontend
+on:
+  push:
+    paths:
+      - 'site/index.html'
+      - 'site/campaign-promises.js'
+      - 'tests/test_campaign_promises_dashboard.py'
+      - '.github/workflows/validate-campaign-promises-site.yml'
+  pull_request:
+    paths:
+      - 'site/index.html'
+      - 'site/campaign-promises.js'
+      - 'tests/test_campaign_promises_dashboard.py'
+      - '.github/workflows/validate-campaign-promises-site.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate site source references and published scientific scope
+        run: python -m unittest discover -s tests -p 'test_campaign_promises_dashboard.py' -v
+      - name: Validate client-side JavaScript syntax without extra dependencies
+        run: node --check site/campaign-promises.js
+      - name: Verify core data products exist and show no causal claim
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('data/promises/research-feed.json').read_text())
+          r=json.loads(Path('data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json').read_text())
+          s=json.loads(Path('data/promises/primary-2020-sentence-inventory/index.json').read_text())
+          assert p['inference']['promiseFulfillmentRate'] is None
+          assert r['causalEffect'] is None
+          assert r['politicalIntentInference'] is None
+          assert len(r['models'])==6
+          assert s['sourceSentenceTotal']==2484
+          assert s['independentlyAdjudicatedPledgeDenominator'] is None
+          print('UI backed by source data; no population pledge rate or causal coefficient asserted.')
+          PY
