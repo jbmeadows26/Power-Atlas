@@ -1,0 +1,69 @@
+name: Verify and ingest political authenticity evidence
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/collect_authenticity_rollcalls.py'
+      - 'tests/test_authenticity_rollcalls.py'
+      - 'tests/test_authenticity_anes_aggregates.py'
+      - '.github/workflows/verify-authenticity-evidence.yml'
+  schedule:
+    - cron: '17 05 * * 1,4'
+permissions:
+  contents: write
+concurrency:
+  group: authenticity-primary-evidence
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Verify primary-source and ANES aggregate logic
+        run: |
+          python -m unittest discover -s tests -p 'test_authenticity_*.py' -v
+      - name: Collect 150 bounded official 119th Congress House votes
+        run: python scripts/collect_authenticity_rollcalls.py --year 2025 --first 1 --last 150 --output data/research/political-authenticity/house-rollcalls-2025.json
+      - name: Inspect identities and verify retrieved count
+        run: |
+          python - <<'PY'
+          import json, pathlib
+          p=pathlib.Path('data/research/political-authenticity/house-rollcalls-2025.json')
+          d=json.loads(p.read_text())
+          assert len(d['records'])==150, 'Incomplete 150-roll official index; preserve prior dataset'
+          assert sum(len(r['votes']) for r in d['records']) >= 30000
+          assert all(r['source'].startswith('https://clerk.house.gov/evs/2025/') for r in d['records'])
+          assert len({r['id'] for r in d['records']})==150
+          print('verified official roll-calls:', len(d['records']))
+          PY
+      - name: Publish cryptographic source check receipt
+        run: |
+          python - <<'PY'
+          import hashlib, json, os, pathlib, datetime
+          source=pathlib.Path('data/research/political-authenticity/house-rollcalls-2025.json')
+          doc=json.loads(source.read_text())
+          receipt={'schema':'power-atlas.authenticity-ci-health.v1','commit':os.getenv('GITHUB_SHA'),
+             'status':'SUCCESS_CONFIRMED_BY_RUNNER_NOT_PEER_REVIEW',
+             'utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),
+             'officialRolls':len(doc['records']),
+             'sourceFileSha256':hashlib.sha256(source.read_bytes()).hexdigest(),
+             'method':'Public official House vote XML; this is not income-specific voter-preference evidence'}
+          path=pathlib.Path('data/health/political-authenticity-ci.json')
+          path.parent.mkdir(parents=True,exist_ok=True)
+          path.write_text(json.dumps(receipt,indent=2)+'\n',encoding='utf-8')
+          PY
+      - name: Commit only verified evidence
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/research/political-authenticity/house-rollcalls-2025.json data/health/political-authenticity-ci.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: publish verified official House roll-call index'
+            git push
+          fi
