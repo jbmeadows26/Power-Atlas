@@ -20,7 +20,7 @@ class PledgeReview2020Tests(unittest.TestCase):
         rr=[x for x in self.doc["knownPrimaryDocuments"] if x["side"]=="REP"]
         self.assertTrue(any(x["primarySourceScope"]=="no_new_platform_adopted_in_2020" for x in rr))
         self.assertTrue(all(x["governingPartyFor2021_2025"] is False for x in rr))
-        self.assertEqual(len(rr),2)
+        self.assertEqual(len(rr),3)  # RNC resolution, reaffirmed 2016 platform, Trump convention speech
         carried=[x for x in rr if x["id"]=="US16-REP-PLATFORM-REAFFIRMED-2020"]
         self.assertEqual(len(carried),1)
         self.assertEqual(carried[0]["date"],"2016-07-18")
