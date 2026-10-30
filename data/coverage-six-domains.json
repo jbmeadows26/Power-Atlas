@@ -32,9 +32,9 @@
     "state_roll_calls": {
       "jurisdictionsCompleted": 0,
       "jurisdictionsIndexed": 50,
-      "officialSourceRecordsIngested": 0,
-      "overallStatus": "source_registry_only",
-      "sourceVerifiedJurisdictions": 0
+      "officialSourceRecordsIngested": 4017,
+      "overallStatus": "partial",
+      "sourceVerifiedJurisdictions": 1
     },
     "statewide_local_returns_and_official_vote_reconciliation": {
       "jurisdictionsCompleted": 0,
@@ -6062,20 +6062,24 @@
       "stateName": "Washington"
     },
     {
-      "blockingDependency": "exact official record-level source + statewide historical backfill + completeness reconciliation",
-      "certificationStatus": "not_verified",
-      "coverageStatus": "source_discovery_only",
+      "blockingDependency": "Enumerate and ingest every WA 2023-24 bill/session rollcall plus all other states, link official session rosters and journal vote identifiers",
+      "certificationStatus": "official_WA_legislative_web_services_member_tallies_reconciled",
+      "coverageStatus": "official_2023_24_member_votes_sample_not_full_biennium",
       "domain": "state_roll_calls",
       "domainFullyComplete": false,
       "fips": "53",
       "id": "WA:state_roll_calls",
-      "officialRecordsSourceLinked": false,
-      "reconciliationStatus": "not_run",
-      "recordsIngested": 0,
+      "officialRecordsSourceLinked": true,
+      "reconciliationStatus": "56_rollcall_member_vote_counts_match_original_summary",
+      "recordsIngested": 4017,
       "sourceDiscovery": {
         "authorityURLOrigin": "FEC directory of official state election offices",
+        "billsRequested": 42,
+        "dataPath": "data/legislation/wa-2023-24-rollcalls/source-rollcalls.json",
         "electionOfficeURL": "https://www.sos.wa.gov/elections/",
-        "officialSourceHint": "Official legislature journals and member-level roll call archives, chamber-specific"
+        "officialRollCallService": "https://wslwebservices.leg.wa.gov/LegislationService.asmx/GetRollCalls",
+        "officialSourceHint": "Official legislature journals and member-level roll call archives, chamber-specific",
+        "rollCalls": 56
       },
       "state": "WA",
       "stateName": "Washington"
