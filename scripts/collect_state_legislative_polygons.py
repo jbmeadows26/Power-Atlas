@@ -45,7 +45,7 @@ def download(layer,fips):
        "source":url,"publicationStatus":"official_2024_geometric_baseline_not_legal_plan_history"}
 
 def build():
-    states=json.loads((ROOT/"data/geography/states.json").read_text())["states"]
+    states=[s for s in json.loads((ROOT/"data/geography/states.json").read_text())["states"] if s["postal"] not in ("DC","PR")]
     if len(states)!=50:raise ValueError("Expected 50 state geography jurisdictions")
     OUT.mkdir(parents=True,exist_ok=True)
     summary=[]
