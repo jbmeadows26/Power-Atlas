@@ -1,20 +1,25 @@
 # Institutional Decay — evidence baseline and empirical protocol
 
-## Causal study and dashboard implementation status (2026-10-29)
+## Live deployment and scientific status (2026-10-30)
 
-- [Causal validation, ethical fieldwork, estimator eligibility, and production gates](causal-validation-protocol-2026-10-29.md).
-- [Factorial 2×2 OLS/HC3 analysis](../../scripts/institutional_decay_factorial.py): implemented for **real de-identified survey CSV only**; 3,000 participants **not recruited** and no causal estimate published.
-- [One-step difference-GMM demonstration](../../scripts/institutional_decay_gmm_demo.py): synthetic-data mathematics with guarded rejection of the actual two-wave OECD extract. **Not a real feedback-cycle finding.**
-- [Static institutional-decay dashboard](../../site/index.html) and [client-side research visualization](../../site/institutional-decay.js), using [407 observed survey cells in a static JSON feed](../../site/api/trust-metrics.json). The existing site is plain HTML/JavaScript, **not** Next.js. Browser correlations are descriptive.
-- [GitHub Actions CI run](https://github.com/jbmeadows26/Power-Atlas/actions/runs/40884175276): all model and frontend data-mapping tests passed.
-- **Production deployment NOT verified**: Vercel Hobby project has recent `CANCELED` deployments and `live=false`; do not describe the static dashboard as publicly live until a new production deployment is `READY` and endpoints have been tested. Existing controlled free-tier release path is not bypassed.
+**Public Institutional Decay dashboard is LIVE and source-verified:** [Power Atlas](https://power-atlas-research.vercel.app) serves the static research tab, [institutional-decay.js](https://power-atlas-research.vercel.app/institutional-decay.js) and [the 407-observation JSON feed](https://power-atlas-research.vercel.app/api/trust-metrics.json). Vercel deployment `dpl_3pxjaoHhBUi5eb8XFrNWbV4PgLAM` is `READY` at commit `16f6582d421fe4215715b91573a3649edcf0dbb3`. [Live production smoke check](https://github.com/jbmeadows26/Power-Atlas/actions/runs/40996572900) passed and independently recalculated the cross-country 2025 Pearson correlation. **This is a deployed descriptive dashboard, not a deployed causal experiment.**
+
+**Outstanding external scientific dependencies:** No actual sample of N=3,000 randomized respondents has been recruited or consented; neither the interactive dashboard nor the factorial OLS script creates data. The real country-wave panel remains insufficient for Arellano–Bond causal feedback estimation. The official OECD SDMX Public Integrity Indicators endpoint returned HTTP 500 when probed from GitHub Actions on 30 October 2026; the complete comparable integrity panel has not been ingested. Do not interpolate missing survey years or use digital-government maturity as citizen administrative burden.
+
+New reproducible assets:
+- [Independent vignette study instrument, with four randomized cells and ethical gate](field-instrument-v1.json)
+- [Factorial statistical analysis script](../../scripts/institutional_decay_factorial.py) and [unit tests](../../tests/test_institutional_decay_factorial.py)
+- [Source-backed OECD-18 three-wave trust aggregate (2021, 2023, 2025)](../../data/institutional-decay/oecd-trust-three-wave-cohort.json) (only three aggregate means; **not a causal panel**)
+- [Synthetic-only one-step difference-GMM demonstration](../../scripts/institutional_decay_gmm_demo.py)
+- [Bounded official OECD integrity data-access probe](../../scripts/probe_institutional_decay_pii.py) and [probe run showing HTTP 500](https://github.com/jbmeadows26/Power-Atlas/actions/runs/40996898654)
+- [Causal validation and recruitment/consent protocol](causal-validation-protocol-2026-10-29.md) and [evidence assessment](FINAL-ASSESSMENT-2026-10-29.md)
 
 ## Final assessment (2026-10-29)
 
 **The evidence review is closed, but the interaction/causal hypothesis is not established.** Read the [final scientific assessment](FINAL-ASSESSMENT-2026-10-29.md) for the verdict, full evidence matrix, 2023–2025 institutional trend and cross-country correlation analyses, implementation-gap interpretation, country examples, policy decisions and explicit research limits. The claim scope is a **source-backed descriptive/literature assessment**, not a causal demonstration or full national performance index.
 
 
-**Status:** Initial primary-source aggregate extracts verified and persisted on 2026-10-29. **No causal model or survey experiment has been executed.** This topic is a separate research track from Power Atlas's redistricting coverage. The extract is in [evidence-v1.json](../../data/institutional-decay/evidence-v1.json); it is **not** yet part of the redistricting `data/app-feed.json` and must not be represented as integrated into the production frontend.
+**Status:** Initial primary-source aggregate extracts verified and persisted on 2026-10-29. **No causal model or survey experiment has been executed.** This topic is a separate research track from Power Atlas's redistricting coverage. The extract is in [evidence-v1.json](../../data/institutional-decay/evidence-v1.json); it remains separate from the redistricting `data/app-feed.json`, but the verified public static frontend now has a dedicated institutional-decay research tab reading the separate JSON feed.
 
 ## Question and neutral framing
 
