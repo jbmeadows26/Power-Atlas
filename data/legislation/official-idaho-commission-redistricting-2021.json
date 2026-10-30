@@ -1,0 +1,41 @@
+{
+  "schema": "power-atlas.official-idaho-commission-plans.v1",
+  "checkedDateUTC": "2026-10-30",
+  "publicationStatus": "official_commission_final_report_metadata_not_legislative_bill_or_full_redistricting_history",
+  "jurisdiction": "ID",
+  "governingBody": "Idaho Commission for Reapportionment",
+  "authority": "https://voteidaho.gov/redistricting/",
+  "officialFinalReport": "https://sos.idaho.gov/elections/data/redistricting/2021/Final_Report.pdf",
+  "queryDiscrepancy": {
+    "provider": "https://billcommons.org/docs/api",
+    "keyword": "redistricting",
+    "reportedBillMatches": 0,
+    "persistedBillCandidateRows": 0,
+    "interpretation": "Commission redistricting plans are not necessarily legislative bills. Zero indexed bill candidates cannot establish no redistricting activity."
+  },
+  "records": [
+    {
+      "id": "official-ID-2021-C03",
+      "plan": "C03",
+      "scope": "congressional",
+      "districts": 2,
+      "adoptionYear": 2021,
+      "commissionAction": "adopted_and_reaffirmed_in_final_report",
+      "source": "https://sos.idaho.gov/elections/data/redistricting/2021/Final_Report.pdf",
+      "reviewStatus": "official_commission_final_report_metadata_spotcheck",
+      "voteTalliesStatus": "not_independently_transcribed_from_official_rollcall"
+    },
+    {
+      "id": "official-ID-2021-L03",
+      "plan": "L03",
+      "scope": "state_legislative",
+      "districts": 35,
+      "adoptionYear": 2021,
+      "commissionAction": "adopted_and_reaffirmed_in_final_report",
+      "source": "https://sos.idaho.gov/elections/data/redistricting/2021/Final_Report.pdf",
+      "reviewStatus": "official_commission_final_report_metadata_spotcheck",
+      "voteTalliesStatus": "not_independently_transcribed_from_official_rollcall"
+    }
+  ],
+  "limitations": "Two 2021 adopted commission plan identifiers only; no 2026 activity, no member-level vote certification, no current litigation determination, no claim of all proposals, and no inference that a commission action is a legislative bill. Do not add these to the 617 Bill Commons candidate rows."
+}
