@@ -94,3 +94,8 @@ Do not claim H3/H6 until an appropriately identified test is actually conducted.
 - Run `python scripts/analyze_institutional_decay.py` for deterministic descriptive analysis; `tests/test_institutional_decay_country_panel.py` and `tests/test_institutional_decay_integrity.py` enforce sample and causal-language guardrails.
 
 **Important:** These are descriptive published survey percentages, not microdata and not a completed causal study. The country pairs exclude the missing 2023 government trust cell for Colombia. Only 28 national-government trust item pairs are available even though 29 OECD countries participated in both waves. The repository's production redistricting feed is unchanged.
+
+
+## Official accountability and service-audit case expansion (2026-10-30)
+
+An additive [Australia Robodebt accountability / Canada CRA service-audit evidence set](../../data/institutional-decay/accountability-service-cases-2026-10-30.json) adds **14** sourced observations and **7** dated events, with separate statuses for referrals, final administrative findings, sanctions, unsubstantiated allegations, audit records, service targets and selectively sampled satisfaction perceptions. Read the [methodology and source-permission report](accountability-service-expansion-2026-10-30.md), [validation tests](../../tests/test_institutional_decay_accountability_cases.py), and [path-scoped CI](../../.github/workflows/validate-institutional-decay-cases.yml). This does not establish causal links or alter the redistricting app feed.
