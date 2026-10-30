@@ -1,0 +1,450 @@
+{
+  "schema": "power-atlas.campaign-primary-evidence-discovery.v1",
+  "asOf": "2026-10-30",
+  "scope": "additive_primary_source_discovery_not_population_denominator",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "adjudicatedPledgeCount": 0,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "sourceScopeComplete": false,
+  "sourceDocuments": [
+    {
+      "id": "US24-DEM",
+      "country": "US",
+      "electionDate": "2024-11-05",
+      "published": "2024-08-19",
+      "issuer": "Democratic Party",
+      "language": "en",
+      "url": "https://www.presidency.ucsb.edu/documents/2024-democratic-party-platform",
+      "locator": "2024 Democratic Party Platform; chapters 1 and 3",
+      "sourceClass": "archived_party_platform",
+      "license": "third_party_archived_text_no_republication_permission_verified",
+      "notes": "Party platform retains references to Biden after candidate change; do not attribute every clause personally to Harris."
+    },
+    {
+      "id": "US24-GOP",
+      "country": "US",
+      "electionDate": "2024-11-05",
+      "published": "2024-07-08",
+      "issuer": "Republican Party",
+      "language": "en",
+      "url": "https://www.presidency.ucsb.edu/documents/2024-republican-party-platform",
+      "locator": "2024 GOP Platform; Chapter 3 tax policy",
+      "sourceClass": "archived_party_platform",
+      "license": "third_party_archived_text_no_republication_permission_verified",
+      "notes": "Committee approval July 8; convention adoption July 15. Record the distinction."
+    },
+    {
+      "id": "UK24-LAB",
+      "country": "UK",
+      "electionDate": "2024-07-04",
+      "published": "2024-06-13",
+      "issuer": "Labour Party",
+      "language": "en",
+      "url": "https://labour.org.uk/change/",
+      "locator": "Change: Labour Party Manifesto 2024",
+      "sourceClass": "party_manifesto",
+      "license": "party_copyright_unverified_bulk_reuse",
+      "notes": "UK national manifesto; do not substitute Welsh or Scottish manifestos or treat policy enactment as operational delivery."
+    },
+    {
+      "id": "CA25-LIB",
+      "country": "CA",
+      "electionDate": "2025-04-28",
+      "published": "2025-04-19",
+      "issuer": "Liberal Party of Canada",
+      "language": "en",
+      "url": "https://liberal.ca/wp-content/uploads/sites/292/2025/04/Canada-Strong.pdf",
+      "locator": "Canada Strong 2025 platform; Build and fiscal costing",
+      "sourceClass": "party_platform_pdf",
+      "license": "copyright_2025_liberal_party_no_bulk_republication_permission",
+      "notes": "Party's 2025 platform published April 19; PDF is primary, date corroborated independently; verify passage coordinates before coding."
+    },
+    {
+      "id": "DE25-UNION",
+      "country": "DE",
+      "electionDate": "2025-02-23",
+      "published": "2024-12-17",
+      "issuer": "CDU/CSU",
+      "language": "de",
+      "url": "https://www.cdu.de/wahlprogramm-von-cdu-und-csu/",
+      "locator": "Politikwechsel für Deutschland; Rente und Altersvorsorge",
+      "sourceClass": "party_manifesto",
+      "license": "party_copyright_unverified_bulk_reuse",
+      "notes": "2025 election manifesto, not the post-election coalition agreement. Native-language dual coding required."
+    },
+    {
+      "id": "PT25-AD",
+      "country": "PT",
+      "electionDate": "2025-05-18",
+      "published": "2025-04-11",
+      "issuer": "AD coalition (PSD/CDS)",
+      "language": "pt",
+      "url": "https://www.psd.pt/pt/noticias/estivemos-governar-para-todos-portugal-nao-pode-parar",
+      "locator": "11 April 2025 electoral programme launch; taxation section",
+      "sourceClass": "party_programme_launch",
+      "license": "party_copyright_unverified_bulk_reuse",
+      "notes": "Party's official launch states numerical tax commitments; use full 2025 programme linked from https://www.psd.pt/pt/programas-do-partido-e-programas-eleitorais for denominator review."
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US24-GOP-TIPS",
+      "documentId": "US24-GOP",
+      "paraphrase": "Introduce a federal tax exemption or relief for tips earned by eligible workers.",
+      "locator": "Chapter 3; Make Trump Tax Cuts Permanent and No Tax on Tips",
+      "successCriterion": "Define whether pledge requires zero federal income tax, zero payroll tax, or a bounded income-tax deduction.",
+      "linkedOfficialEventIds": [
+        "US25-PL11921",
+        "US26-IRS-TIPS"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "The 2025 statute offers a capped income-tax deduction with eligibility restrictions, not literal exemption from every tax; do not score fully delivered without predefined criterion."
+      ]
+    },
+    {
+      "id": "US24-GOP-TCJA",
+      "documentId": "US24-GOP",
+      "paraphrase": "Make specified expiring 2017 tax-cut provisions permanent.",
+      "locator": "Chapter 3; Make Trump Tax Cuts Permanent and No Tax on Tips",
+      "successCriterion": "Atomize individual TCJA provisions and their effective dates.",
+      "linkedOfficialEventIds": [
+        "US25-PL11921"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "A reconciliation law has multiple tax provisions; provision-by-provision mapping and expiry tests required."
+      ]
+    },
+    {
+      "id": "US24-DEM-MINWAGE",
+      "documentId": "US24-DEM",
+      "paraphrase": "Raise the nationwide federal minimum wage to at least $15 an hour.",
+      "locator": "Chapter 3; Fighting Poverty",
+      "successCriterion": "Nationwide statutory wage floor of at least $15; do not conflate with contractor wage.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Do not carry over the 2020 outcome; 2024 cohort and governing control differ."
+      ]
+    },
+    {
+      "id": "US24-DEM-PRESCHOOL",
+      "documentId": "US24-DEM",
+      "paraphrase": "Provide universal free preschool for four-year-old children.",
+      "locator": "Chapter 3; Education",
+      "successCriterion": "Eligibility and financing for universal no-fee four-year-old preschool nationwide.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Federal-state delivery and appropriations require separate review."
+      ]
+    },
+    {
+      "id": "UK24-LAB-GBE",
+      "documentId": "UK24-LAB",
+      "paraphrase": "Establish a publicly owned Great British Energy company.",
+      "locator": "Manifesto; clean power / Great British Energy",
+      "successCriterion": "Statutory authority, corporate designation, operational status and capital deployment separately.",
+      "linkedOfficialEventIds": [
+        "UK25-GBE-ACT"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Royal Assent alone is not evidence of operating scale, delivered projects or bill reductions."
+      ]
+    },
+    {
+      "id": "UK24-LAB-EMPLOYMENT",
+      "documentId": "UK24-LAB",
+      "paraphrase": "Legislate new employment protections for workers.",
+      "locator": "Manifesto; Make Work Pay",
+      "successCriterion": "Atomize guaranteed hours, dismissal protection and other commitments, then verify commencement.",
+      "linkedOfficialEventIds": [
+        "UK25-ERA"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Act contains staged commencements; enacted is not identical to in force."
+      ]
+    },
+    {
+      "id": "UK24-LAB-HOMES",
+      "documentId": "UK24-LAB",
+      "paraphrase": "Enable construction of 1.5 million homes over the parliament.",
+      "locator": "Manifesto; planning and housing",
+      "successCriterion": "Count net additional completed dwellings over pre-specified parliamentary period.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Planning reforms and approvals are intermediate, not completed homes."
+      ]
+    },
+    {
+      "id": "CA25-LIB-HOMES",
+      "documentId": "CA25-LIB",
+      "paraphrase": "Establish Build Canada Homes to expand affordable housing construction.",
+      "locator": "Canada Strong; housing / Build",
+      "successCriterion": "Separate institutional launch, appropriated funding, cash disbursement and completed homes.",
+      "linkedOfficialEventIds": [
+        "CA25-BUDGET"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Budget proposal and government announcement are not completed dwellings or actual expenditures."
+      ]
+    },
+    {
+      "id": "CA25-LIB-OPERATING",
+      "documentId": "CA25-LIB",
+      "paraphrase": "Balance federal operating expenditure and operating revenues by 2028.",
+      "locator": "Canada Strong; fiscal plan",
+      "successCriterion": "Define operating-balance accounting and fiscal-year boundary before judging.",
+      "linkedOfficialEventIds": [
+        "CA25-BUDGET"
+      ],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Capital/operating split and revised accounting definitions may alter comparison; budget projections are not actuals."
+      ]
+    },
+    {
+      "id": "DE25-UNION-AKTIVRENTE",
+      "documentId": "DE25-UNION",
+      "paraphrase": "Allow eligible people working beyond retirement age to earn up to EUR 2,000 per month tax-free.",
+      "locator": "Rente und Altersvorsorge; Aktivrente",
+      "successCriterion": "Verify precise eligibility, income-tax provision, effective date and take-up.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "CDU programme is pre-election; coalition agreement is post-election and must be separate."
+      ]
+    },
+    {
+      "id": "PT25-AD-IRS",
+      "documentId": "PT25-AD",
+      "paraphrase": "Reduce personal income taxation by EUR 2 billion, including EUR 500 million in 2025.",
+      "locator": "11 April programme launch; tax policy",
+      "successCriterion": "Verify fiscal baseline, law, distribution, cash impact and nominal-year allocation.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Party launch claim must be reconciled to full official programme and enacted annual budget."
+      ]
+    },
+    {
+      "id": "PT25-AD-IRC",
+      "documentId": "PT25-AD",
+      "paraphrase": "Gradually reduce general corporate income tax rate to 17%, and SME rate to 15%, during the legislature.",
+      "locator": "11 April programme launch; IRC policy",
+      "successCriterion": "Verify statutory general and SME rates, tax base, staged effective dates and deadline.",
+      "linkedOfficialEventIds": [],
+      "eligibility": "candidate_requires_independent_atomization",
+      "outcome": null,
+      "independentReviewers": 0,
+      "independentAdjudication": false,
+      "notes": [
+        "Separate headline rates from actual effective tax paid."
+      ]
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US25-PL11921",
+      "country": "US",
+      "date": "2025-07-04",
+      "kind": "enacted_statute",
+      "issuer": "U.S. Congress / GPO",
+      "url": "https://www.govinfo.gov/app/details/PLAW-119publ21",
+      "locator": "Public Law 119-21; section 70201 and relevant TCJA amendments",
+      "fact": "Federal reconciliation law enacted July 4, 2025; section 70201 introduced a qualified-tips deduction.",
+      "notProofOf": "Universal tax exemption, actual refunds or full campaign-pledge satisfaction."
+    },
+    {
+      "id": "US26-IRS-TIPS",
+      "country": "US",
+      "date": "2026-04-10",
+      "kind": "final_rule_notice",
+      "issuer": "Internal Revenue Service",
+      "url": "https://www.irs.gov/newsroom/treasury-irs-issue-final-regulations-listing-occupations-where-workers-customarily-and-regularly-receive-tips-under-the-one-big-beautiful-bill",
+      "locator": "IR-2026-49",
+      "fact": "IRS announced final regulations defining eligible tipped occupations on April 10, 2026.",
+      "notProofOf": "All workers qualify, no payroll tax, or measured household savings."
+    },
+    {
+      "id": "UK25-GBE-ACT",
+      "country": "UK",
+      "date": "2025-05-15",
+      "kind": "enacted_statute",
+      "issuer": "UK Parliament / legislation.gov.uk",
+      "url": "https://www.legislation.gov.uk/ukpga/2025/16",
+      "locator": "Great British Energy Act 2025 c.16, sections 1, 4, 5",
+      "fact": "Royal Assent May 15, 2025; statutory authority to designate company and provide assistance.",
+      "notProofOf": "Company operational delivery, project completion or actual expenditure."
+    },
+    {
+      "id": "UK25-ERA",
+      "country": "UK",
+      "date": "2025-12-18",
+      "kind": "enacted_statute",
+      "issuer": "UK Parliament / legislation.gov.uk",
+      "url": "https://www.legislation.gov.uk/ukpga/2025/36/enacted",
+      "locator": "Employment Rights Act 2025 c.36, Part 1 and commencement provisions",
+      "fact": "Royal Assent December 18, 2025; staged commencement must be tracked.",
+      "notProofOf": "Every new worker protection was immediately in force."
+    },
+    {
+      "id": "CA25-BUDGET",
+      "country": "CA",
+      "date": "2025-11-04",
+      "kind": "budget_plan_not_actual_outlay",
+      "issuer": "Department of Finance Canada",
+      "url": "https://www.budget.canada.ca/2025/report-rapport/chap3-en.html",
+      "locator": "Chapter 3; Launching Build Canada Homes and fiscal tables",
+      "fact": "Official Budget 2025 reports a proposed five-year Build Canada Homes investment and September 14 agency launch.",
+      "notProofOf": "Parliamentary appropriation, actual cash disbursement, or completed homes."
+    },
+    {
+      "id": "US21-PL11758",
+      "country": "US",
+      "date": "2021-11-15",
+      "kind": "enacted_statute_unlinked_2020",
+      "issuer": "U.S. Congress / GPO",
+      "url": "https://www.govinfo.gov/app/details/PLAW-117publ58",
+      "locator": "Public Law 117-58; Infrastructure Investment and Jobs Act",
+      "fact": "Infrastructure Investment and Jobs Act enacted November 15, 2021.",
+      "notProofOf": "Any particular 2020 pledge fully satisfied or money spent."
+    },
+    {
+      "id": "US22-PL117167",
+      "country": "US",
+      "date": "2022-08-09",
+      "kind": "enacted_statute_unlinked_2020",
+      "issuer": "U.S. Congress / GPO",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-117publ167/html/PLAW-117publ167.htm",
+      "locator": "Public Law 117-167; CHIPS Act Division A",
+      "fact": "CHIPS and Science Act enacted August 9, 2022.",
+      "notProofOf": "Specific pre-election promises or completed factory projects."
+    },
+    {
+      "id": "US22-PL117169",
+      "country": "US",
+      "date": "2022-08-16",
+      "kind": "enacted_statute_unlinked_2020",
+      "issuer": "U.S. Congress / GPO",
+      "url": "https://www.govinfo.gov/app/details/PLAW-117publ169",
+      "locator": "Public Law 117-169; Inflation Reduction Act",
+      "fact": "Federal reconciliation law enacted August 16, 2022.",
+      "notProofOf": "Actual clean-energy investment delivered or a campaign pledge fulfilled."
+    }
+  ],
+  "fiscalSourceDiscovery": [
+    {
+      "id": "US-USA-SPENDING",
+      "country": "US",
+      "url": "https://api.usaspending.gov/",
+      "kind": "federal_award_and_account_data",
+      "access": "public_api_no_paid_key",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Award obligations and payments are not interchangeable with Census state direct expenditure or realized physical capital."
+    },
+    {
+      "id": "CA-BUDGET-2025",
+      "country": "CA",
+      "url": "https://www.budget.canada.ca/2025/report-rapport/chap3-en.html",
+      "kind": "federal_budget_forecast",
+      "access": "public_html",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Five-year fiscal projections are not annual actual spending; government and fiscal year scope differ from U.S. state panel."
+    },
+    {
+      "id": "UK-LEGISLATION",
+      "country": "UK",
+      "url": "https://www.legislation.gov.uk/ukpga/2025/16",
+      "kind": "enacted_statute",
+      "access": "public_html",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Statutory funding power is not expenditure."
+    },
+    {
+      "id": "UK-ONS-PSF-MONTHLY",
+      "country": "UK",
+      "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/may2025",
+      "kind": "observed_public_sector_monthly_finance",
+      "access": "public_html_and_downloadable_tables",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Public-sector net investment includes capital grants and depreciation effects, unlike gross fixed capital formation; monthly values revised and fiscal year April-March."
+    },
+    {
+      "id": "CA-FISCAL-MONITOR",
+      "country": "CA",
+      "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2025/11.html",
+      "kind": "observed_federal_monthly_revenue_and_expense",
+      "access": "public_html",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Federal monthly cash/accounting scope and November 2025 release are not Canadian general-government GFCF nor a pre-election outcome."
+    },
+    {
+      "id": "PT-DGO-MONTHLY",
+      "country": "PT",
+      "url": "https://www.dgo.gov.pt/execucaoorcamental/Documents/SEO_SinteseExecucaoOrcamentalMensal/CalendarioSinteseExecucaoOrcamentalMensal-2025_vPT.pdf",
+      "kind": "official_monthly_budget_execution_release_calendar",
+      "access": "public_pdf",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Calendar is a publication schedule, not expenditure data; each monthly PDF requires extraction and separate national-accounts reconciliation."
+    },
+    {
+      "id": "DE-PT-EUROSTAT-GFS",
+      "country": "DE_PT",
+      "url": "https://ec.europa.eu/eurostat/web/government-finance-statistics",
+      "kind": "general_government_finance_harmonization_source",
+      "access": "free_public_api_after_dataset_dimension_validation",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Verify quarterly ESA2010 GFCF series code, Germany/Portugal coverage, revisions and denominators before computing or pooling; do not infer election effects."
+    }
+  ],
+  "licensing": "Store original URLs and short original paraphrases only. Do not copy full party manifesto texts, republish PDF, or infer permission from public access.",
+  "reviewProtocol": "Two independent coders must confirm source passage, pre-election publication, atomic eligibility, duplicate resolution, original intent-free success criterion, event linkage, competing explanations, in-force vs enacted vs paid and term-end/censoring. No independent review completed for these candidates.",
+  "caveats": [
+    "This is a hand-picked expansion for source verification and is not an exhaustive sample.",
+    "Some 2024/2025 governing terms are not complete; right-censor outcomes.",
+    "The 2024 Democratic platform retains Biden-specific language despite candidate transition; party/candidate must not be conflated.",
+    "Do not mix budget proposals, appropriations, obligations, payments, or completed outputs.",
+    "Do not treat 2020 statutes as pledge matches until source and scope are independently established."
+  ]
+}
