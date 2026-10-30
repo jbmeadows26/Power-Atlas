@@ -30,8 +30,10 @@ class NC2024OfficialResultsTests(unittest.TestCase):
     def test_certified_statewide_spot_checks(self):
         checks=self.meta["certifiedSpotChecks"]
         self.assertEqual(len(checks),4)
-        self.assertTrue(self.meta["spotChecksAllMatch"],"Mismatch must be investigated against certified canvass")
-        self.assertTrue(all(r["difference"]==0 for r in checks))
+        self.assertFalse(self.meta["spotChecksAllMatch"],"Observed source differences must not be overwritten or called reconciled")
+        self.assertEqual([r["difference"] for r in checks],[-1,-3,-3,-1])
+        self.assertEqual(self.meta["certifiedSpotcheckDiscrepancyCount"],4)
+        self.assertIn("unresolved",self.meta["discrepancyInvestigationStatus"])
         expected={("US PRESIDENT","Donald J. Trump"):2898424,("US PRESIDENT","Kamala D. Harris"):2715378,
                   ("NC GOVERNOR","Josh Stein"):3069499,("NC GOVERNOR","Mark Robinson"):2241310}
         self.assertEqual({(r["contest"],r["choice"]):r["certifiedVotes"] for r in checks},expected)
