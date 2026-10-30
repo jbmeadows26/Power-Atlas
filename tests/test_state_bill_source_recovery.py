@@ -52,6 +52,20 @@ class StateBillSourceRecoveryTests(unittest.TestCase):
         self.assertEqual(candidate["reviewStatus"], "third_party_index_official_source_review_required")
         self.assertIn("first_5", candidate["retrievalScope"])
 
+    def test_http_source_only_recovers_when_detail_has_https(self):
+        def fake_get(url):
+            if "/search?" in url:
+                return {"data": [bill("http://example.org/old")],
+                        "pagination": {"total": 3}}
+            return {"id": UID, "source_url": "https://example.org/official"}
+        indexed = {}
+        result = process_state("VT", indexed, fake_get)
+        self.assertEqual(result["newCandidateRows"], 1)
+        self.assertEqual(result["nonHttpsSourceSchemes"]["http"], 1)
+        self.assertEqual(result["nonHttpsSourceHosts"]["example.org"], 1)
+        self.assertEqual(next(iter(indexed.values()))["source"],
+                         "https://example.org/official")
+
     def test_missing_source_stays_unverified_without_official_url(self):
         def fake_get(url):
             if "/search?" in url:
