@@ -11,9 +11,9 @@
     "state_campaign_finance": {
       "jurisdictionsCompleted": 0,
       "jurisdictionsIndexed": 50,
-      "officialSourceRecordsIngested": 0,
-      "overallStatus": "source_registry_only",
-      "sourceVerifiedJurisdictions": 0
+      "officialSourceRecordsIngested": 9,
+      "overallStatus": "partial",
+      "sourceVerifiedJurisdictions": 1
     },
     "state_judicial_selection_and_election_outcomes": {
       "jurisdictionsCompleted": 0,
@@ -6043,20 +6043,30 @@
       "stateName": "Virginia"
     },
     {
-      "blockingDependency": "exact official record-level source + statewide historical backfill + completeness reconciliation",
-      "certificationStatus": "not_verified",
-      "coverageStatus": "source_discovery_only",
+      "blockingDependency": "Statewide itemized filings, independent expenditures, historical cycles and donor networks require licensing review; PDC individual-list commercial reuse restricted.",
+      "certificationStatus": "PDC_open_data_grouped_summaries_not_filing_amendment_reconciled",
+      "coverageStatus": "official_2020_22_24_coarse_finance_aggregates_itemized_filings_absent",
       "domain": "state_campaign_finance",
       "domainFullyComplete": false,
       "fips": "53",
       "id": "WA:state_campaign_finance",
-      "officialRecordsSourceLinked": false,
-      "reconciliationStatus": "not_run",
-      "recordsIngested": 0,
+      "officialRecordsSourceLinked": true,
+      "reconciliationStatus": "original_filing_and_contribution_reconciliation_not_run",
+      "recordsIngested": 9,
       "sourceDiscovery": {
         "authorityURLOrigin": "FEC directory of official state election offices",
+        "dataPath": "data/finance/wa-pdc/summary-aggregate-2020-2024.json",
         "electionOfficeURL": "https://www.sos.wa.gov/elections/",
-        "officialSourceHint": "Official state campaign finance disclosure regulator, state-specific"
+        "electionYears": [
+          2020,
+          2022,
+          2024
+        ],
+        "groupedAggregateCategories": 9,
+        "licensingWarning": "PDC imposes noncommercial restrictions on lists of individuals; no personal list is republished. Review license/policy before commercial reuse of any derived fields.",
+        "officialSourceHint": "Official state campaign finance disclosure regulator, state-specific",
+        "privacyThresholdRowsPerGroup": 5,
+        "waPDCDataset": "https://data.wa.gov/resource/3h9x-7bvm.json?%24select=election_year%2C+filer_type%2C+count%28%2A%29+as+rows%2Csum%28contributions_amount%29+as+contributions%2Csum%28expenditures_amount%29+as+expenditures&%24where=election_year+in%28%272020%27%2C%272022%27%2C%272024%27%29&%24group=election_year%2Cfiler_type&%24order=election_year%2Cfiler_type&%24limit=1000"
       },
       "state": "WA",
       "stateName": "Washington"
