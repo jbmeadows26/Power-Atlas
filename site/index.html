@@ -210,7 +210,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <div class="columns"><div class="card"><span class="eyebrow">Research charter</span><h2>What is — and isn't — established</h2>
       <p>This platform publishes source-linked references, not accusations. Litigation listings do not establish a judgment. Committee names do not prove relationships. Aggregate receipts and disbursements do not identify a beneficiary or influence over a map.</p>
       <a class="source" href="https://github.com/jbmeadows26/Power-Atlas" rel="noopener noreferrer" target="_blank">Inspect the full public GitHub repository ↗</a>
-    </div><div class="card"><span class="eyebrow">Coverage gaps</span><h3>Still being collected</h3><div id="gapOverview"></div></div></div>
+    </div><div class="card"><span class="eyebrow">Coverage gaps</span><h3>Verified coverage by research area</h3><p class="note">Current official records are counted separately from full historical or jurisdiction-wide completion. Gaps are not hidden.</p><div id="gapOverview"></div></div></div>
   </section>
   <section class="panel" data-panel="records">
     <span class="eyebrow">Document provenance</span><h2>Research records</h2>
@@ -742,12 +742,53 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
      '<p class="note"><span class="tag warn">Certified election canvass not retrieved</span></p><a class="source" href="'+esc(safe(authorityByState[s.postal].electionOfficeURL))+'" target="_blank" rel="noopener noreferrer">Official state election authority ↗</a>':'<p class="note">Election authority not indexed in source registry</p>')+'</div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
   }
   function gaps(items){return (items||[]).map(function(x){return '<div class="coverage">○ '+esc(String(x).replace(/_/g,' '))+'</div>'}).join('')||'<p>No coverage report available.</p>'}
+  function loadSixGapEvidence(){
+    var source='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/coverage-six-domains.json';
+    var labels={
+      state_campaign_finance:'State campaign finance',
+      state_roll_calls:'State legislative roll calls',
+      state_legislative_district_polygons_and_legal_boundary_history:'State legislative boundaries & legal map history',
+      lower_court_litigation_dockets_and_state_cases:'Lower-court dockets & state cases',
+      state_judicial_selection_and_election_outcomes:'Judicial selection & election outcomes',
+      statewide_local_returns_and_official_vote_reconciliation:'Local returns & official vote reconciliation'
+    };
+    var context={
+      state_campaign_finance:'State filing-level contributions, independent spending and historical cycles still required.',
+      state_roll_calls:'Complete member-level chamber votes and verified official journals still required.',
+      state_legislative_district_polygons_and_legal_boundary_history:'Original Census 2024 district shapefiles indexed for all 99 chambers; earlier plans, court revisions and legal effective dates remain incomplete.',
+      lower_court_litigation_dockets_and_state_cases:'State trial-court/county docket records still require jurisdiction-specific lawful access.',
+      state_judicial_selection_and_election_outcomes:'North Carolina 2024 judicial-candidate tallies collected; seat/selection history and individual certification remain incomplete.',
+      statewide_local_returns_and_official_vote_reconciliation:'North Carolina 2024 precinct returns cover all 100 counties; four certified canvass differences remain unresolved. Other states and years outstanding.'
+    };
+    fetch(source,{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('six-gap evidence '+r.status);return r.json()})
+      .then(function(d){
+        if(d.schema!=='power-atlas.six-domain-coverage.v1'||d.jurisdictions!==50||!Array.isArray(d.domains)||d.domains.length!==6)throw new Error('unrecognized six-gap evidence');
+        var rows=d.domains.map(function(k){
+          var c=d.coverage[k]||{},verified=Number(c.sourceVerifiedJurisdictions)||0,completed=Number(c.jurisdictionsCompleted)||0;
+          var count=Number(c.officialSourceRecordsIngested)||0;
+          var status=completed===50?'Complete':verified>0?'Partial':'Not source-verified';
+          return '<div class="coverage"><strong>'+esc(labels[k]||k)+'</strong> '+
+            '<span class="tag'+(status==='Complete'?'':' warn')+'">'+esc(status)+'</span>'+
+            '<div class="muted">'+verified+'/50 states with record-level sources; '+completed+'/50 complete; '+count.toLocaleString()+' source records indexed.</div>'+
+            '<div class="note">'+esc(context[k]||'Evidence review remains incomplete.')+'</div></div>';
+        }).join('');
+        var overview=document.getElementById('gapOverview'),quality=document.getElementById('gapQuality');
+        if(overview)overview.innerHTML=rows;
+        if(quality)quality.innerHTML=rows;
+      })
+      .catch(function(err){
+        var block=document.getElementById('gapOverview');
+        if(block)block.insertAdjacentHTML('beforeend','<p class="muted">Live coverage evidence unavailable; legacy gap list shown. <a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">View source register</a>.</p>');
+      });
+  }
   function render(){
     set('countRecords',data.records.length);set('countStates',(data.states||[]).length);
     set('countMoney',((data.finance||{}).committeeTotals||[]).length);set('countLinks',(data.relationships||[]).length);
     var uncovered=(data.coverage||{}).uncovered||[];
     document.getElementById('gapOverview').innerHTML=gaps(uncovered);
     document.getElementById('gapQuality').innerHTML=gaps(uncovered);
+    loadSixGapEvidence();
     var stateList=((data.people||{}).stateLegislatorIndex)||[];
     var selector=document.getElementById('stateLegislatorState'),prev=selector.value||'NJ';
     selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
