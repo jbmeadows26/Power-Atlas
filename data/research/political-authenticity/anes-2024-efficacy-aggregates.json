@@ -1,0 +1,54 @@
+{
+  "schema": "power-atlas.political-authenticity.anes2024-efficacy.v1",
+  "dataKind": "observed_published_unweighted_frequency_table",
+  "source": "https://sda.berkeley.edu/sdaweb/docs/anes2024full/DOC/hcbk0040.htm",
+  "primaryStudy": "https://electionstudies.org/data-center/2024-time-series-study/",
+  "release": "2026-05-19",
+  "surveyWave": "2024 POST",
+  "status": "PUBLIC_AGGREGATES_ONLY_NOT_DISTRICT_JOINED_NOT_WEIGHTED",
+  "note": "Observed unweighted codebook frequencies; valid-response denominator varies by item. Do not infer population percentages or perform person-level joins from this table.",
+  "questions": [
+    {
+      "variable": "V242200",
+      "label": "Public officials don't care what people like me think",
+      "agreeCodes": [
+        1,
+        2
+      ],
+      "responseCounts": {
+        "1": 1455,
+        "2": 2052,
+        "3": 765,
+        "4": 537,
+        "5": 119
+      },
+      "validN": 4928,
+      "agreeN": 3507,
+      "agreeShareValid": 0.711648
+    },
+    {
+      "variable": "V242201",
+      "label": "People like me have no say about what government does",
+      "agreeCodes": [
+        1,
+        2
+      ],
+      "responseCounts": {
+        "1": 1293,
+        "2": 1860,
+        "3": 687,
+        "4": 836,
+        "5": 256
+      },
+      "validN": 4932,
+      "agreeN": 3153,
+      "agreeShareValid": 0.639294
+    }
+  ],
+  "limitations": [
+    "Counts are unweighted and must not be presented as national population percentages",
+    "Individual-level joint distribution and causal linkage cannot be derived from marginal frequency tables",
+    "Research question requires documented candidate wealth/occupation plus geographically linkable, permissioned respondent microdata",
+    "Variables V242200/V242201 are two specific efficacy questions, NOT a confirmed four-item standardized scale"
+  ]
+}
