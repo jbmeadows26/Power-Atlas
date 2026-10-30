@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.deployment-health.v1",
-  "checkedDateUTC": "2026-10-29",
+  "checkedDateUTC": "2026-10-30",
   "project": "power-atlas-research",
   "productionDomain": "https://power-atlas-research.vercel.app/",
   "lastVerifiedProductionCommit": "cf5c8442019c988aff756ffe85b5baba707fc28f",
@@ -46,6 +46,13 @@
     "affectedProjectsDeploymentsEnabledRequested": true,
     "verifiedEvidence": "After disabling automatic Git deployments, subsequent GitHub commits 74756b7 and 35dc236 did not appear as new Vercel deployment entries when checked at 2026-10-29T15:10Z.",
     "manualReleasePolicy": "Only one manual REST API production deployment after free quota resets; inspect GitHub main SHA, Vercel READY state, alias and served HTML. Manual deployment must not be blocked by ignored build configuration.",
-    "tests": "169 tests passed in GitHub Actions run 40898828747"
-  }
+    "tests": "169 tests passed in GitHub Actions run 40898828747",
+    "previewAndAffectedProjectSettings": "Vercel update_project accepted previewDeploymentsDisabled=true and enableAffectedProjectsDeployments=true on 2026-10-30, but get_project metadata did not echo those fields; settings are requested, not independently verified."
+  },
+  "latestVerifiedReadyDeploymentId": "dpl_JAwv8mT4x53pgF2TBEugmabRd8zS",
+  "latestVerifiedReadyDeploymentCreatedUTC": "2026-10-28T23:58:08Z",
+  "latestValidatedFeedDataCommit": "dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb",
+  "latestValidatedFeedWorkflowRun": 40994752099,
+  "latestValidatedFeedTestCount": 171,
+  "currentBlockerAssessment": "As of 2026-10-30 03:00 UTC the newest READY production deployment remains 2026-10-28 commit cf5c844; the previously observed HTTP 402 free daily quota has no independently confirmed reset time. Do not initiate a new production deployment until its 86400-second cooldown is confirmed elapsed. No production deployment was attempted in this audit."
 }
