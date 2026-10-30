@@ -77,7 +77,7 @@ def parse(number,xml,url):
                                    ("AbsentVotes","Absent"),("ExcusedVotes","Excused")):
             if summary[summaryField]!=sums[state]:
                 raise ValueError(f"Member vs official tally disagreement {number}/{sequence}/{state}: {summary[summaryField]} vs {sums[state]}")
-        key=f"WA-{BIENNIUM}-{billid}-{agency}-{sequence}"
+        key=f"WA-{BIENNIUM}-{billid}-{agency}-{sequence}-{vdate}-{hashlib.sha256(motion.encode()).hexdigest()[:10]}"
         out.append({
             "id":key,"billNumberRequested":number,"billId":billid,"agency":agency,
             "motion":motion,"sequenceNumber":int(sequence),"voteDate":vdate,
@@ -97,7 +97,7 @@ def build():
         if not hits:
             missing.append(n)
         for hit in hits:
-            if hit["id"] in seen:raise ValueError("Duplicate vote ID across official bill requests")
+            if hit["id"] in seen:raise ValueError("Duplicate official rollcall identity (source may return same vote for separate bill queries): "+repr({"id":hit["id"],"requestedBill":n,"motion":hit["motion"],"voteDate":hit["voteDate"]}))
             seen.add(hit["id"])
             records.append(hit)
         print(n,len(hits),flush=True)
