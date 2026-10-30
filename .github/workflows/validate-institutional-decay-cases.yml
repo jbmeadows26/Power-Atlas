@@ -1,0 +1,25 @@
+name: Validate institutional decay case evidence
+
+on:
+  push:
+    paths:
+      - 'data/institutional-decay/accountability-service-cases-2026-10-30.json'
+      - 'tests/test_institutional_decay_accountability_cases.py'
+      - '.github/workflows/validate-institutional-decay-cases.yml'
+  pull_request:
+    paths:
+      - 'data/institutional-decay/accountability-service-cases-2026-10-30.json'
+      - 'tests/test_institutional_decay_accountability_cases.py'
+      - '.github/workflows/validate-institutional-decay-cases.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate case observations, dates, denominators and permissions
+        run: python3 -m unittest discover -s tests -p 'test_institutional_decay_accountability_cases.py' -v
