@@ -73,6 +73,15 @@
       "nextAction": "Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata"
     },
     {
+      "id": "official_wa_2023_24_member_rollcall_sample",
+      "description": "Official WA member-level legislative votes for 42 sampled 2023–24 bills; not a redistricting vote census",
+      "observed": 56,
+      "scope": "WA_2023_24_42_requested_bills_21_with_votes",
+      "status": "complete_bounded_primary_source_sample",
+      "nextAction": "Extend only with official source access and explicit topic tagging; never merge general WA votes into redistricting tallies",
+      "source": "https://wslwebservices.leg.wa.gov/LegislationService.asmx/GetRollCalls"
+    },
+    {
       "id": "verified_committee_financial_transfers",
       "description": "Individual, source-supported committee-to-committee transfer records",
       "observed": 0,
