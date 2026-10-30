@@ -9,7 +9,7 @@ from collections import Counter
 from datetime import date
 from pathlib import Path
 from urllib.error import HTTPError, URLError
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlparse
 from urllib.request import Request, urlopen
 import json
 import re
@@ -89,10 +89,17 @@ def process_state(state, indexed, get=get_json):
     new_rows = 0
     detail_requests = 0
     detail_failures = 0
+    non_https_schemes = Counter()
+    non_https_hosts = Counter()
     pending = {}
     for raw in rows:
         reason = reject_reason(raw)
-        if reason == "missing_source_url" and detail_requests < MAX_DETAILS_PER_STATE:
+        if reason == "non_https_source_url":
+            parsed_url = urlparse(str(raw.get("source_url") or ""))
+            non_https_schemes[parsed_url.scheme or "relative_or_unknown"] += 1
+            if parsed_url.scheme == "http" and parsed_url.hostname:
+                non_https_hosts[parsed_url.hostname.lower()] += 1
+        if reason in ("missing_source_url", "non_https_source_url") and detail_requests < MAX_DETAILS_PER_STATE:
             detail_requests += 1
             try:
                 source = detail_source(raw, get)
@@ -125,6 +132,8 @@ def process_state(state, indexed, get=get_json):
         "providerTotalMatches": payload.get("pagination", {}).get("total"),
         "newCandidateRows": new_rows,
         "rejectionCounts": dict(sorted(rejected.items())),
+        "nonHttpsSourceSchemes": dict(sorted(non_https_schemes.items())),
+        "nonHttpsSourceHosts": dict(sorted(non_https_hosts.items())),
         "billDetailRequests": detail_requests,
         "billDetailFailures": detail_failures,
         "source": url,
@@ -140,6 +149,7 @@ def main():
     indexed = {row["id"]: row for row in bills["records"]}
     audit = {
         "schema": "power-atlas.state-bill-filter-audit.v1",
+        "auditVersion": 2,
         "dateUTC": date.today().isoformat(),
         "status": "bounded_four_jurisdiction_source_link_recovery",
         "scope": "First five redistricting keyword hits only; not exhaustive state legislation",
