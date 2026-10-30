@@ -89,6 +89,7 @@ def process_state(state, indexed, get=get_json):
     new_rows = 0
     detail_requests = 0
     detail_failures = 0
+    pending = {}
     for raw in rows:
         reason = reject_reason(raw)
         if reason == "missing_source_url" and detail_requests < MAX_DETAILS_PER_STATE:
@@ -112,11 +113,12 @@ def process_state(state, indexed, get=get_json):
         candidate = record(raw, state, PER_PAGE)
         if candidate is None:
             rejected["record_validation_failed"] += 1
-        elif candidate["id"] not in indexed:
+        elif candidate["id"] not in indexed and candidate["id"] not in pending:
             candidate["retrievalScope"] = "first_5_state_keyword_results_source_link_recovery_only"
             candidate["reviewStatus"] = "third_party_index_official_source_review_required"
-            indexed[candidate["id"]] = candidate
+            pending[candidate["id"]] = candidate
             new_rows += 1
+    indexed.update(pending)
     return {
         "status": "bounded_five_hit_source_link_audit_not_exhaustive",
         "searchHitsSampled": len(rows),
