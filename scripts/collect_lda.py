@@ -20,7 +20,9 @@ MAX_BYTES = 350000
 def fetch(term, year):
     # Keep response bodies under 350KB; dense congressional-district filings
     # need smaller pages. Same 20-record cap, not expanded search access.
-    page_size = 5 if term == 'congressional district' else 10
+    # A 2026 congressional-district filing made even a five-row response exceed
+    # the 350KB safety bound. Use two rows per page for this one query.
+    page_size = 2 if (term == 'congressional district' and year == 2026) else (5 if term == 'congressional district' else 10)
     found = []
     for page in range(1, (20 // page_size) + 1):
         # LDA.gov documents a 15-request/minute anonymous limit. Pace well
@@ -155,7 +157,7 @@ def collect():
     if len(by_id)>150:
         by_id=dict(sorted(by_id.items(),reverse=True)[:150])
     body={'schema':'power-atlas.lda-filings.v1','publicationStatus':'review_required',
-          'method':'up to 20 filings per issue term/year; 5- or 10-row pages to bound response size; incomplete search coverage',
+          'method':'up to 20 filings per issue term/year; 2-, 5- or 10-row pages to bound response size; incomplete search coverage',
           'attribution':'Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.',
           'successfulQueries':successes,'failedQueries':len(failures),
           'fetchedRowsInBoundedPages':fetched,'matchedRowsInBoundedPages':matched,
