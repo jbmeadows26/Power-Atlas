@@ -24,9 +24,11 @@ BILLS = ROOT / "data/legislation/state-redistricting-bills.json"
 CHECKPOINT = ROOT / "data/legislation/state-redistricting-jurisdictions.json"
 AUDIT = ROOT / "data/health/state-bill-record-filter-audit.json"
 BASE = "https://api.billcommons.org/api/v1"
-STATES = ("CA", "MD", "OK", "VT")
+STATES = ("MD", "OK", "VT")
+OFFICIAL_HOSTS = {"MD": "mgaleg.maryland.gov", "OK": "www.oklegislature.gov", "VT": "legislature.vermont.gov"}
 PER_PAGE = 5
 MAX_DETAILS_PER_STATE = 2
+MAX_HEAD_PER_STATE = 3
 MAX_BYTES = 90000
 END = date(2026, 10, 30)
 UUID = re.compile(r"[0-9a-fA-F-]{36}\Z")
@@ -62,6 +64,20 @@ def get_json(url):
     return json.loads(raw)
 
 
+def verify_https_official_link(raw, state, open_url=urlopen):
+    """Accept only a reachable HTTPS version of the exact official HTTP link."""
+    original = urlparse(str(raw.get("source_url") or ""))
+    if original.scheme != "http" or original.hostname != OFFICIAL_HOSTS.get(state):
+        return None
+    https = original._replace(scheme="https").geturl()
+    req = Request(https, headers={"User-Agent": "PowerAtlasPublicResearch/1.0 official link check"}, method="HEAD")
+    with open_url(req, timeout=12) as response:
+        final = urlparse(response.geturl())
+        if response.status != 200 or final.scheme != "https" or final.hostname != original.hostname:
+            return None
+    return https
+
+
 def detail_source(raw, get=get_json):
     """Only the same bill UUID may supply a missing official source URL."""
     uid = str(raw.get("id") or "")
@@ -89,6 +105,9 @@ def process_state(state, indexed, get=get_json):
     new_rows = 0
     detail_requests = 0
     detail_failures = 0
+    head_requests = 0
+    head_failures = 0
+    https_upgrades = 0
     non_https_schemes = Counter()
     non_https_hosts = Counter()
     pending = {}
@@ -99,6 +118,22 @@ def process_state(state, indexed, get=get_json):
             non_https_schemes[parsed_url.scheme or "relative_or_unknown"] += 1
             if parsed_url.scheme == "http" and parsed_url.hostname:
                 non_https_hosts[parsed_url.hostname.lower()] += 1
+        if reason == "non_https_source_url" and head_requests < MAX_HEAD_PER_STATE:
+            head_requests += 1
+            try:
+                verified = verify_https_official_link(raw, state)
+            except HTTPError as exc:
+                if exc.code in (401, 403, 429):
+                    raise
+                head_failures += 1
+                verified = None
+            except (URLError, OSError, TimeoutError, ValueError):
+                head_failures += 1
+                verified = None
+            if verified:
+                raw = dict(raw, source_url=verified)
+                reason = reject_reason(raw)
+                https_upgrades += 1
         if reason in ("missing_source_url", "non_https_source_url") and detail_requests < MAX_DETAILS_PER_STATE:
             detail_requests += 1
             try:
@@ -136,6 +171,9 @@ def process_state(state, indexed, get=get_json):
         "nonHttpsSourceHosts": dict(sorted(non_https_hosts.items())),
         "billDetailRequests": detail_requests,
         "billDetailFailures": detail_failures,
+        "officialHttpsHeadRequests": head_requests,
+        "officialHttpsHeadFailures": head_failures,
+        "officialHttpsLinksResolved": https_upgrades,
         "source": url,
     }
 
@@ -146,19 +184,19 @@ def main():
         return
     if AUDIT.exists():
         previous = json.loads(AUDIT.read_text(encoding="utf-8"))
-        if previous.get("auditVersion") == 2 and previous.get("dateUTC") == date.today().isoformat():
-            print("Version-2 bounded audit already completed today; no repeated source requests")
+        if previous.get("auditVersion") == 3 and previous.get("dateUTC") == date.today().isoformat():
+            print("Version-3 bounded audit already completed today; no repeated source requests")
             return
     bills = json.loads(BILLS.read_text(encoding="utf-8"))
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     indexed = {row["id"]: row for row in bills["records"]}
     audit = {
         "schema": "power-atlas.state-bill-filter-audit.v1",
-        "auditVersion": 2,
+        "auditVersion": 3,
         "dateUTC": date.today().isoformat(),
         "status": "bounded_four_jurisdiction_source_link_recovery",
-        "scope": "First five redistricting keyword hits only; not exhaustive state legislation",
-        "jurisdictions": {},
+        "scope": "Three states, first five redistricting keyword hits each; same-host official HTTPS HEAD only. CA deferred after official-host 403 in research reader; not exhaustive.",
+        "jurisdictions": {"CA": {"status": "official_https_host_403_in_research_reader_not_retried", "newCandidateRows": 0}},
         "accessPolicy": "No auth bypass; 401/403/429 stop all requests; preserve prior records.",
     }
     for state in STATES:
