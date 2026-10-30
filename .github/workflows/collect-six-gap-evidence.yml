@@ -5,6 +5,8 @@ on:
       - 'scripts/build_six_gap_coverage.py'
       - 'scripts/collect_state_legislative_polygons.py'
       - 'tests/test_six_gap_coverage.py'
+      - 'data/elections/nc-2024/reconciliation.json'
+      - 'data/geography/state-legislative-2024/index.json'
       - '.github/workflows/collect-six-gap-evidence.yml'
   pull_request:
     paths:
@@ -35,8 +37,13 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_six_gap_coverage.py' -v
       - name: Install unmodified Census Shapefile integrity reader
         run: python -m pip install --disable-pip-version-check 'pyshp==2.3.1'
-      - name: Collect current official Census state legislative district geometry
-        run: python -m scripts.collect_state_legislative_polygons
+      - name: Reuse already validated official Census ZIPs or ingest missing archival geometry
+        run: |
+          if [ -f data/geography/state-legislative-2024/index.json ]; then
+            echo "99 original 2024 Census shapefile ZIPs already persisted; validating rather than redownloading."
+          else
+            python -m scripts.collect_state_legislative_polygons
+          fi
       - name: Validate geometry record integrity and map coverage
         run: |
           python - <<'PY'
