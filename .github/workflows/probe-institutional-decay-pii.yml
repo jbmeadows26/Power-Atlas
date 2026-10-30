@@ -1,0 +1,19 @@
+name: Probe free OECD public integrity data
+on:
+  push:
+    paths:
+      - '.github/workflows/probe-institutional-decay-pii.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  public-probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Probe OECD PII SDMX public dataset without writing or imputing records
+        run: python scripts/probe_institutional_decay_pii.py
