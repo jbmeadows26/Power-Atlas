@@ -85,5 +85,25 @@ class StateCoverageSchedulerTests(unittest.TestCase):
 
 
 
+    def test_scanned_does_not_mean_candidate_rows_exist(self):
+        """A successful keyword request is not proof a state has indexed bills."""
+        import json
+        root = Path(__file__).resolve().parents[1]
+        checkpoint = json.loads((root / 'data/legislation/state-redistricting-jurisdictions.json').read_text(encoding='utf-8'))
+        bills = json.loads((root / 'data/legislation/state-redistricting-bills.json').read_text(encoding='utf-8'))
+        counts = {}
+        for row in bills['records']:
+            counts[row['state']] = counts.get(row['state'], 0) + 1
+        for state, metadata in checkpoint['jurisdictions'].items():
+            persisted = counts.get(state, 0)
+            self.assertEqual(metadata.get('persistedCandidateRows'), persisted)
+            if persisted == 0 and (metadata.get('totalMatchesReported') or 0) > 0:
+                self.assertEqual(metadata['status'], 'first_page_matches_reported_no_candidates_persisted')
+            elif persisted == 0:
+                self.assertEqual(metadata['status'], 'first_page_empty_search_not_no_bills')
+            else:
+                self.assertEqual(metadata['status'], 'first_page_indexed_not_exhaustive')
+
+
 if __name__ == '__main__':
     unittest.main()
