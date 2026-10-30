@@ -22,6 +22,7 @@ from expand_state_bill_coverage import record
 ROOT = Path(__file__).resolve().parents[1]
 BILLS = ROOT / "data/legislation/state-redistricting-bills.json"
 CHECKPOINT = ROOT / "data/legislation/state-redistricting-jurisdictions.json"
+PAGINATION = ROOT / "data/legislation/state-redistricting-pagination.json"
 AUDIT = ROOT / "data/health/state-bill-record-filter-audit.json"
 BASE = "https://api.billcommons.org/api/v1"
 STATES = ("MD", "OK", "VT")
@@ -220,6 +221,7 @@ def main():
             }
         time.sleep(0.4)
     bills["records"] = sorted(indexed.values(), key=lambda row: row["id"])
+    bills["coverageWarning"] = "State redistricting keyword pagination is bounded, not a complete legislative census. Some source links lack verified HTTPS endpoints; other terms, years and sessions are omitted."
     if len(bills["records"]) > 1200:
         raise RuntimeError("Candidate row cap exceeded")
     rendered = json.dumps(bills, indent=2, ensure_ascii=False) + "\n"
@@ -235,6 +237,8 @@ def main():
             meta["status"] = "first_page_matches_reported_no_candidates_persisted"
         else:
             meta["status"] = "first_page_empty_search_not_no_bills"
+    pagination = json.loads(PAGINATION.read_text(encoding="utf-8"))
+    pagination["candidateBillRows"] = len(bills["records"])
     audit["candidateRowsAfter"] = len(bills["records"])
     audit["jurisdictionsWithCandidateRowsAfter"] = sum(counts[s] > 0 for s in checkpoint["jurisdictions"])
     AUDIT.parent.mkdir(parents=True, exist_ok=True)
