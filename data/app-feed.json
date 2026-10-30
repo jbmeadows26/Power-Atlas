@@ -51442,6 +51442,18 @@
         "legalOutcomeVerified": false
       }
     ],
+    "officialWashingtonMemberRollcallSample": {
+      "state": "WA",
+      "biennium": "2023-24",
+      "officialMemberRollCalls": 56,
+      "memberVoteRows": 4017,
+      "billsRequested": 42,
+      "billsWithAnyRollCalls": 21,
+      "source": "https://wslwebservices.leg.wa.gov/LegislationService.asmx/GetRollCalls",
+      "dataset": "https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/legislation/wa-2023-24-rollcalls/source-rollcalls.json",
+      "status": "official_primary_source_bounded_sample_not_redistricting_or_statewide_census",
+      "warning": "Sampled legislative bills, not a statewide or redistricting roll-call census; individual legislator votes are in the separately attributed official source dataset."
+    },
     "stateBillSource": "https://billcommons.org/docs/api",
     "sourceProvider": "https://www.ballotwatch.io/developers",
     "scopeNote": "Keyword search of public bill titles and secondary-source sponsor IDs. Not exhaustive. No recorded voting outcomes implied."
@@ -64879,6 +64891,8 @@
     "officialStateBillSpotcheckRows": 4,
     "stateRedistrictingTitleMatches": 137,
     "stateRecordedVoteRows": 15,
+    "officialStateMemberRollcallSampleRows": 56,
+    "officialStateMemberBallotSampleRows": 4017,
     "federalBillRedistrictingTitleMatches": 14,
     "federalBillSponsorEdges": 8,
     "federalJudicialAppointments": 4777,
