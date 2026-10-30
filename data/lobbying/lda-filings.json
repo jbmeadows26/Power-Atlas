@@ -3,13 +3,13 @@
   "publicationStatus": "review_required",
   "method": "up to 20 filings per issue term/year; 5- or 10-row pages to bound response size; incomplete search coverage",
   "attribution": "Senate Office of Public Records cannot vouch for the data or analyses derived from these data after the data have been retrieved from LDA.gov.",
-  "successfulQueries": 6,
-  "failedQueries": 0,
-  "fetchedRowsInBoundedPages": 70,
-  "matchedRowsInBoundedPages": 54,
-  "issueTextMatchedRows": 54,
-  "filingsWithActivities": 70,
-  "activityRowsInspected": 523,
+  "successfulQueries": 5,
+  "failedQueries": 1,
+  "fetchedRowsInBoundedPages": 91,
+  "matchedRowsInBoundedPages": 79,
+  "issueTextMatchedRows": 79,
+  "filingsWithActivities": 91,
+  "activityRowsInspected": 674,
   "sampleFilingFieldNames": [
     "affiliated_organizations",
     "client",
@@ -50,7 +50,13 @@
     "government_entities",
     "lobbyists"
   ],
-  "failedQueryDetails": [],
+  "failedQueryDetails": [
+    {
+      "term": "congressional district",
+      "year": 2026,
+      "error": "RuntimeError: LDA response exceeded safety limit at page_size=5"
+    }
+  ],
   "records": [
     {
       "id": "lda-06640f8f-a516-4293-a208-c4f9a4470006",
@@ -62,7 +68,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/06640f8f-a516-4293-a208-c4f9a4470006/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Freedom to Vote Act (not introduced yet in 119th Congress) H.R. 14, John R. Lewis Voting Rights Advancement Act of 2025; H.R. 22, Safeguard American Voter Eligibility Act; S. 128, ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -77,7 +83,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/0936321b-cd90-4ce7-83fa-a5dab53f54d8/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support the implementation of Executive Order 14019 on Promoting Access to Voting 2.Support the Justice departments expansion of voting rights enforcement 3.Urge Congress to suff",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -92,7 +98,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/18203916-1513-4a5d-ad9a-f2ba957d516d/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "HR 1 Oppose the One Big Beautiful Bill Act HR 20 Support for Richard L. Trumka Protecting the Right to Organize Act HR 2531 Support for Workplace Violence Prevention for Health Car",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -107,7 +113,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/251e7717-27fe-4415-8fad-6d4983405789/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Urged the Senate to oppose Harmeet Dhillon's nomination to be Assistant Attorney General for Civil Rights. Urged the Senate to ensure judicial nominees are fair-minded and possess ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -122,7 +128,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/29f7ee4d-02bd-47af-b7e6-5ed316143e74/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "LEGISLATION: S. 1748-Kids Online Safety Act-Issues Lobbied: Free Speech, Privacy, Civil Rights and Liberties. S. 3663-Kids Online Safety Act-Issues Lobbied: Free Speech, Kids Onlin",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -137,7 +143,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/33e74f88-f709-4fd9-8b22-e006d5417818/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "H.R. 14/S. 2523 - John R. Lewis Voting Rights Advancement Act - Updates the Voting Rights Act of 1965 and establishes new criteria for determining which states and political subdiv",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -152,7 +158,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/34be4f48-ffdb-4208-a39d-7211a291eb0d/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting & Elections Bills in the 119th Congress HR 14, John R. Lewis Voting Rights Advancement Act (Rep. Sewell, 216 cosponsors) HR 22, SAVE Act (Rep. Roy, 110 cosponsors)--passed t",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -167,7 +173,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/356ae8fd-532e-46bc-9839-ff08349a3e46/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Sign letter opposing the \"SAVE America Act\" (S. 1383), the \"Make Elections Great Again Act\" (H.R. 7300), and the original \"SAVE Act\" (H.R. 22). Support for the John R. Lewis Voting",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -182,7 +188,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/358249f7-4b33-45b5-a02d-156b2e429677/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -197,7 +203,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/3c476b38-ce02-41d7-ac1b-0883140ce753/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting & Elections Bills in the 119th Congress HR 14, John R. Lewis Voting Rights Advancement Act (Rep. Sewell, 216 cosponsors) HR 22, SAVE Act (Rep. Roy, 110 cosponsors)--passed t",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -212,7 +218,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/3ec54f89-06d3-443f-9535-8fd946c1a055/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "One Big Beautiful Bill Act (HR 1) - opposed Sec. 70302 and 43201(c) - President Donald Trumps tax, immigration, energy, and health-care priorities legislation; Washington, DC Admis",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -227,7 +233,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/3ee5a839-7e44-4cee-87fd-bf403c88d8f8/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "LEGISLATION: S. 1748-Kids Online Safety Act-Issues Lobbied: Free Speech, Privacy, Civil Rights and Liberties. S. 3663-Kids Online Safety Act-Issues Lobbied: Free Speech, Privacy. S",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -242,7 +248,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/3efb49f6-e7ef-4014-8568-49abbfbcfcf8/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Protecting Our Democracy Act (S 2838) - protects our democracy by preventing abuses of Presidential power, restoring checks and balances and accountability and transparency in gove",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -257,7 +263,7 @@
       "type": "1A",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/40949aeb-0442-4b6d-8b69-f7b5cc0e76ce/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Artificial Intelligence in Education, Healthcare and Labor related issues Kids Online Safety Act (KOSA), Entirety S.836, Children and Teens Online Privacy Protection Act (COPPA 2.0",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -272,7 +278,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/4415cae0-993a-4e44-9ec5-e46ff3821353/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "H.R. 14/S. 2523 - John R. Lewis Voting Rights Advancement Act - Updates the Voting Rights Act of 1965 and establishes new criteria for determining which states and political subdiv",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -287,7 +293,7 @@
       "type": "Q4",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/46a96e44-c8e3-4c08-9db7-9042bdf6061e/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -302,7 +308,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/47af33e6-6691-4b66-a49c-af331000cdaa/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -317,7 +323,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/4ab1f31e-f7c9-490a-81bb-ffaa88c62ead/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Lobbied in favor of voting rights protections in H.R. 14/S. 2523: John R. Lewis Voting Rights Advancement Act of 2025.",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -332,7 +338,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/4ec2723f-0400-43d1-a3dd-7e98fd0fc833/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Integrity of the federal judiciary, including Supreme Court reform. Opposing the DC Judicial Nominations Reform Act of 2025 and the DC Attorney General Appointment Reform Act. Advo",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -347,7 +353,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/50266986-ac16-45c3-8af3-7bca8a7eb2c6/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -362,7 +368,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/65949159-056b-44bb-8ff3-ae4d6e5fe771/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -377,7 +383,7 @@
       "type": "2A",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/67696621-4244-4c2d-aea2-67dd84623191/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting & Elections Bills in the 119th Congress HR 14, John R. Lewis Voting Rights Advancement Act (Rep. Sewell, 216 cosponsors) HR 22, SAVE Act (Rep. Roy, 110 cosponsors)--passed t",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -392,7 +398,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/69675fd3-e36f-42d1-8988-f68c21ca47e1/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support the John R. Lewis Voting Rights Advancement Act (HR 14/S 2523) Support the Equal Rights Amendment Support the Resolution Supporting the goals and ideals of International Tr",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -407,7 +413,7 @@
       "type": "Q4",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/6ffa4138-fcd0-4a6d-9374-db71295ac72a/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Issues related to redistricting; H.R. 4358 Anti-Rigging Act of 2025",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -422,7 +428,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/734a1e67-53b4-4594-a2d6-73923a374958/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "H.R. 14/S. 2523, the John R. Lewis Voting Rights Advancement Act H.R. 5096/S. 2476, the Disability and Age in Jury Service Nondiscrimination Act H.R. 6453, the ADA 30 Days to Compl",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -437,7 +443,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/7fcc569b-9547-41bc-94a5-89890eca581f/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -452,7 +458,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/84f2c47d-1f58-4d9d-adf2-440c1ccd5b04/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Issues related to federal voting rights legislation; Issues related to the LGBTQ+ community; Issues related to addressing systematic racism.",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -467,7 +473,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/8b332a92-ea51-4eb0-8e56-cb6262ec955f/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Artificial Intelligence and its relationship with/effects on Civil Rights, John Lewis Voting Rights Advancement Act (H.R. 14), Opposing Safeguard American Voter Eligibility America",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -482,7 +488,7 @@
       "type": "RR",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/8cce8bfb-2cff-4220-aaf3-d11920652a35/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Native American rights Native American voting rights Reservation issues Civil Liberties Tribal Sovereignty",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -497,7 +503,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/90bb520c-938b-4e21-8f78-58ffc2d9125d/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "LGBTQ+ Non-Discrimination LGBTQ+ Data Collection DC Statehood Violence Against LGBTQ+ Community Anti-LGBTQ+ Riders in Appropriations Bills Bans on Drag Performance Bans on Pride Fl",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -512,7 +518,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/91dbbd03-c61d-42cb-bcef-f0eb3222dd62/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting rights and civil rights issues",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -527,7 +533,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/9210a1cb-582a-402a-9e3c-87fb9d170704/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Freedom to Vote Act (not introduced yet in 119th Congress) H.R. 14, John R. Lewis Voting Rights Advancement Act of 2025; H.R. 22, Safeguard American Voter Eligibility Act; S. 128, ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -542,7 +548,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/934ca8d2-892f-4448-9beb-357554a02c5b/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Freedom to Vote Act (not introduced yet in 119th Congress) H.R. 14, John R. Lewis Voting Rights Advancement Act of 2025; H.R. 22, Safeguard American Voter Eligibility Act; S. 128, ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -557,7 +563,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/95d7df02-be9a-4e7d-8fcf-ab966bf7c4f8/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Freedom to Vote Act (not introduced yet in 119th Congress) H.R. 14, John R. Lewis Voting Rights Advancement Act of 2025; H.R. 22, Safeguard American Voter Eligibility Act; S. 128, ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -572,7 +578,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/9e34d085-112e-46ae-a5b2-9d576d54f971/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Communicated with Senate and House staff regarding shutdown; communicated with House staff regarding redistricting efforts; met with Hill office regarding draft bill around the Ins",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -587,7 +593,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/9f13a0dd-7184-47b0-8f6d-2a1ee8de1fb2/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting & Elections Bills in the 119th Congress HR 14, John R. Lewis Voting Rights Advancement Act (Rep. Sewell, 216 cosponsors) HR 22, SAVE Act (Rep. Roy, 96 cosponsors) HR 51, Was",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -602,7 +608,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/9faba0ad-3030-4fb6-9088-6c1690052f2b/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -617,7 +623,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/a2bd0ccf-c2d5-4f76-8e32-8473cfca7fff/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting, Police Reform, non-discrimination, artificial intelligence, redistricting",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -632,7 +638,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/ab1ecc25-1fdd-45df-af93-cb058f4727ae/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -662,7 +668,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/bbfa197c-a78a-4d8d-b2f6-f45796c795c2/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Legislation: S.1409-Kids Online Safety Act-Issues Lobbied: Free speech, privacy. S.1080-Cooper Davis Act-Issues Lobbied: Free speech, privacy, criminal justice, Fourth Amendment. S",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -677,7 +683,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/bc38701f-49d7-4a5e-9a8a-a543d5d548e6/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -692,7 +698,7 @@
       "type": "Q4",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/c6083d22-0f12-47a7-bc03-daed533f30bb/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "H.R. 14/S. 2523 - John R. Lewis Voting Rights Advancement Act - Updates the Voting Rights Act of 1965 and establishes new criteria for determining which states and political subdiv",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -707,7 +713,7 @@
       "type": "Q4",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/c791eddf-23c9-494e-a02d-be3c8db6c2cb/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "LEGISLATION: S. 1748-Kids Online Safety Act-Issues Lobbied: Free Speech, Privacy, Civil Rights and Liberties. S. 3663-Kids Online Safety Act-Issues Lobbied: Free Speech, Privacy. S",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -722,7 +728,7 @@
       "type": "Q4",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/cab810ae-3760-4f5f-a258-b061c8427ab5/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -737,7 +743,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/cccd229e-e811-4042-955d-b9bc58a5d781/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting rights and democracy issues.",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -752,7 +758,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/d23d1d1f-656c-4de5-b311-7086e1d5d2d7/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Voting, Police Reform, non-discrimination, artificial intelligence, redistricting",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -767,7 +773,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/d301af3e-5631-43a6-a0d8-67b028e06d29/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "OPPOSE THE SAVE ACT, H.R. 2: Sent letter to the House urging Representatives to oppose the SAVE Act. The SAVE Act represents a shameful, divisive attempt to prevent millions of eli",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -782,7 +788,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/d7eb1204-9220-4d7c-8ee2-f7560d489056/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Monitoring and outreach related to: -Gender equality issues; -Women's rights and a federal right to abortion; -Voting rights.",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -797,7 +803,7 @@
       "type": "Q3",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/d8ae07bc-761f-4263-873a-0ea73c9e7e4e/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "H.R. 14/S. 2523 - John R. Lewis Voting Rights Advancement Act - Updates the Voting Rights Act of 1965 and establishes new criteria for determining which states and political subdiv",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -812,7 +818,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/de9d4247-e1c4-49da-807d-f052fd224c67/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Washington, DC Admissions Act (HR 51/S 51) - to provide for the admission of the State of Washington, D.C. into the Union. Transparent Representation Upholding Service and Trust in",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -842,7 +848,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/e8819cd3-2f61-4029-a4f7-c592a61713af/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Social Security and Medicare Trust Fund Committees. The Fiscal Commission Act (H.R. 3289 and S. 4012), the Fiscal Sustainability Act (No bill), the Sustainable Budget Act of 2025 (",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -857,7 +863,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/ec4ef2d4-a9fb-4812-8abd-8402eee9b1ff/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -872,7 +878,7 @@
       "type": "Q1",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/ede71c41-4eb5-4b11-a2d8-23d97a83de0c/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "Support democracy reforms, including public matching funds systems for congressional and presidential campaigns, voting rights protections, redistricting reforms, and strengthened ",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
@@ -887,7 +893,7 @@
       "type": "Q2",
       "source": "https://lda.gov/filings/public/filing/search/",
       "sourceApi": "https://lda.gov/api/v1/filings/f3fa772e-7467-4a43-8501-cba108d49f12/",
-      "dateAccessed": "2026-10-29",
+      "dateAccessed": "2026-10-30",
       "specificIssuesExcerpt": "1.Support legislation to allow same-day voter registration, early voting, fair and transparent voter list maintenance, online voter registration, mail voting and no-excuse absentee",
       "reviewStatus": "issue_text_matched_unreviewed",
       "claimScope": "Text-matched lobbying disclosure only. No connection to map outcomes established."
