@@ -57,7 +57,7 @@ def source_rows(source):
                 yield x
 
 def summarize(source):
-    counties=set();count=0
+    counties=set();count=0; blank_choice_count=0
     counties_groups=defaultdict(int)
     contests=defaultdict(int)
     seen=set()
@@ -70,7 +70,8 @@ def summarize(source):
         if row["Election Date"]!="11/05/2024":
             raise ValueError("Unexpected NC election date")
         contest=row["Contest Name"].strip()
-        choice=row["Choice"].strip()
+        choice=row["Choice"].strip() or "__BLANK_CHOICE_FROM_SOURCE__"
+        if choice=="__BLANK_CHOICE_FROM_SOURCE__":blank_choice_count+=1
         party=row["Choice Party"].strip()
         precinct=row["Precinct"].strip()
         if not all((precinct,contest,choice)):raise ValueError("Missing contest/candidate/precinct key: "+repr({k:row[k] for k in ("County","Precinct","Contest Name","Choice","Real Precinct","Contest Group ID")}))
@@ -114,6 +115,7 @@ def summarize(source):
         "sourceZIPSHA256":SRC_SHA256,"sourceZIPOriginalBytes":len(source),
         "state":"NC","electionDate":"2024-11-05",
         "precinctCandidateRowsInspected":count,
+        "sourceRowsWithBlankCandidateChoice":blank_choice_count,
         "countiesWithVotes":len(counties),
         "countyContestChoiceRows":len(county_rows),
         "uniqueContestChoiceRows":len(contests),
