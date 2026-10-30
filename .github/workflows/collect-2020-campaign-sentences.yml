@@ -31,7 +31,7 @@ jobs:
         run: python -m pip install --disable-pip-version-check 'beautifulsoup4==4.14.2'
       - name: Test hashed sentence inventory without reproducing original publisher text
         run: python -m unittest discover -s checks -p 'primary_2020_sentence_index_checks.py' -v
-      - name: Fetch and index five explicitly scoped election-period original documents
+      - name: Fetch and index six explicitly scoped election-period originals (one reaffirmed 2016 platform)
         run: python -m scripts.collect_2020_primary_sentence_inventory
       - name: Verify no invented complete pledge denominator, review or copied original text
         run: |
@@ -40,7 +40,7 @@ jobs:
           from pathlib import Path
           p=Path('data/promises/primary-2020-sentence-inventory')
           doc=json.loads((p/'index.json').read_text())
-          assert doc['documentsIndexed']==5 and not doc['sourceScopeComplete']
+          assert doc['documentsIndexed']==6 and not doc['sourceScopeComplete']
           assert doc['independentlyAdjudicatedPledgeDenominator'] is None
           assert doc['independentlyAdjudicatedPledges']==0
           assert doc['sourceSentenceTotal']>1000
