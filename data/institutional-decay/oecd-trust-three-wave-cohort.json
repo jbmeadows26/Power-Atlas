@@ -1,0 +1,37 @@
+{
+  "schema": "power-atlas.institutional-decay.oecd-three-wave-cohort.v1",
+  "asOf": "2026-10-30",
+  "source": "https://www.oecd.org/en/publications/oecd-survey-on-drivers-of-trust-in-public-institutions-2026-results_9eb63fec-en/full-report/drivers-of-trust-over-time-lessons-from-the-third-wave-of-the-oecd-trust-survey_440749ab.html",
+  "sourceFigure": "1.3",
+  "metric": "Percentage reporting high or moderately high (6–10/10) trust in national government",
+  "population": "OECD-18 matched countries with data in all 2021, 2023 and 2025 waves",
+  "units": "percent",
+  "data": [
+    {
+      "year": 2021,
+      "value": 43.2
+    },
+    {
+      "year": 2023,
+      "value": 40.8
+    },
+    {
+      "year": 2025,
+      "value": 42.7
+    }
+  ],
+  "nCountries": 18,
+  "notes": [
+    "These are OECD published UNWEIGHTED country means from weighted survey shares, with survey population differing each wave.",
+    "Three aggregate OECD cohort data points are not 18 individual country time series.",
+    "The panel is biennial, not annual, and cannot identify a feedback path or a full dynamic GMM model.",
+    "Do not combine these means with the 28-country 2023–2025 matched published-rounded extract; denominators differ.",
+    "The first collection for Brazil was April 2022, but Brazil is not in the OECD-18 matched member cohort."
+  ],
+  "causalStatus": "descriptive_only_not_dynamic_evidence",
+  "validation": {
+    "numberOfYears": 3,
+    "nCountrySeriesAvailableInThisFile": 0,
+    "arellanoBondEstimable": false
+  }
+}
