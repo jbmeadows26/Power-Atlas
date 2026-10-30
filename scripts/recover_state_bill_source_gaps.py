@@ -245,6 +245,7 @@ def main():
     for path, data in (
         (BILLS, rendered),
         (CHECKPOINT, json.dumps(checkpoint, indent=2, ensure_ascii=False) + "\n"),
+        (PAGINATION, json.dumps(pagination, indent=2, ensure_ascii=False) + "\n"),
         (AUDIT, json.dumps(audit, indent=2, ensure_ascii=False) + "\n"),
     ):
         if not path.exists() or path.read_text(encoding="utf-8") != data:
