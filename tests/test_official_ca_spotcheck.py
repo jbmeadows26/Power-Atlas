@@ -36,6 +36,8 @@ class CaliforniaOfficialSpotcheckTests(unittest.TestCase):
         feed = read("data/app-feed.json")
         self.assertEqual(feed["legislation"]["officialCaliforniaRedistrictingSpotcheck"]["records"], doc["records"])
         self.assertEqual(feed["coverage"]["officialCaliforniaRedistrictingSpotcheckRows"], 1)
+        published_coverage = read("data/coverage.json")["coverage"]
+        self.assertEqual(published_coverage["officialCaliforniaRedistrictingSpotcheckRows"], 1)
         self.assertEqual(feed["legislation"]["officialCaliforniaRedistrictingSpotcheck"]["keywordIndexCandidateRows"], 0)
 
 if __name__ == "__main__":
