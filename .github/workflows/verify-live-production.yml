@@ -1,0 +1,56 @@
+name: Verify live Power Atlas production deployment
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-live-production.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Verify production URL, research tab, and live data source
+        run: |
+          python - <<'PY'
+          import json
+          import time
+          import urllib.request
+          from urllib.error import HTTPError, URLError
+
+          def download(url, *, required_type=None):
+              req = urllib.request.Request(
+                  url,
+                  headers={'User-Agent': 'PowerAtlasProductionSmoke/1.0', 'Cache-Control': 'no-cache'}
+              )
+              with urllib.request.urlopen(req, timeout=20) as resp:
+                  payload = resp.read(150000)
+                  status = resp.status
+                  ctype = resp.headers.get('Content-Type', '')
+                  cors = resp.headers.get('Access-Control-Allow-Origin', '')
+                  final = resp.geturl()
+              print(f'CHECK {url} HTTP {status} type={ctype!r} bytes={len(payload)} resolved={final} cors={cors!r}')
+              assert status == 200
+              if required_type:
+                  assert required_type in ctype, f'{url} unexpected response type {ctype}'
+              return payload.decode('utf-8', errors='strict')
+
+          html = download('https://power-atlas-research.vercel.app/', required_type='text/html')
+          assert '<title>Power Atlas | Research Intelligence</title>' in html
+          assert 'data-tab="gridlock"' in html, 'Live site missing congressional gridlock tab'
+          assert 'app-summary-v1.json' in html, 'Live tab is not connected to compact research summary'
+          assert 'institutional-decay.js' in html, 'Missing institutional-decay frontend reference'
+
+          component = download('https://power-atlas-research.vercel.app/institutional-decay.js')
+          assert len(component) > 1000, 'Deployed component unexpectedly empty'
+
+          raw = download('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/hyperpartisanship/app-summary-v1.json')
+          data = json.loads(raw)
+          assert data['schema'] == 'power-atlas.hyperpartisanship.app-summary.v1'
+          coverage = data['coverage']
+          assert coverage['observedCompletedChamberCongresses'] == 38
+          assert coverage['classifiedBills119'] >= 10000
+          assert coverage['crossPartyBills119'] > 100
+          print('PASS production HTML, gridlock UI, component, and source-attributed 38/38 research feed')
+          PY
