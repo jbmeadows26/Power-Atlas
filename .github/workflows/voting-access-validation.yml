@@ -1,0 +1,32 @@
+name: Voting access evidence validation
+on:
+  push:
+    paths:
+      - 'data/voting-access/**'
+      - 'research/voting-access/**'
+      - 'tests/test_voting_access*.py'
+      - '.github/workflows/voting-access-validation.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate voting access data and scope warnings
+        run: python -m unittest discover -s tests -p 'test_voting_access*.py' -v
+      - name: Check standalone research page references
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          s=Path('research/voting-access/index.html').read_text()
+          assert 'state-policy-coverage-v1.json' in s
+          assert 'evidence-seed-v1.json' in s
+          assert 'Not verified' in s
+          print('Research interface references verified')
+          PY
