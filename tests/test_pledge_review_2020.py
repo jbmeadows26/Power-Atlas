@@ -10,7 +10,7 @@ class PledgeReview2020Tests(unittest.TestCase):
 
     def test_explicitly_incomplete_document_and_pledge_census(self):
         self.assertEqual(self.doc["reviewedPledgeCandidates"],32)
-        self.assertEqual(self.doc["knownDocumentsCount"],5)
+        self.assertEqual(self.doc["knownDocumentsCount"],6)
         self.assertFalse(self.doc["sourceCollectionRule"]["allPlatformSentencesEnumerated"])
         self.assertFalse(self.doc["sourceCollectionRule"]["candidateReleaseCensusComplete"])
         self.assertFalse(self.doc["sourceCollectionRule"]["fullDenominatorFrozen"])
@@ -20,6 +20,11 @@ class PledgeReview2020Tests(unittest.TestCase):
         rr=[x for x in self.doc["knownPrimaryDocuments"] if x["side"]=="REP"]
         self.assertTrue(any(x["primarySourceScope"]=="no_new_platform_adopted_in_2020" for x in rr))
         self.assertTrue(all(x["governingPartyFor2021_2025"] is False for x in rr))
+        self.assertEqual(len(rr),3)  # RNC resolution, reaffirmed 2016 platform, Trump convention speech
+        carried=[x for x in rr if x["id"]=="US16-REP-PLATFORM-REAFFIRMED-2020"]
+        self.assertEqual(len(carried),1)
+        self.assertEqual(carried[0]["date"],"2016-07-18")
+        self.assertEqual(carried[0]["2020ReaffirmationDate"],"2020-08-24")
 
     def test_no_existing_provisional_label_is_treated_as_adjudicated(self):
         self.assertEqual(len(self.doc["records"]),32)

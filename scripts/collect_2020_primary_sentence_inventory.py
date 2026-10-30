@@ -133,11 +133,15 @@ def index_source(src,raw):
     }
 
 def build():
-    d=json.loads(MANIFEST.read_text(encoding="utf-8"))
+    # Use current authoritative source-manifest builder in branch CI. The
+    # persisted JSON manifest can still reflect the previous version until
+    # main-branch publication catches up.
+    from scripts.prepare_pledge_adjudication import make as make_manifest
+    d=make_manifest()
     sources=d.get("knownPrimaryDocuments",[])
-    if len(sources)!=5 or d["sourceCollectionRule"]["fullDenominatorFrozen"] is not False:
+    if len(sources)!=6 or d["sourceCollectionRule"]["fullDenominatorFrozen"] is not False:
         raise ValueError("Unexpected campaign source scope; fresh manual review necessary")
-    if len({s["id"] for s in sources})!=5:
+    if len({s["id"] for s in sources})!=6:
         raise ValueError("Duplicate campaign source documents")
     documents=[]
     for src in sources:
@@ -171,7 +175,7 @@ def build():
         "futureCueCount":d["heuristicFutureTenseCues"],
         "path":f"data/promises/primary-2020-sentence-inventory/{d['sourceId']}.json"
       } for d in documents],
-      "warning":"No full promise denominator: only five selected originals, with heuristic candidate tags and zero independent human inclusion decisions. Do not infer a fulfillment percentage."
+      "warning":"No full promise denominator: only six selected originals (including a historical 2016 platform reaffirmed in 2020), with heuristic candidate tags and zero independent human inclusion decisions. Do not infer a fulfillment percentage."
     }
 
 def main():
