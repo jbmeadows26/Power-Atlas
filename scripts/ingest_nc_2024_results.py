@@ -73,7 +73,7 @@ def summarize(source):
         choice=row["Choice"].strip()
         party=row["Choice Party"].strip()
         precinct=row["Precinct"].strip()
-        if not all((precinct,contest,choice)):raise ValueError("Missing contest/candidate/precinct key")
+        if not all((precinct,contest,choice)):raise ValueError("Missing contest/candidate/precinct key: "+repr({k:row[k] for k in ("County","Precinct","Contest Name","Choice","Real Precinct","Contest Group ID")}))
         key=(county,precinct,row["Contest Group ID"],contest,choice,party)
         if key in seen:raise ValueError("Duplicate source key "+str(key))
         seen.add(key)
