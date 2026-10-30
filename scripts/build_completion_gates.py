@@ -23,7 +23,17 @@ def build():
     roll=load('data/health/political-authenticity-ci.json')
     pagination=load('data/legislation/state-redistricting-pagination.json')
     bills=load('data/legislation/state-redistricting-jurisdictions.json')
+    wa=load('data/legislation/wa-2023-24-rollcalls/source-rollcalls.json')
     if not c:raise RuntimeError('Missing reconciled corpus coverage; no readiness claims allowed')
+    wa_rows=wa.get('records',[])
+    if wa and (wa.get('publicationStatus')!='official_original_member_rollcall_sample_not_full_biennium'
+               or wa.get('historicalSessionComplete') is not False
+               or wa.get('allStateRollCallsComplete') is not False
+               or wa.get('officialSourceService')!='https://wslwebservices.leg.wa.gov/LegislationService.asmx/GetRollCalls'
+               or wa.get('rollCalls')!=len(wa_rows)
+               or wa.get('memberVoteRows')!=sum(len(row.get('memberVotes',[])) for row in wa_rows)):
+        raise ValueError('WA source sample has invalid provenance or counts; do not publish misleading readiness')
+    wa_count=len(wa_rows) if wa else 0
     gates=[
         metric('federal_house_2025_150_roll_window',
                'Official House roll calls in requested 1–150 pilot window',
@@ -72,6 +82,13 @@ def build():
                'national_state_redistricting_votes',
                'partial_sample_not_member_ballot_census',
                'Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata'),
+        metric('official_wa_2023_24_member_rollcall_sample',
+               'Official WA member-level legislative votes for 42 sampled 2023–24 bills; not a redistricting vote census',
+               wa_count,
+               'WA_2023_24_42_requested_bills_21_with_votes',
+               'complete_bounded_primary_source_sample' if wa_count and wa.get('billsRequested')==42 else 'not_established',
+               'Extend only with official source access and explicit topic tagging; never merge general WA votes into redistricting tallies',
+               'https://wslwebservices.leg.wa.gov/LegislationService.asmx/GetRollCalls'),
         metric('verified_committee_financial_transfers',
                'Individual, source-supported committee-to-committee transfer records',
                c.get('paymentRows',0),
