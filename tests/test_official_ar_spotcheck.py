@@ -27,6 +27,10 @@ class ArkansasOfficialSourceChecks(unittest.TestCase):
             self.assertNotIn("contributor_name", row)
             self.assertNotIn("contributor_address", row)
         self.assertEqual(doc["relation"]["type"], "official_summary_reports_identical_acts")
+        feed = json.loads((ROOT / "data/app-feed.json").read_text(encoding="utf-8"))
+        self.assertEqual(feed["legislation"]["officialArkansasHistoricalRedistricting"]["records"], rows)
+        self.assertEqual(feed["coverage"]["officialArkansasHistoricalSpotcheckRows"], len(rows))
+        self.assertEqual(feed["legislation"]["officialArkansasHistoricalRedistricting"]["keywordIndexCandidateRows"], 0)
         self.assertEqual(doc["publicationStatus"], "official_legislative_archive_metadata_spotcheck_not_keyword_index_or_exhaustive_session")
 
 
