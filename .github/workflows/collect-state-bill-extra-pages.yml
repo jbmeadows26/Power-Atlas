@@ -30,4 +30,4 @@ jobs:
           python scripts/build.py
           python -m unittest discover -s tests -p 'test_*.py' -v
       - name: Persist compact checkpoint and candidate records
-        run: bash scripts/publish_data.sh data/reconciliation data/legislation/state-redistricting-pagination.json data/legislation/state-redistricting-bills.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
+        run: bash scripts/publish_data.sh data/reconciliation data/legislation/state-redistricting-pagination.json data/legislation/state-redistricting-jurisdictions.json data/legislation/state-redistricting-bills.json data/app-feed.json data/coverage.json data/relationships.json data/research.json

@@ -37,7 +37,8 @@ def main():
     if date.today()>DEADLINE:
         print('October 30 ingestion deadline passed; no further keyword pagination requests or writes.')
         return
-    base=json.loads(BASELINE.read_text(encoding='utf-8'))['jurisdictions']
+    baseline_doc=json.loads(BASELINE.read_text(encoding='utf-8'))
+    base=baseline_doc['jurisdictions']
     previous=json.loads(CHECK.read_text(encoding='utf-8')) if CHECK.exists() else {}
     pages=previous.get('pages',{})
     paused=previous.get('paused',{})
@@ -95,6 +96,23 @@ def main():
         time.sleep(0.25)
     if len(by_id)>2400:raise RuntimeError('Unexpected candidate bill growth; no changes persisted')
     bill_doc['records']=sorted(by_id.values(),key=lambda b:b['id'])
+    # Page-two-plus candidates must update the original first-page checkpoint's
+    # persisted counts. Otherwise the corpus contract sees a stale denominator
+    # and correctly rejects the new source records before publication.
+    by_state={}
+    for row in bill_doc['records']:
+        state=row.get('state')
+        if state in base:
+            by_state[state]=by_state.get(state,0)+1
+    for state,entry in base.items():
+        count=by_state.get(state,0)
+        entry['persistedCandidateRows']=count
+        if count:
+            entry['status']='first_page_indexed_not_exhaustive'
+        elif isinstance(entry.get('totalMatchesReported'),int) and entry['totalMatchesReported']>0:
+            entry['status']='first_page_matches_reported_no_candidates_persisted'
+        else:
+            entry['status']='first_page_empty_search_not_no_bills'
     bill_doc['publicationStatus']='candidate_search_not_primary_source_verified'
     bill_doc['paginationStatus']='bounded_extra_pages_of_redistricting_keyword_only'
     bill_body=json.dumps(bill_doc,indent=2,ensure_ascii=False)+'\n'
@@ -112,9 +130,10 @@ def main():
               'candidateBillRows':len(by_id),
               'sourceRateStop':rate_stop}
     checkpoint=json.dumps(progress,indent=2,ensure_ascii=False)+'\n'
+    baseline_render=json.dumps(baseline_doc,indent=2,ensure_ascii=False)+'\n'
     if not scanned:
         print('No currently eligible pagination tasks. Nothing overwritten.')
-    for dest,content in ((BILLS,bill_body),(CHECK,checkpoint)):
+    for dest,content in ((BILLS,bill_body),(BASELINE,baseline_render),(CHECK,checkpoint)):
         dest.parent.mkdir(parents=True,exist_ok=True)
         if not dest.exists() or dest.read_text(encoding='utf-8')!=content:
             dest.write_text(content,encoding='utf-8')
