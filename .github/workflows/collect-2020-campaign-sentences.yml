@@ -1,0 +1,74 @@
+name: Inventory official 2020 campaign text sentence metadata
+on:
+  push:
+    paths:
+      - 'scripts/collect_2020_primary_sentence_inventory.py'
+      - 'checks/primary_2020_sentence_index_checks.py'
+      - '.github/workflows/collect-2020-campaign-sentences.yml'
+  pull_request:
+    paths:
+      - 'scripts/collect_2020_primary_sentence_inventory.py'
+      - 'checks/primary_2020_sentence_index_checks.py'
+      - '.github/workflows/collect-2020-campaign-sentences.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-primary-2020-sentence-inventory
+  cancel-in-progress: false
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install no-cost HTML source indexing parser
+        run: python -m pip install --disable-pip-version-check 'beautifulsoup4==4.14.2'
+      - name: Test hashed sentence inventory without reproducing original publisher text
+        run: python -m unittest discover -s checks -p 'primary_2020_sentence_index_checks.py' -v
+      - name: Fetch and index five explicitly scoped election-period original documents
+        run: python -m scripts.collect_2020_primary_sentence_inventory
+      - name: Verify no invented complete pledge denominator, review or copied original text
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/promises/primary-2020-sentence-inventory')
+          doc=json.loads((p/'index.json').read_text())
+          assert doc['documentsIndexed']==5 and not doc['sourceScopeComplete']
+          assert doc['independentlyAdjudicatedPledgeDenominator'] is None
+          assert doc['independentlyAdjudicatedPledges']==0
+          assert doc['sourceSentenceTotal']>1000
+          for item in doc['documents']:
+            obj=json.loads(Path(item['path']).read_text())
+            assert obj['indexedSentenceCount']==len(obj['sentences'])
+            assert obj['reviewedPledgeSentences']==0
+            assert obj['verifiedAtomicPledges'] is None
+            assert all('sourceText' not in sentence and len(sentence['sentenceSHA256'])==64 for sentence in obj['sentences'])
+            assert all(sentence['pledgeInclusionStatus']=='not_reviewed' for sentence in obj['sentences'])
+          print('Indexed source sentences:',doc['sourceSentenceTotal'],'future cues:',doc['futureTenseCueTotal'],'independently reviewed: 0')
+          PY
+      - name: Publish only sentence hashes and source offsets, never a fake promise rate
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: |
+          set -euo pipefail
+          git add -- data/promises/primary-2020-sentence-inventory/
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: index 2020 primary campaign source sentences for independent review'
+          for attempt in 1 2 3 4 5; do
+            git fetch --quiet origin main
+            if ! git rebase origin/main; then
+              git rebase --abort
+              exit 1
+            fi
+            if git push origin HEAD:main; then exit 0; fi
+            sleep "$((attempt*2))"
+          done
+          exit 1
