@@ -6,7 +6,7 @@ from rq2_corpus_metrics import hedging,fleiss_binary,analyze,BINARY
 
 class RhetoricQC(unittest.TestCase):
     def test_lexical_measure_is_only_token_frequency(self):
-        self.assertEqual(hedging("We might possibly act today"),.5)
+        self.assertEqual(hedging("We might possibly act today"),.4)
         self.assertEqual(hedging("We will act today"),0)
         self.assertIsNone(hedging(""))
     def test_agreement_and_degenerate_case(self):
