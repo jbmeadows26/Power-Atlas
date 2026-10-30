@@ -36,6 +36,7 @@ def build():
     geom=read("data/geography/state-legislative-2024/index.json")
     nc=read("data/elections/nc-2024/reconciliation.json")
     wa=read("data/legislation/wa-2023-24-rollcalls/source-rollcalls.json")
+    waFinance=read("data/finance/wa-pdc/summary-aggregate-2020-2024.json")
     if len(states)!=50 or len(set(s["postal"] for s in states))!=50:
         raise ValueError("Expected 50 unique US states")
     if not set(x["postal"] for x in states).issubset(auth):
@@ -43,6 +44,11 @@ def build():
     if (geom.get("chamberGeometriesDownloaded")!=99 or geom.get("notApplicable")!=1 or
         geom.get("distinctGEOIDFeatures")!=6785 or geom.get("legalPlanHistoryComplete") is not False):
         raise ValueError("2024 Census state legislative geometry has not been validated")
+    if (waFinance.get("state")!="WA" or waFinance.get("categoryRows")!=9 or
+        waFinance.get("campaignFinanceCompleteForWA") is not False or
+        waFinance.get("all50StatesComplete") is not False or
+        "noncommercial" not in waFinance.get("licensingGate","")):
+        raise ValueError("Official WA finance group source missing or commercial reuse is not gated")
     if (wa.get("state")!="WA" or wa.get("rollCalls")!=56 or
         wa.get("memberVoteRows")!=4017 or wa.get("allStateRollCallsComplete") is not False):
         raise ValueError("WA official member rollcall sample count mismatch")
@@ -94,6 +100,23 @@ def build():
                     {"chamber":g["chamber"],"url":g["source"],"path":g["path"],
                      "sha256OriginalZIP":g["sha256OriginalZIP"],"polygonRecords":g["features"]}
                     for g in ready]
+            elif postal=="WA" and domain=="state_campaign_finance":
+                record.update({
+                    "recordsIngested":waFinance["categoryRows"],
+                    "officialRecordsSourceLinked":True,
+                    "coverageStatus":"official_2020_22_24_coarse_finance_aggregates_itemized_filings_absent",
+                    "certificationStatus":"PDC_open_data_grouped_summaries_not_filing_amendment_reconciled",
+                    "reconciliationStatus":"original_filing_and_contribution_reconciliation_not_run",
+                    "blockingDependency":"Statewide itemized filings, independent expenditures, historical cycles and donor networks require licensing review; PDC individual-list commercial reuse restricted.",
+                })
+                record["sourceDiscovery"].update({
+                    "waPDCDataset":waFinance["sourceURL"],
+                    "dataPath":"data/finance/wa-pdc/summary-aggregate-2020-2024.json",
+                    "groupedAggregateCategories":waFinance["categoryRows"],
+                    "electionYears":waFinance["electionYears"],
+                    "licensingWarning":waFinance["licensingGate"],
+                    "privacyThresholdRowsPerGroup":waFinance["minFilerRowsPerPublishedGroup"],
+                })
             elif postal=="WA" and domain=="state_roll_calls":
                 record.update({
                     "recordsIngested":wa["memberVoteRows"],

@@ -42,8 +42,7 @@ class SixGaps(unittest.TestCase):
         self.assertEqual(r["reconciliationStatus"],"four_certified_spotchecks_unresolved")
 
     def test_missing_four_domains_are_not_fabricated(self):
-        for name in ("state_campaign_finance",
-                     "lower_court_litigation_dockets_and_state_cases"):
+        for name in ("lower_court_litigation_dockets_and_state_cases",):
             self.assertEqual(self.c[name]["sourceVerifiedJurisdictions"],0)
             self.assertEqual(self.c[name]["officialSourceRecordsIngested"],0)
             self.assertEqual(self.c[name]["jurisdictionsCompleted"],0)
@@ -56,6 +55,16 @@ class SixGaps(unittest.TestCase):
         sample=self.rows[("WA","state_roll_calls")]
         self.assertEqual(sample["sourceDiscovery"]["rollCalls"],56)
         self.assertIn("not_full_biennium",sample["coverageStatus"])
+
+    def test_wa_coarse_finance_categories_with_licensing_gate(self):
+        x=self.c["state_campaign_finance"]
+        self.assertEqual(x["sourceVerifiedJurisdictions"],1)
+        self.assertEqual(x["officialSourceRecordsIngested"],9)
+        self.assertEqual(x["jurisdictionsCompleted"],0)
+        row=self.rows[("WA","state_campaign_finance")]
+        self.assertEqual(row["sourceDiscovery"]["electionYears"],[2020,2022,2024])
+        self.assertIn("noncommercial",row["sourceDiscovery"]["licensingWarning"])
+        self.assertIn("aggregates",row["coverageStatus"])
 
     def test_no_domains_falsely_complete(self):
         self.assertTrue(all(v["jurisdictionsCompleted"]==0 for v in self.c.values()))
