@@ -1,0 +1,16 @@
+name: Inspect official OECD PII XML schema
+on:
+  push:
+    paths:
+      - '.github/workflows/inspect-institutional-decay-pii-xml.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Print first OECD PII source dimensions without inferring their meaning
+        run: python scripts/inspect_institutional_decay_pii_xml.py
