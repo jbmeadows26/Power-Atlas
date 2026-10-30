@@ -1,0 +1,137 @@
+{
+  "schema": "power-atlas.completion-gates.v1",
+  "publicationStatus": "source_coverage_audit_not_research_conclusion",
+  "asOfDate": "2026-10-30",
+  "deadline": "2026-10-30",
+  "disposition": "not_nationwide_research_complete",
+  "foundationalPersistedCounts": {
+    "billCandidates": 568,
+    "officialFECsummaries": 135,
+    "sourceAttributedRelationships": 2625,
+    "federalCourtAppointments": 4777
+  },
+  "gates": [
+    {
+      "id": "federal_house_2025_150_roll_window",
+      "description": "Official House roll calls in requested 1–150 pilot window",
+      "observed": 150,
+      "scope": "bounded_2025_roll_window_150",
+      "status": "complete_bounded_primary_source_window",
+      "nextAction": "Extend to additional years and chambers; identify substantive map-related votes separately",
+      "source": "https://clerk.house.gov/evs/2025/"
+    },
+    {
+      "id": "state_bill_page_one_keyword",
+      "description": "State/DC first page of the single redistricting keyword search",
+      "observed": 51,
+      "scope": "51_jurisdictions_first_page_one_keyword",
+      "status": "complete_limited_first_page_only",
+      "nextAction": "Expand pagination, dates, synonyms and official bill adjudication",
+      "source": "https://billcommons.org/docs/api"
+    },
+    {
+      "id": "state_bill_extra_keyword_pages",
+      "description": "Additional state redistricting keyword search pages persisted",
+      "observed": 6,
+      "scope": "more_than_first_page_of_same_keyword_only",
+      "status": "partial_keyword_pagination",
+      "nextAction": "Continue free source-compliant bounded pagination and record gaps",
+      "source": "https://billcommons.org/docs/api"
+    },
+    {
+      "id": "state_bill_full_history",
+      "description": "States/DC with verified exhaustive historical legislative redistricting census",
+      "observed": 0,
+      "scope": "51_jurisdictions_multi_term_multi_session",
+      "status": "partial_not_exhaustive",
+      "nextAction": "Reconcile official legislative indexes and all relevant sessions",
+      "source": "https://billcommons.org/docs/api"
+    },
+    {
+      "id": "state_certified_election_canvasses",
+      "description": "Official state/DC canvass totals actually downloaded and reconciled",
+      "observed": 0,
+      "scope": "51_state_DC_authorities",
+      "status": "incomplete",
+      "nextAction": "Retrieve certified state election contest/year/office totals from the 51 indexed authority URLs",
+      "source": "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/"
+    },
+    {
+      "id": "state_campaign_finance",
+      "description": "Nationwide state-level donor to PAC/candidate/recipient transaction coverage",
+      "observed": 0,
+      "scope": "all_states_multi_cycle",
+      "status": "not_established",
+      "nextAction": "Prioritize licensed official state election campaign finance exports, with privacy minimization"
+    },
+    {
+      "id": "official_state_rollcalls",
+      "description": "State bill aggregate tallies independently verified against an official chamber source",
+      "observed": 1,
+      "scope": "national_state_redistricting_votes",
+      "status": "partial_sample_not_member_ballot_census",
+      "nextAction": "Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata"
+    },
+    {
+      "id": "verified_committee_financial_transfers",
+      "description": "Individual, source-supported committee-to-committee transfer records",
+      "observed": 0,
+      "scope": "federal_and_state_financial_edges",
+      "status": "not_proven_by_aggregates",
+      "nextAction": "Connect FEC itemized disbursements or official state filings to legally identified recipients"
+    },
+    {
+      "id": "official_fec_pac_party_cycle_summaries",
+      "description": "Official FEC PAC/party election-cycle financial summary rows",
+      "observed": 135,
+      "scope": "already_indexed_committees_2024_2026",
+      "status": "completed_bounded_cycle_summary_source",
+      "nextAction": "Keep totals separate from recipient transfers and map influence claims",
+      "source": "https://www.fec.gov/campaign-finance-data/pac-and-party-summary-file-description/"
+    },
+    {
+      "id": "nationwide_lower_court_case_lifecycle",
+      "description": "Completed nationwide election-map litigation docket, motion, judgment and appeal census",
+      "observed": null,
+      "scope": "federal_and_state_trial_appellate_courts",
+      "status": "not_verified_nationwide",
+      "nextAction": "Connect accessible official dockets or CourtListener records with final dispositions and dates"
+    },
+    {
+      "id": "state_judicial_selection",
+      "description": "Verified nationwide state judicial selection, retention, election and appointment chain",
+      "observed": null,
+      "scope": "all_state_judiciaries_history",
+      "status": "not_verified_nationwide",
+      "nextAction": "Collect official state judicial records, term dates, election commissions and nominating actors"
+    },
+    {
+      "id": "district_legal_maps_history",
+      "description": "Source-verified legal redistricting plan histories including superseded, enjoined and enacted maps",
+      "observed": null,
+      "scope": "all_states_all_relevant_plan_eras",
+      "status": "not_verified_nationwide",
+      "nextAction": "Reconcile official plan geometries, legal effective dates and court-ordered plans to election results"
+    },
+    {
+      "id": "causal_decision_graph",
+      "description": "Verified complete actor-to-decision chain linking money, consultation, votes, enactment, lawsuits and electoral effects",
+      "observed": null,
+      "scope": "case_by_case_with_primary_source_temporal_provenance",
+      "status": "not_established",
+      "nextAction": "Require dated primary sources for each action; graph affiliations are not guilt or causation"
+    }
+  ],
+  "blockingGates": [
+    "state_bill_full_history",
+    "state_certified_election_canvasses",
+    "state_campaign_finance",
+    "official_state_rollcalls",
+    "verified_committee_financial_transfers",
+    "nationwide_lower_court_case_lifecycle",
+    "state_judicial_selection",
+    "district_legal_maps_history",
+    "causal_decision_graph"
+  ],
+  "warning": "This is a static corpus quality assessment. A source collector run marked success does not establish that nationwide records are exhaustive or that gerrymandering, illegal conduct, or motives are proven."
+}
