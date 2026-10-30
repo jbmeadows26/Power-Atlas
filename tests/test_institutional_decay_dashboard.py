@@ -79,7 +79,7 @@ class InstitutionalDecayDashboardTests(unittest.TestCase):
         self.assertIn('data-panel="institutional-decay"',html)
         self.assertIn("decayScript.src='institutional-decay.js'",html)
         self.assertIn('id="idScatter"',html)
-        self.assertEqual(len(re.findall(r"<script[^>]*>(.*?)</script>",html,re.S)),1)
+        self.assertEqual(len(re.findall(r"<script\\s*>(.*?)</script>",html,re.S)),1)
         self.assertTrue(JS.is_file())
         self.assertIn("correlation reference check failed".lower(),
                       JS.read_text(encoding="utf-8").lower())
