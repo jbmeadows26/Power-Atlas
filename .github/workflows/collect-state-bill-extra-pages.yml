@@ -1,0 +1,31 @@
+name: Deepen bounded 51-state redistricting bill keyword pages
+on:
+  push:
+    paths:
+      - 'scripts/collect_state_bill_extra_pages.py'
+      - '.github/workflows/collect-state-bill-extra-pages.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '25 4,7,10,13,16,19,22 30 10 *'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-bill-state-extra-pages
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Safely advance bounded keyword pagination
+        run: python scripts/collect_state_bill_extra_pages.py
+      - name: Rebuild and validate evidence
+        run: |
+          python scripts/build.py
+          python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Persist compact checkpoint and candidate records
+        run: bash scripts/publish_data.sh data/legislation/state-redistricting-pagination.json data/legislation/state-redistricting-bills.json data/app-feed.json data/coverage.json data/relationships.json data/research.json
