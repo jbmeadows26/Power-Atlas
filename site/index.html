@@ -291,7 +291,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     <p class="sub">Explore generalized 119th Congressional District boundaries from the U.S. Census Bureau. The compressed source archive is not stored; this site loads a compact, display-only geometry file when a map is requested. No partisan-bias score is implied.</p>
     <div class="filters"><label for="districtState">State</label><select id="districtCongress" aria-label="Congressional map edition"><option value="119">119th Congress (2025)</option><option value="116">116th Congress (2020)</option></select><select id="districtState" aria-label="Map state"><option value="37">North Carolina</option></select><a class="source" href="https://www.census.gov/geographies/mapping-files/2025/geo/carto-boundary-file.html" target="_blank" rel="noopener noreferrer">Census methodology ↗</a></div>
     <div class="mapbox"><p id="mapStatus" class="mapstatus">Select this tab to load the compact 119th Congress map.</p><div id="districtMap" aria-live="polite"></div><p id="districtSelected" class="note">Click a congressional district to inspect its Census identifier.</p></div>
-    <h3>Official state geography source links</h3>
+    <h3>Official map and election authority sources</h3><p class="note">State election offices certify votes. These links identify the source offices only: Power Atlas has not imported or reconciled all 51 official statewide canvasses, and research vote totals are not automatically certified.</p>
     <div id="stateList" class="list"></div>
   </section>
   <section class="panel" data-panel="quality">
@@ -630,9 +630,13 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   }
   function renderStates(){
     var states=data.states||[];
+    var authorities=((data.officialElectionAuthorities||{}).records)||[];
+    var authorityByState={};
+    authorities.forEach(function(a){authorityByState[a.state]=a});
     var districtState=document.getElementById('districtState'),chosen=districtState.value||'37';
     districtState.innerHTML=states.map(function(s){return '<option value="'+esc(s.fips)+'" '+(s.fips===chosen?'selected':'')+'>'+esc(s.name)+'</option>'}).join('');
-    document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th and 116th congressional maps · compact geometry available above</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a></div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
+    document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th and 116th congressional maps · compact geometry available above</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a>'+(authorityByState[s.postal]?
+     '<p class="note"><span class="tag warn">Certified election canvass not retrieved</span></p><a class="source" href="'+esc(safe(authorityByState[s.postal].electionOfficeURL))+'" target="_blank" rel="noopener noreferrer">Official state election authority ↗</a>':'<p class="note">Election authority not indexed in source registry</p>')+'</div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
   }
   function gaps(items){return (items||[]).map(function(x){return '<div class="coverage">○ '+esc(String(x).replace(/_/g,' '))+'</div>'}).join('')||'<p>No coverage report available.</p>'}
   function render(){
