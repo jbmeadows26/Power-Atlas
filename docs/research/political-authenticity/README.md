@@ -6,6 +6,7 @@
 
 - [Congressional biographies with age calculations](../../../data/research/political-authenticity/members.json): 539 indexed records, matched by Bioguide ID, chamber, state, active term and House district to CC0 third-party biographies; 539/539 birthdates found, **not independently official-Bioguide confirmed**.
 - [Completeness and unmeasured fields](../../../data/research/political-authenticity/coverage.json): 439 House members/delegates, 100 senators; 6 nonvoting House members excluded from voting-seat comparison. Do not mistake 539 identities for 535 voting seats.
+- [119th House district crosswalk](../../../data/research/political-authenticity/house-district-crosswalk-119.json): all 435 apportioned seats have validated 2025 ACS geography keys; 433 occupied and two vacant in the October 2026 roster. All district age estimates and margins of error remain null. [Methods and release audit](census-2025-district-crosswalk.md).
 - [Age-band comparison](../../../data/research/political-authenticity/age-comparison.json): 2024 ACS national resident population aged 25+ versus voting House members in October 2026. 25-34 population share 19.583%; House 5/433 (1.1547%); gap -18.428 percentage points. Population includes noncitizens; **not an eligibility-standardized estimate or statistical significance test**.
 - [Rhetorical analysis codebook](../../../data/research/political-authenticity/rhetoric-codebook.json): preregistration-ready code definitions. **No politician-specific Q/A units coded yet**.
 
@@ -29,7 +30,7 @@ Other primary or peer-reviewed evidence: [Pew Congress demographic profile (2025
 
 ## Public data access: 2026 change
 
-Since May 2026, the [Census Data API requires a free key for **all data queries**](https://www.census.gov/library/video/2026/adrm/requesting-a-census-data-api-key.html); metadata can be queried without one. [Public ACS FTP tables](https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html) are an alternative without an API credential. The 2025 ACS one-year product was scheduled for October 29, 2026; check actual availability and table universe before upgrading the benchmark. The current [2024 ACS source table](https://data.census.gov/table/ACSSE2024.K200104) is explicitly cited; its estimated values and sampling-error notes matter.
+Since May 2026, the [Census Data API requires a free key for **all data queries**](https://www.census.gov/library/video/2026/adrm/requesting-a-census-data-api-key.html); metadata can be queried without one. [Public ACS FTP tables](https://www.census.gov/programs-surveys/acs/data/data-via-ftp.html) are an alternative without an API credential. The [2025 ACS one-year release](https://www.census.gov/data/developers/data-sets/acs-1year.2025.html) was published October 29, 2026. The district geographic keys have been assembled, but the exact 2025 age table estimates, universes, and margins of error have **not** been imported; retain the verified 2024 benchmark until they are source-checked. The current [2024 ACS source table](https://data.census.gov/table/ACSSE2024.K200104) is explicitly cited; its estimated values and sampling-error notes matter.
 
 ## Completion gates
 
@@ -37,7 +38,7 @@ Since May 2026, the [Census Data API requires a free key for **all data queries*
 |---|---|---|
 | Member identity/age | Indexed, secondary-source verified only | Sample audit against authoritative Bioguide; freeze vintage and membership universe |
 | Age national comparison | Reproducible descriptive | Add 2025 ACS or matching-year national cohort, citizenship tenure, MOEs |
-| Age by congressional district | Not assembled | District-population age distributions and geographic key checks |
+| Age by congressional district | 435-seat 119th geography crosswalk validated; 2025 age data null | Retrieve official 2025 district age estimates and MOEs, validate table universes, then perform checked geographic join |
 | Wealth/education/occupation | Unmeasured | Public disclosed intervals plus documented class occupation categories and missingness |
 | Constituent efficacy | Not joined | ANES/CES weighted microdata joined to valid geography, primary question codes, uncertainty |
 | Policy responsiveness | Not tested | Member sponsorship/roll-call/service outcomes plus party and agenda controls |
