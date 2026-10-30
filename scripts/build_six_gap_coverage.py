@@ -26,7 +26,7 @@ def read(path):
     return json.loads((ROOT/path).read_text(encoding="utf8"))
 
 def build():
-    states=read("data/geography/states.json")["states"]
+    states=[s for s in read("data/geography/states.json")["states"] if s["postal"] not in ("DC","PR")]
     authorities=read("data/elections/official-source-index.json")["records"]
     auth={r["state"]:r for r in authorities}
     result=[]
