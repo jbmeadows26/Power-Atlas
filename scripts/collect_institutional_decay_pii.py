@@ -28,7 +28,7 @@ def normalize(raw, series):
     value=None
     numerator=None
     denominator=None
-    fraction=re.fullmatch(r"(\\d+)/(\\d+)",str(v))
+    fraction=re.fullmatch(r"([0-9]+)/([0-9]+)",str(v))
     if fraction:
         numerator,denominator=(int(fraction.group(1)),int(fraction.group(2)))
         if denominator==0 or numerator>denominator:
