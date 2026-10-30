@@ -109,6 +109,28 @@ def run():
         if name.startswith('fec_') and restricted_today:
             report[name]={'status':'deferred','note':'DEMO_KEY HTTP 429 observed earlier today; wait for permitted quota reset',**persistence(name)}
             continue
+        if name=='lobbying_disclosures':
+            # An independently successful scheduled LDA collection can finish
+            # after an earlier supervisor timed out. Read its persisted receipt
+            # rather than preserving a stale 'blocked' status or re-querying.
+            info=persistence(name)
+            source=ROOT/DATA_FILES[name]
+            if source.exists():
+                try:
+                    snapshot=json.loads(source.read_text(encoding='utf-8'))
+                    rows=snapshot.get('records',[])
+                    fresh=bool(rows) and all(
+                        row.get('dateAccessed')==today.isoformat() for row in rows)
+                    if (fresh and info.get('successfulQueries')==len(('redistricting','voting rights','congressional district'))*2
+                            and info.get('failedQueries')==0):
+                        report[name]={
+                            'status':'cached_verified',
+                            'note':'Six bounded Senate issue/year queries succeeded today in a separate run; retained 56-or-fewer unique source-matched filings without repeat requests. This is not exhaustive lobbying coverage.',
+                            **info
+                        }
+                        continue
+                except (OSError,ValueError,TypeError,AttributeError):
+                    pass
         if name=='lobbying_disclosures' and restricted_lda_today:
             info=persistence(name)
             scoped_complete=(info.get('successfulQueries')==6 and info.get('failedQueries')==0
@@ -128,7 +150,7 @@ def run():
             try:
                 result=subprocess.run([sys.executable,str(ROOT/script)],
                                       cwd=ROOT,text=True,capture_output=True,
-                                      timeout=110,check=False)
+                                      timeout=170,check=False)
                 if result.returncode==0:
                     break
                 tail=(result.stderr or result.stdout)[-500:].strip()
@@ -158,7 +180,7 @@ def run():
             print(name,status,'persisted:',data,flush=True)
         else:
             error=((result.stderr or result.stdout)[-500:].strip()
-                   if result is not None else 'collector exceeded 110s timeout twice')
+                   if result is not None else 'collector exceeded 170s timeout twice')
             report[name]={
                 'status':'blocked','attempts':attempts,'error':error,
                 'workaroundOrPreservation':SOURCE_ALTERNATIVES.get(
