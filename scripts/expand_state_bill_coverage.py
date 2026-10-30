@@ -173,6 +173,23 @@ def run():
         time.sleep(0.33)
     old_count=len(body['records'])
     body['records']=sorted(indexed.values(),key=lambda r:r['id'])
+    # A completed first-page request can still yield zero usable records.
+    # Keep those states distinct from jurisdictions with persisted candidates.
+    persisted_by_state={}
+    for item in body['records']:
+        state=item.get('state')
+        if state in done:
+            persisted_by_state[state]=persisted_by_state.get(state,0)+1
+    for state, metadata in done.items():
+        count=persisted_by_state.get(state,0)
+        metadata['persistedCandidateRows']=count
+        if count == 0:
+            total=metadata.get('totalMatchesReported')
+            metadata['status']=('first_page_matches_reported_no_candidates_persisted'
+                                if isinstance(total,int) and total>0
+                                else 'first_page_empty_search_not_no_bills')
+        else:
+            metadata['status']='first_page_indexed_not_exhaustive'
     body['publicationStatus']='candidate_search_scope_is_not_exhaustive'
     body['incrementalJurisdictionsScanned']=len(done)
     body['coverageWarning']='Combined bounded national keyword searches plus at most first 20 per jurisdiction. Some years, sessions and bills absent; original state record controls.'
