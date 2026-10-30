@@ -400,6 +400,42 @@
       "access": "public_html",
       "status": "source_verified_no_new_records_ingested",
       "warning": "Statutory funding power is not expenditure."
+    },
+    {
+      "id": "UK-ONS-PSF-MONTHLY",
+      "country": "UK",
+      "url": "https://www.ons.gov.uk/economy/governmentpublicsectorandtaxes/publicsectorfinance/bulletins/publicsectorfinances/may2025",
+      "kind": "observed_public_sector_monthly_finance",
+      "access": "public_html_and_downloadable_tables",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Public-sector net investment includes capital grants and depreciation effects, unlike gross fixed capital formation; monthly values revised and fiscal year April-March."
+    },
+    {
+      "id": "CA-FISCAL-MONITOR",
+      "country": "CA",
+      "url": "https://www.canada.ca/en/department-finance/services/publications/fiscal-monitor/2025/11.html",
+      "kind": "observed_federal_monthly_revenue_and_expense",
+      "access": "public_html",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Federal monthly cash/accounting scope and November 2025 release are not Canadian general-government GFCF nor a pre-election outcome."
+    },
+    {
+      "id": "PT-DGO-MONTHLY",
+      "country": "PT",
+      "url": "https://www.dgo.gov.pt/execucaoorcamental/Documents/SEO_SinteseExecucaoOrcamentalMensal/CalendarioSinteseExecucaoOrcamentalMensal-2025_vPT.pdf",
+      "kind": "official_monthly_budget_execution_release_calendar",
+      "access": "public_pdf",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Calendar is a publication schedule, not expenditure data; each monthly PDF requires extraction and separate national-accounts reconciliation."
+    },
+    {
+      "id": "DE-PT-EUROSTAT-GFS",
+      "country": "DE_PT",
+      "url": "https://ec.europa.eu/eurostat/web/government-finance-statistics",
+      "kind": "general_government_finance_harmonization_source",
+      "access": "free_public_api_after_dataset_dimension_validation",
+      "status": "source_verified_no_new_records_ingested",
+      "warning": "Verify quarterly ESA2010 GFCF series code, Germany/Portugal coverage, revisions and denominators before computing or pooling; do not infer election effects."
     }
   ],
   "licensing": "Store original URLs and short original paraphrases only. Do not copy full party manifesto texts, republish PDF, or infer permission from public access.",
