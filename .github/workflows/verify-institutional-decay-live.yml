@@ -1,0 +1,48 @@
+name: Verify Institutional Decay live production dashboard
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-institutional-decay-live.yml'
+      - 'site/**'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  production-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify live production page, JSON feed and script
+        env:
+          ATLAS_PRODUCTION: https://power-atlas-research.vercel.app
+        run: |
+          python - <<'PY'
+          import json, math, os, urllib.request
+          base=os.environ['ATLAS_PRODUCTION']
+          def get(path):
+              with urllib.request.urlopen(urllib.request.Request(base+path,headers={'User-Agent':'PowerAtlas-Production-Smoke/1.0','Cache-Control':'no-cache'}),timeout=25) as r:
+                  assert r.status==200,(path,r.status)
+                  return r.read().decode('utf-8')
+          html=get('/')
+          assert 'data-tab="institutional-decay"' in html
+          assert 'data-panel="institutional-decay"' in html
+          assert "institutional-decay.js" in html
+          raw=get('/institutional-decay.js')
+          assert 'referenceCorrelationGovVsCivil2025' in raw
+          assert 'makePoints' in raw
+          d=json.loads(get('/api/trust-metrics.json'))
+          assert d['schema']=='power-atlas.institutional-decay.trust-metrics.v1'
+          assert len(d['rows'])==39 and d['observedTrustCells']==407
+          metrics=['g23','g25','c23','c25','l23','l25','p23','p25','j23','j25','t23','t25']
+          assert sum(row[k] is not None for row in d['rows'] for k in metrics)==407
+          eligible=[r for r in d['rows'] if r['group']=='oecd_member' and r['g25'] is not None and r['c25'] is not None]
+          assert len(eligible)==33
+          xs=[r['c25'] for r in eligible];ys=[r['g25'] for r in eligible]
+          mx=sum(xs)/len(xs);my=sum(ys)/len(ys)
+          numerator=sum((x-mx)*(y-my) for x,y in zip(xs,ys))
+          denominator=math.sqrt(sum((x-mx)**2 for x in xs)*sum((y-my)**2 for y in ys))
+          corr=numerator/denominator
+          assert abs(corr-d['referenceCorrelationGovVsCivil2025'])<0.0002,(corr,d['referenceCorrelationGovVsCivil2025'])
+          print(f"PASS live Vercel homepage+JS+JSON; countries={len(d['rows'])}, observations=407, r={corr:.4f}")
+          PY
