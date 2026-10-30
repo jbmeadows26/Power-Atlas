@@ -1,0 +1,49 @@
+name: Collect OECD PII official measure labels
+on:
+  push:
+    paths:
+      - '.github/workflows/collect-institutional-decay-pii-labels.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: institutional-decay-pii-labels
+  cancel-in-progress: false
+jobs:
+  labels:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Resolve official OECD PII measure code labels from SDMX metadata
+        run: python scripts/collect_institutional_decay_pii_labels.py
+      - name: Validate official code mapping completeness and source
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('data/institutional-decay/oecd-pii-measure-labels.json').read_text())
+          source=json.loads(Path('data/institutional-decay/oecd-pii-raw-2020-2025.json').read_text())
+          expected={r['measureCode'] for r in source['rows']}
+          labels={r['code'] for r in d['measureLabels']}
+          assert expected and labels and labels<=expected
+          assert len(labels)==d['coverage']['labeledCount']
+          assert len(expected)==d['coverage']['sourceMeasureCodeCount']
+          assert len(expected-labels)==d['coverage']['missingCodeCount']
+          assert d['publisher']=='OECD'
+          print('Official labels',len(labels),'/',len(expected))
+          PY
+      - name: Commit official labels to isolated research branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/institutional-decay/oecd-pii-measure-labels.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'research: map OECD integrity measure codes from official SDMX metadata'
+            git push origin HEAD:research/institutional-decay-pii-labels-20261030
+          else
+            echo 'No changed labels'
+          fi
