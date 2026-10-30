@@ -245,6 +245,9 @@ for map_congress,year in [(116,2020),(119,2025)]:
             'dataset':'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-'+str(map_congress)+'.geojson',
             'status':'generalized_display_geometry_not_legal_map'
         })
+official_authority_file = ROOT / 'data/elections/official-source-index.json'
+official_authorities = json.loads(official_authority_file.read_text(encoding='utf-8')) if official_authority_file.exists() else {}
+official_authority_rows = official_authorities.get('records', [])
 state_file = ROOT / 'data/geography/states.json'
 states = json.loads(state_file.read_text(encoding='utf-8'))['states'] if state_file.exists() else []
 scotus_decisions = [row for row in output['records'] if row['id'].startswith('scotus-') and row.get('docket')]
@@ -265,6 +268,7 @@ feed = {
     'records': output['records'],
     'relationships': edges['relationships'],
     'states': states,
+    'officialElectionAuthorities': {'records':official_authority_rows, 'authorityRule': 'State/local election offices certify election returns; this catalog does NOT contain certified vote totals', 'source':'https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/'},
     'evidenceReconciliation': {
         'summary': reconcile_domain.get('summary', {}),
         'scope': reconcile_domain.get('productionStatus','unavailable'),
@@ -325,6 +329,8 @@ feed = {
         'paymentRows': len(payments),
         'recipientAggregateRows': len(recipient_aggregates),
         'stateSourceReferences': len(states),
+        'officialStateElectionAuthorityLinks': len(official_authority_rows),
+        'officialStateCanvassesRetrieved': sum(bool(row.get('stateCertifiedVoteTotalsRetrieved')) for row in official_authority_rows),
         'congressionalMapEditions': len(map_editions),
         'congressMemberRows': len(congress),
         'stateLegislatorRows': state_people_count,
