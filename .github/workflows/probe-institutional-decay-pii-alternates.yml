@@ -1,0 +1,16 @@
+name: Probe OECD integrity public SDMX alternatives
+on:
+  push:
+    paths:
+      - '.github/workflows/probe-institutional-decay-pii-alternates.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - name: Try alternate public OECD SDMX response formats
+        run: python scripts/probe_institutional_decay_pii_alternates.py
