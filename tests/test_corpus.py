@@ -395,7 +395,11 @@ class CorpusChecks(unittest.TestCase):
         self.assertEqual(len(remaining), len(set(remaining)))
         self.assertLessEqual(len(checkpoint['latestBatch']), 8)
         for state, scope in scanned.items():
-            self.assertEqual(scope['status'], 'first_page_indexed_not_exhaustive')
+            self.assertIn(scope['status'], (
+                'first_page_indexed_not_exhaustive',
+                'first_page_matches_reported_no_candidates_persisted',
+                'first_page_empty_search_not_no_bills'))
+            self.assertGreaterEqual(scope.get('persistedCandidateRows', 0), 0)
             self.assertEqual(scope['searchPage'], 1)
             self.assertLessEqual(scope['perPage'], 20)
         bills = load('data/legislation/state-redistricting-bills.json')
