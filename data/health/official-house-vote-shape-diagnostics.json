@@ -1,0 +1,67 @@
+{
+  "schema": "power-atlas.house-small-vote-shapes.v1",
+  "meaning": "Identifies whether official Clerk vote data is truly under 200 votes or parser has an ID mismatch",
+  "records": [
+    {
+      "roll": 2,
+      "source": "https://clerk.house.gov/evs/2025/roll002.xml",
+      "status": "official_xml_inspected",
+      "totalRecordedVoteNodes": 434,
+      "parsedMemberIds": 0,
+      "distinctMemberIds": 0,
+      "hasQuestion": true,
+      "invalidVoteValueCounts": {
+        "Johnson (LA)": 218,
+        "Jeffries": 215,
+        "Emmer": 1
+      },
+      "invalidIdExamples": {},
+      "xmlRootTag": "rollcall-vote"
+    },
+    {
+      "roll": 21,
+      "source": "https://clerk.house.gov/evs/2025/roll021.xml",
+      "status": "official_xml_inspected",
+      "totalRecordedVoteNodes": 433,
+      "parsedMemberIds": 16,
+      "distinctMemberIds": 16,
+      "hasQuestion": true,
+      "invalidVoteValueCounts": {
+        "Aye": 213,
+        "No": 204
+      },
+      "invalidIdExamples": {},
+      "xmlRootTag": "rollcall-vote"
+    },
+    {
+      "roll": 31,
+      "source": "https://clerk.house.gov/evs/2025/roll031.xml",
+      "status": "official_xml_inspected",
+      "totalRecordedVoteNodes": 433,
+      "parsedMemberIds": 10,
+      "distinctMemberIds": 10,
+      "hasQuestion": true,
+      "invalidVoteValueCounts": {
+        "Aye": 215,
+        "No": 208
+      },
+      "invalidIdExamples": {},
+      "xmlRootTag": "rollcall-vote"
+    },
+    {
+      "roll": 80,
+      "source": "https://clerk.house.gov/evs/2025/roll080.xml",
+      "status": "official_xml_inspected",
+      "totalRecordedVoteNodes": 436,
+      "parsedMemberIds": 23,
+      "distinctMemberIds": 23,
+      "hasQuestion": true,
+      "invalidVoteValueCounts": {
+        "No": 321,
+        "Aye": 92
+      },
+      "invalidIdExamples": {},
+      "xmlRootTag": "rollcall-vote"
+    }
+  ]
+}
