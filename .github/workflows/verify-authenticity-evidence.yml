@@ -6,6 +6,7 @@ on:
       - 'scripts/collect_authenticity_rollcalls.py'
       - 'tests/test_authenticity_rollcalls.py'
       - 'tests/test_authenticity_anes_aggregates.py'
+      - 'tests/test_authenticity_rq2.py'
       - '.github/workflows/verify-authenticity-evidence.yml'
   schedule:
     - cron: '17 05 * * 1,4'
