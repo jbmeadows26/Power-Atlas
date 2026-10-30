@@ -6,7 +6,7 @@ from urllib.error import HTTPError
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from recover_state_bill_source_gaps import (
-    BASE, PER_PAGE, STATES, detail_source, process_state, reject_reason
+    BASE, PER_PAGE, STATES, detail_source, process_state, reject_reason, verify_https_official_link
 )
 
 UID = "11111111-1111-4111-8111-111111111111"
@@ -24,11 +24,32 @@ def bill(source_url=None):
 
 class StateBillSourceRecoveryTests(unittest.TestCase):
     def test_scope_and_filters(self):
-        self.assertEqual(STATES, ("CA", "MD", "OK", "VT"))
+        self.assertEqual(STATES, ("MD", "OK", "VT"))
         self.assertEqual(PER_PAGE, 5)
         self.assertEqual(reject_reason(bill()), "missing_source_url")
         self.assertEqual(reject_reason(bill("http://example.org/bill")), "non_https_source_url")
         self.assertIsNone(reject_reason(bill("https://leginfo.legislature.ca.gov/")))
+
+    def test_http_to_https_requires_same_official_host_and_successful_head(self):
+        class Response:
+            status = 200
+            def __init__(self, url):
+                self.url = url
+            def geturl(self):
+                return self.url
+            def __enter__(self):
+                return self
+            def __exit__(self, *_):
+                return False
+        def fake_head(req, timeout):
+            self.assertEqual(req.get_method(), "HEAD")
+            self.assertEqual(timeout, 12)
+            return Response(req.full_url)
+        official = bill("http://mgaleg.maryland.gov/2026RS/bills/hb/hb0123f.pdf")
+        self.assertEqual(
+            verify_https_official_link(official, "MD", fake_head),
+            "https://mgaleg.maryland.gov/2026RS/bills/hb/hb0123f.pdf")
+        self.assertIsNone(verify_https_official_link(official, "VT", fake_head))
 
     def test_detail_requires_matching_bill_id(self):
         def wrong_id(_):
