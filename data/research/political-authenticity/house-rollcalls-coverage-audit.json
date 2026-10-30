@@ -1,0 +1,52 @@
+{
+  "schema": "power-atlas.house-vote-coverage-audit.v1",
+  "sourcePath": "data/research/political-authenticity/house-rollcalls-2025.json",
+  "sourceSha256": "record_level_xml_sha256_in_dataset",
+  "source": "https://clerk.house.gov/evs/2025/",
+  "dataKind": "observed_primary_source_rollcalls",
+  "coverageStatus": "partial_window",
+  "requestedRange": [
+    1,
+    150
+  ],
+  "observedRolls": 127,
+  "missingRolls": [
+    2,
+    21,
+    31,
+    39,
+    47,
+    57,
+    67,
+    76,
+    79,
+    80,
+    81,
+    82,
+    87,
+    92,
+    94,
+    106,
+    118,
+    122,
+    127,
+    135,
+    142,
+    149,
+    150
+  ],
+  "uniqueRecordedMembers": 437,
+  "memberVoteTotals": {
+    "Yea": 37291,
+    "Nay": 15194,
+    "Present": 447,
+    "Not Voting": 2001
+  },
+  "memberVoteCount": 54933,
+  "minimumMembersPerRoll": 430,
+  "maximumMembersPerRoll": 435,
+  "invalidVoteLabels": 0,
+  "duplicateMemberVotesOnRoll": 0,
+  "interpretation": "Source-indexed recorded votes only; no matched pre-vote district-by-income preferences. These are the first numbered roll calls, not a preregistered list of 150 key policy votes.",
+  "reviewStatus": "independent_aggregate_arithmetic_not_policy_bias_estimate"
+}
