@@ -1,0 +1,369 @@
+{
+  "asOf": "2026-10-30",
+  "causalEffect": null,
+  "criticalUnresolved": [
+    "Historical state fiscal-year dates are a contemporary-rule backcast rather than a state-by-state verified statute for each year",
+    "Governor election dates from National Governors Association and Ballotpedia summaries are not state-certified election canvasses",
+    "Different treatment contexts: two-year cycles, Oregon 2016 special election, and Wisconsin 2012 recall excluded",
+    "National FY2022 Census codebook changes and heterogeneous accounting may bias cross-regime comparisons",
+    "Federal transfers recorded in current fiscal year can be mediator/post-treatment",
+    "GDP and unemployment lagged calendar year data have not been vintage-pinned to what was public before budget adoption",
+    "Within-state calendar variation is not independent of policy timing, incumbent strength, legislative agenda, term limits, and regional shocks",
+    "No administrative spending announcements, commitments, obligations or completed infrastructure measures",
+    "No validation of pre-event parallel trends, placebos, effective heterogeneous estimates or spillovers"
+  ],
+  "electionWindowCountsByFiscalYear": {
+    "2012": {
+      "governorElectionInFY": 3,
+      "preGovernorElectionFY": 11,
+      "stateYears": 50
+    },
+    "2013": {
+      "governorElectionInFY": 11,
+      "preGovernorElectionFY": 2,
+      "stateYears": 50
+    },
+    "2014": {
+      "governorElectionInFY": 2,
+      "preGovernorElectionFY": 36,
+      "stateYears": 50
+    },
+    "2015": {
+      "governorElectionInFY": 36,
+      "preGovernorElectionFY": 3,
+      "stateYears": 50
+    },
+    "2016": {
+      "governorElectionInFY": 3,
+      "preGovernorElectionFY": 12,
+      "stateYears": 50
+    },
+    "2017": {
+      "governorElectionInFY": 12,
+      "preGovernorElectionFY": 2,
+      "stateYears": 50
+    },
+    "2018": {
+      "governorElectionInFY": 2,
+      "preGovernorElectionFY": 36,
+      "stateYears": 50
+    },
+    "2019": {
+      "governorElectionInFY": 36,
+      "preGovernorElectionFY": 3,
+      "stateYears": 50
+    },
+    "2020": {
+      "governorElectionInFY": 3,
+      "preGovernorElectionFY": 11,
+      "stateYears": 50
+    },
+    "2021": {
+      "governorElectionInFY": 11,
+      "preGovernorElectionFY": 2,
+      "stateYears": 50
+    },
+    "2022": {
+      "governorElectionInFY": 2,
+      "preGovernorElectionFY": 36,
+      "stateYears": 50
+    },
+    "2023": {
+      "governorElectionInFY": 36,
+      "preGovernorElectionFY": 3,
+      "stateYears": 50
+    },
+    "2024": {
+      "governorElectionInFY": 3,
+      "preGovernorElectionFY": 11,
+      "stateYears": 50
+    }
+  },
+  "models": [
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.190319,
+          "causalEffect": null,
+          "ci95": [
+            -0.052075,
+            0.432713
+          ],
+          "stateClusteredSE": 0.123673,
+          "twoSidedPValue": 0.1238302
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.287947,
+          "causalEffect": null,
+          "ci95": [
+            0.081404,
+            0.49449
+          ],
+          "stateClusteredSE": 0.105381,
+          "twoSidedPValue": 0.00628671
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + C(state) + C(year)",
+      "hasMacroLaggedControls": false,
+      "hasPotentiallyPostTreatmentFederalTransferShare": false,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 650,
+      "name": "all_fy_unadjusted",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    },
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.199299,
+          "causalEffect": null,
+          "ci95": [
+            -0.03449,
+            0.433088
+          ],
+          "stateClusteredSE": 0.119282,
+          "twoSidedPValue": 0.09475764
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.277009,
+          "causalEffect": null,
+          "ci95": [
+            0.061126,
+            0.492892
+          ],
+          "stateClusteredSE": 0.110146,
+          "twoSidedPValue": 0.01190618
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + gdpGrowthLaggedCalendarPct + unemploymentLaggedCalendarPct + C(state) + C(year)",
+      "hasMacroLaggedControls": true,
+      "hasPotentiallyPostTreatmentFederalTransferShare": false,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 650,
+      "name": "all_fy_lagged_macro",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    },
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.213864,
+          "causalEffect": null,
+          "ci95": [
+            -0.015412,
+            0.443139
+          ],
+          "stateClusteredSE": 0.116979,
+          "twoSidedPValue": 0.06751712
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.295883,
+          "causalEffect": null,
+          "ci95": [
+            0.071827,
+            0.519939
+          ],
+          "stateClusteredSE": 0.114317,
+          "twoSidedPValue": 0.00964568
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + gdpGrowthLaggedCalendarPct + unemploymentLaggedCalendarPct + federalTransferShareCurrentFY + C(state) + C(year)",
+      "hasMacroLaggedControls": true,
+      "hasPotentiallyPostTreatmentFederalTransferShare": true,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 650,
+      "name": "all_fy_macro_plus_contemporaneous_transfers_sensitivity",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021,
+        2022,
+        2023,
+        2024
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    },
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.175645,
+          "causalEffect": null,
+          "ci95": [
+            -0.108264,
+            0.459554
+          ],
+          "stateClusteredSE": 0.144854,
+          "twoSidedPValue": 0.2252968
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.313347,
+          "causalEffect": null,
+          "ci95": [
+            0.026693,
+            0.600001
+          ],
+          "stateClusteredSE": 0.146255,
+          "twoSidedPValue": 0.03215555
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + C(state) + C(year)",
+      "hasMacroLaggedControls": false,
+      "hasPotentiallyPostTreatmentFederalTransferShare": false,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 500,
+      "name": "pre_2022_unadjusted",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    },
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.169739,
+          "causalEffect": null,
+          "ci95": [
+            -0.105854,
+            0.445333
+          ],
+          "stateClusteredSE": 0.140612,
+          "twoSidedPValue": 0.22737375
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.285788,
+          "causalEffect": null,
+          "ci95": [
+            -0.005476,
+            0.577051
+          ],
+          "stateClusteredSE": 0.148607,
+          "twoSidedPValue": 0.05446519
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + gdpGrowthLaggedCalendarPct + unemploymentLaggedCalendarPct + C(state) + C(year)",
+      "hasMacroLaggedControls": true,
+      "hasPotentiallyPostTreatmentFederalTransferShare": false,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 500,
+      "name": "pre_2022_lagged_macro",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2020,
+        2021
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    },
+    {
+      "coefficients": {
+        "electionFiscalYear": {
+          "associationInPercentagePoints": 0.231975,
+          "causalEffect": null,
+          "ci95": [
+            -0.059061,
+            0.523011
+          ],
+          "stateClusteredSE": 0.148491,
+          "twoSidedPValue": 0.11823615
+        },
+        "preElectionFiscalYear": {
+          "associationInPercentagePoints": 0.28251,
+          "causalEffect": null,
+          "ci95": [
+            0.024972,
+            0.540049
+          ],
+          "stateClusteredSE": 0.1314,
+          "twoSidedPValue": 0.03155461
+        }
+      },
+      "formula": "capitalSharePercent ~ electionFiscalYear + preElectionFiscalYear + gdpGrowthLaggedCalendarPct + unemploymentLaggedCalendarPct + C(state) + C(year)",
+      "hasMacroLaggedControls": true,
+      "hasPotentiallyPostTreatmentFederalTransferShare": false,
+      "interpretation": "OBSERVATIONAL_ASSOCIATION_ONLY_NO_RANDOM_ASSIGNMENT_NO_INTENT_INFERENCE",
+      "nObservedStateYears": 550,
+      "name": "exclude_pandemic_fy2020_2021_macro",
+      "sampleYears": [
+        2012,
+        2013,
+        2014,
+        2015,
+        2016,
+        2017,
+        2018,
+        2019,
+        2022,
+        2023,
+        2024
+      ],
+      "standardErrors": "state_clustered_with_small_sample_correction",
+      "stateCount": 50
+    }
+  ],
+  "politicalIntentInference": null,
+  "publicationWarning": "These numerical coefficients are real-data observational associations, not validated election-caused investment changes, and do not establish politician deception.",
+  "schema": "power-atlas.observed-state-election-associations.v1",
+  "sourceLinks": {
+    "economy": "data/fiscal/state-timeseries/economic-controls-2012-2024.json",
+    "finance": "data/fiscal/state-timeseries/aggregate-capital-2012-2024.json",
+    "governorElections": "data/fiscal/state-timeseries/governor-elections-fiscaljoin-2012-2024.json"
+  },
+  "sourceRecordCount": 650,
+  "sourceScope": "US Census fiscal 2012-2024, source-linked secondary governor election summaries, BEA real GDP and BLS unemployment via FRED",
+  "status": "observational_diagnostics_not_verified_causal_effect"
+}
