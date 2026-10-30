@@ -1,0 +1,36 @@
+name: Repair official House roll-call missingness
+on:
+  push:
+    paths:
+      - 'scripts/backfill_authenticity_rollcalls.py'
+      - '.github/workflows/backfill-authenticity-rolls.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-official-house-vote-backfill
+  cancel-in-progress: false
+jobs:
+  backfill:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Retry and diagnose missing official House XML only
+        run: python scripts/backfill_authenticity_rollcalls.py
+      - name: Validate provenance and partial archive
+        run: |
+          python -m unittest discover -s tests -p 'test_authenticity_rollcalls.py' -v
+          python - <<'PY'
+          import json,pathlib
+          p=pathlib.Path('data/research/political-authenticity/house-rollcalls-2025.json')
+          d=json.loads(p.read_text())
+          assert 120<=len(d['records'])<=150
+          assert len({r['id'] for r in d['records']})==len(d['records'])
+          assert d['retrieved']+len(d['missingRollNumbers'])==150
+          PY
+      - name: Persist honest roll-call status and rejection causes
+        run: bash scripts/publish_data.sh data/research/political-authenticity/house-rollcalls-2025.json data/health/house-roll-2025-backfill.json
