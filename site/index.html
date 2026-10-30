@@ -354,6 +354,11 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   <section class="panel" data-panel="quality">
     <span class="eyebrow">Evidence governance</span><h2>What the data actually supports</h2>
     <div class="columns"><div class="card"><h3>Source evidence policy</h3><p>Research records are published with source URLs, review statuses, stable identifiers and coverage notes. A tentative name match never proves causation or misconduct.</p><p>Directly attributable filings are kept distinct from inferred networks. Unreviewed relationships should not be used as allegations.</p></div><div class="card"><h3>Remaining gaps</h3><div id="gapQuality"></div></div></div>
+    <div class="card"><h3>Nationwide research completion audit</h3>
+      <p class="note">Completed bounded collections do not establish complete national evidence or causation. Each item below is source-scoped, with unfinished dependencies shown explicitly.</p>
+      <p id="gateStatus" class="mapstatus">Open Evidence & gaps to read the latest public completion-gate audit.</p>
+      <div id="gateList" class="list"></div>
+      <a class="source" href="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/completion-gates.json" target="_blank" rel="noopener noreferrer">Machine-readable completion audit ↗</a></div>
     <div class="card"><h3>Data access</h3><p><a href="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json" target="_blank" rel="noopener noreferrer">Unified machine-readable feed ↗</a></p><p><a href="https://github.com/jbmeadows26/Power-Atlas/actions" target="_blank" rel="noopener noreferrer">Ingestion and validation workflows ↗</a></p><p class="note">This view reads from a public read-only GitHub data feed. It does not independently verify court decisions or authenticate the accuracy of source filings.</p></div>
   </section>
 </div>
@@ -550,6 +555,25 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
         renderCommittees();renderNetwork()
       }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
       .finally(function(){committeeBusy=false});
+  }
+  var readinessLoaded=false,readinessBusy=false;
+  function loadCompletionGates(){
+    if(readinessLoaded||readinessBusy)return;
+    readinessBusy=true;
+    set('gateStatus','Loading source-backed completion checks from public GitHub data...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/completion-gates.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){
+        if(j.schema!=='power-atlas.completion-gates.v1'||!Array.isArray(j.gates))throw Error('Completion audit schema mismatch');
+        set('gateStatus',j.asOfDate+' · '+j.gates.length+' research readiness gates · '+j.blockingGates.length+' unresolved nationally. The evidence remains partial.');
+        document.getElementById('gateList').innerHTML=j.gates.map(function(g){
+          var label=/^complete/.test(g.status)?'Bounded source completed':'Coverage incomplete or unverified';
+          var count=g.observed===null?'Not assessed':String(g.observed);
+          return '<article class="card"><div class="meta"><span class="tag">'+esc(label)+'</span><span class="tag warn">'+esc(g.status.replaceAll('_',' '))+'</span></div><h3>'+esc(g.description)+'</h3><p>'+esc(count)+' · '+esc(g.scope.replaceAll('_',' '))+'</p><p class="note">Next evidence step: '+esc(g.nextAction)+'</p>'+(g.source?'<a class="source" href="'+esc(safe(g.source))+'" target="_blank" rel="noopener noreferrer">Source context ↗</a>':'')+'</article>';
+        }).join('');
+        readinessLoaded=true;
+      }).catch(function(e){set('gateStatus','Completion audit unavailable: '+e.message+'. Follow the machine-readable audit link.')})
+      .finally(function(){readinessBusy=false});
   }
   function renderEvidenceAudit(){
     var audit=data.evidenceReconciliation||{}, summary=audit.summary||{}, c=audit.searchCoverage||{},
@@ -777,6 +801,7 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
     if(b.dataset.tab==='gridlock')loadGridlock();
     if(b.dataset.tab==='states')loadMaps();
+    if(b.dataset.tab==='quality')loadCompletionGates();
     if(b.dataset.tab==='state-legislators')loadStateLegislators();
     if(b.dataset.tab==='judiciary')loadJudiciary();
     if(b.dataset.tab==='committees')loadCommittees();
