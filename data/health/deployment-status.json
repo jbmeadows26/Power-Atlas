@@ -3,10 +3,10 @@
   "checkedDateUTC": "2026-10-30",
   "project": "power-atlas-research",
   "productionDomain": "https://power-atlas-research.vercel.app/",
-  "lastVerifiedProductionCommit": "cf5c8442019c988aff756ffe85b5baba707fc28f",
+  "lastVerifiedProductionCommit": "7eb6773b1d7853986bbe17edd958438000604c74",
   "frontendSyntaxVerifiedCommit": "4cca533bd191423369675adf4ae0987c4e3301fd",
   "frontendSyntaxWorkflowRun": 40791734533,
-  "deploymentStatus": "blocked_free_daily_api_deployment_limit",
+  "deploymentStatus": "ready_production_html_verified",
   "blocker": {
     "provider": "Vercel",
     "httpStatus": 402,
@@ -35,8 +35,8 @@
       "result": "GitHub commit 74756b7 persisted; subsequent test commit 35dc236 did not trigger a new Vercel deployment entry at inspection; GitHub Actions 169 tests passed"
     }
   ],
-  "nextAction": "After free quota resets, deploy current validated main to production and verify deployed commit SHA and actual served frontend; do not claim production updated until verified.",
-  "warning": "Production remains on cf5c844 until a new READY production deployment is independently verified. CANCELED ignored builds can consume Hobby deployment quota. Static site currently responds HTTP 200 but serves stale UI.",
+  "nextAction": "Keep automatic Git/preview deployments disabled. For future actual frontend changes, perform one authorized free manual deployment only if needed, then verify served HTML and commit. Continue validating dynamic GitHub-hosted data separately.",
+  "warning": "Production frontend HTML is verified current, while the deployment Git SHA may lag newer data-only main commits. This does not prove all live data sources or nationwide source completeness.",
   "quotaChurnMitigation": {
     "finding": "Ignored Build Step creates CANCELED deployments that can still count toward Hobby daily deployment quota; not sufficient to prevent API deployment churn.",
     "officialDocumentation": "https://vercel.com/docs/project-configuration/git-configuration",
@@ -47,12 +47,25 @@
     "verifiedEvidence": "After disabling automatic Git deployments, subsequent GitHub commits 74756b7 and 35dc236 did not appear as new Vercel deployment entries when checked at 2026-10-29T15:10Z.",
     "manualReleasePolicy": "Only one manual REST API production deployment after free quota resets; inspect GitHub main SHA, Vercel READY state, alias and served HTML. Manual deployment must not be blocked by ignored build configuration.",
     "tests": "169 tests passed in GitHub Actions run 40898828747",
-    "previewAndAffectedProjectSettings": "Vercel update_project accepted previewDeploymentsDisabled=true and enableAffectedProjectsDeployments=true on 2026-10-30, but get_project metadata did not echo those fields; settings are requested, not independently verified."
+    "previewAndAffectedProjectSettings": "Vercel update_project accepted previewDeploymentsDisabled=true and enableAffectedProjectsDeployments=true on 2026-10-30, but get_project metadata did not echo those fields; settings are requested, not independently verified.",
+    "productionRecoveryVerified": true,
+    "productionRecoveryRun": 41011964314
   },
-  "latestVerifiedReadyDeploymentId": "dpl_JAwv8mT4x53pgF2TBEugmabRd8zS",
-  "latestVerifiedReadyDeploymentCreatedUTC": "2026-10-28T23:58:08Z",
+  "latestVerifiedReadyDeploymentId": "dpl_8AsAWQcz9bYGnRMLsMm8ij3TDkwF",
+  "latestVerifiedReadyDeploymentCreatedUTC": "2026-10-30T04:34:27Z",
   "latestValidatedFeedDataCommit": "dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb",
   "latestValidatedFeedWorkflowRun": 40994752099,
   "latestValidatedFeedTestCount": 171,
-  "currentBlockerAssessment": "As of 2026-10-30 03:00 UTC the newest READY production deployment remains 2026-10-28 commit cf5c844; the previously observed HTTP 402 free daily quota has no independently confirmed reset time. Do not initiate a new production deployment until its 86400-second cooldown is confirmed elapsed. No production deployment was attempted in this audit."
+  "currentBlockerAssessment": "Resolved as of 2026-10-30 06:04 UTC: Vercel READY production alias points to deployment dpl_8AsAWQcz9bYGnRMLsMm8ij3TDkwF from commit 7eb6773. GitHub Actions smoke run 41011964314 fetched HTTP 200 production HTML and proved byte-for-byte equality with current site/index.html. No additional deployment is needed for data-only commits; previous HTTP 402 remains historical.",
+  "productionVerification": {
+    "verifiedUTC": "2026-10-30T06:04:48Z",
+    "githubActionsRun": 41011964314,
+    "productionUrl": "https://power-atlas-research.vercel.app/",
+    "httpStatus": 200,
+    "servedIndexUrl": "https://power-atlas-research.vercel.app/index.html",
+    "htmlSha256": "2ed0024d86b6d041824ce0f5b45cff42008501b0466dbecf0a1616200772fe28",
+    "repoHtmlByteIdentical": true,
+    "deployedCommit": "7eb6773b1d7853986bbe17edd958438000604c74",
+    "notes": "GitHub Actions runner fetched live root, JS and index.html, and compared index.html bytes against checked-out site/index.html. Production alias verified by Vercel get_deployment. Later main commits can update data without changing frontend HTML."
+  }
 }
