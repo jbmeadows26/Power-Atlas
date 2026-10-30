@@ -163,6 +163,9 @@ wa_sample_summary = {
 official_spotchecks_path = ROOT / 'data/legislation/official-state-bill-spotchecks.json'
 official_spotchecks_doc = json.loads(official_spotchecks_path.read_text(encoding='utf-8')) if official_spotchecks_path.exists() else {}
 official_spotcheck_rows = official_spotchecks_doc.get('records', [])
+official_arkansas_spotcheck_path = ROOT / 'data/legislation/official-arkansas-redistricting-2021.json'
+official_arkansas_spotcheck_doc = json.loads(official_arkansas_spotcheck_path.read_text(encoding='utf-8')) if official_arkansas_spotcheck_path.exists() else {}
+official_arkansas_spotcheck_rows = official_arkansas_spotcheck_doc.get('records', [])
 for v in state_vote_rows:
     bill_id = str(v.get('billId') or '')
     vote_id = str(v.get('id') or '')
@@ -318,6 +321,13 @@ feed = {
         'stateRedistrictingBillCandidates': state_bill_rows,
         'stateRedistrictingRecordedVotes': state_vote_rows,
         'officialStateBillSpotchecks': official_spotcheck_rows,
+        'officialArkansasHistoricalRedistricting': {
+            'records': official_arkansas_spotcheck_rows,
+            'publicationStatus': official_arkansas_spotcheck_doc.get('publicationStatus', 'not_collected'),
+            'limitations': official_arkansas_spotcheck_doc.get('limits', 'Historical spotchecks are not complete state coverage'),
+            'keywordIndexCandidateRows': 0,
+            'officialSourceControls': True
+        },
         'officialWashingtonMemberRollcallSample': wa_sample_summary,
         'stateBillSource': 'https://billcommons.org/docs/api',
         'sourceProvider':'https://www.ballotwatch.io/developers',
@@ -364,6 +374,7 @@ feed = {
         'federalBillCandidateRows': len(federal_bills),
         'stateBillCandidateRows': len(state_bill_rows),
         'officialStateBillSpotcheckRows': len(official_spotcheck_rows),
+        'officialArkansasHistoricalSpotcheckRows': len(official_arkansas_spotcheck_rows),
         'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
         'stateRecordedVoteRows': len(state_vote_rows),
         'officialStateMemberRollcallSampleRows': len(wa_source_rows),
