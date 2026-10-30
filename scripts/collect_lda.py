@@ -46,7 +46,6 @@ def fetch(term, year):
                     raise
                 if attempt:
                     raise
-                import time
                 time.sleep(1.0)
         doc=json.loads(content)
         if not isinstance(doc.get('results'),list):
