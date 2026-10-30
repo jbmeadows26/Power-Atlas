@@ -23,6 +23,13 @@ class OfficialRollcallScopeTests(unittest.TestCase):
         self.assertEqual(redistricting['observed'],1)
         self.assertEqual(redistricting['status'],'partial_sample_not_member_ballot_census')
         self.assertEqual(gates['disposition'],'not_nationwide_research_complete')
+        feed=json.loads((ROOT/'data/app-feed.json').read_text(encoding='utf-8'))
+        sample_feed=feed['legislation']['officialWashingtonMemberRollcallSample']
+        self.assertEqual(sample_feed['officialMemberRollCalls'],wa['rollCalls'])
+        self.assertEqual(sample_feed['memberVoteRows'],wa['memberVoteRows'])
+        self.assertIn('not_redistricting_or_statewide_census',sample_feed['status'])
+        self.assertEqual(feed['coverage']['officialStateMemberRollcallSampleRows'],wa['rollCalls'])
+        self.assertEqual(feed['coverage']['officialStateMemberBallotSampleRows'],wa['memberVoteRows'])
 
 
 if __name__=='__main__':

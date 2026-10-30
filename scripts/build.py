@@ -138,6 +138,28 @@ state_bill_rows = state_bill_doc.get('records', [])
 state_votes_path = ROOT / 'data/legislation/state-redistricting-votes.json'
 state_votes_doc = json.loads(state_votes_path.read_text(encoding='utf-8')) if state_votes_path.exists() else {}
 state_vote_rows = state_votes_doc.get('records', [])
+wa_source_path = ROOT / 'data/legislation/wa-2023-24-rollcalls/source-rollcalls.json'
+wa_source_doc = json.loads(wa_source_path.read_text(encoding='utf-8')) if wa_source_path.exists() else {}
+wa_source_rows = wa_source_doc.get('records', [])
+if wa_source_doc and (
+    wa_source_doc.get('publicationStatus') != 'official_original_member_rollcall_sample_not_full_biennium'
+    or wa_source_doc.get('historicalSessionComplete') is not False
+    or wa_source_doc.get('allStateRollCallsComplete') is not False
+    or wa_source_doc.get('rollCalls') != len(wa_source_rows)
+    or wa_source_doc.get('memberVoteRows') != sum(len(r.get('memberVotes', [])) for r in wa_source_rows)
+):
+    raise ValueError('WA official member-vote sample provenance/counts inconsistent')
+wa_sample_summary = {
+    'state': 'WA', 'biennium': '2023-24',
+    'officialMemberRollCalls': len(wa_source_rows),
+    'memberVoteRows': wa_source_doc.get('memberVoteRows', 0),
+    'billsRequested': wa_source_doc.get('billsRequested', 0),
+    'billsWithAnyRollCalls': wa_source_doc.get('billsWithAnyRollCalls', 0),
+    'source': wa_source_doc.get('officialSourceService', ''),
+    'dataset': 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/legislation/wa-2023-24-rollcalls/source-rollcalls.json',
+    'status': 'official_primary_source_bounded_sample_not_redistricting_or_statewide_census',
+    'warning': 'Sampled legislative bills, not a statewide or redistricting roll-call census; individual legislator votes are in the separately attributed official source dataset.'
+}
 official_spotchecks_path = ROOT / 'data/legislation/official-state-bill-spotchecks.json'
 official_spotchecks_doc = json.loads(official_spotchecks_path.read_text(encoding='utf-8')) if official_spotchecks_path.exists() else {}
 official_spotcheck_rows = official_spotchecks_doc.get('records', [])
@@ -296,6 +318,7 @@ feed = {
         'stateRedistrictingBillCandidates': state_bill_rows,
         'stateRedistrictingRecordedVotes': state_vote_rows,
         'officialStateBillSpotchecks': official_spotcheck_rows,
+        'officialWashingtonMemberRollcallSample': wa_sample_summary,
         'stateBillSource': 'https://billcommons.org/docs/api',
         'sourceProvider':'https://www.ballotwatch.io/developers',
         'scopeNote':'Keyword search of public bill titles and secondary-source sponsor IDs. Not exhaustive. No recorded voting outcomes implied.'
@@ -343,6 +366,8 @@ feed = {
         'officialStateBillSpotcheckRows': len(official_spotcheck_rows),
         'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
         'stateRecordedVoteRows': len(state_vote_rows),
+        'officialStateMemberRollcallSampleRows': len(wa_source_rows),
+        'officialStateMemberBallotSampleRows': wa_source_doc.get('memberVoteRows', 0),
         'federalBillRedistrictingTitleMatches': sum(r['issueClass']=='redistricting_specific_title' for r in federal_bills),
         'federalBillSponsorEdges': sum(bool(re.fullmatch(r'[A-Z][0-9]{6}',str(r.get('sponsorBioguideId') or ''))) for r in federal_bills),
         'federalJudicialAppointments': fjc_index.get('appointmentRecords', 0),
