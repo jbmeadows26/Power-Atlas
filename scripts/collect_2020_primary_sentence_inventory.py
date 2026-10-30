@@ -135,9 +135,9 @@ def index_source(src,raw):
 def build():
     d=json.loads(MANIFEST.read_text(encoding="utf-8"))
     sources=d.get("knownPrimaryDocuments",[])
-    if len(sources)!=5 or d["sourceCollectionRule"]["fullDenominatorFrozen"] is not False:
+    if len(sources)!=6 or d["sourceCollectionRule"]["fullDenominatorFrozen"] is not False:
         raise ValueError("Unexpected campaign source scope; fresh manual review necessary")
-    if len({s["id"] for s in sources})!=5:
+    if len({s["id"] for s in sources})!=6:
         raise ValueError("Duplicate campaign source documents")
     documents=[]
     for src in sources:
