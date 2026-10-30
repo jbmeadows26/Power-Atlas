@@ -1,0 +1,56 @@
+name: Validate live six-domain source-backed coverage UI
+on:
+  push:
+    paths:
+      - 'site/index.html'
+      - 'scripts/build_six_gap_coverage.py'
+      - 'tests/test_six_gap_dashboard.py'
+      - '.github/workflows/validate-six-gap-dashboard.yml'
+  pull_request:
+    paths:
+      - 'site/index.html'
+      - 'scripts/build_six_gap_coverage.py'
+      - 'tests/test_six_gap_dashboard.py'
+      - '.github/workflows/validate-six-gap-dashboard.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconcile six research coverage dimensions with actual persisted source data
+        run: python -m scripts.build_six_gap_coverage
+      - name: Enforce 50-state / 99-chamber geometry and truthful NC county/judicial status
+        run: |
+          python -m unittest discover -s tests -p 'test_six_gap_coverage.py' -v
+          python -m unittest discover -s tests -p 'test_six_gap_dashboard.py' -v
+      - name: Validate embedded dashboard JavaScript syntax with Node
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          import subprocess,tempfile
+          class Collector(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.script=False;self.blocks=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=='script':
+                      self.script=not any(k=='src' for k,v in attrs)
+              def handle_endtag(self,tag):
+                  if tag=='script':self.script=False
+              def handle_data(self,data):
+                  if self.script:self.blocks.append(data)
+          p=Collector();p.feed(Path('site/index.html').read_text())
+          assert len(p.blocks)==1
+          with tempfile.TemporaryDirectory() as d:
+              output=Path(d)/'index-inline.js'
+              output.write_text(p.blocks[0])
+              subprocess.run(['node','--check',str(output)],check=True)
+          PY
