@@ -33,6 +33,10 @@ class CaliforniaOfficialSpotcheckTests(unittest.TestCase):
             self.assertTrue(r["source"].startswith("https://"))
             self.assertFalse({"contributor_name", "contributor_address", "email", "phone"} & set(r))
         self.assertIn("not_secondary_keyword_candidate", doc["publicationStatus"])
+        feed = read("data/app-feed.json")
+        self.assertEqual(feed["legislation"]["officialCaliforniaRedistrictingSpotcheck"]["records"], doc["records"])
+        self.assertEqual(feed["coverage"]["officialCaliforniaRedistrictingSpotcheckRows"], 1)
+        self.assertEqual(feed["legislation"]["officialCaliforniaRedistrictingSpotcheck"]["keywordIndexCandidateRows"], 0)
 
 if __name__ == "__main__":
     unittest.main()

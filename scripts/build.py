@@ -163,6 +163,9 @@ wa_sample_summary = {
 official_spotchecks_path = ROOT / 'data/legislation/official-state-bill-spotchecks.json'
 official_spotchecks_doc = json.loads(official_spotchecks_path.read_text(encoding='utf-8')) if official_spotchecks_path.exists() else {}
 official_spotcheck_rows = official_spotchecks_doc.get('records', [])
+official_california_path = ROOT / 'data/legislation/official-california-redistricting-2025.json'
+official_california_doc = json.loads(official_california_path.read_text(encoding='utf-8')) if official_california_path.exists() else {}
+official_california_rows = official_california_doc.get('records', [])
 official_arkansas_spotcheck_path = ROOT / 'data/legislation/official-arkansas-redistricting-2021.json'
 official_arkansas_spotcheck_doc = json.loads(official_arkansas_spotcheck_path.read_text(encoding='utf-8')) if official_arkansas_spotcheck_path.exists() else {}
 official_arkansas_spotcheck_rows = official_arkansas_spotcheck_doc.get('records', [])
@@ -324,6 +327,14 @@ feed = {
         'stateRedistrictingBillCandidates': state_bill_rows,
         'stateRedistrictingRecordedVotes': state_vote_rows,
         'officialStateBillSpotchecks': official_spotcheck_rows,
+        'officialCaliforniaRedistrictingSpotcheck': {
+            'records': official_california_rows,
+            'relatedLegislationLeads': official_california_doc.get('relatedLegislationLeads', []),
+            'publicationStatus': official_california_doc.get('publicationStatus', 'not_collected'),
+            'limitations': official_california_doc.get('limitations', 'Single-bill official metadata spotcheck, not a state census'),
+            'keywordIndexCandidateRows': 0,
+            'officialSourceControls': True
+        },
         'officialArkansasHistoricalRedistricting': {
             'records': official_arkansas_spotcheck_rows,
             'publicationStatus': official_arkansas_spotcheck_doc.get('publicationStatus', 'not_collected'),
@@ -384,6 +395,7 @@ feed = {
         'federalBillCandidateRows': len(federal_bills),
         'stateBillCandidateRows': len(state_bill_rows),
         'officialStateBillSpotcheckRows': len(official_spotcheck_rows),
+        'officialCaliforniaRedistrictingSpotcheckRows': len(official_california_rows),
         'officialArkansasHistoricalSpotcheckRows': len(official_arkansas_spotcheck_rows),
         'officialIdahoCommissionPlanRows': len(official_idaho_commission_rows),
         'stateRedistrictingTitleMatches': sum(r.get('issueClass')=='redistricting_specific_title' for r in state_bill_rows),
