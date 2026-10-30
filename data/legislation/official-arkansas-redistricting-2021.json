@@ -1,0 +1,51 @@
+{
+  "schema": "power-atlas.official-arkansas-redistricting-spotchecks.v1",
+  "checkedDateUTC": "2026-10-30",
+  "publicationStatus": "official_legislative_archive_metadata_spotcheck_not_keyword_index_or_exhaustive_session",
+  "jurisdiction": "AR",
+  "queryDiscrepancy": {
+    "provider": "https://billcommons.org/docs/api",
+    "keyword": "redistricting",
+    "reportedMatches": 0,
+    "persistedKeywordCandidateRows": 0,
+    "checkpoint": "data/legislation/state-redistricting-jurisdictions.json",
+    "interpretation": "False-negative for relevant Arkansas congressional-boundary legislation when compared with official 2021 acts. Zero third-party keyword matches cannot be interpreted as no state redistricting legislation."
+  },
+  "records": [
+    {
+      "id": "official-AR-2021-HB1982",
+      "identifier": "HB 1982",
+      "session": "93rd General Assembly, Regular Session 2021",
+      "issueClass": "congressional_redistricting_official_metadata",
+      "actNumber": 1114,
+      "actDate": "2021-10-13",
+      "reportedStatus": "act_1114_per_official_bill_history",
+      "title": "Congressional district boundary definitions for four Arkansas districts",
+      "source": "https://www.arkleg.state.ar.us/Bills/Detail?ddBienniumSession=2021%2F2021R&id=HB1982",
+      "officialAct": "https://arkleg.state.ar.us/Home/FTPDocument?path=%2FACTS%2F2021R%2FPublic%2FACT1114.pdf",
+      "reviewStatus": "official_legislative_archive_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    },
+    {
+      "id": "official-AR-2021-SB743",
+      "identifier": "SB 743",
+      "session": "93rd General Assembly, Regular Session 2021",
+      "issueClass": "congressional_redistricting_official_metadata",
+      "actNumber": 1116,
+      "reportedStatus": "act_1116_per_official_acts_index",
+      "title": "Congressional district boundary definitions for four Arkansas districts",
+      "source": "https://www.arkleg.state.ar.us/Acts/SearchByRange?ddBienniumSession=2021%2F2021R&start=1100",
+      "officialAct": "https://www.arkleg.state.ar.us/Home/FTPDocument?path=%2FACTS%2F2021R%2FPublic%2FACT1116.pdf",
+      "reviewStatus": "official_legislative_archive_metadata_spotcheck",
+      "legalOutcomeVerified": false
+    }
+  ],
+  "relation": {
+    "type": "official_summary_reports_identical_acts",
+    "from": "official-AR-2021-HB1982",
+    "to": "official-AR-2021-SB743",
+    "source": "https://arkleg.state.ar.us/Bureau/Document?filename=2021R-2021S1+Summary+Book&source=assembly%2F2021%2F2021R%2FDocuments&type=pdf",
+    "interpretation": "The Arkansas Bureau of Legislative Research summary describes Acts 1114 and 1116 as identical. They are two bill/act records, not two distinct map proposals."
+  },
+  "limits": "Historical 2021 official-source spotcheck only. Does not establish 2026 activity, current district legality, judicial outcomes, certified member roll calls, exhaustive Arkansas bills, or statewide coverage. Not merged into the 617 Bill Commons candidate rows or live feed until separately validated."
+}
