@@ -54,3 +54,24 @@ jobs:
           assert coverage['crossPartyBills119'] > 100
           print('PASS production HTML, gridlock UI, component, and source-attributed 38/38 research feed')
           PY
+      - name: Compare deployed HTML to validated repository frontend
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+          url = 'https://power-atlas-research.vercel.app/index.html'
+          req = Request(url, headers={'User-Agent': 'PowerAtlasProductionSmoke/1.0', 'Cache-Control': 'no-cache'})
+          with urlopen(req, timeout=20) as response:
+              assert response.status == 200
+              assert 'text/html' in response.headers.get('Content-Type', '')
+              deployed = response.read(1_000_001)
+          assert len(deployed) <= 1_000_000, 'Live HTML exceeds safe read bound'
+          expected = Path('site/index.html').read_bytes()
+          live_sha = hashlib.sha256(deployed).hexdigest()
+          source_sha = hashlib.sha256(expected).hexdigest()
+          print('Production index.html SHA256:', live_sha)
+          print('Repository site/index.html SHA256:', source_sha)
+          assert deployed == expected, 'Production HTML differs from current validated site/index.html'
+          print('PASS: production serves byte-identical current repository frontend HTML')
+          PY
