@@ -124,7 +124,10 @@ def summarize(source):
         "countyCanvassPDF":PDF_COUNTY,
         "certifiedSpotChecks":check,
         "spotChecksAllMatch":reconciliation_pass,
-        "reconciliationInterpretation":"Spot checks for four certified statewide candidate choices; NOT proof every local race, write-in, and precinct is certified.",
+        "certifiedSpotcheckDiscrepancyCount":sum(1 for x in check if x["difference"]!=0),
+        "certifiedSpotcheckDiscrepancies":[x for x in check if x["difference"]!=0],
+        "discrepancyInvestigationStatus":"unresolved_exact_vote_differences_require_state_county_canvass_crosswalk",
+        "reconciliationInterpretation":"Spot checks for four certified statewide candidate choices identify unresolved source-versus-canvass differences; NOT proof every local race, write-in, and precinct is certified.",
         "legalQualityGate":"Do not label complete statewide local-to-certified reconciliation until all contest/choice outcomes are independently verified against authenticated state/county canvasses.",
         "exclusions":"The separate statistically noised NC precinct-sorted result dataset is intentionally excluded because it cannot reproduce official vote totals.",
       }
