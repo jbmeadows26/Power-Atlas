@@ -50,10 +50,10 @@
       "id": "il_billcommons_page_one_timeout_official_fallback",
       "jurisdiction": "IL",
       "domain": "state_legislation",
-      "status": "official_bill_spotchecks_persisted_secondary_page_one_unavailable",
+      "status": "first_page_keyword_search_indexed_not_exhaustive",
       "primary": "https://api.billcommons.org/api/v1/search",
       "officialAlternative": "https://www.ilga.gov/legislation",
-      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Official Illinois General Assembly bill-status pages independently identify HJRCA 5, HJRCA 27, and HJRCA 28.",
+      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Official Illinois General Assembly bill-status pages independently identify HJRCA 5, HJRCA 27, and HJRCA 28. Resolved 2026-10-30: GitHub Actions run 40994752099 completed an authorized Bill Commons 20-result state-scoped first-page query; checkpoint records 62 total matches reported, 20 newly indexed records. Published commit dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb passed 171 tests. Earlier timeout remains historical, not a current first-page blocker.",
       "attemptedAlternatives": [
         "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
         "Official 104th General Assembly bill-status records reviewed and stored as a separate four-record IL/TX spotcheck dataset.",
@@ -62,19 +62,29 @@
         "2026-10-30 alternative licensing/access review: LegiScan offers CC BY 4.0 CSV snapshots but requires login to download; Delilah REST requires an issued API key. Neither source was downloaded or accessed without authorization; no paid export purchased."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "State-scoped Bill Commons first-page search timed out after bounded 20/10/5 requests. Illinois official keyword search exists, but no validated machine-readable export or reproducible equivalent page-one extraction has been obtained. Individual bill metadata spotchecks remain separate; no verified legislative roll-call totals.",
-      "nextFreeStep": "Run scheduled 2026-10-30 bounded Bill Commons retry, then inspect the official Illinois public file repository if accessible with a documented schema and permitted reuse; do not reclassify spotchecks as statewide search.",
+      "unresolved": "First-page query is now indexed, but only 20 of 62 provider-reported keyword matches were returned for IL; deeper pages, other search terms and sessions, official state vote certification and complete legislative inventory remain unverified. Individual official bill spotchecks are still a separate evidence tier.",
+      "nextFreeStep": "After October 30 deadline, separately scope any expanded official-source pagination, licensing review, and roll-call certification; do not imply exhaustive coverage from one keyword page.",
       "officialSearch": "https://www.ilga.gov/search/",
-      "officialLegislativeGuide": "https://ilga.gov/guide/"
+      "officialLegislativeGuide": "https://ilga.gov/guide/",
+      "resolution": {
+        "dateUTC": "2026-10-30",
+        "workflowRun": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/40994752099",
+        "commit": "dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb",
+        "firstPage": 1,
+        "perPage": 20,
+        "totalMatchesReported": 62,
+        "newIndexedRecords": 20,
+        "classification": "first_page_indexed_not_exhaustive"
+      }
     },
     {
       "id": "tx_billcommons_page_one_timeout_official_fallback",
       "jurisdiction": "TX",
       "domain": "state_legislation",
-      "status": "official_bill_spotcheck_persisted_secondary_page_one_unavailable",
+      "status": "first_page_keyword_search_indexed_not_exhaustive",
       "primary": "https://api.billcommons.org/api/v1/search",
       "officialAlternative": "https://capitol.texas.gov/search/billsearch.aspx",
-      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Texas Legislature Online independently confirms 89th Legislature 2nd Called Session HB 4 congressional-district legislation signed on 2025-08-29, with reported effective date 2025-12-04.",
+      "evidence": "State-scoped redistricting first-page requests timed out in GitHub Actions. Bounded retries tested per_page 20, 10, and 5; all timed out. Texas Legislature Online independently confirms 89th Legislature 2nd Called Session HB 4 congressional-district legislation signed on 2025-08-29, with reported effective date 2025-12-04. Resolved 2026-10-30: GitHub Actions run 40994752099 completed an authorized Bill Commons 20-result state-scoped first-page query; checkpoint records 53 total matches reported, 3 newly indexed records. Published commit dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb passed 171 tests. Earlier timeout remains historical, not a current first-page blocker.",
       "attemptedAlternatives": [
         "Two initial bounded 18-second retries at 20 records; one 10-record request; one 5-record request; no 403/429 bypass.",
         "Official Texas bill history page reviewed and stored as an individual bill metadata spotcheck.",
@@ -83,10 +93,20 @@
         "2026-10-30 alternative licensing/access review: LegiScan offers CC BY 4.0 CSV snapshots but requires login to download; Delilah REST requires an issued API key. Neither source was downloaded or accessed without authorization; no paid export purchased."
       ],
       "persistedOfficialSpotchecks": "data/legislation/official-state-bill-spotchecks.json",
-      "unresolved": "State-scoped Bill Commons first-page search timed out after bounded 20/10/5 requests. Texas official bill text search and vote lookup are interactive and not yet parsed as a validated equivalent keyword first page; HB 4 spotcheck does not establish statewide coverage or independently verified roll-call tallies.",
-      "nextFreeStep": "Run scheduled 2026-10-30 bounded Bill Commons retry, then inspect official Texas Legislative Reference Library search for a reproducible first-page result if available; preserve incomplete status otherwise.",
+      "unresolved": "First-page query is now indexed, but only 20 of 53 provider-reported keyword matches were returned for TX; deeper pages, other search terms and sessions, official state vote certification and complete legislative inventory remain unverified. Individual official bill spotchecks are still a separate evidence tier.",
+      "nextFreeStep": "After October 30 deadline, separately scope any expanded official-source pagination, licensing review, and roll-call certification; do not imply exhaustive coverage from one keyword page.",
       "officialSearch": "https://capitol.texas.gov/search/textsearch.aspx",
-      "officialVoteLookup": "https://capitol.texas.gov/billlookup/voteinfo.aspx"
+      "officialVoteLookup": "https://capitol.texas.gov/billlookup/voteinfo.aspx",
+      "resolution": {
+        "dateUTC": "2026-10-30",
+        "workflowRun": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/40994752099",
+        "commit": "dc0fe8a27c7bc08bf108778a6fd222c4d3d39feb",
+        "firstPage": 1,
+        "perPage": 20,
+        "totalMatchesReported": 53,
+        "newIndexedRecords": 3,
+        "classification": "first_page_indexed_not_exhaustive"
+      }
     }
   ],
   "disclaimer": "Source probes and four individual official bill metadata spotchecks are not evidence of exhaustive jurisdiction searches, legal outcomes, influence or nationwide coverage."
