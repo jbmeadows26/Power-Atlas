@@ -1,0 +1,48 @@
+{
+  "schema": "power-atlas.official-california-redistricting-spotcheck.v1",
+  "checkedDateUTC": "2026-10-30",
+  "publicationStatus": "official_primary_source_metadata_spotcheck_not_secondary_keyword_candidate_or_exhaustive_state_census",
+  "jurisdiction": "CA",
+  "queryDiscrepancy": {
+    "provider": "https://billcommons.org/docs/api",
+    "keyword": "redistricting",
+    "reportedMatches": 21,
+    "persistedKeywordCandidateRows": 0,
+    "checkpoint": "data/legislation/state-redistricting-jurisdictions.json",
+    "interpretation": "The third-party keyword index reported 21 California matches but persisted no bill candidates after source-link restrictions. Independent official Assembly and Secretary of State records demonstrate substantive 2025 redistricting legislation; this does not repair or reclassify the index."
+  },
+  "records": [
+    {
+      "id": "official-CA-2025-AB604",
+      "identifier": "AB 604",
+      "session": "2025–2026 Regular Session",
+      "title": "Redistricting: congressional districts",
+      "issueClass": "congressional_redistricting_official_metadata",
+      "chapterNumber": 96,
+      "approvedByGovernor": "2025-08-21",
+      "filedWithSecretaryOfState": "2025-08-21",
+      "reportedStatus": "chapter_96_statutes_of_2025_per_official_enrolled_act",
+      "source": "https://elections.cdn.sos.ca.gov/statewide-elections/2025-special/ab-604.pdf",
+      "sourceIndex": "https://aelc.assembly.ca.gov/proposed-congressional-map",
+      "reviewStatus": "official_enacted_bill_metadata_spotcheck",
+      "legislativeDispositionVerified": true,
+      "currentLegalValidityAdjudicated": false,
+      "voteTalliesStatus": "not_independently_verified_from_official_rollcall"
+    }
+  ],
+  "relatedLegislationLeads": [
+    {
+      "identifier": "ACA 8",
+      "issueClass": "redistricting_constitutional_amendment",
+      "source": "https://aelc.assembly.ca.gov/proposed-congressional-map",
+      "reviewStatus": "official_assembly_legislative_package_reference_not_separately_adjudicated"
+    },
+    {
+      "identifier": "SB 280",
+      "issueClass": "election_administration_funding",
+      "source": "https://aelc.assembly.ca.gov/proposed-congressional-map",
+      "reviewStatus": "official_assembly_legislative_package_reference_not_separately_adjudicated"
+    }
+  ],
+  "limitations": "One official enacted-bill metadata spotcheck and two related-legislation leads only. No 2026 statewide bill census, certified individual roll calls, source-index recovery, district geometry ingest, litigation outcome, or inference about political intent. Keep separate from the 617 third-party keyword candidate rows. The original legislative information host's 403 access response was not retried or bypassed."
+}
