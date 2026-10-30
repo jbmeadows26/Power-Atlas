@@ -1,0 +1,30 @@
+# Institutional decay — Australia accountability and Canada service-audit expansion (2026-10-30)
+
+**Status:** Source-verified, descriptive and additive. This is not a causal study, cross-national index, or assertion that institutional misconduct explains service failures. The redistricting app feed and production frontend were not modified.
+
+Structured evidence: [accountability-service-cases-2026-10-30.json](../../data/institutional-decay/accountability-service-cases-2026-10-30.json). Validation: [case guardrail tests](../../tests/test_institutional_decay_accountability_cases.py) and [path-scoped CI](../../.github/workflows/validate-institutional-decay-cases.yml).
+
+## Australia: Robodebt accountability chronology
+
+The [Australian Public Service Commission (APSC) official process record](https://www.apsc.gov.au/misconduct/robodebt-code-conduct-process) dates the Royal Commission's establishment to **18 August 2022**, its final report to **7 July 2023**, and the government's response to **13 November 2023**. On **8 February 2024**, 15 of 16 matters had progressed to notices, four had **preliminary** breach determinations, and one had not met the notice threshold. Preliminary findings are **not final dispositions**.
+
+The [APSC final statement, 13 September 2024](https://www.apsc.gov.au/about-us/working-commission/who-we-are/media-releases-and-statements/statement-australian-public-service-commissioner-robodebt-centralised-code-conduct-inquiry) and [process summary](https://www.apsc.gov.au/misconduct/robodebt-code-conduct-process) record **16 referred people**, **12 people with final APS Code of Conduct breach determinations**, **97 breach occurrences** across those 12 people, and **four current APS employees sanctioned**. These have *different denominators*: 97 is not 97 people, and four sanctions divided by 12 findings is **not** a defensible sanction rate because employment status affects eligibility. Employment Code determinations are not criminal convictions.
+
+A separate [APSC statement dated 31 July 2025](https://www.apsc.gov.au/about-us/working-commission/who-we-are/media-releases-and-statements/two-independent-investigations-affirm-conduct-aps-commissioner-robodebt-code-conduct-inquiry) reports that two independent investigations into **10 allegations** concerning the APS Commissioner's handling of the Robodebt inquiry found **none substantiated** and no Code breach. This negative finding is retained, not omitted or collapsed into the substantive Robodebt case.
+
+## Canada: independently audited CRA contact-centre performance
+
+The [Office of the Auditor General of Canada's 21 October 2025 audit](https://www.canada.ca/content/dam/oag-bvg/audit-reports/documents/parl_oag_202510_01_e.pdf), Exhibit 5, reports a comparable *agency-defined service-level measure* of **49%** in FY2023–24 and **18%** in FY2024–25 for calls answered within 15 minutes; the **65%** figure is a *target*, not observed performance. In FY2024–25, the average wait to reach an agent was approximately **31 minutes** and **8.630 million calls** were redirected to automated services without the option of reaching an agent. Calls are not unique people.
+
+The audit's **17% accuracy** result concerns *general individual-tax questions* in auditor test calls (167 calls total across categories from February–May 2025); the individual-tax subgroup denominator is not specified in the headline audit summary. CRA's **77% caller satisfaction** figure is a *selectively sampled agency survey*: the auditor found it used surveys from fewer than 2% of answered calls and excluded people who never reached an agent. The audit also reports a **145% increase in service complaints** between FY2021–22 and FY2024–25, a count trend rather than a caller-level probability.
+
+The CRA audit is a performance assessment, not a finding of personal wrongdoing. Its dates are fiscal periods and an audit publication date, not a public-opinion fieldwork wave. It cannot be mechanically joined to OECD national-government trust or Australian accountability cases.
+
+## Provenance, permissions and quality controls
+
+- **Australia:** APSC website default [CC BY 4.0](https://www.apsc.gov.au/copyright), subject to exclusions and document-specific notices. Short numerical facts were transcribed and adapted with attribution; no logos, images, sealed material or bulk source text were copied. APSC endorsement is not implied.
+- **Canada:** The [Government of Canada Open Government Portal entry](https://open.canada.ca/data/en/dataset/f3b4a7c6-79b1-40ac-b23f-8daede71c655) identifies the OAG audit under **Open Government Licence – Canada**. The current canonical [Canada.ca audit PDF](https://www.canada.ca/content/dam/oag-bvg/audit-reports/documents/parl_oag_202510_01_e.pdf) was used because an older OAG-hosted PDF URL returned 404. Only short factual extracts are stored; no third-party report artwork is reproduced.
+- **Structure:** 14 new observations, seven dated events, four source-catalog entries. Each observation has a specific period, population, denominator caveat, status, source URL and interpretation warning. Each event preserves official process versus final finding versus non-substantiation. IDs are unique.
+- **Tests:** A focused Python standard-library test checks schema, 14/7 counts, provenance, licensing URLs, numeric integrity, chronological dates, distinctions between targets, findings and allegations, and source-specific denominator warnings. A path-scoped GitHub Actions workflow is provided; its execution outcome must be checked separately rather than assumed from a successful commit.
+
+**Outstanding scientific limitations:** No new individual-level trust microdata, representative causal experiment, matched administrative-burden panel or identified cross-country mechanism. No allegation of wrongdoing is inferred from association, service performance or public perception. Do not merge this dataset into `data/app-feed.json` or treat it as a harmonized predictor without additional validation.
