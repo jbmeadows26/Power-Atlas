@@ -17,6 +17,12 @@
         "newUniqueRows": 20,
         "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=IL&page=3&per_page=20",
         "status": "indexed_keyword_page_not_exhaustive"
+      },
+      "4": {
+        "rowsReturned": 2,
+        "newUniqueRows": 2,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=IL&page=4&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
       }
     },
     "TX": {
@@ -94,49 +100,33 @@
         "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=CA&page=2&per_page=20",
         "status": "indexed_keyword_page_not_exhaustive"
       }
+    },
+    "NY": {
+      "2": {
+        "rowsReturned": 1,
+        "newUniqueRows": 1,
+        "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=NY&page=2&per_page=20",
+        "status": "indexed_keyword_page_not_exhaustive"
+      }
     }
   },
   "paused": {},
   "lastRun": [
     {
       "state": "IL",
-      "page": 3,
+      "page": 4,
       "status": "indexed",
-      "new": 20
+      "new": 2
     },
     {
-      "state": "TX",
-      "page": 3,
-      "status": "indexed",
-      "new": 4
-    },
-    {
-      "state": "MS",
-      "page": 3,
-      "status": "indexed",
-      "new": 9
-    },
-    {
-      "state": "LA",
-      "page": 2,
-      "status": "indexed",
-      "new": 3
-    },
-    {
-      "state": "AZ",
+      "state": "NY",
       "page": 2,
       "status": "indexed",
       "new": 1
-    },
-    {
-      "state": "CA",
-      "page": 2,
-      "status": "indexed",
-      "new": 0
     }
   ],
-  "additionalPagesIndexed": 12,
-  "jurisdictionsWithAdditionalPages": 9,
-  "candidateBillRows": 605,
+  "additionalPagesIndexed": 14,
+  "jurisdictionsWithAdditionalPages": 10,
+  "candidateBillRows": 608,
   "sourceRateStop": false
 }
