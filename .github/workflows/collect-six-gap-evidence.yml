@@ -33,6 +33,8 @@ jobs:
         run: python -m scripts.build_six_gap_coverage
       - name: Validate source directory and no false completed counts
         run: python -m unittest discover -s tests -p 'test_six_gap_coverage.py' -v
+      - name: Install unmodified Census Shapefile integrity reader
+        run: python -m pip install --disable-pip-version-check 'pyshp==2.3.1'
       - name: Collect current official Census state legislative district geometry
         run: python -m scripts.collect_state_legislative_polygons
       - name: Validate geometry record integrity and map coverage
@@ -43,14 +45,19 @@ jobs:
           p=Path('data/geography/state-legislative-2024/index.json')
           d=json.loads(p.read_text())
           assert d['year']==2024
-          assert d['districtGeometryFeatures']>1000
-          assert d['boundaryLegalHistoryComplete'] is False
+          assert d['distinctGEOIDFeatures']>1000
+          assert d['legalPlanHistoryComplete'] is False
+          assert d['chamberGeometriesDownloaded']==99
+          assert d['notApplicable']==1
           for x in d['records']:
-              q=json.loads(Path(x['path']).read_text())
-              assert len(q['features'])==x['features']
-              assert q['stateFIPS']==x['fips']
-              assert q['publicationStatus']=='official_2024_geometric_baseline_not_legal_plan_history'
-          print('Verified geometry records:',d['districtGeometryFeatures'])
+              if x['status']=='not_applicable_unicameral_state':
+                  assert x['state']=='NE' and x['chamber']=='lower'
+                  continue
+              import hashlib
+              body=Path(x['path']).read_bytes()
+              assert hashlib.sha256(body).hexdigest()==x['sha256OriginalZIP']
+              assert x['features']>0
+          print('Verified exact district polygons:',d['distinctGEOIDFeatures'])
           PY
       - name: Publish only validated official source evidence
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
