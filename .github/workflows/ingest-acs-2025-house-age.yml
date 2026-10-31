@@ -1,0 +1,47 @@
+name: Ingest 2025 ACS House district age evidence (keyless FTP)
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/ingest_acs_2025_house_age.py'
+      - 'tests/test_authenticity_acs_2025_age.py'
+      - '.github/workflows/ingest-acs-2025-house-age.yml'
+permissions:
+  contents: write
+concurrency:
+  group: authenticity-acs2025-district-age
+  cancel-in-progress: false
+jobs:
+  verify-and-ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Test Census district parser and failure gates
+        run: python -m unittest discover -s tests -p 'test_authenticity_acs_2025_age.py' -v
+      - name: Retrieve published 2025 Census B01001 and join 119th House districts
+        run: python scripts/ingest_acs_2025_house_age.py
+      - name: Validate source, missingness and 435 observed district records
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/research/political-authenticity/acs-2025-house-district-age.json')
+          d=json.loads(p.read_text())
+          assert d['surveyYear']==2025 and d['districtCount']==435
+          assert d['districtMissingCount']==0 and len(d['records'])==435
+          assert d['sourceUrl'].startswith('https://www2.census.gov/')
+          assert len(d['sourceSha256'])==64
+          assert len({r['GEO_ID'] for r in d['records']})==435
+          assert all(r['GEO_ID']=='5001900US'+r['censusStateDistrictKey'] for r in d['records'])
+          assert all(r['populationAge25plusMOE90Approx'] is not None for r in d['records'])
+          print('Verified official 2025 ACS B01001 districts:', d['districtCount'])
+          print('Source SHA256:', d['sourceSha256'])
+          PY
+      - name: Commit validated public Census-derived data only
+        run: bash scripts/publish_data.sh data/research/political-authenticity/acs-2025-house-district-age.json
