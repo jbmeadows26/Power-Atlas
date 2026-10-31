@@ -1,6 +1,6 @@
 """Bounded, provenance-preserving probe of four state keyword-result gaps.
 
-Run once within the Oct 30 sprint. Sample at most five search hits per
+Run in bounded daily source-link repair batches. Sample at most five search hits per
 jurisdiction; request bill detail only when the search hit lacks a usable
 official-source URL. No login, rate-limit bypass, full text or donor data.
 A successful query is not an exhaustive state bill inventory.
@@ -29,9 +29,8 @@ STATES = ("MD", "OK", "VT")
 OFFICIAL_HOSTS = {"CA": "leginfo.legislature.ca.gov", "MD": "mgaleg.maryland.gov", "OK": "www.oklegislature.gov", "VT": "legislature.vermont.gov"}
 PER_PAGE = 5
 MAX_DETAILS_PER_STATE = 2
-MAX_HEAD_PER_STATE = 3
+MAX_HEAD_PER_STATE = 5
 MAX_BYTES = 90000
-END = date(2026, 10, 30)
 UUID = re.compile(r"[0-9a-fA-F-]{36}\Z")
 
 
@@ -187,22 +186,19 @@ def process_state(state, indexed, get=get_json):
 
 
 def main():
-    if date.today() > END:
-        print("Deadline passed; no source requests")
-        return
     if AUDIT.exists():
         previous = json.loads(AUDIT.read_text(encoding="utf-8"))
-        if previous.get("auditVersion") == 3 and previous.get("dateUTC") == date.today().isoformat():
-            print("Version-3 bounded audit already completed today; no repeated source requests")
+        if previous.get("auditVersion") == 4 and previous.get("dateUTC") == date.today().isoformat():
+            print("Version-4 bounded audit already completed today; no repeated source requests")
             return
     bills = json.loads(BILLS.read_text(encoding="utf-8"))
     checkpoint = json.loads(CHECKPOINT.read_text(encoding="utf-8"))
     indexed = {row["id"]: row for row in bills["records"]}
     audit = {
         "schema": "power-atlas.state-bill-filter-audit.v1",
-        "auditVersion": 3,
+        "auditVersion": 4,
         "dateUTC": date.today().isoformat(),
-        "status": "bounded_four_jurisdiction_source_link_recovery",
+        "status": "bounded_three_jurisdiction_source_link_recovery",
         "scope": "Three states, first five redistricting keyword hits each; same-host official HTTPS HEAD only. CA deferred after official-host 403 in research reader; not exhaustive.",
         "jurisdictions": {"CA": {"status": "official_https_host_403_in_research_reader_not_retried", "newCandidateRows": 0}},
         "accessPolicy": "No auth bypass; 401/403/429 stop all requests; preserve prior records.",
