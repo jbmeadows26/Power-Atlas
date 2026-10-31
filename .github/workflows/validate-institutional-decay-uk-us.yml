@@ -1,0 +1,25 @@
+name: Validate institutional decay UK US evidence
+
+on:
+  push:
+    paths:
+      - 'data/institutional-decay/uk-us-accountability-service-2026-10-31.json'
+      - 'tests/test_institutional_decay_uk_us_cases.py'
+      - '.github/workflows/validate-institutional-decay-uk-us.yml'
+  pull_request:
+    paths:
+      - 'data/institutional-decay/uk-us-accountability-service-2026-10-31.json'
+      - 'tests/test_institutional_decay_uk_us_cases.py'
+      - '.github/workflows/validate-institutional-decay-uk-us.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate official source provenance, case dispositions and service denominators
+        run: python3 -m unittest discover -s tests -p 'test_institutional_decay_uk_us_cases.py' -v
