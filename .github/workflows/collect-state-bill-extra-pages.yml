@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - 'scripts/collect_state_bill_extra_pages.py'
+      - 'tests/test_state_bill_pagination_integrity.py'
       - '.github/workflows/collect-state-bill-extra-pages.yml'
   workflow_dispatch:
   schedule:
