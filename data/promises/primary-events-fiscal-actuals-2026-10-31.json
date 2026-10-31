@@ -1,0 +1,194 @@
+{
+  "schema": "power-atlas.campaign-primary-event-and-actuals-discovery.v1",
+  "asOf": "2026-10-31",
+  "status": "unadjudicated_additive_source_discovery",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "sourceScopeComplete": false,
+  "independentHumanReviewCount": 0,
+  "campaignSource": {
+    "id": "US20-DEM-PLATFORM",
+    "country": "US",
+    "electionDate": "2020-11-03",
+    "published": "2020-08-17",
+    "maker": "Democratic Party (not personally attributed to nominee)",
+    "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+    "rights": "third_party_archival_transcription_link_and_paraphrase_only",
+    "alreadyIndexed": true
+  },
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-USPS-PREFUND-20261031",
+      "parent": "US20-DEM-USPS-REFORM",
+      "locator": "2020 platform, Strengthening the U.S. Postal Service, paragraph beginning 'The U.S. Postal Service'",
+      "paraphrase": "Seek repeal of the statutory retiree-health-benefit prefunding mandate imposed on USPS.",
+      "criterion": "Federal law repeals the specified prefunding mandate.",
+      "linkedOfficialEventIds": [
+        "US22-PL117108",
+        "US22-USPS-FY2022"
+      ],
+      "outcome": null,
+      "independentCoderA": null,
+      "independentCoderB": null,
+      "uncertainty": "Legislative enactment documented; attribution to the governing party, implementation, durability and independent review remain unadjudicated."
+    },
+    {
+      "id": "US20-DEM-USPS-SIXDAY-20261031",
+      "parent": "US20-DEM-USPS-REFORM",
+      "locator": "2020 platform, Strengthening the U.S. Postal Service, paragraph beginning 'Democrats will protect'",
+      "paraphrase": "Preserve six-day mail delivery and the universal-service obligation.",
+      "criterion": "Federal law codifies six-day integrated delivery; separate outcome evidence needed for actual coverage.",
+      "linkedOfficialEventIds": [
+        "US22-PL117108"
+      ],
+      "outcome": null,
+      "independentCoderA": null,
+      "independentCoderB": null,
+      "uncertainty": "Codification alone cannot prove six-day delivery everywhere, or measure long-run durability."
+    },
+    {
+      "id": "US20-DEM-CDCTC-INCREASE-20261031",
+      "parent": null,
+      "locator": "2020 platform, Supporting Working Families, paragraph beginning 'Democrats will make major investments'",
+      "paraphrase": "Significantly increase the Child and Dependent Care Tax Credit.",
+      "criterion": "Statutory increase in available child/dependent-care credit relative to pre-election law; duration coded separately.",
+      "linkedOfficialEventIds": [
+        "US21-PL1172",
+        "US22-IRS-CDCTC"
+      ],
+      "outcome": null,
+      "independentCoderA": null,
+      "independentCoderB": null,
+      "uncertainty": "2021 increase was temporary, so enactment and durable delivery must be coded separately."
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US21-PL1172",
+      "country": "US",
+      "date": "2021-03-11",
+      "kind": "enacted_statute",
+      "name": "American Rescue Plan Act 2021",
+      "url": "https://www.govinfo.gov/app/details/PLAW-117publ2",
+      "locator": "Section 9631, Child and Dependent Care Tax Credit",
+      "fact": "2021 tax-year expansion of child and dependent care tax credit.",
+      "actualExpenditure": false
+    },
+    {
+      "id": "US22-PL117108",
+      "country": "US",
+      "date": "2022-04-06",
+      "kind": "enacted_statute",
+      "name": "Postal Service Reform Act 2022",
+      "url": "https://www.govinfo.gov/app/details/PLAW-117publ108",
+      "locator": "Postal retiree health benefits and six-day delivery provisions",
+      "fact": "Reformed retiree health prefunding and codified six-day delivery; bipartisan legislative history must be considered.",
+      "actualExpenditure": false
+    },
+    {
+      "id": "US22-USPS-FY2022",
+      "country": "US",
+      "date": "2022-11-10",
+      "kind": "official_agency_report",
+      "name": "USPS FY2022 results",
+      "url": "https://about.usps.com/newsroom/national-releases/2022/1110-usps-reports-fiscal-year-2022-results.htm",
+      "locator": "Paragraph beginning 'The enactment of the Postal Service Reform Act'",
+      "fact": "USPS reports repeal of annual future-retiree-health prefunding and a one-time noncash $57.0 billion accounting benefit; not cash expenditure.",
+      "actualExpenditure": false
+    },
+    {
+      "id": "US22-IRS-CDCTC",
+      "country": "US",
+      "date": "2022-03-02",
+      "kind": "official_tax_guidance",
+      "name": "IRS historical 2021 child/dependent care credit guidance",
+      "url": "https://www.irs.gov/newsroom/understanding-the-child-and-dependent-care-credit",
+      "locator": "For tax year 2021, maximum eligible expense",
+      "fact": "IRS describes 2021-only maximum eligible expenses of $8,000 for one and $16,000 for two or more qualifying persons, subject to credit-rate and eligibility rules.",
+      "actualExpenditure": false
+    },
+    {
+      "id": "US25-PL1191",
+      "country": "US",
+      "date": "2025-01-29",
+      "kind": "enacted_statute_unmatched",
+      "name": "Laken Riley Act",
+      "url": "https://www.govinfo.gov/app/details/PLAW-119publ1",
+      "locator": "Section 2, detention of certain aliens",
+      "fact": "Adds specified mandatory detention categories. Do not equate to broad 2024 border-security pledges or infer comprehensive enforcement outcomes.",
+      "actualExpenditure": false
+    },
+    {
+      "id": "CA26-C15-ROYAL-ASSENT",
+      "country": "CA",
+      "date": "2026-03-26",
+      "kind": "enacted_statute",
+      "name": "Budget 2025 Implementation Act, No. 1 (C-15), Canada",
+      "url": "https://www.parl.ca/DocumentViewer/en/45-1/bill/C-15/royal-assent",
+      "locator": "Section 200, Build Canada Homes",
+      "fact": "Statutory authority for payments up to C$11.5 billion for Build Canada Homes; authorization ceiling, not cash spent.",
+      "actualExpenditure": false
+    }
+  ],
+  "fiscalActualObservations": [
+    {
+      "id": "CA-HICC-FY2022-23-ACTUAL",
+      "country": "CA",
+      "fiscalYear": "2022-23",
+      "periodEnd": "2023-03-31",
+      "unit": "CAD_current_dollars",
+      "value": 6828959017,
+      "measure": "departmental_total_actual_spending_authorities_used_including_internal_services",
+      "source": "https://housing-infrastructure.canada.ca/pub/drr-rrm/2025/2025-drr-rrm-01-eng.html",
+      "locator": "Table 10, Total row, 2022–23"
+    },
+    {
+      "id": "CA-HICC-FY2023-24-ACTUAL",
+      "country": "CA",
+      "fiscalYear": "2023-24",
+      "periodEnd": "2024-03-31",
+      "unit": "CAD_current_dollars",
+      "value": 7619725159,
+      "measure": "departmental_total_actual_spending_authorities_used_including_internal_services",
+      "source": "https://housing-infrastructure.canada.ca/pub/drr-rrm/2025/2025-drr-rrm-01-eng.html",
+      "locator": "Table 10, Total row, 2023–24",
+      "note": "Graph 1 in the same source reports C$7,619,725,160 (C$1 discrepancy); preserve table value and flag source reconciliation."
+    },
+    {
+      "id": "CA-HICC-FY2024-25-ACTUAL",
+      "country": "CA",
+      "fiscalYear": "2024-25",
+      "periodEnd": "2025-03-31",
+      "unit": "CAD_current_dollars",
+      "value": 7968878253,
+      "measure": "departmental_total_actual_spending_authorities_used_including_internal_services",
+      "source": "https://housing-infrastructure.canada.ca/pub/drr-rrm/2025/2025-drr-rrm-01-eng.html",
+      "locator": "Table 10, Total row, 2024–25"
+    }
+  ],
+  "limitations": [
+    "Three selected 2020 party-platform clauses are not an exhaustive denominator; candidate-level attribution not verified.",
+    "Official statutes and agency guidance do not prove campaign causation, durable outcomes or individual politicians' intentions.",
+    "2024/25 Canadian departmental spending predates the 2025 Canadian federal election; none of these three rows measure post-election Build Canada Homes disbursements.",
+    "Canadian departmental actual spending is not comparable to US Census state capital outlays or to general-government gross fixed capital formation; no combined panel or regressions.",
+    "2023-24 departmental report has a one-dollar Table 10 vs Graph 1 discrepancy; do not silently correct.",
+    "All primary links checked as discoverable on 2026-10-31; content hashes, document-version census and independent human coding remain pending.",
+    "Retain primary source URLs and paraphrases; do not republish third-party campaign platform full text or assume license."
+  ],
+  "reviewRequired": {
+    "independentHumanCoders": 2,
+    "denominatorEnumeration": true,
+    "exclusionLog": true,
+    "competingMechanisms": [
+      "bipartisan legislative initiative",
+      "USPS agency lobbying and pre-existing reform effort",
+      "pandemic response temporary tax relief",
+      "legislative coalition and calendar",
+      "policy durability and repeal",
+      "source reporting and fiscal-year classification"
+    ],
+    "outcomeVerdictsPublished": 0
+  }
+}
