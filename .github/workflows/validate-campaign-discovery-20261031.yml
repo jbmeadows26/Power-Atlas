@@ -1,0 +1,22 @@
+name: Validate campaign primary evidence increment (2026-10-31)
+
+on:
+  pull_request:
+    paths:
+      - 'data/promises/primary-events-fiscal-actuals-2026-10-31.json'
+      - 'research/campaign-promises/primary-events-and-actuals-2026-10-31.md'
+      - 'tests/test_campaign_discovery_20261031.py'
+      - '.github/workflows/validate-campaign-discovery-20261031.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check JSON integrity and no unsupported inference
+        run: python -m unittest discover -s tests -p 'test_campaign_discovery_20261031.py' -v
