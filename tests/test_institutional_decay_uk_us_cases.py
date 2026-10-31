@@ -22,14 +22,14 @@ class UKUSAccountabilityServiceTests(unittest.TestCase):
         self.assertIn("not_app_feed", d["publicationStatus"])
         self.assertEqual(len(d["observations"]), 19)
         self.assertEqual(len(d["events"]), 10)
-        self.assertEqual(len(d["sourceCatalog"]), 4)
+        self.assertEqual(len(d["sourceCatalog"]), 5)
         self.assertEqual({x["geography"] for x in d["observations"]}, {"United Kingdom", "United States"})
         self.assertIn("Do not merge", d["methodology"]["productionGuardrail"])
 
     def test_sources_licenses_and_non_invented_fields(self):
         d = self.doc
         urls = {s["url"] for s in d["sourceCatalog"]}
-        self.assertEqual(len(urls), 4)
+        self.assertEqual(len(urls), 5)
         self.assertEqual(len(self.obs), len(d["observations"]))
         self.assertEqual(len(self.events), len(d["events"]))
         for s in d["sourceCatalog"]:
@@ -57,7 +57,7 @@ class UKUSAccountabilityServiceTests(unittest.TestCase):
         self.assertTrue(all(x <= date(2026, 10, 31) for x in ds))
         self.assertTrue(all(e["causalLinkToTrust"] == "not_established" for e in d["events"]))
         self.assertEqual(self.events["uk-paterson-house-amended-motion-2021"]["legalStatus"], "sanction_not_approved")
-        self.assertEqual(self.events["uk-paterson-resignation-announced-2021"]["legalStatus"], "resigned_before_sanction_vote")
+        self.assertEqual(self.events["uk-paterson-resignation-announced-2021"]["legalStatus"], "resigned_before_final_sanction_approval")
         self.assertEqual(self.events["uk-bridgen-suspension-agreed-2023"]["legalStatus"], "parliamentary_sanction_approved")
         self.assertEqual(self.events["uk-ferrier-suspension-agreed-2023"]["legalStatus"], "parliamentary_sanction_approved")
         self.assertEqual(self.obs["uk-paterson-recommended-suspension-2021"]["value"], 30)
