@@ -1,0 +1,11 @@
+# ACS 2025 House district age — primary-source ingestion protocol
+
+The 2025 ACS 1-year data were released on October 29, 2026. Official [table-based summary file](https://www2.census.gov/programs-surveys/acs/summary_file/2025/table-based-SF/data/1YRData/acsdt1y2025-b01001.dat) provides **B01001** age estimates and 90% margins of error without an API key. The congressional-district GEO_ID prefix is **5001900US**, indicating the 119th Congress (not the older 5000000US or a fabricated geographic key). This prefix was checked against the official AK-00 and NJ-05 rows on October 31, 2026.
+
+The ingestion script `scripts/ingest_acs_2025_house_age.py` reads that official file and joins its four-digit state FIPS + district key to the already validated 435-seat crosswalk. It excludes delegate districts, fails closed on duplicate or missing seats, rejects Census suppressed/negative cells rather than substituting zero, verifies total population against male/female and detailed age-bin sums, and retains original URL, SHA-256, retrieval time, release year, and roster snapshot date.
+
+Age 25–34 uses B01001 lines 011, 012, 035, 036; age 25+ uses lines 011–025 and 035–049. Published age-bin 90% MOEs are combined using root-sum-of-squares **as an approximation only** because covariance is unavailable. These are *not* official aggregate MOEs. Ratios are descriptive only; no valid ratio MOE or significance claim is made.
+
+The independent output is `data/research/political-authenticity/acs-2025-house-district-age.json`. The pre-existing crosswalk remains reproducible and unchanged. A separate workflow fetches the free Census file, runs offline negative tests, checks all 435 rows and publishes only validated output. If retrieval fails, the previously unknown estimates stay null. Census resident population is not a voter- or candidate-eligibility universe; this does not establish political motives or causal effects.
+
+Sources: [2025 release](https://www.census.gov/data/developers/data-sets/acs-1year.2025.html), [119th district geography](https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.119th_Congress.html), [Census FTP format](https://www.census.gov/programs-surveys/acs/data/summary-file.2025.html).
