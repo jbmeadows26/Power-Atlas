@@ -224,7 +224,7 @@ def main():
             }
         time.sleep(0.4)
     bills["records"] = sorted(indexed.values(), key=lambda row: row["id"])
-    bills["coverageWarning"] = "State redistricting keyword pagination is bounded, not a complete legislative census. Some source links lack verified HTTPS endpoints; other terms, years and sessions are omitted."
+    bills["coverageWarning"] = "Bounded national multi-keyword samples, state first-page keyword searches, and separately checkpointed additional keyword pages. Not an exhaustive bill, session, or legal-outcome census; official state records and record-specific licensing control. See state-redistricting-pagination.json for current page counts."
     if len(bills["records"]) > 1200:
         raise RuntimeError("Candidate row cap exceeded")
     rendered = json.dumps(bills, indent=2, ensure_ascii=False) + "\n"
