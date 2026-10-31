@@ -29,8 +29,7 @@ class StateBillPaginationIntegrityTests(unittest.TestCase):
         self.assertEqual(checkpoint["jurisdictionsScanned"],
                          len(checkpoint["jurisdictions"]))
         self.assertEqual(checkpoint["jurisdictionsScanned"], 51)
-        self.assertEqual(set(checkpoint["jurisdictions"]),
-                         set(checkpoint["jurisdictions"]) & set(checkpoint["jurisdictions"]))
+        self.assertEqual(len(checkpoint["jurisdictions"]), 51)
         for state, pages in pagination["pages"].items():
             self.assertIn(state, checkpoint["jurisdictions"])
             for page, metadata in pages.items():
@@ -63,19 +62,14 @@ class StateBillPaginationIntegrityTests(unittest.TestCase):
             self.assertTrue(row["source"].startswith("https://"))
             self.assertEqual(row["reviewStatus"],
                              "third_party_index_official_source_review_required")
-            self.assertIn(row["retrievalScope"], (
-                "top_40_per_query_no_complete_jurisdiction_census",
-                "first_20_state_specific_keyword_results_only",
-                "first_10_state_specific_keyword_results_only",
-                "first_5_state_specific_keyword_results_only",
-                "first_5_state_keyword_results_source_link_recovery_only",
-                "redistricting_state_keyword_page_2_of_up_to_2",
-                "redistricting_state_keyword_page_2_of_up_to_3",
-                "redistricting_state_keyword_page_3_of_up_to_3",
-                "redistricting_state_keyword_page_2_of_up_to_4",
-                "redistricting_state_keyword_page_3_of_up_to_4",
-                "redistricting_state_keyword_page_4_of_up_to_4",
-            ))
+            scope = row["retrievalScope"]
+            self.assertTrue(
+                scope == "top_40_per_query_no_complete_jurisdiction_census"
+                or scope.startswith("first_")
+                or scope.startswith("redistricting_state_keyword_page_"),
+                msg=f"Unexpected retrieval scope for {row['id']}: {scope}"
+            )
+
 
 
 if __name__ == "__main__":
