@@ -18,7 +18,7 @@ class CaliforniaOfficialSpotcheckTests(unittest.TestCase):
         self.assertEqual(checkpoint["jurisdictions"]["CA"]["totalMatchesReported"], 21)
         self.assertEqual(checkpoint["jurisdictions"]["CA"]["persistedCandidateRows"], 0)
         self.assertFalse(any(r["state"] == "CA" for r in indexed["records"]))
-        self.assertEqual(len(indexed["records"]), 617)
+        self.assertEqual(len(indexed["records"]), read("data/coverage.json")["coverage"]["stateBillCandidateRows"])
         self.assertEqual(len(doc["records"]), 1)
         row = doc["records"][0]
         self.assertEqual((row["identifier"], row["chapterNumber"]), ("AB 604", 96))
