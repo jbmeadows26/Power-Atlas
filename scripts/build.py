@@ -421,7 +421,8 @@ feed = {
     }
 }
 feed_path = ROOT / 'data/app-feed.json'
-# Compact the public feed without dropping evidence or changing JSON semantics.\nfeed_content = json.dumps(feed, ensure_ascii=False, separators=(',', ':')) + '\n'
+# Compact the public feed without dropping evidence or changing JSON semantics.
+feed_content = json.dumps(feed, ensure_ascii=False, separators=(',', ':')) + '\n'
 if not feed_path.exists() or feed_path.read_text(encoding='utf-8') != feed_content:
     feed_path.write_text(feed_content, encoding='utf-8')
 coverage_file = ROOT / 'data/coverage.json'
