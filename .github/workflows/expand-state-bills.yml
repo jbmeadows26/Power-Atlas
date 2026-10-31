@@ -7,6 +7,9 @@ on:
       - 'tests/test_corpus.py'
       - 'tests/test_state_coverage_scheduler.py'
       - 'tests/test_state_bill_source_recovery.py'
+      - 'tests/test_state_bill_pagination_integrity.py'
+      - 'tests/test_official_ca_spotcheck.py'
+      - 'scripts/build.py'
       - '.github/workflows/expand-state-bills.yml'
   workflow_dispatch:
   schedule:
