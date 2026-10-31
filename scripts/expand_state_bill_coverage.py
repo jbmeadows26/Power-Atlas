@@ -192,7 +192,7 @@ def run():
             metadata['status']='first_page_indexed_not_exhaustive'
     body['publicationStatus']='candidate_search_scope_is_not_exhaustive'
     body['incrementalJurisdictionsScanned']=len(done)
-    body['coverageWarning']='Combined bounded national keyword searches plus at most first 20 per jurisdiction. Some years, sessions and bills absent; original state record controls.'
+    body['coverageWarning']='Bounded national multi-keyword samples, state first-page keyword searches, and separately checkpointed additional keyword pages. Not an exhaustive bill, session, or legal-outcome census; official state records and record-specific licensing control. See state-redistricting-pagination.json for current page counts.'
     if not len(body['records'])<=1200:
         raise RuntimeError('Incremental bill index exceeded record storage cap')
     render=json.dumps(body,indent=2,ensure_ascii=False)+'\n'
