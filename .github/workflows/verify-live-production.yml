@@ -76,3 +76,54 @@ jobs:
           assert deployed == expected, 'Production HTML differs from current validated site/index.html'
           print('PASS: production serves byte-identical current repository frontend HTML')
           PY
+
+      - name: Verify live unified feed persistence, provenance and browser access
+        run: |
+          python - <<'PY'
+          import hashlib
+          import json
+          import time
+          from pathlib import Path
+          from urllib.request import Request, urlopen
+
+          url = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json'
+          local = Path('data/app-feed.json').read_bytes()
+          assert len(local) < 3_000_000, 'Local feed exceeds low-memory read budget'
+          expected_sha = hashlib.sha256(local).hexdigest()
+          html = Path('site/index.html').read_text(encoding='utf-8')
+          assert url in html, 'Production frontend source no longer points to the audited feed'
+          coverage = json.loads(Path('data/coverage.json').read_text(encoding='utf-8'))['coverage']
+          verified = False
+          for attempt in range(1, 4):
+              request = Request(url, headers={
+                  'User-Agent': 'PowerAtlasFeedSmoke/1.0',
+                  'Cache-Control': 'no-cache',
+                  'Origin': 'https://power-atlas-research.vercel.app'
+              })
+              with urlopen(request, timeout=25) as response:
+                  assert response.status == 200
+                  cors = response.headers.get('Access-Control-Allow-Origin', '')
+                  assert cors in ('*', 'https://power-atlas-research.vercel.app'), (
+                      'Public raw feed lacks browser CORS access: ' + repr(cors)
+                  )
+                  remote = response.read(3_000_001)
+              assert len(remote) <= 3_000_000, 'Remote feed exceeds low-memory read budget'
+              actual_sha = hashlib.sha256(remote).hexdigest()
+              if actual_sha == expected_sha:
+                  verified = True
+                  break
+              print('Feed byte mismatch; bounded cache retry', attempt,
+                    'expected', expected_sha, 'actual', actual_sha)
+              time.sleep(2)
+          assert verified, 'Live public feed differs from current persisted main branch'
+          data = json.loads(remote)
+          assert data['coverage']['stateBillCandidateRows'] == coverage['stateBillCandidateRows']
+          assert data['coverage']['paymentRows'] == coverage['paymentRows']
+          assert data['coverage']['officialStateCanvassesRetrieved'] == coverage['officialStateCanvassesRetrieved']
+          assert data['coverage']['stateBillFullSweepJurisdictions'] == 0, 'Unexpected nationwide completeness assertion'
+          print('PASS live feed byte-identical to repository; SHA256', expected_sha)
+          print('Verified candidate rows:', coverage['stateBillCandidateRows'],
+                'official canvasses:', coverage['officialStateCanvassesRetrieved'],
+                'verified payments:', coverage['paymentRows'],
+                'browser CORS:', cors)
+          PY
