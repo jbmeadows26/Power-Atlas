@@ -1,0 +1,321 @@
+{
+  "schema": "power-atlas.campaign-primary-medicare-tax-mts.v1",
+  "asOf": "2026-11-01",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "sourceScopeComplete": false,
+  "independentHumanReviewCount": 0,
+  "sourceDocuments": [
+    {
+      "id": "US20-DEM-PLATFORM",
+      "country": "US",
+      "electionDate": "2020-11-03",
+      "published": "2020-08-17",
+      "issuer": "Democratic Party",
+      "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "locator": "Bringing Down Drug Prices and Taking on the Pharmaceutical Industry",
+      "alreadyIndexed": true,
+      "rights": "third_party_archival_transcription_paraphrase_only"
+    },
+    {
+      "id": "UK24-LAB",
+      "country": "GB",
+      "electionDate": "2024-07-04",
+      "published": "2024-06-13",
+      "issuer": "Labour Party",
+      "url": "https://labour.org.uk/change/strong-foundations/",
+      "locator": "Strong foundations; tax fairness; non-dom status",
+      "alreadyIndexed": true,
+      "rights": "party_copyright_no_bulk_reuse_verified"
+    },
+    {
+      "id": "DE25-UNION",
+      "country": "DE",
+      "electionDate": "2025-02-23",
+      "published": "2024-12-17",
+      "issuer": "CDU/CSU",
+      "url": "https://www.cdu.de/wahlprogramm-von-cdu-und-csu/",
+      "locator": "Wahlprogramm Kurzfassung; Für einen starken und gerechten Sozialstaat; Aktivrente",
+      "alreadyIndexed": true,
+      "rights": "party_copyright_no_bulk_reuse_verified"
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-MEDICARE-NEGOTIATE-20261101",
+      "documentId": "US20-DEM-PLATFORM",
+      "paraphrase": "Enable Medicare to negotiate prescription prices with reach intended beyond Medicare beneficiaries to public and private purchasers.",
+      "locator": "Bringing Down Drug Prices and Taking on the Pharmaceutical Industry; paragraph beginning 'Too many Americans struggle'",
+      "criterion": "Code Medicare legal negotiating authority separately from scope for all public/private purchasers, drug coverage, prices paid, and effective date.",
+      "linkedOfficialEventIds": [
+        "US22-PL117169-EXISTING",
+        "US23-CMS-FIRST10",
+        "US24-CMS-FIRST10-PRICES"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "IRA authorizes selected Medicare drug negotiations; it does not by itself establish all-purchaser negotiating authority. First negotiated prices scheduled to apply in 2026 after 2021-25 administration; distinguish enactment from price availability."
+    },
+    {
+      "id": "US20-DEM-SENIOR-DRUG-OOP-20261101",
+      "documentId": "US20-DEM-PLATFORM",
+      "paraphrase": "Cap seniors' out-of-pocket prescription drug costs.",
+      "locator": "Bringing Down Drug Prices and Taking on the Pharmaceutical Industry; same paragraph, sentence on senior out-of-pocket costs",
+      "criterion": "Evaluate scope of capped Medicare Part D covered prescriptions separately from all seniors, uncovered medicines and beneficiary realized spending.",
+      "linkedOfficialEventIds": [
+        "US22-PL117169-EXISTING",
+        "US25-CMS-PARTD-CAP"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "Medicare Part D $2,000 annual threshold began January 2025; not equivalent to cap on every prescription expense for all seniors; no independent coding."
+    },
+    {
+      "id": "UK24-LAB-NONDOM-20261101",
+      "documentId": "UK24-LAB",
+      "paraphrase": "End the UK non-domicile tax status/remittance basis and replace it with a limited residence-based foreign-income regime.",
+      "locator": "Strong foundations; Labour will address unfairness in the tax system; non-dom paragraph",
+      "criterion": "Separate statutory abolition of remittance basis, effective date, replacement four-year foreign income and gains relief, and trust/legacy transition rules.",
+      "linkedOfficialEventIds": [
+        "UK25-FINANCE-ACT-NONDOM",
+        "UK25-HMRC-NONDOM-EFFECT"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "Conservative Spring Budget 2024 proposed abolishing the remittance basis before Labour won; cross-party policy continuity is a competing explanation. The Labour manifesto also promised changes to offshore trusts, requiring separate atomization."
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US23-CMS-FIRST10",
+      "country": "US",
+      "date": "2023-08-29",
+      "kind": "agency_selection",
+      "url": "https://www.cms.gov/newsroom/press-releases/statements-cms-leadership-historic-announcement-first-selected-drugs-medicare-drug-price-negotiation",
+      "locator": "First 10 Part D drugs selected for 2026 price applicability",
+      "fact": "CMS selected ten Part D drugs for the initial negotiation cycle; selection is not negotiated price in effect.",
+      "notProofOf": "all_public_private_purchasers_covered"
+    },
+    {
+      "id": "US24-CMS-FIRST10-PRICES",
+      "country": "US",
+      "date": "2024-08-15",
+      "kind": "agency_negotiated_price_announcement",
+      "url": "https://www.cms.gov/newsroom/press-releases/negotiating-lower-drug-prices-works-saves-billions",
+      "locator": "First ten drug price agreements and January 1 2026 applicability",
+      "fact": "CMS announced negotiated prices for ten selected drugs, scheduled for Jan 1 2026; reported hypothetical savings are modeled, not observed fiscal outlays.",
+      "notProofOf": "prices_operational_by_2025_or_all_purchasers"
+    },
+    {
+      "id": "US25-CMS-PARTD-CAP",
+      "country": "US",
+      "date": "2025-01-10",
+      "kind": "agency_implementation_confirmation",
+      "url": "https://www.cms.gov/newsroom/press-releases/cms-releases-proposed-2026-payment-policy-updates-medicare-advantage-and-part-d-programs",
+      "locator": "Part D out-of-pocket annual cap went into effect January 1 2025",
+      "fact": "CMS confirms $2,000 Part D annual out-of-pocket cap effective Jan 1 2025; 2026 indexed threshold $2,100.",
+      "notProofOf": "all_seniors_or_all_prescription_costs_capped"
+    },
+    {
+      "id": "US25-PL11921-OVERTIME-SEC70202",
+      "country": "US",
+      "date": "2025-07-04",
+      "kind": "statute_provision_unmatched",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm",
+      "locator": "Section 70202, IRC section 225",
+      "fact": "Qualified FLSA overtime premium deduction, capped $12,500/$25,000 with income phaseout, tax years 2025-28; not all overtime pay and not a payroll-tax exemption.",
+      "notProofOf": "2024_campaign_pledge_match_without_dated_primary_campaign_statement"
+    },
+    {
+      "id": "UK25-FINANCE-ACT-NONDOM",
+      "country": "GB",
+      "date": "2025-03-20",
+      "kind": "enacted_statute",
+      "url": "https://www.legislation.gov.uk/ukpga/2025/8/enacted",
+      "locator": "Finance Act 2025 section 40 and Schedule 9",
+      "fact": "Ended availability of remittance basis for tax year 2025-26 onward, subject to transitional rules.",
+      "notProofOf": "revenue_collected_or_full_tax_equality"
+    },
+    {
+      "id": "UK25-HMRC-NONDOM-EFFECT",
+      "country": "GB",
+      "date": "2025-04-06",
+      "dateMeaning": "policy_effective_date_not_manual_publication_date",
+      "kind": "agency_effective_date_confirmation",
+      "url": "https://www.gov.uk/hmrc-internal-manuals/international-manual/intm603665",
+      "locator": "Removal of remittance basis 6 April 2025; four-year FIG exceptions",
+      "fact": "HMRC guidance confirms new residence-based rules and qualified four-year relief, with prior-year remittance treatment preserved.",
+      "notProofOf": "all_foreign_income_taxed_or_exchequer_revenue_realized"
+    },
+    {
+      "id": "DE25-AKTIVRENTE-LAW",
+      "country": "DE",
+      "date": "2025-12-23",
+      "kind": "promulgated_statute",
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/Gesetzestexte/Gesetze_Gesetzesvorhaben/Abteilungen/Abteilung_IV/21_Legislaturperiode/2025-11-07-G-Aktivrente/4-Verkuendetes-Gesetz.pdf?__blob=publicationFile&v=2",
+      "locator": "BGBl 2025 I Nr 361, Gesetz vom 22 Dezember 2025; EStG §3 Nr 21",
+      "fact": "Law promulgated Dec 23 2025, effective Jan 1 2026, exempts up to EUR 24,000/year qualifying post-retirement-age employee wages; excludes self-employed and civil servants.",
+      "notProofOf": "beneficiary_uptake_or_tax_expenditure_actuals",
+      "linksExistingCandidateId": "DE25-UNION-AKTIVRENTE"
+    },
+    {
+      "id": "DE26-AKTIVRENTE-BMF",
+      "country": "DE",
+      "date": "2026-01-01",
+      "dateMeaning": "effective_date_confirmed_by_later_agency_FAQ",
+      "kind": "agency_implementation_confirmation",
+      "url": "https://www.bundesfinanzministerium.de/Content/DE/FAQ/FAQ-zur-Aktivrente.html",
+      "locator": "I.1; in Kraft getreten 1 Januar 2026",
+      "fact": "BMF confirms up to EUR 2,000 per month qualifying wages tax exempt from Jan 1 2026; social insurance contributions continue.",
+      "notProofOf": "individual_claims_or_behavioral_effect",
+      "linksExistingCandidateId": "DE25-UNION-AKTIVRENTE"
+    }
+  ],
+  "existingCrossLedgerEventReferences": [
+    {
+      "id": "US22-PL117169-EXISTING",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "actualEventId": "US22-PL117169",
+      "url": "https://www.govinfo.gov/app/details/PLAW-117publ169",
+      "date": "2022-08-16",
+      "note": "Previously indexed unmatched statute; link without duplicating event as a new record."
+    }
+  ],
+  "fiscalActualObservations": [
+    {
+      "id": "US-MTS-2023-10-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2024,
+      "calendarMonth": "2023-10",
+      "periodEnd": "2023-10-31",
+      "value": 469997,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2024, October, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2023-11-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2024,
+      "calendarMonth": "2023-11",
+      "periodEnd": "2023-11-30",
+      "value": 588842,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2024, November, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2023-12-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2024,
+      "calendarMonth": "2023-12",
+      "periodEnd": "2023-12-31",
+      "value": 558665,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2024, December, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2024-01-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2024,
+      "calendarMonth": "2024-01",
+      "periodEnd": "2024-01-31",
+      "value": 499250,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2024, January, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2024-10-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2025,
+      "calendarMonth": "2024-10",
+      "periodEnd": "2024-10-31",
+      "value": 584220,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2025, October, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2024-11-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2025,
+      "calendarMonth": "2024-11",
+      "periodEnd": "2024-11-30",
+      "value": 668517,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2025, November, Outlays",
+      "electionContext": "2024-11-05 US presidential election falls in reporting month"
+    },
+    {
+      "id": "US-MTS-2024-12-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2025,
+      "calendarMonth": "2024-12",
+      "periodEnd": "2024-12-31",
+      "value": 541146,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2025, December, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2025-01-OUTLAYS",
+      "country": "US",
+      "fiscalYear": 2025,
+      "calendarMonth": "2025-01",
+      "periodEnd": "2025-01-31",
+      "value": 641935,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+      "locator": "Table 1, FY2025, January, Outlays",
+      "electionContext": null
+    }
+  ],
+  "fiscalProvenance": {
+    "source": "https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf",
+    "agency": "US Treasury Bureau of the Fiscal Service",
+    "report": "Monthly Treasury Statement FY2025 through January 31 2025",
+    "locator": "Table 1, Summary of Receipts, Outlays, and Deficit/Surplus by Month",
+    "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+    "unit": "USD_millions_current",
+    "vintage": "January 2025 report (published after reporting period)",
+    "caution": "Amounts rounded to millions, may not add. Total outlays include mandatory spending, interest and payment-date shifts. These are not investment or targeted transfers, and FY2024 and FY2025 months are not election-quarter causal evidence."
+  },
+  "unresolved": [
+    "Pledge denominator unfrozen; this is an outcome-guided discovery sample and cannot be used as a rate numerator or denominator.",
+    "Two independent human coders have not reviewed eligibility, atomization or outcomes.",
+    "2024 US overtime pledge primary pre-election source not verified in this increment; statute indexed as unmatched.",
+    "No original full-text campaign corpus republication permission; store only URLs, locators and short paraphrases.",
+    "UK non-dom policy was also proposed in Conservative Spring Budget 2024; do not assign exclusive Labour causation.",
+    "Germany coalition partner agreement and beneficiary restrictions may change original scope.",
+    "US Medicare 2020 pledge covered purchasers beyond selected Medicare drugs; negotiated prices became applicable after 2021-25 term.",
+    "Fiscal monthly outlays not disaggregated into long-term investment and visible transfers; no cross-country harmonization or causal estimates.",
+    "Official source document hashes and exact publication snapshots still need independent audit."
+  ],
+  "reviewRequired": {
+    "independentHumanCoders": 2,
+    "reviewedCount": 0,
+    "eligibleDenominator": null,
+    "exclusionLogComplete": false,
+    "fulfillmentVerdicts": 0
+  }
+}
