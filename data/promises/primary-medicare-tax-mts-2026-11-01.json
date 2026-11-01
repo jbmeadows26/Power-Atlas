@@ -172,6 +172,61 @@
       "fact": "BMF confirms up to EUR 2,000 per month qualifying wages tax exempt from Jan 1 2026; social insurance contributions continue.",
       "notProofOf": "individual_claims_or_behavioral_effect",
       "linksExistingCandidateId": "DE25-UNION-AKTIVRENTE"
+    },
+    {
+      "id": "PT25-IRC-CABINET-PROPOSAL",
+      "country": "PT",
+      "date": "2025-07-18",
+      "kind": "cabinet_approved_legislative_proposal",
+      "url": "https://portugal.gov.pt/gc25/comunicacao/comunicados/governo-aprova-nova-descida-de-irc-ate-2028",
+      "locator": "Council of Ministers proposal: 19% 2026, 18% 2027, 17% 2028, SME 15% first EUR 50k",
+      "fact": "Government approved a proposed staged corporate tax cut; announcement is not enacted law, revenue or corporate effective tax paid.",
+      "notProofOf": "enactment_or_actual_tax_receipts",
+      "linksExistingCandidateId": "PT25-AD-IRC"
+    },
+    {
+      "id": "PT25-IRS-LAW55A",
+      "country": "PT",
+      "date": "2025-07-22",
+      "kind": "enacted_statute",
+      "url": "https://diariodarepublica.pt/dr/detalhe/lei/55-a-2025-925904929",
+      "locator": "Lei 55-A/2025, article 2; IRS Code article 68, effective 2025-07-23",
+      "fact": "Changed national progressive IRS statutory rates in 2025; no independently verified EUR 500 million realized revenue effect.",
+      "notProofOf": "campaign_pledge_eur2bn_fulfillment_or_actual_revenue",
+      "linksExistingCandidateId": "PT25-AD-IRS"
+    },
+    {
+      "id": "PT25-IRC-LAW64",
+      "country": "PT",
+      "date": "2025-11-07",
+      "kind": "enacted_statute",
+      "url": "https://diariodarepublica.pt/dr/detalhe/lei/64-2025-944874408",
+      "locator": "Lei 64/2025, article 2 IRC Code article 87 and article 3 transitional rates",
+      "fact": "Enacted 17% general corporate tax rate for tax periods from 2028, transitional 19% for 2026 and 18% for 2027; SME rate changes apply from 2026. Enacted rates are not actual effective tax paid.",
+      "notProofOf": "realized_receipts_or_2028_implementation",
+      "linksExistingCandidateId": "PT25-AD-IRC"
+    },
+    {
+      "id": "PT26-IRS-AUTHORIZATION64B",
+      "country": "PT",
+      "date": "2026-10-22",
+      "kind": "legislative_authorization_not_substantive_tax_amendment",
+      "url": "https://diariodarepublica.pt/dr/detalhe/lei/64-b-2026-1184484177",
+      "locator": "Lei 64-B/2026 articles 1-4; 180-day authorization",
+      "fact": "Parliament authorized government to reduce first six IRS brackets within 180 days; authorization alone does not establish effective rate changes.",
+      "notProofOf": "final_tax_amendment_or_realized_fiscal_cost",
+      "linksExistingCandidateId": "PT25-AD-IRS"
+    },
+    {
+      "id": "PT26-IRS-CABINET-DECREE",
+      "country": "PT",
+      "date": "2026-10-29",
+      "kind": "cabinet_approved_decree_pending_promulgation_verification",
+      "url": "https://portugal.gov.pt/gc25/comunicacao/noticias/reducao-das-taxas-de-irs-aprovada-em-conselho-de-ministros",
+      "locator": "29 October 2026 cabinet announcement, first six income tax brackets",
+      "fact": "Cabinet announced approval of a decree-law with retroactive intended effect to January 2026; final promulgation/publication not independently verified.",
+      "notProofOf": "promulgation_or_realized_tax_savings",
+      "linksExistingCandidateId": "PT25-AD-IRS"
     }
   ],
   "existingCrossLedgerEventReferences": [
@@ -306,10 +361,10 @@
     "2024 US overtime pledge primary pre-election source not verified in this increment; statute indexed as unmatched.",
     "No original full-text campaign corpus republication permission; store only URLs, locators and short paraphrases.",
     "UK non-dom policy was also proposed in Conservative Spring Budget 2024; do not assign exclusive Labour causation.",
-    "Germany coalition partner agreement and beneficiary restrictions may change original scope.",
     "US Medicare 2020 pledge covered purchasers beyond selected Medicare drugs; negotiated prices became applicable after 2021-25 term.",
     "Fiscal monthly outlays not disaggregated into long-term investment and visible transfers; no cross-country harmonization or causal estimates.",
-    "Official source document hashes and exact publication snapshots still need independent audit."
+    "Official source document hashes and exact publication snapshots still need independent audit.",
+    "Portugal IRC 2028 17% rate has a future effective date; do not score implementation as of 2026. July 2025 IRS law and October 2026 authorization/cabinet decree do not establish the promised EUR 2bn cash tax relief."
   ],
   "reviewRequired": {
     "independentHumanCoders": 2,
@@ -317,5 +372,22 @@
     "eligibleDenominator": null,
     "exclusionLogComplete": false,
     "fulfillmentVerdicts": 0
-  }
+  },
+  "existingCrossLedgerCandidateReferences": [
+    {
+      "id": "PT25-AD-IRC",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "note": "Existing unscored Portuguese corporate tax pledge; new events do not create a second pledge."
+    },
+    {
+      "id": "PT25-AD-IRS",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "note": "Existing unscored Portuguese personal tax pledge; no realized EUR2bn fiscal savings inferred."
+    },
+    {
+      "id": "DE25-UNION-AKTIVRENTE",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "note": "Existing unscored German Aktivrente pledge; newly linked events not duplicated candidate."
+    }
+  ]
 }
