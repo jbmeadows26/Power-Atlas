@@ -1,0 +1,32 @@
+name: Validate campaign primary and Treasury increment (2026-11-01)
+
+on:
+  pull_request:
+    paths:
+      - 'data/promises/primary-medicare-tax-mts-2026-11-01.json'
+      - 'research/campaign-promises/medicare-tax-and-monthly-actuals-2026-11-01.md'
+      - 'tests/test_campaign_primary_20261101.py'
+      - '.github/workflows/validate-campaign-primary-20261101.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/promises/primary-medicare-tax-mts-2026-11-01.json'
+      - 'research/campaign-promises/medicare-tax-and-monthly-actuals-2026-11-01.md'
+      - 'tests/test_campaign_primary_20261101.py'
+      - '.github/workflows/validate-campaign-primary-20261101.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate new primary evidence and existing research guardrails
+        run: |
+          python -m unittest discover -s tests -p 'test_campaign_primary_20261101.py' -v
+          python -m unittest discover -s tests -p 'test_promises_primary_discovery.py' -v
+          python -m unittest discover -s tests -p 'test_campaign_discovery_20261031.py' -v
