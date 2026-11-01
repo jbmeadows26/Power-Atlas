@@ -1,0 +1,23 @@
+name: Validate institutional decay ombudsman and passport evidence
+on:
+  push:
+    paths:
+      - 'data/institutional-decay/ombudsman-passport-evidence-2026-11-01.json'
+      - 'tests/test_institutional_decay_ombudsman_passport.py'
+      - '.github/workflows/validate-institutional-decay-ombudsman-passport.yml'
+  pull_request:
+    paths:
+      - 'data/institutional-decay/ombudsman-passport-evidence-2026-11-01.json'
+      - 'tests/test_institutional_decay_ombudsman_passport.py'
+      - '.github/workflows/validate-institutional-decay-ombudsman-passport.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate source-attributed observations and case timelines
+        run: python -m unittest discover -s tests -p 'test_institutional_decay_ombudsman_passport.py' -v
