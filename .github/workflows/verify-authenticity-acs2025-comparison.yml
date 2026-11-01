@@ -1,0 +1,27 @@
+name: Verify 2025 ACS age representation comparison
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'scripts/build_authenticity_acs2025_comparison.py'
+      - 'tests/test_authenticity_acs2025_comparison.py'
+      - 'data/research/political-authenticity/acs-2025-age-representation-comparison.json'
+      - '.github/workflows/verify-authenticity-acs2025-comparison.yml'
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Verify observed descriptive age-gap join and fail-closed tests
+        run: python -m unittest discover -s tests -p 'test_authenticity_acs2025_comparison.py' -v
+      - name: Regenerate age comparison and require byte-identical committed output
+        run: |
+          cp data/research/political-authenticity/acs-2025-age-representation-comparison.json /tmp/acs2025-age-comparison-committed.json
+          python scripts/build_authenticity_acs2025_comparison.py
+          cmp /tmp/acs2025-age-comparison-committed.json data/research/political-authenticity/acs-2025-age-representation-comparison.json
