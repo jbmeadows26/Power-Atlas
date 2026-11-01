@@ -26,9 +26,12 @@ def fixture():
            "surveyYear": 2025, "districtCount": 435, "districtMissingCount": 0,
            "memberSnapshotDate": "2026-10-30", "acsReleaseDate": "2026-10-29",
            "sourceUrl": "https://www2.census.gov/fixture", "sourceSha256": "a"*64,
+           "sourceLicense": "United States federal government public-domain statistical data",
+           "retrievedAtUTC": "2026-10-31T12:00:00+00:00", "sourceCrosswalkSha256": "c"*64,
            "records": districts}
     roster = {"asOf": "2026-10-30", "source": "https://example.org/fixture",
-              "sourceSha256": "b"*64, "records": members}
+              "sourceSha256": "b"*64, "license": "CC0-1.0",
+              "reviewStatus": "unverified_secondary_data_not_policy_influence_findings", "records": members}
     return acs, roster
 
 
@@ -48,6 +51,8 @@ class Tests(unittest.TestCase):
         self.assertEqual(r["votingHouseMembersAge25to34"], 1)
         self.assertAlmostEqual(r["memberMinusResidentPercentagePoints"], -19.7696, places=4)
         self.assertIsNone(r["uncertainty"]["statisticalSignificanceClaim"])
+        self.assertEqual(r["sourceLicenses"]["roster"], "CC0-1.0")
+        self.assertEqual(r["crosswalkSourceSha256"], "c"*64)
 
     def test_stale_snapshot_fails(self):
         a, b = fixture()
