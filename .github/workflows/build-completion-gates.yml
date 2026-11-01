@@ -3,6 +3,10 @@ on:
   push:
     paths:
       - 'scripts/build_completion_gates.py'
+      - 'data/coverage.json'
+      - 'data/legislation/state-redistricting-pagination.json'
+      - 'data/legislation/state-redistricting-jurisdictions.json'
+      - 'data/legislation/wa-2023-24-rollcalls/source-rollcalls.json'
       - '.github/workflows/build-completion-gates.yml'
   workflow_dispatch:
   schedule:
@@ -30,6 +34,13 @@ jobs:
           from pathlib import Path
           j=json.loads(Path('data/health/completion-gates.json').read_text())
           assert j['schema']=='power-atlas.completion-gates.v1'
+          coverage=json.loads(Path('data/coverage.json').read_text())['coverage']
+          pages=json.loads(Path('data/legislation/state-redistricting-pagination.json').read_text())
+          assert j['foundationalPersistedCounts']['billCandidates']==coverage['stateBillCandidateRows']
+          assert j['foundationalPersistedCounts']['billCandidates']==pages['candidateBillRows']
+          assert j['foundationalPersistedCounts']['sourceAttributedRelationships']==coverage['relationshipRecords']
+          assert j['foundationalPersistedCounts']['federalCourtAppointments']==coverage['federalJudicialAppointments']
+          assert j['foundationalPersistedCounts']['officialFECsummaries']==coverage['FECpacPartyCycleSummaryRows']
           assert len({x['id'] for x in j['gates']})==len(j['gates'])
           assert j['foundationalPersistedCounts']['officialFECsummaries']>=100
           assert any(x['id']=='state_certified_election_canvasses' for x in j['gates'])
