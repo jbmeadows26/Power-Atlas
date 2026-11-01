@@ -4,7 +4,7 @@
 
 ## New records
 
-[Machine-readable ledger](../../data/promises/primary-medicare-tax-mts-2026-11-01.json) holds **3 newly discovered candidate pledges**, **8 dated official event/implementation records** and **8 actual monthly US federal outlay observations**. The 3 pre-election documents were **already indexed**, so the count of newly discovered campaign source documents is **zero**. The US 2022 Inflation Reduction Act event was previously indexed in the 30 October crossnational ledger and is **cross-referenced rather than counted as new**. Germany's Aktivrente candidate was previously indexed and is **not counted again**.
+[Machine-readable ledger](../../data/promises/primary-medicare-tax-mts-2026-11-01.json) holds **3 newly discovered candidate pledges**, **13 dated official event/implementation records** and **8 actual monthly US federal outlay observations**. The 3 pre-election documents were **already indexed**, so the count of newly discovered campaign source documents is **zero**. The US 2022 Inflation Reduction Act event was previously indexed in the 30 October crossnational ledger and is **cross-referenced rather than counted as new**. Germany's Aktivrente candidate was previously indexed and is **not counted again**.
 
 ### US 2020: Medicare negotiation and senior drug expenses
 
@@ -26,6 +26,14 @@ The [2024 Labour manifesto](https://labour.org.uk/change/strong-foundations/) pl
 
 The [CDU/CSU pre-election programme](https://www.cdu.de/wahlprogramm-von-cdu-und-csu/) proposed an Aktivrente allowing up to **€2,000/month** tax-free for qualifying work beyond normal retirement age. This pledge was already in the 30 October corpus. The [official promulgated law, BGBl 2025 I No. 361](https://www.bundesfinanzministerium.de/Content/DE/Gesetzestexte/Gesetze_Gesetzesvorhaben/Abteilungen/Abteilung_IV/21_Legislaturperiode/2025-11-07-G-Aktivrente/4-Verkuendetes-Gesetz.pdf?__blob=publicationFile&v=2), dated **22 December** and published **23 December 2025**, took effect **1 January 2026**. [Federal Finance Ministry guidance](https://www.bundesfinanzministerium.de/Content/DE/FAQ/FAQ-zur-Aktivrente.html) confirms the income-tax exemption and exclusions for self-employed people and civil servants. This establishes legal operation, **not** claimant counts, revenue loss or behavioral impact. Coalition negotiations and legislative changes remain relevant.
 
+### Portugal 2025–26: existing pledges, staged legislation and authorization
+
+The already-indexed [2025 AD electoral programme discovery](../../data/promises/primary-crossnational-discovery-2026-10-30.json) includes a corporate-tax pledge to reach a **17%** general IRC rate and **15%** SME rate, and an IRS reduction pledge with a **€2 billion** headline target. These **are not new pledge records**.
+
+On **18 July 2025**, the [government approved a staged IRC proposal](https://portugal.gov.pt/gc25/comunicacao/comunicados/governo-aprova-nova-descida-de-irc-ate-2028). The [official Diário da República, Lei 64/2025](https://diariodarepublica.pt/dr/detalhe/lei/64-2025-944874408), published **7 November 2025**, legislated **19% in 2026, 18% in 2027 and 17% from 2028** for the general IRC rate, with separate SME treatment effective from 2026. **The 2028 target is enacted but not yet effective**; enacted rates are not measured company tax payments.
+
+For personal income tax, [Lei 55-A/2025](https://diariodarepublica.pt/dr/detalhe/lei/55-a-2025-925904929), published **22 July 2025**, amended statutory IRS brackets, effective **23 July**. [Lei 64-B/2026](https://diariodarepublica.pt/dr/detalhe/lei/64-b-2026-1184484177), published **22 October 2026**, **authorized** the government to reduce the first six brackets within 180 days; authorization is not itself the final tax-rate amendment. The [29 October 2026 cabinet announcement](https://portugal.gov.pt/gc25/comunicacao/noticias/reducao-das-taxas-de-irs-aprovada-em-conselho-de-ministros) reports approval of a decree-law, but **promulgation/publication of that decree is not verified** here. Neither statutory rate changes nor budgeted savings demonstrate the original **€2 billion actual fiscal effect**. Reconcile pre-existing 2024 tax measures, policy continuity, fiscal baselines and household distribution before any outcome verdict.
+
 ### Actual US fiscal observations around the 2024 election
 
 The official [Treasury Monthly Treasury Statement for January 2025](https://fiscaldata.treasury.gov/static-data/published-reports/mts/MonthlyTreasuryStatement_202501.pdf), **Table 1**, reports total federal outlays, in **millions of current USD**, for October–January in both fiscal years:
@@ -46,7 +54,7 @@ These **8 observations** are actual total federal modified-cash-basis outlays, n
 3. **Time:** US Medicare prices applicable in 2026 must not be retroactively counted as delivered during the 2021–25 term. Record enactment, selection, announcement, price operation and measured beneficiary effect separately.
 4. **Fiscal:** for an election-cycle model, harmonize definitions and vintages, identify ex-ante election clocks, construct properly defined targeted transfer and capital outlay components, control for payment-date shifts and seasonality, and test alternatives. Do not infer causal opportunism from these eight months.
 5. **Rights and verification:** party campaign texts remain linked, not bulk reproduced. US federal and UK/German official laws are cited with precise locators; publication/reuse rights and original-source hashes need review. UK and German implementation guidance may be updated after its stated effective date.
-6. **Coverage:** Canada and Portugal retain their previously indexed source/candidate evidence; no new record for either is claimed in this increment. Canadian one-dollar departmental table/graph discrepancy remains unresolved. Germany's existing pledge is not duplicated.
+6. **Coverage:** Canada retains previously indexed source/candidate evidence; **five new Portuguese official proposal/law/authorization events** are linked to **two existing Portuguese pledge candidates** without duplicating them. Canadian one-dollar departmental table/graph discrepancy remains unresolved. Germany's existing pledge is not duplicated.
 7. **Separation:** no edits to redistricting ingestion, site, prior research ledger or fiscal model outputs. No paid API calls, authentication workarounds or unsupported fulfillment scores.
 
 **CI validates internal structure, not the underlying empirical truth.**
