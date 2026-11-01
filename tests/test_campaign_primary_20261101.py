@@ -63,7 +63,7 @@ class CampaignPrimaryNov01Tests(unittest.TestCase):
     def test_events_unique_and_linked_prior_law_not_duplicated(self):
         d = self.data
         events = d["officialEvents"]
-        self.assertEqual(len(events), 8)
+        self.assertEqual(len(events), 13)
         ids = [e["id"] for e in events]
         self.assertEqual(len(ids), len(set(ids)))
         old = {e["id"] for e in self.old["officialEvents"]}
@@ -78,6 +78,15 @@ class CampaignPrimaryNov01Tests(unittest.TestCase):
         self.assertIn("US22-PL117169", {e["id"] for e in self.old["officialEvents"]})
         self.assertNotIn("US22-PL117169", ids)
         self.assertTrue(all(e["kind"] != "actual_expenditure" for e in events))
+        existing = {p["id"] for p in self.old["candidatePledges"]}
+        self.assertEqual({r["id"] for r in d["existingCrossLedgerCandidateReferences"]},
+                         {"PT25-AD-IRC", "PT25-AD-IRS", "DE25-UNION-AKTIVRENTE"})
+        for event in events:
+            if "linksExistingCandidateId" in event:
+                self.assertIn(event["linksExistingCandidateId"], existing)
+        self.assertEqual(sum(e["country"] == "PT" for e in events), 5)
+        self.assertIn("PT25-IRC-LAW64", ids)
+        self.assertIn("PT26-IRS-AUTHORIZATION64B", ids)
 
     def test_treasury_monthly_actuals_not_capital_or_pledge_outcomes(self):
         d = self.data
