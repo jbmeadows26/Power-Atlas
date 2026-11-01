@@ -86,7 +86,7 @@ class OmbudsmanPassportEvidenceTests(unittest.TestCase):
         self.assertNotEqual(o["nz-ombudsman-clearance-rate-2025"]["unit"], "percent")
         self.assertEqual(self.events["nz-education-oia-investigation-notified"]["legalStatus"],
                          "formal_investigation_not_adjudicated")
-        self.assertIn("not criminal", self.events["ie-pup-ombudsman-case-published-2024"]["legalStatus"])
+        self.assertIn("not_criminal", self.events["ie-pup-ombudsman-case-published-2024"]["legalStatus"])
 
 if __name__ == "__main__":
     unittest.main()
