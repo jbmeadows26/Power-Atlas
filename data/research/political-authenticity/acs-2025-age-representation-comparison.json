@@ -1,0 +1,68 @@
+{
+  "schema": "power-atlas.political-authenticity.acs2025-age-representation-comparison.v1",
+  "publicationStatus": "OBSERVED_DESCRIPTIVE_TWO_DATE_NONCAUSAL",
+  "acsSurveyYear": 2025,
+  "acsReleaseDate": "2026-10-29",
+  "memberSnapshotDate": "2026-10-30",
+  "sourceUrls": {
+    "acsB01001": "https://www2.census.gov/programs-surveys/acs/summary_file/2025/table-based-SF/data/1YRData/acsdt1y2025-b01001.dat",
+    "roster": "https://raw.githubusercontent.com/unitedstates/congress-legislators/gh-pages/legislators-current.json",
+    "acsRelease": "https://www.census.gov/programs-surveys/acs/news/data-releases/2025/release.html",
+    "districtGeography": "https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.119th_Congress.html"
+  },
+  "sourceHashesSha256": {
+    "acsB01001": "1cf0b23348d6bc0f3fbc64e0c6926d2827d10c5a0842142a2498f15305011d9b",
+    "roster": "ae8cb9477c48715df71a7d860854229d799dc90a254d61badc1efb770f892b2c"
+  },
+  "geography": "119th Congress 435 voting House districts, excluding DC and nonvoting territories",
+  "populationUniverse": "2025 ACS estimated residents age 25+ in 435 districts, including noncitizens; not legally eligible candidate pool",
+  "memberUniverse": "Voting House members in roster snapshot; vacant seats excluded from member denominator",
+  "districts": 435,
+  "occupiedDistricts": 433,
+  "vacantDistricts": [
+    "FL-20",
+    "TX-23"
+  ],
+  "populationAge25plusEstimate": 237878256,
+  "populationAge25to34Estimate": 46203146,
+  "populationAge25to34ShareOf25plus": 0.19423022,
+  "votingHouseMembers": 433,
+  "votingHouseMembersAge25to34": 5,
+  "votingHouseMembersAge25to34Share": 0.011547344,
+  "memberMinusResidentPercentagePoints": -18.2683,
+  "memberToResidentAge25to34ShareRatio": 0.059452,
+  "partyStrataDescriptive": {
+    "Democrat": {
+      "members": 214,
+      "membersAge25to34": 3,
+      "districtResidentsAge25plus": 115080191,
+      "districtResidentsAge25to34": 24198075
+    },
+    "Independent": {
+      "members": 1,
+      "membersAge25to34": 0,
+      "districtResidentsAge25plus": 589174,
+      "districtResidentsAge25to34": 86012
+    },
+    "Republican": {
+      "members": 218,
+      "membersAge25to34": 2,
+      "districtResidentsAge25plus": 121112945,
+      "districtResidentsAge25to34": 21700427
+    }
+  },
+  "uncertainty": {
+    "ageBandSourceMOE90": "Published district MOEs exist; no valid national aggregate/share MOE or confidence interval calculated",
+    "memberAgeSourceStatus": "Secondary roster birth dates not independently primary-source-verified",
+    "statisticalSignificanceClaim": null
+  },
+  "limitations": [
+    "2025 ACS resident estimates compared with a 2026-10-30 member snapshot, not a synchronized point-in-time population",
+    "Population includes noncitizens and residents ineligible for House candidacy; legal eligibility not modeled",
+    "District estimates and member counts are different measurement universes; ratio is descriptive only",
+    "District age shares and party strata are not evidence of causal political responsiveness or misconduct",
+    "Member biographies and birth dates require independent primary-source confirmation",
+    "No survey microdata, occupational histories, disclosed-wealth intervals, or voter preferences used",
+    "No statistical tests: ACS design covariance and valid share standard errors not available in this aggregate"
+  ]
+}
