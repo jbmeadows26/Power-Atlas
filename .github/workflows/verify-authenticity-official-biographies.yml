@@ -1,0 +1,24 @@
+name: Verify official House biography evidence audit
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'data/research/political-authenticity/official-house-biography-audit-2026-11-02.json'
+      - 'scripts/validate_authenticity_official_biographies.py'
+      - 'tests/test_authenticity_official_biographies.py'
+      - '.github/workflows/verify-authenticity-official-biographies.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - name: Validate primary-source cohort joins and missingness
+        run: python scripts/validate_authenticity_official_biographies.py --check
+      - name: Run nine falsification and regression checks
+        run: python -m unittest discover -s tests -p 'test_authenticity_official_biographies.py' -v
