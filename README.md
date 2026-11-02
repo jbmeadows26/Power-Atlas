@@ -25,3 +25,7 @@ Run `python scripts/build.py`, then `python -m unittest discover -s tests -p 'te
 [Production app](https://power-atlas-research.vercel.app/) is deployed separately from the GitHub-hosted feed. A READY Vercel deployment may serve an older frontend commit even while GitHub data is current; check [deployment health](data/health/deployment-status.json) before describing production as updated. No paid capacity, access bypass, rate-limit circumvention or unauthorized data redistribution is permitted.
 
 The temporary deadline sprint ends after **October 30, 2026**. Remaining gaps include state campaign-finance transactions, state legislative roll calls, lower-court litigation dockets, state judicial-selection outcomes, and verified local/state election returns. The project intentionally excludes private addresses, contact details and unreviewed person-to-person allegations.
+
+## Unified Power Atlas portal
+
+[Unified public research portal](https://power-atlas-unified.vercel.app/) brings together the redistricting investigation, native Voting Access source comparisons, research-program directory, and evidence/coverage status. Source: [platform/unified/index.html](platform/unified/index.html). Original Vercel sites remain preserved and linked; embedded original content may depend on upstream frame policies. A unified navigation does **not** imply that every underlying data source has been fully ingested or independently validated.
