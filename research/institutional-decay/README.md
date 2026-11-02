@@ -1,5 +1,10 @@
 # Institutional Decay — evidence baseline and empirical protocol
 
+## Additional comparative evidence (2026-11-02)
+
+The [South Africa / Netherlands / UK accountability and service expansion](municipal-benefits-horizon-expansion-2026-11-02.md) adds [28 source-attributed observations, 10 dated oversight/accountability events, and 12 official source records](../../data/institutional-decay/municipal-benefits-horizon-evidence-2026-11-02.json). It covers municipal audit outcomes, Dutch childcare-benefits inquiry/prosecutorial disposition/resignation/remediation, and UK Post Office Horizon compensation and statutory inquiry. Audit categories and denominators are explicitly reconciled; the Dutch prosecutor's decision not to investigate is **not** an acquittal, and compensation, political resignation, inquiry recommendations and criminal findings are kept separate. No causal trust claim or redistricting feed/UX change is made. [Independent tests](../../tests/test_institutional_decay_sa_nl_uk.py) run via [dedicated CI workflow](../../.github/workflows/validate-institutional-decay-sa-nl-uk.yml).
+
+
 ## Live deployment and scientific status (2026-10-30)
 
 **Public Institutional Decay dashboard is LIVE and source-verified:** [Power Atlas](https://power-atlas-research.vercel.app) serves the static research tab, [institutional-decay.js](https://power-atlas-research.vercel.app/institutional-decay.js) and [the 407-observation JSON feed](https://power-atlas-research.vercel.app/api/trust-metrics.json). Vercel deployment `dpl_3pxjaoHhBUi5eb8XFrNWbV4PgLAM` is `READY` at commit `16f6582d421fe4215715b91573a3649edcf0dbb3`. [Live production smoke check](https://github.com/jbmeadows26/Power-Atlas/actions/runs/40996572900) passed and independently recalculated the cross-country 2025 Pearson correlation. **This is a deployed descriptive dashboard, not a deployed causal experiment.**
