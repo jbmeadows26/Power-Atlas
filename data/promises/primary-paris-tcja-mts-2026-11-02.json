@@ -1,0 +1,282 @@
+{
+  "schema": "power-atlas.campaign-paris-tcja-mts.v1",
+  "asOf": "2026-11-02",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "sourceScopeComplete": false,
+  "independentHumanReviewCount": 0,
+  "sourceDocuments": [
+    {
+      "id": "US20-DEM-PLATFORM",
+      "country": "US",
+      "electionDate": "2020-11-03",
+      "published": "2020-08-17",
+      "issuer": "Democratic Party",
+      "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "locator": "Climate Change; paragraph beginning 'Democrats recognize that the United States does not stand alone'",
+      "alreadyIndexed": true,
+      "rights": "third_party_archival_transcription_paraphrase_only",
+      "originalPartyDocumentInventoryComplete": false
+    },
+    {
+      "id": "US24-GOP",
+      "country": "US",
+      "electionDate": "2024-11-05",
+      "published": "2024-07-08",
+      "issuer": "Republican Party",
+      "url": "https://www.presidency.ucsb.edu/documents/2024-republican-party-platform",
+      "locator": "Chapter 3; Make Trump Tax Cuts Permanent and No Tax on Tips",
+      "alreadyIndexed": true,
+      "rights": "third_party_archival_transcription_paraphrase_only",
+      "originalPartyDocumentInventoryComplete": false
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-PARIS-REJOIN-20261102",
+      "documentId": "US20-DEM-PLATFORM",
+      "maker": "Democratic Party",
+      "parent": "US20-DEM-CLIMATE",
+      "paraphrase": "Rejoin the Paris Agreement after the 2020 election.",
+      "locator": "Climate Change; paragraph beginning 'Democrats recognize that the United States does not stand alone'",
+      "criterion": "Treaty acceptance deposited and entry into force for the US during the 2021-2025 administration; later withdrawal tracked separately as durability.",
+      "linkedOfficialEventIds": [
+        "US21-PARIS-ACCEPTANCE",
+        "US21-PARIS-EFFECTIVE",
+        "US25-EO14162-PARIS",
+        "US25-UN-PARIS-WITHDRAWAL-NOTICE",
+        "US26-UN-PARIS-WITHDRAWAL-EFFECTIVE"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "Re-entry and subsequent withdrawal are independently documented, but formal party pledge fulfillment, party-vs-president attribution and policy durability require separate coding; rejoining does not demonstrate emissions reductions or Paris target attainment.",
+      "competingExplanations": [
+        "Executive treaty-acceptance authority enabled rapid action without a new statute.",
+        "Withdrawal under a subsequent administration reflects executive policy reversal, not proof of original campaign intent."
+      ]
+    },
+    {
+      "id": "US24-GOP-TCJA-STANDARD-DEDUCTION-20261102",
+      "documentId": "US24-GOP",
+      "maker": "Republican Party",
+      "parentExistingCandidateId": "US24-GOP-TCJA",
+      "paraphrase": "Make permanent the 2017 tax-law increase in the federal standard deduction.",
+      "locator": "Chapter 3, item 2, sentence on provisions that doubled the standard deduction",
+      "criterion": "Remove statutory 2025 sunset for increased standard deduction; distinguish enactment, effective tax year, claimant benefit and other tax-base changes.",
+      "linkedOfficialEventIds": [
+        "US25-PL11921-SEC70102"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "Public Law 119-21 §70102 removes the sunset and increases amounts, with specified amendments applicable for tax years beginning after 2024. Does not establish every filer receives net tax relief.",
+      "competingExplanations": [
+        "Legislative majority and reconciliation process were necessary for enactment.",
+        "Other simultaneous tax provisions affect net household liabilities."
+      ]
+    },
+    {
+      "id": "US24-GOP-TCJA-CHILD-TAX-CREDIT-20261102",
+      "documentId": "US24-GOP",
+      "maker": "Republican Party",
+      "parentExistingCandidateId": "US24-GOP-TCJA",
+      "paraphrase": "Make permanent the 2017 expansion of the federal Child Tax Credit.",
+      "locator": "Chapter 3, item 2, same sentence on expanded Child Tax Credit",
+      "criterion": "Remove statutory sunset of expanded child tax credit; separately record changed credit amount, eligibility, refundability, take-up and distribution.",
+      "linkedOfficialEventIds": [
+        "US25-PL11921-SEC70104"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "uncertainty": "§70104 removes sunset and raises nominal amount from $2,000 to $2,200, but adds taxpayer SSN restrictions and other conditions; eligibility and net realized credits are not established.",
+      "competingExplanations": [
+        "Legislative changes combine expansion with restrictions.",
+        "A nominal maximum credit is not realized average tax relief."
+      ]
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US21-PARIS-ACCEPTANCE",
+      "country": "US",
+      "date": "2021-01-20",
+      "kind": "presidential_treaty_acceptance",
+      "url": "https://www.govinfo.gov/content/pkg/DCPD-202100049/html/DCPD-202100049.htm",
+      "locator": "DCPD202100049, Statement on Acceptance; UN treaty status cites depositary notification C.N.10.2021",
+      "fact": "President Biden signed acceptance of the Paris Agreement on January 20, 2021; the UN records instrument deposit on that date.",
+      "notProofOf": "treaty_entry_into_force_that_day_or_emissions_reductions"
+    },
+    {
+      "id": "US21-PARIS-EFFECTIVE",
+      "country": "US",
+      "date": "2021-02-19",
+      "kind": "treaty_entry_into_force",
+      "url": "https://2021-2025.state.gov/the-united-states-officially-rejoins-the-paris-agreement/",
+      "locator": "Department of State press statement dated February 19, 2021; UN Paris Agreement treaty status",
+      "fact": "United States officially became a party again on February 19, 2021.",
+      "notProofOf": "climate_target_attainment"
+    },
+    {
+      "id": "US25-EO14162-PARIS",
+      "country": "US",
+      "date": "2025-01-20",
+      "kind": "executive_order_directing_withdrawal",
+      "url": "https://www.govinfo.gov/content/pkg/DCPD-202500129/html/DCPD-202500129.htm",
+      "locator": "Executive Order 14162, section 3(a)",
+      "fact": "Order directed notice of withdrawal; not itself the treaty-effective withdrawal date.",
+      "notProofOf": "withdrawal_legally_effective_on_2025_01_20"
+    },
+    {
+      "id": "US25-UN-PARIS-WITHDRAWAL-NOTICE",
+      "country": "US",
+      "date": "2025-01-27",
+      "kind": "un_depositary_withdrawal_notification",
+      "url": "https://treaties.un.org/doc/Publication/CN/2025/CN.71.2025-Eng.pdf",
+      "locator": "C.N.71.2025.TREATIES-XXVII.7.d, paragraphs 1-2",
+      "fact": "UN depositary records withdrawal notification received January 27, 2025; treaty withdrawal effective one year later.",
+      "notProofOf": "withdrawal_effective_on_notification_date"
+    },
+    {
+      "id": "US26-UN-PARIS-WITHDRAWAL-EFFECTIVE",
+      "country": "US",
+      "date": "2026-01-27",
+      "dateMeaning": "treaty_effective_date_recorded_in_2025_un_notice_and_current_treaty_status",
+      "kind": "treaty_withdrawal_effective",
+      "url": "https://treaties.un.org/doc/Publication/MTDSG/Volume%20II/Chapter%20XXVII/xxvii-7-d.en.xml",
+      "locator": "United States treaty status footnote 7 and UN notice C.N.71.2025",
+      "fact": "UN treaty status reports US withdrawal took effect January 27, 2026.",
+      "notProofOf": "quantified_climate_or_fiscal_effect"
+    },
+    {
+      "id": "US25-PL11921-SEC70102",
+      "country": "US",
+      "date": "2025-07-04",
+      "kind": "enacted_statutory_provision_mapping",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm",
+      "locator": "Public Law 119-21 §70102(a)-(c), IRC §63(c)(7)",
+      "fact": "Removed end-2025 sunset of increased standard deduction and raised amounts; §70102 changes apply for taxable years beginning after December 31, 2024.",
+      "notProofOf": "net_household_tax_savings_or_independent_fulfillment_verdict",
+      "linksExistingStatuteId": "US25-PL11921"
+    },
+    {
+      "id": "US25-PL11921-SEC70104",
+      "country": "US",
+      "date": "2025-07-04",
+      "kind": "enacted_statutory_provision_mapping",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-119publ21/html/PLAW-119publ21.htm",
+      "locator": "Public Law 119-21 §70104(a)-(f), IRC §24(h)",
+      "fact": "Removed end-2025 expanded CTC sunset, raised stated amount $2,000 to $2,200, changed SSN requirements; §70104 changes apply for taxable years beginning after December 31, 2024.",
+      "notProofOf": "universal_eligibility_or_net_credit_claimed",
+      "linksExistingStatuteId": "US25-PL11921"
+    }
+  ],
+  "existingCrossLedgerReferences": [
+    {
+      "id": "US24-GOP-TCJA",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "kind": "parent_candidate_do_not_count_twice"
+    },
+    {
+      "id": "US25-PL11921",
+      "ledger": "data/promises/primary-crossnational-discovery-2026-10-30.json",
+      "kind": "statute_do_not_count_twice"
+    }
+  ],
+  "fiscalActualObservations": [
+    {
+      "id": "US-MTS-2020-09-OUTLAYS-20261102",
+      "country": "US",
+      "fiscalYear": 2020,
+      "calendarMonth": "2020-09",
+      "periodEnd": "2020-09-30",
+      "value": 497780,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscal.treasury.gov/files/reports-statements/mts/mts0121.pdf",
+      "locator": "Table 1, FY2020, September, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2020-10-OUTLAYS-20261102",
+      "country": "US",
+      "fiscalYear": 2021,
+      "calendarMonth": "2020-10",
+      "periodEnd": "2020-10-31",
+      "value": 521769,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscal.treasury.gov/files/reports-statements/mts/mts0121.pdf",
+      "locator": "Table 1, FY2021, October, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2020-11-OUTLAYS-20261102",
+      "country": "US",
+      "fiscalYear": 2021,
+      "calendarMonth": "2020-11",
+      "periodEnd": "2020-11-30",
+      "value": 364819,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscal.treasury.gov/files/reports-statements/mts/mts0121.pdf",
+      "locator": "Table 1, FY2021, November, Outlays",
+      "electionContext": "US presidential election 2020-11-03 within reporting month"
+    },
+    {
+      "id": "US-MTS-2020-12-OUTLAYS-20261102",
+      "country": "US",
+      "fiscalYear": 2021,
+      "calendarMonth": "2020-12",
+      "periodEnd": "2020-12-31",
+      "value": 489682,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscal.treasury.gov/files/reports-statements/mts/mts0121.pdf",
+      "locator": "Table 1, FY2021, December, Outlays",
+      "electionContext": null
+    },
+    {
+      "id": "US-MTS-2021-01-OUTLAYS-20261102",
+      "country": "US",
+      "fiscalYear": 2021,
+      "calendarMonth": "2021-01",
+      "periodEnd": "2021-01-31",
+      "value": 547483,
+      "unit": "USD_millions_current",
+      "measure": "total_federal_outlays_on_and_off_budget_modified_cash_basis",
+      "source": "https://fiscal.treasury.gov/files/reports-statements/mts/mts0121.pdf",
+      "locator": "Table 1, FY2021, January, Outlays",
+      "electionContext": null
+    }
+  ],
+  "fiscalProvenance": {
+    "publication": "January 2021 Monthly Treasury Statement, Bureau of the Fiscal Service",
+    "reportingBasis": "Federal on- and off-budget modified cash basis, not general-government accrual GFCF",
+    "caution": "Not investment or capital outlays. January 2021 report flags payment-date accelerations into December 2020 and $139bn January 2021 Economic Impact Payments. COVID fiscal response and seasonality confound election-time comparisons; no causal analysis."
+  },
+  "coverageAndRights": {
+    "campaignCorpus": "Only selected clauses from two already indexed party platforms; source census and exclusions incomplete",
+    "rights": "Campaign material paraphrased with locators; no bulk party text or copyrighted third-party tracker reproduced. US federal and UN primary links retained; check UN reuse terms before republication.",
+    "retrievedOn": "2026-11-02",
+    "contentHashes": null,
+    "sourceRevisions": null,
+    "primarySourceLinkCheck": "Individual source pages examined; not a complete automated link audit."
+  },
+  "reviewRequired": {
+    "independentHumanCoders": 2,
+    "exclusionLogComplete": false,
+    "fulfillmentVerdicts": 0,
+    "denominatorInventoryComplete": false,
+    "fiscalHarmonizationComplete": false,
+    "causalDiagnosticsComplete": false
+  },
+  "limitations": [
+    "The three selected clauses are not a complete denominator; 2024 GOP atomic children refine an existing broad candidate and must not be double counted.",
+    "Paris reentry during Biden's term and subsequent Trump withdrawal must be evaluated at separate time horizons, not collapsed into a single binary.",
+    "The two 2025 tax statutory provisions map to one previously indexed statute; these are provision-level evidence records, not two new laws.",
+    "No independent human coding, estimated causal effects, household tax incidence or fiscal election-cycle regression.",
+    "The 2020 election-period MTS figures include pandemic response, payment-timing shifts, seasonality and a fiscal-year boundary."
+  ]
+}

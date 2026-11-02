@@ -1,0 +1,33 @@
+name: Validate campaign Paris, TCJA and Treasury increment (2026-11-02)
+
+on:
+  pull_request:
+    paths:
+      - 'data/promises/primary-paris-tcja-mts-2026-11-02.json'
+      - 'research/campaign-promises/paris-tcja-and-election-mts-2026-11-02.md'
+      - 'tests/test_campaign_primary_20261102.py'
+      - '.github/workflows/validate-campaign-primary-20261102.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/promises/primary-paris-tcja-mts-2026-11-02.json'
+      - 'research/campaign-promises/paris-tcja-and-election-mts-2026-11-02.md'
+      - 'tests/test_campaign_primary_20261102.py'
+      - '.github/workflows/validate-campaign-primary-20261102.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate new primary evidence and earlier research guardrails
+        run: |
+          python -m unittest discover -s tests -p 'test_campaign_primary_20261102.py' -v
+          python -m unittest discover -s tests -p 'test_campaign_primary_20261101.py' -v
+          python -m unittest discover -s tests -p 'test_campaign_discovery_20261031.py' -v
+          python -m unittest discover -s tests -p 'test_promises_primary_discovery.py' -v
