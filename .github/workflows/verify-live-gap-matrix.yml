@@ -1,0 +1,34 @@
+name: Smoke test live 50-state evidence matrix
+on:
+  push:
+    paths:
+      - '.github/workflows/verify-live-gap-matrix.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - name: Verify official production URL and complete gap register
+        run: |
+          python - <<'PY'
+          import json
+          from urllib.request import Request, urlopen
+          def read(url):
+              with urlopen(Request(url,headers={'User-Agent':'PowerAtlasGapAudit/1.0','Cache-Control':'no-cache'}),timeout=25) as r:
+                  assert r.status==200, (url,r.status)
+                  return r.read(1000000).decode('utf-8')
+          html=read('https://power-atlas-research.vercel.app/')
+          for expected in ('id="gapStateSelect"','id="gapStateDetails"','function loadSixGapEvidence','data-panel="quality"','officialRecordsSourceLinked'):
+              assert expected in html, f'Missing live UI: {expected}'
+          d=json.loads(read('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/coverage-six-domains.json'))
+          assert d['schema']=='power-atlas.six-domain-coverage.v1'
+          assert len(d['records'])==300
+          assert len(set(r['state'] for r in d['records']))==50
+          assert len(set(r['domain'] for r in d['records']))==6
+          assert all(sum(r['state']==s for r in d['records'])==6 for s in set(r['state'] for r in d['records']))
+          assert all(c['jurisdictionsCompleted']==0 for c in d['coverage'].values()), 'Evidence completeness requires revision; inspect before reporting'
+          print('PASS live site HTTP 200, 50-state evidence selector, 300 source-attributed coverage records')
+          PY
