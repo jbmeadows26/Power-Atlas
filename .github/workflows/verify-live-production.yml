@@ -4,6 +4,8 @@ on:
     paths:
       - '.github/workflows/verify-live-production.yml'
   workflow_dispatch:
+  schedule:
+    - cron: '10 9 * * *'
 permissions:
   contents: read
 jobs:
@@ -119,6 +121,15 @@ jobs:
           data = json.loads(remote)
           assert data['coverage']['stateBillCandidateRows'] == coverage['stateBillCandidateRows']
           assert data['coverage']['paymentRows'] == coverage['paymentRows']
+          assert data['coverage']['federalJudicialPresidentialAppointments'] == coverage['federalJudicialPresidentialAppointments']
+          assert data['coverage']['federalJudicialNonPresidentialServiceRecords'] == coverage['federalJudicialNonPresidentialServiceRecords']
+          assert (coverage['federalJudicialPresidentialAppointments']
+                  + coverage['federalJudicialNonPresidentialServiceRecords']
+                  == coverage['federalJudicialAppointments']), 'FJC service counts must reconcile'
+          fjc = data['judiciary']['federalAppointments']
+          assert fjc['presidentialAppointmentRecords'] == coverage['federalJudicialPresidentialAppointments']
+          assert fjc['nonPresidentialServiceRecords'] == coverage['federalJudicialNonPresidentialServiceRecords']
+          assert not any(p['name'].startswith('None') for p in fjc['presidents']), 'Assignments must not be presidential appointments'
           assert data['coverage']['officialStateCanvassesRetrieved'] == coverage['officialStateCanvassesRetrieved']
           assert data['coverage']['stateBillFullSweepJurisdictions'] == 0, 'Unexpected nationwide completeness assertion'
           print('PASS live feed byte-identical to repository; SHA256', expected_sha)

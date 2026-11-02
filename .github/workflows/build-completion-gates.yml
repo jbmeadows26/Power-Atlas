@@ -40,6 +40,11 @@ jobs:
           assert j['foundationalPersistedCounts']['billCandidates']==pages['candidateBillRows']
           assert j['foundationalPersistedCounts']['sourceAttributedRelationships']==coverage['relationshipRecords']
           assert j['foundationalPersistedCounts']['federalCourtAppointments']==coverage['federalJudicialAppointments']
+          assert j['foundationalPersistedCounts']['federalCourtPresidentialAppointments']==coverage['federalJudicialPresidentialAppointments']
+          assert j['foundationalPersistedCounts']['federalCourtNonPresidentialServiceRecords']==coverage['federalJudicialNonPresidentialServiceRecords']
+          assert (j['foundationalPersistedCounts']['federalCourtPresidentialAppointments']
+                  +j['foundationalPersistedCounts']['federalCourtNonPresidentialServiceRecords']
+                  ==j['foundationalPersistedCounts']['federalCourtAppointments'])
           assert j['foundationalPersistedCounts']['officialFECsummaries']==coverage['FECpacPartyCycleSummaryRows']
           assert len({x['id'] for x in j['gates']})==len(j['gates'])
           assert j['foundationalPersistedCounts']['officialFECsummaries']>=100
