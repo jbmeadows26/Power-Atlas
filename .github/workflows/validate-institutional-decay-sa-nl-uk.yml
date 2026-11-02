@@ -1,0 +1,23 @@
+name: Validate institutional decay SA NL UK evidence
+on:
+  push:
+    paths:
+      - 'data/institutional-decay/municipal-benefits-horizon-evidence-2026-11-02.json'
+      - 'tests/test_institutional_decay_sa_nl_uk.py'
+      - '.github/workflows/validate-institutional-decay-sa-nl-uk.yml'
+  pull_request:
+    paths:
+      - 'data/institutional-decay/municipal-benefits-horizon-evidence-2026-11-02.json'
+      - 'tests/test_institutional_decay_sa_nl_uk.py'
+      - '.github/workflows/validate-institutional-decay-sa-nl-uk.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify provenance, case dispositions, dates and denominators
+        run: python3 -m unittest discover -s tests -p 'test_institutional_decay_sa_nl_uk.py' -v
