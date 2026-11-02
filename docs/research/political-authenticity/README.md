@@ -1,10 +1,11 @@
 # Political inauthenticity and representation gaps — source-grounded research
 
-**Research snapshot:** October 31, 2026. **Scope:** U.S. 119th Congress; current-roster, not historical opening-day cohorts. This is a research data product, not a list of political offenders.
+**Research snapshot:** October 31, 2026, with November 2, 2026 official-biography audit supplement. **Scope:** U.S. 119th Congress; current-roster, not historical opening-day cohorts. This is a research data product, not a list of political offenders.
 
 ## What is actually ingested
 
-- [Congressional biographies with age calculations](../../../data/research/political-authenticity/members.json): 539 indexed records, matched by Bioguide ID, chamber, state, active term and House district to CC0 third-party biographies; 539/539 birthdates found, **not independently official-Bioguide confirmed**.
+- [Congressional biographies with age calculations](../../../data/research/political-authenticity/members.json): 539 indexed records, matched by Bioguide ID, chamber, state, active term and House district to CC0 third-party biographies; 539/539 birthdates found, **not independently official-Bioguide confirmed for the full roster**.
+- [Primary-source House biography audit (November 2)](OFFICIAL-HOUSE-BIOGRAPHY-AUDIT-2026-11-02.md): official House Historian pages confirm birthdates for **all five** voting representatives aged 25–34 and six older bipartisan controls (**11/433 voting House members**). Eleven overlapping career histories and ten source-reported degrees are recorded in a **separate evidence overlay**, not extrapolated to the rest of Congress. The other 422 voting House birthdates remain unverified against an official source; financial disclosure intervals remain null.
 - [Completeness and unmeasured fields](../../../data/research/political-authenticity/coverage.json): 439 House members/delegates, 100 senators; 6 nonvoting House members excluded from voting-seat comparison. Do not mistake 539 identities for 535 voting seats.
 - [119th House district crosswalk](../../../data/research/political-authenticity/house-district-crosswalk-119.json): all 435 apportioned seats have validated 2025 ACS geography keys; 433 occupied and two vacant in the October 2026 roster. Crosswalk placeholders remain null by design; the separate [2025 ACS B01001 district-age dataset](../../../data/research/political-authenticity/acs-2025-house-district-age.json) now contains 435 observed district estimates with **approximate**, not official aggregate, 90% age-band MOEs. [Methods and release audit](acs-2025-district-age-ingestion.md).
 - [Age-band comparison](../../../data/research/political-authenticity/age-comparison.json): 2024 ACS national resident population aged 25+ versus voting House members in October 2026. 25-34 population share 19.583%; House 5/433 (1.1547%); gap -18.428 percentage points. Population includes noncitizens; **not an eligibility-standardized estimate or statistical significance test**.
@@ -36,10 +37,10 @@ Since May 2026, the [Census Data API requires a free key for **all data queries*
 
 | Evidence layer | Current status | Gate to publish conclusions |
 |---|---|---|
-| Member identity/age | Indexed, secondary-source verified only | Sample audit against authoritative Bioguide; freeze vintage and membership universe |
+| Member identity/age | All five age-25–34 voting House members plus six older bipartisan controls crosschecked against official House Historian; 422 other voting House birthdates unverified | Extend primary-source audit to full voting House, Senate, and delegates; freeze roster vintage |
 | Age national comparison | Reproducible descriptive | Add 2025 ACS or matching-year national cohort, citizenship tenure, MOEs |
 | Age by congressional district | 435-seat 119th crosswalk validated; 2025 B01001 age estimates separately observed for all 435 | Done: official B01001 and 435-way join; next calibrate comparable candidate-eligibility population and valid uncertainty tests |
-| Wealth/education/occupation | Unmeasured | Public disclosed intervals plus documented class occupation categories and missingness |
+| Wealth/education/occupation | Separate official House Historian overlay: 11 career histories, 10 degree mentions; full-roster fields and wealth intervals still null | Expand independently adjudicated member-level coding; obtain document-backed disclosure intervals without inferring class or point wealth |
 | Constituent efficacy | Not joined | ANES/CES weighted microdata joined to valid geography, primary question codes, uncertainty |
 | Policy responsiveness | Not tested | Member sponsorship/roll-call/service outcomes plus party and agenda controls |
 | Rhetorical inauthenticity | Codebook prepared; no corpus coded | Balanced primary-media recordings, independent coder agreement |
