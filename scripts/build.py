@@ -405,6 +405,8 @@ feed = {
         'federalBillRedistrictingTitleMatches': sum(r['issueClass']=='redistricting_specific_title' for r in federal_bills),
         'federalBillSponsorEdges': sum(bool(re.fullmatch(r'[A-Z][0-9]{6}',str(r.get('sponsorBioguideId') or ''))) for r in federal_bills),
         'federalJudicialAppointments': fjc_index.get('appointmentRecords', 0),
+        'federalJudicialPresidentialAppointments': fjc_index.get('presidentialAppointmentRecords', 0),
+        'federalJudicialNonPresidentialServiceRecords': fjc_index.get('nonPresidentialServiceRecords', 0),
         'supremeCourtRedistrictingDecisions': len(scotus_decisions),
         'stateLegislatorJurisdictions': len(state_people_index),
         'lobbyingFilingRows': len(lobbying),

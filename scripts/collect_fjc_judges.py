@@ -20,6 +20,18 @@ INDEX=ROOT/'data/judiciary/fjc-appointment-index.json'
 BASE='https://www.fjc.gov/sites/default/files/history/'
 LANDING='https://www.fjc.gov/node/7436'
 MAX_BYTES=7_500_000
+NON_PRESIDENTIAL_SERVICE_TYPES = {
+    'None (assignment)': 'non_presidential_assignment',
+    'None (reassignment)': 'non_presidential_reassignment',
+}
+
+def appointment_mechanism(president):
+    """Distinguish FJC judicial service assignments from presidential appointments."""
+    if president in NON_PRESIDENTIAL_SERVICE_TYPES:
+        return NON_PRESIDENTIAL_SERVICE_TYPES[president]
+    if not president or president.startswith('None'):
+        raise ValueError('Unknown or missing FJC appointing authority; review required')
+    return 'presidential_appointment'
 
 def norm(s):
     return '_'.join(re.sub(r'[,/]', ' ', s or '').replace('\n',' ').lower().split())
@@ -81,6 +93,7 @@ def collect():
             item={
                 'id':key,'nid':nid,'name':people.get(nid,'Judge FJC '+nid),
                 'court':court[:180], 'appointingPresident':president[:80],
+                'appointmentMechanism':appointment_mechanism(president),
                 'source':'https://www.fjc.gov/node/'+nid,
                 'reviewStatus':'official_FJC_appointment_indexed'
             }
@@ -98,15 +111,24 @@ def collect():
     if not 4000<=len(out)<=6000:
         raise RuntimeError('Unexpected FJC appointment count '+str(len(out)))
     active=sum(not x.get('terminationDate') for x in out.values())
-    presidents=Counter(x['appointingPresident'] for x in out.values())
+    presidents=Counter(x['appointingPresident'] for x in out.values()
+                       if x['appointmentMechanism']=='presidential_appointment')
+    non_presidential=Counter(x['appointmentMechanism'] for x in out.values()
+                            if x['appointmentMechanism']!='presidential_appointment')
+    presidential_count=sum(presidents.values())
+    non_presidential_count=sum(non_presidential.values())
+    if presidential_count+non_presidential_count!=len(out):
+        raise RuntimeError('FJC appointment mechanism counts do not reconcile')
     document={
         'schema':'power-atlas.fjc.article-iii-appointments.v1',
         'publicationStatus':'official_source_indexed_claims_require_review',
         'sourceCatalog':LANDING,'sourceTable':BASE+'federal-judicial-service.csv',
         'license':'US federal public domain',
-        'claimScope':'Nomination and appointment records do not establish judicial ideology or improper map-related conduct',
+        'claimScope':'FJC service records include non-presidential assignments and reassignments; no record establishes ideology or improper map-related conduct',
+        'presidentialAppointmentRecords':presidential_count,
+        'nonPresidentialServiceRecords':non_presidential_count,
         'sourceAsOf':'2026-10-23',
-        'limitations':'FJC directory updates currently paused; missing termination date is not a guarantee of currently sitting service. Appointing president or party does not establish a judge ideology or wrongful conduct.',
+        'limitations':'FJC directory updates currently paused; missing termination date is not proof of current service. None (assignment/reassignment) is not a presidential appointment. Presidential affiliation does not establish ideology or wrongful conduct.',
         'appointments':sorted(out.values(),key=lambda x:x['id'])
     }
     body=json.dumps(document,ensure_ascii=False,separators=(',',':'))+'\n'
@@ -117,6 +139,10 @@ def collect():
         'sourceCatalog':LANDING,'sourceAsOf':'2026-10-23',
         'publicationStatus':'official_source_indexed',
         'appointmentRecords':len(out),'withoutTerminationRecorded':active,
+        'appointmentRecordsScope':'FJC judicial service rows, including non-presidential assignments and reassignments',
+        'presidentialAppointmentRecords':presidential_count,
+        'nonPresidentialServiceRecords':non_presidential_count,
+        'nonPresidentialServiceTypes':[{'mechanism':k,'records':v} for k,v in sorted(non_presidential.items())],
         'presidents':[{'name':k,'appointments':v} for k,v in sorted(presidents.items())]
     }
     summary_text=json.dumps(summary,ensure_ascii=False,indent=2)+'\n'

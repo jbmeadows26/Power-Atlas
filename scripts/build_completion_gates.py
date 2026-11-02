@@ -161,7 +161,9 @@ def build():
             'billCandidates':c.get('stateBillCandidateRows',0),
             'officialFECsummaries':c.get('FECpacPartyCycleSummaryRows',0),
             'sourceAttributedRelationships':c.get('relationshipRecords',0),
-            'federalCourtAppointments':c.get('federalJudicialAppointments',0)
+            'federalCourtAppointments':c.get('federalJudicialAppointments',0),
+            'federalCourtPresidentialAppointments':c.get('federalJudicialPresidentialAppointments',0),
+            'federalCourtNonPresidentialServiceRecords':c.get('federalJudicialNonPresidentialServiceRecords',0)
         },
         'gates':gates,
         'blockingGates':blocking,
