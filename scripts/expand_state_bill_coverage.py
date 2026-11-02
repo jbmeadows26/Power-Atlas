@@ -22,7 +22,6 @@ STATES='AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS 
 # Correct the US set against the public source's 51 jurisdictions.
 STATES=sorted(set(STATES))
 MAX_PER_RUN=8
-END=date(2026,10,30)
 MAX_BYTES=220000
 
 def fetch_state(state):
@@ -102,9 +101,6 @@ def retry_allowed(state,attempts,failures,today):
     return True
 
 def run():
-    if date.today()>END:
-        print('Deadline passed; no new source requests')
-        return
     if not BILLS.exists():
         raise RuntimeError('Initialize bounded national source index first')
     body=json.loads(BILLS.read_text(encoding='utf-8'))
@@ -129,6 +125,9 @@ def run():
                 attempts[state]=max(1,int(attempts.get(state,0)))
     eligible=[s for s in STATES if retry_allowed(s,attempts,failures,date.today().isoformat())]
     selected=select_jurisdictions(eligible,done,attempts,MAX_PER_RUN)
+    if not selected:
+        print('All 51 first-page jurisdictions already checkpointed; no repeat source requests')
+        return
     results=[]
     for state in selected:
         attempts[state]=int(attempts.get(state,0))+1
