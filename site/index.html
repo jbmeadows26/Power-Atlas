@@ -354,6 +354,13 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
   <section class="panel" data-panel="quality">
     <span class="eyebrow">Evidence governance</span><h2>What the data actually supports</h2>
     <div class="columns"><div class="card"><h3>Source evidence policy</h3><p>Research records are published with source URLs, review statuses, stable identifiers and coverage notes. A tentative name match never proves causation or misconduct.</p><p>Directly attributable filings are kept distinct from inferred networks. Unreviewed relationships should not be used as allegations.</p></div><div class="card"><h3>Remaining gaps</h3><div id="gapQuality"></div></div></div>
+    <div class="card"><h3>State-by-state missing evidence</h3>
+      <p class="note">Select a state to see exactly which of the six domains have source records, which need reconciliation, and what the next evidence blocker is. A source index is not a verified investigation or complete state dataset.</p>
+      <div class="filters"><label for="gapStateSelect">Jurisdiction</label><select id="gapStateSelect" aria-label="Choose state for detailed evidence gaps"><option value="">Loading state evidence…</option></select></div>
+      <p class="mapstatus" id="gapStateStatus">The state evidence matrix loads from the public six-domain audit.</p>
+      <div class="list" id="gapStateDetails"></div>
+      <p class="note">Original public sources and official state election offices are linked when known. Source discovery is not evidence of a particular person's political influence.</p>
+    </div>
     <div class="card"><h3>Nationwide research completion audit</h3>
       <p class="note">Completed bounded collections do not establish complete national evidence or causation. Each item below is source-scoped, with unfinished dependencies shown explicitly.</p>
       <p id="gateStatus" class="mapstatus">Open Evidence & gaps to read the latest public completion-gate audit.</p>
@@ -763,6 +770,34 @@ footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24
     fetch(source,{cache:'no-store'})
       .then(function(r){if(!r.ok)throw new Error('six-gap evidence '+r.status);return r.json()})
       .then(function(d){
+        if(!Array.isArray(d.records)||d.records.length!==300)throw new Error('Expected 50 × 6 per-state source evidence records');
+        var states=Array.from(new Set(d.records.map(function(x){return x.state}))).sort();
+        if(states.length!==50)throw new Error('Incomplete per-state audit');
+        var select=document.getElementById('gapStateSelect');
+        var prior=select.value||'NJ';
+        select.innerHTML=states.map(function(code){var r=d.records.find(function(x){return x.state===code});
+          return '<option value="'+esc(code)+'"'+(code===prior?' selected':'')+'>'+esc(r.stateName)+' ('+esc(code)+')</option>';
+        }).join('');
+        function detail(){
+          var code=select.value,records=d.records.filter(function(x){return x.state===code});
+          if(records.length!==6){set('gapStateStatus','Incomplete source audit for '+code);return}
+          var selected=records[0].stateName;
+          set('gapStateStatus',selected+' · '+records.filter(function(x){return x.officialRecordsSourceLinked}).length+'/6 domains with original records; '+records.filter(function(x){return x.domainFullyComplete}).length+'/6 nationally defined domains complete.');
+          document.getElementById('gapStateDetails').innerHTML=records.map(function(x){
+            var link=x.sourceDiscovery&&x.sourceDiscovery.electionOfficeURL;
+            var polygon=x.sourceDiscovery&&x.sourceDiscovery.current2024CensusZIPs||[];
+            var urls=polygon.map(function(y){return '<a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(y.url))+'">Official Census '+esc(y.chamber)+' plan</a>'}).join(' · ');
+            return '<article class="card"><div class="meta"><span class="tag'+(x.domainFullyComplete?'':' warn')+'">'+(x.domainFullyComplete?'Complete':x.officialRecordsSourceLinked?'Partially evidenced':'Source not verified')+'</span></div>'+
+              '<h3>'+esc(labels[x.domain]||x.domain)+'</h3>'+
+              '<p>'+Number(x.recordsIngested||0).toLocaleString()+' original records indexed · '+esc(x.coverageStatus)+'</p>'+
+              '<p class="note"><b>Unresolved:</b> '+esc(x.blockingDependency||'Independent completeness and reconciliation verification pending')+'</p>'+
+              '<p class="note"><b>Validation:</b> '+esc(x.certificationStatus||'not verified')+'; '+esc(x.reconciliationStatus||'not run')+'</p>'+
+              (link?'<a class="source" href="'+esc(safe(link))+'" target="_blank" rel="noopener noreferrer">Official state election office</a>':'')+
+              (urls?'<div>'+urls+'</div>':'')+'</article>';
+          }).join('');
+        }
+        select.onchange=detail;
+        detail();
         if(d.schema!=='power-atlas.six-domain-coverage.v1'||d.jurisdictions!==50||!Array.isArray(d.domains)||d.domains.length!==6)throw new Error('unrecognized six-gap evidence');
         var rows=d.domains.map(function(k){
           var c=d.coverage[k]||{},verified=Number(c.sourceVerifiedJurisdictions)||0,completed=Number(c.jurisdictionsCompleted)||0;
