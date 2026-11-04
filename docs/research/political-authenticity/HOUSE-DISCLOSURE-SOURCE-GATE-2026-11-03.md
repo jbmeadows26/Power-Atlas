@@ -13,7 +13,7 @@ The Clerk states that financial disclosure reports identify sources, types, amou
 - Do not infer net worth from assets without liabilities, ownership shares, exclusions and filing-specific instructions. Joint/spousal assets must not silently become member-owned.
 - Separate filing date, reporting period, retrieval date, and member roster snapshot.
 - Never treat no matching search result as proof that a member filed nothing. Preserve status 'no_filing_found' as a search observation with search parameters and time.
-- Existing validator scripts/validate_house_financial_disclosure.py is a **conservative preliminary gate**: it accepts only finite intervals, and intentionally does not yet model open-ended ranges or detailed asset/liability schedules. Its test fixture is synthetic; **no observed member wealth figures were added in this increment**.
+- As of 2026-11-04, `scripts/validate_house_financial_disclosure.py` accepts verified open-ended asset intervals using `assetLowerUSD` >= 0, `assetUpperUSD: null`, and `assetUpperOpenEnded: true`; finite intervals retain both bounds. It rejects spoofed official hostnames, NaN/infinity, boolean amounts and unverified non-null ranges. This is a **record-level validator**, not a financial statement parser or verified aggregate net-worth estimator. The test fixtures are synthetic; **no observed member wealth figures were added in this increment**.
 - Missingness is not zero wealth; party, age, ethnicity, biography or relationships are not evidence of misconduct.
 
 ## Next ingestion acceptance criteria
