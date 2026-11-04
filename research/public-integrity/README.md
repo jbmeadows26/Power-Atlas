@@ -9,7 +9,7 @@ Connect documented exchanges of benefits, campaign contributions, public contrac
 - UI-backed static data: `platform/unified/investigations-data.json`
 - Canonical research snapshot: `data/influence/investigations-2026.json`
 - Prior standalone case: `platform/unified/navatek.html` and `data/influence/navatek-2026.json`
-- 20 new cases; 58 distinct named persons in official-source materials; 27 DOJ references on initial build.
+- Initial snapshot included 20 cases; subsequent verified additions now bring the November 4 snapshot to 26 cases, 71 distinct named persons and 41 official-source / underlying court-file links. Counts are computed from the JSON and must not be frozen into UI descriptions.
 - This is a purposive case collection, not a representative sample, prevalence estimate, ranking of political actors, or a universal allegation database.
 
 ## Evidentiary boundary
@@ -30,7 +30,7 @@ Connect documented exchanges of benefits, campaign contributions, public contrac
 5. **Independent reporting**: ProPublica, local investigative news, databases such as OpenSecrets for discovery with original documents traced and rights respected.
 
 ## Next research tasks
-- Reconcile 20 cases to original court dockets and record linked case numbers, court, offense-level outcomes, sentencing and any appeal changes as of retrieval date.
+- Reconcile all indexed cases to original court dockets and record linked case numbers, court, offense-level outcomes, sentencing and any appeal changes as of retrieval date.
 - Attach contract IDs and separate `award_amount`, `obligation_amount`, `actual_paid`, `estimated_loss` by government agency and fiscal year.
 - Attach donor- and committee-level transaction IDs and LDA filings where applicable; identify known omissions and refunds. Do not import unreviewed FEC links as accusations.
 - Add exact dated relationship evidence for officials, executives, contractors and nonprofit organizations; avoid graph edges implying wrongdoing by association.
