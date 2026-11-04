@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Public Integrity Investigations | Power Atlas</title>
-<meta name="description" content="Follow public money through contract decisions, bribes, prosecutions and legal outcomes. Search 20 DOJ-source cases and documented roles.">
+<meta name="description" content="Follow public money through contract decisions, bribes, prosecutions and legal outcomes. Search documented public-integrity cases and named legal outcomes.">
 <style>
 :root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#263538;background:#f5f8f7;--teal:#216d61;--navy:#1b3538;--line:#dde7e4;--muted:#596e70}
 *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-size:15px}a{color:#1b7567}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #228b78;outline-offset:3px}
@@ -27,6 +27,23 @@ footer{border-top:1px solid #d9e5e0;padding-top:23px;margin-top:48px;color:#6173
 @media(max-width:820px){.cards{grid-template-columns:1fr}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.flow{gap:15px}.flow-step{min-height:140px}.flow-step:after{right:-16px}}
 @media(max-width:600px){header{padding:13px 17px}header nav{gap:10px;font-size:.8rem}main{padding:19px 15px 40px}.stats{grid-template-columns:1fr 1fr}.stat:last-child{grid-column:1/-1}.stat b{font-size:1.7rem}.featured{padding:17px}.flow{grid-template-columns:1fr;gap:27px}.flow-step{min-height:0}.flow-step:after{content:"↓";right:50%;top:auto;bottom:-32px;transform:translateX(50%)}.people{grid-template-columns:1fr}.explainer{grid-template-columns:1fr}.facts{grid-template-columns:1fr 1fr}.case-card{padding:17px}.source-list li{flex-direction:column;align-items:flex-start;gap:3px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Dated journalism videos are optional context, never primary legal evidence. */
+.media-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px}
+.media-card{border:1px solid var(--line);background:#fff;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.media-card .video-type{color:#266e60;text-transform:uppercase;letter-spacing:.09em;font-size:.69rem;font-weight:820}
+.media-card h3{font-size:1.02rem;margin:0;line-height:1.35}
+.media-card .description{font-size:.83rem;color:#526b65;margin:0}
+.media-card small{font-size:.74rem;color:#60756f}
+.media-card .video-actions{margin-top:auto;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.media-card .play{border:1px solid #246e60;border-radius:9px;background:#246e60;color:white;padding:9px 12px;font-weight:750}
+.media-card .video-actions a{font-size:.82rem;font-weight:700}
+.media-card .context-caveat{font-size:.73rem;color:#6a6252;border-left:3px solid #c49c58;padding-left:9px;margin-top:4px}
+.media-embed{background:#101b1e;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;display:flex;align-items:center;justify-content:center;color:#fff}
+.media-embed iframe{border:0;width:100%;height:100%}
+.media-card .case-action{border:0;background:none;padding:4px 0;color:#126c5b;font-size:.81rem;text-align:left;text-decoration:underline;font-weight:700}
+@media(max-width:850px){.media-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:610px){.media-grid{grid-template-columns:1fr}}
 </style></head><body>
 <header><strong>◈ POWER ATLAS</strong><nav><a href="index.html">Main dashboard</a><a href="navatek.html">Navatek case</a><a href="investigations.html" aria-current="page">Investigations</a></nav></header>
 <main>
@@ -37,6 +54,7 @@ footer{border-top:1px solid #d9e5e0;padding-top:23px;margin-top:48px;color:#6173
 <a class="featured" href="navatek.html"><div><span class="eyebrow">Start with the original investigation</span><h2>Navatek: Navy contracts and campaign contributions</h2><p>See the money paths and separate official findings from unproven allegations. This earlier case has its own visual explainer and ProPublica video.</p></div><span style="background:white;border:1px solid #c0d8cf;padding:10px 15px;border-radius:9px;font-weight:800">Open the Navatek story →</span></a>
 <div class="stats" id="stats"><div class="stat"><b>—</b><span>Documented cases</span></div><div class="stat"><b>—</b><span>Named people in public records</span></div><div class="stat"><b>—</b><span>Official-source links</span></div></div>
 <section class="section"><h2>How to read a case</h2><div class="explainer"><article><b>1 · Follow the money</b><p>Read the documented or alleged route from a donor or contractor through an intermediary to a public decision.</p></article><article><b>2 · Check each person's role</b><p>Distinguish people found guilty, those who pleaded guilty, those charged, and those cited in evidence.</p></article><article><b>3 · Inspect what remains unknown</b><p>Every case links to its government-source record and explains key missing evidence or limitations.</p></article></div></section>
+<section class="section" aria-labelledby="context-video-title"><div class="section-heading"><h2 id="context-video-title">Watch a few cases explained</h2><p>Three short, independently published reports help make the money trails easier to follow. These videos are context; the linked court and DOJ records determine the legal outcomes.</p></div><div class="media-grid" id="video-cards" aria-label="Context videos"></div><p class="date" id="video-count" role="status"></p></section>
 <section class="section" aria-labelledby="case-list-title"><h2 id="case-list-title">Explore investigations</h2>
 <div class="controls">
 <div class="control search"><label for="query">Search names, places, or terms</label><input id="query" type="search" placeholder="Try: contracts, Menendez, school, Ohio…" autocomplete="off"></div>
@@ -56,6 +74,48 @@ const S={"convicted":"Conviction documented","pleaded":"Guilty plea documented",
 let dataset=null;
 let cases=[];
 const titleOf=c=>escapeHTML(c.title);
+
+function mediaCard(m,c){
+ const yt=typeof m.youtube_id==="string"&&/^[A-Za-z0-9_-]{11}$/.test(m.youtube_id);
+ const u=(()=>{try{const x=new URL(m.url);return x.protocol==="https:"&&(x.hostname==="www.youtube.com"||x.hostname==="www.pbs.org")?x.href:null}catch{return null}})();
+ const open=yt?'<button type="button" class="play" data-video="'+escapeHTML(m.youtube_id)+'" aria-label="Play video: '+escapeHTML(m.title)+'">▶ Play video</button>':'';
+ const target=u?'<a href="'+escapeHTML(u)+'" target="_blank" rel="noopener noreferrer">Watch on publisher ↗</a>':'';
+ return '<article class="media-card"><span class="video-type">Context video · '+escapeHTML(m.publisher)+'</span>'+
+ '<h3>'+escapeHTML(m.title)+'</h3>'+
+ '<small>'+escapeHTML(m.published_at)+(m.duration?' · '+escapeHTML(m.duration):'')+'</small>'+
+ '<p class="description">'+escapeHTML(m.context)+'</p>'+
+ (yt?'<div class="media-embed" aria-label="Video placeholder">Play on request</div>':'')+
+ '<div class="video-actions">'+open+target+'</div>'+
+ '<p class="context-caveat">'+escapeHTML(m.caveat)+'</p>'+
+ (c?'<button type="button" class="case-action" data-open-case="'+escapeHTML(c.id)+'">Read court records for '+escapeHTML(c.region)+' →</button>':'')+'</article>';
+}
+function renderVideos(){
+ const picks=cases.flatMap(c=>(c.media||[]).map(m=>({m,c}))).slice(0,3);
+ $("video-cards").innerHTML=picks.map(({m,c})=>mediaCard(m,c)).join("");
+ $("video-count").textContent=picks.length+" verified editorial videos · not additional primary evidence";
+}
+document.addEventListener("click",e=>{
+ const play=e.target.closest("button[data-video]");
+ if(play){
+  const id=play.dataset.video;
+  if(!/^[A-Za-z0-9_-]{11}$/.test(id))return;
+  const card=play.closest(".media-card");
+  const mount=card?.querySelector(".media-embed");
+  if(!mount)return;
+  const frame=document.createElement("iframe");
+  frame.title=card.querySelector("h3")?.textContent||"News context video";
+  frame.src="https://www.youtube-nocookie.com/embed/"+id;
+  frame.loading="lazy";frame.referrerPolicy="strict-origin-when-cross-origin";
+  frame.allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  frame.setAttribute("allowfullscreen","");
+  mount.replaceChildren(frame);
+  play.disabled=true;
+  play.textContent="Playing above";
+ }
+ const open=e.target.closest("button[data-open-case]");
+ if(open)openCase(open.dataset.openCase);
+});
+
 function summaryCard(c){
  const personNames=c.people.map(p=>p.name).slice(0,3).join(" · ");
  return '<article class="case-card">'+
@@ -78,12 +138,14 @@ function detailMarkup(c){
  const people=c.people.map(p=>'<article class="person"><strong>'+escapeHTML(p.name)+'</strong><small>'+escapeHTML(p.role)+'</small><p>'+escapeHTML(p.legal)+'</p></article>').join('');
  const links=c.sources.map(s=>{const u=safeUrl(s.url);return u?'<li><small>Official DOJ source</small><a target="_blank" rel="noopener noreferrer" href="'+escapeHTML(u)+'">'+escapeHTML(s.label)+' ↗</a></li>':''}).join('');
  const limits=c.limits.map(s=>'<li>'+escapeHTML(s)+'</li>').join('');
+ const videos=(c.media||[]).length?'<section class="section"><h2>Watch this case explained</h2><div class="media-grid">'+c.media.map(m=>mediaCard(m,null)).join('')+'</div></section>':'';
  return '<div class="detail-header"><p class="eyebrow">Documented public integrity · '+escapeHTML(c.region)+'</p><h1>'+titleOf(c)+'</h1><div class="status-line"><span class="status-label">'+escapeHTML(S[c.status])+'</span><span class="date">Official source date: '+escapeHTML(c.source_date)+'</span><span class="date">'+escapeHTML(c.category)+'</span></div><p class="lead">'+escapeHTML(c.summary)+'</p></div>'+
  '<div class="key-metric"><span>One key figure, with its meaning</span><b>'+escapeHTML(c.money)+'</b><small>'+escapeHTML(c.meaning)+'</small></div>'+
  '<section class="section"><div class="section-heading"><h2>How the public-money connection worked</h2><p>The three steps describe the source-reported route. They are not always proof of a corrupt exchange.</p></div><div class="flow">'+stages+'</div>'+
  (c.status==="charged"||c.status==="mixed"?'<div class="verified-note"><strong>Charges are not convictions.</strong><p>For any individual still charged rather than convicted, this sequence describes allegations from prosecutors; every defendant is presumed innocent unless proven guilty.</p></div>':'<div class="verified-note"><strong>What the legal record establishes</strong><p>Official DOJ releases document the listed outcomes. They do not show that every person mentioned in this record committed misconduct.</p></div>')+'</section>'+
  '<section class="section"><h2>People and their documented roles</h2><p class="date">A name on this page is not a guilt finding. Read the status attached to each individual.</p><div class="people">'+people+'</div></section>'+
  '<section class="section"><h2>What is still uncertain?</h2><ul class="limits">'+limits+'</ul></section>'+
+ videos+
  '<section class="section"><h2>Original government records</h2><p class="date">Follow these links before drawing conclusions, especially for unresolved charges or newer case developments.</p><ul class="source-list">'+links+'</ul></section>'+
  '<p class="date">Reviewed case information dated '+escapeHTML(c.source_date)+'; compiled November 4, 2026. Not a live docket or automated update.</p>'
 }
@@ -118,7 +180,7 @@ window.addEventListener("popstate",()=>{const id=new URL(location.href).searchPa
  const sources=cases.reduce((n,c)=>n+c.sources.length,0);
  for(const [i,n] of [cases.length,countPeople,sources].entries())$("stats").children[i].querySelector("b").textContent=n;
  const cats=[...new Set(cases.map(c=>c.category))].sort();$("category").insertAdjacentHTML("beforeend",cats.map(c=>'<option value="'+escapeHTML(c)+'">'+escapeHTML(c)+'</option>').join(''));
- filterCards();const id=new URL(location.href).searchParams.get("case");if(id)openCase(id,false)
+ filterCards();renderVideos();const id=new URL(location.href).searchParams.get("case");if(id)openCase(id,false)
  }catch(e){$("count").textContent="Could not load investigation index";$("cards").innerHTML='<div class="empty">Case records are unavailable. <a href="investigations-data.json">Open the source-index file ↗</a></div>';console.error(e)}
 })();
 </script></body></html>
