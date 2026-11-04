@@ -2,12 +2,12 @@
   "schema": "power-atlas.public-integrity-case-index.v1",
   "title": "Public integrity — documented cases and court records",
   "as_of": "2026-11-04",
-  "scope": "Curated U.S. federal, state and local public-integrity investigations with court or DOJ records; non-exhaustive, not a representative sample.",
+  "scope": "Curated U.S. local/state/federal public-integrity cases and one overseas official-bribery case prosecuted in the U.S.; non-exhaustive and not a representative sample.",
   "publication_rule": "A named individual appears only when an official public source identifies their role. Conviction, plea, charge and being named in evidence are different statuses. An indictment is an allegation, not proof of guilt.",
   "totals": {
-    "cases": 20,
-    "unique_named_people": 58,
-    "source_links": 27
+    "cases": 26,
+    "unique_named_people": 71,
+    "source_links": 39
   },
   "cases": [
     {
@@ -919,6 +919,276 @@
         "Vendor identified only as Contractor 1 in court papers; name not invented.",
         "The source does not provide a sentencing disposition."
       ]
+    },
+    {
+      "id": "hawaii-affordable-housing",
+      "title": "Hawaii affordable-housing agreements and kickbacks",
+      "region": "Hawaii",
+      "category": "Housing & development",
+      "status": "convicted",
+      "source_date": "2026-05-29",
+      "money": "$1.93 million",
+      "meaning": "Bribes paid or attempted to the housing official; $11m+ in land and housing credits is separate",
+      "summary": "A Hawaii County housing specialist and three private participants received federal sentences in a scheme that steered affordable-housing approvals to companies that built no units.",
+      "flow": [
+        "County affordable-housing development agreements",
+        "Luna Loa / West View / Plumeria companies",
+        "Land and housing credits transferred, promised bribes and kickbacks"
+      ],
+      "people": [
+        {
+          "name": "Alan Scott Rudo",
+          "role": "Former Hawaii County housing specialist",
+          "legal": "Pleaded guilty; sentenced to 46 months (May 2026)"
+        },
+        {
+          "name": "Gary Charles Zamber",
+          "role": "Attorney / developer participant",
+          "legal": "Convicted at trial; sentenced to 70 months (Jan. 2026)"
+        },
+        {
+          "name": "Rajesh Pankaj Budhabhatti",
+          "role": "Businessman / development participant",
+          "legal": "Convicted at trial; sentenced to 90 months (Feb. 2026)"
+        },
+        {
+          "name": "Paul Joseph Sulla",
+          "role": "Attorney / development participant",
+          "legal": "Convicted at trial; sentenced to 60 months (Apr. 2026)"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: County housing official sentenced",
+          "url": "https://www.justice.gov/opa/pr/county-housing-official-sentenced-his-role-multimillion-dollar-scheme-receive-bribes-hawaii",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ: Businessman and two attorneys sentenced",
+          "url": "https://www.justice.gov/opa/pr/businessman-and-two-attorneys-sentenced-their-roles-multimillion-dollar-scheme-bribe-hawaii",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "The $11m+ in land and credits is not a housing-unit delivery metric or an amount of bribes.",
+        "Do not label every failed housing development fraudulent without a court record."
+      ]
+    },
+    {
+      "id": "census-contract-kickbacks",
+      "title": "Census Bureau employee-assistance contract kickbacks",
+      "region": "Maryland / federal",
+      "category": "Federal contracts",
+      "status": "pleaded",
+      "source_date": "2026-07-16",
+      "money": "$790,000",
+      "meaning": "Kickbacks associated with related-party contracting, not the entire employee-assistance contract value",
+      "summary": "Former Census Bureau official Camille Jones pleaded guilty and received a two-year sentence for steering contracts to a company owned by her relative and disguising kickbacks through purported consulting arrangements.",
+      "flow": [
+        "Census Bureau employee-assistance contract",
+        "YMJ Consulting (relative-owned subcontractor)",
+        "Kickbacks to program manager; falsified consulting paperwork"
+      ],
+      "people": [
+        {
+          "name": "Camille T. Jones",
+          "role": "Former Census Bureau supervisory program manager",
+          "legal": "Pleaded guilty; sentenced to 24 months (July 2026)"
+        },
+        {
+          "name": "Yolanda M. Jones",
+          "role": "YMJ Consulting owner and relative",
+          "legal": "Pleaded guilty (Aug. 2025); sentencing pending in July 2026 source"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: Census procurement scheme and sentencing",
+          "url": "https://www.justice.gov/opa/pr/former-census-bureau-program-manager-sentenced-prison-bribery-and-procurement-fraud",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ: Maryland office release",
+          "url": "https://www.justice.gov/usao-md/pr/former-census-bureau-program-manager-sentenced-bribery-and-procurement-fraud-conspiracy",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "Camille and Yolanda Jones are different individuals and their procedural outcomes differ.",
+        "A second $83,000 salary benefit to another relative is separate; the relative is unnamed."
+      ]
+    },
+    {
+      "id": "gsa-construction-bribery",
+      "title": "GSA construction subcontract steering for private benefits",
+      "region": "Maryland / federal",
+      "category": "Federal contracts",
+      "status": "pleaded",
+      "source_date": "2026-01-29",
+      "money": "Over $100,000",
+      "meaning": "Cash and other benefits obtained by GSA official; includes a sports car",
+      "summary": "Federal procurement official Lennie Miller and two construction-company owners entered guilty pleas in related contracting-bribery arrangements involving federal subcontract work.",
+      "flow": [
+        "GSA federal property subcontracting",
+        "Construction companies controlled by Brackins and Tillman",
+        "Cash and valuable benefits to agency representative"
+      ],
+      "people": [
+        {
+          "name": "Lennie Lamont Miller",
+          "role": "Former GSA contracting officer's representative",
+          "legal": "Pleaded guilty in Jan. 2026; sentencing not set in source"
+        },
+        {
+          "name": "Christopher Brackins",
+          "role": "Construction company owner",
+          "legal": "Pleaded guilty April 2025; sentencing not verified here"
+        },
+        {
+          "name": "James Tillman",
+          "role": "Construction company owner",
+          "legal": "Pleaded guilty Feb. 2025; sentencing not verified here"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: GSA official bribery conspiracy plea",
+          "url": "https://www.justice.gov/opa/pr/former-government-official-pleads-guilty-bribery-conspiracy",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "Amounts describe improper benefits, not the total value of all GSA contracts.",
+        "The Jan. 2026 DOJ release gave scheduled future dates for two co-defendants, not confirmed final sentencing outcomes."
+      ]
+    },
+    {
+      "id": "santos-campaign-finance",
+      "title": "False campaign-finance reporting and donor fraud",
+      "region": "New York / federal",
+      "category": "Campaign finance",
+      "status": "convicted",
+      "source_date": "2025-10-17",
+      "money": "87 months",
+      "meaning": "Original April 2025 sentence; commuted on Oct. 17, 2025, not currently serving that term",
+      "summary": "Former Representative George Santos admitted fraud involving campaign filings and donors. His treasurer Nancy Marks pleaded guilty to related reporting misconduct. The president commuted Santos's federal sentence in October 2025; the conviction remains part of the historical record.",
+      "flow": [
+        "Fake large-donor contributions in FEC reports",
+        "Falsified campaign financial eligibility",
+        "National party campaign-support program"
+      ],
+      "people": [
+        {
+          "name": "George Anthony Devolder Santos",
+          "role": "Former U.S. House representative",
+          "legal": "Pleaded guilty (2024); sentenced to 87 months (Apr. 2025); sentence commuted Oct. 17, 2025"
+        },
+        {
+          "name": "Nancy Marks",
+          "role": "Former campaign treasurer",
+          "legal": "Pleaded guilty (Oct. 2023); later sentencing not verified here"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: Santos plea, campaign donor methods",
+          "url": "https://www.justice.gov/usao-edny/pr/former-congressman-george-santos-pleads-guilty-wire-fraud-and-aggravated-identity",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ: Santos original sentence",
+          "url": "https://www.justice.gov/usao-edny/pr/ex-congressman-george-santos-sentenced-87-months-prison-wire-fraud-and-aggravated",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ: Marks guilty plea",
+          "url": "https://www.justice.gov/usao-edny/pr/congressional-campaign-treasurer-pleads-guilty-conspiring-congressional-candidate",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ Office of Pardon Attorney: commutation Oct. 17, 2025",
+          "url": "https://www.justice.gov/pardon/clemency-grants-president-donald-j-trump-2025-present",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "A presidential commutation changes enforcement of the sentence, not the historical plea.",
+        "Fraudulent FEC entries cannot be treated as real contributor transactions or added to legitimate donations."
+      ]
+    },
+    {
+      "id": "inkster-land-bribes",
+      "title": "Inkster mayor's city-owned land bribes",
+      "region": "Michigan",
+      "category": "City land & permits",
+      "status": "pleaded",
+      "source_date": "2025-08-14",
+      "money": "$100,000",
+      "meaning": "Bribe amount demanded; does not mean $100,000 was received or that the land was sold",
+      "summary": "Former Inkster mayor Patrick Wimberly pleaded guilty to demanding cash in connection with a city-owned parcel transaction and was sentenced to 24 months in federal prison.",
+      "flow": [
+        "City-owned parcel offered for sale",
+        "Private buyer cash payments to mayor",
+        "Mayor's official action to facilitate land deal"
+      ],
+      "people": [
+        {
+          "name": "Patrick Wimberly",
+          "role": "Former mayor of Inkster",
+          "legal": "Pleaded guilty; sentenced to 24 months (Aug. 2025)"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: former Inkster mayor sentenced",
+          "url": "https://www.justice.gov/usao-edmi/pr/former-inkster-mayor-sentenced-2-years-imprisonment-demanding-100000-bribes",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "The demand is not a verified payment total.",
+        "The source identifies a private party as Person A; identity is not inferred."
+      ]
+    },
+    {
+      "id": "foreign-energy-bribery",
+      "title": "Foreign oil procurement bribery prosecuted in U.S.",
+      "region": "International / U.S. federal",
+      "category": "Foreign influence",
+      "status": "convicted",
+      "source_date": "2026-09-21",
+      "money": "Over $500 million",
+      "meaning": "Approximate contract value associated with bribe schemes, not the amount of bribes",
+      "summary": "Former energy trader Javier Aguilar was convicted and sentenced in a case involving bribery of officials in Ecuador and Mexico to obtain oil and gas business. This is an overseas public-official bribery case prosecuted in the United States.",
+      "flow": [
+        "Energy trading and overseas oil contracts",
+        "Over $1m in planned/paid bribes to foreign public officials",
+        "Oil and gas procurement advantages in Ecuador and Mexico"
+      ],
+      "people": [
+        {
+          "name": "Javier Aguilar",
+          "role": "Former oil trader",
+          "legal": "Convicted in Ecuador bribery trial, pleaded guilty in related Mexico scheme; sentenced to 48 months (Sept. 2026)"
+        }
+      ],
+      "sources": [
+        {
+          "label": "DOJ: Aguilar sentenced for foreign-government bribery",
+          "url": "https://www.justice.gov/opa/pr/mexican-national-sentenced-scheme-bribe-ecuadorian-and-mexican-government-officials",
+          "kind": "Official federal source"
+        },
+        {
+          "label": "DOJ: oil trader's $500m contracts",
+          "url": "https://www.justice.gov/usao-edny/pr/ex-energy-trader-vitol-sentenced-48-months-prison-500-million-international-bribery",
+          "kind": "Official federal source"
+        }
+      ],
+      "limits": [
+        "No U.S. elected official is accused in these public records.",
+        "Contract value, illegal payment totals, and forfeiture are three different quantities."
+      ]
     }
-  ]
+  ],
+  "updated_utc": "2026-11-04"
 }
