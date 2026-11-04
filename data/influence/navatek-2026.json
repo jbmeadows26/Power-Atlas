@@ -1,0 +1,142 @@
+{
+  "schema": "power-atlas.influence-case.v1",
+  "id": "navatek-defense-appropriations-2018-2026",
+  "updated_utc": "2026-11-04",
+  "status": "source-attributed-case-study-not-court-finding",
+  "source_tiers": {
+    "primary": 1,
+    "investigative_reporting": 2
+  },
+  "facts": [
+    {
+      "id": "contribution",
+      "amount_usd": 150000,
+      "description": "shell company contribution to 1820 PAC",
+      "classification": "documented-transaction",
+      "sources": [
+        "fec-mur-7690",
+        "doj-plea"
+      ]
+    },
+    {
+      "id": "civil_penalty",
+      "amount_usd": 325000,
+      "description": "PacMar Technologies LLC FEC conciliation",
+      "classification": "official-disposition",
+      "sources": [
+        "fec-mur-7690"
+      ]
+    },
+    {
+      "id": "fraud_sentence",
+      "months": 87,
+      "description": "Martin Kao federal sentence for fraud and related financial offenses",
+      "classification": "official-sentence-distinct-from-political-bribery",
+      "sources": [
+        "doj-sentence"
+      ]
+    }
+  ],
+  "reported_funding_context": [
+    {
+      "description": "2018 Maine hull research proposal",
+      "amount_usd": 8000000,
+      "stage": "proposal-appropriation-report",
+      "source": "propublica-maine"
+    },
+    {
+      "description": "2019 Maine defense budget research items",
+      "amount_usd": 21500000,
+      "stage": "committee-report-lines-not-contractor-awards",
+      "source": "propublica-maine"
+    },
+    {
+      "description": "2020 expectation Kao reported for support",
+      "amount_usd": 32000000,
+      "stage": "Kao-claim-not-verified-award",
+      "source": "propublica-maine"
+    },
+    {
+      "description": "South Carolina Navy research project",
+      "amount_usd": 9500000,
+      "stage": "appropriation-not-verified-contract-disbursement",
+      "source": "propublica-south-carolina"
+    }
+  ],
+  "subjects": [
+    {
+      "name": "Martin Kao",
+      "role": "former contractor CEO",
+      "status": "convicted campaign-finance/other fraud offenses"
+    },
+    {
+      "name": "Susan Collins",
+      "role": "Maine senator",
+      "status": "denies wrongdoing; no bribery conviction in source set"
+    },
+    {
+      "name": "1820 PAC",
+      "role": "supporting super PAC",
+      "status": "FEC dismissed listed refund allegation"
+    },
+    {
+      "name": "Lindsey Graham",
+      "role": "former South Carolina senator",
+      "status": "reported investigation; no bribery conviction in source set"
+    },
+    {
+      "name": "James Clyburn",
+      "role": "South Carolina representative",
+      "status": "denies wrongdoing; no bribery conviction in source set"
+    },
+    {
+      "name": "Joe Wilson",
+      "role": "South Carolina representative",
+      "status": "denies wrongdoing; no bribery conviction in source set"
+    },
+    {
+      "name": "Duke Hartman; Joshua Knight; Integer Technologies",
+      "role": "former contractor executives/new firm",
+      "status": "reported investigation subjects; not charged"
+    }
+  ],
+  "sources": [
+    {
+      "id": "fec-mur-7690",
+      "url": "https://www.fec.gov/data/legal/matter-under-review/7690/",
+      "tier": 1
+    },
+    {
+      "id": "doj-plea",
+      "url": "https://www.justice.gov/archives/opa/pr/former-government-contractor-executive-pleads-guilty-unlawful-campaign-contributions",
+      "tier": 1
+    },
+    {
+      "id": "doj-sentence",
+      "url": "https://www.justice.gov/usao-hi/pr/former-hawaii-ceo-sentenced-87-months-imprisonment-covid-relief-fraud-and-bank-fraud",
+      "tier": 1
+    },
+    {
+      "id": "propublica-maine",
+      "url": "https://www.propublica.org/article/fbi-susan-collins-navatek-campaign-donations-investigation",
+      "tier": 2
+    },
+    {
+      "id": "propublica-response",
+      "url": "https://www.propublica.org/article/debunking-susan-collins-fbi-navatek-investigation-claims",
+      "tier": 2
+    },
+    {
+      "id": "propublica-south-carolina",
+      "url": "https://www.propublica.org/article/navatek-lindsey-graham-jim-clyburn-fbi-anti-corruption-bribery",
+      "tier": 2
+    }
+  ],
+  "limitations": [
+    "No direct contract-award reconciliation",
+    "A documented contribution does not prove bribery",
+    "No allegation about politicians is treated as an adjudicated finding",
+    "FEC dismissed the stated PAC/treasurer refund allegation",
+    "Ingested as a curated external record not included in national coverage counts"
+  ]
+}
