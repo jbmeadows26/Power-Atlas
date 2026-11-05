@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Power Atlas: follow campaign funding in every U.S. federal election cycle from 2002 to 2026, with official FEC benchmarks, donor records and source-linked limitations.">
+<title>Election Money | Power Atlas</title>
+<style>
+:root{color-scheme:light;--ink:#182b30;--muted:#66787c;--teal:#26776c;--line:#dce8e5;--bg:#f6f8f7;--card:#fff;--amber:#a97940;--rep:#ca796b;--dem:#638dbc;--both:#9983b9;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink)}a{color:#176f67}button,select,input{font:inherit}button{cursor:pointer}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #b28a46;outline-offset:3px}
+header{position:sticky;top:0;z-index:9;background:#fffefef4;border-bottom:1px solid var(--line);backdrop-filter:blur(12px)}
+nav{max-width:1190px;margin:auto;padding:15px 20px;display:flex;align-items:center;gap:22px;justify-content:space-between;flex-wrap:wrap}
+nav .brand{font-weight:850;color:#205448;text-decoration:none;letter-spacing:.03em}nav .links{display:flex;gap:15px;flex-wrap:wrap;font-size:.87rem}
+main{max-width:1190px;margin:auto;padding:30px 20px 70px}
+.eyebrow{color:var(--teal);font-size:.75rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:clamp(2.6rem,6vw,4.8rem);line-height:1.06;letter-spacing:-.055em;margin:12px 0 18px;max-width:950px}
+h1 em{color:var(--teal);font-style:normal}h2{font-size:clamp(1.2rem,2.5vw,1.5rem);line-height:1.25;margin:0 0 9px;letter-spacing:-.02em}
+p{line-height:1.58}p.lead{font-size:1.08rem;color:#526b70;max-width:820px;margin:0 0 18px}
+.small{font-size:.82rem;color:var(--muted);line-height:1.5}.fine{font-size:.76rem;color:#778488;line-height:1.5}
+.pill{display:inline-block;border-radius:99px;background:#e8f4f0;padding:5px 10px;color:#326b63;font-weight:750;font-size:.72rem}
+.sectionLabel{font-size:.78rem;text-transform:uppercase;letter-spacing:.13em;color:#488076;font-weight:800;margin:26px 0 8px}
+.panel{padding:24px;border:1px solid var(--line);border-radius:18px;background:var(--card);box-shadow:0 9px 27px #123c3309;margin-top:16px}
+.sectionTitle{margin:28px 0 15px}
+.tabs{display:flex;gap:8px;flex-wrap:wrap}
+.tabs button{padding:10px 15px;border:1px solid #c9dcd5;background:#fff;color:#34584f;border-radius:10px;font-weight:720;font-size:.89rem}
+.tabs button[aria-pressed="true"]{background:#1f7567;border-color:#1f7567;color:#fff}
+.yearGrid{display:flex;flex-wrap:wrap;gap:7px;margin:17px 0 0}
+.yearGrid button{border-radius:9px;background:#fff;border:1px solid #cbdcd8;color:#50645e;padding:9px 11px;font-size:.8rem;font-weight:700}
+.yearGrid button[aria-pressed="true"]{background:#23473f;color:#fff;border-color:#23473f}
+.yearGrid button:hover:not([aria-pressed="true"]),.tabs button:hover:not([aria-pressed="true"]){background:#eef5f2}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:18px 0}
+.metric{background:white;border:1px solid var(--line);border-radius:16px;padding:21px 17px}
+.metric .big{font-weight:850;letter-spacing:-.035em;font-size:clamp(1.25rem,2.8vw,2.25rem);color:#236c61;overflow-wrap:anywhere}
+.metric .label{margin-top:8px;color:#58726f;font-size:.83rem;font-weight:650}
+.metric .detail{margin-top:7px;font-size:.72rem;color:#87918f}
+.guide{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:16px 0}
+.guide>div{background:#eaf3f0;border-radius:14px;padding:16px;line-height:1.48;font-size:.87rem;color:#4c6663}
+.guide b{display:block;color:#225e54;margin-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.wide{grid-column:1/-1}
+.chart{margin-top:18px}.barrow{display:grid;grid-template-columns:50px 1fr 95px;align-items:center;gap:12px;margin:10px 0;font-size:.82rem;line-height:1.1}
+.barrow small{display:block;color:#6a8580;margin-top:3px}.barrow b:last-child{text-align:right;font-variant-numeric:tabular-nums}
+.track{height:21px;background:#eaf1ee;border-radius:6px;overflow:hidden}
+.fill{height:100%;background:#49897e;border-radius:5px;min-width:1px}
+.barrow.active .fill{background:#ba8c48}
+.barrow.pres .fill{background:#557ba5}
+.barrow.pres.active .fill{background:#ba8c48}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0;font-size:.76rem;color:#617777}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px}
+.noteBox{padding:11px 13px;border-left:3px solid var(--amber);background:#faf6ec;color:#5c625b;font-size:.84rem;line-height:1.55;margin:14px 0 0}
+.statLine{display:flex;gap:12px;align-items:baseline;margin:12px 0;flex-wrap:wrap}.statLine strong{font-size:1.8rem;color:#286f64;letter-spacing:-.03em}.statLine span{font-size:.86rem;color:#637773}
+.cycleGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.sourceCard{padding:13px;border:1px solid var(--line);border-radius:10px;background:#f9fbfa}
+.sourceCard strong{display:block;margin-bottom:3px;font-size:.88rem}.sourceCard p{font-size:.8rem;color:#607772;margin:4px 0 9px}
+.filterGrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin:18px 0 10px}
+label{font-size:.74rem;color:#59736d;font-weight:740;display:flex;flex-direction:column;gap:7px}
+input,select{background:#fff;border:1px solid #cbdcd6;color:#233d38;padding:10px;border-radius:9px;min-width:0;width:100%}
+.tableWrap{overflow-x:auto}table{width:100%;border-collapse:collapse;text-align:left}
+th,td{padding:12px 10px;border-bottom:1px solid #e5eeea}
+th{color:#677d78;font-size:.74rem;letter-spacing:.03em;text-transform:uppercase}
+td{font-size:.85rem}td.money{text-align:right;white-space:nowrap;font-weight:820;font-variant-numeric:tabular-nums}
+td.rank{color:#80918c;font-size:.77rem}td.name{font-weight:760}
+.tag{display:inline-block;border-radius:5px;padding:4px 6px;background:#f6eadd;color:#91642f;font-size:.7rem}
+.controlsRow{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin:8px 0 13px}
+.lightButton{padding:8px 12px;background:white;color:#2f655b;border:1px solid #bfd6cd;border-radius:8px;font-weight:700;font-size:.78rem}
+.sourceFooter{margin-top:30px;padding-top:20px;border-top:1px solid var(--line)}
+.sourceFooter details{margin:12px 0;background:#fff;border-radius:10px;padding:12px 14px;border:1px solid var(--line)}
+summary{cursor:pointer;font-weight:750;color:#37655b}details p,details li{font-size:.86rem;color:#5b7370;line-height:1.54}
+.notice{background:#fff7e7;border:1px solid #e8d3ab;color:#745c3f;border-radius:13px;padding:15px;font-size:.85rem;line-height:1.48}
+#availabilityMsg{margin-top:12px}
+@media(max-width:800px){.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.guide{grid-template-columns:1fr}.filterGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.filterGrid label:first-child{grid-column:1/-1}}
+@media(max-width:600px){main{padding:20px 14px 50px}.panel{padding:16px}.grid{grid-template-columns:1fr}.wide{grid-column:auto}.metric{padding:16px 12px}.metrics{gap:8px}.barrow{grid-template-columns:40px 1fr 78px;gap:8px;font-size:.76rem}.filterGrid{grid-template-columns:1fr 1fr}.cycleGrid{grid-template-columns:1fr}
+table.donors thead{display:none}table.donors,table.donors tbody{display:block}
+table.donors tr{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:4px 9px;padding:11px 0;border-bottom:1px solid var(--line)}
+table.donors td{padding:0;border:none}table.donors td.rank{grid-row:1;grid-column:1}table.donors td.name{grid-row:1;grid-column:2;overflow-wrap:anywhere}table.donors td.money{grid-row:1;grid-column:3}
+table.donors td.party,table.donors td.sector,table.donors td.flagged{grid-column:2/-1;font-size:.76rem;color:#6a7e79}
+}
+</style></head><body>
+<header><nav><a class="brand" href="index.html">◈ POWER ATLAS</a><div class="links"><a href="index.html">Research home</a><a href="navatek.html">Money & influence</a><a href="donor-intelligence.html">Legacy donor explorer</a></div></nav></header>
+<main>
+<div class="eyebrow">Follow the money · Federal campaign finance</div>
+<h1>Every election cycle.<br><em>One money trail.</em></h1>
+<p class="lead">Presidential contests and midterms are part of the same political financing system. Compare two decades of federal campaign fundraising, independent spending, PACs, and the largest publicly reported donors—all with a clear path back to the sources.</p>
+<span class="pill">13 federal cycles · 2002–2026</span> <span class="pill">FEC official reports + attributed donor research</span>
+<div class="guide">
+<div><b>1 · How much money?</b>Compare the same reporting window across election cycles. A record-high fundraising bar doesn't tell you who contributed.</div>
+<div><b>2 · Who gave it?</b>Browse documented major donors in the cycles where a ranked dataset has been loaded, without hiding missing years.</div>
+<div><b>3 · Where did it go?</b>Candidate money, PAC receipts and independent spending are different measurements. Don't add them together.</div>
+</div>
+<section class="panel" aria-labelledby="focusTitle">
+<h2 id="focusTitle">Choose your view</h2>
+<div class="tabs" id="focusTabs" role="group" aria-label="Election cycle categories"></div>
+<div class="yearGrid" id="cycleButtons" role="group" aria-label="Choose election year"></div>
+<p class="small" id="selectedDescription" aria-live="polite">Loading source-backed election cycles…</p>
+</section>
+<section aria-labelledby="cycleSummary" class="sectionTitle"><div class="sectionLabel">For the selected cycle</div><h2 id="cycleSummary">Money at a glance</h2>
+<div class="metrics" id="metricGrid"></div>
+<p class="small" id="metricQualification"></p>
+</section>
+<div class="grid">
+<section class="panel wide" aria-labelledby="historyTitle"><div class="sectionLabel">Comparable across 13 election cycles</div><h2 id="historyTitle">Congressional fundraising, same point every election</h2>
+<p class="small">House and Senate candidate receipts from the start of the pre-election year through June 30 of the election year (18 months). This makes the partial 2026 report comparable with previous cycles.</p>
+<div class="chart" id="congressTrend" role="img" aria-label="First 18 months of congressional candidate receipts, 2002 through 2026"></div>
+<p class="noteBox">What it means: More money has flowed into congressional candidate committees over time. These amounts are nominal dollars, not inflation-adjusted, and don't by themselves measure political influence.</p></section>
+<section class="panel" aria-labelledby="presTitle"><div class="sectionLabel">Presidential years</div><h2 id="presTitle">What presidential campaigns raised</h2><p class="small">Candidate committee receipts during the full 24 months of each presidential election cycle, where official totals have been recorded.</p>
+<div id="presTrend" class="chart" role="img" aria-label="Presidential candidate receipts 2004 through 2024"></div>
+<p class="noteBox">These are campaign receipts, not the total cost of the presidential election. Outside groups and party committees operate separately.</p></section>
+<section class="panel" aria-labelledby="moneyKindsTitle"><div class="sectionLabel">Keep the categories separate</div><h2 id="moneyKindsTitle">PACs and outside spending</h2><p class="small">Values shown for the selected cycle only, from the applicable FEC published reporting period.</p>
+<div id="moneyKinds"></div><p class="noteBox">PAC receipts can include transfers between political organizations. Independent expenditures are a different spending measure. Summing them would risk counting the same dollars more than once.</p></section>
+</div>
+<section class="panel" aria-labelledby="donorTitle"><div class="sectionLabel">Donor intelligence</div><h2 id="donorTitle">Who are the largest donors?</h2>
+<p class="small">These are <strong>published donor lists</strong>, not an exhaustive FEC transaction database. Brennan Center's 40-donor midterm lists and OpenSecrets' shorter presidential-cycle extracts have different methods and sizes, so cross-year list totals are not comparable.</p>
+<div id="donorStatus" class="notice" role="status">Loading source-linked donor lists…</div>
+<div class="filterGrid">
+<label>Find a donor<input type="search" id="search" placeholder="Name, sector or company" autocomplete="off"></label>
+<label>Party alignment<select id="donorParty"><option value="">All</option><option value="Republican">Republican</option><option value="Democratic">Democratic</option><option value="Both parties">Both parties</option><option value="Unclassified">Unclassified</option></select></label>
+<label>Industry / sector<select id="donorSector"><option value="">All sectors</option></select></label>
+<label>Sort<select id="donorSort"><option value="rank">Source rank</option><option value="amount">Largest contribution</option><option value="name">Donor name</option></select></label>
+</div>
+<div class="controlsRow"><span class="small" id="donorCount"></span><button class="lightButton" id="clearFilters" type="button">Clear filters</button></div>
+<div class="tableWrap"><table class="donors"><thead><tr><th>Rank</th><th>Donor</th><th>Alignment</th><th>Sector</th><th>Classification</th><th style="text-align:right">Amount</th></tr></thead><tbody id="donorRows"></tbody></table></div>
+<div id="donorSource" class="small" style="margin-top:14px"></div>
+</section>
+<section class="panel" aria-labelledby="allYearsTitle"><div class="sectionLabel">All 13 cycles in the same place</div><h2 id="allYearsTitle">Federal election-cycle directory</h2><p class="small">Every two-year federal election cycle has congressional elections. Presidential cycles additionally elect a president. Primaries and special elections fall within the cycle totals rather than appearing as separate nationwide totals.</p><div id="yearDirectory" class="cycleGrid"></div>
+<div class="notice" style="margin-top:18px"><strong>State and local coverage:</strong> Governors, state legislatures, judicial elections, ballot measures, municipalities and many off-year elections are not covered by federal FEC totals. They require separate state/local disclosure records. These categories are recorded as coverage gaps, not silently merged into federal figures. <a href="https://www.followthemoney.org/" target="_blank" rel="noopener">Explore state-level finance data</a>.</div>
+</section>
+<section class="sourceFooter" aria-labelledby="sourcesTitle"><h2 id="sourcesTitle">Sources, caveats and audit trail</h2>
+<details open><summary>What does “all election cycles” mean here?</summary><p>Federal two-year cycle coverage is 2002 through 2026. All 13 have the FEC's comparable congressional first-18-month benchmarks; 12 have full 24-month congressional totals. The 2026 FEC statistics here end June 30, 2026, although the separately sourced Brennan donor extract ends October 14. We have not loaded pre-2002 federal history, 2028 filings, a comprehensive donor ledger or all 50 states' campaign-finance transactions.</p></details>
+<details><summary>What's being measured?</summary><p>Congressional and presidential figures are candidate committee receipts. PAC receipts are what registered federal PACs report collecting. Party receipts are federal political-party committee funds. Independent expenditures are separate outlays supporting or opposing candidates without coordinating with their campaigns. None of these categories is a substitute for a transaction-level accounting of donors to recipients and spending.</p></details>
+<details><summary>Why are some donor years missing?</summary><p>The Brennan Center's <a href="https://www.brennancenter.org/our-work/research-reports/big-changes-makeup-biggest-midterm-donors" target="_blank" rel="noopener">top-40 comparison</a> covers only 2014, 2018, 2022 and 2026. OpenSecrets provides the additional partial extracts displayed for 2020 and 2024. Other federal cycles have FEC aggregate numbers here but no comparable donor ranking yet. Missing lists do not mean there were no large donors.</p></details>
+<details><summary>Sources of record</summary>
+<p><a href="https://www.fec.gov/campaign-finance-data/campaign-finance-statistics/" target="_blank" rel="noopener">FEC campaign finance statistics</a> · <a href="https://www.fec.gov/data/browse-data/" target="_blank" rel="noopener">FEC bulk datasets and committee records</a> · <a href="https://www.opensecrets.org/elections-overview/biggest-donors" target="_blank" rel="noopener">OpenSecrets donor rankings</a> · <a href="https://www.brennancenter.org/our-work/research-reports/big-changes-makeup-biggest-midterm-donors" target="_blank" rel="noopener">Brennan Center top-40 source</a>.</p>
+<p>Inspect the exact local dataset: <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/fec-federal-cycle-overview-2002-2026.json" target="_blank" rel="noopener">FEC cycle benchmarks</a>, <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/brennan-top40-midterms-2014-2026.json" target="_blank" rel="noopener">Brennan donor records</a>, and <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/opensecrets-presidential-donor-excerpts-2020-2024.json" target="_blank" rel="noopener">OpenSecrets excerpts</a>.</p>
+</details>
+<p class="fine" id="health">Loading citation-backed data…</p></section>
+</main>
+<script>
+'use strict';
+const root='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/money-influence/';
+const urls={cycles:root+'fec-federal-cycle-overview-2002-2026.json',brennan:root+'brennan-top40-midterms-2014-2026.json',pres:root+'opensecrets-presidential-donor-excerpts-2020-2024.json'};
+const app={focus:'all',year:2024,cycles:[],donors:[],brennan:null,pres:null};
+const el=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const compact=n=>n==null?'—':(n>=1000?'$'+(n/1000).toFixed(2)+'B':'$'+n.toFixed(1)+'M');
+const donorShort=n=>n>=1e9?'$'+(n/1e9).toFixed(2)+'B':'$'+(n/1e6).toFixed(1)+'M';
+const mk=(tag,txt,cls)=>{const n=document.createElement(tag);if(txt!==undefined)n.textContent=txt;if(cls)n.className=cls;return n};
+const wipe=id=>{const n=el(id);n.replaceChildren();return n};
+const filteredCycles=()=>app.cycles.filter(c=>app.focus==='all'||c.type===app.focus);
+const current=()=>app.cycles.find(c=>c.cycle===app.year);
+function renderChoices(){
+const tabs=wipe('focusTabs');
+for(const [key,name] of [['all','All cycles'],['presidential','Presidential years'],['midterm','Midterm years']]){const b=mk('button',name);b.type='button';b.setAttribute('aria-pressed',String(app.focus===key));b.onclick=()=>{app.focus=key;const years=filteredCycles().map(c=>c.cycle);if(!years.includes(app.year))app.year=years[years.length-1];render()};tabs.append(b)}
+const root=wipe('cycleButtons');for(const c of filteredCycles()){const b=mk('button',c.cycle+(c.type==='presidential'?' ★':''));b.type='button';b.setAttribute('aria-pressed',String(c.cycle===app.year));b.title=c.type==='presidential'?'Presidential and congressional cycle':'Congressional midterm cycle';b.onclick=()=>{app.year=c.cycle;render()};root.append(b)}
+el('selectedDescription').textContent=app.year+' · '+(current().type==='presidential'?'Presidential + congressional elections':'Congressional midterms')+' · '+(app.year===2026?'2026 FEC report currently covers 18 of 24 months':'Full-cycle congressional FEC reporting available');
+}
+function renderMetrics(){
+const c=current();const cards=[
+{value:compact(c.congressionalReceipts24M??c.congressionalReceipts18M),label:'House + Senate candidates raised',detail:c.coverage==='complete_24mo'?'24-month receipts':'18-month receipts · partial'},
+{value:compact(c.presidentialReceipts24M),label:'Presidential candidates raised',detail:c.type==='presidential'?(c.presidentialReceipts24M==null?'Not loaded':'24-month receipts'):'Not a presidential election'},
+{value:compact(c.pacReceipts24M??c.pacReceipts18M),label:'Federal PACs received',detail:c.pacReceipts24M!=null?'24-month receipts':c.pacReceipts18M!=null?'18-month receipts':'Not yet indexed'},
+{value:compact(c.independentExpenditures24M??c.independentExpenditures18M),label:'Independent expenditures',detail:c.independentExpenditures24M!=null?'24-month spending':c.independentExpenditures18M!=null?'18-month spending':'Not yet indexed'}];
+const grid=wipe('metricGrid');cards.forEach(x=>{const box=mk('div',undefined,'metric');box.append(mk('div',x.value,'big'),mk('div',x.label,'label'),mk('div',x.detail,'detail'));grid.append(box)});
+el('metricQualification').textContent=c.cycle===2026?'Important: Official FEC fundraising and spending summary covers only through June 30, 2026. The Brennan donor ranking separately ends October 14; neither is a final-cycle total.':'FEC summary amounts use nominal dollars; disbursement and receipt categories cannot be added to form a single total. Hover or open source notes for original reports.';
+}
+function bars(id,items,valueKey,maxValue,formatLabel){
+const target=wipe(id),max=maxValue||Math.max(...items.map(x=>x[valueKey]||0),1);
+items.forEach(x=>{const val=x[valueKey],row=mk('div',undefined,'barrow'+(x.cycle===app.year?' active':'')+(x.type==='presidential'?' pres':'')),lab=mk('span',String(x.cycle)),track=mk('div',undefined,'track'),fill=mk('div',undefined,'fill');
+fill.style.width=(val==null?0:100*val/max)+'%';track.append(fill);const right=mk('b',val==null?'—':(formatLabel||compact)(val));row.append(lab,track,right);
+row.setAttribute('title',x.cycle+' '+(x.type==='presidential'?'presidential':'midterm')+': '+(val==null?'missing':compact(val)));
+target.append(row);
+})}
+function renderCharts(){
+bars('congressTrend',filteredCycles(),'congressionalReceipts18M');
+bars('presTrend',app.cycles.filter(c=>c.presidentialReceipts24M!==null&&c.presidentialReceipts24M!==undefined),'presidentialReceipts24M');
+const c=current(),box=wipe('moneyKinds'),stats=[['PAC receipts',c.pacReceipts24M??c.pacReceipts18M],['Party committee receipts',c.partyReceipts24M??c.partyReceipts18M],['Independent expenditures',c.independentExpenditures24M??c.independentExpenditures18M]];
+for(const [label,val] of stats){const row=mk('div',undefined,'statLine');row.append(mk('strong',compact(val)),mk('span',label));box.append(row)}
+const p=mk('p',undefined,'small');p.append('Original FEC financial summary: ');const a=mk('a','Read the report');a.href=c.otherSource||c.congressionalSource18;a.target='_blank';a.rel='noopener';p.append(a);box.append(p);
+}
+function donorRows(){return app.donors.filter(r=>r.cycle===app.year)}
+function renderDonorFilters(rows){const sel=el('donorSector'),prior=sel.value;sel.replaceChildren(new Option('All sectors',''));Array.from(new Set(rows.map(r=>r.sector).filter(Boolean))).sort().forEach(t=>sel.add(new Option(t,t)));sel.value=Array.from(sel.options).some(o=>o.value===prior)?prior:''}
+function renderDonors(){
+const rows=donorRows(),status=el('donorStatus');
+let desc='No top-donor ranking has been loaded for '+app.year+'. This is a data coverage gap, not evidence of zero contributions.';
+if(app.year===2026||app.year===2022||app.year===2018||app.year===2014){desc='Brennan Center: 40 ranked donor groups · Midterm-cycle snapshot through October 14 · Curated third-party research, not the complete FEC ledger.'}
+if(app.year===2024)desc='OpenSecrets: 11 leading 2024 donor entries · Partial excerpt, not a complete top-40 list · Full 2024 election cycle.';
+if(app.year===2020)desc='OpenSecrets: 7 leading 2020 donor entries · Partial excerpt, not a complete top-40 list · Full 2020 election cycle.';
+status.textContent=desc;
+const source=el('donorSource');source.replaceChildren();
+if(rows.length){let src=app.year===2024||app.year===2020?'https://www.opensecrets.org/elections-overview/biggest-donors?cycle='+app.year:'https://www.brennancenter.org/our-work/research-reports/big-changes-makeup-biggest-midterm-donors';
+const a=mk('a','See the original ranked source');a.href=src;a.target='_blank';a.rel='noopener';source.append(a,document.createTextNode(' · Labels and groupings follow the source; dollar amounts in nominal USD.'))}
+renderDonorFilters(rows);drawDonorTable();}
+function drawDonorTable(){const all=donorRows(),term=el('search').value.trim().toLowerCase(),party=el('donorParty').value,sector=el('donorSector').value;
+let arr=all.filter(x=>(!term||(x.donor+' '+(x.sector||'')).toLowerCase().includes(term))&&(!party||x.partySupported===party)&&(!sector||x.sector===sector));
+const sort=el('donorSort').value;
+arr.sort((a,b)=>sort==='amount'?b.amountUsd-a.amountUsd:sort==='name'?a.donor.localeCompare(b.donor):a.rank-b.rank);
+el('donorCount').textContent=arr.length+' of '+all.length+' published entries shown';
+const body=wipe('donorRows');
+if(!arr.length){const tr=mk('tr');const td=mk('td',all.length?'No donors match those filters.':'No ranked donor list ingested for this election cycle.');td.colSpan=6;tr.append(td);body.append(tr);return}
+for(const r of arr){const tr=mk('tr'),flagged=mk('td',undefined,'flagged');if(r.darkMoney===true){flagged.append(mk('span','Dark-money group','tag'))}else if(r.darkMoney===false)flagged.textContent='Not flagged';else flagged.textContent='Not classified';
+tr.append(mk('td','#'+r.rank,'rank'),mk('td',r.donor,'name'),mk('td',r.partySupported,'party'),mk('td',r.sector||'Not indexed','sector'),flagged,mk('td',money(r.amountUsd),'money'));body.append(tr)}
+}
+function directory(){const target=wipe('yearDirectory');app.cycles.forEach(c=>{const card=mk('div',undefined,'sourceCard');card.append(mk('strong',c.cycle+' · '+(c.type==='presidential'?'President + Congress':'Congressional midterms')),mk('p','Congressional candidate receipts: '+compact(c.congressionalReceipts24M??c.congressionalReceipts18M)+(c.cycle===2026?' (partial)':' (full cycle)')));
+const btn=mk('button','Explore '+c.cycle,'lightButton');btn.onclick=()=>{app.focus='all';app.year=c.cycle;render();window.scrollTo({top:0,behavior:'smooth'})};card.append(btn);target.append(card)})}
+function render(){renderChoices();renderMetrics();renderCharts();renderDonors();directory()}
+for(const id of ['search','donorParty','donorSector','donorSort'])el(id).addEventListener(id==='search'?'input':'change',drawDonorTable);
+el('clearFilters').onclick=()=>{for(const id of ['search','donorParty','donorSector'])el(id).value='';el('donorSort').value='rank';drawDonorTable()};
+(async()=>{
+try{const [c,b,p]=await Promise.all(Object.values(urls).map(url=>fetch(url,{cache:'no-store'}).then(r=>{if(!r.ok)throw Error(url+' HTTP '+r.status);return r.json()})));
+if(c.cycles.length!==13||b.records.length!==160||p.donors.length!==18)throw Error('unexpected source row count');
+if(c.cycles.some(row=>typeof row.cycle!=='number'||typeof row.congressionalReceipts18M!=='number'))throw Error('invalid election-cycle records');
+app.cycles=c.cycles;app.brennan=b;app.pres=p;app.donors=[...b.records.map(r=>({cycle:r.cycle,rank:r.rank,donor:r.donor,amountUsd:r.amountUsd,partySupported:r.partySupported,sector:r.sector,darkMoney:r.darkMoney})),...p.donors];render();el('health').textContent='Verified source snapshots loaded: 13 FEC cycle summaries; 160 Brennan Center midterm donor entries; 18 OpenSecrets presidential-cycle donor excerpts. Snapshot dated 5 Nov 2026. No undisclosed totals inferred.'}
+catch(e){el('metricGrid').textContent='Source files could not be loaded. No missing data was replaced with guesses.';el('donorStatus').textContent='Source temporarily unavailable. '+e.message;el('health').textContent='Load error: '+e.message;console.error(e)}
+})();
+</script></body></html>
