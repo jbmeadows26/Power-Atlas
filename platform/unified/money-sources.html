@@ -63,7 +63,7 @@ main{max-width:1220px;margin:auto;padding:30px 20px 66px}.hero{padding:30px 0 12
 <p class="callout"><b>How to read this:</b> “Individual contributions,” “committee contributions,” and “transfers” are reported categories—not identified people or proven transfers to a particular politician. Receipts and spending aren't expected to be equal because committees can carry balances across periods.</p>
 </section>
 <section class="section" id="lobbying" aria-labelledby="lobbyTitle">
-<div class="sectionIntro"><div><span class="sectionKicker">02 / Official lobbying records</span><h2 id="lobbyTitle">Who lobbied whom?</h2><p>Choose an organization to see the client and registered lobbying firm named in published filings. A lobbying registration isn't a donation or evidence of influence.</p></div></div>
+<div class="sectionIntro"><div><span class="sectionKicker">02 / Official lobbying records</span><h2 id="lobbyTitle">Who reported lobbying activity?</h2><p>Choose an organization to see the client and registered lobbying firm named in published filings. A lobbying registration isn't a donation or evidence of influence.</p></div></div>
 <div class="splitBalanced">
 <div class="panel"><div class="panelHeading"><h3>Organizations in indexed filings</h3><span class="cycleTag">2025–2026 bounded sample</span></div><div id="lobbyChart" class="lobbyRank"><p class="fine">Loading lobbying records…</p></div><p class="fine">Counts reflect filings matched by earlier issue-specific searches, not all organizations' lobbying nationwide.</p></div>
 <div class="panel" id="lobbyDetail"><h3>Choose an organization</h3><p class="helper">Its reported registrant and an example source filing will appear here.</p></div></div>
@@ -171,6 +171,15 @@ const statusColors={indexed_partial:'#77d9d4',curated_excerpt:'#eab968',link_onl
 const sourceFilterLabels=[['','All sources'],['indexed_partial','Indexed'],['curated_excerpt','Extracts'],['link_only','Linked'],['research_only','Research'],['archive_only','Archive']];
 function sourceButtons(){const filter=wipe('statusFilters');for(const [value,label] of sourceFilterLabels){const b=elem('button',label);b.type='button';b.setAttribute('aria-pressed',String(S.status===value));b.onclick=()=>{S.status=value;S.expanded=true;sourceButtons();renderSources()};filter.append(b)}
 const legend=wipe('sourceLegend');for(const [status,label] of sourceFilterLabels.slice(1)){const count=S.registry.sources.filter(x=>x.status===status).length;const b=elem('button');b.type='button';b.title='Filter to '+label;const swatch=elem('i');swatch.style.background=statusColors[status];b.append(swatch,elem('b',String(count)),elem('small',sourceNames[status]));b.onclick=()=>{S.status=status;S.expanded=true;sourceButtons();renderSources();el('statusFilters').scrollIntoView({behavior:'smooth',block:'center'})};legend.append(b)}}
+function sourceRing(){
+const total=S.registry.sources.length,order=['indexed_partial','curated_excerpt','link_only','research_only','archive_only'];
+let position=0;const chunks=[];
+for(const kind of order){const count=S.registry.sources.filter(s=>s.status===kind).length,from=position;position+=100*count/Math.max(total,1);
+chunks.push(statusColors[kind]+' '+from.toFixed(4)+'% '+position.toFixed(4)+'%')}
+const ring=document.querySelector('.ring');ring.style.background='conic-gradient('+chunks.join(',')+')';
+ring.setAttribute('aria-label','Source availability: '+order.map(k=>S.registry.sources.filter(s=>s.status===k).length+' '+sourceNames[k]).join(', '));
+ring.querySelector('.center strong').textContent=String(total);
+}
 function filteredSources(){const q=el('sourceQuery').value.trim().toLowerCase(),cat=el('sourceCategory').value,role=el('sourceRole').value;
 return S.registry.sources.filter(x=>(!q||(x.name+' '+x.coverage+' '+x.value+' '+(x.jurisdiction||'')).toLowerCase().includes(q))&&(!cat||x.category===cat)&&(!role||x.roles.includes(role))&&(!S.status||x.status===S.status)).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name))}
 function renderSources(){const filtered=filteredSources(),pinned=filtered.filter(x=>x.status==='indexed_partial'||x.status==='curated_excerpt'),others=filtered.filter(x=>!pinned.includes(x)),list=pinned.concat(others);const all=S.expanded||el('sourceQuery').value.trim()||el('sourceCategory').value||el('sourceRole').value||S.status;const show=all?list:list.slice(0,6);
@@ -192,7 +201,7 @@ async function read(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)th
 const [reg,rec,cov]=await Promise.all([read(api.registry),read(api.records),read(api.coverage)]);
 if(reg.sources.length!==17||rec.pacCommittees.length!==135||rec.lobbyingFilings.length!==56)throw Error('Unexpected record inventory or schema');
 if(!rec.pacCommittees.every(r=>typeof r.individualContributionsUSD==='number'&&typeof r.transfersFromAffiliatesUSD==='number'&&typeof r.partyCoordinatedExpendituresUSD==='number'))throw Error('FEC category breakdown is unavailable');
-S.registry=reg;S.records=rec;S.coverage=cov;putStatus();cycleButtons();renderPACs();renderLobby();renderEvidence();sourceButtons();renderSources();renderRecordTabs();renderRecords();
+S.registry=reg;S.records=rec;S.coverage=cov;putStatus();cycleButtons();renderPACs();renderLobby();renderEvidence();sourceButtons();sourceRing();renderSources();renderRecordTabs();renderRecords();
 el('health').textContent='Source-linked data verified at load · registry checked '+reg.updatedUtc+' · exact source records available via GitHub.';
 for(const id of ['sourceQuery','sourceCategory','sourceRole'])el(id).addEventListener(id==='sourceQuery'?'input':'change',()=>{S.expanded=false;renderSources()});
 el('recordQuery').addEventListener('input',renderRecords);el('recordLimit').addEventListener('change',renderRecords);
