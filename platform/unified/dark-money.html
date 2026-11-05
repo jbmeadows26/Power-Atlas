@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore documented U.S. election financing and the missing links behind dark-money research, with official filing evidence.">
+<title>Dark Money Tracker | Power Atlas</title>
+<style>
+:root{font:16px/1.5 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#142b34;background:#f4f7f7;--teal:#17776c;--ink:#142b34;--muted:#576d78;--border:#d9e5e7}
+*{box-sizing:border-box}body{margin:0}a{color:#126b63}button,select,input{font:inherit}button{cursor:pointer}button:focus-visible,select:focus-visible,input:focus-visible,a:focus-visible{outline:3px solid #e8ab46;outline-offset:3px}
+header{background:white;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:3}.top{max-width:1200px;padding:14px 22px;margin:auto;display:flex;gap:18px;justify-content:space-between;align-items:center;flex-wrap:wrap}.brand{font-size:.96rem;font-weight:900;color:#18473e;text-decoration:none;letter-spacing:.04em}.top nav{display:flex;gap:16px;overflow-x:auto;max-width:100%;font-size:.84rem;white-space:nowrap}nav a{text-decoration:none}
+main{max-width:1200px;margin:auto;padding:24px 22px 64px}.ey{color:var(--teal);font-size:.71rem;text-transform:uppercase;letter-spacing:.15em;font-weight:850}h1{font-size:clamp(2.5rem,6vw,5rem);line-height:1.02;letter-spacing:-.06em;max-width:820px;margin:13px 0 17px}h1 span{color:var(--teal)}.lead{font-size:1.06rem;color:#526973;max-width:830px;line-height:1.62}.hero{margin-bottom:22px}.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:21px}.legend span{display:inline-flex;align-items:center;gap:7px;font-size:.77rem;background:#fff;border:1px solid var(--border);border-radius:50px;padding:7px 10px}.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#288a7b}.dot.amber{background:#c18a2e}.dot.grey{background:#9daeb4}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:25px 0}.kpi,.panel,.portal{background:#fff;border:1px solid var(--border);border-radius:16px;box-shadow:0 10px 28px #1739440a}.kpi{padding:16px}.kpi .value{display:block;font-size:clamp(1.6rem,3.4vw,2.6rem);font-weight:900;letter-spacing:-.06em;color:#196d62}.kpi small{font-size:.82rem;color:var(--muted)}.panel{padding:24px;margin:22px 0}h2{font-size:clamp(1.3rem,3vw,1.75rem);letter-spacing:-.03em;margin:0 0 6px}h3{margin:0 0 8px;font-size:1.01rem}.intro{color:var(--muted);margin:0 0 18px;font-size:.9rem;line-height:1.55}
+.jurisdictions{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:9px}.jurisdictions button{min-height:78px;border:1px solid var(--border);background:#f7faf9;border-radius:12px;padding:12px 7px;color:#385964;text-align:center;font-size:.82rem;font-weight:750}.jurisdictions button strong{display:block;font-size:1.35rem;line-height:1.2;margin-bottom:4px}.jurisdictions button[aria-pressed=true]{background:#174d47;color:white;border-color:#174d47}.jurisdictions button small{display:block;font-size:.68rem;font-weight:550;opacity:.75}
+.context{margin:14px 0 0;padding:12px 15px;border-radius:10px;background:#eff5f4;font-size:.87rem;color:#3c5f5b}
+.controls{display:flex;align-items:end;gap:13px;flex-wrap:wrap;margin:16px 0}.controls label{display:block;font-size:.78rem;color:#587079;font-weight:760}.controls select,.controls input{display:block;margin-top:5px;padding:10px 11px;border:1px solid #c6d9da;background:white;border-radius:8px;min-width:190px;max-width:100%;color:var(--ink)}.controls input{min-width:210px}.controls .grow{flex:1;min-width:180px}.controls .grow input{width:100%}.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr) minmax(0,1fr);gap:14px;align-items:stretch}.flowCol{background:#f5faf9;border:1px solid #dbe8e6;border-radius:13px;padding:14px}.flowCol>h3{font-size:.81rem;text-transform:uppercase;color:#547075;letter-spacing:.07em;min-height:27px}.flowCol .hint{color:#7a8e94;font-size:.75rem;margin:2px 0 14px}.moneyRow{margin:12px 0}.moneyRow .barLabels{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:.78rem}.moneyRow .barLabels span{color:#45616b}.moneyRow .barLabels strong{white-space:nowrap;font-size:.8rem}.track{margin-top:5px;background:#e3eceb;border-radius:6px;height:13px;overflow:hidden}.track div{height:100%;background:#399d89;min-width:2px}.out .track div{background:#cb9d59}.committeeBox{background:#123e40;border-radius:14px;padding:20px 13px;color:white;align-self:stretch;display:flex;flex-direction:column;justify-content:center;text-align:center;min-height:250px}.committeeBox .ey{color:#8ee4d3}.committeeBox h3{font-size:clamp(1rem,2.2vw,1.34rem);line-height:1.18;margin:12px 0;overflow-wrap:anywhere}.committeeBox .total{font-size:clamp(1.55rem,3vw,2rem);font-weight:850}.committeeBox .sm{color:#b6dfd8;font-size:.74rem}.committeeBox a{color:#b7f2df;margin-top:18px;font-size:.83rem}.flowCaption{margin:15px 0 0;background:#fff4e2;border-left:3px solid #ba8b40;padding:12px 15px;color:#5a4b32;font-size:.82rem;line-height:1.56}.empty{padding:28px;background:#f2f6f5;border:1px dashed #9db9b6;border-radius:12px;color:#536970;font-size:.93rem}.dataBox{margin-top:18px}.sourceGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.portal{padding:17px}.portal .region{color:#408175;font-size:.72rem;text-transform:uppercase;font-weight:800;letter-spacing:.07em}.portal h3{margin:8px 0 5px}.portal p{color:var(--muted);font-size:.82rem;line-height:1.45;min-height:46px}.portal a{font-size:.81rem;font-weight:750}.portal small{color:#84632d;font-size:.73rem}.storyStrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.storyStep{background:#f2f7f6;padding:16px;border-radius:12px;border-top:4px solid #3c9387}.storyStep strong{display:block;margin-bottom:6px}.storyStep p{margin:0;color:#586d77;font-size:.85rem}
+.detailTable{width:100%;border-collapse:collapse}.detailTable td,.detailTable th{border-bottom:1px solid var(--border);text-align:left;padding:11px;font-size:.84rem}.detailTable th{background:#f2f7f6;color:#526a72}.tableWrap{overflow-x:auto}footer{font-size:.78rem;color:#677e84;padding:18px 0 0}.tiny{font-size:.79rem;color:#657b80}#health{font-size:.8rem;color:#60777f}
+@media(max-width:1000px){.jurisdictions{grid-template-columns:repeat(3,1fr)}.sourceGrid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:760px){main{padding:19px 15px 45px}.kpis{grid-template-columns:repeat(2,1fr)}.panel{padding:17px}.flow{grid-template-columns:1fr;gap:11px}.committeeBox{min-height:150px;order:-1}.flowCol>h3{min-height:0}.storyStrip{grid-template-columns:1fr}.flowCol{padding:14px}.top{gap:8px}}
+@media(max-width:480px){.jurisdictions{grid-template-columns:repeat(2,1fr)}.sourceGrid{grid-template-columns:1fr}.controls label,.controls select{width:100%}.controls{display:block}.controls label{margin-top:12px}.controls input{min-width:0}.kpi{padding:12px}.kpi small{font-size:.74rem}}
+</style></head>
+<body>
+<header><div class="top"><a class="brand" href="index.html">◈ POWER ATLAS</a><nav aria-label="Research sections"><a href="index.html">Research home</a><a href="money-sources.html">Money explorer</a><a href="election-money.html">Election funding</a><a href="donor-intelligence.html">Donors</a></nav></div></header>
+<main>
+<section class="hero"><div class="ey">Money and influence / Investigation lab</div><h1>Follow the money.<br><span>Find the missing links.</span></h1>
+<p class="lead">Who pays for elections—and how far can we follow those dollars? Compare reported PAC finances, examine official filings and see where the public record goes dark.</p>
+<div class="legend" aria-label="Evidence legend"><span><i class="dot"></i> Reported in filing</span><span><i class="dot amber"></i> Pattern to investigate</span><span><i class="dot grey"></i> Source not yet available</span></div></section>
+<section class="kpis" aria-label="Tracker coverage"><div class="kpi"><span id="snapshotCount" class="value">—</span><small>FEC committee-cycle snapshots</small></div><div class="kpi"><span id="entityCount" class="value">—</span><small>Distinct committees indexed</small></div><div class="kpi"><span id="transferCount" class="value">—</span><small>Itemized money-transfer edges</small></div><div class="kpi"><span id="donorCount" class="value">—</span><small>Original hidden donors identified</small></div></section>
+<section class="panel" id="jurisdiction"><h2>Where is the election?</h2><p class="intro">Tap an election type. Each uses different disclosure rules and filing portals. A blank dataset is not proof of zero spending.</p>
+<div class="jurisdictions" role="group" aria-label="Choose election jurisdiction">
+<button type="button" data-j="federal" aria-pressed="true"><strong>🏛️</strong>Federal<small>Partial data</small></button>
+<button type="button" data-j="state" aria-pressed="false"><strong>🗺️</strong>State<small>Filing links</small></button>
+<button type="button" data-j="county" aria-pressed="false"><strong>🏘️</strong>County<small>Not imported</small></button>
+<button type="button" data-j="municipal" aria-pressed="false"><strong>🏙️</strong>City / town<small>Filing links</small></button>
+<button type="button" data-j="school_board" aria-pressed="false"><strong>🎓</strong>School board<small>Not imported</small></button>
+<button type="button" data-j="ballot_measure" aria-pressed="false"><strong>📋</strong>Ballot measures<small>Filing links</small></button></div>
+<div id="context" class="context" role="status">Federal: public committee summary data available. Individual cross-entity transactions remain unverified.</div></section>
+<section class="panel" id="flowSection"><div class="ey">Interactive visual explorer</div><h2>Inside a campaign committee's finances</h2><p class="intro">Select a committee. Incoming and outgoing reporting categories are shown side-by-side—not as traced payments from specific donors to specific recipients.</p>
+<div class="controls"><label>Election cycle<select id="cycle" aria-label="Election cycle"><option value="2024">2024</option><option value="2026">2026</option></select></label>
+<label class="grow">Find a committee<input id="search" type="search" placeholder="Search committee name or FEC ID" aria-label="Find a committee"></label>
+<label>Committee<select id="committee" aria-label="Choose FEC committee"></select></label></div>
+<div id="flow" class="flow" aria-live="polite"></div>
+<p class="flowCaption"><strong>Cannot trace these dollars end-to-end.</strong> Sources on the left are reported aggregate categories, not named donors. Uses on the right are reported spending categories, not proven destinations of the same dollars. Both lists can include categories omitted from this view.</p>
+<div class="dataBox"><a id="filing" href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">Open the original FEC committee record ↗</a><p id="coverageEnd" class="tiny"></p></div></section>
+<section class="panel" id="trail"><div class="ey">Network investigation</div><h2>Can we follow a chain of payments?</h2><p class="intro">A possible multi-hop path needs at least two itemized filings with explicit organization identifiers. Similar amounts alone are not enough.</p><div id="signals" class="empty" role="status">Checking confirmed filed transactions…</div>
+<div class="storyStrip" style="margin-top:18px"><div class="storyStep"><strong>1 · Identify a payment</strong><p>Record two legally identified organizations, a date, an amount, and the original filing.</p></div><div class="storyStep"><strong>2 · Find another documented payment</strong><p>Search for a related payment, including across an election boundary. Do not merge people or LLCs from names alone.</p></div><div class="storyStep"><strong>3 · Check, don't accuse</strong><p>Compare timing, purpose, legal status and the filings. Patterns remain leads until separately corroborated.</p></div></div></section>
+<section class="panel" id="portals"><div class="ey">Source coverage</div><h2>Where the public trail continues</h2><p class="intro">These are official source portals, not data already copied into Power Atlas. Open one to independently inspect the underlying reporting.</p><div id="sourceGrid" class="sourceGrid" aria-live="polite"></div></section>
+<section class="panel" id="recordTable"><h2>Inspect the indexed committee records</h2><p class="intro">The underlying cycle reports are public. This list is a selected sample, not a ranking of every group.</p><div class="tableWrap"><table class="detailTable"><thead><tr><th>Committee</th><th>Receipts</th><th>Disbursements</th><th>Source</th></tr></thead><tbody id="summaryRows"></tbody></table></div></section>
+<section class="panel"><h2>What “dark money” does—and doesn't—tell us</h2>
+<p class="intro"><strong>Dark money</strong> broadly describes election-related spending where the public cannot identify the original funders. Nonprofit filings can reveal grants made <em>out</em>, but many 501(c)(4) and 501(c)(6) organizations do not publicly disclose their donor names. An IRS Schedule I grant and a committee receipt may suggest a connection, but they cannot be matched without supporting evidence.</p>
+<p class="intro">A shared political consultant, registered agent, mailing address or similar LLC name is an investigative clue—not proof of common ownership, coordination, illegality or hidden donor identity. The tracker deliberately does not publish private addresses or create unreviewed person-to-person links.</p></section>
+<p id="health" role="status">Loading the public source-linked graph…</p><footer>Power Atlas · Evidence-focused election finance research · Free/open-data first · <a href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/money-influence">Audit dataset and methodology</a></footer>
+</main>
+<script>
+"use strict";
+const ROOT="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/";
+const SOURCE=ROOT+"data/money-influence/dark-money-graph-v1.json";
+const $=id=>document.getElementById(id);
+const USD=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
+const nfmt=new Intl.NumberFormat("en-US");
+let graph=null,chosenJurisdiction="federal";
+const portalList=[
+{j:"federal",where:"Federal",name:"Federal Election Commission",url:"https://www.fec.gov/data/",note:"Federal committee and spending filings."},
+{j:"federal",where:"Federal nonprofits",name:"IRS political organization disclosures",url:"https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",note:"Section 527 filings; different disclosure obligations."},
+{j:"state",where:"Washington",name:"WA Public Disclosure Commission",url:"https://www.pdc.wa.gov/political-disclosure-reporting-data/open-data",note:"Official state and some local committee datasets."},
+{j:"state",where:"California",name:"California Secretary of State",url:"https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",note:"State filings and ballot-measure activity."},
+{j:"state",where:"New York",name:"NY State campaign-finance reporting",url:"https://publicreporting.elections.ny.gov/",note:"State and local disclosure searches."},
+{j:"state",where:"New Jersey",name:"NJ Election Law Enforcement Commission",url:"https://www.elec.nj.gov/publicinformation/searchdatabase.htm",note:"State and municipal campaign-finance searches."},
+{j:"municipal",where:"New York City",name:"NYC Campaign Finance Board",url:"https://www.campaignfinanceboard.info/follow-the-money/data-library/",note:"City election contribution and spending exports."},
+{j:"ballot_measure",where:"State measures",name:"California campaign-finance activity",url:"https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",note:"Independent committees and ballot-measure filings."},
+{j:"county",where:"County",name:"County reporting depends on the jurisdiction",url:"https://www.pdc.wa.gov/political-disclosure-reporting-data/open-data",note:"A state disclosure authority may include county campaigns."},
+{j:"school_board",where:"School board",name:"WA PDC local election reports",url:"https://www.pdc.wa.gov/political-disclosure-reporting-data/open-data",note:"Coverage differs by office and filing threshold."},
+{j:"federal",where:"Federal nonprofits",name:"IRS Form 990 public records",url:"https://www.irs.gov/charities-non-profits/tax-exempt-organization-search",note:"Financial and grant disclosures; most donor identities not public."}
+];
+function el(tag,text,className){const x=document.createElement(tag);if(text!=null)x.textContent=String(text);if(className)x.className=className;return x}
+function link(url,title){const a=el("a",title);a.href=url;a.target="_blank";a.rel="noopener noreferrer";return a}
+function jurisdiction(j){
+ chosenJurisdiction=j;
+ document.querySelectorAll("[data-j]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.j===j)));
+ const meanings={federal:"Federal: selected FEC committee-cycle totals are indexed. Direct committee-to-committee filings are not yet populated.",state:"State: official filing portals are linked; no itemized state records are reviewed in this graph.",county:"County: source discovery only. No county transactions are indexed.",municipal:"City / town: NYC and state portal sources are linked; no municipal transactions are indexed.",school_board:"School board: no itemized transfers are indexed; reporting differs by jurisdiction.",ballot_measure:"Ballot measures: official source links available; no reviewed measure-related financing chain is indexed."};
+ $("context").textContent=meanings[j];
+ $("flowSection").hidden=j!=="federal";$("recordTable").hidden=j!=="federal";
+ showPortals();
+}
+function showPortals(){
+ const list=portalList.filter(p=>p.j===chosenJurisdiction);
+ const grid=$("sourceGrid");grid.replaceChildren();
+ for(const p of list){const card=el("article",null,"portal");card.append(el("div",p.where,"region"),el("h3",p.name),el("p",p.note),el("small","Linked source · transactions not imported"));const d=el("div");d.append(link(p.url,"Open official records ↗"));card.append(d);grid.append(card)}
+}
+function rowBar(title,value,max,out=false){let div=el("div",null,"moneyRow"+(out?" out":""));let head=el("div",null,"barLabels");head.append(el("span",title),el("strong",USD.format(value)));let track=el("div",null,"track");const fill=el("div");fill.style.width=(max>0?Math.min(100,100*value/max):0)+"%";track.append(fill);div.append(head,track);return div}
+function renderFlow(){
+ const key=$("committee").value,cycle=Number($("cycle").value);
+ const s=graph.snapshots.find(x=>x.committeeId===key&&x.cycle===cycle);
+ const area=$("flow");area.replaceChildren();
+ if(!s){area.append(el("p","No committee matches. Try a different search.","empty"));return}
+ const incoming=[["Individual contributions",s.individualContributionsUSD],["Other committees",s.otherCommitteeContributionsUSD],["Affiliated transfers",s.transfersFromAffiliatesUSD]];
+ const outgoing=[["Independent expenditures",s.independentExpendituresUSD],["To other committees",s.contributionsToOtherCommitteesUSD],["Affiliated transfers",s.transfersToAffiliatesUSD],["Coordinated spending",s.partyCoordinatedExpendituresUSD]];
+ const left=el("div",null,"flowCol"),right=el("div",null,"flowCol out"),mid=el("div",null,"committeeBox");
+ left.append(el("h3","Reported money in"),el("p","Selected receipt categories","hint"));
+ for(const [name,value] of incoming)left.append(rowBar(name,value,s.receiptsUSD));
+ mid.append(el("div","Committee in "+cycle,"ey"),el("h3",s.name),el("span",USD.format(s.receiptsUSD),"total"),el("div","Total receipts reported","sm"),el("div","↓ Reported financial categories ↓","sm"));
+ right.append(el("h3","Reported money out"),el("p","Selected disbursement categories","hint"));
+ for(const [name,value] of outgoing)right.append(rowBar(name,value,s.disbursementsUSD,true));
+ area.append(left,mid,right);
+ $("filing").href="https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/";
+ $("coverageEnd").textContent="FEC committee ID "+s.committeeId+" · Cycle "+cycle+" · Reporting through "+s.coverageEnd+" · Incoming and outgoing categories do not necessarily sum to overall totals.";
+ showRows();
+}
+function populate(){
+ const cycle=Number($("cycle").value),q=$("search").value.trim().toLowerCase();
+ const matches=graph.snapshots.filter(r=>r.cycle===cycle&&(r.name.toLowerCase().includes(q)||r.committeeId.toLowerCase().includes(q))).sort((a,b)=>b.receiptsUSD-a.receiptsUSD);
+ const select=$("committee"),old=select.value;select.replaceChildren();
+ for(const r of matches){const opt=el("option",r.name+" · "+r.committeeId);opt.value=r.committeeId;select.append(opt)}
+ if(matches.some(r=>r.committeeId===old))select.value=old;
+ renderFlow()
+}
+function showRows(){
+ const target=$("summaryRows");target.replaceChildren();
+ const cycle=Number($("cycle").value),q=$("search").value.trim().toLowerCase();
+ for(const s of graph.snapshots.filter(r=>r.cycle===cycle&&(r.name.toLowerCase().includes(q)||r.committeeId.toLowerCase().includes(q))).sort((a,b)=>b.receiptsUSD-a.receiptsUSD).slice(0,18)){
+   const tr=el("tr");for(const val of [s.name,USD.format(s.receiptsUSD),USD.format(s.disbursementsUSD)])tr.append(el("td",val));
+   const td=el("td");td.append(link("https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/","FEC ↗"));tr.append(td);target.append(tr)
+ }
+}
+function showSignals(){
+ const target=$("signals");
+ if(!graph.edges.length){target.textContent="No transaction-to-transaction paths can be tested yet. We have "+nfmt.format(graph.snapshots.length)+" FEC financial snapshots, but 0 itemized transfer edges in the imported ledger. This does not mean the committees made no transfers.";return}
+ if(!graph.signals.length){target.textContent=nfmt.format(graph.edges.length)+" official filing-based transfers indexed. No qualifying two-step leads found in this bounded sample; absence is not exoneration or proof of zero activity.";return}
+ target.replaceChildren();target.className="";
+ for(const s of graph.signals.slice(0,10)){const d=el("p",s.evidence.join(" → ")+" · "+s.dateGapDays+" days · "+s.amountDifferencePct+"% difference · Investigative lead only");target.append(d)}
+}
+async function start(){
+ try{
+  const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("Graph HTTP "+r.status);
+  const d=await r.json();
+  if(d.schema!=="power-atlas.dark-money.graph.v1"||!Array.isArray(d.edges)||!Array.isArray(d.snapshots)||!d.metrics)throw Error("Unexpected graph format");
+  graph=d;
+  for(const [id,key] of [["snapshotCount","fecCommitteeCycleSnapshots"],["entityCount","distinctOrganizations"],["transferCount","filedTransferEdges"],["donorCount","verifiedOriginalDonorAttributions"]])$(id).textContent=nfmt.format(d.metrics[key]);
+  document.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>jurisdiction(b.dataset.j));
+  $("cycle").addEventListener("change",populate);$("search").addEventListener("input",populate);$("committee").addEventListener("change",renderFlow);
+  jurisdiction("federal");populate();showSignals();
+  $("health").textContent="Source-backed records loaded · "+d.metrics.fecCommitteeCycleSnapshots+" committee-cycle snapshots · "+d.metrics.filedTransferEdges+" original transaction edges.";
+ }catch(e){$("health").textContent="Unable to load the Power Atlas graph: "+e.message+". Consult the official filing links above."; $("signals").textContent="Source data unavailable. No patterns can be reported.";showPortals()}
+}
+start();
+</script></body></html>
