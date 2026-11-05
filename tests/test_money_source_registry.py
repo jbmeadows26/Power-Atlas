@@ -60,7 +60,7 @@ class MoneySourceRegistryTests(unittest.TestCase):
         for fragment in ('id="overview"', 'id="committees"', 'id="lobbying"', 'id="sources"',
                          'class="sectionNav"', 'id="committeeDetail"', 'id="lobbyDetail"',
                          'id="sourceLegend"', 'id="statusFilters"', 'id="sourceMore"',
-                         'id="recordRows"', 'class="stack"', 'renderPACDetails',
+                         'id="recordRows"', 'elem(\'div\',undefined,\'stack\')', 'renderPACDetails',
                          'renderLobby', 'renderSources', '@media(max-width:650px)'):
             self.assertIn(fragment, page)
         self.assertIn('No verified donor', page)
