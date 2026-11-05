@@ -11,6 +11,12 @@ main{max-width:1200px;margin:auto;padding:24px 22px 64px}.ey{color:var(--teal);f
 .jurisdictions{display:grid;grid-template-columns:repeat(6,minmax(110px,1fr));gap:9px}.jurisdictions button{min-height:78px;border:1px solid var(--border);background:#f7faf9;border-radius:12px;padding:12px 7px;color:#385964;text-align:center;font-size:.82rem;font-weight:750}.jurisdictions button strong{display:block;font-size:1.35rem;line-height:1.2;margin-bottom:4px}.jurisdictions button[aria-pressed=true]{background:#174d47;color:white;border-color:#174d47}.jurisdictions button small{display:block;font-size:.68rem;font-weight:550;opacity:.75}
 .context{margin:14px 0 0;padding:12px 15px;border-radius:10px;background:#eff5f4;font-size:.87rem;color:#3c5f5b}
 .controls{display:flex;align-items:end;gap:13px;flex-wrap:wrap;margin:16px 0}.controls label{display:block;font-size:.78rem;color:#587079;font-weight:760}.controls select,.controls input{display:block;margin-top:5px;padding:10px 11px;border:1px solid #c6d9da;background:white;border-radius:8px;min-width:190px;max-width:100%;color:var(--ink)}.controls input{min-width:210px}.controls .grow{flex:1;min-width:180px}.controls .grow input{width:100%}.flow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,.92fr) minmax(0,1fr);gap:14px;align-items:stretch}.flowCol{background:#f5faf9;border:1px solid #dbe8e6;border-radius:13px;padding:14px}.flowCol>h3{font-size:.81rem;text-transform:uppercase;color:#547075;letter-spacing:.07em;min-height:27px}.flowCol .hint{color:#7a8e94;font-size:.75rem;margin:2px 0 14px}.moneyRow{margin:12px 0}.moneyRow .barLabels{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:.78rem}.moneyRow .barLabels span{color:#45616b}.moneyRow .barLabels strong{white-space:nowrap;font-size:.8rem}.track{margin-top:5px;background:#e3eceb;border-radius:6px;height:13px;overflow:hidden}.track div{height:100%;background:#399d89;min-width:2px}.out .track div{background:#cb9d59}.committeeBox{background:#123e40;border-radius:14px;padding:20px 13px;color:white;align-self:stretch;display:flex;flex-direction:column;justify-content:center;text-align:center;min-height:250px}.committeeBox .ey{color:#8ee4d3}.committeeBox h3{font-size:clamp(1rem,2.2vw,1.34rem);line-height:1.18;margin:12px 0;overflow-wrap:anywhere}.committeeBox .total{font-size:clamp(1.55rem,3vw,2rem);font-weight:850}.committeeBox .sm{color:#b6dfd8;font-size:.74rem}.committeeBox a{color:#b7f2df;margin-top:18px;font-size:.83rem}.flowCaption{margin:15px 0 0;background:#fff4e2;border-left:3px solid #ba8b40;padding:12px 15px;color:#5a4b32;font-size:.82rem;line-height:1.56}.empty{padding:28px;background:#f2f6f5;border:1px dashed #9db9b6;border-radius:12px;color:#536970;font-size:.93rem}.dataBox{margin-top:18px}.sourceGrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.portal{padding:17px}.portal .region{color:#408175;font-size:.72rem;text-transform:uppercase;font-weight:800;letter-spacing:.07em}.portal h3{margin:8px 0 5px}.portal p{color:var(--muted);font-size:.82rem;line-height:1.45;min-height:46px}.portal a{font-size:.81rem;font-weight:750}.portal small{color:#84632d;font-size:.73rem}.storyStrip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.storyStep{background:#f2f7f6;padding:16px;border-radius:12px;border-top:4px solid #3c9387}.storyStep strong{display:block;margin-bottom:6px}.storyStep p{margin:0;color:#586d77;font-size:.85rem}
+.transferGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:16px}
+.transfer{padding:16px;border:1px solid #d9e6e5;background:#f7faf9;border-radius:13px;min-width:0}
+.transfer .path{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:.85rem;font-weight:770;overflow-wrap:anywhere}
+.transfer .arrow{color:#a07b3b;font-weight:900}.transfer .amt{font-size:1.4rem;color:#175e55;font-weight:850;display:block;margin:8px 0}
+.transfer .meta{font-size:.74rem;color:#63767b;margin:4px 0 9px}.transfer a{font-size:.78rem}
+@media(max-width:720px){.transferGrid{grid-template-columns:1fr}}
 .detailTable{width:100%;border-collapse:collapse}.detailTable td,.detailTable th{border-bottom:1px solid var(--border);text-align:left;padding:11px;font-size:.84rem}.detailTable th{background:#f2f7f6;color:#526a72}.tableWrap{overflow-x:auto}footer{font-size:.78rem;color:#677e84;padding:18px 0 0}.tiny{font-size:.79rem;color:#657b80}#health{font-size:.8rem;color:#60777f}
 @media(max-width:1000px){.jurisdictions{grid-template-columns:repeat(3,1fr)}.sourceGrid{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:760px){main{padding:19px 15px 45px}.kpis{grid-template-columns:repeat(2,1fr)}.panel{padding:17px}.flow{grid-template-columns:1fr;gap:11px}.committeeBox{min-height:150px;order:-1}.flowCol>h3{min-height:0}.storyStrip{grid-template-columns:1fr}.flowCol{padding:14px}.top{gap:8px}}
@@ -39,7 +45,7 @@ main{max-width:1200px;margin:auto;padding:24px 22px 64px}.ey{color:var(--teal);f
 <div id="flow" class="flow" aria-live="polite"></div>
 <p class="flowCaption"><strong>Cannot trace these dollars end-to-end.</strong> Sources on the left are reported aggregate categories, not named donors. Uses on the right are reported spending categories, not proven destinations of the same dollars. Both lists can include categories omitted from this view.</p>
 <div class="dataBox"><a id="filing" href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">Open the original FEC committee record ↗</a><p id="coverageEnd" class="tiny"></p></div></section>
-<section class="panel" id="trail"><div class="ey">Network investigation</div><h2>Can we follow a chain of payments?</h2><p class="intro">A possible multi-hop path needs at least two itemized filings with explicit organization identifiers. Similar amounts alone are not enough.</p><div id="signals" class="empty" role="status">Checking confirmed filed transactions…</div>
+<section class="panel" id="trail"><div class="ey">Network investigation</div><h2>Can we follow a chain of payments?</h2><p class="intro">A possible multi-hop path needs at least two itemized filings with explicit organization identifiers. Similar amounts alone are not enough.</p><div id="signals" class="empty" role="status">Checking confirmed filed transactions…</div><h3 style="margin:22px 0 7px">Actual filing-based transfers</h3><p id="paymentNote" class="intro">These will appear only when public committee-to-committee transactions pass the evidence checks.</p><div id="payments" class="transferGrid" aria-live="polite"></div>
 <div class="storyStrip" style="margin-top:18px"><div class="storyStep"><strong>1 · Identify a payment</strong><p>Record two legally identified organizations, a date, an amount, and the original filing.</p></div><div class="storyStep"><strong>2 · Find another documented payment</strong><p>Search for a related payment, including across an election boundary. Do not merge people or LLCs from names alone.</p></div><div class="storyStep"><strong>3 · Check, don't accuse</strong><p>Compare timing, purpose, legal status and the filings. Patterns remain leads until separately corroborated.</p></div></div></section>
 <section class="panel" id="portals"><div class="ey">Source coverage</div><h2>Where the public trail continues</h2><p class="intro">These are official source portals, not data already copied into Power Atlas. Open one to independently inspect the underlying reporting.</p><div id="sourceGrid" class="sourceGrid" aria-live="polite"></div></section>
 <section class="panel" id="recordTable"><h2>Inspect the indexed committee records</h2><p class="intro">The underlying cycle reports are public. This list is a selected sample, not a ranking of every group.</p><div class="tableWrap"><table class="detailTable"><thead><tr><th>Committee</th><th>Receipts</th><th>Disbursements</th><th>Source</th></tr></thead><tbody id="summaryRows"></tbody></table></div></section>
@@ -74,10 +80,10 @@ function link(url,title){const a=el("a",title);a.href=url;a.target="_blank";a.re
 function jurisdiction(j){
  chosenJurisdiction=j;
  document.querySelectorAll("[data-j]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.j===j)));
- const meanings={federal:"Federal: selected FEC committee-cycle totals are indexed. Direct committee-to-committee filings are not yet populated.",state:"State: official filing portals are linked; no itemized state records are reviewed in this graph.",county:"County: source discovery only. No county transactions are indexed.",municipal:"City / town: NYC and state portal sources are linked; no municipal transactions are indexed.",school_board:"School board: no itemized transfers are indexed; reporting differs by jurisdiction.",ballot_measure:"Ballot measures: official source links available; no reviewed measure-related financing chain is indexed."};
+ const meanings={federal:"Federal: selected FEC committee-cycle totals and "+nfmt.format(graph?.metrics?.filedTransactionReceiptEdges||0)+" official itemized committee-receipt records are indexed.",state:"State: official filing portals are linked; no itemized state records are reviewed in this graph.",county:"County: source discovery only. No county transactions are indexed.",municipal:"City / town: NYC and state portal sources are linked; no municipal transactions are indexed.",school_board:"School board: no itemized transfers are indexed; reporting differs by jurisdiction.",ballot_measure:"Ballot measures: official source links available; no reviewed measure-related financing chain is indexed."};
  $("context").textContent=meanings[j];
  $("flowSection").hidden=j!=="federal";$("recordTable").hidden=j!=="federal";
- showPortals();
+ showPortals();renderPayments();
 }
 function showPortals(){
  const list=portalList.filter(p=>p.j===chosenJurisdiction);
@@ -101,7 +107,7 @@ function renderFlow(){
  area.append(left,mid,right);
  $("filing").href="https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/";
  $("coverageEnd").textContent="FEC committee ID "+s.committeeId+" · Cycle "+cycle+" · Reporting through "+s.coverageEnd+" · Incoming and outgoing categories do not necessarily sum to overall totals.";
- showRows();
+ showRows();renderPayments();
 }
 function populate(){
  const cycle=Number($("cycle").value),q=$("search").value.trim().toLowerCase();
@@ -117,6 +123,27 @@ function showRows(){
  for(const s of graph.snapshots.filter(r=>r.cycle===cycle&&(r.name.toLowerCase().includes(q)||r.committeeId.toLowerCase().includes(q))).sort((a,b)=>b.receiptsUSD-a.receiptsUSD).slice(0,18)){
    const tr=el("tr");for(const val of [s.name,USD.format(s.receiptsUSD),USD.format(s.disbursementsUSD)])tr.append(el("td",val));
    const td=el("td");td.append(link("https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/","FEC ↗"));tr.append(td);target.append(tr)
+ }
+}
+function renderPayments(){
+ const wrap=$("payments"),info=$("paymentNote");wrap.replaceChildren();
+ if(!graph){info.textContent="Waiting for sourced records.";return}
+ if(chosenJurisdiction!=="federal"){info.textContent="No reviewed itemized transfers imported for this election category. These links are source portals, not inferred transactions.";return}
+ const names=new Map(graph.nodes.map(n=>[n.id,n.name]));
+ const id="fec:"+$("committee").value;
+ const same=graph.edges.filter(e=>e.from===id||e.to===id);
+ const available=(same.length?same:graph.edges).filter(e=>e.evidenceType==="official_fec_reported_receipt"||e.evidenceType==="filed_committee_payment");
+ const visible=available.slice().sort((a,b)=>b.amountUSD-a.amountUSD).slice(0,10);
+ info.textContent=same.length
+   ?nfmt.format(same.length)+" filing-based payments linked to this committee (selected examples, not total fundraising)."
+   :graph.edges.length
+       ?"No direct payment for the selected committee in this sample. Showing up to 10 other documented transfers."
+       :"No itemized filing-backed committee transfers have been imported yet. Summary categories cannot substitute for those records.";
+ for(const e of visible){
+   const card=el("article",null,"transfer");
+   const p=el("div",null,"path");p.append(el("span",names.get(e.from)||e.from),el("span","→","arrow"),el("span",names.get(e.to)||e.to));
+   card.append(p,el("strong",USD.format(e.amountUSD),"amt"),el("p",e.date+" · "+(e.transactionType||e.evidenceType)+" · Filing "+(e.filingId||"FEC"),"meta"),link(e.source,"Open official filing / search ↗"));
+   wrap.append(card)
  }
 }
 function showSignals(){
@@ -135,7 +162,7 @@ async function start(){
   for(const [id,key] of [["snapshotCount","fecCommitteeCycleSnapshots"],["entityCount","distinctOrganizations"],["transferCount","filedTransferEdges"],["donorCount","verifiedOriginalDonorAttributions"]])$(id).textContent=nfmt.format(d.metrics[key]);
   document.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>jurisdiction(b.dataset.j));
   $("cycle").addEventListener("change",populate);$("search").addEventListener("input",populate);$("committee").addEventListener("change",renderFlow);
-  jurisdiction("federal");populate();showSignals();
+  jurisdiction("federal");populate();showSignals();renderPayments();
   $("health").textContent="Source-backed records loaded · "+d.metrics.fecCommitteeCycleSnapshots+" committee-cycle snapshots · "+d.metrics.filedTransferEdges+" original transaction edges · "+d.metrics.potentialSequentialPaymentLeads+" investigative pattern leads.";
  }catch(e){$("health").textContent="Unable to load the Power Atlas graph: "+e.message+". Consult the official filing links above."; $("signals").textContent="Source data unavailable. No patterns can be reported.";showPortals()}
 }
