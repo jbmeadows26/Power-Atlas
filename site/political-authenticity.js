@@ -26,6 +26,18 @@ panel.innerHTML += '<div class="card" style="margin-top:16px"><h3>Official 2025 
   '<div class="filters" style="margin-top:12px"><input id="paHouseQuery" aria-label="Search roll number, bill, question or Bioguide ID" placeholder="Roll number, question, Bioguide ID…" /></div>'+
   '<p class="note" id="paHouseStatus">The voting archive is loaded only on request to conserve mobile data.</p>'+
   '<div class="list" id="paHouseList"></div></div>';
+panel.innerHTML += '<div class="card" style="margin-top:16px"><div class="eyebrow">Financial disclosures / Source-backed research</div>'+
+ '<h3>What lawmakers hold and trade</h3>'+
+ '<p class="sub">Annual holdings and securities transactions are separate records. Public filings describe ranges, not exact personal wealth or investment gains.</p>'+
+ '<div id="paFinanceStatus" class="note">Loading financial disclosure source coverage…</div>'+
+ '<div id="paFinanceMetrics" class="metrics"></div>'+
+ '<h3>Where the disclosed S&amp;P 500 holdings sit</h3><p class="note">2025 annual reports; source-derived percentages use midpoints of reported value bands, not exact dollars.</p>'+
+ '<div id="paFinanceSectors"></div>'+
+ '<p class="note" id="paFinanceCaveats"></p>'+
+ '<p class="note"><a href="https://palanor.com/congress-trades/holdings" target="_blank" rel="noopener noreferrer">2025 annual holdings source</a> · '+
+ '<a href="https://github.com/LuxAlgo/market-trackers-data" target="_blank" rel="noopener noreferrer">CC0 transaction source</a> · '+
+ '<a href="https://disclosures-clerk.house.gov/FinancialDisclosure" target="_blank" rel="noopener noreferrer">House Clerk filings</a> · '+
+ '<a href="https://www.ethics.senate.gov/public/index.cfm/financialdisclosure" target="_blank" rel="noopener noreferrer">Senate disclosure rules</a></p></div>';
 first.parentNode.appendChild(panel);
 var root='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/research/political-authenticity/';
 var loaded=false;
@@ -82,9 +94,44 @@ document.getElementById('paHouseLoad').addEventListener('click',function(){
   }).catch(function(e){text('paHouseStatus','Official roll-call archive could not be loaded: '+e.message)})
     .finally(function(){officialRollBusy=false});
 });
+var financeLoaded=false;
+function loadFinance(){
+  if(financeLoaded)return;
+  financeLoaded=true;
+  Promise.all([
+    get('congress-holdings-2025-source-coverage.json'),
+    get('congress-trades-source-audit-2026-11-05.json')
+  ]).then(function(docs){
+    var holdings=docs[0],trades=docs[1],area=document.getElementById('paFinanceMetrics');
+    if(holdings.schema!=='power-atlas.political-authenticity.congress-holdings-coverage.v1'||
+      trades.schema!=='power-atlas.political-authenticity.financial-activity-source-audit.v1')throw Error('Financial research schema mismatch');
+    area.textContent='';
+    area.appendChild(metric(String(holdings.membersWithSp500DirectSharesOrOptions)+' / '+String(holdings.readableMemberReports),
+      '2025 reports with disclosed S&P 500 shares or options — readable reports only'));
+    area.appendChild(metric((100*holdings.holderShareAmongReadableReports).toFixed(1)+'%',
+      'Share of electronically read 2025 member reports; not all assets or all members'));
+    area.appendChild(metric(String(holdings.paperScannedReportsUnparsed),
+      '2025 scanned/paper reports not machine-read by holdings source'));
+    area.appendChild(metric(String(trades.sample.transactionRows)+' / '+String(trades.sample.uniqueBioguideIDs),
+      'Transaction rows / Senate filers in a STALE September 2026 daily delta'));
+    var sectors=document.getElementById('paFinanceSectors');sectors.textContent='';
+    holdings.sectorSummaries.slice(0,5).forEach(function(x){
+      var row=document.createElement('div');row.className='coverage';
+      var label=document.createElement('div');
+      label.textContent=x.name+' — '+Number(x.midpointSharePct).toFixed(1)+'% of S&P 500 holding-band midpoints';
+      var bar=document.createElement('div');bar.className='bar';
+      var fill=document.createElement('div');fill.className='fill';
+      fill.style.width=Math.max(0,Math.min(100,Number(x.midpointSharePct)))+'%';
+      bar.appendChild(fill);row.appendChild(label);row.appendChild(bar);sectors.appendChild(row);
+    });
+    text('paFinanceStatus','2025 annual holdings: third-party aggregated evidence · Trading sample: '+trades.sourceManifestGeneratedAt.slice(0,10)+' (stale; NOT the latest filing universe).');
+    text('paFinanceCaveats','These are NOT estimates of member net worth or proof of a conflict. S&P 500 shares/options exclude funds, bonds and private assets; multiple sectors may include the same member. The 58-row trade delta covers only 3 senators and cannot represent Congress. Spouse ownership, paper-report gaps and missing data are preserved.');
+  }).catch(function(e){financeLoaded=false;text('paFinanceStatus','Financial evidence cannot be loaded: '+e.message);});
+}
 btn.addEventListener('click',function(){
  document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===btn))});
  document.querySelectorAll('[data-panel]').forEach(function(x){x.classList.toggle('active',x===panel)});
  render();
+ loadFinance();
 });
 })();
