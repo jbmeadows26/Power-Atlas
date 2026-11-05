@@ -19,6 +19,7 @@ import os
 import re
 import tempfile
 import urllib.request
+from urllib.parse import urlsplit
 import zipfile
 from datetime import datetime
 from decimal import Decimal, InvalidOperation
@@ -135,8 +136,16 @@ def download_archive(year, destination: Path):
                       "Accept": "application/zip"})
     size, digest = 0, hashlib.sha256()
     with urllib.request.urlopen(req, timeout=90) as response, destination.open("wb") as target:
-        if response.geturl().split("/")[2] != "www.fec.gov":
-            raise ValueError("Unexpected FEC download redirect")
+        redirect = urlsplit(response.geturl())
+        host = (redirect.hostname or "").lower()
+        approved = redirect.scheme == "https" and (host == "www.fec.gov" or
+                    host.endswith(".fec.gov") or host.endswith(".amazonaws.com") or
+                    host.endswith(".cloudfront.net"))
+        if not approved:
+            raise ValueError("Unexpected FEC download redirect host: " + host)
+        # FEC bulk files are served via an official HTTPS URL that may redirect
+        # to government-hosted S3/CDN storage. The ZIP contents still undergo
+        # structure, size, and type checks before any records are published.
         while True:
             chunk = response.read(1024 * 1024)
             if not chunk:
