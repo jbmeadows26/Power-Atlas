@@ -100,7 +100,9 @@ def read_target_xml(path,member):
         if len(blob)>MAX_XML_BYTES:
             raise ValueError("Target IRS return read exceeds safe XML size")
         if not blob.lstrip().startswith(b"<?xml") and not blob.lstrip().startswith(b"<Return"):
-            raise ValueError("Target IRS archive member does not start as XML")
+            raise ValueError("Target IRS archive member not XML: size="+str(len(blob))+
+                             " compression="+str(info.compress_type)+
+                             " first16hex="+blob[:16].hex())
         return blob
 
 def collect():
