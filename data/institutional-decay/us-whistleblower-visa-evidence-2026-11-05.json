@@ -1,0 +1,192 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-evidence.v1",
+  "asOf": "2026-11-05",
+  "scope": "US DHS whistleblower protection and global US visitor visa service, with country-level visa service recipients worldwide",
+  "sources": [
+    {
+      "id": "gao-26-108106",
+      "url": "https://files.gao.gov/reports/GAO-26-108106/index.html",
+      "published": "2026-09-17",
+      "authority": "US Government Accountability Office",
+      "license": "US federal government work; report explicitly permits reproduction; third-party images excluded"
+    },
+    {
+      "id": "gao-26-107902",
+      "url": "https://files.gao.gov/reports/GAO-26-107902/index.html",
+      "published": "2026-09-28",
+      "authority": "US Government Accountability Office",
+      "license": "US federal government work; report explicitly permits reproduction; third-party images excluded"
+    }
+  ],
+  "observations": [
+    {
+      "id": "dhs-investigations-closed-2018-2025",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "FY2018–FY2025",
+      "value": 73,
+      "unit": "cases",
+      "measure": "DHS OIG whistleblower retaliation investigations opened and closed",
+      "population": "DHS OIG investigated cases opened and closed in stated fiscal years",
+      "evidenceClass": "official_audit",
+      "note": "Not all retaliation complaints; GAO reviewed administrative records."
+    },
+    {
+      "id": "dhs-investigations-over-3years",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "FY2018–FY2025",
+      "value": 39,
+      "unit": "cases",
+      "measure": "Investigations taking over three years",
+      "population": "73 opened-and-closed DHS OIG cases",
+      "evidenceClass": "official_audit",
+      "note": "Subset of 73, not all complaints."
+    },
+    {
+      "id": "dhs-retaliation-substantiated",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "FY2018–FY2025",
+      "value": 11,
+      "unit": "cases",
+      "measure": "OIG substantiated retaliation cases",
+      "population": "73 opened-and-closed investigated cases",
+      "evidenceClass": "substantiated_administrative_finding",
+      "note": "Substantiation is not a criminal conviction."
+    },
+    {
+      "id": "dhs-secretary-decisions-within30days",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "as of 2026-05",
+      "value": 0,
+      "unit": "cases",
+      "measure": "Substantiated cases receiving secretary decision within statutory 30 days",
+      "population": "11 substantiated cases",
+      "evidenceClass": "official_audit",
+      "note": "None of 11 met statutory deadline; distinct from retaliation merits."
+    },
+    {
+      "id": "dhs-secretary-corrective-action",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "as of 2026-05",
+      "value": 5,
+      "unit": "cases",
+      "measure": "Cases in which secretary decided to take corrective action",
+      "population": "11 substantiated cases",
+      "evidenceClass": "administrative_disposition",
+      "note": "Corrective action decision, not proof of criminal guilt."
+    },
+    {
+      "id": "dhs-secretary-pending",
+      "source": "gao-26-108106",
+      "geography": "United States",
+      "period": "as of 2026-05",
+      "value": 6,
+      "unit": "cases",
+      "measure": "Substantiated cases still awaiting secretary corrective-action determination",
+      "population": "11 substantiated cases",
+      "evidenceClass": "pending_administrative_disposition",
+      "note": "Pending must not be coded as exonerated or sanctioned."
+    },
+    {
+      "id": "visa-visitor-adjudications-fy2019",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2019",
+      "value": 9200000,
+      "unit": "approximate_adjudications",
+      "measure": "Visitor visa adjudications",
+      "population": "Worldwide US visitor visa adjudications",
+      "evidenceClass": "objective_service_record",
+      "note": "GAO-rounded 9.2 million, not unique applicants."
+    },
+    {
+      "id": "visa-visitor-adjudications-fy2025",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2025",
+      "value": 11700000,
+      "unit": "approximate_adjudications",
+      "measure": "Visitor visa adjudications",
+      "population": "Worldwide US visitor visa adjudications",
+      "evidenceClass": "objective_service_record",
+      "note": "GAO-rounded 11.7 million."
+    },
+    {
+      "id": "visa-interview-wait-fy2019",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2019",
+      "value": 26,
+      "unit": "days",
+      "measure": "Average visitor visa interview wait",
+      "population": "Worldwide visitor visa interview scheduling wait",
+      "evidenceClass": "objective_service_record",
+      "note": "GAO deemed FY2019 wait data reliable."
+    },
+    {
+      "id": "visa-interview-wait-fy2025",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2025",
+      "value": 201,
+      "unit": "days",
+      "measure": "Average visitor visa interview wait",
+      "population": "Worldwide visitor visa interview scheduling wait",
+      "evidenceClass": "objective_service_record",
+      "note": "Not adjudication processing duration."
+    },
+    {
+      "id": "visa-consular-officers-fy2024",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2024",
+      "value": 1342,
+      "unit": "officers",
+      "measure": "Consular officers working on nonimmigrant visas",
+      "population": "Worldwide NIV staffing",
+      "evidenceClass": "objective_service_record",
+      "note": "Staffing not specific to visitor visas."
+    },
+    {
+      "id": "visa-consular-officers-fy2025",
+      "source": "gao-26-107902",
+      "geography": "United States",
+      "period": "FY2025",
+      "value": 904,
+      "unit": "officers",
+      "measure": "Consular officers working on nonimmigrant visas",
+      "population": "Worldwide NIV staffing",
+      "evidenceClass": "objective_service_record",
+      "note": "Staffing not specific to visitor visas."
+    }
+  ],
+  "events": [
+    {
+      "id": "dhs-gao-report-2026",
+      "date": "2026-09-17",
+      "source": "gao-26-108106",
+      "event": "GAO published oversight findings on DHS whistleblower-retaliation case timeliness",
+      "status": "official_audit",
+      "note": "11 substantiated administrative cases; six pending secretary decisions as of May 2026."
+    },
+    {
+      "id": "visa-gao-report-2026",
+      "date": "2026-09-28",
+      "source": "gao-26-107902",
+      "event": "GAO published audit of US nonimmigrant visa staffing and wait times",
+      "status": "official_audit",
+      "note": "FY2019 and FY2025 wait-time comparisons; intermediate FY2020–2023 wait data deemed unreliable."
+    }
+  ],
+  "causality": "No causal effect on public trust or individual culpability inferred.",
+  "limitations": [
+    "DHS substantiation and secretary corrective action are separate stages.",
+    "Visitor visa interview waits are not application adjudication time.",
+    "GAO found FY2020–FY2023 visitor visa wait data unreliable; excluded.",
+    "No survey perception measures are included; all figures are official audit or agency administrative records."
+  ]
+}
