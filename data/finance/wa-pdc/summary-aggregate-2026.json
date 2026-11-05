@@ -1,0 +1,38 @@
+{
+  "schema": "power-atlas.wa-pdc-campaign-aggregate.2026.v1",
+  "sourceURL": "https://data.wa.gov/resource/3h9x-7bvm.json?%24select=election_year%2C+filer_type%2C+count%28%2A%29+as+rows%2C+sum%28contributions_amount%29+as+contributions%2C+sum%28expenditures_amount%29+as+expenditures&%24where=election_year+%3D+%272026%27&%24group=election_year%2C+filer_type&%24order=election_year%2C+filer_type&%24limit=250",
+  "sourcePublisherURL": "https://www.pdc.wa.gov/political-disclosure-reporting-data/open-data",
+  "coverageStatus": "2026_PDC_grouped_summary_not_individual_transactions",
+  "state": "WA",
+  "electionYear": 2026,
+  "groupedCategoryCount": 3,
+  "minFilerRowsPerPublishedGroup": 5,
+  "all50StatesComplete": false,
+  "individualRecordsPublished": false,
+  "hasStateOrLocalMoneyTransferEdges": false,
+  "licenseNote": "PDC noncommercial restrictions apply to lists of individuals; no lists or individual-level details were fetched or published. Review source terms before commercial use.",
+  "financialInterpretation": "Summed PDC published financial SUMMARY rows by election year and filer class, not individually reconciled transactions or an election cost total.",
+  "records": [
+    {
+      "electionYear": 2026,
+      "filerType": "CA",
+      "publishedSummaryRows": 1130,
+      "sumOfPublishedContributionsUSD": "43692053.76",
+      "sumOfPublishedExpendituresUSD": "36763978.18"
+    },
+    {
+      "electionYear": 2026,
+      "filerType": "CO",
+      "publishedSummaryRows": 1523,
+      "sumOfPublishedContributionsUSD": "123980862.02",
+      "sumOfPublishedExpendituresUSD": "105523824.67"
+    },
+    {
+      "electionYear": 2026,
+      "filerType": "OS",
+      "publishedSummaryRows": 38,
+      "sumOfPublishedContributionsUSD": "19625353.65",
+      "sumOfPublishedExpendituresUSD": "16610242.29"
+    }
+  ]
+}
