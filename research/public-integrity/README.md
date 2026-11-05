@@ -43,3 +43,10 @@ Connect documented exchanges of benefits, campaign contributions, public contrac
 - Confirm SPA/HTML route renders and local JSON feed loads. Spot-check searches by subject/person, category and legal stage; verify anchors and source links.
 - Log deployed commit and verify production HTTP 200 for `/investigations.html`, `/investigations-data.json`, and the existing Navatek case before declaring live.
 - A production Vercel READY state alone does not prove browser interactions; use a browser interaction check if available.
+
+## Plain-language presentation rules
+- Every case should have a `plain_language` object containing: `summary` (one sentence, ideally under 30 words), `figure` (one plain description of the displayed number), `flow` (three short stages), and `caveat` (one material qualification).
+- Preserve full factual summaries, precise metric meanings, detailed flows, limitations, legal statuses, dates and official source URLs in the underlying case data. Plain-language text is an additional reading layer, never a replacement for evidence.
+- Use short visible headings: Follow the money; Who was involved?; What to keep in mind; Check the sources. Put longer context behind expandable explanations and keep legal-stage notices visible.
+- On case cards: one-sentence summary, one labeled figure, names with status available in detail. Never headline the contract value as if it were a bribe or loss.
+- Every new case should receive plain-language text before publication and should be tested on a narrow mobile viewport.
