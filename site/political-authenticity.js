@@ -18,7 +18,7 @@ panel.innerHTML='<div class="eyebrow">Power Atlas / Research</div>'+
  '<div class="card"><h3>Evidence boundaries</h3><div id="paLimits">Loading source qualifications.</div></div>'+
  '<div class="card" style="margin-top:16px"><h3>Original sources</h3>'+
  '<p><a href="https://sda.berkeley.edu/sdaweb/docs/anes2024full/DOC/hcbk0040.htm" target="_blank" rel="noopener">ANES 2024 published response frequencies</a> · '+
- '<a href="https://data.census.gov/table/ACSSE2024.K200104" target="_blank" rel="noopener">2024 Census age population</a> · '+
+ '<a href="https://www.census.gov/programs-surveys/acs/news/data-releases/2025/release.html" target="_blank" rel="noopener">2025 ACS release</a> · '+
  '<a href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/research/political-authenticity" target="_blank" rel="noopener">Source datasets and methods</a></p></div>';
 panel.innerHTML += '<div class="card" style="margin-top:16px"><h3>Official 2025 House roll-call archive</h3>'+
   '<p class="sub">Primary-source XML votes for a bounded 2025 House roll-call window. Procedural Aye/No is normalized for search; Speaker election candidate selections are preserved separately. This is not a study of constituent preferences.</p>'+
@@ -47,15 +47,15 @@ function get(file){return fetch(root+file,{cache:'no-store'}).then(function(r){i
 function render(){
   if(loaded)return;
   loaded=true;
-  Promise.all([get('age-comparison.json'),get('coverage.json'),get('anes-2024-efficacy-aggregates.json')]).then(function(all){
+  Promise.all([get('acs-2025-age-representation-comparison.json'),get('coverage.json'),get('anes-2024-efficacy-aggregates.json')]).then(function(all){
     var a=all[0],c=all[1],q=all[2];
-    if(a.schema!=='power-atlas.political-authenticity-age-descriptive.v1'||c.rosterTotal<500||q.questions.length!==2)throw Error('Unexpected source schema');
+    if(a.schema!=='power-atlas.political-authenticity.acs2025-age-representation-comparison.v1'||c.rosterTotal<500||q.questions.length!==2)throw Error('Unexpected source schema');
     var area=document.getElementById('paMetrics');area.textContent='';
-    area.appendChild(metric(String(a.houseVotingAge25to34Count)+' / '+String(a.houseVotingCount),'Voting House members aged 25–34 ('+a.legislatorSnapshotDate+')'));
-    area.appendChild(metric((100*a.populationAge25to34Share).toFixed(2)+'%','2024 U.S. resident population aged 25+ who are 25–34'));
-    area.appendChild(metric(a.houseMinusPopulation25to34PercentagePoints.toFixed(2)+' pp','Descriptive age difference; mismatched years and eligibility'));
+    area.appendChild(metric(String(a.votingHouseMembersAge25to34)+' / '+String(a.votingHouseMembers),'Voting House members aged 25–34 ('+a.memberSnapshotDate+')'));
+    area.appendChild(metric((100*a.populationAge25to34ShareOf25plus).toFixed(2)+'%','2025 ACS voting-district residents aged 25+ who are 25–34'));
+    area.appendChild(metric(a.memberMinusResidentPercentagePoints.toFixed(2)+' pp','Descriptive age difference; 2025 residents vs October 2026 members; eligibility differs'));
     q.questions.forEach(function(x){area.appendChild(metric((100*x.agreeShareValid).toFixed(1)+'%','Unweighted ANES valid-response agreement: '+x.variable))});
-    text('paStatus','Public source files loaded. Birth dates '+c.ageKnown+'/'+c.rosterTotal+' (secondary source); member wealth and policy-responsiveness estimates not yet collected.');
+    text('paStatus','2025 ACS data loaded for '+a.districts+' voting districts. '+a.votingHouseMembers+' occupied seats as of '+a.memberSnapshotDate+'. Birthdate verification incomplete; member wealth and controlled responsiveness remain unmeasured.');
     text('paLimits','RQ1: ANES item-level aggregates are measured but have no valid respondent-to-member join. RQ2: no human-coded communications or fielded factorial experiment. RQ3: roll-call data alone does not measure income-specific constituency preferences. IDI: synthetic calculations only; no real legislator score. No causal claim is established by this panel.');
   }).catch(function(e){loaded=false;text('paStatus','Source feed not available ('+e.message+'). Use the linked source datasets.');text('paLimits','Do not infer missing evidence as zero or a negative finding.');});
 }
