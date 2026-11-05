@@ -123,6 +123,8 @@ def collect():
          "recordCount":len(rows),"sourceRowsRead":len(source),
          "sourceRowsWithRepeatedCampaignDistrict":sum(r["sourceRowsForCampaignDistrict"]-1 for r in rows),
          "sourceVersionRule":"For repeated candidate ID and borough/district, retain latest to_stmt; never sum source versions.",
+         "sourceGroupedDuplicateRate":round(sum(r["sourceRowsForCampaignDistrict"]-1 for r in rows)/len(source),4),
+         "disclosure":"Candidate/district keys can appear in multiple source rows. Only the highest through-statement version is displayed. A duplicate is not automatically a financial irregularity.",
          "records":rows}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(obj,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
