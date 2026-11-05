@@ -28,7 +28,7 @@ class FecOthTests(unittest.TestCase):
         self.assertEqual(result["to"],"fec:C00000002")
         self.assertEqual(result["transactionMeaning"],"contribution_received_from_registered_filer")
         payload=json.dumps(result).lower()
-        for sensitive in ("private","employer","occupation","address","00000"):
+        for sensitive in ("private","employer","occupation","address"):
             self.assertNotIn(sensitive,payload)
         self.assertIn("committee_id=C00000002",result["source"])
 
