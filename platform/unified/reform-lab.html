@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Explore 16 proposed ways to make political money visible, reduce concentrated donor leverage and strengthen voters, with source-backed current law and tradeoffs.">
+<title>Civic Power & Reform Lab | Power Atlas</title>
+<style>
+:root{font:16px/1.52 Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;--ink:#17313b;--muted:#5c717a;--teal:#14695e;--line:#dbe6e8;--paper:#f5f8f8;--amber:#9a681f;--blue:#31668e}*{box-sizing:border-box}
+html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink)}a{color:#14695e}a:hover{text-decoration-thickness:2px}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,summary:focus-visible{outline:3px solid #d99b35;outline-offset:3px}
+header{position:sticky;top:0;z-index:5;background:#fffefeff;border-bottom:1px solid var(--line)}.navwrap{max-width:1180px;margin:auto;padding:13px 18px;display:flex;gap:20px;align-items:center;justify-content:space-between;flex-wrap:wrap}.brand{font-size:.9rem;font-weight:900;letter-spacing:.05em;text-decoration:none;color:#19564d;white-space:nowrap}nav{display:flex;gap:16px;overflow-x:auto;max-width:100%;white-space:nowrap;font-size:.81rem}nav a{text-decoration:none}
+main{max-width:1180px;margin:auto;padding:32px 18px 65px}.ey{font-size:.72rem;font-weight:850;color:var(--teal);text-transform:uppercase;letter-spacing:.15em}.hero{display:grid;grid-template-columns:1.3fr .7fr;gap:24px;align-items:center;margin-bottom:28px}.hero h1{font-size:clamp(2.65rem,6vw,5rem);line-height:1.02;letter-spacing:-.058em;margin:11px 0 16px}.hero h1 em{font-style:normal;color:var(--teal)}.lead{font-size:1.04rem;color:var(--muted);max-width:690px;line-height:1.6}.cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.btn{display:inline-flex;align-items:center;justify-content:center;text-decoration:none;padding:11px 16px;border-radius:9px;background:#165f57;color:white;border:1px solid #165f57;font-weight:800;font-size:.86rem}.btn.secondary{background:#fff;color:#165f57;border-color:#b8d4cf}.heroAside{background:#e9f4f1;border:1px solid #d1e3df;border-radius:20px;padding:24px}.heroAside p{color:#4a6b67;font-size:.9rem}.heroAside strong{font-size:1.35rem;line-height:1.25;display:block}.heroAside .meta{border-top:1px solid #c6dcd7;margin-top:18px;padding-top:14px;font-size:.78rem;color:#526f69}
+.sectionHeading{margin:39px 0 16px}.sectionHeading h2{font-size:clamp(1.5rem,2.6vw,2.1rem);margin:4px 0 6px;letter-spacing:-.035em}.sectionHeading p{margin:0;color:var(--muted);font-size:.92rem;max-width:770px}
+.four{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.pillar{background:#fff;text-align:left;border:1px solid var(--line);border-radius:15px;padding:20px;min-height:180px;display:flex;flex-direction:column;gap:10px;color:var(--ink);box-shadow:0 7px 25px #092a2808}.pillar .emoji{font-size:1.9rem}.pillar strong{font-size:1.09rem;line-height:1.18}.pillar span:last-child{font-size:.82rem;color:var(--muted);margin-top:auto}.pillar:hover,.pillar[aria-pressed=true]{border-color:#218375;background:#eff8f5}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}.flowcard{background:#fff;border:1px solid var(--line);border-top:4px solid #238273;border-radius:12px;padding:16px;position:relative}.flowcard:not(:last-child):after{content:"→";position:absolute;right:-13px;top:40%;color:#228474;background:var(--paper);z-index:1;font-size:22px;font-weight:900}.flowcard .num{font-size:.72rem;font-weight:850;color:var(--teal);letter-spacing:.09em}.flowcard strong{display:block;font-size:1rem;margin:7px 0}.flowcard p{font-size:.81rem;color:var(--muted);margin:0}.notice{border-left:3px solid #b38d4b;background:#fff9ed;padding:12px 17px;color:#73572e;border-radius:5px;font-size:.84rem;margin-top:12px}
+.atlasControls{background:white;border:1px solid var(--line);border-radius:14px;padding:17px;display:flex;flex-wrap:wrap;gap:12px;align-items:end}.atlasControls label{font-size:.76rem;font-weight:750;color:#566a74;display:flex;flex-direction:column;gap:5px}.atlasControls input{min-width:260px;padding:10px 12px;border-radius:9px;border:1px solid #bbd0d3;flex:1}.atlasControls label.search{flex:1}.atlasControls button{background:#f3f8f7;border:1px solid #cbdedb;border-radius:30px;padding:9px 12px;color:#365a59;font-size:.78rem;font-weight:750}.atlasControls button[aria-pressed=true]{background:#165d55;color:white;border-color:#165d55}.chips{display:flex;flex-wrap:wrap;gap:6px}.count{font-size:.82rem;color:var(--muted);margin:13px 0}
+.reforms{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.reform{background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;min-width:0}.reform .cap{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}.chip{font-size:.7rem;font-weight:800;padding:4px 9px;border-radius:30px;color:#165e54;background:#e5f3f0}.route{font-size:.69rem;color:#6a7480}.reform h3{font-size:1.1rem;letter-spacing:-.02em;margin:10px 0 4px}.reform .short{font-size:.87rem;color:#536c74;margin:0 0 12px}.reform summary{color:#155e57;font-size:.85rem;font-weight:800;cursor:pointer;list-style-position:inside}.reform details{border-top:1px solid #e9efee;padding-top:10px}.detailGrid{display:grid;gap:10px;padding-top:13px}.detailGrid div{border-left:3px solid #d7e8e4;padding-left:10px}.detailGrid b{display:block;font-size:.71rem;color:#3f665f;letter-spacing:.04em;text-transform:uppercase}.detailGrid p{font-size:.83rem;color:#526870;margin:4px 0}.detailGrid a{font-size:.8rem;font-weight:750}
+.examples{display:grid;grid-template-columns:1fr 1fr;gap:14px}.panel{background:white;border:1px solid var(--line);border-radius:17px;padding:23px}.panel h3{font-size:1.15rem;margin:0 0 7px}.panel p{font-size:.9rem;color:#5b6e78;line-height:1.52}.bigNumber{display:block;font-size:2.7rem;letter-spacing:-.055em;color:#166e62;font-weight:900;line-height:1.1;margin:10px 0 4px}.muted{color:var(--muted)!important;font-size:.83rem!important}.mini{font-size:.76rem;color:#637780}.panel label{font-size:.84rem;font-weight:750}.panel input[type=range]{width:100%;accent-color:#166e62;margin:14px 0}.modes{display:flex;gap:8px;flex-wrap:wrap}.modes button{border:1px solid #ccdcd7;border-radius:9px;padding:7px 13px;background:#fff;color:#3c6060}.modes button[aria-pressed=true]{background:#185e55;color:#fff;border-color:#185e55}.matchBar{display:flex;height:23px;border-radius:7px;overflow:hidden;background:#d9e9e5;margin:14px 0 6px}.matchBar .own{background:#81b5a6;min-width:1px}.matchBar .public{background:#216e62;min-width:1px}.result{display:flex;gap:15px;align-items:baseline;flex-wrap:wrap}.result strong{font-size:2.1rem;color:#165d54}.result span{font-size:.82rem;color:var(--muted)}.sources{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.sources .panel{padding:17px}.sources strong{display:block;margin:5px 0}.sources p{font-size:.8rem;margin:5px 0 11px}.sources a{font-size:.8rem;font-weight:800}
+footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.8rem;margin-top:36px}.empty{background:white;border:1px dashed #b6d4cf;padding:26px;border-radius:12px;color:#55716e}.status{font-size:.8rem;color:#66777d}
+@media(max-width:900px){.four{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.heroAside{max-width:none}.sources{grid-template-columns:1fr 1fr}}
+@media(max-width:670px){main{padding:24px 14px 55px}.reforms,.examples,.sources{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.flowcard:nth-child(2):after{content:""}.flowcard:nth-child(3):after{content:"→"}.hero h1{font-size:clamp(2.45rem,11vw,3.3rem)}.atlasControls label.search,.atlasControls input{width:100%;min-width:0}.navwrap{gap:8px}nav{gap:12px}}
+@media(max-width:425px){.four{grid-template-columns:1fr 1fr;gap:8px}.pillar{padding:13px;min-height:170px}.pillar strong{font-size:.96rem}.pillar span:last-child{font-size:.76rem}.flowcard{padding:12px}.flowcard strong{font-size:.9rem}.flowcard p{font-size:.76rem}}
+</style>
+</head>
+<body>
+<header><div class="navwrap"><a class="brand" href="index.html">◈ POWER ATLAS</a><nav aria-label="Research sections"><a href="index.html">Research home</a><a href="dark-money.html">Dark money tracker</a><a href="election-money.html">Election funding</a><a href="money-sources.html">Sources</a></nav></div></header>
+<main>
+<section class="hero" aria-labelledby="mainTitle">
+<div><div class="ey">Money and influence / Civic power lab</div><h1 id="mainTitle">Who pays for power?<br><em>What could change?</em></h1>
+<p class="lead">Follow documented political money, then compare 16 ideas for greater transparency, stronger safeguards and more influence for everyday voters. Understand the tradeoffs in plain English.</p>
+<div class="cta"><a class="btn" href="#reforms">Explore reform ideas</a><a class="btn secondary" href="dark-money.html">Follow actual money</a></div></div>
+<aside class="heroAside"><div class="ey">Two different jobs</div><strong>Investigate what happened.<br>Evaluate what might work.</strong><p>Power Atlas separates source-backed financial records from possible connections and proposed changes to the law.</p><div class="meta">All 16 items in this lab are <b>policy options</b>—not enacted nationwide requirements or findings of wrongdoing.</div></aside>
+</section>
+
+<section aria-labelledby="pathTitle"><div class="sectionHeading"><div class="ey">A simple way to investigate</div><h2 id="pathTitle">From a political dollar to a decision</h2><p>Each step needs evidence. A connection on a chart is not automatically proof of influence.</p></div>
+<div class="flow" aria-label="Illustrative research sequence, not an actual money transfer">
+<div class="flowcard"><span class="num">01 · SOURCE</span><strong>Who provided money?</strong><p>Named donor or disclosed organization; sometimes unknown.</p></div>
+<div class="flowcard"><span class="num">02 · VEHICLE</span><strong>Where did it go?</strong><p>Committee, PAC, nonprofit, vendor or ad purchase.</p></div>
+<div class="flowcard"><span class="num">03 · ACCESS</span><strong>Who met whom?</strong><p>Reported lobbying, meetings, contracts or committee relationships.</p></div>
+<div class="flowcard"><span class="num">04 · DECISION</span><strong>What happened?</strong><p>Legislative vote, rule, public contract or other official act.</p></div>
+</div><p class="notice"><strong>Evidence rule:</strong> A disclosed payment can be documented. A suspicious timing pattern is only an investigative lead. Intent, influence, illegal coordination and hidden original donors are never inferred without additional evidence.</p></section>
+
+<section aria-labelledby="pillarsTitle"><div class="sectionHeading"><div class="ey">Four paths to stronger accountability</div><h2 id="pillarsTitle">Choose the problem you want to understand</h2><p>Tap a category to filter the reform ideas below.</p></div>
+<div id="pillars" class="four" aria-label="Reform categories"></div></section>
+
+<section id="reforms" aria-labelledby="reformsTitle"><div class="sectionHeading"><div class="ey">Policy comparison · 16 proposals</div><h2 id="reformsTitle">How could the rules change?</h2><p>Every proposal shows what exists today, the suggested change, potential benefit, tradeoff and a measurable outcome.</p></div>
+<div class="atlasControls"><label class="search">Search reforms<input id="search" type="search" placeholder="Try PACs, vouchers, stock trading…" aria-label="Search reform options"></label><div class="chips" role="group" aria-label="Filter by reform theme"><button type="button" data-pillar="all" aria-pressed="true">All 16</button><button type="button" data-pillar="transparency" aria-pressed="false">Transparency</button><button type="button" data-pillar="structural" aria-pressed="false">Donor leverage</button><button type="button" data-pillar="citizen" aria-pressed="false">Citizen voice</button><button type="button" data-pillar="integrity" aria-pressed="false">Integrity</button></div></div>
+<p class="count" id="count" role="status">Loading source-backed reform catalog…</p><div class="reforms" id="reformList" aria-live="off"></div></section>
+
+<section aria-labelledby="fundingTitle"><div class="sectionHeading"><div class="ey">See the mechanism · Not a prediction</div><h2 id="fundingTitle">How public matching could amplify $25</h2><p>Illustrative arithmetic, not a promise that a contribution qualifies. Eligibility rules, per-donor caps and election limits still apply.</p></div>
+<div class="examples"><div class="panel">
+<label for="donation">Individual qualifying donation: <strong id="donationLabel">$25</strong></label><input type="range" id="donation" min="5" max="200" value="25" step="5">
+<div class="modes" role="group" aria-label="Public match ratio"><button type="button" data-ratio="0" aria-pressed="false">No match</button><button type="button" data-ratio="6" aria-pressed="false">6:1 match</button><button type="button" data-ratio="8" aria-pressed="true">8:1 match</button></div>
+<div class="matchBar" aria-hidden="true"><div class="own" id="ownBar"></div><div class="public" id="publicBar"></div></div>
+<div class="result" aria-live="polite"><strong id="totalResult">$225</strong><span id="mathLabel">$25 donation + $200 public matching</span></div><p class="mini">Simple model: donation × matching ratio, up to the example $200 matchable base. Does not incorporate program limits or approval.</p></div>
+<div class="panel"><div class="ey">Existing local examples</div><h3>These ideas already have real-world versions.</h3><span class="bigNumber">8:1</span><p><strong>New York City</strong> operates a voluntary public matching-funds program for eligible contributions, subject to office-specific caps and requirements. <a href="https://www.nyccfb.info/candidate-services/join/" target="_blank" rel="noopener">View official rules</a></p><span class="bigNumber">4 × $25</span><p><strong>Seattle</strong> provides four $25 vouchers to eligible residents in regular city elections; special-election rules can differ. <a href="https://www.seattle.gov/ethics-and-elections/democracy-voucher-program" target="_blank" rel="noopener">View official program</a></p></div></div>
+</section>
+
+<section aria-labelledby="realityTitle"><div class="sectionHeading"><div class="ey">Reality checks</div><h2 id="realityTitle">What can Power Atlas verify today?</h2><p>The platform measures available evidence, not how much political power an individual has.</p></div>
+<div class="sources">
+<div class="panel"><span class="ey">Current disclosure</span><strong>The $200 rule is not a universal 24-hour rule.</strong><p>Many individual federal contributions are itemized once they exceed $200 in aggregate, while expedited independent-expenditure reports have different triggers.</p><a href="https://www.fec.gov/help-candidates-and-committees/filing-reports/individual-contributions/" target="_blank" rel="noopener">FEC reporting rules</a></div>
+<div class="panel"><span class="ey">Unidentified donors</span><strong>Unknown means unknown.</strong><p>Most nonprofit donor Schedule B identities are not public. Organizational grants do not establish the donors behind them.</p><a href="https://www.irs.gov/instructions/i990sb" target="_blank" rel="noopener">IRS donor privacy rules</a></div>
+<div class="panel"><span class="ey">Constitutional limits</span><strong>Some changes require a higher legal hurdle.</strong><p>Broad mandatory independent-spending caps face major Supreme Court precedent constraints; other ideas may be implemented by legislation or local programs.</p><a href="https://www.fec.gov/legal-resources/court-cases/citizens-united-v-fec/" target="_blank" rel="noopener">Citizens United case</a></div>
+</div><p class="status" id="catalogStatus" role="status">Research source: public policy catalog. Each card links to official guidance or a primary legal source. Check for updates before using in legal advocacy.</p></section>
+<footer>Power Atlas · Evidence before inference · Policy options are not endorsements, enacted rules, proven causal effects, or findings of misconduct. <a href="dark-money.html">Investigate documented money</a> · <a href="index.html">Back to Power Atlas</a></footer>
+</main>
+<script>
+"use strict";
+const DATA="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/money-influence/civic-power-reforms-v1.json";
+const $=id=>document.getElementById(id);
+const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt=n=>"$"+Number(n).toLocaleString("en-US");
+let catalog=null,selected="all",ratio=8;
+function setFilter(pillar,scroll){
+ selected=pillar;
+ document.querySelectorAll("[data-pillar]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pillar===pillar)));
+ document.querySelectorAll("#pillars [data-stage]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.stage===pillar)));
+ render();
+ if(scroll)$("reforms").scrollIntoView({behavior:"smooth",block:"start"});
+}
+function renderPillars(){
+ $("pillars").innerHTML=catalog.pillars.map(p=>'<button type="button" class="pillar" data-stage="'+safe(p.id)+'" aria-pressed="false"><span class="emoji" aria-hidden="true">'+safe(p.icon)+'</span><strong>'+safe(p.name)+'</strong><span>'+safe(p.question)+'</span></button>').join("");
+ document.querySelectorAll("[data-stage]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.stage,true)));
+}
+function render(){
+ if(!catalog)return;
+ const q=$("search").value.trim().toLowerCase();
+ const rows=catalog.records.filter(r=>(selected==="all"||r.pillar===selected)&&[r.title,r.short,r.baseline,r.proposal,r.benefit,r.tradeoff].join(" ").toLowerCase().includes(q));
+ $("count").textContent="Showing "+rows.length+" of "+catalog.records.length+" reform options · Every option remains a proposal";
+ $("reformList").innerHTML=rows.length?rows.map(r=>'<article class="reform"><div class="cap"><span class="chip">'+safe(catalog.pillars.find(p=>p.id===r.pillar)?.name||r.pillar)+'</span><span class="route">'+safe(r.route)+'</span></div><h3>'+safe(r.title)+'</h3><p class="short">'+safe(r.short)+'</p><details><summary>Current rule, proposal & tradeoffs</summary><div class="detailGrid"><div><b>What exists now</b><p>'+safe(r.baseline)+'</p></div><div><b>What is proposed</b><p>'+safe(r.proposal)+'</p></div><div><b>Potential benefit</b><p>'+safe(r.benefit)+'</p></div><div><b>Tradeoff or legal challenge</b><p>'+safe(r.tradeoff)+'</p></div><div><b>What we would measure</b><p>'+safe(r.measure)+'</p></div><div><a target="_blank" rel="noopener noreferrer" href="'+safe(r.source)+'">Check primary source ↗</a></div></div></details></article>').join(""):'<div class="empty">No matching reform options. Try another keyword or choose All 16.</div>';
+}
+function updateCalc(){
+ const gift=Number($("donation").value);
+ $("donationLabel").textContent=fmt(gift);
+ const publicFunds=gift*ratio,total=gift+publicFunds;
+ $("totalResult").textContent=fmt(total);
+ $("mathLabel").textContent=fmt(gift)+" donation + "+fmt(publicFunds)+" illustrative public match";
+ $("ownBar").style.width=(total?gift/total*100:100)+"%";
+ $("publicBar").style.width=(total?publicFunds/total*100:0)+"%";
+ document.querySelectorAll("[data-ratio]").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.ratio)===ratio)));
+}
+$("donation").addEventListener("input",updateCalc);
+document.querySelectorAll("[data-ratio]").forEach(b=>b.addEventListener("click",()=>{ratio=Number(b.dataset.ratio);updateCalc()}));
+document.querySelectorAll("[data-pillar]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.pillar,false)));
+$("search").addEventListener("input",render);
+updateCalc();
+(async()=>{try{
+ const response=await fetch(DATA,{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);
+ const data=await response.json();
+ if(data.schema!=="power-atlas.civic-power-reforms.v1"||!Array.isArray(data.records)||data.records.length!==16||!Array.isArray(data.pillars)||data.pillars.length!==4)throw Error("Invalid policy catalog");
+ catalog=data;renderPillars();render();$("catalogStatus").textContent="Proposal catalog reviewed "+data.asOf+" · Source-linked policy examples, not nationwide enacted law. Verify legal status with the source before relying on a proposal.";
+}catch(err){
+ $("count").textContent="Policy catalog temporarily unavailable.";
+ $("reformList").innerHTML='<div class="empty">The proposal catalog could not be loaded. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/civic-power-reforms-v1.json" target="_blank" rel="noopener">Read the source catalog on GitHub</a>.</div>';
+ $("catalogStatus").textContent="Catalog not loaded: "+err.message+". No reform data is being inferred.";
+}})();
+</script>
+</body></html>
