@@ -16,7 +16,12 @@
       "question": "Trace maps, decision makers, litigation and election effects without assuming a connection proves intent.",
       "href": "index.html",
       "evidence": "data/coverage.json",
-      "gap": "Complete historical state bills, court dockets, certified election returns and state judicial outcomes."
+      "gap": "Complete historical state bills, court dockets, certified election returns and state judicial outcomes.",
+      "evidenceSnapshot": {
+        "summary": "62 source-indexed case and research entries; the count is not adjudicated unique cases.",
+        "source": "data/coverage.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "voting-access",
@@ -26,7 +31,12 @@
       "question": "Compare how ID and voting rules differ across states; separate statutes from secondary summaries.",
       "href": "index.html",
       "evidence": "data/voting-access/state-policy-coverage-v1.json",
-      "gap": "Independently version and verify state statutes, exceptions, implementation and turnout effects."
+      "gap": "Independently version and verify state statutes, exceptions, implementation and turnout effects.",
+      "evidenceSnapshot": {
+        "summary": "51 states/DC have secondary in-person ID classifications; individual statutes remain unverified.",
+        "source": "data/voting-access/ncsl-id-index-v1.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "election-2026",
@@ -36,7 +46,12 @@
       "question": "Follow election outcomes, redistricting changes and the evidence behind competing explanations.",
       "href": "election-2026.html",
       "evidence": "data/elections/official-source-index.json",
-      "gap": "Reconcile certified 2026 state and local returns before causal claims."
+      "gap": "Reconcile certified 2026 state and local returns before causal claims.",
+      "evidenceSnapshot": {
+        "summary": "Election data-source directory indexed; zero 2026 certified canvasses reconciled in the national gate.",
+        "source": "data/health/completion-gates.json",
+        "evidenceStage": "source_only"
+      }
     },
     {
       "id": "coalitions",
@@ -49,7 +64,12 @@
       "gap": "2018–2024 CES datasets are publicly indexed but respondent records are not ingested; harmonize weighted survey groups and certified vote outcomes. No final 2026 comparison yet.",
       "relatedEvidence": [
         "data/research/cross-domain-evidence-v1.json"
-      ]
+      ],
+      "evidenceSnapshot": {
+        "summary": "Public CES 2018, 2020, 2022 and 2024 archives identified; respondent-level group analysis not yet imported.",
+        "source": "data/research/cross-domain-evidence-v1.json",
+        "evidenceStage": "source_only"
+      }
     },
     {
       "id": "issue-polling",
@@ -62,7 +82,12 @@
       "gap": "Retrieve CES/ANES respondent-level issue, party identification and vote data with weights, then join competitive-race results; survey catalogs alone do not answer this question.",
       "relatedEvidence": [
         "data/research/cross-domain-evidence-v1.json"
-      ]
+      ],
+      "evidenceSnapshot": {
+        "summary": "Two 2024 ANES opinion-frequency questions indexed; no joint issue/party/vote analysis.",
+        "source": "data/research/cross-domain-evidence-v1.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "federal-money",
@@ -72,7 +97,12 @@
       "question": "Compare FEC cycle totals and distinguish receipts, spending, and potentially overlapping transfers.",
       "href": "election-money.html",
       "evidence": "data/money-influence/fec-federal-cycle-overview-2002-2026.json",
-      "gap": "Final 2026 figures, state and local amounts, and reconciled entity-level payments."
+      "gap": "Final 2026 figures, state and local amounts, and reconciled entity-level payments.",
+      "evidenceSnapshot": {
+        "summary": "13 two-year FEC federal-cycle reporting snapshots, including incomplete 2026 figures.",
+        "source": "data/money-influence/fec-federal-cycle-overview-2002-2026.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "donor-rankings",
@@ -82,7 +112,12 @@
       "question": "Explore selected published top-40 midterm donor rankings, not a census of all donors.",
       "href": "donor-intelligence.html",
       "evidence": "data/money-influence/brennan-top40-midterms-2014-2026.json",
-      "gap": "Full source-to-committee transaction paths and clearer individual-vs-household entity resolution."
+      "gap": "Full source-to-committee transaction paths and clearer individual-vs-household entity resolution.",
+      "evidenceSnapshot": {
+        "summary": "160 curated top-40 donor-year rows across four midterm cycles.",
+        "source": "data/money-influence/brennan-top40-midterms-2014-2026.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "dark-money",
@@ -92,7 +127,12 @@
       "question": "Explore published committee receipts, investigative leads and undisclosed ultimate donors.",
       "href": "dark-money.html",
       "evidence": "data/money-influence/dark-money-graph-v1.json",
-      "gap": "Nationwide cross-jurisdiction itemized transfers and independent amendment review; hidden donors cannot be imputed."
+      "gap": "Nationwide cross-jurisdiction itemized transfers and independent amendment review; hidden donors cannot be imputed.",
+      "evidenceSnapshot": {
+        "summary": "1,200 bounded FEC receipt-side transaction rows; 10 investigative signals, not proven original-donor attribution.",
+        "source": "data/money-influence/dark-money-graph-v1.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "lobbying",
@@ -102,7 +142,12 @@
       "question": "Review public lobbying filings and distinguish lobbying from proof of policy influence.",
       "href": "money-sources.html",
       "evidence": "data/lobbying/",
-      "gap": "Recipient/issue matching, LD-203 ledgers, outcome linkage and independent review."
+      "gap": "Recipient/issue matching, LD-203 ledgers, outcome linkage and independent review.",
+      "evidenceSnapshot": {
+        "summary": "56 bounded lobbying-filing matches in the federal source index; not national coverage.",
+        "source": "data/coverage.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "congress-trades",
@@ -115,7 +160,12 @@
       "gap": "Review original reports and 43 unparsed paper filings, acquire a representative trade ledger, then link dated policy votes under clear conflict definitions.",
       "relatedEvidence": [
         "data/research/cross-domain-evidence-v1.json"
-      ]
+      ],
+      "evidenceSnapshot": {
+        "summary": "508 readable 2025 compiled holding reports and a stale, 58-row Senate transaction sample; not a congressional census.",
+        "source": "data/research/cross-domain-evidence-v1.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "reform-lab",
@@ -125,7 +175,12 @@
       "question": "Compare 16 reform proposals across transparency, structural safeguards, civic financing and enforcement.",
       "href": "reform-lab.html",
       "evidence": "data/money-influence/civic-power-reforms-v1.json",
-      "gap": "Effect estimates, local program evaluation and further legislative outcomes beyond the current casebook."
+      "gap": "Effect estimates, local program evaluation and further legislative outcomes beyond the current casebook.",
+      "evidenceSnapshot": {
+        "summary": "16 policy options, explicitly distinguished from current law.",
+        "source": "data/money-influence/civic-power-reforms-v1.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "authenticity",
@@ -138,7 +193,12 @@
       "gap": "Join district-level survey microdata to members and official disclosures. ANES opinion frequencies and 2025 selected holdings are already indexed but cannot establish causality.",
       "relatedEvidence": [
         "data/research/cross-domain-evidence-v1.json"
-      ]
+      ],
+      "evidenceSnapshot": {
+        "summary": "Two ANES 2024 opinion-frequency observations and selected 2025 holding aggregates exist, not a district-level causal join.",
+        "source": "data/research/cross-domain-evidence-v1.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "promises",
@@ -148,7 +208,12 @@
       "question": "Compare documented promises with the limited officially reviewable evidence of follow-through.",
       "href": "index.html",
       "evidence": "data/promises/",
-      "gap": "Exhaustive pledge denominators and independent promise adjudication."
+      "gap": "Exhaustive pledge denominators and independent promise adjudication.",
+      "evidenceSnapshot": {
+        "summary": "8 provisional 2020 promise cases and 24 unscored candidates; the complete pledge denominator is unknown.",
+        "source": "data/promises/research-feed.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "institutional-decay",
@@ -158,7 +223,12 @@
       "question": "Compare accountability, service quality and public trust across carefully scoped observations.",
       "href": "index.html",
       "evidence": "data/institutional-decay/",
-      "gap": "Comparable repeated-wave observations and independently powered causal designs."
+      "gap": "Comparable repeated-wave observations and independently powered causal designs.",
+      "evidenceSnapshot": {
+        "summary": "20 source-attributed aggregate observations; not a harmonized causal panel.",
+        "source": "data/institutional-decay/evidence-v1.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "gridlock",
@@ -168,7 +238,12 @@
       "question": "Inspect roll-call divisions, party gaps, cross-party cooperation and productivity.",
       "href": "compare.html",
       "evidence": "data/hyperpartisanship/app-summary-v1.json",
-      "gap": "Correct noncausal interpretation and additional party-vote linkage beyond bounded periods."
+      "gap": "Correct noncausal interpretation and additional party-vote linkage beyond bounded periods.",
+      "evidenceSnapshot": {
+        "summary": "40 House/Senate congressional-period voting observations, including incomplete 119th Congress records.",
+        "source": "data/hyperpartisanship/voteview-party-divisions-v1.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "tribalism",
@@ -178,7 +253,12 @@
       "question": "Separate partisan identity, behavior, rhetoric and competing explanations of polarization.",
       "href": "compare.html",
       "evidence": "research/hyperpartisanship/README.md",
-      "gap": "Individual-level panel datasets, validated content coding and causal design."
+      "gap": "Individual-level panel datasets, validated content coding and causal design.",
+      "evidenceSnapshot": {
+        "summary": "Voteview party-division measures exist, but they do not directly measure voter identity or cause of cooperation.",
+        "source": "data/hyperpartisanship/voteview-party-divisions-v1.json",
+        "evidenceStage": "related_only"
+      }
     },
     {
       "id": "political-actions",
@@ -188,7 +268,12 @@
       "question": "Compare reported actions by identical event definitions, category filters and crowd-size scale.",
       "href": "compare.html",
       "evidence": "data/research/atlas-inventory-v1.json",
-      "gap": "A licensed U.S. event-level ACLED or comparable protest dataset, deduplication and independent classification."
+      "gap": "A licensed U.S. event-level ACLED or comparable protest dataset, deduplication and independent classification.",
+      "evidenceSnapshot": {
+        "summary": "No validated comparable nationwide political-action event study integrated.",
+        "source": "data/research/atlas-inventory-v1.json",
+        "evidenceStage": "not_analyzed"
+      }
     },
     {
       "id": "economic-power",
@@ -198,7 +283,12 @@
       "question": "Test pricing power, housing costs, market concentration and policy transmission mechanisms.",
       "href": "",
       "evidence": "data/fiscal/",
-      "gap": "Antitrust, industry prices and transaction data; causal counterfactuals instead of assuming billionaire ownership caused price increases."
+      "gap": "Antitrust, industry prices and transaction data; causal counterfactuals instead of assuming billionaire ownership caused price increases.",
+      "evidenceSnapshot": {
+        "summary": "No matched evidence linking wealth concentration and consumer price changes is yet validated.",
+        "source": "data/research/atlas-inventory-v1.json",
+        "evidenceStage": "not_analyzed"
+      }
     },
     {
       "id": "party-policies",
@@ -208,7 +298,12 @@
       "question": "Compare outcomes across administrations without attributing all trends to the party in office.",
       "href": "",
       "evidence": "data/fiscal/",
-      "gap": "Detailed policy dates, matched counterfactuals, economic controls and methodology for mixed effects."
+      "gap": "Detailed policy dates, matched counterfactuals, economic controls and methodology for mixed effects.",
+      "evidenceSnapshot": {
+        "summary": "No controlled 1969–2026 bipartisan policy-impact comparison is yet validated.",
+        "source": "data/research/atlas-inventory-v1.json",
+        "evidenceStage": "not_analyzed"
+      }
     },
     {
       "id": "accountability",
@@ -218,7 +313,12 @@
       "question": "Follow official bills, public votes, enforcement examples and actual local programs.",
       "href": "reform-lab.html",
       "evidence": "data/money-influence/civic-accountability-evidence-v1.json",
-      "gap": "Exhaustive bill-event histories, complete voting records and enacted-versus-proposed monitoring."
+      "gap": "Exhaustive bill-event histories, complete voting records and enacted-versus-proposed monitoring.",
+      "evidenceSnapshot": {
+        "summary": "16 official-source cases and two distinct 2026 House/Senate recorded votes; not a complete policy-action census.",
+        "source": "data/money-influence/civic-accountability-evidence-v1.json",
+        "evidenceStage": "curated"
+      }
     },
     {
       "id": "judicial-selection",
@@ -228,7 +328,12 @@
       "question": "Follow federal judicial appointments and the state judicial-selection process when redistricting cases are decided.",
       "href": "index.html",
       "evidence": "data/judiciary/fjc-appointments.json",
-      "gap": "State judicial-election funding, appointment processes and complete lower-court dockets; appointments do not imply coordinated outcomes."
+      "gap": "State judicial-election funding, appointment processes and complete lower-court dockets; appointments do not imply coordinated outcomes.",
+      "evidenceSnapshot": {
+        "summary": "4,777 indexed federal judicial service/appointment records; state judicial-selection chains incomplete.",
+        "source": "data/coverage.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "power-network",
@@ -238,7 +343,12 @@
       "question": "Map public committee memberships, lobbying filings, officials and organizational relationships without inventing a money trail.",
       "href": "investigations.html",
       "evidence": "data/relationships.json",
-      "gap": "Source-confirmed individual funding edges, identity adjudication and decision-level chronology."
+      "gap": "Source-confirmed individual funding edges, identity adjudication and decision-level chronology.",
+      "evidenceSnapshot": {
+        "summary": "2,619 source-indexed relationship links; relationship does not imply political or financial influence.",
+        "source": "data/coverage.json",
+        "evidenceStage": "indexed"
+      }
     },
     {
       "id": "election-admin",
@@ -248,7 +358,12 @@
       "question": "Assess registration and roll purges, early and mail voting, felony eligibility, polling-site access and administrative burden.",
       "href": "index.html",
       "evidence": "data/voting-access/state-policy-coverage-v1.json",
-      "gap": "Versioned primary state administrative records, county-level polling sites, purge notices, eligibility remedies and measured implementation."
+      "gap": "Versioned primary state administrative records, county-level polling sites, purge notices, eligibility remedies and measured implementation.",
+      "evidenceSnapshot": {
+        "summary": "51 state/DC policy scaffolds but zero primary verified rules; secondary NCSL in-person ID classifications exist.",
+        "source": "data/voting-access/state-policy-coverage-v1.json",
+        "evidenceStage": "source_only"
+      }
     },
     {
       "id": "outrage-funding",
@@ -258,7 +373,12 @@
       "question": "Test whether viral confrontation, strategic outrage and partisan rhetoric correlate with fundraising and primary survival.",
       "href": "index.html",
       "evidence": "research/hyperpartisanship/README.md",
-      "gap": "Timestamped public speeches, content coding, engagement measures, matched FEC contributions and credible causal controls."
+      "gap": "Timestamped public speeches, content coding, engagement measures, matched FEC contributions and credible causal controls.",
+      "evidenceSnapshot": {
+        "summary": "No coded outrage-to-campaign-contribution matched dataset integrated.",
+        "source": "data/research/atlas-inventory-v1.json",
+        "evidenceStage": "not_analyzed"
+      }
     },
     {
       "id": "cooperation",
@@ -268,7 +388,12 @@
       "question": "Study constructive dialogue, shared incentives and institutional conditions for cooperation on energy, climate, debt, health and conflict.",
       "href": "index.html",
       "evidence": "research/hyperpartisanship/README.md",
-      "gap": "Representative cross-group experiments, demographic controls, follow-up measures and validated cross-country replication."
+      "gap": "Representative cross-group experiments, demographic controls, follow-up measures and validated cross-country replication.",
+      "evidenceSnapshot": {
+        "summary": "Historical party-division data exist, but no intervention trial proving increased cooperation is integrated.",
+        "source": "data/hyperpartisanship/voteview-party-divisions-v1.json",
+        "evidenceStage": "related_only"
+      }
     }
   ],
   "evidenceRules": [

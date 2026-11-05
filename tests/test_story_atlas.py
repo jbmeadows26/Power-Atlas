@@ -77,3 +77,14 @@ class StoryAtlasTests(unittest.TestCase):
         for marker in ('id="people"', 'id="holderCount"', 'id="tradeCount"', 'id="efficacyBars"',
                        'data/research/cross-domain-evidence-v1.json', 'Unweighted survey responses only'):
             self.assertIn(marker, self.html)
+
+    def test_every_topic_has_specific_existing_evidence_statement(self):
+        valid_stages = {"indexed", "curated", "source_only", "related_only", "not_analyzed"}
+        for item in self.items:
+            evidence = item.get("evidenceSnapshot")
+            self.assertIsInstance(evidence, dict, item["id"])
+            self.assertIn(evidence["evidenceStage"], valid_stages)
+            self.assertTrue(evidence["summary"])
+            self.assertTrue(evidence["source"].startswith("data/"))
+        self.assertIn('id="dialogExisting"', self.html)
+        self.assertIn('id="dialogExistingSource"', self.html)

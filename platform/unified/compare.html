@@ -143,6 +143,7 @@ footer{border-top:1px solid #2e485b;padding:24px 0 38px;color:#88a8b9;font-size:
  <h2 id="dialogTitle"></h2><span class="topicStatus" id="dialogStatus"></span>
  <p id="dialogQuestion" class="dialogQuestion"></p>
  <div class="dialogDivider"></div>
+ <h3>What Power Atlas already has</h3><p id="dialogExisting" class="dialogQuestion"></p><a id="dialogExistingSource" class="sourceLink" target="_blank" rel="noopener noreferrer" href="https://github.com/jbmeadows26/Power-Atlas">Inspect source record ↗</a><div class="dialogDivider"></div>
  <h3>What remains unanswered?</h3><p id="dialogGap" class="dialogQuestion"></p>
  <div id="dialogLinks" class="dialogLinks"></div>
  <p class="dialogFootnote">A topic's coverage label describes indexed material; it does not establish a policy conclusion or wrongdoing.</p>
@@ -243,6 +244,10 @@ function openTopic(id,trigger){
  el("dialogStatus").innerHTML='<i class="statusDot '+safe(x.status)+'" aria-hidden="true"></i>'+safe(STATUSLONG[x.status]||"Research under review");
  el("dialogQuestion").textContent=x.question;
  el("dialogGap").textContent=x.gap;
+ var snap=x.evidenceSnapshot||{};
+ el("dialogExisting").textContent=snap.summary||"No reviewed observation has been integrated for this question.";
+ el("dialogExistingSource").href=snap.source?"https://github.com/jbmeadows26/Power-Atlas/"+(snap.source.endsWith("/")?"tree/":"blob/")+"main/"+snap.source:"https://github.com/jbmeadows26/Power-Atlas";
+ el("dialogExistingSource").textContent=snap.evidenceStage==="not_analyzed"?"See research gap register ↗":"Inspect existing evidence ↗";
  var main=x.href?'<a href="'+safe(x.href)+'">Open existing dashboard ↗</a>':"";
  var source='<a class="'+(main?"secondary":"")+'" href="'+safe("https://github.com/jbmeadows26/Power-Atlas/"+(x.evidence.endsWith("/")?"tree/":"blob/")+"main/"+x.evidence)+'" target="_blank" rel="noopener noreferrer">View indexed source ↗</a>';
  el("dialogLinks").innerHTML=main+source;
