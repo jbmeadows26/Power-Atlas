@@ -1,0 +1,54 @@
+{
+  "schema": "power-atlas.irs.verified-ein-filing-inventory.2025.v1",
+  "sourceURL": "https://apps.irs.gov/pub/epostcard/990/xml/2025/index_2025.csv",
+  "downloadSHA256": "e54ba6938d98b1746f2fd464a0f77e520efd956dc3da737d73843dc0013c6770",
+  "scope": "2025 IRS-processed Form 990 filings for two source-verified civic 501(c)(4) EINs only",
+  "status": "IRS filing inventory only; grant totals and cross-jurisdiction payments not yet extracted",
+  "donorsIdentified": 0,
+  "campaignFundingTransfersEstablished": 0,
+  "selection": {
+    "rowsScanned": 748906,
+    "officialIndex2025": true,
+    "selectedFilings": 2,
+    "selectedEINs": 2
+  },
+  "limitations": [
+    "Selected Form 990 filers are not all U.S. political nonprofits.",
+    "IRS filing year 2025 is not the same as the organization's tax year.",
+    "Filing an IRS Form 990 or having a tax-exempt classification is not evidence of wrongdoing.",
+    "A Schedule I grant does not prove the original donor or any political expenditure.",
+    "An IRS batch archive/member locator is independently auditable; extracting grants remains a separate step."
+  ],
+  "records": [
+    {
+      "filingId": "202541359349307549",
+      "ein": "202303252",
+      "organizationName": "The Concord Fund",
+      "taxExemptClassificationFromIndependentProfile": "501c4",
+      "profileSource": "https://projects.propublica.org/nonprofits/organizations/202303252",
+      "taxPeriod": "202406",
+      "submitted": null,
+      "submissionDateAsReported": "2025",
+      "submissionDateStatus": "source_unparsed",
+      "returnType": "990",
+      "archiveURL": "https://apps.irs.gov/pub/epostcard/990/xml/2025/2025_TEOS_XML_05A.zip",
+      "archiveMember": "202541359349307549_public.xml",
+      "reviewStatus": "official_irs_index_entry_nonprofit_profile_independently_identified"
+    },
+    {
+      "filingId": "202533159349305888",
+      "ein": "264486735",
+      "organizationName": "Sixteen Thirty Fund",
+      "taxExemptClassificationFromIndependentProfile": "501c4",
+      "profileSource": "https://projects.propublica.org/nonprofits/organizations/264486735",
+      "taxPeriod": "202412",
+      "submitted": null,
+      "submissionDateAsReported": "2025",
+      "submissionDateStatus": "source_unparsed",
+      "returnType": "990",
+      "archiveURL": "https://apps.irs.gov/pub/epostcard/990/xml/2025/2025_TEOS_XML_11B.zip",
+      "archiveMember": "202533159349305888_public.xml",
+      "reviewStatus": "official_irs_index_entry_nonprofit_profile_independently_identified"
+    }
+  ]
+}
