@@ -16,6 +16,7 @@ ROOT = Path(__file__).resolve().parents[1]
 BASE = ROOT / "data/money-influence"
 FEC_PREVIEW = BASE / "verified-record-previews-v1.json"
 FEC_DISB = ROOT / "data/finance/fec-disbursements.json"
+FEC_OTH = ROOT / "data/finance/fec-committee-transfers.json"
 REVIEWED = BASE / "reviewed-organizational-transfers-v1.json"
 OUT = BASE / "dark-money-graph-v1.json"
 CID = re.compile(r"^C[0-9]{8}$")
@@ -86,7 +87,7 @@ def reviewed_rows():
         public_url(row["source"])
         yield row
 
-def collect_graph(preview, disbursements, manual=()):
+def collect_graph(preview, disbursements, manual=(), receipt_doc=None):
     snapshots, nodes, edges = [], {}, {}
     for row in preview["pacCommittees"]:
         cid = row["committeeId"]
@@ -125,6 +126,39 @@ def collect_graph(preview, disbursements, manual=()):
                       "evidenceType": "filed_committee_payment", "source":
                       public_url(row["source"]), "reviewStatus":
                       "official_filing_not_independently_reconciled"}
+    receipt_count = 0
+    if receipt_doc is not None:
+        if receipt_doc.get("schema") != "power-atlas.fec.oth-transfers.v1":
+            raise ValueError("Unrecognized FEC OTH receipt schema")
+        for row in receipt_doc.get("records", []):
+            source_id, dest_id = row.get("from"), row.get("to")
+            if not (str(source_id).startswith("fec:") and str(dest_id).startswith("fec:")):
+                raise ValueError("FEC payment edges require official committee IDs")
+            sender, recipient = str(source_id)[4:], str(dest_id)[4:]
+            if not (CID.fullmatch(sender) and CID.fullmatch(recipient)) or sender == recipient:
+                raise ValueError("Invalid FEC organizational identity pair")
+            if row.get("evidenceType") != "official_fec_reported_receipt" or not row.get("filingId"):
+                raise ValueError("FEC receipt requires source filing ID and explicit evidence type")
+            if row.get("transactionType") not in {"18K","18G","30K","30G","31K","31G","32K","32G"}:
+                raise ValueError("Unverified FEC transaction direction")
+            date.fromisoformat(row["date"])
+            amount(row["amountUSD"])
+            eid = row["id"]
+            if not re.fullmatch(r"fec-oth-\d{4}-[a-f0-9]{20}", eid) or eid in edges:
+                raise ValueError("Duplicate or invalid FEC OTH transaction key")
+            for cid in (sender, recipient):
+                nid = "fec:" + cid
+                nodes.setdefault(nid, {"id": nid, "name": "FEC " + cid,
+                                       "entityType": "committee", "jurisdiction": "federal",
+                                       "source": "https://www.fec.gov/data/committee/" + cid + "/"})
+            edges[eid] = {"id": eid, "from": source_id, "to": dest_id,
+                          "amountUSD": amount(row["amountUSD"]), "date": row["date"],
+                          "jurisdiction": "federal", "cycle": row["cycle"],
+                          "evidenceType": "official_fec_reported_receipt",
+                          "transactionType": row["transactionType"],
+                          "filingId": row["filingId"], "source": public_url(row["source"]),
+                          "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"}
+            receipt_count += 1
     for row in manual:
         a, b = row["fromEntity"], row["toEntity"]
         for org in (a, b):
@@ -142,37 +176,45 @@ def collect_graph(preview, disbursements, manual=()):
                       "source": public_url(row["source"]), "reviewStatus":
                       "human_checked_official_filing"}
     links = list(edges.values())
+    outbound = {}
+    for item in links:
+        outbound.setdefault(item["from"], []).append(item)
     signals = []
     for incoming in links:
-        for outgoing in links:
-            if incoming["to"] != outgoing["from"] or incoming["id"] == outgoing["id"]:
+        for outgoing in outbound.get(incoming["to"], []):
+            if incoming["id"] == outgoing["id"] or outgoing["to"] == incoming["from"]:
                 continue
             gap = (date.fromisoformat(outgoing["date"]) -
                    date.fromisoformat(incoming["date"])).days
             ratio = abs(outgoing["amountUSD"] - incoming["amountUSD"]) / incoming["amountUSD"]
-            if 0 <= gap <= 45 and ratio <= 0.05 and outgoing["to"] != incoming["from"]:
+            if 0 <= gap <= 45 and ratio <= 0.05:
                 signals.append({"type": "potential_sequential_payment",
                                 "evidence": [incoming["id"], outgoing["id"]],
                                 "dateGapDays": gap, "amountDifferencePct": round(ratio * 100, 2),
                                 "interpretation": "Investigative lead only; no source-of-funds attribution"})
+    signals.sort(key=lambda s: (s["dateGapDays"], s["amountDifferencePct"], s["evidence"]))
     return {"schema": "power-atlas.dark-money.graph.v1", "sourceStatus": "partial",
             "scope": "Published organization/committee records only; not a census of dark money",
             "metrics": {"fecCommitteeCycleSnapshots": len(snapshots),
                         "distinctOrganizations": len(nodes), "filedTransferEdges": len(links),
+                        "filedTransactionReceiptEdges": receipt_count,
                         "potentialSequentialPaymentLeads": len(signals),
                         "verifiedOriginalDonorAttributions": 0},
             "nodes": sorted(nodes.values(), key=lambda x: x["id"]),
             "snapshots": sorted(snapshots, key=lambda x: (x["cycle"], x["committeeId"])),
             "edges": sorted(links, key=lambda x: x["id"]),
             "signals": sorted(signals, key=lambda x: x["evidence"])[:100],
-            "limitations": LIMITATIONS}
+            "limitations": LIMITATIONS,
+            "ingestion": {"fecOfficialItemizedReceipts": receipt_doc.get("selection", {}) if receipt_doc else {},
+                          "localOrStateReviewedRecords": len(list(manual)) if isinstance(manual, (list, tuple)) else 0}}
 
 def build():
     p = read_json(FEC_PREVIEW)
     d = read_json(FEC_DISB, {"records": []})
     if not p or not isinstance(p.get("pacCommittees"), list):
         raise ValueError("Missing documented FEC committee snapshots")
-    result = collect_graph(p, d, reviewed_rows())
+    other = read_json(FEC_OTH, {"schema": "power-atlas.fec.oth-transfers.v1", "records": [], "selection": {}})
+    result = collect_graph(p, d, list(reviewed_rows()), other)
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(json.dumps(result, indent=2, ensure_ascii=False, allow_nan=False) + "\n",
                    encoding="utf-8")

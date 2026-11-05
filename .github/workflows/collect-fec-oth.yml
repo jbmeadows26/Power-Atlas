@@ -1,0 +1,63 @@
+name: Ingest official FEC committee-to-committee receipt records
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect_fec_oth.py'
+      - 'scripts/build_dark_money.py'
+      - 'tests/test_fec_oth.py'
+      - 'tests/test_dark_money.py'
+      - '.github/workflows/collect-fec-oth.yml'
+      - 'data/finance/fec-committee-transfers.json'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_fec_oth.py'
+      - '.github/workflows/collect-fec-oth.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '10 7 * * 4'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-fec-oth-itemized
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate official source layout and no inferred person edges
+        run: |
+          python -m unittest discover -s tests -p 'test_fec_oth.py' -v
+          python -m unittest discover -s tests -p 'test_dark_money.py' -v
+  ingest:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: check
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download bounded original 2026 FEC OTH archive and publish only organization IDs
+        env:
+          FEC_OTH_CYCLE: '2026'
+        run: python -m scripts.collect_fec_oth
+      - name: Rebuild and test evidence graph
+        run: |
+          python -m scripts.build_dark_money
+          python -m unittest discover -s tests -p 'test_fec_oth.py' -v
+          python -m unittest discover -s tests -p 'test_dark_money.py' -v
+      - name: Publish bounded verified-source output
+        run: |
+          bash scripts/publish_data.sh \
+             data/finance/fec-committee-transfers.json \
+             data/money-influence/dark-money-graph-v1.json

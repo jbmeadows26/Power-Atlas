@@ -11,7 +11,7 @@ class DarkMoneyTests(unittest.TestCase):
         result = m.collect_graph(
             json.loads(m.FEC_PREVIEW.read_text()),
             json.loads(m.FEC_DISB.read_text()),
-            [])
+            [], m.read_json(m.FEC_OTH, {"schema":"power-atlas.fec.oth-transfers.v1","records":[],"selection":{}}))
         published = json.loads(m.OUT.read_text())
         self.assertEqual(result, published)
         self.assertEqual(result["metrics"]["fecCommitteeCycleSnapshots"], 135)
