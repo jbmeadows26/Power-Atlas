@@ -25,7 +25,11 @@ jobs:
         run: python scripts/collect_fec_transactions.py
         env:
           FEC_API_KEY: ${{ secrets.FEC_API_KEY }}
+      - name: Rebuild cross-jurisdiction financial evidence graph
+        run: |
+          python -m scripts.build_dark_money
+          python -m unittest discover -s tests -p 'test_dark_money.py' -v
       - name: Refresh unified research feed
         run: python scripts/build.py
       - name: Publish with bounded rebase retries
-        run: bash scripts/publish_data.sh data/finance/fec-disbursements.json data/app-feed.json data/research.json data/relationships.json
+        run: bash scripts/publish_data.sh data/finance/fec-disbursements.json data/app-feed.json data/research.json data/relationships.json data/money-influence/dark-money-graph-v1.json
