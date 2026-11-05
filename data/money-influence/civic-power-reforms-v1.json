@@ -1,0 +1,242 @@
+{
+  "schema": "power-atlas.civic-power-reforms.v1",
+  "asOf": "2026-11-05",
+  "recordType": "policy_proposals_not_current_federal_law",
+  "description": "Sixteen candidate reforms; current-law baselines and examples must be verified against original sources. This is not a judgment that any law or person is corrupt.",
+  "pillars": [
+    {
+      "id": "transparency",
+      "name": "Show the money",
+      "question": "Can voters see who paid?",
+      "icon": "🔎"
+    },
+    {
+      "id": "structural",
+      "name": "Reduce donor leverage",
+      "question": "Can money buy privileged access?",
+      "icon": "⚖️"
+    },
+    {
+      "id": "citizen",
+      "name": "Strengthen everyday voices",
+      "question": "Can campaigns compete without megadonors?",
+      "icon": "🗳️"
+    },
+    {
+      "id": "integrity",
+      "name": "Close the side doors",
+      "question": "Can public offices enforce fair rules?",
+      "icon": "🛡️"
+    }
+  ],
+  "records": [
+    {
+      "id": "rapid-filing",
+      "pillar": "transparency",
+      "title": "Faster political-money disclosure",
+      "short": "See major funding before Election Day.",
+      "route": "Federal/state legislation",
+      "baseline": "Federal committees generally disclose on reporting schedules; certain independent expenditures already trigger 24- or 48-hour reports.",
+      "proposal": "Require machine-readable reporting within 24–48 hours during election periods for contributions above a proposed $200 threshold and qualifying expenditures.",
+      "benefit": "Voters can investigate late-cycle funding before casting ballots.",
+      "tradeoff": "Faster filing raises compliance costs and may require exemptions or safeguards for low-risk small organizations.",
+      "measure": "Median hours between transaction and public release; share of filings arriving before Election Day.",
+      "source": "https://www.fec.gov/help-candidates-and-committees/making-independent-expenditures/reporting-independent-expenditures-form-3x/"
+    },
+    {
+      "id": "beneficial-ownership",
+      "pillar": "transparency",
+      "title": "Reveal hidden funding vehicles",
+      "short": "Identify organizational funders when the law permits.",
+      "route": "Federal/state legislation + privacy review",
+      "baseline": "Most 501(c)(4) organizations do not publicly disclose contributor names on IRS Schedule B; organizational payments alone cannot establish original donor identity.",
+      "proposal": "Require enhanced beneficial-owner and source-of-funds reporting for qualifying election communications above a proposed $10,000 organizational spending threshold.",
+      "benefit": "Reduce opportunities to conceal election-related financial flows behind opaque entities.",
+      "tradeoff": "Privacy, associational freedom, safety, and constitutional challenges; disclosure must be carefully tailored.",
+      "measure": "Share of qualifying spending with publicly validated source attribution, versus unknown origin.",
+      "source": "https://www.irs.gov/instructions/i990sb"
+    },
+    {
+      "id": "digital-ad-archive",
+      "pillar": "transparency",
+      "title": "Political-ad transparency",
+      "short": "Know who bought, targeted, and paid for an ad.",
+      "route": "Federal/state legislation",
+      "baseline": "Existing advertising disclosures vary by ad type, platform, and jurisdiction; one comprehensive public archive is not assumed.",
+      "proposal": "Establish standardized records for ad purchaser, spend, dates, geographic targeting, and available aggregate audience information.",
+      "benefit": "Expose fragmented ad purchases and inconsistent messages across audiences.",
+      "tradeoff": "Protect user privacy, prevent disclosure of sensitive audience identities, and avoid publishing unsafe microtargeting details.",
+      "measure": "Percent of qualifying ads with searchable purchaser, spend, and targeting metadata.",
+      "source": "https://www.fec.gov/help-candidates-and-committees/advertising-and-disclaimers/"
+    },
+    {
+      "id": "in-kind-perks",
+      "pillar": "transparency",
+      "title": "Account for in-kind access",
+      "short": "Track trips, retreats, services, and noncash support.",
+      "route": "Federal/state ethics and disclosure rules",
+      "baseline": "In-kind campaign support, gifts, travel, and lobbying have different legal reporting regimes; they cannot be combined without classification.",
+      "proposal": "Harmonize cross-references for reportable travel, retreats, logistical support, policy services, and other benefits.",
+      "benefit": "Make noncash benefits easier to examine alongside political spending.",
+      "tradeoff": "Legitimate meetings, legal advice, policy discussion, and non-reportable personal activity need clear boundaries.",
+      "measure": "Share of reportable in-kind benefits with source, recipient, date, and appropriate legal classification.",
+      "source": "https://www.fec.gov/help-candidates-and-committees/keeping-records/"
+    },
+    {
+      "id": "coordination",
+      "pillar": "structural",
+      "title": "Stronger coordination safeguards",
+      "short": "Check when an outside spender is truly independent.",
+      "route": "Federal legislation + FEC rules",
+      "baseline": "Federal coordination rules already test payment, content, and conduct; shared vendors alone do not prove coordination.",
+      "proposal": "Revisit rules for common consultants, family relationships, staffing, reused campaign materials, and candidate-controlled activities.",
+      "benefit": "Clarify when purportedly independent spending should count as campaign support.",
+      "tradeoff": "Requires precise standards so protected independent political speech is not mislabeled or chilled.",
+      "measure": "Enforcement determinations and substantiated coordination cases—not shared-vendor matches alone.",
+      "source": "https://www.fec.gov/help-candidates-and-committees/candidate-taking-receipts/coordinated-communications/"
+    },
+    {
+      "id": "pay-to-play",
+      "pillar": "structural",
+      "title": "Contractor and lobbyist guardrails",
+      "short": "Reduce preferential access tied to donations.",
+      "route": "Federal/state legislation",
+      "baseline": "Federal contractor and foreign-national contribution prohibitions already exist; broad lobbyist or foreign-ownership bans are not assumed.",
+      "proposal": "Evaluate expanded restrictions on covered contractors, lobbying-related bundling, and clearly defined influence-conflict situations.",
+      "benefit": "Reduce risks that public procurement or official decisions are perceived as donor-dependent.",
+      "tradeoff": "Overbroad restrictions can conflict with associational rights or treat lawful participation as misconduct.",
+      "measure": "Political contributions or bundled funds from legally covered entities before and after policy changes.",
+      "source": "https://www.fec.gov/help-candidates-and-committees/candidate-taking-receipts/who-can-and-cant-contribute/"
+    },
+    {
+      "id": "fundraising-time",
+      "pillar": "structural",
+      "title": "Separate lawmaking and fundraising",
+      "short": "Protect official time from campaign fundraising.",
+      "route": "Federal/state ethics legislation",
+      "baseline": "Restrictions already govern some fundraising on federal premises; comprehensive legislative-session-hour bans are additional proposals.",
+      "proposal": "Restrict covered officeholders from soliciting political funds during official legislative session hours, with enforceable definitions.",
+      "benefit": "Reduce visible overlap between public duties and campaign fundraising.",
+      "tradeoff": "Time-zone, remote-work, enforcement, and speech concerns require narrow drafting.",
+      "measure": "Verified fundraising events or solicitations overlapping prohibited official periods.",
+      "source": "https://www.law.cornell.edu/uscode/text/18/607"
+    },
+    {
+      "id": "spending-amendment",
+      "pillar": "structural",
+      "title": "Explore constitutional spending limits",
+      "short": "What would it take to cap independent spending?",
+      "route": "Constitutional amendment",
+      "baseline": "Supreme Court precedents including Buckley and Citizens United constrain broad limits on independent political expenditures.",
+      "proposal": "Assess an amendment authorizing legislatures to establish constitutionally permissible election-spending limits.",
+      "benefit": "Could alter the constitutional authority available for limits on independent spending.",
+      "tradeoff": "Amendment ratification is difficult and would prompt major debate over speech and association rights.",
+      "measure": "Legal milestones, ratification status, and subsequent spending concentration; not speculative savings.",
+      "source": "https://www.fec.gov/legal-resources/court-cases/citizens-united-v-fec/"
+    },
+    {
+      "id": "matching",
+      "pillar": "citizen",
+      "title": "Match small donations with public funds",
+      "short": "Make a $25 donation worth more to a qualifying campaign.",
+      "route": "Federal/state/local program design",
+      "baseline": "New York City already operates an optional small-donor program with an 8:1 match for qualified contributions, subject to limits and eligibility rules.",
+      "proposal": "Evaluate 6:1 or 8:1 public matches for the first $200 from qualifying local donors, paired with spending and contribution rules.",
+      "benefit": "Increase campaign incentives to seek many modest contributions.",
+      "tradeoff": "Public funding cost, candidate eligibility, fairness across districts, and oversight must be assessed.",
+      "measure": "Number of unique in-district contributors, share of receipts from small donors, program cost.",
+      "source": "https://www.nyccfb.info/candidate-services/join/"
+    },
+    {
+      "id": "vouchers",
+      "pillar": "citizen",
+      "title": "Democracy vouchers",
+      "short": "Give eligible residents a campaign-funding voice.",
+      "route": "State/local pilot; federal legislation for expansion",
+      "baseline": "Seattle uses publicly funded democracy vouchers; eligibility and voucher amounts vary by election.",
+      "proposal": "Study a model such as four $25 publicly funded vouchers per eligible resident.",
+      "benefit": "Can enable participation by residents who cannot spare cash for donations.",
+      "tradeoff": "Administrative expense, take-up inequality, program funding, and fraud controls matter.",
+      "measure": "Voucher redemption by geography and participation group, candidate breadth, program cost.",
+      "source": "https://www.seattle.gov/ethics-and-elections/democracy-voucher-program"
+    },
+    {
+      "id": "independent-maps",
+      "pillar": "citizen",
+      "title": "Independent district maps",
+      "short": "Make district boundaries less dependent on lawmakers.",
+      "route": "State law/constitutional changes",
+      "baseline": "State redistricting institutions differ; some jurisdictions already have independent or bipartisan commissions.",
+      "proposal": "Expand independently administered, transparent mapmaking with published evaluation criteria.",
+      "benefit": "Can reduce direct legislative control over district boundaries.",
+      "tradeoff": "Commission selection, litigation, community representation, and measurable fairness are complex.",
+      "measure": "Competition, representational bias, map transparency, and compliance with voting-rights law.",
+      "source": "https://www.ncsl.org/redistricting-and-census/redistricting-commissions-congressional-plans"
+    },
+    {
+      "id": "voting-systems",
+      "pillar": "citizen",
+      "title": "Compare alternative voting systems",
+      "short": "Test whether different ballots change competition.",
+      "route": "State/local election law; federal legislation for federal rules",
+      "baseline": "Ranked-choice and other voting methods are used in selected jurisdictions, but election rules vary and impacts are context-dependent.",
+      "proposal": "Study ranked-choice or approval voting for eligible elections with pilots and independent evaluations.",
+      "benefit": "May change candidate incentives and voter choice depending on design.",
+      "tradeoff": "Education, ballot complexity, implementation costs, and uncertain partisan effects.",
+      "measure": "Exhausted ballots, voter understanding, participation, competitiveness, and representation.",
+      "source": "https://www.ncsl.org/elections-and-campaigns/ranked-choice-voting"
+    },
+    {
+      "id": "fec-reform",
+      "pillar": "integrity",
+      "title": "Reform federal enforcement",
+      "short": "Make enforcement timely and credible.",
+      "route": "Federal legislation",
+      "baseline": "The FEC is legally structured for six commissioners and needs four affirmative votes for official action.",
+      "proposal": "Evaluate an odd-numbered commission, independent leadership, stronger procedural tools, and faster penalties.",
+      "benefit": "Potentially reduce deadlock and case backlogs.",
+      "tradeoff": "Agency independence, appointment politics, due process, and investigative-power checks need careful design.",
+      "measure": "Case age, substantiated enforcement rate, vacancies, and enforcement backlog.",
+      "source": "https://www.fec.gov/about/leadership-and-structure/"
+    },
+    {
+      "id": "stock-trading",
+      "pillar": "integrity",
+      "title": "Limit officials' individual-stock trading",
+      "short": "Reduce financial conflicts in public office.",
+      "route": "Federal ethics legislation",
+      "baseline": "Financial disclosure and STOCK Act rules exist; a universal individual-stock ban for all covered officials and families is a separate proposal.",
+      "proposal": "Examine limits on covered individual securities trading and supervised diversified or trust alternatives.",
+      "benefit": "Could reduce avoidable conflicts and increase public trust.",
+      "tradeoff": "Family coverage, asset definitions, divestment taxes, enforcement, and blind-trust design are consequential.",
+      "measure": "Reportable trades, late disclosures, documented conflicts, and enforcement outcomes.",
+      "source": "https://ethics.house.gov/financial-disclosure/"
+    },
+    {
+      "id": "revolving-door",
+      "pillar": "integrity",
+      "title": "Longer revolving-door safeguards",
+      "short": "Limit rapid monetization of government relationships.",
+      "route": "Federal/state ethics legislation",
+      "baseline": "Existing post-employment restrictions vary by role and conduct; they are not a uniform five-year paid-advisory ban.",
+      "proposal": "Explore a five-year cooling-off period for specified lobbying and paid advisory activity with tightly drafted coverage.",
+      "benefit": "Could reduce incentives to favor future private employers.",
+      "tradeoff": "Employment restrictions, constitutional concerns, enforceability, and compensation effects.",
+      "measure": "Covered employment transitions, violations, waivers, and procurement/regulatory conflict patterns.",
+      "source": "https://www.oge.gov/web/oge.nsf/Resources/Post-Employment"
+    },
+    {
+      "id": "whistleblowers",
+      "pillar": "integrity",
+      "title": "Protect people who report violations",
+      "short": "Make it safer to document wrongdoing.",
+      "route": "Federal/state legislation and enforcement design",
+      "baseline": "Whistleblower protections vary by agency, occupation, and statute; campaign-vendor protections are not uniformly comprehensive.",
+      "proposal": "Study safe reporting channels, anti-retaliation rules, independent review, and carefully bounded financial awards.",
+      "benefit": "Help investigators verify illicit coordination or unlawful funding with firsthand evidence.",
+      "tradeoff": "False-report safeguards, witness privacy, due process, and incentive design are essential.",
+      "measure": "Verified complaints, retaliation findings, processing time, and substantiated recoveries.",
+      "source": "https://www.osc.gov/Services/Pages/DU.aspx"
+    }
+  ]
+}
