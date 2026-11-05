@@ -136,7 +136,7 @@ async function start(){
   document.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>jurisdiction(b.dataset.j));
   $("cycle").addEventListener("change",populate);$("search").addEventListener("input",populate);$("committee").addEventListener("change",renderFlow);
   jurisdiction("federal");populate();showSignals();
-  $("health").textContent="Source-backed records loaded · "+d.metrics.fecCommitteeCycleSnapshots+" committee-cycle snapshots · "+d.metrics.filedTransferEdges+" original transaction edges.";
+  $("health").textContent="Source-backed records loaded · "+d.metrics.fecCommitteeCycleSnapshots+" committee-cycle snapshots · "+d.metrics.filedTransferEdges+" original transaction edges · "+d.metrics.potentialSequentialPaymentLeads+" investigative pattern leads.";
  }catch(e){$("health").textContent="Unable to load the Power Atlas graph: "+e.message+". Consult the official filing links above."; $("signals").textContent="Source data unavailable. No patterns can be reported.";showPortals()}
 }
 start();
