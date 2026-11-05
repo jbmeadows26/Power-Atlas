@@ -1,0 +1,68 @@
+{
+  "schema": "power-atlas.campaign-evidence-additive.v1",
+  "asOf": "2026-11-03",
+  "status": "unadjudicated",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "independentHumanReviewCount": 0,
+  "sourceDocuments": [
+    {
+      "id": "US20-DEM-PLATFORM",
+      "existingDocument": true,
+      "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "locator": "Raising Wages and Promoting Workers' Rights",
+      "rights": "archival_transcription_link_and_paraphrase_only"
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-MINWAGE-20261103",
+      "maker": "Democratic Party",
+      "electionDate": "2020-11-03",
+      "sourceDocumentId": "US20-DEM-PLATFORM",
+      "paraphrase": "Raise the federal minimum wage to $15 per hour by 2026.",
+      "locator": "Raising Wages and Promoting Workers' Rights; federal minimum wage sentence",
+      "criterion": "Nationwide federal statutory minimum hourly wage at least $15 by end of 2026; deadline is not yet matured as of evidence date.",
+      "linkedOfficialEventIds": [
+        "US21-S53-INTRODUCED",
+        "US21-HR603-INTRODUCED"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "duplicateReviewRequired": true,
+      "uncertainty": "Party pledge not automatically attributable to each elected official. Introduction does not establish passage, executive implementation or achievement; 2026 deadline remains open.",
+      "competingExplanations": [
+        "Legislative coalition and Senate procedure constrain enactment.",
+        "Federal contractor and state wage floors do not substitute for a national statutory floor."
+      ]
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US21-S53-INTRODUCED",
+      "date": "2021-01-26",
+      "kind": "bill_introduction_not_enactment",
+      "url": "https://www.govinfo.gov/app/details/BILLS-117s53is",
+      "locator": "117th Congress S.53 introduced version and action",
+      "fact": "Raise the Wage Act of 2021 introduced in Senate and referred to HELP Committee.",
+      "notProofOf": "enactment_or_pledge_fulfillment"
+    },
+    {
+      "id": "US21-HR603-INTRODUCED",
+      "date": "2021-01-28",
+      "kind": "bill_introduction_not_enactment",
+      "url": "https://www.govinfo.gov/content/pkg/BILLS-117hr603ih/pdf/BILLS-117hr603ih.pdf",
+      "locator": "Introduced House bill cover page and Section 2",
+      "fact": "Raise the Wage Act of 2021 introduced in House; proposed graduated increases.",
+      "notProofOf": "enactment_or_pledge_fulfillment"
+    }
+  ],
+  "fiscalActualObservations": [],
+  "limitations": [
+    "Check duplicate pledge candidates across all ledgers before denominator inclusion.",
+    "No independent dual review or outcome coding.",
+    "Source text is paraphrased; party document reproduction permission not established.",
+    "Do not infer obstruction, motives or fiscal causal effects from introduction events."
+  ]
+}
