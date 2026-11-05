@@ -66,23 +66,28 @@ def parse_xml(blob:bytes,archive_url:str,member:str):
     filer_name=business_name(filer)
     if not filer_name:raise ValueError("IRS filer legal business name missing")
     schedule=[x for x in root.iter() if local(x.tag)=="IRS990ScheduleI"]
+    if not schedule:
+        return []
     result=[]
+    accepted_groups={"RecipientTable","RecipientInfo","RecipientDetails",
+                     "GrantsOtherAsstToOrgInUSGrp","GrantsOtherAsstToOrgInUS",
+                     "GrantsOtherAsstToOrgOutsideUSGrp"}
     for sch in schedule:
-        for entry in sch.iter():
-            if local(entry.tag) not in {"RecipientTable","RecipientInfo","RecipientDetails"}:
-                continue
-            rec_ein=descend_text(entry,{"RecipientEIN","EINOfRecipient","RecipientEINNumber"})
+        for sequence,entry in enumerate(e for e in sch.iter() if local(e.tag) in accepted_groups):
+            rec_ein=descend_text(entry,{"RecipientEIN","EINOfRecipient","RecipientEINNumber",
+                                           "RecipientEINNum","EIN"})
             rec_name=business_name(entry)
             if not (EIN.fullmatch(rec_ein or "") and rec_name and rec_ein!=filer_ein):
                 continue
-            cash=descend_text(entry,{"CashGrantAmt","CashGrantAmount"})
+            cash=descend_text(entry,{"CashGrantAmt","CashGrantAmount",
+                                          "CashGrantGivenAmt"})
             try:
                 total=Decimal(cash)
                 if not total.is_finite() or total<=0 or total>Decimal("1000000000000"):
                     continue
             except (InvalidOperation,ValueError):
                 continue
-            key="|".join([member,filer_ein,rec_ein,yr,format(total,"f")])
+            key="|".join([member,filer_ein,rec_ein,yr,format(total,"f"),str(sequence)])
             result.append({"id":"irs-grant-"+hashlib.sha256(key.encode()).hexdigest()[:20],
                            "from":"irs-ein:"+filer_ein,"to":"irs-ein:"+rec_ein,
                            "fromName":filer_name[:160],"toName":rec_name[:160],
@@ -90,7 +95,7 @@ def parse_xml(blob:bytes,archive_url:str,member:str):
                            "evidenceType":"irs_schedule_i_outbound_grant_not_campaign_contribution",
                            "source":archive_url,"archiveMember":member,
                            "reviewStatus":"official_irs_xml_unverified_political_purpose"})
-    return sorted({x["id"]:x for x in result}.values(),key=lambda e:e["id"])
+    return sorted(result,key=lambda e:e["id"])
 
 def write_records(records):
     if not records:raise ValueError("No qualifying organization-to-organization Schedule I grants; do not publish an empty refresh")
@@ -105,7 +110,7 @@ def write_records(records):
             "limitations":["Schedule I is public outbound nonprofit grants; not recipient PAC receipts or a complete financial flow.",
                            "Most 501(c)(4)/(c)(6) donor identities cannot be recovered from publicly available Form 990.",
                            "Organization EIN identity is reported by the filer and requires independent confirmation for any cross-dataset join.",
-                           "Only manually selected official e-filing XMLs are processed; no national completeness claimed."],
+                           "Only verified, targeted official e-filing XML files are processed; no national completeness claimed."],
             "records":sorted(combined.values(),key=lambda x:x["id"])}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(result,indent=2,ensure_ascii=False,allow_nan=False)+"\n")
