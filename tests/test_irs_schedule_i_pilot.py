@@ -24,9 +24,9 @@ class IRSPilotTests(unittest.TestCase):
         with TemporaryDirectory() as td:
             path=Path(td)/"official-irs.zip"
             with zipfile.ZipFile(path,"w") as z:
-                z.writestr(member,b"<Return/>")
+                z.writestr(member,b"\xef\xbb\xbf<Return/>")
                 z.writestr("other_public.xml",b"<Ignore/>")
-            self.assertEqual(pilot.read_target_xml(path,member),b"<Return/>")
+            self.assertEqual(pilot.read_target_xml(path,member),b"\xef\xbb\xbf<Return/>")
             with self.assertRaises(ValueError):
                 pilot.read_target_xml(path,"wrong_public.xml")
     def test_parser_no_personal_donors(self):
