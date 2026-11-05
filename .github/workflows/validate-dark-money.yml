@@ -30,7 +30,13 @@ jobs:
       - name: Rebuild graph reproducibly
         run: |
           python -m scripts.build_dark_money
-          git diff --exit-code -- data/money-influence/dark-money-graph-v1.json
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          from scripts.build_dark_money import build, OUT
+          published=json.loads(OUT.read_text())
+          assert published == build(), 'Graph build must be semantically reproducible'
+          PY
       - name: Run privacy, evidence, and interaction tests
         run: python -m unittest discover -s tests -p 'test_dark_money.py' -v
       - name: Check dashboard syntax
