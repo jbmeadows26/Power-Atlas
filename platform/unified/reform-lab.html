@@ -144,6 +144,14 @@ $("donation").addEventListener("input",updateCalc);
 document.querySelectorAll("[data-ratio]").forEach(b=>b.addEventListener("click",()=>{ratio=Number(b.dataset.ratio);updateCalc()}));
 document.querySelectorAll("[data-pillar]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.pillar,false)));
 $("search").addEventListener("input",render);
+$("reformList").addEventListener("click",event=>{
+ const link=event.target.closest('a[href^="#case-"]');
+ if(!link||!accountability)return;
+ evidenceKind="all";
+ $("actionSearch").value="";
+ document.querySelectorAll("[data-evidence]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.evidence==="all")));
+ renderActions();
+});
 updateCalc();
 
 const kindName={bill:"Legislative bill",enforcement:"Official enforcement",program:"Program in use",rule:"Current rule"};
