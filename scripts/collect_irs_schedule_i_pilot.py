@@ -99,7 +99,8 @@ def read_target_xml(path,member):
                                    str(info.compress_type)+": "+err.decode("utf-8","replace")[-400:])
         if len(blob)>MAX_XML_BYTES:
             raise ValueError("Target IRS return read exceeds safe XML size")
-        if not blob.lstrip().startswith(b"<?xml") and not blob.lstrip().startswith(b"<Return"):
+        magic=blob.lstrip().removeprefix(b"\xef\xbb\xbf").lstrip()
+        if not magic.startswith(b"<?xml") and not magic.startswith(b"<Return"):
             raise ValueError("Target IRS archive member not XML: size="+str(len(blob))+
                              " compression="+str(info.compress_type)+
                              " first16hex="+blob[:16].hex())
