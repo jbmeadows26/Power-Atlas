@@ -8,6 +8,8 @@ from __future__ import annotations
 import hashlib
 import json
 import os
+import shutil
+import subprocess
 import tempfile
 import urllib.request
 import zipfile
@@ -73,10 +75,32 @@ def read_target_xml(path,member):
         info=names[0]
         if info.file_size>MAX_XML_BYTES:
             raise ValueError("Target IRS return exceeds safe XML size")
-        with z.open(info) as f:
-            blob=f.read(MAX_XML_BYTES+1)
+        try:
+            with z.open(info) as f:
+                blob=f.read(MAX_XML_BYTES+1)
+        except NotImplementedError:
+            # IRS publishes some batches with a ZIP compression method
+            # unsupported by Python 3.12's zipfile (e.g. Deflate64).
+            # 7-Zip supports it and emits only this indexed member to stdout.
+            executable=shutil.which("7z") or shutil.which("7zz")
+            if not executable:
+                raise RuntimeError("IRS ZIP method "+str(info.compress_type)+
+                                   " requires 7-Zip extractor on the runner")
+            proc=subprocess.Popen([executable,"e","-y","-so",str(path),info.filename],
+                                  stdout=subprocess.PIPE,stderr=subprocess.PIPE)
+            blob=proc.stdout.read(MAX_XML_BYTES+1)
+            if len(blob)>MAX_XML_BYTES:
+                proc.kill()
+                proc.communicate()
+                raise ValueError("7-Zip IRS extracted XML exceeds size bound")
+            _,err=proc.communicate(timeout=90)
+            if proc.returncode!=0:
+                raise RuntimeError("7-Zip failed extracting official IRS XML member "+
+                                   str(info.compress_type)+": "+err.decode("utf-8","replace")[-400:])
         if len(blob)>MAX_XML_BYTES:
             raise ValueError("Target IRS return read exceeds safe XML size")
+        if not blob.lstrip().startswith(b"<?xml") and not blob.lstrip().startswith(b"<Return"):
+            raise ValueError("Target IRS archive member does not start as XML")
         return blob
 
 def collect():
