@@ -29,6 +29,16 @@ class NYCTests(unittest.TestCase):
         self.assertEqual(latest["statementThrough"],"9")
         self.assertEqual(latest["reportedNetContributionsUSD"],23456.78)
         self.assertEqual(latest["sourceRowsForCampaignDistrict"],2)
+    def test_p_and_g_source_variants_remain_separate(self):
+        rows=self.rows()
+        rows[0]["cand_name"]="Public Candidate (ID:A1000-P)"
+        other=dict(rows[0]);other["cand_name"]="Public Candidate (ID:A1000-G)"
+        result=m.parse(rows+[other])
+        items=[r for r in result if r["candidateId"]=="A1000"]
+        self.assertEqual(len(items),2)
+        self.assertEqual({r["sourceFilingVariant"] for r in items},{"P","G"})
+        self.assertEqual(sum(r["sourceRowsForCampaignDistrict"] for r in items),2)
+
     def test_year_filter_fails_closed(self):
         rows=self.rows();rows[0]["el_cycle"]="2024"
         with self.assertRaises(ValueError):m.parse(rows)
