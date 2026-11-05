@@ -1,0 +1,173 @@
+{
+  "schema": "power-atlas.cross-domain-evidence.v1",
+  "asOf": "2026-11-05",
+  "publicationStatus": "mixed_source_attributed_bounded_observations_not_exhaustive",
+  "narrative": "Published observations are available for financial holdings, a narrow 2026 trade delta and voter efficacy. Comparable politician-investment-vote and voter-group-outcome joined studies remain incomplete.",
+  "financialHoldings": {
+    "reportYear": 2025,
+    "source": "https://palanor.com/congress-trades/holdings",
+    "sourceStatus": "THIRD_PARTY_SOURCE_REPORTED_AGGREGATES_NOT_PRIMARY_INDEPENDENTLY_AUDITED",
+    "readableReports": 508,
+    "paperReportsUnparsed": 43,
+    "membersWithDirectSp500SharesOrOptions": 178,
+    "shareAmongReadableReports": 0.35039370078740156,
+    "positions": 4889,
+    "sectors": [
+      {
+        "sector": "Information Technology",
+        "members": 112,
+        "positions": 943,
+        "thirdPartyMidpointSharePct": 37
+      },
+      {
+        "sector": "Financials",
+        "members": 104,
+        "positions": 793,
+        "thirdPartyMidpointSharePct": 27.1
+      },
+      {
+        "sector": "Real Estate",
+        "members": 39,
+        "positions": 127,
+        "thirdPartyMidpointSharePct": 8.4
+      },
+      {
+        "sector": "Communication Services",
+        "members": 86,
+        "positions": 360,
+        "thirdPartyMidpointSharePct": 7.1
+      },
+      {
+        "sector": "Consumer Discretionary",
+        "members": 88,
+        "positions": 478,
+        "thirdPartyMidpointSharePct": 6.5
+      },
+      {
+        "sector": "Industrials",
+        "members": 89,
+        "positions": 653,
+        "thirdPartyMidpointSharePct": 3.7
+      },
+      {
+        "sector": "Health Care",
+        "members": 92,
+        "positions": 600,
+        "thirdPartyMidpointSharePct": 3.2
+      },
+      {
+        "sector": "Energy",
+        "members": 61,
+        "positions": 222,
+        "thirdPartyMidpointSharePct": 2.8
+      },
+      {
+        "sector": "Consumer Staples",
+        "members": 73,
+        "positions": 379,
+        "thirdPartyMidpointSharePct": 2.7
+      },
+      {
+        "sector": "Utilities",
+        "members": 47,
+        "positions": 209,
+        "thirdPartyMidpointSharePct": 0.9
+      },
+      {
+        "sector": "Materials",
+        "members": 41,
+        "positions": 125,
+        "thirdPartyMidpointSharePct": 0.7
+      }
+    ],
+    "limits": [
+      "Third-party estimates, not independently audited against individual primary filings",
+      "Selected S&P 500 direct shares/options only; NOT congressional net worth, profits, conflicts of interest, or all financial assets",
+      "Paper reports missing and reporting cohorts differ; members may appear in multiple sectors",
+      "Sector midpoint shares are approximate third-party bracket reconstructions; do not sum members across sectors"
+    ]
+  },
+  "financialTrades": {
+    "source": "https://github.com/LuxAlgo/market-trackers-data/blob/main/congress/trades/latest.json",
+    "sourceStatus": "OBSERVED_STALE_NONREPRESENTATIVE_DAILY_DELTA",
+    "sourceLastRefresh": "2026-09-07T15:11:27.497Z",
+    "transactionRows": 58,
+    "uniqueFilers": 3,
+    "chamber": "Senate (observed delta only)",
+    "spouseTrades": 55,
+    "selfTrades": 3,
+    "medianDisclosureLagDays": 27,
+    "sourceDocuments": 3,
+    "limits": [
+      "58-row stale single daily delta from 3 Senate filers; not a representative House/Senate dataset",
+      "Spouse versus self reporting is distinct; no proof of individual direction or conflicts",
+      "Primary original transaction reports require spot-checks, and disclosed amounts are ranges, not net worth"
+    ]
+  },
+  "voterEfficacy": {
+    "study": "ANES 2024 Time Series",
+    "source": "https://sda.berkeley.edu/sdaweb/docs/anes2024full/DOC/hcbk0040.htm",
+    "primaryStudy": "https://electionstudies.org/data-center/2024-time-series-study/",
+    "dataStatus": "PUBLIC_AGGREGATES_ONLY_NOT_DISTRICT_JOINED_NOT_WEIGHTED",
+    "surveyWave": "2024 POST",
+    "questions": [
+      {
+        "variable": "V242200",
+        "question": "Public officials don't care what people like me think",
+        "agree": 3507,
+        "validN": 4928,
+        "shareValidUnweighted": 0.711648
+      },
+      {
+        "variable": "V242201",
+        "question": "People like me have no say about what government does",
+        "agree": 3153,
+        "validN": 4932,
+        "shareValidUnweighted": 0.639294
+      }
+    ],
+    "limits": [
+      "Unweighted sample frequencies, not representative national proportions",
+      "Question-specific valid denominators; marginal distributions cannot identify joint political or demographic groups",
+      "No district or politician join; not evidence which voter group decided an election"
+    ]
+  },
+  "surveyDataDiscovery": {
+    "source": "https://tischcollege.tufts.edu/research-faculty/research-centers/cooperative-election-study/data-downloads",
+    "dataStatus": "PUBLIC_DATASETS_IDENTIFIED_NOT_INGESTED",
+    "yearsIndexed": [
+      2018,
+      2020,
+      2022,
+      2024
+    ],
+    "year2024": {
+      "source": "https://doi.org/10.7910/DVN/X11EP6",
+      "publisher": "Harvard Dataverse",
+      "datasetVersion": "9.0",
+      "license": "CC0 1.0",
+      "description": "Final 2024 CES Common Content dataset, approximately 60,000 respondents",
+      "approximateRespondents": 60000,
+      "rawRecordsInPowerAtlas": 0
+    },
+    "year2026": {
+      "status": "not_publicly_confirmed_as_final_2026_release_as_of_review",
+      "rawRecordsInPowerAtlas": 0
+    },
+    "nextSteps": [
+      "Obtain published 2018–2024 CES common content and codebooks under their respective terms",
+      "Build a normalized issue, party-ID, demographic, vote-choice extraction with weights, missing-code rules and replicate denominators",
+      "Verify final 2026 CES release before including 2026 comparisons"
+    ],
+    "limits": [
+      "An available downloadable dataset is not equivalent to having downloaded, cleaned and analyzed individual records",
+      "No group-level electoral influence estimate or joint issue-vote distribution is published here"
+    ]
+  },
+  "evidenceRules": [
+    "No individual stock trader misconduct inference without original-file and chronology checks",
+    "Financial holdings, periodic trade reports and voting records are different source grains",
+    "Surveys need weighting and uncertainty handling before population claims",
+    "Missing paper reports and unavailable respondent microdata are not zero observations"
+  ]
+}

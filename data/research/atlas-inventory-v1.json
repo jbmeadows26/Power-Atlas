@@ -46,7 +46,10 @@
       "question": "Examine pivotal voter groups across the 2018, 2020, 2022, 2024 and 2026 elections.",
       "href": "",
       "evidence": "data/elections/representation-gaps.json",
-      "gap": "Validated election survey microdata, consistent demographic crosswalks and uncertainty estimates."
+      "gap": "2018–2024 CES datasets are publicly indexed but respondent records are not ingested; harmonize weighted survey groups and certified vote outcomes. No final 2026 comparison yet.",
+      "relatedEvidence": [
+        "data/research/cross-domain-evidence-v1.json"
+      ]
     },
     {
       "id": "issue-polling",
@@ -56,7 +59,10 @@
       "question": "Compare voter issue preferences, party identification and candidate choice in competitive races.",
       "href": "",
       "evidence": "research/voting-access/POWER-ATLAS-INTEGRATION.md",
-      "gap": "Matched polling microdata and race-level survey denominators; 2026 polls must be compared to outcomes."
+      "gap": "Retrieve CES/ANES respondent-level issue, party identification and vote data with weights, then join competitive-race results; survey catalogs alone do not answer this question.",
+      "relatedEvidence": [
+        "data/research/cross-domain-evidence-v1.json"
+      ]
     },
     {
       "id": "federal-money",
@@ -102,11 +108,14 @@
       "id": "congress-trades",
       "title": "Do officials' investments conflict with their votes?",
       "category": "Money",
-      "status": "needs_data",
+      "status": "partial",
       "question": "Join legislator holdings/trades with dates of legislation and oversight roles.",
-      "href": "",
-      "evidence": "data/people/",
-      "gap": "Official STOCK Act disclosures, transaction normalization, spouse/dependent handling and timing checks."
+      "href": "compare.html#people",
+      "evidence": "data/research/cross-domain-evidence-v1.json",
+      "gap": "Review original reports and 43 unparsed paper filings, acquire a representative trade ledger, then link dated policy votes under clear conflict definitions.",
+      "relatedEvidence": [
+        "data/research/cross-domain-evidence-v1.json"
+      ]
     },
     {
       "id": "reform-lab",
@@ -126,7 +135,10 @@
       "question": "Study socioeconomic distance and voting alignment; observational links are not proof of motives.",
       "href": "index.html",
       "evidence": "data/research/political-authenticity/",
-      "gap": "Validated district-survey linkages, wealth disclosures and causal identification."
+      "gap": "Join district-level survey microdata to members and official disclosures. ANES opinion frequencies and 2025 selected holdings are already indexed but cannot establish causality.",
+      "relatedEvidence": [
+        "data/research/cross-domain-evidence-v1.json"
+      ]
     },
     {
       "id": "promises",
