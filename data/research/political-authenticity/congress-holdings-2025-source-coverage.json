@@ -1,0 +1,133 @@
+{
+  "schema": "power-atlas.political-authenticity.congress-holdings-coverage.v1",
+  "publicationStatus": "THIRD_PARTY_SOURCE_REPORTED_AGGREGATES_NOT_PRIMARY_INDEPENDENTLY_AUDITED",
+  "reportYear": 2025,
+  "source": "https://palanor.com/congress-trades/holdings",
+  "originalAuthorities": [
+    "https://disclosures-clerk.house.gov/FinancialDisclosure",
+    "https://www.senate.gov/legislative/Public_Disclosure/financial-disclosure.htm"
+  ],
+  "scope": "S&P 500 direct stock and options holdings in electronically filed 2025 House and Senate annual reports; latest annual report/amendment per member, excludes candidate reports",
+  "readableMemberReports": 508,
+  "paperScannedReportsUnparsed": 43,
+  "membersWithSp500DirectSharesOrOptions": 178,
+  "holderShareAmongReadableReports": 0.35039370078740156,
+  "sp500Positions": 4889,
+  "sectorSummaries": [
+    {
+      "name": "Information Technology",
+      "midpointSharePct": 37,
+      "midpointMillionsUSD": 234.1,
+      "membersHolding": 112,
+      "positions": 943
+    },
+    {
+      "name": "Financials",
+      "midpointSharePct": 27.1,
+      "midpointMillionsUSD": 171.8,
+      "membersHolding": 104,
+      "positions": 793
+    },
+    {
+      "name": "Real Estate",
+      "midpointSharePct": 8.4,
+      "midpointMillionsUSD": 53,
+      "membersHolding": 39,
+      "positions": 127
+    },
+    {
+      "name": "Communication Services",
+      "midpointSharePct": 7.1,
+      "midpointMillionsUSD": 44.9,
+      "membersHolding": 86,
+      "positions": 360
+    },
+    {
+      "name": "Consumer Discretionary",
+      "midpointSharePct": 6.5,
+      "midpointMillionsUSD": 41.5,
+      "membersHolding": 88,
+      "positions": 478
+    },
+    {
+      "name": "Industrials",
+      "midpointSharePct": 3.7,
+      "midpointMillionsUSD": 23.7,
+      "membersHolding": 89,
+      "positions": 653
+    },
+    {
+      "name": "Health Care",
+      "midpointSharePct": 3.2,
+      "midpointMillionsUSD": 20.1,
+      "membersHolding": 92,
+      "positions": 600
+    },
+    {
+      "name": "Energy",
+      "midpointSharePct": 2.8,
+      "midpointMillionsUSD": 17.6,
+      "membersHolding": 61,
+      "positions": 222
+    },
+    {
+      "name": "Consumer Staples",
+      "midpointSharePct": 2.7,
+      "midpointMillionsUSD": 16.9,
+      "membersHolding": 73,
+      "positions": 379
+    },
+    {
+      "name": "Utilities",
+      "midpointSharePct": 0.9,
+      "midpointMillionsUSD": 5.6,
+      "membersHolding": 47,
+      "positions": 209
+    },
+    {
+      "name": "Materials",
+      "midpointSharePct": 0.7,
+      "midpointMillionsUSD": 4.5,
+      "membersHolding": 41,
+      "positions": 125
+    }
+  ],
+  "sectorRoundedShareSumPct": 100.1,
+  "prominentIssuersAmongReadableReports": [
+    {
+      "ticker": "AAPL",
+      "members": 71,
+      "positions": 119
+    },
+    {
+      "ticker": "MSFT",
+      "members": 67,
+      "positions": 114
+    },
+    {
+      "ticker": "AMZN",
+      "members": 56,
+      "positions": 89
+    },
+    {
+      "ticker": "JPM",
+      "members": 45,
+      "positions": 65
+    },
+    {
+      "ticker": "NVDA",
+      "members": 42,
+      "positions": 70
+    }
+  ],
+  "restrictions": [
+    "Sector midpoint values are third-party bracket-midpoint approximations, NOT filed exact market values",
+    "2025 source uses S&P 500 company membership at source publication date and applies it retrospectively",
+    "Not a Census of all financial assets; excludes funds, bonds, real estate, private business stakes, trusts and non-S&P issuers",
+    "2025 member file cohort differs from 2026 current-member roster and may contain people no longer serving",
+    "Unreadable paper reports are missing rather than zero assets; no population extrapolation or senator/representative ranking",
+    "One member can be in multiple sectors, therefore member sector totals cannot be added",
+    "Annual holdings and periodic transactions are distinct datasets, and transaction sums do not establish current ownership or net worth",
+    "5 USC 13107(c) restricts use of disclosure records; findings provided as source-attributed public-interest research"
+  ]
+}
