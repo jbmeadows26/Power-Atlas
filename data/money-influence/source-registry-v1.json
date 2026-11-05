@@ -1,0 +1,362 @@
+{
+  "schema": "power-atlas.money-source-registry.v1",
+  "updatedUtc": "2026-11-05",
+  "focus": "Public and attributable U.S. campaign financing, lobbying, nonprofit and connected-policy research",
+  "purpose": "Product-level discovery and evidence provenance registry; references are not equivalent to complete data ingestion.",
+  "statuses": {
+    "indexed_partial": "Some related actual records already persisted, but not complete",
+    "curated_excerpt": "A bounded, attributed research extract is present",
+    "link_only": "Public source documented and linked; no transactions ingested from this source",
+    "research_only": "Analysis or academic contextual source not yet ingested",
+    "archive_only": "Historic reference, not currently maintained"
+  },
+  "links": "Only observed filing-linked entities form graph edges; matching names, money and votes do not establish improper influence.",
+  "privacy": "No personal addresses, phones, emails or individual donation transactions are republished in this index.",
+  "sources": [
+    {
+      "id": "fec",
+      "name": "Federal Election Commission",
+      "category": "federal",
+      "tier": "primary",
+      "status": "indexed_partial",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "pac",
+        "spending"
+      ],
+      "coverage": "Federal candidates, PACs, party committees, outside spending · historical and current",
+      "value": "Verify who filed, what a committee received, and reported independent spending.",
+      "url": "https://www.fec.gov/data/browse-data/",
+      "machineReadable": "https://www.fec.gov/data/browse-data/",
+      "access": "Official bulk data + public API; API key or rate limits can apply",
+      "dataProducts": [
+        "data/finance/fec-committee-master.json",
+        "data/finance/fec-candidate-links.json",
+        "data/finance/fec-pac-party-summaries.json",
+        "data/money-influence/fec-federal-cycle-overview-2002-2026.json"
+      ],
+      "caution": "Already indexed committee identifiers and aggregates; no complete donor-to-recipient disbursement ledger."
+    },
+    {
+      "id": "irs527",
+      "name": "IRS political organization disclosures",
+      "category": "federal",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "darkmoney",
+        "donations"
+      ],
+      "coverage": "Section 527 political organizations · Form 8871/8872 records",
+      "value": "Find political-organization income and expenditure filings outside the FEC view.",
+      "url": "https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",
+      "machineReadable": "https://www.irs.gov/charities-non-profits/public-disclosure-datasets-and-downloads",
+      "access": "Public searchable filings and downloads",
+      "dataProducts": [],
+      "caution": "Many FEC-registered committees have separate reporting rules; don't infer an absent IRS filing is undisclosed campaign money."
+    },
+    {
+      "id": "lda",
+      "name": "U.S. House and Senate LDA / LD-203",
+      "category": "federal",
+      "tier": "primary",
+      "status": "indexed_partial",
+      "priority": 1,
+      "roles": [
+        "lobbying",
+        "donations"
+      ],
+      "coverage": "Federal lobbying registration, quarterly activity, lobbyist political contribution reports",
+      "value": "Examine disclosed lobbying issue activity alongside campaign finance.",
+      "url": "https://lda.gov/system/public/",
+      "machineReadable": "https://lda.gov/api/",
+      "access": "Public search; API registration required for programmatic access",
+      "dataProducts": [
+        "data/lobbying/lda-filings.json",
+        "data/money-influence/verified-record-previews-v1.json"
+      ],
+      "caution": "56 previously indexed issue-query filings are LD-1/LD-2-style activity matches, not an ingested set of LD-203 donor disclosures or proof of a payoff."
+    },
+    {
+      "id": "california",
+      "name": "California Secretary of State · CAL-ACCESS",
+      "category": "state",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "spending",
+        "lobbying"
+      ],
+      "jurisdiction": "CA",
+      "coverage": "State campaigns, ballot measures, independent expenditures and lobbying",
+      "value": "Follow CA campaign money and ballot-measure spending.",
+      "url": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
+      "machineReadable": "https://www.sos.ca.gov/campaign-lobbying/helpful-resources/raw-data-campaign-finance-and-lobbying-activity",
+      "access": "Daily raw export + source field guides; ZIP parsing required",
+      "dataProducts": [],
+      "caution": "No state contribution transactions ingested; daily export can include sensitive fields. Use redacted published extracts only."
+    },
+    {
+      "id": "newyork",
+      "name": "New York State Board of Elections",
+      "category": "state",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "spending"
+      ],
+      "jurisdiction": "NY",
+      "coverage": "NY state and county campaign-finance disclosures since July 1999",
+      "value": "Search state filers, contributions, independent expenditures, and annual filings.",
+      "url": "https://publicreporting.elections.ny.gov/",
+      "machineReadable": "https://publicreporting.elections.ny.gov/DownloadCampaignFinanceData/DownloadCampaignFinanceData",
+      "access": "Public report search and CSV ZIP; also state open data",
+      "dataProducts": [],
+      "caution": "NYC mayor, council and some other NYC office records have a separate city filing system. Duplicated amended reports require reconciliation."
+    },
+    {
+      "id": "nyc",
+      "name": "New York City Campaign Finance Board",
+      "category": "state",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "spending"
+      ],
+      "jurisdiction": "NYC",
+      "coverage": "New York City candidates and political spending, including off-year elections",
+      "value": "Explore municipal donations, spending, intermediaries and public matching funds.",
+      "url": "https://campaignfinanceboard.com/follow-the-money/data-library",
+      "machineReadable": "https://campaignfinanceboard.com/follow-the-money/data-library",
+      "access": "Public historical CSV downloads",
+      "dataProducts": [],
+      "caution": "Municipal city-office finance differs from the statewide NY BOE and federal election-cycle data."
+    },
+    {
+      "id": "texas",
+      "name": "Texas Ethics Commission",
+      "category": "state",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "spending",
+        "lobbying"
+      ],
+      "jurisdiction": "TX",
+      "coverage": "State candidates, PACs, expenditures, and lobbying reports",
+      "value": "Open TX campaign disclosures and regularly refreshed CSV extracts.",
+      "url": "https://www.ethics.texas.gov/data-reports/campaign-finance/",
+      "machineReadable": "https://www.ethics.texas.gov/data-reports/campaign-finance/",
+      "access": "Nightly CSV ZIP published by the state",
+      "dataProducts": [],
+      "caution": "Filer corrections and duplicate special reports require deduplication; many local-office records reside with local authorities."
+    },
+    {
+      "id": "newjersey",
+      "name": "New Jersey ELEC",
+      "category": "state",
+      "tier": "primary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "spending",
+        "lobbying"
+      ],
+      "jurisdiction": "NJ",
+      "coverage": "State and local candidate committees, PACs, lobbying and pay-to-play records",
+      "value": "Search NJ campaign contributions and contracting-related disclosures.",
+      "url": "https://www.elec.nj.gov/publicinformation/searchdatabase.htm",
+      "machineReadable": "https://www.elec.nj.gov/",
+      "access": "Public search, selected bulk links; some historical material restricted for privacy review",
+      "dataProducts": [],
+      "caution": "Public source availability is narrower than all historical filings. Do not attempt to bypass address redactions."
+    },
+    {
+      "id": "propublica",
+      "name": "ProPublica Nonprofit Explorer",
+      "category": "nonprofit",
+      "tier": "secondary",
+      "status": "link_only",
+      "priority": 1,
+      "roles": [
+        "darkmoney",
+        "nonprofit"
+      ],
+      "coverage": "IRS Form 990 and tax-exempt organization financial summaries",
+      "value": "Inspect a nonprofit's filings, revenue and expenditures when investigating groups active in politics.",
+      "url": "https://projects.propublica.org/nonprofits/",
+      "machineReadable": "https://projects.propublica.org/nonprofits/api/",
+      "access": "Public REST API; use rate-aware, attributed requests",
+      "dataProducts": [],
+      "caution": "Form 990 annual totals are not equivalent to campaign expenditures, and a 501(c)(4) donor list may not be publicly disclosed."
+    },
+    {
+      "id": "opensecrets",
+      "name": "OpenSecrets / Follow the Money",
+      "category": "nonprofit",
+      "tier": "secondary",
+      "status": "curated_excerpt",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "pac",
+        "darkmoney",
+        "spending"
+      ],
+      "coverage": "Federal and selected state money-in-politics rankings and classifications",
+      "value": "Add donor employer, sector and organization context to official finance filings.",
+      "url": "https://www.opensecrets.org/",
+      "machineReadable": "https://www.opensecrets.org/",
+      "access": "Public research pages; bulk extraction and reuse rights require explicit terms review",
+      "dataProducts": [
+        "data/money-influence/opensecrets-presidential-donor-excerpts-2020-2024.json"
+      ],
+      "caution": "Only 18 selected presidential-cycle donor rows currently included; not a full donor universe."
+    },
+    {
+      "id": "brennan",
+      "name": "Brennan Center election money research",
+      "category": "nonprofit",
+      "tier": "secondary",
+      "status": "curated_excerpt",
+      "priority": 2,
+      "roles": [
+        "donations",
+        "darkmoney",
+        "spending"
+      ],
+      "coverage": "Research on mega donors, dark money and federal elections",
+      "value": "Compare the largest midterm donor groups, especially undisclosed-donor organizations.",
+      "url": "https://www.brennancenter.org/series/money-2026-election",
+      "machineReadable": "https://github.com/zhangj-brennan/mip_top_40_donors",
+      "access": "Published curated source tables with attribution",
+      "dataProducts": [
+        "data/money-influence/brennan-top40-midterms-2014-2026.json"
+      ],
+      "caution": "160 rows cover four selected midterms only. Grouped donors and 'dark money' classifications follow source methodology."
+    },
+    {
+      "id": "dime",
+      "name": "Stanford DIME · Political Money & Ideology",
+      "category": "academic",
+      "tier": "research",
+      "status": "research_only",
+      "priority": 1,
+      "roles": [
+        "donations",
+        "ideology"
+      ],
+      "coverage": "1979–2024 linked donors, candidates and ideology scores",
+      "value": "Track historical donor identities and estimated ideology across cycles and electoral levels.",
+      "url": "https://data.stanford.edu/dime",
+      "machineReadable": "https://data.stanford.edu/dime",
+      "access": "Published aggregates and selected files with ODC-BY attribution; donor-level row-level restrictions apply to some third-party-sourced records",
+      "dataProducts": [],
+      "caution": "CFscores are model estimates, not positions on specific bills. Confirm licensing and restricted records before redistribution."
+    },
+    {
+      "id": "plural",
+      "name": "Plural / OpenStates legislative records",
+      "category": "academic",
+      "tier": "secondary",
+      "status": "link_only",
+      "priority": 2,
+      "roles": [
+        "legislation"
+      ],
+      "coverage": "State legislation, sponsors, votes, and legislator rosters",
+      "value": "Check whether recipients later sponsored or voted on specific measures.",
+      "url": "https://pluralpolicy.com/tools",
+      "machineReadable": "https://pluralpolicy.com/tools",
+      "access": "Free limited research API with registration; separate commercial terms",
+      "dataProducts": [],
+      "caution": "Temporal association of donations with votes does not imply donor influence or causality."
+    },
+    {
+      "id": "clc",
+      "name": "Campaign Legal Center",
+      "category": "watchdog",
+      "tier": "analysis",
+      "status": "research_only",
+      "priority": 2,
+      "roles": [
+        "darkmoney",
+        "enforcement"
+      ],
+      "coverage": "Campaign finance cases, regulatory complaints, dark-money investigative briefs",
+      "value": "Track legal questions and enforcement status involving political spending.",
+      "url": "https://campaignlegal.org/issues/campaign-finance",
+      "machineReadable": null,
+      "access": "Public reports and documents",
+      "dataProducts": [],
+      "caution": "A filed complaint is an allegation, not a finding of wrongdoing."
+    },
+    {
+      "id": "commoncause",
+      "name": "Common Cause",
+      "category": "watchdog",
+      "tier": "analysis",
+      "status": "research_only",
+      "priority": 3,
+      "roles": [
+        "darkmoney",
+        "enforcement"
+      ],
+      "coverage": "Money-in-politics issues, disclosure reform and public financing",
+      "value": "Provide institutional reform context and supporting research.",
+      "url": "https://www.commoncause.org/issues/money-in-politics/",
+      "machineReadable": null,
+      "access": "Public issues and research pages",
+      "dataProducts": [],
+      "caution": "Advocacy content is a secondary perspective; verify numerical or legal claims against primary filings."
+    },
+    {
+      "id": "maplight",
+      "name": "MapLight / California Power Search",
+      "category": "watchdog",
+      "tier": "secondary",
+      "status": "link_only",
+      "priority": 3,
+      "roles": [
+        "donations",
+        "spending"
+      ],
+      "coverage": "Public California Secretary of State Power Search tool, built by MapLight",
+      "value": "Search CA campaign and ballot-measure donors in a readable interface.",
+      "url": "https://powersearch.sos.ca.gov/index.php",
+      "machineReadable": null,
+      "access": "Public search; not an unrestricted bulk data API",
+      "dataProducts": [],
+      "caution": "State-level electronic filings only; not a national or independent MapLight live database."
+    },
+    {
+      "id": "sunlight",
+      "name": "Sunlight Foundation archive",
+      "category": "archive",
+      "tier": "historical",
+      "status": "archive_only",
+      "priority": 4,
+      "roles": [
+        "history"
+      ],
+      "coverage": "Archived transparency tools and reporting",
+      "value": "Preserve historical methodology and civic-tech context.",
+      "url": "https://sunlightfoundation.com/2020/09/24/a-note-from-the-sunlight-foundations-board-chair/",
+      "machineReadable": null,
+      "access": "Static archival material",
+      "dataProducts": [],
+      "caution": "Foundation ceased active operations in 2020. Do not use as a live data feed."
+    }
+  ]
+}
