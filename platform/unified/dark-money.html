@@ -40,6 +40,7 @@ main{max-width:1200px;margin:auto;padding:24px 22px 64px}.ey{color:var(--teal);f
 <button type="button" data-j="ballot_measure" aria-pressed="false"><strong>📋</strong>Ballot measures<small>Filing links</small></button></div>
 <div id="context" class="context" role="status">Federal: public committee summary data available. Individual cross-entity transactions remain unverified.</div></section>
 <section class="panel" id="stateSection" hidden><div class="ey">2026 state snapshot</div><h2>Washington campaign finance by filing category</h2><p class="intro">These are grouped totals from official financial summary records, not itemized donations or a dark-money transfer graph. Categories can overlap or include different reporting windows.</p><div id="waRows" class="simpleBars"></div><p class="tiny" id="waNote">No 2026 grouped state data loaded yet.</p></section>
+<section class="panel" id="municipalSection" hidden><div class="ey">2025 municipal finance · New York City</div><h2>What did city campaigns report?</h2><p class="intro">Candidate campaign-level financial analysis from NYC's Campaign Finance Board. This is not dark-money donor identification or transfers between committees. Amounts reflect reported net contributions for each source row, not campaign spending.</p><div class="controls"><label>Office<select id="nycOffice" aria-label="Filter NYC office"><option value="">All city offices</option><option value="Mayor">Mayor</option><option value="Public Advocate">Public Advocate</option><option value="Comptroller">Comptroller</option><option value="Borough President">Borough President</option><option value="City Council">City Council</option></select></label><label class="grow">Find candidate<input id="nycSearch" type="search" placeholder="Search candidate" aria-label="Find NYC campaign"></label></div><p id="nycStatus" class="tiny" role="status">Loading official NYC financial analyses…</p><div id="nycRows" class="simpleBars"></div></section>
 <section class="panel" id="flowSection"><div class="ey">Interactive visual explorer</div><h2>Inside a campaign committee's finances</h2><p class="intro">Select a committee. Incoming and outgoing reporting categories are shown side-by-side—not as traced payments from specific donors to specific recipients.</p>
 <div class="controls"><label>Election cycle<select id="cycle" aria-label="Election cycle"><option value="2024">2024</option><option value="2026">2026</option></select></label>
 <label class="grow">Find a committee<input id="search" type="search" placeholder="Search committee name or FEC ID" aria-label="Find a committee"></label>
@@ -63,7 +64,7 @@ const SOURCE=ROOT+"data/money-influence/dark-money-graph-v1.json";
 const $=id=>document.getElementById(id);
 const USD=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
 const nfmt=new Intl.NumberFormat("en-US");
-let graph=null,chosenJurisdiction="federal",committeeNames=new Map(),waSummary=null;
+let graph=null,chosenJurisdiction="federal",committeeNames=new Map(),waSummary=null,nycSummary=null;
 const portalList=[
 {j:"federal",where:"Federal",name:"Federal Election Commission",url:"https://www.fec.gov/data/",note:"Federal committee and spending filings."},
 {j:"federal",where:"Federal nonprofits",name:"IRS political organization disclosures",url:"https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",note:"Section 527 filings; different disclosure obligations."},
@@ -82,10 +83,10 @@ function link(url,title){const a=el("a",title);a.href=url;a.target="_blank";a.re
 function jurisdiction(j){
  chosenJurisdiction=j;
  document.querySelectorAll("[data-j]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.j===j)));
- const meanings={federal:"Federal: selected FEC committee-cycle totals and "+nfmt.format(graph?.metrics?.filedTransactionReceiptEdges||0)+" official itemized committee-receipt records are indexed.",state:"State: official filing portals are linked; no itemized state records are reviewed in this graph.",county:"County: source discovery only. No county transactions are indexed.",municipal:"City / town: NYC and state portal sources are linked; no municipal transactions are indexed.",school_board:"School board: no itemized transfers are indexed; reporting differs by jurisdiction.",ballot_measure:"Ballot measures: official source links available; no reviewed measure-related financing chain is indexed."};
+ const meanings={federal:"Federal: selected FEC committee-cycle totals and "+nfmt.format(graph?.metrics?.filedTransactionReceiptEdges||0)+" official itemized committee-receipt records are indexed.",state:"State: official filing portals are linked; no itemized state records are reviewed in this graph.",county:"County: source discovery only. No county transactions are indexed.",municipal:"City / town: NYC 2025 official candidate-level financial summaries are available where imported. No municipal transfer edges or donor identities are verified.",school_board:"School board: no itemized transfers are indexed; reporting differs by jurisdiction.",ballot_measure:"Ballot measures: official source links available; no reviewed measure-related financing chain is indexed."};
  $("context").textContent=meanings[j];
- $("flowSection").hidden=j!=="federal";$("recordTable").hidden=j!=="federal";$("stateSection").hidden=j!=="state";
- showWa();
+ $("flowSection").hidden=j!=="federal";$("recordTable").hidden=j!=="federal";$("stateSection").hidden=j!=="state";$("municipalSection").hidden=j!=="municipal";
+ showWa();showNYC();
  showPortals();renderPayments();
 }
 function showPortals(){
@@ -127,6 +128,24 @@ function showRows(){
    const tr=el("tr");for(const val of [s.name,USD.format(s.receiptsUSD),USD.format(s.disbursementsUSD)])tr.append(el("td",val));
    const td=el("td");td.append(link("https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/","FEC ↗"));tr.append(td);target.append(tr)
  }
+}
+function showNYC(){
+ const wrap=$("nycRows"),status=$("nycStatus");wrap.replaceChildren();
+ if(!nycSummary){
+   status.textContent="The NYC 2025 municipal data connector is not yet populated. Use the official CFB data portal below.";return
+ }
+ const office=$("nycOffice").value,query=$("nycSearch").value.trim().toLowerCase();
+ const eligible=nycSummary.records.filter(r=>(!office||r.office===office)&&(!query||r.candidateName.toLowerCase().includes(query)));
+ const rows=eligible.slice().sort((a,b)=>b.reportedNetContributionsUSD-a.reportedNetContributionsUSD).slice(0,15);
+ const max=Math.max(1,...rows.map(r=>r.reportedNetContributionsUSD));
+ status.textContent=nycSummary.recordCount+" officially published campaign-analysis rows for 2025; "+eligible.length+" match this filter. Showing up to 15 largest net-contribution rows. Matching-fund claims are not awarded funds; do not add these rows into verified donor transfers.";
+ for(const r of rows){
+   const line=el("div",null,"stateRow");line.append(el("span",r.candidateName+" · "+r.office));
+   const track=el("div",null,"stateTrack"),fill=el("div",null,"stateFill");
+   fill.style.width=(100*r.reportedNetContributionsUSD/max)+"%";track.append(fill);
+   line.append(track,el("strong",USD.format(r.reportedNetContributionsUSD)));wrap.append(line)
+ }
+ wrap.append(link(nycSummary.sourceURL,"Open official NYC Campaign Finance Board financial analysis ↗"))
 }
 function showWa(){
  const box=$("waRows");box.replaceChildren();
@@ -185,6 +204,9 @@ async function start(){
  try{
   const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("Graph HTTP "+r.status);
   const d=await r.json();
+  try{const nr=await fetch(ROOT+"data/finance/nyc-cfb/campaign-financial-analysis-2025.json",{cache:"no-store"});
+      if(nr.ok){const nd=await nr.json();if(nd.schema==="power-atlas.nyc-cfb.campaign-financial-analysis.v1"&&nd.individualDonorsIncluded===false)nycSummary=nd}}
+  catch(e){console.info("NYC CFB candidate financial analysis unavailable",e)}
   try{const wr=await fetch(ROOT+"data/finance/wa-pdc/summary-aggregate-2026.json",{cache:"no-store"});
       if(wr.ok){const wd=await wr.json();if(wd.schema==="power-atlas.wa-pdc-campaign-aggregate.2026.v1"&&wd.individualRecordsPublished===false)waSummary=wd}}
   catch(e){console.info("WA PDC state aggregate not yet ingested",e)}
@@ -197,6 +219,7 @@ async function start(){
   graph=d;
   for(const [id,key] of [["snapshotCount","fecCommitteeCycleSnapshots"],["entityCount","distinctOrganizations"],["transferCount","filedTransferEdges"],["donorCount","verifiedOriginalDonorAttributions"]])$(id).textContent=nfmt.format(d.metrics[key]);
   document.querySelectorAll("[data-j]").forEach(b=>b.onclick=()=>jurisdiction(b.dataset.j));
+  $("nycOffice").addEventListener("change",showNYC);$("nycSearch").addEventListener("input",showNYC);
   $("cycle").addEventListener("change",populate);$("search").addEventListener("input",populate);$("committee").addEventListener("change",renderFlow);
   jurisdiction("federal");populate();showSignals();renderPayments();
   $("health").textContent="Source-backed records loaded · "+d.metrics.fecCommitteeCycleSnapshots+" committee-cycle snapshots · "+d.metrics.filedTransferEdges+" original transaction edges · "+d.metrics.potentialSequentialPaymentLeads+" investigative pattern leads.";
