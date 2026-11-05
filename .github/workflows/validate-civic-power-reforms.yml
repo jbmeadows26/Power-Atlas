@@ -1,0 +1,45 @@
+name: Validate Civic Power Reform Lab
+on:
+  push:
+    paths:
+      - 'data/money-influence/civic-power-reforms-v1.json'
+      - 'platform/unified/reform-lab.html'
+      - 'platform/unified/index.html'
+      - 'platform/unified/dark-money.html'
+      - 'tests/test_civic_power_reforms.py'
+      - '.github/workflows/validate-civic-power-reforms.yml'
+  pull_request:
+    paths:
+      - 'data/money-influence/civic-power-reforms-v1.json'
+      - 'platform/unified/reform-lab.html'
+      - 'platform/unified/index.html'
+      - 'platform/unified/dark-money.html'
+      - 'tests/test_civic_power_reforms.py'
+      - '.github/workflows/validate-civic-power-reforms.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate policy catalog and dashboard
+        run: |
+          python -m json.tool data/money-influence/civic-power-reforms-v1.json > /dev/null
+          python -m unittest discover -s tests -p 'test_civic_power_reforms.py' -v
+      - name: Check reform-lab inline JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          text=Path('platform/unified/reform-lab.html').read_text()
+          scripts=re.findall(r'<script>([\s\S]+?)</script>',text)
+          assert len(scripts)==1, 'Expected exactly one inline script'
+          Path('/tmp/power-atlas-civic-power.js').write_text(scripts[0])
+          PY
+          node --check /tmp/power-atlas-civic-power.js
