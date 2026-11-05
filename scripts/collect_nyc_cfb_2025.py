@@ -49,7 +49,13 @@ def parse(rows):
         if not re.fullmatch(r"[A-Za-z0-9-]{2,35}",cid) or not name or len(name)>145:
             raise ValueError("NYC candidate/campaign identity invalid")
         boro=str(raw.get("boro_dist") or "").strip()
-        key=(cid,boro)
+        # CFB candidate display names can embed a separate filing variant,
+        # e.g. "(ID:1545-P)" versus "(ID:1545-G)". Keep these rows distinct.
+        # The suffix is retained as source notation without guessing its legal
+        # classification or summing one variant with another.
+        match=re.search(r"\(ID:"+re.escape(cid)+r"-([A-Za-z0-9]+)\)\s*$",name)
+        variant=match.group(1) if match else "unspecified"
+        key=(cid,boro,variant)
         total=decimal_amount(raw.get("net_cntns"))
         if total<0:
             raise ValueError("Negative net receipts require manual investigation before publication")
@@ -63,11 +69,12 @@ def parse(rows):
         if to_stmt and not to_stmt.isdigit():
             raise ValueError("Invalid NYC statement-through number")
         record={
-            "id":"nyc:cfb:"+cid+(":"+boro if boro else ""),
+            "id":"nyc:cfb:"+cid+(":"+boro if boro else "")+":"+variant,
             "electionYear":2025,
             "candidateId":cid,"candidateName":name,
             "office":office,
             "boroughOrDistrict":boro,
+            "sourceFilingVariant":variant,
             "statementFrom":str(raw.get("from_stmt") or ""),
             "statementThrough":to_stmt,
             "reportedNetContributionsUSD":total,
@@ -122,9 +129,9 @@ def collect():
              "No source contributor names or identities were downloaded; not a dark-money donor database."],
          "recordCount":len(rows),"sourceRowsRead":len(source),
          "sourceRowsWithRepeatedCampaignDistrict":sum(r["sourceRowsForCampaignDistrict"]-1 for r in rows),
-         "sourceVersionRule":"For repeated candidate ID and borough/district, retain latest to_stmt; never sum source versions.",
+         "sourceVersionRule":"Distinct candidate ID, borough/district and source filing-variant groups are kept apart. Only repeated versions within a group are reconciled by latest to_stmt; never sum differing variants.",
          "sourceGroupedDuplicateRate":round(sum(r["sourceRowsForCampaignDistrict"]-1 for r in rows)/len(source),4),
-         "disclosure":"Candidate/district keys can appear in multiple source rows. Only the highest through-statement version is displayed. A duplicate is not automatically a financial irregularity.",
+         "disclosure":"Candidate/district keys may have distinct source filing variants (e.g. P/G). Never combine variants as one campaign total or mistake these source codes for proof of an election result. Within each variant, highest statement-through is displayed. A duplicate is not automatically a financial irregularity.",
          "records":rows}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(obj,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
