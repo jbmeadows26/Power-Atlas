@@ -51,8 +51,20 @@ def parse_index(rows, columns):
         archive=batch if batch.lower().endswith(".zip") else batch+".zip"
         tax_period=(row.get("TAX_PERIOD") or "").strip()
         sub_date=(row.get("SUB_DATE") or "").strip()
-        if not re.fullmatch(r"\d{6}",tax_period) or not re.fullmatch(r"\d{4}-?\d{2}-?\d{2}",sub_date):
-            raise ValueError("Selected IRS filing lacks date metadata")
+        if not re.fullmatch(r"(?:\\d{6}|\\d{4}-\\d{2}|\\d{8})",tax_period):
+            raise ValueError("Selected IRS filing tax-period format unsupported")
+        # Official index returns SUB_DATE in either M/D/YYYY, YYYY-MM-DD
+        # or YYYYMMDD notation, depending on release.
+        from datetime import datetime
+        parsed=None
+        for fmt in ("%Y-%m-%d","%m/%d/%Y","%Y%m%d","%Y/%m/%d"):
+            try:
+                parsed=datetime.strptime(sub_date,fmt).date().isoformat()
+                break
+            except ValueError:continue
+        if parsed is None:
+            raise ValueError("Selected IRS filing submission-date format unsupported")
+        sub_date=parsed
         item={"filingId":oid,"ein":ein,"organizationName":ORGANIZATIONS[ein]["name"],
               "taxExemptClassificationFromIndependentProfile":ORGANIZATIONS[ein]["nonprofitType"],
               "profileSource":ORGANIZATIONS[ein]["verificationURL"],
