@@ -38,6 +38,14 @@ jobs:
         with: {ref: main, persist-credentials: true}
       - uses: actions/setup-python@v5
         with: {python-version: '3.12'}
+      - name: Ensure 7-Zip is available for IRS ZIP compression types
+        run: |
+          if command -v 7z >/dev/null 2>&1 || command -v 7zz >/dev/null 2>&1; then
+            echo "System ZIP extractor available."
+          else
+            sudo apt-get update -qq
+            sudo apt-get install -y -qq p7zip-full
+          fi
       - name: Download targeted official ZIP, extract EIN-only nonprofit grants from Schedule I
         run: python -m scripts.collect_irs_schedule_i_pilot
       - name: Check published dataset claims only EIN-documented grants
