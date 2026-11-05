@@ -55,6 +55,34 @@ class MoneySourceRegistryTests(unittest.TestCase):
         self.assertTrue(all("address" not in k.lower() and "email" not in k.lower()
                             for x in self.bridge["lobbyingFilings"] for k in x))
 
+    def test_visual_story_and_mobile_navigation(self):
+        page = (ROOT / "platform" / "unified" / "money-sources.html").read_text(encoding="utf-8")
+        for fragment in ('id="overview"', 'id="committees"', 'id="lobbying"', 'id="sources"',
+                         'class="sectionNav"', 'id="committeeDetail"', 'id="lobbyDetail"',
+                         'id="sourceLegend"', 'id="statusFilters"', 'id="sourceMore"',
+                         'id="recordRows"', 'class="stack"', 'renderPACDetails',
+                         'renderLobby', 'renderSources', '@media(max-width:650px)'):
+            self.assertIn(fragment, page)
+        self.assertIn('No verified donor', page)
+        self.assertIn('reported categories', page)
+
+    def test_pac_category_breakdowns_reconcile_to_fec_totals(self):
+        for row in self.bridge["pacCommittees"]:
+            incoming = (
+                row["individualContributionsUSD"] +
+                row["otherCommitteeContributionsUSD"] +
+                row["transfersFromAffiliatesUSD"]
+            )
+            outgoing = (
+                row["contributionsToOtherCommitteesUSD"] +
+                row["transfersToAffiliatesUSD"] +
+                row["independentExpendituresUSD"] +
+                row["partyCoordinatedExpendituresUSD"]
+            )
+            self.assertLessEqual(incoming, row["receiptsUSD"] + 1.0)
+            self.assertLessEqual(outgoing, row["disbursementsUSD"] + 1.0)
+            self.assertTrue(row["coverageEnd"])
+
     def test_source_hub_linked_from_federal_money_dashboard(self):
         source_page = (ROOT / "platform" / "unified" / "money-sources.html").read_text(encoding="utf-8")
         funding_page = (ROOT / "platform" / "unified" / "election-money.html").read_text(encoding="utf-8")
