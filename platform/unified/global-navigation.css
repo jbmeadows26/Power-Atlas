@@ -1,0 +1,27 @@
+/* Shared four-section navigation. Topic-specific page links remain available below. */
+html{scroll-padding-top:108px}
+#pa-global-header{position:sticky;position:-webkit-sticky;top:0;z-index:9999;width:100%;color:#eff8fb;background:#081625;border-bottom:1px solid #2d4857;box-shadow:0 3px 13px #06121e1a;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.3;isolation:isolate}
+#pa-global-header *,#pa-global-header *::before,#pa-global-header *::after{box-sizing:border-box}
+#pa-global-header .pa-global-inner{max-width:1260px;margin:0 auto;padding:12px 20px;display:flex;gap:17px;align-items:center;justify-content:space-between}
+#pa-global-header a{text-decoration:none}
+#pa-global-header .pa-global-brand{font-size:1rem;font-weight:850;letter-spacing:.14em;white-space:nowrap;color:#f5fafb}
+#pa-global-header .pa-global-brand span{color:#74dccc}
+#pa-global-header .pa-global-links{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;width:min(100%,465px);flex-shrink:0}
+#pa-global-header .pa-global-links a{display:flex;align-items:center;justify-content:center;min-height:39px;padding:8px 9px;border:1px solid #3a5b6b;border-radius:26px;color:#b9ced8;font-size:.85rem;font-weight:550;white-space:nowrap;transition:background .16s,border-color .16s}
+#pa-global-header .pa-global-links a:hover,#pa-global-header .pa-global-links a:focus-visible{background:#17424a;border-color:#82e0d5;color:#f1ffff}
+#pa-global-header .pa-global-links a[aria-current=page]{background:#1d5658;border:1px solid #70e2d7;color:#f4ffff;font-weight:700}
+#pa-global-header a:focus-visible{outline:3px solid #f0c477;outline-offset:2px}
+body[data-pa-page] > header{position:static!important;top:auto!important}
+body[data-pa-page="compare"] > header{display:none!important}
+body[data-pa-page] > header .brand,body[data-pa-page] > header > strong{display:none!important}
+body[data-pa-page="overview"] > header > div:first-child{display:none!important}
+body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-margin-top:112px}
+@media(max-width:700px){
+ html{scroll-padding-top:101px}
+ #pa-global-header .pa-global-inner{padding:9px 12px 11px;display:block}
+ #pa-global-header .pa-global-brand{display:inline-block;margin:0 0 9px 3px;font-size:.88rem;letter-spacing:.12em}
+ #pa-global-header .pa-global-links{width:100%;gap:6px}
+ #pa-global-header .pa-global-links a{font-size:.8rem;padding:7px 3px;min-height:36px}
+ body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-margin-top:107px}
+}
+@media(prefers-reduced-motion:reduce){#pa-global-header .pa-global-links a{transition:none}}
