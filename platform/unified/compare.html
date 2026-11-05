@@ -32,21 +32,87 @@ footer{border-top:1px solid #2e485b;padding:24px 0 38px;color:#88a8b9;font-size:
 @media(max-width:850px){.hero{grid-template-columns:1fr}.inventory{grid-template-columns:repeat(2,minmax(0,1fr))}.moneyStats{grid-template-columns:1fr 1fr}}
 @media(max-width:600px){main{padding:0 14px 48px}.top{padding:12px 14px}.hero{padding-top:36px}.compareGrid,.lanes,.inventory,.method,.moneyStats{grid-template-columns:1fr}.panel{padding:15px}.period{min-width:24px}.dotGrid .dot{width:10px;height:10px;flex-basis:10px}.chapter{padding-top:32px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* November 2026 mobile-first visual atlas. The research question and gaps are shown only when requested. */
+.srOnly{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap}
+.heroJumps{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}.heroJumps a{display:inline-flex;align-items:center;border:1px solid #395a67;border-radius:30px;padding:8px 12px;color:#d4e8e9;font-size:.82rem;text-decoration:none}
+.evidenceDetails{color:#b4cad5;font-size:.87rem;line-height:1.6;border-top:1px solid #344d5a;padding:12px 0 1px;margin-top:14px}.evidenceDetails summary{list-style:none;cursor:pointer;font-weight:750;color:#7ddbd3}.evidenceDetails summary::-webkit-details-marker{display:none}.evidenceDetails summary::after{content:" +";font-size:1.12rem}.evidenceDetails[open] summary::after{content:" −"}.evidenceDetails p{margin:11px 0}
+.moneyPanel{padding:22px}.moneyJourney{display:grid;grid-template-columns:minmax(0,1fr) 12px minmax(0,1fr) 12px minmax(0,1fr);gap:10px;align-items:center;margin-bottom:12px}
+.journeyNode{min-width:0;background:#0b1d2c;border:1px solid #385567;border-radius:14px;padding:16px 14px;display:flex;flex-direction:column;gap:6px}
+.journeyTop{color:#adc4d1;font-size:.73rem;font-weight:750;text-transform:uppercase;letter-spacing:.06em}.journeyNumber{color:#72d9cf;margin-right:5px}.journeyNode strong{display:block;font-size:clamp(2rem,3.5vw,3.1rem);font-weight:850;letter-spacing:-.06em;font-variant-numeric:tabular-nums}.journeyNode .accent{color:#5cdbc9}.journeyNode .amber{color:#ecb775}.journeyNode .mutedNum{color:#a9bbcd}.journeyLabel{font-weight:750;font-size:.85rem;line-height:1.35}.journeySub{font-size:.73rem;color:#8faaba;line-height:1.35}.journeyArrow{color:#7195a5;font-size:1.7rem;text-align:center}
+.atlasPanel{padding:20px}.atlasSummary{background:#091b29;border:1px solid #315164;padding:16px 17px;border-radius:15px;margin-bottom:19px}.atlasSummaryTop{display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap}.atlasSummaryTop strong{font-size:1.08rem}.coverageBar{display:flex;height:11px;border-radius:12px;overflow:hidden;background:#385064;margin-top:14px}.coverageBar span{height:100%}.coverageBar .partial{background:#71bfc6}.coverageBar .curated{background:#e7c079}.coverageBar .needs_data{background:#dd9b6d}.coverageLegend{display:flex;gap:12px 18px;flex-wrap:wrap;margin-top:12px;color:#aec5d2;font-size:.75rem}.coverageLegend span{display:inline-flex;align-items:center;gap:6px}.coverageLegend i{display:inline-block;width:9px;height:9px;border-radius:2px}.coverageLegend .partial{background:#71bfc6}.coverageLegend .curated{background:#e7c079}.coverageLegend .needs_data{background:#dd9b6d}
+.atlasTools{display:grid;grid-template-columns:minmax(0,1fr) minmax(180px,230px);align-items:center;gap:13px;margin-bottom:10px}.atlasTools .filters{margin:0}.atlasSearch input{width:100%;min-width:0}.topicGroups{display:grid;gap:21px;margin-top:15px}.groupHeader{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #30495a;padding:0 2px 9px;margin-bottom:10px}.groupHeader h3{font-size:1rem;letter-spacing:.01em;margin:0;display:flex;align-items:center;gap:8px}.groupHeader .groupIcon{display:grid;place-items:center;width:28px;height:28px;background:#1b3946;border-radius:9px;font-size:1.05rem}.groupHeader small{color:#90afc0}.topicTiles{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.topicTile{display:flex;flex-direction:column;justify-content:space-between;min-width:0;min-height:102px;padding:13px 13px 12px;border:1px solid #36566b;border-radius:12px;text-align:left;background:#0b1d2c;color:#f1f8fc;transition:background .15s,border-color .15s}
+.topicTile:hover,.topicTile:focus-visible{background:#193b4b;border-color:#7de1d5;outline-offset:2px}
+.topicTile .topicTitle{font-size:.9rem;line-height:1.3;font-weight:760;letter-spacing:-.012em}.topicTile .tileBottom{display:flex;justify-content:space-between;gap:8px;align-items:center;color:#91b5c5;font-size:.72rem;margin-top:12px}.topicTile .tileBottom::after{content:"↗";font-size:1rem;color:#8ce1d2}.statusDot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}.statusDot.partial{background:#71bfc6}.statusDot.curated{background:#e7c079}.statusDot.needs_data{background:#dd9b6d}
+.topicDialog{width:min(92vw,560px);max-height:min(85dvh,760px);border:1px solid #477082;border-radius:22px;background:#11293a;color:#f3f9fc;padding:23px;box-shadow:0 24px 90px #000b;overflow:auto}.topicDialog::backdrop{background:#020c16b8;backdrop-filter:blur(4px)}.dialogTop{display:flex;align-items:center;justify-content:space-between;gap:10px}.dialogTop .kicker{font-size:.65rem}.closeTopic{background:#274558;color:#eaffff;border:1px solid #41677a;border-radius:9px;width:37px;height:37px;font-size:1.5rem;line-height:1}.topicDialog h2{font-size:clamp(1.4rem,4vw,2rem);letter-spacing:-.04em;margin:13px 0}.topicDialog h3{font-size:1rem;margin:0}.topicStatus{display:inline-flex;align-items:center;gap:7px;color:#c5d9e4;font-size:.81rem}.dialogQuestion{font-size:.97rem;color:#c2d5e0;line-height:1.58}.dialogDivider{height:1px;background:#365266;margin:21px 0}.dialogLinks{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}.dialogLinks a{display:inline-flex;align-items:center;min-height:43px;padding:9px 13px;background:#206065;color:#f4fffe;text-decoration:none;border-radius:10px;font-size:.82rem;font-weight:750}.dialogLinks a.secondary{border:1px solid #4a6474;background:transparent;color:#9be0d8}.dialogFootnote{font-size:.75rem;line-height:1.55;color:#8faabb}.methodDisclosure{border:1px solid #325368;border-radius:14px;background:#122334;padding:15px 18px}.methodDisclosure summary{cursor:pointer;color:#9dded6;font-size:.92rem;font-weight:760;display:flex;justify-content:space-between;gap:12px}.methodDisclosure[open] summary span{transform:rotate(45deg)}.methodCompact{display:grid;grid-template-columns:1fr 1fr;gap:20px;color:#b5cad5;font-size:.85rem;line-height:1.6}.methodCompact li{margin-bottom:8px}
+@media(max-width:920px){.topicTiles{grid-template-columns:repeat(3,minmax(0,1fr))}.atlasTools{grid-template-columns:1fr}}
+@media(max-width:600px){
+ header .top{padding:10px 14px;gap:9px;display:flex;flex-direction:column;align-items:stretch}
+ header .brand{font-size:.89rem;line-height:1.2}
+ header .nav{width:100%;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;overflow:visible}
+ header .nav a{padding:8px 2px;text-align:center;font-size:.72rem;border-radius:18px}
+ .hero{padding:28px 0 12px;gap:10px}.hero h1{font-size:clamp(2.7rem,11vw,4.7rem)}.hero .intro{font-size:.91rem;line-height:1.5}.heroAside{display:none}
+ .chapterHead{margin-bottom:12px}.chapterHead h2{font-size:1.74rem}.chapterHead p{font-size:.87rem;line-height:1.45}.chapterHead .sourceLink{margin-top:3px}
+ .compareGrid{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.side{padding:11px}.sideHeader{display:block}.sideHeader h3{font-size:.88rem}.sideHeader .dim{font-size:.7rem}.side .big{font-size:clamp(1.65rem,7vw,2rem);margin:9px 0 3px}.side .dim{font-size:.73rem}.dotGrid{gap:3px;margin:11px 0 6px}.dotGrid .dot{width:8px;height:8px;flex-basis:8px}
+ .moneyPanel{padding:13px}.moneyJourney{gap:4px;grid-template-columns:minmax(0,1fr) 7px minmax(0,1fr) 7px minmax(0,1fr)}.journeyNode{padding:10px 7px;min-height:123px}.journeyTop{font-size:.59rem;letter-spacing:0}.journeyNumber{margin-right:1px}.journeyNode strong{font-size:clamp(1.5rem,7vw,2.2rem)}.journeyLabel{font-size:.71rem}.journeySub{font-size:.61rem}.journeyArrow{font-size:1.1rem}
+ .atlasPanel{padding:12px}.atlasSummary{padding:14px}.atlasSummaryTop .dim{font-size:.72rem}.atlasTools{gap:10px}.atlasTools .filters{gap:5px}.atlasTools .filters button{font-size:.74rem;padding:7px 9px}.atlasSearch input{width:100%;font-size:.91rem}
+ .topicTiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.topicTile{min-height:92px;padding:12px 11px}.topicTile .topicTitle{font-size:.82rem}.topicTile .tileBottom{font-size:.65rem;margin-top:9px}
+ .topicDialog{width:calc(100vw - 20px);max-height:83dvh;margin:auto auto 10px;padding:19px;border-radius:20px}.methodCompact{grid-template-columns:1fr}.methodDisclosure{padding:12px 15px}
+}
 </style></head><body>
-<header><div class="top"><a class="brand" href="index.html">◈ POWER <span>ATLAS</span></a><nav class="nav" aria-label="Research navigation"><a href="index.html">Overview</a><a class="active" aria-current="page" href="compare.html">Compare evidence</a><a href="dark-money.html">Follow money</a><a href="reform-lab.html">Reform lab</a></nav></div></header>
+<header><div class="top"><a class="brand" href="index.html">◈ POWER <span>ATLAS</span></a><nav class="nav" aria-label="Research navigation"><a href="index.html">Overview</a><a class="active" aria-current="page" href="compare.html">Compare</a><a href="dark-money.html">Money</a><a href="reform-lab.html">Reforms</a></nav></div></header>
 <main>
-<section class="hero"><div><div class="kicker">Power Atlas / Interactive evidence studio</div><h1>Two sides.<br><em>Same standard.</em></h1><p class="intro">Political stories can sound very different depending on how they are counted. Start with recorded actions, compare groups on equal terms, change the scale, and open the original evidence. No predetermined villains. No invented equivalence.</p></div>
-<aside class="heroAside"><span class="kicker">How to explore</span><strong>See the dots. Change the lens. Check the source.</strong><p>A square is only meaningful when you know what it represents. Each section identifies its denominator, reporting period, and limitations. Reader-set thresholds change the visualization—not the underlying historical record.</p><a href="#votes" class="sourceLink">Explore the first comparison ↓</a></aside></section>
+<section class="hero"><div><div class="kicker">Power Atlas / Interactive evidence studio</div><h1>Two sides.<br><em>Same standard.</em></h1><p class="intro">Same data. Different ways to see it. Compare actual votes, divisions and money records—with the source always one tap away.</p><div class="heroJumps" aria-label="Jump to sections"><a href="#votes">Recorded votes</a><a href="#division">Party division</a><a href="#money">Money trail</a><a href="#atlas">25 topics</a></div></div>
+<aside class="heroAside"><span class="kicker">Read the evidence</span><strong>One symbol. One defined unit.</strong><p>Change the view; the source data stay the same.</p><a href="#atlas" class="sourceLink">Browse the research map ↓</a></aside></section>
 <section class="chapter" id="votes"><div class="chapterHead"><div><span class="kicker">01 / A specific decision</span><h2>One bill. Two voting coalitions.</h2><p>For the House vote on H.R. 7008 on July 22, 2026, each square represents one recorded yea or nay vote. Switch to percentages to see how members of each party divided, rather than who had more seats.</p></div><a href="https://clerk.house.gov/Votes/2026280" target="_blank" rel="noopener noreferrer" class="sourceLink">Official House roll call ↗</a></div>
-<div class="panel"><div class="controls"><div class="toggle" role="group" aria-label="Vote chart denominator"><button id="rawVotes" type="button" aria-pressed="true">Number of votes</button><button id="shareVotes" type="button" aria-pressed="false">Share within party</button></div><span class="key"><span><i></i>Yea</span><span><i class="no"></i>Nay</span></span></div><div id="partyComparison" class="compareGrid" aria-live="polite"><p class="status">Loading the recorded House vote…</p></div><div class="status" id="voteStatus"></div><p class="note">This is a vote about this particular bill, not a general measurement of support for ethics reform. The separate Senate cloture vote was a procedural decision, not final passage; the two votes should not be presented as equivalent.</p></div></section>
+<div class="panel"><div class="controls"><div class="toggle" role="group" aria-label="Vote chart denominator"><button id="rawVotes" type="button" aria-pressed="true">Number of votes</button><button id="shareVotes" type="button" aria-pressed="false">Share within party</button></div><span class="key"><span><i></i>Yea</span><span><i class="no"></i>Nay</span></span></div><div id="partyComparison" class="compareGrid" aria-live="polite"><p class="status">Loading the recorded House vote…</p></div><div class="status" id="voteStatus"></div><details class="evidenceDetails"><summary>What this comparison does—and doesn’t—show</summary><p>This is a vote on this particular bill, not a general score of support for ethics reform. The separate Senate cloture vote was procedural, not final passage, so those two decisions are not equivalent.</p></details></div></section>
 <section class="chapter" id="division"><div class="chapterHead"><div><span class="kicker">02 / The long view</span><h2>How often do the parties vote far apart?</h2><p>Each square represents one House or Senate congressional-period observation. The 119th Congress is still underway, so its observation is partial and is marked with an asterisk. Its color indicates the fraction of eligible roll calls meeting a strict opposition test: at least 90% of recorded votes within each party take opposite sides. This measures division in votes, not extremism or lawmakers' intentions.</p></div><a href="https://voteview.com/articles/data_help_votes" target="_blank" rel="noopener noreferrer" class="sourceLink">Voteview methodology ↗</a></div>
 <div class="panel"><div class="controls"><div class="toggle" role="group" aria-label="Historical chart sizing"><button id="equalPeriods" type="button" aria-pressed="true">Every period equal</button><button id="scalePeriods" type="button" aria-pressed="false">Size by roll calls</button></div><label class="range">Highlight periods above <input id="threshold" type="range" min="5" max="60" step="5" value="25"><strong id="thresholdText">25%</strong></label></div>
-<div class="lanes"><div class="lane"><div class="laneHead">House <small id="houseCount" class="dim"></small></div><div class="laneTiles" id="housePeriods"></div></div><div class="lane"><div class="laneHead">Senate <small id="senateCount" class="dim"></small></div><div class="laneTiles" id="senatePeriods"></div></div></div><p class="status" id="periodStatus" role="status">Loading Voteview observations…</p><p class="note">Equal squares compare the number of congressional periods. Scaled squares approximate area proportional to eligible roll calls, not population, seriousness, duration or human impact. Data are historical roll-call aggregates, and no causal effect is inferred.</p></div></section>
-<section class="chapter" id="money"><div class="chapterHead"><div><span class="kicker">03 / Follow the actual filing</span><h2>How much of a money trail is really visible?</h2><p>These counts refer to different kinds of evidence. A filed receipt, a timing pattern worth investigating, and proof of the original hidden donor are three entirely different things.</p></div><a href="dark-money.html" class="sourceLink">Open dark-money explorer ↗</a></div>
-<div class="panel"><div class="moneyStats"><div class="moneyStat"><span class="kicker">Official receipt-side entries</span><b class="accent" id="filed">—</b><small>FEC itemized committee receipt rows</small><p>Bounded 2026 sample, not a nationwide census; amendments have not all been reconciled.</p></div><div class="moneyStat"><span class="kicker">Investigative leads</span><b class="amber" id="leads">—</b><small>Similar payment patterns</small><p>Amounts and dates warrant checks; they do not establish transfers of the same money or misconduct.</p></div><div class="moneyStat"><span class="kicker">Ultimate hidden donors verified</span><b class="mutedNum" id="ultimate">—</b><small>Confirmed origin of otherwise undisclosed funds</small><p>A zero here means not verified by this dataset, not that dark money does not exist.</p></div></div><p id="moneyStatus" class="status">Reading the published graph…</p><p class="note">Do not add these three counts; they have different units and denominators. A link between two committees is not evidence that an unknown original donor directed a particular official.</p></div></section>
-<section class="chapter" id="atlas"><div class="chapterHead"><div><span class="kicker">04 / All the research, one route</span><h2>Explore the entire Power Atlas</h2><p>Every major research question has a home here—even when the source data are incomplete. Choose a topic, open the existing dashboard or source, and see what remains unproven.</p></div></div>
-<div class="panel"><div class="inventoryTop"><div class="filters" id="categories" role="group" aria-label="Filter research topics"></div><label><span class="dim">Find a topic </span><input type="search" id="topicSearch" placeholder="Money, voters, courts…"></label></div><div id="coverageLine" class="status"></div><div id="inventory" class="inventory" aria-live="polite"><p class="status">Loading the research catalog…</p></div></div></section>
-<section class="chapter" id="methods"><div class="chapterHead"><div><span class="kicker">05 / What the data can actually say</span><h2>Source first. Interpretation second.</h2></div></div><div class="panel method"><div><h3>Why this layout works</h3><p>Inspired by <a href="https://both-sides.the7eye.org.il/en/" target="_blank" rel="noopener noreferrer">Extremists on Both Sides</a>, which uses one square per documented action, an equal-size versus magnitude toggle, filters, and a reader-controlled definition of a contested category. Power Atlas applies those mechanics only when the data support comparable groups and clear units.</p></div><div><h3>Six evidence rules</h3><ol><li>Documented acts are not proof of motive.</li><li>Missing information is never treated as zero.</li><li>Equal attention never implies equal conduct.</li><li>Always show the denominator and time window.</li><li>Law, proposals and research hypotheses stay separate.</li><li>Claims remain inspectable at the primary source.</li></ol></div></div></section>
+<div class="lanes"><div class="lane"><div class="laneHead">House <small id="houseCount" class="dim"></small></div><div class="laneTiles" id="housePeriods"></div></div><div class="lane"><div class="laneHead">Senate <small id="senateCount" class="dim"></small></div><div class="laneTiles" id="senatePeriods"></div></div></div><p class="status" id="periodStatus" role="status">Loading Voteview observations…</p><details class="evidenceDetails"><summary>How these squares are calculated</summary><p>Equal squares count congressional periods. Scaled squares show the relative number of eligible roll calls—not population, intensity or social impact. The 119th Congress is incomplete. These historical aggregates cannot establish causes or individual intent.</p></details></div></section>
+<section class="chapter" id="money">
+<div class="chapterHead"><div><span class="kicker">03 / How far can we trace a payment?</span><h2>Following the money gets harder at every step.</h2><p>Three different kinds of evidence. Read from left to right—not as a single total.</p></div><a href="dark-money.html" class="sourceLink">Open tracker ↗</a></div>
+<div class="panel moneyPanel">
+<div class="moneyJourney" aria-label="Three distinct states of financial evidence">
+ <div class="journeyNode"><span class="journeyTop"><span class="journeyNumber">01</span> Filing</span><strong id="filed" class="accent">—</strong><span class="journeyLabel">FEC receipt records</span><span class="journeySub">Sampled transactions</span></div>
+ <div class="journeyArrow" aria-hidden="true">›</div>
+ <div class="journeyNode"><span class="journeyTop"><span class="journeyNumber">02</span> Lead</span><strong id="leads" class="amber">—</strong><span class="journeyLabel">Patterns to check</span><span class="journeySub">Not verified connections</span></div>
+ <div class="journeyArrow" aria-hidden="true">›</div>
+ <div class="journeyNode"><span class="journeyTop"><span class="journeyNumber">03</span> Attribution</span><strong id="ultimate" class="mutedNum">—</strong><span class="journeyLabel">Hidden origins verified</span><span class="journeySub">Unknown ≠ zero activity</span></div>
+</div>
+<p id="moneyStatus" class="status">Reading the published graph…</p>
+<details class="evidenceDetails"><summary>What do these numbers mean?</summary>
+<p><b>Filed receipts:</b> a bounded 2026 sample of committee receipt-side rows; not a nationwide census. Amendments are not fully reconciled.</p>
+<p><b>Investigative leads:</b> similar dates or amounts can justify further checking, not proof the same dollars moved.</p>
+<p><b>Verified hidden origins:</b> zero means none established in this dataset, not that dark money does not exist.</p>
+<p>The figures have different units and denominators. Never add them or infer influence over a public official.</p></details>
+</div></section>
+<section class="chapter" id="atlas">
+<div class="chapterHead"><div><span class="kicker">04 / Explore the research</span><h2>25 questions. One research map.</h2><p>Find the subject you care about. Tap a tile for the story, evidence and remaining gaps.</p></div></div>
+<div class="panel atlasPanel">
+<div class="atlasSummary">
+ <div class="atlasSummaryTop"><strong id="atlasTotal">25 research areas</strong><span class="dim">Evidence coverage, not findings</span></div>
+ <div id="coverageBar" class="coverageBar" role="img" aria-label="Loading coverage counts"></div>
+ <div id="coverageLegend" class="coverageLegend"></div>
+</div>
+<div class="atlasTools"><div class="filters" id="categories" role="group" aria-label="Filter research topics"></div>
+<label class="atlasSearch"><span class="srOnly">Search research topics</span><input type="search" id="topicSearch" placeholder="Search topics…" autocomplete="off"></label></div>
+<p id="coverageLine" class="status" role="status"></p>
+<div id="inventory" class="topicGroups" aria-live="polite"><p class="status">Loading research map…</p></div>
+</div></section>
+<dialog id="topicDialog" class="topicDialog" aria-labelledby="dialogTitle">
+ <div class="dialogTop"><span id="dialogCategory" class="kicker">Research question</span><button type="button" id="closeTopic" class="closeTopic" aria-label="Close topic details">×</button></div>
+ <h2 id="dialogTitle"></h2><span class="topicStatus" id="dialogStatus"></span>
+ <p id="dialogQuestion" class="dialogQuestion"></p>
+ <div class="dialogDivider"></div>
+ <h3>What remains unanswered?</h3><p id="dialogGap" class="dialogQuestion"></p>
+ <div id="dialogLinks" class="dialogLinks"></div>
+ <p class="dialogFootnote">A topic's coverage label describes indexed material; it does not establish a policy conclusion or wrongdoing.</p>
+</dialog>
+<section class="chapter" id="methods"><details class="methodDisclosure">
+<summary>Methodology, evidence rules and design reference <span aria-hidden="true">+</span></summary>
+<div class="methodCompact"><p>Inspired by <a href="https://both-sides.the7eye.org.il/en/" target="_blank" rel="noopener noreferrer">Extremists on Both Sides</a>: count individual documented observations, let readers adjust the lens, and show sources and limitations. Power Atlas avoids classifying a political party as inherently extreme.</p>
+<ol><li>A documented relationship is not evidence of motive.</li><li>Missing records aren't zero activity.</li><li>Equal attention is not a claim of equal conduct.</li><li>Show what was counted, when, and how.</li><li>Separate current law, proposals and hypotheses.</li><li>Open the underlying evidence.</li></ol></div></details></section>
 <footer>Power Atlas / Reader-controlled comparisons with source-linked counts. Public research; not a finding of illegal conduct. <a href="https://github.com/jbmeadows26/Power-Atlas">Repository & methods</a>.</footer>
 </main>
 <script>
@@ -94,18 +160,69 @@ function renderPeriods(){
 el("threshold").addEventListener("input",renderPeriods);
 load("data/hyperpartisanship/voteview-party-divisions-v1.json").then(function(d){periods=(d.records||[]).filter(function(r){return Number.isFinite(r.opposed90PctShare)&&r.rollCallsEligibleBothParties>0});renderPeriods()}).catch(function(e){el("periodStatus").textContent="Cannot load source-backed roll calls: "+e.message});
 load("data/money-influence/dark-money-graph-v1.json").then(function(d){if(!d.metrics)throw Error("Metrics not found");el("filed").textContent=n(d.metrics.filedTransactionReceiptEdges);el("leads").textContent=n(d.metrics.potentialSequentialPaymentLeads);el("ultimate").textContent=n(d.metrics.verifiedOriginalDonorAttributions);el("moneyStatus").innerHTML='Published graph · '+safe(d.sourceStatus||"partial")+' coverage · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/dark-money-graph-v1.json" target="_blank" rel="noopener noreferrer">Open underlying records ↗</a>'}).catch(function(e){el("moneyStatus").textContent="Graph unavailable: "+e.message+". Counts have not been estimated."});
+
 var topics=[],cat="All",query="";
+var SHORT={
+"redistricting":"District maps","voting-access":"Voter ID rules","election-2026":"2026 results","coalitions":"Pivotal voters",
+"issue-polling":"What moved voters?","federal-money":"Federal funding","donor-rankings":"Top donors","dark-money":"Dark money",
+"lobbying":"Lobbying","congress-trades":"Official stock trades","reform-lab":"Reform options","authenticity":"Who gets represented?",
+"promises":"Campaign promises","institutional-decay":"Public trust","gridlock":"Congress divided","tribalism":"Political identity",
+"political-actions":"Political tactics","economic-power":"Wealth & prices","party-policies":"Policies since 1969",
+"accountability":"Official actions","judicial-selection":"Who picks judges?","power-network":"Influence networks",
+"election-admin":"Voting in practice","outrage-funding":"Outrage & money","cooperation":"Finding common ground"
+};
+var ICON={Elections:"🗳",Money:"◎",Institutions:"⚖",Solutions:"✦"};
+var STATUS={partial:"Partial data",curated:"Curated",needs_data:"Data gap"};
+var STATUSLONG={partial:"Partially sourced · important coverage remains incomplete",curated:"Curated evidence · not a comprehensive survey",needs_data:"Data gap · comparable analysis not yet established"};
+var topicDialog=el("topicDialog"),lastTopicTrigger=null;
+function topicUrl(x){return x.href?x.href:"https://github.com/jbmeadows26/Power-Atlas/"+(x.evidence.endsWith("/")?"tree/":"blob/")+"main/"+x.evidence}
+function openTopic(id,trigger){
+ var x=topics.find(function(t){return t.id===id});if(!x)return;
+ lastTopicTrigger=trigger||null;
+ el("dialogCategory").textContent=x.category+" / Research question";
+ el("dialogTitle").textContent=x.title;
+ el("dialogStatus").innerHTML='<i class="statusDot '+safe(x.status)+'" aria-hidden="true"></i>'+safe(STATUSLONG[x.status]||"Research under review");
+ el("dialogQuestion").textContent=x.question;
+ el("dialogGap").textContent=x.gap;
+ var main=x.href?'<a href="'+safe(x.href)+'">Open existing dashboard ↗</a>':"";
+ var source='<a class="'+(main?"secondary":"")+'" href="'+safe("https://github.com/jbmeadows26/Power-Atlas/"+(x.evidence.endsWith("/")?"tree/":"blob/")+"main/"+x.evidence)+'" target="_blank" rel="noopener noreferrer">View indexed source ↗</a>';
+ el("dialogLinks").innerHTML=main+source;
+ if(typeof topicDialog.showModal==="function")topicDialog.showModal();
+ else {topicDialog.setAttribute("open","");topicDialog.scrollIntoView({block:"center"});}
+}
+el("closeTopic").addEventListener("click",function(){topicDialog.close?topicDialog.close():topicDialog.removeAttribute("open")});
+topicDialog.addEventListener("click",function(event){if(event.target===topicDialog){topicDialog.close?topicDialog.close():topicDialog.removeAttribute("open")}});
+topicDialog.addEventListener("close",function(){if(lastTopicTrigger&&lastTopicTrigger.isConnected)lastTopicTrigger.focus()});
+function renderCoverage(){
+ var statuses=["partial","curated","needs_data"];
+ var counts=statuses.map(function(s){return topics.filter(function(x){return x.status===s}).length});
+ el("atlasTotal").textContent=n(topics.length)+" research areas";
+ el("coverageBar").innerHTML=statuses.map(function(s,i){return '<span class="'+s+'" style="width:'+(100*counts[i]/Math.max(1,topics.length)).toFixed(2)+'%"></span>'}).join("");
+ el("coverageBar").setAttribute("aria-label",counts[0]+" partially sourced, "+counts[1]+" curated, "+counts[2]+" data gaps, of "+topics.length+" research topics");
+ el("coverageLegend").innerHTML=statuses.map(function(s,i){return '<span><i class="'+s+'"></i>'+n(counts[i])+' '+safe(STATUS[s])+'</span>'}).join("");
+}
 function renderInventory(){
- var items=topics.filter(function(x){return (cat==="All"||x.category===cat)&&(!query||(x.title+" "+x.question+" "+x.gap).toLowerCase().includes(query))});
- el("inventory").innerHTML=items.length?items.map(function(x){
- var statusLabel={partial:"Partially sourced",curated:"Curated evidence",needs_data:"Data gap"}[x.status]||"Under review";
- var dest=x.href?x.href:"https://github.com/jbmeadows26/Power-Atlas/"+(x.evidence.endsWith("/")?"tree/":"blob/")+"main/"+x.evidence;
- return '<article class="researchCard"><span class="label '+safe(x.status)+'">'+safe(x.category)+' · '+safe(statusLabel)+'</span><h3>'+safe(x.title)+'</h3><p>'+safe(x.question)+'</p><div class="gap"><strong>Still needed:</strong> '+safe(x.gap)+'</div><a href="'+safe(dest)+'">'+(x.href?"Open research view ↗":"Inspect available research ↗")+'</a></article>'
- }).join(""):'<p class="status">No topics match. Try a different category or search.</p>';
- el("coverageLine").textContent=n(items.length)+" research topics shown · "+n(topics.filter(function(x){return x.status==="needs_data"}).length)+" topics have no independently established public analysis dataset yet. None are silently omitted.";
+ var items=topics.filter(function(x){return (cat==="All"||x.category===cat)&&(!query||(x.title+" "+x.question+" "+x.gap+" "+(SHORT[x.id]||"")).toLowerCase().includes(query))});
+ var categories=cat==="All"?["Elections","Money","Institutions","Solutions"]:[cat];
+ var out=categories.map(function(c){
+  var selected=items.filter(function(x){return x.category===c});
+  if(!selected.length)return "";
+  return '<section class="topicGroup" aria-label="'+safe(c)+' research topics"><div class="groupHeader"><h3><span class="groupIcon" aria-hidden="true">'+safe(ICON[c]||"•")+'</span>'+safe(c)+'</h3><small>'+selected.length+' topics</small></div><div class="topicTiles">'+selected.map(function(x){
+   return '<button type="button" class="topicTile" data-topic="'+safe(x.id)+'" aria-label="'+safe(x.title)+', '+safe(STATUSLONG[x.status]||"under review")+'"><span class="topicTitle">'+safe(SHORT[x.id]||x.title)+'</span><span class="tileBottom"><span><i class="statusDot '+safe(x.status)+'"></i>'+safe(STATUS[x.status]||"Review")+'</span></span></button>'
+  }).join("")+'</div></section>'
+ }).join("");
+ el("inventory").innerHTML=out||'<p class="status">No topics match. Clear the search to see the entire research map.</p>';
+ el("coverageLine").textContent=n(items.length)+" of "+n(topics.length)+" topics shown";
+ el("inventory").querySelectorAll("[data-topic]").forEach(function(b){b.addEventListener("click",function(){openTopic(b.dataset.topic,b)})});
 }
 function setCat(c){cat=c;el("categories").querySelectorAll("button").forEach(function(b){b.setAttribute("aria-pressed",String(b.dataset.cat===c))});renderInventory()}
 el("topicSearch").addEventListener("input",function(e){query=e.target.value.trim().toLowerCase();renderInventory()});
-load("data/research/atlas-inventory-v1.json").then(function(d){if(d.schema!=="power-atlas.story-inventory.v1")throw Error("Unrecognized research catalog");topics=d.items||[];var cats=["All"].concat(Array.from(new Set(topics.map(function(x){return x.category}))));el("categories").innerHTML=cats.map(function(c){return '<button type="button" data-cat="'+safe(c)+'" aria-pressed="'+String(c===cat)+'">'+safe(c)+'</button>'}).join("");el("categories").querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){setCat(b.dataset.cat)})});renderInventory()}).catch(function(e){el("inventory").innerHTML='<p class="status">Research map unavailable: '+safe(e.message)+'. <a href="https://github.com/jbmeadows26/Power-Atlas">Read the repository</a>.</p>'});
+load("data/research/atlas-inventory-v1.json").then(function(d){
+ if(d.schema!=="power-atlas.story-inventory.v1")throw Error("Unrecognized research catalog");
+ topics=d.items||[];renderCoverage();
+ var cats=["All","Elections","Money","Institutions","Solutions"];
+ el("categories").innerHTML=cats.map(function(c){return '<button type="button" data-cat="'+safe(c)+'" aria-pressed="'+String(c===cat)+'">'+safe(c)+'</button>'}).join("");
+ el("categories").querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){setCat(b.dataset.cat)})});renderInventory();
+}).catch(function(e){el("inventory").innerHTML='<p class="status">Research map unavailable: '+safe(e.message)+'. <a href="https://github.com/jbmeadows26/Power-Atlas">Read the repository</a>.</p>'});
 })();
 </script></body></html>
