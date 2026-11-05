@@ -61,7 +61,7 @@ const SOURCE=ROOT+"data/money-influence/dark-money-graph-v1.json";
 const $=id=>document.getElementById(id);
 const USD=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
 const nfmt=new Intl.NumberFormat("en-US");
-let graph=null,chosenJurisdiction="federal";
+let graph=null,chosenJurisdiction="federal",committeeNames=new Map();
 const portalList=[
 {j:"federal",where:"Federal",name:"Federal Election Commission",url:"https://www.fec.gov/data/",note:"Federal committee and spending filings."},
 {j:"federal",where:"Federal nonprofits",name:"IRS political organization disclosures",url:"https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",note:"Section 527 filings; different disclosure obligations."},
@@ -129,7 +129,7 @@ function renderPayments(){
  const wrap=$("payments"),info=$("paymentNote");wrap.replaceChildren();
  if(!graph){info.textContent="Waiting for sourced records.";return}
  if(chosenJurisdiction!=="federal"){info.textContent="No reviewed itemized transfers imported for this election category. These links are source portals, not inferred transactions.";return}
- const names=new Map(graph.nodes.map(n=>[n.id,n.name]));
+ const names=new Map(graph.nodes.map(n=>[n.id,committeeNames.get(n.id)||n.name]));
  const id="fec:"+$("committee").value;
  const same=graph.edges.filter(e=>e.from===id||e.to===id);
  const available=(same.length?same:graph.edges).filter(e=>e.evidenceType==="official_fec_reported_receipt"||e.evidenceType==="filed_committee_payment");
@@ -151,12 +151,29 @@ function showSignals(){
  if(!graph.edges.length){target.textContent="No transaction-to-transaction paths can be tested yet. We have "+nfmt.format(graph.snapshots.length)+" FEC financial snapshots, but 0 itemized transfer edges in the imported ledger. This does not mean the committees made no transfers.";return}
  if(!graph.signals.length){target.textContent=nfmt.format(graph.edges.length)+" official filing-based transfers indexed. No qualifying two-step leads found in this bounded sample; absence is not exoneration or proof of zero activity.";return}
  target.replaceChildren();target.className="";
- for(const s of graph.signals.slice(0,10)){const d=el("p",s.evidence.join(" → ")+" · "+s.dateGapDays+" days · "+s.amountDifferencePct+"% difference · Investigative lead only");target.append(d)}
+ const edgeMap=new Map(graph.edges.map(e=>[e.id,e]));
+ for(const s of graph.signals.slice(0,10)){
+   const a=edgeMap.get(s.evidence[0]),b=edgeMap.get(s.evidence[1]);
+   if(!a||!b)continue;
+   const d=el("article",null,"transfer");
+   d.append(el("strong","Possible multi-hop timing match · "+s.dateGapDays+" days","path"));
+   d.append(el("p",(committeeNames.get(a.from)||a.from)+" → "+
+      (committeeNames.get(a.to)||a.to)+" → "+(committeeNames.get(b.to)||b.to)));
+   d.append(el("p",USD.format(a.amountUSD)+" then "+USD.format(b.amountUSD)+
+      " · "+s.amountDifferencePct+"% amount difference · Not proof these are the same dollars.","meta"));
+   d.append(link(a.source,"First filing ↗"),el("span"," · "),link(b.source,"Second filing ↗"));
+   target.append(d)
+ }
 }
 async function start(){
  try{
   const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("Graph HTTP "+r.status);
   const d=await r.json();
+  try{const mr=await fetch(ROOT+"data/finance/fec-committee-master.json",{cache:"no-store"});
+      if(mr.ok){const master=await mr.json();for(const o of (master.records||[]).sort((a,b)=>(a.sourceYear||0)-(b.sourceYear||0))){
+        if(o.committeeId&&o.name)committeeNames.set("fec:"+o.committeeId,o.name);
+      }}}
+  catch(e){console.info("Official name registry unavailable; showing committee IDs",e)}
   if(d.schema!=="power-atlas.dark-money.graph.v1"||!Array.isArray(d.edges)||!Array.isArray(d.snapshots)||!d.metrics)throw Error("Unexpected graph format");
   graph=d;
   for(const [id,key] of [["snapshotCount","fecCommitteeCycleSnapshots"],["entityCount","distinctOrganizations"],["transferCount","filedTransferEdges"],["donorCount","verifiedOriginalDonorAttributions"]])$(id).textContent=nfmt.format(d.metrics[key]);
