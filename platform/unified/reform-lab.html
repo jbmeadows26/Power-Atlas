@@ -19,6 +19,15 @@ footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.
 @media(max-width:900px){.four{grid-template-columns:repeat(2,1fr)}.hero{grid-template-columns:1fr}.heroAside{max-width:none}.sources{grid-template-columns:1fr 1fr}}
 @media(max-width:670px){main{padding:24px 14px 55px}.reforms,.examples,.sources{grid-template-columns:1fr}.flow{grid-template-columns:1fr 1fr}.flowcard:nth-child(2):after{content:""}.flowcard:nth-child(3):after{content:"→"}.hero h1{font-size:clamp(2.45rem,11vw,3.3rem)}.atlasControls label.search,.atlasControls input{width:100%;min-width:0}.navwrap{gap:8px}nav{gap:12px}}
 @media(max-width:425px){.four{grid-template-columns:1fr 1fr;gap:8px}.pillar{padding:13px;min-height:170px}.pillar strong{font-size:.96rem}.pillar span:last-child{font-size:.76rem}.flowcard{padding:12px}.flowcard strong{font-size:.9rem}.flowcard p{font-size:.76rem}}
+
+/* Civic accountability: action, votes, context. Source first, not scorecards. */
+.evidenceJump{margin-left:4px}.progressMetrics{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:18px 0}.metric{border:1px solid var(--line);background:#fff;border-radius:13px;padding:16px;min-width:0}.metric b{display:block;color:#17665b;font-size:clamp(1.6rem,3vw,2.4rem);line-height:1.15;letter-spacing:-.04em}.metric small{font-size:.76rem;color:#576f77}
+.voteCompare{display:grid;grid-template-columns:1fr 1fr;gap:12px}.voteCase{background:#fff;border:1px solid var(--line);border-radius:15px;padding:19px}.voteCase h3{font-size:1rem;margin:5px 0 6px}.voteCase p{font-size:.82rem;color:#5d717a;line-height:1.5}.voteCase .voteSum{display:flex;justify-content:space-between;gap:8px;align-items:baseline;margin:15px 0 7px}.voteCase .voteSum strong{font-size:1.48rem;letter-spacing:-.04em}.voteRail{height:16px;display:flex;border-radius:6px;overflow:hidden;background:#e0e8e9}.voteRail .y{background:#278374;height:100%}.voteRail .n{background:#96abb2;height:100%}.voteCase .voteLegend{display:flex;justify-content:space-between;gap:7px;font-size:.72rem;margin:6px 0;color:#546d75}.voteCase a{font-size:.8rem;font-weight:800}
+.evidenceControls{margin:14px 0 16px;padding:14px;background:#fff;border:1px solid var(--line);border-radius:13px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}.evidenceControls label{color:#5b7478;font-size:.79rem;font-weight:750}.evidenceControls input{min-width:220px;max-width:100%;border:1px solid #cadad9;border-radius:9px;padding:9px 11px}.evidenceControls button{background:#f0f7f5;border:1px solid #c9ded8;border-radius:50px;padding:8px 10px;color:#3f6260;font-size:.78rem;font-weight:700}.evidenceControls button[aria-pressed=true]{background:#165d55;color:white}.evidenceList{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.evidenceCard{border:1px solid var(--line);border-radius:13px;background:#fff;padding:18px;min-width:0}.evidenceCard h3{font-size:1rem;line-height:1.24;margin:8px 0}.evidenceCard p{font-size:.82rem;color:#506872;line-height:1.55;margin:7px 0}.evidenceCard .caution{border-left:2px solid #d0a66c;padding-left:9px;font-size:.75rem;color:#786749}.evidenceCard .meta{color:#5c7881;font-size:.72rem}.evidenceCard a{font-size:.81rem;font-weight:750}.tag{font-size:.68rem;display:inline-block;border-radius:40px;padding:4px 9px;background:#edf5f3;color:#1c6d64;font-weight:800}.tag.reverse{background:#f5ede2;color:#866126}.tag.gap{background:#f3f4f5;color:#636d78}
+.linkedEvidence{margin-top:12px;padding:11px 13px;border:1px solid #d7e5e2;background:#f6faf9;border-radius:9px}.linkedEvidence b{font-size:.77rem;color:#1d5c55}.linkedEvidence p{font-size:.8rem;color:#567178;margin:5px 0}.linkedEvidence ul{margin:6px 0 0;padding-left:17px}.linkedEvidence li{font-size:.8rem;margin:5px 0}.linkedEvidence a{font-size:.8rem}.gapBox{padding:12px;background:#f6f7f8;border:1px dashed #c3d1d3;border-radius:9px;color:#5d7076;font-size:.82rem}
+.financeContext{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.financeContext .panel{padding:18px}.financeContext .number{font-size:2rem;font-weight:900;color:#1b6d62;letter-spacing:-.055em;display:block}.financeContext p{font-size:.78rem;margin:4px 0 8px}.financeContext a{font-size:.79rem;font-weight:750}
+@media(max-width:700px){.voteCompare,.evidenceList{grid-template-columns:1fr}.financeContext{grid-template-columns:1fr}.progressMetrics{grid-template-columns:repeat(3,minmax(0,1fr))}.metric{padding:11px}.metric b{font-size:1.55rem}.metric small{font-size:.7rem}}
+
 </style>
 </head>
 <body>
@@ -27,7 +36,7 @@ footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.
 <section class="hero" aria-labelledby="mainTitle">
 <div><div class="ey">Money and influence / Civic power lab</div><h1 id="mainTitle">Who pays for power?<br><em>What could change?</em></h1>
 <p class="lead">Follow documented political money, then compare 16 ideas for greater transparency, stronger safeguards and more influence for everyday voters. Understand the tradeoffs in plain English.</p>
-<div class="cta"><a class="btn" href="#reforms">Explore reform ideas</a><a class="btn secondary" href="dark-money.html">Follow actual money</a></div></div>
+<div class="cta"><a class="btn" href="#reforms">Explore reform ideas</a><a class="btn secondary evidenceJump" href="#evidenceActions">See what lawmakers did</a><a class="btn secondary" href="dark-money.html">Follow actual money</a></div></div>
 <aside class="heroAside"><div class="ey">Two different jobs</div><strong>Investigate what happened.<br>Evaluate what might work.</strong><p>Power Atlas separates source-backed financial records from possible connections and proposed changes to the law.</p><div class="meta">All 16 items in this lab are <b>policy options</b>—not enacted nationwide requirements or findings of wrongdoing.</div></aside>
 </section>
 
@@ -42,6 +51,27 @@ footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.
 <section aria-labelledby="pillarsTitle"><div class="sectionHeading"><div class="ey">Four paths to stronger accountability</div><h2 id="pillarsTitle">Choose the problem you want to understand</h2><p>Tap a category to filter the reform ideas below.</p></div>
 <div id="pillars" class="four" aria-label="Reform categories"></div></section>
 
+
+<section id="evidenceActions" aria-labelledby="evidenceTitle">
+<div class="sectionHeading"><div class="ey">Actual public records · Verified examples</div><h2 id="evidenceTitle">What has government actually done?</h2><p>Look at official bills, procedural votes, enforcement decisions and programs in use. These are selected examples, not a complete score of Congress or an allegation about any donor.</p></div>
+<div class="progressMetrics" id="evidenceMetrics" aria-label="Indexed evidence coverage"><div class="metric"><b>—</b><small>Indexed official-source examples</small></div><div class="metric"><b>—</b><small>Reform topics with examples</small></div><div class="metric"><b>—</b><small>Topics not yet reviewed</small></div></div>
+<div class="voteCompare" aria-label="Separate procedural vote events for H.R. 7008">
+<div class="voteCase"><div class="ey">July 22, 2026 · House</div><h3>H.R. 7008: Vote on passage</h3><p>The House voted on whether to pass its bill text.</p><div id="houseVote" class="gapBox" role="status">Loading official House result…</div></div>
+<div class="voteCase"><div class="ey">September 30, 2026 · Senate</div><h3>H.R. 7008: Vote to advance debate</h3><p>The Senate voted on cloture on a motion to proceed — <strong>not</strong> final passage. Ordinarily 60 votes were required.</p><div id="senateVote" class="gapBox" role="status">Loading official Senate result…</div></div>
+</div>
+<p class="notice">These are different legislative questions, not directly comparable votes on a final law. A member's vote does not establish who influenced it or why.</p>
+<div class="sectionHeading"><div class="ey">Browse recorded actions</div><h2>From proposals to actual outcomes</h2><p>Filter by record type and open the primary source to inspect the original evidence.</p></div>
+<div class="evidenceControls"><label for="actionSearch">Find bill or program<input id="actionSearch" type="search" placeholder="Stock trading, FEC, vouchers…" aria-label="Search official examples"></label><div class="chips" role="group" aria-label="Filter official evidence"><button type="button" data-evidence="all" aria-pressed="true">All</button><button type="button" data-evidence="bill" aria-pressed="false">Bills</button><button type="button" data-evidence="enforcement" aria-pressed="false">Enforcement</button><button type="button" data-evidence="program" aria-pressed="false">Local programs</button><button type="button" data-evidence="rule" aria-pressed="false">Existing rules</button></div></div>
+<p id="evidenceCount" class="count" role="status">Loading verified examples…</p>
+<div id="evidenceList" class="evidenceList"></div>
+</section>
+<section id="financeEvidence" aria-labelledby="financeEvidenceTitle">
+<div class="sectionHeading"><div class="ey">Money records · Context, not cause</div><h2 id="financeEvidenceTitle">What financial records are actually in Power Atlas?</h2><p>These indexed source sets help researchers ask questions about election money. They do not, by themselves, connect payments to a bill, official vote or undisclosed original funder.</p></div>
+<div class="financeContext" id="financeContextList"><div class="gapBox">Loading financial coverage…</div></div>
+<p class="notice"><strong>Never add these counts together.</strong> They cover different records, years and filing systems. The FEC sample is not a national total; IRS grants are not PAC donations; NYC matching claims are not public-fund payment awards.</p>
+<p id="actionStatus" class="status" role="status">This is a curated evidence map, not a live, exhaustive bill or donor tracking service.</p>
+</section>
+
 <section id="reforms" aria-labelledby="reformsTitle"><div class="sectionHeading"><div class="ey">Policy comparison · 16 proposals</div><h2 id="reformsTitle">How could the rules change?</h2><p>Every proposal shows what exists today, the suggested change, potential benefit, tradeoff and a measurable outcome.</p></div>
 <div class="atlasControls"><label class="search">Search reforms<input id="search" type="search" placeholder="Try PACs, vouchers, stock trading…" aria-label="Search reform options"></label><div class="chips" role="group" aria-label="Filter by reform theme"><button type="button" data-pillar="all" aria-pressed="true">All 16</button><button type="button" data-pillar="transparency" aria-pressed="false">Transparency</button><button type="button" data-pillar="structural" aria-pressed="false">Donor leverage</button><button type="button" data-pillar="citizen" aria-pressed="false">Citizen voice</button><button type="button" data-pillar="integrity" aria-pressed="false">Integrity</button></div></div>
 <p class="count" id="count" role="status">Loading source-backed reform catalog…</p><div class="reforms" id="reformList" aria-live="off"></div></section>
@@ -52,7 +82,7 @@ footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.
 <div class="modes" role="group" aria-label="Public match ratio"><button type="button" data-ratio="0" aria-pressed="false">No match</button><button type="button" data-ratio="6" aria-pressed="false">6:1 match</button><button type="button" data-ratio="8" aria-pressed="true">8:1 match</button></div>
 <div class="matchBar" aria-hidden="true"><div class="own" id="ownBar"></div><div class="public" id="publicBar"></div></div>
 <div class="result" aria-live="polite"><strong id="totalResult">$225</strong><span id="mathLabel">$25 donation + $200 public matching</span></div><p class="mini">Simple model: donation × matching ratio, up to the example $200 matchable base. Does not incorporate program limits or approval.</p></div>
-<div class="panel"><div class="ey">Existing local examples</div><h3>These ideas already have real-world versions.</h3><span class="bigNumber">8:1</span><p><strong>New York City</strong> operates a voluntary public matching-funds program for eligible contributions, subject to office-specific caps and requirements. <a href="https://www.nyccfb.info/candidate-services/join/" target="_blank" rel="noopener">View official rules</a></p><span class="bigNumber">4 × $25</span><p><strong>Seattle</strong> provides four $25 vouchers to eligible residents in regular city elections; special-election rules can differ. <a href="https://www.seattle.gov/ethics-and-elections/democracy-voucher-program" target="_blank" rel="noopener">View official program</a></p></div></div>
+<div class="panel"><div class="ey">Existing local examples</div><h3>These ideas already have real-world versions.</h3><span class="bigNumber">8:1</span><p><strong>New York City</strong> operates a voluntary public matching-funds program for eligible contributions, subject to office-specific caps and requirements. <a href="https://www.nyccfb.info/candidate-services/join/" target="_blank" rel="noopener">View official rules</a></p><span class="bigNumber">4 × $25</span><p><strong>Seattle</strong> uses four $25 vouchers in regular city elections (next regular cycle 2027). For its 2026 District 5 special election, eligible district residents receive two $50 vouchers. <a href="https://www.seattle.gov/ethics-and-elections/democracy-voucher-program" target="_blank" rel="noopener">View official program</a></p></div></div>
 </section>
 
 <section aria-labelledby="realityTitle"><div class="sectionHeading"><div class="ey">Reality checks</div><h2 id="realityTitle">What can Power Atlas verify today?</h2><p>The platform measures available evidence, not how much political power an individual has.</p></div>
@@ -66,10 +96,11 @@ footer{border-top:1px solid var(--line);padding:19px 0;color:#61767b;font-size:.
 <script>
 "use strict";
 const DATA="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/money-influence/civic-power-reforms-v1.json";
+const ACTION_DATA="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/money-influence/civic-accountability-evidence-v1.json";
 const $=id=>document.getElementById(id);
 const safe=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt=n=>"$"+Number(n).toLocaleString("en-US");
-let catalog=null,selected="all",ratio=8;
+let catalog=null,accountability=null,selected="all",ratio=8,evidenceKind="all";
 function setFilter(pillar,scroll){
  selected=pillar;
  document.querySelectorAll("[data-pillar]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pillar===pillar)));
@@ -81,12 +112,23 @@ function renderPillars(){
  $("pillars").innerHTML=catalog.pillars.map(p=>'<button type="button" class="pillar" data-stage="'+safe(p.id)+'" aria-pressed="false"><span class="emoji" aria-hidden="true">'+safe(p.icon)+'</span><strong>'+safe(p.name)+'</strong><span>'+safe(p.question)+'</span></button>').join("");
  document.querySelectorAll("[data-stage]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.stage,true)));
 }
+
+function policyActions(reformId){
+ if(!accountability)return '<div class="linkedEvidence"><b>Official actions</b><p>Verified case index is loading or unavailable; do not assume no actions exist.</p></div>';
+ const ids=accountability.policyCoverage[reformId]||[];
+ if(!ids.length)return '<div class="linkedEvidence"><b>Evidence gap</b><p>No policy-specific primary-source action is indexed for this topic in our limited current review. That does not mean no relevant action exists.</p></div>';
+ const itemMap=new Map(accountability.records.map(r=>[r.id,r]));
+ return '<div class="linkedEvidence"><b>Verified examples linked by policy topic ('+ids.length+')</b><ul>'+
+ ids.map(id=>{const r=itemMap.get(id);return r?'<li><a href="#case-'+safe(r.id)+'">'+safe(r.title)+'</a> · '+safe(r.kind)+' · '+safe(r.status.replaceAll("_"," "))+'</li>':''}).join("")+
+ '</ul><p>Topic match only. No assertion that financial transfers caused votes or outcomes.</p></div>';
+}
+
 function render(){
  if(!catalog)return;
  const q=$("search").value.trim().toLowerCase();
  const rows=catalog.records.filter(r=>(selected==="all"||r.pillar===selected)&&[r.title,r.short,r.baseline,r.proposal,r.benefit,r.tradeoff].join(" ").toLowerCase().includes(q));
  $("count").textContent="Showing "+rows.length+" of "+catalog.records.length+" reform options · Every option remains a proposal";
- $("reformList").innerHTML=rows.length?rows.map(r=>'<article class="reform"><div class="cap"><span class="chip">'+safe(catalog.pillars.find(p=>p.id===r.pillar)?.name||r.pillar)+'</span><span class="route">'+safe(r.route)+'</span></div><h3>'+safe(r.title)+'</h3><p class="short">'+safe(r.short)+'</p><details><summary>Current rule, proposal & tradeoffs</summary><div class="detailGrid"><div><b>What exists now</b><p>'+safe(r.baseline)+'</p></div><div><b>What is proposed</b><p>'+safe(r.proposal)+'</p></div><div><b>Potential benefit</b><p>'+safe(r.benefit)+'</p></div><div><b>Tradeoff or legal challenge</b><p>'+safe(r.tradeoff)+'</p></div><div><b>What we would measure</b><p>'+safe(r.measure)+'</p></div><div><a target="_blank" rel="noopener noreferrer" href="'+safe(r.source)+'">Check primary source ↗</a></div></div></details></article>').join(""):'<div class="empty">No matching reform options. Try another keyword or choose All 16.</div>';
+ $("reformList").innerHTML=rows.length?rows.map(r=>'<article class="reform"><div class="cap"><span class="chip">'+safe(catalog.pillars.find(p=>p.id===r.pillar)?.name||r.pillar)+'</span><span class="route">'+safe(r.route)+'</span></div><h3>'+safe(r.title)+'</h3><p class="short">'+safe(r.short)+'</p><details><summary>Current rule, proposal & tradeoffs</summary><div class="detailGrid"><div><b>What exists now</b><p>'+safe(r.baseline)+'</p></div><div><b>What is proposed</b><p>'+safe(r.proposal)+'</p></div><div><b>Potential benefit</b><p>'+safe(r.benefit)+'</p></div><div><b>Tradeoff or legal challenge</b><p>'+safe(r.tradeoff)+'</p></div><div><b>What we would measure</b><p>'+safe(r.measure)+'</p></div><div><a target="_blank" rel="noopener noreferrer" href="'+safe(r.source)+'">Check primary source ↗</a></div></div>'+policyActions(r.id)+'</details></article>').join(""):'<div class="empty">No matching reform options. Try another keyword or choose All 16.</div>';
 }
 function updateCalc(){
  const gift=Number($("donation").value);
@@ -102,7 +144,77 @@ $("donation").addEventListener("input",updateCalc);
 document.querySelectorAll("[data-ratio]").forEach(b=>b.addEventListener("click",()=>{ratio=Number(b.dataset.ratio);updateCalc()}));
 document.querySelectorAll("[data-pillar]").forEach(b=>b.addEventListener("click",()=>setFilter(b.dataset.pillar,false)));
 $("search").addEventListener("input",render);
+$("reformList").addEventListener("click",event=>{
+ const link=event.target.closest('a[href^="#case-"]');
+ if(!link||!accountability)return;
+ evidenceKind="all";
+ $("actionSearch").value="";
+ document.querySelectorAll("[data-evidence]").forEach(x=>x.setAttribute("aria-pressed",String(x.dataset.evidence==="all")));
+ renderActions();
+});
 updateCalc();
+
+const kindName={bill:"Legislative bill",enforcement:"Official enforcement",program:"Program in use",rule:"Current rule"};
+function makeVote(id,vote){
+ const target=$(id);
+ if(!vote){target.textContent="No verified event in the current record index";return;}
+ const denom=vote.yea+vote.nay||1,share=vote.yea/denom*100;
+ const sent=vote.chamber==="Senate"?"Cloture motion rejected":"House bill passage approved";
+ target.className="";
+ target.innerHTML='<div class="voteSum"><strong>'+vote.yea+' yes · '+vote.nay+' no</strong><span class="tag '+(vote.result==="rejected"?"reverse":"")+'">'+safe(sent)+'</span></div>'+
+ '<div class="voteRail" role="img" aria-label="'+safe(vote.yea+' yes, '+vote.nay+' no; '+vote.question)+'"><span class="y" style="width:'+share.toFixed(1)+'%"></span><span class="n" style="width:'+(100-share).toFixed(1)+'%"></span></div>'+
+ '<div class="voteLegend"><span>Yes: '+vote.yea+'</span><span>No: '+vote.nay+'</span></div>'+
+ '<p>'+safe(vote.caveat)+'</p><a href="'+safe(vote.source)+'" target="_blank" rel="noopener noreferrer">Read official roll call ↗</a>';
+}
+function renderActions(){
+ if(!accountability)return;
+ const d=accountability;
+ const all=d.records;
+ const q=$("actionSearch").value.trim().toLowerCase();
+ const items=all.filter(r=>(evidenceKind==="all"||r.kind===evidenceKind)&&
+   [r.title,r.summary,r.scope,r.caveat].join(" ").toLowerCase().includes(q));
+ $("evidenceCount").textContent="Showing "+items.length+" of "+all.length+" selected official-source examples · "+d.asOf+" verification cutoff";
+ $("evidenceMetrics").innerHTML='<div class="metric"><b>'+d.metrics.indexedPolicyActionExamples+'</b><small>Reviewed official-source examples</small></div>'+
+ '<div class="metric"><b>'+d.metrics.indexedPolicyThemes+'/16</b><small>Reform topics with examples</small></div>'+
+ '<div class="metric"><b>'+d.metrics.notYetIndexedPolicyThemes+'</b><small>Topics not yet indexed</small></div>';
+ $("evidenceList").innerHTML=items.length?items.map(r=>{
+ const tag=r.position==="restricts_reform"?"tag reverse":"tag";
+ return '<article class="evidenceCard" id="case-'+safe(r.id)+'"><div class="cap"><span class="'+tag+'">'+safe(kindName[r.kind])+'</span><span class="route">'+safe(r.scope)+'</span></div><h3>'+safe(r.title)+'</h3><p>'+safe(r.summary)+'</p><p class="caution">'+safe(r.caveat)+'</p>'+
+ '<div class="meta">Documented action: '+safe(r.status.replaceAll("_"," "))+' · '+safe(r.date)+'</div><p><a href="'+safe(r.source)+'" target="_blank" rel="noopener noreferrer">Original government source ↗</a></p></article>';
+ }).join(""):'<div class="gapBox">No matching official examples in this selected catalog. Try another search; absence here is not evidence an event did not occur.</div>';
+ $("financeContextList").innerHTML=d.financialContext.map(x=>
+ '<article class="panel"><span class="number">'+Number(x.value).toLocaleString("en-US")+'</span><strong>'+safe(x.label)+'</strong><p class="mini">'+safe(x.unit)+' · '+safe(x.period)+'</p><p>'+safe(x.scope)+'</p><a href="'+safe(x.source)+'" target="_blank" rel="noopener noreferrer">Original data authority ↗</a></article>'
+ ).join("");
+ makeVote("houseVote",d.votes.find(v=>v.id==="hr7008-house-passage-2026"));
+ makeVote("senateVote",d.votes.find(v=>v.id==="hr7008-senate-cloture-2026"));
+}
+function initActionControls(){
+ document.querySelectorAll("[data-evidence]").forEach(b=>b.addEventListener("click",()=>{
+   evidenceKind=b.dataset.evidence;
+   document.querySelectorAll("[data-evidence]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+   renderActions();
+ }));
+ $("actionSearch").addEventListener("input",renderActions);
+}
+async function loadActions(){
+ try{
+ const r=await fetch(ACTION_DATA,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);
+ const d=await r.json();
+ if(d.schema!=="power-atlas.civic-accountability-evidence.v1"||d.recordType!=="curated_topic_links_not_causal_attributions"||
+ !Array.isArray(d.records)||!Array.isArray(d.votes)||!Array.isArray(d.financialContext)||
+ !d.policyCoverage||Object.keys(d.policyCoverage).length!==16)throw Error("Unverified evidence schema");
+ accountability=d;renderActions();render();
+ $("actionStatus").textContent="Verified source records reviewed "+d.asOf+". Bills, votes, penalties and programs are deliberately separated; financial datasets do not establish political influence.";
+ }catch(err){
+ $("evidenceCount").textContent="Official examples could not be loaded.";
+ $("evidenceList").innerHTML='<div class="gapBox">Evidence unavailable. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/civic-accountability-evidence-v1.json" target="_blank" rel="noopener">Inspect the published source dataset</a>.</div>';
+ $("houseVote").textContent="Roll call unavailable. Check the official House Clerk site.";
+ $("senateVote").textContent="Roll call unavailable. Check the official Senate site.";
+ $("actionStatus").textContent="Source index not loaded: "+err.message+". No record counts or outcomes are inferred.";
+ }
+}
+initActionControls();
+
 (async()=>{try{
  const response=await fetch(DATA,{cache:"no-store"});if(!response.ok)throw Error("HTTP "+response.status);
  const data=await response.json();
@@ -113,5 +225,6 @@ updateCalc();
  $("reformList").innerHTML='<div class="empty">The proposal catalog could not be loaded. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/civic-power-reforms-v1.json" target="_blank" rel="noopener">Read the source catalog on GitHub</a>.</div>';
  $("catalogStatus").textContent="Catalog not loaded: "+err.message+". No reform data is being inferred.";
 }})();
+loadActions();
 </script>
 </body></html>

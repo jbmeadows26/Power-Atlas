@@ -1,0 +1,47 @@
+name: Validate civic-accountability evidence
+on:
+  push:
+    paths:
+      - 'data/money-influence/civic-accountability-*.json'
+      - 'data/money-influence/civic-power-reforms-v1.json'
+      - 'scripts/build_civic_accountability.py'
+      - 'platform/unified/reform-lab.html'
+      - 'tests/test_civic_accountability_evidence.py'
+      - '.github/workflows/validate-civic-accountability.yml'
+  pull_request:
+    paths:
+      - 'data/money-influence/civic-accountability-*.json'
+      - 'data/money-influence/civic-power-reforms-v1.json'
+      - 'scripts/build_civic_accountability.py'
+      - 'platform/unified/reform-lab.html'
+      - 'tests/test_civic_accountability_evidence.py'
+      - '.github/workflows/validate-civic-accountability.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild from validated official-source extracts
+        run: |
+          python -m scripts.build_civic_accountability
+          git diff --exit-code -- data/money-influence/civic-accountability-evidence-v1.json
+      - name: Validate links, vote types, disclosure and safety gates
+        run: python -m unittest discover -s tests -p 'test_civic_accountability_evidence.py' -v
+      - name: Check dashboard JavaScript syntax
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html=Path('platform/unified/reform-lab.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script\s*>(.*?)</script>',html,re.S)
+          assert len(scripts)==1, 'Expected exactly one inline script'
+          Path('/tmp/power-atlas-accountability.js').write_text(scripts[0])
+          PY
+          node --check /tmp/power-atlas-accountability.js
