@@ -4,6 +4,10 @@ on:
     paths:
       - 'scripts/build_dark_money.py'
       - 'tests/test_dark_money.py'
+      - 'tests/test_irs_schedule_i.py'
+      - 'scripts/parse_irs_schedule_i.py'
+      - 'scripts/collect_wa_2026_aggregate.py'
+      - 'tests/test_wa_2026_aggregate.py'
       - 'data/money-influence/dark-money-graph-v1.json'
       - 'data/money-influence/reviewed-organizational-transfers-v1.json'
       - 'platform/unified/dark-money.html'
@@ -39,6 +43,8 @@ jobs:
           PY
       - name: Run privacy, evidence, and interaction tests
         run: python -m unittest discover -s tests -p 'test_dark_money.py' -v
+      - name: Validate official Schedule I parser without inventing political transactions
+        run: python -m unittest discover -s tests -p 'test_irs_schedule_i.py' -v
       - name: Check dashboard syntax
         run: |
           python - <<'PY'
