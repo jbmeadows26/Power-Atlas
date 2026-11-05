@@ -1,0 +1,220 @@
+{
+  "schema": "power-atlas.story-inventory.v1",
+  "asOf": "2026-11-05",
+  "scope": "Repository-based research navigation, not a verified measure of national completeness.",
+  "statusDefinitions": {
+    "partial": "Public primary/secondary data exists, but important gaps remain",
+    "curated": "Reviewed or attributed illustrative evidence, not an exhaustive sample",
+    "needs_data": "Topic recognized; valid comparable dataset not yet established in the public Power Atlas corpus"
+  },
+  "items": [
+    {
+      "id": "redistricting",
+      "title": "Who draws the lines?",
+      "category": "Elections",
+      "status": "partial",
+      "question": "Trace maps, decision makers, litigation and election effects without assuming a connection proves intent.",
+      "href": "index.html",
+      "evidence": "data/coverage.json",
+      "gap": "Complete historical state bills, court dockets, certified election returns and state judicial outcomes."
+    },
+    {
+      "id": "voting-access",
+      "title": "Who can cast a ballot?",
+      "category": "Elections",
+      "status": "partial",
+      "question": "Compare how ID and voting rules differ across states; separate statutes from secondary summaries.",
+      "href": "index.html",
+      "evidence": "data/voting-access/state-policy-coverage-v1.json",
+      "gap": "Independently version and verify state statutes, exceptions, implementation and turnout effects."
+    },
+    {
+      "id": "election-2026",
+      "title": "What happened in the 2026 elections?",
+      "category": "Elections",
+      "status": "partial",
+      "question": "Follow election outcomes, redistricting changes and the evidence behind competing explanations.",
+      "href": "election-2026.html",
+      "evidence": "data/elections/official-source-index.json",
+      "gap": "Reconcile certified 2026 state and local returns before causal claims."
+    },
+    {
+      "id": "coalitions",
+      "title": "Which voters decided elections?",
+      "category": "Elections",
+      "status": "needs_data",
+      "question": "Examine pivotal voter groups across the 2018, 2020, 2022, 2024 and 2026 elections.",
+      "href": "",
+      "evidence": "data/elections/representation-gaps.json",
+      "gap": "Validated election survey microdata, consistent demographic crosswalks and uncertainty estimates."
+    },
+    {
+      "id": "issue-polling",
+      "title": "What issues moved voters?",
+      "category": "Elections",
+      "status": "needs_data",
+      "question": "Compare voter issue preferences, party identification and candidate choice in competitive races.",
+      "href": "",
+      "evidence": "research/voting-access/POWER-ATLAS-INTEGRATION.md",
+      "gap": "Matched polling microdata and race-level survey denominators; 2026 polls must be compared to outcomes."
+    },
+    {
+      "id": "federal-money",
+      "title": "Who finances federal campaigns?",
+      "category": "Money",
+      "status": "partial",
+      "question": "Compare FEC cycle totals and distinguish receipts, spending, and potentially overlapping transfers.",
+      "href": "election-money.html",
+      "evidence": "data/money-influence/fec-federal-cycle-overview-2002-2026.json",
+      "gap": "Final 2026 figures, state and local amounts, and reconciled entity-level payments."
+    },
+    {
+      "id": "donor-rankings",
+      "title": "Which donors appear in the top rankings?",
+      "category": "Money",
+      "status": "curated",
+      "question": "Explore selected published top-40 midterm donor rankings, not a census of all donors.",
+      "href": "donor-intelligence.html",
+      "evidence": "data/money-influence/brennan-top40-midterms-2014-2026.json",
+      "gap": "Full source-to-committee transaction paths and clearer individual-vs-household entity resolution."
+    },
+    {
+      "id": "dark-money",
+      "title": "Where does the money trail end?",
+      "category": "Money",
+      "status": "partial",
+      "question": "Explore published committee receipts, investigative leads and undisclosed ultimate donors.",
+      "href": "dark-money.html",
+      "evidence": "data/money-influence/dark-money-graph-v1.json",
+      "gap": "Nationwide cross-jurisdiction itemized transfers and independent amendment review; hidden donors cannot be imputed."
+    },
+    {
+      "id": "lobbying",
+      "title": "Who is lobbying officials?",
+      "category": "Money",
+      "status": "partial",
+      "question": "Review public lobbying filings and distinguish lobbying from proof of policy influence.",
+      "href": "money-sources.html",
+      "evidence": "data/lobbying/",
+      "gap": "Recipient/issue matching, LD-203 ledgers, outcome linkage and independent review."
+    },
+    {
+      "id": "congress-trades",
+      "title": "Do officials' investments conflict with their votes?",
+      "category": "Money",
+      "status": "needs_data",
+      "question": "Join legislator holdings/trades with dates of legislation and oversight roles.",
+      "href": "",
+      "evidence": "data/people/",
+      "gap": "Official STOCK Act disclosures, transaction normalization, spouse/dependent handling and timing checks."
+    },
+    {
+      "id": "reform-lab",
+      "title": "How could ordinary voters gain power?",
+      "category": "Solutions",
+      "status": "curated",
+      "question": "Compare 16 reform proposals across transparency, structural safeguards, civic financing and enforcement.",
+      "href": "reform-lab.html",
+      "evidence": "data/money-influence/civic-power-reforms-v1.json",
+      "gap": "Effect estimates, local program evaluation and further legislative outcomes beyond the current casebook."
+    },
+    {
+      "id": "authenticity",
+      "title": "Do politicians represent constituents?",
+      "category": "Institutions",
+      "status": "partial",
+      "question": "Study socioeconomic distance and voting alignment; observational links are not proof of motives.",
+      "href": "index.html",
+      "evidence": "data/research/political-authenticity/",
+      "gap": "Validated district-survey linkages, wealth disclosures and causal identification."
+    },
+    {
+      "id": "promises",
+      "title": "Do elected officials keep promises?",
+      "category": "Institutions",
+      "status": "partial",
+      "question": "Compare documented promises with the limited officially reviewable evidence of follow-through.",
+      "href": "index.html",
+      "evidence": "data/promises/",
+      "gap": "Exhaustive pledge denominators and independent promise adjudication."
+    },
+    {
+      "id": "institutional-decay",
+      "title": "When do institutions lose trust?",
+      "category": "Institutions",
+      "status": "partial",
+      "question": "Compare accountability, service quality and public trust across carefully scoped observations.",
+      "href": "index.html",
+      "evidence": "data/institutional-decay/",
+      "gap": "Comparable repeated-wave observations and independently powered causal designs."
+    },
+    {
+      "id": "gridlock",
+      "title": "How divided has Congress become?",
+      "category": "Institutions",
+      "status": "partial",
+      "question": "Inspect roll-call divisions, party gaps, cross-party cooperation and productivity.",
+      "href": "compare.html",
+      "evidence": "data/hyperpartisanship/app-summary-v1.json",
+      "gap": "Correct noncausal interpretation and additional party-vote linkage beyond bounded periods."
+    },
+    {
+      "id": "tribalism",
+      "title": "How does political identity affect cooperation?",
+      "category": "Institutions",
+      "status": "needs_data",
+      "question": "Separate partisan identity, behavior, rhetoric and competing explanations of polarization.",
+      "href": "compare.html",
+      "evidence": "research/hyperpartisanship/README.md",
+      "gap": "Individual-level panel datasets, validated content coding and causal design."
+    },
+    {
+      "id": "political-actions",
+      "title": "Do political tactics differ across groups?",
+      "category": "Institutions",
+      "status": "needs_data",
+      "question": "Compare reported actions by identical event definitions, category filters and crowd-size scale.",
+      "href": "compare.html",
+      "evidence": "data/research/atlas-inventory-v1.json",
+      "gap": "A licensed U.S. event-level ACLED or comparable protest dataset, deduplication and independent classification."
+    },
+    {
+      "id": "economic-power",
+      "title": "How does concentrated wealth change prices?",
+      "category": "Money",
+      "status": "needs_data",
+      "question": "Test pricing power, housing costs, market concentration and policy transmission mechanisms.",
+      "href": "",
+      "evidence": "data/fiscal/",
+      "gap": "Antitrust, industry prices and transaction data; causal counterfactuals instead of assuming billionaire ownership caused price increases."
+    },
+    {
+      "id": "party-policies",
+      "title": "Which policies helped or harmed Americans since 1969?",
+      "category": "Institutions",
+      "status": "needs_data",
+      "question": "Compare outcomes across administrations without attributing all trends to the party in office.",
+      "href": "",
+      "evidence": "data/fiscal/",
+      "gap": "Detailed policy dates, matched counterfactuals, economic controls and methodology for mixed effects."
+    },
+    {
+      "id": "accountability",
+      "title": "What have officials actually done about political influence?",
+      "category": "Solutions",
+      "status": "curated",
+      "question": "Follow official bills, public votes, enforcement examples and actual local programs.",
+      "href": "reform-lab.html",
+      "evidence": "data/money-influence/civic-accountability-evidence-v1.json",
+      "gap": "Exhaustive bill-event histories, complete voting records and enacted-versus-proposed monitoring."
+    }
+  ],
+  "evidenceRules": [
+    "A source link is not an ingested dataset.",
+    "A recorded payment, membership or vote is not proof of illegal influence.",
+    "Unverified, missing and legally undisclosed data are distinct.",
+    "Do not use political-party identity to define extremism or assign guilt.",
+    "Compare like-for-like denominators and distinct reporting windows.",
+    "Legislative proposals are not enacted law; observational relationships are not causal findings."
+  ]
+}
