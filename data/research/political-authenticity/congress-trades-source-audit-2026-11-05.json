@@ -1,0 +1,56 @@
+{
+  "schema": "power-atlas.political-authenticity.financial-activity-source-audit.v1",
+  "status": "OBSERVED_STALE_NONREPRESENTATIVE_DAILY_DELTA",
+  "dataType": "periodic_transaction_report_rows_only_not_holdings",
+  "sourceFeed": "https://github.com/LuxAlgo/market-trackers-data/blob/main/congress/trades/latest.json",
+  "sourceManifest": "https://github.com/LuxAlgo/market-trackers-data/blob/main/manifest.json",
+  "sourceLicense": "CC0-1.0 claimed for normalized third-party dataset; Senate disclosure statutory use restrictions still apply",
+  "sourceRepoBlobSha1": "ec8e839187b78a2986204ec7069568fee0f93ae3",
+  "sourceManifestBlobSha1": "dfb374485bcf6fc3a5252c3af253f1576044d29a",
+  "sourceManifestGeneratedAt": "2026-09-07T15:13:09.121Z",
+  "sourceManifestDeclaredSnapshotRows": 175,
+  "sourceLastIngestedAt": "2026-09-07T15:11:27.497Z",
+  "asReviewedDate": "2026-11-05",
+  "sourceFreshnessStatus": "STALE_2026_09_LAST_REFRESH",
+  "sample": {
+    "transactionRows": 58,
+    "uniqueTransactionIDs": 58,
+    "uniqueBioguideIDs": 3,
+    "uniqueSourceDocuments": 3,
+    "chambers": {
+      "senate": 58
+    },
+    "sides": {
+      "buy": 17,
+      "sell": 41
+    },
+    "ownerType": {
+      "spouse": 55,
+      "self": 3
+    },
+    "sourceSystems": {
+      "senate-efd": 58
+    },
+    "rowsWithTicker": 4,
+    "amountRangesValid": 58,
+    "amountRangeSumLowerUSD": 4609058,
+    "amountRangeSumUpperUSD": 10760000,
+    "rowsWithTradeAndFilingDates": 58,
+    "medianDisclosureLagDays": 27,
+    "apparentLagOver45Days": 0,
+    "negativeDisclosureLagRows": 0,
+    "rowsWithoutPrimarySourceURL": 0,
+    "duplicateSourceIds": 0,
+    "earliestTransactionDate": "2026-07-28",
+    "latestTransactionDate": "2026-08-19"
+  },
+  "limits": [
+    "Only the latest daily delta, not the 175-row dataset snapshot, not a census of congressional traders",
+    "All rows in this delta are from 3 Senate filers; cannot infer chamber or party differences",
+    "Data were last ingested in September 2026, so no claim of fresh 2026 coverage is permitted",
+    "Spouse and self trades must remain separate; no trades imply elected official directed the order",
+    "Amount intervals bound disclosed transaction amounts and are not assets, holdings, net worth or investment profits",
+    "Filing lag greater than 45 days is a screening criterion not a determination of an STOCK Act violation",
+    "Original filed reports require independent spot review before individual-level conclusions"
+  ]
+}
