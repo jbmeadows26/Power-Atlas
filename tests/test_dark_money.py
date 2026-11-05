@@ -65,6 +65,9 @@ class DarkMoneyTests(unittest.TestCase):
         self.assertIn("potentialSequentialPaymentLeads", ui)
         self.assertIn("Cannot trace", ui)
         self.assertIn("aria-label", ui)
+        self.assertIn("municipalSection",ui)
+        self.assertIn("campaign-financial-analysis-2025.json",ui)
+        self.assertIn("nycOffice",ui)
         home = (ROOT/"platform/unified/index.html").read_text()
         self.assertIn("dark-money.html", home)
 
