@@ -51,7 +51,7 @@ def parse_index(rows, columns):
         archive=batch if batch.lower().endswith(".zip") else batch+".zip"
         tax_period=(row.get("TAX_PERIOD") or "").strip()
         sub_date=(row.get("SUB_DATE") or "").strip()
-        if not re.fullmatch(r"(?:\\d{6}|\\d{4}-\\d{2}|\\d{8})",tax_period):
+        if not re.fullmatch(r"(?:\d{6}|\d{4}-\d{2}|\d{8})",tax_period):
             raise ValueError("Selected IRS filing tax-period format unsupported")
         # Official index returns SUB_DATE in either M/D/YYYY, YYYY-MM-DD
         # or YYYYMMDD notation, depending on release.
