@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="An evidence-linked, mobile-friendly guide to the Brennan Center's top 40 midterm donors across 2014, 2018, 2022 and 2026.">
+<title>Top Donors | Power Atlas</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1c3036;background:#f6f8f7;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}a{color:#157568}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #af7532;outline-offset:3px}
+header{position:sticky;top:0;z-index:3;background:#fffefef2;backdrop-filter:blur(9px);border-bottom:1px solid #dce7e5}
+.top{max-width:1180px;margin:auto;padding:13px 20px;display:flex;justify-content:space-between;gap:14px;align-items:center;flex-wrap:wrap}
+.brand{font-size:1rem;font-weight:850;color:#183d39;text-decoration:none}.navlinks{display:flex;gap:16px;flex-wrap:wrap;font-size:.86rem}
+main{max-width:1180px;margin:auto;padding:25px 20px 60px}
+.kicker{font-size:.72rem;font-weight:820;letter-spacing:.13em;text-transform:uppercase;color:#28766e}
+h1{font-size:clamp(2.4rem,5.7vw,4.3rem);line-height:1.05;letter-spacing:-.045em;margin:14px 0 16px;max-width:920px}
+h2{font-size:1.38rem;letter-spacing:-.025em;margin:0 0 8px}h3{font-size:1rem;margin:0 0 7px}
+.lead{font-size:1.12rem;line-height:1.58;color:#52696e;max-width:780px;margin:0 0 17px}
+.micro,.note{color:#6b8185;font-size:.82rem;line-height:1.5}.micro{margin:0 0 24px}
+.panel{border:1px solid #dbe6e4;border-radius:19px;padding:21px;background:#fff;margin-top:18px;box-shadow:0 7px 24px #183c340a}
+.story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:21px 0}
+.step{background:#e9f4f1;border-radius:13px;padding:16px;font-size:.89rem;line-height:1.48;color:#526b67}.step b{display:block;color:#1b5550;margin-bottom:6px}
+.controls{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
+button,select,input{font:inherit}button{cursor:pointer;border:1px solid #b9d2cd;border-radius:10px;background:#fff;padding:10px 16px;font-weight:680;color:#254c47}
+button[aria-pressed="true"]{background:#1e6f64;border-color:#1e6f64;color:#fff}button:hover:not([aria-pressed="true"]){background:#eff6f3}
+.yearButtons{display:flex;gap:7px;flex-wrap:wrap}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:14px 0 24px}
+.metric{border:1px solid #d8e5e1;background:white;padding:20px 18px;border-radius:16px}
+.metric strong{display:block;font-weight:850;font-size:clamp(1.5rem,2.7vw,2.15rem);letter-spacing:-.04em;color:#195e54;overflow-wrap:anywhere}
+.metric span{color:#61777b;font-size:.82rem;line-height:1.4;display:block;margin-top:7px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}.span2{grid-column:1/-1}
+.legend{display:flex;flex-wrap:wrap;gap:15px;font-size:.78rem;color:#5d7276;margin:14px 0}
+.legend i{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:6px}
+.rep{background:#c97c6b}.dem{background:#5587b2}.both{background:#a98bba}
+.stack{display:flex;overflow:hidden;height:37px;border-radius:8px;background:#e0e7e5}
+.stack>div{height:100%;min-width:0}
+.trendRow,.sectorRow{display:grid;grid-template-columns:65px 1fr 90px;align-items:center;gap:10px;font-size:.82rem;margin:11px 0}
+.sectorRow{grid-template-columns:minmax(105px,180px) 1fr 88px}
+.trendTrack{height:18px;background:#edf2f0;border-radius:5px;overflow:hidden}.trendTrack span{display:block;height:100%;background:#357f73;border-radius:5px;min-width:2px}
+.trendRow.active .trendTrack span{background:#b37b3d}
+.trendRow strong,.sectorRow strong{text-align:right;font-variant-numeric:tabular-nums}
+.partyTable{width:100%;border-collapse:collapse;font-size:.83rem;margin-top:14px}
+.partyTable th,.partyTable td{padding:10px 8px;border-bottom:1px solid #edf0ef;text-align:left}.partyTable td:nth-child(n+2){text-align:right}
+.takeaway{margin-top:15px;border-left:3px solid #b38b48;padding:9px 13px;background:#faf7ed;color:#465c5a;line-height:1.5;font-size:.91rem}
+.filterGrid{display:grid;grid-template-columns:2.1fr 1fr 1fr 1fr 1fr;gap:10px;margin:14px 0 10px}
+.filterGrid label{font-weight:700;color:#526d6b;font-size:.72rem;display:flex;flex-direction:column;gap:7px}
+.filterGrid select,.filterGrid input{width:100%;border:1px solid #c6d7d3;padding:11px;border-radius:9px;background:#fff;color:#233f3c;font-size:.88rem}
+#count{font-weight:750;font-size:.88rem;color:#2c685c;padding:8px 0}
+.tableWrap{overflow-x:auto}table.donors{width:100%;border-collapse:collapse;font-size:.89rem}
+.donors th,.donors td{padding:12px 10px;border-bottom:1px solid #e6eeec;text-align:left}
+.donors th{font-size:.74rem;text-transform:uppercase;letter-spacing:.03em;color:#617775}
+.donors td.amount{text-align:right;white-space:nowrap;font-weight:800;font-variant-numeric:tabular-nums}
+.donors .name{font-weight:750}.donors .rank{font-size:.79rem;color:#677e79}
+.flag{display:inline-block;padding:3px 7px;border-radius:5px;background:#faeddc;color:#8a5b1f;font-size:.74rem;white-space:nowrap}
+.status{background:#ecf2f7;color:#415f77}
+.footnote{border-top:1px solid #e1eae8;margin-top:18px;padding-top:16px}
+details summary{cursor:pointer;font-weight:730;color:#375f58;padding:4px 0}
+details p,details li{line-height:1.55;color:#596f72}
+.no-data{color:#7b6662;padding:25px;text-align:center}
+.skeleton{min-height:140px}
+@media(max-width:890px){.metrics{grid-template-columns:repeat(2,1fr)}.filterGrid{grid-template-columns:repeat(2,minmax(0,1fr))}.filterGrid label:first-child{grid-column:1/-1}}
+@media(max-width:640px){.story{grid-template-columns:1fr}.grid{grid-template-columns:1fr}.span2{grid-column:auto}.metrics{gap:9px}.metric{padding:16px 12px}.panel{padding:16px}.trendRow{grid-template-columns:42px 1fr 72px}.sectorRow{grid-template-columns:100px 1fr 73px;font-size:.74rem}.donors thead{display:none}.donors,.donors tbody{display:block}.donors tr{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:3px 8px;padding:12px 0;border-bottom:1px solid #e3ebe8}.donors td{border:none;padding:0}.donors td.rank{grid-row:1;grid-column:1}.donors td.name{grid-row:1;grid-column:2;min-width:0;overflow-wrap:anywhere}.donors td.amount{grid-row:1;grid-column:3;font-size:.83rem}.donors td.party,.donors td.sector,.donors td.dark{grid-column:2/-1;font-size:.78rem;color:#677d79}.donors td.dark{margin-top:2px}}
+</style>
+</head>
+<body>
+<header><div class="top"><a class="brand" href="index.html">◈ POWER ATLAS</a><nav class="navlinks" aria-label="Research navigation"><a href="index.html">Research home</a><a href="navatek.html">Money & influence</a><a href="investigations.html">Investigations</a></nav></div></header>
+<main>
+<div class="kicker">Money & influence / public donor records</div>
+<h1>Who is funding the <span style="color:#247b6c">midterms?</span></h1>
+<p class="lead">A small group of donors supplies billions of dollars. See who they are, where their giving leans, which industries appear, and how the biggest donors have changed since 2014.</p>
+<p class="micro">Brennan Center analysis of Federal Election Commission records · Each cycle measured through October 14 · Dollars are nominal (not adjusted for inflation) · Snapshot, not live or final 2026 totals.</p>
+<div class="story" aria-label="Three steps to understand these charts">
+<div class="step"><b>1 · Count the money</b>Compare the 40 largest donor groups in each midterm year.</div>
+<div class="step"><b>2 · Follow the alignment</b>Compare donors classified as Republican, Democratic, or supporting both parties.</div>
+<div class="step"><b>3 · Spot what is hidden</b>See the amount coming from groups classified as dark money. Original funders may be undisclosed.</div>
+</div>
+<section aria-labelledby="yearHeading">
+<h2 id="yearHeading">Select an election cycle</h2><div id="years" class="yearButtons controls" role="group" aria-label="Election cycle"></div>
+<div id="metrics" class="metrics" aria-live="polite"><div class="note">Loading verified source records…</div></div>
+</section>
+<div class="grid">
+<section class="panel" aria-labelledby="trendHeading"><h2 id="trendHeading">How fast has giving grown?</h2><p class="note">Top 40 total contributions in each year, in actual dollars at the time. This is not inflation-adjusted.</p><div id="trend" class="skeleton" aria-label="Donations by year"></div><p class="takeaway">Look for growth in the totals, not just a longer list: each year has exactly 40 entries.</p></section>
+<section class="panel" aria-labelledby="partyHeading"><h2 id="partyHeading">Which party do these donors support?</h2><p class="note">The source groups donors by overall party alignment. “Both” means cross-party giving—not necessarily equal amounts to each party.</p><div class="legend" aria-hidden="true"><span><i class="rep"></i>Republican</span><span><i class="dem"></i>Democratic</span><span><i class="both"></i>Both parties</span></div><div id="party" class="skeleton"></div><p class="takeaway" id="partyExplain">Based on Brennan's donor classifications, not an allocation of every contribution to a particular candidate.</p></section>
+<section class="panel" aria-labelledby="sectorHeading"><h2 id="sectorHeading">Which interests appear most?</h2><p class="note">Largest donor sectors in the selected cycle, according to the Brennan Center's coding.</p><div id="sectors" class="skeleton"></div><p id="sectorExplain" class="takeaway">Industry labels represent a donor's primary category; cross-industry interests may not be fully reflected.</p></section>
+<section class="panel" aria-labelledby="darkHeading"><h2 id="darkHeading">How much comes from dark-money groups?</h2><p class="note">“Dark money” here means donor groups identified by the source as obscuring the original sources of their funding.</p><div id="darkDisplay" class="skeleton"></div><p class="takeaway">These percentages cover only the top-40 donor list. They are not a measure of all hidden funding in the election.</p></section>
+</div>
+<section class="panel" aria-labelledby="listHeading"><h2 id="listHeading">Explore all 40 donors</h2><p class="note">Search by name or sector, filter the list, or switch years. Rankings are the original top-40 rankings, even after filtering.</p>
+<div class="filterGrid">
+<label>Search donors<input type="search" id="search" placeholder="Name or industry" autocomplete="off"></label>
+<label>Party<select id="partyFilter"><option value="">All alignments</option><option value="Republican">Republican</option><option value="Democratic">Democratic</option><option value="Both parties">Both parties</option></select></label>
+<label>Sector<select id="sectorFilter"><option value="">All sectors</option></select></label>
+<label>Dark-money classification<select id="darkFilter"><option value="">All groups</option><option value="yes">Flagged dark money</option><option value="no">Not flagged</option></select></label>
+<label>Sort<select id="sort"><option value="rank">Brennan rank</option><option value="amount">Largest first</option><option value="name">Name A–Z</option></select></label>
+</div>
+<div class="controls" style="justify-content:space-between"><span id="count" aria-live="polite">Loading records…</span><button type="button" id="clear">Clear filters</button></div>
+<div class="tableWrap"><table class="donors"><thead><tr><th>Rank</th><th>Donor (may be grouped)</th><th>Party support</th><th>Sector</th><th>Dark money?</th><th style="text-align:right">Amount</th></tr></thead><tbody id="rows"><tr><td colspan="6">Loading…</td></tr></tbody></table></div>
+</section>
+<section class="panel" aria-labelledby="evidenceHeading">
+<h2 id="evidenceHeading">What these numbers prove—and what they don't</h2>
+<p class="note">This is a sourced donor leaderboard, not an assertion that any donor purchased a vote, directed a candidate, or caused a policy outcome. Recipient-level money flows and specific policy connections are a separate research stage.</p>
+<details open><summary>Source and methodology</summary>
+<p>Original: <a href="https://www.brennancenter.org/our-work/research-reports/big-changes-makeup-biggest-midterm-donors" target="_blank" rel="noopener">Brennan Center, Big Changes to Makeup of the Biggest Midterm Donors</a>, updated October 29, 2026. <a href="https://github.com/zhangj-brennan/mip_top_40_donors" target="_blank" rel="noopener">Published data source (four CSV tables)</a>. Data used under attribution; source descriptions and donor grouping are preserved. 2026 transactions run through October 14.</p>
+<ul><li>Each row is a donor or donor grouping; couples and companies with principals may appear together.</li><li>Donors outside the top 40 are absent, not zero-dollar donors.</li><li>Party labels, sectors, and dark-money flags are the publisher's researched classifications, not independent Power Atlas determinations.</li><li>Top-40 dollar totals are contributions to candidates, parties, and committees; they are not the same as independent expenditures, ad spending, or final election costs.</li><li>“Not flagged” does not certify full transparency. “Both parties” cannot be split proportionally without transaction-level evidence.</li><li>Multiple-year figures are in nominal USD; use price-adjusted figures for real purchasing-power comparisons.</li></ul>
+</details><div class="footnote"><p class="note"><strong>Coverage:</strong> curated reference dataset, 160 donor-cycle records. Not yet a recipient-by-recipient transaction ledger. <a href="https://www.fec.gov/data/" target="_blank" rel="noopener">Explore official FEC campaign-finance data</a> or <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/brennan-top40-midterms-2014-2026.json" target="_blank" rel="noopener">inspect the exact dashboard dataset</a>.</p><span id="loaded" class="note" role="status"></span></div>
+</section>
+</main>
+<script>
+'use strict';
+const dataURL = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/money-influence/brennan-top40-midterms-2014-2026.json';
+const cycles=[2014,2018,2022,2026], state={year:2026,records:[]};
+const el=id=>document.getElementById(id);
+const money=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const short=n=>n>=1000000000?'$'+(n/1000000000).toFixed(2)+'B':n>=1000000?'$'+(n/1000000).toFixed(1)+'M':'$'+Math.round(n).toLocaleString('en-US');
+const sum=items=>items.reduce((a,r)=>a+r.amountUsd,0);
+const make=(tag,text,className)=>{const x=document.createElement(tag);if(text!==undefined)x.textContent=text;if(className)x.className=className;return x};
+function node(id){const x=el(id);x.replaceChildren();return x}
+function byYear(year){return state.records.filter(r=>r.cycle===year)}
+function partyValues(rows){return {Republican:sum(rows.filter(r=>r.partySupported==='Republican')),Democratic:sum(rows.filter(r=>r.partySupported==='Democratic')),'Both parties':sum(rows.filter(r=>r.partySupported==='Both parties'))}}
+function years(){const root=node('years');cycles.forEach(y=>{const b=make('button',String(y));b.type='button';b.setAttribute('aria-pressed',String(y===state.year));b.addEventListener('click',()=>{state.year=y;render()});root.appendChild(b)})}
+function metrics(rows){const t=sum(rows),dark=sum(rows.filter(r=>r.darkMoney)),party=partyValues(rows),item=[
+['Top 40 contributions',short(t)],['Republican-aligned',short(party.Republican)],['Dark-money groups',short(dark)],['Dark-money share',t?(100*dark/t).toFixed(1)+'%':'—']
+];const box=node('metrics');item.forEach(([label,value])=>{const c=make('div',undefined,'metric');c.append(make('strong',value),make('span',label));box.append(c)})}
+function trend(){const box=node('trend'),all=cycles.map(y=>({y,total:sum(byYear(y))})),max=Math.max(...all.map(x=>x.total));all.forEach(x=>{const r=make('div',undefined,'trendRow'+(x.y===state.year?' active':''));const track=make('div',undefined,'trendTrack'),fill=make('span');fill.style.width=(100*x.total/max)+'%';track.append(fill);r.append(make('b',String(x.y)),track,make('strong',short(x.total)));box.append(r)})}
+function party(rows){const box=node('party'),v=partyValues(rows),total=sum(rows),bar=make('div',undefined,'stack');for(const [key,cls] of [['Republican','rep'],['Democratic','dem'],['Both parties','both']]){const d=make('div',undefined,cls);d.style.width=(total?100*v[key]/total:0)+'%';d.title=key+': '+money(v[key]);bar.append(d)}
+bar.setAttribute('role','img');bar.setAttribute('aria-label','Share of contributions from Republican, Democratic, and both-party aligned top donors');box.append(bar);
+const table=make('table',undefined,'partyTable'),body=make('tbody');for(const key of ['Republican','Democratic','Both parties']){const tr=make('tr');tr.append(make('th',key),make('td',short(v[key])),make('td',total?(100*v[key]/total).toFixed(1)+'%':'0%'));body.append(tr)}table.append(body);box.append(table);el('partyExplain').textContent='These are donors grouped by alignment. The '+state.year+' “both parties” total cannot be apportioned to the parties using this list alone.'}
+function sector(rows){const box=node('sectors'),m=new Map;rows.forEach(r=>m.set(r.sector,(m.get(r.sector)||0)+r.amountUsd));const items=[...m].sort((a,b)=>b[1]-a[1]).slice(0,7);const max=items.length?items[0][1]:1;items.forEach(([name,total])=>{const r=make('div',undefined,'sectorRow'),bar=make('div',undefined,'trendTrack'),fill=make('span');fill.style.width=100*total/max+'%';bar.append(fill);r.append(make('span',name),bar,make('strong',short(total)));box.append(r)});
+el('sectorExplain').textContent=state.year===2026?'Compare the primary labels above: “Crypto” and “Crypto and Tech Investing” are separate source sectors. Multisector investors can appear under another industry.':'These are source-assigned primary categories; a donor may have multiple business interests.'}
+function dark(rows){const box=node('darkDisplay'),total=sum(rows),value=sum(rows.filter(r=>r.darkMoney)),p=total?100*value/total:0;const big=make('div',p.toFixed(1)+'%');big.style.cssText='font-weight:850;font-size:clamp(2.6rem,6vw,4rem);color:#996b2a;line-height:1.2;margin:12px 0';box.append(big,make('p',short(value)+' out of '+short(total)+' in the selected top-40 donor list.','note'));
+const track=make('div',undefined,'trendTrack');track.style.height='24px';const f=make('span');f.style.background='#b38b48';f.style.width=p+'%';track.append(f);box.append(track)}
+function sectorOptions(rows){const sel=el('sectorFilter'),value=sel.value;sel.replaceChildren(new Option('All sectors',''));[...new Set(rows.map(x=>x.sector))].sort().forEach(s=>sel.add(new Option(s,s)));sel.value=[...sel.options].some(o=>o.value===value)?value:''}
+function filtered(rows){const q=el('search').value.trim().toLowerCase(),p=el('partyFilter').value,s=el('sectorFilter').value,d=el('darkFilter').value;const subset=rows.filter(r=>(!q||(r.donor+' '+r.sector).toLowerCase().includes(q))&&(!p||r.partySupported===p)&&(!s||r.sector===s)&&(!d||(r.darkMoney?'yes':'no')===d));const order=el('sort').value;subset.sort((a,b)=>order==='amount'?b.amountUsd-a.amountUsd:order==='name'?a.donor.localeCompare(b.donor):a.rank-b.rank);return subset}
+function donorTable(rows){const matches=filtered(rows),tbody=node('rows');el('count').textContent=matches.length+' of '+rows.length+' donor groups shown · '+short(sum(matches))+' in listed contributions';if(!matches.length){const tr=make('tr'),td=make('td','No matching donors. Try clearing the filters.','no-data');td.colSpan=6;tr.append(td);tbody.append(tr);return}
+for(const r of matches){const tr=make('tr'),dark=make('td',undefined,'dark'),flag=make('span',r.darkMoney?'Flagged dark money':'Not flagged',r.darkMoney?'flag':'flag status');dark.append(flag);
+tr.append(make('td','#'+r.rank,'rank'),make('td',r.donor,'name'),make('td',r.partySupported,'party'),make('td',r.sector,'sector'),dark,make('td',money(r.amountUsd),'amount'));tbody.append(tr)}}
+function render(){years();const rows=byYear(state.year);metrics(rows);trend();party(rows);sector(rows);dark(rows);sectorOptions(rows);donorTable(rows)}
+for(const id of ['search','partyFilter','sectorFilter','darkFilter','sort'])el(id).addEventListener(id==='search'?'input':'change',()=>donorTable(byYear(state.year)));
+el('clear').addEventListener('click',()=>{el('search').value='';el('partyFilter').value='';el('sectorFilter').value='';el('darkFilter').value='';el('sort').value='rank';donorTable(byYear(state.year))});
+(async()=>{try{const r=await fetch(dataURL,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const data=await r.json();const records=data.records;if(!Array.isArray(records)||records.length!==160||cycles.some(y=>records.filter(x=>x.cycle===y).length!==40))throw Error('Unexpected dataset count');state.records=records;render();el('loaded').textContent='Source data loaded. Last updated: '+data.publishedAtUtc+'.';}
+catch(e){el('metrics').textContent='Source data could not be loaded. No donation totals have been inferred.';el('rows').textContent='Records temporarily unavailable.';el('count').textContent='Unable to load dataset.';el('loaded').textContent='Source unavailable: '+e.message;console.error(e)}})();
+</script>
+</body></html>
