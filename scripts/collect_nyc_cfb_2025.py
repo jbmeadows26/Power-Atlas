@@ -38,7 +38,8 @@ def decimal_amount(val):
 def parse(rows):
     if not isinstance(rows,list) or not 15<=len(rows)<=4000:
         raise ValueError("NYC financial analysis source unexpectedly empty or oversized")
-    out=[];seen=set()
+    canonical={}
+    multiplicities={}
     for raw in rows:
         if raw.get("el_cycle")!=YEAR:
             raise ValueError("Source query escaped election-year filter")
@@ -49,34 +50,47 @@ def parse(rows):
             raise ValueError("NYC candidate/campaign identity invalid")
         boro=str(raw.get("boro_dist") or "").strip()
         key=(cid,boro)
-        if key in seen:
-            raise ValueError("Duplicate NYC campaign/bore-dist row; no double-counting")
-        seen.add(key)
         total=decimal_amount(raw.get("net_cntns"))
         if total<0:
             raise ValueError("Negative net receipts require manual investigation before publication")
         match=decimal_amount(raw.get("match_amt") or "0")
-        # MATCH_AMT = contributions CLAIMED for matching, not funds actually awarded.
         if match<0:
             raise ValueError("Negative matching claim unsupported")
         num=raw.get("cntns_no")
         if num is None or not str(num).isdigit() or int(num)>100_000_000:
             raise ValueError("Invalid published NYC contribution count")
-        out.append({
+        to_stmt=str(raw.get("to_stmt") or "").strip()
+        if to_stmt and not to_stmt.isdigit():
+            raise ValueError("Invalid NYC statement-through number")
+        record={
             "id":"nyc:cfb:"+cid+(":"+boro if boro else ""),
             "electionYear":2025,
             "candidateId":cid,"candidateName":name,
             "office":office,
             "boroughOrDistrict":boro,
             "statementFrom":str(raw.get("from_stmt") or ""),
-            "statementThrough":str(raw.get("to_stmt") or ""),
+            "statementThrough":to_stmt,
             "reportedNetContributionsUSD":total,
             "reportedContributionsCount":int(num),
             "contributionsClaimedForMatchingUSD":match,
             "source":PUBLISHER,
             "evidenceType":"NYC_CFB_candidate_campaign_financial_analysis",
             "reviewStatus":"official_city_dataset_not_individually_audited",
-        })
+        }
+        multiplicities[key]=multiplicities.get(key,0)+1
+        # Latest through-statement wins; never add multiple versions of one
+        # candidate/district record. On ties choose a deterministic
+        # canonical row (highest reported receipt, then sorted name).
+        rank=(int(to_stmt or 0),total,name)
+        previous=canonical.get(key)
+        if previous is None or rank > previous[0]:
+            canonical[key]=(rank,record)
+    out=[]
+    for key,(_,record) in canonical.items():
+        record["sourceRowsForCampaignDistrict"]=multiplicities[key]
+        record["selectionStatus"]=("one_source_row" if multiplicities[key]==1 else
+            "selected_highest_statement_through_from_multiple_source_rows")
+        out.append(record)
     return sorted(out,key=lambda r:(-r["reportedNetContributionsUSD"],r["id"]))
 
 def collect():
@@ -106,7 +120,10 @@ def collect():
              "Dataset as updated December 2025; later amendments, 2026 races and future campaign filings may not be reflected.",
              "Source rows may be district- or borough-specific; do not sum across incompatible grains without reconciliation.",
              "No source contributor names or identities were downloaded; not a dark-money donor database."],
-         "recordCount":len(rows),"records":rows}
+         "recordCount":len(rows),"sourceRowsRead":len(source),
+         "sourceRowsWithRepeatedCampaignDistrict":sum(r["sourceRowsForCampaignDistrict"]-1 for r in rows),
+         "sourceVersionRule":"For repeated candidate ID and borough/district, retain latest to_stmt; never sum source versions.",
+         "records":rows}
     OUT.parent.mkdir(parents=True,exist_ok=True)
     OUT.write_text(json.dumps(obj,indent=2,ensure_ascii=False,allow_nan=False)+"\n",encoding="utf-8")
     return obj
