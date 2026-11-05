@@ -68,6 +68,9 @@ class DarkMoneyTests(unittest.TestCase):
         self.assertIn("municipalSection",ui)
         self.assertIn("campaign-financial-analysis-2025.json",ui)
         self.assertIn("nycOffice",ui)
+        self.assertIn("irsGrants",ui)
+        self.assertIn("irs-schedule-i-grants-v1.json",ui)
+        self.assertIn("showIRSGrants",ui)
         home = (ROOT/"platform/unified/index.html").read_text()
         self.assertIn("dark-money.html", home)
 

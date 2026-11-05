@@ -50,6 +50,14 @@ main{max-width:1200px;margin:auto;padding:24px 22px 64px}.ey{color:var(--teal);f
 <div class="dataBox"><a id="filing" href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">Open the original FEC committee record ↗</a><p id="coverageEnd" class="tiny"></p></div></section>
 <section class="panel" id="trail"><div class="ey">Network investigation</div><h2>Can we follow a chain of payments?</h2><p class="intro">A possible multi-hop path needs at least two itemized filings with explicit organization identifiers. Similar amounts alone are not enough.</p><div id="signals" class="empty" role="status">Checking confirmed filed transactions…</div><h3 style="margin:22px 0 7px">Actual filing-based transfers</h3><p id="paymentNote" class="intro">These will appear only when public committee-to-committee transactions pass the evidence checks.</p><div id="payments" class="transferGrid" aria-live="polite"></div>
 <div class="storyStrip" style="margin-top:18px"><div class="storyStep"><strong>1 · Identify a payment</strong><p>Record two legally identified organizations, a date, an amount, and the original filing.</p></div><div class="storyStep"><strong>2 · Find another documented payment</strong><p>Search for a related payment, including across an election boundary. Do not merge people or LLCs from names alone.</p></div><div class="storyStep"><strong>3 · Check, don't accuse</strong><p>Compare timing, purpose, legal status and the filings. Patterns remain leads until separately corroborated.</p></div></div></section>
+<section class="panel" id="irsGrants">
+<div class="ey">Nonprofit financial disclosures · Public IRS 990</div>
+<h2>Where did reported nonprofit grants go?</h2>
+<p class="intro">Official IRS Schedule I public organizational grants from a specifically identified nonprofit. These are <strong>grants made by the organization</strong>—not its incoming donors, not direct PAC contributions, and not evidence of wrongdoing.</p>
+<p id="irsGrantStatus" class="context" role="status">Checking whether audited IRS grant records have been published…</p>
+<div id="irsGrantRows" class="simpleBars" aria-label="Official IRS Schedule I nonprofit organization grants"></div>
+<p id="irsGrantScope" class="tiny"></p>
+</section>
 <section class="panel" id="portals"><div class="ey">Source coverage</div><h2>Where the public trail continues</h2><p class="intro">These are official source portals, not data already copied into Power Atlas. Open one to independently inspect the underlying reporting.</p><div id="sourceGrid" class="sourceGrid" aria-live="polite"></div></section>
 <section class="panel" id="recordTable"><h2>Inspect the indexed committee records</h2><p class="intro">The underlying cycle reports are public. This list is a selected sample, not a ranking of every group.</p><div class="tableWrap"><table class="detailTable"><thead><tr><th>Committee</th><th>Receipts</th><th>Disbursements</th><th>Source</th></tr></thead><tbody id="summaryRows"></tbody></table></div></section>
 <section class="panel"><h2>What “dark money” does—and doesn't—tell us</h2>
@@ -64,7 +72,7 @@ const SOURCE=ROOT+"data/money-influence/dark-money-graph-v1.json";
 const $=id=>document.getElementById(id);
 const USD=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
 const nfmt=new Intl.NumberFormat("en-US");
-let graph=null,chosenJurisdiction="federal",committeeNames=new Map(),waSummary=null,nycSummary=null;
+let graph=null,chosenJurisdiction="federal",committeeNames=new Map(),waSummary=null,nycSummary=null,irsGrants=null;
 const portalList=[
 {j:"federal",where:"Federal",name:"Federal Election Commission",url:"https://www.fec.gov/data/",note:"Federal committee and spending filings."},
 {j:"federal",where:"Federal nonprofits",name:"IRS political organization disclosures",url:"https://www.irs.gov/charities-non-profits/political-organizations/political-organization-filing-and-disclosure",note:"Section 527 filings; different disclosure obligations."},
@@ -128,6 +136,30 @@ function showRows(){
    const tr=el("tr");for(const val of [s.name,USD.format(s.receiptsUSD),USD.format(s.disbursementsUSD)])tr.append(el("td",val));
    const td=el("td");td.append(link("https://www.fec.gov/data/committee/"+encodeURIComponent(s.committeeId)+"/","FEC ↗"));tr.append(td);target.append(tr)
  }
+}
+function showIRSGrants(){
+ const wrap=$("irsGrantRows"),status=$("irsGrantStatus"),scope=$("irsGrantScope");
+ wrap.replaceChildren();
+ if(!irsGrants||!Array.isArray(irsGrants.records)||!irsGrants.records.length){
+   status.textContent="No public EIN-identified IRS Schedule I grant transactions have been imported into this explorer yet. A filing index alone does not establish financial transfers.";
+   scope.textContent="Official filing index: https://www.irs.gov/charities-non-profits/form-990-series-downloads";
+   return
+ }
+ const records=irsGrants.records.filter(r=>r.evidenceType==="irs_schedule_i_outbound_grant_not_campaign_contribution");
+ const top=records.slice().sort((a,b)=>b.amountUSD-a.amountUSD).slice(0,12);
+ const max=Math.max(1,...top.map(r=>r.amountUSD));
+ status.textContent=records.length+" public IRS Schedule I grants to EIN-identified organizations. The records below are selected examples from one source-verified return; none are classified here as campaign contributions.";
+ for(const g of top){
+   const card=el("div",null,"transfer");
+   const heading=el("div",g.fromName+" → "+g.toName,"path");
+   const track=el("div",null,"stateTrack"),fill=el("div",null,"stateFill");
+   fill.style.width=Math.max(1,100*g.amountUSD/max)+"%";track.append(fill);
+   card.append(heading,el("strong",USD.format(g.amountUSD),"amt"),track);
+   card.append(el("p","Tax year "+g.taxYear+" · Recipient organization EIN "+g.to.slice(8)+" · Official IRS grant (not original donor attribution)","meta"));
+   card.append(link(g.source,"Open original IRS filing ZIP ↗"));
+   wrap.append(card)
+ }
+ scope.textContent="Official IRS Schedule I outbound grant records. This is not a complete accounting of all grants, all politically active nonprofits, or an attribution of any PAC's original funders.";
 }
 function showNYC(){
  const wrap=$("nycRows"),status=$("nycStatus");wrap.replaceChildren();
@@ -204,6 +236,10 @@ async function start(){
  try{
   const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("Graph HTTP "+r.status);
   const d=await r.json();
+  try{const ir=await fetch(ROOT+"data/finance/irs-schedule-i-grants-v1.json",{cache:"no-store"});
+      if(ir.ok){const j=await ir.json();if(j.schema==="power-atlas.irs-schedule-i-grants.v1"&&j.originalDonorIdentitiesExtracted===false&&j.validatedCampaignFundingEdges===0)irsGrants=j}}
+  catch(e){console.info("IRS Schedule I grant pilot not yet published",e)}
+  showIRSGrants();
   try{const nr=await fetch(ROOT+"data/finance/nyc-cfb/campaign-financial-analysis-2025.json",{cache:"no-store"});
       if(nr.ok){const nd=await nr.json();if(nd.schema==="power-atlas.nyc-cfb.campaign-financial-analysis.v1"&&nd.individualDonorsIncluded===false)nycSummary=nd}}
   catch(e){console.info("NYC CFB candidate financial analysis unavailable",e)}
