@@ -23,7 +23,7 @@ class StoryAtlasTests(unittest.TestCase):
                          {"Elections", "Money", "Institutions", "Solutions"})
         self.assertEqual(set(item["status"] for item in self.items),
                          {"partial", "curated", "needs_data"})
-        self.assertEqual(sum(item["status"] == "needs_data" for item in self.items), 10)
+        self.assertEqual(sum(item["status"] == "needs_data" for item in self.items), 9)
         for item in self.items:
             for key in ("title", "question", "gap", "evidence"):
                 self.assertTrue(item[key].strip(), f"{item['id']} missing {key}")
@@ -55,3 +55,25 @@ class StoryAtlasTests(unittest.TestCase):
         self.assertIn('https://both-sides.the7eye.org.il/en/', self.html)
         self.assertIn("Missing records aren't zero activity", self.html)
         self.assertIn('No topics match.', self.html)
+
+    def test_cross_domain_financial_survey_evidence_integrity(self):
+        product = json.loads((ROOT / "data/research/cross-domain-evidence-v1.json").read_text(encoding="utf-8"))
+        self.assertEqual(product["schema"], "power-atlas.cross-domain-evidence.v1")
+        h, t, e = product["financialHoldings"], product["financialTrades"], product["voterEfficacy"]
+        self.assertEqual(h["readableReports"], 508)
+        self.assertEqual(h["paperReportsUnparsed"], 43)
+        self.assertEqual(h["membersWithDirectSp500SharesOrOptions"], 178)
+        self.assertAlmostEqual(h["shareAmongReadableReports"], 178 / 508, places=6)
+        self.assertEqual(t["transactionRows"], 58)
+        self.assertEqual(t["uniqueFilers"], 3)
+        self.assertEqual(t["spouseTrades"] + t["selfTrades"], t["transactionRows"])
+        self.assertTrue("STALE" in t["sourceStatus"])
+        self.assertEqual(len(e["questions"]), 2)
+        for question in e["questions"]:
+            self.assertAlmostEqual(question["shareValidUnweighted"], question["agree"] / question["validN"], places=5)
+        self.assertEqual(product["surveyDataDiscovery"]["year2024"]["rawRecordsInPowerAtlas"], 0)
+        self.assertEqual(product["surveyDataDiscovery"]["yearsIndexed"], [2018, 2020, 2022, 2024])
+        self.assertEqual(next(x["status"] for x in self.items if x["id"] == "congress-trades"), "partial")
+        for marker in ('id="people"', 'id="holderCount"', 'id="tradeCount"', 'id="efficacyBars"',
+                       'data/research/cross-domain-evidence-v1.json', 'Unweighted survey responses only'):
+            self.assertIn(marker, self.html)
