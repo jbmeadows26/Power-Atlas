@@ -57,7 +57,9 @@ class AccountabilityEvidenceTests(unittest.TestCase):
         fin = {x["id"]: x for x in self.feed["financialContext"]}
         self.assertEqual(set(fin), {"fec_2026_receipts", "irs_2024_grants", "nyc_2025_campaign"})
         self.assertEqual([fin[x]["value"] for x in ("fec_2026_receipts","irs_2024_grants","nyc_2025_campaign")],
-                         [1200, 318, 404])
+                         [len(builder.read(builder.FEC)["records"]),
+                          len(builder.read(builder.IRS)["records"]),
+                          len(builder.read(builder.NYC)["records"])])
         for item in fin.values():
             self.assertEqual(item["relation"], "background_only_no_policy_or_person_link")
             self.assertTrue(item["scope"] and item["dataset"] and item["source"])
