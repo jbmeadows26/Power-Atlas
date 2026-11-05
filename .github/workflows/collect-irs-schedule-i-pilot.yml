@@ -1,0 +1,61 @@
+name: Ingest official targeted IRS 990 Schedule I EIN-only grants
+on:
+  pull_request:
+    paths:
+      - 'scripts/parse_irs_schedule_i.py'
+      - 'scripts/collect_irs_schedule_i_pilot.py'
+      - 'tests/test_irs_schedule_i.py'
+      - 'tests/test_irs_schedule_i_pilot.py'
+      - '.github/workflows/collect-irs-schedule-i-pilot.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/parse_irs_schedule_i.py'
+      - 'scripts/collect_irs_schedule_i_pilot.py'
+      - '.github/workflows/collect-irs-schedule-i-pilot.yml'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-irs-schedule-i-ein-only-pilot
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_irs_schedule_i*.py' -v
+  collect:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 17
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Download targeted official ZIP, extract EIN-only nonprofit grants from Schedule I
+        run: python -m scripts.collect_irs_schedule_i_pilot
+      - name: Check published dataset claims only EIN-documented grants
+        run: |
+          python - <<'PY'
+          import json
+          from scripts.parse_irs_schedule_i import OUT
+          obj=json.loads(OUT.read_text(encoding="utf8"))
+          assert obj['schema']=='power-atlas.irs-schedule-i-grants.v1'
+          assert obj['originalDonorIdentitiesExtracted'] is False
+          assert obj['validatedCampaignFundingEdges']==0
+          assert 1<=len(obj['records'])<=2500
+          assert all(r['from']=='irs-ein:264486735' for r in obj['records'])
+          assert all(r['to'].startswith('irs-ein:') and r['sourceArchiveSHA256']
+                     and r['sourceFilingXMLSHA256'] and r['archiveMember'].endswith('_public.xml')
+                     for r in obj['records'])
+          assert not any('address' in k.lower() or 'email' in k.lower()
+                     for r in obj['records'] for k in r)
+          PY
+      - name: Publish limited official outbound grants, no raw XML or IRS ZIP
+        run: bash scripts/publish_data.sh data/finance/irs-schedule-i-grants-v1.json
