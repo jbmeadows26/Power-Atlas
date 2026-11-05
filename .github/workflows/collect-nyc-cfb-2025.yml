@@ -1,0 +1,58 @@
+name: Ingest official NYC 2025 municipal campaign-financial analysis
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect_nyc_cfb_2025.py'
+      - 'tests/test_nyc_cfb_2025.py'
+      - '.github/workflows/collect-nyc-cfb-2025.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_nyc_cfb_2025.py'
+      - '.github/workflows/collect-nyc-cfb-2025.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '20 8 * * 2'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-nyc-cfb-2025
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_nyc_cfb_2025.py' -v
+  collect:
+    needs: verify
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Fetch only official campaign-level financial analysis, no contributor lists
+        run: python -m scripts.collect_nyc_cfb_2025
+      - name: Validate year, source grain, and privacy constraints
+        run: |
+          python - <<'PY'
+          from scripts.collect_nyc_cfb_2025 import OUT
+          import json
+          doc=json.loads(OUT.read_text())
+          assert doc["datasetId"]=="m3tj-a2pb"
+          assert doc["individualDonorsIncluded"] is False
+          assert doc["donorToRecipientEdgesCreated"] == 0
+          assert doc["recordCount"]>=15
+          for r in doc["records"]:
+              assert r["electionYear"]==2025
+              assert r["reportedNetContributionsUSD"]>=0
+              assert not any(k in r for k in ["contributor_name","address","email","employer","donor"])
+          print("Published municipal financial analysis summaries only.")
+          PY
+      - run: bash scripts/publish_data.sh data/finance/nyc-cfb/campaign-financial-analysis-2025.json
