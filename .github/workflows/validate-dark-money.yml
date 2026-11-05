@@ -1,0 +1,46 @@
+name: Validate cross-jurisdiction dark-money graph
+on:
+  push:
+    paths:
+      - 'scripts/build_dark_money.py'
+      - 'tests/test_dark_money.py'
+      - 'data/money-influence/dark-money-graph-v1.json'
+      - 'data/money-influence/reviewed-organizational-transfers-v1.json'
+      - 'platform/unified/dark-money.html'
+      - '.github/workflows/validate-dark-money.yml'
+  pull_request:
+    paths:
+      - 'scripts/build_dark_money.py'
+      - 'tests/test_dark_money.py'
+      - 'data/money-influence/dark-money-graph-v1.json'
+      - 'data/money-influence/reviewed-organizational-transfers-v1.json'
+      - 'platform/unified/dark-money.html'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Rebuild graph reproducibly
+        run: |
+          python -m scripts.build_dark_money
+          git diff --exit-code -- data/money-influence/dark-money-graph-v1.json
+      - name: Run privacy, evidence, and interaction tests
+        run: python -m unittest discover -s tests -p 'test_dark_money.py' -v
+      - name: Check dashboard syntax
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          html=Path('platform/unified/dark-money.html').read_text()
+          scripts=re.findall(r'<script>([\s\S]+?)</script>',html)
+          assert len(scripts)==1
+          Path('/tmp/power-atlas-dark-money.js').write_text(scripts[0])
+          PY
+          node --check /tmp/power-atlas-dark-money.js
