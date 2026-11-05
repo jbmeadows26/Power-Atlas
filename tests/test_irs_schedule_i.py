@@ -24,6 +24,23 @@ class IrsScheduleITests(unittest.TestCase):
         self.assertEqual(row["amountUSD"],45000)
         self.assertIn("not_campaign_contribution",row["evidenceType"])
         self.assertNotIn("PRIVATE",str(records))
+    def test_modern_schedule_i_schema_and_repeated_grants(self):
+        xml=GOOD.replace(
+            b"<RecipientTable>",b"<GrantsOtherAsstToOrgInUSGrp>"
+        ).replace(b"</RecipientTable>",b"</GrantsOtherAsstToOrgInUSGrp>")
+        xml=xml.replace(
+            b"<GrantsOtherAsstToOrgInUSGrp><RecipientBusinessName>",
+            b"<GrantsOtherAsstToOrgInUSGrp><RecipientBusinessName>"
+        )
+        records=parse_xml(xml,URL,MEMBER)
+        self.assertEqual(len(records),1)
+        self.assertEqual(records[0]["to"],"irs-ein:987654321")
+        grant=b"""<GrantsOtherAsstToOrgInUSGrp><RecipientBusinessName><BusinessNameLine1Txt>PUBLIC CIVIC GROUP</BusinessNameLine1Txt></RecipientBusinessName><RecipientEIN>987654321</RecipientEIN><CashGrantAmt>45000</CashGrantAmt></GrantsOtherAsstToOrgInUSGrp>"""
+        xml2=xml.replace(b"</IRS990ScheduleI>",grant+b"</IRS990ScheduleI>")
+        records2=parse_xml(xml2,URL,MEMBER)
+        self.assertEqual(len(records2),2)
+        self.assertNotEqual(records2[0]["id"],records2[1]["id"])
+
     def test_official_source_only(self):
         with self.assertRaises(ValueError):
             parse_xml(GOOD,"https://bad.test/irs.zip",MEMBER)
