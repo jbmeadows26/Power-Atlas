@@ -207,6 +207,56 @@
       "href": "reform-lab.html",
       "evidence": "data/money-influence/civic-accountability-evidence-v1.json",
       "gap": "Exhaustive bill-event histories, complete voting records and enacted-versus-proposed monitoring."
+    },
+    {
+      "id": "judicial-selection",
+      "title": "Who appoints or elects the judges?",
+      "category": "Institutions",
+      "status": "partial",
+      "question": "Follow federal judicial appointments and the state judicial-selection process when redistricting cases are decided.",
+      "href": "index.html",
+      "evidence": "data/judiciary/fjc-appointments.json",
+      "gap": "State judicial-election funding, appointment processes and complete lower-court dockets; appointments do not imply coordinated outcomes."
+    },
+    {
+      "id": "power-network",
+      "title": "Who is connected to political decisions?",
+      "category": "Money",
+      "status": "partial",
+      "question": "Map public committee memberships, lobbying filings, officials and organizational relationships without inventing a money trail.",
+      "href": "investigations.html",
+      "evidence": "data/relationships.json",
+      "gap": "Source-confirmed individual funding edges, identity adjudication and decision-level chronology."
+    },
+    {
+      "id": "election-admin",
+      "title": "Are elections equally accessible in practice?",
+      "category": "Elections",
+      "status": "needs_data",
+      "question": "Assess registration and roll purges, early and mail voting, felony eligibility, polling-site access and administrative burden.",
+      "href": "index.html",
+      "evidence": "data/voting-access/state-policy-coverage-v1.json",
+      "gap": "Versioned primary state administrative records, county-level polling sites, purge notices, eligibility remedies and measured implementation."
+    },
+    {
+      "id": "outrage-funding",
+      "title": "Does political outrage raise more money?",
+      "category": "Institutions",
+      "status": "needs_data",
+      "question": "Test whether viral confrontation, strategic outrage and partisan rhetoric correlate with fundraising and primary survival.",
+      "href": "index.html",
+      "evidence": "research/hyperpartisanship/README.md",
+      "gap": "Timestamped public speeches, content coding, engagement measures, matched FEC contributions and credible causal controls."
+    },
+    {
+      "id": "cooperation",
+      "title": "What helps opposing groups cooperate?",
+      "category": "Institutions",
+      "status": "needs_data",
+      "question": "Study constructive dialogue, shared incentives and institutional conditions for cooperation on energy, climate, debt, health and conflict.",
+      "href": "index.html",
+      "evidence": "research/hyperpartisanship/README.md",
+      "gap": "Representative cross-group experiments, demographic controls, follow-up measures and validated cross-country replication."
     }
   ],
   "evidenceRules": [
