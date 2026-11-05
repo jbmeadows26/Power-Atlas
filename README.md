@@ -29,3 +29,9 @@ The temporary deadline sprint ends after **October 30, 2026**. Remaining gaps in
 ## Unified Power Atlas portal
 
 [Unified public research portal](https://power-atlas-unified.vercel.app/) brings together the redistricting investigation, native Voting Access source comparisons, research-program directory, and evidence/coverage status. Source: [platform/unified/index.html](platform/unified/index.html). Original Vercel sites remain preserved and linked; embedded original content may depend on upstream frame policies. A unified navigation does **not** imply that every underlying data source has been fully ingested or independently validated.
+
+## Money and influence: midterm donor intelligence
+
+- [Interactive top-40 donor dashboard](platform/unified/donor-intelligence.html) — mobile-first 2014, 2018, 2022 and 2026 cycle comparison with party alignment, sector, dark-money share, search, year filters and ranked records.
+- [Imported Brennan Center donor reference (160 rows)](data/money-influence/brennan-top40-midterms-2014-2026.json) — curated third-party snapshot from [Brennan Center research](https://www.brennancenter.org/our-work/research-reports/big-changes-makeup-biggest-midterm-donors) (updated October 29, 2026), with original source CSVs [here](https://github.com/zhangj-brennan/mip_top_40_donors). Data cut off on October 14 of each listed cycle. Dollar amounts are nominal, not inflation-adjusted.
+- Donor rows may combine couples and company principals. **A listed donor, dark-money designation, sector or party alignment is not evidence of illegal conduct or a donor-to-candidate/policy causal link.** Recipients, FEC transaction IDs, spending vehicles and lobbying/legislative linkages are **not** populated by this dataset. No totals outside the top 40 should be inferred.
