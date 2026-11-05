@@ -1,149 +1,213 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Power Atlas money-source explorer: official PAC records, lobbying filings, state disclosures, nonprofit research, academic datasets and transparent coverage gaps.">
-<title>Follow the Money: Evidence Sources | Power Atlas</title>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#091626">
+<meta name="description" content="Explore the money behind U.S. elections using interactive FEC committee charts, lobbying disclosures, a source-status map, and official filing links.">
+<title>Follow the Money | Power Atlas</title>
 <style>
-:root{color-scheme:light;font:16px/1.48 Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;--ink:#213437;--teal:#276f65;--light:#f6f9f8;--muted:#60767a;--line:#e0e9e6;--gold:#ad7f3f}*{box-sizing:border-box}body{background:var(--light);color:var(--ink);margin:0}a{color:#156f64}a:hover{text-decoration-thickness:2px}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #af7f43;outline-offset:3px}
-header{background:#fffffff1;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10;backdrop-filter:blur(11px)}nav{max-width:1180px;margin:auto;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px}nav strong{color:#1e5c51;letter-spacing:.02em}nav>div{display:flex;flex-wrap:wrap;gap:16px;font-size:.84rem}
-main{max-width:1180px;margin:auto;padding:28px 20px 60px}
-.kicker{color:#358176;font-weight:850;letter-spacing:.13em;font-size:.75rem;text-transform:uppercase}
-h1{font-size:clamp(2.5rem,6vw,4.6rem);max-width:800px;letter-spacing:-.055em;line-height:1.05;margin:12px 0}h1 em{color:#267368;font-style:normal}h2{font-size:clamp(1.25rem,3vw,1.65rem);margin:0 0 8px;letter-spacing:-.025em}h3{font-size:1.04rem;letter-spacing:-.01em;margin:0 0 7px}
-.lead{font-size:1.08rem;line-height:1.6;color:#587175;max-width:850px}
-.note{color:#667c7d;font-size:.83rem;line-height:1.52}.tiny{color:#768b8a;font-size:.75rem;line-height:1.45}
-.panel{border:1px solid var(--line);border-radius:17px;background:white;padding:22px;margin:17px 0;box-shadow:0 6px 24px #2a584c0a}
-.tag{font-size:.69rem;font-weight:740;border-radius:7px;padding:4px 8px;background:#eaf4f0;color:#277064;display:inline-block}
-.tag.link{background:#edf1f4;color:#4a677a}.tag.research{background:#f6f0e4;color:#806237}.tag.archive{background:#f0eeee;color:#726969}
-.path{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:24px 0}
-.pathItem{background:white;border:1px solid var(--line);border-top:3px solid #3a8076;border-radius:13px;padding:16px}.pathItem strong{display:block;color:#265f57;margin-bottom:9px}.pathItem p{font-size:.83rem;margin:5px 0;color:#607a77;line-height:1.5}.pathItem span{display:block;font-size:.72rem;color:#8a7770}
-.statusStrip{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:20px 0}
-.statusItem{background:white;border:1px solid var(--line);border-radius:14px;padding:18px 16px}.statusItem b{display:block;color:#267067;font-size:clamp(1.45rem,3vw,2.1rem);letter-spacing:-.045em}.statusItem span{font-size:.79rem;color:#617b75;line-height:1.3}
-.intro{border-left:4px solid #b88b4c;background:#fbf6ec;border-radius:0 11px 11px 0;padding:12px 17px;color:#665c4a;line-height:1.55;font-size:.88rem}
-.split{display:grid;grid-template-columns:1.4fr .85fr;gap:15px}.sectionEyebrow{font-size:.72rem;font-weight:850;color:#29786e;letter-spacing:.12em;text-transform:uppercase;margin-bottom:9px}
-.mode{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}.mode button{border:1px solid #c7d9d2;color:#326f64;background:white;border-radius:10px;padding:9px 15px;font-size:.86rem;font-weight:750}.mode button[aria-pressed="true"]{background:#206f62;color:white;border-color:#206f62}
-.barRow{display:grid;grid-template-columns:minmax(90px,180px) 1fr 88px;gap:11px;align-items:center;font-size:.78rem;margin:15px 0}.barRow>span{overflow-wrap:anywhere}.track{height:23px;background:#ecf3f0;border-radius:5px;overflow:hidden}.fill{height:100%;background:#468b80;border-radius:5px}.barRow b{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-size:.77rem}
-.dataTools{display:grid;grid-template-columns:1.3fr .7fr;gap:10px;margin:18px 0 8px}
-label{display:flex;flex-direction:column;gap:7px;font-weight:720;font-size:.77rem;color:#607571}
-input,select{width:100%;border:1px solid #c8d8d3;border-radius:9px;background:white;color:#2c4741;padding:11px}
-.tableWrap{overflow:auto;max-height:490px}table{border-collapse:collapse;width:100%}th,td{text-align:left;padding:12px 11px;border-bottom:1px solid #e7eeea;font-size:.85rem;vertical-align:top}
-th{font-size:.7rem;color:#687d79;text-transform:uppercase;letter-spacing:.04em;background:#fbfcfb;position:sticky;top:0}
-td.amount{text-align:right;font-weight:800;white-space:nowrap}td em{display:block;font-style:normal;font-size:.74rem;color:#7e8987;margin-top:4px}
-.miniLink{font-size:.78rem}.panel .sub{font-size:.83rem;color:#69807b;line-height:1.52}
-.filters{display:grid;grid-template-columns:1.45fr 1fr 1fr 1fr;gap:10px;margin:18px 0}
-#sourceGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.sourceCard{background:#fff;border:1px solid var(--line);border-radius:13px;padding:18px;display:flex;flex-direction:column;gap:8px}
-.sourceCard .top{display:flex;align-items:start;justify-content:space-between;gap:10px}.sourceCard h3{margin:0}
-.sourceCard p{font-size:.86rem;color:#5c7774;line-height:1.48;margin:0}.sourceCard .secondary{color:#7b8583;font-size:.77rem}
-.sourceCard .links{display:flex;flex-wrap:wrap;gap:14px;margin-top:auto;padding-top:10px;font-size:.83rem}
-.sourceCard .caution{border-top:1px solid #edf0ec;padding-top:11px;color:#866c4b;font-size:.76rem;line-height:1.5}
-.foot{border-top:1px solid var(--line);margin-top:30px;padding-top:22px;color:#667a79;font-size:.86rem}
-@media(max-width:900px){.path,.statusStrip{grid-template-columns:repeat(2,minmax(0,1fr))}.split{grid-template-columns:1fr}.filters{grid-template-columns:1fr 1fr}#sourceGrid{grid-template-columns:1fr}}
-@media(max-width:540px){main{padding:20px 14px 55px}.panel{padding:16px}.path,.statusStrip{gap:8px}.pathItem,.statusItem{padding:13px}.barRow{grid-template-columns:91px 1fr 75px;gap:7px}.barRow b{font-size:.72rem}.filters{grid-template-columns:1fr 1fr}.filters label:first-child{grid-column:1/-1}.dataTools{grid-template-columns:1fr 1fr}.sourceCard{padding:15px}table th,table td{padding:10px 7px;font-size:.79rem}}
-</style></head><body>
-<header><nav><strong>◈ POWER ATLAS</strong><div><a href="index.html">Research home</a><a href="election-money.html">Election money</a><a href="navatek.html">Money & influence</a></div></nav></header>
+:root{color-scheme:dark;--bg:#081320;--surface:#102438;--surface2:#142c42;--line:#28435a;--ink:#f4f8fd;--muted:#b1c3d4;--faint:#819ab0;--aqua:#77d9d4;--gold:#eab968;--blue:#7aa5f0;--salmon:#e59383;--mint:#95d7b6;--purple:#bba4eb;--shadow:0 18px 38px #00000026;font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;font-synthesis:none}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:134px}body{margin:0;color:var(--ink);background:radial-gradient(ellipse 68% 450px at 50% 2%,#17425c 0%,transparent 100%),var(--bg)}a{color:var(--aqua)}a:hover{text-decoration-thickness:2px}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:3px}
+header{position:sticky;top:0;z-index:20;background:#091725f0;border-bottom:1px solid var(--line);backdrop-filter:blur(14px)}.topbar{max-width:1220px;margin:auto;padding:12px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px}.brand{font-size:.96rem;letter-spacing:.055em;font-weight:860;text-decoration:none;color:#f2f9fa;white-space:nowrap}.brand i{font-style:normal;color:var(--gold)}.topLinks{display:flex;gap:17px;font-size:.82rem;flex-wrap:wrap}.sectionNav{display:flex;gap:4px;max-width:1220px;margin:auto;padding:0 17px 8px;overflow-x:auto;scrollbar-width:none}.sectionNav::-webkit-scrollbar{display:none}.sectionNav a{padding:10px 15px;border-radius:10px;text-decoration:none;font-size:.78rem;font-weight:800;color:#bcd2e1;white-space:nowrap;border:1px solid transparent}.sectionNav a[aria-current="true"],.sectionNav a:hover{color:#fff;background:#244458;border-color:#3c7083}
+main{max-width:1220px;margin:auto;padding:30px 20px 66px}.hero{padding:30px 0 12px;max-width:1050px}.eyebrow{color:var(--aqua);font-size:.74rem;font-weight:850;letter-spacing:.16em;text-transform:uppercase}.hero h1{font-size:clamp(2.9rem,7vw,5.8rem);letter-spacing:-.066em;line-height:1.02;margin:13px 0 19px}.hero h1 em{color:var(--gold);font-style:normal}.lead{font-size:clamp(1rem,1.7vw,1.16rem);line-height:1.6;max-width:795px;color:#c7d9e6;margin:0}.heroActions{display:flex;flex-wrap:wrap;gap:10px;margin-top:21px}.action{display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;background:var(--aqua);color:#092b35;padding:12px 17px;border-radius:10px;font-size:.86rem;font-weight:850;min-height:44px}.action.secondary{color:#e0edf1;background:#1b3b51;border:1px solid #37657a}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:28px 0 17px}.kpi{background:#13283b;border:1px solid #35556d;border-radius:16px;padding:17px 18px;box-shadow:var(--shadow)}.kpi .n{font-size:clamp(1.7rem,3vw,2.7rem);font-weight:850;letter-spacing:-.05em;color:var(--aqua)}.kpi.zero .n{color:var(--gold)}.kpi .lbl{color:#d4e0e9;font-size:.83rem;font-weight:750;margin-top:4px}.kpi .sub{font-size:.73rem;color:var(--faint);margin-top:4px;line-height:1.42}
+.section{margin-top:36px;scroll-margin-top:125px}.sectionIntro{display:flex;gap:15px;align-items:end;justify-content:space-between;flex-wrap:wrap;margin-bottom:17px}.sectionIntro h2{font-size:clamp(1.6rem,3.7vw,2.4rem);line-height:1.15;letter-spacing:-.037em;margin:5px 0}.sectionIntro p{color:var(--muted);font-size:.91rem;line-height:1.52;max-width:760px;margin:0}.sectionKicker{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:830;color:var(--aqua)}.panel{background:linear-gradient(153deg,#152d41,#0f2438);border:1px solid #314e67;border-radius:19px;padding:22px;box-shadow:var(--shadow)}.panel h3{font-size:1.07rem;margin:0 0 9px;letter-spacing:-.02em}.fine{font-size:.79rem;color:var(--faint);line-height:1.5}.helper{font-size:.85rem;color:var(--muted);line-height:1.55}.callout{background:#20313e;border-left:3px solid var(--gold);padding:13px 15px;border-radius:0 9px 9px 0;color:#e7d4ad;font-size:.82rem;line-height:1.53}.callout b{color:#f8dda7}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.step{background:#12283c;border:1px solid #35566a;border-radius:15px;padding:17px;position:relative;min-height:150px}.step:after{content:"→";position:absolute;right:-16px;top:44px;color:var(--gold);font-size:1.4rem;font-weight:850;z-index:2}.step:last-child:after{content:""}.step .nr{display:inline-block;color:#102e35;background:var(--aqua);border-radius:6px;padding:3px 7px;font-size:.71rem;font-weight:850;margin-bottom:10px}.step strong{display:block;font-size:1.07rem;margin-bottom:6px}.step p{color:#adc3d1;font-size:.8rem;line-height:1.43;margin:0}.gapPill{display:inline-flex;gap:6px;align-items:center;margin:15px 0 0;border:1px solid #846b45;border-radius:9px;padding:9px 12px;color:#edcf9c;font-size:.8rem;background:#372d25}.gapPill b{font-size:.78rem}
+.split{display:grid;grid-template-columns:.95fr 1.25fr;gap:15px}.splitBalanced{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.panelHeading{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;margin-bottom:18px}.panelHeading h3{margin:0}.seg{display:flex;gap:4px;background:#091b2b;border:1px solid #34516a;border-radius:11px;padding:4px}.seg button{font-weight:800;color:#c4d5e2;background:transparent;border:0;padding:9px 14px;border-radius:8px;font-size:.83rem}.seg button[aria-pressed="true"]{background:#327b80;color:#fff}.rank{display:grid;gap:9px}.rankButton{display:block;text-align:left;width:100%;color:var(--ink);background:#102b40;border:1px solid #304e65;padding:10px 12px 12px;border-radius:11px}.rankButton:hover{border-color:#73c8cc}.rankButton[aria-pressed="true"]{border-color:var(--gold);background:#244154}.rankText{display:flex;justify-content:space-between;align-items:baseline;gap:9px;font-size:.79rem}.rankText strong{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:70%}.rankText b{font-variant-numeric:tabular-nums;color:#e7f1fb;white-space:nowrap}.track{height:7px;background:#2e4b60;border-radius:6px;margin-top:8px;overflow:hidden}.track .fill{height:100%;background:var(--aqua);border-radius:6px;min-width:2px}.rankButton[aria-pressed="true"] .fill{background:var(--gold)}
+.cycleTag{display:inline-block;font-size:.75rem;color:#bcdfda;background:#1c4f54;border:1px solid #397f81;border-radius:7px;padding:5px 8px;font-weight:800}.committeeName{font-size:clamp(1.55rem,3vw,2.2rem);letter-spacing:-.035em;margin:9px 0 8px}.receiptGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:16px 0}.receiptMetric{background:#0b2132;padding:15px;border:1px solid #2b495e;border-radius:12px}.receiptMetric strong{font-size:clamp(1.55rem,3vw,2.2rem);letter-spacing:-.04em;display:block;color:#f8fbfe}.receiptMetric small{font-size:.78rem;color:#abc3d1}.receiptMetric p{font-size:.72rem;color:#7d9bad;margin:4px 0 0}
+.flowPart{margin:20px 0}.flowHead{display:flex;justify-content:space-between;align-items:baseline;gap:7px;margin-bottom:9px}.flowHead strong{font-size:.89rem}.flowHead span{font-size:.72rem;color:var(--muted)}.stack{height:26px;border-radius:8px;display:flex;overflow:hidden;background:#274457;gap:1px}.stack span{height:100%;display:block;min-width:0}.breakdown{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin-top:11px}.part{display:flex;align-items:baseline;justify-content:space-between;gap:12px;color:#c4d7e4;font-size:.78rem}.part .legend{display:flex;align-items:baseline;gap:7px;min-width:0}.part .legend i{height:8px;min-width:8px;border-radius:2px;display:inline-block}.part b{white-space:nowrap;color:#e8f2f7;font-variant-numeric:tabular-nums;font-size:.77rem}.flowArrow{text-align:center;color:var(--gold);font-size:1.4rem;line-height:1}.sourceLink{display:inline-flex;gap:5px;align-items:center;padding:9px 12px;background:#213c50;border:1px solid #386276;color:#8de2dc;border-radius:9px;text-decoration:none;font-size:.81rem;font-weight:740}.sourceLink:hover{background:#2c5166}
+.lobbyRank{display:grid;gap:8px}.lobbyButton{display:flex;gap:10px;align-items:center;justify-content:space-between;text-align:left;background:#102c42;border:1px solid #2a5265;padding:11px 13px;border-radius:10px;color:#e8f3fa;font-size:.81rem;width:100%}.lobbyButton:hover{border-color:var(--aqua)}.lobbyButton[aria-pressed="true"]{border-color:var(--gold);background:#274255}.lobbyButton strong{font-size:.83rem}.lobbyButton span{font-variant-numeric:tabular-nums;white-space:nowrap;color:#a9c8d3}.nodeFlow{display:grid;grid-template-columns:1fr 45px 1fr;align-items:center;gap:7px;margin:17px 0}.nodeFlow .box{border:1px solid #3d7580;background:#173d4f;border-radius:12px;padding:15px;min-height:116px;display:flex;flex-direction:column;justify-content:center;overflow-wrap:anywhere}.nodeFlow .box b{font-size:.93rem}.nodeFlow .box span{display:block;font-size:.71rem;letter-spacing:.08em;color:var(--aqua);text-transform:uppercase;font-weight:800;margin-bottom:8px}.nodeFlow .arrow{text-align:center;font-size:1.8rem;color:var(--gold)}.issueNote{padding:11px 13px;background:#0b2435;border-radius:10px;border:1px solid #2d4f5f;font-size:.83rem;color:#c6d9e5;line-height:1.5;margin:12px 0}.miniBars{display:flex;align-items:end;gap:25px;height:90px;border-bottom:1px solid #416073;padding:0 10px;margin:18px 0 28px}.miniBars .barColumn{width:75px;display:flex;flex-direction:column;align-items:center;justify-content:end;gap:4px;height:100%;position:relative}.miniBars .barColumn b{font-size:.79rem}.miniBars .barColumn span{position:absolute;bottom:-22px;font-size:.75rem;color:var(--muted)}.miniBars .bar{width:40px;border-radius:7px 7px 0 0;background:#479c96;min-height:2px}.micro{color:#9db7c9;font-size:.74rem}
+.sourceOverview{display:grid;grid-template-columns:270px minmax(0,1fr);gap:22px;align-items:center}.ring{--slice:0;position:relative;width:205px;aspect-ratio:1;border-radius:50%;margin:auto;background:conic-gradient(#77d9d4 0 11.7647%,#eab968 11.7647% 23.5294%,#4b83aa 23.5294% 76.4706%,#a4a0cc 76.4706% 94.1176%,#768292 94.1176% 100%);display:grid;place-items:center}.ring:before{content:"";width:143px;height:143px;border-radius:50%;background:#11293d;position:absolute}.ring .center{position:relative;text-align:center;z-index:1}.ring .center strong{font-size:2.85rem;letter-spacing:-.06em;display:block}.ring .center span{display:block;font-size:.78rem;color:#b3cbd8}.sourceLegend{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.sourceLegend button{display:flex;align-items:baseline;gap:8px;border:1px solid #36546a;background:#0d2539;padding:12px;border-radius:10px;color:#d6e4ed;text-align:left;font-size:.77rem;min-width:0}.sourceLegend button:hover{background:#1c3b50}.sourceLegend button b{color:#fff;font-size:1.3rem;line-height:1}.sourceLegend button small{color:#b9d0de;line-height:1.3}.sourceLegend button i{width:10px;height:10px;border-radius:3px;display:inline-block;flex:none}
+.filters{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:10px;margin:17px 0 13px}label{display:flex;flex-direction:column;gap:7px;font-size:.77rem;color:#b8cbd6;font-weight:750}input,select{background:#0d2639;border:1px solid #426078;color:#eff8fc;border-radius:9px;padding:11px;min-width:0;width:100%;min-height:43px}input::placeholder{color:#97aabd}select option{background:#0d2639}
+.pillFilter{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding:2px 0 8px}.pillFilter button{padding:8px 12px;border:1px solid #39586d;border-radius:99px;color:#c8dce8;background:#123044;font-size:.76rem;font-weight:770;white-space:nowrap}.pillFilter button[aria-pressed="true"]{background:#286969;border-color:#6fbbb6;color:#fff}
+.sourceCards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}.sourceCard{border:1px solid #37536a;background:#112b3d;border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:9px;min-height:190px}.sourceCard h3{font-size:1rem;margin:0;line-height:1.33}.sourceCard p{font-size:.8rem;color:#b5cbd7;line-height:1.48;margin:0}.sourceCard .tag{display:inline-flex;width:max-content;max-width:100%;border-radius:6px;padding:4px 7px;font-size:.7rem;font-weight:760;background:#234451;color:#91e4d9}.sourceCard .tag.link{color:#a9c3d6;background:#263f51}.sourceCard .tag.curated{color:#f5d28a;background:#403c35}.sourceCard .tag.archive{color:#b0b6c1;background:#313947}.sourceCard .buttons{display:flex;gap:12px;flex-wrap:wrap;margin-top:auto;padding-top:12px}.sourceCard .buttons a{font-size:.8rem;font-weight:760}.sourceCard details{font-size:.77rem;color:#a9becc;border-top:1px solid #355064;padding-top:10px}.sourceCard summary{cursor:pointer;color:#8fbbcf;font-weight:740}.sourceCard details p{margin-top:9px;font-size:.77rem}
+.exploreMore{display:flex;align-items:center;justify-content:center;margin-top:17px}.moreButton{border:1px solid #527a88;border-radius:10px;padding:12px 20px;background:#1b4253;color:#e1f9fb;font-weight:800;font-size:.84rem}
+.detailsPane{margin-top:18px}.detailsPane details{background:#142a3c;border:1px solid #35516a;border-radius:12px;padding:14px 17px}.detailsPane summary{font-size:1rem;font-weight:850;cursor:pointer}.detailsPane summary span{font-weight:500;color:#a7c0cf;font-size:.83rem}.recordTools{display:grid;grid-template-columns:1fr 140px;gap:10px;margin:14px 0}.tableWrap{overflow:auto;max-height:425px}table{width:100%;border-collapse:collapse;min-width:570px}th,td{padding:11px;border-bottom:1px solid #2d4357;text-align:left;font-size:.82rem;vertical-align:top}th{color:#a6cdd9;position:sticky;top:0;background:#142c42;font-size:.73rem}td b{font-weight:800}td em{display:block;color:#9cabb9;font-size:.76rem;font-style:normal}.money{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:830}.mode{display:flex;gap:7px;margin:15px 0}.mode button{border:1px solid #466277;border-radius:9px;padding:10px 13px;font-weight:800;font-size:.8rem;background:#173447;color:#c6dce8}.mode button[aria-pressed="true"]{background:#2c7b80;color:#fff;border-color:#7cc9d0}
+.footer{border-top:1px solid #314d61;margin-top:40px;padding:24px 0 10px;color:#9eb5c5;font-size:.82rem;line-height:1.6}.footer a{margin-right:13px}.noData{color:#cbdce6;font-size:.88rem;padding:15px;background:#123245;border-radius:9px}
+@media(max-width:900px){.split,.splitBalanced{grid-template-columns:1fr}.sourceCards{grid-template-columns:repeat(2,minmax(0,1fr))}.sourceOverview{grid-template-columns:210px 1fr}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step:nth-child(2):after{content:""}.step:nth-child(3):after{content:"→"}.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){main{padding:16px 13px 55px}.topbar{padding:12px 14px}.topLinks{gap:10px;font-size:.75rem}.topLinks a:first-child{display:none}.sectionNav{padding:0 9px 7px}.sectionNav a{padding:10px 12px}.hero{padding:20px 0 7px}.hero h1{font-size:clamp(2.7rem,11vw,4rem)}.heroActions .action{flex:1}.panel{padding:16px;border-radius:15px}.section{margin-top:28px}.sectionIntro h2{font-size:1.65rem}.steps{gap:9px}.step{min-height:148px;padding:13px}.step:after{right:-12px;font-size:1.2rem}.step strong{font-size:.97rem}.step p{font-size:.77rem}.kpis{gap:9px;margin:20px 0 15px}.kpi{padding:13px}.kpi .lbl{font-size:.76rem}.kpi .n{font-size:2.05rem}.receiptGrid{gap:8px}.receiptMetric{padding:12px}.breakdown{grid-template-columns:1fr}.nodeFlow{grid-template-columns:1fr 27px 1fr;gap:3px}.nodeFlow .box{padding:10px;min-height:108px}.nodeFlow .box b{font-size:.82rem}.sourceOverview{grid-template-columns:1fr}.sourceLegend{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.sourceLegend button{padding:10px 8px;gap:6px}.sourceLegend button small{font-size:.7rem}.ring{width:181px}.ring:before{width:128px;height:128px}.filters{grid-template-columns:repeat(2,minmax(0,1fr))}.filters label:first-child{grid-column:1/-1}.sourceCards{grid-template-columns:1fr}.recordTools{grid-template-columns:1fr 86px}.sectionIntro{margin-bottom:13px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+<div class="topbar"><a class="brand" href="index.html"><i>◈</i> POWER ATLAS</a><div class="topLinks"><a href="index.html">Research home</a><a href="election-money.html">Election money</a></div></div>
+<nav class="sectionNav" aria-label="Explore this dashboard">
+<a href="#overview" data-tab="overview" aria-current="true">01 Overview</a><a href="#committees" data-tab="committees">02 PAC money</a><a href="#lobbying" data-tab="lobbying">03 Lobbying</a><a href="#sources" data-tab="sources">04 Sources</a>
+</nav></header>
 <main>
-<div class="kicker">Financial transparency · Source connections</div>
-<h1>Follow the money.<br><em>Check the evidence.</em></h1>
-<p class="lead">Start with a political donation, inspect the committee's official records, then follow any documented spending or lobbying activity. Use original filings, research archives and independently reported leads without treating a connection as proof of misconduct.</p>
-<div class="path" aria-label="Four stages of campaign finance investigation">
-<div class="pathItem"><strong>1 · Donor</strong><p>Who is named as giving the money?</p><span>FEC · State filings · DIME</span></div>
-<div class="pathItem"><strong>2 · Committee</strong><p>What registered group received or reported money?</p><span>FEC · IRS 527 · State PAC records</span></div>
-<div class="pathItem"><strong>3 · Spending</strong><p>What expenditures were actually reported?</p><span>FEC · State reports · Nonprofit filings</span></div>
-<div class="pathItem"><strong>4 · Public decisions</strong><p>What did officials lobby for, sponsor or vote on?</p><span>LDA · Legislatures · Case documents</span></div>
+<section class="hero" id="overview">
+<div class="eyebrow">Follow the money · Public records</div>
+<h1>Political money.<br><em>Made visible.</em></h1>
+<p class="lead">See what federal committees reported raising and spending, examine lobbying records, and find the original source for every claim. Start with the picture, then open the evidence.</p>
+<div class="heroActions"><a class="action" href="#committees">Explore the money <span aria-hidden="true">↗</span></a><a class="action secondary" href="#sources">Find a data source</a></div>
+</section>
+<div class="kpis" id="statusStrip" aria-label="Persisted Power Atlas coverage"><p class="helper">Loading data coverage…</p></div>
+<section class="section" aria-labelledby="storyTitle">
+<div class="sectionIntro"><div><span class="sectionKicker">The four questions</span><h2 id="storyTitle">From donor to public decision</h2><p>Each step needs a separate public record. A shared name or nearby date is not enough.</p></div></div>
+<div class="steps">
+<div class="step"><span class="nr">01</span><strong>Who gave?</strong><p>Donors and disclosed contributions from FEC, state and IRS sources.</p></div>
+<div class="step"><span class="nr">02</span><strong>Who received?</strong><p>Committees and PACs, with official registration identifiers.</p></div>
+<div class="step"><span class="nr">03</span><strong>Who spent?</strong><p>Reported expenditures, transfers and independent spending.</p></div>
+<div class="step"><span class="nr">04</span><strong>What happened?</strong><p>Lobbying filings, legislation, votes, and government actions.</p></div>
 </div>
-<p class="intro"><strong>Important:</strong> The platform currently has committee identities, selected committee-level finances and lobbying filings. It does <strong>not</strong> yet have a fully verified donor → PAC → candidate → policy money trail. Empty connections are shown as missing, not invented.</p>
-<div class="statusStrip" id="statusStrip"><div class="note">Loading persisted coverage…</div></div>
+<div class="gapPill"><b>Evidence gap</b> No verified donor → PAC → candidate → policy payment chain is present yet.</div>
+</section>
+<section class="section" id="committees" aria-labelledby="pacTitle">
+<div class="sectionIntro"><div><span class="sectionKicker">01 / Verified financial summaries</span><h2 id="pacTitle">See where committee money comes from—and how it's spent</h2><p>Tap any committee to inspect its officially reported categories. These are selected FEC PAC and party records, not a census of all political spending.</p></div></div>
 <div class="split">
-<section class="panel" aria-labelledby="pacTitle"><div class="sectionEyebrow">Recorded committee money</div><h2 id="pacTitle">What did selected PACs report?</h2><p class="sub">Real, indexed FEC PAC/party summaries. The chart shows the largest available committee receipts—not all PACs nationally.</p>
-<div id="cycleTabs" class="mode" role="group" aria-label="PAC reporting cycle"></div>
-<div id="pacChart" role="img" aria-label="Reported receipts of selected indexed federal PAC/party committees"></div><p class="note" id="pacCutoff"></p></section>
-<section class="panel" aria-labelledby="connectionsTitle"><div class="sectionEyebrow">Evidence quality</div><h2 id="connectionsTitle">What's actually connected?</h2>
-<p class="sub">Identity records and money movements answer different questions.</p>
-<div id="evidenceCards"></div>
-<p class="intro">A PAC's receipts do not identify who received its spending. A lobbying filing shows advocacy activity—not that a donor purchased a vote.</p>
-</section></div>
-<section class="panel" aria-labelledby="recordsTitle"><div class="sectionEyebrow">Inspect original sources</div><h2 id="recordsTitle">Indexed PACs and lobbying activity</h2>
-<p class="sub">Two bounded views of records already in the repository. They are not a comprehensive donor graph.</p>
-<div class="mode" id="recordTabs" role="group" aria-label="Record type"></div>
-<div class="dataTools"><label>Search names<input id="recordQuery" type="search" autocomplete="off" placeholder="PAC, organization or lobbyist firm"></label><label>Show<input id="recordLimit" type="number" min="5" max="100" step="5" value="20" inputmode="numeric"></label></div>
-<div class="note" id="recordCount" aria-live="polite"></div><div class="tableWrap"><table><thead id="recordHead"></thead><tbody id="recordRows"></tbody></table></div>
-<p class="tiny" id="recordNote"></p>
-</section>
-<section class="panel" aria-labelledby="sourcesTitle"><div class="sectionEyebrow">Verified research destinations</div><h2 id="sourcesTitle">Find the right original database</h2><p class="sub">Government filing systems come first. Nonprofits, academics and investigators add context and leads. Each source shows whether records are actually loaded into Power Atlas.</p>
-<div class="filters">
-<label>Search sources<input type="search" id="sourceQuery" autocomplete="off" placeholder="FEC, nonprofit, Texas…"></label>
-<label>Source type<select id="sourceCategory"><option value="">All types</option><option value="federal">Federal government</option><option value="state">State & local</option><option value="nonprofit">Nonprofit research</option><option value="academic">Academic & civic tech</option><option value="watchdog">Watchdogs</option><option value="archive">Archives</option></select></label>
-<label>Evidence status<select id="sourceStatus"><option value="">Every status</option><option value="indexed_partial">Indexed records</option><option value="curated_excerpt">Curated extracts</option><option value="link_only">Source linked only</option><option value="research_only">Research reference</option><option value="archive_only">Archive</option></select></label>
-<label>Investigate<select id="sourceRole"><option value="">Every topic</option><option value="donations">Donations</option><option value="pac">PACs</option><option value="spending">Expenditures</option><option value="darkmoney">Dark money</option><option value="nonprofit">Nonprofit filings</option><option value="lobbying">Lobbying</option><option value="legislation">Legislative actions</option><option value="enforcement">Enforcement</option></select></label>
+<div class="panel"><div class="panelHeading"><h3>Choose a committee</h3><div class="seg" id="cycleTabs" role="group" aria-label="Choose an election cycle"><button type="button" aria-pressed="true">2024</button><button type="button">2026</button></div></div><div id="pacChart" class="rank"><p class="fine">Loading reported FEC receipts…</p></div><p class="fine" id="pacCutoff"></p></div>
+<div class="panel" id="committeeDetail" aria-live="polite"><span class="cycleTag">Official FEC summary</span><h3 class="committeeName">Choose a committee</h3><p class="helper">Receipts and expenditures will appear here when data loads.</p></div>
 </div>
-<p class="note" id="sourceCount" aria-live="polite">Loading sources…</p>
-<div id="sourceGrid"></div>
+<p class="callout"><b>How to read this:</b> “Individual contributions,” “committee contributions,” and “transfers” are reported categories—not identified people or proven transfers to a particular politician. Receipts and spending aren't expected to be equal because committees can carry balances across periods.</p>
 </section>
-<div class="foot">
-<h2>Coverage and safeguards</h2><p>Public links are not live ingestions. Research reports and allegations cannot establish legal violations. Archived services are not used as current data feeds. Stanford DIME includes redistribution restrictions for some third-party sourced itemized records; OpenSecrets bulk licensing and state-file privacy protections must be checked before publication. No private contact or address details are republished in this viewer.</p>
-<p>Audit source: <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/source-registry-v1.json" target="_blank" rel="noopener">source registry</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/verified-record-previews-v1.json" target="_blank" rel="noopener">indexed records and provenance</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/coverage.json" target="_blank" rel="noopener">coverage metrics</a>.</p><span id="health" role="status">Loading source data…</span>
+<section class="section" id="lobbying" aria-labelledby="lobbyTitle">
+<div class="sectionIntro"><div><span class="sectionKicker">02 / Official lobbying records</span><h2 id="lobbyTitle">Who reported lobbying activity?</h2><p>Choose an organization to see the client and registered lobbying firm named in published filings. A lobbying registration isn't a donation or evidence of influence.</p></div></div>
+<div class="splitBalanced">
+<div class="panel"><div class="panelHeading"><h3>Organizations in indexed filings</h3><span class="cycleTag">2025–2026 bounded sample</span></div><div id="lobbyChart" class="lobbyRank"><p class="fine">Loading lobbying records…</p></div><p class="fine">Counts reflect filings matched by earlier issue-specific searches, not all organizations' lobbying nationwide.</p></div>
+<div class="panel" id="lobbyDetail"><h3>Choose an organization</h3><p class="helper">Its reported registrant and an example source filing will appear here.</p></div></div>
+</section>
+<section class="section" aria-labelledby="evidenceTitle">
+<div class="sectionIntro"><div><span class="sectionKicker">03 / Separate fact from inference</span><h2 id="evidenceTitle">What can we actually connect?</h2><p>Identity matches are available. Money transfer and policy-causation claims demand additional evidence.</p></div></div>
+<div class="splitBalanced"><div class="panel" id="evidenceCards"></div><div class="panel"><div class="sectionKicker">Reporting windows</div><h3 style="font-size:1.3rem;margin-top:9px">Don't compare mismatched periods</h3><div class="receiptGrid"><div class="receiptMetric"><strong>2024</strong><small>Full federal election cycle</small></div><div class="receiptMetric"><strong>2026</strong><small>Partial reporting snapshot</small></div></div><p class="helper">Both have selected committee summaries, but the year, covered committees and cutoff differ. Those differences make a simple two-year increase/decrease claim unreliable.</p><a href="election-money.html" class="sourceLink">Compare equivalent election-cycle windows ↗</a></div></div>
+</section>
+<section class="section" id="sources" aria-labelledby="sourcesTitle">
+<div class="sectionIntro"><div><span class="sectionKicker">04 / Research library</span><h2 id="sourcesTitle">Know where the evidence lives</h2><p>Seventeen useful data destinations. “Indexed” means Power Atlas has some records; “linked” means you can visit the source, not that its database has been imported.</p></div></div>
+<div class="panel">
+<div class="sourceOverview">
+<div class="ring" role="img" aria-label="Source availability: 2 partly indexed, 2 curated extracts, 9 linked only, 3 research references, 1 archive"><div class="center"><strong>17</strong><span>reviewed sources</span></div></div>
+<div><h3>What's actually available?</h3><p class="helper">Tap a category to filter the sources below.</p><div class="sourceLegend" id="sourceLegend"></div><p class="fine">Counts measure listed source destinations, not transactions or completeness.</p></div>
+</div>
+</div>
+<div class="panel" style="margin-top:14px">
+<div class="filters">
+<label>Find a database<input id="sourceQuery" type="search" placeholder="Search FEC, IRS, California…" autocomplete="off"></label>
+<label>What are you tracing?<select id="sourceRole"><option value="">Every topic</option><option value="donations">Contributions</option><option value="spending">Spending</option><option value="pac">PACs</option><option value="darkmoney">Dark money</option><option value="lobbying">Lobbying</option><option value="nonprofit">Nonprofits</option><option value="legislation">Legislation</option><option value="enforcement">Enforcement</option></select></label>
+<label>Source type<select id="sourceCategory"><option value="">All source types</option><option value="federal">Federal agencies</option><option value="state">State & local</option><option value="nonprofit">Nonprofit research</option><option value="academic">Academic / civic tech</option><option value="watchdog">Watchdog research</option><option value="archive">Historical archives</option></select></label>
+</div>
+<div class="pillFilter" id="statusFilters" aria-label="Filter by source availability"></div>
+<p class="fine" id="sourceCount" aria-live="polite"></p>
+<div class="sourceCards" id="sourceGrid"></div>
+<div class="exploreMore"><button id="sourceMore" type="button" class="moreButton" hidden>Show all sources ↓</button></div>
+</div>
+<div class="detailsPane">
+<details id="records">
+<summary>View the underlying filing records <span>· searchable, exact figures and official links</span></summary>
+<div class="mode" id="recordTabs" role="group" aria-label="Select original record type"></div>
+<div class="recordTools"><label>Search records<input id="recordQuery" type="search" placeholder="Committee or lobbying firm" autocomplete="off"></label><label>Show rows<input id="recordLimit" type="number" min="5" max="100" value="20" step="5" inputmode="numeric"></label></div>
+<div class="fine" id="recordCount" aria-live="polite"></div>
+<div class="tableWrap"><table><thead id="recordHead"></thead><tbody id="recordRows"></tbody></table></div>
+<p class="fine" id="recordNote"></p>
+</details></div>
+</section>
+<div class="footer">
+<strong style="display:block;color:#e9f6fa;margin-bottom:7px">Sources and limits</strong>
+<p>Official FEC and LDA records are incomplete selections. The IRS, state, ProPublica and academic sources listed here are research links unless an indexed dataset is explicitly named. Independent disclosures don't establish wrongdoing. No private contact information is republished.</p>
+<a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/verified-record-previews-v1.json" target="_blank" rel="noopener">Inspect FEC/LDA source data</a>
+<a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/money-influence/source-registry-v1.json" target="_blank" rel="noopener">Source inventory and restrictions</a>
+<a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/coverage.json" target="_blank" rel="noopener">Full coverage audit</a>
+<p id="health" role="status">Loading public evidence…</p>
 </div>
 </main>
 <script>
 'use strict';
 const repo='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/';
-const sourcesURL=repo+'data/money-influence/source-registry-v1.json';
-const recordsURL=repo+'data/money-influence/verified-record-previews-v1.json';
-const coverageURL=repo+'data/coverage.json';
-const S={registry:null,records:null,coverage:null,cycle:2026,kind:'pac'};
+const api={registry:repo+'data/money-influence/source-registry-v1.json',records:repo+'data/money-influence/verified-record-previews-v1.json',coverage:repo+'data/coverage.json'};
+const S={registry:null,records:null,coverage:null,cycle:2024,committee:null,lobbyClient:null,kind:'pac',status:'',expanded:false};
 const el=id=>document.getElementById(id);
-const node=(tag,txt,cls)=>{const a=document.createElement(tag);if(txt!==undefined)a.textContent=txt;if(cls)a.className=cls;return a};
-const clear=id=>{const x=el(id);x.replaceChildren();return x};
-const dollars=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
-const short=n=>n>=1e9?'$'+(n/1e9).toFixed(2)+'B':n>=1e6?'$'+(n/1e6).toFixed(1)+'M':dollars(n);
-const safeLink=(url,text)=>{const a=node('a',text);if(typeof url==='string'&&url.startsWith('https://')){a.href=url;a.rel='noopener noreferrer';a.target='_blank';}return a;};
-function status(){const c=S.coverage?.coverage||{};const items=[
-['17','Source destinations reviewed'],[String(c.FECpacPartyCycleSummaryRows??S.records.pacCommittees.length),'Indexed PAC/party summaries'],[String(c.lobbyingFilingRows??S.records.lobbyingFilings.length),'Indexed LDA filing matches'],[String(c.recipientAggregateRows??0),'Verified recipient aggregates']
-];
-const root=clear('statusStrip');items.forEach(([n,label])=>{const card=node('div',undefined,'statusItem');card.append(node('b',n),node('span',label));root.append(card)})}
-function buttons(){const t=clear('cycleTabs');for(const y of [2024,2026]){const b=node('button',String(y));b.type='button';b.setAttribute('aria-pressed',String(S.cycle===y));b.onclick=()=>{S.cycle=y;buttons();pacChart();if(S.kind==='pac')renderRecords()};t.append(b)}
-const recordTabs=clear('recordTabs');for(const [value,label] of [['pac','FEC committee finances'],['lobby','Lobbying filings']]){const b=node('button',label);b.type='button';b.setAttribute('aria-pressed',String(S.kind===value));b.onclick=()=>{S.kind=value;buttons();renderRecords()};recordTabs.append(b)}}
-function pacChart(){const rows=S.records.pacCommittees.filter(r=>r.cycle===S.cycle).slice(0,8),max=Math.max(...rows.map(x=>x.receiptsUSD),1);
-const chart=clear('pacChart');
-for(const r of rows){const div=node('div',undefined,'barRow'),name=node('span',r.name),track=node('div',undefined,'track'),fill=node('div',undefined,'fill');fill.style.width=(100*r.receiptsUSD/max).toFixed(1)+'%';track.append(fill);const num=node('b',short(r.receiptsUSD));div.append(name,track,num);div.title=r.name+': '+dollars(r.receiptsUSD);chart.append(div)}
-const date=rows[0]?.coverageEnd||'unknown';el('pacCutoff').textContent='Source period ends '+date+' for displayed entries; '+S.records.pacCommittees.filter(r=>r.cycle===S.cycle).length+' selected committee summaries available for '+S.cycle+'. Do not compare years as a like-for-like sample.'}
-function evidence(){const c=S.coverage.coverage||{},box=clear('evidenceCards');
-const rows=[
-[String(c.FECcommitteeMasterRows??0)+' committee identities','Registered committee identity is not a money transfer'],
-[String(c.FECcandidateCommitteeLinks??0)+' candidate–committee links','FEC registration associations; not donor payments'],
-[String(c.paymentRows??0)+' committee payment records','No verified transfer-level disbursement edges yet'],
-[String(c.recipientAggregateRows??0)+' recipient summaries','No verified recipient-level aggregate links yet']];
-for(const [number,desc] of rows){const r=node('div',undefined,'sourceCard');r.style.marginBottom='8px';r.style.gap='2px';r.append(node('strong',number),node('p',desc));box.append(r)}}
-function renderRecords(){
-const body=clear('recordRows'),head=clear('recordHead'),query=el('recordQuery').value.trim().toLowerCase();
-const lim=Math.max(5,Math.min(100,Number(el('recordLimit').value)||20));
-let rows=S.kind==='pac'?S.records.pacCommittees.filter(x=>x.cycle===S.cycle):S.records.lobbyingFilings;
-rows=rows.filter(x=>S.kind==='pac'?x.name.toLowerCase().includes(query):(x.client+' '+x.registrant+' '+x.issueExcerpt).toLowerCase().includes(query));
-el('recordCount').textContent=rows.length+' records match · showing first '+Math.min(lim,rows.length)+'.';
-let h=node('tr');(S.kind==='pac'?['Committee','Cycle','Reported receipts','Original filing']:['Lobbying client','Registrant','Filing year','Source filing']).forEach(label=>h.append(node('th',label)));head.append(h);
-for(const r of rows.slice(0,lim)){const tr=node('tr');
-if(S.kind==='pac'){const first=node('td');first.append(node('strong',r.name),node('em',r.committeeId));tr.append(first,node('td',String(r.cycle)),node('td',dollars(r.receiptsUSD),'amount'));const last=node('td');last.append(safeLink(r.source,'Official FEC ZIP'));tr.append(last)}
-else{const first=node('td');first.append(node('strong',r.client));tr.append(first,node('td',r.registrant),node('td',String(r.year)));const last=node('td');last.append(safeLink(r.filingDetail,'LDA record'));tr.append(last)}body.append(tr)}
-el('recordNote').textContent=S.kind==='pac'?'Selected FEC committee financial summaries, not donor-by-recipient contributions. Cycle cutoffs differ.':'These are issue-related LDA filing matches, not necessarily LD-203 contributions and not evidence that lobbying caused a vote.'}
-function renderSources(){const q=el('sourceQuery').value.trim().toLowerCase(),cat=el('sourceCategory').value,stat=el('sourceStatus').value,role=el('sourceRole').value;
-let rows=S.registry.sources.filter(r=>(!q||(r.name+' '+r.coverage+' '+r.value+(r.jurisdiction||'')).toLowerCase().includes(q))&&(!cat||r.category===cat)&&(!stat||r.status===stat)&&(!role||r.roles.includes(role)));
-rows.sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name));
-el('sourceCount').textContent=rows.length+' of '+S.registry.sources.length+' source destinations';
-const root=clear('sourceGrid');if(!rows.length){root.append(node('p','No source matches those filters.'));return}
-const labels={indexed_partial:'Records indexed',curated_excerpt:'Curated extract',link_only:'Source linked',research_only:'Research reference',archive_only:'Archive only'};
-for(const s of rows){const card=node('article',undefined,'sourceCard'),top=node('div',undefined,'top');top.append(node('h3',s.name),node('span',labels[s.status]||s.status,'tag '+(s.status==='indexed_partial'?'':s.status==='link_only'?'link':s.status==='archive_only'?'archive':'research')));
-card.append(top,node('p',s.value),node('p',s.coverage,'secondary'));
-const links=node('div',undefined,'links');links.append(safeLink(s.url,'Explore official/source site'));
-if(s.machineReadable&&s.machineReadable!==s.url)links.append(safeLink(s.machineReadable,'Data access'));
-if(s.dataProducts?.length)links.append(safeLink('https://github.com/jbmeadows26/Power-Atlas/blob/main/'+s.dataProducts[0],'Indexed evidence'));
-card.append(links);
-card.append(node('p','Limit: '+s.caution,'caution'));
-root.append(card)}}
-async function json(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status+' retrieving '+url);return r.json()}
+const elem=(tag,text,cls)=>{const d=document.createElement(tag);if(text!==undefined)d.textContent=text;if(cls)d.className=cls;return d;};
+const wipe=id=>{const x=el(id);x.replaceChildren();return x;};
+const usd=n=>new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const compact=n=>n>=1e9?'$'+(n/1e9).toFixed(2)+'B':n>=1e6?'$'+(n/1e6).toFixed(1)+'M':n>=1e3?'$'+(n/1e3).toFixed(1)+'K':usd(n);
+const safeLink=(url,txt,cls)=>{const a=elem('a',txt,cls);if(typeof url==='string'&&url.startsWith('https://')){a.href=url;a.target='_blank';a.rel='noopener noreferrer'}return a};
+function putStatus(){const d=S.coverage.coverage||{},items=[
+[String(d.FECpacPartyCycleSummaryRows??S.records.pacCommittees.length),'FEC financial summaries','Selected committees'],
+[String(d.lobbyingFilingRows??S.records.lobbyingFilings.length),'Lobbying filings','Issue-matched records'],
+[String(S.registry.sources.length),'Data destinations','Indexed, linked or research only'],
+[String(d.recipientAggregateRows??0),'Verified recipient aggregates','A confirmed gap']
+];const wrap=wipe('statusStrip');items.forEach((it,i)=>{const c=elem('div',undefined,'kpi'+(i===3?' zero':''));c.append(elem('div',it[0],'n'),elem('div',it[1],'lbl'),elem('div',it[2],'sub'));wrap.append(c)})}
+function cycleButtons(){const root=wipe('cycleTabs');[2024,2026].forEach(y=>{const b=elem('button',String(y));b.type='button';b.setAttribute('aria-pressed',String(y===S.cycle));b.onclick=()=>{S.cycle=y;S.committee=null;cycleButtons();renderPACs();renderRecords()};root.append(b)})}
+function renderPACs(){const all=S.records.pacCommittees.filter(x=>x.cycle===S.cycle).sort((a,b)=>b.receiptsUSD-a.receiptsUSD);
+if(!S.committee||!all.find(x=>x.committeeId===S.committee))S.committee=all[0]?.committeeId;
+const max=Math.max(...all.map(x=>x.receiptsUSD),1),chart=wipe('pacChart');
+for(const r of all.slice(0,8)){const b=elem('button',undefined,'rankButton');b.type='button';b.setAttribute('aria-pressed',String(r.committeeId===S.committee));b.title='Show reported categories for '+r.name;const text=elem('div',undefined,'rankText');text.append(elem('strong',r.name),elem('b',compact(r.receiptsUSD)));const track=elem('div',undefined,'track'),fill=elem('div',undefined,'fill');fill.style.width=(100*r.receiptsUSD/max).toFixed(1)+'%';track.append(fill);b.append(text,track);b.onclick=()=>{S.committee=r.committeeId;renderPACs()};chart.append(b)}
+el('pacCutoff').textContent='Top eight by reported receipts · '+all.length+' selected committees for '+S.cycle+'. Tap a bar for its breakdown.';
+const row=all.find(x=>x.committeeId===S.committee);if(row)renderPACDetails(row);
+}
+function metric(name,value,foot){const r=elem('div',undefined,'receiptMetric');r.append(elem('strong',compact(value)),elem('small',name),elem('p',foot));return r}
+function drawStack(target,title,total,components){const wrap=elem('div',undefined,'flowPart'),head=elem('div',undefined,'flowHead');head.append(elem('strong',title),elem('span','Reported categories, '+compact(total)));wrap.append(head);
+const bar=elem('div',undefined,'stack');bar.setAttribute('role','img');bar.setAttribute('aria-label',title+': '+components.map(p=>p[0]+' '+compact(p[1])).join(', '));
+for(const [label,n,color] of components){if(n<=0)continue;const mark=elem('span');mark.style.width=(100*n/Math.max(total,1))+'%';mark.style.background=color;mark.title=label+': '+usd(n);bar.append(mark)}wrap.append(bar);
+const detail=elem('div',undefined,'breakdown');
+for(const [label,n,color] of components){const line=elem('div',undefined,'part'),left=elem('span',undefined,'legend'),swatch=elem('i');swatch.style.background=color;left.append(swatch,elem('span',label));line.append(left,elem('b',compact(n)));detail.append(line)}wrap.append(detail);target.append(wrap)}
+function renderPACDetails(r){const target=wipe('committeeDetail');target.append(elem('span',r.cycle+' · FEC filed summary','cycleTag'),elem('h3',r.name,'committeeName'));
+target.append(elem('div','Committee ID '+r.committeeId+'  ·  Period ends '+r.coverageEnd,'fine'));
+const metrics=elem('div',undefined,'receiptGrid');metrics.append(metric('Money received',r.receiptsUSD,'Total reported receipts'),metric('Money spent',r.disbursementsUSD,'Total reported disbursements'));target.append(metrics);
+const inParts=[['Individuals',r.individualContributionsUSD,'#77d9d4'],['Other political committees',r.otherCommitteeContributionsUSD,'#7aa5f0'],['Transfers from affiliates',r.transfersFromAffiliatesUSD,'#bba4eb']];
+const inOther=Math.max(0,r.receiptsUSD-inParts.reduce((t,x)=>t+x[1],0));inParts.push(['Other receipt categories',inOther,'#64798f']);
+const outParts=[['To other committees',r.contributionsToOtherCommitteesUSD,'#77d9d4'],['Transfers to affiliates',r.transfersToAffiliatesUSD,'#7aa5f0'],['Independent expenditures',r.independentExpendituresUSD,'#eab968'],['Coordinated expenditures',r.partyCoordinatedExpendituresUSD,'#e59383']];
+const outOther=Math.max(0,r.disbursementsUSD-outParts.reduce((t,x)=>t+x[1],0));outParts.push(['Other disbursements',outOther,'#64798f']);
+drawStack(target,'Where reported receipts came from',r.receiptsUSD,inParts);
+target.append(elem('div','↓','flowArrow'));drawStack(target,'How disbursements were categorized',r.disbursementsUSD,outParts);
+const note=elem('p','The bars summarize categories within this one committee, not a traced dollar-by-dollar transfer. The “other” category is the difference between the published total and the displayed subcategories.','fine');target.append(note,safeLink(r.source,'Open original FEC filing dataset ↗','sourceLink'));
+}
+function lobbyGroups(){const g=new Map();for(const r of S.records.lobbyingFilings){const key=r.client;let a=g.get(key);if(!a){a=[];g.set(key,a)}a.push(r)}return [...g.entries()].map(([name,rows])=>({name,rows,count:rows.length})).sort((a,b)=>b.count-a.count||a.name.localeCompare(b.name))}
+function renderLobby(){const all=lobbyGroups(),top=all.slice(0,8);if(!S.lobbyClient||!all.some(x=>x.name===S.lobbyClient))S.lobbyClient=top[0]?.name;
+const target=wipe('lobbyChart');for(const g of top){const b=elem('button',undefined,'lobbyButton');b.type='button';b.setAttribute('aria-pressed',String(S.lobbyClient===g.name));b.append(elem('strong',g.name),elem('span',g.count+' filings'));b.onclick=()=>{S.lobbyClient=g.name;renderLobby()};target.append(b)}
+const selected=all.find(x=>x.name===S.lobbyClient);if(!selected)return;
+const panel=wipe('lobbyDetail');panel.append(elem('span','Official LDA matches','cycleTag'),elem('h3',selected.name,'committeeName'),elem('p',selected.count+' indexed filings in this bounded sample.','helper'));
+const unique=new Map();for(const row of selected.rows){if(!unique.has(row.registrant))unique.set(row.registrant,[]);unique.get(row.registrant).push(row)}
+for(const [registrant,rows] of [...unique.entries()].slice(0,3)){const flow=elem('div',undefined,'nodeFlow'),a=elem('div',undefined,'box'),b=elem('div',undefined,'box');a.append(elem('span','Lobbying client'),elem('b',selected.name));b.append(elem('span','Registered firm'),elem('b',registrant));flow.append(a,elem('div','→','arrow'),b);panel.append(flow);const example=rows[0],note=elem('div',undefined,'issueNote');note.append(elem('strong',rows.length+' matched filing'+(rows.length===1?'':'s')+' · '+example.year));note.append(elem('p',example.issueExcerpt||'Publicly reported lobbying activity.'));note.append(safeLink(example.filingDetail,'Open the filing ↗','sourceLink'));panel.append(note)}
+panel.append(elem('p','These lines identify relationships recorded in LDA filings—not dollar transfers, private communications, a named officeholder target, or LD-203 contribution disclosures.','fine'));
+const button=elem('button','Search these filings ↓','moreButton');button.type='button';button.onclick=()=>{S.kind='lobby';el('recordQuery').value=selected.name;el('records').open=true;renderRecordTabs();renderRecords();el('records').scrollIntoView({behavior:'smooth',block:'start'})};panel.append(button);
+}
+function renderEvidence(){const c=S.coverage.coverage||{},panel=wipe('evidenceCards');panel.append(elem('h3','Verified vs. missing','committeeName'));
+const stats=[['Committee registrations',c.FECcommitteeMasterRows||0,true],['Candidate–committee identity links',c.FECcandidateCommitteeLinks||0,true],['Committee-to-recipient payments',c.paymentRows||0,false],['Recipient aggregates',c.recipientAggregateRows||0,false]];
+for(const [title,n,identified] of stats){const div=elem('div',undefined,'receiptMetric');div.style.display='flex';div.style.justifyContent='space-between';div.style.alignItems='center';div.style.marginBottom='9px';div.append(elem('span',title,'helper'));const strong=elem('strong',String(n));strong.style.color=identified?'#77d9d4':'#eab968';div.append(strong);panel.append(div)}
+panel.append(elem('p','Registered affiliations are not financial transfers. Both transfer/recipient datasets currently contain zero rows; that means missing coverage, not zero political giving.','fine'))}
+const sourceNames={indexed_partial:'Some records indexed',curated_excerpt:'Research extract',link_only:'Link only',research_only:'Research reference',archive_only:'Historical archive'};
+const statusColors={indexed_partial:'#77d9d4',curated_excerpt:'#eab968',link_only:'#4b83aa',research_only:'#a4a0cc',archive_only:'#768292'};
+const sourceFilterLabels=[['','All sources'],['indexed_partial','Indexed'],['curated_excerpt','Extracts'],['link_only','Linked'],['research_only','Research'],['archive_only','Archive']];
+function sourceButtons(){const filter=wipe('statusFilters');for(const [value,label] of sourceFilterLabels){const b=elem('button',label);b.type='button';b.setAttribute('aria-pressed',String(S.status===value));b.onclick=()=>{S.status=value;S.expanded=true;sourceButtons();renderSources()};filter.append(b)}
+const legend=wipe('sourceLegend');for(const [status,label] of sourceFilterLabels.slice(1)){const count=S.registry.sources.filter(x=>x.status===status).length;const b=elem('button');b.type='button';b.title='Filter to '+label;const swatch=elem('i');swatch.style.background=statusColors[status];b.append(swatch,elem('b',String(count)),elem('small',sourceNames[status]));b.onclick=()=>{S.status=status;S.expanded=true;sourceButtons();renderSources();el('statusFilters').scrollIntoView({behavior:'smooth',block:'center'})};legend.append(b)}}
+function sourceRing(){
+const total=S.registry.sources.length,order=['indexed_partial','curated_excerpt','link_only','research_only','archive_only'];
+let position=0;const chunks=[];
+for(const kind of order){const count=S.registry.sources.filter(s=>s.status===kind).length,from=position;position+=100*count/Math.max(total,1);
+chunks.push(statusColors[kind]+' '+from.toFixed(4)+'% '+position.toFixed(4)+'%')}
+const ring=document.querySelector('.ring');ring.style.background='conic-gradient('+chunks.join(',')+')';
+ring.setAttribute('aria-label','Source availability: '+order.map(k=>S.registry.sources.filter(s=>s.status===k).length+' '+sourceNames[k]).join(', '));
+ring.querySelector('.center strong').textContent=String(total);
+}
+function filteredSources(){const q=el('sourceQuery').value.trim().toLowerCase(),cat=el('sourceCategory').value,role=el('sourceRole').value;
+return S.registry.sources.filter(x=>(!q||(x.name+' '+x.coverage+' '+x.value+' '+(x.jurisdiction||'')).toLowerCase().includes(q))&&(!cat||x.category===cat)&&(!role||x.roles.includes(role))&&(!S.status||x.status===S.status)).sort((a,b)=>a.priority-b.priority||a.name.localeCompare(b.name))}
+function renderSources(){const filtered=filteredSources(),pinned=filtered.filter(x=>x.status==='indexed_partial'||x.status==='curated_excerpt'),others=filtered.filter(x=>!pinned.includes(x)),list=pinned.concat(others);const all=S.expanded||el('sourceQuery').value.trim()||el('sourceCategory').value||el('sourceRole').value||S.status;const show=all?list:list.slice(0,6);
+el('sourceCount').textContent='Showing '+show.length+' of '+filtered.length+' matching sources · '+S.registry.sources.length+' total reviewed';
+const wrap=wipe('sourceGrid');for(const s of show){const c=elem('article',undefined,'sourceCard');c.append(elem('span',sourceNames[s.status],'tag '+(s.status==='link_only'?'link':s.status==='curated_excerpt'?'curated':s.status==='archive_only'?'archive':'')));c.append(elem('h3',s.name),elem('p',s.value));
+const links=elem('div',undefined,'buttons');links.append(safeLink(s.url,'Open source ↗'));if(s.dataProducts&&s.dataProducts.length)links.append(safeLink('https://github.com/jbmeadows26/Power-Atlas/blob/main/'+s.dataProducts[0],'View indexed data ↗'));c.append(links);
+const details=elem('details'),sum=elem('summary','Scope & limitations');details.append(sum,elem('p',s.coverage+'  ·  '+s.caution));c.append(details);wrap.append(c)}
+if(!show.length)wrap.append(elem('p','No sources match these filters. Clear your search or choose “All sources”.','noData'));
+const more=el('sourceMore');more.hidden=!!all||list.length<=6;more.textContent='Show all '+filtered.length+' sources ↓'}
+function renderRecordTabs(){const tabs=wipe('recordTabs');for(const [k,txt] of [['pac','FEC PAC finances'],['lobby','Lobbying records']]){const b=elem('button',txt);b.type='button';b.setAttribute('aria-pressed',String(S.kind===k));b.onclick=()=>{S.kind=k;el('recordQuery').value='';renderRecordTabs();renderRecords()};tabs.append(b)}}
+function renderRecords(){const query=el('recordQuery').value.trim().toLowerCase(),limit=Math.max(5,Math.min(100,Number(el('recordLimit').value)||20)),pac=S.kind==='pac';
+let rows=pac?S.records.pacCommittees.filter(x=>x.cycle===S.cycle):S.records.lobbyingFilings;rows=rows.filter(x=>pac?x.name.toLowerCase().includes(query):(x.client+' '+x.registrant+' '+x.issueExcerpt).toLowerCase().includes(query));
+el('recordCount').textContent=rows.length+' matching records · '+Math.min(limit,rows.length)+' shown';
+const head=wipe('recordHead'),thead=elem('tr');for(const txt of pac?['Committee','Cycle','Receipts','Source']:['Client','Lobbying firm','Year','Source'])thead.append(elem('th',txt));head.append(thead);
+const body=wipe('recordRows');for(const r of rows.slice(0,limit)){const tr=elem('tr');if(pac){const td=elem('td');td.append(elem('b',r.name),elem('em',r.committeeId));tr.append(td,elem('td',String(r.cycle)),elem('td',usd(r.receiptsUSD),'money'));const last=elem('td');last.append(safeLink(r.source,'FEC record ↗'));tr.append(last)}else{tr.append(elem('td',r.client),elem('td',r.registrant),elem('td',String(r.year)));const last=elem('td');last.append(safeLink(r.filingDetail,'LDA filing ↗'));tr.append(last)}body.append(tr)}
+el('recordNote').textContent=pac?'Committee-level receipts; not donor-to-recipient transactions. Year reporting windows differ.':'Issue-matched lobbying filings; not a complete national dataset or an LD-203 contribution ledger.'}
+async function read(url){const r=await fetch(url,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status+' accessing source');return r.json()}
 (async()=>{try{
-const [registry,records,coverage]=await Promise.all([json(sourcesURL),json(recordsURL),json(coverageURL)]);
-if(registry.sources.length!==17||records.pacCommittees.length!==135||records.lobbyingFilings.length!==56)throw Error('Unexpected source records or registry version');
-S.registry=registry;S.records=records;S.coverage=coverage;status();buttons();pacChart();evidence();renderRecords();renderSources();el('health').textContent='Loaded persisted records and 17-source registry. Registry checked '+registry.updatedUtc+'.';
-for(const id of ['sourceQuery','sourceCategory','sourceStatus','sourceRole'])el(id).addEventListener(id==='sourceQuery'?'input':'change',renderSources);
+const [reg,rec,cov]=await Promise.all([read(api.registry),read(api.records),read(api.coverage)]);
+if(reg.sources.length!==17||rec.pacCommittees.length!==135||rec.lobbyingFilings.length!==56)throw Error('Unexpected record inventory or schema');
+if(!rec.pacCommittees.every(r=>typeof r.individualContributionsUSD==='number'&&typeof r.transfersFromAffiliatesUSD==='number'&&typeof r.partyCoordinatedExpendituresUSD==='number'))throw Error('FEC category breakdown is unavailable');
+S.registry=reg;S.records=rec;S.coverage=cov;putStatus();cycleButtons();renderPACs();renderLobby();renderEvidence();sourceButtons();sourceRing();renderSources();renderRecordTabs();renderRecords();
+el('health').textContent='Source-linked data verified at load · registry checked '+reg.updatedUtc+' · exact source records available via GitHub.';
+for(const id of ['sourceQuery','sourceCategory','sourceRole'])el(id).addEventListener(id==='sourceQuery'?'input':'change',()=>{S.expanded=false;renderSources()});
 el('recordQuery').addEventListener('input',renderRecords);el('recordLimit').addEventListener('change',renderRecords);
-}catch(e){el('statusStrip').textContent='Source data could not be loaded; no values inferred.';el('sourceCount').textContent='Unable to load sources.';el('health').textContent=e.message;console.error(e)}})();
-</script></body></html>
+el('sourceMore').onclick=()=>{S.expanded=true;renderSources()};
+const tabs=[...document.querySelectorAll('.sectionNav a')];const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible){tabs.forEach(a=>a.setAttribute('aria-current',String(a.dataset.tab===visible.target.id)))}} ,{rootMargin:'-145px 0px -55% 0px',threshold:0});
+['overview','committees','lobbying','sources'].forEach(id=>observer.observe(el(id)));
+}catch(e){el('health').textContent='Unable to load the source data: '+e.message;el('pacChart').textContent='Data unavailable. Please use the original source links in the repository.';el('lobbyChart').textContent='Data unavailable.';console.error(e)}})();
+</script>
+</body></html>
