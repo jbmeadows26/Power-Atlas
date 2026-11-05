@@ -1,0 +1,57 @@
+name: Ingest 2026 Washington PDC anonymized campaign-finance categories
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect_wa_2026_aggregate.py'
+      - 'tests/test_wa_2026_aggregate.py'
+      - '.github/workflows/collect-wa-2026-aggregate.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_wa_2026_aggregate.py'
+      - '.github/workflows/collect-wa-2026-aggregate.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '20 9 * * 5'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-wa-pdc-2026-grouped
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_wa_2026_aggregate.py' -v
+  collect:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Fetch official WA server-side grouped totals only
+        run: python -m scripts.collect_wa_2026_aggregate
+      - name: Verify no names, addresses or private-person records published
+        run: |
+          python - <<'PY'
+          from scripts.collect_wa_2026_aggregate import OUT
+          import json
+          d=json.loads(OUT.read_text())
+          assert d['state']=='WA' and d['electionYear']==2026
+          assert d['all50StatesComplete'] is False
+          assert d['individualRecordsPublished'] is False
+          assert d['hasStateOrLocalMoneyTransferEdges'] is False
+          assert all(r['publishedSummaryRows']>=5 for r in d['records'])
+          assert all(set(r)=={'electionYear','filerType','publishedSummaryRows',
+             'sumOfPublishedContributionsUSD','sumOfPublishedExpendituresUSD'} for r in d['records'])
+          print('Verified grouped, non-identifying state election finance summaries only.')
+          PY
+      - run: bash scripts/publish_data.sh data/finance/wa-pdc/summary-aggregate-2026.json

@@ -61,3 +61,17 @@ The temporary deadline sprint ends after **October 30, 2026**. Remaining gaps in
 - Next data phases require audited local PDF table extraction, state and IRS 990 Schedule I outbound-grant connectors, human verification of entity identity, and a jurisdictional licensing review before publication. Donor Schedule B names of most 501(c)(4)/(c)(6) groups are not public; the engine cannot reveal them by inference. No OCR/GNN models or fifty-state transaction ingestion are claimed complete.
 
 Run `python -m unittest discover -s tests -p 'test_dark_money.py' -v` after rebuilding. The `.github/workflows/validate-dark-money.yml` workflow also checks dashboard JavaScript syntax and graph reproducibility.
+
+## Itemized dark-money investigation follow-up (November 5, 2026)
+
+The official federal FEC OTH 2026 collector scanned 10,006,076 source rows and published a capped subset of **1,200 registered-committee receipt-side records** from 3,429 eligible items involving selected PAC/party committees. The graph includes 449 distinct committee identifiers and 10 time/amount similarity leads. These are not a national census or proof of money laundering, donor identity or coordination.
+
+- [FEC reported registered-committee receipts](data/finance/fec-committee-transfers.json) include the archive SHA256, filing IDs, category codes and sampling limits; no personal donor names, addresses, memo items or unauthorized inferred LLC owners.
+- [Updated source-backed money graph](data/money-influence/dark-money-graph-v1.json).
+- [Official FEC bulk format](https://www.fec.gov/campaign-finance-data/any-transaction-one-committee-another-file-description/) and [receipt-type codes](https://www.fec.gov/campaign-finance-data/transaction-type-code-descriptions/).
+
+**State context (not transfer edges):** scripts/collect_wa_2026_aggregate.py fetches PDC 2026 financial summary rows grouped by filing class on the state server, publishing only classes with >=5 rows. It never downloads or republishes person-level datasets. PDC noncommercial restrictions on individual lists remain applicable. Figures are not reconciled individual transactions or election-cost totals; the source and license gate are visible in the output.
+
+**IRS pilot (parser available, not backfilled):** scripts/parse_irs_schedule_i.py accepts selected official IRS Form 990 XML and filters for Schedule I grants between organizations with explicit EINs. It retains ZIP archive/member provenance, excludes personal information, and labels grants as non-campaign transfers. **No IRS documents or IRS↔PAC funding edges have been verified or ingested yet.** Nonprofit Schedule I grants do not identify original dark-money donors.
+
+Regression tests include tests/test_fec_oth.py, tests/test_irs_schedule_i.py, tests/test_wa_2026_aggregate.py and tests/test_dark_money.py; GitHub CI also checks frontend JavaScript and graph reproducibility.
