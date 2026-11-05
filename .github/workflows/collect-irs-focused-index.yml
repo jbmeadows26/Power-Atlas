@@ -1,0 +1,54 @@
+name: Index official IRS Form 990 filings for two known civic nonprofits
+on:
+  pull_request:
+    paths:
+      - 'scripts/collect_irs_focused_index.py'
+      - 'tests/test_irs_focused_index.py'
+      - '.github/workflows/collect-irs-focused-index.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/collect_irs_focused_index.py'
+      - '.github/workflows/collect-irs-focused-index.yml'
+  workflow_dispatch:
+  schedule:
+    - cron: '30 9 * * 1'
+permissions:
+  contents: write
+concurrency:
+  group: atlas-irs-verified-ein-index
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - run: python -m unittest discover -s tests -p 'test_irs_focused_index.py' -v
+  collect:
+    needs: check
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with: {ref: main, persist-credentials: true}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Filter official public 2025 IRS e-file index by independently verified EINs
+        run: python -m scripts.collect_irs_focused_index
+      - name: Verify no private donor identity or financial-edge attribution
+        run: |
+          python - <<'PY'
+          import json
+          from scripts.collect_irs_focused_index import OUT
+          d=json.loads(OUT.read_text())
+          assert d['donorsIdentified']==0
+          assert d['campaignFundingTransfersEstablished']==0
+          assert d['selection']['rowsScanned']>10000
+          assert {r['ein'] for r in d['records']}<= {'264486735','202303252'}
+          assert all(r['returnType']=='990' and r['archiveURL'].startswith('https://apps.irs.gov/pub/epostcard/990/xml/2025/') for r in d['records'])
+          PY
+      - run: bash scripts/publish_data.sh data/finance/irs-focused-filing-inventory-2025.json
