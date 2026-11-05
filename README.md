@@ -110,3 +110,11 @@ Power Atlas can now retrieve the indexed **2024 tax-year Sixteen Thirty Fund For
 - The default [unified landing page](platform/unified/index.html) now promotes the comparison studio. The separate [research frontend](site/index.html) routes readers toward the canonical unified evidence explorer.
 - Design reference: [Extremists on Both Sides](https://both-sides.the7eye.org.il/en/), with one-square-per-observation, configurable scale and filters; political-party identity is not an extremism rating. Comparing an itemized receipt to an investigative lead or an unverified original donor requires **different denominators** and they are **never combined**.
 - To validate: inspect source paths, JSON schema and JavaScript syntax; check mobile accessibility and ensure no numeric result is fabricated when an upstream request fails. Vercel production publication must be separately verified by deployed SHA, READY status and the served route.
+
+## Mobile research-map usability refinement (November 5, 2026)
+
+The [comparison studio](platform/unified/compare.html) now uses a two-column mobile topic map instead of 25 expanded research-memo cards. Its evidence coverage graphic summarizes the 25 topics by status, category filtering and keyword search remain available, and each topic opens an accessible, closable detail dialog with its research question, explicit evidence gap, and original-source link. Status totals are derived from the catalog rather than hardcoded as universal completion claims. The desktop layout uses four tiles per row, with a three-column intermediate breakpoint.
+
+Mobile navigation uses four compact visible labels; voting coalitions remain source-backed and the campaign-money section uses three short but distinctly classified evidence stages. Longer methodological notes remain available via expandable explanations. This is a visual/readability change, not evidence ingestion, new entity attribution, a causality claim, or a statement that every topic is complete.
+
+Validation: run python -m unittest discover -s tests -p test_story_atlas.py -v and the existing broad test suite. Publish to Vercel from the Git commit explicitly; repository changes do not, by themselves, update the live site.
