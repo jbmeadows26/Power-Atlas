@@ -57,24 +57,30 @@ def parse_index(rows, columns):
         # or YYYYMMDD notation, depending on release.
         from datetime import datetime
         parsed=None
-        for fmt in ("%Y-%m-%d","%m/%d/%Y","%Y%m%d","%Y/%m/%d"):
+        for fmt in ("%Y-%m-%d","%m/%d/%Y","%Y%m%d","%Y/%m/%d","%Y-%m-%d %H:%M:%S","%Y-%m-%dT%H:%M:%S","%m/%d/%Y %H:%M:%S"):
             try:
                 parsed=datetime.strptime(sub_date,fmt).date().isoformat()
                 break
             except ValueError:continue
         if parsed is None:
-            raise ValueError("Selected IRS filing submission-date format unsupported")
+            # This field is optional metadata in the official index and is
+            # known to vary by year. Never invent a parsed date; preserve
+            # the bounded literal form and flag its uncertainty instead.
+            if len(sub_date)>40:raise ValueError("Unexpected IRS submission-date field size")
+        raw_submitted=sub_date
         sub_date=parsed
         item={"filingId":oid,"ein":ein,"organizationName":ORGANIZATIONS[ein]["name"],
               "taxExemptClassificationFromIndependentProfile":ORGANIZATIONS[ein]["nonprofitType"],
               "profileSource":ORGANIZATIONS[ein]["verificationURL"],
               "taxPeriod":tax_period,"submitted":sub_date,
+              "submissionDateAsReported":raw_submitted,
+              "submissionDateStatus":"parsed" if sub_date is not None else "source_unparsed",
               "returnType":"990",
               "archiveURL":"https://apps.irs.gov/pub/epostcard/990/xml/2025/"+archive,
               "archiveMember":oid+"_public.xml",
               "reviewStatus":"official_irs_index_entry_nonprofit_profile_independently_identified"}
         targets[oid]=item
-    return sorted(targets.values(),key=lambda r:(r["ein"],r["submitted"],r["filingId"])),stats
+    return sorted(targets.values(),key=lambda r:(r["ein"],r["submitted"] or "",r["filingId"])),stats
 
 def collect():
     req=urllib.request.Request(INDEX,headers={
