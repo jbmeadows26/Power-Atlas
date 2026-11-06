@@ -8,6 +8,7 @@ on:
       - 'platform/unified/global-navigation.css'
       - 'tests/test_place_impact.py'
       - 'tests/test_local_issues.py'
+      - 'tests/test_connected_daily_life.py'
       - 'scripts/verify_local_acs_sources.py'
       - 'tests/test_global_navigation.py'
       - '.github/workflows/validate-place-impact.yml'
@@ -19,6 +20,7 @@ on:
       - 'platform/unified/global-navigation.css'
       - 'tests/test_place_impact.py'
       - 'tests/test_local_issues.py'
+      - 'tests/test_connected_daily_life.py'
       - 'scripts/verify_local_acs_sources.py'
       - 'tests/test_global_navigation.py'
       - '.github/workflows/validate-place-impact.yml'
@@ -38,6 +40,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_place_impact.py' -v
           python -m unittest discover -s tests -p 'test_local_issues.py' -v
+          python -m unittest discover -s tests -p 'test_connected_daily_life.py' -v
       - name: Validate consistent community-first navigation on all pages
         run: python -m unittest discover -s tests -p 'test_global_navigation.py' -v
       - name: Validate browser source-map and research interactions
