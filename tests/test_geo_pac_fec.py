@@ -49,6 +49,24 @@ class GeoPACFileTests(unittest.TestCase):
         self.assertNotIn("PRIVATE", json.dumps(row))
         self.assertEqual(row["amountUsd"], 1000.0)
 
+    def test_nullable_fec_recipient_ids_do_not_create_fake_edges(self):
+        raw = self.record().split("|")
+        raw[15] = ""
+        self.assertIsNone(m.parse_pac_line("|".join(raw), 2024))
+        raw = self.record().split("|")
+        raw[16] = ""
+        self.assertIsNone(m.parse_pac_line("|".join(raw), 2024))
+        raw = self.record().split("|")
+        raw[17] = ""
+        self.assertIsNone(m.parse_pac_line("|".join(raw), 2024))
+        d = m.parse_archive(self.pack([
+            self.record(),
+            self.record(tran="TR2").replace("|C00000001|H4NY01001|", "||H4NY01001|")
+        ]), 2024)
+        self.assertEqual(d["matchedCommitteeRows"], 2)
+        self.assertEqual(d["rowsWithoutVerifiableRecipientOrTransactionId"], 1)
+        self.assertEqual(len(d["records"]), 1)
+
     def test_amendments_canonicalized_memo_excluded_and_types_separated(self):
         wrong = self.record().replace(m.COMMITTEE_ID, "C99999999", 1)
         blob = self.pack([
