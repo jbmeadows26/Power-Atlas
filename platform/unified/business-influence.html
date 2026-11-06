@@ -170,6 +170,24 @@ function renderPAC(){
  $("pacRows").innerHTML=ranked.length?'<h3>Largest recipient committees by this transaction type</h3><div class="awardList">'+ranked.slice(0,24).map(x=>'<div class="awardCard"><strong>'+short(x.amount)+'</strong><span class="tiny">Candidate ID '+esc(x.candidateId)+' · recipient '+esc(x.recipientCommitteeId)+'</span><span class="tiny">'+x.count+' filing row(s) · latest '+esc(x.latest)+'</span><a href="'+legalURL(x.source)+'" rel="noopener noreferrer" target="_blank">Review FEC itemized filings ↗</a></div>').join("")+'</div>'+(ranked.length>24?'<p class="tiny">Showing 24 of '+ranked.length+' recipient committee IDs. Full source JSON linked in repository.</p>':''):
  '<p class="subnote">No non-memo entries in this source category/cycle. The PAC may have other reportable spending not captured in this particular bulk file.</p>';
 }
+
+async function loadGeoPACSummary(originalError){
+ const u="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/business-influence/geo-pac-fec-summary-v1.json";
+ try{
+  const r=await fetch(u,{cache:"no-store"});if(!r.ok)throw Error("summary HTTP "+r.status);
+  const d=await r.json();
+  if(d.schema!=="power-atlas.geo-pac-official-fec-summaries.v1"||d.committeeId!=="C00382150"||!Array.isArray(d.periods)||!d.periods.length)throw Error("summary invalid");
+  $("pacStatus").textContent="Original itemized PAC-to-candidate archive is not verified or published. Showing independently sourced FEC official committee-cycle financial summaries instead. These are not recipient-level contributions.";
+  $("pacCycles").textContent="";$("pacCategories").textContent="";
+  $("pacSummary").innerHTML='<div class="awardList">'+d.periods.map(y=>'<div class="awardCard"><span class="eyeline">'+y.cycle+' election cycle'+(y.complete?'':' · incomplete')+'</span><strong>'+short(y.contributionsToOtherCommitteesUSD)+'</strong><span class="tiny">FEC category: contributions to other committees · '+esc(y.from)+' to '+esc(y.through)+'</span><span class="tiny">Total PAC receipts '+short(y.totalReceiptsUSD)+' (not an additional donation amount)</span><a href="'+legalURL(y.source)+'" rel="noopener noreferrer" target="_blank">Original FEC summary ↗</a></div>').join("")+'</div>';
+  $("pacRows").innerHTML='<p class="subnote">The 2024 and partial 2026 figures cover different time windows. No candidate names, influence relationships or individual payments have been inferred. '+esc(d.caveat)+'</p>';
+ }catch(e){
+  $("pacStatus").textContent="FEC data unavailable: "+originalError.message+"; fallback: "+e.message+". No amounts have been invented.";
+  $("pacCycles").textContent="";$("pacCategories").textContent="";
+  $("pacSummary").innerHTML='<p class="subnote">Original FEC records are available <a href="https://www.fec.gov/data/committee/C00382150/" rel="noopener noreferrer" target="_blank">directly at the Commission</a>.</p>';
+  $("pacRows").textContent="";
+ }
+}
 async function loadGeoPAC(){
  try{
   const r=await fetch(FECGEO,{cache:"no-store"});if(!r.ok)throw Error("FEC audited source snapshot unavailable (HTTP "+r.status+")");
@@ -177,9 +195,8 @@ async function loadGeoPAC(){
   if(d.schema!=="power-atlas.geo-pac-itemized-to-candidates.v1"||d.committeeId!=="C00382150"||!Array.isArray(d.cycles)||!d.cycles.length)throw Error("Unexpected FEC evidence format");
   geoPacState.data=d;
   renderPAC();
- }catch(e){
-  $("pacStatus").textContent="Itemized GEO PAC source was not verified/published: "+e.message+". No amounts or political relationships have been inferred.";
-  $("pacCycles").textContent="";$("pacCategories").textContent="";$("pacSummary").innerHTML='<p class="subnote">Original FEC records are available <a href="https://www.fec.gov/data/committee/C00382150/?cycle=2024" rel="noopener noreferrer" target="_blank">directly at the Commission</a>.</p>';$("pacRows").textContent="";
+  }catch(e){
+  await loadGeoPACSummary(e);
  }
 }
 
