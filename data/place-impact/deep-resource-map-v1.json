@@ -1,0 +1,422 @@
+{
+  "schema": "power-atlas.place-impact-deep-evidence.v1",
+  "updated": "2026-11-06",
+  "inventory": {
+    "source": "data/research/atlas-inventory-v1.json",
+    "expectedIds": [
+      "redistricting",
+      "voting-access",
+      "election-2026",
+      "coalitions",
+      "issue-polling",
+      "federal-money",
+      "donor-rankings",
+      "dark-money",
+      "lobbying",
+      "congress-trades",
+      "reform-lab",
+      "authenticity",
+      "promises",
+      "institutional-decay",
+      "gridlock",
+      "tribalism",
+      "political-actions",
+      "economic-power",
+      "party-policies",
+      "accountability",
+      "judicial-selection",
+      "power-network",
+      "election-admin",
+      "outrage-funding",
+      "cooperation"
+    ],
+    "topicTags": {
+      "redistricting": [
+        "housing",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "voting-access": [
+        "representation",
+        "public-services"
+      ],
+      "election-2026": [
+        "representation",
+        "housing",
+        "health",
+        "work"
+      ],
+      "coalitions": [
+        "representation",
+        "work",
+        "schools"
+      ],
+      "issue-polling": [
+        "representation",
+        "housing",
+        "health",
+        "energy"
+      ],
+      "federal-money": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "donor-rankings": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "dark-money": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "lobbying": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "congress-trades": [
+        "housing",
+        "energy",
+        "health",
+        "work",
+        "public-services",
+        "representation"
+      ],
+      "reform-lab": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "authenticity": [
+        "representation",
+        "public-services",
+        "work",
+        "schools"
+      ],
+      "promises": [
+        "housing",
+        "health",
+        "schools",
+        "work",
+        "representation",
+        "public-services"
+      ],
+      "institutional-decay": [
+        "health",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "gridlock": [
+        "energy",
+        "health",
+        "housing",
+        "public-services",
+        "representation"
+      ],
+      "tribalism": [
+        "representation",
+        "public-services",
+        "schools"
+      ],
+      "political-actions": [
+        "representation",
+        "public-services"
+      ],
+      "economic-power": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work"
+      ],
+      "party-policies": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "public-services"
+      ],
+      "accountability": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "judicial-selection": [
+        "housing",
+        "work",
+        "health",
+        "representation",
+        "public-services"
+      ],
+      "power-network": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "election-admin": [
+        "representation"
+      ],
+      "outrage-funding": [
+        "representation",
+        "public-services"
+      ],
+      "cooperation": [
+        "representation",
+        "public-services"
+      ]
+    },
+    "principle": "Every one of the indexed 25 deep research tracks appears in Step 3. The current inventory's status, evidence summary and gaps are rendered directly at runtime rather than copied."
+  },
+  "additional": [
+    {
+      "id": "contract-benefits",
+      "title": "From political donations to federal business",
+      "group": "Money and contracts",
+      "status": "partial",
+      "summary": "Two company case studies and official exact-UEI Treasury transactions, not evidence of causation.",
+      "href": "business-influence.html",
+      "path": "data/business-influence/evidence-v1.json",
+      "issues": [
+        "housing",
+        "health",
+        "work",
+        "public-services",
+        "representation"
+      ],
+      "missing": "No donor-to-award decision join, procurement controls or causal attribution."
+    },
+    {
+      "id": "contractor-directory",
+      "title": "Businesses, donors and government customers",
+      "group": "Money and contracts",
+      "status": "curated",
+      "summary": "Eight named businesses with FEC PAC and Treasury recipient identifiers; legal entities are not assumed identical.",
+      "href": "business-candidates.html",
+      "path": "data/business-influence/additional-candidates-v1.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "Subsidiary/parent matching and comparable non-donor businesses."
+    },
+    {
+      "id": "treasury-awards",
+      "title": "Government contracts by award and year",
+      "group": "Money and contracts",
+      "status": "partial",
+      "summary": "Fiscal 2018–partial 2027 prime contract actions for two exact registered recipient UEIs.",
+      "href": "business-influence.html",
+      "path": "data/business-influence/federal-contract-transactions-v1.json",
+      "issues": [
+        "work",
+        "health",
+        "public-services",
+        "representation"
+      ],
+      "missing": "No matched political contributions, all-affiliates rollups or local contract beneficiaries."
+    },
+    {
+      "id": "employee-pac",
+      "title": "Company employee PAC filings",
+      "group": "Money and contracts",
+      "status": "curated",
+      "summary": "Original FEC committee-cycle summaries and independently labeled secondary candidate excerpt.",
+      "href": "business-influence.html",
+      "path": "data/business-influence/geo-pac-fec-summary-v1.json",
+      "issues": [
+        "representation",
+        "work",
+        "public-services"
+      ],
+      "missing": "No fully reconciled FEC filing-item transfer path to agency decisions."
+    },
+    {
+      "id": "finance-committee-master",
+      "title": "Federal political committee registry",
+      "group": "Money and contracts",
+      "status": "partial",
+      "summary": "Official indexed FEC committee IDs, affiliations and reporting periods—not donor transactions.",
+      "href": "donor-intelligence.html",
+      "path": "data/finance/fec-committee-master.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "A registered committee is not proof its funds changed government decisions."
+    },
+    {
+      "id": "reform-policy-options",
+      "title": "Sixteen ways to change influence rules",
+      "group": "Action and oversight",
+      "status": "curated",
+      "summary": "Four-pillar reform options: transparency, safeguards, civic empowerment and enforcement. Proposals are not current law.",
+      "href": "reform-lab.html",
+      "path": "data/money-influence/civic-power-reforms-v1.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "No universal local effect estimate or endorsed option."
+    },
+    {
+      "id": "oversight-records",
+      "title": "Actual government accountability actions",
+      "group": "Action and oversight",
+      "status": "curated",
+      "summary": "Selected official-source oversight cases and two recorded 2026 congressional votes; not exhaustive.",
+      "href": "reform-lab.html",
+      "path": "data/money-influence/civic-accountability-evidence-v1.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "No complete national record of enforcement or individual benefit."
+    },
+    {
+      "id": "cross-domain-research",
+      "title": "Polling, investments and wealth evidence",
+      "group": "Money and contracts",
+      "status": "partial",
+      "summary": "Source registry tying public polling archives and selected legislative holdings; joint causal models not ready.",
+      "href": "compare.html",
+      "path": "data/research/cross-domain-evidence-v1.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "Respondent-level survey joins, all elected official trades, price-impact identification."
+    },
+    {
+      "id": "relationship-network",
+      "title": "Public institutional relationship network",
+      "group": "Power and institutions",
+      "status": "partial",
+      "summary": "Indexed judicial, legislative and committee ties. Edges alone do not show influence or wrongdoing.",
+      "href": "investigations.html",
+      "path": "data/relationships.json",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "missing": "Proven person-to-decision-to-beneficiary relationships."
+    }
+  ],
+  "issueIds": [
+    "housing",
+    "groceries",
+    "energy",
+    "health",
+    "work",
+    "schools",
+    "transport",
+    "public-services",
+    "representation"
+  ],
+  "evidenceLevels": {
+    "partial": "Source-indexed / incomplete — useful leads or selected records, not full local attribution",
+    "curated": "Selected reviewed or attributed records — not a nationwide census",
+    "needs_data": "Research question indexed — no verified comparative local result yet"
+  },
+  "safeguards": [
+    "No home-location or voting-preference tracking: ZIP input stays in page memory only, is not sent to Power Atlas, and never used to infer political preference.",
+    "ZIP codes may cross legislative, utility, school and municipal jurisdictions; a ZIP alone cannot name a responsible local official or apply state law.",
+    "Issue relevance is an editorial source navigation tag, never evidence that the named actor or dataset caused a local outcome.",
+    "Source paths, current research status and known gaps must be visible in Step 3; missing data is not zero and cannot justify invented local statistics.",
+    "Political donations, lobbying, business awards, corporate profits, voting records and court decisions are distinct records; joining them requires entity IDs, dates and documented decisions.",
+    "Policy options, resident participation tools and practical assistance are presented without partisan endorsements and with their jurisdictional limitations."
+  ],
+  "interpretation": "Deep research library, not a personalized causal ranking of people, parties, companies or billionaires."
+}
