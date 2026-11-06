@@ -7,7 +7,9 @@
     "Distinguish published observations, regulatory allegations, estimates and unknown impacts.",
     "No company or wealthy individual is assigned an individual cost premium without outcome evidence.",
     "A ZIP is not a business service territory or a politician's district; national relationships do not imply local business activity.",
-    "Government forecasts and indexes must display date, unit, geography, uncertainty and original source."
+    "Government forecasts and indexes must display date, unit, geography, uncertainty and original source.",
+    "Tariff pass-through is a share of a tariff-rate increase for examined goods, not a share of the entire CPI or an estimated household bill increase.",
+    "Exchange rates, transport and inventory buffers are potential channels but require separate current series and product exposure to quantify."
   ],
   "signals": [
     {
@@ -130,6 +132,28 @@
       "source": "https://www.worldbank.org/en/news/press-release/2026/10/28/commodity-markets-outlook-october-2026",
       "explain": "World Bank projected food commodity price increase.",
       "limits": "International food commodities are not a U.S. retail grocery-price index."
+    },
+    {
+      "id": "imports",
+      "name": "Prices of U.S. imports",
+      "value": "+8.1%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S. import prices, all commodities",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/ximpim_10162026.htm",
+      "explain": "Import price index increased 8.1% from September 2025 to September 2026.",
+      "limits": "Border prices are not U.S. retail prices; transport, tariffs, exchange rates and firm margins can change pass-through."
+    },
+    {
+      "id": "tariff_pass",
+      "name": "Tariff pass-through in studied goods",
+      "value": "~26%",
+      "period": "New York Fed study revised September 2026 · 2025–26 tariffs",
+      "scope": "Tariff-exposed U.S. consumer goods relative to less exposed goods",
+      "kind": "research_estimate",
+      "source": "https://www.newyorkfed.org/research/staff_reports/sr1201",
+      "explain": "Study estimates about 26% of a tariff-rate increase passes into consumer prices of studied goods; 64% of the estimated effect comes from directly imported goods, 36% from domestic supply inputs or changed markups.",
+      "limits": "This is NOT a 26% rise in the price of all goods or a ZIP price estimate. Estimate holds aggregate conditions fixed; not automatically applicable to future tariffs."
     }
   ],
   "topics": {
@@ -140,7 +164,9 @@
       ],
       "global": [
         "imf_growth",
-        "global_energy"
+        "global_energy",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -161,7 +187,9 @@
       ],
       "global": [
         "global_food",
-        "global_energy"
+        "global_energy",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -182,7 +210,8 @@
       ],
       "global": [
         "global_energy",
-        "imf_growth"
+        "imf_growth",
+        "imports"
       ],
       "mechanisms": [
         [
@@ -203,7 +232,9 @@
       ],
       "global": [
         "global_energy",
-        "imf_inflation"
+        "imf_inflation",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -224,7 +255,9 @@
       ],
       "global": [
         "imf_growth",
-        "imf_inflation"
+        "imf_inflation",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -245,7 +278,9 @@
       ],
       "global": [
         "global_energy",
-        "imf_inflation"
+        "imf_inflation",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -266,7 +301,9 @@
       ],
       "global": [
         "global_energy",
-        "imf_growth"
+        "imf_growth",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -287,7 +324,9 @@
       ],
       "global": [
         "imf_growth",
-        "global_energy"
+        "global_energy",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
@@ -308,7 +347,9 @@
       ],
       "global": [
         "imf_growth",
-        "global_energy"
+        "global_energy",
+        "imports",
+        "tariff_pass"
       ],
       "mechanisms": [
         [
