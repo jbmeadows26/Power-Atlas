@@ -95,7 +95,7 @@
         "scope": "11 registered recipient units including subsidiaries; nominal calendar-year obligated amounts, not revenue, margin or profit.",
         "warning": "Third-party USAspending compilation not independently reconciled against official award IDs by Power Atlas."
       },
-      "finding": "The aggregate obligations shown for 2025 are lower than those shown for 2024; this example does not demonstrate a rise following 2024 contributions. The donation amounts and awarded contract obligations are not a linked transaction.",
+      "finding": "GEO reported 8.6% higher companywide revenue in 2025 ($2.632B vs $2.424B in 2024), and described up to ~$520M in potential incremental annualized revenue from new or expanded 2025 contracts. Meanwhile, a separate USAspending-based aggregation shows lower federal contract obligations in 2025 than 2024. These metrics differ and do not establish that 2024 political spending caused business growth.",
       "evidenceStages": [
         {
           "name": "Company activity",
@@ -119,10 +119,43 @@
         },
         {
           "name": "Business upside",
-          "status": "missing",
-          "why": "No incremental profit or matched-peer counterfactual"
+          "status": "documented_noncausal",
+          "why": "SEC Form 10-K documents higher total revenue and rising federal-customer share; there is no matched counterfactual or causal attribution to donations."
         }
-      ]
+      ],
+      "companyFinancials": {
+        "source": "https://www.sec.gov/Archives/edgar/data/923796/000119312526071747/geo-20251231.htm",
+        "type": "SEC 2025 Form 10-K; consolidated reported revenue",
+        "observations": [
+          {
+            "year": 2024,
+            "revenueUsd": 2423702000
+          },
+          {
+            "year": 2025,
+            "revenueUsd": 2631549000
+          }
+        ],
+        "changeUsd": 207847000,
+        "reportedGrowthPct": 8.6,
+        "federalAgencyRevenueSharePct": {
+          "year2024": 61.8,
+          "year2025": 66.6,
+          "agencies": "ICE, U.S. Marshals Service, Bureau of Prisons"
+        },
+        "iceRevenueSharePct": {
+          "year2024": 41.5,
+          "year2025": 47.6
+        },
+        "description": "The company reported an 8.6% rise in total revenue from 2024 to 2025; three federal customers' share of total revenue rose from 61.8% to 66.6%. Revenue is companywide, not solely federal government contracts.",
+        "newBusiness2025": {
+          "amountUsdUpperBoundApprox": 520000000,
+          "basis": "Company-reported potential incremental annualized revenue from new/expanded contracts awarded in 2025; not cash collected or revenue realized in 2025",
+          "source": "https://www.sec.gov/Archives/edgar/data/923796/000119312526116047/d923550dars.pdf",
+          "note": "Some included arrangements are expected future annual revenue subject to performance, options and occupancy; avoid adding to GAAP 2025 revenue or federal obligations."
+        },
+        "caveat": "Revenue changes coincide with political spending, public policy changes, operating decisions and government demand. The sources do not show that donations caused the growth."
+      }
     },
     {
       "id": "pacmar",
