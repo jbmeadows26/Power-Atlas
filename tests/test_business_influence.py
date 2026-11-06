@@ -80,7 +80,7 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertEqual(geo["entityIdentifiers"]["companyPACFecCommitteeId"], "C00382150")
         pacmar = next(x for x in self.data["cases"] if x["id"] == "pacmar")
         self.assertEqual(pacmar["entityIdentifiers"]["exactPrimeRecipientUEI"], "L1WZRB6JKWJ4")
-        self.assertIn("pending", self.data["primaryDataLink"]["collectionStatus"])
+        self.assertEqual(self.data["primaryDataLink"]["collectionStatus"], "published_original_treasury_transaction_snapshot")
         self.assertIn("no", self.data["purpose"].lower())
         self.assertNotEqual(geo["disclosedPolitical"]["totalUsd"],
                             geo["politicalByCalendarYear"][1]["combinedUsd"])
