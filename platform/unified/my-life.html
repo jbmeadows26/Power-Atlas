@@ -127,6 +127,45 @@
 .costGap .gapSourceRow a{font-size:.79rem;margin-right:10px}
 .costGap .toFull{font-size:.8rem;margin-top:12px;display:inline-block;font-weight:820}
 @media(max-width:620px){.costGap{padding:15px}}
+
+/* Voluntary personal-cost decision lens. No invented user-specific price estimates. */
+.costExplorer{margin:19px 0 11px;background:#fff;border:1px solid #b7d7cb;border-radius:19px;overflow:hidden;box-shadow:0 10px 35px #143e3810;scroll-margin-top:125px}
+.ce-head{padding:22px 24px 18px;background:linear-gradient(115deg,#123b43,#1d655d);color:#e8fbf4}
+.ce-head .ey-dark{color:#a0e1d6}.ce-head h3{color:#fff;font-size:clamp(1.45rem,3vw,2.05rem);margin:7px 0;letter-spacing:-.04em}
+.ce-head p{font-size:.9rem;line-height:1.55;color:#d0e6e2;margin:7px 0 0;max-width:840px}
+.ce-content{padding:17px 21px}
+.ce-topline{display:flex;gap:15px;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+.ce-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;flex:1;min-width:min(100%,320px)}
+.ce-stats>div{background:#eef6f0;border:1px solid #d2e5d8;padding:13px;border-radius:12px;min-width:0}
+.ce-stats small{display:block;color:#56706a;font-weight:730;font-size:.72rem;line-height:1.45}
+.ce-stats strong{display:block;color:#1a564f;font-variant-numeric:tabular-nums;font-size:clamp(1.15rem,2.4vw,1.65rem);letter-spacing:-.03em;margin-top:8px;overflow-wrap:anywhere}
+.ce-stats strong.ce-over{color:#a04d33}
+.ce-helper{font-size:.82rem;color:#576e70;line-height:1.6;margin:14px 0 17px}
+.ce-table-head{display:grid;grid-template-columns:minmax(0,1fr) 155px 155px;gap:14px;border-bottom:1px solid #d6e3dc;padding:0 13px 10px;color:#547267;font-size:.71rem;text-transform:uppercase;letter-spacing:.05em;font-weight:850}
+.ce-table-head span:not(:first-child){text-align:center}
+.ce-line{display:grid;grid-template-columns:minmax(0,1fr) 155px 155px;gap:14px;align-items:start;border-bottom:1px solid #e1e9e4;padding:17px 13px}
+.ce-line:last-child{border-bottom:0}.ce-driver-type{display:block;color:#458176;text-transform:uppercase;letter-spacing:.07em;font-size:.68rem;font-weight:830;margin-bottom:5px}
+.ce-line-main strong{color:#204a4b;line-height:1.25;font-size:1rem;display:block}.ce-line-main small{color:#657b79;display:block;line-height:1.45;margin:7px 0 9px;font-size:.74rem}
+.ce-share{height:5px;max-width:300px;background:#e3eee7;border-radius:8px;overflow:hidden;margin:9px 0}.ce-share span{height:100%;display:block;width:0;background:#3b9b86;border-radius:8px;transition:width .15s ease}
+.ce-line details{margin-top:10px}.ce-line summary{cursor:pointer;color:#266b65;font-size:.8rem;font-weight:810}.ce-line details p{font-size:.77rem;line-height:1.54;margin:9px 0;color:#57706e}.ce-line details a{font-size:.77rem;font-weight:790}
+.ce-line details .ce-caution{color:#8d6e4d;font-size:.73rem}
+.ce-price{display:flex;align-items:center;position:relative;margin-top:13px}
+.ce-price .ce-dollar{position:absolute;left:12px;font-weight:800;color:#42736b;pointer-events:none}
+.ce-price input{background:#fbfdfa;border:1px solid #b9ccc5;border-radius:10px;padding:10px 9px 10px 24px;max-width:100%;width:100%;font-size:1rem;font-variant-numeric:tabular-nums;color:#16423e}
+.ce-price input:focus{border-color:#33887a;outline:2px solid #92c6b6;outline-offset:1px}
+.ce-price input:invalid{border-color:#ba624c}.ce-mobile-label{display:none}
+.ce-foot{border-top:1px solid #d7e5da;padding:14px 4px 2px}.ce-foot p{color:#536f6a;font-size:.84rem;line-height:1.58}
+.ce-foot #cePriority{border-left:4px solid #70ae91;padding:10px 13px;background:#eff7f0;border-radius:0 9px 9px 0;font-weight:750}
+.ce-foot .ce-warning{color:#8b6b44;font-size:.76rem}
+.ce-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ce-actions a{font-size:.77rem;border:1px solid #b1d2c8;color:#23665d;background:#edf6f0;border-radius:9px;padding:9px 12px;text-decoration:none;font-weight:800}
+.ce-actions a:hover{background:#daf0e6}
+.ce-privacy{color:#6e827b;font-size:.73rem;line-height:1.55;margin:15px 3px 2px}
+.ce-voice{padding:21px;background:#f4f8f5;border-radius:13px}.ce-voice strong{font-size:1.08rem;color:#245a54}.ce-voice p{color:#576d6b;font-size:.87rem;line-height:1.55}
+.ce-invite{display:inline-block;padding:9px 11px;margin-top:10px;border-radius:10px;background:#e7f4ee;color:#1e625b;text-decoration:none;font-size:.84rem;font-weight:850}
+@media(max-width:760px){.ce-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.ce-table-head,.ce-line{grid-template-columns:minmax(0,1fr) 115px 115px;gap:8px}.ce-line{padding:15px 5px}.ce-table-head{padding-left:5px;padding-right:5px}.ce-content{padding:14px}}
+@media(max-width:560px){.ce-head{padding:18px}.ce-content{padding:12px}.ce-stats{grid-template-columns:1fr 1fr}.ce-stats>div:last-child{grid-column:1 / -1}.ce-table-head{display:none}.ce-line{grid-template-columns:1fr 1fr;gap:5px 10px;padding:15px 5px}.ce-line-main{grid-column:1 / -1}.ce-price{margin-top:2px;flex-direction:column;align-items:stretch;gap:5px}.ce-mobile-label{display:block;font-size:.73rem;font-weight:790;color:#4c726a}.ce-price .ce-dollar{top:27px}.ce-line-main strong{font-size:.98rem}}
+@media(prefers-reduced-motion:reduce){.ce-share span{transition:none}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -139,9 +178,14 @@
 <section class="section" id="what"><div class="section-head"><div><div class="number"><span>2</span> Your daily life</div><h2>What matters most right now?</h2><p>Choose one issue. The explanation, connected research and practical resources will update together.</p></div></div>
 <p id="step2Place" class="fine" role="status">Explore a category without a ZIP, or enter your ZIP above for additional local context.</p>
 <div class="issue-grid" id="issueGrid" role="group" aria-label="Choose an everyday-life issue"><p>Loading life topics…</p></div>
-<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p></div>
+<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p><a class="ce-invite" href="#personalCostExplorer">Break down my costs ↓</a></div>
 <div id="issueMetrics" class="impact-metrics" aria-label="Verified public data for selected life issue" aria-live="polite"><div class="impact-metric note"><strong>Connecting original statistics…</strong></div></div>
-<p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p><div class="next-step"><a class="primary" id="continueToWhy" href="#why">Next: Follow the evidence ↓</a></div>
+<p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
+<section class="costExplorer" id="personalCostExplorer" aria-label="Personal cost components and scenario comparison">
+ <div class="ce-head"><span class="ey-dark">Your costs · a closer look</span><h3>What is driving your <span id="ceTopic">housing</span> costs?</h3><p id="ceIntro">Enter your actual spending to compare the decisions, prices and costs behind this category.</p></div>
+ <div class="ce-content" id="ceContent" aria-live="polite"><p>Preparing the personal cost comparison…</p></div>
+</section>
+<div class="next-step"><a class="primary" id="continueToWhy" href="#why">Next: Follow the evidence ↓</a></div>
 </section>
 <section class="section" id="why"><div class="section-head"><div><div class="number"><span>3</span> What is behind it?</div><h2>Follow the decisions. Follow the evidence.</h2><p>First see the institutions and market mechanisms relevant to your issue. Then explore the deep research behind them—including political donations, corporations, billionaires, legislation, courts, elections and oversight.</p></div></div>
 <section class="ownerTrail" id="corporatePaths" aria-label="Corporate ownership and possible price effects">
@@ -582,7 +626,7 @@ function scrollToSection(id,activeSection){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -650,4 +694,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="bug-report.js" defer></script></body></html>
+</script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script></body></html>
