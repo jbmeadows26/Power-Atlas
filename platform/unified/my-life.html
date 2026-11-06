@@ -351,7 +351,9 @@ function getBenchmarkContext(){
   const okay=Boolean(record&&localMeasures?.provider?.release&&record.release?.id===localMeasures.provider.release&&record.data?.data?.[geoid]);
   if(okay&&m){
    const val=evaluateMeasure(m,record.data.data[geoid][m.table]?.estimate);
-   local=val===null?{status:"unavailable"}:{status:"available",title:m.title,value:formatMeasure(m,val),limits:m.limits,source:m.originalTable};
+   const usRow=record.data.data["01000US"];
+   const usValue=val!==null&&usRow&&canCompareGeographies(m)?evaluateMeasure(m,usRow[m.table]?.estimate):null;
+   local=val===null?{status:"unavailable"}:{status:"available",title:m.title,value:formatMeasure(m,val),usValue:usValue===null?null:formatMeasure(m,usValue),limits:m.limits,source:m.originalTable};
   }
  }
  return {topic:selected,zip:z,stateCode:selectedStateCode,stateName:selectedStateName,local};
