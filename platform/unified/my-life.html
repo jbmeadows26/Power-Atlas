@@ -125,12 +125,20 @@ const SOURCE_STORIES=base+"data/place-impact/life-issues-v1.json";
 const SOURCE_MAP=base+"data/place-impact/deep-resource-map-v1.json";
 const SOURCE_ATLAS=base+"data/research/atlas-inventory-v1.json";
 const SOURCE_LOCAL=base+"data/place-impact/local-measures-v1.json";
+const SOURCE_MEASURED=base+"data/place-impact/connected-metrics-v1.json";
+const SOURCE_ELECTION_OFFICES=base+"data/elections/official-source-index.json";
+const SOURCE_VOTER_RULES=base+"data/voting-access/ncsl-id-index-v1.json";
+const SOURCE_TREASURY_AWARDS=base+"data/business-influence/federal-contract-transactions-v1.json";
+const SOURCE_BUSINESS_PACS=base+"data/business-influence/additional-candidates-v1.json";
+const SOURCE_CIVIC_REFORMS=base+"data/money-influence/civic-power-reforms-v1.json";
+
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a-z0-9-]+)?$/.test(s||"")?s:null;
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
 let stories=null,deepMap=null,inventory=null,selected="housing",onlyRelevant=true,expanded=false,search="",activeZIP=null;
 let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSourceUrl=null;
+let measured=null,electionAuthorities=null,secondaryVoterRules=null,treasuryAwards=null,companyPacs=null,civicReforms=null,selectedStateCode=null,selectedStateName=null;
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
 }
@@ -318,7 +326,7 @@ function markPrimaryNav(section){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderLocalMeasures();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -339,10 +347,14 @@ async function lookUpZIP(zip){
   const json=await response.json();
   const first=json.places?.[0];
   if(json["post code"]!==zip||!first||typeof first["place name"]!=="string"||typeof first.state!=="string")throw Error("No reliable postal match");
-  activeZIP=zip;localResults.clear();name.textContent=first["place name"]+", "+first.state;
+  activeZIP=zip;localResults.clear();
+  selectedStateName=first.state;
+  selectedStateCode=electionAuthorities?.records?.find(x=>x.stateName?.toLowerCase()===first.state.toLowerCase())?.state||null;
+  name.textContent=first["place name"]+", "+first.state;
+  renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();
   out.textContent="Postal ZIP "+zip+" identified. This is a third-party approximate place label, not a verified boundary for elections, utilities, taxes or school districts. Research below remains issue-specific until local records are joined.";
   renderLocalMeasures();await loadLocalMeasures(zip,selected);
- }catch(e){activeZIP=zip;name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
+ }catch(e){activeZIP=zip;selectedStateCode=null;selectedStateName=null;renderMeasuredSnapshot();renderVerifiedLinks();name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
 }
 $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
@@ -356,7 +368,7 @@ $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
 $("originAll").addEventListener("click",()=>{showAllOriginalSources=!showAllOriginalSources;renderSources()});
 $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderResearch()});
 (async()=>{
- const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
+ const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
  if(results[0].status!=="fulfilled"||results[0].value.schema!=="power-atlas.place-impact-stories.v1"){
   $("issueGrid").innerHTML='<div class="notice">The published daily-life stories could not be loaded. No locality claims have been invented. '+link("index.html","Visit existing research →")+'</div>';
   $("decisionChain").textContent="Source temporarily unavailable.";$("actionGrid").textContent="";return;
@@ -365,6 +377,12 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[1].status==="fulfilled"&&results[1].value.schema==="power-atlas.place-impact-deep-evidence.v1")deepMap=results[1].value;
  if(results[2].status==="fulfilled"&&results[2].value.schema==="power-atlas.story-inventory.v1")inventory=results[2].value;
  if(results[3].status==="fulfilled"&&results[3].value.schema==="power-atlas.place-impact-local-measures.v1")localMeasures=results[3].value;
+ if(results[4].status==="fulfilled"&&results[4].value.schema==="power-atlas.place-impact-connected-metrics.v1")measured=results[4].value;
+ if(results[5].status==="fulfilled"&&results[5].value.schema==="power-atlas.elections.official-sources.v1")electionAuthorities=results[5].value;
+ if(results[6].status==="fulfilled"&&results[6].value.schema==="power-atlas.voting-access.ncsl-id-index.v1")secondaryVoterRules=results[6].value;
+ if(results[7].status==="fulfilled"&&results[7].value.schema==="power-atlas.business-federal-contract-transactions.v1")treasuryAwards=results[7].value;
+ if(results[8].status==="fulfilled"&&results[8].value.schema==="power-atlas.business-influence.additional-candidates.v1")companyPacs=results[8].value;
+ if(results[9].status==="fulfilled"&&results[9].value.schema==="power-atlas.civic-power-reforms.v1")civicReforms=results[9].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
