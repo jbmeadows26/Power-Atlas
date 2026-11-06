@@ -1,0 +1,23 @@
+{
+  "schema": "power-atlas.source-status.unavailable.v1",
+  "requestedDataset": "GEO Group employee-funded PAC itemized candidate disbursements",
+  "expectedValidatedSchema": "power-atlas.geo-pac-itemized-to-candidates.v1",
+  "committeeId": "C00382150",
+  "publicationStatus": "not_yet_verified_or_ingested",
+  "observedOriginalRecords": 0,
+  "observedOriginalRecordsMeaning": "Uncollected; 0 means no verified records in this source artifact, NOT zero real disbursements.",
+  "message": "FEC source-level archive collector has not produced a source-validated five-cycle itemization. The live page explicitly rejects this non-itemized schema and falls back to official aggregate FEC summaries, then separately attributed secondary candidate excerpts.",
+  "collector": "scripts/collect_geo_pac_fec.py",
+  "workflow": ".github/workflows/collect-geo-pac.yml",
+  "officialOriginalSources": [
+    "https://www.fec.gov/data/disbursements/?committee_id=C00382150",
+    "https://www.fec.gov/data/committee/C00382150/",
+    "https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/",
+    "https://www.fec.gov/data/browse-data/?tab=bulk-data"
+  ],
+  "currentlyAvailable": [
+    "data/business-influence/geo-pac-fec-summary-v1.json",
+    "data/business-influence/geo-pac-candidate-excerpt-2026.json"
+  ],
+  "caveat": "This status artifact must never be treated as transaction data, contribution total, evidence of campaign return, political causation or proof of corporate treasury giving."
+}
