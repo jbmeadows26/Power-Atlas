@@ -1,0 +1,500 @@
+{
+  "schema": "power-atlas.place-impact-local-measures.v1",
+  "asOf": "2026-11-06",
+  "provider": {
+    "name": "Census Reporter, using U.S. Census Bureau ACS 2020–2024 5-year detailed tables",
+    "release": "acs2024_5yr",
+    "api": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr",
+    "docs": "https://github.com/censusreporter/census-api/blob/master/API.md",
+    "original": "https://www.census.gov/data/developers/data-sets/acs-5year.html",
+    "terms": "https://censusreporter.org/",
+    "geography": "ZIP Code Tabulation Area (ZCTA): a Census statistical area, which can differ from the entered USPS ZIP's delivery area.",
+    "dataYears": "2020–2024",
+    "validation": "Every estimate must have the expected table, exact Census Reporter column ID, valid numeric value, geography match, and release name. Null/suppressed values are unavailable, not zero.",
+    "attribution": "All statistics are 2020–2024 ACS estimates, not 2026 current conditions. Uncertainty margins are not incorporated into derived ratios.",
+    "privacy": "User ZIP sent on demand to Census Reporter third party and Zippopotam.us; no ZIP stored in Power Atlas logs or shared URLs.",
+    "notes": "No API key required for Census Reporter documented public endpoint. No scraping, account bypass or paid API. Browsers may block CORS; show source link and clear unavailable state when a request cannot load."
+  },
+  "completeness": "schema_complete_for_all_nine_topics_but_live_ZCTA_queries_not_assumed_verified",
+  "issues": {
+    "housing": {
+      "measures": [
+        {
+          "id": "housing__median_rent",
+          "title": "Typical gross rent",
+          "measure": "money",
+          "why": "Estimated median monthly gross rent among renter-occupied homes paying cash rent; includes utilities where applicable.",
+          "limits": "Not the price for a currently advertised rental or proof of a landlord's actions.",
+          "connected": [
+            "economic-power",
+            "party-policies",
+            "redistricting"
+          ],
+          "table": "B25064",
+          "columns": [
+            "B25064001"
+          ],
+          "format": "usd",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B25064.html"
+        },
+        {
+          "id": "housing__median_home_value",
+          "title": "Median owner-occupied home value",
+          "measure": "money",
+          "why": "Estimated median value for owner-occupied housing.",
+          "limits": "Not a market appraisal, sale price or home affordability on its own.",
+          "connected": [
+            "economic-power",
+            "party-policies"
+          ],
+          "table": "B25077",
+          "columns": [
+            "B25077001"
+          ],
+          "format": "usd",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B25077.html"
+        }
+      ],
+      "nextResearch": [
+        "economic-power",
+        "party-policies",
+        "lobbying",
+        "contractor-directory"
+      ],
+      "missing": "Comparable asking rents, housing construction permits, zoning decisions, property ownership and addresses are not verified for this ZCTA.",
+      "localAuthority": "Zoning, tax and school jurisdictions cannot be resolved solely by ZIP."
+    },
+    "groceries": {
+      "measures": [
+        {
+          "id": "groceries__snap_share",
+          "title": "Households receiving SNAP",
+          "measure": "percentage",
+          "why": "Share of households that reported receiving food support.",
+          "limits": "This does not measure the price of groceries or prove food insecurity for individual residents.",
+          "connected": [
+            "economic-power",
+            "party-policies",
+            "promises"
+          ],
+          "table": "B22003",
+          "columns": [
+            "B22003002",
+            "B22003001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B22003.html"
+        },
+        {
+          "id": "groceries__poverty_share",
+          "title": "Residents below poverty threshold",
+          "measure": "percentage",
+          "why": "Population under the Census poverty threshold (ACS status universe).",
+          "limits": "Not food prices, current hardship, or a causal policy measure.",
+          "connected": [
+            "economic-power",
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B17001",
+          "columns": [
+            "B17001002",
+            "B17001001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B17001.html"
+        }
+      ],
+      "nextResearch": [
+        "economic-power",
+        "party-policies",
+        "lobbying",
+        "donor-rankings"
+      ],
+      "missing": "No local grocery basket price series, store concentration panel or price-to-policy causal model is connected.",
+      "localAuthority": "State nutrition offices and food programs require jurisdiction and eligibility validation."
+    },
+    "energy": {
+      "measures": [
+        {
+          "id": "energy__electric_heat",
+          "title": "Homes primarily heated with electricity",
+          "measure": "percentage",
+          "why": "Occupied housing units reporting electricity as their main heating fuel.",
+          "limits": "Not the price of a kilowatt-hour or a household utility bill.",
+          "connected": [
+            "party-policies",
+            "lobbying",
+            "economic-power"
+          ],
+          "table": "B25040",
+          "columns": [
+            "B25040004",
+            "B25040001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B25040.html"
+        },
+        {
+          "id": "energy__gas_heat",
+          "title": "Homes primarily heated with utility gas",
+          "measure": "percentage",
+          "why": "Occupied homes using utility gas as their primary heating fuel.",
+          "limits": "Not a gas tariff, energy efficiency score or price forecast.",
+          "connected": [
+            "party-policies",
+            "lobbying"
+          ],
+          "table": "B25040",
+          "columns": [
+            "B25040002",
+            "B25040001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B25040.html"
+        }
+      ],
+      "nextResearch": [
+        "economic-power",
+        "party-policies",
+        "lobbying",
+        "federal-money"
+      ],
+      "missing": "No utility-rate tariff, individual energy spending, service territory or specific rate hearing has been matched to the ZIP.",
+      "localAuthority": "Utility regulation and providers vary by service territory; ZIP alone is insufficient."
+    },
+    "health": {
+      "measures": [
+        {
+          "id": "health__uninsured_share",
+          "title": "Residents without health insurance",
+          "measure": "percentage",
+          "why": "Reported uninsured people across age and sex subgroups, divided by covered population universe.",
+          "limits": "Not premium amounts, appointment availability or evidence of a policy-caused outcome.",
+          "connected": [
+            "party-policies",
+            "promises",
+            "congress-trades"
+          ],
+          "table": "B27001",
+          "columns": [
+            "B27001005",
+            "B27001008",
+            "B27001011",
+            "B27001014",
+            "B27001017",
+            "B27001020",
+            "B27001023",
+            "B27001026",
+            "B27001029",
+            "B27001033",
+            "B27001036",
+            "B27001039",
+            "B27001042",
+            "B27001045",
+            "B27001048",
+            "B27001051",
+            "B27001054",
+            "B27001057",
+            "B27001001"
+          ],
+          "format": "sumshare",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B27001.html"
+        },
+        {
+          "id": "health__uninsured_count",
+          "title": "Estimated uninsured people",
+          "measure": "count",
+          "why": "Summed reported uninsured subgroups in this area (ACS sample estimate).",
+          "limits": "Not a count of people denied treatment; summing estimates does not provide exact margin of error.",
+          "connected": [
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B27001",
+          "columns": [
+            "B27001005",
+            "B27001008",
+            "B27001011",
+            "B27001014",
+            "B27001017",
+            "B27001020",
+            "B27001023",
+            "B27001026",
+            "B27001029",
+            "B27001033",
+            "B27001036",
+            "B27001039",
+            "B27001042",
+            "B27001045",
+            "B27001048",
+            "B27001051",
+            "B27001054",
+            "B27001057"
+          ],
+          "format": "sumcount",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B27001.html"
+        }
+      ],
+      "nextResearch": [
+        "party-policies",
+        "promises",
+        "congress-trades",
+        "accountability"
+      ],
+      "missing": "No provider network, insurance plan premium, quality score or patient-specific medical cost is attached.",
+      "localAuthority": "Health insurance eligibility, medical licensing and provider access vary by state and plan."
+    },
+    "work": {
+      "measures": [
+        {
+          "id": "work__median_income",
+          "title": "Median household income",
+          "measure": "money",
+          "why": "Middle household's past-year income adjusted to the source's 2024 dollars.",
+          "limits": "Not individual wages, take-home pay or a current salary estimate.",
+          "connected": [
+            "economic-power",
+            "party-policies",
+            "promises"
+          ],
+          "table": "B19013",
+          "columns": [
+            "B19013001"
+          ],
+          "format": "usd",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B19013.html"
+        },
+        {
+          "id": "work__unemployment_share",
+          "title": "Unemployed share of civilian labor force",
+          "measure": "percentage",
+          "why": "ACS unemployed residents divided by the civilian labor force.",
+          "limits": "Not a current monthly BLS unemployment rate, job openings or business layoff proof.",
+          "connected": [
+            "economic-power",
+            "institutional-decay",
+            "party-policies"
+          ],
+          "table": "B23025",
+          "columns": [
+            "B23025005",
+            "B23025003"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B23025.html"
+        }
+      ],
+      "nextResearch": [
+        "contract-benefits",
+        "contractor-directory",
+        "treasury-awards",
+        "economic-power"
+      ],
+      "missing": "No link from federal contractor obligations to specific hiring, wages or business profits in this area.",
+      "localAuthority": "Federal award recipient address does not prove jobs were created locally."
+    },
+    "schools": {
+      "measures": [
+        {
+          "id": "schools__preschool_count",
+          "title": "Residents enrolled in preschool",
+          "measure": "count",
+          "why": "Residents age 3+ enrolled in nursery school or preschool.",
+          "limits": "Not preschool supply, price or school assignment.",
+          "connected": [
+            "promises",
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B14001",
+          "columns": [
+            "B14001003"
+          ],
+          "format": "count",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B14001.html"
+        },
+        {
+          "id": "schools__enrollment_count",
+          "title": "Residents enrolled in school",
+          "measure": "count",
+          "why": "Residents age 3+ enrolled in any school category.",
+          "limits": "Not school funding, teacher ratios or a district boundary.",
+          "connected": [
+            "institutional-decay",
+            "promises"
+          ],
+          "table": "B14001",
+          "columns": [
+            "B14001002"
+          ],
+          "format": "count",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B14001.html"
+        }
+      ],
+      "nextResearch": [
+        "promises",
+        "institutional-decay",
+        "redistricting",
+        "party-policies"
+      ],
+      "missing": "No school district assignment, district budget, school test data, childcare fees or provider capacity is joined.",
+      "localAuthority": "School and childcare service areas require address-level district and license lookups."
+    },
+    "transport": {
+      "measures": [
+        {
+          "id": "transport__transit_share",
+          "title": "Commuters using public transit",
+          "measure": "percentage",
+          "why": "Share of employed residents who reported using public transportation to get to work.",
+          "limits": "Not live availability, fare prices or an individual's commute.",
+          "connected": [
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B08301",
+          "columns": [
+            "B08301010",
+            "B08301001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B08301.html"
+        },
+        {
+          "id": "transport__home_work_share",
+          "title": "Workers working from home",
+          "measure": "percentage",
+          "why": "Share of workers who reported working from home.",
+          "limits": "Not the proportion of jobs allowing remote work today.",
+          "connected": [
+            "economic-power",
+            "party-policies"
+          ],
+          "table": "B08301",
+          "columns": [
+            "B08301021",
+            "B08301001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B08301.html"
+        }
+      ],
+      "nextResearch": [
+        "party-policies",
+        "institutional-decay",
+        "promises",
+        "federal-money"
+      ],
+      "missing": "No fares, frequencies, travel times, transit-agency budgets, tolls or commute routes are locally verified.",
+      "localAuthority": "Transit agency routes and service areas can cross municipal and ZIP boundaries."
+    },
+    "public-services": {
+      "measures": [
+        {
+          "id": "public-services__internet_gap",
+          "title": "Households without internet access",
+          "measure": "percentage",
+          "why": "Households reporting no internet access in the ACS.",
+          "limits": "Not measured broadband price, availability or connection speed.",
+          "connected": [
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B28002",
+          "columns": [
+            "B28002013",
+            "B28002001"
+          ],
+          "format": "share",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B28002.html"
+        },
+        {
+          "id": "public-services__internet_gap_count",
+          "title": "Households without internet access",
+          "measure": "count",
+          "why": "Estimated number of households with no internet access.",
+          "limits": "Not local government budget allocations or tax burden.",
+          "connected": [
+            "party-policies",
+            "institutional-decay"
+          ],
+          "table": "B28002",
+          "columns": [
+            "B28002013"
+          ],
+          "format": "count",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B28002.html"
+        }
+      ],
+      "nextResearch": [
+        "oversight-records",
+        "treasury-awards",
+        "accountability",
+        "institutional-decay"
+      ],
+      "missing": "No local tax bill, municipal budget, school-district finance, expenditure-to-household service outcome is matched.",
+      "localAuthority": "Taxes and public services require verified municipal, county, state and district boundaries."
+    },
+    "representation": {
+      "measures": [
+        {
+          "id": "representation__area_population",
+          "title": "Residents in the statistical area",
+          "measure": "count",
+          "why": "Census population estimate for this ZIP Code Tabulation Area.",
+          "limits": "Not registered voters, all ZIP delivery addresses or constituency membership.",
+          "connected": [
+            "authenticity",
+            "election-admin",
+            "coalitions"
+          ],
+          "table": "B01001",
+          "columns": [
+            "B01001001"
+          ],
+          "format": "count",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B01001.html"
+        },
+        {
+          "id": "representation__median_age",
+          "title": "Median resident age",
+          "measure": "years",
+          "why": "Estimated median age of residents in the statistical area.",
+          "limits": "Not voter turnout, eligibility or political leaning.",
+          "connected": [
+            "coalitions",
+            "issue-polling",
+            "representation"
+          ],
+          "table": "B01002",
+          "columns": [
+            "B01002001"
+          ],
+          "format": "years",
+          "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B01002.html"
+        }
+      ],
+      "nextResearch": [
+        "redistricting",
+        "voting-access",
+        "judicial-selection",
+        "dark-money",
+        "lobbying",
+        "authenticity",
+        "power-network"
+      ],
+      "missing": "No verified district crosswalk, elected official, recorded vote, PAC transfer or policy impact attached solely through a ZIP.",
+      "localAuthority": "ZIPs can cross electoral districts; official address lookup required for representative assignment."
+    }
+  },
+  "boundaries": {
+    "noImplicitPartyBlame": true,
+    "noCausalityFromCorrelation": true,
+    "noPopulationToVoterConversion": true,
+    "noZIPToExactJurisdiction": true,
+    "noCurrentPriceInference": true,
+    "secondaryProviderExplicit": true,
+    "fallback": "When provider is unavailable the interface shows no local values and links to the original official source; no illustrative or hard-coded location statistics."
+  }
+}
