@@ -595,4 +595,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script></body></html>
+</script><script src="bug-report.js" defer></script></body></html>
