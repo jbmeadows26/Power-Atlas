@@ -2,6 +2,21 @@
 
 Power Atlas is a public, low-storage research index connecting redistricting cases, public officials, campaign committees, congressional elections, judicial appointments and geographic boundaries. **A source-indexed record is not a verified allegation of influence or misconduct.**
 
+## Location-first: how power affects everyday life (November 6, 2026)
+
+The new [community and everyday-life explorer](platform/unified/my-life.html) shifts the reader's entry point from institutions to nine lived issues: housing, groceries, utilities, healthcare, jobs/pay, schools/childcare, transportation, taxes/services and representation. The [unified homepage](platform/unified/index.html) now leads with that community-based journey while retaining the existing research dashboard.
+
+The journey has four steps:
+
+1. **Where:** User-submitted five-digit U.S. ZIP; optional browser-side third-party postal-place lookup from Zippopotam.us. ZIPs are not exact addresses, political boundaries, utility service areas or school districts. ZIP values are not recorded by Power Atlas, used to infer political preferences, or included in shared URLs.
+2. **Everyday issue:** [Nine versioned, sourced-action and mechanism narratives](data/place-impact/life-issues-v1.json) explain relevant authorities and market mechanisms without inventing personal price or benefit calculations.
+3. **Evidence:** [Source-by-issue manifest](data/place-impact/deep-resource-map-v1.json) joins **all 25 existing program IDs** from [the canonical inventory](data/research/atlas-inventory-v1.json), **nine recent datasets** (corporate PACs, federal contract records, political donation research, public oversight, holding data and reforms), and **37 upstream primary, nonprofit, journalistic and academic source directories**. The website reads the canonical inventory at runtime, including its original coverage status, evidence link, and missing-data explanation. Topic relevance is editorial, never a claim of local causation.
+4. **Action:** Official programs and neutral civic pathways, with separate examples of public policy options and their trade-offs. The platform does not endorse or rank politicians, political parties, candidates, campaigns, policy options or individuals.
+
+**Current data limitation:** This is a researched narrative and source-navigation experience, not a completed place-by-place causal model. There are no verified ZIP-level grocery prices, individual electricity bills, district boundaries, or donation-to-contract-to-household joins. The 2024 ACS 5-year Census API now requests an API key, so the page links the public Census portal rather than silently substituting unsupported local estimates. Upstream source-directory links are not assertions that all records have been ingested, licensed or reconciled. The 37 source directories include optional public OSINT/security tools but do not conduct any private-person search.
+
+Validation: [location and deep-resource regression tests](tests/test_place_impact.py) and [free workflow](.github/workflows/validate-place-impact.yml) check topic completeness, coverage mapping, privacy guards, source status and browser script syntax.
+
 ## Read-only datasets
 
 - [Verified current coverage and known gaps](data/coverage.json)
