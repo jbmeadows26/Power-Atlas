@@ -133,13 +133,28 @@ function renderSources(){
  $("originAll").setAttribute("aria-pressed",String(showAllOriginalSources));
 }
 
-function pick(id,scroll=false){
+const pageSections=new Set(["where","what","why","how"]);
+const navBySection={where:"place",what:"issues",why:"why",how:"action"};
+function markPrimaryNav(section){
+ const key=navBySection[section]||"why";
+ document.querySelectorAll("#pa-global-header [data-pa-nav]").forEach(a=>{
+  if(a.dataset.paNav===key)a.setAttribute("aria-current","location");
+  else a.removeAttribute("aria-current");
+ });
+}
+function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
  selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();
- // The URL contains an issue slug only, never a ZIP or any inferred preference.
- if(window.history?.replaceState)window.history.replaceState(null,"","#"+id);
+ // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
+ if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
+ markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
  if(scroll)$("why").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
 }
+window.addEventListener("hashchange",()=>{
+ const target=location.hash.slice(1);
+ if(pageSections.has(target))markPrimaryNav(target);
+ else if(stories?.issues.some(x=>x.id===target))pick(target,false,false);
+});
 async function lookUpZIP(zip){
  const out=$("placeStatus"),name=$("placeName");
  name.textContent="ZIP "+zip;out.textContent="Checking the postal-place label…";
@@ -176,6 +191,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[2].status==="fulfilled"&&results[2].value.schema==="power-atlas.story-inventory.v1")inventory=results[2].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
- pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing");
+ pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
+ if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
 </script></body></html>
