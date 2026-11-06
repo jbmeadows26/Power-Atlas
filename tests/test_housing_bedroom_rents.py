@@ -73,6 +73,24 @@ class HousingBedroomRentTests(unittest.TestCase):
         self.assertIn('aria-label="Choose HUD rent area', self.ui)
         self.assertIn("showHousingRent(hud,zip,Number(this.value))", self.ui)
 
+    def test_bedroom_benchmarks_first_and_acs_all_size_median_secondary(self):
+        self.assertIn("housingBedroomPanel", self.ui)
+        self.assertIn("bs-rent-other", self.ui)
+        self.assertIn("bs-housing-context", self.ui)
+        self.assertIn("Census median for all bedroom sizes", self.ui)
+        self.assertIn("2 · Why are rents this high?", self.ui)
+        self.assertIn("bs-local-pair", self.ui)
+        self.assertIn(".bs-local-compare", self.page)
+        self.assertIn("flex-direction:column", self.page)
+        self.assertIn("cost-benchmark-story.js?v=20261106-housing-mobile-r2", self.page)
+
+    def test_bug_button_is_compact_on_mobile_but_still_accessible(self):
+        bug = (ROOT / "platform" / "unified" / "bug-report.js").read_text(encoding="utf-8")
+        self.assertIn('aria-label="Report a bug"', bug)
+        self.assertIn("width: 46px; height: 46px", bug)
+        self.assertIn("bug-label", bug)
+        self.assertIn("bug-report.js?v=20261106-mobile-r2", self.page)
+
     def test_zip_state_fallback(self):
         self.assertIn('first["state abbreviation"]', self.page)
         self.assertIn("selectedStateCode=", self.page)
