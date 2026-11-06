@@ -30,6 +30,8 @@ jobs:
           python-version: "3.11"
       - name: Download and validate FY2027 HUD ZIP bedroom-rent source compilation
         run: python scripts/ingest_hud_bedroom_rents.py
+      - name: Check all 51 geographic files and interface evidence boundaries
+        run: python -m unittest discover -s tests -p 'test_housing_bedroom_rents.py' -v
       - name: Publish source-preserving, attributed state JSON
         run: |
           git config user.name "power-atlas-data-bot"
