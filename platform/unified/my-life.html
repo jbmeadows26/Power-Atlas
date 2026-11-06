@@ -111,6 +111,22 @@
 .ownerTrail .ownerFooter{font-size:.83rem;margin:11px 0 0;font-weight:800}
 .ownerTrail .ownerGap{font-size:.79rem;color:#647a75;line-height:1.5;margin:9px 0}
 @media(max-width:640px){.ownerTrail{padding:16px}.ownerStory{grid-template-columns:1fr}}
+
+/* Source-driven gaps are distinct from claims of proven local cost impact. */
+.costGap{border:1px solid #decda7;background:#fffdf6;border-radius:16px;padding:18px 20px;margin:16px 0 21px}
+.costGap h3{margin:5px 0 10px;color:#5d5038;font-size:1.22rem;letter-spacing:-.02em}
+.costGap p{font-size:.85rem;line-height:1.55;color:#6c614f;margin:8px 0}
+.costGap .leadSource{padding:12px 14px;background:#fff6e6;border:1px solid #e5d4ae;border-radius:11px;margin:10px 0}
+.costGap .leadSource strong{display:block;color:#655338;font-size:.89rem}
+.costGap .leadSource a{font-size:.85rem;font-weight:760;margin-right:11px;display:inline-block;margin-top:9px}
+.costGap details{border-top:1px solid #e9dcc2;margin-top:14px;padding-top:11px}
+.costGap details summary{cursor:pointer;color:#5d543c;font-size:.85rem;font-weight:790}
+.costGap .gapSourceRow{padding:8px 0;border-bottom:1px solid #f0e5d0}
+.costGap .gapSourceRow:last-child{border-bottom:0}
+.costGap .gapSourceRow b{color:#564e40;font-size:.82rem}
+.costGap .gapSourceRow a{font-size:.79rem;margin-right:10px}
+.costGap .toFull{font-size:.8rem;margin-top:12px;display:inline-block;font-weight:820}
+@media(max-width:620px){.costGap{padding:15px}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -151,7 +167,15 @@
  </div>
  <p id="localSourceTail" class="localSourceTail"></p>
  </section>
- <h3 style="margin:18px 0 12px;font-size:1.16rem">Who makes decisions about this?</h3>
+ <section id="missingCostSources" class="costGap" aria-label="Sources still needed to explain costs">
+ <span class="ey-dark">Evidence checkpoint · Don't mistake correlation for a cause</span>
+ <h3>What information is still missing to explain this cost?</h3>
+ <p>These original sources can support the next investigation, but are not automatically connected to your ZIP or a proven price increase.</p>
+ <div id="missingCostLead" class="leadSource">Checking original price sources…</div>
+ <details id="moreMissingEvidence"><summary>See ownership, policy and measured-impact sources</summary><div id="missingCostAll"></div></details>
+ <a class="toFull" href="source-audit.html" id="sourceAuditIssueLink">Explore the full missing-source register →</a>
+ </section>
+<h3 style="margin:18px 0 12px;font-size:1.16rem">Who makes decisions about this?</h3>
 <div class="chain" id="decisionChain" aria-live="polite"><p>Decision pathways loading…</p></div>
 <div class="ey-dark" style="margin:5px 0 10px">Actual records connected to this issue</div>
 <div class="connection-grid" id="verifiedConnections" aria-live="polite"><div class="connection"><p>Checking official election, contract and business evidence…</p></div></div>
@@ -177,6 +201,7 @@ const SOURCE_MAP=base+"data/place-impact/deep-resource-map-v1.json";
 const SOURCE_ATLAS=base+"data/research/atlas-inventory-v1.json";
 const SOURCE_LOCAL=base+"data/place-impact/local-measures-v1.json";
 const SOURCE_CORPORATE=base+"data/corporate-ownership/verified-relationships-v1.json";
+const SOURCE_MISSING=base+"data/health/sitewide-missing-sources-v1.json";
 const SOURCE_TRANSPARENCY=base+"data/corporate-ownership/transparency-price-power-v1.json";
 const SOURCE_MEASURED=base+"data/place-impact/connected-metrics-v1.json";
 const SOURCE_ELECTION_OFFICES=base+"data/elections/official-source-index.json";
@@ -192,6 +217,7 @@ const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+
 let stories=null,deepMap=null,inventory=null,selected="housing",onlyRelevant=true,expanded=false,search="",activeZIP=null;
 let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSourceUrl=null;
 let corporateGraph=null,transparencyCases=null;
+let missingSourceCatalog=null;
 let measured=null,electionAuthorities=null,secondaryVoterRules=null,treasuryAwards=null,companyPacs=null,civicReforms=null,selectedStateCode=null,selectedStateName=null;
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
@@ -299,6 +325,26 @@ function formatComparisonLabel(m){
  if(m.format==="usd")return "U.S. median";
  if(m.format==="years")return "U.S. median";
  return "U.S. share";
+}
+
+
+function renderMissingCostSources(){
+ const all=missingSourceCatalog?.gaps||[];
+ const selectedGaps=all.filter(g=>g.issue===selected);
+ const sources=Object.fromEntries((missingSourceCatalog?.sources||[]).map(x=>[x.id,x]));
+ const price=selectedGaps.find(x=>x.kind==="price");
+ $("sourceAuditIssueLink").href="source-audit.html?topic="+encodeURIComponent(selected);
+ if(!price){
+  $("missingCostLead").textContent="Source gap catalogue unavailable. We cannot infer a price cause. The full public source directory remains accessible.";
+  $("missingCostAll").textContent="";return;
+ }
+ const priceSources=price.sourceIds.map(id=>sources[id]).filter(Boolean);
+ $("missingCostLead").innerHTML='<strong>'+esc(price.question)+'</strong>'+
+ '<p>What needs to connect: '+esc(price.requiredJoin)+'</p>'+
+ priceSources.slice(0,3).map(x=>link(x.url,x.name+" ↗")).join("");
+ $("missingCostAll").innerHTML=selectedGaps.filter(g=>g.kind!=="price").map(g=>
+ '<div class="gapSourceRow"><b>'+esc(g.kind==="ownership"?"Corporate owners":g.kind==="decisions"?"Relevant decisions":"Measured cost effect")+': '+esc(g.question)+'</b><p>'+esc(g.requiredJoin)+'</p>'+
+ g.sourceIds.map(id=>sources[id]).filter(Boolean).map(x=>link(x.url,x.name+" ↗")).join("")+'</div>').join("");
 }
 
 function renderCorporatePaths(){
@@ -531,7 +577,7 @@ function renderCivicRecordLinks(){
 
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -573,7 +619,7 @@ $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
 $("originAll").addEventListener("click",()=>{showAllOriginalSources=!showAllOriginalSources;renderSources()});
 $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderResearch()});
 (async()=>{
- const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS,SOURCE_CORPORATE,SOURCE_TRANSPARENCY].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
+ const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS,SOURCE_CORPORATE,SOURCE_TRANSPARENCY,SOURCE_MISSING].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
  if(results[0].status!=="fulfilled"||results[0].value.schema!=="power-atlas.place-impact-stories.v1"){
   $("issueGrid").innerHTML='<div class="notice">The published daily-life stories could not be loaded. No locality claims have been invented. '+link("index.html","Visit existing research →")+'</div>';
   $("decisionChain").textContent="Source temporarily unavailable.";$("actionGrid").textContent="";return;
@@ -590,6 +636,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[9].status==="fulfilled"&&results[9].value.schema==="power-atlas.civic-power-reforms.v1")civicReforms=results[9].value;
  if(results[10].status==="fulfilled"&&results[10].value.schema==="power-atlas.corporate-ownership.evidence-graph.v1")corporateGraph=results[10].value;
  if(results[11].status==="fulfilled"&&results[11].value.schema==="power-atlas.corporate-ownership.transparency-price-power.v1")transparencyCases=results[11].value;
+ if(results[12].status==="fulfilled"&&results[12].value.schema==="power-atlas.sitewide-missing-source-catalog.v1")missingSourceCatalog=results[12].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
