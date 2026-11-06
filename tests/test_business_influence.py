@@ -111,6 +111,32 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertIn("federal-contractor restrictions", p)
         self.assertIn("not yet a verified company-to-contract award join", p)
 
+    def test_published_official_treasury_transactions(self):
+        source = ROOT / "data/business-influence/federal-contract-transactions-v1.json"
+        self.assertTrue(source.is_file(), "The official transaction file was previously published; preserve it")
+        d = json.loads(source.read_text(encoding="utf-8"))
+        self.assertEqual(d["schema"], "power-atlas.business-federal-contract-transactions.v1")
+        self.assertEqual(
+            {e["id"]: e["uei"] for e in d["entities"]},
+            {"geo": "JMLKZZ1NL2Z6", "pacmar": "L1WZRB6JKWJ4"}
+        )
+        for entity in d["entities"]:
+            self.assertGreaterEqual(len(entity["years"]), 9)
+            self.assertIn("not paid cash", entity["coverageNote"])
+            self.assertEqual(entity["scope"], "exact_UEI_prime_contract_actions_only_excludes_sibling_subsidiary_UEIs")
+            self.assertTrue(all(y["sourcePagesRead"] > 0 for y in entity["years"]))
+            self.assertTrue(all(y["transactionCount"] >= 0 for y in entity["years"]))
+            for y in entity["years"]:
+                self.assertAlmostEqual(y["grossPositiveObligationsUsd"] + y["deobligationsUsd"], y["netObligationsUsd"], places=2)
+            self.assertTrue(all(x["source"].startswith("https://www.usaspending.gov/award/") for y in entity["years"] for x in y["topAwardsByAbsoluteNetChange"]))
+        geo = next(e for e in d["entities"] if e["id"] == "geo")
+        years = {y["fiscalYear"]: y for y in geo["years"]}
+        self.assertEqual(years[2024]["netObligationsUsd"], 641589367.03)
+        self.assertEqual(years[2025]["netObligationsUsd"], 791460351.57)
+        self.assertEqual(years[2026]["netObligationsUsd"], 1006358861.91)
+        self.assertTrue(years[2027]["partialFiscalYear"])
+        self.assertEqual(d["causalStatus"], "no_validated_donation_to_award_decision_path_or_matched_counterfactual")
+
     def test_evidence_sources_do_not_include_personal_contact_data(self):
         text = DATA.read_text(encoding="utf-8").lower()
         self.assertNotIn("street_address", text)
