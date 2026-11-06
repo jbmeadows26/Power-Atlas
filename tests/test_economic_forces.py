@@ -83,8 +83,8 @@ class EconomicForcesTests(unittest.TestCase):
 
     def test_ethical_limitations(self):
         s = self.script
-        self.assertIn("do not prove", s.lower() if "do not prove" in s.lower() else self.data["rules"][2].lower())
-        self.assertIn("not", self.data["rules"][2].lower())
+        self.assertIn("No company or wealthy individual is assigned an individual cost premium", self.data["rules"][2])
+        self.assertIn("do not", s.lower())
         self.assertIn("local", self.data["rules"][3].lower())
         for prohibited in ("localStorage", "sessionStorage", "sendBeacon", "navigator.geolocation"):
             self.assertNotIn(prohibited, s)
