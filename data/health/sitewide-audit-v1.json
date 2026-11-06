@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-06T04:07:15.458976+00:00",
+  "generatedUTC": "2026-11-06T04:08:43.229835+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 17,
+    "htmlPagesAudited": 18,
     "jsonDataFilesChecked": 241,
     "validJsonFiles": 241,
-    "staticReferencesInspected": 338,
+    "staticReferencesInspected": 352,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -298,6 +298,19 @@
       "dataReferences": [
         "data/money-influence/civic-accountability-evidence-v1.json",
         "data/money-influence/civic-power-reforms-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/source-audit.html",
+      "localReferenceCount": 12,
+      "allReferencesCount": 14,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/health/sitewide-audit-v1.json",
+        "data/health/sitewide-missing-sources-v1.json"
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
