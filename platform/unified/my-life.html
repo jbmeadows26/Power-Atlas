@@ -348,7 +348,7 @@ function getBenchmarkContext(){
  if(z){
   local={status:record?.error?"unavailable":"loading"};
   const m=scoped?.measures?.[0],geoid="86000US"+z;
-  const okay=record?.release?.id===localMeasures?.provider?.release&&record.data?.data?.[geoid];
+  const okay=Boolean(record&&localMeasures?.provider?.release&&record.release?.id===localMeasures.provider.release&&record.data?.data?.[geoid]);
   if(okay&&m){
    const val=evaluateMeasure(m,record.data.data[geoid][m.table]?.estimate);
    local=val===null?{status:"unavailable"}:{status:"available",title:m.title,value:formatMeasure(m,val),limits:m.limits,source:m.originalTable};
