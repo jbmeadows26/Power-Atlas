@@ -7,7 +7,7 @@
     "provider": "Zippopotam.us / GeoNames",
     "terms": "https://docs.zippopotam.us/docs/getting-started/",
     "purpose": "Postal place label only. Nearby ZIP and matching ZCTA need not be identical; ACS statistics are shown with their source's ZCTA geographic code.",
-    "privacy": "Only on user submission, the chosen ZIP is sent by the browser to Zippopotam.us for an approximate postal place and Census Reporter for ACS ZCTA measures. Power Atlas does not record the value, retain it in localStorage or append it to the URL. Third parties have their own data policies."
+    "privacy": "Only after a user submits a ZIP, their browser sends the ZIP to Zippopotam.us (postal place name) and Census Reporter (2020–2024 ACS ZCTA estimates). These independent providers have their own privacy practices. Power Atlas does not store the ZIP or include it in share links; no political preference is inferred."
   },
   "issues": [
     {
@@ -418,7 +418,8 @@
     "The local ZIP lookup is a third-party postal lookup, not a verified government jurisdiction lookup.",
     "Census Reporter exposes source-backed, historical ZCTA ACS measures for all nine issues; no 2026 individual bills, store prices, school assignment or causal policy impact is estimated without specific source data.",
     "Each deep-research record is shown according to its own publication status and gaps. It does not establish effects on the selected ZIP.",
-    "The interactive experience is not personal legal, medical or financial advice."
+    "The interactive experience is not personal legal, medical or financial advice.",
+    "Census Reporter and Zippopotam.us receive the submitted ZIP directly from the browser; the current product has not verified browser CORS behavior across all devices and geographies."
   ],
   "measuredEvidenceRegistry": "data/place-impact/local-measures-v1.json"
 }
