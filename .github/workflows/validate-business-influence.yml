@@ -3,6 +3,13 @@ on:
   push:
     paths:
       - 'data/business-influence/evidence-v1.json'
+      - 'data/business-influence/federal-contract-transactions-v1.json'
+      - 'data/business-influence/geo-pac-fec-summary-v1.json'
+      - 'data/business-influence/geo-pac-candidate-disbursements-v1.json'
+      - 'scripts/collect_business_federal_awards.py'
+      - 'scripts/collect_geo_pac_fec.py'
+      - 'tests/test_business_federal_awards.py'
+      - 'tests/test_geo_pac_fec.py'
       - 'platform/unified/business-influence.html'
       - 'platform/unified/index.html'
       - 'tests/test_business_influence.py'
@@ -10,6 +17,13 @@ on:
   pull_request:
     paths:
       - 'data/business-influence/evidence-v1.json'
+      - 'data/business-influence/federal-contract-transactions-v1.json'
+      - 'data/business-influence/geo-pac-fec-summary-v1.json'
+      - 'data/business-influence/geo-pac-candidate-disbursements-v1.json'
+      - 'scripts/collect_business_federal_awards.py'
+      - 'scripts/collect_geo_pac_fec.py'
+      - 'tests/test_business_federal_awards.py'
+      - 'tests/test_geo_pac_fec.py'
       - 'platform/unified/business-influence.html'
       - 'platform/unified/index.html'
       - 'tests/test_business_influence.py'
@@ -27,7 +41,10 @@ jobs:
         with:
           python-version: '3.12'
       - name: Check business influence source evidence and navigation
-        run: python -m unittest discover -s tests -p 'test_business_influence.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_business_influence.py' -v
+          python -m unittest discover -s tests -p 'test_business_federal_awards.py' -v
+          python -m unittest discover -s tests -p 'test_geo_pac_fec.py' -v
       - name: Check dashboard browser JavaScript
         run: |
           python - <<'PY'
