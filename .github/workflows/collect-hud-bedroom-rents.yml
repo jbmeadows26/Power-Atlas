@@ -1,0 +1,43 @@
+name: Refresh HUD bedroom rent benchmarks
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "scripts/ingest_hud_bedroom_rents.py"
+      - ".github/workflows/collect-hud-bedroom-rents.yml"
+  schedule:
+    # Public HUD rent figures can be revised. Monthly check is free on this public repo.
+    - cron: "15 7 3 * *"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: power-atlas-housing-rent-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 24
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Download and validate FY2027 HUD ZIP bedroom-rent source compilation
+        run: python scripts/ingest_hud_bedroom_rents.py
+      - name: Publish source-preserving, attributed state JSON
+        run: |
+          git config user.name "power-atlas-data-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/housing/bedroom-rents/*.json
+          if git diff --cached --quiet; then
+            echo "No HUD bedroom-rent changes."
+          else
+            git commit -m "data: refresh HUD FY2027 bedroom rent benchmarks by ZIP"
+            git push
+          fi
