@@ -4,7 +4,7 @@
 (function(){
 "use strict";
 var DATA_URL="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/place-impact/cost-benchmark-drivers-v1.json";
-var data=null,forces=null,topic="housing",geo={zip:null,stateName:null,stateCode:null,local:null,corporateExamples:[]};
+var data=null,forces=null,topic="housing",geo={zip:null,stateName:null,stateCode:null,local:null,corporateExamples:[],ownershipExamples:[],moneyExample:null};
 var FORCES_URL="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/place-impact/economic-forces-v1.json";
 var colors=["#3c8d81","#65b4a0","#d0a85f","#96aab0","#41677d","#8c8fbe"];
 var dollars=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
@@ -32,7 +32,15 @@ function renderEconomicForces(){
   '<p class="bs-footnote">'+(scope==="global"?"Forecasts describe world markets, not what a local family will pay.":"Economic indicators are not a causal price decomposition or a quoted household rate.")+'</p></section>';
  }
  var examples=(geo.corporateExamples||[]).slice(0,3);
- var cases=examples.length?examples.map(function(c){
+ 
+ var ownershipLinks=(geo.ownershipExamples||[]).slice(0,3).map(function(r){
+  var share=typeof r.shares==="number"?' · '+esc(r.shares.toFixed(1))+'% disclosed shares':"";
+  var relationship=(r.relation==="BENEFICIAL_SHARES"?"Dated beneficial ownership":r.relation==="FOUNDED_AND_LEADS"?"Dated firm leadership":r.relation==="OPERATES_BUSINESS"?"Reported business operation":r.relation==="LISTED_PORTFOLIO_COMPANY"?"Reported portfolio company":"Documented corporate relationship");
+  return '<div class="bs-company-story"><span class="bs-kicker">'+esc(relationship)+share+' · '+esc(r.date)+'</span><h6>'+esc(r.owner)+' → '+esc(r.business)+'</h6><p>'+esc(r.note)+'</p><p class="bs-company-note">This relationship does not demonstrate that this firm serves your ZIP or raised your bill.</p>'+source(r.source,"Inspect corporate filing or disclosure ↗")+'</div>';
+ }).join("");
+ var money=geo.moneyExample;
+ var moneyStory=money?'<article class="bs-company-story"><span class="bs-kicker">Campaign finance and government business · separate disclosed streams</span><h6>'+esc(money.company)+'</h6><p>'+esc(money.finding)+'</p><p><strong>'+esc(money.contributions!=null?dollars.format(money.contributions):"Amount unavailable")+'</strong> · '+esc(money.politicalYear||"Year not specified")+' disclosed corporate + employee-PAC political giving across multiple jurisdictions. This is <strong>not</strong> all federal PAC spending, and is not the cost to taxpayers.</p><p class="bs-company-note">'+esc(money.limitation)+' The filings do not show that contributions purchased government awards or increased a household bill.</p><div class="bs-company-links">'+source(money.politicalSource||money.disclosure,"Read company political disclosure ↗")+'<a href="business-influence.html">Inspect independent awards / political analysis →</a></div></article>':"";
+var cases=examples.length?examples.map(function(c){
   var status=c.status||"unknown";
   var links=(c.sources||[]).filter(function(s){return url(s.url)}).slice(0,2).map(function(s){return source(s.url,s.label+" ↗")}).join("");
   var stages=(c.stages||[]).slice(0,4).map(function(st){return '<li><b>'+esc(st.actor)+'</b> · '+badge(st.status)+' '+esc(st.detail)+'</li>'}).join("");
@@ -47,7 +55,7 @@ function renderEconomicForces(){
  forceGroup("Global markets and international shocks","International · cross-border",cfg.global,cfg.mechanisms?.[1],"global")+'</div>'+
  '<section class="bs-forces-section" style="margin-top:12px" aria-label="Company and wealthy owner influence"><span class="bs-kicker">Companies · shareholders · private equity · political influence</span><h5>Who can influence the price—and who owns them?</h5>'+
  '<p class="bs-force-mechanism">'+fallback+'</p>'+
- '<div class="bs-company-examples">'+cases+'</div>'+
+ '<div class="bs-company-examples">'+cases+ownershipLinks+moneyStory+'</div>'+
  '<p class="bs-force-more">A named billionaire, fund or donor is shown only when a dated source supports the relationship. Owning shares, lobbying or donating to a campaign does <strong>not</strong> by itself establish illegal conduct, a purchased policy or higher local prices.</p>'+
  '<div class="bs-links"><a href="#corporatePaths">Explore verified ownership →</a><a href="business-influence.html">Business funding & public decisions →</a><a href="donor-intelligence.html">Political money records →</a></div></section></section>';
 }
@@ -99,7 +107,7 @@ function render(){
 function setContext(context){
  context=context||{};if(context.topic&&data?.topics?.[context.topic])topic=context.topic;
  else if(context.topic&&["housing","groceries","energy","health","work","schools","transport","public-services","representation"].indexOf(context.topic)>=0)topic=context.topic;
- geo={zip:context.zip||null,stateCode:context.stateCode||null,stateName:context.stateName||null,local:context.local||null,corporateExamples:Array.isArray(context.corporateExamples)?context.corporateExamples:[]};
+ geo={zip:context.zip||null,stateCode:context.stateCode||null,stateName:context.stateName||null,local:context.local||null,corporateExamples:Array.isArray(context.corporateExamples)?context.corporateExamples:[],ownershipExamples:Array.isArray(context.ownershipExamples)?context.ownershipExamples:[],moneyExample:context.moneyExample||null};
  render();
 }
 async function init(){
