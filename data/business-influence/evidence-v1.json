@@ -11,7 +11,9 @@
     "stateLocalAwardsAndTaxIncentives": "not_ingested",
     "caveat": "A company's PAC is generally employee-funded; a federal contractor's own federal political contributions can be prohibited. Never add employee, PAC, subsidiary or company spending without distinct, lawfully sourced provenance.",
     "fecCommitteeCrosswalk": "GEO Group corporate PAC C00382150 verified in FEC; giving and PAC committee disbursements use different denominators",
-    "contractEntityJoins": "GEO direct recipient JMLKZZ1NL2Z6; PacMar direct recipient L1WZRB6JKWJ4; subsidiaries not assumed"
+    "contractEntityJoins": "GEO direct recipient JMLKZZ1NL2Z6; PacMar direct recipient L1WZRB6JKWJ4; subsidiaries not assumed",
+    "geoTwoYearContributionsAndLobbying": "verified 2024 and 2025 GEO corporate/PAC categories from original company disclosure and 2025 direct lobbying separately",
+    "geoCompanyProfitability": "SEC 2024–2025 operating income shows a decline despite revenue increase; annual profit is not established as political ROI"
   },
   "research": [
     {
@@ -97,12 +99,12 @@
         "scope": "11 registered recipient units including subsidiaries; nominal calendar-year obligated amounts, not revenue, margin or profit.",
         "warning": "Third-party USAspending compilation not independently reconciled against official award IDs by Power Atlas."
       },
-      "finding": "GEO reported 8.6% higher companywide revenue in 2025 ($2.632B vs $2.424B in 2024), and described up to ~$520M in potential incremental annualized revenue from new or expanded 2025 contracts. Meanwhile, a separate USAspending-based aggregation shows lower federal contract obligations in 2025 than 2024. These metrics differ and do not establish that 2024 political spending caused business growth.",
+      "finding": "From calendar 2024 to 2025 GEO-reported corporate plus employee-PAC contributions increased from $4.023M to $4.425M, and consolidated revenue increased 8.6% from $2.424B to $2.632B, but operating income fell 16.9%. Separate exact-UEI Treasury obligations rose from FY2024 to FY2025; fiscal and calendar periods differ and corporate subsidiary coverage is not identical. None of these facts establish that contributions or lobbying produced contracts.",
       "evidenceStages": [
         {
           "name": "Company activity",
           "status": "documented",
-          "why": "Self-reported corporate and PAC contributions"
+          "why": "Source-backed 2024 and 2025 company political giving, separate corporate and employee PAC amounts; 2025 lobbying disclosed independently."
         },
         {
           "name": "Political recipients",
@@ -122,7 +124,7 @@
         {
           "name": "Business upside",
           "status": "documented_noncausal",
-          "why": "SEC Form 10-K documents higher total revenue and rising federal-customer share; there is no matched counterfactual or causal attribution to donations."
+          "why": "SEC reported 8.6% higher 2025 revenue but 16.9% lower operating income; attribution to political activity is untested."
         }
       ],
       "companyFinancials": {
@@ -156,7 +158,19 @@
           "source": "https://www.sec.gov/Archives/edgar/data/923796/000119312526116047/d923550dars.pdf",
           "note": "Some included arrangements are expected future annual revenue subject to performance, options and occupancy; avoid adding to GAAP 2025 revenue or federal obligations."
         },
-        "caveat": "Revenue changes coincide with political spending, public policy changes, operating decisions and government demand. The sources do not show that donations caused the growth."
+        "caveat": "Revenue changes coincide with political spending, public policy changes, operating decisions and government demand. The sources do not show that donations caused the growth.",
+        "operatingIncomeUsd": [
+          {
+            "year": 2024,
+            "amountUsd": 309975000
+          },
+          {
+            "year": 2025,
+            "amountUsd": 257490000
+          }
+        ],
+        "operatingProfitChangeUsd": -52485000,
+        "operatingProfitChangePct": -16.93
       },
       "entityIdentifiers": {
         "exactPrimeRecipientUEI": "JMLKZZ1NL2Z6",
@@ -165,7 +179,37 @@
         "pacSource": "https://www.fec.gov/data/committee/C00382150/?cycle=2024",
         "provenance": "government_source_documented_registration_entities_not_payment_join"
       },
-      "politicalFinanceScopeWarning": "GEO's 2024 corporate plus employee PAC figures are aggregate categories across jurisdictions; FEC PAC financial receipts/disbursements are different amounts and must not be added. Federal contractor contributions by corporate treasury funds are restricted."
+      "politicalFinanceScopeWarning": "GEO's 2024 corporate plus employee PAC figures are aggregate categories across jurisdictions; FEC PAC financial receipts/disbursements are different amounts and must not be added. Federal contractor contributions by corporate treasury funds are restricted.",
+      "politicalByCalendarYear": [
+        {
+          "year": 2024,
+          "corporateUsd": 3556200,
+          "pacUsd": 467000,
+          "combinedUsd": 4023200,
+          "federalNationalRecipientCategoryUsd": 2538500,
+          "stateLocalRecipientCategoryUsd": 969700,
+          "organizations527Usd": 515000,
+          "source": "https://www.geogroup.com/media/tufn44mo/geo-political-activity-and-lobbying-report-_2024_.pdf"
+        },
+        {
+          "year": 2025,
+          "corporateUsd": 4216900,
+          "pacUsd": 208500,
+          "combinedUsd": 4425400,
+          "federalNationalRecipientCategoryUsd": 1722000,
+          "stateLocalRecipientCategoryUsd": 2253400,
+          "organizations527Usd": 450000,
+          "source": "https://www.geogroup.com/geo-2025-political-activity-and-lobbying-report/"
+        }
+      ],
+      "lobbyingDisclosures": {
+        "year": 2025,
+        "federalUsd": 2428006,
+        "stateLocalUsd": 2943330,
+        "combinedUsd": 5371336,
+        "source": "https://www.geogroup.com/geo-2025-political-activity-and-lobbying-report/",
+        "meaning": "Direct lobbying fees and expenses reported by the company; not campaign donations, not a government contract and not interchangeable with FEC PAC totals."
+      }
     },
     {
       "id": "pacmar",
