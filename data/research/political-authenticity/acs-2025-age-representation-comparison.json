@@ -73,6 +73,30 @@
     "District age shares and party strata are not evidence of causal political responsiveness or misconduct",
     "Member biographies and birth dates require independent primary-source confirmation",
     "No survey microdata, occupational histories, disclosed-wealth intervals, or voter preferences used",
-    "No statistical tests: ACS design covariance and valid share standard errors not available in this aggregate"
-  ]
+    "No statistical tests: ACS design covariance and valid share standard errors not available in this aggregate",
+    "Party-stratified district residents exclude the two vacant districts; vacancy residual is reported explicitly and not assigned to any party.",
+    "The all-435-district resident comparison and occupied-433-district resident comparison use different denominators; neither is a voter-eligible or causal comparison."
+  ],
+  "unoccupiedDistrictPopulationDescriptive": {
+    "scope": "ACS 2025 residents in the two districts recorded vacant in 2026-10-30 member snapshot; aggregate residual across FL-20 and TX-23, not separately inferred district figures",
+    "districts": [
+      "FL-20",
+      "TX-23"
+    ],
+    "residentsAge25plusEstimate": 1095946,
+    "residentsAge25to34Estimate": 218632,
+    "derivation": "all435DistrictsACS - sum(partyStrataDescriptive districtResidents) for both age denominators",
+    "partyAssignment": null,
+    "partyAssignmentReason": "No seated member in snapshot; previous incumbent party must not be imputed",
+    "asOfMemberSnapshotDate": "2026-10-30",
+    "acsYear": 2025,
+    "uncertainty": "Residual of published ACS point estimates; not an independently measured variance or MOE"
+  },
+  "occupiedDistrictPopulationDescriptive": {
+    "residentsAge25plusEstimate": 236782310,
+    "residentsAge25to34Estimate": 45984514,
+    "age25to34ShareOf25plus": 0.194205868,
+    "comparisonUniverse": "Only districts with a seated voting House member in 2026-10-30 roster; retains resident-versus-member eligibility and vintage caveats",
+    "memberMinusOccupiedDistrictResidentPercentagePoints": -18.2659
+  }
 }
