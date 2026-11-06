@@ -1,0 +1,217 @@
+{
+  "schema": "power-atlas.business-political-outcomes.v1",
+  "reviewedUtc": "2026-11-06",
+  "purpose": "Investigate whether and when publicly disclosed political activity precedes changes in company government business. No donation-to-contract quid pro quo is inferred.",
+  "coverage": {
+    "companyDonationToAwardReconciled": "not_yet_verified",
+    "baselineComparison": "not_yet_run",
+    "publicFecCommitteeMoney": "partially_indexed_elsewhere_in_power_atlas",
+    "federalContractRecipientAwards": "source_reference_not_bulk_ingested_in_this_module",
+    "executiveAndEmployeeContributions": "not_attributed_to_company_spending",
+    "stateLocalAwardsAndTaxIncentives": "not_ingested",
+    "caveat": "A company's PAC is generally employee-funded; a federal contractor's own federal political contributions can be prohibited. Never add employee, PAC, subsidiary or company spending without distinct, lawfully sourced provenance."
+  },
+  "research": [
+    {
+      "id": "defense",
+      "short": "During a spending surge",
+      "headline": "About one-third more",
+      "metric": "~33%",
+      "explanation": "Defense contracts obtained by lobbying firms compared with nonlobbying firms, during an unexpected funding increase. The authors explicitly do not identify causation.",
+      "scope": "U.S. federal defense procurement, historical study",
+      "source": "https://www.bis.org/publications/working-paper-1058-lions-share-evidence-federal-contracts-value-political-connections",
+      "qualifier": "Comparison is about lobbying firms, not every donor or every federal contract."
+    },
+    {
+      "id": "dark",
+      "short": "Company dark-money disclosure",
+      "headline": "+12.5 percentage points",
+      "metric": "+12.5 pp",
+      "explanation": "Estimated increase in likelihood of becoming a federal contractor for firms reporting dark-money contributions, in an observational S&P 500 study. Also +11.8 percentage points for receiving government subsidies.",
+      "scope": "U.S. S&P 500 firm-years, 2008–2022; voluntarily disclosed dark-money giving",
+      "source": "https://academic.oup.com/rcfs/article/14/4/989/8237426",
+      "qualifier": "Not a randomized experiment. Disclosure selection and other firm differences can confound."
+    },
+    {
+      "id": "fav",
+      "short": "Procurement favoritism risks",
+      "headline": "About ¼ standard deviation",
+      "metric": "~0.25 SD",
+      "explanation": "An increase in reported donations from $10,000 to $5 million was associated with increased procurement-favoritism risk in a 2004–2015 U.S. federal-contract study.",
+      "scope": "U.S. federal contracts and registered political donations, 2004–2015",
+      "source": "https://academic.oup.com/jpart/article/33/2/262/6586849",
+      "qualifier": "Measures statistical procurement risk, not confirmed corruption or an individual company result."
+    },
+    {
+      "id": "bill",
+      "short": "Donations and bill involvement",
+      "headline": "+8–11 percentage points",
+      "metric": "+8–11 pp",
+      "explanation": "Prior donations were associated with the chance that the targeted politician later became involved in legislation relevant to donors' lobbying objectives.",
+      "scope": "U.S. federal campaign contributions and lobbying since 1999",
+      "source": "https://www.journals.uchicago.edu/doi/10.1086/734531",
+      "qualifier": "Legislative involvement is not an awarded contract, profits, a vote switch, or a finding of wrongdoing."
+    }
+  ],
+  "cases": [
+    {
+      "id": "geo",
+      "company": "The GEO Group",
+      "industry": "Government detention and reentry services",
+      "jurisdiction": "Federal, state and local",
+      "status": "Two independently sourced activity streams; no proven contract-for-donation path",
+      "question": "Political spending and awarded government business are both documented. Did one cause the other?",
+      "disclosedPolitical": {
+        "year": 2024,
+        "corporateUsd": 3556200,
+        "pacUsd": 467000,
+        "totalUsd": 4023200,
+        "label": "Company's published 2024 contributions: subsidiaries plus employee-funded GEO PAC",
+        "source": "https://www.geogroup.com/media/tufn44mo/geo-political-activity-and-lobbying-report-_2024_.pdf",
+        "scope": "U.S. federal/national, state/local, and 527 organization contributions; not the same as one FEC committee's spending."
+      },
+      "governmentBusiness": {
+        "metric": "Federal contract obligations",
+        "period": "calendar_year",
+        "observations": [
+          {
+            "year": 2023,
+            "amountUsd": 1000000000,
+            "approximate": true
+          },
+          {
+            "year": 2024,
+            "amountUsd": 952300000,
+            "approximate": true
+          },
+          {
+            "year": 2025,
+            "amountUsd": 897000000,
+            "approximate": true
+          }
+        ],
+        "source": "https://business.otrecord.news/company/geo/",
+        "sourceTier": "third_party_aggregated_USASpending",
+        "scope": "11 registered recipient units including subsidiaries; nominal calendar-year obligated amounts, not revenue, margin or profit.",
+        "warning": "Third-party USAspending compilation not independently reconciled against official award IDs by Power Atlas."
+      },
+      "finding": "The aggregate obligations shown for 2025 are lower than those shown for 2024; this example does not demonstrate a rise following 2024 contributions. The donation amounts and awarded contract obligations are not a linked transaction.",
+      "evidenceStages": [
+        {
+          "name": "Company activity",
+          "status": "documented",
+          "why": "Self-reported corporate and PAC contributions"
+        },
+        {
+          "name": "Political recipients",
+          "status": "partial",
+          "why": "Aggregate categories and a named list of 527 groups; no full recipient-level join here"
+        },
+        {
+          "name": "Government decision",
+          "status": "missing",
+          "why": "No filing-backed donation-to-award decision link ingested"
+        },
+        {
+          "name": "Federal awards",
+          "status": "third_party",
+          "why": "Aggregated USAspending-based obligation totals; official award IDs still needed"
+        },
+        {
+          "name": "Business upside",
+          "status": "missing",
+          "why": "No incremental profit or matched-peer counterfactual"
+        }
+      ]
+    },
+    {
+      "id": "pacmar",
+      "company": "Navatek / PacMar Technologies",
+      "industry": "Defense research and engineering",
+      "jurisdiction": "Federal",
+      "status": "Campaign-finance violations documented; claimed contract exchange remains disputed",
+      "question": "The campaign-finance misconduct is established. Were Navy awards contingent on contributions?",
+      "disclosedPolitical": {
+        "year": 2020,
+        "totalUsd": 150000,
+        "label": "Shell-company contribution to 1820 PAC documented in FEC case; not the total company political spending",
+        "source": "https://www.fec.gov/data/legal/matter-under-review/7690/",
+        "scope": "One documented contribution, not an annual campaign-spending aggregate."
+      },
+      "governmentBusiness": {
+        "metric": "Verified contract-level funds received",
+        "period": "not_aggregated",
+        "observations": [],
+        "source": "https://www.usaspending.gov/search",
+        "sourceTier": "not_reconciled",
+        "scope": "Appropriation and proposal amounts in investigative reporting are not certified payments.",
+        "warning": "No published reconciled transaction-level award series in this module."
+      },
+      "finding": "An FEC conciliation agreement established a $325,000 corporate civil penalty. Separate claims of an exchange for Navy funding remain contested, and specific contract disbursements require independent reconciliation.",
+      "investigationUrl": "navatek.html",
+      "evidenceStages": [
+        {
+          "name": "Company activity",
+          "status": "documented",
+          "why": "FEC original case records"
+        },
+        {
+          "name": "Political recipients",
+          "status": "documented",
+          "why": "1820 PAC receipt related to case"
+        },
+        {
+          "name": "Government decision",
+          "status": "disputed",
+          "why": "Reported allegations, not adjudicated bribery findings"
+        },
+        {
+          "name": "Federal awards",
+          "status": "missing",
+          "why": "Appropriations, contracts and disbursements not joined at award ID"
+        },
+        {
+          "name": "Business upside",
+          "status": "missing",
+          "why": "No attributable incremental revenue or profit"
+        }
+      ]
+    }
+  ],
+  "recommendedJoins": [
+    {
+      "name": "FEC and other campaign-finance filings",
+      "key": "recipient committee ID, contributor entity ID, filing ID, date",
+      "source": "https://www.fec.gov/data/"
+    },
+    {
+      "name": "USAspending awards",
+      "key": "recipient UEI, parent recipient, award ID, action date, agency and obligation",
+      "source": "https://api.usaspending.gov/docs/endpoints"
+    },
+    {
+      "name": "Lobbying disclosure",
+      "key": "lobbying registrant and client, LD filing, issue, period",
+      "source": "https://lda.gov/system/public/"
+    },
+    {
+      "name": "Corporate results",
+      "key": "SEC issuer ID, business segments, revenue, backlog, profit, fiscal period",
+      "source": "https://www.sec.gov/edgar/search/"
+    },
+    {
+      "name": "State / local business",
+      "key": "state contract ID, subsidy or permit ID, named recipient, date",
+      "source": "https://www.usaspending.gov/"
+    }
+  ],
+  "analyticRules": [
+    "Only link entities with legal IDs and documented parent/subsidiary relationships; do not use name-only matching as a confirmed ownership or donation link.",
+    "Distinguish corporate independent spending, segregated employee-funded PAC giving, company principals' personal giving, lobbying and dark money; never add incompatible categories.",
+    "Use date of reported contribution versus decision/award effective date, not merely election year.",
+    "Show awards won AND lost, competing bidders, incumbency, contractor size and agency budget before interpreting outcome changes.",
+    "Contract obligations are not realized revenue, cash payments, incremental profits or ROI.",
+    "Use matched non-donors and pre/post timing as a test; report confounders, uncertainty and negative results. Never label observational associations as quid pro quo.",
+    "Respect FEC contributor-data use restrictions and exclude personal addresses/contact information."
+  ]
+}
