@@ -183,6 +183,13 @@ def audit():
     life = read_json(ROOT / "data/place-impact/life-issues-v1.json")
     gates = read_json(ROOT / "data/health/completion-gates.json")
     queue = read_json(ROOT / "data/reconciliation/ingestion-queue.json")
+    pagination = read_json(ROOT / "data/legislation/state-redistricting-pagination.json")
+    stale_page_tasks = [x.get("id") for x in queue.get("tasks", [])
+                        if x.get("state")=="pending" and
+                        pagination.get("pages",{}).get(x.get("jurisdictionId"),{}).get(str(x.get("nextPage")),{}).get("status")=="indexed_keyword_page_not_exhaustive"]
+    bounded_reconciled = sum(x.get("state")=="source_indexed_bounded_keyword_page_not_officially_adjudicated"
+                             for x in queue.get("tasks", []))
+
 
     entities = {x["id"] for x in graph["entities"]}
     edge_ids = {x["id"] for x in graph["relations"]}
@@ -223,6 +230,8 @@ def audit():
     missing_routes = [p for p in IMPORTANT_ROUTES if not (ROOT / p).is_file()]
     if missing_routes:
         structural_errors.append("Core routes missing: " + ", ".join(missing_routes))
+    if stale_page_tasks:
+        structural_errors.append("Some source-indexed bill pages are still marked pending in ingestion queue")
 
     result = {
         "schema": "power-atlas.sitewide-static-source-audit.v1",
@@ -249,6 +258,8 @@ def audit():
             "originalSourceCandidates": len(source_ids),
             "blockingExistingResearchGates": len(blockers),
             "queuedIngestionTasks": sum(x.get("state")=="pending" for x in queue.get("tasks", [])),
+            "stalePageTwoQueueEntries": len(stale_page_tasks),
+            "boundedKeywordPageTasksReconciled": bounded_reconciled,
         },
         "sourceIntegrity": source_integrity,
         "localTopics": local_topic_stats,
@@ -265,6 +276,8 @@ def audit():
         },
         "knownResearchBlockers": blockers,
         "pendingIngestionTaskIds": [x.get("id") for x in queue.get("tasks", []) if x.get("state")=="pending"],
+        "staleReconciledPageTasks": stale_page_tasks,
+        "keywordPaginationScope": "14 extra pages across ten jurisdictions are indexed by BillCommons. This does not establish official, multi-session, full historical state-bill completeness.",
         "unresolvedSourceCatalogPath": "data/health/sitewide-missing-sources-v1.json",
         "structuralErrors": structural_errors,
         "conclusion": "All indexed pages can be inspected for local references, but having datasets or ownership relationships does NOT prove full source ingestion or causal outcomes. Read the missing-source catalog for original links and precise required joins.",
