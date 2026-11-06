@@ -82,6 +82,8 @@ function drawAudit(){
 $("topic").addEventListener("change",draw);
 $("search").addEventListener("input",draw);
 (async()=>{
+ const requested=new URLSearchParams(location.search).get("topic");
+ if(["housing","groceries","energy","health","work","schools","transport","public-services","representation","platform-wide"].includes(requested))$("topic").value=requested;
  const responses=await Promise.allSettled(["sitewide-missing-sources-v1.json","sitewide-audit-v1.json"].map(async p=>{const r=await fetch(base+p,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json()}));
  if(responses[0].status==="fulfilled"&&responses[0].value.schema==="power-atlas.sitewide-missing-source-catalog.v1")catalog=responses[0].value;
  if(responses[1].status==="fulfilled"&&responses[1].value.schema==="power-atlas.sitewide-static-source-audit.v1")audit=responses[1].value;
