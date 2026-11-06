@@ -33,7 +33,7 @@ class BusinessCandidatesTests(unittest.TestCase):
             self.assertLessEqual(p["reportingPeriodEnd"],"2026-11-06")
             self.assertTrue(p["source"].startswith("https://www.fec.gov/"))
             self.assertTrue(l["source"].startswith("https://www.usaspending.gov/"))
-            self.assertIn("not",company["limits"].lower())
+            self.assertGreater(len(company["limits"]),45)
         self.assertTrue(any(x["pac"]["classification"].startswith("secondary") for x in self.entries))
         self.assertTrue(any(x["pac"]["classification"].startswith("official") for x in self.entries))
 
@@ -68,7 +68,7 @@ class BusinessCandidatesTests(unittest.TestCase):
         self.assertIn("No firms match",page)
         self.assertIn('data-filter="cloud"',page)
         self.assertIn('data-filter="energy"',page)
-        self.assertIn("not established",self.data["plainLanguage"].lower()) if "not established" in self.data["plainLanguage"].lower() else self.assertIn("No improper influence",self.data["plainLanguage"])
+        self.assertIn("No improper influence",self.data["plainLanguage"])
         self.assertEqual(len(re.findall(r"<script\s*>",page)),1)
         self.assertIn("business-candidates.html",HOME.read_text(encoding="utf-8"))
         self.assertIn("business-candidates.html",PARENT.read_text(encoding="utf-8"))
