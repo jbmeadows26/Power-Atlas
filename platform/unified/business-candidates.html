@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Compare five source-verified federal contractors with PAC funding, parent legal identities and documented federal awards—not inferred corruption.">
+<meta name="description" content="Compare eight source-verified company-related political action committees and federal recipients with PAC funding, parent legal identities and documented federal awards—not inferred corruption.">
 <title>Companies & Government Business | Power Atlas</title>
 <link rel="stylesheet" href="global-navigation.css">
 <style>
@@ -24,10 +24,10 @@ nav.filter{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:30px 0 
 <main><div class="crumb"><a href="index.html">← Power Atlas</a><a href="business-influence.html">Original investigations</a><a href="donor-intelligence.html">Top donors</a><a href="investigations.html">Public integrity cases</a></div>
 <header style="padding:26px 0 15px"><span class="kicker">Company investigation directory · Evidence first</span>
 <h1>Who supports politics.<br><em>Who wins business?</em></h1>
-<p class="lead">Five more government contractors have verified political-action committees and official contracting identities. Tap any company to see exactly what's documented—and which connection has not been proven.</p></header>
-<div class="metricgrid"><div class="metric"><b>5</b><span>Additional businesses with independently identified federal PACs</span></div><div class="metric"><b>5</b><span>Verified Treasury recipient identifiers; parent and operating entities distinguished</span></div><div class="metric"><b>0</b><span>Proven company donation-to-award quid pro quo findings in this directory</span></div></div>
+<p class="lead">Eight more company investigations pair verified political-action committee identifiers with Treasury contractor or assistance records. Parent companies, subsidiaries and PAC sponsors are not assumed identical. Tap any company to see exactly what's documented—and which connection has not been proven.</p></header>
+<div class="metricgrid"><div class="metric"><b id="companyCount">8</b><span>Organizations with independently identified federal PACs</span></div><div class="metric"><b id="recipientCount">8</b><span>Official Treasury legal identifiers (some belong to separate affiliates)</span></div><div class="metric"><b id="influenceCount">0</b><span>Proven company donation-to-award quid pro quo findings in this directory</span></div></div>
 <p class="guide"><strong>How to read the figures:</strong> The dollar amount on each card comes from an employee-funded PAC's <em>contributions to other committees</em> during part of the 2025–26 cycle. Reporting dates differ. These are not amounts a corporation spent from its own treasury, and they are not comparable totals for ranking all corporate influence.</p>
-<nav class="filter" aria-label="Filter companies"><button data-filter="all" aria-pressed="true">All five</button><button data-filter="detention" aria-pressed="false">Detention services</button><button data-filter="defense" aria-pressed="false">Defense & aerospace</button></nav>
+<nav class="filter" aria-label="Filter companies"><button data-filter="all" aria-pressed="true">All eight</button><button data-filter="detention" aria-pressed="false">Detention services</button><button data-filter="defense" aria-pressed="false">Defense & aerospace</button><button data-filter="cloud" aria-pressed="false">Government cloud</button><button data-filter="energy" aria-pressed="false">Energy / assistance</button></nav>
 <div class="cards" id="companyCards" aria-live="polite"><p>Loading company evidence…</p></div>
 <section style="margin-top:35px"><h2>What would demonstrate a business benefit?</h2><div class="flow"><div><b>1 · Political money</b>Link a specific legally reported contribution to a recipient committee and official, keeping each legal source separate</div><div><b>2 · Government decision</b>Find the award, appropriation, licensing decision or rule—along with who decided and when</div><div><b>3 · Business difference</b>Compare realized revenue and profit against competitors, prior contracts, policy changes and budgets</div></div><p class="info">A documented PAC, a federal contract and rising revenue are separate facts. Political influence requires a stronger evidence trail; illegality requires separate legal proof. The directory avoids scoring wrongdoing by company name or total spending alone.</p></section>
 <div class="links"><a href="business-influence.html">Explore GEO and PacMar contract-year trends ↗</a><a href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">FEC disclosures ↗</a><a href="https://www.usaspending.gov/search" target="_blank" rel="noopener noreferrer">Treasury awards ↗</a></div>
@@ -45,19 +45,23 @@ let companies=[],filter="all";
 function section(c){
  const p=c.pac, l=c.legalRecipient;
  const loan=c.exampleAward;
+ const classification=p.classification.startsWith("secondary")?"FEC-derived third-party figure; not reconciled against original current FEC filing":"FEC official cycle summary";
  const facts=c.financials?'<div class="facts"><div class="fact"><b>+'+c.financials.year2025RevenueGrowthPctApprox+'%</b><span>2025 revenue growth, companywide</span></div><div class="fact"><b>+'+c.financials.year2025NetIncomeGrowthPctApprox+'%</b><span>2025 net income growth, companywide</span></div></div>':'';
  const political=c.political?'<div class="keyline"><strong>Calendar 2025 corporate / PAC / lobbying disclosures</strong><div class="facts"><div class="fact"><b>'+short(c.political.combinedUsd)+'</b><span>Company political giving, corporate + employee PAC</span></div><div class="fact"><b>'+short(c.political.lobbyingUsdApprox)+'</b><span>Separate reported lobbying fees and expenses</span></div></div><p class="small">Corporate treasury political giving '+short(c.political.corporateUsd)+'; employee PAC '+short(c.political.pacUsd)+'. Do not add these to the different FEC cycle-total figure above.</p><a class="small" href="'+safeUrl(c.political.source)+'" target="_blank" rel="noopener noreferrer">2025 company disclosure ↗</a></div>':'';
+ const assistance=c.exampleAssistance?'<div class="keyline"><strong>Financial assistance is NOT procurement</strong><p>'+short(c.exampleAssistance.amountUsd)+' is a federal assistance deobligation, not a company-award total or positive benefit.</p><a href="'+safeUrl(c.exampleAssistance.source)+'" target="_blank" rel="noopener noreferrer">Original Treasury recipient evidence ↗</a></div>':"";
+ const corporatePolicy=c.corporatePolicy?'<div class="keyline"><strong>Corporate policy distinction</strong><p>'+escapeHTML(c.corporatePolicy.statement)+'</p><a href="'+safeUrl(c.corporatePolicy.source)+'" target="_blank" rel="noopener noreferrer">Corporate policy source ↗</a></div>':"";
+ 
  const example=loan?'<div class="keyline"><strong>One verified award—not a groupwide contract total</strong><p><b>'+short(loan.obligatedUsd)+'</b> obligated on '+escapeHTML(loan.awardId)+' (action start '+escapeHTML(loan.awardDate)+'). Recipient UEI: '+escapeHTML(loan.recipientUei)+(loan.recipientUei===l.uei?'':' · a different legal subsidiary from the parent identifier')+'.</p><a href="'+safeUrl(loan.source)+'" target="_blank" rel="noopener noreferrer">Original Treasury award ↗</a></div>':'';
- return '<article class="card" data-sector="'+escapeHTML(c.industry.toLowerCase().includes("detention")?"detention":"defense")+'"><div class="sector">'+escapeHTML(c.industry)+'</div><h2>'+escapeHTML(c.name)+'</h2>'+
+ return '<article class="card" data-sector="'+escapeHTML(c.id==="corecivic"?"detention":(c.id==="microsoft"||c.id==="amazon-aws"?"cloud":(c.id==="exxon"?"energy":"defense")))+'"'><div class="sector">'+escapeHTML(c.industry)+'</div><h2>'+escapeHTML(c.name)+'</h2>'+
  '<div class="scale"><span class="big">'+short(p.amountUsd)+'</span><span class="small">PAC contributions to other committees</span></div>'+
  '<span class="small">FEC cycle 2026: Jan 1, 2025–'+escapeHTML(p.reportingPeriodEnd)+'. This is not all company political spending.</span>'+
  '<div class="keyline"><strong>Public-record identities</strong><p>FEC PAC <code>'+escapeHTML(p.fecCommitteeId)+'</code> · exact Treasury UEI <code>'+escapeHTML(l.uei)+'</code></p><span class="status">'+escapeHTML(l.scope.replaceAll("_"," "))+'</span></div>'+
- facts+political+example+
+ facts+political+example+assistance+corporatePolicy+
  '<details class="details"><summary>What would change the conclusion?</summary><p>'+escapeHTML(c.nextStep)+'</p><p><strong>What we cannot infer:</strong> '+escapeHTML(c.limits)+'</p></details>'+
  '<div class="links"><a href="'+safeUrl(p.source)+'" target="_blank" rel="noopener noreferrer">FEC PAC report ↗</a><a href="'+safeUrl(l.source)+'" target="_blank" rel="noopener noreferrer">Treasury recipient / award ↗</a>'+(c.financials?'<a href="'+safeUrl(c.financials.source)+'" target="_blank" rel="noopener noreferrer">SEC 10-K ↗</a>':'')+'</div></article>';
 }
 function show(){
- const rows=companies.filter(c=>filter==="all"||(filter==="detention"?c.id==="corecivic":c.id!=="corecivic"));
+ const rows=companies.filter(c=>filter==="all"||((c.id==="corecivic"?"detention":(c.id==="microsoft"||c.id==="amazon-aws"?"cloud":(c.id==="exxon"?"energy":"defense")))===filter));
  $("companyCards").innerHTML=rows.map(section).join("")||'<p class="error">No firms match that filter.</p>';
  document.querySelectorAll("nav.filter button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.filter===filter)));
 }
@@ -65,9 +69,9 @@ document.querySelectorAll("nav.filter button").forEach(b=>b.addEventListener("cl
 (async()=>{
  try{
   const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);
-  const d=await r.json();if(d.schema!=="power-atlas.business-influence.additional-candidates.v1"||d.entries?.length!==5)throw Error("Unrecognized company registry");
-  companies=d.entries;show();
-  $("status").textContent="Source registry reviewed "+d.reviewedUtc+". Five verified PAC and Treasury entity identities; no claim that any contributions caused particular contracts.";
+  const d=await r.json();if(d.schema!=="power-atlas.business-influence.additional-candidates.v1"||d.entries?.length!==8)throw Error("Unrecognized company registry");
+  companies=d.entries;show(); $("companyCount").textContent=String(companies.length);$("recipientCount").textContent=String(companies.length);
+  $("status").textContent="Source registry reviewed "+d.reviewedUtc+". Eight verified PAC and Treasury entity identifiers (some different affiliates); no claim that any contributions caused particular contracts.";
  }catch(e){
   $("companyCards").innerHTML='<p class="error">The documented candidate registry could not load. No spending amounts have been invented. <a href="'+SOURCE+'">Open the evidence JSON ↗</a>.</p>';
   $("status").textContent="Data unavailable: "+e.message;
