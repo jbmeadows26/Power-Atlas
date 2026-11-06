@@ -28,7 +28,7 @@ COMMITTEE_ID = "C00382150"
 SOURCE_DESCRIPTION = "https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/"
 TRANSACTION_CODES = "https://www.fec.gov/campaign-finance-data/transaction-type-code-descriptions/"
 COLCOUNT = 22
-MAX_ARCHIVE_BYTES = 85_000_000
+MAX_ARCHIVE_BYTES = 250_000_000
 MAX_MATCHED_PER_CYCLE = 6000
 TYPE_MEANINGS = {
     "24K": "direct_contribution_to_candidate_committee",
@@ -91,9 +91,17 @@ def parse_pac_line(line, cycle):
     sub_id = fields[21].strip()
     date_raw = fields[13].strip()
     if not re.fullmatch(r"C[0-9]{8}", recipient) or not re.fullmatch(r"[HSP][0-9A-Z]{8}", candidate):
-        raise ValueError("FEC matching record lacks valid recipient committee/candidate IDs")
-    if not tran_id or len(tran_id) > 60 or not report_no.isdigit() or not sub_id.isdigit():
-        raise ValueError("Missing transaction/file provenance")
+        # OTHER_ID and CAND_ID are documented FEC nullable columns.
+        # We cannot create an edge to an unnamed committee/candidate; preserve
+        # the count of excluded rows instead of fabricating a recipient.
+        return None
+    if not tran_id:
+        # FEC notes TRAN_ID applies only to electronic filings.
+        # A candidate association with no stable transaction key cannot be
+        # safely de-amended, so do not publish a purported unique payment.
+        return None
+    if len(tran_id) > 60 or not report_no.isdigit() or not sub_id.isdigit():
+        raise ValueError("Invalid transaction/file provenance")
     try:
         date = dt.datetime.strptime(date_raw, "%m%d%Y").date()
     except ValueError as exc:
@@ -128,14 +136,21 @@ def parse_archive(blob: bytes, cycle: int):
             raise ValueError("Unexpected FEC ZIP member layout or decompressed size")
         matched = []
         seen_all = 0
+        missing_link_ids = 0
+        matched_filer_rows = 0
         with zf.open(entries[0]) as src:
             for binary in src:
                 seen_all += 1
                 if not binary.startswith((COMMITTEE_ID + "|").encode("ascii")):
                     continue
-                if len(matched) >= MAX_MATCHED_PER_CYCLE:
+                matched_filer_rows += 1
+                if matched_filer_rows > MAX_MATCHED_PER_CYCLE:
                     raise ValueError("PAC FEC matched-row cap reached: do not truncate")
-                matched.append(parse_pac_line(binary.decode("latin-1"), cycle))
+                parsed = parse_pac_line(binary.decode("latin-1"), cycle)
+                if parsed is None:
+                    missing_link_ids += 1
+                    continue
+                matched.append(parsed)
     if not matched:
         raise ValueError("No GEO PAC row in FEC PAS2: zero cannot be confirmed without auditing PAC registration and source")
     # FEC calls TRAN_ID unique within a committee/report, not necessarily
@@ -170,7 +185,9 @@ def parse_archive(blob: bytes, cycle: int):
         "sourceArchive": archive_url(cycle),
         "archiveSha256": hashlib.sha256(blob).hexdigest(),
         "rowsScanned": seen_all,
-        "matchedCommitteeRows": len(matched),
+        "matchedCommitteeRows": matched_filer_rows,
+        "rowsWithoutVerifiableRecipientOrTransactionId": missing_link_ids,
+        "matchedSourceRowsWithValidEndpoints": len(matched),
         "amendmentVersionsSupersededHeuristic": len(matched) - len(winning),
         "memoRowsExcluded": sum(1 for x in winning.values() if x["memoExcluded"]),
         "categoryTotals": [
@@ -180,7 +197,7 @@ def parse_archive(blob: bytes, cycle: int):
         ],
         "recipientCommitteeCount": len(recipient_count),
         "records": clean,
-        "reviewStatus": "original_FEC_bulk_committee_rows_amendments_heuristically_deduped",
+        "reviewStatus": "original_FEC_bulk_committee_rows_amendments_heuristically_deduped_nullable_endpoints_excluded",
     }
 
 
