@@ -33,10 +33,10 @@ body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-marg
 #pa-global-header .pa-global-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;width:min(100%,710px);flex-shrink:0}
 #pa-global-header .pa-global-links a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 8px;border-radius:10px;color:#d5e9e8;border:1px solid #365564;background:#112b3a;font-weight:680;font-size:.83rem;line-height:1.25;white-space:normal}
 #pa-global-header .pa-global-links a:hover,#pa-global-header .pa-global-links a:focus-visible{background:#20504f;border-color:#80d8ca;color:#fff}
-#pa-global-header .pa-global-links a[aria-current="page"]{background:#246b64;border:1px solid #a1e5d2;color:#fff;font-weight:790}
+#pa-global-header .pa-global-links a[aria-current]{background:#246b64;border:1px solid #a1e5d2;color:#fff;font-weight:790}
 #pa-global-header .pa-short{display:none}
 #pa-global-header .pa-long{display:inline}
-#pa-global-header .pa-global-links a[aria-current="page"] .pa-long{color:inherit}
+#pa-global-header .pa-global-links a[aria-current] .pa-long{color:inherit}
 #pa-global-header .pa-global-brand span{color:#8fe2cd}
 /* Legacy page-header navigation must not compete with the global five-link bar.
    Money explorer keeps its contextual on-page section tabs. */
