@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Who Owns What? | Power Atlas</title><meta name="description" content="Find documented shared ownership, parent companies, investor portfolios and published cost-of-living evidence without confusing ownership with proven price effects.">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,sans-serif;color:#183b3d;background:#f4f7f3;--ink:#163b43;--teal:#226e67;--line:#d6e2db}*{box-sizing:border-box}body{margin:0;background:#f5f7f4}button,input,select{font:inherit}a{color:#176e65}button{cursor:pointer}
+.wrap{max-width:1150px;margin:auto;padding:0 18px 75px}.hero{background:linear-gradient(117deg,#0c2737,#164f51);padding:36px 0 43px;color:#f9fffd}.hero .kicker{font-size:.76rem;letter-spacing:.16em;color:#9bddcf;font-weight:850;text-transform:uppercase}.hero h1{font-size:clamp(2.5rem,6.5vw,4.7rem);letter-spacing:-.06em;max-width:800px;line-height:1.07;margin:14px 0}.hero h1 em{font-style:normal;color:#f3d28f}.hero p{font-size:1.02rem;line-height:1.6;color:#c9dfdc;max-width:820px;margin:12px 0}.crumb{font-size:.82rem;margin:0 0 20px;display:flex;gap:15px;flex-wrap:wrap}.crumb a{color:#c4e6dc;text-decoration:none}
+.stats{display:flex;gap:14px;flex-wrap:wrap;margin-top:23px}.stats div{min-width:135px;background:#103b42;border:1px solid #3a7375;border-radius:13px;padding:12px 16px}.stats b{font-size:1.5rem;display:block;font-variant-numeric:tabular-nums}.stats small{font-size:.76rem;color:#b6d5d1}
+.container{background:white;border:1px solid var(--line);border-radius:18px;margin-top:24px;padding:22px}
+.heading{display:flex;justify-content:space-between;gap:14px;align-items:start;flex-wrap:wrap}.heading h2{margin:5px 0 7px;font-size:clamp(1.4rem,3vw,1.9rem);letter-spacing:-.035em}.heading p{color:#5b7277;line-height:1.55;font-size:.89rem;margin:0;max-width:820px}.label{color:#2b7a6f;font-size:.74rem;font-weight:850;letter-spacing:.13em;text-transform:uppercase}
+.controls{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:17px 0 10px}.controls input{padding:11px 13px;border-radius:10px;border:1px solid #b4cfc5;min-width:210px;flex:1;max-width:410px}.filter{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;padding:8px 0 13px}.filter button{background:#f0f5f1;border:1px solid #c8d8d0;border-radius:10px;color:#315951;padding:10px 13px;font-size:.82rem;font-weight:760;flex-shrink:0}.filter button[aria-pressed="true"]{background:#21675f;color:white;border-color:#21675f}
+.info{font-size:.84rem;color:#627875;line-height:1.5}.info b{color:#265e55}
+.relgrid,.casegrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:15px}.rel{border:1px solid #dbe8e1;background:#fcfefc;border-radius:15px;padding:17px;min-width:0}.rel .kind,.case .kind{font-size:.7rem;color:#4c786e;letter-spacing:.09em;font-weight:810;text-transform:uppercase}.rel .path{font-size:1rem;display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin:9px 0 11px;color:#1b4846}.rel .path b{font-weight:820}.rel .path .arrow{color:#297d73;font-weight:850}.rel .note{line-height:1.53;color:#57706e;font-size:.85rem}.rel .src,.case .src{font-size:.78rem;color:#618176;margin-top:11px}.rel a,.case a{font-weight:760}.stamp{border-radius:7px;background:#eef3ef;color:#4d695d;padding:4px 7px;font-size:.72rem;margin-left:5px;display:inline-block}
+.case{border:1px solid #d7e3dd;border-radius:15px;padding:17px;background:#fcfdfb}.case h3{font-size:1.11rem;margin:7px 0 7px}.case p{font-size:.88rem;color:#5b7375;line-height:1.55;margin:8px 0}.case .figure{font-size:1.3rem;letter-spacing:-.03em;color:#165c57;font-weight:850;margin:8px 0}.case details{font-size:.82rem;margin-top:9px;border-top:1px solid #dbe7e1;padding-top:10px}.case summary{color:#286d60;font-weight:760;cursor:pointer}.case li{margin:7px 0;line-height:1.45}.case ol{padding-left:19px}.case .evidence{background:#eef6f1;border-radius:6px;padding:2px 6px;font-size:.69rem;font-weight:760;display:inline-block;margin:3px 0}
+.candidate{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;border-bottom:1px solid #e5eae5;padding:11px 0}.candidate:last-child{border-bottom:none}.candidate b{font-size:.93rem}.candidate small{display:block;color:#6c7d7e;line-height:1.5;margin-top:4px;font-size:.77rem}
+.noteBox{border-left:4px solid #be9a55;background:#fff8eb;color:#625d4a;padding:15px;margin:17px 0;border-radius:0 12px 12px 0;font-size:.86rem;line-height:1.55}
+.flow{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:13px}.flow div{padding:15px;background:#e7f2ed;border-radius:12px;border:1px solid #d3e4da}.flow b{display:block;font-size:.79rem;color:#1f6e60;margin-bottom:6px}.flow p{font-size:.81rem;line-height:1.4;color:#52736b;margin:0}
+.empty{padding:28px;color:#6d8181;text-align:center}
+footer{margin:35px 0 0;color:#657d7b;font-size:.8rem;line-height:1.6}
+@media(max-width:750px){.relgrid,.casegrid{grid-template-columns:1fr}.flow{grid-template-columns:repeat(2,minmax(0,1fr))}.container{padding:16px}.wrap{padding:0 13px 70px}.hero{padding:29px 0 36px}.stats{gap:8px}.stats div{min-width:90px;padding:10px 13px}.stats b{font-size:1.3rem}}@media(max-width:440px){.flow{grid-template-columns:1fr}.candidate{grid-template-columns:1fr}}
+</style></head><body data-pa-page="money">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why" aria-current="page"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
+<div class="hero"><div class="wrap"><nav class="crumb"><a href="my-life.html#why">← Back to everyday-life story</a><a href="business-candidates.html">PACs and government business</a><a href="reform-lab.html">Solutions</a></nav><div class="kicker">Power Atlas × Transparency research</div><h1>Who owns the companies behind <em>your everyday costs?</em></h1>
+<p>Some competing brands have shared corporate parents or investors. Follow documented ownership, business decisions and measured price research—without assuming a name on an investment chart caused your bill to rise.</p>
+<div class="stats"><div><b id="entityCount">—</b><small>Entities indexed</small></div><div><b id="edgeCount">—</b><small>Sourced relationships</small></div><div><b id="caseCount">—</b><small>Cost research cases</small></div></div></div></div>
+<main class="wrap">
+<section class="container" aria-label="Select life topic"><div class="heading"><div><span class="label">Start with an expense</span><h2>Which part of life are you investigating?</h2><p>Choose a category to filter the ownership links and research. These are industry links—not a list of businesses operating in your ZIP.</p></div></div>
+<div class="filter" id="topicFilter" role="group" aria-label="Cost-of-living categories"></div>
+<div class="controls"><input id="entitySearch" type="search" placeholder="Search owners, brands, companies…" aria-label="Search owners, brands, companies"><button id="clearSearch" type="button" class="filterButton">Clear search</button></div>
+<p class="info" id="selectionInfo" aria-live="polite">Loading ownership sources…</p>
+<div class="noteBox"><b>Three different claims:</b> “Company A owns Brand B” may be documented. “The company has pricing influence” is a business mechanism to investigate. “The company raised your local bill” needs price, location and causal evidence. Power Atlas does not equate the three.</div></section>
+<section class="container"><div class="heading"><div><span class="label">Source-backed company and investor relationships</span><h2>Follow the actual ownership chain</h2><p>Each arrow has a defined relationship and an original source. Ownership percentages and reporting dates appear only where recorded.</p></div></div><div class="relgrid" id="relationshipCards" aria-live="polite"></div><p class="info">A portfolio entry does not necessarily show majority ownership; a business unit isn't always a distinct legal subsidiary; an older brand listing isn't proof of its status today.</p></section>
+<section class="container"><div class="heading"><div><span class="label">What the Transparency investigation found</span><h2>Can we connect ownership to higher costs?</h2><p>Seven separate case studies from Transparency/OpenLedger, brought into Power Atlas with their source-specific status and important limitations.</p></div></div><div class="casegrid" id="caseCards" aria-live="polite"></div></section>
+<section class="container"><div class="heading"><div><span class="label">Existing Power Atlas company intelligence</span><h2>Businesses already in the political-money investigation</h2><p>Existing PAC and recipient identifiers are indexed here—but a PAC sponsor, registered subsidiary and parent corporation cannot automatically be treated as one entity.</p></div></div><div id="businessCandidates"></div><p class="info">Explore the <a href="business-candidates.html">eight-company investigation directory</a> and <a href="business-influence.html">original government-business case studies</a>.</p></section>
+<section class="container"><div class="heading"><div><span class="label">From corporate ownership to a household cost</span><h2>What evidence would prove the local impact?</h2></div></div>
+<div class="flow"><div><b>1 · Verify the owner</b><p>Corporate filing, ownership percentage, date and exact legal entity.</p></div><div><b>2 · Find local operations</b><p>Licensed facilities, shops, service territories and market competitors—not just ZIP names.</p></div><div><b>3 · Measure the price</b><p>Comparable tuition, rent, premium or invoice data before and after decisions.</p></div><div><b>4 · Test the explanation</b><p>Adjust for wages, input costs, demand, regulation and alternatives before attributing a price effect.</p></div></div>
+<div class="noteBox">Corporate influence may increase prices in some situations, lower costs in others, or have no measurable effect. The current project does <strong>not</strong> claim a universal billionaire surcharge, a nationwide dollar premium, or misconduct from common ownership alone.</div></section>
+<footer>Research snapshot: November 6, 2026. Private project business logic was not published here. Only source-attributed public relationships and reviewed investigation summaries are shown. No user location is required, recorded or inferred. <a href="my-life.html#how">Explore neutral resources and civic action →</a></footer></main>
+<script>
+"use strict";
+const root="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/corporate-ownership/";
+const $=x=>document.getElementById(x);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeURL=s=>typeof s==="string"&&/^https:\/\/[^\s<>"']+$/.test(s)?s:null;
+const link=(url,body)=>safeURL(url)?'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(body)+'</a>':"";
+const issueLabels={all:"All industries",housing:"Housing",groceries:"Groceries",energy:"Utilities",health:"Healthcare",work:"Jobs & pay",schools:"Schools & childcare",transport:"Transportation","public-services":"Public services",representation:"Representation"};
+const relLabels={ACQUIRED_AND_PORTFOLIO_BACKED:"Acquisition / investor portfolio",BENEFICIAL_SHARES:"Beneficial shareholding",MARKETS_PROGRAM_UNDER_BRAND:"Brand marketed by operator",CONTROLLING_SHAREHOLDER_REPORTED:"Reported controlling shareholder",EQUITY_INVESTOR:"Dated investment",REPORTED_OPERATING_BRAND:"Brand on dated operator roster",OPERATES_BUSINESS:"Operated business",ACQUIRED_BUSINESS_CONTAINING_BRAND:"Dated brand transaction",LISTED_PORTFOLIO_COMPANY:"Investor portfolio listing",FOUNDED_AND_LEADS:"Founder and firm leadership"};
+let graph=null,casebook=null,issue="schools",query="";
+const matched=arr=>issue==="all"||(arr||[]).includes(issue);
+function rank(e){const order=["BENEFICIAL_SHARES","ACQUIRED_AND_PORTFOLIO_BACKED","CONTROLLING_SHAREHOLDER_REPORTED","OPERATES_BUSINESS","MARKETS_PROGRAM_UNDER_BRAND","REPORTED_OPERATING_BRAND","ACQUIRED_BUSINESS_CONTAINING_BRAND","EQUITY_INVESTOR","FOUNDED_AND_LEADS","LISTED_PORTFOLIO_COMPANY"];const i=order.indexOf(e.relation);return i<0?30:i}
+function selection(){let buttons=Object.entries(issueLabels).map(([id,label])=>'<button type="button" data-issue="'+esc(id)+'" aria-pressed="'+(id===issue)+'">'+esc(label)+'</button>').join("");$("topicFilter").innerHTML=buttons}
+function renderRelations(){
+ const all=graph?.relations||[],lookup=Object.fromEntries((graph?.entities||[]).map(x=>[x.id,x]));
+ const q=query.toLowerCase().trim();
+ const matches=all.filter(e=>{
+  const a=lookup[e.from],b=lookup[e.to];
+  return a&&b&&(issue==="all"||matched(a.issues)||matched(b.issues))&&(!q||[a.name,b.name,e.note,e.relation].join(" ").toLowerCase().includes(q));
+ }).sort((a,b)=>rank(a)-rank(b)||a.from.localeCompare(b.from));
+ $("relationshipCards").innerHTML=matches.length?matches.map(e=>{
+  const from=lookup[e.from],to=lookup[e.to];
+  const note=e.relation==="BENEFICIAL_SHARES"&&typeof e.stakePct==="number"?
+    " · "+e.stakePct.toFixed(1)+"% beneficial shares":"";
+  return '<article class="rel"><div class="kind">'+esc(relLabels[e.relation]||e.relation)+esc(note)+'</div><div class="path"><b>'+esc(from.name)+'</b><span class="arrow" aria-hidden="true">→</span><b>'+esc(to.name)+'</b></div><div class="note">'+esc(e.note)+'</div><div class="src">'+esc(e.asOf||"Date unverified")+' · '+link(e.source,"Read original evidence ↗")+'</div></article>';
+ }).join(""):'<div class="empty">No verified ownership relationship matches these filters. This does not prove there are no corporate owners.</div>';
+ const candidates=(graph?.entities||[]).filter(x=>x.kind==="political_finance_business_candidate"&&matched(x.issues)&&(!q||x.name.toLowerCase().includes(q)));
+ $("businessCandidates").innerHTML=candidates.length?candidates.map(x=>
+  '<article class="candidate"><div><b>'+esc(x.name)+'</b><small>FEC committee ID: '+esc(x.pacCommitteeId||"Not reported")+' · Recipient UEI: '+esc(x.recipientUEI||"Not reported")+'</small><small>Separate records; parent/subsidiary match unverified.</small></div><div>'+link(x.pacPage,"FEC ↗")+'</div></article>').join(""):'<p class="info">No PAC company identities match this issue/search combination. Select All industries to browse every identity.</p>';
+ $("selectionInfo").textContent=matches.length+" dated sourced relationships found for "+issueLabels[issue]+". Original dataset contains "+all.length+" relationships. No local facility or price claim is inferred.";
+}
+function renderCases(){
+ const filtered=(casebook?.cases||[]).filter(c=>(issue==="all"||matched(c.powerAtlasIssues))&&(!query||[c.companyOrMarket,c.question,c.summary].join(" ").toLowerCase().includes(query.toLowerCase())));
+ $("caseCards").innerHTML=filtered.length?filtered.map(c=>{
+  const flow=c.evidenceSteps.map(s=>'<li><b>'+esc(s.actor)+'</b> — '+esc(s.detail)+' <span class="evidence">'+esc(s.evidenceStatus)+'</span></li>').join("");
+  const sources=c.originalSources.filter(s=>safeURL(s.url)).map(s=>'<li>'+link(s.url,s.label)+' <span class="stamp">'+esc(s.kind)+'</span></li>').join("");
+  return '<article class="case"><span class="kind">'+esc(c.sourceCategory)+' · Evidence-led research</span><h3>'+esc(c.question)+'</h3><p>'+esc(c.summary)+'</p><div class="figure">'+esc(c.leadMetric.valueText)+' <small style="font-size:.75rem;font-weight:640;letter-spacing:0">'+esc(c.leadMetric.label)+'</small></div><p><b>What is not established:</b> '+esc(c.interpretationLimits)+'</p><details><summary>See the four-step connection and '+c.originalSources.length+' sources</summary><ol>'+flow+'</ol><ul>'+sources+'</ul></details></article>';
+ }).join(""):'<p class="empty">No research case currently fits the chosen industry and search. This is a coverage gap, not evidence that costs are unaffected.</p>';
+}
+function render(){selection();renderRelations();renderCases();}
+$("topicFilter").addEventListener("click",e=>{const b=e.target.closest("button[data-issue]");if(!b)return;issue=b.dataset.issue;render();});
+$("entitySearch").addEventListener("input",e=>{query=e.target.value;renderRelations();renderCases()});
+$("clearSearch").addEventListener("click",()=>{$("entitySearch").value="";query="";renderRelations();renderCases()});
+(async()=>{
+ const p=new URLSearchParams(location.search).get("issue");
+ if(Object.prototype.hasOwnProperty.call(issueLabels,p))issue=p;
+ const [a,b]=await Promise.allSettled([fetch(root+"verified-relationships-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch(root+"transparency-price-power-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]);
+ if(a.status==="fulfilled"&&a.value.schema==="power-atlas.corporate-ownership.evidence-graph.v1")graph=a.value;
+ if(b.status==="fulfilled"&&b.value.schema==="power-atlas.corporate-ownership.transparency-price-power.v1")casebook=b.value;
+ $("entityCount").textContent=graph?.entities?.length||"—";
+ $("edgeCount").textContent=graph?.relations?.length||"—";
+ $("caseCount").textContent=casebook?.cases?.length||"—";
+ render();
+})();
+</script><script src="bug-report.js" defer></script></body></html>
