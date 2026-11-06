@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Data Coverage & Missing Sources | Power Atlas</title>
+<meta name="description" content="Transparent whole-site data audit: missing evidence for every life issue, ownership and politics, with original public source links.">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,sans-serif;background:#f5f7f5;color:#213e41;--navy:#173744;--teal:#236c62;--line:#dbe4dc}*{box-sizing:border-box}body{margin:0;background:#f5f7f5}a{color:#17645e}button,input,select{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #c29138;outline-offset:3px}
+.wrapper{max-width:1120px;padding:0 18px 78px;margin:auto}.hero{background:linear-gradient(110deg,#133440,#1a5c59);color:#f2fffd;padding:40px 0 44px}.ey{color:#a6dfd3;letter-spacing:.15em;font-size:.73rem;font-weight:850;text-transform:uppercase}.hero h1{font-size:clamp(2.5rem,6vw,4.5rem);letter-spacing:-.055em;line-height:1.1;margin:13px 0}.hero p{color:#d0e6e2;font-size:1rem;line-height:1.58;max-width:800px}.links{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem}.links a{color:#bce4db;text-decoration:none}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:25px 0}.stats .tile{background:#fff;border:1px solid var(--line);border-radius:13px;padding:15px}.stats b{display:block;font-size:clamp(1.45rem,3vw,2.2rem);letter-spacing:-.045em;color:#194f4c}.stats span{display:block;font-size:.77rem;color:#5d7475;line-height:1.3;margin-top:5px}
+.panel{border:1px solid var(--line);border-radius:17px;background:#fff;margin-top:17px;padding:22px}.panel h2{font-size:clamp(1.35rem,3vw,2rem);letter-spacing:-.03em;margin:4px 0 9px}.panel p{line-height:1.55;color:#5d7476;font-size:.89rem;margin:8px 0}.overline{text-transform:uppercase;letter-spacing:.12em;color:#287a6f;font-size:.74rem;font-weight:850}
+.filterBar{display:flex;flex-wrap:wrap;gap:11px;margin:18px 0}.filterBar select,.filterBar input{padding:10px 13px;border:1px solid #b9d1c5;background:#fff;border-radius:10px;min-height:43px}.filterBar select{min-width:220px}.filterBar input{flex:1;min-width:210px}
+.gaplist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:17px}
+.gapcard{border:1px solid #d7e5da;border-radius:14px;background:#fafcf9;padding:17px;min-width:0}
+.gapcard .type{font-size:.73rem;color:#277266;text-transform:uppercase;letter-spacing:.08em;font-weight:830}
+.gapcard h3{font-size:1.03rem;line-height:1.34;margin:9px 0;color:#21464a}
+.gapcard p{font-size:.83rem;line-height:1.5;color:#5a7471;margin:9px 0}
+.gapcard .needed{background:#ecf3ef;border-left:3px solid #6ba18c;padding:10px;border-radius:0 8px 8px 0;color:#395d56}
+.gapcard details{border-top:1px solid #dce8e0;margin-top:12px;padding-top:11px}
+.gapcard summary{cursor:pointer;color:#21665f;font-size:.83rem;font-weight:830}
+.gapcard ul{padding-left:17px;font-size:.83rem;margin:12px 0 3px}
+.gapcard li{margin:9px 0}
+.sourceType{color:#617a76;font-size:.73rem;line-height:1.4;margin:4px 0}
+.gapcard .count{font-weight:740;font-size:.77rem;color:#647973}
+.compact{padding:12px 14px;background:#f2f7f2;border-radius:11px;margin:10px 0;color:#54736c;font-size:.82rem;line-height:1.55}
+.incomplete{border-left:4px solid #c09b52;background:#fff9ee;color:#6b5c43;padding:15px 18px;border-radius:0 12px 12px 0;font-size:.85rem;line-height:1.55}
+.footer{color:#667c79;font-size:.79rem;line-height:1.55;margin-top:24px}
+@media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.gaplist{grid-template-columns:1fr}.panel{padding:16px}.wrapper{padding:0 13px 62px}}@media(max-width:380px){.filterBar select{width:100%}}
+</style></head><body data-pa-page="overview">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research" aria-current="page"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
+<header class="hero"><div class="wrapper"><div class="links"><a href="index.html">← Research home</a><a href="my-life.html">Daily life dashboard</a><a href="corporate-ownership.html">Corporate ownership</a></div><div class="ey" style="margin-top:24px">Evidence integrity · All nine life categories + research</div>
+<h1>What do we know?<br>What is still missing?</h1>
+<p>This is the inspection record for Power Atlas—not a claim that every research project has been completed. Every open gap includes an original public source and the specific evidence needed to connect it to a person, business, government decision or household expense.</p></div></header>
+<main class="wrapper">
+<div class="stats" aria-label="Source audit totals"><div class="tile"><b id="pageCount">—</b><span>Pages inspected</span></div><div class="tile"><b id="datasetCount">—</b><span>Structured JSON datasets checked</span></div><div class="tile"><b id="gapCount">—</b><span>Identified unresolved data joins</span></div><div class="tile"><b id="sourceCount">—</b><span>Original public source candidates</span></div></div>
+<div class="incomplete"><strong>Read the evidence level.</strong> A named data portal does not mean its records have been downloaded, legally licensed, reconciled or shown to cause local price changes. Where records are unavailable, we show a gap—not a fabricated statistic or a verdict about an individual or organization.</div>
+<section class="panel" aria-label="Filter missing sources"><span class="overline">The source-to-impact checklist</span><h2>Find exactly what's still unconnected</h2><p>Choose your concern. Each investigation needs four kinds of evidence: what the price is, who controls the relevant businesses, what decisions occurred, and whether those decisions actually changed outcomes.</p>
+<div class="filterBar"><label for="topic" class="overline" style="align-self:center">Category</label><select id="topic" aria-label="Filter source gaps by issue"><option value="all">All sources and categories</option><option value="housing">Housing</option><option value="groceries">Groceries</option><option value="energy">Utilities</option><option value="health">Healthcare</option><option value="work">Jobs & pay</option><option value="schools">Schools & childcare</option><option value="transport">Transportation</option><option value="public-services">Taxes & services</option><option value="representation">Political representation</option><option value="platform-wide">Cross-platform research</option></select>
+<input id="search" type="search" placeholder="Search ownership, childcare prices, contracts…" aria-label="Search missing evidence and sources"></div>
+<p id="filterStatus" class="compact" aria-live="polite">Loading the evidence-gap catalogue…</p>
+<div class="gaplist" id="gapList" aria-live="polite"></div>
+</section>
+<section class="panel"><span class="overline">What has already been checked</span><h2>Audit results and limitations</h2><div id="auditFacts"><p>Loading site-wide audit report…</p></div>
+<p>The repository scan checks static page routes, referenced local files, data formats and research source mappings. It does not independently test all live API responses, the accessibility of third-party data portals, local geographic joins or every empirical claim in 239+ JSON datasets.</p>
+<p><a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/health/sitewide-missing-sources-v1.json" target="_blank" rel="noopener noreferrer">Full machine-readable missing-source catalogue ↗</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/health/sitewide-audit-v1.json" target="_blank" rel="noopener noreferrer">Latest dated audit report ↗</a></p></section>
+<footer class="footer">Power Atlas provides inspectable civic and economic research without party endorsements. The cost of living can be influenced by market power, inputs, public decisions and individual circumstances; ownership relationships do not independently identify wrongdoing or a household surcharge. <a href="my-life.html#how">Explore practical resources and civic options →</a></footer>
+</main>
+<script>
+"use strict";
+const base="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/";
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const validUrl=s=>typeof s==="string"&&/^https:\/\/[^\s<>"']+$/.test(s)?s:null;
+const link=(u,label)=>validUrl(u)?'<a href="'+esc(u)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+'</a>':"";
+const kinds={price:"1 · Actual prices",ownership:"2 · Who owns it",decisions:"3 · Government and market decisions",outcomes:"4 · Measured effects",corporate_owner:"Corporate identity",competition:"Competition",political_money:"Political money",elections:"Elections",legislation:"Legislation",judiciary:"Courts and judicial selection",federal_contract:"Contracts",price_causation:"Economic impact",impact_study:"Causal research",finance_integrity:"Financial conflicts",provenance:"Source licensing",operations:"Data operations",frontend:"Site reliability"};
+let catalog=null,audit=null;
+function draw(){
+ if(!catalog){$("gapList").innerHTML='<p class="compact">The published source catalogue is not available. Use the original GitHub link below.</p>';return;}
+ const topic=$("topic").value,q=$("search").value.trim().toLowerCase();
+ const sources=Object.fromEntries(catalog.sources.map(x=>[x.id,x]));
+ const rows=catalog.gaps.filter(g=>(topic==="all"||g.issue===topic)&&(!q||[g.question,g.kind,g.issue,g.requiredJoin,g.limitation,...g.sourceIds.map(id=>sources[id]?.name||"")].join(" ").toLowerCase().includes(q)));
+ $("filterStatus").textContent=rows.length+" identified evidence gaps match these filters. Each source is an original research entry point—not an assertion that all records have been ingested.";
+ $("gapList").innerHTML=rows.length?rows.map(g=>{
+  const src=g.sourceIds.map(id=>{
+   const s=sources[id];if(!s)return"";
+   return '<li>'+link(s.url,s.name+" ↗")+'<div class="sourceType">'+esc(s.agency)+" · "+esc(s.grain)+" · "+esc(s.access)+'</div><div class="sourceType">'+esc(s.limitations)+'</div></li>';
+  }).join("");
+  return '<article class="gapcard"><div class="type">'+esc(g.issue.replaceAll("-"," "))+" · "+esc(kinds[g.kind]||g.kind)+'</div><h3>'+esc(g.question)+'</h3><p class="needed"><b>What must be joined:</b> '+esc(g.requiredJoin)+'</p><p>'+esc(g.limitation)+'</p><div class="count">'+g.sourceIds.length+' possible original sources · not yet reconciled</div><details><summary>Open source links and caveats</summary><ul>'+src+'</ul></details></article>';
+ }).join(""):'<div class="empty">No catalogue entries match. Clear the search or choose All categories.</div>';
+}
+function drawAudit(){
+ if(!audit)return;
+ const n=audit.summary;
+ $("pageCount").textContent=n.htmlPagesAudited??"—";
+ $("datasetCount").textContent=n.jsonDataFilesChecked??"—";
+ $("gapCount").textContent=n.unresolvedOriginalSourceGaps??"—";
+ $("sourceCount").textContent=n.originalSourceCandidates??"—";
+ const format=v=>typeof v==="number"?v.toLocaleString("en-US"):"Not measured";
+ $("auditFacts").innerHTML='<div class="compact"><strong>Repository scan:</strong> '+format(n.staticReferencesInspected)+' page references · '+format(n.validJsonFiles)+' valid JSON files · '+format(n.unresolvedStaticLinkIssues)+' broken static links · '+format(n.unresolvedLiteralDataPointers)+' unresolved literal data-file references · '+format(n.missingBugReportScripts)+' pages missing a bug report script.</div>'+
+ '<div class="compact"><strong>Research source status:</strong> '+format(n.deepResearchTracksMapped)+' indexed deep-research tracks · '+format(n.recentResearchCollections)+' recent evidence collections · '+format(n.corporateEntitiesIndexed)+' corporate/finance entities · '+format(n.corporateRelationsSourceAttributed)+' attributed relationships · '+format(n.blockingExistingResearchGates)+' outstanding historic research gates.</div>'+
+ '<p class="sourceType">Report generated '+esc(audit.generatedUTC)+'. Corporate relationships are not local causal proof. Some records are archival, partial or secondary. A zero broken-link count does not confirm external sites or all live browser interactions.</p>';
+}
+$("topic").addEventListener("change",draw);
+$("search").addEventListener("input",draw);
+(async()=>{
+ const responses=await Promise.allSettled(["sitewide-missing-sources-v1.json","sitewide-audit-v1.json"].map(async p=>{const r=await fetch(base+p,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);return r.json()}));
+ if(responses[0].status==="fulfilled"&&responses[0].value.schema==="power-atlas.sitewide-missing-source-catalog.v1")catalog=responses[0].value;
+ if(responses[1].status==="fulfilled"&&responses[1].value.schema==="power-atlas.sitewide-static-source-audit.v1")audit=responses[1].value;
+ if(catalog){$("gapCount").textContent=catalog.gaps.length;$("sourceCount").textContent=catalog.sources.length;}
+ if(audit)drawAudit();
+ else $("auditFacts").innerHTML='<p class="compact">The latest scanned audit is temporarily unavailable; source catalogue is separate from runtime verification.</p>';
+ draw();
+})();
+</script><script src="bug-report.js" defer></script></body></html>
