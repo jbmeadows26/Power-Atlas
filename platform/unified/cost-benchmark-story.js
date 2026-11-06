@@ -104,7 +104,7 @@ function showHousingRent(hud,zip,selectedArea){
  var areaFmr=Array.isArray(area.fmr)&&validRentArray(area.fmr)?area.fmr:null;
  var compare=areaFmr&&!held?
  '<details class="bs-rent-compare"><summary>How is this different from the larger HUD area?</summary><p>This ZIP’s 2-bedroom HUD benchmark is <strong>'+esc(dollars.format(amounts[2]))+'</strong>; the larger area’s 2-bedroom FMR is <strong>'+esc(dollars.format(areaFmr[2]))+'</strong>. These are distinct published reference geographies, not competing listings or proof of an actual rent premium.</p></details>':"";
- panel.innerHTML='<div class="bs-rent-header"><div><span class="bs-eyebrow">Housing · FY '+(held?"2026 retained":"2027")+' HUD rent reference</span><h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4></div><span class="bs-rent-loc">'+esc(geo.stateCode||"United States")+'</span></div>'+
+ panel.innerHTML='<div class="bs-rent-header"><div><span class="bs-eyebrow">Housing · FY '+(held?"2026 retained":"2027")+' HUD rent reference</span><h4>Rent reference by bedroom count · ZIP '+esc(zip)+'</h4></div><span class="bs-rent-loc">'+esc(geo.stateCode||"United States")+'</span></div>'+
  choices+'<div class="bs-rent-grid">'+tiles+'</div>'+
  '<p class="bs-rent-explain"><strong>What these numbers mean:</strong> HUD Small Area Fair Market Rents estimate <strong>monthly gross rent, including tenant-paid utilities</strong> for the housing voucher program. They are <strong>not today’s advertised apartment prices</strong> or the average paid by renters in this ZIP.</p>'+
  (held?'<p class="bs-rent-status"><strong>Reevaluation note:</strong> This ZIP has an FY 2026 amount marked as remaining in effect while HUD reevaluates FY 2027 values. Confirm the current applicable figures with HUD before relying on them.</p>':'<p class="bs-rent-note">FY 2027 effective October 1, 2026. Some areas may have reevaluation exceptions.</p>')+
@@ -128,7 +128,7 @@ function renderHousingRents(){
   showHousingRent(rentStateCache[st],zip);
   return;
  }
- panel.innerHTML='<h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4><p class="bs-rent-note" role="status">Loading FY 2027 HUD bedroom-level reference rents for '+esc(st)+'…</p>';
+ panel.innerHTML='<h4>Rent reference by bedroom count · ZIP '+esc(zip)+'</h4><p class="bs-rent-note" role="status">Loading FY 2027 HUD bedroom-level reference rents for '+esc(st)+'…</p>';
  if(!rentLoader[st]){
   rentLoader[st]=(async function(){
    var urls=[RENT_FILES+st+".json",RENT_PROVIDER+st+".json"],last="";
@@ -149,7 +149,7 @@ function renderHousingRents(){
  }).catch(function(){
   if(topic==="housing"&&geo.zip===zip&&geo.stateCode===st){
    var current=document.getElementById("housingBedroomPanel");
-   if(current)current.innerHTML='<h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4>'+htmlRentUnavailable("The official-source rent table could not be loaded.");
+   if(current)current.innerHTML='<h4>Rent reference by bedroom count · ZIP '+esc(zip)+'</h4>'+htmlRentUnavailable("The official-source rent table could not be loaded.");
   }
   delete rentLoader[st];
  });
@@ -160,7 +160,8 @@ function render(){
  if(!data){output.innerHTML='<p class="bs-status">Loading the original household-spending benchmarks…</p>';return;}
  var cfg=data.topics[topic];if(!cfg){output.innerHTML='<p role="alert">No verified cost benchmark is available for this category.</p>';return;}
  var head=cfg.headline,heading=root.querySelector("#bsName"),intro=root.querySelector("#bsIntro");
- heading.textContent=cfg.title;intro.textContent=cfg.intro;
+ heading.textContent=cfg.title;
+ intro.textContent=topic==="housing"?"Monthly gross-rent reference prices by studio, 1-, 2-, 3- and 4-bedroom homes for your ZIP, followed by the forces that influence them. HUD benchmarks are not live apartment listing prices.":cfg.intro;
  var headline="";
  if(head){
   var monthly=Math.round(head.annual/12),delta=(head.annual-head.prior)/head.prior*100;
@@ -183,7 +184,7 @@ function render(){
  if(geo.zip){
   var indicator=geo.local;
   if(indicator&&indicator.value!=null){
-   local='<div class="bs-local-number"><small>'+esc(indicator.title)+' · area '+esc(geo.zip)+'</small><strong>'+esc(indicator.value)+'</strong>'+(indicator.usValue!=null?'<div class="bs-local-compare"><span>U.S. comparison · same ACS table and period</span><strong>'+esc(indicator.usValue)+'</strong></div>':'')+'<p>'+esc(indicator.limits)+'</p>'+source(indicator.source,"Census definition ↗")+'</div>';
+   local='<div class="bs-local-number"><div class="bs-local-pair"><div class="bs-local-primary"><small>'+esc(indicator.title)+' · ZIP area '+esc(geo.zip)+'</small><strong>'+esc(indicator.value)+'</strong></div>'+(indicator.usValue!=null?'<div class="bs-local-compare"><span>U.S. median · same 2020–2024 Census survey</span><strong>'+esc(indicator.usValue)+'</strong></div>':'')+'</div><p>'+esc(indicator.limits)+'</p>'+source(indicator.source,"Census definition ↗")+'</div>';
   }else{
    local='<p class="bs-unknown">A matching Census area indicator is '+(indicator&&indicator.status==="unavailable"?"not available":"being checked")+' for this ZIP. No local price has been inferred.</p>';
   }
@@ -196,8 +197,8 @@ function render(){
  '<section class="bs-inner" aria-label="Cost components"><h4>'+(topic==="housing"?"Other housing spending, beyond rent":"1 · What is in the bill?")+'</h4>'+bars+'</section>';
  if(topic==="housing")spendBlock='<details class="bs-rent-other"><summary>Also see the broader housing-spending average (not the rent for an apartment)</summary>'+spendBlock+'</details>';
  output.innerHTML=(topic==="housing"?'<section class="bs-inner bs-housing" id="housingBedroomPanel" aria-label="HUD rent benchmarks for studios through four bedrooms" aria-live="polite"><p>Loading bedroom rents…</p></section>':'')+spendBlock+
- '<section class="bs-inner bs-local" aria-label="Community benchmark context"><h4>2 · What do we know about '+(geo.zip?'ZIP '+esc(geo.zip):'your area')+'?</h4>'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></section>'+
- '<section class="bs-inner" aria-label="Economic drivers and choices"><h4>3 · What actually moves this cost?</h4><p class="bs-explainer">These are documented economic mechanisms and decision-makers, not a causal ranking for your ZIP. We do not know what share of your bill each one explains without matched price and policy evidence.</p><div class="bs-driver-grid">'+influence+'</div></section>'+
+ (topic==="housing"?'<details class="bs-housing-context"><summary>See another rental reference: Census median for all bedroom sizes</summary><div class="bs-inner bs-local" aria-label="Census median rent context">'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></div></details>':'<section class="bs-inner bs-local" aria-label="Community benchmark context"><h4>2 · What do we know about '+(geo.zip?'ZIP '+esc(geo.zip):'your area')+'?</h4>'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></section>')+
+ '<section class="bs-inner" aria-label="Economic drivers and choices"><h4>'+(topic==="housing"?"2 · Why are rents this high?":"3 · What actually moves this cost?")+'</h4><p class="bs-explainer">These are documented economic mechanisms and decision-makers, not a causal ranking for your ZIP. We do not know what share of your bill each one explains without matched price and policy evidence.</p><div class="bs-driver-grid">'+influence+'</div></section>'+
  renderEconomicForces()+
  '<div class="bs-bottom"><p><strong>Evidence boundary:</strong> '+esc(cfg.disclaimer)+' BLS averages are for U.S. consumer units of different sizes, not a fixed basket or a quote. October–November 2025 missing survey data were addressed using BLS weighting.</p><div class="bs-links">'+source(data.primarySource,"Read the 2025 BLS survey ↗")+'<a href="#corporatePaths">Trace documented ownership ↓</a><a href="#missingCostSources">See missing local price evidence ↓</a></div></div>';
  if(topic==="housing")renderHousingRents();
