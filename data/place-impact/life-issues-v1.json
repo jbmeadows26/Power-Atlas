@@ -1,0 +1,423 @@
+{
+  "schema": "power-atlas.place-impact-stories.v1",
+  "reviewedUtc": "2026-11-06",
+  "scope": "United States introductory issue narratives and nonpartisan resources. Local ZIP is user-entered and place name is a third-party postal lookup; no automatically attributed local statistical result.",
+  "geography": {
+    "lookup": "https://api.zippopotam.us/us/",
+    "provider": "Zippopotam.us / GeoNames",
+    "terms": "https://docs.zippopotam.us/docs/getting-started/",
+    "purpose": "Only approximate locality label. ZIP can cross municipalities and congressional districts.",
+    "privacy": "Only on user submit, the entered ZIP is sent directly from their browser to the postal lookup provider, never stored by Power Atlas; the provider has its own data practices."
+  },
+  "issues": [
+    {
+      "id": "housing",
+      "title": "Housing",
+      "symbol": "🏠",
+      "question": "Why does it cost so much to live here?",
+      "description": "Rent and housing prices reflect local supply, income, financing, demand, property costs and public decisions.",
+      "levers": [
+        {
+          "actor": "Local land-use authorities",
+          "why": "Zoning, permits and infrastructure affect where and how housing can be built.",
+          "evidence": "Relevant decision-making power, not evidence of a particular local price effect."
+        },
+        {
+          "actor": "Landlords, banks and major property owners",
+          "why": "Financing, market competition, construction and operating expenses shape supply and asking prices.",
+          "evidence": "Potential mechanism; no specific owner blamed without a source-backed local record."
+        },
+        {
+          "actor": "Federal and state housing agencies",
+          "why": "Housing assistance, mortgage rules and budgets influence access for eligible residents.",
+          "evidence": "Program jurisdiction; benefits and availability must be checked."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Independent housing counseling",
+          "url": "https://www.consumerfinance.gov/find-a-housing-counselor/",
+          "type": "practical",
+          "note": "Find a HUD-approved counselor for renting, borrowing or foreclosure."
+        },
+        {
+          "name": "Local planning and public hearings",
+          "url": "https://www.usa.gov/state-local-governments",
+          "type": "civic",
+          "note": "Find official zoning proposals, meeting agendas and ways to submit public comment."
+        }
+      ],
+      "policies": [
+        "Housing supply and planning reforms: possible long-term supply benefits; infrastructure and construction constraints apply.",
+        "Rent protections or direct assistance: may help eligible residents; effects on supply, availability and cost vary."
+      ]
+    },
+    {
+      "id": "groceries",
+      "title": "Groceries",
+      "symbol": "🛒",
+      "question": "Why is the supermarket bill so high?",
+      "description": "Food costs involve agriculture, logistics, fuel, labor, competition and household circumstances.",
+      "levers": [
+        {
+          "actor": "Food producers, distributors and retailers",
+          "why": "Supply networks and competition can affect retail prices and shopping options.",
+          "evidence": "Potential mechanism; this app does not have verified ZIP-level price data."
+        },
+        {
+          "actor": "Trade and agriculture policymakers",
+          "why": "Tariffs, agricultural supports, labor rules and trade affect different parts of food supply.",
+          "evidence": "Policies have mixed effects and should not be assigned a local price without evidence."
+        },
+        {
+          "actor": "State and federal assistance agencies",
+          "why": "Nutrition support may offset costs for eligible households.",
+          "evidence": "Programs operate under eligibility and funding rules."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Check food assistance eligibility",
+          "url": "https://www.usa.gov/food-assistance",
+          "type": "practical",
+          "note": "Find official SNAP and other food-support programs."
+        },
+        {
+          "name": "Report suspected consumer deception",
+          "url": "https://reportfraud.ftc.gov/",
+          "type": "practical",
+          "note": "Submit a report; enforcement and refunds are not guaranteed."
+        }
+      ],
+      "policies": [
+        "Competition oversight: focuses on documented market practices, not an assumption that large companies caused local inflation.",
+        "Nutrition assistance: may relieve qualifying household costs; does not directly measure price changes."
+      ]
+    },
+    {
+      "id": "energy",
+      "title": "Utilities",
+      "symbol": "⚡",
+      "question": "Why do electricity and heating bills change?",
+      "description": "Prices and reliability reflect fuel costs, infrastructure, regulation, usage and weather.",
+      "levers": [
+        {
+          "actor": "Utilities and power generators",
+          "why": "Infrastructure, fuel purchases, generation mix and investment affect costs and reliability.",
+          "evidence": "Possible mechanisms, not household-specific billing findings."
+        },
+        {
+          "actor": "State utility regulators and public utility boards",
+          "why": "May oversee rates, service and investment for regulated utilities.",
+          "evidence": "Actual authority varies by state and utility type."
+        },
+        {
+          "actor": "Federal and state energy programs",
+          "why": "Efficiency, aid, grid and climate programs can influence options and costs.",
+          "evidence": "Eligibility and effect size vary."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Energy-bill assistance",
+          "url": "https://www.usa.gov/help-with-energy-bills",
+          "type": "practical",
+          "note": "Learn about LIHEAP and weatherization."
+        },
+        {
+          "name": "State electricity profiles",
+          "url": "https://www.eia.gov/electricity/state/",
+          "type": "research",
+          "note": "State-level statistics, not your individual energy rate."
+        }
+      ],
+      "policies": [
+        "Energy-efficiency improvements: may lower usage, but upfront costs and building constraints matter.",
+        "Rate and reliability oversight: balance affordability and infrastructure investment; rules differ by provider."
+      ]
+    },
+    {
+      "id": "health",
+      "title": "Healthcare",
+      "symbol": "🩺",
+      "question": "Why is care hard to afford or access?",
+      "description": "Insurance networks, premiums, provider capacity, medicines and government rules differ by location.",
+      "levers": [
+        {
+          "actor": "Insurers, hospitals and pharmaceutical companies",
+          "why": "Negotiated prices, service networks and market structure shape how care is delivered.",
+          "evidence": "The cause of any individual's bill requires plan and provider details."
+        },
+        {
+          "actor": "State regulators and federal healthcare agencies",
+          "why": "Coverage rules, licensing, payments and public programs influence care options.",
+          "evidence": "Authority and policy eligibility vary."
+        },
+        {
+          "actor": "Hospital systems and local providers",
+          "why": "Supply, facilities, staffing and travel distance affect practical access.",
+          "evidence": "Provider directory listings are not proof of available appointments."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Review health insurance options",
+          "url": "https://www.healthcare.gov/",
+          "type": "practical",
+          "note": "Check eligibility and official marketplace plans."
+        },
+        {
+          "name": "Compare Medicare care providers",
+          "url": "https://www.medicare.gov/care-compare/",
+          "type": "practical",
+          "note": "Official provider comparison tools; not a guaranteed appointment."
+        }
+      ],
+      "policies": [
+        "Coverage and affordability reforms: may change who pays and how much; budget and provider effects vary.",
+        "Provider competition and staffing programs: could affect access but need local provider data."
+      ]
+    },
+    {
+      "id": "work",
+      "title": "Jobs & pay",
+      "symbol": "💼",
+      "question": "Why do wages and job opportunities differ here?",
+      "description": "Local industries, employers, skills, contracts and business conditions affect hiring and pay.",
+      "levers": [
+        {
+          "actor": "Employers and major investors",
+          "why": "Business strategy, capital decisions and competition influence hiring and compensation.",
+          "evidence": "No direct link from named investors to a ZIP's wage levels has been validated."
+        },
+        {
+          "actor": "Federal and local contracting agencies",
+          "why": "Awarded work can affect employer demand, but contracts are not company profit or guaranteed local jobs.",
+          "evidence": "Power Atlas has exact-entity federal awards but no local workforce-benefit join."
+        },
+        {
+          "actor": "State labor and education agencies",
+          "why": "Worker protections, training and credentials shape the options available to residents.",
+          "evidence": "Program effects vary across jobs and locations."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Find an American Job Center",
+          "url": "https://www.careeronestop.org/LocalHelp/AmericanJobCenters/american-job-centers.aspx",
+          "type": "practical",
+          "note": "Publicly funded job-search and training support."
+        },
+        {
+          "name": "See verified federal-contract evidence",
+          "url": "business-influence.html",
+          "type": "research",
+          "note": "Original Treasury award series, without inventing local job impacts."
+        }
+      ],
+      "policies": [
+        "Workforce training: can improve access where local demand exists, but placement outcomes differ.",
+        "Procurement and wage requirements: may affect covered jobs but are not proof of economy-wide pay increases."
+      ]
+    },
+    {
+      "id": "schools",
+      "title": "Schools & children",
+      "symbol": "🎒",
+      "question": "What affects our schools and childcare?",
+      "description": "School funding, enrollment, district rules, staffing and access to early learning vary by community.",
+      "levers": [
+        {
+          "actor": "School boards and districts",
+          "why": "Budgets, facilities, staffing and curriculum decisions may be made locally.",
+          "evidence": "A ZIP is not a verified district boundary; school assignment requires the official district."
+        },
+        {
+          "actor": "State education agencies",
+          "why": "Funding formulas, standards and oversight can affect resources and requirements.",
+          "evidence": "Specific policy consequences require state and district records."
+        },
+        {
+          "actor": "Childcare operators and employers",
+          "why": "Operating costs, availability and care-workforce wages can influence childcare options.",
+          "evidence": "No ZIP-level childcare fee dataset is integrated."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Find official school profiles",
+          "url": "https://nces.ed.gov/ccd/schoolsearch/",
+          "type": "practical",
+          "note": "Public school listings; check your district for actual assignment."
+        },
+        {
+          "name": "Find local government and school board contacts",
+          "url": "https://www.usa.gov/state-local-governments",
+          "type": "civic",
+          "note": "Review published school budgets, minutes and public comment procedures."
+        }
+      ],
+      "policies": [
+        "Funding and educator workforce options: outcomes depend on district needs, implementation and available resources.",
+        "Childcare subsidies and capacity policies: can improve access for eligible families but availability differs locally."
+      ]
+    },
+    {
+      "id": "transport",
+      "title": "Getting around",
+      "symbol": "🚍",
+      "question": "Why is getting to work so expensive or difficult?",
+      "description": "Transit networks, roads, housing location, vehicle costs and fuel affect transportation.",
+      "levers": [
+        {
+          "actor": "Local and regional transit agencies",
+          "why": "Service frequencies, routes and funding influence available transport options.",
+          "evidence": "ZIP alone does not identify a rider's exact service route."
+        },
+        {
+          "actor": "State and local transport authorities",
+          "why": "Road maintenance, safety and infrastructure decisions influence accessibility and travel.",
+          "evidence": "The effect on an individual's commute has not been measured."
+        },
+        {
+          "actor": "Energy suppliers, employers and developers",
+          "why": "Fuel costs, workplace location and land use can change the demand and cost of travel.",
+          "evidence": "Potential mechanism rather than established local causation."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Find your local government services",
+          "url": "https://www.usa.gov/state-local-governments",
+          "type": "practical",
+          "note": "Search transportation and infrastructure service providers."
+        },
+        {
+          "name": "Explore federal transit programs",
+          "url": "https://www.transit.dot.gov/",
+          "type": "research",
+          "note": "Funding policy source, not live travel directions."
+        }
+      ],
+      "policies": [
+        "Transit investment: may improve access, but costs and ridership vary.",
+        "Road and safety projects: depend on maintenance funding, land use and local priorities."
+      ]
+    },
+    {
+      "id": "public-services",
+      "title": "Taxes & local services",
+      "symbol": "🏛️",
+      "question": "Where do taxes go—and what comes back?",
+      "description": "Public budgets fund schools, infrastructure, safety, benefits and other services under different layers of government.",
+      "levers": [
+        {
+          "actor": "State and local budget offices",
+          "why": "Adopt revenue and spending rules for many everyday services.",
+          "evidence": "ZIP does not establish a specific county, city or school tax bill."
+        },
+        {
+          "actor": "Federal grant and contract agencies",
+          "why": "Disburse assistance and contract payments to verified recipients.",
+          "evidence": "An obligation is not cash received and does not identify household benefits."
+        },
+        {
+          "actor": "Contractors, oversight bodies and courts",
+          "why": "Procurement and enforcement influence how funds are allocated and monitored.",
+          "evidence": "A business award alone is not proof of favoritism."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Inspect federal spending",
+          "url": "https://www.usaspending.gov/search",
+          "type": "research",
+          "note": "Compare awarded funds; scope and dates matter."
+        },
+        {
+          "name": "Find public budget and meeting records",
+          "url": "https://www.usa.gov/state-local-governments",
+          "type": "civic",
+          "note": "Look up applicable officials and review local meeting agendas."
+        }
+      ],
+      "policies": [
+        "Budget transparency and oversight: improves visibility but does not guarantee lower taxes.",
+        "Program and procurement redesign: may affect costs and outcomes; evaluations should compare service quality."
+      ]
+    },
+    {
+      "id": "representation",
+      "title": "Your voice",
+      "symbol": "🗳️",
+      "question": "Whose decisions shape the rules I live under?",
+      "description": "Electoral boundaries, elections, party coalitions, funding, lawmaking, judges and oversight shape representation.",
+      "levers": [
+        {
+          "actor": "Election administrators and legislatures",
+          "why": "They administer and enact rules within judicial and constitutional constraints.",
+          "evidence": "State voting laws and current officials must be verified using official jurisdiction-specific sources."
+        },
+        {
+          "actor": "Campaign committees, donors and advocacy groups",
+          "why": "They report some forms of political funding, lobbying and advocacy under different disclosure rules.",
+          "evidence": "Financial connections do not independently demonstrate improper influence or a vote change."
+        },
+        {
+          "actor": "Courts and ethics institutions",
+          "why": "Review legal disputes and enforce rules when they have jurisdiction.",
+          "evidence": "A case filing or appointment does not itself show wrongdoing."
+        }
+      ],
+      "resources": [
+        {
+          "name": "Find your serving U.S. representative",
+          "url": "https://www.house.gov/representatives/find-your-representative",
+          "type": "civic",
+          "note": "A full street address may be needed where a ZIP crosses districts."
+        },
+        {
+          "name": "Find officials and public contacts",
+          "url": "https://www.usa.gov/elected-officials",
+          "type": "civic",
+          "note": "Government directory; verify current office holders and meeting procedures."
+        },
+        {
+          "name": "Explore nonpartisan civic reform ideas",
+          "url": "reform-lab.html",
+          "type": "research",
+          "note": "Current rules and proposed changes are labeled separately."
+        }
+      ],
+      "policies": [
+        "Political funding disclosure: improves public information but must protect lawful expression and privacy.",
+        "Small-donor programs, electoral procedures and independent oversight: effects, costs and legal feasibility differ by jurisdiction."
+      ]
+    }
+  ],
+  "defaultIssue": "housing",
+  "additionalCivicSources": [
+    {
+      "name": "Find and contact elected officials",
+      "url": "https://www.usa.gov/elected-officials"
+    },
+    {
+      "name": "Voting and election guidance",
+      "url": "https://www.usa.gov/voting"
+    },
+    {
+      "name": "Federal campaign finance filings",
+      "url": "https://www.fec.gov/data/"
+    },
+    {
+      "name": "Census community data portal",
+      "url": "https://data.census.gov/"
+    }
+  ],
+  "limitations": [
+    "The local ZIP lookup is a third-party postal lookup, not a verified government jurisdiction lookup.",
+    "2026 neighborhood prices, wages, health access and benefits are not computed without source-specific local measurements.",
+    "Each deep-research record is shown according to its own publication status and gaps. It does not establish effects on the selected ZIP.",
+    "The interactive experience is not personal legal, medical or financial advice."
+  ]
+}
