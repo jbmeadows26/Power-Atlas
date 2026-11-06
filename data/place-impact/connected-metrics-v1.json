@@ -1,0 +1,276 @@
+{
+  "schema": "power-atlas.place-impact-connected-metrics.v1",
+  "verifiedAt": "2026-11-06",
+  "coverage": "All nine daily-life topics have at least one original-source measurable nationwide baseline, with limited verified state statistics. These statistics are neither ZIP-level nor causal effects of officials or donors.",
+  "scopeNotice": "Postal lookup yields an approximate state. The app uses state metrics only where source coverage exists; otherwise labels the displayed statistic national. ZIP input never becomes a FEC, political identity or benefit eligibility query.",
+  "national": {
+    "housing": {
+      "id": "CUSR0000SEHA",
+      "title": "Rent of primary residence CPI",
+      "value": 450.429,
+      "previousYearSameMonth": 438.237,
+      "yoyPct": 2.78,
+      "unit": "index_1982_84_equals_100",
+      "period": "2026-09",
+      "scope": "US",
+      "method": "Seasonally adjusted monthly FRED/BLS index; year-over-year comparison compares September 2025 to September 2026, not household bill dollars.",
+      "source": "https://fred.stlouisfed.org/data/CUSR0000SEHA",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "groceries": {
+      "id": "CUSR0000SAF11",
+      "title": "Food at home CPI",
+      "value": 321.111,
+      "previousYearSameMonth": 315.54,
+      "yoyPct": 1.77,
+      "unit": "index_1982_84_equals_100",
+      "period": "2026-09",
+      "scope": "US",
+      "method": "Seasonally adjusted monthly FRED/BLS index; year-over-year comparison compares September 2025 to September 2026, not household bill dollars.",
+      "source": "https://fred.stlouisfed.org/data/CUSR0000SAF11",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "energy": {
+      "id": "EIA2024PRICE",
+      "title": "Average U.S. retail electricity price, all customer sectors",
+      "value": 12.94,
+      "unit": "cents_per_kWh",
+      "period": "2024",
+      "scope": "US",
+      "method": "EIA 2024 all-sector price; residential electricity bills may differ substantially.",
+      "source": "https://www.eia.gov/electricity/state/index.php",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "health": {
+      "id": "CPIMEDSL",
+      "title": "Medical care CPI",
+      "value": 593.666,
+      "previousYearSameMonth": 584.872,
+      "yoyPct": 1.5,
+      "unit": "index_1982_84_equals_100",
+      "period": "2026-09",
+      "scope": "US",
+      "method": "Seasonally adjusted monthly FRED/BLS index; year-over-year comparison compares September 2025 to September 2026, not household bill dollars.",
+      "source": "https://fred.stlouisfed.org/data/CPIMEDSL",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "work": {
+      "id": "UNRATE",
+      "title": "U.S. unemployment rate",
+      "value": 4.2,
+      "unit": "percent",
+      "period": "2026-09",
+      "scope": "US",
+      "method": "BLS national seasonally adjusted civilian unemployment percentage; not a personal job-loss probability.",
+      "source": "https://fred.stlouisfed.org/data/UNRATE",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "schools": {
+      "id": "CENSUS2024SCHOOL",
+      "title": "Average current public-school spending per pupil",
+      "value": 17619,
+      "unit": "usd_per_pupil",
+      "period": "FY2024",
+      "scope": "US",
+      "method": "Census Annual Survey of School System Finances. Nominal FY2024 dollars, not inflation adjusted, not school-specific budget or student benefit.",
+      "source": "https://www.census.gov/newsroom/press-releases/2026/school-system-finances.html",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "transport": {
+      "id": "CPITRNSL",
+      "title": "Transportation CPI",
+      "value": 294.909,
+      "previousYearSameMonth": 273.656,
+      "yoyPct": 7.77,
+      "unit": "index_1982_84_equals_100",
+      "period": "2026-09",
+      "scope": "US",
+      "method": "Seasonally adjusted monthly FRED/BLS index; year-over-year comparison compares September 2025 to September 2026, not household bill dollars.",
+      "source": "https://fred.stlouisfed.org/data/CPITRNSL",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "public-services": {
+      "id": "FGEXPND",
+      "title": "Federal government current expenditures",
+      "value": 7907.44,
+      "unit": "billions_usd_annualized",
+      "period": "2026-Q3",
+      "scope": "US",
+      "method": "BEA/FRED national current spending, billions of dollars at seasonally adjusted annual rate; neither state/local service allocation nor individual taxes.",
+      "source": "https://fred.stlouisfed.org/data/FGEXPND",
+      "publicationStatus": "source_verified_snapshot"
+    },
+    "representation": {
+      "id": "ELECTIONOFFICES",
+      "title": "State and DC official election-office links indexed",
+      "value": 51,
+      "unit": "jurisdictions",
+      "period": "2026-11",
+      "scope": "US",
+      "method": "51 official election authority directories indexed; the repo does not have verified 2026 certified canvass totals and must not imply all statutes validated.",
+      "source": "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/",
+      "publicationStatus": "source_indexed_not_state_law_verified"
+    }
+  },
+  "state": {
+    "electricity_2024_all_sector_cents_per_kwh": {
+      "source": "https://www.eia.gov/electricity/state/index.php",
+      "year": 2024,
+      "geographicLevel": "state_or_DC",
+      "units": "cents_per_kWh",
+      "note": "Not residential-specific; includes all retail sectors and cannot estimate a household's actual energy bill.",
+      "values": {
+        "AL": 11.9,
+        "AK": 22.17,
+        "AZ": 12.74,
+        "AR": 9.59,
+        "CA": 27.04,
+        "CO": 12.07,
+        "CT": 24.37,
+        "DE": 13.56,
+        "DC": 16.88,
+        "FL": 12.53,
+        "GA": 11.4,
+        "HI": 38,
+        "ID": 9.51,
+        "IL": 12.21,
+        "IN": 11.38,
+        "IA": 9.34,
+        "KS": 11.21,
+        "KY": 10.07,
+        "LA": 8.8,
+        "ME": 19.66,
+        "MD": 15.04,
+        "MA": 23.94,
+        "MI": 14.16,
+        "MN": 12.35,
+        "MS": 10.93,
+        "MO": 11.06,
+        "MT": 10.83,
+        "NE": 9.07,
+        "NV": 11.47,
+        "NH": 20.61,
+        "NJ": 16.29,
+        "NM": 9.18,
+        "NY": 19.66,
+        "NC": 11.65,
+        "ND": 7.93,
+        "OH": 11.29,
+        "OK": 9.09,
+        "OR": 11.11,
+        "PA": 12.51,
+        "RI": 24.15,
+        "SC": 10.9,
+        "SD": 10.87,
+        "TN": 10.9,
+        "TX": 9.79,
+        "UT": 9.97,
+        "VT": 18.41,
+        "VA": 10.62,
+        "WA": 10.13,
+        "WV": 11.05,
+        "WI": 12.72,
+        "WY": 9.14
+      }
+    },
+    "school_2024_current_spending_per_pupil": {
+      "source": "https://www.census.gov/newsroom/press-releases/2026/school-system-finances.html",
+      "year": 2024,
+      "geographicLevel": "state_or_DC_10_source_reported_extremes_only",
+      "units": "usd_per_pupil",
+      "note": "Census press release verifies only top five and bottom five state values here, not the rest. State values cannot identify a school district or measure quality.",
+      "values": {
+        "NY": 31918,
+        "DC": 31529,
+        "VT": 28818,
+        "NJ": 27234,
+        "CT": 26316,
+        "ID": 11060,
+        "UT": 11347,
+        "AZ": 12003,
+        "OK": 12162,
+        "MS": 12324
+      }
+    }
+  },
+  "topicSemantics": {
+    "housing": {
+      "geography": "US",
+      "localUnknown": "Rent CPI is national, not your ZIP's asking rent. Local housing cost estimates require a separately sourced ZCTA/county series.",
+      "actionHref": "https://www.consumerfinance.gov/find-a-housing-counselor/"
+    },
+    "groceries": {
+      "geography": "US",
+      "localUnknown": "Food-at-home CPI is national. Product-level basket prices, grocery competition and income vary within states.",
+      "actionHref": "https://www.usa.gov/food-assistance"
+    },
+    "energy": {
+      "geography": "US_or_state",
+      "localUnknown": "State electricity averages are across residential, commercial and industrial customers. The user's utility and bill are unknown.",
+      "actionHref": "https://www.usa.gov/help-with-energy-bills"
+    },
+    "health": {
+      "geography": "US",
+      "localUnknown": "Medical CPI is not a premium, copay, provider fee or household-specific out-of-pocket cost.",
+      "actionHref": "https://www.healthcare.gov/"
+    },
+    "work": {
+      "geography": "US",
+      "localUnknown": "National unemployment is not an area's jobs count or an individual job forecast.",
+      "actionHref": "https://www.careeronestop.org/LocalHelp/AmericanJobCenters/american-job-centers.aspx"
+    },
+    "schools": {
+      "geography": "US_or_10_states",
+      "localUnknown": "Spending per pupil is not instructional quality, your child's district budget or individual benefit.",
+      "actionHref": "https://nces.ed.gov/ccd/schoolsearch/"
+    },
+    "transport": {
+      "geography": "US",
+      "localUnknown": "Transportation CPI tracks national price changes, not a transit route, commute time, fare or fuel purchase.",
+      "actionHref": "https://www.transit.dot.gov/ntd"
+    },
+    "public-services": {
+      "geography": "US",
+      "localUnknown": "National annualized federal expenditure is not state/local budget, local taxes or household program funding.",
+      "actionHref": "https://www.usaspending.gov/search"
+    },
+    "representation": {
+      "geography": "US_and_state_election_authority",
+      "localUnknown": "Election office is a verified directory, not a current representative list, certified canvass or source-verified state voter-ID law.",
+      "actionHref": "https://www.usa.gov/elected-officials"
+    }
+  },
+  "sourceDatasets": [
+    {
+      "id": "elections",
+      "path": "data/elections/official-source-index.json",
+      "schema": "power-atlas.elections.official-sources.v1",
+      "purpose": "State election authorities and certification status, not election outcomes."
+    },
+    {
+      "id": "voterID",
+      "path": "data/voting-access/ncsl-id-index-v1.json",
+      "schema": "power-atlas.voting-access.ncsl-id-index.v1",
+      "purpose": "Secondary 2026 in-person ID classification; statutes and exceptions not verified."
+    },
+    {
+      "id": "treasuryAwards",
+      "path": "data/business-influence/federal-contract-transactions-v1.json",
+      "schema": "power-atlas.business-federal-contract-transactions.v1",
+      "purpose": "Two verified recipient-UEI federal contract action series, not donations-to-local-employment return."
+    },
+    {
+      "id": "companyPacs",
+      "path": "data/business-influence/additional-candidates-v1.json",
+      "schema": "power-atlas.business-influence.additional-candidates.v1",
+      "purpose": "Eight company/PAC legal identifiers, not documented political influence."
+    },
+    {
+      "id": "reforms",
+      "path": "data/money-influence/civic-power-reforms-v1.json",
+      "schema": "power-atlas.civic-power-reforms.v1",
+      "purpose": "16 policy proposals, not enacted law."
+    }
+  ],
+  "dataFreshness": "Snapshots retain original measurement/reporting periods. Scheduled updates or dynamic providers may be added only with source validation and no fabricated local numbers."
+}
