@@ -74,7 +74,7 @@ class PlaceImpactTests(unittest.TestCase):
         self.assertIn("api.zippopotam.us/us/", STORIES.read_text(encoding="utf-8"))
         self.assertIn('Only on user submit', STORIES.read_text(encoding="utf-8"))
         self.assertIn('No ZIP selected', txt)
-        self.assertIn('A ZIP alone', STORIES.read_text(encoding="utf-8"))
+        self.assertIn('ZIP can cross municipalities', STORIES.read_text(encoding="utf-8"))
         self.assertIn("No city, district or local effect has been guessed", txt)
         self.assertIn("ZIP code", txt)
         self.assertNotIn("navigator.geolocation", txt)
