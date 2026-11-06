@@ -155,7 +155,7 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertTrue(all(x["fecCandidatePage"].startswith("https://www.fec.gov/data/candidate/") for x in excerpt["recipientRecords"]))
         page = PAGE.read_text(encoding="utf-8")
         self.assertIn("showGeoPACExcerpt()", page)
-        self.assertIn("not independently FEC transaction-reconciled", page.lower())
+        self.assertIn("not independently fec transaction-reconciled", page.lower())
 
     def test_evidence_sources_do_not_include_personal_contact_data(self):
         text = DATA.read_text(encoding="utf-8").lower()
