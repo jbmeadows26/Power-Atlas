@@ -166,6 +166,72 @@
 @media(max-width:760px){.ce-stats{grid-template-columns:repeat(3,minmax(0,1fr))}.ce-table-head,.ce-line{grid-template-columns:minmax(0,1fr) 115px 115px;gap:8px}.ce-line{padding:15px 5px}.ce-table-head{padding-left:5px;padding-right:5px}.ce-content{padding:14px}}
 @media(max-width:560px){.ce-head{padding:18px}.ce-content{padding:12px}.ce-stats{grid-template-columns:1fr 1fr}.ce-stats>div:last-child{grid-column:1 / -1}.ce-table-head{display:none}.ce-line{grid-template-columns:1fr 1fr;gap:5px 10px;padding:15px 5px}.ce-line-main{grid-column:1 / -1}.ce-price{margin-top:2px;flex-direction:column;align-items:stretch;gap:5px}.ce-mobile-label{display:block;font-size:.73rem;font-weight:790;color:#4c726a}.ce-price .ce-dollar{top:27px}.ce-line-main strong{font-size:.98rem}}
 @media(prefers-reduced-motion:reduce){.ce-share span{transition:none}}
+
+/* Benchmark-first cost story: observed national expenditures, bounded local context,
+   explanatory price mechanisms; personal calculator is an optional follow-up. */
+.benchmarkStory{background:#fff;border:1px solid #bcd9cc;border-radius:20px;overflow:hidden;margin:20px 0 15px;scroll-margin-top:125px;box-shadow:0 12px 34px #1c4f430f}
+.bs-head{background:linear-gradient(115deg,#143d45,#21685e);padding:22px 24px;color:#f1fffc}
+.bs-head .ey-dark{color:#a8dfd0}.bs-head h3{font-size:clamp(1.45rem,3vw,2rem);color:#fff;margin:7px 0;letter-spacing:-.04em}
+.bs-head p{font-size:.9rem;line-height:1.58;color:#deeeec;max-width:900px;margin:7px 0}
+.bs-display{padding:0}.bs-status{padding:25px;color:#5f7772}
+.bs-metrics{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(250px,.8fr);gap:11px;padding:18px}
+.bs-highlight{padding:18px 20px;border-radius:15px;background:#f0f8f2;border:1px solid #cfdfd6}
+.bs-eyebrow{color:#407e6e;font-weight:820;font-size:.74rem;letter-spacing:.09em;text-transform:uppercase;display:block}
+.bs-value{font-weight:900;font-variant-numeric:tabular-nums;letter-spacing:-.065em;color:#14544d;display:block;font-size:clamp(2.4rem,6vw,4rem);line-height:1.15;margin:6px 0}
+.bs-value span{font-size:clamp(.91rem,2vw,1.18rem);letter-spacing:0;font-weight:750;color:#537a71}
+.bs-label{font-weight:850;color:#294a45;font-size:.95rem}
+.bs-period{font-size:.75rem;color:#648077;line-height:1.45;margin-top:9px}
+.bs-change{display:grid;gap:11px}
+.bs-stat{border:1px solid #e0e7df;border-radius:13px;padding:13px 16px;background:#f9fcf9;min-width:0}
+.bs-stat-label{font-size:.73rem;color:#557870;font-weight:790;display:block}
+.bs-stat strong{font-size:clamp(1.22rem,2.9vw,1.55rem);font-weight:880;color:#245f55;display:block;letter-spacing:-.03em;margin:5px 0}
+.bs-stat small{display:block;color:#627971;font-size:.73rem;line-height:1.48}
+.bs-nobenchmark{background:#f6f8f5;border:1px solid #d9e8dc;padding:19px;border-radius:14px;grid-column:1 / -1}
+.bs-nobenchmark strong{display:block;font-size:1.06rem;color:#225950}
+.bs-nobenchmark p{font-size:.86rem;color:#58746e;line-height:1.5}
+.bs-inner{padding:18px 23px;border-top:1px solid #e1ebe5}
+.bs-inner h4{font-size:1.13rem;letter-spacing:-.02em;color:#1d5851;margin:0 0 12px}
+.bs-segments{height:23px;display:flex;overflow:hidden;border-radius:10px;background:#e6eee9;margin:17px 0 14px;gap:2px}
+.bs-segments span{display:block;flex:none}
+.bs-bars{display:grid;grid-template-columns:1fr 1fr;gap:8px 17px}
+.bs-bar-row{display:flex;align-items:center;gap:9px;background:#f8fbf8;border:1px solid #e1e9e2;padding:10px;border-radius:10px;min-width:0}
+.bs-dot{display:inline-block;flex:none;height:11px;width:11px;border-radius:3px}
+.bs-bar-name{font-size:.82rem;line-height:1.3;color:#3d625a;flex:1}
+.bs-bar-row strong{font-size:.85rem;white-space:nowrap;color:#245a52;font-variant-numeric:tabular-nums}
+.bs-bar-share{font-size:.76rem;color:#697f76;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.bs-footnote{font-size:.76rem;color:#6f8178;line-height:1.55;margin:12px 0 1px}
+.bs-local{background:#f9fbf9}
+.bs-local-number{display:grid;gap:5px;background:#eaf4ef;border:1px solid #cbded3;border-radius:12px;padding:14px 17px}
+.bs-local-number small{font-size:.77rem;color:#4f746b;font-weight:760}
+.bs-local-number strong{font-weight:900;font-size:clamp(1.6rem,3vw,2.15rem);color:#1a5c54;font-variant-numeric:tabular-nums}
+.bs-local-number p{font-size:.78rem;margin:2px 0 6px;color:#5a756d;line-height:1.52}
+.bs-local-number a,.bs-local .bs-next,.bs-rate a{font-size:.78rem;font-weight:800}
+.bs-unknown{font-size:.84rem;color:#657f76;line-height:1.55;margin:10px 0}
+.bs-explainer{color:#58746c;font-size:.85rem;line-height:1.55;margin:0 0 13px}
+.bs-driver-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}
+.bs-influence{border:1px solid #dbe6dd;background:#f8faf7;border-radius:13px;padding:15px;min-width:0}
+.bs-influence-head{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bs-driver-number{background:#e4f1e9;border-radius:9px;padding:5px 9px;font-size:.75rem;color:#277367;font-weight:900}
+.bs-influence h5{font-size:.94rem;color:#24584f;line-height:1.26;margin:0}
+.bs-influence p{font-size:.82rem;color:#526c65;line-height:1.52;margin:8px 0 12px}
+.bs-influence-who,.bs-influence-action{font-size:.76rem;line-height:1.5;color:#61756e;border-top:1px solid #e1e9e1;padding-top:9px;margin-top:10px}
+.bs-influence-who span,.bs-influence-action span{font-weight:850;color:#2a6e60;display:block;margin-bottom:3px}
+.bs-influence-action{background:#eef6ee;border:1px solid #d8e7d8;border-radius:9px;padding:8px;margin-top:10px;color:#41675b}
+.bs-influence a{display:inline-block;margin-top:12px;font-size:.77rem;font-weight:820}
+.bs-bottom{padding:16px 23px;background:#f1f6f0;border-top:1px solid #dce8dc}
+.bs-bottom p{color:#59716a;font-size:.76rem;line-height:1.6;margin:0 0 12px}
+.bs-links{display:flex;flex-wrap:wrap;gap:11px}
+.bs-links a{font-size:.78rem;font-weight:830}
+.bs-rate{display:flex;gap:15px;align-items:center;flex-wrap:wrap}
+.bs-rate .bs-stat{min-width:240px}
+.ce-optional{margin:17px 0;border:1px solid #b9d5ca;border-radius:17px;background:#fff;overflow:hidden}
+.ce-optional>summary{padding:17px 20px;cursor:pointer;font-size:.9rem;font-weight:850;color:#1d6256;list-style-position:inside}
+.ce-optional>summary:hover{background:#eaf6ee}
+.ce-optional>summary small{display:block;font-size:.78rem;color:#678178;font-weight:550;margin:4px 0 0 21px;line-height:1.5}
+.ce-optional .costExplorer{margin:0;border:0;border-top:1px solid #b9d5ca;border-radius:0;box-shadow:none}
+@media(max-width:840px){.bs-driver-grid{grid-template-columns:1fr}.bs-bars{grid-template-columns:1fr}.bs-metrics{grid-template-columns:1fr 1fr}}
+@media(max-width:540px){.bs-head{padding:18px}.bs-inner{padding:16px}.bs-bottom{padding:15px}.bs-metrics{grid-template-columns:1fr;padding:12px}.bs-highlight{padding:16px}.bs-change{grid-template-columns:1fr 1fr}.bs-stat{padding:12px}.bs-bar-row{gap:6px}.bs-bar-name{font-size:.78rem}.bs-bar-row strong{font-size:.8rem}.bs-bar-share{font-size:.72rem}}
+@media(prefers-reduced-motion:reduce){.bs-segments span{transition:none}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -178,13 +244,21 @@
 <section class="section" id="what"><div class="section-head"><div><div class="number"><span>2</span> Your daily life</div><h2>What matters most right now?</h2><p>Choose one issue. The explanation, connected research and practical resources will update together.</p></div></div>
 <p id="step2Place" class="fine" role="status">Explore a category without a ZIP, or enter your ZIP above for additional local context.</p>
 <div class="issue-grid" id="issueGrid" role="group" aria-label="Choose an everyday-life issue"><p>Loading life topics…</p></div>
-<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p><a class="ce-invite" href="#personalCostExplorer">Break down my costs ↓</a></div>
+<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p><a class="ce-invite" href="#benchmarkStory">See the spending benchmark ↓</a></div>
 <div id="issueMetrics" class="impact-metrics" aria-label="Verified public data for selected life issue" aria-live="polite"><div class="impact-metric note"><strong>Connecting original statistics…</strong></div></div>
 <p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
+
+<section class="benchmarkStory" id="benchmarkStory" aria-label="Official spending benchmarks and economic cost drivers">
+ <div class="bs-head"><span class="ey-dark">Benchmarks first · Then the price drivers</span><h3>What drives <span id="bsName">your everyday</span> costs?</h3>
+ <p id="bsIntro">Compare the documented national spending benchmark, real spending components, relevant local observations, and the institutions that influence costs.</p></div>
+ <div class="bs-display" id="bsDisplay" aria-live="polite"><p class="bs-status">Loading evidence-linked benchmarks…</p></div>
+</section>
+<details class="ce-optional" id="compareYourCosts"><summary>Optional · Compare your own household spending<small>The public benchmark story comes first. Open this only if you want to model a personal change.</small></summary>
 <section class="costExplorer" id="personalCostExplorer" aria-label="Personal cost components and scenario comparison">
  <div class="ce-head"><span class="ey-dark">Your costs · a closer look</span><h3>What is driving your <span id="ceTopic">housing</span> costs?</h3><p id="ceIntro">Enter your actual spending to compare the decisions, prices and costs behind this category.</p></div>
  <div class="ce-content" id="ceContent" aria-live="polite"><p>Preparing the personal cost comparison…</p></div>
 </section>
+</details>
 <div class="next-step"><a class="primary" id="continueToWhy" href="#why">Next: Follow the evidence ↓</a></div>
 </section>
 <section class="section" id="why"><div class="section-head"><div><div class="number"><span>3</span> What is behind it?</div><h2>Follow the decisions. Follow the evidence.</h2><p>First see the institutions and market mechanisms relevant to your issue. Then explore the deep research behind them—including political donations, corporations, billionaires, legislation, courts, elections and oversight.</p></div></div>
@@ -264,6 +338,28 @@ let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSource
 let corporateGraph=null,transparencyCases=null;
 let missingSourceCatalog=null;
 let measured=null,electionAuthorities=null,secondaryVoterRules=null,treasuryAwards=null,companyPacs=null,civicReforms=null,selectedStateCode=null,selectedStateName=null;
+
+// Cost benchmark evidence uses only measured public inputs already obtained by this page.
+// A Census ZIP statistical area is not a store-price, utility-tariff or school-district lookup.
+function getBenchmarkContext(){
+ const scoped=localMeasures?.issues?.[selected],z=activeZIP;
+ const record=z?localResults.get(z+"|"+selected):null;
+ let local=null;
+ if(z){
+  local={status:record?.error?"unavailable":"loading"};
+  const m=scoped?.measures?.[0],geoid="86000US"+z;
+  const okay=record?.release?.id===localMeasures?.provider?.release&&record.data?.data?.[geoid];
+  if(okay&&m){
+   const val=evaluateMeasure(m,record.data.data[geoid][m.table]?.estimate);
+   local=val===null?{status:"unavailable"}:{status:"available",title:m.title,value:formatMeasure(m,val),limits:m.limits,source:m.originalTable};
+  }
+ }
+ return {topic:selected,zip:z,stateCode:selectedStateCode,stateName:selectedStateName,local};
+}
+window.PowerAtlasGetBenchmarkContext=getBenchmarkContext;
+function syncCostBenchmark(){
+ if(window.PowerAtlasBenchmarkStory?.setContext)window.PowerAtlasBenchmarkStory.setContext(getBenchmarkContext());
+}
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
 }
@@ -415,6 +511,7 @@ function renderCorporatePaths(){
 }
 
 function renderLocalMeasures(){
+ queueMicrotask(syncCostBenchmark);
  const scope=localMeasures?.issues?.[selected],x=issue();
  const guide=scope?.readerGuide;
  $("localFactsHeading").textContent=guide?.heading||("Local facts about "+(x?.title||"your issue"));
@@ -694,4 +791,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script></body></html>
+</script><script src="cost-benchmark-story.js" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script></body></html>
