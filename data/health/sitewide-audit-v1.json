@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-06T04:14:52.000196+00:00",
+  "generatedUTC": "2026-11-06T04:15:43.872804+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
@@ -22,7 +22,9 @@
     "unresolvedOriginalSourceGaps": 55,
     "originalSourceCandidates": 57,
     "blockingExistingResearchGates": 9,
-    "queuedIngestionTasks": 10
+    "queuedIngestionTasks": 0,
+    "stalePageTwoQueueEntries": 0,
+    "boundedKeywordPageTasksReconciled": 10
   },
   "sourceIntegrity": {
     "sourceCount": 57,
@@ -436,18 +438,9 @@
       "source": null
     }
   ],
-  "pendingIngestionTaskIds": [
-    "state-bills-AZ-page2",
-    "state-bills-CA-page2",
-    "state-bills-DC-page2",
-    "state-bills-FL-page2",
-    "state-bills-IL-page2",
-    "state-bills-LA-page2",
-    "state-bills-MS-page2",
-    "state-bills-NY-page2",
-    "state-bills-OR-page2",
-    "state-bills-TX-page2"
-  ],
+  "pendingIngestionTaskIds": [],
+  "staleReconciledPageTasks": [],
+  "keywordPaginationScope": "14 extra pages across ten jurisdictions are indexed by BillCommons. This does not establish official, multi-session, full historical state-bill completeness.",
   "unresolvedSourceCatalogPath": "data/health/sitewide-missing-sources-v1.json",
   "structuralErrors": [],
   "conclusion": "All indexed pages can be inspected for local references, but having datasets or ownership relationships does NOT prove full source ingestion or causal outcomes. Read the missing-source catalog for original links and precise required joins."
