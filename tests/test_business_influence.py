@@ -137,6 +137,26 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertTrue(years[2027]["partialFiscalYear"])
         self.assertEqual(d["causalStatus"], "no_validated_donation_to_award_decision_path_or_matched_counterfactual")
 
+    def test_fec_summary_and_secondary_candidate_excerpt_are_separate(self):
+        summary = json.loads((ROOT/"data/business-influence/geo-pac-fec-summary-v1.json").read_text())
+        excerpt = json.loads((ROOT/"data/business-influence/geo-pac-candidate-excerpt-2026.json").read_text())
+        self.assertEqual(summary["committeeId"], "C00382150")
+        self.assertEqual(excerpt["committeeFecId"], summary["committeeId"])
+        self.assertEqual(summary["periods"][0]["contributionsToOtherCommitteesUSD"], 643500)
+        self.assertEqual(summary["periods"][1]["contributionsToOtherCommitteesUSD"], 293000)
+        self.assertFalse(summary["periods"][1]["complete"])
+        self.assertEqual(excerpt["publicationStatus"], "curated_secondary_source_excerpt_not_individually_reconciled_with_original_FEC_transactions")
+        self.assertEqual(len(excerpt["recipientRecords"]), 19)
+        self.assertEqual(sum(x["amountUsd"] for x in excerpt["recipientRecords"]), 51500)
+        self.assertEqual(sum(x["reportedTransactions"] for x in excerpt["recipientRecords"]), 25)
+        self.assertNotEqual(excerpt["totalReportedDirectCandidateContributionsUsd"],
+                            summary["periods"][1]["contributionsToOtherCommitteesUSD"])
+        self.assertEqual(len({x["candidateId"] for x in excerpt["recipientRecords"]}), 19)
+        self.assertTrue(all(x["fecCandidatePage"].startswith("https://www.fec.gov/data/candidate/") for x in excerpt["recipientRecords"]))
+        page = PAGE.read_text(encoding="utf-8")
+        self.assertIn("showGeoPACExcerpt()", page)
+        self.assertIn("not independently FEC transaction-reconciled", page.lower())
+
     def test_evidence_sources_do_not_include_personal_contact_data(self):
         text = DATA.read_text(encoding="utf-8").lower()
         self.assertNotIn("street_address", text)
