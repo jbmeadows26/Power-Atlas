@@ -13,7 +13,9 @@
     "validation": "Every estimate must have the expected table, exact Census Reporter column ID, valid numeric value, geography match, and release name. Null/suppressed values are unavailable, not zero.",
     "attribution": "All statistics are 2020–2024 ACS estimates, not 2026 current conditions. Uncertainty margins are not incorporated into derived ratios.",
     "privacy": "User ZIP sent on demand to Census Reporter third party and Zippopotam.us; no ZIP stored in Power Atlas logs or shared URLs.",
-    "notes": "No API key required for Census Reporter documented public endpoint. No scraping, account bypass or paid API. Browsers may block CORS; show source link and clear unavailable state when a request cannot load."
+    "notes": "No API key required for Census Reporter documented public endpoint. No scraping, account bypass or paid API. Browsers may block CORS; show source link and clear unavailable state when a request cannot load.",
+    "uiComparisonRule": "Only same-vintage, same-definition normalized percentages, medians and median age are compared to the U.S. value. Never compare local raw population or enrollment counts to national totals.",
+    "readerDesign": "Show the meaning first, two key figures second, one plain-English limitation, and technical source details only in an expandable panel."
   },
   "completeness": "schema_complete_for_all_nine_topics_but_live_ZCTA_queries_not_assumed_verified",
   "issues": {
@@ -62,7 +64,13 @@
         "contractor-directory"
       ],
       "missing": "Comparable asking rents, housing construction permits, zoning decisions, property ownership and addresses are not verified for this ZCTA.",
-      "localAuthority": "Zoning, tax and school jurisdictions cannot be resolved solely by ZIP."
+      "localAuthority": "Zoning, tax and school jurisdictions cannot be resolved solely by ZIP.",
+      "readerGuide": {
+        "heading": "Housing costs near you",
+        "meaning": "Local rent and home-value estimates help put affordability into context. They are not today's listing prices.",
+        "unknown": "Current asking rents, new construction, property taxes and verified local zoning decisions.",
+        "next": "Compare official housing resources and check local planning proposals."
+      }
     },
     "groceries": {
       "measures": [
@@ -112,7 +120,13 @@
         "donor-rankings"
       ],
       "missing": "No local grocery basket price series, store concentration panel or price-to-policy causal model is connected.",
-      "localAuthority": "State nutrition offices and food programs require jurisdiction and eligibility validation."
+      "localAuthority": "State nutrition offices and food programs require jurisdiction and eligibility validation.",
+      "readerGuide": {
+        "heading": "Food costs and household pressures",
+        "meaning": "These figures show how many households need food assistance and how widespread poverty is—not what groceries cost at nearby stores.",
+        "unknown": "Local grocery prices, competition between stores and food basket changes.",
+        "next": "Check food assistance and use actual nearby store prices when shopping."
+      }
     },
     "energy": {
       "measures": [
@@ -161,7 +175,13 @@
         "federal-money"
       ],
       "missing": "No utility-rate tariff, individual energy spending, service territory or specific rate hearing has been matched to the ZIP.",
-      "localAuthority": "Utility regulation and providers vary by service territory; ZIP alone is insufficient."
+      "localAuthority": "Utility regulation and providers vary by service territory; ZIP alone is insufficient.",
+      "readerGuide": {
+        "heading": "How homes use energy",
+        "meaning": "These percentages show the main heating fuel in homes nearby. They do not show electricity rates or utility bills.",
+        "unknown": "Your specific utility provider, rate plan, heating expenses and approved rate changes.",
+        "next": "Use official energy assistance tools and compare your own tariff or bill."
+      }
     },
     "health": {
       "measures": [
@@ -243,7 +263,13 @@
         "accountability"
       ],
       "missing": "No provider network, insurance plan premium, quality score or patient-specific medical cost is attached.",
-      "localAuthority": "Health insurance eligibility, medical licensing and provider access vary by state and plan."
+      "localAuthority": "Health insurance eligibility, medical licensing and provider access vary by state and plan.",
+      "readerGuide": {
+        "heading": "Health coverage in your area",
+        "meaning": "The data describe how many residents lack health insurance. They do not measure wait times, premiums or provider quality.",
+        "unknown": "Insurance premiums, provider networks, appointment capacity and actual out-of-pocket costs.",
+        "next": "Check official coverage eligibility and provider directories."
+      }
     },
     "work": {
       "measures": [
@@ -292,16 +318,22 @@
         "economic-power"
       ],
       "missing": "No link from federal contractor obligations to specific hiring, wages or business profits in this area.",
-      "localAuthority": "Federal award recipient address does not prove jobs were created locally."
+      "localAuthority": "Federal award recipient address does not prove jobs were created locally.",
+      "readerGuide": {
+        "heading": "Income and employment nearby",
+        "meaning": "Household income and unemployment show broad economic conditions—not what a particular job pays or which employers are hiring.",
+        "unknown": "Real-time vacancies, employer pay, layoffs and causal connections to corporate contracts.",
+        "next": "Explore public job centers and local job openings."
+      }
     },
     "schools": {
       "measures": [
         {
           "id": "schools__preschool_count",
-          "title": "Residents enrolled in preschool",
+          "title": "Local residents attending preschool",
           "measure": "count",
-          "why": "Residents age 3+ enrolled in nursery school or preschool.",
-          "limits": "Not preschool supply, price or school assignment.",
+          "why": "Estimated people living in this ZIP statistical area who are enrolled in nursery school or preschool. The school itself may be elsewhere.",
+          "limits": "A count of residents, not preschool capacity, tuition, a school rating, or an enrollment rate for only 3- and 4-year-olds.",
           "connected": [
             "promises",
             "party-policies",
@@ -315,20 +347,21 @@
           "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B14001.html"
         },
         {
-          "id": "schools__enrollment_count",
-          "title": "Residents enrolled in school",
+          "id": "schools__enrollment_share",
+          "title": "Residents age 3+ enrolled in school",
           "measure": "count",
-          "why": "Residents age 3+ enrolled in any school category.",
-          "limits": "Not school funding, teacher ratios or a district boundary.",
+          "why": "Share of all residents aged 3 or older who are enrolled in any school level, from preschool through college.",
+          "limits": "Includes adults attending college; not the proportion of K–12 children enrolled, childcare availability or school performance.",
           "connected": [
             "institutional-decay",
             "promises"
           ],
           "table": "B14001",
           "columns": [
-            "B14001002"
+            "B14001002",
+            "B14001001"
           ],
-          "format": "count",
+          "format": "share",
           "originalTable": "https://api.census.gov/data/2024/acs/acs5/groups/B14001.html"
         }
       ],
@@ -339,7 +372,13 @@
         "party-policies"
       ],
       "missing": "No school district assignment, district budget, school test data, childcare fees or provider capacity is joined.",
-      "localAuthority": "School and childcare service areas require address-level district and license lookups."
+      "localAuthority": "School and childcare service areas require address-level district and license lookups.",
+      "readerGuide": {
+        "heading": "Schools and childcare: what we know",
+        "meaning": "We can estimate how many local residents attend preschool and what share of residents age 3+ attend school. Neither measures school quality, childcare affordability or available seats.",
+        "unknown": "Childcare fees, waitlists, school performance, school budgets and school-district assignments.",
+        "next": "Use official school profiles, then check your district or childcare agency for actual options."
+      }
     },
     "transport": {
       "measures": [
@@ -387,7 +426,13 @@
         "federal-money"
       ],
       "missing": "No fares, frequencies, travel times, transit-agency budgets, tolls or commute routes are locally verified.",
-      "localAuthority": "Transit agency routes and service areas can cross municipal and ZIP boundaries."
+      "localAuthority": "Transit agency routes and service areas can cross municipal and ZIP boundaries.",
+      "readerGuide": {
+        "heading": "How residents get to work",
+        "meaning": "These percentages show commuting habits. They don't tell you whether a particular bus or train route is affordable or reliable.",
+        "unknown": "Live routes, fares, travel times, transit authority service and fuel costs.",
+        "next": "Check local transit schedules and official transport funding."
+      }
     },
     "public-services": {
       "measures": [
@@ -434,7 +479,13 @@
         "institutional-decay"
       ],
       "missing": "No local tax bill, municipal budget, school-district finance, expenditure-to-household service outcome is matched.",
-      "localAuthority": "Taxes and public services require verified municipal, county, state and district boundaries."
+      "localAuthority": "Taxes and public services require verified municipal, county, state and district boundaries.",
+      "readerGuide": {
+        "heading": "Access to essential services",
+        "meaning": "Internet access provides one clue about household connectivity. It does not measure your taxes or overall quality of local government.",
+        "unknown": "Actual taxes, municipal budgets, broadband plan pricing and service performance.",
+        "next": "Review local spending records and broadband availability at your address."
+      }
     },
     "representation": {
       "measures": [
@@ -485,7 +536,13 @@
         "power-network"
       ],
       "missing": "No verified district crosswalk, elected official, recorded vote, PAC transfer or policy impact attached solely through a ZIP.",
-      "localAuthority": "ZIPs can cross electoral districts; official address lookup required for representative assignment."
+      "localAuthority": "ZIPs can cross electoral districts; official address lookup required for representative assignment.",
+      "readerGuide": {
+        "heading": "Who lives here—not how they vote",
+        "meaning": "Population and median age describe the statistical area. Neither identifies voters, political preferences or the correct elected official.",
+        "unknown": "Verified electoral districts, current officeholders, state voting rules and individual policy effects.",
+        "next": "Find your elected officials through official address-based tools."
+      }
     }
   },
   "boundaries": {
