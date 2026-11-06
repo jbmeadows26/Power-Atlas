@@ -3,6 +3,9 @@ on:
   push:
     paths:
       - 'data/business-influence/evidence-v1.json'
+      - 'data/business-influence/additional-candidates-v1.json'
+      - 'platform/unified/business-candidates.html'
+      - 'tests/test_business_candidates.py'
       - 'data/business-influence/federal-contract-transactions-v1.json'
       - 'data/business-influence/geo-pac-fec-summary-v1.json'
       - 'data/business-influence/geo-pac-candidate-disbursements-v1.json'
@@ -17,6 +20,9 @@ on:
   pull_request:
     paths:
       - 'data/business-influence/evidence-v1.json'
+      - 'data/business-influence/additional-candidates-v1.json'
+      - 'platform/unified/business-candidates.html'
+      - 'tests/test_business_candidates.py'
       - 'data/business-influence/federal-contract-transactions-v1.json'
       - 'data/business-influence/geo-pac-fec-summary-v1.json'
       - 'data/business-influence/geo-pac-candidate-disbursements-v1.json'
@@ -43,6 +49,7 @@ jobs:
       - name: Check business influence source evidence and navigation
         run: |
           python -m unittest discover -s tests -p 'test_business_influence.py' -v
+          python -m unittest discover -s tests -p 'test_business_candidates.py' -v
           python -m unittest discover -s tests -p 'test_business_federal_awards.py' -v
           python -m unittest discover -s tests -p 'test_geo_pac_fec.py' -v
       - name: Check dashboard browser JavaScript
@@ -56,3 +63,14 @@ jobs:
           Path('/tmp/power-atlas-business-influence.js').write_text(scripts[0])
           PY
           node --check /tmp/power-atlas-business-influence.js
+      - name: Check eight-company directory JavaScript
+        run: |
+          python - <<'PY'
+          import re
+          from pathlib import Path
+          s=Path('platform/unified/business-candidates.html').read_text(encoding='utf-8')
+          scripts=re.findall(r'<script\\s*>(.*?)</script>',s,re.S)
+          assert len(scripts)==1
+          Path('/tmp/power-atlas-business-candidates.js').write_text(scripts[0],encoding='utf-8')
+          PY
+          node --check /tmp/power-atlas-business-candidates.js
