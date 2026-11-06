@@ -1,8 +1,8 @@
 {
   "schema": "power-atlas.ingestion-queue.v1",
-  "publicationStatus": "queued_not_claimed_scheduled",
+  "publicationStatus": "page2_tasks_reconciled_to_bounded_billcommons_source_pages_not_exhaustive_state_legislation",
   "pendingBaselineStates": [],
-  "count": 10,
+  "count": 0,
   "tasks": [
     {
       "id": "state-bills-AZ-page2",
@@ -12,7 +12,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 1,
+      "newUniqueRows": 1,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=AZ&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-CA-page2",
@@ -22,7 +26,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 1,
+      "newUniqueRows": 0,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=CA&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-DC-page2",
@@ -32,7 +40,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 12,
+      "newUniqueRows": 11,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=DC&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-FL-page2",
@@ -42,7 +54,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 5,
+      "newUniqueRows": 5,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=FL&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-IL-page2",
@@ -52,7 +68,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 20,
+      "newUniqueRows": 20,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=IL&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-LA-page2",
@@ -62,7 +82,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 3,
+      "newUniqueRows": 3,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=LA&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-MS-page2",
@@ -72,7 +96,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 20,
+      "newUniqueRows": 19,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=MS&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-NY-page2",
@@ -82,7 +110,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 1,
+      "newUniqueRows": 1,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=NY&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-OR-page2",
@@ -92,7 +124,11 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 9,
+      "newUniqueRows": 9,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=OR&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     },
     {
       "id": "state-bills-TX-page2",
@@ -102,7 +138,16 @@
       "nextPage": 2,
       "priority": "pagination_gap",
       "reason": "First page insufficient or reported matches unknown",
-      "state": "pending"
+      "state": "source_indexed_bounded_keyword_page_not_officially_adjudicated",
+      "observedRows": 20,
+      "newUniqueRows": 9,
+      "source": "https://api.billcommons.org/api/v1/search?q=redistricting&jurisdiction=TX&page=2&per_page=20",
+      "completionScope": "single keyword; this specific reported additional page, NOT complete legislative jurisdiction/history"
     }
-  ]
+  ],
+  "pendingCount": 0,
+  "taskCount": 10,
+  "completedBoundedPageCount": 10,
+  "sourceReconciliationAsOf": "2026-11-06",
+  "remainingResearchGaps": "Official multi-session bills, state chamber member rollcalls and adjudicated final law status are not verified; see completion gates."
 }
