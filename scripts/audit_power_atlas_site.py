@@ -126,7 +126,7 @@ def audit():
     missing_bug = []
     pages = []
     data_pointers_missing = []
-    resource_pat = re.compile(r"""data/[A-Za-z0-9_./-]+\\.json""")
+    resource_pat = re.compile(r"""data/[A-Za-z0-9_./-]+\.json""")
     for name, (path, page, html) in parsed.items():
         failures = []
         local_assets = 0
