@@ -1,0 +1,195 @@
+{
+  "schema": "power-atlas.business-influence.additional-candidates.v1",
+  "reviewedUtc": "2026-11-06",
+  "status": "5_verified_FEC_PAC_legal_IDs_and_Treasury_entity_IDs_not_causal_links",
+  "plainLanguage": "An organizational PAC and a federal contractor have documented political-finance and business activity. Whether spending influenced any decision is unestablished.",
+  "politicalMetric": {
+    "field": "fecPACContributionsToOtherCommitteesUSD",
+    "definition": "FEC category total contributions to other committees, reported during different partial 2025–26 cycle cutoffs; includes recipient committee types beyond candidates, excludes other PAC disbursements; not corporate treasury spending.",
+    "cycle": 2026
+  },
+  "independentGiving": "Corporate giving, employee-funded PACs, independent spending, trade association funds, dark money and lobbying must remain distinct financial streams.",
+  "awardDefinition": "A federal award or obligated contract action is not revenue, cash paid, profit, a new competitive win, or a causal result of giving.",
+  "method": "Every company has documented FEC committee ID, primary recipient UEI and source. Parent UEIs and operating recipients are not silently rolled up. A named contract is one example, not a companywide award sum.",
+  "entries": [
+    {
+      "id": "corecivic",
+      "name": "CoreCivic, Inc.",
+      "industry": "Private detention, corrections and reentry",
+      "priority": "high",
+      "comparison": "geo",
+      "political": {
+        "calendarYear": 2025,
+        "corporateUsd": 1102700,
+        "pacUsd": 130434.08,
+        "combinedUsd": 1233134.08,
+        "national527CorporateUsd": 737500,
+        "source": "https://ir.corecivic.com/static-files/a9909e7f-91e2-4171-ad85-9fd73f933920",
+        "lobbyingUsdApprox": 3271346.99
+      },
+      "financials": {
+        "years": [
+          {
+            "year": 2024,
+            "revenueUsdApprox": 1961650000
+          },
+          {
+            "year": 2025,
+            "revenueUsdApprox": 2211180000
+          }
+        ],
+        "year2025RevenueGrowthPctApprox": 12.7,
+        "year2025NetIncomeUsdApprox": 116500000,
+        "year2025NetIncomeGrowthPctApprox": 69,
+        "year2025FederalRevenueSharePct": 54,
+        "year2024FederalRevenueSharePct": 51,
+        "source": "https://www.sec.gov/Archives/edgar/data/1070985/000119312526060669/cxw-20251231.htm",
+        "release": "https://ir.corecivic.com/news-releases/news-release-details/corecivic-reports-fourth-quarter-and-full-year-2025-financial"
+      },
+      "nextStep": "Source exact UEI contract action series; compare GEO and CoreCivic with 2024–25 detention-demand and occupancy controls",
+      "limits": "Companywide revenue reflects federal, state and local contracts, reactivations and occupancy. Neither aggregate PAC nor 2025 political contributions establish an influence effect.",
+      "pac": {
+        "fecCommitteeId": "C00366468",
+        "committeeName": "CORECIVIC, INC. POLITICAL ACTION COMMITTEE (CORECIVIC PAC)",
+        "metric": "contributions_to_other_committees_USD",
+        "amountUsd": 184000,
+        "reportingPeriodStart": "2025-01-01",
+        "reportingPeriodEnd": "2026-06-30",
+        "source": "https://www.fec.gov/data/committee/C00366468/",
+        "classification": "official_FEC_2026_cycle_reported_aggregate_cutoff_varies",
+        "notCompanyCorporateGiving": true
+      },
+      "legalRecipient": {
+        "uei": "HJGMJN1JKL46",
+        "scope": "registered_parent_recipient",
+        "source": "https://www.usaspending.gov/recipient/b7ab6cd4-f511-cfe7-c92f-b20d45921e9c-P/all"
+      }
+    },
+    {
+      "id": "lockheed",
+      "name": "Lockheed Martin",
+      "industry": "Defense and aerospace",
+      "priority": "high",
+      "nextStep": "Track F-35 and space contracts at award ID plus subcontractors; obtain lobbying and agency budget series",
+      "limits": "Parent UEI aggregates may differ from contract operating subsidiaries. Not all FEC payments in this category are direct candidate contributions.",
+      "pac": {
+        "fecCommitteeId": "C00303024",
+        "committeeName": "LOCKHEED MARTIN CORPORATION EMPLOYEES' POLITICAL ACTION COMMITTEE",
+        "metric": "contributions_to_other_committees_USD",
+        "amountUsd": 2902000,
+        "reportingPeriodStart": "2025-01-01",
+        "reportingPeriodEnd": "2026-10-14",
+        "source": "https://www.fec.gov/data/committee/C00303024/?cycle=2026",
+        "classification": "official_FEC_2026_cycle_reported_aggregate_cutoff_varies",
+        "notCompanyCorporateGiving": true
+      },
+      "legalRecipient": {
+        "uei": "ZFN2JJXBLZT3",
+        "scope": "registered_parent_recipient",
+        "source": "https://www.usaspending.gov/recipient/b97d19b0-833c-8d8f-3a2c-157d04ea55ef-P/latest"
+      }
+    },
+    {
+      "id": "boeing",
+      "name": "The Boeing Company",
+      "industry": "Defense and aerospace",
+      "priority": "high",
+      "exampleAward": {
+        "awardId": "FA880726CB006",
+        "recipientUei": "M6BRZ1FHEZQ1",
+        "obligatedUsd": 204083072.99,
+        "awardDate": "2026-06-22",
+        "source": "https://www.usaspending.gov/award/CONT_AWD_FA880726CB006_9700_-NONE-_-NONE-"
+      },
+      "nextStep": "Audit DoD awards and reprogramming; keep child UEI award separate from parent UEI totals",
+      "limits": "Illustrative award's child UEI is different from parent. Contract is not proof of donation-related treatment.",
+      "pac": {
+        "fecCommitteeId": "C00142711",
+        "committeeName": "THE BOEING COMPANY PAC",
+        "metric": "contributions_to_other_committees_USD",
+        "amountUsd": 2714500,
+        "reportingPeriodStart": "2025-01-01",
+        "reportingPeriodEnd": "2026-10-14",
+        "source": "https://www.fec.gov/data/committee/C00142711/?tab=about-committee",
+        "classification": "official_FEC_2026_cycle_reported_aggregate_cutoff_varies",
+        "notCompanyCorporateGiving": true
+      },
+      "legalRecipient": {
+        "uei": "NU2UC8MX6NK1",
+        "scope": "registered_parent_recipient",
+        "source": "https://www.usaspending.gov/recipient/419ccd27-d6f4-d363-aeaf-b9e2c3ae6f5d-P/all"
+      }
+    },
+    {
+      "id": "general-dynamics",
+      "name": "General Dynamics",
+      "industry": "Defense and shipbuilding",
+      "priority": "high",
+      "nextStep": "Trace submarines, surface ships, ammunition and IT awards; control for long-lived multiyear budgets",
+      "limits": "The company states employee PAC contributions are voluntary, and corporate treasury generally does not fund candidates. Multi-year procurement timing confounds before/after correlations.",
+      "pac": {
+        "fecCommitteeId": "C00078451",
+        "committeeName": "GENERAL DYNAMICS CORPORATION POLITICAL ACTION COMMITTEE (GENERAL DYNAMICS EMPLOYEE PAC)",
+        "metric": "contributions_to_other_committees_USD",
+        "amountUsd": 2430700,
+        "reportingPeriodStart": "2025-01-01",
+        "reportingPeriodEnd": "2026-08-31",
+        "source": "https://www.fec.gov/data/committee/C00078451/?cycle=2026",
+        "classification": "official_FEC_2026_cycle_reported_aggregate_cutoff_varies",
+        "notCompanyCorporateGiving": true
+      },
+      "legalRecipient": {
+        "uei": "VF58HFRNGEL8",
+        "scope": "registered_parent_recipient",
+        "source": "https://www.usaspending.gov/recipient/f58f9621-d1de-5f11-1041-3c65987927ff-P/all"
+      }
+    },
+    {
+      "id": "rtx",
+      "name": "RTX Corporation",
+      "industry": "Defense, missile systems and aircraft propulsion",
+      "priority": "high",
+      "exampleAward": {
+        "awardId": "N0001926F2227",
+        "recipientUei": "QN1BCFY7JDJ5",
+        "obligatedUsd": 1081885600.99,
+        "awardDate": "2026-07-30",
+        "source": "https://www.usaspending.gov/award/CONT_AWD_N0001926F2227_9700_N0001920D0013_9700"
+      },
+      "nextStep": "Separate Raytheon/Pratt & Whitney/Collins UEIs before aggregating group awards; reconcile FEC PAC spending and lobbying",
+      "limits": "The example is an aircraft-propulsion delivery order, not RTX parentwide results. Parent identifier is not interchangeable with this operating recipient.",
+      "pac": {
+        "fecCommitteeId": "C00097568",
+        "committeeName": "EMPLOYEES OF RTX CORPORATION POLITICAL ACTION COMMITTEE",
+        "metric": "contributions_to_other_committees_USD",
+        "amountUsd": 1741500,
+        "reportingPeriodStart": "2025-01-01",
+        "reportingPeriodEnd": "2026-06-30",
+        "source": "https://www.fec.gov/data/committee/C00097568/",
+        "classification": "official_FEC_2026_cycle_reported_aggregate_cutoff_varies",
+        "notCompanyCorporateGiving": true
+      },
+      "legalRecipient": {
+        "uei": "QN1BCFY7JDJ5",
+        "scope": "verified_operating_recipient_not_parent_group",
+        "source": "https://www.usaspending.gov/award/CONT_AWD_N0001926F2227_9700_N0001920D0013_9700",
+        "parentUei": "PPLZG8J3N9D4"
+      }
+    }
+  ],
+  "knownGaps": [
+    "FEC itemized PAC-to-candidate transfer amendments not fully reconciled",
+    "Full parent-and-subsidiary contract grouping by date and UEI not audited",
+    "No bidder and non-donor peer cohort",
+    "No award-vote-appropriation decision evidence joining donors to officials",
+    "No direct causal impact on federal contract growth or business profit",
+    "State and local award comparators not backfilled"
+  ],
+  "controls": [
+    "Do not compare FEC PAC disbursement amounts as company dollars invested",
+    "Do not compare different FEC report cutoffs as standardized totals",
+    "Do not imply a single contract amount is company revenue",
+    "Contractor PAC and registered recipient IDs are not documented donor-to-contract paths",
+    "Company annual political activity must be dated before award before interpreting outcomes"
+  ]
+}
