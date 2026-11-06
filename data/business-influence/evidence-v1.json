@@ -341,9 +341,11 @@
     "committeeId": "C00382150",
     "dataset": "data/business-influence/geo-pac-candidate-disbursements-v1.json",
     "collector": "scripts/collect_geo_pac_fec.py",
-    "status": "scheduled_original_FEC_bulk_refresh_not_yet_verified",
+    "status": "itemized_PAS2_candidate_extract_not_yet_verified",
     "method": "recipient FEC committee IDs, candidate IDs and source filing transaction IDs only; exclude personal donor data",
     "scope": "direct committee-to-candidate FEC PAS2 ledger subject to filing amendment/memo classification; not company corporate giving",
-    "caveat": "Official PAC→candidate transactions do not establish subsequent decisions by the candidate or awarding agency and do not sum to GEO company's multi-jurisdictional annual giving."
+    "caveat": "Official PAC→candidate transactions do not establish subsequent decisions by the candidate or awarding agency and do not sum to GEO company's multi-jurisdictional annual giving.",
+    "summaryDataset": "data/business-influence/geo-pac-fec-summary-v1.json",
+    "summaryStatus": "verified_original_FEC_official_published_comparison_2024_full_2026_partial"
   }
 }
