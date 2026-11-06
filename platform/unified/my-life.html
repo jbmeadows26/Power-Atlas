@@ -51,6 +51,26 @@
 @media(max-width:800px){.chain{grid-template-columns:1fr 1fr}.issue-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.location{grid-template-columns:1fr}.research-list{grid-template-columns:1fr}}
 @media(max-width:550px){.wrapper{padding:0 14px 70px}.hero{padding:28px 0 33px}.steps{grid-template-columns:repeat(2,minmax(0,1fr))}.step{padding:11px}.issue-grid{grid-template-columns:1fr 1fr;gap:8px}.issue-card{flex-direction:column;align-items:start;padding:12px;gap:6px;min-height:126px}.issue-card[aria-pressed="true"]{padding:11px}.issue-icon{min-width:40px;height:40px;font-size:1.5rem}.chain{grid-template-columns:1fr}.option-grid,.action-grid{grid-template-columns:1fr}.panel,.feature{padding:16px}.research-list{padding:10px}.libhead{padding:17px}.toolrow{padding:11px}.fields input{max-width:none;min-width:0;width:60%}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* Officially sourced community measurements, all nine issue categories */
+.localFactSection{border:1px solid #cfdfd6;background:#fff;border-radius:18px;padding:23px;margin:18px 0 20px;box-shadow:0 8px 26px #15473a10}
+.localFactSection h3{font-size:clamp(1.25rem,3vw,1.65rem);margin:7px 0 6px;letter-spacing:-.025em}
+.localFactSection p{line-height:1.5;color:#60777c;font-size:.85rem;margin:6px 0 12px}
+.localFactSection .localStatus{font-size:.82rem;color:#526d73;padding:9px 13px;border-radius:10px;background:#f2f6f2;border:1px solid #dae6dd;margin:13px 0}
+.localMetrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:12px 0 14px}
+.localMetric{background:#f2f8f4;border:1px solid #d1e4d9;padding:16px;border-radius:14px;min-width:0}
+.localMetric .metricTitle{font-size:.85rem;font-weight:790;color:#2d5c57;line-height:1.3}
+.localMetric .metricValue{font-size:clamp(1.6rem,4vw,2.35rem);font-variant-numeric:tabular-nums;letter-spacing:-.045em;color:#143f3f;font-weight:850;display:block;margin:8px 0 3px;overflow-wrap:anywhere}
+.localMetric .metricDefinition{font-size:.8rem;color:#4d6c68;line-height:1.5}
+.localMetric .metricLimit{color:#86674a;font-size:.77rem;line-height:1.5;margin-top:10px}
+.localMetric .metricSrc{font-size:.75rem;color:#346e64;margin-top:12px;display:flex;gap:9px;flex-wrap:wrap}
+.relatedPower{border-top:1px solid #d7e7df;margin-top:17px;padding-top:14px}
+.relatedPower h4{margin:4px 0 10px;font-size:.98rem;color:#264f48}
+.relatedPower .topicLinks{display:flex;gap:8px;flex-wrap:wrap}
+.relatedPower .topicLinks a{font-size:.78rem;border:1px solid #bad5cb;border-radius:10px;padding:9px 12px;background:#eaf4ef;color:#1c645a;text-decoration:none;font-weight:750}
+.relatedPower .topicLinks a:hover{background:#d8ece1}
+.localSourceTail{font-size:.8rem;color:#536e70;line-height:1.55}
+@media(max-width:620px){.localFactSection{padding:16px}.localMetrics{grid-template-columns:1fr}.localMetric .metricValue{font-size:2rem}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -67,6 +87,20 @@
 <p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
 </section>
 <section class="section" id="why"><div class="section-head"><div><div class="number"><span>3</span> What is behind it?</div><h2>Follow the decisions. Follow the evidence.</h2><p>First see the institutions and market mechanisms relevant to your issue. Then explore the deep research behind them—including political donations, corporations, billionaires, legislation, courts, elections and oversight.</p></div></div>
+<section class="localFactSection" id="sourceMeasured" aria-label="Measured conditions for selected daily-life issue">
+ <span class="ey-dark">Measured community conditions · Step 2 category</span>
+ <h3 id="localFactsHeading">What can we actually measure here?</h3>
+ <p id="localFactsIntro">Choose a U.S. ZIP above to see local Census estimates linked to your selected issue. These are observations, not explanations for their causes.</p>
+ <div class="localStatus" id="localDataStatus" role="status">No ZIP selected. All nine topics are connected to published Census tables; choose a location to request the estimates.</div>
+ <div class="localMetrics" id="localMetrics" aria-live="polite"></div>
+ <div class="relatedPower" id="localPowerConnections">
+  <h4>Explore the decisions and deep research behind this issue</h4>
+  <div class="topicLinks" id="localResearchLinks"></div>
+  <p id="localMissing" class="localSourceTail"></p>
+ </div>
+ <p id="localSourceTail" class="localSourceTail"></p>
+ </section>
+ <h3 style="margin:18px 0 12px;font-size:1.16rem">Who makes decisions about this?</h3>
 <div class="chain" id="decisionChain" aria-live="polite"><p>Decision pathways loading…</p></div>
 <div class="ey-dark" style="margin:5px 0 10px">Actual records connected to this issue</div>
 <div class="connection-grid" id="verifiedConnections" aria-live="polite"><div class="connection"><p>Checking official election, contract and business evidence…</p></div></div>
@@ -90,11 +124,13 @@ const base="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/";
 const SOURCE_STORIES=base+"data/place-impact/life-issues-v1.json";
 const SOURCE_MAP=base+"data/place-impact/deep-resource-map-v1.json";
 const SOURCE_ATLAS=base+"data/research/atlas-inventory-v1.json";
+const SOURCE_LOCAL=base+"data/place-impact/local-measures-v1.json";
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a-z0-9-]+)?$/.test(s||"")?s:null;
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
 let stories=null,deepMap=null,inventory=null,selected="housing",onlyRelevant=true,expanded=false,search="",activeZIP=null;
+let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSourceUrl=null;
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
 }
@@ -147,6 +183,112 @@ function renderResearch(){
 }
 
 let showAllOriginalSources=false;
+
+/* Build local measurements strictly from original ACS columns; no client-side
+   stand-in or fabricated values if source/geography/cross-origin checks fail. */
+function localMeasureColumns(m){
+ const source=localResults.get(activeZIP+"|"+selected);
+ return source?.data?.["86000US"+activeZIP]?.[m.table]?.estimate||null;
+}
+function evaluateMeasure(m,estimate){
+ if(!estimate||!Array.isArray(m.columns)||!m.columns.length)return null;
+ const vals=m.columns.map(k=>{
+  const raw=estimate[k];
+  const n=Number(raw);
+  return raw===null||raw===undefined||raw===""||!Number.isFinite(n)||n<0||n>1e11?null:n;
+ });
+ if(vals.some(v=>v===null))return null;
+ let result=null;
+ if(m.format==="share"){
+  const [top,bottom]=vals;
+  if(bottom<=0||top>bottom)return null;
+  result=100*top/bottom;
+ }else if(m.format==="sumshare"){
+  const den=vals[vals.length-1],top=vals.slice(0,-1).reduce((a,b)=>a+b,0);
+  if(den<=0||top>den)return null;
+  result=100*top/den;
+ }else if(m.format==="sumcount"){result=vals.reduce((a,b)=>a+b,0);}
+ else if(["usd","count","years"].includes(m.format)){
+  if(vals.length!==1)return null;
+  result=vals[0];
+ }
+ return Number.isFinite(result)?result:null;
+}
+function formatMeasure(m,value){
+ if(value===null)return "Unavailable";
+ if(m.format==="usd")return new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0}).format(value);
+ if(m.format==="share"||m.format==="sumshare")return value.toFixed(1)+"%";
+ if(m.format==="years")return value.toFixed(1)+" years";
+ return Math.round(value).toLocaleString("en-US");
+}
+function researchConnections(config){
+ const records=researchRecords();
+ const ids=new Set(config?.nextResearch||[]);
+ const links=records.filter(r=>ids.has(r.id)&&r.href).slice(0,7);
+ $("localResearchLinks").innerHTML=links.map(r=>link(r.href,r.title+" →")).join("")||'<span>Research sources indexed below.</span>';
+ $("localMissing").textContent="What is still unconnected: "+(config?.missing||"Jurisdiction-specific records are not verified.")+" "+(config?.localAuthority||"");
+}
+function renderLocalMeasures(){
+ const scope=localMeasures?.issues?.[selected];
+ const x=issue();$("localFactsHeading").textContent="What can we measure about "+(x?.title||"this issue")+"?";
+ if(!scope){
+  $("localDataStatus").textContent="Metric-to-issue source mapping not loaded. Local data cannot be displayed.";
+  $("localMetrics").innerHTML="";
+  $("localSourceTail").textContent="";
+  researchConnections(null);
+  return;
+ }
+ researchConnections(scope);
+ const z=activeZIP,record=z?localResults.get(z+"|"+selected):null;
+ const names=scope.measures.map(m=>m.title);
+ $("localFactsIntro").textContent=scope.measures.length+" Census-based measurements are connected to this issue. They describe a historical Census ZIP Code Tabulation Area (ZCTA), not an exact postal delivery area, current price quote, district or personal outcome.";
+ if(!z){
+  $("localDataStatus").textContent="Enter a five-digit ZIP in Step 1 to request observed Census estimates for "+(x?.title||selected)+". No values have been assumed.";
+  $("localMetrics").innerHTML=names.map(t=>'<div class="localMetric"><span class="metricTitle">'+esc(t)+'</span><strong class="metricValue">—</strong><p class="metricDefinition">Awaiting verified geography and source response.</p></div>').join("");
+  $("localSourceTail").textContent="Source: U.S. Census Bureau ACS 2020–2024, accessed through Census Reporter. A ZIP and ZCTA are not identical.";
+  return;
+ }
+ if(!record){
+  $("localDataStatus").textContent="Checking original 2020–2024 ACS estimates for Census ZCTA "+z+"…";
+  $("localMetrics").innerHTML=names.map(t=>'<div class="localMetric"><span class="metricTitle">'+esc(t)+'</span><strong class="metricValue">…</strong></div>').join("");
+  $("localSourceTail").textContent="Only original returned source values will appear; missing observations stay unavailable.";
+  return;
+ }
+ const okay=record.data&&record.release?.id===localMeasures.provider.release;
+ const exactID="86000US"+z,geoOkay=!!record.data?.data?.[exactID];
+ const status=okay&&geoOkay;
+ const items=scope.measures.map(m=>({m,val:status?evaluateMeasure(m,record.data.data[exactID]?.[m.table]?.estimate):null}));
+ const count=items.filter(x=>x.val!==null).length;
+ $("localDataStatus").textContent=(record.error||!status?"Live local data unavailable or not verified":"Loaded")+" · "+count+"/"+items.length+" measured values available for ZCTA "+z+". "+(record.error||"2020–2024 ACS sample estimates, not 2026 current conditions.");
+ $("localMetrics").innerHTML=items.map(({m,val})=>
+  '<article class="localMetric"><div class="metricTitle">'+esc(m.title)+'</div><strong class="metricValue">'+esc(formatMeasure(m,val))+'</strong><p class="metricDefinition">'+esc(m.why)+'</p><div class="metricLimit">'+esc(m.limits)+'</div><div class="metricSrc">'+link(m.originalTable,"Census table "+m.table+" ↗")+'</div></article>').join("");
+ const providerLink=record.url&&/^https:\/\/api\.censusreporter\.org\//.test(record.url)?record.url:null;
+ $("localSourceTail").innerHTML='Source period: <strong>2020–2024</strong> · Geography: <strong>Census ZCTA '+esc(z)+'</strong> · Provider: '+esc(localMeasures.provider.name)+'. '+(providerLink?link(providerLink,"Inspect this API response ↗"):"")+' Estimates have sampling uncertainty; computed shares do not display a combined margin of error. No local outcome is attributed to named politicians, corporations or donors.';
+}
+async function loadLocalMeasures(zip,topic){
+ if(!localMeasures?.issues?.[topic]||!zip)return;
+ const key=zip+"|"+topic;
+ if(localResults.has(key)){if(selected===topic&&activeZIP===zip)renderLocalMeasures();return;}
+ const config=localMeasures.issues[topic];
+ const tables=[...new Set(config.measures.map(m=>m.table))];
+ const geoid="86000US"+zip;
+ const url=localMeasures.provider.api+"?table_ids="+encodeURIComponent(tables.join(","))+"&geo_ids="+geoid;
+ const seq=++localRequestSequence;
+ if(selected===topic&&activeZIP===zip)renderLocalMeasures();
+ try{
+  const r=await fetch(url,{cache:"no-store"});
+  if(!r.ok)throw Error("HTTP "+r.status);
+  const d=await r.json();
+  if(d?.release?.id!==localMeasures.provider.release)throw Error("Unexpected ACS release");
+  if(!d?.data?.[geoid]||!d?.tables||tables.some(t=>!d.tables[t]||!d.data[geoid][t]?.estimate))
+   throw Error("Census geography or requested table missing");
+  localResults.set(key,{data:d,url,release:d.release});
+ }catch(err){
+  localResults.set(key,{error:"Census Reporter request failed ("+String(err.message).slice(0,90)+"). No data has been inferred.",url});
+ }
+ if(selected===topic&&activeZIP===zip&&seq<=localRequestSequence)renderLocalMeasures();
+}
+
 function renderSources(){
  const rows=deepMap?.sourceDirectories||[];
  $("sourceCount").textContent=rows.length+" source directories";
@@ -170,7 +312,7 @@ function markPrimaryNav(section){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();
+ selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderLocalMeasures();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -191,9 +333,10 @@ async function lookUpZIP(zip){
   const json=await response.json();
   const first=json.places?.[0];
   if(json["post code"]!==zip||!first||typeof first["place name"]!=="string"||typeof first.state!=="string")throw Error("No reliable postal match");
-  activeZIP=zip;name.textContent=first["place name"]+", "+first.state;
+  activeZIP=zip;localResults.clear();name.textContent=first["place name"]+", "+first.state;
   out.textContent="Postal ZIP "+zip+" identified. This is a third-party approximate place label, not a verified boundary for elections, utilities, taxes or school districts. Research below remains issue-specific until local records are joined.";
- }catch(e){activeZIP=null;name.textContent="ZIP "+zip+" (unverified)";out.textContent="Postal lookup unavailable. No city, district or local effect has been guessed. You can still explore the general research and official services.";}
+  renderLocalMeasures();await loadLocalMeasures(zip,selected);
+ }catch(e){activeZIP=zip;name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
 }
 $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
@@ -207,7 +350,7 @@ $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
 $("originAll").addEventListener("click",()=>{showAllOriginalSources=!showAllOriginalSources;renderSources()});
 $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderResearch()});
 (async()=>{
- const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
+ const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
  if(results[0].status!=="fulfilled"||results[0].value.schema!=="power-atlas.place-impact-stories.v1"){
   $("issueGrid").innerHTML='<div class="notice">The published daily-life stories could not be loaded. No locality claims have been invented. '+link("index.html","Visit existing research →")+'</div>';
   $("decisionChain").textContent="Source temporarily unavailable.";$("actionGrid").textContent="";return;
@@ -215,6 +358,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  stories=results[0].value;
  if(results[1].status==="fulfilled"&&results[1].value.schema==="power-atlas.place-impact-deep-evidence.v1")deepMap=results[1].value;
  if(results[2].status==="fulfilled"&&results[2].value.schema==="power-atlas.story-inventory.v1")inventory=results[2].value;
+ if(results[3].status==="fulfilled"&&results[3].value.schema==="power-atlas.place-impact-local-measures.v1")localMeasures=results[3].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
