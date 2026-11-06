@@ -1,0 +1,1487 @@
+{
+  "schema": "power-atlas.sitewide-missing-source-catalog.v1",
+  "asOf": "2026-11-06",
+  "auditScope": "All 9 local-life issues, 19 cross-domain research/technical blockers; sources are potential original data providers and downloads, NOT a claim of completed ingestion, verified public license, or established local effect.",
+  "accuracy": "Source URLs are public documentation/portals from identified primary and secondary providers. Underlying raw data, exact geographic joins, license and freshness require separate validation. Missing is never zero.",
+  "sources": [
+    {
+      "id": "census_acs",
+      "name": "ACS detailed tables",
+      "url": "https://data.census.gov/",
+      "agency": "U.S. Census Bureau",
+      "grain": "ZCTA, county, tract, state",
+      "access": "public_free_portal;api_key_for_API",
+      "limitations": "ACS data are historical sample estimates; ZCTAs are not USPS postal districts; API now requires a key."
+    },
+    {
+      "id": "census_tiger",
+      "name": "TIGER / Line boundaries",
+      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html",
+      "agency": "U.S. Census Bureau",
+      "grain": "tract, county, census geography",
+      "access": "public_free",
+      "limitations": "Geometry is statistical; address-point and electoral boundary joins require specific effective dates."
+    },
+    {
+      "id": "hud_safmr",
+      "name": "HUD Small Area Fair Market Rents",
+      "url": "https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html",
+      "agency": "HUD",
+      "grain": "ZIP or ZCTA / metropolitan",
+      "access": "public_free",
+      "limitations": "Program rent benchmarks are not asking rents, signed lease rates or an average bill."
+    },
+    {
+      "id": "hud_pic",
+      "name": "HUD public housing information",
+      "url": "https://www.hud.gov/program_offices/public_indian_housing/systems/pic",
+      "agency": "HUD",
+      "grain": "housing authority",
+      "access": "public_free_discovery",
+      "limitations": "No individual tenant identity collection allowed."
+    },
+    {
+      "id": "fhfa_hpi",
+      "name": "FHFA House Price Index",
+      "url": "https://www.fhfa.gov/data/hpi",
+      "agency": "FHFA",
+      "grain": "metro, county where available",
+      "access": "public_free",
+      "limitations": "Market movement is not a causal estimate of financial-firm ownership."
+    },
+    {
+      "id": "hmda",
+      "name": "HMDA mortgage lending data",
+      "url": "https://ffiec.cfpb.gov/data-publication/",
+      "agency": "FFIEC / CFPB",
+      "grain": "census tract, lender",
+      "access": "public_free",
+      "limitations": "Mortgage origination is not landlord ownership or household rent."
+    },
+    {
+      "id": "county_assessor",
+      "name": "County assessor and recorder directory",
+      "url": "https://www.usa.gov/state-local-governments",
+      "agency": "Official local governments",
+      "grain": "parcel, address",
+      "access": "varies_by_jurisdiction",
+      "limitations": "Property deed and beneficial owner matching require jurisdiction-specific and privacy-aware handling."
+    },
+    {
+      "id": "sec_subsidiaries",
+      "name": "SEC EDGAR company filings and Exhibit 21",
+      "url": "https://www.sec.gov/edgar/search/",
+      "agency": "SEC",
+      "grain": "CIK / legal entity / fiscal period",
+      "access": "public_free_with_rate_limits",
+      "limitations": "Exhibit 21 can omit immaterial subsidiaries; public shareholders do not automatically control local outlets."
+    },
+    {
+      "id": "sec_beneficial",
+      "name": "SEC Schedules 13D and 13G",
+      "url": "https://www.sec.gov/edgar/search/",
+      "agency": "SEC",
+      "grain": "issuer, beneficial holder, dated",
+      "access": "public_free_with_rate_limits",
+      "limitations": "Beneficial holdings and control rights are not always equivalent; filing updates can lag."
+    },
+    {
+      "id": "ftc_mergers",
+      "name": "FTC merger decisions and competition",
+      "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings",
+      "agency": "Federal Trade Commission",
+      "grain": "case / market / entities",
+      "access": "public_free",
+      "limitations": "Complaint is an allegation; case disposition and market definition matter."
+    },
+    {
+      "id": "doj_antitrust",
+      "name": "DOJ Antitrust case records",
+      "url": "https://www.justice.gov/atr/antitrust-case-filings",
+      "agency": "U.S. Department of Justice",
+      "grain": "case / defendants",
+      "access": "public_free",
+      "limitations": "Claims, proposed settlements, final orders and effects must be separated."
+    },
+    {
+      "id": "childcare_ndcp",
+      "name": "National Database of Childcare Prices",
+      "url": "https://www.dol.gov/agencies/wb/topics/featured-childcare",
+      "agency": "U.S. Department of Labor Women's Bureau",
+      "grain": "county, 2008–2022",
+      "access": "public_free",
+      "limitations": "County childcare price, not 2026 tuition or a ZIP-specific quote; many local data gaps."
+    },
+    {
+      "id": "childcare_ccdf",
+      "name": "Child Care and Development Fund",
+      "url": "https://www.acf.hhs.gov/occ",
+      "agency": "HHS Administration for Children and Families",
+      "grain": "state, territory, provider subsidy rules",
+      "access": "public_free_discovery",
+      "limitations": "State market-rate surveys, reimbursement rates and provider eligibility must be checked state by state."
+    },
+    {
+      "id": "childcare_licensing",
+      "name": "State and local childcare licensing authorities",
+      "url": "https://childcare.gov/consumer-education",
+      "agency": "HHS / State licensing agencies",
+      "grain": "facility / address / licensing period",
+      "access": "public_free_discovery",
+      "limitations": "License roster is not an ownership registry or verified current childcare availability."
+    },
+    {
+      "id": "nces_ccd",
+      "name": "Common Core of Data school directory",
+      "url": "https://nces.ed.gov/ccd/schoolsearch/",
+      "agency": "National Center for Education Statistics",
+      "grain": "school / district / year",
+      "access": "public_free",
+      "limitations": "School location does not prove assignment; school quality needs contextual measures."
+    },
+    {
+      "id": "census_school_finances",
+      "name": "School System Finances",
+      "url": "https://www.census.gov/programs-surveys/school-finances.html",
+      "agency": "U.S. Census Bureau",
+      "grain": "public school district, fiscal year",
+      "access": "public_free",
+      "limitations": "Funding is not directly comparable to tuition or student outcomes without enrollment and accounting."
+    },
+    {
+      "id": "state_education",
+      "name": "State education agency directory",
+      "url": "https://www.ed.gov/about/ed-offices",
+      "agency": "U.S. Department of Education / state agencies",
+      "grain": "state / district",
+      "access": "public_free_discovery",
+      "limitations": "Exact school boundaries and district ratings vary by jurisdiction."
+    },
+    {
+      "id": "usda_fara",
+      "name": "USDA 2025 SNAP Retailer Access Map",
+      "url": "https://www.ers.usda.gov/data-products/food-access-research-atlas/download-the-data",
+      "agency": "USDA ERS",
+      "grain": "tract, 2025 retail access",
+      "access": "public_free_bulk",
+      "limitations": "Distance and store access are not grocery item prices; SNAP retailer list excludes some types."
+    },
+    {
+      "id": "usda_retailer",
+      "name": "USDA SNAP Retailer Locator",
+      "url": "https://www.fns.usda.gov/snap/retailer-locator",
+      "agency": "USDA Food and Nutrition Service",
+      "grain": "store / address",
+      "access": "public_free_discovery",
+      "limitations": "SNAP authorization is not full grocery availability, pricing or corporate ownership."
+    },
+    {
+      "id": "bls_prices",
+      "name": "BLS Consumer Price Index and Average Prices",
+      "url": "https://www.bls.gov/cpi/data.htm",
+      "agency": "Bureau of Labor Statistics",
+      "grain": "national / sampled metro / time",
+      "access": "public_free",
+      "limitations": "Index levels cannot be added to dollar bills; average basket is not an individual receipt."
+    },
+    {
+      "id": "ftc_grocery",
+      "name": "FTC grocery supply-chain report",
+      "url": "https://www.ftc.gov/news-events/news/press-releases/2024/03/ftc-releases-report-grocery-supply-chain-disruptions",
+      "agency": "Federal Trade Commission",
+      "grain": "sample industry businesses, 2023",
+      "access": "public_free",
+      "limitations": "Historical broad industry results, not current specific grocer's price premium."
+    },
+    {
+      "id": "openfoodfacts",
+      "name": "Open Food Facts revisions",
+      "url": "https://world.openfoodfacts.org/",
+      "agency": "Open Food Facts",
+      "grain": "barcode / ingredient / date",
+      "access": "public_free_conditions",
+      "limitations": "Crowd-sourced item attributes require verification and licensing; product changes are not price proofs."
+    },
+    {
+      "id": "eia_electric",
+      "name": "EIA-861 utility-level sales and revenues",
+      "url": "https://www.eia.gov/electricity/data/eia861/",
+      "agency": "U.S. Energy Information Administration",
+      "grain": "utility / state / sector / year",
+      "access": "public_free_bulk",
+      "limitations": "Realized average revenue per kWh is not a customer's tariff; exact service territory missing."
+    },
+    {
+      "id": "eia_rates",
+      "name": "EIA electricity price and utility FAQ",
+      "url": "https://www.eia.gov/tools/faqs/faq.php?id=507&t=5",
+      "agency": "U.S. Energy Information Administration",
+      "grain": "utility / state / sector",
+      "access": "public_free",
+      "limitations": "Individual retail rate schedules vary by customer class, supplier, location and time."
+    },
+    {
+      "id": "puc_directory",
+      "name": "Public utility commission directory",
+      "url": "https://www.naruc.org/about-naruc/regulatory-commissions/",
+      "agency": "National Association of Regulatory Utility Commissioners",
+      "grain": "state / utility / docket",
+      "access": "public_free_discovery",
+      "limitations": "NARUC is a directory; binding rate decisions come from individual state commission orders."
+    },
+    {
+      "id": "eia_gas",
+      "name": "EIA natural gas prices",
+      "url": "https://www.eia.gov/dnav/ng/ng_pri_sum_dcu_nus_a.htm",
+      "agency": "U.S. Energy Information Administration",
+      "grain": "state, sector, year",
+      "access": "public_free",
+      "limitations": "Not a customer heating bill, which also depends on quantity and efficiency."
+    },
+    {
+      "id": "cms_hospital",
+      "name": "CMS Hospital Price Transparency",
+      "url": "https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency/hospitals",
+      "agency": "Centers for Medicare & Medicaid Services",
+      "grain": "hospital, payer, service",
+      "access": "public_free_distributed_files",
+      "limitations": "Negotiated rates are not individual copays, and compliance/file interpretation differ."
+    },
+    {
+      "id": "cms_provider",
+      "name": "CMS Care Compare",
+      "url": "https://www.medicare.gov/care-compare/",
+      "agency": "CMS",
+      "grain": "provider, location, period",
+      "access": "public_free",
+      "limitations": "Provider listings do not ensure appointment availability or network acceptance."
+    },
+    {
+      "id": "nppes",
+      "name": "NPPES provider registry",
+      "url": "https://download.cms.gov/nppes/NPI_Files.html",
+      "agency": "CMS",
+      "grain": "NPI, practice address",
+      "access": "public_free",
+      "limitations": "NPI is not a verified corporate ultimate-owner ID."
+    },
+    {
+      "id": "state_insurance",
+      "name": "State insurance department directory",
+      "url": "https://content.naic.org/state-insurance-departments",
+      "agency": "National Association of Insurance Commissioners",
+      "grain": "state / regulated insurer / rate filing",
+      "access": "public_free_discovery",
+      "limitations": "Actual premium filings and insurance product eligibility require separate source review."
+    },
+    {
+      "id": "ftc_pbm",
+      "name": "FTC PBM pricing research",
+      "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-releases-second-interim-staff-report-prescription-drug-middlemen",
+      "agency": "Federal Trade Commission",
+      "grain": "selected drug / PBM / interval",
+      "access": "public_free",
+      "limitations": "Revenue above drug acquisition cost is not automatically net profit or patient excess payment."
+    },
+    {
+      "id": "bls_qcew",
+      "name": "Quarterly Census of Employment and Wages",
+      "url": "https://www.bls.gov/cew/downloadable-data-files.htm",
+      "agency": "Bureau of Labor Statistics",
+      "grain": "county, NAICS, calendar period",
+      "access": "public_free_bulk",
+      "limitations": "Industry wages are not employer-specific; cell suppression and changing industry mixes."
+    },
+    {
+      "id": "bls_laus",
+      "name": "Local Area Unemployment Statistics",
+      "url": "https://www.bls.gov/lau/",
+      "agency": "Bureau of Labor Statistics",
+      "grain": "county, state, metro / month",
+      "access": "public_free",
+      "limitations": "Local unemployment is not household income or jobs offered by a named company."
+    },
+    {
+      "id": "census_cbp",
+      "name": "County Business Patterns / ZIP business patterns",
+      "url": "https://www.census.gov/data/developers/data-sets/cbp-zbp.html",
+      "agency": "U.S. Census Bureau",
+      "grain": "county, ZIP, NAICS, year",
+      "access": "public_download_or_API_key",
+      "limitations": "Establishment counts do not identify owners or local market share; Census API currently requires key."
+    },
+    {
+      "id": "bls_ownership",
+      "name": "BLS employment concentration study",
+      "url": "https://www.bls.gov/opub/mlr/2024/article/measuring-labor-market-concentration-using-the-qcew.htm",
+      "agency": "Bureau of Labor Statistics",
+      "grain": "metro / industry study",
+      "access": "public_free",
+      "limitations": "An observational association, not employer-level proof of wage suppression."
+    },
+    {
+      "id": "usaspending",
+      "name": "USAspending agency awards",
+      "url": "https://www.usaspending.gov/search",
+      "agency": "U.S. Treasury / USAspending",
+      "grain": "recipient UEI, award, agency, year, place of performance",
+      "access": "public_free_API",
+      "limitations": "Award obligations are not revenue/profits, employment, or proof of steering."
+    },
+    {
+      "id": "fta_ntd",
+      "name": "National Transit Database",
+      "url": "https://www.transit.dot.gov/ntd",
+      "agency": "Federal Transit Administration",
+      "grain": "operator / route / FY",
+      "access": "public_free",
+      "limitations": "Agency spending and ridership do not provide an individual bus schedule."
+    },
+    {
+      "id": "ftadata_gtfs",
+      "name": "MobilityData public GTFS feed directory",
+      "url": "https://mobilitydatabase.org/",
+      "agency": "MobilityData",
+      "grain": "transit agency / timetable / route",
+      "access": "public_free_conditions",
+      "limitations": "Feeds can be stale, coverage partial; official operator timetables control."
+    },
+    {
+      "id": "bts_transport",
+      "name": "Bureau of Transportation Statistics",
+      "url": "https://www.bts.gov/data-and-statistics",
+      "agency": "U.S. DOT",
+      "grain": "state, metro, transport mode",
+      "access": "public_free",
+      "limitations": "Transport sector costs require service/fare-specific comparisons."
+    },
+    {
+      "id": "fcc_broadband",
+      "name": "FCC National Broadband Map",
+      "url": "https://broadbandmap.fcc.gov/",
+      "agency": "Federal Communications Commission",
+      "grain": "broadband serviceable location, provider, technology",
+      "access": "public_free_download",
+      "limitations": "Reported availability is not an actual quoted price or service performance; address search may require consent."
+    },
+    {
+      "id": "census_localgov",
+      "name": "Census of Governments",
+      "url": "https://www.census.gov/programs-surveys/cog.html",
+      "agency": "U.S. Census Bureau",
+      "grain": "local government, 5-year cycle",
+      "access": "public_free",
+      "limitations": "Financial surveys are not current property tax bills."
+    },
+    {
+      "id": "state_localgov",
+      "name": "Government local budgets and open data",
+      "url": "https://www.usa.gov/state-local-governments",
+      "agency": "State, county, municipal agencies",
+      "grain": "jurisdiction-specific",
+      "access": "public_free_discovery",
+      "limitations": "No national universal city finance API; join exact boundaries and approved budget years."
+    },
+    {
+      "id": "fec_official",
+      "name": "FEC itemized campaign finance",
+      "url": "https://www.fec.gov/data/",
+      "agency": "Federal Election Commission",
+      "grain": "committee ID, transaction date and filing",
+      "access": "public_free_bulk_or_demo_key",
+      "limitations": "FEC receipts not all original donors; committee filings can amend; reporting includes protected personal information."
+    },
+    {
+      "id": "state_finance",
+      "name": "State election office official directory",
+      "url": "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/",
+      "agency": "Federal Election Commission (directory) / state agencies",
+      "grain": "state, county, municipal disclosures",
+      "access": "public_free_varies",
+      "limitations": "Directory only; download licenses, state transaction schemas and local coverage vary."
+    },
+    {
+      "id": "house_votes",
+      "name": "U.S. House Clerk votes",
+      "url": "https://clerk.house.gov/Votes",
+      "agency": "U.S. House Clerk",
+      "grain": "member, roll call, legislation, date",
+      "access": "public_free",
+      "limitations": "Roll calls are not reasons behind votes or direct household effects."
+    },
+    {
+      "id": "senate_votes",
+      "name": "U.S. Senate roll calls",
+      "url": "https://www.senate.gov/legislative/votes_new.htm",
+      "agency": "U.S. Senate",
+      "grain": "member, roll call, year",
+      "access": "public_free_source_access_varies",
+      "limitations": "Some official endpoints returned 403 in CI; use validated alternate without access bypass."
+    },
+    {
+      "id": "congress",
+      "name": "Congress.gov bills and enactments",
+      "url": "https://www.congress.gov/",
+      "agency": "Library of Congress",
+      "grain": "bill, date, chamber, text",
+      "access": "public_free",
+      "limitations": "Introduced bill is not effective law."
+    },
+    {
+      "id": "voting_rights",
+      "name": "DOJ Voting Section",
+      "url": "https://www.justice.gov/crt/voting-section",
+      "agency": "U.S. Department of Justice",
+      "grain": "cases, enforcement action, jurisdiction",
+      "access": "public_free",
+      "limitations": "Allegations, settlements, decisions and appealed case status require separation."
+    },
+    {
+      "id": "courtlistener",
+      "name": "CourtListener docket repository",
+      "url": "https://www.courtlistener.com/",
+      "agency": "Free Law Project",
+      "grain": "case, court, docket, documents",
+      "access": "public_free_API_policy",
+      "limitations": "Not a complete nationwide court docket source; filings are not holdings."
+    },
+    {
+      "id": "state_judiciary",
+      "name": "National Center for State Courts / state judicial sources",
+      "url": "https://www.ncsc.org/",
+      "agency": "NCSC / state judiciaries",
+      "grain": "state judge, court selection",
+      "access": "public_free_discovery",
+      "limitations": "Independent original state records control; not all appointment or election histories present."
+    },
+    {
+      "id": "tiger_congress",
+      "name": "Census congressional districts map boundaries",
+      "url": "https://www.census.gov/geographies/mapping-files/time-series/geo/tiger-line-file.html",
+      "agency": "U.S. Census Bureau",
+      "grain": "district / effective vintage",
+      "access": "public_free",
+      "limitations": "District boundary time period and exact address join must be verified."
+    },
+    {
+      "id": "irs_990",
+      "name": "IRS tax-exempt Form 990 bulk files",
+      "url": "https://www.irs.gov/charities-non-profits/form-990-series-downloads",
+      "agency": "Internal Revenue Service",
+      "grain": "EIN, filing, tax year",
+      "access": "public_free_bulk",
+      "limitations": "Some donors undisclosed and forms lag; grants not campaign contributions."
+    },
+    {
+      "id": "lda",
+      "name": "Senate lobbying disclosure",
+      "url": "https://lda.senate.gov/",
+      "agency": "Senate Office of Public Records",
+      "grain": "client, registrant, filing, date, issues",
+      "access": "public_free",
+      "limitations": "Lobbying records are not proof of favorable policy or quid pro quo."
+    },
+    {
+      "id": "ogepublic",
+      "name": "Office of Government Ethics disclosures",
+      "url": "https://www.oge.gov/web/oge.nsf/Financial%20Disclosure",
+      "agency": "Office of Government Ethics",
+      "grain": "person / filing",
+      "access": "public_free_subject_to_privacy",
+      "limitations": "Not comprehensive elected official holdings; privacy and public access restrictions apply."
+    },
+    {
+      "id": "house_disclosure",
+      "name": "House Financial Disclosure Reports",
+      "url": "https://disclosures-clerk.house.gov/FinancialDisclosure",
+      "agency": "U.S. House Clerk",
+      "grain": "member, report, transaction",
+      "access": "public_free",
+      "limitations": "Reported transaction ranges, not exact trade execution prices or full wealth."
+    },
+    {
+      "id": "senate_disclosure",
+      "name": "Senate Financial Disclosures",
+      "url": "https://efdsearch.senate.gov/search/",
+      "agency": "U.S. Senate",
+      "grain": "member, report",
+      "access": "public_free_use_terms",
+      "limitations": "Senate disclosures require user acknowledgement; do not bypass terms or authentication."
+    },
+    {
+      "id": "open_secrets",
+      "name": "OpenSecrets campaign finance",
+      "url": "https://www.opensecrets.org/",
+      "agency": "OpenSecrets",
+      "grain": "organization donor, funding, lobbying",
+      "access": "external_license_review",
+      "limitations": "Third-party name resolution and licensing review; not a replacement for original FEC records."
+    }
+  ],
+  "gaps": [
+    {
+      "id": "housing__price",
+      "issue": "housing",
+      "kind": "price",
+      "question": "What do renters and buyers actually pay by neighborhood and year?",
+      "sourceIds": [
+        "hud_safmr",
+        "census_acs",
+        "fhfa_hpi"
+      ],
+      "requiredJoin": "ZCTA/county and dated rent/price measures with consistent units",
+      "limitation": "Observed median gross rent is not a live asking-rent series.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "housing__ownership",
+      "issue": "housing",
+      "kind": "ownership",
+      "question": "Which legal landlord entities ultimately control rentals and developments?",
+      "sourceIds": [
+        "county_assessor",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "hmda"
+      ],
+      "requiredJoin": "parcel-address legal owner → ultimate parent → dated ownership with corporate filings",
+      "limitation": "National REIT ownership and local land title are unjoined.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "housing__decisions",
+      "issue": "housing",
+      "kind": "decisions",
+      "question": "Which zoning, housing and antitrust decisions materially affect supply?",
+      "sourceIds": [
+        "state_localgov",
+        "doj_antitrust",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "municipality and property geometry → dated law, permits, decisions",
+      "limitation": "Named owners need not have caused policy decisions.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "housing__outcomes",
+      "issue": "housing",
+      "kind": "outcomes",
+      "question": "How much of housing cost growth can be linked to supply, ownership or regulation?",
+      "sourceIds": [
+        "census_acs",
+        "fhfa_hpi",
+        "hud_safmr"
+      ],
+      "requiredJoin": "comparison areas, building age, financing, trends, rents, vacancies and model specification",
+      "limitation": "No causal premium has been estimated.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "groceries__price",
+      "issue": "groceries",
+      "kind": "price",
+      "question": "What has a consistent grocery basket cost locally over time?",
+      "sourceIds": [
+        "bls_prices",
+        "openfoodfacts",
+        "ftc_grocery"
+      ],
+      "requiredJoin": "retail item+size+date+store+geography with product substitution controls",
+      "limitation": "National food CPI is not local receipts.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "groceries__ownership",
+      "issue": "groceries",
+      "kind": "ownership",
+      "question": "Which local grocery and packaged-food brands share ownership?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "requiredJoin": "actual store operator / chain / CIK; outlet address & date",
+      "limitation": "Census business counts do not identify each owner's market share.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "groceries__decisions",
+      "issue": "groceries",
+      "kind": "decisions",
+      "question": "What competition or price-related public decisions concern food retailers?",
+      "sourceIds": [
+        "ftc_grocery",
+        "ftc_mergers",
+        "doj_antitrust"
+      ],
+      "requiredJoin": "case and final order → affected local market and timeline",
+      "limitation": "FTC inquiry is not an adverse finding.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "groceries__outcomes",
+      "issue": "groceries",
+      "kind": "outcomes",
+      "question": "Does store access or concentration correlate with higher prices in comparable markets?",
+      "sourceIds": [
+        "usda_fara",
+        "usda_retailer",
+        "bls_prices"
+      ],
+      "requiredJoin": "census tract grocery access + comparable market baskets and transport",
+      "limitation": "2025 FARA access ≠ 2026 grocery price level.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "energy__price",
+      "issue": "energy",
+      "kind": "price",
+      "question": "What is the actual residential utility tariff and current bill impact?",
+      "sourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "eia_gas"
+      ],
+      "requiredJoin": "utility service territory → approved tariff, usage, billing period",
+      "limitation": "State all-sector average rate is not consumer tariff.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "energy__ownership",
+      "issue": "energy",
+      "kind": "ownership",
+      "question": "Who owns the utility, suppliers and generation assets serving this address?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "eia_electric"
+      ],
+      "requiredJoin": "account service provider, franchise territory, parent filings, asset list",
+      "limitation": "ZIP labels do not identify utility service.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "energy__decisions",
+      "issue": "energy",
+      "kind": "decisions",
+      "question": "Which rate-case orders, fuel cost rules and subsidies changed the price?",
+      "sourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "usaspending"
+      ],
+      "requiredJoin": "utility docket → approved customer class rates → effective date",
+      "limitation": "Political donations do not establish regulators' motives.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "energy__outcomes",
+      "issue": "energy",
+      "kind": "outcomes",
+      "question": "How much of the change is fuel, delivery, tax, use or margin?",
+      "sourceIds": [
+        "eia_electric",
+        "eia_gas",
+        "puc_directory"
+      ],
+      "requiredJoin": "disaggregated bill, utility expenditure and counterfactual usage",
+      "limitation": "Heating fuel mix is not the cause of the household bill.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "health__price",
+      "issue": "health",
+      "kind": "price",
+      "question": "Which actual prices, premiums and out-of-pocket charges are paid?",
+      "sourceIds": [
+        "cms_hospital",
+        "state_insurance",
+        "ftc_pbm"
+      ],
+      "requiredJoin": "service code + insurance plan + date + hospital + actual cost sharing",
+      "limitation": "Insurer-negotiated rates are not a patient's bill.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "health__ownership",
+      "issue": "health",
+      "kind": "ownership",
+      "question": "Who owns provider groups, hospitals, PBMs and clinics nearby?",
+      "sourceIds": [
+        "nppes",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "NPI → facility/operator → parent → transaction/date",
+      "limitation": "NPI is not verified beneficial ownership.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "health__decisions",
+      "issue": "health",
+      "kind": "decisions",
+      "question": "Which insurance rules, consolidation cases and payment policies apply?",
+      "sourceIds": [
+        "state_insurance",
+        "ftc_mergers",
+        "doj_antitrust",
+        "cms_hospital"
+      ],
+      "requiredJoin": "state regulator, final rule, approved acquisition and effective date",
+      "limitation": "Open case is not finding of wrongdoing.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "health__outcomes",
+      "issue": "health",
+      "kind": "outcomes",
+      "question": "Did acquisition or policy measurably change negotiated and patient prices?",
+      "sourceIds": [
+        "cms_hospital",
+        "ftc_pbm",
+        "cms_provider"
+      ],
+      "requiredJoin": "service-adjusted price trend with comparable non-acquired providers",
+      "limitation": "Published 4–14% insurer price finding is from selected studies, not patient copays.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "work__price",
+      "issue": "work",
+      "kind": "price",
+      "question": "What wages and openings are actually available in local sectors?",
+      "sourceIds": [
+        "bls_qcew",
+        "bls_laus",
+        "census_cbp"
+      ],
+      "requiredJoin": "county NAICS time series + vacancies with employer identification",
+      "limitation": "Household income not individual job wage.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "work__ownership",
+      "issue": "work",
+      "kind": "ownership",
+      "question": "Which employers and staffing providers share an owner?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "requiredJoin": "operating employers → ultimate parents / merger chronology",
+      "limitation": "Many candidate political committees are not operating employers.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "work__decisions",
+      "issue": "work",
+      "kind": "decisions",
+      "question": "Which contracts and workplace rules were enacted and for whom?",
+      "sourceIds": [
+        "usaspending",
+        "congress",
+        "house_votes",
+        "lda"
+      ],
+      "requiredJoin": "UEI and place of performance → paid jobs and enacted rule",
+      "limitation": "Award obligations ≠ local payroll.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "work__outcomes",
+      "issue": "work",
+      "kind": "outcomes",
+      "question": "Does local employer concentration explain wage growth after controls?",
+      "sourceIds": [
+        "bls_ownership",
+        "bls_qcew",
+        "census_cbp"
+      ],
+      "requiredJoin": "metro-industry employer shares, wage percentiles, controls and validation",
+      "limitation": "Observational BLS estimate not a named firm's causal wage impact.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "schools__price",
+      "issue": "schools",
+      "kind": "price",
+      "question": "What does infant and preschool childcare cost by county and setting?",
+      "sourceIds": [
+        "childcare_ndcp",
+        "childcare_ccdf"
+      ],
+      "requiredJoin": "county FIPS + childcare age/setting + cost vintage",
+      "limitation": "2022 county medians do not estimate 2026 tuition.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "schools__ownership",
+      "issue": "schools",
+      "kind": "ownership",
+      "question": "Who owns or operates licensed local childcare centres and brands?",
+      "sourceIds": [
+        "childcare_licensing",
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "license number → legal operator → brand and owner as of date",
+      "limitation": "2018 brand rosters are historical; corporate ownership not verified for particular location.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "schools__decisions",
+      "issue": "schools",
+      "kind": "decisions",
+      "question": "Which subsidy rules and funding allocations affect care?",
+      "sourceIds": [
+        "childcare_ccdf",
+        "census_school_finances",
+        "state_education"
+      ],
+      "requiredJoin": "state subsidy rates, eligibility, provider license & funding years",
+      "limitation": "Public education spending does not set all private tuition.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "schools__outcomes",
+      "issue": "schools",
+      "kind": "outcomes",
+      "question": "Do parent changes, subsidy rules or scarcity influence comparable childcare prices?",
+      "sourceIds": [
+        "childcare_ndcp",
+        "childcare_licensing",
+        "census_cbp"
+      ],
+      "requiredJoin": "facility age-setting tuition history, capacity, occupancy, labor and comparison",
+      "limitation": "Preschool resident counts do not measure prices or available places.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "transport__price",
+      "issue": "transport",
+      "kind": "price",
+      "question": "What do residents pay for fares, tolls, fuel and car insurance?",
+      "sourceIds": [
+        "fta_ntd",
+        "bts_transport",
+        "state_insurance"
+      ],
+      "requiredJoin": "journey, route, fare version, operator and date",
+      "limitation": "National transport CPI not a personal commute.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "transport__ownership",
+      "issue": "transport",
+      "kind": "ownership",
+      "question": "Who owns operators, mobility platforms and local assets?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "fta_ntd"
+      ],
+      "requiredJoin": "licensed operator / system parent / service territory",
+      "limitation": "An asset manager listing does not show which routes are served.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "transport__decisions",
+      "issue": "transport",
+      "kind": "decisions",
+      "question": "Which fare increases and infrastructure funding decisions occurred?",
+      "sourceIds": [
+        "fta_ntd",
+        "usaspending",
+        "state_localgov"
+      ],
+      "requiredJoin": "local transit authority board decision, effective date and budget",
+      "limitation": "Awards to a project ≠ fare change.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "transport__outcomes",
+      "issue": "transport",
+      "kind": "outcomes",
+      "question": "Did competitive options or spending change commute costs?",
+      "sourceIds": [
+        "ftadata_gtfs",
+        "fta_ntd",
+        "bts_transport"
+      ],
+      "requiredJoin": "route frequency, travel time, fares and modal alternatives",
+      "limitation": "Selected route effects vary by traveler.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "public-services__price",
+      "issue": "public-services",
+      "kind": "price",
+      "question": "What taxes and local service charges actually apply to the resident?",
+      "sourceIds": [
+        "census_localgov",
+        "state_localgov"
+      ],
+      "requiredJoin": "tax parcel, municipality, school district, approved budgets, line items",
+      "limitation": "National federal spending is not a municipality's bill.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "public-services__ownership",
+      "issue": "public-services",
+      "kind": "ownership",
+      "question": "Who owns contractors and broadband providers paid by local governments?",
+      "sourceIds": [
+        "fcc_broadband",
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "requiredJoin": "contractor UEI → parent; broadband operator → served address",
+      "limitation": "EIA and FCC national firms are not all a resident's providers.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "public-services__decisions",
+      "issue": "public-services",
+      "kind": "decisions",
+      "question": "Which contracts, grants, subsidies and budget votes were approved?",
+      "sourceIds": [
+        "usaspending",
+        "state_localgov",
+        "irs_990"
+      ],
+      "requiredJoin": "government expenditure / award ID / council vote / date and jurisdiction",
+      "limitation": "Awards are obligations, not payments or services delivered.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "public-services__outcomes",
+      "issue": "public-services",
+      "kind": "outcomes",
+      "question": "What measured service improvements resulted per taxpayer dollar?",
+      "sourceIds": [
+        "census_localgov",
+        "fcc_broadband",
+        "usaspending"
+      ],
+      "requiredJoin": "service KPI, disbursement, denominator, quality and independent comparison",
+      "limitation": "No complete local service-outcome-to-tax causal join.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "representation__price",
+      "issue": "representation",
+      "kind": "price",
+      "question": "Which current laws and elected officials have jurisdiction over an expense?",
+      "sourceIds": [
+        "tiger_congress",
+        "state_localgov",
+        "congress"
+      ],
+      "requiredJoin": "verified address or official district lookup / legal effective date",
+      "limitation": "ZIP alone cannot determine district or local tax jurisdiction.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "representation__ownership",
+      "issue": "representation",
+      "kind": "ownership",
+      "question": "Which donors and lobbying organizations connect to decision makers?",
+      "sourceIds": [
+        "fec_official",
+        "state_finance",
+        "lda",
+        "irs_990"
+      ],
+      "requiredJoin": "original donor → committee → legally matched recipient → decision date",
+      "limitation": "FEC name or related board memberships are not ownership or unlawful influence.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "representation__decisions",
+      "issue": "representation",
+      "kind": "decisions",
+      "question": "What actual votes, orders and certified election outcomes exist?",
+      "sourceIds": [
+        "house_votes",
+        "senate_votes",
+        "voting_rights",
+        "congress"
+      ],
+      "requiredJoin": "member roll call, law text and effective date, adjudicated case",
+      "limitation": "Introduced bills and pending court cases are not completed decisions.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "medium",
+      "notZero": true
+    },
+    {
+      "id": "representation__outcomes",
+      "issue": "representation",
+      "kind": "outcomes",
+      "question": "What household outcomes changed after those decisions?",
+      "sourceIds": [
+        "census_acs",
+        "census_localgov",
+        "bls_qcew"
+      ],
+      "requiredJoin": "policy-exposure boundary and date, comparator and household effect",
+      "limitation": "No district policy-to-family causal model published.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "medium",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "corp_registry",
+      "issue": "platform-wide",
+      "kind": "corporate_owner",
+      "question": "Current SEC Exhibit 21 + dated shareholder filings across all named corporate entities; match exact CIK, EIN, LEI, UEI and business aliases.",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "Canonical corporate graph by source, ownership share, dates and legal name; keep conflicts",
+      "limitation": "Current ownership edges only for selected case studies; private OpenLedger DB not exported.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "local_outlets",
+      "issue": "platform-wide",
+      "kind": "corporate_owner",
+      "question": "Tie named national brands to licensed local establishments without assuming ZIP equals legal boundary.",
+      "sourceIds": [
+        "childcare_licensing",
+        "county_assessor",
+        "nppes",
+        "fcc_broadband"
+      ],
+      "requiredJoin": "Verified outlet ID+physical address → operator → ultimate parent",
+      "limitation": "No national exhaustive licence and facility-to-parent crosswalk.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "employer_market_denominator",
+      "issue": "platform-wide",
+      "kind": "competition",
+      "question": "Measure denominator of local employer/store market shares, not just names or national PAC contributions.",
+      "sourceIds": [
+        "census_cbp",
+        "bls_qcew",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "Exact market and competitor set plus numerator/denominator and year",
+      "limitation": "Census ZIP/CBP API now requires a key; open CSV available. Establishment counts not by ultimate owner.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "federal_itemized_finance",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "question": "Reconcile donor and itemized committee transfers with amendments and reporting periods.",
+      "sourceIds": [
+        "fec_official",
+        "state_finance"
+      ],
+      "requiredJoin": "Original committee IDs + FEC filings + amendments + transaction IDs",
+      "limitation": "Existing 1,200 FEC transfer receipts are raw and not amendment reconciled.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "state_local_money",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "question": "Collect official state, county, local and ballot-initiative campaign finance transactions.",
+      "sourceIds": [
+        "state_finance",
+        "irs_990"
+      ],
+      "requiredJoin": "jurisdiction, filing, contributor, committee and candidate identity",
+      "limitation": "State legal coverage differs across 51 authorities; no nationwide transaction census.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "recipient_provenance",
+      "issue": "platform-wide",
+      "kind": "federal_contract",
+      "question": "Tie Treasury registered UEIs to corporate parents and employer location; avoid conflating unrelated legal subsidiaries.",
+      "sourceIds": [
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "requiredJoin": "UEI award ID+entity hierarchy+place of performance+time",
+      "limitation": "Federal obligations ≠ companywide revenue, donation ROI or local wages.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "regional_company_price_series",
+      "issue": "platform-wide",
+      "kind": "price_causation",
+      "question": "Join local transaction/tuition/rent prices to precise parent company and observed service quality.",
+      "sourceIds": [
+        "hud_safmr",
+        "childcare_ndcp",
+        "cms_hospital",
+        "bls_prices"
+      ],
+      "requiredJoin": "price within same product/category, time, geography, and legal operator",
+      "limitation": "National price CPI and corporate ownership cannot explain individual bills.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "certified_elections",
+      "issue": "platform-wide",
+      "kind": "elections",
+      "question": "Download and reconcile certified state/DC election canvasses.",
+      "sourceIds": [
+        "state_finance",
+        "voting_rights"
+      ],
+      "requiredJoin": "certified contest returns, district, date, stage, original authority",
+      "limitation": "Existing official source directory has 51 authorities, but zero nationally reconciled canvasses.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "state_law_rollcalls",
+      "issue": "platform-wide",
+      "kind": "legislation",
+      "question": "Reconcile full state redistricting histories with member-level original legislative roll calls.",
+      "sourceIds": [
+        "state_localgov",
+        "congress",
+        "house_votes",
+        "senate_votes"
+      ],
+      "requiredJoin": "official bill/version → chamber/member vote → final law/court effective date",
+      "limitation": "0 verified exhaustive state-wide bill history sweeps and bounded roll-call sample only.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "lower_court_lifecycle",
+      "issue": "platform-wide",
+      "kind": "judiciary",
+      "question": "Case filings, merits rulings, appeals, orders and final dispositions for election-map cases.",
+      "sourceIds": [
+        "courtlistener",
+        "voting_rights",
+        "state_judiciary"
+      ],
+      "requiredJoin": "docket → ruling/outcome/status/date with primary document",
+      "limitation": "Nationwide full litigation lifecycle not verified.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "state_judicial_selection",
+      "issue": "platform-wide",
+      "kind": "judiciary",
+      "question": "State judges' verified appointment/election/retention histories and deciding authorities.",
+      "sourceIds": [
+        "state_judiciary",
+        "state_localgov"
+      ],
+      "requiredJoin": "judge identifier+selection mechanism+term dates",
+      "limitation": "No complete jurisdiction by year dataset.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "congressional_trades",
+      "issue": "platform-wide",
+      "kind": "finance_integrity",
+      "question": "Verify congressional trades, beneficial holdings and recusals with issuer identity and relevant policy dates.",
+      "sourceIds": [
+        "house_disclosure",
+        "senate_disclosure",
+        "ogepublic",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "member+date range+issuer CIK+policy action with privacy guard",
+      "limitation": "Disclosures report ranges; does not establish unethical trade or price effect.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "lobbying_outcomes",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "question": "Distinguish lobbying contact/filing from actual legislative or procurement result.",
+      "sourceIds": [
+        "lda",
+        "congress",
+        "usaspending"
+      ],
+      "requiredJoin": "client, filing, bill number, action date, company UEI, time controls",
+      "limitation": "Lobbying registration not direct evidence of a vote being altered.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "nonprofit_dark_money",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "question": "Build permitted funding flows across non-profits and political committees with unknown donors explicit.",
+      "sourceIds": [
+        "irs_990",
+        "fec_official",
+        "state_finance"
+      ],
+      "requiredJoin": "EIN + fiscal year + grantee and committee transfer IDs",
+      "limitation": "Some ultimate donors are legally undisclosed, not retrievable from public sources.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "legal_map_geometry",
+      "issue": "platform-wide",
+      "kind": "elections",
+      "question": "Reconcile district geometries, effective dates and court-ordered revisions.",
+      "sourceIds": [
+        "census_tiger",
+        "tiger_congress",
+        "state_localgov"
+      ],
+      "requiredJoin": "date-qualified geometry crosswalk, not ZIP fuzzy match",
+      "limitation": "Existing state-legislative downloads are not verified exhaustive legal-map timeline.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "household_causal_design",
+      "issue": "platform-wide",
+      "kind": "impact_study",
+      "question": "Distinguish correlation, case allegations and causal neighborhood cost impacts.",
+      "sourceIds": [
+        "census_acs",
+        "bls_prices",
+        "bls_qcew",
+        "fhfa_hpi"
+      ],
+      "requiredJoin": "registered methodology, comparison geography, confounders, sensitivity, uncertainty",
+      "limitation": "No comprehensive causal study supports a nationwide billionaire surcharge or donor ROI.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "sources_licensing",
+      "issue": "platform-wide",
+      "kind": "provenance",
+      "question": "Validate third-party licenses and allowed use before automated copying into public datasets.",
+      "sourceIds": [
+        "open_secrets",
+        "openfoodfacts",
+        "fec_official"
+      ],
+      "requiredJoin": "URL, retrieval date, license rights, data transformation and record hash",
+      "limitation": "Free viewing does not imply automated redistribution rights.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "data_freshness",
+      "issue": "platform-wide",
+      "kind": "operations",
+      "question": "Time-stamp public source snapshots and signal stale/partial live retrieval in the application.",
+      "sourceIds": [
+        "fec_official",
+        "bls_prices",
+        "usaspending"
+      ],
+      "requiredJoin": "source retrieval/coverage time, data cutoff, update SLA and failure status",
+      "limitation": "Source-indexed descriptions are not live data connections.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    },
+    {
+      "id": "frontend_broken_links",
+      "issue": "platform-wide",
+      "kind": "frontend",
+      "question": "Audit static page assets, dataset references, back links, and bug-report affordances across every page.",
+      "sourceIds": [
+        "census_acs",
+        "fec_official"
+      ],
+      "requiredJoin": "repo build path, Vercel route, source data files and browser tests",
+      "limitation": "Source directories do not guarantee runtime pages render.",
+      "status": "identified_source_not_yet_integrated_or_validated",
+      "importance": "high",
+      "severity": "high",
+      "notZero": true
+    }
+  ],
+  "gapCounts": {
+    "issueSpecific": 36,
+    "platformWide": 19,
+    "total": 55
+  },
+  "prioritized": [
+    "local_outlets",
+    "corp_registry",
+    "schools__price",
+    "schools__ownership",
+    "housing__ownership",
+    "groceries__price",
+    "energy__price",
+    "health__price",
+    "regional_company_price_series",
+    "certified_elections",
+    "federal_itemized_finance"
+  ],
+  "existingDatasets": [
+    "data/place-impact/local-measures-v1.json",
+    "data/place-impact/connected-metrics-v1.json",
+    "data/corporate-ownership/verified-relationships-v1.json",
+    "data/corporate-ownership/transparency-price-power-v1.json",
+    "data/business-influence/additional-candidates-v1.json",
+    "data/health/completion-gates.json"
+  ],
+  "repairPolicy": "Only mark a gap resolved after original measurements, entity identities, dated decisions, legal permission and appropriate comparative estimates can be reproduced. A source link is not resolution."
+}
