@@ -59,6 +59,101 @@ var cases=examples.length?examples.map(function(c){
  '<p class="bs-force-more">A named billionaire, fund or donor is shown only when a dated source supports the relationship. Owning shares, lobbying or donating to a campaign does <strong>not</strong> by itself establish illegal conduct, a purchased policy or higher local prices.</p>'+
  '<div class="bs-links"><a href="#corporatePaths">Explore verified ownership →</a><a href="business-influence.html">Business funding & public decisions →</a><a href="donor-intelligence.html">Political money records →</a></div></section></section>';
 }
+
+/* Bedroom-level housing reference: HUD Small Area Fair Market Rents.
+   Repo-published vetted state files first; CC BY source download as fallback.
+   No extrapolation, unverified listings, or ZIP-to-district assumptions. */
+var rentStateCache=Object.create(null);
+var rentLoader=Object.create(null);
+var RENT_FILES="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/housing/bedroom-rents/";
+var RENT_PROVIDER="https://multifamily.today/data/zips/";
+var RENT_HUD_SOURCE="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html";
+function validRentArray(v){
+ return Array.isArray(v)&&v.length===5&&v.every(function(n){return Number.isFinite(n)&&n>0&&n<=50000;});
+}
+function validRentDocument(v,st){
+ if(!v||v.state!==st||v.fy!==2027||!v.zips||typeof v.zips!=="object"||!v.areas||typeof v.areas!=="object")return false;
+ return true;
+}
+function htmlRentUnavailable(reason){
+ return '<div class="bs-rent-unavailable"><strong>'+esc(reason)+'</strong><p>No prices have been inferred. You can use HUD’s original lookup while this ZIP is being connected.</p><div class="bs-links">'+source(RENT_HUD_SOURCE,"HUD original rent lookup ↗")+source("https://multifamily.today/","Independent 2027 ZIP lookup ↗")+'</div></div>';
+}
+function showHousingRent(hud,zip,selectedArea){
+ var panel=document.getElementById("housingBedroomPanel");if(!panel||topic!=="housing"||geo.zip!==zip)return;
+ var areas=(hud.zips||{})[zip];
+ if(!Array.isArray(areas)||!areas.length){
+  panel.innerHTML='<h4>1 · Rent by number of bedrooms in '+esc(zip)+'</h4>'+htmlRentUnavailable("HUD FY 2027 ZIP-level bedroom benchmarks are not available for this ZIP.");
+  return;
+ }
+ var good=areas.filter(function(e){
+  return Array.isArray(e)&&typeof e[0]==="string"&&validRentArray(e[1])&&!!hud.areas[e[0]];
+ });
+ if(!good.length){
+  panel.innerHTML='<h4>1 · Rent by number of bedrooms in '+esc(zip)+'</h4>'+htmlRentUnavailable("The available ZIP data could not be verified against the published HUD area.");
+  return;
+ }
+ var idx=Number.isInteger(selectedArea)&&selectedArea>=0&&selectedArea<good.length?selectedArea:0;
+ var item=good[idx],area=hud.areas[item[0]],held=validRentArray(item[2]),amounts=held?item[2]:item[1];
+ var max=Math.max.apply(null,amounts),labels=["Studio","1 bedroom","2 bedrooms","3 bedrooms","4 bedrooms"];
+ var choices=good.length>1?'<label class="bs-rent-region">HUD rent area for this ZIP <select id="bsRentRegion" aria-label="Choose HUD rent area for ZIP '+esc(zip)+'">'+good.map(function(e,i){
+  return '<option value="'+i+'"'+(i===idx?' selected':'')+'>'+esc(hud.areas[e[0]].name)+'</option>';
+ }).join("")+'</select></label><p class="bs-rent-note">This ZIP spans multiple HUD areas. Select the actual applicable area; the ZIP alone cannot identify a property’s jurisdiction.</p>':'<p class="bs-rent-note">HUD area: <strong>'+esc(area.name)+'</strong>.</p>';
+ var tiles=labels.map(function(label,i){
+  return '<article class="bs-rent-tile"><span class="bs-rent-name">'+esc(label)+'</span><strong class="bs-rent-amount">'+esc(dollars.format(amounts[i]))+'<small>/mo</small></strong><div class="bs-rent-track" aria-hidden="true"><span style="width:'+Math.round(amounts[i]/max*100)+'%"></span></div></article>';
+ }).join("");
+ var areaFmr=Array.isArray(area.fmr)&&validRentArray(area.fmr)?area.fmr:null;
+ var compare=areaFmr&&!held?
+ '<details class="bs-rent-compare"><summary>How is this different from the larger HUD area?</summary><p>This ZIP’s 2-bedroom HUD benchmark is <strong>'+esc(dollars.format(amounts[2]))+'</strong>; the larger area’s 2-bedroom FMR is <strong>'+esc(dollars.format(areaFmr[2]))+'</strong>. These are distinct published reference geographies, not competing listings or proof of an actual rent premium.</p></details>':"";
+ panel.innerHTML='<div class="bs-rent-header"><div><span class="bs-eyebrow">Housing · FY '+(held?"2026 retained":"2027")+' HUD rent reference</span><h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4></div><span class="bs-rent-loc">'+esc(geo.stateCode||"United States")+'</span></div>'+
+ choices+'<div class="bs-rent-grid">'+tiles+'</div>'+
+ '<p class="bs-rent-explain"><strong>What these numbers mean:</strong> HUD Small Area Fair Market Rents estimate <strong>monthly gross rent, including tenant-paid utilities</strong> for the housing voucher program. They are <strong>not today’s advertised apartment prices</strong> or the average paid by renters in this ZIP.</p>'+
+ (held?'<p class="bs-rent-status"><strong>Reevaluation note:</strong> This ZIP has an FY 2026 amount marked as remaining in effect while HUD reevaluates FY 2027 values. Confirm the current applicable figures with HUD before relying on them.</p>':'<p class="bs-rent-note">FY 2027 effective October 1, 2026. Some areas may have reevaluation exceptions.</p>')+
+ compare+'<div class="bs-links bs-rent-sources">'+source(RENT_HUD_SOURCE,"HUD rent methodology and official lookup ↗")+source("https://multifamily.today/data/","Data: Multifamily Today (CC BY 4.0) ↗")+'</div>';
+ var select=panel.querySelector("#bsRentRegion");
+ if(select)select.addEventListener("change",function(){showHousingRent(hud,zip,Number(this.value));});
+}
+function renderHousingRents(){
+ var panel=document.getElementById("housingBedroomPanel");
+ if(!panel||topic!=="housing")return;
+ var zip=geo.zip,st=geo.stateCode;
+ if(!zip||!/^[0-9]{5}$/.test(zip)){
+  panel.innerHTML='<h4>1 · What does a studio, 1-, 2-, 3- or 4-bedroom cost?</h4><p class="bs-rent-note">Enter your ZIP code in Step 1 to see monthly HUD rent benchmarks for each bedroom size. No national number is substituted for an unknown local rent.</p><a class="bs-next" href="#where">Enter a ZIP code ↑</a>';
+  return;
+ }
+ if(!st||!/^[A-Z]{2}$/.test(st)){
+  panel.innerHTML='<h4>1 · Bedroom rents for ZIP '+esc(zip)+'</h4>'+htmlRentUnavailable("We could not verify the ZIP’s state, so no bedroom rent was assigned.");
+  return;
+ }
+ if(rentStateCache[st]){
+  showHousingRent(rentStateCache[st],zip);
+  return;
+ }
+ panel.innerHTML='<h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4><p class="bs-rent-note" role="status">Loading FY 2027 HUD bedroom-level reference rents for '+esc(st)+'…</p>';
+ if(!rentLoader[st]){
+  rentLoader[st]=(async function(){
+   var urls=[RENT_FILES+st+".json",RENT_PROVIDER+st+".json"],last="";
+   for(var i=0;i<urls.length;i++){
+    try{
+     var reply=await fetch(urls[i],{cache:"no-store"});
+     if(!reply.ok)throw Error("HTTP "+reply.status);
+     var payload=await reply.json();
+     if(!validRentDocument(payload,st))throw Error("Rent source year or geography mismatch");
+     rentStateCache[st]=payload;return payload;
+    }catch(err){last=String(err);}
+   }
+   throw Error(last||"No compatible data source");
+  })();
+ }
+ rentLoader[st].then(function(j){
+  if(topic==="housing"&&geo.zip===zip&&geo.stateCode===st)showHousingRent(j,zip);
+ }).catch(function(){
+  if(topic==="housing"&&geo.zip===zip&&geo.stateCode===st){
+   var current=document.getElementById("housingBedroomPanel");
+   if(current)current.innerHTML='<h4>1 · Rent by bedroom count in ZIP '+esc(zip)+'</h4>'+htmlRentUnavailable("The official-source rent table could not be loaded.");
+  }
+  delete rentLoader[st];
+ });
+}
 function render(){
  var root=document.getElementById("benchmarkStory");if(!root)return;
  var output=root.querySelector("#bsDisplay");
@@ -97,12 +192,15 @@ function render(){
  var influence=(cfg.drivers||[]).map(function(d,i){
   return '<article class="bs-influence"><div class="bs-influence-head"><span class="bs-driver-number">'+(i+1)+'</span><h5>'+esc(d.label)+'</h5></div><p>'+esc(d.why)+'</p><div class="bs-influence-who"><span>Who has a role?</span> '+esc(d.who)+'</div><div class="bs-influence-action"><span>Practical choice</span> '+esc(d.choice)+'</div>'+source(d.source,"Original evidence ↗")+'</article>'
  }).join("");
- output.innerHTML='<div class="bs-metrics">'+headline+'</div>'+
- '<section class="bs-inner" aria-label="Cost components"><h4>1 · What is in the bill?</h4>'+bars+'</section>'+
+ var spendBlock='<div class="bs-metrics">'+headline+'</div>'+
+ '<section class="bs-inner" aria-label="Cost components"><h4>'+(topic==="housing"?"Other housing spending, beyond rent":"1 · What is in the bill?")+'</h4>'+bars+'</section>';
+ if(topic==="housing")spendBlock='<details class="bs-rent-other"><summary>Also see the broader housing-spending average (not the rent for an apartment)</summary>'+spendBlock+'</details>';
+ output.innerHTML=(topic==="housing"?'<section class="bs-inner bs-housing" id="housingBedroomPanel" aria-label="HUD rent benchmarks for studios through four bedrooms" aria-live="polite"><p>Loading bedroom rents…</p></section>':'')+spendBlock+
  '<section class="bs-inner bs-local" aria-label="Community benchmark context"><h4>2 · What do we know about '+(geo.zip?'ZIP '+esc(geo.zip):'your area')+'?</h4>'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></section>'+
  '<section class="bs-inner" aria-label="Economic drivers and choices"><h4>3 · What actually moves this cost?</h4><p class="bs-explainer">These are documented economic mechanisms and decision-makers, not a causal ranking for your ZIP. We do not know what share of your bill each one explains without matched price and policy evidence.</p><div class="bs-driver-grid">'+influence+'</div></section>'+
  renderEconomicForces()+
  '<div class="bs-bottom"><p><strong>Evidence boundary:</strong> '+esc(cfg.disclaimer)+' BLS averages are for U.S. consumer units of different sizes, not a fixed basket or a quote. October–November 2025 missing survey data were addressed using BLS weighting.</p><div class="bs-links">'+source(data.primarySource,"Read the 2025 BLS survey ↗")+'<a href="#corporatePaths">Trace documented ownership ↓</a><a href="#missingCostSources">See missing local price evidence ↓</a></div></div>';
+ if(topic==="housing")renderHousingRents();
 }
 function setContext(context){
  context=context||{};if(context.topic&&data?.topics?.[context.topic])topic=context.topic;
