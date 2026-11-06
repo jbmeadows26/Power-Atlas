@@ -1,0 +1,332 @@
+{
+  "schema": "power-atlas.economic-forces.v1",
+  "asOf": "2026-11-06",
+  "purpose": "Document microeconomic, domestic macroeconomic, global and corporate-ownership channels in the daily-life benchmark story. No numerical causal decomposition without comparable data and identification.",
+  "rules": [
+    "Keep the household expenditure benchmark separate from price inflation, forecasts and policy rates.",
+    "Distinguish published observations, regulatory allegations, estimates and unknown impacts.",
+    "No company or wealthy individual is assigned an individual cost premium without outcome evidence.",
+    "A ZIP is not a business service territory or a politician's district; national relationships do not imply local business activity.",
+    "Government forecasts and indexes must display date, unit, geography, uncertainty and original source."
+  ],
+  "signals": [
+    {
+      "id": "allcpi",
+      "name": "U.S. consumer prices",
+      "value": "+3.7%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "Overall CPI-U price increase; not a household spending change.",
+      "limits": "Price indices do not assign causes to companies or policies."
+    },
+    {
+      "id": "foodhome",
+      "name": "Food-at-home prices",
+      "value": "+1.8%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "Prices of groceries within the CPI basket.",
+      "limits": "Not the change in grocery outlays or a local store's prices."
+    },
+    {
+      "id": "energy",
+      "name": "U.S. energy prices",
+      "value": "+20.4%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "CPI energy index over 12 months, reflecting multiple types of energy.",
+      "limits": "Not a direct change in local gas, electricity or utility bills."
+    },
+    {
+      "id": "gasoline",
+      "name": "Gasoline prices",
+      "value": "+34.2%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "CPI gasoline price index change.",
+      "limits": "Price changes vary by region and grade; total gasoline spending also depends on mileage."
+    },
+    {
+      "id": "shelter",
+      "name": "U.S. shelter prices",
+      "value": "+3.2%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "CPI shelter component change including rent and owners' equivalent rent.",
+      "limits": "Not current asking rent in any ZIP."
+    },
+    {
+      "id": "medical",
+      "name": "U.S. medical care services",
+      "value": "+2.5%",
+      "period": "September 2026 · 12-month",
+      "scope": "U.S.",
+      "kind": "measured",
+      "source": "https://www.bls.gov/news.release/archives/cpi_10142026.htm",
+      "explain": "CPI medical care services component change.",
+      "limits": "Not an individual's premium, patient balance or provider quote."
+    },
+    {
+      "id": "fed",
+      "name": "Federal funds target",
+      "value": "3.75–4.00%",
+      "period": "October 28, 2026",
+      "scope": "U.S.",
+      "kind": "policy_decision",
+      "source": "https://www.federalreserve.gov/newsevents/pressreleases/monetary20261028a.htm",
+      "explain": "Short-term policy-rate target; influences many financial conditions.",
+      "limits": "Not a mortgage, auto-loan or government borrowing interest rate."
+    },
+    {
+      "id": "imf_growth",
+      "name": "Global economic growth",
+      "value": "3.1%",
+      "period": "2026 IMF projection · October 13",
+      "scope": "World",
+      "kind": "forecast",
+      "source": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026",
+      "explain": "IMF forecast for 2026 real world GDP growth.",
+      "limits": "A forecast, not a current price change or local economic finding."
+    },
+    {
+      "id": "imf_inflation",
+      "name": "Global headline inflation",
+      "value": "4.7%",
+      "period": "2026 IMF projection · October 13",
+      "scope": "World",
+      "kind": "forecast",
+      "source": "https://www.imf.org/en/Publications/WEO/Issues/2026/10/13/world-economic-outlook-october-2026",
+      "explain": "IMF forecast of global inflation across country indexes.",
+      "limits": "Not directly comparable with a U.S. household's grocery or energy inflation."
+    },
+    {
+      "id": "global_energy",
+      "name": "World energy commodities",
+      "value": "+32%",
+      "period": "2026 World Bank projection · October 28",
+      "scope": "Global wholesale commodities",
+      "kind": "forecast",
+      "source": "https://www.worldbank.org/en/news/press-release/2026/10/28/commodity-markets-outlook-october-2026",
+      "explain": "World Bank projected year-over-year energy commodity price increase.",
+      "limits": "NOT the change in household bills; wholesale shocks pass through unevenly."
+    },
+    {
+      "id": "global_food",
+      "name": "World food commodities",
+      "value": "~+10%",
+      "period": "2026 World Bank projection · October 28",
+      "scope": "Global wholesale commodities",
+      "kind": "forecast",
+      "source": "https://www.worldbank.org/en/news/press-release/2026/10/28/commodity-markets-outlook-october-2026",
+      "explain": "World Bank projected food commodity price increase.",
+      "limits": "International food commodities are not a U.S. retail grocery-price index."
+    }
+  ],
+  "topics": {
+    "housing": {
+      "domestic": [
+        "rate",
+        "shelter"
+      ],
+      "global": [
+        "imf_growth",
+        "global_energy"
+      ],
+      "mechanisms": [
+        [
+          "Domestic financing",
+          "Interest rates and construction credit can change new-housing supply and borrowing costs; this does not immediately reprice fixed mortgages."
+        ],
+        [
+          "International materials and capital",
+          "Global fuel, imported building inputs and international capital may affect development costs and housing demand; effects depend on the local market."
+        ]
+      ],
+      "firm": "Landlords, institutional investors, developers, lenders and major shareholders can influence supply, lease terms, acquisitions and pricing. Only the cited case records can establish particular actions."
+    },
+    "groceries": {
+      "domestic": [
+        "foodhome",
+        "energy"
+      ],
+      "global": [
+        "global_food",
+        "global_energy"
+      ],
+      "mechanisms": [
+        [
+          "Domestic inflation and distribution",
+          "Farming, processing, wages, freight and retailer margins contribute differently to grocery prices; food CPI tracks measured retail price changes, not their causes."
+        ],
+        [
+          "International food and fuel",
+          "Conflict, trade restrictions, harvest disruption, and global energy prices can affect imported goods and domestic production costs, with imperfect pass-through."
+        ]
+      ],
+      "firm": "Supermarkets, processors, wholesalers and platforms set markups, negotiate procurement, and choose package sizes; shareholders can influence strategy but do not automatically set shelf prices."
+    },
+    "energy": {
+      "domestic": [
+        "energy",
+        "fed"
+      ],
+      "global": [
+        "global_energy",
+        "imf_growth"
+      ],
+      "mechanisms": [
+        [
+          "U.S. energy and approved rates",
+          "Fuel markets and regulated delivery investment can alter energy prices; a broad CPI energy index cannot substitute for a utility bill."
+        ],
+        [
+          "International oil and gas",
+          "World commodity shocks can pass through to gasoline, heating fuels and electricity where relevant, mediated by contracts, generation mix, and regulation."
+        ]
+      ],
+      "firm": "Major energy producers, utilities, infrastructure owners and investors influence investment and market supply; actual rate-setting depends on regulators and tariffs."
+    },
+    "health": {
+      "domestic": [
+        "medical",
+        "fed"
+      ],
+      "global": [
+        "global_energy",
+        "imf_inflation"
+      ],
+      "mechanisms": [
+        [
+          "Domestic reimbursement and capacity",
+          "Hospital staffing, insurer negotiation, plan design and financing may affect payments and access; broad medical CPI is not a premium."
+        ],
+        [
+          "International supplies and manufacturing",
+          "Imported ingredients, medical devices, global shipping and exchange rates can affect procurement costs, though reimbursement rules and contracts mediate patient effects."
+        ]
+      ],
+      "firm": "Insurers, hospitals, pharmacy benefit managers, drug manufacturers and private-equity owners can influence contracts and care economics; measured price effects depend on the specific study."
+    },
+    "work": {
+      "domestic": [
+        "allcpi",
+        "fed"
+      ],
+      "global": [
+        "imf_growth",
+        "imf_inflation"
+      ],
+      "mechanisms": [
+        [
+          "Wages vs purchasing power",
+          "Inflation, borrowing rates and domestic demand can affect real earnings and hiring; nominal pay is not the same as purchasing power."
+        ],
+        [
+          "Trade and global demand",
+          "Foreign demand, import competition, exchange rates and supply-chain disruptions can affect industries and jobs unevenly."
+        ]
+      ],
+      "firm": "Large employers, controlling shareholders and investors set investment, staffing and compensation policies within labor and competition law; local employer concentration may matter."
+    },
+    "schools": {
+      "domestic": [
+        "allcpi",
+        "fed"
+      ],
+      "global": [
+        "global_energy",
+        "imf_inflation"
+      ],
+      "mechanisms": [
+        [
+          "Childcare labor and finance",
+          "Staffing, state funding, borrowing and local capacity influence childcare fees; school expenditure and private childcare prices are different."
+        ],
+        [
+          "International costs",
+          "Fuel, imported supplies and food costs can affect provider budgets, but labor and enrollment often dominate local care fees."
+        ]
+      ],
+      "firm": "Childcare chains, private-equity shareholders, real-estate owners and public education vendors can influence fees and operating choices; verify local provider and brand links."
+    },
+    "transport": {
+      "domestic": [
+        "gasoline",
+        "fed"
+      ],
+      "global": [
+        "global_energy",
+        "imf_growth"
+      ],
+      "mechanisms": [
+        [
+          "U.S. fuel, auto finance and insurance",
+          "Gasoline prices and interest rates change parts of travel cost; car insurance and transit depend on separate factors."
+        ],
+        [
+          "Global oil and automotive supply",
+          "International crude supply, tariffs, shipping and auto components can affect fuel and vehicle prices, depending on exposure and inventories."
+        ]
+      ],
+      "firm": "Oil producers, vehicle makers, insurers, dealers, transit operators, platforms and financiers influence costs through supply, contracts and pricing decisions."
+    },
+    "public-services": {
+      "domestic": [
+        "allcpi",
+        "fed"
+      ],
+      "global": [
+        "imf_growth",
+        "global_energy"
+      ],
+      "mechanisms": [
+        [
+          "Public budgets and financing",
+          "Government wages, debt financing, property assessments and procurement influence public-service costs; federal rates are not local tax rates."
+        ],
+        [
+          "International inputs and fiscal risk",
+          "Imported infrastructure materials, fuel and global borrowing conditions can change project costs, with contract and tax timing delays."
+        ]
+      ],
+      "firm": "Government contractors and their owners may receive awards, lobby or donate; contract terms and documented decisions are required before alleging a return or price effect."
+    },
+    "representation": {
+      "domestic": [
+        "fed",
+        "allcpi"
+      ],
+      "global": [
+        "imf_growth",
+        "global_energy"
+      ],
+      "mechanisms": [
+        [
+          "Domestic decisions",
+          "Monetary, fiscal, tax, zoning and competition policy have distinct effects and timelines; an official decision is not proof of a particular local price impact."
+        ],
+        [
+          "International policy and shocks",
+          "Trade negotiations, sanctions, geopolitical conflicts, commodity supply and exchange rates can change policy trade-offs and household costs."
+        ]
+      ],
+      "firm": "Large donors, business groups and wealthy investors may finance advocacy and campaigns. Disclosures document payments and recipients; they do not prove policies were purchased."
+    }
+  },
+  "corporate": {
+    "source": "data/corporate-ownership/transparency-price-power-v1.json",
+    "ownershipSource": "data/corporate-ownership/verified-relationships-v1.json",
+    "financeSource": "data/business-influence/evidence-v1.json",
+    "fallback": "No verified company-specific price effect for this category. Investigate local presence, pricing, ownership structure and financing independently."
+  }
+}
