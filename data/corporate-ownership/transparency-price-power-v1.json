@@ -1,0 +1,457 @@
+{
+  "schema": "power-atlas.corporate-ownership.transparency-price-power.v1",
+  "origin": "Curated public-source research imported from the user's private Transparency/OpenLedger repository (not its private database or unreleased application code)",
+  "sourceRevisionBlobSha": "22edaace574da8eb187c395e30c0f8a5a9c31cbb",
+  "importedOn": "2026-11-06",
+  "caseCount": 7,
+  "sourceTypes": [
+    "verified",
+    "observed",
+    "association",
+    "alleged",
+    "unknown"
+  ],
+  "publicationRule": "Case-specific source-backed ownership, regulator findings and academic associations are distinct. No presumed ZIP effect, investor wrongdoing, local competitor map or dollar premium.",
+  "cases": [
+    {
+      "id": "transparency-rent",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Housing",
+      "powerAtlasIssues": [
+        "housing"
+      ],
+      "companyOrMarket": "RealPage",
+      "question": "Who influences the rent recommendation?",
+      "leadMetric": {
+        "valueText": "2025",
+        "label": "DOJ proposed settlement"
+      },
+      "summary": "A firm led by billionaire Orlando Bravo owns RealPage. The DOJ alleged its software used competitors' sensitive information in rent recommendations.",
+      "evidenceSteps": [
+        {
+          "stage": "PERSON",
+          "actor": "Orlando Bravo",
+          "detail": "Founder and managing partner of Thoma Bravo",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "INVESTOR",
+          "actor": "Thoma Bravo → RealPage",
+          "detail": "RealPage is a portfolio company of Thoma Bravo",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "MECHANISM",
+          "actor": "Rental pricing software",
+          "detail": "DOJ alleged nonpublic competitor information and features limiting rent reductions; settlement proposed in 2025",
+          "evidenceStatus": "alleged"
+        },
+        {
+          "stage": "YOUR BILL",
+          "actor": "Rent premium unknown",
+          "detail": "No verified nationwide or typical-household dollar effect",
+          "evidenceStatus": "unknown"
+        }
+      ],
+      "interpretationLimits": "The ownership and DOJ action are documented, but no reliable monthly renter premium is established. Separate tenant settlements with landlord defendants are not a RealPage penalty.",
+      "originalSources": [
+        {
+          "id": "bravo",
+          "label": "Thoma Bravo — Orlando Bravo leadership",
+          "url": "https://www.thomabravo.com/team/orlando-bravo",
+          "kind": "Company disclosure"
+        },
+        {
+          "id": "bravo_wealth",
+          "label": "Forbes — Orlando Bravo wealth profile",
+          "url": "https://www.forbes.com/profile/orlando-bravo/",
+          "kind": "Independent profile"
+        },
+        {
+          "id": "realpage_owner",
+          "label": "Thoma Bravo — RealPage portfolio",
+          "url": "https://www.thomabravo.com/portfolio/realpage",
+          "kind": "Company disclosure"
+        },
+        {
+          "id": "realpage_doj",
+          "label": "DOJ — proposed RealPage settlement, November 2025",
+          "url": "https://www.justice.gov/opa/pr/justice-department-requires-realpage-end-sharing-competitively-sensitive-information-and",
+          "kind": "Regulatory allegation / proposal"
+        },
+        {
+          "id": "realpage_case",
+          "label": "DOJ — RealPage case record",
+          "url": "https://www.justice.gov/atr/case/us-and-plaintiff-states-v-realpage-inc",
+          "kind": "Government case record"
+        },
+        {
+          "id": "realpage_tenants",
+          "label": "RealPage rental litigation — tenant settlement notices",
+          "url": "https://www.realpagerentalsettlement.com/",
+          "kind": "Court settlement notice"
+        }
+      ],
+      "economicMechanismStatus": "alleged",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-amazon",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Shopping",
+      "powerAtlasIssues": [
+        "groceries",
+        "public-services"
+      ],
+      "companyOrMarket": "Amazon",
+      "question": "Could ad fees raise the price at checkout?",
+      "leadMetric": {
+        "valueText": "8.8%",
+        "label": "Bezos beneficial stake, Feb. 2026"
+      },
+      "summary": "Jeff Bezos owned approximately 8.8% of Amazon shares. In August 2026, the FTC and 22 states alleged undisclosed advertising auction surcharges; Amazon disputes the allegations.",
+      "evidenceSteps": [
+        {
+          "stage": "PERSON",
+          "actor": "Jeff Bezos",
+          "detail": "Amazon founder; approximately 8.8% beneficial ownership in February 2026",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "BUSINESS",
+          "actor": "Amazon advertising",
+          "detail": "Marketplace sellers and brands buy advertising",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "MECHANISM",
+          "actor": "Undisclosed auction surcharges",
+          "detail": "FTC lawsuit alleges higher advertiser payments; Amazon disputes its claims",
+          "evidenceStatus": "alleged"
+        },
+        {
+          "stage": "YOUR BILL",
+          "actor": "Price pass-through disputed",
+          "detail": "No vetted dollar estimate per shopper",
+          "evidenceStatus": "unknown"
+        }
+      ],
+      "interpretationLimits": "The ownership connection is documented. The asserted surcharge and downstream consumer-price effects are contested allegations, not a court-established per-shopper cost.",
+      "originalSources": [
+        {
+          "id": "amazon_proxy",
+          "label": "Amazon 2026 proxy — Bezos beneficial ownership",
+          "url": "https://www.stocktitan.net/sec-filings/AMZN/def-14a-amazon-com-inc-definitive-proxy-statement-0223e31377e8.html",
+          "kind": "SEC filing reproduction"
+        },
+        {
+          "id": "amazon_ftc",
+          "label": "FTC — Amazon ad-auction lawsuit, August 2026",
+          "url": "https://search.ftc.gov/news-events/news/press-releases/2026/08/ftc-states-sue-amazon-over-secret-ad-surcharge-scheme",
+          "kind": "Regulatory allegation"
+        },
+        {
+          "id": "amazon_case",
+          "label": "FTC — Amazon case status",
+          "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/amazon",
+          "kind": "Government case record"
+        },
+        {
+          "id": "amazon_response",
+          "label": "Reuters — Amazon disputes advertising allegations",
+          "url": "https://www.reuters.com/legal/litigation/ftc-file-lawsuit-alleging-amazon-deceived-advertisers-wsj-reports-2026-08-31/",
+          "kind": "Independent reporting"
+        }
+      ],
+      "economicMechanismStatus": "alleged",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-pbm",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Healthcare",
+      "powerAtlasIssues": [
+        "health"
+      ],
+      "companyOrMarket": "Pharmacy middlemen",
+      "question": "Who gets paid between the drugmaker and the patient?",
+      "leadMetric": {
+        "valueText": "$7.3B+",
+        "label": "Dispensing revenue above estimated acquisition costs, 2017–2022"
+      },
+      "summary": "The FTC found substantial revenue above estimated drug acquisition costs at pharmacies affiliated with three major pharmacy benefit managers on selected specialty generics.",
+      "evidenceSteps": [
+        {
+          "stage": "OWNERS",
+          "actor": "CVS · Cigna · UnitedHealth",
+          "detail": "Public parent companies, without a specific billionaire control claim",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "INTERMEDIARIES",
+          "actor": "Caremark · Express Scripts · OptumRx",
+          "detail": "Large pharmacy benefit managers and affiliated pharmacies",
+          "evidenceStatus": "verified"
+        },
+        {
+          "stage": "MEASURE",
+          "actor": "Drug acquisition-price spreads",
+          "detail": "FTC estimated $7.3B+ in dispensing revenue above acquisition cost on selected drugs",
+          "evidenceStatus": "observed"
+        },
+        {
+          "stage": "YOUR BILL",
+          "actor": "Individual impact unknown",
+          "detail": "Must not equate spreads with household overpayment",
+          "evidenceStatus": "unknown"
+        }
+      ],
+      "interpretationLimits": "That figure is neither industry net profit nor a measured consumer overpayment. CVS, Cigna and UnitedHealth are public companies; no particular billionaire is shown to control these results.",
+      "originalSources": [
+        {
+          "id": "pbm_ftc",
+          "label": "FTC — second pharmacy-benefit-manager report, January 2025",
+          "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-releases-second-interim-staff-report-prescription-drug-middlemen",
+          "kind": "Government research"
+        },
+        {
+          "id": "pbm_share",
+          "label": "Drug Channels — PBM market shares, 2025",
+          "url": "https://www.drugchannels.net/2026/06/the-top-pharmacy-benefit-managers-of.html?m=1",
+          "kind": "Industry analysis"
+        }
+      ],
+      "economicMechanismStatus": "observed",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-physicians",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Healthcare",
+      "powerAtlasIssues": [
+        "health"
+      ],
+      "companyOrMarket": "Private-equity physician groups",
+      "question": "What happens when doctors' offices consolidate?",
+      "leadMetric": {
+        "valueText": "4–14%",
+        "label": "Commercial price increases in studied specialties"
+      },
+      "summary": "Studies reviewed by GAO found insurer-paid prices increased after private-equity practice acquisitions, relative to comparator practices.",
+      "evidenceSteps": [
+        {
+          "stage": "INVESTORS",
+          "actor": "Multiple private-equity firms",
+          "detail": "No single billionaire tied to the study-level estimate",
+          "evidenceStatus": "unknown"
+        },
+        {
+          "stage": "BUSINESS",
+          "actor": "Acquired physician practices",
+          "detail": "Consolidation in selected specialties",
+          "evidenceStatus": "observed"
+        },
+        {
+          "stage": "MECHANISM",
+          "actor": "Negotiated insurer rates",
+          "detail": "Larger groups may gain additional bargaining leverage",
+          "evidenceStatus": "association"
+        },
+        {
+          "stage": "MEASURE",
+          "actor": "Prices +4% to +14%",
+          "detail": "Study comparisons, not an individual's out-of-pocket bill",
+          "evidenceStatus": "observed"
+        }
+      ],
+      "interpretationLimits": "Different specialties and comparisons, not every practice. These are insurer-paid prices, not a measured patient copay or household-premium change. No single billionaire is implicated.",
+      "originalSources": [
+        {
+          "id": "pe_gao",
+          "label": "GAO — physician-practice consolidation, September 2025",
+          "url": "https://www.gao.gov/products/gao-25-107450",
+          "kind": "Government research review"
+        }
+      ],
+      "economicMechanismStatus": "association",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-homes",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Housing",
+      "powerAtlasIssues": [
+        "housing"
+      ],
+      "companyOrMarket": "Institutional rental-home investors",
+      "question": "How much housing is held by large investors?",
+      "leadMetric": {
+        "valueText": "4–22%",
+        "label": "Share of single-family rentals, six metro areas in 2024"
+      },
+      "summary": "GAO found institutional investors owned 4–22% of single-family rental homes across six sampled metropolitan areas, but roughly 1–3% of all single-family housing.",
+      "evidenceSteps": [
+        {
+          "stage": "OWNERS",
+          "actor": "Institutional investors",
+          "detail": "Firms with different ownership structures",
+          "evidenceStatus": "unknown"
+        },
+        {
+          "stage": "ASSETS",
+          "actor": "Single-family rentals",
+          "detail": "Six selected metros during 2018–2024",
+          "evidenceStatus": "observed"
+        },
+        {
+          "stage": "MECHANISM",
+          "actor": "Acquisitions and local market share",
+          "detail": "Market exposure varies widely by location",
+          "evidenceStatus": "association"
+        },
+        {
+          "stage": "YOUR BILL",
+          "actor": "Rent impact not quantified",
+          "detail": "Ownership-share evidence does not measure a rent increase",
+          "evidenceStatus": "unknown"
+        }
+      ],
+      "interpretationLimits": "Rental share is not share of all housing. Investor ownership alone does not establish a causal rent premium; local effects and alternate explanations differ.",
+      "originalSources": [
+        {
+          "id": "housing_gao",
+          "label": "GAO — rental housing institutional ownership, March 2026",
+          "url": "https://www.gao.gov/products/gao-26-108675",
+          "kind": "Government research"
+        }
+      ],
+      "economicMechanismStatus": "association",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-food",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Groceries",
+      "powerAtlasIssues": [
+        "groceries"
+      ],
+      "companyOrMarket": "Grocery supply chain",
+      "question": "Did grocery businesses retain more revenue over costs?",
+      "leadMetric": {
+        "valueText": "7%",
+        "label": "Revenue above total costs, first three quarters of 2023"
+      },
+      "summary": "The FTC reported a 7% revenue-above-costs ratio for food and beverage retailers in early 2023, compared with a previous 5.6% high in 2015.",
+      "evidenceSteps": [
+        {
+          "stage": "OWNERS",
+          "actor": "Public and private grocery firms",
+          "detail": "Many owners, no specific billionaire attribution",
+          "evidenceStatus": "unknown"
+        },
+        {
+          "stage": "MARKET",
+          "actor": "Food supply chains",
+          "detail": "Pandemic disruptions reshaped costs and availability",
+          "evidenceStatus": "observed"
+        },
+        {
+          "stage": "MEASURE",
+          "actor": "Revenue above costs",
+          "detail": "FTC found a 7% industry ratio in the first nine months of 2023",
+          "evidenceStatus": "observed"
+        },
+        {
+          "stage": "YOUR BILL",
+          "actor": "Attribution uncertain",
+          "detail": "Ratio cannot identify the cause or dollar amount of higher prices",
+          "evidenceStatus": "unknown"
+        }
+      ],
+      "interpretationLimits": "Not an estimate of a grocery bill's billionaire premium or a net profit margin. Multiple factors drove pandemic-era food inflation and the observation is not current to 2026.",
+      "originalSources": [
+        {
+          "id": "groceries_ftc",
+          "label": "FTC — grocery supply-chain disruptions, March 2024",
+          "url": "https://www.ftc.gov/news-events/news/press-releases/2024/03/ftc-releases-report-grocery-supply-chain-disruptions",
+          "kind": "Government study"
+        }
+      ],
+      "economicMechanismStatus": "observed",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    },
+    {
+      "id": "transparency-wages",
+      "sourceProject": "Transparency / OpenLedger",
+      "sourcePublishedSnapshot": "2026-11-05",
+      "sourceCategory": "Wages",
+      "powerAtlasIssues": [
+        "work"
+      ],
+      "companyOrMarket": "Employer concentration",
+      "question": "What if there are fewer employers to negotiate with?",
+      "leadMetric": {
+        "valueText": "−0.3%",
+        "label": "Wage association for 10% more employer concentration"
+      },
+      "summary": "A BLS study of metro-by-industry markets from 2002–2023 found greater employer concentration associated with lower average wages.",
+      "evidenceSteps": [
+        {
+          "stage": "OWNERS",
+          "actor": "Employers in local markets",
+          "detail": "No billionaire-specific ownership attribution",
+          "evidenceStatus": "unknown"
+        },
+        {
+          "stage": "STRUCTURE",
+          "actor": "Fewer competing employers",
+          "detail": "Concentration differs by metro area and industry",
+          "evidenceStatus": "association"
+        },
+        {
+          "stage": "MECHANISM",
+          "actor": "Wage bargaining power",
+          "detail": "Reduced alternatives can affect worker leverage",
+          "evidenceStatus": "association"
+        },
+        {
+          "stage": "MEASURE",
+          "actor": "Lower average wages",
+          "detail": "10% higher concentration associated with ~0.3% lower pay in baseline model",
+          "evidenceStatus": "association"
+        }
+      ],
+      "interpretationLimits": "An observational regression association—not a universal merger effect, a causal estimate for a named firm, or a billionaire-attributable loss.",
+      "originalSources": [
+        {
+          "id": "wages_bls",
+          "label": "BLS — employer concentration and wages, 2024",
+          "url": "https://www.bls.gov/opub/mlr/2024/article/measuring-labor-market-concentration-using-the-qcew.htm",
+          "kind": "Government research"
+        }
+      ],
+      "economicMechanismStatus": "association",
+      "measuredIndividualCostUsd": null,
+      "doesNotEstablishPoliticalCausation": true,
+      "directLocalGeographicConnection": false
+    }
+  ]
+}
