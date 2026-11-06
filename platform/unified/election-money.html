@@ -211,4 +211,4 @@ if(c.cycles.some(row=>typeof row.cycle!=='number'||typeof row.congressionalRecei
 app.cycles=c.cycles;app.brennan=b;app.pres=p;app.donors=[...b.records.map(r=>({cycle:r.cycle,rank:r.rank,donor:r.donor,amountUsd:r.amountUsd,partySupported:r.partySupported,sector:r.sector,darkMoney:r.darkMoney})),...p.donors];render();el('health').textContent='Verified source snapshots loaded: 13 FEC cycle summaries; 160 Brennan Center midterm donor entries; 18 OpenSecrets presidential-cycle donor excerpts. Snapshot dated 5 Nov 2026. No undisclosed totals inferred.'}
 catch(e){el('metricGrid').textContent='Source files could not be loaded. No missing data was replaced with guesses.';el('donorStatus').textContent='Source temporarily unavailable. '+e.message;el('health').textContent='Load error: '+e.message;console.error(e)}
 })();
-</script></body></html>
+</script><script src="bug-report.js" defer></script></body></html>

@@ -211,4 +211,4 @@ const tabs=[...document.querySelectorAll('.sectionNav a')];const observer=new In
 ['overview','committees','lobbying','sources'].forEach(id=>observer.observe(el(id)));
 }catch(e){el('health').textContent='Unable to load the source data: '+e.message;el('pacChart').textContent='Data unavailable. Please use the original source links in the repository.';el('lobbyChart').textContent='Data unavailable.';console.error(e)}})();
 </script>
-</body></html>
+<script src="bug-report.js" defer></script></body></html>

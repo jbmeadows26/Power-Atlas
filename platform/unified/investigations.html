@@ -185,4 +185,4 @@ window.addEventListener("popstate",()=>{const id=new URL(location.href).searchPa
  filterCards();renderVideos();const id=new URL(location.href).searchParams.get("case");if(id)openCase(id,false)
  }catch(e){$("count").textContent="Could not load investigation index";$("cards").innerHTML='<div class="empty">Case records are unavailable. <a href="investigations-data.json">Open the source-index file ↗</a></div>';console.error(e)}
 })();
-</script></body></html>
+</script><script src="bug-report.js" defer></script></body></html>

@@ -139,4 +139,4 @@ el('clear').addEventListener('click',()=>{el('search').value='';el('partyFilter'
 (async()=>{try{const r=await fetch(dataURL,{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);const data=await r.json();const records=data.records;if(!Array.isArray(records)||records.length!==160||cycles.some(y=>records.filter(x=>x.cycle===y).length!==40))throw Error('Unexpected dataset count');state.records=records;render();el('loaded').textContent='Source data loaded. Last updated: '+data.publishedAtUtc+'.';}
 catch(e){el('metrics').textContent='Source data could not be loaded. No donation totals have been inferred.';el('rows').textContent='Records temporarily unavailable.';el('count').textContent='Unable to load dataset.';el('loaded').textContent='Source unavailable: '+e.message;console.error(e)}})();
 </script>
-</body></html>
+<script src="bug-report.js" defer></script></body></html>

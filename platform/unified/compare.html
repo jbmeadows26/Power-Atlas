@@ -289,4 +289,4 @@ load("data/research/atlas-inventory-v1.json").then(function(d){
  el("categories").querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){setCat(b.dataset.cat)})});renderInventory();
 }).catch(function(e){el("inventory").innerHTML='<p class="status">Research map unavailable: '+safe(e.message)+'. <a href="https://github.com/jbmeadows26/Power-Atlas">Read the repository</a>.</p>'});
 })();
-</script></body></html>
+</script><script src="bug-report.js" defer></script></body></html>
