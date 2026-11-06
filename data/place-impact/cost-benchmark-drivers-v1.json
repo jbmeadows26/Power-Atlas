@@ -1,0 +1,424 @@
+{
+  "schema": "power-atlas.cost-benchmark-drivers.v1",
+  "asOf": "2026-11-06",
+  "release": "2025 BLS Consumer Expenditure Survey; released October 29, 2026",
+  "measurement": "U.S. mean annual spending per consumer unit (not median bills, not cost of identical goods). Monthly figures are annual/12, rounded for display.",
+  "integrity": "2025 survey uses BLS weighting to adjust for October-November 2025 data collection interruption. Source table may revise the 2024 comparison. Headline categories can overlap with subcategories; never sum across issue cards.",
+  "primarySource": "https://www.bls.gov/news.release/cesan.htm",
+  "topics": {
+    "housing": {
+      "title": "Housing",
+      "headline": {
+        "annual": 27790,
+        "prior": 26266,
+        "label": "All housing-related spending",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "The national housing figure includes shelter, utilities and other household costs; it is not a typical local rent or mortgage payment.",
+      "slices": [
+        [
+          "Shelter (rent, owners' costs, lodging)",
+          17626
+        ],
+        [
+          "Utilities, fuels and public services",
+          4931
+        ],
+        [
+          "Household operations",
+          2034
+        ],
+        [
+          "Housekeeping supplies",
+          844
+        ],
+        [
+          "Furnishings and equipment",
+          2355
+        ]
+      ],
+      "localMetric": "housing__median_rent",
+      "localNote": "Area median gross rent from the 2020–2024 ACS is a distinct measure of renter-occupied homes—not comparable dollar-for-dollar with the national total housing spending average.",
+      "drivers": [
+        {
+          "label": "Housing supply and location",
+          "why": "The number and types of available homes, access to jobs and land-use rules change market competition for space.",
+          "who": "Local planning bodies, landowners, developers and landlords",
+          "choice": "Check proposed zoning changes and compare equivalent local units.",
+          "source": "https://www.huduser.gov/portal/datasets/fmr.html"
+        },
+        {
+          "label": "Financing and rent terms",
+          "why": "Mortgage interest rates, credit terms, lease renewals and property carrying costs change what residents must pay.",
+          "who": "Lenders, property owners, monetary policy and consumer protection agencies",
+          "choice": "Compare full borrowing cost or lease terms, not only the advertised monthly rate.",
+          "source": "https://www.consumerfinance.gov/consumer-tools/mortgages/"
+        },
+        {
+          "label": "Utilities and maintenance",
+          "why": "Energy, insurance, taxes, repairs and building operations can raise housing outlays even without an increase in base rent.",
+          "who": "Utilities, insurers, contractors and property-tax authorities",
+          "choice": "Separate contract charges from usage and look for eligible relief or competition.",
+          "source": "https://www.eia.gov/energyexplained/electricity/prices-and-factors-affecting-prices.php"
+        }
+      ],
+      "disclaimer": "The breakdown describes average spending categories, not the share of price inflation caused by each actor."
+    },
+    "groceries": {
+      "title": "Groceries",
+      "headline": {
+        "annual": 6491,
+        "prior": 6224,
+        "label": "Food purchased to eat at home",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "This is grocery spending, not restaurant or takeout spending, and not the price of a fixed basket. In 2025 the BLS average rose 4.3%—a spending change, not a grocery price inflation rate.",
+      "slices": [
+        [
+          "Other grocery items",
+          2539
+        ],
+        [
+          "Meat, poultry, fish and eggs",
+          1579
+        ],
+        [
+          "Fruits and vegetables",
+          988
+        ],
+        [
+          "Cereals and baked goods",
+          741
+        ],
+        [
+          "Dairy",
+          644
+        ]
+      ],
+      "localNote": "No validated store-by-store, unit-price basket is linked to this ZIP. Census measures of food assistance are not grocery-price measurements.",
+      "drivers": [
+        {
+          "label": "Farming and processing",
+          "why": "Crop yields, livestock costs, food processing and packaging determine part of the cost before products reach shelves.",
+          "who": "Agricultural producers, food processors and food brands",
+          "choice": "Compare seasonal choices and comparable products by unit price.",
+          "source": "https://www.fna.usda.gov/research/cnpp/usda-food-plans/cost-food-monthly-reports"
+        },
+        {
+          "label": "Distribution and competition",
+          "why": "Freight, storage, local store access and the number of competitive retailers affect the choices and prices shoppers face.",
+          "who": "Retail chains, wholesalers, logistics firms and competition regulators",
+          "choice": "Compare real nearby stores, including travel and delivery costs.",
+          "source": "https://www.ftc.gov/news-events/topics/competition-enforcement"
+        },
+        {
+          "label": "Brand, package and promotion",
+          "why": "Advertising, branded premiums, package size and promotions change how much usable food a dollar buys.",
+          "who": "Food manufacturers and retailers",
+          "choice": "Compare price per usable ounce or serving; promotions are not always better deals.",
+          "source": "https://www.fna.usda.gov/research/cnpp/usda-food-plans/cost-food-monthly-reports"
+        }
+      ],
+      "disclaimer": "Spending changes can reflect quantities and product choices as well as prices. Ownership links alone do not prove price effects."
+    },
+    "energy": {
+      "title": "Utilities",
+      "headline": {
+        "annual": 4931,
+        "prior": 4736,
+        "label": "Utilities, fuels and public services",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "This national broad utilities line includes more than energy. It is already part of the BLS housing category, so never add it again to housing.",
+      "slices": [],
+      "secondary": {
+        "label": "2025 U.S. residential electricity price",
+        "value": 17.3,
+        "unit": "¢/kWh",
+        "year": "2025",
+        "source": "https://www.eia.gov/energyexplained/electricity/prices-and-factors-affecting-prices.php",
+        "definition": "U.S. average residential retail price per kilowatt-hour; not an electricity bill, local tariff or energy budget."
+      },
+      "localNote": "ZIP alone cannot identify a specific utility provider, plan, meter or 2026 retail tariff. Existing state all-sector electricity data are from 2024 and are not a direct residential comparison.",
+      "drivers": [
+        {
+          "label": "Fuel and power generation",
+          "why": "Power plant fuels, generation mix and wholesale supply costs change production costs.",
+          "who": "Electric utilities, generators, fuel suppliers and regulators",
+          "choice": "Check utility-provided breakdowns of supply and delivery charges.",
+          "source": "https://www.eia.gov/energyexplained/electricity/prices-and-factors-affecting-prices.php"
+        },
+        {
+          "label": "Grid and infrastructure",
+          "why": "Transmission, distribution, reliability and weather-related system investments affect delivery costs and approved rates.",
+          "who": "Utilities, state utility commissions and grid operators",
+          "choice": "Check published rate cases and assistance or efficiency programs.",
+          "source": "https://www.eia.gov/energyexplained/electricity/prices-and-factors-affecting-prices.php"
+        },
+        {
+          "label": "How much is used",
+          "why": "Household heating or cooling needs, building efficiency and rate plans affect the consumption portion of bills.",
+          "who": "Households, property owners, utility providers",
+          "choice": "Use actual bill kWh/therms to compare usage, fees and eligible plans.",
+          "source": "https://www.energy.gov/energysaver"
+        }
+      ],
+      "disclaimer": "National utilities spending is already included in the housing total; no double-counting or conversion from cents/kWh to a bill without usage data."
+    },
+    "health": {
+      "title": "Healthcare",
+      "headline": {
+        "annual": 6470,
+        "prior": 6197,
+        "label": "Direct household healthcare spending",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "Insurance spending dominates this average. It includes premiums and direct purchases; it is not the total amount paid to providers by all insurers or government programs.",
+      "slices": [
+        [
+          "Health insurance",
+          4310
+        ],
+        [
+          "Medical services",
+          1260
+        ],
+        [
+          "Drugs",
+          672
+        ],
+        [
+          "Medical supplies",
+          228
+        ]
+      ],
+      "localNote": "Area uninsured rates from ACS are coverage statistics, not local premiums or patient charges.",
+      "drivers": [
+        {
+          "label": "Insurance plan design",
+          "why": "Premiums, deductibles, co-payments, provider networks and subsidies can shift what patients pay out of pocket.",
+          "who": "Insurers, employers and state/federal regulators",
+          "choice": "Compare annual premiums plus expected out-of-pocket costs and network access.",
+          "source": "https://www.healthcare.gov/choose-a-plan/your-total-costs/"
+        },
+        {
+          "label": "Provider and treatment prices",
+          "why": "Negotiated rates, regional provider supply and the service selected can change patient bills.",
+          "who": "Hospitals, physicians, insurers and public programs",
+          "choice": "Check covered networks and published price estimates before elective services.",
+          "source": "https://www.cms.gov/priorities/key-initiatives/hospital-price-transparency"
+        },
+        {
+          "label": "Medicines and formularies",
+          "why": "Manufacturer pricing, pharmacy contracting, formularies and copay tiers influence prescription payments.",
+          "who": "Manufacturers, pharmacy benefit managers, pharmacies and health plans",
+          "choice": "Review plan coverage with a pharmacist or prescriber before changing treatment.",
+          "source": "https://www.cms.gov/medicare/coverage"
+        }
+      ],
+      "disclaimer": "A national mean is not a medical recommendation or a price quote for any health plan."
+    },
+    "work": {
+      "title": "Jobs & pay",
+      "headline": {
+        "annual": 110847,
+        "prior": 104207,
+        "label": "Average income before taxes",
+        "kind": "income",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "This measures average consumer-unit income, not individual wages or the 'cost of a job'. Nearby ACS median household income is a different statistic.",
+      "slices": [],
+      "localMetric": "work__median_income",
+      "localNote": "2020–2024 ACS median household income is a local median, not directly equivalent to 2025 national average income before taxes.",
+      "drivers": [
+        {
+          "label": "Local industry and demand",
+          "why": "Occupation mix, employer openings and industry demand shape available pay and opportunity.",
+          "who": "Businesses, local economic development officials and employers",
+          "choice": "Compare same-job wages from published local occupation tables.",
+          "source": "https://www.bls.gov/oes/"
+        },
+        {
+          "label": "Bargaining and labor rules",
+          "why": "Wage floors, benefit design, contracts and negotiating power can affect take-home compensation.",
+          "who": "Employers, workers and legislators",
+          "choice": "Check wage rights, worker protections and comparable compensation.",
+          "source": "https://www.dol.gov/agencies/whd"
+        },
+        {
+          "label": "Work-linked expenses",
+          "why": "Commute, childcare, mandatory fees and scheduling can reduce the net value of a job.",
+          "who": "Employers, service providers, transit agencies and regulators",
+          "choice": "Compare net compensation after required expenses, not salary alone.",
+          "source": "https://www.transit.dot.gov/ntd"
+        }
+      ],
+      "disclaimer": "Income changes do not measure changes in purchasing power without price and household-composition adjustment."
+    },
+    "schools": {
+      "title": "Schools & children",
+      "headline": {
+        "annual": 1583,
+        "prior": 1569,
+        "label": "Education purchases, not all childcare",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "The CE education figure is not a local tuition quote, a school budget, or a universal childcare cost. Many families have no education outlay while others pay far more.",
+      "slices": [],
+      "localNote": "Local preschool enrollment counts and school spending per pupil are not tuition rates or childcare fees; district assignment requires an actual address.",
+      "drivers": [
+        {
+          "label": "Childcare labor and availability",
+          "why": "Staffing levels, caregiver wages, group size and limited slots can change private care fees.",
+          "who": "Care providers, state licensing agencies and local governments",
+          "choice": "Compare equivalent licensed programs and check assistance eligibility.",
+          "source": "https://childcare.gov/"
+        },
+        {
+          "label": "Public school funding",
+          "why": "State formulas, property taxes, grants and district budgets influence program resources.",
+          "who": "Legislators, school boards and administrators",
+          "choice": "Read your district budget and published school profiles.",
+          "source": "https://nces.ed.gov/ccd/"
+        },
+        {
+          "label": "Extra services",
+          "why": "After-school care, transportation, tutoring and activities can create additional household costs.",
+          "who": "School districts, contractors and community programs",
+          "choice": "Check public, library and community alternatives, with hours and suitability.",
+          "source": "https://www.usa.gov/child-care"
+        }
+      ],
+      "disclaimer": "Do not interpret the $1,583 national education average as an early childcare or per-child school expense."
+    },
+    "transport": {
+      "title": "Getting around",
+      "headline": {
+        "annual": 13492,
+        "prior": 13318,
+        "label": "Transportation",
+        "kind": "spend",
+        "period": "2025",
+        "scope": "U.S. average consumer unit"
+      },
+      "intro": "Transport includes vehicle purchase outlays, running costs and transit. Price changes and a household choosing a different vehicle are not the same thing.",
+      "slices": [
+        [
+          "Vehicle purchases, net outlay",
+          5023
+        ],
+        [
+          "Other vehicle expenses",
+          4765
+        ],
+        [
+          "Gasoline and other fuels",
+          2503
+        ],
+        [
+          "Public and other transportation",
+          1199
+        ]
+      ],
+      "localNote": "A Census ZIP-area share of transit commuters does not measure fares or an individual's commute.",
+      "drivers": [
+        {
+          "label": "Vehicle prices and finance",
+          "why": "Manufacturer prices, financing rates and purchase choices change the biggest vehicle-related outlay.",
+          "who": "Manufacturers, lenders, dealers and consumers",
+          "choice": "Compare full contract and ownership costs rather than monthly payments.",
+          "source": "https://www.consumerfinance.gov/consumer-tools/auto-loans/"
+        },
+        {
+          "label": "Fuel and maintenance",
+          "why": "Fuel markets, insurance, vehicle reliability and repair labor affect recurring operating costs.",
+          "who": "Energy firms, insurers, repair providers and regulators",
+          "choice": "Compare coverage and service quotes; measure actual mileage and maintenance needs.",
+          "source": "https://www.eia.gov/petroleum/gasdiesel/"
+        },
+        {
+          "label": "Transit access and public investment",
+          "why": "Service frequency, fare policies, route coverage and public subsidies determine whether transit is a workable substitute.",
+          "who": "Transit agencies, elected budget authorities and operators",
+          "choice": "Compare available routes, passes and time reliability before deciding.",
+          "source": "https://www.transit.dot.gov/ntd"
+        }
+      ],
+      "disclaimer": "Components differ by $2 from the rounded category total in the BLS table; no separate household price is estimated."
+    },
+    "public-services": {
+      "title": "Taxes & local services",
+      "headline": null,
+      "intro": "No one national monthly amount correctly describes a household's taxes or the services that household receives. Spending surveys and government budgets answer different questions.",
+      "slices": [],
+      "localNote": "ZIP codes cross taxing and school-district boundaries. Verified personal tax burdens need parcel, income and jurisdiction-specific rules.",
+      "drivers": [
+        {
+          "label": "Income and sales tax rules",
+          "why": "Tax bases, progressive brackets, exclusions and local rates determine tax liabilities.",
+          "who": "Congress, state legislatures, tax agencies and local governments",
+          "choice": "Use official schedules and check only the credits or exemptions that apply.",
+          "source": "https://www.irs.gov/filing"
+        },
+        {
+          "label": "Property assessment and spending",
+          "why": "Taxable assessments, local budgets and overlapping jurisdictions help set property-tax bills.",
+          "who": "Local assessors, school boards and councils",
+          "choice": "Verify actual taxing entities and appeal or exemption rules.",
+          "source": "https://www.usa.gov/state-local-governments"
+        },
+        {
+          "label": "Service fees and infrastructure",
+          "why": "Water, sanitation, permits and other services rely on local contracts, operating costs and capital work.",
+          "who": "Local utilities, public works and contractors",
+          "choice": "Review original budgets and fees; compare service quality alongside cost.",
+          "source": "https://www.epa.gov/watersense/start-saving"
+        }
+      ],
+      "disclaimer": "This is a decision and funding map, not a computed personal tax bill."
+    },
+    "representation": {
+      "title": "Your voice",
+      "headline": null,
+      "intro": "Political influence has documented relationships, but it has no universal monthly price tag. Trace funding, public decisions and verified downstream measures separately.",
+      "slices": [],
+      "localNote": "A ZIP code is not a verified election-district boundary or evidence of personal political identity.",
+      "drivers": [
+        {
+          "label": "Campaign finance disclosure",
+          "why": "Public filings document donors, recipients and expenditures; they do not by themselves demonstrate a vote was bought.",
+          "who": "Candidates, committees and the Federal Election Commission",
+          "choice": "Inspect committee records and their reporting dates.",
+          "source": "https://www.fec.gov/data/"
+        },
+        {
+          "label": "Rules and oversight",
+          "why": "Legislation, agency enforcement and judicial decisions can shape markets and public services.",
+          "who": "Legislators, agencies, courts and state institutions",
+          "choice": "Open the original bill, ruling or enforcement record.",
+          "source": "https://www.congress.gov/"
+        },
+        {
+          "label": "Local decisions",
+          "why": "Zoning, transit, tax and utility governance affect daily life through different jurisdictional structures.",
+          "who": "Local elected bodies and administrative authorities",
+          "choice": "Check official local hearings and comment opportunities.",
+          "source": "https://www.usa.gov/elected-officials"
+        }
+      ],
+      "disclaimer": "No direct cause or household cost is attributed to a politician or donor without specific validated evidence."
+    }
+  }
+}
