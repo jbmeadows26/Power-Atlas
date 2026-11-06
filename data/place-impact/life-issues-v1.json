@@ -1,13 +1,13 @@
 {
   "schema": "power-atlas.place-impact-stories.v1",
   "reviewedUtc": "2026-11-06",
-  "scope": "United States introductory issue narratives and nonpartisan resources. Local ZIP is user-entered and place name is a third-party postal lookup; no automatically attributed local statistical result.",
+  "scope": "United States introductory issue narratives, measured 2020–2024 ACS ZCTA conditions on voluntary ZIP selection, and nonpartisan assistance resources. The ACS measurements do not identify a particular politician, household or causal policy result.",
   "geography": {
     "lookup": "https://api.zippopotam.us/us/",
     "provider": "Zippopotam.us / GeoNames",
     "terms": "https://docs.zippopotam.us/docs/getting-started/",
-    "purpose": "Only approximate locality label. ZIP can cross municipalities and congressional districts.",
-    "privacy": "Only on user submit, the entered ZIP is sent directly from their browser to the postal lookup provider, never stored by Power Atlas; the provider has its own data practices."
+    "purpose": "Postal place label only. Nearby ZIP and matching ZCTA need not be identical; ACS statistics are shown with their source's ZCTA geographic code.",
+    "privacy": "Only on user submission, the chosen ZIP is sent by the browser to Zippopotam.us for an approximate postal place and Census Reporter for ACS ZCTA measures. Power Atlas does not record the value, retain it in localStorage or append it to the URL. Third parties have their own data policies."
   },
   "issues": [
     {
@@ -416,8 +416,9 @@
   ],
   "limitations": [
     "The local ZIP lookup is a third-party postal lookup, not a verified government jurisdiction lookup.",
-    "2026 neighborhood prices, wages, health access and benefits are not computed without source-specific local measurements.",
+    "Census Reporter exposes source-backed, historical ZCTA ACS measures for all nine issues; no 2026 individual bills, store prices, school assignment or causal policy impact is estimated without specific source data.",
     "Each deep-research record is shown according to its own publication status and gaps. It does not establish effects on the selected ZIP.",
     "The interactive experience is not personal legal, medical or financial advice."
-  ]
+  ],
+  "measuredEvidenceRegistry": "data/place-impact/local-measures-v1.json"
 }
