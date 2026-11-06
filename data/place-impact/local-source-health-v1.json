@@ -1,0 +1,183 @@
+{
+  "schema": "power-atlas.place-impact.local-source-health.v1",
+  "generatedUTC": "2026-11-06T02:59:54.439821+00:00",
+  "sampleZCTA": "10001",
+  "sampleIsNotUserLocation": true,
+  "release": "acs2024_5yr",
+  "source": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr",
+  "sourceType": "Census Reporter public API forwarding Census Bureau ACS data",
+  "observations": {
+    "housing": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B25064%2CB25077&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "housing__median_rent",
+          "table": "B25064",
+          "value": 3361.0,
+          "format": "usd",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "housing__median_home_value",
+          "table": "B25077",
+          "value": 561100.0,
+          "format": "usd",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "groceries": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B17001%2CB22003&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "groceries__snap_share",
+          "table": "B22003",
+          "value": 10.75,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "groceries__poverty_share",
+          "table": "B17001",
+          "value": 15.08,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "energy": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B25040&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "energy__electric_heat",
+          "table": "B25040",
+          "value": 46.16,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "energy__gas_heat",
+          "table": "B25040",
+          "value": 35.98,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "health": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B27001&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "health__uninsured_share",
+          "table": "B27001",
+          "value": 3.28,
+          "format": "sumshare",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "health__uninsured_count",
+          "table": "B27001",
+          "value": 1002.0,
+          "format": "sumcount",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "work": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B19013%2CB23025&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "work__median_income",
+          "table": "B19013",
+          "value": 129852.0,
+          "format": "usd",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "work__unemployment_share",
+          "table": "B23025",
+          "value": 5.68,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "schools": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B14001&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "schools__preschool_count",
+          "table": "B14001",
+          "value": 208.0,
+          "format": "count",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "schools__enrollment_count",
+          "table": "B14001",
+          "value": 5505.0,
+          "format": "count",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "transport": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B08301&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "transport__transit_share",
+          "table": "B08301",
+          "value": 35.65,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "transport__home_work_share",
+          "table": "B08301",
+          "value": 25.96,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "public-services": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B28002&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "public-services__internet_gap",
+          "table": "B28002",
+          "value": 2.38,
+          "format": "share",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "public-services__internet_gap_count",
+          "table": "B28002",
+          "value": 375.0,
+          "format": "count",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    },
+    "representation": {
+      "sourceURL": "https://api.censusreporter.org/1.0/data/show/acs2024_5yr?table_ids=B01001%2CB01002&geo_ids=86000US10001",
+      "measures": [
+        {
+          "id": "representation__area_population",
+          "table": "B01001",
+          "value": 30511.0,
+          "format": "count",
+          "status": "observed_acs_estimate"
+        },
+        {
+          "id": "representation__median_age",
+          "table": "B01002",
+          "value": 35.8,
+          "format": "years",
+          "status": "observed_acs_estimate"
+        }
+      ]
+    }
+  },
+  "warning": "A passing public-data source smoke test does not confirm browser CORS, ZIP vs ZCTA equivalence or household-level political causation."
+}
