@@ -29,7 +29,7 @@ class EconomicForcesTests(unittest.TestCase):
         signal_ids = [x["id"] for x in self.data["signals"]]
         self.assertEqual(len(signal_ids), len(set(signal_ids)))
         self.assertGreaterEqual(len(signal_ids), 10)
-        allowed = {"measured", "forecast", "policy_decision"}
+        allowed = {"measured", "forecast", "policy_decision", "research_estimate"}
         for signal in self.data["signals"]:
             self.assertIn(signal["kind"], allowed)
             self.assertTrue(signal["source"].startswith("https://"))
@@ -56,6 +56,9 @@ class EconomicForcesTests(unittest.TestCase):
         self.assertEqual(d["imf_growth"]["kind"], "forecast")
         self.assertEqual(d["global_energy"]["kind"], "forecast")
         self.assertIn("NOT the change in household bills", d["global_energy"]["limits"])
+        self.assertEqual(d["tariff_pass"]["kind"], "research_estimate")
+        self.assertIn("NOT a 26% rise", d["tariff_pass"]["limits"])
+        self.assertEqual(d["imports"]["value"], "+8.1%")
 
     def test_company_sources_exist_and_are_not_causal(self):
         graph = json.loads(OWNERS.read_text(encoding="utf-8"))
