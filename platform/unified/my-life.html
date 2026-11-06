@@ -96,6 +96,21 @@
 .localFactSection .relatedPower{margin-top:16px;padding-top:14px}
 .localFactSection .localSourceTail{font-size:.74rem;color:#6e817e}
 @media(max-width:620px){.localFactSection .localMetrics{gap:10px}.localFactSection .localMetric{padding:15px}.localFactSection .metricValue{font-size:2.12rem}.localFactSection .readerMeaning{font-size:.86rem}}
+
+/* Corporate ownership / cost evidence is the first Step 3 story, not a demographic substitute */
+.ownerTrail{background:#fff;border:1px solid #d5e3db;border-radius:17px;padding:22px;margin:12px 0 18px}
+.ownerTrail h3{font-size:clamp(1.3rem,3vw,1.75rem);line-height:1.2;letter-spacing:-.028em;margin:8px 0}
+.ownerTrail .ownerIntro{font-size:.9rem;line-height:1.54;color:#5a7372;margin:0 0 13px}
+.ownerStory{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.ownerPath{padding:14px 16px;border:1px solid #d7e6dc;background:#f3f8f5;border-radius:13px}
+.ownerPath .ownerLabel{font-size:.7rem;text-transform:uppercase;letter-spacing:.09em;color:#417c70;font-weight:850}
+.ownerPath b{font-size:.96rem;line-height:1.45;display:block;color:#214c47;margin:8px 0}
+.ownerPath p{font-size:.82rem;line-height:1.53;color:#56716b;margin:6px 0}
+.ownerPath .ownerSrc{font-size:.75rem;color:#5a7971;margin:11px 0 0}
+.ownerTrail .ownerQuestion{border:1px solid #edd9ac;border-radius:12px;background:#fffaed;padding:12px 15px;margin:15px 0 11px;color:#6d583e;font-size:.85rem;line-height:1.48}
+.ownerTrail .ownerFooter{font-size:.83rem;margin:11px 0 0;font-weight:800}
+.ownerTrail .ownerGap{font-size:.79rem;color:#647a75;line-height:1.5;margin:9px 0}
+@media(max-width:640px){.ownerTrail{padding:16px}.ownerStory{grid-template-columns:1fr}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -112,7 +127,16 @@
 <p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
 </section>
 <section class="section" id="why"><div class="section-head"><div><div class="number"><span>3</span> What is behind it?</div><h2>Follow the decisions. Follow the evidence.</h2><p>First see the institutions and market mechanisms relevant to your issue. Then explore the deep research behind them—including political donations, corporations, billionaires, legislation, courts, elections and oversight.</p></div></div>
-<section class="localFactSection" id="sourceMeasured" aria-label="Measured conditions for selected daily-life issue">
+<section class="ownerTrail" id="corporatePaths" aria-label="Corporate ownership and possible price effects">
+ <div class="ey-dark">Follow the power · Source-backed corporate ownership</div>
+ <h3>Who owns the companies behind this expense?</h3>
+ <p class="ownerIntro">Separate the documented owner, the business decision that could affect costs, and the price effect that has actually been measured.</p>
+ <div class="ownerStory" id="ownerPathCards" aria-live="polite"><p>Checking sourced ownership links…</p></div>
+ <div class="ownerQuestion" id="ownerCostQuestion">An ownership relationship alone does not establish what residents pay.</div>
+ <p class="ownerGap" id="ownerLocalGap"></p>
+ <div class="ownerFooter"><a id="ownershipFullLink" href="corporate-ownership.html">Explore ownership and the original research →</a></div>
+ </section>
+ <section class="localFactSection" id="sourceMeasured" aria-label="Measured conditions for selected daily-life issue">
  <span class="ey-dark">Your community · The facts</span>
  <h3 id="localFactsHeading">What can we actually measure here?</h3>
  <p id="localFactsIntro">Choose a U.S. ZIP above to see local Census estimates linked to your selected issue. These are observations, not explanations for their causes.</p>
@@ -152,6 +176,8 @@ const SOURCE_STORIES=base+"data/place-impact/life-issues-v1.json";
 const SOURCE_MAP=base+"data/place-impact/deep-resource-map-v1.json";
 const SOURCE_ATLAS=base+"data/research/atlas-inventory-v1.json";
 const SOURCE_LOCAL=base+"data/place-impact/local-measures-v1.json";
+const SOURCE_CORPORATE=base+"data/corporate-ownership/verified-relationships-v1.json";
+const SOURCE_TRANSPARENCY=base+"data/corporate-ownership/transparency-price-power-v1.json";
 const SOURCE_MEASURED=base+"data/place-impact/connected-metrics-v1.json";
 const SOURCE_ELECTION_OFFICES=base+"data/elections/official-source-index.json";
 const SOURCE_VOTER_RULES=base+"data/voting-access/ncsl-id-index-v1.json";
@@ -165,6 +191,7 @@ const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
 let stories=null,deepMap=null,inventory=null,selected="housing",onlyRelevant=true,expanded=false,search="",activeZIP=null;
 let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSourceUrl=null;
+let corporateGraph=null,transparencyCases=null;
 let measured=null,electionAuthorities=null,secondaryVoterRules=null,treasuryAwards=null,companyPacs=null,civicReforms=null,selectedStateCode=null,selectedStateName=null;
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
@@ -273,6 +300,29 @@ function formatComparisonLabel(m){
  if(m.format==="years")return "U.S. median";
  return "U.S. share";
 }
+
+function renderCorporatePaths(){
+ const nodes=Object.fromEntries((corporateGraph?.entities||[]).map(e=>[e.id,e]));
+ const relations=(corporateGraph?.relations||[]).filter(r=>{
+  const a=nodes[r.from],b=nodes[r.to];return a&&b&&(a.issues||[]).includes(selected)||(a&&b&&(b.issues||[]).includes(selected));
+ });
+ const prioritized=["BENEFICIAL_SHARES","ACQUIRED_AND_PORTFOLIO_BACKED","CONTROLLING_SHAREHOLDER_REPORTED","OPERATES_BUSINESS","MARKETS_PROGRAM_UNDER_BRAND","REPORTED_OPERATING_BRAND","ACQUIRED_BUSINESS_CONTAINING_BRAND","LISTED_PORTFOLIO_COMPANY"];
+ relations.sort((a,b)=>prioritized.indexOf(a.relation)-prioritized.indexOf(b.relation));
+ const visible=relations.slice(0,3);
+ $("ownerPathCards").innerHTML=visible.length?visible.map(r=>{
+  const owner=nodes[r.from],business=nodes[r.to];
+  const type={BENEFICIAL_SHARES:"Reported ownership",CONTROLLING_SHAREHOLDER_REPORTED:"Reported control",ACQUIRED_AND_PORTFOLIO_BACKED:"Investor acquisition",OPERATES_BUSINESS:"Business unit",MARKETS_PROGRAM_UNDER_BRAND:"Corporate brand",REPORTED_OPERATING_BRAND:"Dated brand roster",ACQUIRED_BUSINESS_CONTAINING_BRAND:"Dated acquisition",LISTED_PORTFOLIO_COMPANY:"Investor portfolio",FOUNDED_AND_LEADS:"Leadership, not ownership"}[r.relation]||"Source-backed relationship";
+  return '<article class="ownerPath"><span class="ownerLabel">'+esc(type)+(Number.isFinite(r.stakePct)?' · '+esc(r.stakePct.toFixed(1))+'% shares':'')+'</span><b>'+esc(owner.name)+' → '+esc(business.name)+'</b><p>'+esc(r.note)+'</p><p class="ownerSrc">'+esc(r.asOf||"Date unknown")+' · '+link(r.source,"Original source ↗")+'</p></article>';
+ }).join(""):'<article class="ownerPath"><b>Verified ownership links not yet available</b><p>Company names and funding records may exist, but they have not been matched to current legal owners in this category. Missing ownership data is not evidence of no concentration.</p></article>';
+ const cases=(transparencyCases?.cases||[]).filter(c=>(c.powerAtlasIssues||[]).includes(selected));
+ const research=cases.find(c=>c.economicMechanismStatus==="observed"||c.economicMechanismStatus==="association")||cases[0];
+ $("ownerCostQuestion").innerHTML=research?
+ '<strong>What could affect costs?</strong> '+esc(research.summary)+' <strong>Not established:</strong> '+esc(research.interpretationLimits):
+ '<strong>What could affect costs?</strong> Shared ownership could influence pricing, staffing, expansion or competition. No company-specific local price change has been verified for this category.';
+ $("ownerLocalGap").textContent="What we still need: a verified local company/brand/facility inventory and comparable actual prices. National ownership links do not show which businesses serve the entered ZIP.";
+ $("ownershipFullLink").href="corporate-ownership.html?issue="+encodeURIComponent(selected);
+}
+
 function renderLocalMeasures(){
  const scope=localMeasures?.issues?.[selected],x=issue();
  const guide=scope?.readerGuide;
@@ -481,7 +531,7 @@ function renderCivicRecordLinks(){
 
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -523,7 +573,7 @@ $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
 $("originAll").addEventListener("click",()=>{showAllOriginalSources=!showAllOriginalSources;renderSources()});
 $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderResearch()});
 (async()=>{
- const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
+ const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS,SOURCE_CORPORATE,SOURCE_TRANSPARENCY].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
  if(results[0].status!=="fulfilled"||results[0].value.schema!=="power-atlas.place-impact-stories.v1"){
   $("issueGrid").innerHTML='<div class="notice">The published daily-life stories could not be loaded. No locality claims have been invented. '+link("index.html","Visit existing research →")+'</div>';
   $("decisionChain").textContent="Source temporarily unavailable.";$("actionGrid").textContent="";return;
@@ -538,6 +588,8 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[7].status==="fulfilled"&&results[7].value.schema==="power-atlas.business-federal-contract-transactions.v1")treasuryAwards=results[7].value;
  if(results[8].status==="fulfilled"&&results[8].value.schema==="power-atlas.business-influence.additional-candidates.v1")companyPacs=results[8].value;
  if(results[9].status==="fulfilled"&&results[9].value.schema==="power-atlas.civic-power-reforms.v1")civicReforms=results[9].value;
+ if(results[10].status==="fulfilled"&&results[10].value.schema==="power-atlas.corporate-ownership.evidence-graph.v1")corporateGraph=results[10].value;
+ if(results[11].status==="fulfilled"&&results[11].value.schema==="power-atlas.corporate-ownership.transparency-price-power.v1")transparencyCases=results[11].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
