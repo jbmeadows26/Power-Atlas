@@ -69,7 +69,7 @@ jobs:
           import re
           from pathlib import Path
           s=Path('platform/unified/business-candidates.html').read_text(encoding='utf-8')
-          scripts=re.findall(r'<script\\s*>(.*?)</script>',s,re.S)
+          scripts=re.findall(r'<script\s*>(.*?)</script>',s,re.S)
           assert len(scripts)==1
           Path('/tmp/power-atlas-business-candidates.js').write_text(scripts[0],encoding='utf-8')
           PY
