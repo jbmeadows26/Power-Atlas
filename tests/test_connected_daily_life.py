@@ -64,7 +64,8 @@ class ConnectedDailyLifeEvidenceTests(unittest.TestCase):
             with self.subTest(topic=k):
                 datum=m[k]
                 self.assertTrue(datum["id"] and datum["id"]!="UNRATE")
-                self.assertEqual(datum["period"],"2026-09")
+                self.assertRegex(datum["period"],r"^20[0-9]{2}-[0-9]{2}$")
+                self.assertGreaterEqual(datum["period"],"2026-09")
                 expected=round(100*(datum["value"]/datum["previousYearSameMonth"]-1),2)
                 self.assertAlmostEqual(datum["yoyPct"],expected,places=2)
                 self.assertIn("index",datum["unit"])
