@@ -1,0 +1,56 @@
+name: Refresh federal contractor business outcomes (free Treasury data)
+on:
+  push:
+    paths:
+      - 'scripts/collect_business_federal_awards.py'
+      - 'tests/test_business_federal_awards.py'
+      - '.github/workflows/collect-business-awards.yml'
+  schedule:
+    - cron: '23 12 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: power-atlas-business-awards
+  cancel-in-progress: false
+jobs:
+  collect:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Validate contribution and award separation
+        run: |
+          python -m unittest discover -s tests -p 'test_business_federal_awards.py' -v
+          python -m unittest discover -s tests -p 'test_business_influence.py' -v
+      - name: Collect public Treasury awards by exact legal UEI
+        run: python -m scripts.collect_business_federal_awards
+      - name: Preserve a verified snapshot only when all entities and fiscal years pass
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('data/business-influence/federal-contract-transactions-v1.json')
+          d=json.loads(p.read_text())
+          assert d['schema']=='power-atlas.business-federal-contract-transactions.v1'
+          assert [x['id'] for x in d['entities']]==['geo','pacmar']
+          assert all(x['years'] and all(y['sourcePagesRead']>0 for y in x['years']) for x in d['entities'])
+          assert d['causalStatus'].startswith('no_validated')
+          print('Verified exact UEI entities and complete page walks, no causal claim')
+          PY
+      - name: Commit only audited data changed by this collector
+        run: |
+          git config user.name 'power-atlas-data-bot'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- data/business-influence/federal-contract-transactions-v1.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'data: refresh bounded Treasury prime contract actions by verified UEI'
+            git push origin HEAD:main
+          else
+            echo 'Treasury snapshot unchanged'
+          fi
