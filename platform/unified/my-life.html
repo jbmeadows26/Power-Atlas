@@ -324,6 +324,116 @@ function markPrimaryNav(section){
   else a.removeAttribute("aria-current");
  });
 }
+
+function formatReportedMetric(raw){
+ if(raw&&Number.isFinite(raw.yoyPct))return (raw.yoyPct>=0?"+":"")+raw.yoyPct.toFixed(2)+"%";
+ if(raw?.unit==="percent")return Number(raw.value).toFixed(1)+"%";
+ if(raw?.unit==="cents_per_kWh")return Number(raw.value).toFixed(2)+"¢";
+ if(raw?.unit==="usd_per_pupil")return "$"+Number(raw.value).toLocaleString("en-US");
+ if(raw?.unit==="billions_usd_annualized")return "$"+(Number(raw.value)/1000).toFixed(2)+" trillion";
+ if(raw?.unit==="jurisdictions")return String(raw.value);
+ return "—";
+}
+function renderMeasureCard(d,scope,explanation){
+ return '<article class="impact-metric"><span class="source-flag">'+esc(scope)+'</span><b>'+esc(formatReportedMetric(d))+'</b><p>'+esc(explanation||d.title)+'</p><span class="period">'+esc(d.period||"Source period not supplied")+'</span><div>'+link(d.source,"Original measured data ↗")+'</div></article>';
+}
+function renderMeasuredSnapshot(){
+ const box=$("issueMetrics");if(!box)return;
+ const d=measured?.national?.[selected];if(!d){
+  box.innerHTML='<article class="impact-metric note"><span class="source-flag">Missing source</span><p>This statistic has not been verified or loaded. Missing does not mean zero.</p></article>';
+  $("metricStatus").textContent="The historical state/national metrics could not be loaded. Other research and local ACS requests remain separate.";
+  return;
+ }
+ const state=selectedStateCode;
+ const cards=[];
+ if(state){
+  const key=selected==="energy"?"electricity_2024_all_sector_cents_per_kwh":selected==="work"?"unemployment_2026_09_seasonally_adjusted_pct":selected==="schools"?"school_2024_current_spending_per_pupil":null;
+  const entry=key&&measured.state?.[key];
+  if(entry&&Number.isFinite(entry.values?.[state])){
+   const stateRaw={value:entry.values[state],unit:entry.units,period:entry.yearMonth||"FY"+entry.year,source:entry.source,title:"State estimate"};
+   cards.push(renderMeasureCard(stateRaw,(selectedStateName||state)+" · state",
+    selected==="energy"?"2024 average electricity retail price across all customer sectors; not your individual residential rate.":
+    selected==="work"?"September 2026 preliminary state unemployment rate; not a city job forecast.":
+    "FY2024 average public-school current spending per pupil in this state; not school-specific."));
+  }
+ }
+ cards.push(renderMeasureCard(d,"United States · national",
+  Number.isFinite(d.yoyPct)?d.title+": twelve-month national CPI index change, not a household price quote.":
+  d.unit==="billions_usd_annualized"?"National federal current expenditures at seasonally adjusted annual rate, not municipal spending or your tax bill.":d.method));
+ if(["energy","work","schools"].includes(selected)&&!state){
+  cards.push('<article class="impact-metric note"><span class="source-flag">Choose a state</span><p>Enter your ZIP in Step 1 to load a verified state benchmark where available.</p></article>');
+ }else if(["energy","work","schools"].includes(selected)&&state&&cards.length===1){
+  cards.push('<article class="impact-metric note"><span class="source-flag">State value not published here</span><p>This snapshot does not include an audited value for this state and measure. The national reference is not a substitute.</p></article>');
+ }
+ cards.push('<article class="impact-metric note"><span class="source-flag">Local data still needed</span><p>'+esc(measured.topicSemantics?.[selected]?.localUnknown||"This cannot be read as an individual effect.")+'</p></article>');
+ box.innerHTML=cards.join("");
+ $("metricStatus").textContent="Source snapshot reviewed "+measured.verifiedAt+". Geography, units and periods are stated on every measure. The separate Census ZIP-tabulation-area section in Step 3 provides available historical local estimates.";
+}
+function verifiedLink(title,tier,meaning,url){
+ return '<article class="connection"><span class="connection-tier">'+esc(tier)+'</span><strong>'+esc(title)+'</strong><p>'+esc(meaning)+'</p>'+link(url,"Open the underlying source ↗")+'</article>';
+}
+function renderVerifiedLinks(){
+ const box=$("verifiedConnections");if(!box)return;
+ const rows=[];
+ const baseMetric=measured?.national?.[selected];
+ if(baseMetric)rows.push(verifiedLink("Published baseline: "+baseMetric.title,"Measured statistic · "+baseMetric.scope,
+  baseMetric.method,baseMetric.source));
+ if(selected==="representation"){
+  const rec=selectedStateCode&&electionAuthorities?.records?.find(e=>e.state===selectedStateCode);
+  if(rec)rows.push(verifiedLink((selectedStateName||selectedStateCode)+" election authority",
+    "Official state source · certification not verified","This government office administers elections in the state. Power Atlas has not yet reconciled 2026 certified returns or local district boundaries.",rec.electionOfficeURL));
+  else rows.push(verifiedLink("Find the correct state election authority","Official source directory",
+   "Enter a ZIP to identify an approximate state; the official authority must verify current rules and local polling or vote procedures.",
+   "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/"));
+  const match=selectedStateCode&&secondaryVoterRules?.classification&&Object.entries(secondaryVoterRules.classification).find(([k,arr])=>Array.isArray(arr)&&arr.includes(selectedStateCode));
+  if(match){
+   const names={strict_photo:"Strict photo ID",strict_nonphoto:"Strict non-photo ID",nonstrict_photo:"Non-strict photo ID",nonstrict_nonphoto:"Non-strict non-photo ID",no_id_document_required:"No ID document required for in-person voting"};
+   rows.push(verifiedLink("NCSL: "+(names[match[0]]||match[0]),"Secondary August 2026 classification",
+    "This summary is NOT an independently verified state statute. Mail ballots, exceptions, court orders and ID remedies must be checked with the actual election office.",secondaryVoterRules.source));
+  }
+ }
+ if(["work","public-services"].includes(selected)){
+  const entries=treasuryAwards?.entities||[];
+  const sample=entries.map(e=>{const y=e.years?.find(z=>z.fiscalYear===2025);return y?e.name+": $"+(y.netObligationsUsd/1e6).toFixed(1)+" million FY2025 net obligations":null}).filter(Boolean);
+  if(sample.length)rows.push(verifiedLink("Federal contract actions: two verified recipients","Treasury official · descriptive examples",
+   sample.join("; ")+". Exact registered-entity UEIs; not local employment, payments received, corporate revenue, profits or proof of donations altering awards.","business-influence.html"));
+  if(companyPacs?.entries?.length)rows.push(verifiedLink(companyPacs.entries.length+" contractor/PAC identities indexed",
+   "Political-finance research · not a causal link",
+   "Legal PAC and recipient identifiers are kept separate; organizational or employee PAC giving does not establish an influence exchange.","business-candidates.html"));
+ }
+ const sourceByTopic={
+  housing:["Census community statistics","Local ACS data can differ substantially from national rent CPI. Confirm matching geography and year.","https://data.census.gov/"],
+  groceries:["FTC consumer and competition records","National grocery CPI is not a local shopping basket; complaints do not establish wrongdoing.","https://www.ftc.gov/"],
+  energy:["EIA state electricity profiles","The price covers all retail sectors, not a specific utility tariff or bill.","https://www.eia.gov/electricity/state/"],
+  health:["CMS healthcare datasets","National medical CPI does not measure local provider quality, actual coverage or billed charges.","https://data.cms.gov/"],
+  schools:["NCES school information","A spending benchmark is not a school-district assignment, teacher count or test-score finding.","https://nces.ed.gov/ccd/schoolsearch/"],
+  transport:["FTA National Transit Database","National transport CPI cannot establish local transit frequency, fares or route access.","https://www.transit.dot.gov/ntd"],
+  "public-services":["Official federal expenditure records","National expenditures and sampled contracts are not your city budget or household tax bill.","https://www.usaspending.gov/search"]
+ };
+ if(sourceByTopic[selected]){
+  const [title,description,url]=sourceByTopic[selected];
+  rows.push(verifiedLink(title,"Related official source · further local join needed",description,url));
+ }
+ if(!rows.length)rows.push(verifiedLink("No complete source join yet","Unavailable","This topic cannot currently be traced from a verified local decision to a household consequence.","index.html"));
+ box.innerHTML=rows.join("");
+}
+function renderCivicRecordLinks(){
+ const box=$("reformEvidence");if(!box)return;
+ if(!civicReforms?.records?.length){
+  box.innerHTML='<p>Detailed reform-case records are not available at this time. Official assistance and program resources below remain accessible.</p>';
+  return;
+ }
+ const candidates=civicReforms.records.filter(x=>
+  selected==="representation"||selected==="public-services"?/disclos|transparen|small.donor|ethics|oversight|enforc/i.test((x.title||"")+" "+x.id):
+  selected==="work"?/lobby|procure|conflict|stock|disclos/i.test((x.title||"")+" "+x.id):
+  /transparen|disclos|enforc/i.test((x.title||"")+" "+x.id));
+ const rows=(candidates.length?candidates:civicReforms.records).slice(0,2);
+ box.innerHTML='<h3>Policy research · proposal, not existing law</h3>'+
+ '<p>These are source-linked civic reform ideas, not guarantees of lower local costs or endorsements of a party or candidate. Practical assistance links are below.</p>'+
+ rows.map(x=>'<article class="connection" style="margin:10px 0"><span class="connection-tier">Proposed reform</span><strong>'+esc(x.title)+'</strong><p>'+esc(x.short||x.proposal||"")+'</p><p>Trade-off: '+esc(x.tradeoff||"Needs an independent local assessment.")+'</p>'+link(x.source,"Review original research ↗")+'</article>').join("")+
+ link("reform-lab.html","See all 16 proposed reforms →");
+}
+
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
  selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
