@@ -1,0 +1,951 @@
+{
+  "schema": "power-atlas.corporate-ownership.evidence-graph.v1",
+  "asOf": "2026-11-06",
+  "origin": "Public primary and issuer sources, ownership method adapted from private OpenLedger temporal graph; no private DB contents or unpublished source code copied",
+  "entities": [
+    {
+      "id": "thoma-bravo",
+      "name": "Thoma Bravo",
+      "kind": "private_equity_firm",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "realpage",
+      "name": "RealPage",
+      "kind": "software_company",
+      "issues": [
+        "housing",
+        "public-services"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "partners-group",
+      "name": "Partners Group affiliates (PG)",
+      "kind": "investment_shareholder",
+      "issues": [
+        "schools",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "ownershipScope": "Beneficial stockholders in KinderCare; not 100% owner"
+    },
+    {
+      "id": "kindercare",
+      "name": "KinderCare Learning Companies, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "schools",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0001873529"
+      },
+      "publicTicker": "KLC"
+    },
+    {
+      "id": "kindercare-centers",
+      "name": "KinderCare Learning Centers",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "creme-school",
+      "name": "Crème School",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "american-securities",
+      "name": "American Securities",
+      "kind": "private_equity_firm",
+      "issues": [
+        "schools",
+        "health",
+        "energy",
+        "transport",
+        "work",
+        "public-services",
+        "housing"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "psp-investments",
+      "name": "PSP Investments",
+      "kind": "institutional_investor",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "noControllingStakeClaim": true
+    },
+    {
+      "id": "learning-care",
+      "name": "Learning Care Group (US) Inc.",
+      "kind": "childcare_operator",
+      "issues": [
+        "schools",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "la-petite",
+      "name": "La Petite Academy",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "childtime",
+      "name": "Childtime Learning Centers",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "tutor-time",
+      "name": "Tutor Time",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "children-courtyard",
+      "name": "The Children's Courtyard",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "montessori-unlimited",
+      "name": "Montessori Unlimited",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "everbrook",
+      "name": "Everbrook Academy",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "creative-kids",
+      "name": "Creative Kids Learning Centers",
+      "kind": "consumer_brand",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "cvs",
+      "name": "CVS Health Corporation",
+      "kind": "public_company",
+      "issues": [
+        "health",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000064803"
+      },
+      "publicTicker": "CVS"
+    },
+    {
+      "id": "caremark",
+      "name": "CVS Caremark",
+      "kind": "pharmacy_benefit_business",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "cigna",
+      "name": "The Cigna Group",
+      "kind": "public_company",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0001739940"
+      },
+      "publicTicker": "CI"
+    },
+    {
+      "id": "express-scripts",
+      "name": "Express Scripts / Evernorth PBM",
+      "kind": "pharmacy_benefit_business",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "unitedhealth",
+      "name": "UnitedHealth Group",
+      "kind": "public_company",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000731766"
+      },
+      "publicTicker": "UNH"
+    },
+    {
+      "id": "optumrx",
+      "name": "Optum Rx",
+      "kind": "pharmacy_benefit_business",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "4x4-capital",
+      "name": "4x4 Capital",
+      "kind": "investment_firm",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "metrx",
+      "name": "MET-Rx",
+      "kind": "consumer_brand",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "pg",
+      "name": "The Procter & Gamble Company",
+      "kind": "public_company",
+      "issues": [
+        "groceries",
+        "housing",
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000080424"
+      },
+      "publicTicker": "PG",
+      "note": "OpenLedger had placeholder brand names, NOT verified brand ownership records; omitted from graph."
+    },
+    {
+      "id": "pepsico",
+      "name": "PepsiCo, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000077476"
+      },
+      "publicTicker": "PEP",
+      "note": "OpenLedger placeholder brand names omitted from graph pending primary confirmation."
+    },
+    {
+      "id": "amentum",
+      "name": "Amentum",
+      "kind": "portfolio_company",
+      "issues": [
+        "public-services",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "aramsco",
+      "name": "Aramsco",
+      "kind": "portfolio_company",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "belfor",
+      "name": "BELFOR",
+      "kind": "portfolio_company",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "conair",
+      "name": "Conair",
+      "kind": "portfolio_company",
+      "issues": [
+        "groceries",
+        "housing"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "fleetpride",
+      "name": "FleetPride",
+      "kind": "portfolio_company",
+      "issues": [
+        "transport",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "fullbloom",
+      "name": "FullBloom",
+      "kind": "portfolio_company",
+      "issues": [
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "hexion",
+      "name": "Hexion",
+      "kind": "portfolio_company",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "integrated-global-services",
+      "name": "Integrated Global Services",
+      "kind": "portfolio_company",
+      "issues": [
+        "energy",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "meridian",
+      "name": "Meridian",
+      "kind": "portfolio_company",
+      "issues": [
+        "work",
+        "public-services"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "napa",
+      "name": "North American Partners in Anesthesia",
+      "kind": "portfolio_company",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "nwn",
+      "name": "NWN",
+      "kind": "portfolio_company",
+      "issues": [
+        "public-services",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "ontrac",
+      "name": "OnTrac",
+      "kind": "portfolio_company",
+      "issues": [
+        "transport",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "realmanage",
+      "name": "RealManage",
+      "kind": "portfolio_company",
+      "issues": [
+        "housing",
+        "public-services"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "rpac",
+      "name": "r-pac",
+      "kind": "portfolio_company",
+      "issues": [
+        "groceries",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "simonmed",
+      "name": "SimonMed",
+      "kind": "portfolio_company",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "solv-energy",
+      "name": "SOLV Energy",
+      "kind": "portfolio_company",
+      "issues": [
+        "energy",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "aspen-group",
+      "name": "The Aspen Group",
+      "kind": "portfolio_company",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "trace3",
+      "name": "Trace3",
+      "kind": "portfolio_company",
+      "issues": [
+        "public-services",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "viapath",
+      "name": "ViaPath Technologies",
+      "kind": "portfolio_company",
+      "issues": [
+        "public-services",
+        "representation"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "vibrantz",
+      "name": "Vibrantz Technologies",
+      "kind": "portfolio_company",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "weldfit",
+      "name": "WeldFit",
+      "kind": "portfolio_company",
+      "issues": [
+        "energy",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    }
+  ],
+  "relations": [
+    {
+      "id": "tb-realpage",
+      "from": "thoma-bravo",
+      "to": "realpage",
+      "relation": "ACQUIRED_AND_PORTFOLIO_BACKED",
+      "asOf": "2021-04-22",
+      "source": "https://www.thomabravo.com/press-releases/thoma-bravo-completes-acquisition-of-realpage",
+      "confidence": "source_reported",
+      "note": "Thoma Bravo completed RealPage acquisition; portfolio still lists RealPage as backed. Not evidence of rent effect.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "pg-kindercare",
+      "from": "partners-group",
+      "to": "kindercare",
+      "relation": "BENEFICIAL_SHARES",
+      "asOf": "2026-04-09",
+      "source": "https://www.sec.gov/Archives/edgar/data/1873529/000119312526164197/klc-20260417.htm",
+      "confidence": "issuer_sec_disclosure",
+      "note": "68.8% of common shares beneficially owned by PG affiliates as of April 9, 2026, with documented board nomination rights.",
+      "localEffectEstablished": false,
+      "stakePct": 68.8
+    },
+    {
+      "id": "kindercare-brand-kindercare-centers",
+      "from": "kindercare",
+      "to": "kindercare-centers",
+      "relation": "MARKETS_PROGRAM_UNDER_BRAND",
+      "asOf": "2026-01-03",
+      "source": "https://www.sec.gov/Archives/edgar/data/1873529/000119312526106342/klc-20260103.htm",
+      "confidence": "source_reported",
+      "note": "SEC describes childcare activities marketed under this brand. Some employer-sponsored centres are managed rather than owned; store-level legal ownership unverified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "kindercare-brand-creme-school",
+      "from": "kindercare",
+      "to": "creme-school",
+      "relation": "MARKETS_PROGRAM_UNDER_BRAND",
+      "asOf": "2026-01-03",
+      "source": "https://www.sec.gov/Archives/edgar/data/1873529/000119312526106342/klc-20260103.htm",
+      "confidence": "source_reported",
+      "note": "SEC describes childcare activities marketed under this brand. Some employer-sponsored centres are managed rather than owned; store-level legal ownership unverified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "american-securities-lcg",
+      "from": "american-securities",
+      "to": "learning-care",
+      "relation": "CONTROLLING_SHAREHOLDER_REPORTED",
+      "asOf": "2018-03-13",
+      "source": "https://www.american-securities.com/news/press-release/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "dated_report_and_current_portfolio",
+      "note": "The 2018 announcement names American Securities controlling shareholder. American Securities's present portfolio page includes Learning Care; no current ownership percentage stated.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "psp-lcg",
+      "from": "psp-investments",
+      "to": "learning-care",
+      "relation": "EQUITY_INVESTOR",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "source_reported",
+      "note": "Significant minority or non-controlling investment reported in 2018; precise stake and current status not verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-la-petite",
+      "from": "learning-care",
+      "to": "la-petite",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-childtime",
+      "from": "learning-care",
+      "to": "childtime",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-tutor-time",
+      "from": "learning-care",
+      "to": "tutor-time",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-children-courtyard",
+      "from": "learning-care",
+      "to": "children-courtyard",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-montessori-unlimited",
+      "from": "learning-care",
+      "to": "montessori-unlimited",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-everbrook",
+      "from": "learning-care",
+      "to": "everbrook",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "lcg-brand-creative-kids",
+      "from": "learning-care",
+      "to": "creative-kids",
+      "relation": "REPORTED_OPERATING_BRAND",
+      "asOf": "2018-03-13",
+      "source": "https://www.learningcare.com/news/psp-investments-makes-significant-investment-in-learning-care-group-in-partnership-with-american-securities/",
+      "confidence": "historical_brand_disclosure",
+      "note": "Operating brand per dated March 2018 company disclosure; current centre franchise/owner and brand continuity must be verified.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "cvs-caremark",
+      "from": "cvs",
+      "to": "caremark",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2025-12-31",
+      "source": "https://www.sec.gov/Archives/edgar/data/64803/000006480326000010/cvs-20251231.htm",
+      "confidence": "source_reported",
+      "note": "CVS 10-K reports PBM business operations and competitors. Business affiliation is not a location-specific drug price claim.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "cigna-es",
+      "from": "cigna",
+      "to": "express-scripts",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2025-12-31",
+      "source": "https://www.sec.gov/Archives/edgar/data/1739940/000173994026000006/ci-20251231.htm",
+      "confidence": "source_reported",
+      "note": "The Cigna Group's Evernorth Health Services includes pharmacy benefits and Express Scripts.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "unh-optum",
+      "from": "unitedhealth",
+      "to": "optumrx",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2025-12-31",
+      "source": "https://www.sec.gov/Archives/edgar/data/731766/000073176626000062/unh-20251231.htm",
+      "confidence": "source_reported",
+      "note": "UnitedHealth consolidated report identifies Optum Rx segment and services.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "4x4-metrx",
+      "from": "4x4-capital",
+      "to": "metrx",
+      "relation": "ACQUIRED_BUSINESS_CONTAINING_BRAND",
+      "asOf": "2021-10-13",
+      "source": "https://www.stblaw.com/about-us/news/view/2021/10/13/4x4-capital-acquires-former-sports-and-active-nutrition-business-of-the-bountiful-company",
+      "confidence": "historical_transaction",
+      "note": "2021 acquisition of the business including MET-Rx; current ownership not verified. Do not misassign MET-Rx to Nestlé after Bountiful's separate asset sale.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-amentum",
+      "from": "american-securities",
+      "to": "amentum",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-aramsco",
+      "from": "american-securities",
+      "to": "aramsco",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-belfor",
+      "from": "american-securities",
+      "to": "belfor",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-conair",
+      "from": "american-securities",
+      "to": "conair",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-fleetpride",
+      "from": "american-securities",
+      "to": "fleetpride",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-fullbloom",
+      "from": "american-securities",
+      "to": "fullbloom",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-hexion",
+      "from": "american-securities",
+      "to": "hexion",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-integrated-global-services",
+      "from": "american-securities",
+      "to": "integrated-global-services",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-meridian",
+      "from": "american-securities",
+      "to": "meridian",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-napa",
+      "from": "american-securities",
+      "to": "napa",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-nwn",
+      "from": "american-securities",
+      "to": "nwn",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-ontrac",
+      "from": "american-securities",
+      "to": "ontrac",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-realmanage",
+      "from": "american-securities",
+      "to": "realmanage",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-rpac",
+      "from": "american-securities",
+      "to": "rpac",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-simonmed",
+      "from": "american-securities",
+      "to": "simonmed",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-solv-energy",
+      "from": "american-securities",
+      "to": "solv-energy",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-aspen-group",
+      "from": "american-securities",
+      "to": "aspen-group",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-trace3",
+      "from": "american-securities",
+      "to": "trace3",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-viapath",
+      "from": "american-securities",
+      "to": "viapath",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-vibrantz",
+      "from": "american-securities",
+      "to": "vibrantz",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-weldfit",
+      "from": "american-securities",
+      "to": "weldfit",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    }
+  ],
+  "relationshipTypes": {
+    "ACQUIRED_AND_PORTFOLIO_BACKED": "Transaction and continuing PE portfolio",
+    "BENEFICIAL_SHARES": "Beneficial ownership of disclosed equity",
+    "MARKETS_PROGRAM_UNDER_BRAND": "Brand marketed by issuer; local site may be independently operated or managed",
+    "CONTROLLING_SHAREHOLDER_REPORTED": "Company-reported controlling shareholder as of the disclosure date",
+    "EQUITY_INVESTOR": "Investor; controlling vote and current ownership not assumed",
+    "REPORTED_OPERATING_BRAND": "Brand listed in a dated company release",
+    "OPERATES_BUSINESS": "Parent operates the named division, subsidiary or business",
+    "ACQUIRED_BUSINESS_CONTAINING_BRAND": "Transaction covered brand at the announcement date",
+    "LISTED_PORTFOLIO_COMPANY": "Listed as a firm portfolio company, not proof of current majority control"
+  },
+  "evidenceRule": "Links represent named organizations, brands, investments and dated source-backed relationships. A PE portfolio relationship is NOT identical to majority ownership; a business unit is NOT necessarily a separate legal entity. Do not join ZIP to specific local facility without validated outlet registry and geo boundaries.",
+  "pricingRule": "No verified local price increase or politician-to-owner-to-household causal relation is established by the graph. Also include outcomes where ownership may increase supply, efficiency, affordability or quality, if evidenced.",
+  "coverageNotes": [
+    "Older Learning Care brand roster from 2018 cannot be represented as definitely current in 2026.",
+    "Kindercare investor stake is beneficial stock ownership, not a full ownership of every childcare site.",
+    "OpenLedger CERI has PG/PEP and selected brands as placeholders; they do not create ownership edges.",
+    "National employer concentration, brand groups, and political committees cannot be equated with local market concentration.",
+    "Local outlet-to-operator legal entity mapping is missing across every daily-life issue."
+  ]
+}
