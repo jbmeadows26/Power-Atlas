@@ -1,0 +1,75 @@
+name: Site-wide source, data and page-integrity audit
+on:
+  push:
+    paths:
+      - 'scripts/audit_power_atlas_site.py'
+      - 'tests/test_sitewide_audit.py'
+      - 'data/health/sitewide-missing-sources-v1.json'
+      - 'data/health/completion-gates.json'
+      - 'data/corporate-ownership/**'
+      - 'data/place-impact/**'
+      - 'platform/unified/*.html'
+      - 'site/*.html'
+      - 'research/voting-access/*.html'
+      - '.github/workflows/audit-sitewide.yml'
+  schedule:
+    - cron: '15 10 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: atlas-sitewide-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5.6.0
+        with:
+          python-version: '3.12'
+      - name: Produce full site audit and inspect source gap register
+        run: python scripts/audit_power_atlas_site.py
+      - name: Test all source references, nine issues, research and internal routes
+        run: python -m unittest discover -s tests -p 'test_sitewide_audit.py' -v
+      - name: Confirm JavaScript on all static HTML surfaces parses
+        run: |
+          python - <<'PY'
+          import re, subprocess, tempfile
+          from pathlib import Path
+          paths=[*Path('platform/unified').glob('*.html'),*Path('site').glob('*.html'),*Path('research/voting-access').glob('*.html')]
+          checked=0
+          for html in paths:
+              text=html.read_text(encoding='utf-8')
+              for m in re.finditer(r'<script\b([^>]*)>(.*?)</script>',text,re.I|re.S):
+                  attrs=m.group(1)
+                  if re.search(r'\bsrc\s*=',attrs,re.I) or 'application/json' in attrs:
+                      continue
+                  code=m.group(2)
+                  if not code.strip(): continue
+                  with tempfile.NamedTemporaryFile('w',suffix='.js',encoding='utf-8') as tmp:
+                      tmp.write(code);tmp.flush()
+                      p=subprocess.run(['node','--check',tmp.name],capture_output=True,text=True)
+                      if p.returncode:
+                          raise SystemExit(f'{html}: JS syntax failed: '+p.stderr[:1500])
+                      checked+=1
+          print('Valid inline browser scripts:',checked)
+          PY
+      - name: Commit dated read-only audit report if changed
+        if: always()
+        run: |
+          if test -f data/health/sitewide-audit-v1.json; then
+            git config user.name power-atlas-audit-bot
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add -- data/health/sitewide-audit-v1.json
+            if ! git diff --cached --quiet; then
+              git commit -m 'audit: publish complete indexed site, source and data gap findings'
+              git pull --rebase origin main
+              git push origin HEAD:main
+            else
+              echo 'Site audit unchanged'
+            fi
+          fi
