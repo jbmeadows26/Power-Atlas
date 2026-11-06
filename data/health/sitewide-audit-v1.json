@@ -1,0 +1,447 @@
+{
+  "schema": "power-atlas.sitewide-static-source-audit.v1",
+  "generatedUTC": "2026-11-06T04:05:16.825121+00:00",
+  "overall": "research_partially_connected_not_nationwide_complete",
+  "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
+  "repository": "jbmeadows26/Power-Atlas",
+  "summary": {
+    "htmlPagesAudited": 17,
+    "jsonDataFilesChecked": 239,
+    "validJsonFiles": 239,
+    "staticReferencesInspected": 338,
+    "unresolvedStaticLinkIssues": 0,
+    "missingBugReportScripts": 0,
+    "unresolvedLiteralDataPointers": 1,
+    "corporateEntitiesIndexed": 84,
+    "corporateRelationsSourceAttributed": 64,
+    "transparencyCostCaseStudies": 7,
+    "deepResearchTracksMapped": 25,
+    "recentResearchCollections": 9,
+    "lifeCategories": 9,
+    "localHistoricalMeasurements": 18,
+    "unresolvedOriginalSourceGaps": 55,
+    "originalSourceCandidates": 57,
+    "blockingExistingResearchGates": 9,
+    "queuedIngestionTasks": 10
+  },
+  "sourceIntegrity": {
+    "sourceCount": 57,
+    "distinctSourceIds": 57,
+    "gapCount": 55,
+    "distinctGapIds": 55,
+    "nineIssuesCovered": true,
+    "brokenSourceReferences": [],
+    "missingSourceURLs": [],
+    "unresolvedGapCount": 55
+  },
+  "localTopics": [
+    {
+      "topic": "energy",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 6
+    },
+    {
+      "topic": "groceries",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 10
+    },
+    {
+      "topic": "health",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 9
+    },
+    {
+      "topic": "housing",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 10
+    },
+    {
+      "topic": "public-services",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 6
+    },
+    {
+      "topic": "representation",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 13
+    },
+    {
+      "topic": "schools",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 8
+    },
+    {
+      "topic": "transport",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 8
+    },
+    {
+      "topic": "work",
+      "metricsDefined": 2,
+      "hasReaderGuide": true,
+      "identifiedGaps": 4,
+      "verifiedLocalCausalPriceEffects": 0,
+      "sourceCandidates": 10
+    }
+  ],
+  "pages": [
+    {
+      "path": "platform/unified/business-candidates.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 16,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/business-influence/additional-candidates-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/business-influence.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 19,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/business-influence/evidence-v1.json",
+        "data/business-influence/federal-contract-transactions-v1.json",
+        "data/business-influence/geo-pac-candidate-disbursements-v1.json",
+        "data/business-influence/geo-pac-candidate-excerpt-2026.json",
+        "data/business-influence/geo-pac-fec-summary-v1.json"
+      ],
+      "missingDataReferences": [
+        "data/business-influence/geo-pac-candidate-disbursements-v1.json"
+      ],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/compare.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 29,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/hyperpartisanship/voteview-party-divisions-v1.json",
+        "data/money-influence/civic-accountability-evidence-v1.json",
+        "data/money-influence/dark-money-graph-v1.json",
+        "data/research/atlas-inventory-v1.json",
+        "data/research/cross-domain-evidence-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/corporate-ownership.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 14,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/dark-money.html",
+      "localReferenceCount": 15,
+      "allReferencesCount": 17,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/finance/fec-committee-master.json",
+        "data/finance/irs-schedule-i-grants-v1.json",
+        "data/finance/nyc-cfb/campaign-financial-analysis-2025.json",
+        "data/finance/wa-pdc/summary-aggregate-2026.json",
+        "data/money-influence/dark-money-graph-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/donor-intelligence.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 18,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/money-influence/brennan-top40-midterms-2014-2026.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/election-2026.html",
+      "localReferenceCount": 9,
+      "allReferencesCount": 12,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/election-money.html",
+      "localReferenceCount": 15,
+      "allReferencesCount": 24,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/money-influence/brennan-top40-midterms-2014-2026.json",
+        "data/money-influence/fec-federal-cycle-overview-2002-2026.json",
+        "data/money-influence/opensecrets-presidential-donor-excerpts-2020-2024.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/index.html",
+      "localReferenceCount": 30,
+      "allReferencesCount": 40,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/coverage.json",
+        "data/hyperpartisanship/voteview-party-divisions-v1.json",
+        "data/institutional-decay/evidence-v1.json",
+        "data/voting-access/evidence-seed-v1.json",
+        "data/voting-access/ncsl-id-index-v1.json",
+        "data/voting-access/state-policy-coverage-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/investigations.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 15,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/money-sources.html",
+      "localReferenceCount": 16,
+      "allReferencesCount": 25,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/coverage.json",
+        "data/money-influence/source-registry-v1.json",
+        "data/money-influence/verified-record-previews-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/my-life.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 16,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/business-influence/additional-candidates-v1.json",
+        "data/business-influence/federal-contract-transactions-v1.json",
+        "data/corporate-ownership/transparency-price-power-v1.json",
+        "data/corporate-ownership/verified-relationships-v1.json",
+        "data/elections/official-source-index.json",
+        "data/money-influence/civic-power-reforms-v1.json",
+        "data/place-impact/connected-metrics-v1.json",
+        "data/place-impact/deep-resource-map-v1.json",
+        "data/place-impact/life-issues-v1.json",
+        "data/place-impact/local-measures-v1.json",
+        "data/research/atlas-inventory-v1.json",
+        "data/voting-access/ncsl-id-index-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/navatek.html",
+      "localReferenceCount": 13,
+      "allReferencesCount": 28,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/reform-lab.html",
+      "localReferenceCount": 16,
+      "allReferencesCount": 23,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/money-influence/civic-accountability-evidence-v1.json",
+        "data/money-influence/civic-power-reforms-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "research/voting-access/index.html",
+      "localReferenceCount": 1,
+      "allReferencesCount": 3,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
+      "path": "site/election-2026.html",
+      "localReferenceCount": 2,
+      "allReferencesCount": 7,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
+      "path": "site/index.html",
+      "localReferenceCount": 3,
+      "allReferencesCount": 32,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/app-feed.json",
+        "data/coverage-six-domains.json",
+        "data/finance/fec-candidate-links.json",
+        "data/finance/fec-committee-master.json",
+        "data/finance/fec-pac-party-summaries.json",
+        "data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json",
+        "data/health/completion-gates.json",
+        "data/hyperpartisanship/app-summary-v1.json",
+        "data/institutional-decay/trust-country-waves-2023-2025.json",
+        "data/judiciary/fjc-appointments.json",
+        "data/organizations/redistricting-committees.json",
+        "data/promises/primary-2020-sentence-inventory/index.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    }
+  ],
+  "brokenStaticReferences": [],
+  "invalidDataFiles": [],
+  "unparsedHtml": [],
+  "missingBugReportScripts": [],
+  "unresolvedLiteralDataPointers": [
+    {
+      "page": "platform/unified/business-influence.html",
+      "sourcePath": "data/business-influence/geo-pac-candidate-disbursements-v1.json"
+    }
+  ],
+  "corporateGraph": {
+    "uniqueEntities": 84,
+    "sourcedLinks": 64,
+    "brokenRelations": [],
+    "coverageCaveat": "Legal entity crosswalks, majority stakes, current portfolio, per-facility ownership and location-specific price effects remain incomplete."
+  },
+  "knownResearchBlockers": [
+    {
+      "id": "state_bill_full_history",
+      "status": "partial_not_exhaustive",
+      "observed": 0,
+      "nextAction": "Reconcile official legislative indexes and all relevant sessions",
+      "source": "https://billcommons.org/docs/api"
+    },
+    {
+      "id": "state_certified_election_canvasses",
+      "status": "incomplete",
+      "observed": 0,
+      "nextAction": "Retrieve certified state election contest/year/office totals from the 51 indexed authority URLs",
+      "source": "https://www.fec.gov/introduction-campaign-finance/how-to-research-public-records/state-election-offices/"
+    },
+    {
+      "id": "state_campaign_finance",
+      "status": "not_established",
+      "observed": 0,
+      "nextAction": "Prioritize licensed official state election campaign finance exports, with privacy minimization",
+      "source": null
+    },
+    {
+      "id": "official_state_rollcalls",
+      "status": "partial_sample_not_member_ballot_census",
+      "observed": 1,
+      "nextAction": "Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata",
+      "source": null
+    },
+    {
+      "id": "verified_committee_financial_transfers",
+      "status": "not_proven_by_aggregates",
+      "observed": 0,
+      "nextAction": "Connect FEC itemized disbursements or official state filings to legally identified recipients",
+      "source": null
+    },
+    {
+      "id": "nationwide_lower_court_case_lifecycle",
+      "status": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Connect accessible official dockets or CourtListener records with final dispositions and dates",
+      "source": null
+    },
+    {
+      "id": "state_judicial_selection",
+      "status": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Collect official state judicial records, term dates, election commissions and nominating actors",
+      "source": null
+    },
+    {
+      "id": "district_legal_maps_history",
+      "status": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Reconcile official plan geometries, legal effective dates and court-ordered plans to election results",
+      "source": null
+    },
+    {
+      "id": "causal_decision_graph",
+      "status": "not_established",
+      "observed": null,
+      "nextAction": "Require dated primary sources for each action; graph affiliations are not guilt or causation",
+      "source": null
+    }
+  ],
+  "pendingIngestionTaskIds": [
+    "state-bills-AZ-page2",
+    "state-bills-CA-page2",
+    "state-bills-DC-page2",
+    "state-bills-FL-page2",
+    "state-bills-IL-page2",
+    "state-bills-LA-page2",
+    "state-bills-MS-page2",
+    "state-bills-NY-page2",
+    "state-bills-OR-page2",
+    "state-bills-TX-page2"
+  ],
+  "unresolvedSourceCatalogPath": "data/health/sitewide-missing-sources-v1.json",
+  "structuralErrors": [],
+  "conclusion": "All indexed pages can be inspected for local references, but having datasets or ownership relationships does NOT prove full source ingestion or causal outcomes. Read the missing-source catalog for original links and precise required joins."
+}
