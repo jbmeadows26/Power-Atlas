@@ -17,7 +17,7 @@
 .location{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(230px,.8fr);gap:15px;align-items:stretch}.loc-form label{display:block;font-weight:850;margin-bottom:10px}.fields{display:flex;gap:8px}.fields input{border:1px solid #adc2bf;border-radius:11px;min-width:0;max-width:250px;flex:1;padding:12px 13px;font-size:1.12rem;font-variant-numeric:tabular-nums}
 .primary{border:0;background:var(--teal);color:white;font-weight:800;padding:12px 17px;border-radius:11px}.primary:hover{background:#134a49}.loc-result{border:1px solid #c3dcd5;background:#edf6f2;border-radius:13px;padding:18px}.loc-result strong{display:block;font-size:1.3rem;letter-spacing:-.025em;margin:6px 0}.fine{font-size:.79rem;line-height:1.55;color:var(--muted)}.local-flag{display:inline-block;background:#d8ece6;border-radius:20px;color:#1b645a;padding:4px 8px;font-weight:750;font-size:.73rem}
 .issue-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px}.issue-card{background:white;border:1px solid #dbe4df;border-radius:16px;padding:17px;display:flex;gap:13px;align-items:center;text-align:left;min-height:93px;color:#223b42}.issue-card:hover{border-color:#488a80;background:#f1faf5}.issue-card[aria-pressed="true"]{background:#e5f5ee;border:2px solid #25796e;padding:16px}.issue-icon{display:grid;place-items:center;font-size:1.9rem;background:#eaf2ed;border-radius:12px;min-width:49px;height:49px}.issue-card strong{font-size:1.01rem;display:block}.issue-card small{color:#64777a;display:block;margin-top:5px;font-size:.76rem}
-.feature{background:#fff;border:1px solid #d8e4dc;border-radius:18px;padding:23px;margin-top:16px}.feature h3{font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.04em;margin:6px 0}.feature p{line-height:1.58;color:#607279;margin:5px 0 0}.ey-dark{letter-spacing:.12em;color:#26786e;font-size:.74rem;font-weight:840;text-transform:uppercase}
+.feature{background:#fff;border:1px solid #d8e4dc;border-radius:18px;padding:23px;margin-top:16px}.feature h3{font-size:clamp(1.4rem,3vw,2rem);letter-spacing:-.04em;margin:6px 0}.feature p{line-height:1.58;color:#607279;margin:5px 0 0}.next-step{margin:19px 0 11px}.next-step .primary{display:inline-flex;min-height:44px;align-items:center;justify-content:center;text-decoration:none;text-align:center}.ey-dark{letter-spacing:.12em;color:#26786e;font-size:.74rem;font-weight:840;text-transform:uppercase}
 .chain{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0 22px}.chain-item{position:relative;min-width:0;background:white;border:1px solid var(--line);border-radius:15px;padding:18px}.chain-item:before{content:attr(data-n);font-weight:900;color:#1c8176;display:block;font-size:.82rem;margin-bottom:9px}.chain-item h3{font-size:1.08rem;letter-spacing:-.02em;margin:0 0 10px}.chain-item p{color:#4e666e;line-height:1.55;font-size:.88rem;margin:0 0 13px}.chain-item small{font-size:.76rem;line-height:1.5;color:#8a6642}
 .library{border:1px solid var(--line);background:white;border-radius:19px;overflow:hidden}.libhead{padding:21px 23px;background:#133644;color:white}.libhead h3{font-size:1.25rem;margin:7px 0}.libhead p{font-size:.87rem;line-height:1.53;color:#cfdfdc;margin:0}.toolrow{display:flex;align-items:center;gap:9px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #e1e8e3}.toolrow input{border:1px solid #cad9d3;border-radius:10px;padding:11px 13px;flex:1;min-width:150px;max-width:470px}
 .secondary{background:#f5f8f6;border:1px solid #afc8c0;border-radius:10px;padding:10px 13px;color:#255f5b;font-size:.84rem;font-weight:770}.secondary[aria-pressed="true"]{background:#216d65;color:white;border-color:#216d65}
@@ -137,10 +137,11 @@
 <div class="location"><div class="panel loc-form"><form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div></form><p class="fine" id="zipPrivacy">Optional. When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Power Atlas does not store the ZIP, put it in a shared link, or infer your politics.</p></div><div class="loc-result" aria-live="polite"><span class="local-flag">Geographic context</span><strong id="placeName">No ZIP selected</strong><p class="fine" id="placeStatus">Choose an issue below or look up a postal area.</p><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer" class="fine">Find your current U.S. House representative using the official tool ↗</a></div></div>
 </section>
 <section class="section" id="what"><div class="section-head"><div><div class="number"><span>2</span> Your daily life</div><h2>What matters most right now?</h2><p>Choose one issue. The explanation, connected research and practical resources will update together.</p></div></div>
+<p id="step2Place" class="fine" role="status">Explore a category without a ZIP, or enter your ZIP above for additional local context.</p>
 <div class="issue-grid" id="issueGrid" role="group" aria-label="Choose an everyday-life issue"><p>Loading life topics…</p></div>
-<div class="feature" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p></div>
+<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p></div>
 <div id="issueMetrics" class="impact-metrics" aria-label="Verified public data for selected life issue" aria-live="polite"><div class="impact-metric note"><strong>Connecting original statistics…</strong></div></div>
-<p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
+<p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p><div class="next-step"><a class="primary" id="continueToWhy" href="#why">Next: Follow the evidence ↓</a></div>
 </section>
 <section class="section" id="why"><div class="section-head"><div><div class="number"><span>3</span> What is behind it?</div><h2>Follow the decisions. Follow the evidence.</h2><p>First see the institutions and market mechanisms relevant to your issue. Then explore the deep research behind them—including political donations, corporations, billionaires, legislation, courts, elections and oversight.</p></div></div>
 <section class="ownerTrail" id="corporatePaths" aria-label="Corporate ownership and possible price effects">
@@ -575,13 +576,17 @@ function renderCivicRecordLinks(){
  link("reform-lab.html","See all 16 proposed reforms →");
 }
 
+function scrollToSection(id,activeSection){
+ markPrimaryNav(activeSection);
+ requestAnimationFrame(()=>$(id).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"}));
+}
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
  selected=id;expanded=false;renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
- markPrimaryNav(scroll?"why":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
- if(scroll)$("why").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion:reduce)").matches?"auto":"smooth",block:"start"});
+ markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
+ if(scroll){scrollToSection("issueResult","what");requestAnimationFrame(()=>$("issueQuestion").focus({preventScroll:true}));}
 }
 window.addEventListener("hashchange",()=>{
  const target=location.hash.slice(1);
@@ -604,13 +609,16 @@ async function lookUpZIP(zip){
   name.textContent=first["place name"]+", "+first.state;
   renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();
   out.textContent="Postal ZIP "+zip+" identified. This is a third-party approximate place label, not a verified boundary for elections, utilities, taxes or school districts. Research below remains issue-specific until local records are joined.";
+  $("step2Place").textContent="Exploring ZIP "+zip+" · "+first["place name"]+", "+first.state+" (approximate postal area). Select an issue below.";
   renderLocalMeasures();await loadLocalMeasures(zip,selected);
- }catch(e){activeZIP=zip;selectedStateCode=null;selectedStateName=null;renderMeasuredSnapshot();renderVerifiedLinks();name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
+ }catch(e){activeZIP=zip;selectedStateCode=null;selectedStateName=null;renderMeasuredSnapshot();renderVerifiedLinks();name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";$("step2Place").textContent="Exploring ZIP "+zip+" · Exact postal place unavailable. Census ZIP-area estimates may still be provided.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
 }
 $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
  if(!/^[0-9]{5}$/.test(zip)){$("placeStatus").textContent="Please enter a five-digit U.S. ZIP code.";return;}
+ $("step2Place").textContent="Looking up ZIP "+zip+"… Select an issue below.";
  lookUpZIP(zip);
+ scrollToSection("what","what");
 });
 $("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
