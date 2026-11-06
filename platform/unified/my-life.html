@@ -358,6 +358,7 @@ const SOURCE_VOTER_RULES=base+"data/voting-access/ncsl-id-index-v1.json";
 const SOURCE_TREASURY_AWARDS=base+"data/business-influence/federal-contract-transactions-v1.json";
 const SOURCE_BUSINESS_PACS=base+"data/business-influence/additional-candidates-v1.json";
 const SOURCE_CIVIC_REFORMS=base+"data/money-influence/civic-power-reforms-v1.json";
+const SOURCE_BUSINESS_INFLUENCE=base+"data/business-influence/evidence-v1.json";
 
 const $=id=>document.getElementById(id);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -365,7 +366,7 @@ const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
 let stories=null,deepMap=null,inventory=null,selected="housing",onlyRelevant=true,expanded=false,search="",activeZIP=null;
 let localMeasures=null,localResults=new Map(),localRequestSequence=0,localSourceUrl=null;
-let corporateGraph=null,transparencyCases=null;
+let corporateGraph=null,transparencyCases=null,businessInfluence=null;
 let missingSourceCatalog=null;
 let measured=null,electionAuthorities=null,secondaryVoterRules=null,treasuryAwards=null,companyPacs=null,civicReforms=null,selectedStateCode=null,selectedStateName=null;
 
@@ -392,7 +393,23 @@ function getBenchmarkContext(){
   stages:(c.evidenceSteps||[]).map(st=>({actor:st.actor,detail:st.detail,status:st.evidenceStatus})),
   sources:(c.originalSources||[]).filter(src=>/^https:\/\//.test(src.url)).slice(0,4).map(src=>({label:src.label,url:src.url,kind:src.kind}))
  }));
- return {topic:selected,zip:z,stateCode:selectedStateCode,stateName:selectedStateName,local,corporateExamples};
+ const ownershipIds=selected==="schools"?["pg-kindercare"]:selected==="transport"?["as-portfolio-fleetpride"]:selected==="work"?["pg-kindercare"]:selected==="housing"?["orlando-thoma-bravo"]:selected==="groceries"?["bezos-amazon-2026"]:selected==="health"?["cvs-caremark","cigna-es","unh-optum"]:[];
+ const nodes=Object.fromEntries((corporateGraph?.entities||[]).map(e=>[e.id,e]));
+ const ownershipExamples=(corporateGraph?.relations||[]).filter(r=>ownershipIds.includes(r.id)&&nodes[r.from]&&nodes[r.to]&&/^https:\/\//.test(r.source||"")).map(r=>({
+  owner:nodes[r.from].name,business:nodes[r.to].name,relation:r.relation,
+  shares:Number.isFinite(r.stakePct)?r.stakePct:null,date:r.asOf||"",
+  note:r.note,source:r.source,localEffectEstablished:r.localEffectEstablished===true
+ }));
+ const finance=(selected==="public-services"||selected==="representation")?(businessInfluence?.cases||[]).find(c=>c.id==="geo"):null;
+ const moneyExample=finance?{
+  company:finance.company,status:finance.status,finding:finance.finding,
+  politicalYear:finance.politicalByCalendarYear?.find(p=>p.year===2025)?.year||null,
+  contributions:finance.politicalByCalendarYear?.find(p=>p.year===2025)?.combinedUsd||null,
+  politicalSource:finance.politicalByCalendarYear?.find(p=>p.year===2025)?.source||null,
+  disclosure:finance.disclosedPolitical?.source||null,
+  limitation:finance.politicalFinanceScopeWarning||"Company spending and awarded business are separately sourced, not linked causally."
+ }:null;
+ return {topic:selected,zip:z,stateCode:selectedStateCode,stateName:selectedStateName,local,corporateExamples,ownershipExamples,moneyExample};
 }
 window.PowerAtlasGetBenchmarkContext=getBenchmarkContext;
 function syncCostBenchmark(){
@@ -806,7 +823,7 @@ $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
 $("originAll").addEventListener("click",()=>{showAllOriginalSources=!showAllOriginalSources;renderSources()});
 $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderResearch()});
 (async()=>{
- const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS,SOURCE_CORPORATE,SOURCE_TRANSPARENCY,SOURCE_MISSING].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
+ const results=await Promise.allSettled([SOURCE_STORIES,SOURCE_MAP,SOURCE_ATLAS,SOURCE_LOCAL,SOURCE_MEASURED,SOURCE_ELECTION_OFFICES,SOURCE_VOTER_RULES,SOURCE_TREASURY_AWARDS,SOURCE_BUSINESS_PACS,SOURCE_CIVIC_REFORMS,SOURCE_CORPORATE,SOURCE_TRANSPARENCY,SOURCE_MISSING,SOURCE_BUSINESS_INFLUENCE].map(async url=>{const r=await fetch(url,{cache:"no-store"});if(!r.ok)throw Error(url+" "+r.status);return r.json()}));
  if(results[0].status!=="fulfilled"||results[0].value.schema!=="power-atlas.place-impact-stories.v1"){
   $("issueGrid").innerHTML='<div class="notice">The published daily-life stories could not be loaded. No locality claims have been invented. '+link("index.html","Visit existing research →")+'</div>';
   $("decisionChain").textContent="Source temporarily unavailable.";$("actionGrid").textContent="";return;
@@ -824,6 +841,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[10].status==="fulfilled"&&results[10].value.schema==="power-atlas.corporate-ownership.evidence-graph.v1")corporateGraph=results[10].value;
  if(results[11].status==="fulfilled"&&results[11].value.schema==="power-atlas.corporate-ownership.transparency-price-power.v1")transparencyCases=results[11].value;
  if(results[12].status==="fulfilled"&&results[12].value.schema==="power-atlas.sitewide-missing-source-catalog.v1")missingSourceCatalog=results[12].value;
+ if(results[13].status==="fulfilled"&&Array.isArray(results[13].value.cases))businessInfluence=results[13].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
