@@ -53,7 +53,7 @@ class BusinessCandidatesTests(unittest.TestCase):
                             byid["rtx"]["legalRecipient"]["parentUei"])
         self.assertNotEqual(byid["boeing"]["exampleAward"]["recipientUei"],
                             byid["boeing"]["legalRecipient"]["uei"])
-        self.assertIn("distinct",byid["amazon-aws"]["limits"].lower())
+        self.assertIn("neither company spelling nor common branding",byid["amazon-aws"]["limits"].lower())
         self.assertTrue(byid["amazon-aws"]["pac"]["classification"].startswith("secondary"))
         self.assertLess(byid["exxon"]["exampleAssistance"]["amountUsd"],0)
         self.assertIn("deobligation",byid["exxon"]["exampleAssistance"]["type"])
