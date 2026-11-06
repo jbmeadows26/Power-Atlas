@@ -43,6 +43,23 @@ class PlaceImpactTests(unittest.TestCase):
             self.assertTrue(x["summary"] and x["missing"])
             self.assertTrue(x["issues"])
 
+    def test_original_source_directory_is_link_only_and_issue_scoped(self):
+        directory = self.resources["sourceDirectories"]
+        self.assertGreaterEqual(len(directory), 30)
+        self.assertEqual(len({x["id"] for x in directory}), len(directory))
+        known = set(self.resources["issueIds"])
+        for source in directory:
+            self.assertTrue(source["url"].startswith("https://"))
+            self.assertEqual(source["coverage"], "source_directory_only_no_assumption_of_automated_ingestion")
+            self.assertTrue(source["name"] and source["limitation"])
+            self.assertTrue(set(source["issues"]) <= known)
+        ids={x["id"] for x in directory}
+        for required in ("fec","usaspending","sec","doj","congress","courtlistener",
+                         "opensecrets","followmoney","anes","ces","voteview",
+                         "cook","census","bls","eia","cms","ofac","opencorporates"):
+            self.assertIn(required, ids)
+        self.assertIn("NOT", self.resources["sourceDirectoryNotes"])
+
     def test_nine_life_issues_have_nonpartisan_research_and_actions(self):
         d = self.stories
         self.assertEqual(d["schema"], "power-atlas.place-impact-stories.v1")
@@ -89,7 +106,9 @@ class PlaceImpactTests(unittest.TestCase):
                        "renderResearch()", "renderChain()", "researchRecords()",
                        'id="researchItems"', 'id="scopeButton"',
                        'id="allButton"', 'id="loadMore"', 'id="decisionChain"',
-                       'id="actionGrid"', 'id="researchStatus"'):
+                       'id="actionGrid"', 'id="researchStatus"',
+                       'id="originalSources"', 'id="originAll"',
+                       "renderSources()", "sourceDirectories"):
             self.assertIn(marker, txt)
         self.assertIn("data/research/atlas-inventory-v1.json", txt)
         self.assertIn("data/place-impact/deep-resource-map-v1.json", txt)
