@@ -171,6 +171,23 @@ function renderPAC(){
  '<p class="subnote">No non-memo entries in this source category/cycle. The PAC may have other reportable spending not captured in this particular bulk file.</p>';
 }
 
+
+async function showGeoPACExcerpt(){
+ const u="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/business-influence/geo-pac-candidate-excerpt-2026.json";
+ try{
+  const r=await fetch(u,{cache:"no-store"});if(!r.ok)return;
+  const d=await r.json();
+  if(d.schema!=="power-atlas.geo-pac-curated-candidate-excerpt.v1"||d.committeeFecId!=="C00382150"||
+      !Array.isArray(d.recipientRecords)||d.recipientRecords.length!==d.countCandidates)return;
+  const total=d.recipientRecords.reduce((s,x)=>s+x.amountUsd,0);
+  if(total!==d.totalReportedDirectCandidateContributionsUsd)return;
+  $("pacRows").innerHTML='<div class="divider"></div><h3>Candidate recipients · source-bounded 2026 excerpt</h3>'+
+   '<p class="subnote">'+d.countCandidates+' reported candidates · '+short(d.totalReportedDirectCandidateContributionsUsd)+' in direct candidate contributions from a curated FEC-based third-party snapshot. This is <strong>not independently FEC transaction-reconciled</strong>, not the entire PAC spending ledger, and not evidence of influence.</p>'+
+   '<div class="awardList">'+d.recipientRecords.map(x=>'<div class="awardCard"><strong>'+short(x.amountUsd)+'</strong><span class="tiny">'+esc(x.candidateName)+' · '+esc(x.party)+' · candidate ID '+esc(x.candidateId)+'</span><span class="tiny">'+x.reportedTransactions+' reported contribution(s) · latest '+esc(x.lastReportedActionDate)+'</span><a href="'+legalURL(x.fecCandidatePage)+'" target="_blank" rel="noopener noreferrer">Cross-check candidate on FEC ↗</a></div>').join("")+'</div>'+
+   '<p class="tiny"><a href="'+legalURL(d.originalSource)+'" target="_blank" rel="noopener noreferrer">Original secondary-source candidate excerpt ↗</a> · <a href="'+legalURL(d.fecSource)+'" target="_blank" rel="noopener noreferrer">Official FEC PAC disbursements ↗</a>. '+esc(d.caveat)+'</p>';
+ }catch(e){ /* keep verified FEC summaries without fabricating candidate links */ }
+}
+
 async function loadGeoPACSummary(originalError){
  const u="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/business-influence/geo-pac-fec-summary-v1.json";
  try{
@@ -181,6 +198,7 @@ async function loadGeoPACSummary(originalError){
   $("pacCycles").textContent="";$("pacCategories").textContent="";
   $("pacSummary").innerHTML='<div class="awardList">'+d.periods.map(y=>'<div class="awardCard"><span class="eyeline">'+y.cycle+' election cycle'+(y.complete?'':' · incomplete')+'</span><strong>'+short(y.contributionsToOtherCommitteesUSD)+'</strong><span class="tiny">FEC category: contributions to other committees · '+esc(y.from)+' to '+esc(y.through)+'</span><span class="tiny">Total PAC receipts '+short(y.totalReceiptsUSD)+' (not an additional donation amount)</span><a href="'+legalURL(y.source)+'" rel="noopener noreferrer" target="_blank">Original FEC summary ↗</a></div>').join("")+'</div>';
   $("pacRows").innerHTML='<p class="subnote">The 2024 and partial 2026 figures cover different time windows. No candidate names, influence relationships or individual payments have been inferred. '+esc(d.caveat)+'</p>';
+  await showGeoPACExcerpt();
  }catch(e){
   $("pacStatus").textContent="FEC data unavailable: "+originalError.message+"; fallback: "+e.message+". No amounts have been invented.";
   $("pacCycles").textContent="";$("pacCategories").textContent="";
