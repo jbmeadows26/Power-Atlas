@@ -42,7 +42,7 @@ function render(){
  if(geo.zip){
   var indicator=geo.local;
   if(indicator&&indicator.value!=null){
-   local='<div class="bs-local-number"><small>'+esc(indicator.title)+' · area '+esc(geo.zip)+'</small><strong>'+esc(indicator.value)+'</strong><p>'+esc(indicator.limits)+'</p>'+source(indicator.source,"Census definition ↗")+'</div>';
+   local='<div class="bs-local-number"><small>'+esc(indicator.title)+' · area '+esc(geo.zip)+'</small><strong>'+esc(indicator.value)+'</strong>'+(indicator.usValue!=null?'<div class="bs-local-compare"><span>U.S. comparison · same ACS table and period</span><strong>'+esc(indicator.usValue)+'</strong></div>':'')+'<p>'+esc(indicator.limits)+'</p>'+source(indicator.source,"Census definition ↗")+'</div>';
   }else{
    local='<p class="bs-unknown">A matching Census area indicator is '+(indicator&&indicator.status==="unavailable"?"not available":"being checked")+' for this ZIP. No local price has been inferred.</p>';
   }
