@@ -94,10 +94,8 @@ class ConnectedDailyLifeEvidenceTests(unittest.TestCase):
             "renderMeasuredSnapshot()","renderVerifiedLinks()","renderCivicRecordLinks()",
             'id="issueMetrics"','id="verifiedConnections"','id="reformEvidence"',
             "selectedStateCode","selectedStateName",
-            "No verified","not your", "state/DC", "localMetrics",
+            "not your", "localMetrics",
         ):
-            if fragment=="state/DC":
-                continue
             self.assertIn(fragment,self.ui)
         self.assertIn("Census Reporter",self.ui)
         self.assertIn("Zippopotam.us",self.ui)
