@@ -25,3 +25,45 @@ body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-marg
  body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-margin-top:107px}
 }
 @media(prefers-reduced-motion:reduce){#pa-global-header .pa-global-links a{transition:none}}
+
+/* Location-first Power Atlas global navigation — November 2026.
+   Keep all five journeys reachable in one row, with concise mobile labels. */
+#pa-global-header .pa-global-inner{max-width:1250px;padding:11px 20px;gap:20px}
+#pa-global-header .pa-global-brand{font-size:.98rem;letter-spacing:.12em}
+#pa-global-header .pa-global-links{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px;width:min(100%,710px);flex-shrink:0}
+#pa-global-header .pa-global-links a{display:flex;align-items:center;justify-content:center;text-align:center;min-height:44px;padding:9px 8px;border-radius:10px;color:#d5e9e8;border:1px solid #365564;background:#112b3a;font-weight:680;font-size:.83rem;line-height:1.25;white-space:normal}
+#pa-global-header .pa-global-links a:hover,#pa-global-header .pa-global-links a:focus-visible{background:#20504f;border-color:#80d8ca;color:#fff}
+#pa-global-header .pa-global-links a[aria-current="page"]{background:#246b64;border:1px solid #a1e5d2;color:#fff;font-weight:790}
+#pa-global-header .pa-short{display:none}
+#pa-global-header .pa-long{display:inline}
+#pa-global-header .pa-global-links a[aria-current="page"] .pa-long{color:inherit}
+#pa-global-header .pa-global-brand span{color:#8fe2cd}
+/* Legacy page-header navigation must not compete with the global five-link bar.
+   Money explorer keeps its contextual on-page section tabs. */
+body[data-pa-page] > header:not(:has(.sectionNav)){display:none!important}
+body[data-pa-page] > header:has(.sectionNav) > .topbar{display:none!important}
+/* Research subtopics remain deliberately available, but not as a second masthead. */
+.pa-research-drawer{margin:18px 0 10px;background:#fff;border:1px solid #d7e2df;border-radius:14px;box-shadow:0 2px 10px #1937370b;color:#244849}
+.pa-research-drawer > summary{cursor:pointer;display:flex;align-items:center;gap:10px;padding:15px 17px;font-size:.94rem;font-weight:790;list-style:none}
+.pa-research-drawer > summary::-webkit-details-marker{display:none}
+.pa-research-drawer > summary:after{content:"+";margin-left:auto;font-size:1.3rem;line-height:1;color:#2c7167}
+.pa-research-drawer[open] > summary:after{content:"−"}
+.pa-research-drawer nav{display:flex;flex-wrap:wrap;gap:8px;padding:0 16px 18px}
+.pa-research-drawer .tab{display:inline-flex;align-items:center;min-height:41px;background:#f2f7f4;color:#245b55;border:1px solid #cce0d7;padding:9px 11px;border-radius:9px;font-size:.81rem;font-weight:700;white-space:normal;text-align:left}
+.pa-research-drawer .tab.active{background:#21675f;color:white;border-color:#21675f}
+.pa-research-drawer .tab:hover{background:#e2f0e9;color:#1b625b}
+.pa-research-drawer .tab.active:hover{background:#21675f;color:white}
+.pa-research-drawer:focus-visible{outline:3px solid #bd8b3b;outline-offset:2px}
+@media(max-width:830px){
+ #pa-global-header .pa-global-inner{display:block;padding:10px 14px 12px}
+ #pa-global-header .pa-global-brand{display:inline-flex;margin:0 0 10px 2px;font-size:.91rem}
+ #pa-global-header .pa-global-links{width:100%;gap:5px}
+ #pa-global-header .pa-global-links a{font-size:.78rem;min-height:47px;padding:8px 4px}
+ #pa-global-header .pa-short{display:inline}
+ #pa-global-header .pa-long{display:none}
+}
+@media(max-width:400px){
+ #pa-global-header .pa-global-inner{padding:9px 8px 10px}
+ #pa-global-header .pa-global-links{gap:4px}
+ #pa-global-header .pa-global-links a{font-size:.735rem;min-height:47px;padding:7px 2px}
+}
