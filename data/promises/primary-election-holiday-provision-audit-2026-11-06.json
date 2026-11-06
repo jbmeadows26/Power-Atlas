@@ -1,0 +1,47 @@
+{
+  "schema": "power-atlas.campaign-source-provision-audit.v1",
+  "asOf": "2026-11-06",
+  "status": "provisional_unadjudicated",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "independentHumanReviewCount": 0,
+  "sourceDocument": {
+    "jurisdiction": "US",
+    "congress": 117,
+    "bill": "H.R.1",
+    "version": "rds",
+    "url": "https://www.congress.gov/117/bills/hr1/BILLS-117hr1rds.pdf",
+    "locator": "Section 1909, Election Day as legal public holiday; table of contents page 29",
+    "printedTimestamp": "2022-02-08",
+    "timestampMeaning": "PDF print timestamp, not introduction, passage or enactment date",
+    "rights": "US government legislative text; link and paraphrase only"
+  },
+  "evidence": [
+    {
+      "id": "US21-HR1-RDS-SEC1909-PROVISION",
+      "kind": "proposed_legislative_provision",
+      "observation": "Section 1909 of the 117th Congress H.R.1 Senate received text is titled Election Day as legal public holiday.",
+      "stage": "proposal_not_enactment",
+      "candidateLink": "US20-DEM-ELECTION-DAY-HOLIDAY-DISCOVERY-20261104",
+      "candidateLocation": "PR #33, not presumed merged",
+      "notProofOf": [
+        "enactment",
+        "implementation",
+        "private-sector paid leave",
+        "pledge fulfillment"
+      ]
+    }
+  ],
+  "duplicateRisk": "This is a provision-level correction to an already indexed H.R.1 document, not an additional bill or pledge; cross-ledger deduplication required.",
+  "uncertainty": "Section heading verified in official PDF; full provision operative language, bill action chronology and final legal status still require checking before coding.",
+  "competingExplanations": [
+    "Bicameral procedure and legislative agenda control",
+    "Different legal scope of federal employee holiday and universal paid leave",
+    "Later proposals cannot be attributed to the original platform without evidence"
+  ],
+  "review": "Two independent human coders must adjudicate pledge eligibility, source-to-provision match and outcome; resolve disagreements and freeze source universe.",
+  "fiscalObservations": [],
+  "causalEffect": null,
+  "sourceUniverseComplete": false,
+  "redistrictingFilesTouched": false
+}
