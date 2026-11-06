@@ -93,7 +93,7 @@ class PlaceImpactTests(unittest.TestCase):
         self.assertIn("api.zippopotam.us/us/", STORIES.read_text(encoding="utf-8"))
         self.assertIn('Only after a user submits a ZIP', STORIES.read_text(encoding="utf-8"))
         self.assertIn('No ZIP selected', txt)
-        self.assertIn('ZIP can cross municipalities', STORIES.read_text(encoding="utf-8"))
+        self.assertIn('Nearby ZIP and matching ZCTA need not be identical', STORIES.read_text(encoding="utf-8"))
         self.assertIn("no city, district or exact boundary has been inferred", txt)
         self.assertIn("ZIP code", txt)
         self.assertNotIn("navigator.geolocation", txt)
