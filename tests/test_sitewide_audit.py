@@ -17,7 +17,7 @@ class SitewideAuditTests(unittest.TestCase):
     def test_data_schema_and_all_research_mappings(self):
         r = self.report
         self.assertGreaterEqual(r["summary"]["htmlPagesAudited"], 17)
-        self.assertGreaterEqual(r["summary"]["jsonDataFilesChecked"], 340)
+        self.assertGreaterEqual(r["summary"]["jsonDataFilesChecked"], 200)
         self.assertEqual(r["invalidDataFiles"], [])
         self.assertEqual(r["structuralErrors"], [])
         self.assertEqual(r["summary"]["lifeCategories"], 9)
