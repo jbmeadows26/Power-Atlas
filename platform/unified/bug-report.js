@@ -45,14 +45,16 @@
       .foot { font-size: 12px; color: #526975; margin: 13px 0 0; }
       .status { min-height: 18px; font-size: 13px; color: #176a51; margin-top: 8px; }
       @media (max-width: 520px) {
-        #open { right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px) + 8px); }
+        #open { right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px) + 8px); width: 46px; height: 46px; min-height: 46px; padding: 0; border-radius: 50%; gap: 0; justify-content: center; }
+        #open .bug-icon { font-size: 20px; line-height: 1; }
+        #open .bug-label { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
         #shade { padding: 10px; align-items: flex-end; }
         #dialog { width: 100%; padding: 19px; border-radius: 16px 16px 10px 10px; max-height: 89dvh; }
       }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
     </style>
-    <button id="open" type="button" aria-haspopup="dialog" aria-controls="dialog">
-      <span aria-hidden="true">⚑</span> Report a bug
+    <button id="open" type="button" aria-haspopup="dialog" aria-controls="dialog" aria-label="Report a bug" title="Report a bug">
+      <span class="bug-icon" aria-hidden="true">⚑</span> <span class="bug-label">Report a bug</span>
     </button>
     <div id="shade" hidden>
       <section id="dialog" role="dialog" aria-modal="true" aria-labelledby="heading" aria-describedby="intro" tabindex="-1">
