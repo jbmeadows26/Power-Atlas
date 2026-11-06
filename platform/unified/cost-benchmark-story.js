@@ -4,7 +4,8 @@
 (function(){
 "use strict";
 var DATA_URL="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/place-impact/cost-benchmark-drivers-v1.json";
-var data=null,topic="housing",geo={zip:null,stateName:null,stateCode:null,local:null};
+var data=null,forces=null,topic="housing",geo={zip:null,stateName:null,stateCode:null,local:null,corporateExamples:[]};
+var FORCES_URL="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/place-impact/economic-forces-v1.json";
 var colors=["#3c8d81","#65b4a0","#d0a85f","#96aab0","#41677d","#8c8fbe"];
 var dollars=new Intl.NumberFormat("en-US",{style:"currency",currency:"USD",maximumFractionDigits:0});
 function esc(v){return String(v==null?"":v).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
@@ -12,6 +13,43 @@ function url(v){return /^https:\/\/[^\s<>"']+$/.test(v||"")?v:null}
 function source(href,label){return url(href)?'<a href="'+esc(href)+'" target="_blank" rel="noopener noreferrer">'+esc(label||"See original source ↗")+'</a>':""}
 function card(text,title,detail){
  return '<div class="bs-stat"><span class="bs-stat-label">'+esc(text)+'</span><strong>'+esc(title)+'</strong><small>'+esc(detail)+'</small></div>';
+}
+
+function renderEconomicForces(){
+ if(!forces||forces.schema!=="power-atlas.economic-forces.v1")return '<section class="bs-inner"><h4>4 · The wider economy and corporate power</h4><p class="bs-unknown">The verified macroeconomic and ownership source map is unavailable. National spending figures above remain valid, but global or company claims are not inferred.</p></section>';
+ var cfg=forces.topics?.[topic];if(!cfg)return "";
+ var signals=Object.fromEntries((forces.signals||[]).map(function(s){return [s.id,s]}));
+ function badge(kind){
+  return '<span class="bs-status-kind'+(kind==="forecast"?" projection":kind==="alleged"?" allegation":"")+'">'+esc(kind==="forecast"?"2026 forecast":kind==="measured"?"Measured":kind==="policy_decision"?"Official decision":kind==="alleged"?"Regulatory allegation":kind==="association"?"Observed association":kind==="observed"?"Documented observation":kind==="verified"?"Verified link":kind==="unknown"?"Local effect unknown":kind||"Source-linked")+'</span>';
+ }
+ function signalCard(s){
+  return '<div class="bs-signal"><strong>'+esc(s.value)+'</strong><span class="bs-signal-name">'+esc(s.name)+'</span>'+badge(s.kind)+'<small>'+esc(s.period)+' · '+esc(s.scope)+'</small><small>'+esc(s.explain)+'</small>'+source(s.source,"Official source ↗")+'<details><summary class="bs-footnote">How to interpret it</summary><p class="bs-footnote">'+esc(s.limits)+'</p></details></div>';
+ }
+ function forceGroup(title,eyebrow,ids,m,scope){
+  var cards=(ids||[]).map(function(id){return signals[id]}).filter(Boolean).map(signalCard).join("");
+  return '<section class="bs-forces-section" aria-label="'+esc(title)+'"><span class="bs-kicker">'+esc(eyebrow)+'</span><h5>'+esc(title)+'</h5><div class="bs-signals">'+cards+'</div>'+
+  '<p class="bs-force-mechanism"><strong>'+esc(m?.[0]||"Economic mechanism")+'</strong> · '+esc(m?.[1]||"")+'</p>'+
+  '<p class="bs-footnote">'+(scope==="global"?"Forecasts describe world markets, not what a local family will pay.":"Economic indicators are not a causal price decomposition or a quoted household rate.")+'</p></section>';
+ }
+ var examples=(geo.corporateExamples||[]).slice(0,3);
+ var cases=examples.length?examples.map(function(c){
+  var status=c.status||"unknown";
+  var links=(c.sources||[]).filter(function(s){return url(s.url)}).slice(0,2).map(function(s){return source(s.url,s.label+" ↗")}).join("");
+  var stages=(c.stages||[]).slice(0,4).map(function(st){return '<li><b>'+esc(st.actor)+'</b> · '+badge(st.status)+' '+esc(st.detail)+'</li>'}).join("");
+  return '<article class="bs-company-story"><h6>'+esc(c.title||"Source-linked company investigation")+'</h6>'+badge(status)+'<p>'+esc(c.summary||c.question)+'</p><ul class="bs-case-stages">'+stages+'</ul><p class="bs-company-note"><b>What is not proven:</b> '+esc(c.limit||"No local household price effect has been established.")+'</p><div class="bs-company-links">'+links+'</div></article>';
+ }).join(""):'<p class="bs-company-note">A current verified, category-specific ownership-to-price case is not yet available. This is a data gap, not evidence that corporate influence is absent. The documented ownership network and business investigations below remain available.</p>';
+ var fallback=esc(cfg.firm||"Ownership, pricing and financial decisions can affect costs, but must be tied to verified company records.");
+ var walk='<div class="bs-force-trail" aria-label="How an economic shock can reach a household"><span>🌍 Global conditions</span><span>🏦 U.S. economy & policy</span><span>🏢 Companies & major investors</span><span>📍 Local market</span><span>🏠 Household cost</span></div>';
+ return '<section class="bs-inner" aria-label="U.S. macroeconomic, international and corporate price drivers"><h4>4 · The wider economy, companies and major investors</h4>'+
+ '<p class="bs-force-intro">Why this price exists is a chain—not one villain or one statistic. Trace the <strong>global and national conditions</strong>, then the businesses and decision-makers who can transmit, amplify, or absorb the pressure. The links below distinguish measured facts, projections, allegations and unknown local impacts.</p>'+walk+
+ '<div class="bs-force-grid">'+
+ forceGroup("U.S. economic and policy pressures","Macroeconomic · nationwide",cfg.domestic,cfg.mechanisms?.[0],"domestic")+
+ forceGroup("Global markets and international shocks","International · cross-border",cfg.global,cfg.mechanisms?.[1],"global")+'</div>'+
+ '<section class="bs-forces-section" style="margin-top:12px" aria-label="Company and wealthy owner influence"><span class="bs-kicker">Companies · shareholders · private equity · political influence</span><h5>Who can influence the price—and who owns them?</h5>'+
+ '<p class="bs-force-mechanism">'+fallback+'</p>'+
+ '<div class="bs-company-examples">'+cases+'</div>'+
+ '<p class="bs-force-more">A named billionaire, fund or donor is shown only when a dated source supports the relationship. Owning shares, lobbying or donating to a campaign does <strong>not</strong> by itself establish illegal conduct, a purchased policy or higher local prices.</p>'+
+ '<div class="bs-links"><a href="#corporatePaths">Explore verified ownership →</a><a href="business-influence.html">Business funding & public decisions →</a><a href="donor-intelligence.html">Political money records →</a></div></section></section>';
 }
 function render(){
  var root=document.getElementById("benchmarkStory");if(!root)return;
@@ -55,12 +93,13 @@ function render(){
  '<section class="bs-inner" aria-label="Cost components"><h4>1 · What is in the bill?</h4>'+bars+'</section>'+
  '<section class="bs-inner bs-local" aria-label="Community benchmark context"><h4>2 · What do we know about '+(geo.zip?'ZIP '+esc(geo.zip):'your area')+'?</h4>'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></section>'+
  '<section class="bs-inner" aria-label="Economic drivers and choices"><h4>3 · What actually moves this cost?</h4><p class="bs-explainer">These are documented economic mechanisms and decision-makers, not a causal ranking for your ZIP. We do not know what share of your bill each one explains without matched price and policy evidence.</p><div class="bs-driver-grid">'+influence+'</div></section>'+
+ renderEconomicForces()+
  '<div class="bs-bottom"><p><strong>Evidence boundary:</strong> '+esc(cfg.disclaimer)+' BLS averages are for U.S. consumer units of different sizes, not a fixed basket or a quote. October–November 2025 missing survey data were addressed using BLS weighting.</p><div class="bs-links">'+source(data.primarySource,"Read the 2025 BLS survey ↗")+'<a href="#corporatePaths">Trace documented ownership ↓</a><a href="#missingCostSources">See missing local price evidence ↓</a></div></div>';
 }
 function setContext(context){
  context=context||{};if(context.topic&&data?.topics?.[context.topic])topic=context.topic;
  else if(context.topic&&["housing","groceries","energy","health","work","schools","transport","public-services","representation"].indexOf(context.topic)>=0)topic=context.topic;
- geo={zip:context.zip||null,stateCode:context.stateCode||null,stateName:context.stateName||null,local:context.local||null};
+ geo={zip:context.zip||null,stateCode:context.stateCode||null,stateName:context.stateName||null,local:context.local||null,corporateExamples:Array.isArray(context.corporateExamples)?context.corporateExamples:[]};
  render();
 }
 async function init(){
@@ -74,6 +113,13 @@ async function init(){
   var j=await r.json();
   if(j.schema!=="power-atlas.cost-benchmark-drivers.v1"||!j.topics?.housing||!j.topics?.groceries)throw Error("Unexpected schema");
   data=j;
+  try{
+   var econResponse=await fetch(FORCES_URL,{cache:"no-store"});
+   if(!econResponse.ok)throw Error("Macro source HTTP "+econResponse.status);
+   var econ=await econResponse.json();
+   if(econ.schema!=="power-atlas.economic-forces.v1"||!econ.topics?.housing||!econ.signals?.length)throw Error("Invalid macroeconomic source schema");
+   forces=econ;
+  }catch(error){forces=null;}
   if(typeof window.PowerAtlasGetBenchmarkContext==="function")setContext(window.PowerAtlasGetBenchmarkContext());
   else render();
  }catch(err){
