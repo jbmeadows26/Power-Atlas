@@ -418,5 +418,622 @@
     "Political donations, lobbying, business awards, corporate profits, voting records and court decisions are distinct records; joining them requires entity IDs, dates and documented decisions.",
     "Policy options, resident participation tools and practical assistance are presented without partisan endorsements and with their jurisdictional limitations."
   ],
-  "interpretation": "Deep research library, not a personalized causal ranking of people, parties, companies or billionaires."
+  "interpretation": "Deep research library, not a personalized causal ranking of people, parties, companies or billionaires.",
+  "sourceDirectories": [
+    {
+      "id": "fec",
+      "name": "Federal Election Commission",
+      "category": "Political money",
+      "sourceType": "government",
+      "url": "https://www.fec.gov/data/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Federal filings and disclosures; excludes most state and local elections."
+    },
+    {
+      "id": "usaspending",
+      "name": "USAspending",
+      "category": "Contracts and grants",
+      "sourceType": "government",
+      "url": "https://www.usaspending.gov/search",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Obligations and awards differ from profit, payments and direct local benefits."
+    },
+    {
+      "id": "sec",
+      "name": "SEC EDGAR",
+      "category": "Corporate economics",
+      "sourceType": "government",
+      "url": "https://www.sec.gov/edgar/search/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Company filings are not attributed to local consumers or household costs."
+    },
+    {
+      "id": "doj",
+      "name": "DOJ Voting Section",
+      "category": "Voting rights & cases",
+      "sourceType": "government",
+      "url": "https://www.justice.gov/crt/voting-section",
+      "issues": [
+        "representation",
+        "public-services",
+        "schools"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Cases must be checked for disposition; complaints are not findings."
+    },
+    {
+      "id": "congress",
+      "name": "Congress.gov",
+      "category": "Laws and bills",
+      "sourceType": "government",
+      "url": "https://www.congress.gov/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Proposals must be distinguished from enacted legislation and current law."
+    },
+    {
+      "id": "clerk",
+      "name": "U.S. House Clerk roll calls",
+      "category": "Recorded votes",
+      "sourceType": "government",
+      "url": "https://clerk.house.gov/Votes",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Roll-call records do not establish motives or local household effects."
+    },
+    {
+      "id": "lda",
+      "name": "U.S. Senate lobbying disclosure",
+      "category": "Lobbying",
+      "sourceType": "government",
+      "url": "https://lda.senate.gov/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Lobbying registration is not evidence of a favorable policy result."
+    },
+    {
+      "id": "irs527",
+      "name": "IRS political organizations",
+      "category": "Political nonprofits",
+      "sourceType": "government",
+      "url": "https://www.irs.gov/charities-non-profits/political-organizations",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Tax classification and filing rules vary; missing ultimate donors cannot be guessed."
+    },
+    {
+      "id": "state-elections",
+      "name": "State election-office directory",
+      "category": "State and local elections",
+      "sourceType": "government",
+      "url": "https://www.usa.gov/state-election-office",
+      "issues": [
+        "representation",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Official local canvass results and deadlines vary by jurisdiction."
+    },
+    {
+      "id": "state-government",
+      "name": "State and local governments",
+      "category": "Local decisions",
+      "sourceType": "government",
+      "url": "https://www.usa.gov/state-local-governments",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "A ZIP does not uniquely identify every relevant government."
+    },
+    {
+      "id": "fjc",
+      "name": "Federal Judicial Center judges",
+      "category": "Courts and appointments",
+      "sourceType": "government",
+      "url": "https://www.fjc.gov/history/judges",
+      "issues": [
+        "representation",
+        "housing",
+        "health",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Appointment records do not demonstrate judicial partisanship in individual rulings."
+    },
+    {
+      "id": "scotus",
+      "name": "Supreme Court opinions",
+      "category": "Courts and cases",
+      "sourceType": "government",
+      "url": "https://www.supremecourt.gov/opinions/opinions.aspx",
+      "issues": [
+        "representation",
+        "housing",
+        "health",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Legal impact depends on holdings, current applicability and jurisdiction."
+    },
+    {
+      "id": "ofac",
+      "name": "Treasury OFAC sanctions",
+      "category": "Economic ownership",
+      "sourceType": "government",
+      "url": "https://ofac.treasury.gov/",
+      "issues": [
+        "groceries",
+        "energy",
+        "work",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "A sanctions designation is not proof of broader political influence or wrongdoing by associates."
+    },
+    {
+      "id": "census",
+      "name": "Census / ACS",
+      "category": "Community measurement",
+      "sourceType": "government",
+      "url": "https://data.census.gov/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "ZCTAs do not match all USPS ZIPs; 2024 five-year ACS is historical and official API now requires a key."
+    },
+    {
+      "id": "bea",
+      "name": "Bureau of Economic Analysis",
+      "category": "Economy",
+      "sourceType": "government",
+      "url": "https://www.bea.gov/data",
+      "issues": [
+        "work",
+        "housing",
+        "groceries",
+        "energy",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Regional economic aggregates do not describe an individual household."
+    },
+    {
+      "id": "bls",
+      "name": "Bureau of Labor Statistics",
+      "category": "Jobs and prices",
+      "sourceType": "government",
+      "url": "https://www.bls.gov/data/",
+      "issues": [
+        "groceries",
+        "work",
+        "housing",
+        "energy",
+        "transport"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Consumer price index and wage estimates are rarely ZIP specific."
+    },
+    {
+      "id": "eia",
+      "name": "Energy Information Administration",
+      "category": "Utilities and fuels",
+      "sourceType": "government",
+      "url": "https://www.eia.gov/",
+      "issues": [
+        "energy",
+        "transport",
+        "groceries",
+        "housing"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "National/state prices are not local utility tariffs."
+    },
+    {
+      "id": "cms",
+      "name": "CMS data",
+      "category": "Healthcare",
+      "sourceType": "government",
+      "url": "https://data.cms.gov/",
+      "issues": [
+        "health",
+        "public-services",
+        "work"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Provider and payment records have differing population and period definitions."
+    },
+    {
+      "id": "cfpb",
+      "name": "Consumer Financial Protection Bureau",
+      "category": "Housing and household finance",
+      "sourceType": "government",
+      "url": "https://www.consumerfinance.gov/data-research/",
+      "issues": [
+        "housing",
+        "public-services",
+        "work"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Complaints are allegations, not adjudicated violations."
+    },
+    {
+      "id": "ftc",
+      "name": "Federal Trade Commission",
+      "category": "Competition and consumers",
+      "sourceType": "government",
+      "url": "https://www.ftc.gov/",
+      "issues": [
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "housing"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Investigation or lawsuit is not itself proof of misconduct."
+    },
+    {
+      "id": "nces",
+      "name": "National Center for Education Statistics",
+      "category": "Education",
+      "sourceType": "government",
+      "url": "https://nces.ed.gov/",
+      "issues": [
+        "schools",
+        "work",
+        "housing"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "School profiles and districts require address-level eligibility checks."
+    },
+    {
+      "id": "hud",
+      "name": "Housing and Urban Development",
+      "category": "Housing",
+      "sourceType": "government",
+      "url": "https://www.hud.gov/",
+      "issues": [
+        "housing",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Assistance eligibility and local availability change."
+    },
+    {
+      "id": "fcc",
+      "name": "FCC Broadband Map",
+      "category": "Home internet and access",
+      "sourceType": "government",
+      "url": "https://broadbandmap.fcc.gov/",
+      "issues": [
+        "housing",
+        "schools",
+        "work",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Advertised availability is not an actual quote or guaranteed service."
+    },
+    {
+      "id": "opensecrets",
+      "name": "OpenSecrets",
+      "category": "Campaign finance analysis",
+      "sourceType": "nonprofit-research",
+      "url": "https://www.opensecrets.org/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Third-party attribution, licensing and original FEC match must be reviewed."
+    },
+    {
+      "id": "followmoney",
+      "name": "FollowTheMoney",
+      "category": "State campaign finance",
+      "sourceType": "nonprofit-research",
+      "url": "https://www.followthemoney.org/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Coverage varies by jurisdiction; links are not a verified combined ledger."
+    },
+    {
+      "id": "propublica",
+      "name": "ProPublica Nonprofit Explorer",
+      "category": "Nonprofit finances",
+      "sourceType": "journalism",
+      "url": "https://projects.propublica.org/nonprofits/",
+      "issues": [
+        "representation",
+        "public-services",
+        "health",
+        "schools"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "IRS forms may lag and do not disclose all political transfers."
+    },
+    {
+      "id": "courtlistener",
+      "name": "CourtListener",
+      "category": "Court dockets and opinions",
+      "sourceType": "nonprofit-research",
+      "url": "https://www.courtlistener.com/",
+      "issues": [
+        "representation",
+        "housing",
+        "health",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Docket allegations must not be reported as legal determinations."
+    },
+    {
+      "id": "opencorporates",
+      "name": "OpenCorporates",
+      "category": "Business entity registry",
+      "sourceType": "third-party",
+      "url": "https://opencorporates.com/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Name matches and shared directors do not by themselves establish beneficial ownership."
+    },
+    {
+      "id": "opensanctions",
+      "name": "OpenSanctions",
+      "category": "Entity due diligence",
+      "sourceType": "third-party",
+      "url": "https://www.opensanctions.org/",
+      "issues": [
+        "public-services",
+        "work",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Potential matches need official verification and privacy protections."
+    },
+    {
+      "id": "littlesis",
+      "name": "LittleSis",
+      "category": "Corporate/political networks",
+      "sourceType": "nonprofit-research",
+      "url": "https://littlesis.org/",
+      "issues": [
+        "housing",
+        "groceries",
+        "energy",
+        "health",
+        "work",
+        "schools",
+        "transport",
+        "public-services",
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Published relationships do not establish influence or wrongdoing."
+    },
+    {
+      "id": "anes",
+      "name": "American National Election Studies",
+      "category": "Political surveys",
+      "sourceType": "academic",
+      "url": "https://electionstudies.org/",
+      "issues": [
+        "representation",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Survey populations and weights must be analyzed before subgroup conclusions."
+    },
+    {
+      "id": "ces",
+      "name": "Cooperative Election Study",
+      "category": "Political surveys",
+      "sourceType": "academic",
+      "url": "https://cces.gov.harvard.edu/",
+      "issues": [
+        "representation",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Respondent-level wave harmonization is not yet part of Power Atlas."
+    },
+    {
+      "id": "voteview",
+      "name": "Voteview",
+      "category": "Congressional behavior",
+      "sourceType": "academic",
+      "url": "https://voteview.com/",
+      "issues": [
+        "representation",
+        "public-services",
+        "housing",
+        "energy",
+        "health"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Roll-call polarization is not a direct measure of household impacts."
+    },
+    {
+      "id": "cook",
+      "name": "Cook Political Report",
+      "category": "Election rating context",
+      "sourceType": "journalism",
+      "url": "https://www.cookpolitical.com/ratings/house-race-ratings",
+      "issues": [
+        "representation"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "External ratings are opinions and not official election results."
+    },
+    {
+      "id": "ncsl",
+      "name": "National Conference of State Legislatures",
+      "category": "State law survey",
+      "sourceType": "nonprofit-research",
+      "url": "https://www.ncsl.org/",
+      "issues": [
+        "representation",
+        "health",
+        "housing",
+        "schools",
+        "public-services"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Secondary law summaries must be checked against effective statutes and current exceptions."
+    },
+    {
+      "id": "hibp",
+      "name": "Have I Been Pwned",
+      "category": "Consumer privacy",
+      "sourceType": "security-tool",
+      "url": "https://haveibeenpwned.com/",
+      "issues": [
+        "public-services",
+        "work",
+        "health"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Open-only link; Power Atlas never queries a user's email or device."
+    },
+    {
+      "id": "shodan",
+      "name": "Shodan",
+      "category": "Infrastructure exposure",
+      "sourceType": "security-tool",
+      "url": "https://www.shodan.io/",
+      "issues": [
+        "public-services",
+        "energy",
+        "health"
+      ],
+      "coverage": "source_directory_only_no_assumption_of_automated_ingestion",
+      "limitation": "Open-only link; network exposure does not establish an exploit or local risk."
+    }
+  ],
+  "sourceDirectoryNotes": "Original public systems and investigative research references identified across the project. Being listed means link/reference, NOT paid access, ingestion, legal authorization, entity match or a proven causal connection.",
+  "evidenceChain": [
+    "Issue-level observation",
+    "Documented policy, legislation or company action",
+    "Legally identified officials, donors and counterparties",
+    "Dated financial or service outcome",
+    "Causal study or explicitly labeled missing counterfactual"
+  ]
 }
