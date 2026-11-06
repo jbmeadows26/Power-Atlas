@@ -1,0 +1,108 @@
+{
+  "schema": "power-atlas.corporate-ownership.source-pools.v1",
+  "reviewed": "2026-11-06",
+  "title": "Existing organization and company research pools, with entity-type guardrails",
+  "provenance": "Counts from already published Power Atlas JSON plus an audit of the user's private Transparency/OpenLedger source code. No private database rows were retrieved.",
+  "distinctions": "FEC committees, nonprofit recipients, donor individuals, lobbying clients and corporate companies are different entity types. Counts cannot be added as unique companies or assumed ownership relationships.",
+  "pools": [
+    {
+      "name": "Verified corporate and brand evidence graph",
+      "source": "data/corporate-ownership/verified-relationships-v1.json",
+      "records": 84,
+      "unit": "entities with typed metadata; includes brands, PE investors and 10 political-finance company candidates",
+      "relationshipRecords": 64,
+      "eligibility": "Source-linked ownership edges only; company candidate nodes remain unresolved"
+    },
+    {
+      "name": "Transparency / OpenLedger researched cost mechanisms",
+      "source": "data/corporate-ownership/transparency-price-power-v1.json",
+      "records": 7,
+      "unit": "research case studies, NOT seven proven causal pricing results",
+      "relationshipRecords": null,
+      "eligibility": "Case-specific verified/observed/association/alleged/unknown statuses retained"
+    },
+    {
+      "name": "Existing contractor/PAC company directory",
+      "source": "data/business-influence/additional-candidates-v1.json",
+      "records": 8,
+      "unit": "corporate research candidates with public PAC and recipient identifiers",
+      "eligibility": "Research company candidates only, without parent-UEI attribution"
+    },
+    {
+      "name": "Original business influence cases",
+      "source": "data/business-influence/evidence-v1.json",
+      "records": 2,
+      "unit": "source-described company business cases",
+      "eligibility": "Original official-award and political giving sources, not proof of influence"
+    },
+    {
+      "name": "FEC committee master",
+      "source": "data/finance/fec-committee-master.json",
+      "records": 673,
+      "unit": "FEC committees, not companies",
+      "distinctNameHints": 374,
+      "eligibility": "ConnectedOrganization values are hints; many are other PACs, parties or committees; never classify as companies without matching legal identifiers"
+    },
+    {
+      "name": "IRS nonprofit grants",
+      "source": "data/finance/irs-schedule-i-grants-v1.json",
+      "records": 318,
+      "unit": "outbound IRS Schedule I recipient records, NOT donor-to-politician transfers",
+      "distinctSenderEINs": 1,
+      "eligibility": "Only classify organizations from official EIN/name and disclosure; grant recipients are not necessarily for-profit"
+    },
+    {
+      "name": "Lobbying filing subset",
+      "source": "data/lobbying/lda-filings.json",
+      "records": 56,
+      "unit": "bounded federal lobbying filings",
+      "distinctClientNames": 27,
+      "distinctRegistrantNames": 26,
+      "eligibility": "Clients and registrants must be disambiguated; text matches do not prove policy outcome"
+    },
+    {
+      "name": "Public integrity investigation cases",
+      "source": "data/influence/investigations-2026.json",
+      "records": 26,
+      "unit": "source-backed case narratives",
+      "flowLabels": 78,
+      "eligibility": "Flow labels may be people, firms, government bodies or allegations; not a corporate-owner list"
+    },
+    {
+      "name": "Midterm political donor rankings",
+      "source": "data/money-influence/brennan-top40-midterms-2014-2026.json",
+      "records": 160,
+      "unit": "donor-cycle ranked entries",
+      "distinctDonorLabels": 113,
+      "eligibility": "Some donors are people, PACs, unions and nonprofits. Do not treat them as companies or beneficial owners."
+    }
+  ],
+  "transparencySourceStatus": {
+    "sourceControl": "inspected",
+    "project": "Transparency / OpenLedger",
+    "reusableConcepts": [
+      "temporal entity graph with typed ownership edges",
+      "brand to corporate operator crosswalk",
+      "evidence source registry and confidence",
+      "source-aware income-vs-cost analysis",
+      "seven evidence-classified Price of Power cases",
+      "consumer expense taxonomy of 27 categories"
+    ],
+    "registryScope": "The private OpenLedger code source lists two CERI companies (P&G and PepsiCo) and one seeded dated brand-ownership chain (MET-Rx). Its PostgreSQL historical records were not exposed by the GitHub file tree.",
+    "incomplete": [
+      "Current live ownership share positions from 13F/13D/G not ingested into OpenLedger entity graph",
+      "Complete corporate subsidiaries from SEC 10-K Exhibit 21 not ingested",
+      "No direct database connection established to historical OpenLedger PostgreSQL 18k-row snapshot",
+      "No local store/provider roster or synchronized fee/price observations joined to identified owners"
+    ],
+    "privacy": "Only publicly sourced, reviewed case narratives and named issuer/investor relationships have been copied into the public Power Atlas. Private database content and proprietary code remain in the separate private project."
+  },
+  "relationshipGates": [
+    "Normalize legal entity IDs (CIK, EIN, UEI, LEI, state entity number) before claiming equivalence",
+    "Ownership/control requires documented source, effective date and scope; portfolio listing is not a 100% ownership claim",
+    "Keep PAC sponsor and federal contract recipient legally separate until researched",
+    "Only add local competitors after verifying branch/site ownership and municipality/district boundaries",
+    "Price effects require transparent numerator, denominator, period, valid comparator and local source",
+    "Different political contribution and procurement reporting periods must not be merged into causal ROI"
+  ]
+}
