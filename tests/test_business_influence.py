@@ -50,6 +50,41 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertIn("not cash collected", fin["newBusiness2025"]["basis"])
         self.assertIn("sec.gov", fin["source"])
 
+    def test_actual_disclosed_contributions_and_operating_income(self):
+        geo = next(x for x in self.data["cases"] if x["id"] == "geo")
+        rows = geo["politicalByCalendarYear"]
+        self.assertEqual([y["year"] for y in rows], [2024, 2025])
+        self.assertEqual(rows[0]["combinedUsd"], 4023200)
+        self.assertEqual(rows[1]["combinedUsd"], 4425400)
+        for item in rows:
+            self.assertEqual(item["corporateUsd"] + item["pacUsd"], item["combinedUsd"])
+            self.assertTrue(item["source"].startswith("https://"))
+        lobby = geo["lobbyingDisclosures"]
+        self.assertEqual(lobby["federalUsd"] + lobby["stateLocalUsd"], lobby["combinedUsd"])
+        self.assertEqual(lobby["combinedUsd"], 5371336)
+        self.assertNotEqual(lobby["combinedUsd"], rows[-1]["combinedUsd"])
+        operating = geo["companyFinancials"]["operatingIncomeUsd"]
+        self.assertEqual(operating[0]["amountUsd"], 309975000)
+        self.assertEqual(operating[1]["amountUsd"], 257490000)
+        self.assertEqual(
+            operating[-1]["amountUsd"] - operating[0]["amountUsd"],
+            geo["companyFinancials"]["operatingProfitChangeUsd"]
+        )
+        self.assertLess(geo["companyFinancials"]["operatingProfitChangePct"], 0)
+        self.assertIn("None of these facts establish", geo["finding"])
+        self.assertIn("not", geo["lobbyingDisclosures"]["meaning"])
+
+    def test_unmerged_treasury_and_fec_evidence(self):
+        geo = next(x for x in self.data["cases"] if x["id"] == "geo")
+        self.assertEqual(geo["entityIdentifiers"]["exactPrimeRecipientUEI"], "JMLKZZ1NL2Z6")
+        self.assertEqual(geo["entityIdentifiers"]["companyPACFecCommitteeId"], "C00382150")
+        pacmar = next(x for x in self.data["cases"] if x["id"] == "pacmar")
+        self.assertEqual(pacmar["entityIdentifiers"]["exactPrimeRecipientUEI"], "L1WZRB6JKWJ4")
+        self.assertIn("pending", self.data["primaryDataLink"]["collectionStatus"])
+        self.assertIn("no", self.data["purpose"].lower())
+        self.assertNotEqual(geo["disclosedPolitical"]["totalUsd"],
+                            geo["politicalByCalendarYear"][1]["combinedUsd"])
+
     def test_no_fake_award_proceeds_for_pacmar(self):
         x = next(x for x in self.data["cases"] if x["id"] == "pacmar")
         self.assertEqual(x["governmentBusiness"]["observations"], [])
@@ -63,11 +98,16 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertIn("business-influence/evidence-v1.json", p)
         self.assertIn("renderCase", p)
         self.assertIn("financials(c)", p)
+        self.assertIn("politicalSeries(c)", p)
+        self.assertIn("Operating income · SEC filed", p)
+        self.assertIn("federal-contract-transactions-v1.json", p)
+        self.assertIn("geo-pac-candidate-disbursements-v1.json", p)
         self.assertIn("SEC Form 10-K", p)
         self.assertIn("showStep", p)
         self.assertIn('aria-pressed', p)
         self.assertIn("View political-spending evidence", p)
         self.assertIn("No financial values are being inferred", p)
+        self.assertIn("No zeros or business gains have been invented", p)
         self.assertIn("federal-contractor restrictions", p)
         self.assertIn("not yet a verified company-to-contract award join", p)
 
