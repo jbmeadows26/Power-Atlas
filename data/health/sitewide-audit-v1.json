@@ -1,17 +1,17 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-06T04:05:16.825121+00:00",
+  "generatedUTC": "2026-11-06T04:07:15.458976+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
     "htmlPagesAudited": 17,
-    "jsonDataFilesChecked": 239,
-    "validJsonFiles": 239,
+    "jsonDataFilesChecked": 241,
+    "validJsonFiles": 241,
     "staticReferencesInspected": 338,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
-    "unresolvedLiteralDataPointers": 1,
+    "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
     "transparencyCostCaseStudies": 7,
@@ -134,9 +134,7 @@
         "data/business-influence/geo-pac-candidate-excerpt-2026.json",
         "data/business-influence/geo-pac-fec-summary-v1.json"
       ],
-      "missingDataReferences": [
-        "data/business-influence/geo-pac-candidate-disbursements-v1.json"
-      ],
+      "missingDataReferences": [],
       "primaryHeaderPresent": true
     },
     {
@@ -352,12 +350,7 @@
   "invalidDataFiles": [],
   "unparsedHtml": [],
   "missingBugReportScripts": [],
-  "unresolvedLiteralDataPointers": [
-    {
-      "page": "platform/unified/business-influence.html",
-      "sourcePath": "data/business-influence/geo-pac-candidate-disbursements-v1.json"
-    }
-  ],
+  "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
     "uniqueEntities": 84,
     "sourcedLinks": 64,
