@@ -295,6 +295,26 @@
 .bs-rent-other .bs-inner{background:#fff}
 @media(max-width:840px){.bs-rent-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:560px){.bs-housing{padding:16px!important}.bs-rent-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.bs-rent-tile{padding:13px 12px;gap:9px}.bs-rent-tile:last-child{grid-column:1/-1}.bs-rent-amount{font-size:clamp(1.4rem,6vw,1.9rem)}.bs-rent-other>summary{padding:14px;font-size:.83rem}}
+
+/* A true layout for the ACS ZIP-to-US comparison. Source labels stay readable on phones. */
+.bs-local-number{min-width:0;overflow-wrap:anywhere;}
+.bs-local-pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;align-items:start;}
+.bs-local-primary,.bs-local-compare{display:flex;flex-direction:column;gap:8px;min-width:0;}
+.bs-local-compare{padding:0 0 0 14px;border-left:1px solid #c8dad0;}
+.bs-local-compare span{display:block;font-size:.78rem;font-weight:750;color:#5d756b;line-height:1.45;}
+.bs-local-primary strong,.bs-local-compare strong{display:block;margin:0;font-size:clamp(1.3rem,4vw,2rem);line-height:1.15;letter-spacing:-.025em;white-space:normal;}
+.bs-local-primary small{line-height:1.45;display:block;}
+.bs-housing-context{border-top:1px solid #dce8df;background:#f8fbf8;}
+.bs-housing-context>summary{cursor:pointer;padding:16px 22px;color:#315f56;font-size:.88rem;font-weight:800;line-height:1.45;}
+.bs-housing-context>summary:hover{background:#eef7f0;}
+.bs-housing-context .bs-local{border-top:1px solid #dae7dc;}
+.bs-housing-context .bs-local-number{margin-bottom:8px;}
+@media(max-width:540px){
+ .bs-local-pair{grid-template-columns:1fr;gap:12px;}
+ .bs-local-compare{border-left:0;border-top:1px solid #c8dad0;padding:12px 0 0;}
+ .bs-local-primary strong,.bs-local-compare strong{font-size:1.7rem;}
+ .bs-housing-context>summary{padding:15px 16px;}
+}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -307,7 +327,7 @@
 <section class="section" id="what"><div class="section-head"><div><div class="number"><span>2</span> Your daily life</div><h2>What matters most right now?</h2><p>Choose one issue. The explanation, connected research and practical resources will update together.</p></div></div>
 <p id="step2Place" class="fine" role="status">Explore a category without a ZIP, or enter your ZIP above for additional local context.</p>
 <div class="issue-grid" id="issueGrid" role="group" aria-label="Choose an everyday-life issue"><p>Loading life topics…</p></div>
-<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p><a class="ce-invite" href="#benchmarkStory">See the spending benchmark ↓</a></div>
+<div class="feature" id="issueResult" role="region" aria-label="Selected issue explanation" aria-live="polite"><span class="ey-dark" id="issueEyebrow">Your issue</span><h3 id="issueQuestion" tabindex="-1">What shapes everyday life?</h3><p id="issueDescription">Select a topic to explore source-backed mechanisms, not assumed individual causes.</p><a class="ce-invite" href="#benchmarkStory">Explore benchmark data ↓</a></div>
 <div id="issueMetrics" class="impact-metrics" aria-label="Verified public data for selected life issue" aria-live="polite"><div class="impact-metric note"><strong>Connecting original statistics…</strong></div></div>
 <p class="impact-source-status" id="metricStatus" role="status">Measured public data appear with their real geographic scope and original publication date.</p>
 
@@ -880,4 +900,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="cost-benchmark-story.js" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script></body></html>
+</script><script src="cost-benchmark-story.js?v=20261106-housing-mobile-r2" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script></body></html>
