@@ -115,7 +115,7 @@ class AllIssueLocalEvidenceTests(unittest.TestCase):
                          "Unexpected ACS release","Census table ",
                          "U.S. share"):
             self.assertIn(fragment,s)
-        self.assertIn("No values have been assumed",s)
+        self.assertIn("No location has been assumed",s)
         self.assertIn("No data has been inferred",s)
         self.assertNotIn("navigator.geolocation",s)
         self.assertNotIn("localStorage",s)
