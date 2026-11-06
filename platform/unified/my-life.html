@@ -62,7 +62,7 @@
 .localMetric .metricTitle{font-size:.85rem;font-weight:790;color:#2d5c57;line-height:1.3}
 .localMetric .metricValue{font-size:clamp(1.6rem,4vw,2.35rem);font-variant-numeric:tabular-nums;letter-spacing:-.045em;color:#143f3f;font-weight:850;display:block;margin:8px 0 3px;overflow-wrap:anywhere}
 .localMetric .metricDefinition{font-size:.8rem;color:#4d6c68;line-height:1.5}
-.localMetric .metricLimit{color:#86674a;font-size:.77rem;line-height:1.5;margin-top:10px}
+.localMetric .metricLimit{color:#86674a;font-size:.77rem;line-height:1.5;margin-top:10px}.localBenchmark{margin:10px 0 2px;border-top:1px solid #d6e5d9;padding-top:9px;font-size:.79rem;color:#436a5e}.localBenchmark strong{color:#285d52;font-variant-numeric:tabular-nums}
 .localMetric .metricSrc{font-size:.75rem;color:#346e64;margin-top:12px;display:flex;gap:9px;flex-wrap:wrap}
 .relatedPower{border-top:1px solid #d7e7df;margin-top:17px;padding-top:14px}
 .relatedPower h4{margin:4px 0 10px;font-size:.98rem;color:#264f48}
@@ -259,9 +259,12 @@ function renderLocalMeasures(){
  const status=okay&&geoOkay;
  const items=scope.measures.map(m=>({m,val:status?evaluateMeasure(m,record.data.data[exactID]?.[m.table]?.estimate):null}));
  const count=items.filter(x=>x.val!==null).length;
+ const us=record.data?.data?.["01000US"]||null;
  $("localDataStatus").textContent=(record.error||!status?"Live local data unavailable or not verified":"Loaded")+" · "+count+"/"+items.length+" measured values available for ZCTA "+z+". "+(record.error||"2020–2024 ACS sample estimates, not 2026 current conditions.");
  $("localMetrics").innerHTML=items.map(({m,val})=>
-  '<article class="localMetric"><div class="metricTitle">'+esc(m.title)+'</div><strong class="metricValue">'+esc(formatMeasure(m,val))+'</strong><p class="metricDefinition">'+esc(m.why)+'</p><div class="metricLimit">'+esc(m.limits)+'</div><div class="metricSrc">'+link(m.originalTable,"Census table "+m.table+" ↗")+'</div></article>').join("");
+  '<article class="localMetric"><div class="metricTitle">'+esc(m.title)+'</div><strong class="metricValue">'+esc(formatMeasure(m,val))+'</strong><p class="metricDefinition">'+esc(m.why)+'</p>'+
+ (us&&val!==null?('<div class="localBenchmark">U.S. baseline (same ACS): <strong>'+esc(formatMeasure(m,evaluateMeasure(m,us[m.table]?.estimate)))+'</strong></div>'):'')+
+ '<div class="metricLimit">'+esc(m.limits)+'</div><div class="metricSrc">'+link(m.originalTable,"Census table "+m.table+" ↗")+'</div></article>').join("");
  const providerLink=record.url&&/^https:\/\/api\.censusreporter\.org\//.test(record.url)?record.url:null;
  $("localSourceTail").innerHTML='Source period: <strong>2020–2024</strong> · Geography: <strong>Census ZCTA '+esc(z)+'</strong> · Provider: '+esc(localMeasures.provider.name)+'. '+(providerLink?link(providerLink,"Inspect this API response ↗"):"")+' Estimates have sampling uncertainty; computed shares do not display a combined margin of error. No local outcome is attributed to named politicians, corporations or donors.';
 }
@@ -272,17 +275,20 @@ async function loadLocalMeasures(zip,topic){
  const config=localMeasures.issues[topic];
  const tables=[...new Set(config.measures.map(m=>m.table))];
  const geoid="86000US"+zip;
- const url=localMeasures.provider.api+"?table_ids="+encodeURIComponent(tables.join(","))+"&geo_ids="+geoid;
+ const url=localMeasures.provider.api+"?table_ids="+encodeURIComponent(tables.join(","))+"&geo_ids="+encodeURIComponent(geoid+",01000US");
+ const fallbackUrl=localMeasures.provider.api+"?table_ids="+encodeURIComponent(tables.join(","))+"&geo_ids="+geoid;
  const seq=++localRequestSequence;
  if(selected===topic&&activeZIP===zip)renderLocalMeasures();
  try{
-  const r=await fetch(url,{cache:"no-store"});
-  if(!r.ok)throw Error("HTTP "+r.status);
+  let loadedUrl=url;
+  let r=await fetch(url,{cache:"no-store"});
+  if(!r.ok){r=await fetch(fallbackUrl,{cache:"no-store"});loadedUrl=fallbackUrl;}
+  if(!r.ok)throw Error("Census source HTTP "+r.status);
   const d=await r.json();
   if(d?.release?.id!==localMeasures.provider.release)throw Error("Unexpected ACS release");
   if(!d?.data?.[geoid]||!d?.tables||tables.some(t=>!d.tables[t]||!d.data[geoid][t]?.estimate))
    throw Error("Census geography or requested table missing");
-  localResults.set(key,{data:d,url,release:d.release});
+  localResults.set(key,{data:d,url:loadedUrl,release:d.release});
  }catch(err){
   localResults.set(key,{error:"Census Reporter request failed ("+String(err.message).slice(0,90)+"). No data has been inferred.",url});
  }
