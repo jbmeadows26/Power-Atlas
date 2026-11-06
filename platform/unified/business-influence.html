@@ -42,6 +42,17 @@ function showStep(c,n){state.step=n;let st=c.evidenceStages[n];
  document.querySelectorAll(".flowButton").forEach((b,i)=>b.setAttribute("aria-pressed",String(n===i)));
  $("stepDetail").innerHTML="<strong>"+esc(st.name)+" · "+esc(st.status.replaceAll("_"," "))+"</strong><p>"+esc(st.why)+"</p>";
 }
+function financials(c){
+ const f=c.companyFinancials;if(!f)return "";
+ const obs=f.observations||[];
+ const mx=Math.max(...obs.map(x=>x.revenueUsd));
+ const bars=obs.map(x=>'<div class="barRow" '+(x.year===2025?'aria-current="true"':'')+'><span>'+x.year+'</span><div class="barTrack"><div class="barFill" style="width:'+(100*x.revenueUsd/mx).toFixed(2)+'%"></div></div><strong>'+short(x.revenueUsd)+'</strong></div>').join("");
+ return '<h3>Company revenue · SEC filed</h3><div role="img" aria-label="Reported company revenue, 2024 and 2025">'+bars+'</div>'+
+ '<p class="graphNote"><strong style="color:#f7c478">+'+esc(f.reportedGrowthPct)+'% / '+short(f.changeUsd)+'</strong> companywide revenue growth in 2025. Three federal agencies accounted for '+esc(f.federalAgencyRevenueSharePct.year2025)+'% of revenue, versus '+esc(f.federalAgencyRevenueSharePct.year2024)+'% in 2024.</p>'+
+ '<p class="graphNote">GEO described <strong>up to '+short(f.newBusiness2025.amountUsdUpperBoundApprox)+'</strong> in potential annualized revenue from new or expanded 2025 contracts. This is <strong>not</strong> recognized 2025 revenue.</p>'+
+ '<p class="tiny"><a href="'+legalURL(f.source)+'" target="_blank" rel="noopener noreferrer">SEC Form 10-K ↗</a> · <a href="'+legalURL(f.newBusiness2025.source)+'" target="_blank" rel="noopener noreferrer">2025 annual report ↗</a></p>'+
+ '<div class="divider"></div><details><summary>Compare federal contract obligations (a different measure)</summary><p class="tiny">These amounts come from a third-party USAspending aggregation and are not the same as revenue or profit.</p>';
+}
 function awards(c){
  const aw=c.governmentBusiness; const obs=aw.observations||[];
  if(!obs.length)return '<p class="subnote">No verified contract-level award totals in this module. Funding proposals and appropriations are not cash received or business profit.</p><p class="tiny">'+esc(aw.warning)+'</p>';
@@ -52,7 +63,7 @@ function renderCase(id){
  const c=state.data.cases.find(x=>x.id===id);if(!c)return;state.selected=id;state.step=0;
  $("caseSwitches").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.id===id)));
  const p=c.disclosedPolitical, g=c.governmentBusiness;
- $("casePanel").innerHTML='<div class="caseTop"><div><span class="entity">'+esc(c.industry)+'</span><h3 class="caseTitle">'+esc(c.company)+'</h3><p class="status">'+esc(c.status)+'</p><p>'+esc(c.question)+'</p><span class="big">'+money(p.totalUsd)+'</span><span class="tiny">'+esc(p.label)+'</span><p class="tiny"><a href="'+legalURL(p.source)+'" target="_blank" rel="noopener noreferrer">View political-spending evidence ↗</a></p></div><div class="box"><span class="eyeline">Business outcome · '+esc(g.period.replaceAll("_"," "))+'</span><h3>'+esc(g.metric)+'</h3>'+awards(c)+'<div class="tiny"><a href="'+legalURL(g.source)+'" target="_blank" rel="noopener noreferrer">Review award source ↗</a></div></div></div>'+
+ $("casePanel").innerHTML='<div class="caseTop"><div><span class="entity">'+esc(c.industry)+'</span><h3 class="caseTitle">'+esc(c.company)+'</h3><p class="status">'+esc(c.status)+'</p><p>'+esc(c.question)+'</p><span class="big">'+money(p.totalUsd)+'</span><span class="tiny">'+esc(p.label)+'</span><p class="tiny"><a href="'+legalURL(p.source)+'" target="_blank" rel="noopener noreferrer">View political-spending evidence ↗</a></p></div><div class="box"><span class="eyeline">Business outcomes · '+esc(g.period.replaceAll("_"," "))+'</span><h3>'+esc(g.metric)+'</h3>'+financials(c)+awards(c)+(c.companyFinancials?'</details>':'')+'<div class="tiny"><a href="'+legalURL(g.source)+'" target="_blank" rel="noopener noreferrer">Review award source ↗</a></div></div></div>'+
  '<div class="divider"></div><h3>Tap each link in the chain</h3><div class="flow" id="flowSteps">'+c.evidenceStages.map((s,i)=>'<button type="button" class="flowButton" data-step="'+i+'" aria-pressed="false"><span class="stepNum">0'+(i+1)+'</span><strong>'+esc(s.name)+'</strong><span class="stepBadge">'+esc(s.status.replaceAll("_"," "))+'</span></button>').join("")+'</div><div class="stepDetail" id="stepDetail" role="status"></div>'+
  '<p class="strip"><strong>What this case tells us:</strong> '+esc(c.finding)+'</p>'+
  (c.investigationUrl?'<p><a href="'+esc(c.investigationUrl)+'">Open the full reviewed investigation →</a></p>':'')+
