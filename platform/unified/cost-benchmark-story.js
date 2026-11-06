@@ -20,7 +20,7 @@ function renderEconomicForces(){
  var cfg=forces.topics?.[topic];if(!cfg)return "";
  var signals=Object.fromEntries((forces.signals||[]).map(function(s){return [s.id,s]}));
  function badge(kind){
-  return '<span class="bs-status-kind'+(kind==="forecast"?" projection":kind==="alleged"?" allegation":"")+'">'+esc(kind==="forecast"?"2026 forecast":kind==="measured"?"Measured":kind==="policy_decision"?"Official decision":kind==="alleged"?"Regulatory allegation":kind==="association"?"Observed association":kind==="observed"?"Documented observation":kind==="verified"?"Verified link":kind==="unknown"?"Local effect unknown":kind||"Source-linked")+'</span>';
+  return '<span class="bs-status-kind'+(kind==="forecast"||kind==="research_estimate"?" projection":kind==="alleged"?" allegation":"")+'">'+esc(kind==="forecast"?"2026 forecast":kind==="measured"?"Measured":kind==="research_estimate"?"Study estimate":kind==="policy_decision"?"Official decision":kind==="alleged"?"Regulatory allegation":kind==="association"?"Observed association":kind==="observed"?"Documented observation":kind==="verified"?"Verified link":kind==="unknown"?"Local effect unknown":kind||"Source-linked")+'</span>';
  }
  function signalCard(s){
   return '<div class="bs-signal"><strong>'+esc(s.value)+'</strong><span class="bs-signal-name">'+esc(s.name)+'</span>'+badge(s.kind)+'<small>'+esc(s.period)+' · '+esc(s.scope)+'</small><small>'+esc(s.explain)+'</small>'+source(s.source,"Official source ↗")+'<details><summary class="bs-footnote">How to interpret it</summary><p class="bs-footnote">'+esc(s.limits)+'</p></details></div>';
