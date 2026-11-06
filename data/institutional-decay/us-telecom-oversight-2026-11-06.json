@@ -1,0 +1,92 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-evidence.v1",
+  "asOf": "2026-11-06",
+  "scope": "United States federal telecommunications contract transition oversight",
+  "sources": [
+    {
+      "id": "gao-26-107919",
+      "url": "https://www.gao.gov/products/gao-26-107919",
+      "published": "2026-08-31",
+      "authority": "US Government Accountability Office",
+      "license": "US federal government factual work; no third-party figures reproduced; verify embedded third-party rights before republication"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gao-eis-agencies-transition-scope-2026",
+      "source": "gao-26-107919",
+      "geography": "United States",
+      "period": "through 2026-05-31",
+      "value": 221,
+      "unit": "agencies",
+      "measure": "Agencies under GSA telecommunications transition responsibility",
+      "population": "Federal agencies subject to EIS transition",
+      "evidenceClass": "official_audit",
+      "note": "Not number of agencies with delays or disruptions."
+    },
+    {
+      "id": "gao-eis-reviewed-agencies-2026",
+      "source": "gao-26-107919",
+      "geography": "United States",
+      "period": "2026-08-31 report",
+      "value": 6,
+      "unit": "agencies",
+      "measure": "Selected agencies assessed in detail",
+      "population": "Purposefully selected agencies with substantial remaining work as of September 2024",
+      "evidenceClass": "official_audit",
+      "note": "Not a representative sample of 221."
+    },
+    {
+      "id": "gao-networx-bill-feb-2025",
+      "source": "gao-26-107919",
+      "geography": "United States",
+      "period": "2025-02",
+      "value": 13376056.85,
+      "unit": "USD",
+      "measure": "Selected six agencies' monthly legacy Networx bills",
+      "population": "Six selected agencies' legacy Networx contracts",
+      "evidenceClass": "objective_service_record",
+      "note": "Monthly billed amount, not total government telecom spend."
+    },
+    {
+      "id": "gao-networx-bill-mar-2025",
+      "source": "gao-26-107919",
+      "geography": "United States",
+      "period": "2025-03",
+      "value": 40925594.85,
+      "unit": "USD",
+      "measure": "Selected six agencies' monthly legacy Networx bills",
+      "population": "Same six selected agencies' legacy Networx contracts",
+      "evidenceClass": "objective_service_record",
+      "note": "Monthly bill; change reflects contract pricing and technology mix, not a measured service outage."
+    },
+    {
+      "id": "gao-networx-bill-rise-percent-2025",
+      "source": "gao-26-107919",
+      "geography": "United States",
+      "period": "2025-02/2025-03",
+      "value": 206,
+      "unit": "rounded_percent",
+      "measure": "GAO-reported increase in selected agencies' Networx monthly bills",
+      "population": "Six selected agencies' legacy Networx contracts",
+      "evidenceClass": "official_audit",
+      "note": "Rounded percentage as published; not a national inflation estimate."
+    }
+  ],
+  "events": [
+    {
+      "id": "gao-eis-telecom-report-2026-08-31",
+      "date": "2026-08-31",
+      "source": "gao-26-107919",
+      "event": "GAO published audit documenting transition delays, price increases and incomplete disruption monitoring",
+      "status": "official_audit",
+      "note": "GAO could not determine whether all selected agencies experienced service disruptions; no outage count inferred."
+    }
+  ],
+  "causality": "No causal impact on trust or proof of individual misconduct inferred.",
+  "limitations": [
+    "Selected six agencies are not representative of all 221.",
+    "Whether selected agencies experienced service disruptions remains undetermined.",
+    "Contract billing changes do not establish consumer price increases or actual outages."
+  ]
+}
