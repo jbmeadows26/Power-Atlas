@@ -42,7 +42,7 @@ class BusinessInfluenceTests(unittest.TestCase):
         )
         self.assertNotIn("return on investment", geo["finding"].lower())
         self.assertIn("increased 8.6%", geo["finding"])
-        self.assertIn("do not establish", geo["finding"])
+        self.assertIn("None of these facts establish", geo["finding"])
         fin = geo["companyFinancials"]
         self.assertEqual(fin["changeUsd"], 207847000)
         self.assertEqual(fin["observations"][1]["revenueUsd"] - fin["observations"][0]["revenueUsd"], fin["changeUsd"])
