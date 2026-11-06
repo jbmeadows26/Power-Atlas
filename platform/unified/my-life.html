@@ -811,7 +811,7 @@ function scrollToSection(id,activeSection){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
