@@ -41,7 +41,7 @@ class BusinessInfluenceTests(unittest.TestCase):
             next(x["amountUsd"] for x in series if x["year"] == 2024)
         )
         self.assertNotIn("return on investment", geo["finding"].lower())
-        self.assertIn("8.6% higher", geo["finding"])
+        self.assertIn("increased 8.6%", geo["finding"])
         self.assertIn("do not establish", geo["finding"])
         fin = geo["companyFinancials"]
         self.assertEqual(fin["changeUsd"], 207847000)
