@@ -41,7 +41,14 @@ class BusinessInfluenceTests(unittest.TestCase):
             next(x["amountUsd"] for x in series if x["year"] == 2024)
         )
         self.assertNotIn("return on investment", geo["finding"].lower())
-        self.assertIn("does not demonstrate a rise", geo["finding"])
+        self.assertIn("8.6% higher", geo["finding"])
+        self.assertIn("do not establish", geo["finding"])
+        fin = geo["companyFinancials"]
+        self.assertEqual(fin["changeUsd"], 207847000)
+        self.assertEqual(fin["observations"][1]["revenueUsd"] - fin["observations"][0]["revenueUsd"], fin["changeUsd"])
+        self.assertEqual(fin["newBusiness2025"]["amountUsdUpperBoundApprox"], 520000000)
+        self.assertIn("not cash collected", fin["newBusiness2025"]["basis"])
+        self.assertIn("sec.gov", fin["source"])
 
     def test_no_fake_award_proceeds_for_pacmar(self):
         x = next(x for x in self.data["cases"] if x["id"] == "pacmar")
@@ -55,6 +62,8 @@ class BusinessInfluenceTests(unittest.TestCase):
         self.assertIn("business-influence.html", h)
         self.assertIn("business-influence/evidence-v1.json", p)
         self.assertIn("renderCase", p)
+        self.assertIn("financials(c)", p)
+        self.assertIn("SEC Form 10-K", p)
         self.assertIn("showStep", p)
         self.assertIn('aria-pressed', p)
         self.assertIn("View political-spending evidence", p)
