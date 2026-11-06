@@ -87,9 +87,11 @@ class PlaceImpactTests(unittest.TestCase):
     def test_zip_is_opt_in_not_assumed_political_geography(self):
         txt = PAGE.read_text(encoding="utf-8")
         self.assertIn('id="zipForm"', txt)
+        self.assertIn('id="localMetrics"', txt)
+        self.assertIn("local-measures-v1.json", txt)
         self.assertIn('name="zip"', txt)
         self.assertIn("api.zippopotam.us/us/", STORIES.read_text(encoding="utf-8"))
-        self.assertIn('Only on user submit', STORIES.read_text(encoding="utf-8"))
+        self.assertIn('Only on user submission', STORIES.read_text(encoding="utf-8"))
         self.assertIn('No ZIP selected', txt)
         self.assertIn('ZIP can cross municipalities', STORIES.read_text(encoding="utf-8"))
         self.assertIn("No city, district or local effect has been guessed", txt)
