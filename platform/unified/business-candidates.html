@@ -52,9 +52,9 @@ function section(c){
  const corporatePolicy=c.corporatePolicy?'<div class="keyline"><strong>Corporate policy distinction</strong><p>'+escapeHTML(c.corporatePolicy.statement)+'</p><a href="'+safeUrl(c.corporatePolicy.source)+'" target="_blank" rel="noopener noreferrer">Corporate policy source ↗</a></div>':"";
  
  const example=loan?'<div class="keyline"><strong>One verified award—not a groupwide contract total</strong><p><b>'+short(loan.obligatedUsd)+'</b> obligated on '+escapeHTML(loan.awardId)+' (action start '+escapeHTML(loan.awardDate)+'). Recipient UEI: '+escapeHTML(loan.recipientUei)+(loan.recipientUei===l.uei?'':' · a different legal subsidiary from the parent identifier')+'.</p><a href="'+safeUrl(loan.source)+'" target="_blank" rel="noopener noreferrer">Original Treasury award ↗</a></div>':'';
- return '<article class="card" data-sector="'+escapeHTML(c.id==="corecivic"?"detention":(c.id==="microsoft"||c.id==="amazon-aws"?"cloud":(c.id==="exxon"?"energy":"defense")))+'"'><div class="sector">'+escapeHTML(c.industry)+'</div><h2>'+escapeHTML(c.name)+'</h2>'+
+ return '<article class="card" data-sector="'+escapeHTML(c.id==="corecivic"?"detention":(c.id==="microsoft"||c.id==="amazon-aws"?"cloud":(c.id==="exxon"?"energy":"defense")))+'"><div class="sector">'+escapeHTML(c.industry)+'</div><h2>'+escapeHTML(c.name)+'</h2>'+
  '<div class="scale"><span class="big">'+short(p.amountUsd)+'</span><span class="small">PAC contributions to other committees</span></div>'+
- '<span class="small">FEC cycle 2026: Jan 1, 2025–'+escapeHTML(p.reportingPeriodEnd)+'. This is not all company political spending.</span>'+
+ '<span class="small">2025–26 cycle: Jan 1, 2025–'+escapeHTML(p.reportingPeriodEnd)+'. '+escapeHTML(classification)+'. This is not all company political spending.</span>'+
  '<div class="keyline"><strong>Public-record identities</strong><p>FEC PAC <code>'+escapeHTML(p.fecCommitteeId)+'</code> · exact Treasury UEI <code>'+escapeHTML(l.uei)+'</code></p><span class="status">'+escapeHTML(l.scope.replaceAll("_"," "))+'</span></div>'+
  facts+political+example+assistance+corporatePolicy+
  '<details class="details"><summary>What would change the conclusion?</summary><p>'+escapeHTML(c.nextStep)+'</p><p><strong>What we cannot infer:</strong> '+escapeHTML(c.limits)+'</p></details>'+
