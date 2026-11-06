@@ -39,6 +39,31 @@ class AllIssueLocalEvidenceTests(unittest.TestCase):
                 self.assertGreater(len(measure["limits"]),30)
                 self.assertTrue(measure["connected"])
 
+    def test_reader_guides_and_comparable_denominators_for_all_nine(self):
+        for topic, data in self.s["issues"].items():
+            guide = data["readerGuide"]
+            self.assertTrue(guide["heading"] and guide["meaning"], topic)
+            self.assertTrue(guide["unknown"] and guide["next"], topic)
+        schools = self.s["issues"]["schools"]["measures"]
+        preschool = next(m for m in schools if m["id"] == "schools__preschool_count")
+        school_rate = next(m for m in schools if m["id"] == "schools__enrollment_share")
+        self.assertEqual(preschool["format"], "count")
+        self.assertEqual(preschool["columns"], ["B14001003"])
+        self.assertEqual(school_rate["format"], "share")
+        self.assertEqual(school_rate["columns"], ["B14001002", "B14001001"])
+        self.assertEqual(audit.scalar(school_rate, {
+            "B14001002": 5214, "B14001001": 21000
+        }), 24.83)
+        html = UI.read_text(encoding="utf-8")
+        self.assertIn('function canCompareGeographies(m)', html)
+        self.assertIn('["share","sumshare","usd","years"].includes(m.format)', html)
+        self.assertIn("National totals are intentionally not compared", html)
+        self.assertNotIn("U.S. baseline (same ACS)", html)
+        self.assertIn('id="localReaderMeaning"', html)
+        self.assertIn('id="localNext"', html)
+        self.assertIn("About this figure and its source", html)
+        self.assertIn('Census survey, 2020–2024', html)
+
     def test_math_excludes_suppressed_and_invalid_denominators(self):
         m={"columns":["B22003002","B22003001"],"format":"share"}
         self.assertEqual(audit.scalar(m,{"B22003002":20,"B22003001":100}),20)
@@ -88,7 +113,7 @@ class AllIssueLocalEvidenceTests(unittest.TestCase):
                          "loadLocalMeasures(activeZIP,id)",
                          "loadLocalMeasures(zip,selected)",
                          "Unexpected ACS release","Census table ",
-                         "U.S. baseline (same ACS)"):
+                         "U.S. share"):
             self.assertIn(fragment,s)
         self.assertIn("No values have been assumed",s)
         self.assertIn("No data has been inferred",s)
