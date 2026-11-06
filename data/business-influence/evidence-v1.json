@@ -6,10 +6,12 @@
     "companyDonationToAwardReconciled": "not_yet_verified",
     "baselineComparison": "not_yet_run",
     "publicFecCommitteeMoney": "partially_indexed_elsewhere_in_power_atlas",
-    "federalContractRecipientAwards": "source_reference_not_bulk_ingested_in_this_module",
+    "federalContractRecipientAwards": "official_UEI_registry_verified_automated_transaction_collector_added_refresh_pending",
     "executiveAndEmployeeContributions": "not_attributed_to_company_spending",
     "stateLocalAwardsAndTaxIncentives": "not_ingested",
-    "caveat": "A company's PAC is generally employee-funded; a federal contractor's own federal political contributions can be prohibited. Never add employee, PAC, subsidiary or company spending without distinct, lawfully sourced provenance."
+    "caveat": "A company's PAC is generally employee-funded; a federal contractor's own federal political contributions can be prohibited. Never add employee, PAC, subsidiary or company spending without distinct, lawfully sourced provenance.",
+    "fecCommitteeCrosswalk": "GEO Group corporate PAC C00382150 verified in FEC; giving and PAC committee disbursements use different denominators",
+    "contractEntityJoins": "GEO direct recipient JMLKZZ1NL2Z6; PacMar direct recipient L1WZRB6JKWJ4; subsidiaries not assumed"
   },
   "research": [
     {
@@ -155,7 +157,15 @@
           "note": "Some included arrangements are expected future annual revenue subject to performance, options and occupancy; avoid adding to GAAP 2025 revenue or federal obligations."
         },
         "caveat": "Revenue changes coincide with political spending, public policy changes, operating decisions and government demand. The sources do not show that donations caused the growth."
-      }
+      },
+      "entityIdentifiers": {
+        "exactPrimeRecipientUEI": "JMLKZZ1NL2Z6",
+        "recipientSource": "https://www.usaspending.gov/recipient/9b308edb-a62c-659b-704b-ef4e5cf3f795-C/latest",
+        "companyPACFecCommitteeId": "C00382150",
+        "pacSource": "https://www.fec.gov/data/committee/C00382150/?cycle=2024",
+        "provenance": "government_source_documented_registration_entities_not_payment_join"
+      },
+      "politicalFinanceScopeWarning": "GEO's 2024 corporate plus employee PAC figures are aggregate categories across jurisdictions; FEC PAC financial receipts/disbursements are different amounts and must not be added. Federal contractor contributions by corporate treasury funds are restricted."
     },
     {
       "id": "pacmar",
@@ -208,7 +218,14 @@
           "status": "missing",
           "why": "No attributable incremental revenue or profit"
         }
-      ]
+      ],
+      "entityIdentifiers": {
+        "exactPrimeRecipientUEI": "L1WZRB6JKWJ4",
+        "recipientSource": "https://www.sbir.gov/portfolio/245768",
+        "fecEnforcement": "https://www.fec.gov/data/legal/matter-under-review/7690/",
+        "provenance": "government_source_documented_registration_entities_not_payment_join"
+      },
+      "politicalFinanceScopeWarning": "The $150,000 is a specific 2019–2020 political contribution subject to the FEC case, not an annual PAC, personal or corporate spending total. The 2025 enforcement disposition does not establish specific contract awards were purchased."
     }
   ],
   "recommendedJoins": [
@@ -246,5 +263,12 @@
     "Contract obligations are not realized revenue, cash payments, incremental profits or ROI.",
     "Use matched non-donors and pre/post timing as a test; report confounders, uncertainty and negative results. Never label observational associations as quid pro quo.",
     "Respect FEC contributor-data use restrictions and exclude personal addresses/contact information."
-  ]
+  ],
+  "primaryDataLink": {
+    "file": "data/business-influence/federal-contract-transactions-v1.json",
+    "collectionStatus": "workflow_configured_pending_first_successful_source_run",
+    "source": "https://api.usaspending.gov/api/v2/search/spending_by_transaction/",
+    "coverage": "FY2018 onward; exact organization UEIs; contract actions and annual net obligations",
+    "reportingCaveats": "Government-contract actions may be revised and some agencies publish with lag. No award-vs-bidder adjudication or causal estimate."
+  }
 }
