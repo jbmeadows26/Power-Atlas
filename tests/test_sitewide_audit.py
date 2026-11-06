@@ -55,7 +55,9 @@ class SitewideAuditTests(unittest.TestCase):
         self.assertGreater(r["summary"]["unresolvedOriginalSourceGaps"], 0)
         self.assertGreater(r["summary"]["blockingExistingResearchGates"], 0)
         self.assertEqual(r["corporateGraph"]["brokenRelations"], [])
-        self.assertGreater(r["summary"]["queuedIngestionTasks"], 0)
+        self.assertEqual(r["summary"]["queuedIngestionTasks"], 0)
+        self.assertEqual(r["summary"]["stalePageTwoQueueEntries"], 0)
+        self.assertEqual(r["summary"]["boundedKeywordPageTasksReconciled"], 10)
 
     def test_static_url_resolution(self):
         p = ROOT / "platform/unified/my-life.html"
