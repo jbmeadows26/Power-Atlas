@@ -6,14 +6,17 @@
     "companyDonationToAwardReconciled": "not_yet_verified",
     "baselineComparison": "not_yet_run",
     "publicFecCommitteeMoney": "partially_indexed_elsewhere_in_power_atlas",
-    "federalContractRecipientAwards": "official_UEI_registry_verified_automated_transaction_collector_added_refresh_pending",
+    "federalContractRecipientAwards": "collected_official_USASpending_prime_contract_actions_FY2018_through_partial_FY2027_for_two_verified_UEIs",
     "executiveAndEmployeeContributions": "not_attributed_to_company_spending",
     "stateLocalAwardsAndTaxIncentives": "not_ingested",
     "caveat": "A company's PAC is generally employee-funded; a federal contractor's own federal political contributions can be prohibited. Never add employee, PAC, subsidiary or company spending without distinct, lawfully sourced provenance.",
     "fecCommitteeCrosswalk": "GEO Group corporate PAC C00382150 verified in FEC; giving and PAC committee disbursements use different denominators",
-    "contractEntityJoins": "GEO direct recipient JMLKZZ1NL2Z6; PacMar direct recipient L1WZRB6JKWJ4; subsidiaries not assumed",
+    "contractEntityJoins": "exact_official_UEIs_joined_to_Treasury_actions; parent subsidiaries and political recipient decisions not joined",
     "geoTwoYearContributionsAndLobbying": "verified 2024 and 2025 GEO corporate/PAC categories from original company disclosure and 2025 direct lobbying separately",
-    "geoCompanyProfitability": "SEC 2024–2025 operating income shows a decline despite revenue increase; annual profit is not established as political ROI"
+    "geoCompanyProfitability": "SEC 2024–2025 operating income shows a decline despite revenue increase; annual profit is not established as political ROI",
+    "donationToGovernmentDecision": "not_verified",
+    "controlGroupMatchedPeerStudy": "not_run",
+    "methodologicalComparability": "fiscal_USASpending_awards_versus_calendar_year_company_political_disclosures_and_SEC_financials_not_directly_period_matched"
   },
   "research": [
     {
@@ -310,9 +313,37 @@
   ],
   "primaryDataLink": {
     "file": "data/business-influence/federal-contract-transactions-v1.json",
-    "collectionStatus": "workflow_configured_pending_first_successful_source_run",
+    "collectionStatus": "published_original_treasury_transaction_snapshot",
     "source": "https://api.usaspending.gov/api/v2/search/spending_by_transaction/",
     "coverage": "FY2018 onward; exact organization UEIs; contract actions and annual net obligations",
-    "reportingCaveats": "Government-contract actions may be revised and some agencies publish with lag. No award-vs-bidder adjudication or causal estimate."
+    "reportingCaveats": "Government-contract actions may be revised and some agencies publish with lag. No award-vs-bidder adjudication or causal estimate.",
+    "generatedUtc": "2026-11-06T01:09:13+00:00",
+    "totalEntityFiscalYearSeries": 20,
+    "preliminaryRelationshipResults": {
+      "status": "descriptive_only_no_donation_to_contract_causal_link",
+      "geo": {
+        "fy2024NetObligationsUsd": 641589367.03,
+        "fy2025NetObligationsUsd": 791460351.57,
+        "fy2026NetObligationsUsd": 1006358861.91,
+        "fy2025ChangeUsd": 149870984.54,
+        "scope": "direct_UEI_only"
+      },
+      "pacmar": {
+        "fy2024NetObligationsUsd": 27761035.97,
+        "fy2025NetObligationsUsd": 14357271.65,
+        "fy2026NetObligationsUsd": 6040856.28,
+        "fy2025ChangeUsd": -13403764.32,
+        "scope": "direct_UEI_only"
+      }
+    }
+  },
+  "fecPACPilot": {
+    "committeeId": "C00382150",
+    "dataset": "data/business-influence/geo-pac-candidate-disbursements-v1.json",
+    "collector": "scripts/collect_geo_pac_fec.py",
+    "status": "scheduled_original_FEC_bulk_refresh_not_yet_verified",
+    "method": "recipient FEC committee IDs, candidate IDs and source filing transaction IDs only; exclude personal donor data",
+    "scope": "direct committee-to-candidate FEC PAS2 ledger subject to filing amendment/memo classification; not company corporate giving",
+    "caveat": "Official PAC→candidate transactions do not establish subsequent decisions by the candidate or awarding agency and do not sum to GEO company's multi-jurisdictional annual giving."
   }
 }
