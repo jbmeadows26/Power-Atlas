@@ -11,7 +11,7 @@ const link=(url,label)=>/^https:\/\/[^\s<>"']+$/.test(url||"")?'<a href="'+esc(u
 let transit=null,ez=null,region="OTHER",activeTransit=null,activeToll=null,userTransit=false,userToll=false;
 function agencyFor(id,kind){
  const data=kind==="transit"?transit:ez;
- const options=(data?.agencies||[]).filter(x=>x.region===region);
+ const options=(data?.agencies||[]).filter(x=>region==="OTHER"||x.region===region);
  return options.find(x=>x.id===id)||options[0]||null;
 }
 function agencyPicker(options,selected,id,label){
@@ -43,11 +43,28 @@ function capitalCard(c){
  (hasCommit?'<div class="tv-capital-bar" role="img" aria-label="'+pct.toFixed(1)+' percent of plan is committed; not delivered"><span style="width:'+pct.toFixed(1)+'%"></span></div><p><strong>'+fmt(c.committedBillions)+'B committed</strong> · '+esc(c.committedAsOf||"")+' · '+pct.toFixed(0)+'% of authorization</p>':'<p><strong>Actual committed, spent or completed amounts not verified.</strong></p>')+
  '<p>'+esc(c.scope)+' · '+esc(c.warning)+'</p><div class="tv-links">'+smallSource(c.allocationSource,"Official program ↗")+(c.commitmentSource?smallSource(c.commitmentSource,"Independent assessment ↗"):"")+'</div></div>';
 }
+
+function previewCards(items,kind){
+ return '<div class="tv-agency-baselines">'+items.map(a=>{
+  const first=a.fares?.[0],observed=a.performance?.[0],actual=a.outcomes?.find(x=>x.kind==="independent_audit"||x.kind==="historical_audit");
+  let detail="";
+  if(kind==="service"){
+   detail=first?first.name+": "+
+    (first.before!=null&&first.after!=null?(first.displayUnit==="index"?String(first.before)+" → "+String(first.after)+" (index)":fmt(first.before)+" → "+fmt(first.after)):first.after!=null?String(first.after)+" ("+String(first.status||"source")+")":"see rate source"):"Published fares vary by route";
+   if(observed)detail+=" · "+observed.name+": "+observed.older+"% → "+observed.newer+"% ("+observed.olderPeriod+" to "+observed.newerPeriod+")";
+  }else{
+   detail=a.verdict||"Agency report";
+   if(actual)detail+=" · audit: "+actual.value+" ("+actual.period+")";
+  }
+  const href=kind==="service"?(first?.source||a.sources?.[0]?.url):(actual?.source||a.prices?.[0]?.source||a.rights?.url);
+  return '<article class="tv-agency-baseline"><span>'+esc(a.area||a.region||"Agency")+'</span><h6>'+esc(a.name)+'</h6><p>'+esc(detail)+'</p>'+smallSource(href,"Original evidence ↗")+'</article>';
+ }).join("")+'</div>';
+}
 function renderTransit(){
  const target=document.getElementById("transportValuePanel");
  if(!target)return;
  if(!transit||!ez){target.innerHTML='<h4>Are higher fares buying better transport?</h4><p class="ts-note">Loading dated fares, performance and infrastructure commitments…</p>';return;}
- const options=(transit.agencies||[]).filter(x=>x.region===region);
+ const options=(transit.agencies||[]).filter(x=>region==="OTHER"||x.region===region);
  const chosen=agencyFor(activeTransit,"transit"); if(chosen)activeTransit=chosen.id;
  const head='<div class="tv-head"><span class="bs-eyebrow">Fare accountability · service and delivery</span><h4>Did higher fares buy a better commute?</h4><p>Compare the price riders paid with <strong>reliability, safety, accessibility and actual project delivery</strong>. A billion-dollar plan is not the same as a finished repair. A fare hike is not proof of corruption.</p></div>';
  if(!options.length){
@@ -59,7 +76,8 @@ function renderTransit(){
  const capital=chosen.capital?.length?chosen.capital.map(capitalCard).join(""):'<div class="tv-unknown"><strong>Capital delivery not joined.</strong><p>Agency-specific project completion, spending and asset-condition data remain needed.</p></div>';
  const concerns=(chosen.concerns||[]).map(x=>'<div class="tv-concern"><strong>'+esc(x.name)+'</strong><p>'+esc(x.finding)+'</p><small>'+esc(x.status.replaceAll("_"," "))+' · '+esc(x.warning)+'</small>'+smallSource(x.source,"Read evidence ↗")+'</div>').join("");
  target.innerHTML=head+
- '<div class="tv-selector">'+agencyPicker(options,chosen.id,"tv-transit-agency","Choose transit or toll operator")+'</div>'+
+ '<div class="tv-agency-context"><strong>At a glance · '+(region==="OTHER"?"Selected U.S. system examples, not ZIP prices":"Regional published system baselines")+'</strong><p>Prices, service outcomes and audit gaps are shown without requiring a route or personal cost. Explore one agency’s detailed record below.</p></div>'+previewCards(options,"service")+
+ '<div class="tv-selector">'+agencyPicker(options,chosen.id,"tv-transit-agency","See full evidence for an operator")+'</div>'+
  '<div class="tv-verdict"><strong>'+esc(chosen.headline)+'</strong><p>'+esc(chosen.ratingBasis)+'</p></div>'+
  '<div class="tv-value-grid"><section><h5>1 · What changed in price?</h5>'+priceCards+'</section><section><h5>2 · Did service improve?</h5>'+metrics+'</section></div>'+
  '<div class="tv-capital-wrapper"><h5>3 · What infrastructure was actually delivered?</h5><div class="tv-capital-grid">'+capital+'</div>'+
@@ -77,7 +95,7 @@ function renderEZ(){
  const target=document.getElementById("transportEZPanel");
  if(!target)return;
  if(!ez||!transit){target.innerHTML='<h4>E-ZPass / I-PASS accountability</h4><p class="ts-note">Loading official tolling audits and contract records…</p>';return;}
- const options=(ez.agencies||[]).filter(x=>x.region===region);
+ const options=(ez.agencies||[]).filter(x=>region==="OTHER"||x.region===region);
  const chosen=agencyFor(activeToll,"ez"); if(chosen)activeToll=chosen.id;
  const head='<div class="tv-head"><span class="bs-eyebrow">E-ZPass, I-PASS · tolling system oversight</span><h4>Where does the toll money go—and is the E-ZPass system working?</h4><p>Electronic toll collection is separate from physical road maintenance. Inspect the original toll, image-processing errors, customer disputes, revenue collected, contractor operations and completed infrastructure.</p></div>';
  if(!options.length){
@@ -85,7 +103,7 @@ function renderEZ(){
   return;
  }
  const prices=chosen.prices.map(ezMetricCard).join(""),audits=chosen.outcomes.map(ezMetricCard).join(""),projects=chosen.delivery.map(ezMetricCard).join("");
- target.innerHTML=head+'<div class="tv-selector">'+agencyPicker(options,chosen.id,"tv-ez-agency","Choose E-ZPass / I-PASS operator")+'</div>'+
+ target.innerHTML=head+'<div class="tv-agency-context"><strong>At a glance · tolling systems and audits</strong><p>Each card is a dated source finding, not a live billing dispute or road-condition score.</p></div>'+previewCards(options,"ez")+'<div class="tv-selector">'+agencyPicker(options,chosen.id,"tv-ez-agency","See full evidence for a toll authority")+'</div>'+
  '<div class="tv-verdict"><strong>'+esc(chosen.verdict)+'</strong><p>'+esc(chosen.scope)+'</p></div>'+
  '<div class="tv-value-grid"><section><h5>1 · Tolls and money collected</h5>'+prices+'</section><section><h5>2 · Billing errors and performance</h5>'+audits+'</section></div>'+
  '<div class="tv-capital-wrapper"><h5>3 · Promised upgrades versus proven delivery</h5><div class="tv-capital-grid">'+projects+'</div></div>'+
