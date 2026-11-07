@@ -391,6 +391,88 @@
 @media(max-width:750px){.ts-picker-grid,.ts-audit-steps,.ts-cases{grid-template-columns:1fr}.ts-audit{margin:16px -16px -16px;padding:17px}}
 @media(max-width:480px){.ts-top{grid-template-columns:1fr 120px}.ts-source-group{padding:10px}.ts-expenses{padding:12px}.ts-expense-grid{grid-template-columns:1fr}.ts-line{padding:11px}.ts-audit-flow{font-size:.75rem}}
 
+
+/* Fare-and-infrastructure accountability: agency comparability, no invented ROI */
+.tv-outer,.tp-outer{padding:21px 18px 23px;margin:22px 0 0;border:1px solid #d4e5da;background:#f8fbf8;border-radius:15px;min-width:0}
+.tv-head h4,.tp-head h4{font-size:clamp(1.13rem,3.4vw,1.48rem);letter-spacing:-.03em;line-height:1.22;color:#1b5b51;margin:8px 0}
+.tv-head p,.tp-head p{font-size:.84rem;line-height:1.62;color:#577568;margin:7px 0 13px}
+.tv-outer h5,.tp-outer h5{font-size:.93rem;margin:3px 0 10px;line-height:1.4;color:#265d52}
+.tv-selector,.tp-selects{display:grid;gap:10px;margin:13px 0}
+.tv-label,.tp-select-label{font-weight:780;font-size:.78rem;color:#527368;min-width:0}
+.tv-label select,.tp-select-label select{display:block;width:100%;min-height:44px;padding:9px;border:1px solid #b9d0c1;background:#fff;border-radius:10px;margin-top:6px;font-size:.89rem;color:#215d50;min-width:0}
+.tv-verdict{border:1px solid #afd2c0;background:#eaf5ed;border-radius:12px;padding:15px;margin:13px 0}
+.tv-verdict strong{color:#205b50;font-size:.96rem;line-height:1.4;display:block}
+.tv-verdict p{color:#557567;font-size:.8rem;line-height:1.56;margin:8px 0 0}
+.tv-value-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tv-value-grid>section,.tv-capital-wrapper{min-width:0;padding:12px;border:1px solid #dce8de;border-radius:12px;background:#fff;margin-top:4px}
+.tv-value-grid>section>h5,.tv-capital-wrapper>h5{border-bottom:1px solid #e0eade;padding-bottom:9px}
+.tv-price,.tv-otp,.tv-capital,.tv-ez-item{border:1px solid #e0eae1;background:#fbfdfa;padding:13px;border-radius:11px;margin-top:9px;display:grid;gap:7px;min-width:0}
+.tv-price-label,.tv-ez-item>span:first-child,.tv-otp>span:first-child,.tv-capital>span:first-child{font-size:.75rem;font-weight:800;color:#527567;line-height:1.4;display:block}
+.tv-price>strong,.tv-capital>strong,.tv-ez-item>strong{font-size:clamp(1.3rem,3vw,1.75rem);line-height:1.2;letter-spacing:-.03em;color:#235c50;overflow-wrap:anywhere}
+.tv-price>small,.tv-ez-item>small{font-size:.74rem;color:#6b8277}
+.tv-price p,.tv-otp p,.tv-capital p,.tv-ez-item p{font-size:.78rem;line-height:1.58;color:#536e63;margin:3px 0}
+.tv-otp-values{display:flex;gap:9px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.tv-otp-values>div{display:grid;gap:4px;min-width:76px}
+.tv-otp-values strong{font-size:1.6rem;line-height:1.2;color:#22574e;font-variant-numeric:tabular-nums}
+.tv-otp-values small{font-size:.7rem;color:#6b8376}
+.tv-trend{padding:5px 7px;background:#ecf4ec;border:1px solid #cee0d1;border-radius:9px;font-size:.72rem;font-weight:810;color:#3f6b53;line-height:1.35}
+.tv-trend.bad{background:#fff0e6;border-color:#f0d2bc;color:#a34c29}
+.tv-capital-wrapper{margin:12px 0}
+.tv-capital-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tv-capital-bar{width:100%;height:12px;background:#dbe5dd;border-radius:20px;overflow:hidden}
+.tv-capital-bar span{height:100%;display:block;background:#317b6b;border-radius:20px}
+.tv-warning,.tv-unknown,.tp-note,.tp-method,.tp-footnote{font-size:.77rem;line-height:1.58;color:#647c70;margin:10px 0}
+.tv-warning{background:#fff7e9;border:1px solid #e8dbbf;padding:10px 12px;border-radius:9px;color:#725f42}
+.tv-unknown{background:#f0f5ef;border:1px solid #d5e4d8;padding:15px;border-radius:11px}
+.tv-unknown p{font-size:.79rem;line-height:1.6}
+.tv-details,.tp-account-wrap{background:#fff;border:1px solid #d9e6dd;border-radius:12px;padding:13px;margin-top:13px}
+.tv-details summary,.tp-account-wrap>summary{font-size:.83rem;color:#275d50;font-weight:840;line-height:1.45;cursor:pointer}
+.tv-details h5{margin:12px 0 6px}
+.tv-details p,.tp-account-wrap p{font-size:.79rem;line-height:1.56;color:#567365}
+.tv-details ul{padding-left:21px;margin:7px 0;color:#4c7263;font-size:.78rem;line-height:1.7}
+.tv-concerns{display:grid;gap:8px}
+.tv-concern{padding:10px;background:#f7faf6;border:1px solid #deeadf;border-radius:10px}
+.tv-concern strong{color:#286454}
+.tv-concern small{display:block;font-size:.73rem;color:#7a6543;margin:7px 0}
+.tv-links{display:flex;gap:11px;flex-wrap:wrap}
+.tv-links a,.tp-outer a{font-size:.75rem;font-weight:790;overflow-wrap:anywhere}
+.tv-ez-limit{color:#916239!important;background:#fff8ed;border-radius:8px;padding:8px}
+.tp-outer{background:#fffaf5;border-color:#e5d5c3}
+.tp-head .bs-eyebrow{color:#93652c}
+.tp-selects{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tp-assumptions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.tp-assumptions label{border:1px solid #e6d7c2;background:#fff;border-radius:11px;padding:11px;font-size:.77rem;font-weight:790;color:#766148;min-width:0}
+.tp-assumptions input{display:block;min-height:44px;width:100%;padding:8px;border:1px solid #cfbda4;border-radius:8px;background:#fff;color:#6b5335;font-variant-numeric:tabular-nums;margin-top:7px;font-size:.92rem}
+.tp-stages{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:15px 0}
+.tp-stage{border:1px solid #e0cfb9;background:#fff;border-radius:12px;padding:13px;min-width:0}
+.tp-stage-first{border-color:#91bcaa;background:#f1f8f3}
+.tp-stage-head{display:flex;gap:5px;flex-direction:column;border-bottom:1px solid #eee0cd;padding-bottom:9px}
+.tp-stage-head span{font-size:.69rem;font-weight:900;color:#a17c48;letter-spacing:.07em}
+.tp-stage h6{font-size:.83rem;font-weight:850;color:#594b3d;margin:0;line-height:1.4}
+.tp-stage-number{display:grid;gap:4px;padding:8px 0}
+.tp-stage-number strong{font-size:clamp(1.3rem,3.2vw,1.8rem);font-variant-numeric:tabular-nums;line-height:1.15;color:#825f36;letter-spacing:-.04em}
+.tp-stage-first .tp-stage-number strong{color:#306a55}
+.tp-stage-number small{font-size:.71rem;color:#91744c;font-weight:770}
+.tp-stage-base{font-size:.74rem;line-height:1.48;color:#846e50;min-height:2.5em}
+.tp-stage-track{width:100%;height:9px;background:#b4d3bc;border-radius:20px;overflow:hidden}
+.tp-fee-track{display:block;height:100%;background:#ce9465;border-radius:20px}
+.tp-stage p:not(.tp-stage-base){font-size:.76rem;line-height:1.5;color:#71604e;margin:10px 0 0}
+.tp-stage-warning{padding:7px;border:1px solid #ead6bd;border-radius:7px;background:#fff8ef}
+.tp-method{background:#fff2df;border:1px solid #e5cdac;border-radius:10px;padding:11px 12px;color:#7a6144}
+.tp-relief-head h5{margin:18px 0 5px}
+.tp-relief-head p{font-size:.79rem;line-height:1.56;color:#675947;margin:0 0 12px}
+.tp-relief-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.tp-relief{background:#fff;border:1px solid #e7dccb;border-radius:10px;padding:12px}
+.tp-relief strong{font-size:.81rem;color:#5e513d}
+.tp-relief p{font-size:.76rem;line-height:1.56;color:#786b58;margin:7px 0}
+.tp-account{margin:10px 0;background:#fffaf2;border:1px solid #eee0ce;border-radius:9px;padding:11px}
+.tp-account summary{font-size:.79rem;font-weight:800;color:#7b5e39;cursor:pointer}
+.tp-account p{font-size:.76rem}
+.tp-error{background:#fff0ea;padding:13px;border:1px solid #eeccbe;border-radius:10px}
+.tp-error a{margin-right:10px}
+@media(max-width:800px){.tv-value-grid,.tv-capital-grid{grid-template-columns:1fr}.tp-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.tv-outer,.tp-outer{padding:15px}}
+@media(max-width:520px){.tp-selects,.tp-assumptions,.tp-stages,.tp-relief-grid{grid-template-columns:1fr}.tp-stage{padding:11px}.tv-otp-values{gap:7px}.tv-otp-values strong{font-size:1.36rem}.tv-outer,.tp-outer{margin-top:15px;padding:13px}.tp-stage-base{min-height:0}}
+
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -978,4 +1060,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-transit-v1" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
+</script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="transport-value-ezpass.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="transport-toll-penalties.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
