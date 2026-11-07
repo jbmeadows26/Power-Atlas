@@ -57,7 +57,7 @@ class TransportationTransparencyTests(unittest.TestCase):
         self.assertEqual(cap["committedBillions"],7.5)
         self.assertAlmostEqual(cap["committedBillions"]/cap["authorizedBillions"],.1096491,places=4)
         self.assertIn("not",cap["warning"].lower())
-        self.assertIn("not completed projects",self.value["rules"][6].lower())
+        self.assertIn("not service improvements",self.value["rules"][6].lower())
         self.assertIn("committed",self.value_js)
         self.assertIn("not the same as a finished repair",self.value_js)
 
