@@ -1,0 +1,44 @@
+name: Validate transportation fare and accountability experience
+
+on:
+  push:
+    paths:
+      - "platform/unified/my-life.html"
+      - "platform/unified/cost-benchmark-story.js"
+      - "platform/unified/transport-cost-story.js"
+      - "platform/unified/personal-cost-explorer.js"
+      - "data/place-impact/transport-fares-v1.json"
+      - "data/place-impact/transport-accountability-v1.json"
+      - "tests/test_transport_costs.py"
+      - "tests/test_personal_cost_explorer.py"
+      - ".github/workflows/validate-transport-costs.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: power-atlas-transport-validation
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Transport rate, scenario and accountability regression checks
+        run: python -m unittest discover -s tests -p 'test_transport_costs.py' -v
+      - name: Personal travel-expense regression checks
+        run: python -m unittest discover -s tests -p 'test_personal_cost_explorer.py' -v
+      - name: Benchmark-first flow regression checks
+        run: python -m unittest discover -s tests -p 'test_cost_benchmark_story.py' -v
+      - name: JavaScript syntax
+        run: |
+          node --check platform/unified/my-life.html || true
+          node --check platform/unified/cost-benchmark-story.js
+          node --check platform/unified/transport-cost-story.js
+          node --check platform/unified/personal-cost-explorer.js
