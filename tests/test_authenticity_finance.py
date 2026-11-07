@@ -6,7 +6,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "scripts"))
-from congress_disclosure_intervals import disclosure_band, disclosed_position_interval
+from congress_disclosure_intervals import disclosure_band, disclosed_position_interval, validate_member_annual_disclosure
 
 DATA = ROOT / "data/research/political-authenticity"
 
@@ -67,6 +67,66 @@ class FinancialDisclosureQualityTests(unittest.TestCase):
         self.assertEqual(sum(s["positions"] for s in x["sectorSummaries"]), x["sp500Positions"])
         self.assertAlmostEqual(x["sectorRoundedShareSumPct"],100.1)
         self.assertNotIn("estimatedNetWorth",x)
+    def _verified_record(self):
+        return {
+            "bioguideId": "A000001",
+            "reportType": "annual",
+            "filingIdentity": "annual-2025-a",
+            "originalFilingURL": "https://disclosures-clerk.house.gov/public_disc/financial-pdfs/2025/123.pdf",
+            "filingDate": "2026-05-01",
+            "observedAt": "2026-11-07",
+            "licenseOrReuseRestriction": "5 USC 13107(c)",
+            "primarySourceVerified": True,
+            "assetScheduleComplete": True,
+            "liabilityScheduleComplete": True,
+            "assets": [{**item(1001, 15000), "sourcePage": "p2"}],
+            "liabilities": [{**item(0, 1000), "sourcePage": "p4"}],
+        }
+    def test_official_filing_complete_intervals(self):
+        x = validate_member_annual_disclosure(self._verified_record())
+        self.assertEqual(x["interval"]["disclosedNetLowerUSD"], 1)
+        self.assertEqual(x["interval"]["disclosedNetUpperUSD"], 15000)
+        self.assertIn("not exact", x["interpretation"])
+    def test_unverified_filing_keeps_intervals_unknown(self):
+        x = self._verified_record()
+        x["primarySourceVerified"] = False
+        result = validate_member_annual_disclosure(x)
+        self.assertIsNone(result["interval"]["disclosedNetLowerUSD"])
+        self.assertIsNone(result["interval"]["disclosedNetUpperUSD"])
+    def test_partial_schedule_keeps_unknown_net_bounds(self):
+        x = self._verified_record()
+        x["liabilityScheduleComplete"] = False
+        result = validate_member_annual_disclosure(x)
+        self.assertIsNone(result["interval"]["disclosedNetLowerUSD"])
+    def test_no_lookalike_or_http_filing_sources(self):
+        for url in (
+            "https://disclosures-clerk.house.gov.evil.example/2025/123.pdf",
+            "http://disclosures-clerk.house.gov/2025/123.pdf",
+            "https://evil.example@disclosures-clerk.house.gov/2025/123.pdf",
+            "https://disclosures-clerk.house.gov/",
+        ):
+            x = self._verified_record()
+            x["originalFilingURL"] = url
+            with self.assertRaises(ValueError):
+                validate_member_annual_disclosure(x)
+    def test_source_metadata_required(self):
+        for field in ("filingIdentity", "filingDate", "observedAt", "licenseOrReuseRestriction"):
+            x = self._verified_record()
+            x[field] = None
+            with self.assertRaises(ValueError):
+                validate_member_annual_disclosure(x)
+    def test_spouse_and_filing_locator_preserved(self):
+        x = self._verified_record()
+        x["assets"][0]["owner"] = "spouse"
+        self.assertEqual(validate_member_annual_disclosure(x)["interval"]["assets"]["lowerUSD"], 1001)
+        x["assets"][0].pop("sourcePage")
+        with self.assertRaises(ValueError):
+            validate_member_annual_disclosure(x)
+    def test_transactions_rejected_as_holdings(self):
+        x = self._verified_record()
+        x["reportType"] = "periodic_transaction"
+        with self.assertRaises(ValueError):
+            validate_member_annual_disclosure(x)
     def test_frontend_preserves_source_and_missingness_language(self):
         js=(ROOT/"site/political-authenticity.js").read_text(encoding="utf-8")
         self.assertIn("paFinanceMetrics",js)
