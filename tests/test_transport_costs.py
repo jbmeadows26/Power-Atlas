@@ -100,7 +100,7 @@ class TransportCostTests(unittest.TestCase):
         self.assertIn('.ts-picker-grid',self.page)
         self.assertIn('.ts-audit-flow',self.page)
         self.assertIn('@media(max-width:750px)',self.page)
-        self.assertIn("See the broader",self.personal if "See the broader" in self.personal else self.page)
+        self.assertIn("Optional · National average transport spending",self.benchmark)
         self.assertLess(self.benchmark.index('id="transportCostStory"'),
                         self.benchmark.index("spendBlock+"))
 
