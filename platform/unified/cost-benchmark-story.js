@@ -196,12 +196,15 @@ function render(){
  var spendBlock='<div class="bs-metrics">'+headline+'</div>'+
  '<section class="bs-inner" aria-label="Cost components"><h4>'+(topic==="housing"?"Other housing spending, beyond rent":"1 · What is in the bill?")+'</h4>'+bars+'</section>';
  if(topic==="housing")spendBlock='<details class="bs-rent-other"><summary>Also see the broader housing-spending average (not the rent for an apartment)</summary>'+spendBlock+'</details>';
- output.innerHTML=(topic==="housing"?'<section class="bs-inner bs-housing" id="housingBedroomPanel" aria-label="HUD rent benchmarks for studios through four bedrooms" aria-live="polite"><p>Loading bedroom rents…</p></section>':'')+spendBlock+
+ if(topic==="transport")spendBlock='<details class="bs-rent-other"><summary>Optional · National average transport spending (not a subway fare or route cost)</summary>'+spendBlock+'</details>';
+ output.innerHTML=(topic==="housing"?'<section class="bs-inner bs-housing" id="housingBedroomPanel" aria-label="HUD rent benchmarks for studios through four bedrooms" aria-live="polite"><p>Loading bedroom rents…</p></section>':'')+
+ (topic==="transport"?'<section class="bs-inner ts-story" id="transportCostStory" aria-label="Transit fares, actual tolls, trip cost scenarios and transportation contract oversight"><h4>1 · Real trip costs and public accountability</h4><p>Loading source-backed transportation charges…</p></section>':'')+spendBlock+
  (topic==="housing"?'<details class="bs-housing-context"><summary>See another rental reference: Census median for all bedroom sizes</summary><div class="bs-inner bs-local" aria-label="Census median rent context">'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></div></details>':'<section class="bs-inner bs-local" aria-label="Community benchmark context"><h4>2 · What do we know about '+(geo.zip?'ZIP '+esc(geo.zip):'your area')+'?</h4>'+local+'<p class="bs-footnote">'+esc(localNote)+'</p><a class="bs-next" href="#sourceMeasured">See all original area measurements ↓</a></section>')+
  '<section class="bs-inner" aria-label="Economic drivers and choices"><h4>'+(topic==="housing"?"2 · Why are rents this high?":"3 · What actually moves this cost?")+'</h4><p class="bs-explainer">These are documented economic mechanisms and decision-makers, not a causal ranking for your ZIP. We do not know what share of your bill each one explains without matched price and policy evidence.</p><div class="bs-driver-grid">'+influence+'</div></section>'+
  renderEconomicForces()+
  '<div class="bs-bottom"><p><strong>Evidence boundary:</strong> '+esc(cfg.disclaimer)+' BLS averages are for U.S. consumer units of different sizes, not a fixed basket or a quote. October–November 2025 missing survey data were addressed using BLS weighting.</p><div class="bs-links">'+source(data.primarySource,"Read the 2025 BLS survey ↗")+'<a href="#corporatePaths">Trace documented ownership ↓</a><a href="#missingCostSources">See missing local price evidence ↓</a></div></div>';
  if(topic==="housing")renderHousingRents();
+ if(topic==="transport")window.PowerAtlasTransport?.render();
 }
 function setContext(context){
  context=context||{};if(context.topic&&data?.topics?.[context.topic])topic=context.topic;
