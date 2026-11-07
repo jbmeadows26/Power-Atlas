@@ -1,0 +1,175 @@
+{
+  "schema": "power-atlas.transport-baselines.v1",
+  "asOf": "2026-11-07",
+  "national": {
+    "label": "U.S. annual average transportation spending, 2025",
+    "annual": 13492,
+    "monthly": 1124,
+    "unit": "Mean per consumer unit, including vehicle purchases, fuel, insurance and transit",
+    "source": "https://www.bls.gov/news.release/cesan.htm",
+    "warning": "A nationwide household-spending average is NOT the current price of a car, commute, toll, transit trip or a typical local household."
+  },
+  "method": {
+    "standardWorkweekDays": 5,
+    "annualWorkweeks": 52,
+    "months": 12,
+    "transitPaidFaresPerWorkday": 2,
+    "tolledTripsPerWorkday": 1,
+    "disclosure": "Standardized price comparison: five weekdays per week, two paid transit fares per commuting day, OR one qualifying charged toll crossing per day. 52 weeks / 12 months. These are separately priced alternatives, NOT a combined commute or actual household quote. No inferred route, fare eligibility, fuel, parking, gas, tax, maintenance, insurance or congestion discounts.",
+    "important": "Monthly fares are standardized arithmetic illustrations, not surveyed average passenger bills. A listed monthly pass is its own 30-day fare product; it is not calculated from the per-ride figure."
+  },
+  "regions": [
+    {
+      "id": "NYNJ",
+      "name": "New York City & northern New Jersey",
+      "stateCodes": [
+        "NY",
+        "NJ"
+      ],
+      "summary": "See published NYC subway, PATH and NY-bound Port Authority crossing charges, then compare service and toll-system accountability.",
+      "rows": [
+        {
+          "id": "mta-local",
+          "group": "transit",
+          "short": "NYC subway / local bus",
+          "tripType": "2 paid fares per commute day",
+          "shortNote": "$35 OMNY rolling seven-day cap; typical 10 paid weekday fares do not trigger it. Eligible transfers do not cost extra.",
+          "fareSourceId": "mta-local"
+        },
+        {
+          "id": "path",
+          "group": "transit",
+          "short": "PATH rail",
+          "tripType": "2 separately paid PATH fares per commute day",
+          "shortNote": "PATH's $131.50 30-day unlimited product is a distinct option. PATH and MTA are separate fare systems.",
+          "fareSourceId": "path"
+        },
+        {
+          "id": "mta-express",
+          "group": "transit",
+          "short": "NYC express bus",
+          "tripType": "2 paid express fares per commute day",
+          "capMethod": "weekly_cap",
+          "shortNote": "Illustration applies the listed $67 eligible seven-day express fare cap, not a single-fare multiplication.",
+          "fareSourceId": "mta-express"
+        },
+        {
+          "id": "pa-peak",
+          "group": "toll",
+          "short": "Port Authority peak E-ZPass",
+          "tripType": "1 charged New York-bound crossing per commute day",
+          "shortNote": "Class 1; qualifying NY/NJ E-ZPass; no Port Authority crossing toll on the westbound trip into NJ.",
+          "tollSourceId": "pa-peak"
+        },
+        {
+          "id": "pa-offpeak",
+          "group": "toll",
+          "short": "Port Authority off-peak E-ZPass",
+          "tripType": "1 qualifying NY-bound off-peak crossing per commute day",
+          "shortNote": "Off-peak only; compare the actual travel time and conditions.",
+          "tollSourceId": "pa-offpeak"
+        },
+        {
+          "id": "pa-mail",
+          "group": "toll",
+          "short": "Port Authority Tolls by Mail",
+          "tripType": "1 charged NY-bound crossing per commute day",
+          "shortNote": "Class 1, mail rate; do not add this to E-ZPass for the same crossing.",
+          "tollSourceId": "pa-mail"
+        },
+        {
+          "id": "nyc-congestion",
+          "group": "toll",
+          "short": "NYC peak congestion-zone charge",
+          "tripType": "1 eligible peak charge per commute day",
+          "shortNote": "Only if the actual route enters the charging zone; crossing credits/eligibility can lower the price. Different from bridge/tunnel toll.",
+          "tollSourceId": "nyc-congestion"
+        }
+      ],
+      "missing": [
+        "NJ Transit rail and bus varies by route and fare zone. No one national 'NJ Transit price' is assigned.",
+        "Parking rates depend on block, duration, permit and operator; no ZIP-level value is fabricated."
+      ],
+      "serviceRefs": [
+        "nyct",
+        "njt",
+        "path",
+        "panynj"
+      ],
+      "tollRefs": [
+        "nysta",
+        "mta-toll",
+        "panynj-ezpass"
+      ],
+      "penaltyRefs": [
+        "ny-mta",
+        "ny-panynj",
+        "ny-thruway",
+        "nj-turnpike"
+      ]
+    },
+    {
+      "id": "CHI",
+      "name": "Chicago & northeastern Illinois",
+      "stateCodes": [
+        "IL"
+      ],
+      "summary": "See published Chicago rail and bus charges and separate I-PASS toll oversight; toll plaza rates vary by vehicle and route.",
+      "rows": [
+        {
+          "id": "cta-rail",
+          "group": "transit",
+          "short": "CTA 'L' train",
+          "tripType": "2 paid train fares per commute day",
+          "shortNote": "$75 CTA/Pace 30-day pass is a separate fare product; some transfers are free.",
+          "fareSourceId": "cta-rail"
+        },
+        {
+          "id": "cta-bus",
+          "group": "transit",
+          "short": "CTA local bus",
+          "tripType": "2 paid bus fares per commute day",
+          "shortNote": "$75 CTA/Pace 30-day pass; up to two eligible transfers within two hours are free.",
+          "fareSourceId": "cta-bus"
+        }
+      ],
+      "missing": [
+        "Illinois Tollway: no single reliable average toll. Amount depends on plaza, route, vehicle class and payment method.",
+        "Metra, Pace and South Shore fares vary by zones, routes and pass eligibility.",
+        "Actual parking charges and vehicle ownership costs are not inferred from ZIP."
+      ],
+      "serviceRefs": [
+        "cta"
+      ],
+      "tollRefs": [
+        "illinois-ipass"
+      ],
+      "penaltyRefs": [
+        "il-standard",
+        "il390"
+      ]
+    },
+    {
+      "id": "OTHER",
+      "name": "National context / compare available regions",
+      "stateCodes": [],
+      "summary": "No nationwide standard subway fare or road toll exists. The cited NY/NJ and Chicago rates are examples, not prices inferred for your location.",
+      "rows": [],
+      "missing": [
+        "For a new state, a verified local operator and fare-zone table must be joined before displaying a price.",
+        "Nationwide agency performance and state-of-good-repair data exist, but the result cannot be assigned to your ZIP without matching its transit system."
+      ],
+      "serviceRefs": [],
+      "tollRefs": [],
+      "penaltyRefs": []
+    }
+  ],
+  "sourceRules": [
+    "Prices are unchanged from the original transport-fares-v1.json data file and retain its links and effective dates.",
+    "Do not aggregate mutually exclusive Port Authority E-ZPass and Tolls by Mail rates.",
+    "Do not combine separately priced subway/rail/toll examples into a claimed route without verified trip and transfer data.",
+    "Fare caps apply only to eligible service, card/device and time windows; compare simple weekday single-fare illustration and separate monthly passes without pretending they are equivalent periods.",
+    "Published rates and modeled paid-trip frequency are not observed local spending or proof that a toll or fare increase raised a given household's expenses.",
+    "Evidence of contracting waste or billing errors does not determine the dollar amount of any fare increase."
+  ]
+}
