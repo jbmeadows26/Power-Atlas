@@ -473,6 +473,61 @@
 @media(max-width:800px){.tv-value-grid,.tv-capital-grid{grid-template-columns:1fr}.tp-stages{grid-template-columns:repeat(2,minmax(0,1fr))}.tv-outer,.tp-outer{padding:15px}}
 @media(max-width:520px){.tp-selects,.tp-assumptions,.tp-stages,.tp-relief-grid{grid-template-columns:1fr}.tp-stage{padding:11px}.tv-otp-values{gap:7px}.tv-otp-values strong{font-size:1.36rem}.tv-outer,.tp-outer{margin-top:15px;padding:13px}.tp-stage-base{min-height:0}}
 
+
+/* Transportation: source-linked published baselines lead; no numeric entry. */
+.ce-optional[hidden]{display:none!important}
+.ts-national-baseline{display:flex;align-items:flex-start;gap:16px;justify-content:space-between;flex-wrap:wrap;border:1px solid #b1d0b9;background:#e9f6ea;border-radius:14px;padding:17px;margin:13px 0}
+.ts-national-baseline>div{min-width:0;display:grid;gap:5px}
+.ts-national-kicker{color:#3a7664;font-size:.74rem;line-height:1.4;font-weight:850}
+.ts-national-baseline strong{font-size:clamp(1.65rem,3.2vw,2.35rem);color:#225e50;line-height:1.18;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.ts-national-baseline strong small{font-size:.76rem;letter-spacing:0;color:#57796b;font-weight:680}
+.ts-national-baseline p{font-size:.76rem;line-height:1.5;color:#527466;margin:0;flex:1;min-width:180px}
+.ts-national-baseline a{font-size:.74rem}
+.ts-method{font-size:.78rem;line-height:1.64;color:#526f61;border-left:3px solid #75ae91;background:#f5faf5;padding:10px 13px;border-radius:0 9px 9px 0;margin:11px 0}
+.ts-method strong{color:#315e4e}
+.ts-method em{font-style:normal;text-decoration:underline}
+.ts-base-location{font-size:.77rem;line-height:1.58;color:#6c745d;background:#fff9ed;border:1px solid #ecdfbc;padding:10px 12px;border-radius:9px;margin:11px 0}
+.ts-base-region{padding:15px 0 11px;border-top:1px solid #dae9dd;min-width:0}
+.ts-base-region-head h5{font-size:1.09rem;margin:4px 0 4px;color:#215f51}
+.ts-base-region-head p{font-size:.79rem;line-height:1.55;color:#52776b;margin:0 0 12px}
+.ts-base-region h6{font-size:.76rem;text-transform:uppercase;letter-spacing:.08em;color:#367364;margin:15px 0 9px}
+.ts-base-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;min-width:0}
+.ts-base-line{border:1px solid #d5e3da;border-radius:12px;background:#f9fcf9;padding:13px;display:grid;gap:9px;min-width:0}
+.ts-base-line-top{display:flex;gap:8px;justify-content:space-between;align-items:flex-start;flex-wrap:wrap}
+.ts-base-line-top h5{font-size:.89rem;font-weight:830;color:#276453;margin:0;line-height:1.36}
+.ts-base-line-top>strong{font-size:1.04rem;color:#326857;white-space:nowrap;font-variant-numeric:tabular-nums}
+.ts-base-line-top>strong small{font-size:.71rem;color:#648073;font-weight:620}
+.ts-base-result{background:#e8f3e9;border:1px solid #cee3d2;border-radius:10px;padding:10px;display:flex;align-items:baseline;gap:7px;flex-wrap:wrap}
+.ts-base-result strong{font-size:clamp(1.25rem,3vw,1.85rem);color:#1e6353;font-variant-numeric:tabular-nums;letter-spacing:-.025em}
+.ts-base-result span{font-size:.73rem;line-height:1.3;color:#4d7766}
+.ts-base-line p{font-size:.75rem;line-height:1.5;color:#5f796c;margin:0}
+.ts-base-sub{font-size:.75rem;color:#456b5c;line-height:1.55}
+.ts-base-gaps{margin:13px 0 4px;border:1px solid #d5e4d5;border-radius:10px;padding:12px;background:#f6faf5}
+.ts-base-gaps summary{cursor:pointer;color:#4b7262;font-size:.77rem;font-weight:800}
+.ts-base-gaps ul{padding-left:17px;margin:10px 0 0;font-size:.76rem;line-height:1.65;color:#60786a}
+.tv-agency-context{font-size:.77rem;line-height:1.55;padding:11px;border-left:3px solid #7ba68e;background:#f2f8f3;border-radius:0 9px 9px 0}
+.tv-agency-context strong{color:#2f6858}
+.tv-agency-context p{margin:5px 0 0;color:#648073}
+.tv-agency-baselines{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.tv-agency-baseline{min-width:0;background:#fff;border:1px solid #d5e3d7;padding:12px;border-radius:11px}
+.tv-agency-baseline span{font-size:.7rem;color:#698575;font-weight:820}
+.tv-agency-baseline h6{font-size:.84rem;color:#286351;margin:6px 0 5px;line-height:1.42}
+.tv-agency-baseline p{font-size:.76rem;color:#5b7766;line-height:1.55;margin:7px 0}
+.tp-base-region{font-size:.78rem;color:#685743;background:#fff5e8;border:1px solid #eddac1;padding:10px 12px;border-radius:9px}
+.tp-static-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:13px 0}
+.tp-static-card{min-width:0;border:1px solid #e4d5bf;border-radius:13px;background:#fff;padding:14px;display:grid;gap:9px;align-content:start}
+.tp-static-header .bs-eyebrow{font-size:.67rem;display:block;color:#936f43;overflow-wrap:anywhere}
+.tp-static-header h5{font-size:.9rem;color:#67503a;margin:7px 0}
+.tp-static-stages{display:grid;gap:7px}
+.tp-static-step{display:grid;gap:4px;border-bottom:1px solid #eee4d6;padding:8px 0}
+.tp-static-step>span{font-size:.75rem;font-weight:760;color:#66523a}
+.tp-static-step>strong{font-size:1.27rem;color:#7c5632;font-variant-numeric:tabular-nums}
+.tp-static-step>small{font-size:.73rem;line-height:1.5;color:#776957}
+.tp-static-extra,.tp-static-risk,.tp-static-relief{font-size:.74rem;color:#765d44;line-height:1.58;background:#fff8ed;border:1px solid #f0dfc8;border-radius:8px;padding:9px;margin:0}
+.tp-static-risk{background:#fff4e9}
+.tp-static-relief{background:#f5faf5;color:#4c715b}
+@media(max-width:700px){.ts-base-grid,.tv-agency-baselines,.tp-static-cards{grid-template-columns:1fr}}
+@media(max-width:520px){.ts-national-baseline{padding:13px}.ts-base-line{padding:11px}.tp-static-card{padding:12px}}
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -991,7 +1046,7 @@ function scrollToSection(id,activeSection){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":id==="transport"?"Compare fares, tolls & trip costs ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;const optionalCostPanel=document.getElementById("compareYourCosts");if(optionalCostPanel){optionalCostPanel.hidden=id==="transport";if(id==="transport")optionalCostPanel.open=false;}window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":id==="transport"?"Compare fares, tolls & trip costs ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -1060,4 +1115,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="transport-value-ezpass.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="transport-toll-penalties.js?v=20261107-value-ezpass-penalties-v2" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
+</script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-baselines-v3" defer></script><script src="transport-value-ezpass.js?v=20261107-baselines-v3" defer></script><script src="transport-toll-penalties.js?v=20261107-baselines-v3" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
