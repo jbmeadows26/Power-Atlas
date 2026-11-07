@@ -94,7 +94,7 @@ function build(){
  renderAccountability()+
  '<p class="ts-source-note"><strong>Method:</strong> '+escapeHTML(fares.disclosure)+' Month is modeled as 52 weeks ÷ 12, not precisely four weeks. National BLS transportation spending below is a separate survey average, not the sum of this scenario.</p>';
  root.dataset.region=region.id;root.dataset.ready="1";
- bind(root);
+ if(root.dataset.bound!=="1"){bind(root);root.dataset.bound="1";}
  updateTotals(root);
 }
 function totals(){
