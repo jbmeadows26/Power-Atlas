@@ -73,7 +73,7 @@ class BenchmarkStoryTests(unittest.TestCase):
         self.assertLess(personal, step_three)
         self.assertIn('<details class="ce-optional"', self.page)
         self.assertIn('id="compareYourCosts"', self.page)
-        self.assertIn('src="cost-benchmark-story.js" defer', self.page)
+        self.assertRegex(self.page, r'src="cost-benchmark-story\.js\?v=[^"]+" defer')
         self.assertIn('href="#benchmarkStory"', self.page)
         self.assertIn("queueMicrotask(syncCostBenchmark)", self.page)
 
