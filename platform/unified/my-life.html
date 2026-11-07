@@ -315,6 +315,78 @@
  .bs-local-primary strong,.bs-local-compare strong{font-size:1.7rem;}
  .bs-housing-context>summary{padding:15px 16px;}
 }
+
+/* Source-linked transportation costs and audit trail; isolated transport story. */
+.ts-story{background:#fff;overflow:hidden}
+.ts-story h4{font-size:clamp(1.15rem,3vw,1.52rem);line-height:1.2;letter-spacing:-.035em;color:#1d5851;margin:8px 0}
+.ts-story h5{color:#275f56;font-size:1rem;letter-spacing:-.015em;margin:0 0 12px}
+.ts-story a{font-size:.77rem;font-weight:800;overflow-wrap:anywhere}
+.ts-heading{margin-bottom:16px}
+.ts-heading p{margin:10px 0 0;color:#637d74;font-size:.85rem;line-height:1.55}
+.ts-top{display:grid;grid-template-columns:minmax(0,1fr) minmax(145px,.45fr);gap:10px;margin-bottom:9px}
+.ts-top label,.ts-field{font-size:.8rem;line-height:1.3;font-weight:780;color:#476e61;min-width:0}
+.ts-top select,.ts-top input,.ts-line input[type=number],.ts-field input{display:block;min-width:0;width:100%;min-height:42px;border:1px solid #b5cfc0;border-radius:9px;background:white;color:#204f46;padding:8px;font-size:.87rem;line-height:1.35;font-variant-numeric:tabular-nums}
+.ts-top select{margin-top:5px}
+.ts-top input{margin-top:5px}
+.ts-note{font-size:.77rem;color:#657b70;line-height:1.56;margin:10px 0}
+.ts-note strong{color:#315e50}
+.ts-picker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin:15px 0}
+.ts-source-group{border:1px solid #d7e5dc;border-radius:14px;padding:13px;background:#f8fbf8;min-width:0}
+.ts-source-group h5{padding:2px 0 10px;border-bottom:1px solid #deeadf}
+.ts-line{background:#fff;border:1px solid #e0e9e3;border-radius:11px;padding:12px;margin-top:9px;display:grid;gap:8px}
+.ts-pick{display:flex;gap:9px;align-items:flex-start;cursor:pointer}
+.ts-pick input{flex:none;height:18px;width:18px;accent-color:#297a6d;margin:2px 0}
+.ts-name{color:#275c50;font-weight:830;font-size:.86rem;line-height:1.4}
+.ts-price{font-size:.77rem;color:#667d71;line-height:1.4}
+.ts-price strong{font-weight:880;font-size:1.15rem;color:#27594e}
+.ts-price-entry,.ts-count{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;align-items:center;font-size:.75rem;color:#587468;line-height:1.4}
+.ts-price-entry input,.ts-count input{height:40px;text-align:right;font-size:.82rem}
+.ts-line-notes{display:grid;gap:6px;border-top:1px dashed #e1e7e1;padding-top:8px}
+.ts-line-notes small{font-size:.72rem;line-height:1.5;color:#6a8076}
+.ts-expenses{border:1px solid #d9e6da;border-radius:13px;padding:16px;background:#f4f9f4}
+.ts-expenses h5{margin-bottom:11px}
+.ts-expense-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.ts-field{display:grid;gap:6px;background:#fff;border:1px solid #e4ede4;border-radius:10px;padding:10px;font-size:.75rem}
+.ts-fieldwrap{display:flex;align-items:center;gap:6px}
+.ts-fieldwrap input{flex:1;width:0}
+.ts-fieldwrap small{font-size:.71rem;color:#6e847a;flex:none}
+.ts-output{margin:15px 0;border:1px solid #a6cfbc;border-radius:15px;background:#eaf6ed;padding:17px;min-width:0}
+.ts-empty{font-size:.86rem;line-height:1.55;color:#396657;margin:0}
+.ts-cost-head{display:grid;gap:12px;grid-template-columns:1fr}
+.ts-cost-head span{display:block;font-size:.78rem;font-weight:840;color:#3f7566}
+.ts-cost-head strong{display:block;font-size:clamp(2rem,5vw,2.8rem);font-weight:900;color:#145749;letter-spacing:-.05em;line-height:1.2;margin:3px 0;font-variant-numeric:tabular-nums}
+.ts-cost-head small{font-size:.79rem;color:#547568}
+.ts-price-ledger{height:15px;display:flex;overflow:hidden;background:#d5e6d9;border-radius:10px;gap:2px}
+.ts-price-ledger span{height:100%;display:block}
+.ts-cost-lines{margin:13px 0;display:grid;gap:7px}
+.ts-cost-lines>div{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:8px 10px;background:#fff;border:1px solid #d5e6d9;border-radius:8px;font-size:.82rem;color:#456c61}
+.ts-cost-lines strong{color:#226051;font-variant-numeric:tabular-nums}
+.ts-warnings{font-size:.76rem;color:#6d5d43;line-height:1.5;background:#fffaf0;border:1px solid #e8dec0;border-radius:10px;padding:12px 12px 12px 26px}
+.ts-links{display:flex;gap:9px 13px;flex-wrap:wrap;margin:12px 0}
+.ts-links a{font-size:.76rem}
+.ts-audit{border-top:1px solid #dbe8dc;margin:20px -23px -18px;padding:23px;background:#f4f8f4}
+.ts-audit-head h4{margin:8px 0 10px}
+.ts-audit-head p{font-size:.84rem;color:#557367;line-height:1.6}
+.ts-audit-flow{display:flex;gap:5px;flex-wrap:wrap;align-items:center;padding:11px 12px;background:#e3f0e5;border:1px solid #c9dfcf;border-radius:11px;color:#416c58;font-size:.79rem;font-weight:820;line-height:1.65}
+.ts-audit-flow span{color:#619781;font-size:1rem}
+.ts-audit-steps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:15px 0}
+.ts-audit-step{border:1px solid #d7e7db;background:#fff;border-radius:11px;padding:12px;min-width:0}
+.ts-audit-step summary{cursor:pointer;font-size:.82rem;font-weight:840;color:#275d50;line-height:1.5}
+.ts-index{display:inline-block;background:#e2f2e8;border-radius:8px;padding:3px 8px;margin-right:8px}
+.ts-audit-step p{font-size:.76rem;line-height:1.55;color:#5b766c}
+.ts-audit-example-title{margin:18px 0 5px!important}
+.ts-cases{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:12px 0}
+.ts-case{border:1px solid #d6e3d7;background:#fff;border-radius:12px;padding:15px;min-width:0}
+.ts-case-kind{font-size:.7rem;color:#426e5f;font-weight:820}
+.ts-case h5{margin:7px 0 4px}
+.ts-case small{font-size:.73rem;color:#6d857b}
+.ts-case p{font-size:.78rem;color:#597065;line-height:1.6;margin:9px 0}
+.ts-case-limit{font-size:.78rem;color:#775e3f!important;background:#fff6e9;border:1px solid #eddec6;border-radius:9px;padding:10px;line-height:1.57}
+.ts-source-note{font-size:.75rem;color:#627d70;line-height:1.55;margin:14px 0 0}
+.ts-story input:focus-visible,.ts-story select:focus-visible,.ts-story summary:focus-visible{outline:3px solid #338f86;outline-offset:2px}
+@media(max-width:750px){.ts-picker-grid,.ts-audit-steps,.ts-cases{grid-template-columns:1fr}.ts-audit{margin:16px -16px -16px;padding:17px}}
+@media(max-width:480px){.ts-top{grid-template-columns:1fr 120px}.ts-source-group{padding:10px}.ts-expenses{padding:12px}.ts-expense-grid{grid-template-columns:1fr}.ts-line{padding:11px}.ts-audit-flow{font-size:.75rem}}
+
 </style></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
@@ -466,7 +538,9 @@ function getBenchmarkContext(){
 }
 window.PowerAtlasGetBenchmarkContext=getBenchmarkContext;
 function syncCostBenchmark(){
- if(window.PowerAtlasBenchmarkStory?.setContext)window.PowerAtlasBenchmarkStory.setContext(getBenchmarkContext());
+ const context=getBenchmarkContext();
+ if(window.PowerAtlasBenchmarkStory?.setContext)window.PowerAtlasBenchmarkStory.setContext(context);
+ if(window.PowerAtlasTransport?.setContext)window.PowerAtlasTransport.setContext(context);
 }
 function issue(){
  return stories?.issues.find(x=>x.id===selected)||null;
@@ -831,7 +905,7 @@ function scrollToSection(id,activeSection){
 }
 function pick(id,scroll=false,updateHash=true){
  if(!stories?.issues.some(x=>x.id===id))return;
- selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
+ selected=id;expanded=false;window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":id==="transport"?"Compare fares, tolls & trip costs ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
  markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
@@ -900,4 +974,4 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
-</script><script src="cost-benchmark-story.js?v=20261106-housing-mobile-r2" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
+</script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-transit-v1" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js?v=20261106-mobile-r2" defer></script></body></html>
