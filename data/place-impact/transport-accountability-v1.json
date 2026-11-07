@@ -1,0 +1,160 @@
+{
+  "schema": "power-atlas.transport-accountability.v1",
+  "asOf": "2026-11-07",
+  "findingRule": "Separate audited waste, proven criminal action, investigated allegations and policy disputes. Any link to fares or tolls requires a documented budget and causal trace. No personal surcharge estimates are derived from project totals.",
+  "pathways": [
+    {
+      "id": "rate-decision",
+      "title": "Who raised fares or tolls?",
+      "ask": "Which board voted on the rate, what fiscal gap or capital plan was cited, and where did the additional revenue go?",
+      "needed": [
+        "board agendas and recorded votes",
+        "proposed and final rate schedules",
+        "operating and capital budgets",
+        "forecast ridership / revenues"
+      ],
+      "sources": [
+        {
+          "label": "MTA board fare change documents",
+          "url": "https://www.mta.info/document/186881"
+        },
+        {
+          "label": "Port Authority toll rates and policy",
+          "url": "https://www.panynj.gov/bridges-tunnels/en/tolls.html"
+        }
+      ]
+    },
+    {
+      "id": "procurement",
+      "title": "Did public contracting waste money?",
+      "ask": "Were contracts competitively awarded, properly priced, delivered and audited? Were taxpayers or riders reimbursed?",
+      "needed": [
+        "bid solicitations and scoring",
+        "change orders and amendments",
+        "actual payments",
+        "inspector-general findings and recoveries"
+      ],
+      "sources": [
+        {
+          "label": "MTA Inspector General",
+          "url": "https://mtaig.ny.gov/"
+        },
+        {
+          "label": "Port Authority report fraud and procurement concerns",
+          "url": "https://www.panynj.gov/port-authority/en/help-center/oig/report-fraud-help-oig.html"
+        }
+      ]
+    },
+    {
+      "id": "interests",
+      "title": "Did donors, vendors or powerful investors benefit?",
+      "ask": "Were there financial ties to awarded vendors or decision-makers, and is the timing tied to a verified decision?",
+      "needed": [
+        "beneficial owners and corporate subsidiaries",
+        "campaign filings and lobbying disclosures",
+        "public contract ID and purchasing decision",
+        "documented conflict and enforcement outcome"
+      ],
+      "sources": [
+        {
+          "label": "FEC filings",
+          "url": "https://www.fec.gov/data/"
+        },
+        {
+          "label": "USAspending awards",
+          "url": "https://www.usaspending.gov/search"
+        },
+        {
+          "label": "Federal DOT Inspector General",
+          "url": "https://www.oig.dot.gov/investigations"
+        }
+      ]
+    },
+    {
+      "id": "fare-impact",
+      "title": "Did the problem actually raise a fare?",
+      "ask": "What contract cost flowed into which budget, and did the rate-setting body identify that cost in the adopted fare or toll decision?",
+      "needed": [
+        "matched contract and audited excess cost",
+        "agency budget treatment of cost",
+        "rate-model line item",
+        "rider exposure and dated fare table"
+      ],
+      "sources": [
+        {
+          "label": "FTA National Transit Database",
+          "url": "https://www.transit.dot.gov/ntd"
+        },
+        {
+          "label": "DOT OIG investigations",
+          "url": "https://www.oig.dot.gov/investigations"
+        }
+      ]
+    }
+  ],
+  "examples": [
+    {
+      "id": "amtrak-kickbacks",
+      "name": "Amtrak renovation contract kickbacks",
+      "place": "Philadelphia, PA",
+      "dated": "2026-07-17",
+      "status": "civil_resolution_and_guilty_pleas",
+      "source": "https://www.oig.dot.gov/library-item/47323",
+      "finding": "DOT OIG reported a $7,257,232 civil resolution with a contractor and its owner following kickbacks, prior guilty pleas by executives, and more than $2 million in improper Amtrak contract billing.",
+      "publicDollars": 2000000,
+      "amountMeaning": "More than $2 million improperly billed to Amtrak, not a passenger cost calculation.",
+      "unproven": "No direct dollar effect on any passenger ticket price has been measured; not a local subway or road toll case."
+    },
+    {
+      "id": "mbta-warehousing",
+      "name": "MBTA warehousing contract overpayments",
+      "place": "Boston, MA",
+      "dated": "2026-09-17",
+      "status": "auditor_finding",
+      "source": "https://maoig.gov/resource/oig-finds-that-the-mbta-overpaid-for-warehousing-and-logistics-contract/",
+      "finding": "Massachusetts OIG found MBTA reduced a vendor's contractual obligations without reducing the paid contract rates and inadequately monitored performance in earlier years.",
+      "publicDollars": null,
+      "amountMeaning": "No amount asserted here because the linked summary does not provide a comparable verified total.",
+      "unproven": "Poor contract oversight is evidenced; fraud, bribery and a fare increase caused by this contract are not established by this audit."
+    },
+    {
+      "id": "mta-procurement",
+      "name": "MTA procurement conflict disclosed by Inspector General",
+      "place": "New York, NY",
+      "dated": "2025",
+      "status": "inspector_general_reported_misconduct",
+      "source": "https://mtaig.ny.gov/Pages/IGMessageNew.aspx",
+      "finding": "The MTA Inspector General described an inappropriate relationship between an MTA procurement officer and a vendor sales agent associated with millions of dollars in purchases.",
+      "publicDollars": null,
+      "amountMeaning": "The Inspector General's summary does not quantify any resulting extra passenger fare.",
+      "unproven": "Do not infer a particular agency fare increase or a company-specific overcharge from the summary alone."
+    },
+    {
+      "id": "mbta-overtime-charges",
+      "name": "MBTA track-inspection and overtime allegations",
+      "place": "Boston, MA",
+      "dated": "2026-07-10",
+      "status": "charged_allegations",
+      "source": "https://www.oig.dol.gov/public/Press%20Releases/OIG-OI-Press-Release-071026_3.htm",
+      "finding": "Federal authorities charged current and former MBTA employees over alleged falsified Red Line track inspection reports and fraudulent overtime.",
+      "publicDollars": null,
+      "amountMeaning": "No adjudicated total household cost.",
+      "unproven": "Charges are allegations; defendants are presumed innocent. No fare impact has been substantiated."
+    }
+  ],
+  "scope": "Cases are illustrative nationwide transportation governance investigations, not accusations about the fare or toll operator a visitor actually uses. No implied corruption based only on a rate increase.",
+  "sources": [
+    {
+      "label": "Transportation watchdog investigations",
+      "url": "https://www.oig.dot.gov/investigations"
+    },
+    {
+      "label": "Port Authority OIG complaint guidelines",
+      "url": "https://www.panynj.gov/port-authority/en/help-center/oig/report-fraud-help-oig.html"
+    },
+    {
+      "label": "MTA Office of Inspector General",
+      "url": "https://mtaig.ny.gov/"
+    }
+  ]
+}
