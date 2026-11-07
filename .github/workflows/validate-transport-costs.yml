@@ -9,6 +9,12 @@ on:
       - "platform/unified/personal-cost-explorer.js"
       - "data/place-impact/transport-fares-v1.json"
       - "data/place-impact/transport-accountability-v1.json"
+      - "platform/unified/transport-value-ezpass.js"
+      - "platform/unified/transport-toll-penalties.js"
+      - "data/place-impact/transport-value-audit-v1.json"
+      - "data/place-impact/ezpass-value-audit-v1.json"
+      - "data/place-impact/toll-penalties-v1.json"
+      - "tests/test_transport_value_penalties.py"
       - "tests/test_transport_costs.py"
       - "tests/test_personal_cost_explorer.py"
       - "tests/test_cost_benchmark_story.py"
@@ -34,6 +40,8 @@ jobs:
           python-version: "3.11"
       - name: Transport rate, scenario and accountability regression checks
         run: python -m unittest discover -s tests -p 'test_transport_costs.py' -v
+      - name: Tolling value and unpaid-penalty regression checks
+        run: python -m unittest discover -s tests -p 'test_transport_value_penalties.py' -v
       - name: Personal travel-expense regression checks
         run: python -m unittest discover -s tests -p 'test_personal_cost_explorer.py' -v
       - name: Benchmark-first flow regression checks
@@ -42,4 +50,6 @@ jobs:
         run: |
           node --check platform/unified/cost-benchmark-story.js
           node --check platform/unified/transport-cost-story.js
+          node --check platform/unified/transport-value-ezpass.js
+          node --check platform/unified/transport-toll-penalties.js
           node --check platform/unified/personal-cost-explorer.js
