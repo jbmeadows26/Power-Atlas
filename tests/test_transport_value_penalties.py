@@ -145,10 +145,14 @@ class TransportationTransparencyTests(unittest.TestCase):
         self.assertIn("window.PowerAtlasTollPenalty?.render()",self.transport_js)
         self.assertIn('transport-value-ezpass.js?v=',self.page)
         self.assertIn('transport-toll-penalties.js?v=',self.page)
-        self.assertIn(".tp-stages",self.page)
+        self.assertIn(".tp-static-cards",self.page)
         self.assertIn(".tv-value-grid",self.page)
-        self.assertIn("not your liability",self.pen_js.lower())
+        self.assertIn("not actual local toll rates or money owed",self.pen_js.lower())
         self.assertIn("feePerNotice",self.pen_js)
+        self.assertIn("STANDARD_TOLL=5",self.pen_js)
+        self.assertIn("operators().map(card)",self.pen_js)
+        self.assertNotIn('<input',self.pen_js)
+        self.assertIn("previewCards(options",self.value_js)
         self.assertIn("window.PowerAtlasGetBenchmarkContext",self.pen_js)
         for value in (self.value_js,self.pen_js):
             for forbidden in ("localStorage","sessionStorage","sendBeacon","navigator.geolocation"):
