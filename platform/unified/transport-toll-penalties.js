@@ -71,6 +71,8 @@ function bind(root){
   }else if(x.id==="tp-agency"){
    if(!operatorList().some(a=>a.id===x.value))return;
    operator=x.value;render();
+  }else if(x.id==="tp-count"||x.id==="tp-amount"){
+   render();
   }
  });
  root.addEventListener("input",e=>{
@@ -88,8 +90,8 @@ function bind(root){
  });
 }
 function setRegion(newRegion){
- if(manualRegion||!data)return;
- const group=data.groups.find(g=>g.id===newRegion);
+ if(manualRegion)return;
+ const group=(data?.groups||[{id:"NYNJ"},{id:"CHI"},{id:"OTHER"}]).find(g=>g.id===newRegion);
  if(group&&region!==group.id){region=group.id;operator=null;render();}
 }
 function setContext(c){
@@ -101,12 +103,12 @@ function setContext(c){
  else region=next;
 }
 async function init(){
- const root=document.getElementById("transportPenaltyPanel");if(!root)return;
+ if(!document.getElementById("benchmarkStory"))return;
  try{
   const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("HTTP "+r.status);
   const j=await r.json();if(j.schema!=="power-atlas.toll-penalties.v1"||!Array.isArray(j.operators))throw Error("Unexpected schema");
   data=j;
-  if(typeof window.PowerAtlasGetBenchmarkContext==="function")setContext(window.PowerAtlasGetBenchmarkContext());
+  if(typeof window.PowerAtlasGetBenchmarkContext==="function"&&region==="OTHER")setContext(window.PowerAtlasGetBenchmarkContext());
   else render();
  }catch(err){
   root.innerHTML='<div class="tp-error"><strong>Unpaid-toll fee schedule unavailable.</strong><p>Do not rely on a generic penalty estimate. Contact the original toll authority shown on the notice.</p>'+link("https://www.e-zpassny.com/tbm/no-pay","NY official fees ↗")+link("https://agency.illinoistollway.com/ves","Illinois official fees ↗")+'</div>';
