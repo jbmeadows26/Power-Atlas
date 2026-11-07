@@ -91,11 +91,18 @@ function build(){
  '</div><p class="ts-note">The optional vehicle amount is a fixed ownership cost, not an additional toll or transit fare. Only subtract a documented congestion credit if the selected peak/overnight zone charge actually qualifies.</p></div>'+
  '<div class="ts-output" aria-live="polite" id="ts-output"><strong>Choose a fare, toll or expense to see a monthly scenario.</strong></div>'+
  '<div class="ts-links">'+region.sources.map(u=>ext(u,"Official fare/toll source ↗")).join("")+'</div>'+
+ '<section id="transportValuePanel" class="tv-outer" aria-label="Fare increases versus service reliability and infrastructure delivery"><h4>Fare increases vs service quality</h4><p>Loading verified agency performance…</p></section>'+
+ '<section id="transportEZPanel" class="tv-outer" aria-label="E-ZPass tolling billing accuracy and road infrastructure accountability"><h4>E-ZPass and road infrastructure</h4><p>Loading independent audits…</p></section>'+
+ '<section id="transportPenaltyPanel" class="tp-outer" aria-label="Unpaid toll penalties, late fees and consumer protections"><h4>Unpaid toll penalties</h4><p>Loading official penalty rules…</p></section>'+
  renderAccountability()+
  '<p class="ts-source-note"><strong>Method:</strong> '+escapeHTML(fares.disclosure)+' Month is modeled as 52 weeks ÷ 12, not precisely four weeks. National BLS transportation spending below is a separate survey average, not the sum of this scenario.</p>';
  root.dataset.region=region.id;root.dataset.ready="1";
  if(root.dataset.bound!=="1"){bind(root);root.dataset.bound="1";}
  updateTotals(root);
+ window.PowerAtlasTransportValue?.setRegion(state.region);
+ window.PowerAtlasTransportValue?.render();
+ window.PowerAtlasTollPenalty?.setRegion(state.region);
+ window.PowerAtlasTollPenalty?.render();
 }
 function totals(){
  const reg=selectedRegion();
@@ -194,6 +201,10 @@ function bind(root){
 function setContext(context){
  context=context||{};
  geo={stateCode:context.stateCode||null,zip:context.zip||null};
+ if(!userRegion){
+  window.PowerAtlasTransportValue?.setContext(context);
+  window.PowerAtlasTollPenalty?.setContext(context);
+ }
  if(!userRegion&&fares){
   const implied=regionByState(geo.stateCode);
   if(state.region!==implied){state.region=implied;inputsReset();}
