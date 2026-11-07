@@ -7,6 +7,8 @@
 const BASE="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/place-impact/";
 const FARES_URL=BASE+"transport-fares-v1.json";
 const WATCH_URL=BASE+"transport-accountability-v1.json";
+const BASELINES_URL=BASE+"transport-baselines-v1.json";
+let baselines=null;
 const REGIONS=["NYNJ","CHI","OTHER"];
 const money=n=>Number(n||0).toLocaleString("en-US",{style:"currency",currency:"USD",minimumFractionDigits:2,maximumFractionDigits:2});
 const safe=n=>Number.isFinite(n)&&n>=0?n:0;
@@ -71,39 +73,67 @@ function renderAccountability(){
  '<div class="ts-cases">'+examples+'</div><p class="ts-case-limit">No example shown assigns a dollar amount of misconduct to a household fare. Political giving, an ownership stake, or a costly contract alone cannot establish bribery or a causal price effect.</p>'+
  '<div class="ts-links">'+watch.sources.map(x=>ext(x.url,x.label+" ↗")).join("")+'</div></section>';
 }
+
+function baselineRecord(row){
+ const list=row.fareSourceId?fares.fares:fares.tolls;
+ const match=list.find(x=>x.id===(row.fareSourceId||row.tollSourceId));
+ if(!match||!Number.isFinite(match.price))return null;
+ const perWeek=baselines.method.standardWorkweekDays*(row.group==="transit"?baselines.method.transitPaidFaresPerWorkday:baselines.method.tolledTripsPerWorkday);
+ const perMonth=baselines.method.annualWorkweeks/baselines.method.months;
+ const weekly=perWeek*match.price;
+ const paidWeekly=row.capMethod==="weekly_cap"&&match.capWeekly!=null?Math.min(weekly,match.capWeekly):weekly;
+ return {match,monthly:paidWeekly*perMonth,perWeek};
+}
+function baselineRow(row){
+ const v=baselineRecord(row);
+ if(!v)return '<article class="ts-base-line"><h5>'+escapeHTML(row.short)+'</h5><p class="ts-note">A comparable official price is not published in this snapshot.</p></article>';
+ let other=v.match.monthlyPass?'<span class="ts-base-sub">Separate 30-day pass: <strong>'+money(v.match.monthlyPass)+'</strong> (not the same averaging period)</span>':"";
+ return '<article class="ts-base-line" data-baseline-id="'+escapeHTML(row.id)+'">'+
+ '<div class="ts-base-line-top"><h5>'+escapeHTML(row.short)+'</h5><strong>'+money(v.match.price)+'<small>/charge</small></strong></div>'+
+ '<div class="ts-base-result"><strong>'+money(v.monthly)+'</strong><span>standardized monthly illustration</span></div>'+
+ '<p>'+escapeHTML(row.tripType)+'</p>'+other+
+ '<p class="ts-note">'+escapeHTML(row.shortNote)+' </p><div class="ts-links">'+ext(v.match.source,"Official current rate ↗")+'</div></article>';
+}
+function baselineRegion(region){
+ const id=region.id;
+ const items=region.rows.map(baselineRow);
+ const transitRows=items.filter((_,i)=>region.rows[i].group==="transit");
+ const tollRows=items.filter((_,i)=>region.rows[i].group==="toll");
+ const gap=(region.missing||[]).map(x=>'<li>'+escapeHTML(x)+'</li>').join("");
+ return '<section class="ts-base-region" data-region="'+escapeHTML(id)+'"><div class="ts-base-region-head"><h5>'+escapeHTML(region.name)+'</h5><p>'+escapeHTML(region.summary)+'</p></div>'+
+ (transitRows.length?'<h6>Public transit · published base fare</h6><div class="ts-base-grid">'+transitRows.join("")+'</div>':"")+
+ (tollRows.length?'<h6>Bridge, tunnel and zone charges · published toll</h6><div class="ts-base-grid">'+tollRows.join("")+'</div>':"")+
+ '<details class="ts-base-gaps"><summary>What these published figures cannot establish</summary><ul>'+gap+'</ul></details></section>';
+}
 function build(){
  const root=document.getElementById("transportCostStory");if(!root)return;
- if(!available()){
-  root.innerHTML='<h4>1 · Real transit fares, tolls and the cost of commuting</h4><p class="ts-note">Loading official-source transport rates and independent accountability findings…</p>';return;
+ if(!available()||!baselines){
+  root.innerHTML='<h4>Transportation baselines from original fare and toll tables</h4><p class="ts-note">Loading source-backed regional price comparisons…</p>';return;
  }
- let region=selectedRegion(),fareItems=eligibleItems(region.fareIds,fares.fares),tollItems=eligibleItems(region.tollIds,fares.tolls);
- root.innerHTML='<div class="ts-heading"><span class="bs-eyebrow">Commute costs · actual charges</span><h4>1 · What does getting there really cost?</h4><p>Subways, commuter rail, buses, bridge and tunnel tolls, congestion charges, parking and fuel can all add up. Select only the costs your trip actually incurs.</p></div>'+
- '<div class="ts-top"><label class="ts-regionlabel">Fare examples for <select id="ts-region" aria-label="Select region of your actual trip">'+fares.regions.map(r=>'<option value="'+escapeHTML(r.id)+'"'+(region.id===r.id?" selected":"")+'>'+escapeHTML(r.name)+'</option>').join("")+'</select></label>'+
- '<label class="ts-dayslabel">Commute days per week <input id="ts-days" type="number" inputmode="numeric" min="1" max="7" step="1" value="'+state.days+'" aria-label="Commute days per week"></label></div>'+
- '<p class="ts-note">Region suggested by state when available, but <strong>not a detected route</strong>. A ZIP cannot identify which agency, crossing, transfer or discounted pass you actually use. All options begin unselected. <strong>Check a charge to enter how often you pay it.</strong></p>'+
- '<div class="ts-picker-grid">'+sourceSection("Subway, bus, rail and other fares",fareItems,"fares")+sourceSection("Road tolls and congestion charges",tollItems,"tolls")+'</div>'+
- '<div class="ts-expenses"><h5>Other real costs</h5><div class="ts-expense-grid">'+
- field("Parking","parking","$/commute day",1000,"0.01")+
- field("Fuel / charging","fuel","$/commute day",1000,"0.01")+
- field("Other trip expenses","other","$/month",20000,"0.01")+
- field("Vehicle loan, insurance and upkeep (optional)","vehicle","$/month",20000,"0.01")+
- field("Eligible congestion credit (optional)","congestionCredit","$/commute day",100,"0.01")+
- '</div><p class="ts-note">The optional vehicle amount is a fixed ownership cost, not an additional toll or transit fare. Only subtract a documented congestion credit if the selected peak/overnight zone charge actually qualifies.</p></div>'+
- '<div class="ts-output" aria-live="polite" id="ts-output"><strong>Choose a fare, toll or expense to see a monthly scenario.</strong></div>'+
- '<div class="ts-links">'+region.sources.map(u=>ext(u,"Official fare/toll source ↗")).join("")+'</div>'+
- '<section id="transportValuePanel" class="tv-outer" aria-label="Fare increases versus service reliability and infrastructure delivery"><h4>Fare increases vs service quality</h4><p>Loading verified agency performance…</p></section>'+
- '<section id="transportEZPanel" class="tv-outer" aria-label="E-ZPass tolling billing accuracy and road infrastructure accountability"><h4>E-ZPass and road infrastructure</h4><p>Loading independent audits…</p></section>'+
- '<section id="transportPenaltyPanel" class="tp-outer" aria-label="Unpaid toll penalties, late fees and consumer protections"><h4>Unpaid toll penalties</h4><p>Loading official penalty rules…</p></section>'+
+ const current=baselines.regions.find(x=>x.id===state.region)||baselines.regions.find(x=>x.id==="OTHER");
+ const showing=current.id==="OTHER"?baselines.regions.filter(x=>x.id!=="OTHER"):[current];
+ const national=baselines.national;
+ root.innerHTML='<div class="ts-heading"><span class="bs-eyebrow">Published transportation baseline · no personal input required</span>'+
+ '<h4>1 · What does transportation actually cost?</h4><p>Compare official ticket prices, toll charges and independently reviewed service outcomes—not a calculator that asks you to guess. A ZIP only helps identify relevant authorities; it never decides your route or what you personally paid.</p></div>'+
+ '<div class="ts-national-baseline"><div><span class="ts-national-kicker">U.S. mean transport spending · '+escapeHTML(national.label.split(", ").slice(-1)[0])+'</span>'+
+ '<strong>'+money(national.monthly)+'<small>/month</small></strong><p>'+escapeHTML(national.unit)+'</p></div>'+
+ '<p>'+escapeHTML(national.warning)+'</p>'+ext(national.source,"BLS Consumer Expenditure Survey ↗")+'</div>'+
+ '<div class="ts-method"><strong>Comparable commuter baseline:</strong> 5 weekdays/week, 2 paid transit rides/day <em>or</em> 1 charged toll crossing/day; annualized using 52 ÷ 12. These are separate example expenses, <strong>not a combined itinerary, local average or quote</strong>. Passes, waivers, transfers, congestion credits, parking, fuel and eligibility can change actual totals.</div>'+
+ (current.id==="OTHER"?'<p class="ts-base-location">No local operator has been identified from a verified ZIP. The NY/NJ and Chicago numbers below are <strong>regional reference examples, not your local fares</strong>.</p>':
+ '<p class="ts-base-location">Relevant state-level rate references for '+escapeHTML(current.name)+'. A ZIP does not establish a specific transit line or toll crossing.</p>')+
+ showing.map(baselineRegion).join("")+
+ '<section id="transportValuePanel" class="tv-outer" aria-label="Published fare increases versus service reliability and infrastructure delivery"><h4>2 · Did higher fares deliver better service?</h4><p>Loading independent outcomes and public capital data…</p></section>'+
+ '<section id="transportEZPanel" class="tv-outer" aria-label="E-ZPass toll revenue billing accuracy and road infrastructure delivery"><h4>3 · Where does E-ZPass money go?</h4><p>Loading state and authority records…</p></section>'+
+ '<section id="transportPenaltyPanel" class="tp-outer" aria-label="Official unpaid toll fees and collections baseline"><h4>4 · How much can an unpaid toll cost?</h4><p>Loading published penalty schedules…</p></section>'+
  renderAccountability()+
- '<p class="ts-source-note"><strong>Method:</strong> '+escapeHTML(fares.disclosure)+' Month is modeled as 52 weeks ÷ 12, not precisely four weeks. National BLS transportation spending below is a separate survey average, not the sum of this scenario.</p>';
- root.dataset.region=region.id;root.dataset.ready="1";
- if(root.dataset.bound!=="1"){bind(root);root.dataset.bound="1";}
- updateTotals(root);
+ '<p class="ts-source-note"><strong>Scope:</strong> '+escapeHTML(baselines.method.disclosure)+' Every price carries a link to its issuing agency. No data from a personally entered spending worksheet are used here.</p>';
+ root.dataset.region=state.region;root.dataset.ready="1";
  window.PowerAtlasTransportValue?.setRegion(state.region);
  window.PowerAtlasTransportValue?.render();
  window.PowerAtlasTollPenalty?.setRegion(state.region);
  window.PowerAtlasTollPenalty?.render();
 }
+
 function totals(){
  const reg=selectedRegion();
  const days=Math.max(1,Math.min(7,Math.round(Number(state.days)||5)));
@@ -214,10 +244,10 @@ function setContext(context){
 async function init(){
  if(!document.getElementById("benchmarkStory"))return;
  try{
-  const [a,b]=await Promise.all([fetch(FARES_URL,{cache:"no-store"}),fetch(WATCH_URL,{cache:"no-store"})]);
-  if(!a.ok||!b.ok)throw Error("missing source");
-  [fares,watch]=await Promise.all([a.json(),b.json()]);
-  if(!available())throw Error("unexpected data schema");
+  const [a,b,c]=await Promise.all([fetch(FARES_URL,{cache:"no-store"}),fetch(WATCH_URL,{cache:"no-store"}),fetch(BASELINES_URL,{cache:"no-store"})]);
+  if(!a.ok||!b.ok||!c.ok)throw Error("missing source");
+  [fares,watch,baselines]=await Promise.all([a.json(),b.json(),c.json()]);
+  if(!available()||baselines.schema!=="power-atlas.transport-baselines.v1")throw Error("unexpected data schema");
   if(typeof window.PowerAtlasGetBenchmarkContext==="function")setContext(window.PowerAtlasGetBenchmarkContext());
   else build();
  }catch(e){
