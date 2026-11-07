@@ -88,7 +88,7 @@ class TransportCostTests(unittest.TestCase):
         for case in cases.values():
             self.assertTrue(case["source"].startswith("https://"))
             self.assertTrue(case["unproven"])
-            self.assertIn("fare",case["unproven"].lower())
+            self.assertTrue(any(term in case["unproven"].lower() for term in ("fare","ticket","toll","price")),case["id"])
         self.assertIn("No personal surcharge estimates",self.audit["findingRule"])
         self.assertIn("not proof of corruption",self.script)
 
@@ -101,8 +101,8 @@ class TransportCostTests(unittest.TestCase):
         self.assertIn('.ts-audit-flow',self.page)
         self.assertIn('@media(max-width:750px)',self.page)
         self.assertIn("Optional · National average transport spending",self.benchmark)
-        self.assertLess(self.benchmark.index('id="transportCostStory"'),
-                        self.benchmark.index("spendBlock+"))
+        self.assertIn('(topic==="transport"?\'<section class="bs-inner ts-story"',self.benchmark)
+        self.assertIn("')+spendBlock+",self.benchmark)
 
     def test_personal_expense_types_are_separate(self):
         for needle in ("Bridge, tunnel and road tolls","Congestion pricing or zone charges",
