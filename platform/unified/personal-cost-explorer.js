@@ -13,6 +13,7 @@ var SOURCES={
  wage:"https://www.dol.gov/agencies/whd",
  education:"https://nces.ed.gov/ccd/schoolsearch/",
  transport:"https://www.transit.dot.gov/ntd",
+ tolls:"https://www.fhwa.dot.gov/ipd/tolling_and_pricing/",
  taxes:"https://www.irs.gov/filing",
  government:"https://www.usa.gov/state-local-governments",
  election:"https://www.fec.gov/data/"
@@ -77,14 +78,21 @@ var TOPICS={
  part("activities","Clubs, tutoring and activities","Services & choices","Program availability, instructor costs, fees and transport needs.","Program providers and schools.","Compare free school, library and community options where suitable.","education",true)
  ]},
  transport:{
- title:"Getting around",intro:"Compare the complete cost of getting where you need to go. A lower monthly fare may not outweigh time, access or lost reliability.",
- caution:"Do not count car costs or transit already counted as work expenses. Alternatives must preserve accessibility, essential trips and safety.",
+ title:"Getting around",intro:"Enter each charge you really pay, including subway fares, tolls, congestion fees and parking. This worksheet is optional; the fare and toll benchmarks above are source-backed.",
+ caution:"Count only fares actually charged (eligible transfers and passes can lower them). Some crossings charge one direction only. Do not count travel costs again under Work or in the trip-cost model; preserve accessibility and essential trips.",
  parts:[
- part("vehicle","Vehicle payment or lease","Finance & manufacturer pricing","Vehicle price, financing rate, dealer terms and contract duration.","Manufacturers, dealers and lenders.","Compare total financing costs, not just a lower monthly payment.","bls",true),
- part("fuel","Fuel or charging","Fuel & consumption","Energy prices, miles driven, vehicle efficiency and charging tariffs.","Energy suppliers, retailers and tax authorities.","Compare trip consolidation, fuel unit costs and real charging access.","bls",true),
- part("insure","Vehicle insurance","Insurance market","Driving history, coverage, local claims, state rules and insurer pricing.","Insurers and state insurance regulators.","Compare like-for-like coverage, limits and deductibles.","bls",true),
- part("upkeep","Maintenance, parking and tolls","Services & infrastructure","Repairs, labor rates, parking supply, tolls and local policy.","Repair businesses and local authorities.","Check preventive maintenance and suitable route/parking alternatives.","bls",true),
- part("transit","Public transit or rideshare fares","Public funding & platform","Fare structures, service networks, wages and platform pricing.","Transit authorities and transport platforms.","Compare passes and realistic route coverage.","transport",true)
+ part("vehicle","Vehicle payment or lease","Finance & manufacturer pricing","Vehicle prices, financing rates, dealer terms and contract duration.","Manufacturers, dealers, lenders and investors.","Compare full finance and purchase costs, not only a monthly payment.","bls",true),
+ part("fuel","Gasoline or charging","Global energy & usage","Fuel markets, taxes, miles driven, car efficiency, electricity and charging prices.","Fuel producers, retailers, utilities and energy regulators.","Compare trip consolidation, real energy usage and actual charging fees.","bls",true),
+ part("insure","Car insurance","Insurance market","Local loss history, coverage, driving history, state rules and insurer pricing.","Insurers, shareholders and state insurance regulators.","Compare equivalent protections, limits and deductibles.","bls",true),
+ part("upkeep","Repairs and vehicle maintenance","Services & labor","Vehicle age, parts imports, labor costs, dealer maintenance plans and repair competition.","Parts manufacturers, repair chains, dealers and independent mechanics.","Compare itemized repair estimates and preventive maintenance.","bls",true),
+ part("tolls","Bridge, tunnel and road tolls","Infrastructure & public revenue","Crossing direction, toll operator, vehicle class, account registration, peak time and toll board decisions.","Toll authorities, road operators and government boards.","Compare legitimate routes, times and qualifying E-ZPass options.","tolls",true),
+ part("congestion","Congestion pricing or zone charges","Local transport policy","Congestion-zone boundaries, charging times, vehicle type, exemptions and toll-credit rules.","Municipal and regional road-pricing authorities.","Check whether your actual route enters the zone and qualifies for discounts.","tolls",true),
+ part("parking","Parking, meters and garages","Land & local rules","Space supply, location, operator pricing, public permits and monthly garage contracts.","Parking operators, property owners and city parking authorities.","Compare legal parking alternatives and total commute time.","government",true),
+ part("subway","Subway or metro fares","Agency fares & transfers","Base fare, transfer rules, income or age eligibility, caps and pass discounts.","Transit agencies, public boards and governments.","Check actual paid taps, free transfers and weekly fare caps.","transport",true),
+ part("bus","Local and express bus fares","Transit policy & routes","Fare class, local versus express service, zone, transfers and season passes.","Transit agencies, public boards and contracted operators.","Compare combined fare products and verified transit routes.","transport",true),
+ part("rail","Commuter rail and regional trains","Fares & service zones","Peak versus off-peak tickets, fare zones, passes, subsidies and public funding.","Rail operators, transit authorities and state budget bodies.","Check route-specific fare schedules and commuter benefits.","transport",true),
+ part("ferry","Ferry, shuttle or other connection","Service and geography","Route monopolies, operating costs, capacity, fares and public subsidies.","Ferry operators, port authorities and contracting agencies.","Compare full trip combinations including separate ferry fares.","transport",true),
+ part("rideshare","Taxi, rideshare and micromobility","Platform pricing and regulation","Driver supply, surge pricing, booking charges, toll pass-through, and public rules.","Taxi operators, mobility platforms and regulators.","Compare a fare quote inclusive of all fees and tips with feasible alternatives.","transport",true)
  ]},
  "public-services":{
  title:"Taxes & local services",intro:"Taxes are paid under different jurisdictions and programs. This worksheet is a payment tracker—not a calculation of your legal tax liability or the value of services received.",
