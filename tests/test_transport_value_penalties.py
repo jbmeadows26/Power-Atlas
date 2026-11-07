@@ -110,7 +110,7 @@ class TransportationTransparencyTests(unittest.TestCase):
         self.assertEqual(route390["late"]["feePerTxn"],1.5)
         self.assertEqual(route390["third"]["feePerTxn"],4)
         self.assertEqual(route390["violation"]["feePerTxn"],14)
-        self.assertIn("excluded",ops["il-standard"]["limit"])
+        self.assertIn("No extra $50",ops["il-standard"]["limit"])
         self.assertTrue(std["collections"]["unknownFurtherFees"])
         self.assertIn("I-PASS Assist",ops["il-standard"]["relief"])
 
@@ -132,7 +132,7 @@ class TransportationTransparencyTests(unittest.TestCase):
             self.assertTrue(op["limit"])
             for st in op["stageDefinitions"]:
                 if st.get("unknownFurtherFees"):
-                    self.assertIn("collections",st["id"])
+                    self.assertIn(st["id"],("collections","late"))
         self.assertIn("No collections costs",self.pen["rules"][5])
         self.assertIn("additional post-order",self.pen["rules"][6])
         self.assertIn("revenue-sharing",self.pen["financialWatch"][1]["description"])
