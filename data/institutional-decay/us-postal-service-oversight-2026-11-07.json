@@ -1,0 +1,97 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-evidence.v1",
+  "asOf": "2026-11-07",
+  "scope": "USPS service standards and independent federal audit, United States",
+  "sources": [
+    {
+      "id": "gao-26-108527",
+      "url": "https://www.gao.gov/products/gao-26-108527",
+      "published": "2026-09-17",
+      "authority": "United States Government Accountability Office",
+      "license": "US federal government report text generally public domain; no third-party graphics or copyrighted attachments reproduced; facts summarized with attribution"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gao-usps-first-class-standard-extension-2021",
+      "source": "gao-26-108527",
+      "geography": "United States",
+      "period": "2021-10",
+      "value": 1,
+      "upperBound": 2,
+      "unit": "additional_days_range",
+      "measure": "Additional expected delivery days for certain First-Class Mail products after air-to-ground shift",
+      "population": "Certain First-Class Mail products affected by revised USPS standards; not all mail",
+      "evidenceClass": "official_audit",
+      "note": "Range of 1–2 days; service standard, not measured actual delivery time."
+    },
+    {
+      "id": "gao-usps-post-offices-collection-change-2025",
+      "source": "gao-26-108527",
+      "geography": "United States",
+      "period": "2025-04",
+      "value": 24000,
+      "unit": "greater_than_count",
+      "measure": "Post offices more than 50 miles from regional center affected by elimination of end-of-day or afternoon collection",
+      "population": "USPS post offices more than 50 miles from a Regional Processing and Delivery Center",
+      "evidenceClass": "official_audit",
+      "note": "GAO says over 24,000; lower bound, not an exact count."
+    },
+    {
+      "id": "gao-usps-air-transport-expense-reduction-fy2024",
+      "source": "gao-26-108527",
+      "geography": "United States",
+      "period": "FY2024",
+      "value": 640000000,
+      "unit": "approximate_USD",
+      "measure": "USPS-reported reduction in air transportation expenses",
+      "population": "USPS air transportation expenses, fiscal year 2024",
+      "evidenceClass": "official_audit",
+      "note": "Agency estimate reported by GAO; not net savings or total operating cost."
+    },
+    {
+      "id": "gao-usps-air-transport-expense-reduction-fy2025",
+      "source": "gao-26-108527",
+      "geography": "United States",
+      "period": "FY2025",
+      "value": 435000000,
+      "unit": "approximate_USD",
+      "measure": "USPS-reported reduction in air transportation expenses",
+      "population": "USPS air transportation expenses, fiscal year 2025",
+      "evidenceClass": "official_audit",
+      "note": "Agency estimate reported by GAO; do not sum as net fiscal benefit."
+    }
+  ],
+  "events": [
+    {
+      "id": "gao-usps-standards-change-2021-10",
+      "date": "2021-10",
+      "source": "gao-26-108527",
+      "event": "USPS revised expected delivery standards for certain First-Class Mail by one to two days",
+      "status": "objective_service_record",
+      "note": "A published standards change, not proof of any particular delivery delay."
+    },
+    {
+      "id": "gao-usps-collection-change-2025-04",
+      "date": "2025-04",
+      "source": "gao-26-108527",
+      "event": "USPS eliminated end-of-day or afternoon collection at more than 24,000 distant post offices",
+      "status": "objective_service_record",
+      "note": "Reported in later GAO audit; impacts differ by location."
+    },
+    {
+      "id": "gao-usps-audit-2026-09-17",
+      "date": "2026-09-17",
+      "source": "gao-26-108527",
+      "event": "GAO published audit finding USPS missed most lowered performance targets since FY2021 and recommended clearer improvement planning",
+      "status": "official_audit",
+      "note": "USPS agreed with recommendation; recommendation remained open on cited GAO page. No misconduct or trust effect inferred."
+    }
+  ],
+  "causality": "GAO attributes some service slowdowns to specific operational changes; no inference about individual wrongdoing or causal changes in public trust.",
+  "limitations": [
+    "Different standards and actual on-time performance are not interchangeable.",
+    "GAO findings include other contributing factors; financial effects do not establish net savings.",
+    "No citizen-level trust outcomes joined."
+  ]
+}
