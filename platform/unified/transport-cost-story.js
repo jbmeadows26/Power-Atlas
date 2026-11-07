@@ -40,7 +40,7 @@ function line(item,kind){
  const rate=getCostFor(item,overrides);
  const name=item.label;
  const priceLabel=item.price===null?"Enter actual fare":money(item.price);
- return '<div class="ts-line" data-transport-item="'+escapeHTML(item.id)+'">'+
+ return '<div class="ts-line'+(active?" is-active":"")+'" data-transport-item="'+escapeHTML(item.id)+'">'+
   '<label class="ts-pick"><input type="checkbox" data-toggle="'+kind+'" data-id="'+escapeHTML(item.id)+'"'+(active?' checked':'')+'><span class="ts-name">'+escapeHTML(name)+'</span></label>'+
   '<div class="ts-price"><strong>'+escapeHTML(priceLabel)+'</strong> <span>'+escapeHTML(item.unit)+'</span></div>'+
   (item.price===null?'<label class="ts-price-entry">Actual $ per charge <input type="number" inputmode="decimal" min="0" max="10000" step=".01" value="'+(overrides[item.id]||"")+'" placeholder="Enter fare" data-override="'+kind+'" data-id="'+escapeHTML(item.id)+'"></label>':'')+
@@ -80,7 +80,7 @@ function build(){
  root.innerHTML='<div class="ts-heading"><span class="bs-eyebrow">Commute costs · actual charges</span><h4>1 · What does getting there really cost?</h4><p>Subways, commuter rail, buses, bridge and tunnel tolls, congestion charges, parking and fuel can all add up. Select only the costs your trip actually incurs.</p></div>'+
  '<div class="ts-top"><label class="ts-regionlabel">Fare examples for <select id="ts-region" aria-label="Select region of your actual trip">'+fares.regions.map(r=>'<option value="'+escapeHTML(r.id)+'"'+(region.id===r.id?" selected":"")+'>'+escapeHTML(r.name)+'</option>').join("")+'</select></label>'+
  '<label class="ts-dayslabel">Commute days per week <input id="ts-days" type="number" inputmode="numeric" min="1" max="7" step="1" value="'+state.days+'" aria-label="Commute days per week"></label></div>'+
- '<p class="ts-note">Region suggested by state when available, but <strong>not a detected route</strong>. A ZIP cannot identify which agency, crossing, transfer or discounted pass you actually use. All options begin unselected.</p>'+
+ '<p class="ts-note">Region suggested by state when available, but <strong>not a detected route</strong>. A ZIP cannot identify which agency, crossing, transfer or discounted pass you actually use. All options begin unselected. <strong>Check a charge to enter how often you pay it.</strong></p>'+
  '<div class="ts-picker-grid">'+sourceSection("Subway, bus, rail and other fares",fareItems,"fares")+sourceSection("Road tolls and congestion charges",tollItems,"tolls")+'</div>'+
  '<div class="ts-expenses"><h5>Other real costs</h5><div class="ts-expense-grid">'+
  field("Parking","parking","$/commute day",1000,"0.01")+
@@ -119,7 +119,9 @@ function totals(){
  if(mta.length>1)warnings.push("Mixed local and express-bus OMNY cap rules are not modeled. Verify actual weekly charges.");
  const congestion=tollItems.filter(x=>/^nyc-congestion/.test(x.id));
  tollItems.forEach(item=>{
-  const count=Math.min(20,Math.max(0,Number(state.tollCounts[item.id]??1)));
+  const askedCount=Math.min(20,Math.max(0,Number(state.tollCounts[item.id]??1)));
+  const count=/^nyc-congestion/.test(item.id)?Math.min(1,askedCount):askedCount;
+  if(/^nyc-congestion/.test(item.id)&&askedCount>1)warnings.push("Congestion-zone passenger vehicle toll is capped at once per day for the modeled charge.");
   let unit=getCostFor(item,state.tollOverrides);
   let charged=unit*count*days*perMonth;
   if(/^nyc-congestion/.test(item.id)&&state.congestionCredit>0){
@@ -168,6 +170,7 @@ function bind(root){
     if(group){Object.keys(state.tolls).forEach(k=>{if(exclusiveToll(k)===group)state.tolls[k]=false});}
    }
    state[kind][id]=el.checked;
+   el.closest(".ts-line")?.classList.toggle("is-active",Boolean(el.checked));
    if(kind==="tolls"&&el.checked&&exclusiveToll(id))build();else updateTotals(root);
   }
  });
