@@ -313,7 +313,7 @@
         "period": "2025",
         "scope": "U.S. average consumer unit"
       },
-      "intro": "Transport includes vehicle purchase outlays, running costs and transit. Price changes and a household choosing a different vehicle are not the same thing.",
+      "intro": "Transportation costs are route specific: subway and commuter rail fares, tolls (which may apply only one way), congestion charges, parking and fuel can all be paid on the same trip. The national spending total is not a typical commute price.",
       "slices": [
         [
           "Vehicle purchases, net outlay",
@@ -332,7 +332,7 @@
           1199
         ]
       ],
-      "localNote": "A Census ZIP-area share of transit commuters does not measure fares or an individual's commute.",
+      "localNote": "A ZIP-area commute mode share does not reveal actual tolls, fare zones, passes or travel routes. Source-backed regional examples are selectable; there is no automatic route or price inference.",
       "drivers": [
         {
           "label": "Vehicle prices and finance",
@@ -354,9 +354,23 @@
           "who": "Transit agencies, elected budget authorities and operators",
           "choice": "Compare available routes, passes and time reliability before deciding.",
           "source": "https://www.transit.dot.gov/ntd"
+        },
+        {
+          "label": "Tolls, subway fares and transportation policy",
+          "why": "Public authorities approve fares and tolls using published budgets, service obligations, debt and capital plans. Different agencies charge separately and transfer, payment-method and discount rules determine what riders actually pay.",
+          "who": "Transit boards, bridge/tunnel authorities, public finance officials, elected lawmakers and commuters",
+          "choice": "Check each published fare and toll, charged direction and eligibility for caps, passes or credits, then compare all-in travel choices.",
+          "source": "https://www.mta.info/document/186881"
+        },
+        {
+          "label": "Procurement waste, vendor influence and corruption oversight",
+          "why": "Weak contract controls, conflicts or corruption can increase public project and operating expenses. An auditor finding, prosecution or donation does not itself establish that any particular fare or toll increase was caused by the problem.",
+          "who": "Transit procurement teams, contractors, investors, inspectors general, regulators and boards",
+          "choice": "Trace audited contract payments, procurement decisions, public oversight findings and the rate-setting budget before assigning cost responsibility.",
+          "source": "https://maoig.gov/resource/oig-finds-that-the-mbta-overpaid-for-warehousing-and-logistics-contract/"
         }
       ],
-      "disclaimer": "Components differ by $2 from the rounded category total in the BLS table; no separate household price is estimated."
+      "disclaimer": "National BLS transportation expenses combine cars and transit, but do not identify the cost of a specific commuting route. Transit charges, tolls and corruption cases are sourced separately; neither contract waste nor a political relationship is equated with a household price increase without documented causation."
     },
     "public-services": {
       "title": "Taxes & local services",
