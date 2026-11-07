@@ -1,0 +1,473 @@
+{
+  "schema": "power-atlas.toll-penalties.v1",
+  "asOf": "2026-11-07",
+  "objective": "Show how an unpaid toll can escalate into invoicing fees, violations, collections and registration risk, without inventing a driver-specific legal obligation or assuming the route from a ZIP.",
+  "rules": [
+    "Penalty types, units and grace periods differ by toll authority, not by where the driver lives or where their E-ZPass tag was issued.",
+    "Example amounts are illustrations: they do not establish that a specific person owes a penalty.",
+    "A $5 NY Tolls by Mail late charge is per bill, not per toll. A New York Thruway $50 violation charge is per notice, not per transaction.",
+    "A first-time waiver is conditional, not automatically awarded, and a proven inadvertent NJ Turnpike violation may qualify for administrative-fee waiver.",
+    "E-ZPass/I-PASS account balance, vehicle class, license-plate match, toll plaza and agency notices determine the actual liability.",
+    "No collections costs, attorney fees, late-interest additions, registration reinstatement charges, or suspended pilot fines are synthesized where not documented.",
+    "Show the adopted Illinois standard $20 violation fine separately from the $50 additional post-order fine, which is suspended or under a pilot subject to verification.",
+    "Never direct a user to an unsolicited toll-payment text; use the original agency's official portal and keep notices for dispute or appeal.",
+    "Collection-contract incentives are an investigative policy question, not proof of corruption; fees do not necessarily finance infrastructure."
+  ],
+  "groups": [
+    {
+      "id": "NYNJ",
+      "name": "New York / New Jersey",
+      "states": [
+        "NY",
+        "NJ"
+      ],
+      "operatorIds": [
+        "ny-mta",
+        "ny-panynj",
+        "ny-thruway",
+        "nj-turnpike"
+      ]
+    },
+    {
+      "id": "CHI",
+      "name": "Illinois / Chicago",
+      "states": [
+        "IL"
+      ],
+      "operatorIds": [
+        "il-standard",
+        "il390"
+      ]
+    },
+    {
+      "id": "OTHER",
+      "name": "Other operators",
+      "states": [],
+      "operatorIds": []
+    }
+  ],
+  "operators": [
+    {
+      "id": "ny-mta",
+      "region": "NYNJ",
+      "name": "MTA Bridges & Tunnels / NYC congestion toll bills",
+      "issuer": "Tolls by Mail New York",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "First toll bill",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "30 days to pay the toll. No late fee."
+        },
+        {
+          "id": "late",
+          "name": "Second bill / overdue",
+          "feePerTxn": 0,
+          "feePerBill": 5,
+          "feePerNotice": 0,
+          "description": "A $5 late charge is applied to the second bill; allow an additional 30 days."
+        },
+        {
+          "id": "violation",
+          "name": "Violation notice",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$50 violation fee per unpaid MTA toll transaction, on top of the unpaid toll. The prior $5 second-bill late fee is not added a second time in this illustration."
+        },
+        {
+          "id": "collections",
+          "name": "Collections / registration risk",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "unknownFurtherFees": true,
+          "description": "Unresolved violations can be referred to collections; vehicle registration suspension, revocation or renewal holds may apply. Additional actual costs cannot be calculated here."
+        }
+      ],
+      "sources": [
+        "https://www.e-zpassny.com/tbm/no-pay",
+        "https://www.mta.info/tolls"
+      ],
+      "nuance": "MTA bridge/tunnel and congestion-zone bills are not subway fares; this penalty table must never be applied to unpaid transit fares.",
+      "relief": "Check the actual notice number and vehicle/plate record in the official Tolls by Mail or E-ZPass violation portal; dispute mismatched plates or eligible tag-account errors.",
+      "limit": "Illustrates one bill when a per-bill charge appears. The actual agency notice controls."
+    },
+    {
+      "id": "ny-panynj",
+      "region": "NYNJ",
+      "name": "Port Authority NY/NJ bridges and tunnels",
+      "issuer": "Tolls by Mail New York / Port Authority",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "First toll bill",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "30 days to pay, without a late charge."
+        },
+        {
+          "id": "late",
+          "name": "Overdue second bill",
+          "feePerTxn": 0,
+          "feePerBill": 5,
+          "feePerNotice": 0,
+          "description": "$5 on the second Tolls by Mail bill; not per toll transaction."
+        },
+        {
+          "id": "violation",
+          "name": "Violation notice",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$50 per unpaid crossing. Port Authority says it waives the fee on a first-time failure to pay if the toll is paid within 15 days of the violation notice."
+        },
+        {
+          "id": "collections",
+          "name": "Collections / registration risk",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "unknownFurtherFees": true,
+          "description": "Unresolved violations can move into collections, civil remedies and registration suspension processes; amounts vary."
+        }
+      ],
+      "sources": [
+        "https://www.e-zpassny.com/tbm/no-pay",
+        "https://www.panynj.gov/bridges-tunnels/en/bridges-and-tunnels-faq-.html"
+      ],
+      "nuance": "The Port Authority's separate first-time waiver applies only if the required conditions are met. A missed tag read is not automatically intentional evasion.",
+      "relief": "For a first-time violation, check whether paying within 15 days makes the administrative fee waivable. For a tag misread, contact the E-ZPass account issuer with tag number and notice.",
+      "limit": "A conditional first-time waiver is not automatically applied to the model because its eligibility is unknown."
+    },
+    {
+      "id": "ny-thruway",
+      "region": "NYNJ",
+      "name": "New York State Thruway / NY State Bridge Authority",
+      "issuer": "Tolls by Mail New York",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "First toll bill",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "The first bill has no late fee and normally allows 30 days."
+        },
+        {
+          "id": "late",
+          "name": "Second overdue bill",
+          "feePerTxn": 0,
+          "feePerBill": 5,
+          "feePerNotice": 0,
+          "description": "$5 late fee per bill (not per toll)."
+        },
+        {
+          "id": "violation",
+          "name": "Violation notice",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 50,
+          "description": "$50 per violation notice, not per transaction. This example assumes the selected transactions were grouped on one notice."
+        },
+        {
+          "id": "collections",
+          "name": "Collections / registration risk",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 50,
+          "unknownFurtherFees": true,
+          "description": "Unpaid violations can go to collections. NY Thruway says failing to respond to three notices of violation within five years may lead to NY DMV registration suspension."
+        }
+      ],
+      "sources": [
+        "https://www.thruway.ny.gov/cashless-tolling/about-cashless-tolling",
+        "https://www.e-zpassny.com/tbm/no-pay"
+      ],
+      "nuance": "NY Thruway and State Bridge Authority may each have different notice dates; verify your bill and do not multiply a per-notice fee by transaction count.",
+      "relief": "Check official Thruway/Tolls by Mail bills, plate imagery and the toll payer advocate before the stated deadline.",
+      "limit": "One notice is assumed for the illustration; multiple actual notices can increase per-notice fees."
+    },
+    {
+      "id": "nj-turnpike",
+      "region": "NYNJ",
+      "name": "NJ Turnpike / Garden State Parkway",
+      "issuer": "NJ E-ZPass / NJ Turnpike Authority",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "Unpaid toll",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "You owe the actual toll. Check the NJ E-ZPass notification and bill deadline."
+        },
+        {
+          "id": "late",
+          "name": "Late toll bill",
+          "feePerTxn": null,
+          "feePerBill": null,
+          "feePerNotice": null,
+          "unknownFurtherFees": true,
+          "description": "NJ E-ZPass states late toll-bill charges can apply, but an exact comparable statewide amount is not established here; refer to the notice."
+        },
+        {
+          "id": "violation",
+          "name": "NJTA violation",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "NJTA regulation generally provides a $50 administrative fee per violation. If the owner establishes an inadvertent violation, only the toll is required."
+        },
+        {
+          "id": "collections",
+          "name": "Collections / NJ MVC registration risk",
+          "feePerTxn": 50,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "unknownFurtherFees": true,
+          "description": "Eligibility for registration-suspension proceedings can arise with at least $500 unpaid tolls/fees over 3 years, 6 qualifying unpaid violations, or breach of a payment arrangement. It is not an automatic suspension."
+        }
+      ],
+      "sources": [
+        "https://regulations.justia.com/states/new-jersey/title-19/new-jersey-turnpike-authority/chapter-9/subchapter-9/section-19-9-9-2/",
+        "https://www.ezpassnj.com/en/about/faqs.shtml",
+        "https://www.law.cornell.edu/regulations/new-jersey/N-J-A-C-16-3-5-1",
+        "https://enforcement.ezpassnj.com/s/"
+      ],
+      "nuance": "$500 or six violations are enforcement thresholds, not per-toll fees. The exact invoice and legal procedures control eligibility and any hearing rights.",
+      "relief": "Check if the violation was inadvertent, the license plate was misread, the tag was active, or the vehicle had changed owners. Preserve supporting records and respond by the published deadline.",
+      "limit": "A $50 fee may be waived if the inadvertent-violation exception is proven; the model shows the non-waived regulatory amount only."
+    },
+    {
+      "id": "il-standard",
+      "region": "CHI",
+      "name": "Illinois Tollway · standard corridors",
+      "issuer": "Illinois Tollway / I-PASS",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "third",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "Within 14 days",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "Pay via I-PASS or Pay By Plate within 14 days of travel to avoid invoice fees."
+        },
+        {
+          "id": "late",
+          "name": "Initial invoice (around day 30)",
+          "feePerTxn": 3,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$3 per unpaid passenger-car toll, plus the original toll."
+        },
+        {
+          "id": "third",
+          "name": "Third invoice (around day 90)",
+          "feePerTxn": 8,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "The original $3 fee plus an additional $5 per toll. The second invoice around day 60 has no further added fee."
+        },
+        {
+          "id": "violation",
+          "name": "Notice of violation (around day 120)",
+          "feePerTxn": 28,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "The $3 initial invoice fee + $5 third-notice fee + $20 standard per-toll violation fine, subject to notice and adjudication."
+        },
+        {
+          "id": "collections",
+          "name": "Final order / collections risk",
+          "feePerTxn": 28,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "unknownFurtherFees": true,
+          "description": "Collection and registration consequences may follow. A separate $50 post-order escalated fine exists in regulation, but 2026 Tollway materials proposed extending a suspension pilot through June 30, 2027; it is excluded pending verified board action."
+        }
+      ],
+      "sources": [
+        "https://agency.illinoistollway.com/ves",
+        "https://agency.illinoistollway.com/invoices",
+        "https://www.ilga.gov/agencies/JCAR/EntirePart?titlepart=09202520",
+        "https://illinoistollway.granicus.com/player/clip/919?redirect=true&view_id=1"
+      ],
+      "nuance": "Vehicle tier 1 on standard Illinois Tollway corridors. Commercial vehicle tiers have different initial fees. IL Route 390 is modeled separately.",
+      "relief": "Use Pay By Plate within 14 days. Dispute mismatched plate images or non-liability with evidence; request a hearing after violation notice. Check I-PASS Assist for income-based invoice fee dismissal.",
+      "limit": "Illustrative only. No extra $50 regulatory escalated fine added: suspension-pilot adoption through 2027 requires verification."
+    },
+    {
+      "id": "il390",
+      "region": "CHI",
+      "name": "Illinois Route 390 · I-PASS / Pay By Plate",
+      "issuer": "Illinois Tollway",
+      "kind": "agency_stage",
+      "verifiedAsOf": "2026-11-07",
+      "stageOrder": [
+        "first",
+        "late",
+        "third",
+        "violation",
+        "collections"
+      ],
+      "stageDefinitions": [
+        {
+          "id": "first",
+          "name": "Within 14 days",
+          "feePerTxn": 0,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "Pay within 14 days to avoid invoice fees."
+        },
+        {
+          "id": "late",
+          "name": "Initial invoice (around day 30)",
+          "feePerTxn": 1.5,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$1.50 per unpaid standard passenger toll on Illinois Route 390."
+        },
+        {
+          "id": "third",
+          "name": "Third invoice (around day 90)",
+          "feePerTxn": 4,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$1.50 initial fee plus $2.50 added third-invoice fee."
+        },
+        {
+          "id": "violation",
+          "name": "Notice of violation (around day 120)",
+          "feePerTxn": 14,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "description": "$1.50 + $2.50 invoice fees and $10 Route 390 per-toll violation fine; other tollways differ."
+        },
+        {
+          "id": "collections",
+          "name": "Collections / registration risk",
+          "feePerTxn": 14,
+          "feePerBill": 0,
+          "feePerNotice": 0,
+          "unknownFurtherFees": true,
+          "description": "Separate $25 post-order escalated fine exists in regulation and was subject to the pilot suspension; it is not computed here."
+        }
+      ],
+      "sources": [
+        "https://agency.illinoistollway.com/invoices",
+        "https://www.ilga.gov/agencies/JCAR/EntirePart?titlepart=09202520",
+        "https://illinoistollway.granicus.com/player/clip/919?redirect=true&view_id=1"
+      ],
+      "nuance": "Illinois Route 390 is an exception to standard corridor invoicing and violation fee amounts.",
+      "relief": "Pay by Plate within 14 days, or dispute with official Tollway evidence and check I-PASS Assist.",
+      "limit": "Verify notice and current status of escalated fines; the example excludes unverified subsequent amounts."
+    }
+  ],
+  "rights": [
+    {
+      "region": "NYNJ",
+      "id": "verify",
+      "title": "Verify the issuing agency and toll",
+      "description": "Check date, crossing or plaza, plate and vehicle class against the official Tolls by Mail/E-ZPass bill. MTA, Thruway, Port Authority and NJTA have different per-transaction or per-notice fees.",
+      "source": "https://www.e-zpassny.com/tbm/no-pay"
+    },
+    {
+      "region": "NYNJ",
+      "id": "waiver",
+      "title": "Ask about the right fee waiver",
+      "description": "Port Authority describes a 15-day first-time waiver; NJTA has an inadvertent-violation exception. Ask using the correct issuer's policy; neither is automatic.",
+      "source": "https://www.panynj.gov/bridges-tunnels/en/bridges-and-tunnels-faq-.html"
+    },
+    {
+      "region": "CHI",
+      "id": "grace",
+      "title": "Use the 14-day grace period",
+      "description": "Illinois Pay By Plate lets you pay within 14 days and avoid added invoices. Check exact date and vehicle class.",
+      "source": "https://agency.illinoistollway.com/customer-service-faqs?topic=unpaid_tolls"
+    },
+    {
+      "region": "CHI",
+      "id": "dispute",
+      "title": "Dispute image or responsibility",
+      "description": "Illinois offers photo-image disputes, a sworn non-liability affidavit and hearing requests. I-PASS Assist offers eligible relief and invoice fee dismissal.",
+      "source": "https://agency.illinoistollway.com/invoices"
+    },
+    {
+      "region": "OTHER",
+      "id": "local",
+      "title": "Use your own toll authority",
+      "description": "Rules differ by toll road and jurisdiction. Check original agency notice, grace period, available payment plan and formal appeal rights. No fee amount is inferred from ZIP.",
+      "source": "https://www.fhwa.dot.gov/ipd/tolling_and_pricing/"
+    }
+  ],
+  "financialWatch": [
+    {
+      "title": "Fines are not infrastructure spending",
+      "description": "Administrative charges may cover billing, collections or enforcement; they are not automatically earmarked for road improvement. Trace collected dollars into audited budgets and project completions.",
+      "source": "https://agency.illinoistollway.com/ves"
+    },
+    {
+      "title": "Collections contractors and incentives",
+      "description": "The Illinois Tollway June 2026 agenda lists a renewal for Professional Account Management LLC and a revenue-sharing description. The agenda is not proof of a completed renewal or misconduct; inspect the adopted contract and payment data.",
+      "source": "https://illinoistollway.granicus.com/player/clip/919?redirect=true&view_id=1",
+      "status": "board_agenda"
+    },
+    {
+      "title": "Enforcement fairness",
+      "description": "Compare fees per unpaid toll, complaint/reversal rates, tag-read failures, total collections by agent, fees waived, and time to appeal. Without them, a higher penalty total proves neither effective enforcement nor fraud.",
+      "source": "https://www.osc.ny.gov/state-agencies/audits/2025/09/23/selected-aspects-toll-collections"
+    },
+    {
+      "title": "Registration as a high-stakes consequence",
+      "description": "NJ thresholds and Illinois enforcement procedures depend on history and notice. Verify the exact registration status and applicable procedures using the actual authority, not a simulated dollar amount.",
+      "source": "https://www.law.cornell.edu/regulations/new-jersey/N-J-A-C-16-3-5-1"
+    }
+  ],
+  "privacy": "Only the toll amount, transaction count, operator and selected notice stage are entered into the browser. Values are not transmitted to Power Atlas or stored in the account.",
+  "comparison": "Illustrative totals assume one bill and one violation notice for the modeled transactions where fees are per bill or notice. They exclude any unknown or legally disputed amounts."
+}
