@@ -51,7 +51,7 @@ class TransportationBaselineTests(unittest.TestCase):
         self.assertEqual(m["transitPaidFaresPerWorkday"],2)
         self.assertEqual(m["tolledTripsPerWorkday"],1)
         self.assertIn("NOT a combined commute",m["disclosure"])
-        self.assertIn("Passes",m["important"])
+        self.assertIn("monthly pass",m["important"])
 
     def test_monthly_reference_arithmetic_and_fare_caps(self):
         fare={r["id"]:r for r in self.rates["fares"]}
