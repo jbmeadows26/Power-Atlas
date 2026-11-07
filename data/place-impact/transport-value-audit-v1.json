@@ -1,0 +1,439 @@
+{
+  "schema": "power-atlas.transport-value-audit.v1",
+  "asOf": "2026-11-07",
+  "purpose": "Compare rider price increases with agency service quality, state-of-good-repair delivery and audited spending using dated, comparable source series. A fare rise alone is not evidence of corruption.",
+  "rules": [
+    "Do not label a proposed increase as adopted or an authorized capital plan as delivered infrastructure.",
+    "Separate operating revenue and spending from multi-year capital authorization, commitments, cash outlays and completed projects.",
+    "Compare service reliability only on the same metric, agency, service type and period; report year labels and methodology.",
+    "A 2025 service result cannot test the consequences of a fare change that begins in 2026.",
+    "An aggregate bus or rail indicator cannot establish the experience on a user's particular route, station, or commute.",
+    "A decline in service, high contractor cost or donor relationship does not alone demonstrate corruption or a price effect.",
+    "A large capital allocation is neither a cash expenditure nor a project completion. Commitments are legally binding obligations, not service improvements.",
+    "If verified fare trend, service outcome or capital execution evidence is missing, show a data gap rather than a fake performance score."
+  ],
+  "agencies": [
+    {
+      "id": "nyct",
+      "name": "NYC subway and local bus",
+      "area": "NYC and northern New Jersey",
+      "region": "NYNJ",
+      "operator": "Metropolitan Transportation Authority / New York City Transit",
+      "type": "Transit",
+      "headline": "Subway punctuality improved, but a large repair program still has a delivery gap.",
+      "rating": "mixed",
+      "ratingBasis": "2024–2025 weekday subway punctuality improved. The 2026 fare increase took effect after this outcome period; capital commitments remain materially below new five-year allocation.",
+      "fares": [
+        {
+          "name": "Subway/local bus full fare",
+          "before": 2.9,
+          "after": 3,
+          "oldDate": "2023-08-20",
+          "newDate": "2026-01-04",
+          "cadence": "Fare rose in 2023 and again in January 2026; not annually in this example.",
+          "status": "adopted",
+          "source": "https://www.mta.info/document/186881"
+        }
+      ],
+      "performance": [
+        {
+          "id": "weekday-subway-otp",
+          "name": "Weekday subway terminal on-time performance",
+          "older": 81.62,
+          "newer": 83.7,
+          "olderPeriod": "2024 calendar year",
+          "newerPeriod": "2025 calendar year",
+          "unit": "percent",
+          "higherIsBetter": true,
+          "sourceOlder": "https://www.mta.info/document/168286",
+          "sourceNewer": "https://apps.cio.ny.gov/apps/mediacontact/public/view.cfm?parm=3EE4C7B3-EA11-E480-C864E7E6E9B4EFA7_50EF745D-DCC1-FF40-63656C0B38550288",
+          "periodComparable": true,
+          "method": "MTA weekday terminal on-time performance; 2025 agency statement rounds to 1 decimal.",
+          "interpretation": "About 16.3% of 2025 weekday trains did not reach the terminal on time; performance varies by line and time of day. Both measurements precede the January 2026 fare increase."
+        }
+      ],
+      "capital": [
+        {
+          "id": "2025-29-plan",
+          "label": "2025–2029 capital plan",
+          "authorizedBillions": 68.4,
+          "committedBillions": 7.5,
+          "committedAsOf": "2026-04-02",
+          "scope": "Entire MTA system, not just NYC subway",
+          "allocationSource": "https://capitaldashboard.mta.info/budget-overview",
+          "commitmentSource": "https://www.osc.ny.gov/press/releases/2026/05/state-comptroller-dinapolis-annual-report-mta-debt-highlights-progress-capital-investments-and-debt",
+          "warning": "Plan allocation is not money spent. $7.5B committed as of April 2026 is not $7.5B of finished infrastructure. The program runs through 2029."
+        }
+      ],
+      "concerns": [
+        {
+          "name": "Maintenance contributes to existing delays",
+          "finding": "NY State Comptroller reported that 31% of 2024 subway delays involved infrastructure/equipment and 25% involved planned maintenance.",
+          "status": "independent_audit",
+          "source": "https://www.osc.ny.gov/files/reports/pdf/report-10-2026.pdf",
+          "warning": "Not every infrastructure-related delay is caused by a failure to invest; planned work may cause short-term disruption."
+        }
+      ],
+      "nextMeasures": [
+        "2026 weekday on-time performance after fare increase",
+        "service interruptions and track speed restrictions by line",
+        "accessible stations and elevator availability",
+        "capital program cash spending and completed signal, fleet, station projects",
+        "contract-level payment and audit records"
+      ],
+      "action": "Compare your actual line’s on-time trend with the MTA board's fare decision and the independently tracked project schedule.",
+      "sources": [
+        {
+          "label": "MTA live capital commitments dashboard",
+          "url": "https://capitaldashboard.mta.info/budget-overview"
+        },
+        {
+          "label": "MTA performance metrics",
+          "url": "https://metrics.mta.info/"
+        },
+        {
+          "label": "NY State Comptroller debt and capital analysis",
+          "url": "https://www.osc.ny.gov/press/releases/2026/05/state-comptroller-dinapolis-annual-report-mta-debt-highlights-progress-capital-investments-and-debt"
+        }
+      ]
+    },
+    {
+      "id": "njt",
+      "name": "NJ Transit rail and bus",
+      "area": "New Jersey",
+      "region": "NYNJ",
+      "operator": "New Jersey Transit",
+      "type": "Transit",
+      "headline": "Fares rose while both reported systemwide rail and bus punctuality were lower than FY2023.",
+      "rating": "measured_deterioration",
+      "ratingBasis": "FY2023 versus FY2025 published systemwide on-time performance fell. Fare increases began July 2024. Neither comparison alone identifies the cause.",
+      "fares": [
+        {
+          "name": "Systemwide fare adjustment",
+          "before": 100,
+          "after": 115,
+          "oldDate": "Before 2024-07-01",
+          "newDate": "2024-07-01",
+          "cadence": "15% adjustment; indexed to a base of 100, not an actual ticket amount. Separate 3% annual adjustments scheduled starting July 2025.",
+          "status": "adopted",
+          "source": "https://www.njtransit.com/press-releases/nj-transit-set-begin-public-hearings-fare-adjustment-proposal",
+          "displayUnit": "index",
+          "warning": "Initial public-hearing notice is a proposal source; the 2026 board budget separately confirms the 3% fare increase scheduled for July 2026."
+        },
+        {
+          "name": "Scheduled annual percentage adjustment",
+          "before": null,
+          "after": 3,
+          "oldDate": "",
+          "newDate": "2026-07-01",
+          "cadence": "Proposed/assumed by 2026 budget: 3% in July 2026, with similar annual adjustments anticipated; route prices and rounding vary.",
+          "status": "budget_assumption",
+          "source": "https://content.njtransit.com/sites/default/files/board/agenda/NJT-04-15-2026-FINAL-BOARD-MEETING-AGENDA-V2.pdf",
+          "displayUnit": "percentage"
+        }
+      ],
+      "performance": [
+        {
+          "id": "rail-otp",
+          "name": "Systemwide rail on-time performance",
+          "older": 92.1,
+          "newer": 89.2,
+          "olderPeriod": "FY2023",
+          "newerPeriod": "FY2025",
+          "unit": "percent",
+          "higherIsBetter": true,
+          "sourceOlder": "https://www.njtransit.com/wyba",
+          "sourceNewer": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/2025NJ_TRANSIT_AnnualReportCombined_Final.pdf",
+          "periodComparable": true,
+          "method": "NJ Transit systemwide rail OTP (all delay causes), reported in its FY2023 progress summary and FY2025 annual report.",
+          "interpretation": "A 2.9-percentage-point deterioration, despite fare adjustments in the intervening period. Amtrak-owned infrastructure, weather, fleet and scheduling may also influence the outcome."
+        },
+        {
+          "id": "bus-otp",
+          "name": "Systemwide bus on-time performance",
+          "older": 94,
+          "newer": 91,
+          "olderPeriod": "FY2023",
+          "newerPeriod": "FY2025",
+          "unit": "percent",
+          "higherIsBetter": true,
+          "sourceOlder": "https://www.njtransit.com/wyba",
+          "sourceNewer": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/2025NJ_TRANSIT_AnnualReportCombined_Final.pdf",
+          "periodComparable": true,
+          "method": "NJ Transit published FY2023 and FY2025 bus on-time performance.",
+          "interpretation": "A decline of 3 percentage points; weather, traffic, staffing and fleet reliability may affect results. Station-specific performance requires a separate route-level series."
+        }
+      ],
+      "capital": [],
+      "concerns": [
+        {
+          "name": "FY2027 operating-budget pressure",
+          "finding": "NJ Transit’s April 2026 board documents projected an 11% increase in expenditures, citing labor, services, materials and supplies; the 3% fare increase was expected to offset farebox revenue below forecast.",
+          "status": "agency_budget_claim",
+          "source": "https://content.njtransit.com/sites/default/files/board/agenda/NJT-04-15-2026-FINAL-BOARD-MEETING-AGENDA-V2.pdf",
+          "warning": "This is the agency budget rationale, not an independent verification of efficiency or the performance consequences of the increase."
+        }
+      ],
+      "nextMeasures": [
+        "Verified by-route OTP and cancellations before/after each increase",
+        "actual capital spending and station/track asset condition by project",
+        "fare revenue growth versus operating costs and riders carried",
+        "avoidable delays by NJ Transit versus Amtrak infrastructure",
+        "project bid prices, amendments and inspector-general findings"
+      ],
+      "action": "Use NJ Transit's downloadable route-level performance tables and match them to a specific fare change, not a systemwide claim about every trip.",
+      "sources": [
+        {
+          "label": "NJT route and system performance downloads",
+          "url": "https://www.njtransit.com/performance-data-download"
+        },
+        {
+          "label": "NJT 2025 annual performance report",
+          "url": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/2025NJ_TRANSIT_AnnualReportCombined_Final.pdf"
+        },
+        {
+          "label": "NJT board FY2027 budget rationale",
+          "url": "https://content.njtransit.com/sites/default/files/board/agenda/NJT-04-15-2026-FINAL-BOARD-MEETING-AGENDA-V2.pdf"
+        }
+      ]
+    },
+    {
+      "id": "path",
+      "name": "PATH rail",
+      "area": "New York and New Jersey",
+      "region": "NYNJ",
+      "operator": "Port Authority of New York and New Jersey",
+      "type": "Transit",
+      "headline": "Scheduled fare increases accompany promised service and infrastructure investment; delivery needs verification.",
+      "rating": "delivery_unverified",
+      "ratingBasis": "Public 2026–2035 capital plan and PATH fare schedule are available, but no comparable, fully validated before-and-after route reliability series was obtained.",
+      "fares": [
+        {
+          "name": "PATH single ride",
+          "before": 3,
+          "after": 3.25,
+          "oldDate": "Before 2026-05-03",
+          "newDate": "2026-05-03",
+          "cadence": "$0.25 fare increase in 2026, with further planned $0.25 steps through 2029.",
+          "status": "adopted",
+          "source": "https://www.panynj.gov/path/en/fares.html"
+        }
+      ],
+      "performance": [],
+      "capital": [
+        {
+          "id": "2026-35-path-plan",
+          "label": "Planned PATH investment, 2026–2035",
+          "authorizedBillions": 2.6,
+          "committedBillions": null,
+          "committedAsOf": null,
+          "scope": "PATH-only planned allocations in the Port Authority capital plan",
+          "allocationSource": "https://www.panynj.gov/content/dam/corporate/public-hearings-pdfs/PANYNJ_CapitalPlan2026-2035.pdf",
+          "commitmentSource": null,
+          "warning": "A 10-year allocation is not a completion record. Number of added trains, weekend frequency, and updated accessible stations must be checked as projects are delivered."
+        }
+      ],
+      "concerns": [
+        {
+          "name": "Subsidy context",
+          "finding": "The Port Authority says PATH fares cover approximately 25% of operating cost per ride, with the balance subsidized. The announced fare increases accompany plans for more frequent weekday and weekend service.",
+          "status": "agency_claim",
+          "source": "https://www.panynj.gov/port-authority/en/press-room/press-release-archives/2025-press-releases/port-authority-proposes-record--45-billion-capital-plan-for-2026.html?_sp=8d5fe1a1-cb33-4812-9e5e-bc2dfcdfaea3",
+          "warning": "The farebox cost-recovery percentage comes from the agency and is not evidence of outcomes."
+        }
+      ],
+      "nextMeasures": [
+        "PATH actual trains/hour by day and station",
+        "end-to-end travel-time reliability and unplanned outages",
+        "delivered versus promised weekend service increases",
+        "capital commitments, cash outlays and completed station renewal work",
+        "operating subsidies and farebox recovery over time"
+      ],
+      "action": "Compare the published PATH timetable and actual service against the 2026–2035 capital plan, then check whether each fare increase delivered the promised additional train service.",
+      "sources": [
+        {
+          "label": "PATH fare history and passes",
+          "url": "https://www.panynj.gov/path/en/fares.html"
+        },
+        {
+          "label": "Port Authority 2026–2035 investment plan",
+          "url": "https://www.panynj.gov/content/dam/corporate/public-hearings-pdfs/PANYNJ_CapitalPlan2026-2035.pdf"
+        }
+      ]
+    },
+    {
+      "id": "panynj",
+      "name": "Port Authority bridges and tunnels",
+      "area": "NY/NJ crossings",
+      "region": "NYNJ",
+      "operator": "Port Authority of New York and New Jersey",
+      "type": "Tolls",
+      "headline": "Automatic toll adjustments are documented; promised infrastructure value needs crossing-level delivery evidence.",
+      "rating": "delivery_unverified",
+      "ratingBasis": "2026 budget explains revenue and annual CPI adjustments, and capital plan lists bridge/tunnel work; actual crossing-by-crossing improvements require dated completed-project and travel-time indicators.",
+      "fares": [
+        {
+          "name": "Peak auto E-ZPass CPI adjustment",
+          "before": null,
+          "after": 0.48,
+          "oldDate": "",
+          "newDate": "2026-01-04",
+          "cadence": "Additional $0.48 peak-auto CPI adjustment from 2025 rate, alongside previously authorized fixed toll adjustments. This is the increment, not the full toll price.",
+          "status": "adopted_increment",
+          "displayUnit": "delta_usd",
+          "source": "https://www.panynj.gov/content/dam/corporate/financial-statements-pdfs/financial-statements-2025.pdf"
+        }
+      ],
+      "performance": [],
+      "capital": [
+        {
+          "id": "2026-35-tunnels",
+          "label": "Port Authority TB&T plan allocation, 2026–2035",
+          "authorizedBillions": 15.4,
+          "committedBillions": null,
+          "scope": "Bridges, tunnels and bus terminal, including approximately $11B for a Midtown Bus Terminal; not a crossing-only maintenance budget",
+          "allocationSource": "https://www.panynj.gov/content/dam/corporate/public-hearings-pdfs/PANYNJ_CapitalPlan2026-2035.pdf",
+          "commitmentSource": null,
+          "warning": "The $15.4B category includes a major bus terminal and multiple projects; it cannot be treated as spending on a particular bridge or tunnel."
+        }
+      ],
+      "concerns": [
+        {
+          "name": "2026 toll revenue forecast",
+          "finding": "The 2026 Port Authority budget projects about $2.3B in bridge-and-tunnel toll revenue, $123M or 5.8% above the 2025 budget, from several factors including CPI adjustments.",
+          "status": "agency_budget_projection",
+          "source": "https://www.portauthoritybuilds.com/content/dam/corporate/budgets-pdfs/2026-budget.pdf",
+          "warning": "Projected revenues are not proof of realized cash collection or a completed road improvement."
+        }
+      ],
+      "nextMeasures": [
+        "Crossing-specific travel time, incident rates and closures",
+        "bridge and tunnel inspection deficiencies resolved",
+        "capital contract awards, completion certificates and approved change orders",
+        "toll revenue allocated to specific facilities versus cross-subsidies",
+        "cost per project and auditor recommendations"
+      ],
+      "action": "Compare each toll-setting vote with the specific crossing’s published capital commitments, completed repairs and travel-time trends.",
+      "sources": [
+        {
+          "label": "Port Authority tolls and published policy",
+          "url": "https://www.panynj.gov/bridges-tunnels/en/tolls.html"
+        },
+        {
+          "label": "Port Authority 2026 budget",
+          "url": "https://www.portauthoritybuilds.com/content/dam/corporate/budgets-pdfs/2026-budget.pdf"
+        },
+        {
+          "label": "Port Authority multi-year capital plan",
+          "url": "https://www.panynj.gov/content/dam/corporate/public-hearings-pdfs/PANYNJ_CapitalPlan2026-2035.pdf"
+        }
+      ]
+    },
+    {
+      "id": "cta",
+      "name": "Chicago CTA buses and trains",
+      "area": "Chicago / nearby Illinois",
+      "region": "CHI",
+      "operator": "Chicago Transit Authority",
+      "type": "Transit",
+      "headline": "CTA fares did not increase every year; the agency retained its base fare through 2026.",
+      "rating": "fare_flat_performance_gap",
+      "ratingBasis": "Agency's 2026 fare schedule retained base fares; independent yearly performance-to-spending matching needs more detailed time series.",
+      "fares": [
+        {
+          "name": "CTA standard 'L' rail fare",
+          "before": 2.5,
+          "after": 2.5,
+          "oldDate": "2018",
+          "newDate": "2026",
+          "cadence": "Unchanged base rail fare from 2018 through 2026; a 2025 proposed 2026 fare hike was not adopted.",
+          "status": "adopted",
+          "source": "https://www.transitchicago.com/fares/"
+        }
+      ],
+      "performance": [],
+      "capital": [
+        {
+          "id": "cta2026capital",
+          "label": "2026 capital budget",
+          "authorizedBillions": 1.505,
+          "committedBillions": null,
+          "scope": "CTA agencywide 2026 capital budget, not completed infrastructure",
+          "allocationSource": "https://www.transitchicago.com/facts/",
+          "warning": "Budget dollars do not show infrastructure completions or actual cash expenditures."
+        }
+      ],
+      "concerns": [
+        {
+          "name": "Budget and public performance context",
+          "finding": "CTA reports a $2.231B operating budget and $1.505B capital budget for 2026 and publishes monthly performance dashboard reports.",
+          "status": "agency_public_budget",
+          "source": "https://www.transitchicago.com/facts/",
+          "warning": "This annual budget does not establish changes in punctuality, safety, station condition or track restrictions."
+        }
+      ],
+      "nextMeasures": [
+        "Monthly service delivery, headways and passenger wait time by rail line and bus route",
+        "rail slow-zone miles and equipment failure rates",
+        "bus reliability and staffing by garage",
+        "capital contracts completed versus dollars planned",
+        "crowding and accessibility changes by station"
+      ],
+      "action": "Use CTA's monthly performance dashboard and the planned-versus-completed capital budget to test whether a given line improved.",
+      "sources": [
+        {
+          "label": "CTA current base fares",
+          "url": "https://www.transitchicago.com/fares/"
+        },
+        {
+          "label": "CTA performance dashboard",
+          "url": "https://www.transitchicago.com/performance/"
+        },
+        {
+          "label": "CTA budget and agency facts",
+          "url": "https://www.transitchicago.com/facts/"
+        }
+      ]
+    }
+  ],
+  "national": {
+    "title": "No single national fare or infrastructure-return score",
+    "finding": "The FTA National Transit Database and transit asset condition program can identify useful service and state-of-good-repair metrics. Fares, capital projects, operating budgets and asset condition must be matched to a named operator and time period.",
+    "methodologySource": "https://www.transit.dot.gov/PerformanceManagement",
+    "source": "https://www.transit.dot.gov/ntd",
+    "framework": [
+      "Percent of vehicles exceeding useful life benchmark",
+      "Percent of facilities in poor condition",
+      "Subway track speed restrictions",
+      "Service delivered versus scheduled",
+      "Fare per paid boarding and full trip cost",
+      "Capital commitments, actual spending and completed projects"
+    ]
+  },
+  "followTheMoney": {
+    "question": "Did higher prices deliver better, safer, more reliable transportation?",
+    "checks": [
+      {
+        "title": "Price",
+        "question": "Which exact fare or toll changed and when?",
+        "evidence": "Official before-and-after rate schedules, rider eligibility and transfer rules"
+      },
+      {
+        "title": "Service",
+        "question": "Did the same route become more reliable and accessible?",
+        "evidence": "Matched route-specific OTP, cancellations, speed restrictions, outages and accessible stations"
+      },
+      {
+        "title": "Delivery",
+        "question": "Were infrastructure promises actually completed?",
+        "evidence": "Approved capital plan, contracted commitments, invoices, completion dates, physical asset-condition change"
+      },
+      {
+        "title": "Accountability",
+        "question": "Could avoidable waste or a conflict have affected the rate?",
+        "evidence": "Original contract IDs, bid evaluations, change orders, inspector-general report, financing, board fare vote"
+      }
+    ],
+    "warning": "Do not use a planned billion-dollar capital program as a proxy for infrastructure improvement; do not use a fare hike as proof of corruption."
+  }
+}
