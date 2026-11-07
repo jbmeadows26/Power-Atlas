@@ -35,7 +35,8 @@ class PersonalCostExplorerTests(unittest.TestCase):
         )
         self.assertIn('src="personal-cost-explorer.js" defer', self.page)
         self.assertIn("PowerAtlasCostExplorer?.setTopic(id)", self.page)
-        self.assertIn('href="#personalCostExplorer"', self.page)
+        self.assertIn('href="#benchmarkStory"', self.page)
+        self.assertIn('id="compareYourCosts"', self.page)
 
     def test_estimates_are_user_entered_not_imputed_from_zip_or_cpi(self):
         self.assertIn('data-ce-kind="current"', self.script)
