@@ -8,6 +8,8 @@ on:
       - "platform/unified/transport-cost-story.js"
       - "platform/unified/personal-cost-explorer.js"
       - "data/place-impact/transport-fares-v1.json"
+      - "data/place-impact/transport-baselines-v1.json"
+      - "tests/test_transport_baselines.py"
       - "data/place-impact/transport-accountability-v1.json"
       - "platform/unified/transport-value-ezpass.js"
       - "platform/unified/transport-toll-penalties.js"
@@ -38,6 +40,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+      - name: Read-only transportation baseline validation
+        run: python -m unittest discover -s tests -p 'test_transport_baselines.py' -v
       - name: Transport rate, scenario and accountability regression checks
         run: python -m unittest discover -s tests -p 'test_transport_costs.py' -v
       - name: Tolling value and unpaid-penalty regression checks
