@@ -71,3 +71,75 @@ def disclosed_position_interval(assets, liabilities, *,
         "assets": asset_range, "liabilities": liability_range,
         "disclosedNetLowerUSD": net_lo, "disclosedNetUpperUSD": net_hi,
     }
+
+# Evidence-layer checks: numeric interval arithmetic is insufficient for
+# publishing a member-level observation without a traceable original filing.
+from datetime import date
+from urllib.parse import urlsplit
+
+OFFICIAL_FILING_HOSTS = {"disclosures-clerk.house.gov", "efdsearch.senate.gov"}
+VALID_REPORT_TYPES = {"annual", "amended_annual"}
+
+def validate_member_annual_disclosure(record):
+    """Validate a source-attributed annual disclosure, preserving nulls.
+
+    Returns normalized interval arithmetic only for explicitly complete
+    source-verified asset AND liability schedules. It does not estimate
+    undisclosed property or overall personal net worth.
+    """
+    if not isinstance(record, dict):
+        raise ValueError("Disclosure record must be an object")
+    member_id = record.get("bioguideId")
+    if not isinstance(member_id, str) or not __import__("re").fullmatch(r"[A-Z][0-9]{6}", member_id):
+        raise ValueError("A validated Bioguide ID is required")
+    if record.get("reportType") not in VALID_REPORT_TYPES:
+        raise ValueError("Periodic trades and annual holdings cannot be merged")
+    url = record.get("originalFilingURL")
+    if not isinstance(url, str):
+        raise ValueError("Missing primary source URL")
+    parsed = urlsplit(url)
+    if (parsed.scheme != "https" or parsed.hostname not in OFFICIAL_FILING_HOSTS
+            or parsed.username is not None or parsed.password is not None
+            or not parsed.path or parsed.path == "/"):
+        raise ValueError("Original filing must be a direct official HTTPS document")
+    for key in ("filingDate", "observedAt"):
+        value = record.get(key)
+        if not isinstance(value, str):
+            raise ValueError("Missing filing or observation date")
+        try:
+            date.fromisoformat(value)
+        except ValueError as exc:
+            raise ValueError("Invalid ISO source date") from exc
+    if record["filingDate"] > record["observedAt"]:
+        raise ValueError("Filing cannot postdate evidence observation")
+    if record.get("licenseOrReuseRestriction") is None:
+        raise ValueError("Missing source reuse restriction")
+    if record.get("filingIdentity") in (None, ""):
+        raise ValueError("Missing filing identifier for amendment reconciliation")
+    assets = record.get("assets")
+    liabilities = record.get("liabilities")
+    for rows in (assets, liabilities):
+        if not isinstance(rows, list):
+            raise ValueError("Missing schedule rows must be explicit empty or unknown")
+        for row in rows:
+            if not isinstance(row, dict) or row.get("sourcePage") is None:
+                raise ValueError("Each financial range needs a filing page/section locator")
+    verified = record.get("primarySourceVerified") is True
+    asset_complete = verified and record.get("assetScheduleComplete") is True
+    liability_complete = verified and record.get("liabilityScheduleComplete") is True
+    result = disclosed_position_interval(
+        assets, liabilities,
+        asset_section_complete=asset_complete,
+        liability_section_complete=liability_complete,
+    )
+    return {
+        "bioguideId": member_id,
+        "filingIdentity": record["filingIdentity"],
+        "originalFilingURL": url,
+        "filingDate": record["filingDate"],
+        "observedAt": record["observedAt"],
+        "licenseOrReuseRestriction": record["licenseOrReuseRestriction"],
+        "primarySourceVerified": verified,
+        "interval": result,
+        "interpretation": "reported schedules only; not exact or complete personal net worth",
+    }
