@@ -11,6 +11,8 @@ on:
       - "data/place-impact/transport-accountability-v1.json"
       - "tests/test_transport_costs.py"
       - "tests/test_personal_cost_explorer.py"
+      - "tests/test_cost_benchmark_story.py"
+      - "data/place-impact/cost-benchmark-drivers-v1.json"
       - ".github/workflows/validate-transport-costs.yml"
   workflow_dispatch:
 
@@ -38,7 +40,6 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_cost_benchmark_story.py' -v
       - name: JavaScript syntax
         run: |
-          node --check platform/unified/my-life.html || true
           node --check platform/unified/cost-benchmark-story.js
           node --check platform/unified/transport-cost-story.js
           node --check platform/unified/personal-cost-explorer.js
