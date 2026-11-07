@@ -1,0 +1,398 @@
+{
+  "schema": "power-atlas.ezpass-value-audit.v1",
+  "asOf": "2026-11-07",
+  "title": "E-ZPass: higher tolls, but what improved?",
+  "premise": "E-ZPass is electronic toll collection, not one national company: each toll authority sets rates and controls an account program, customer-service and payment vendors, and road capital projects. I-PASS is Illinois' interoperable toll collection program. Price and service trends must be scoped to the exact operator and jurisdiction.",
+  "method": [
+    "Separate toll rate and fee, E-ZPass discount, observed billing accuracy, collections, customer service, and infrastructure outcomes.",
+    "Never call a proposed rate, projected revenue, contract value, authorization or earmark an observed collection or completed upgrade.",
+    "An audit sample from one interchange or time period does not measure the overall E-ZPass error rate.",
+    "Uncollected tolls represent an agency revenue/collection problem, not an additional household toll charge.",
+    "Neither a billing mistake nor a revenue increase proves corruption or a specific toll increase was caused by misconduct.",
+    "Report when a proposed project, adopted contract or toll increase has no completed-project or rider time-savings data."
+  ],
+  "agencies": [
+    {
+      "id": "nysta",
+      "region": "NYNJ",
+      "name": "NY State Thruway · E-ZPass",
+      "operator": "New York State Thruway Authority",
+      "scope": "New York Thruway, not Port Authority or MTA crossings",
+      "verdict": "Audit found generally accurate billing but meaningful exceptions and weak controls.",
+      "verdictStatus": "audited_exceptions",
+      "prices": [
+        {
+          "name": "2024 tolls and fees collected",
+          "value": "$1.0B",
+          "period": "2024",
+          "kind": "observed_revenue",
+          "description": "Total Thruway toll and related revenues. Includes changes in traffic, tolls, payment and fees; not a toll-rate measure.",
+          "source": "https://www.osc.ny.gov/press/releases/2025/09/dinapoli-audit-state-thruway-authority-has-improved-accuracy-toll-collections"
+        },
+        {
+          "name": "2021 tolls and fees collected",
+          "value": "$804M",
+          "period": "2021",
+          "kind": "observed_revenue",
+          "description": "Earlier nominal revenue comparison, not an inflation-adjusted or traffic-adjusted price series.",
+          "source": "https://www.osc.ny.gov/press/releases/2025/09/dinapoli-audit-state-thruway-authority-has-improved-accuracy-toll-collections"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "Incorrect or missing tolls at interchange 25A",
+          "value": "~5%",
+          "period": "3-week 2022 sample · reviewed 2025",
+          "kind": "independent_audit",
+          "details": "About 44,286 of 889,000 transactions appeared inaccurately billed, including about 36,000 incorrectly charged and about 8,000 that should have been charged but were not.",
+          "denominator": "889,000 sampled interchange 25A transactions",
+          "limitation": "This is NOT a statewide error rate; it includes both mischarges and missed revenue.",
+          "source": "https://www.osc.ny.gov/files/state-agencies/audits/pdf/sga-2025-23s25.pdf"
+        },
+        {
+          "name": "Transactions initially unbillable",
+          "value": "~92K",
+          "period": "3-week 2022 sample · reviewed 2025",
+          "kind": "independent_audit",
+          "details": "91,703 transactions from roughly 22.4 million sampled were initially classified unbillable, including unreadable plates.",
+          "denominator": "~22.4 million transactions in a three-week sample",
+          "limitation": "Not the number of drivers overcharged and not a 2026 estimate.",
+          "source": "https://www.osc.ny.gov/files/state-agencies/audits/pdf/sga-2025-23s25.pdf"
+        },
+        {
+          "name": "Non-revenue tags lacking support",
+          "value": "46/75",
+          "period": "2025 audit sample",
+          "kind": "independent_audit",
+          "details": "Eligibility support was missing for 46 of 75 sampled non-revenue E-ZPass tags.",
+          "denominator": "75 sampled non-revenue tags",
+          "limitation": "Missing documentation does not establish ineligibility or fraud by 46 drivers.",
+          "source": "https://www.osc.ny.gov/press/releases/2025/09/dinapoli-audit-state-thruway-authority-has-improved-accuracy-toll-collections"
+        },
+        {
+          "name": "Toll-payer advocate case discretion",
+          "value": "12/20",
+          "period": "2025 audit sample",
+          "kind": "independent_audit",
+          "details": "In 20 sampled fee-related advocate cases, 12 fee reductions exceeded guidance without documentation supporting the exception.",
+          "denominator": "20 sampled fee-related cases",
+          "limitation": "Procedural control issue; not proof that these drivers paid too much.",
+          "source": "https://www.osc.ny.gov/files/state-agencies/audits/pdf/sga-2025-23s25.pdf"
+        }
+      ],
+      "delivery": [
+        {
+          "name": "E-ZPass toll share",
+          "value": "95%",
+          "period": "2024",
+          "kind": "observed_activity",
+          "details": "E-ZPass represented about 95% of tolls collected, according to state audit.",
+          "source": "https://www.osc.ny.gov/press/releases/2025/09/dinapoli-audit-state-thruway-authority-has-improved-accuracy-toll-collections"
+        },
+        {
+          "name": "Road quality versus revenue growth",
+          "value": "Not matched",
+          "period": "2021–2026",
+          "kind": "data_gap",
+          "details": "No verified common-year segment-level pavement, bridge condition and delay trend has been joined to the revenue growth.",
+          "source": "https://www.thruway.ny.gov/about/financial/"
+        }
+      ],
+      "money": [
+        "Authority-operated payment and customer service",
+        "Contracted tolling technology, image processing, mailing and receivables collection",
+        "Toll payer advocate and resident-discount eligibility controls",
+        "Road and bridge capital delivery"
+      ],
+      "next": [
+        "Reconcile toll invoice against crossing, plate, vehicle class and account state",
+        "Publish incorrect-charge rate by facility and month",
+        "Publish reversed violations, disputes, average resolution time and fee waivers",
+        "Join funded Thruway segment projects to completion and road-condition changes"
+      ],
+      "rights": {
+        "label": "NY Thruway Office of the Toll Payer Advocate",
+        "url": "https://www.thruway.ny.gov/ezpass/",
+        "note": "If the tag fails, contact the account-issuing customer service center and preserve account/plate records."
+      }
+    },
+    {
+      "id": "mta-toll",
+      "region": "NYNJ",
+      "name": "MTA Bridges & Tunnels · E-ZPass",
+      "operator": "Triborough Bridge and Tunnel Authority",
+      "scope": "MTA toll crossings; excludes Port Authority NJ–NY crossings",
+      "verdict": "Prior audits showed significant image-based toll collection leakage; current per-crossing correction and infrastructure return need matched data.",
+      "verdictStatus": "historical_audit",
+      "prices": [
+        {
+          "name": "2020 operating revenue",
+          "value": "$1.669B",
+          "period": "2020",
+          "kind": "observed_revenue",
+          "description": "TBTA total operating revenue, not an E-ZPass fee or local bridge price. Helps fund regional transit.",
+          "source": "https://www.osc.ny.gov/state-agencies/audits/2021/10/07/efforts-collect-tolls-and-fees-using-license-plate-images-and-law-firms-follow"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "Unbilled tolls in past audit",
+          "value": ">6M",
+          "period": "September 2019–June 2021",
+          "kind": "historical_audit",
+          "details": "NY State Comptroller reported more than 6 million unbilled tolls after open-road tolling rollout.",
+          "denominator": "Multi-year tolling operations; not the number of unique motorists",
+          "limitation": "Historical collection leakage, not an observed 2026 error rate.",
+          "source": "https://www.osc.ny.gov/press/releases/2021/11/state-comptroller-dinapoli-releases-audits"
+        },
+        {
+          "name": "Estimated lost toll revenue",
+          "value": "$55.7M",
+          "period": "September 2019–June 2021",
+          "kind": "historical_audit",
+          "details": "Auditors estimated unbilled transactions caused $55.7M in toll revenue leakage during the examined period.",
+          "denominator": "Unbilled toll transactions",
+          "limitation": "Estimated uncollected money is NOT extra charges paid by drivers or proof a fare was raised.",
+          "source": "https://www.osc.ny.gov/press/releases/2021/11/state-comptroller-dinapoli-releases-audits"
+        }
+      ],
+      "delivery": [
+        {
+          "name": "November 2024 E-ZPass usage",
+          "value": "85%",
+          "period": "November 2024",
+          "kind": "agency_report",
+          "details": "MTA board report lists E-ZPass NY and non-NY account transactions at 85% across bridge and tunnel facilities.",
+          "source": "https://www.mta.info/document/163171"
+        },
+        {
+          "name": "Crossing-specific time savings or completed repairs",
+          "value": "Not joined",
+          "period": "2024–2026",
+          "kind": "data_gap",
+          "details": "Needs facility capital project completions and audited pre/post travel times, not agencywide MTA subway OTP.",
+          "source": "https://www.mta.info/agency/bridges-and-tunnels"
+        }
+      ],
+      "money": [
+        "Operating and maintenance costs for bridges and tunnels",
+        "Transit subsidy funded by bridge/tunnel operations",
+        "Toll back-office and collection contracts",
+        "Capital repairs, bridge and tunnel renewal"
+      ],
+      "next": [
+        "Track share of E-ZPass transactions by bridge and tunnel",
+        "Disclose unreadable tags and erroneous invoices corrected per month",
+        "Compare collection contractor cost with verified recovered receivables",
+        "Link crossings to completed bridge/tunnel capital repairs and travel-time results"
+      ],
+      "rights": {
+        "label": "MTA tolls and violations support",
+        "url": "https://www.mta.info/tolls",
+        "note": "Toll bills and E-ZPass violations may be managed in a separate portal from the E-ZPass account."
+      }
+    },
+    {
+      "id": "panynj-ezpass",
+      "region": "NYNJ",
+      "name": "Port Authority crossings · E-ZPass",
+      "operator": "Port Authority of New York and New Jersey",
+      "scope": "GWB, Lincoln/Holland tunnels, Staten Island Port Authority bridges",
+      "verdict": "CPI-linked toll adjustments and extra processing charges are documented; crossing-specific delivered benefits still need verification.",
+      "verdictStatus": "policy_and_delivery_gap",
+      "prices": [
+        {
+          "name": "Peak E-ZPass CPI increment",
+          "value": "+$0.48",
+          "period": "January 4, 2026",
+          "kind": "adopted_increment",
+          "description": "Additional annual inflation-based toll increment authorized under prior board policy; not the full toll rate.",
+          "source": "https://www.panynj.gov/content/dam/corporate/financial-statements-pdfs/financial-statements-2025.pdf"
+        },
+        {
+          "name": "Fixed toll adjustment",
+          "value": "+$0.25",
+          "period": "2026",
+          "kind": "adopted_increment",
+          "description": "Part of previously authorized fixed annual additions through 2028. Exact tag/crossing rate depends on payment method and class.",
+          "source": "https://www.panynj.gov/content/dam/corporate/financial-statements-pdfs/financial-statements-2025.pdf"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "Tag read/payment processing surcharge policy",
+          "value": "Added 2025",
+          "period": "July 6, 2025",
+          "kind": "adopted_policy",
+          "details": "Port Authority says added adjustments encourage use of E-ZPass and properly positioned transponders to offset processing/collection costs of unread tags.",
+          "denominator": "Applies under toll schedule rules; no common percentage inferred",
+          "limitation": "A policy rationale is not independently verified per-transaction processing cost.",
+          "source": "https://www.panynj.gov/content/dam/corporate/financial-statements-pdfs/financial-statements-2025.pdf"
+        }
+      ],
+      "delivery": [
+        {
+          "name": "2026–2035 capital plan",
+          "value": "$45B",
+          "period": "10-year Port Authority program",
+          "kind": "adopted_plan",
+          "details": "Port Authority's capital plan covers airports, ports, bridges, tunnels, PATH and more; not E-ZPass spending or a facility-level improvement.",
+          "source": "https://www.portauthoritybuilds.com/redevelopment/us/en/home/capital-plan.html"
+        },
+        {
+          "name": "Crossing-specific road reliability",
+          "value": "Not verified",
+          "period": "2026",
+          "kind": "data_gap",
+          "details": "Need completed bridge/tunnel renewals, pavement condition, closure frequency and travel-time reliability.",
+          "source": "https://www.panynj.gov/bridges-tunnels/en/bridges-tunnels.html"
+        }
+      ],
+      "money": [
+        "Facility toll revenue and operating costs",
+        "E-ZPass account and license-plate back-office administration",
+        "Debt financing and cross-facility capital projects",
+        "Port Authority wider system including ports, airports and PATH"
+      ],
+      "next": [
+        "Track full toll price by year, account state, tag read and peak status",
+        "Publish amount and frequency of unread-tag adjustments and reversals",
+        "Track every crossing's repairs as completed rather than approved",
+        "Publish customer complaints and case resolution median time by facility"
+      ],
+      "rights": {
+        "label": "Port Authority E-ZPass tag and Toll Bill help",
+        "url": "https://www.panynj.gov/port-authority/en/help-center/faq/bridges-and-tunnels-faq.html",
+        "note": "A transponder that misreads can lead to a mailed bill. Account ownership depends on the issuing agency; confirm the issuer before disputing."
+      }
+    },
+    {
+      "id": "illinois-ipass",
+      "region": "CHI",
+      "name": "Illinois Tollway · I-PASS / E-ZPass",
+      "operator": "Illinois State Toll Highway Authority",
+      "scope": "Illinois Tollway system and interoperable E-ZPass, not CTA fares",
+      "verdict": "2024 transactions and project budgets are documented; verified user-level billing-error and improvement outcomes remain incomplete.",
+      "verdictStatus": "activity_documented",
+      "prices": [
+        {
+          "name": "Discount for I-PASS accounts",
+          "value": "50% off",
+          "period": "Current agency policy",
+          "kind": "policy",
+          "description": "I-PASS customers receive 50% off Illinois Tollway standard toll rates; account status, facility and vehicle class still matter.",
+          "source": "https://agency.illinoistollway.com/customer-service-faqs?topic=I-PASS"
+        },
+        {
+          "name": "2024 toll revenue",
+          "value": "$1.4B",
+          "period": "2024",
+          "kind": "observed_revenue",
+          "description": "Total Illinois Tollway revenue from tolls in 2024, approximately level with 2023; not proof that an individual's price stayed flat.",
+          "source": "https://www.ilga.gov/Documents/Reports/ReportsSubmitted/6055RSGAEmail13339RSGAAttachISTHA%20Financial%20Report%20FY24%20-%20FINAL.pdf"
+        }
+      ],
+      "outcomes": [
+        {
+          "name": "Electronic toll share",
+          "value": "86.2%",
+          "period": "2024",
+          "kind": "agency_report",
+          "details": "Illinois Tollway annual report says 86.2% of toll transactions were paid using I-PASS/E-ZPass.",
+          "denominator": "Over 1 billion toll transactions in 2024",
+          "limitation": "Usage share is not billing accuracy, toll affordability or infrastructure outcome.",
+          "source": "https://www.ilga.gov/documents/reports/ReportsSubmitted/5666RSGAEmail12218RSGAAttach2024%20IlTollway_Annual%20Report_Final.pdf"
+        }
+      ],
+      "delivery": [
+        {
+          "name": "2026 bridge/pavement/fleet maintenance",
+          "value": "$374M",
+          "period": "2026 budget",
+          "kind": "budget_authorization",
+          "details": "Program budgeted for existing-system bridge, pavement, facilities, fleet maintenance and safety improvements.",
+          "source": "https://www.ilga.gov/Documents/Reports/ReportsSubmitted/6558RSGAEmail14558RSGAAttach2026%20Final%20Budget%20Book.pdf"
+        },
+        {
+          "name": "2026 electronic tolling upgrades",
+          "value": "$62.6M",
+          "period": "2026 budget",
+          "kind": "budget_authorization",
+          "details": "Budgeted for toll plaza and electronic toll collection system upgrades; not proof of successful deployment.",
+          "source": "https://www.ilga.gov/Documents/Reports/ReportsSubmitted/6558RSGAEmail14558RSGAAttach2026%20Final%20Budget%20Book.pdf"
+        },
+        {
+          "name": "Billing dispute / service resolution",
+          "value": "No verified series",
+          "period": "2024–2026",
+          "kind": "data_gap",
+          "details": "Need refund counts, disputed charges upheld/reversed, I-PASS tag failures and median resolution time over time.",
+          "source": "https://agency.illinoistollway.com/customer-service-faqs?topic=I-PASS"
+        }
+      ],
+      "money": [
+        "Toll-supported roads and interchange expansion",
+        "Operating and customer-support systems",
+        "I-PASS/E-ZPass readers and billing infrastructure",
+        "Bridge/pavement preservation and debt financing"
+      ],
+      "next": [
+        "Use actual toll plaza and vehicle class to compare payment methods",
+        "Get quarterly dispute reversals, refunds and unreadable-plate rates",
+        "Follow 2026 $62.6M toll-system program from budget to executed contracts and acceptance testing",
+        "Compare pavement, travel times and safety before and after completed projects"
+      ],
+      "rights": {
+        "label": "Illinois Tollway I-PASS customer service",
+        "url": "https://agency.illinoistollway.com/customer-service-faqs?topic=I-PASS",
+        "note": "I-PASS works at supported E-ZPass road facilities; current sticker tags are free when ordered directly from Illinois Tollway or received at its service center."
+      }
+    }
+  ],
+  "crossNetwork": [
+    {
+      "title": "Account issuer matters",
+      "description": "An E-ZPass tag may be issued by New York Thruway, Port Authority, MTA, New Jersey, or another member agency. Dispute a failed tag with the issuer rather than assuming the crossing operator owns the account.",
+      "source": "https://www.panynj.gov/port-authority/en/help-center/faq/bridges-and-tunnels-faq.html"
+    },
+    {
+      "title": "A toll bill can be a different system",
+      "description": "E-ZPass account activity, violations and Tolls by Mail bills may appear in separate portals; confirm the issuing agency and never pay unsolicited scam links.",
+      "source": "https://www.panynj.gov/port-authority/en/help-center/faq/bridges-and-tunnels-faq.html"
+    },
+    {
+      "title": "Public promises need delivery evidence",
+      "description": "Agencywide capital budgets can be large while one bridge or tunnel sees little immediate visible change; compare physical projects and service on the facility actually used.",
+      "source": "https://www.portauthoritybuilds.com/redevelopment/us/en/home/capital-plan.html"
+    },
+    {
+      "title": "Payment method changes the toll",
+      "description": "Account state, correctly read tag, vehicle class, peak/off-peak and direction may change rates. Illinois I-PASS is interoperable but has its own program benefits.",
+      "source": "https://agency.illinoistollway.com/customer-service-faqs?topic=I-PASS"
+    }
+  ],
+  "missingSeries": [
+    "Per-facility annual E-ZPass toll rates, gross and net of discounts",
+    "Correct-charge and incorrect-charge rates by toll plaza, time and vehicle class",
+    "Customer refunds, violation waivers and median time-to-resolution by issuer",
+    "Disputed debt and collections costs separated from recovered toll principal",
+    "Contracted readers, vendors, transaction costs and amendments by provider",
+    "Capital projects completed and physical bridge/road-condition change per facility",
+    "Reliable travel-time change and road closures by crossing",
+    "Publicly reported lobbying, donations and conflicts tied to specific awarded vendors"
+  ],
+  "sources": [
+    {
+      "label": "New York State Comptroller's 2025 Thruway audit",
+      "url": "https://www.osc.ny.gov/state-agencies/audits/2025/09/23/selected-aspects-toll-collections"
+    },
+    {
+      "label": "Port Authority financial disclosures",
+      "url": "https://www.panynj.gov/content/dam/corporate/financial-statements-pdfs/financial-statements-2025.pdf"
+    },
+    {
+      "label": "2024 Illinois Tollway annual report",
+      "url": "https://www.ilga.gov/documents/reports/ReportsSubmitted/5666RSGAEmail12218RSGAAttach2024%20IlTollway_Annual%20Report_Final.pdf"
+    }
+  ]
+}
