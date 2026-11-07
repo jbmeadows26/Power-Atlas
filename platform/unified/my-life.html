@@ -342,6 +342,10 @@
 .ts-price-entry,.ts-count{display:grid;grid-template-columns:minmax(0,1fr) 92px;gap:8px;align-items:center;font-size:.75rem;color:#587468;line-height:1.4}
 .ts-price-entry input,.ts-count input{height:40px;text-align:right;font-size:.82rem}
 .ts-line-notes{display:grid;gap:6px;border-top:1px dashed #e1e7e1;padding-top:8px}
+.ts-line:not(.is-active) .ts-count,.ts-line:not(.is-active) .ts-price-entry,.ts-line:not(.is-active) .ts-line-notes{display:none}
+.ts-line:not(.is-active){grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:8px}
+.ts-line:not(.is-active) .ts-price{white-space:nowrap;text-align:right}
+.ts-line.is-active{border-color:#9ccbbb;background:#fafdfe}
 .ts-line-notes small{font-size:.72rem;line-height:1.5;color:#6a8076}
 .ts-expenses{border:1px solid #d9e6da;border-radius:13px;padding:16px;background:#f4f9f4}
 .ts-expenses h5{margin-bottom:11px}
