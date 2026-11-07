@@ -20,6 +20,7 @@ class TransportCostTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.fares=json.loads(FARES.read_text("utf-8"))
+        cls.baselines=json.loads((DATA/"transport-baselines-v1.json").read_text("utf-8"))
         cls.audit=json.loads(AUDIT.read_text("utf-8"))
         cls.script=SCRIPT.read_text("utf-8")
         cls.benchmark=BENCHMARK.read_text("utf-8")
@@ -30,8 +31,8 @@ class TransportCostTests(unittest.TestCase):
         self.assertEqual(self.fares["schema"],"power-atlas.transport-fares.v1")
         self.assertEqual(self.fares["asOf"],"2026-11-07")
         self.assertEqual({x["id"] for x in self.fares["regions"]},{"NYNJ","CHI","OTHER"})
-        self.assertIn("not a detected route",self.script)
-        self.assertIn("A ZIP cannot",self.script)
+        self.assertIn("No inferred route",self.baselines["method"]["disclosure"])
+        self.assertIn("A ZIP only helps",self.script)
         self.assertIn("No fees are added without",self.fares["rule"])
         for row in self.fares["fares"]+self.fares["tolls"]:
             self.assertTrue(row["source"].startswith("https://"),row["id"])
@@ -69,11 +70,11 @@ class TransportCostTests(unittest.TestCase):
         self.assertAlmostEqual(5*2*3*52/12,130)
         # 5 days with one NY-bound peak toll and the return direction untolled.
         self.assertAlmostEqual(5*16.79*52/12,363.7833333333)
-        self.assertIn("52/12",self.script)
-        self.assertIn("Math.min(weekly,item.capWeekly)",self.script)
+        self.assertIn("annualWorkweeks/baselines.method.months",self.script)
+        self.assertIn("Math.min(weekly,match.capWeekly)",self.script)
         self.assertIn("No fees are added without",self.fares["rule"])
-        self.assertIn("Month is modeled as 52 weeks",self.script)
-        self.assertIn("not automatically applied",self.script)
+        self.assertEqual((self.baselines["method"]["annualWorkweeks"],self.baselines["method"]["months"]),(52,12))
+        self.assertIn("not the same averaging period",self.script)
 
     def test_evidence_for_integrity_has_noncausal_limitations(self):
         self.assertEqual(self.audit["schema"],"power-atlas.transport-accountability.v1")
@@ -96,8 +97,11 @@ class TransportCostTests(unittest.TestCase):
         self.assertIn('id="transportCostStory"',self.benchmark)
         self.assertIn('window.PowerAtlasTransport?.render()',self.benchmark)
         self.assertIn('transport-cost-story.js?v=',self.page)
+        self.assertIn('optionalCostPanel.hidden=id==="transport"',self.page)
+        self.assertIn('<section id="transportValuePanel"',self.script)
+        self.assertIn("baselineRegion(",self.script)
         self.assertIn('PowerAtlasTransport.setContext(context)',self.page)
-        self.assertIn('.ts-picker-grid',self.page)
+        self.assertIn('.ts-base-grid',self.page)
         self.assertIn('.ts-audit-flow',self.page)
         self.assertIn('@media(max-width:750px)',self.page)
         self.assertIn("Optional · National average transport spending",self.benchmark)
@@ -116,9 +120,9 @@ class TransportCostTests(unittest.TestCase):
         for prohibited in ("localStorage","sessionStorage","navigator.geolocation",
                           "sendBeacon","XMLHttpRequest"):
             self.assertNotIn(prohibited,self.script)
-        self.assertIn("All options begin unselected.",self.script)
-        self.assertIn("user-selected scenario",self.script)
-        self.assertIn("not a quoted route",self.script.lower())
+        self.assertIn("no personal input required",self.script)
+        self.assertIn("standardized monthly illustration",self.script)
+        self.assertIn("not a combined itinerary",self.script.lower())
         self.assertIn("No example shown assigns a dollar",self.script)
 
     def test_javascript_syntax_when_node_available(self):
