@@ -1,0 +1,246 @@
+{
+  "schema": "power-atlas.transport-fares.v1",
+  "asOf": "2026-11-07",
+  "purpose": "Published transport fare and toll examples for source-backed household commuting scenarios, not routed estimates or prices inferred by ZIP.",
+  "rule": "A ZIP identifies a state example only; it cannot establish a route, crossing, rider eligibility, parking rate, or the actual fare paid. No fees are added without a user's explicit selections.",
+  "regions": [
+    {
+      "id": "NYNJ",
+      "name": "NYC and northern New Jersey",
+      "states": [
+        "NY",
+        "NJ"
+      ],
+      "fareIds": [
+        "mta-local",
+        "mta-express",
+        "path",
+        "njtransit-custom"
+      ],
+      "tollIds": [
+        "pa-peak",
+        "pa-offpeak",
+        "pa-mail",
+        "nyc-congestion",
+        "nyc-congestion-overnight",
+        "nynj-toll-custom"
+      ],
+      "sources": [
+        "https://www.mta.info/fares-tolls/subway-bus",
+        "https://www.panynj.gov/path/en/fares.html",
+        "https://www.njtransit.com/fares",
+        "https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+        "https://portal.311.nyc.gov/article/?kanumber=KA-03612"
+      ]
+    },
+    {
+      "id": "CHI",
+      "name": "Chicago and northeastern Illinois",
+      "states": [
+        "IL"
+      ],
+      "fareIds": [
+        "cta-rail",
+        "cta-bus",
+        "metra-custom",
+        "pace-custom"
+      ],
+      "tollIds": [
+        "illinois-toll-custom"
+      ],
+      "sources": [
+        "https://www.transitchicago.com/fares/",
+        "https://metra.com/fares",
+        "https://agency.illinoistollway.com/trip-calculator-help"
+      ]
+    },
+    {
+      "id": "OTHER",
+      "name": "Other routes / enter actual fares",
+      "states": [],
+      "fareIds": [
+        "transit-custom"
+      ],
+      "tollIds": [
+        "toll-custom"
+      ],
+      "sources": [
+        "https://www.transit.dot.gov/ntd"
+      ]
+    }
+  ],
+  "fares": [
+    {
+      "id": "mta-local",
+      "label": "NYC subway / local bus",
+      "price": 3,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-01-04",
+      "source": "https://omny.info/fares",
+      "capWeekly": 35,
+      "capNote": "$35 rolling seven-day cap when using the same eligible OMNY payment method, for covered full-fare subway/local-bus rides. Eligible free transfers should not be counted twice.",
+      "note": "Count charged fares, not all boardings. Fare cap is account/device-specific. This simulator assumes one consistent full-fare rider and a weekly pattern."
+    },
+    {
+      "id": "mta-express",
+      "label": "NYC express bus",
+      "price": 7.25,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-01-04",
+      "source": "https://omny.info/fares",
+      "capWeekly": 67,
+      "capNote": "$67 seven-day OMNY cap for eligible express-bus journeys using one eligible payment method.",
+      "note": "Express buses have their own rules and a higher fare cap; mixed express/local journeys require validation against actual charge history."
+    },
+    {
+      "id": "path",
+      "label": "PATH train",
+      "price": 3.25,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-05-03",
+      "source": "https://www.panynj.gov/path/en/fares.html",
+      "monthlyPass": 131.5,
+      "passNote": "30-day unlimited pass $131.50, 7-day unlimited $42.75, and 10-trip tickets $31. Different from MTA OMNY and not eligible for OMNY caps.",
+      "note": "Per-trip TAPP fare. PATH is separate from MTA; connecting to the subway ordinarily means a separate paid fare."
+    },
+    {
+      "id": "njtransit-custom",
+      "label": "NJ Transit rail or bus — route-specific",
+      "price": null,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.njtransit.com/fares",
+      "note": "Varies by route, zone, trip, and ticket type. Enter your exact published fare. Monthly products may be cheaper; not computed without route."
+    },
+    {
+      "id": "cta-rail",
+      "label": "Chicago CTA L train",
+      "price": 2.5,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.transitchicago.com/fares/",
+      "monthlyPass": 75,
+      "passNote": "CTA/Pace 30-day pass $75. CTA transfers up to two additional rides within two hours may be free depending on fare rules.",
+      "note": "Basic CTA train fare; boarding from O'Hare carries a different rate. Eligibility and transfers affect true charge count."
+    },
+    {
+      "id": "cta-bus",
+      "label": "Chicago CTA bus",
+      "price": 2.25,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.transitchicago.com/fares/",
+      "monthlyPass": 75,
+      "passNote": "CTA/Pace 30-day pass $75. Up to two additional qualifying CTA transfers within 2 hours are free.",
+      "note": "Basic Ventra/contactless bus fare, not cash; cash and some special routes cost differently."
+    },
+    {
+      "id": "metra-custom",
+      "label": "Chicago Metra commuter rail — zone-specific",
+      "price": null,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://metra.com/fares",
+      "note": "Choose a specific origin, destination, and ticket format in the official fare table."
+    },
+    {
+      "id": "pace-custom",
+      "label": "Chicago Pace bus — confirm route",
+      "price": null,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.pacebus.com/fares",
+      "note": "Different routes and eligible transfers or passes change prices. Enter the actual charged fare."
+    },
+    {
+      "id": "transit-custom",
+      "label": "Other bus, subway, train, ferry, rideshare",
+      "price": null,
+      "unit": "one paid fare",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.transit.dot.gov/ntd",
+      "note": "Enter verified fare for the service you actually use."
+    }
+  ],
+  "tolls": [
+    {
+      "id": "pa-peak",
+      "label": "Port Authority crossing into NY — peak E-ZPass",
+      "price": 16.79,
+      "unit": "charged NY-bound crossing",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-07-12",
+      "source": "https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+      "note": "Class 1, qualifying NY/NJ E-ZPass, correctly read tag; westbound into NJ is not tolled. Peak is weekday 6–10 AM/4–8 PM and weekends 11 AM–9 PM."
+    },
+    {
+      "id": "pa-offpeak",
+      "label": "Port Authority crossing into NY — off-peak E-ZPass",
+      "price": 14.79,
+      "unit": "charged NY-bound crossing",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-07-12",
+      "source": "https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+      "note": "Class 1, qualifying NY/NJ E-ZPass; off-peak rates only when the qualifying trip occurs off-peak."
+    },
+    {
+      "id": "pa-mail",
+      "label": "Port Authority crossing into NY — Tolls by Mail",
+      "price": 23.3,
+      "unit": "charged NY-bound crossing",
+      "verifiedAsOf": "2026-11-07",
+      "effective": "2026-07-12",
+      "source": "https://www.panynj.gov/bridges-tunnels/en/tolls.html",
+      "note": "Class 1, mail rate, all hours; compare NY/NJ E-ZPass eligibility. Not charged going into New Jersey."
+    },
+    {
+      "id": "nyc-congestion",
+      "label": "NYC congestion zone — passenger vehicle peak",
+      "price": 9,
+      "unit": "eligible charged day",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://portal.311.nyc.gov/article/?kanumber=KA-03612",
+      "note": "E-ZPass peak rate, typically once/day, only on eligible entry to the Manhattan Congestion Relief Zone. Crossing credits, exclusions and discounts can reduce the amount."
+    },
+    {
+      "id": "nyc-congestion-overnight",
+      "label": "NYC congestion zone — overnight",
+      "price": 2.25,
+      "unit": "eligible charged day",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://portal.311.nyc.gov/article/?kanumber=KA-03612",
+      "note": "Passenger-vehicle E-ZPass overnight rate when eligible; may not apply to your route. Verify exemptions and credits."
+    },
+    {
+      "id": "nynj-toll-custom",
+      "label": "Another NY/NJ road toll or rebate-adjusted charge",
+      "price": null,
+      "unit": "charged trip",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.mta.info/tolls",
+      "note": "Enter verified route/bridge/tunnel amount after applicable discounts and credits, rather than stacking incompatible rates."
+    },
+    {
+      "id": "illinois-toll-custom",
+      "label": "Illinois Tollway — plaza and account specific",
+      "price": null,
+      "unit": "charged trip",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://agency.illinoistollway.com/trip-calculator-help",
+      "note": "Use the plaza-specific official calculator and your payment method, vehicle class and direction."
+    },
+    {
+      "id": "toll-custom",
+      "label": "Other highway, bridge, tunnel or congestion charge",
+      "price": null,
+      "unit": "charged trip",
+      "verifiedAsOf": "2026-11-07",
+      "source": "https://www.fhwa.dot.gov/ipd/tolling_and_pricing/",
+      "note": "Only include actual charged trips. Rates vary by vehicle, route, direction, date and toll program."
+    }
+  ],
+  "disclosure": "Exact fares can change. The scenario tool does not track location, store ZIPs or calculate live routes. Regional examples are not personal charges."
+}
