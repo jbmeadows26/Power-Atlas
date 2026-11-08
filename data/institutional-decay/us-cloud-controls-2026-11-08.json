@@ -1,0 +1,83 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-evidence.v1",
+  "asOf": "2026-11-08",
+  "scope": "US federal cloud controls, independent audit of purposively selected systems; no population extrapolation",
+  "sources": [
+    {
+      "id": "gao-26-108443",
+      "url": "https://www.gao.gov/products/gao-26-108443",
+      "published": "2026-06-25",
+      "authority": "US Government Accountability Office",
+      "license": "US federal government authored text generally public domain in United States; no third-party graphics reproduced; original factual summaries only"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gao-cloud-fully-monitored-systems-2026",
+      "source": "gao-26-108443",
+      "geography": "United States",
+      "period": "2026-06-25",
+      "value": 3,
+      "denominator": 8,
+      "unit": "selected_systems",
+      "measure": "Selected cloud systems for which continuous monitoring practice was fully performed",
+      "population": "Eight selected cloud systems at four selected federal agencies",
+      "evidenceClass": "official_audit",
+      "note": "GAO purposive sample; not a government-wide rate."
+    },
+    {
+      "id": "gao-cloud-fully-sla-systems-2026",
+      "source": "gao-26-108443",
+      "geography": "United States",
+      "period": "2026-06-25",
+      "value": 5,
+      "denominator": 8,
+      "unit": "selected_systems",
+      "measure": "Selected cloud systems with fully implemented service-level agreement practice",
+      "population": "Eight selected cloud systems at four selected federal agencies",
+      "evidenceClass": "official_audit",
+      "note": "Three remaining systems lacked consistent definition of metrics, measurement and enforcement."
+    },
+    {
+      "id": "gao-cloud-partial-practices-systems-2026",
+      "source": "gao-26-108443",
+      "geography": "United States",
+      "period": "2026-06-25",
+      "value": 5,
+      "denominator": 8,
+      "unit": "selected_systems",
+      "measure": "Systems for which agencies partially implemented the assessed set of three key cloud practices",
+      "population": "Eight selected cloud systems at four selected federal agencies",
+      "evidenceClass": "official_audit",
+      "note": "The other three systems were fully implemented at agency level: two in one agency and one in another; not evidence of an actual breach."
+    },
+    {
+      "id": "gao-cloud-recommendations-2026",
+      "source": "gao-26-108443",
+      "geography": "United States",
+      "period": "2026-06-25",
+      "value": 12,
+      "unit": "recommendations",
+      "measure": "GAO recommendations to State, Veterans Affairs and Small Business Administration on cloud security practices",
+      "population": "Recommendations in GAO-26-108443; not agencies or substantiated violations",
+      "evidenceClass": "official_audit",
+      "note": "VA agreed; State neither agreed nor disagreed; SBA provided no comments at report publication."
+    }
+  ],
+  "events": [
+    {
+      "id": "gao-cloud-audit-issued-2026-06-25",
+      "date": "2026-06-25",
+      "source": "gao-26-108443",
+      "event": "GAO published assessment of eight selected cloud systems across State, Transportation, VA and SBA, issuing 12 recommendations to three agencies",
+      "status": "official_audit",
+      "note": "Recommendations are not sanctions or adjudications."
+    }
+  ],
+  "causality": "No inference about wrongdoing, actual data breaches, service deterioration or public trust; descriptive sample only.",
+  "limitations": [
+    "Purposive eight-system sample cannot estimate national prevalence.",
+    "No evidence of actual breach, individual culpability or citizen trust outcome.",
+    "The three cloud security practices are distinct and should not be summed as independent system counts."
+  ]
+}
