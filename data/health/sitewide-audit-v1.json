@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-09T16:20:25.210522+00:00",
+  "generatedUTC": "2026-11-09T16:22:08.272207+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
@@ -10,7 +10,7 @@
     "validJsonFiles": 305,
     "staticReferencesInspected": 378,
     "unresolvedStaticLinkIssues": 0,
-    "missingBugReportScripts": 2,
+    "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
@@ -263,7 +263,7 @@
       "localReferenceCount": 21,
       "allReferencesCount": 25,
       "staticLinksBroken": 0,
-      "bugReportScriptPresent": false,
+      "bugReportScriptPresent": true,
       "dataReferences": [
         "data/business-influence/additional-candidates-v1.json",
         "data/business-influence/evidence-v1.json",
@@ -311,7 +311,7 @@
       "localReferenceCount": 10,
       "allReferencesCount": 10,
       "staticLinksBroken": 0,
-      "bugReportScriptPresent": false,
+      "bugReportScriptPresent": true,
       "dataReferences": [],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
@@ -376,10 +376,7 @@
   "brokenStaticReferences": [],
   "invalidDataFiles": [],
   "unparsedHtml": [],
-  "missingBugReportScripts": [
-    "platform/unified/my-life.html",
-    "platform/unified/service-accountability.html"
-  ],
+  "missingBugReportScripts": [],
   "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
     "uniqueEntities": 84,
