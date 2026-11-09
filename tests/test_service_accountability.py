@@ -54,7 +54,7 @@ class ServiceAccountabilityTests(unittest.TestCase):
         self.assertEqual(c["published"]["phone"], "+1 800 862 8621")
         self.assertIn("not independently", c["reported"]["evidenceLevel"])
         self.assertGreaterEqual(len(c["notEstablished"]), 5)
-        self.assertIn("covered airport", c["legal"]["summary"])
+        self.assertIn("US airport", c["legal"]["summary"])
         self.assertTrue(d["source"].endswith(".pdf"))
 
     def test_credible_sources_and_specific_statuses(self):
