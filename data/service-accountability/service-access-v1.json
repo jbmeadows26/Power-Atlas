@@ -1,0 +1,160 @@
+{
+  "schema": "power-atlas.service-accountability.v1",
+  "asOf": "2026-11-09",
+  "title": "The human cost of corporate automation",
+  "introduction": "Technology can make service better. The accountability question is whether people are still able to get meaningful help when automation cannot solve the problem.",
+  "scope": "U.S. labor benchmark plus one investigated airline example. This is not a ranking of all companies or a nationwide estimate of service failures.",
+  "sample": {
+    "label": "Customer-service AI adoption survey",
+    "sourceType": "independent industry survey",
+    "sampleSize": 275,
+    "fieldwork": "July–August 2026",
+    "organizationsWithAIAttributedAgentCutsPercent": 21,
+    "meanWorkforceReductionAmongCuttersPercent": 16.7,
+    "rehiredAfterPriorReductionsPercent": 7,
+    "planToRehireNext18MonthsPercent": 11,
+    "footnote": "16.7% is the average among organizations reporting AI-related agent cuts, not across all surveyed employers. The 7% and 11% are surveyed leaders. Associations in this survey are not company-specific causal findings.",
+    "source": "https://www.gartner.com/en/newsroom/press-releases/2026-11-05-gartner-survey-finds-21-percent-of-service-and-support-leaders-have-reduced-human-agent-headcount-because-of-ai"
+  },
+  "labor": {
+    "occupation": "U.S. customer-service representatives",
+    "baseYear": 2025,
+    "baseEmployment": 2666000,
+    "projectedYear": 2035,
+    "projectedEmployment": 2524100,
+    "projectedChangePercent": -5,
+    "projectedChangeJobs": -141800,
+    "expectedAnnualOpenings": 289500,
+    "footnote": "These are BLS ten-year projections, not layoffs measured today or layoffs attributed specifically to AI. Expected annual openings largely reflect replacement needs.",
+    "source": "https://www.bls.gov/ooh/office-and-administrative-support/customer-service-representatives.htm"
+  },
+  "case": {
+    "id": "virgin-atlantic-us-phone-2026-11-09",
+    "name": "Virgin Atlantic",
+    "region": "United States / Canada telephone customer service",
+    "category": "Airlines",
+    "published": {
+      "heading": "Officially published",
+      "phone": "+1 800 862 8621",
+      "availability": "24 hours a day, 7 days a week",
+      "digitalChannel": "Virgin Atlantic says its online AI Concierge chat is the quickest contact option.",
+      "source": "https://www.virginatlantic.com/en-US/contact-us",
+      "verifiedOn": "2026-11-09"
+    },
+    "reported": {
+      "heading": "Reported by a caller · not independently reproduced",
+      "description": "A caller on 9 November 2026 reported that the published US support number routed all menu paths they tried toward automated SMS or other self-service rather than offering an explicit human representative option.",
+      "importantContexts": [
+        "General customer service",
+        "Lost baggage",
+        "Wheelchair assistance"
+      ],
+      "evidenceLevel": "firsthand report; live call flow not independently tested",
+      "sourceType": "firsthand user report"
+    },
+    "companyDisclosure": {
+      "heading": "2025 annual report · official company figures",
+      "totalHeadcount2024": 8760,
+      "totalHeadcount2025": 9313,
+      "reservationsSalesRetailFte2024": 1404,
+      "reservationsSalesRetailFte2025": 1496,
+      "totalGroupFte2024": 7629,
+      "totalGroupFte2025": 8036,
+      "statutoryLossGbpM2024": 94.9,
+      "statutoryLossGbpM2025": 205.3,
+      "directorsRemunerationGbpM2024": 4.7,
+      "directorsRemunerationGbpM2025": 13,
+      "directorContext": "2025 aggregate director remuneration includes discretionary amounts reflecting 2022–2025 performance. Comparing these figures does not prove that service quality fell or that management profited from reduced call-centre headcount.",
+      "ownerDisclosure": "The annual report lists Virgin Group and Delta as shareholders and says directors consider Sir Richard Branson the ultimate controlling party. This does not establish involvement in telephone routing.",
+      "limitations": "Reservations, sales and retail FTE is a combined category, not a disclosed telephone-agent count. Higher companywide employment does not prove every support team grew.",
+      "source": "https://corporate.virginatlantic.com/content/dam/corporate/annual-reports/Virgin-Atlantic-Annual-Report-2025.pdf",
+      "reportPages": "Financial statements, Note 7 (pp. 99–100); CFO statement (p. 18); ultimate holding (Note 24)"
+    },
+    "established": "Published telephone number and 24/7 statement are confirmed; 2025 group staffing and executive remuneration figures are confirmed from company's own accounts.",
+    "notEstablished": [
+      "Whether the telephone menu prevents all callers from reaching a human",
+      "Whether wheelchair-assistance requests through this line cannot reach a qualified representative",
+      "Whether a complaint resolution official is unavailable when required",
+      "Whether a Virgin Atlantic call-centre headcount cut caused the reported menu experience",
+      "Whether automation savings caused any director remuneration changes",
+      "Whether this experience represents typical customers or other geographic routes"
+    ],
+    "legal": {
+      "summary": "For disability-related accommodation problems during airline operations at a US airport, an airline must make a Complaint Resolution Official (CRO) available, by phone or in person. This rule does not guarantee a human agent on every corporate hotline at every moment.",
+      "dotHotline": "1-800-778-4838",
+      "rightsSource": "https://www.transportation.gov/individuals/aviation-consumer-protection/what-do-if-you-have-problem",
+      "complaintSource": "https://www.transportation.gov/airconsumer/complaint-process",
+      "complaintPortal": "https://airconsumer.dot.gov/consumer/s/"
+    },
+    "audit": [
+      {
+        "question": "Is there an explicit human option?",
+        "method": "Document every IVR branch and whether a live representative can be reached on the advertised US number.",
+        "status": "not tested independently"
+      },
+      {
+        "question": "Can urgent baggage issues reach a decision-maker?",
+        "method": "Test a realistic lost-baggage scenario without supplying real booking or personal data.",
+        "status": "not tested independently"
+      },
+      {
+        "question": "Is disability assistance reachable?",
+        "method": "Check the official CRO and assistance process during operating hours at a covered US airport.",
+        "status": "not tested independently"
+      },
+      {
+        "question": "Is service quality getting worse?",
+        "method": "Compare representative-reach rates, average resolution time, first-contact resolution and verified complaints over time.",
+        "status": "missing longitudinal observations"
+      },
+      {
+        "question": "Where do savings go?",
+        "method": "Match support-specific staffing, technology spending, customer outcomes, revenue and director compensation over consistent fiscal periods.",
+        "status": "no support-specific bridge"
+      },
+      {
+        "question": "Who owns the company?",
+        "method": "Trace disclosed Virgin Group/Delta shareholding and director control, without assigning blame for unverified operational choices.",
+        "status": "owner relationship documented; decision link unknown"
+      }
+    ]
+  },
+  "pathways": [
+    {
+      "title": "Check the airline's published contact routes",
+      "description": "Phone and digital channels, with current availability claimed by the airline.",
+      "url": "https://www.virginatlantic.com/en-US/contact-us"
+    },
+    {
+      "title": "Disability-related airport issue: ask for a CRO",
+      "description": "A specially trained airline official must be available under U.S. rules during covered airport operations; not a general 24/7 hotline guarantee.",
+      "url": "https://www.transportation.gov/individuals/aviation-consumer-protection/what-do-if-you-have-problem"
+    },
+    {
+      "title": "File an airline-service or accessibility complaint",
+      "description": "DOT's official portal takes passenger complaints; this is not an automatic finding against an airline.",
+      "url": "https://airconsumer.dot.gov/consumer/s/"
+    }
+  ],
+  "methodology": {
+    "approach": "Research-first, not blame-first. Separate published policies, dated calls, independent replicates, company filings, regulatory duties and attribution hypotheses.",
+    "evidenceTiers": [
+      "Verified primary source",
+      "Dated first-person account / unreplicated",
+      "Independent repeat observation",
+      "Unsupported cause, intent or financial-transfer hypothesis"
+    ],
+    "measures": [
+      "Time to human / share of paths reaching human",
+      "First-contact resolution rate",
+      "Escalation availability for vulnerable passengers",
+      "Complaint volume normalized per transaction",
+      "Service workforce FTE and hours by function",
+      "Technology expense per case, not just gross savings",
+      "Executive compensation, dividends and buybacks",
+      "Service price and fee increases adjusted for inflation"
+    ],
+    "privacy": "Do not publish callers' booking details, medical/disability data, private phone numbers, or call audio without appropriate consent and applicable legal review.",
+    "noCompositeScore": "No company accountability score until measurements, comparison cohorts, timestamps and reproducibility are sufficient."
+  }
+}
