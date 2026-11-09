@@ -1,16 +1,16 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-07T15:11:08.366485+00:00",
+  "generatedUTC": "2026-11-09T16:20:00.848559+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 18,
-    "jsonDataFilesChecked": 302,
-    "validJsonFiles": 302,
-    "staticReferencesInspected": 367,
+    "htmlPagesAudited": 19,
+    "jsonDataFilesChecked": 305,
+    "validJsonFiles": 305,
+    "staticReferencesInspected": 377,
     "unresolvedStaticLinkIssues": 0,
-    "missingBugReportScripts": 1,
+    "missingBugReportScripts": 2,
     "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
@@ -307,6 +307,16 @@
       "primaryHeaderPresent": true
     },
     {
+      "path": "platform/unified/service-accountability.html",
+      "localReferenceCount": 10,
+      "allReferencesCount": 10,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": false,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
       "path": "platform/unified/source-audit.html",
       "localReferenceCount": 12,
       "allReferencesCount": 14,
@@ -367,7 +377,8 @@
   "invalidDataFiles": [],
   "unparsedHtml": [],
   "missingBugReportScripts": [
-    "platform/unified/my-life.html"
+    "platform/unified/my-life.html",
+    "platform/unified/service-accountability.html"
   ],
   "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
