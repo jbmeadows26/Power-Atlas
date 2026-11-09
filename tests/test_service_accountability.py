@@ -72,7 +72,7 @@ class ServiceAccountabilityTests(unittest.TestCase):
         ids = set(re.findall(r'\bid="([^"]+)"', self.page))
         self.assertTrue(nodes.issubset(ids), nodes - ids)
         self.assertIn('src="service-accountability.js?v=', self.page)
-        self.assertIn('src="bug-report.js?v=', self.page)
+        self.assertIn('src="bug-report.js"', self.page)
         self.assertIn('href="global-navigation.css"', self.page)
         self.assertIn("data-pa-nav=\"issues\"", self.page)
         self.assertIn("aria-live", self.page)
