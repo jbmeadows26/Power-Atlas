@@ -1,0 +1,140 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-oversight.v1",
+  "asOf": "2026-11-09",
+  "scope": "UK Public Service Ombudsman administrative complaint handling; distinct from trust, criminal findings and population-wide misconduct",
+  "sources": [
+    {
+      "id": "uk-phso-faq",
+      "url": "https://www.ombudsman.org.uk/news-and-blog/news/media-faq",
+      "kind": "official_agency_statistics",
+      "reuse": "Facts only; page-specific licence not confirmed. Annual report 2024-25 states OGL v3 except third-party material; no assumption that all site content shares that licence."
+    },
+    {
+      "id": "uk-phso-dvla",
+      "url": "https://www.ombudsman.org.uk/making-complaint/what-we-can-and-cant-help/how-we-have-helped-others/poor-communication-and-delays-left-people-not-knowing-whether-they-could-drive",
+      "kind": "published_ombudsman_case",
+      "reuse": "Facts and original paraphrase only; page-specific licence not confirmed."
+    }
+  ],
+  "observations": [
+    {
+      "id": "uk-phso-complaints-worked-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 38045,
+      "unit": "count",
+      "measure": "Complaints worked on",
+      "denominator": "all complaints worked on FY2024-25",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-investigations-required-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 9692,
+      "unit": "count",
+      "measure": "Complaints requiring investigation",
+      "denominator": "complaints requiring investigation FY2024-25",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-investigations-required-prior-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2023-24",
+      "value": 8675,
+      "unit": "count",
+      "measure": "Complaints requiring investigation",
+      "denominator": "complaints requiring investigation FY2023-24",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-detailed-upheld-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 545,
+      "unit": "count",
+      "measure": "Detailed investigations upheld or partly upheld",
+      "denominator": "detailed investigations reaching a merits decision; published count",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-detailed-upheld-share-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 75,
+      "unit": "percent",
+      "measure": "Share upheld or partly upheld among detailed investigations",
+      "denominator": "detailed investigations reaching merits decisions; denominator not explicitly given in FAQ; do not divide by 9692",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-initial-checks-seven-days-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 99,
+      "unit": "percent",
+      "measure": "Initial-check decisions within seven days",
+      "denominator": "complaints decided following initial checks FY2024-25",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-primary-investigation-duration-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 6.5,
+      "unit": "months",
+      "measure": "Mean duration of primary investigations",
+      "denominator": "primary investigations; no count provided",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    },
+    {
+      "id": "uk-phso-detailed-investigation-duration-2024-25",
+      "geography": "United Kingdom (NHS complaints cover England)",
+      "period": "FY2024-25",
+      "value": 19.5,
+      "unit": "months",
+      "measure": "Mean duration of detailed investigations",
+      "denominator": "detailed investigations; no count provided",
+      "evidenceClass": "official_administrative_record",
+      "sourceId": "uk-phso-faq",
+      "note": "Caseload and adjudication subsets differ; complaint counts do not establish prevalence or institutional decline."
+    }
+  ],
+  "events": [
+    {
+      "id": "uk-dvla-ombudsman-m-2019-03-27",
+      "date": "2019-03-27",
+      "datePrecision": "day",
+      "geography": "United Kingdom",
+      "case": "DVLA medical driving-licence complaint M",
+      "event": "Ombudsman investigation closed; found excessive delay (11 months after new information), poor communication and inadequate records; did not find DVLA obliged to follow applicant's doctors or allow driving assessment.",
+      "evidenceClass": "ombudsman_adjudicated_administrative_finding",
+      "sourceId": "uk-phso-dvla"
+    },
+    {
+      "id": "uk-dvla-ombudsman-b-2019-09-30",
+      "date": "2019-09-30",
+      "datePrecision": "day",
+      "geography": "United Kingdom",
+      "case": "DVLA medical driving-licence complaint B",
+      "event": "Ombudsman investigation closed; found deficient communication but did not substantiate claims of contacting wrong consultant or lacking consent. Ombudsman recommended apology and £200 payment; agency complied with recommendations.",
+      "evidenceClass": "ombudsman_adjudicated_administrative_finding",
+      "sourceId": "uk-phso-dvla"
+    }
+  ],
+  "methodology": "No causal inference. No guilt inference. Counts are administrative workflows, not population prevalence. 545/75% is not a ratio of 9,692 investigations. FY2024-25 corresponds to 2024-04-01 through 2025-03-31. Source 2024-25 annual report OGL v3 except where stated; website permissions not generalized."
+}
