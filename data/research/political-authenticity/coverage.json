@@ -7,7 +7,7 @@
   "nonVotingHouse": 6,
   "ageKnown": 539,
   "ageUnknown": 0,
-  "ageCoverageFraction": 1.0,
+  "ageCoverageFraction": 1,
   "occupationKnown": 0,
   "educationKnown": 0,
   "wealthKnown": 0,
@@ -18,10 +18,23 @@
     "substantive_policy_responsiveness"
   ],
   "status": "secondary_CC0_source_unverified_primary_Bioguide_crosscheck_pending",
-  "warning": "Roster reference date differs from CRS Jan 2025 membership cohort. Exclude delegates from voting-seat comparisons. Unknown is not zero.",
+  "warning": "Roster reference date differs from CRS Jan 2025 membership cohort. Exclude delegates from voting-seat comparisons. Unknown is not zero. Separate 11-member official biography audit is reported under primaryHouseBiographyAudit; legacy occupationKnown is not a census of independently audited records.",
   "carnes2012Correction": {
     "published": "2026-04-26",
     "doi": "10.1111/lsq.70066",
     "scope": "Appendix B coefficients; author reports unchanged substantive interpretation"
+  },
+  "primaryHouseBiographyAudit": {
+    "sourceDataset": "data/research/political-authenticity/official-house-biography-audit-2026-11-02.json",
+    "reviewedAt": "2026-11-02",
+    "rosterSnapshotDate": "2026-10-30",
+    "reviewedVotingHouseMembers": 11,
+    "reviewedYoungVotingHouseMembers": 5,
+    "reviewedComparisonMembers": 6,
+    "reviewMethod": "purposive_single_reviewer_primary_source_crosscheck",
+    "populationCoverageClaim": false,
+    "biographyOccupationalTagsAvailableForReviewedMembers": 11,
+    "wealthIntervalsVerifiedFromPrimaryFilings": 0,
+    "notes": "These 11 source-audited records are not interchangeable with the 539-member secondary roster cohort. Legacy occupationKnown=0 refers to the older roster-wide coverage schema, not an absence of separately audited biographies. Do not extrapolate 11-member results to Congress."
   }
 }
