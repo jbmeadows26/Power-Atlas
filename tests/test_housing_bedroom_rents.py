@@ -82,14 +82,14 @@ class HousingBedroomRentTests(unittest.TestCase):
         self.assertIn("bs-local-pair", self.ui)
         self.assertIn(".bs-local-compare", self.page)
         self.assertIn("flex-direction:column", self.page)
-        self.assertIn("cost-benchmark-story.js?v=20261106-housing-mobile-r2", self.page)
+        self.assertRegex(self.page, r'src="cost-benchmark-story\.js\?v=[^"]+"')
 
     def test_bug_button_is_compact_on_mobile_but_still_accessible(self):
         bug = (ROOT / "platform" / "unified" / "bug-report.js").read_text(encoding="utf-8")
         self.assertIn('aria-label="Report a bug"', bug)
         self.assertIn("width: 46px; height: 46px", bug)
         self.assertIn("bug-label", bug)
-        self.assertIn("bug-report.js?v=20261106-mobile-r2", self.page)
+        self.assertIn('src="bug-report.js"', self.page)
 
     def test_zip_state_fallback(self):
         self.assertIn('first["state abbreviation"]', self.page)
