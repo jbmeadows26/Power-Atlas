@@ -86,6 +86,9 @@ class VisualAtlasReviewTests(unittest.TestCase):
         for asset in ("class-actions-visual.css", "class-actions-visual.js"):
             self.assertIn(asset, html)
             self.assertTrue((UNIFIED / asset).is_file())
+        visual_css = (UNIFIED / "class-actions-visual.css").read_text(encoding="utf-8")
+        self.assertIn(".ca-deadline-row > div", visual_css)
+        self.assertIn("flex-direction:column", visual_css)
         self.assertIn("poweratlas:class-actions-loaded", visual_js)
         self.assertIn('id="caDeadlineTimeline"', html)
         self.assertIn('id="caDonut"', html)
