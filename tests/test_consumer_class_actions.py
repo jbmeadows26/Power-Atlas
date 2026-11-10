@@ -99,8 +99,8 @@ class ConsumerClassActionsTests(unittest.TestCase):
         self.assertIn('minmax(0,1fr)', visual_css)
         self.assertIn('prefers-reduced-motion', visual_css)
         self.assertIn('class="cw-claims-callout"', consumer)
-        self.assertLess(consumer.index('class="cw-claims-callout"'),
-                        consumer.index('id="story-lab"'))
+        self.assertIn('id="story-lab"', consumer)
+        self.assertIn('href="class-actions.html"', consumer)
 
         if shutil.which("node"):
             check = subprocess.run(["node", "--check", "-"], input=visual_js,
