@@ -174,7 +174,8 @@ const tiles=[
 ["04 · Political money","Where does the money go?","Follow reported contributions through public filings.","dark-money.html","#cbdff7"],
 ["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
 ["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"],
-["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"]
+["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],
+["08 · Class actions","When companies get sued","Track claims, case status and original settlement notices.","class-actions.html","#f4d6ac"]
 ];
 function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
 function intro(){
@@ -191,9 +192,9 @@ measures.forEach((m,i)=>{const btn=el("button","pa4-bar");btn.type="button";btn.
 btn.append(el("span",null,m.label));const track=el("span","pa4-bar-track"),fill=el("span","pa4-bar-fill");track.append(fill);btn.append(track,el("b",null,"+"+m.value.toFixed(2)+"%"));
 btn.addEventListener("click",()=>{bars.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===btn)));selected(m)});bars.append(btn)});
 chart.append(bars,detail);selected(measures[0]);hero.append(copy,chart);root.append(hero);
-const headline=el("div","pa4-atlas-head");const hl=el("div");hl.append(el("span","pa4-kicker","VISUAL ATLAS"),el("h2",null,"Start with a question, not a spreadsheet."));headline.append(hl,el("p",null,"Seven paths into the evidence. Every chapter connects to a real Power Atlas section."));root.append(headline);
+const headline=el("div","pa4-atlas-head");const hl=el("div");hl.append(el("span","pa4-kicker","VISUAL ATLAS"),el("h2",null,"Start with a question, not a spreadsheet."));headline.append(hl,el("p",null,"Eight paths into the evidence. Every chapter connects to a real Power Atlas section."));root.append(headline);
 const gallery=el("div","pa4-gallery");
-tiles.forEach(t=>{const card=el("a","pa4-tile");card.href=link(t[3]);const pic=el("span","pa4-tile-visual");pic.style.setProperty("--tile",t[4]);pic.setAttribute("aria-hidden","true");card.append(pic,el("span","pa4-tile-kicker",t[0]),el("strong",null,t[1]),el("small",null,t[2]),el("span","pa4-go","Explore story ↗"));gallery.append(card)});root.append(gallery);
+tiles.forEach(t=>{const card=el("a",t[3]==="class-actions.html"?"pa4-tile pa4-tile--claims":"pa4-tile");card.href=link(t[3]);const pic=el("span","pa4-tile-visual");pic.style.setProperty("--tile",t[4]);pic.setAttribute("aria-hidden","true");card.append(pic,el("span","pa4-tile-kicker",t[0]),el("strong",null,t[1]),el("small",null,t[2]),el("span","pa4-go","Explore story ↗"));gallery.append(card)});root.append(gallery);
 const target=document.querySelector("main");
 if(target){target.prepend(root);document.body.classList.add("pa4-unified-home");
  const promos=Array.from(target.children).filter(x=>x!==root&&(x.tagName==="ASIDE"||x.tagName==="DIV")&&x.getAttribute("style")?.includes("max-width:1240"));
