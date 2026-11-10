@@ -39,7 +39,7 @@ class ConsumerPracticesTests(unittest.TestCase):
                 self.assertTrue(c["source"]["url"].startswith("https://"))
                 self.assertEqual(c["source"]["kind"], "primary")
                 self.assertTrue(c["name"] and c["claim"] and c["implication"] and c["action"])
-                self.assertTrue(re.fullmatch(r"20\\d\\d-\\d\\d-\\d\\d", c["eventDate"]))
+                self.assertTrue(re.fullmatch(r"20\d\d-\d\d-\d\d", c["eventDate"]))
                 if c["status"] != "terms":
                     self.assertIn("ftc.gov", c["source"]["url"])
         t = next(c for c in self.cases if c["id"] == "tmobile")
@@ -76,13 +76,13 @@ class ConsumerPracticesTests(unittest.TestCase):
             self.assertIn('href="consumer-practices.html"', (directory / "telecom-promotions.html").read_text(encoding="utf-8"))
         life = (UNIFIED / "my-life.html").read_text(encoding="utf-8")
         self.assertIn('href="consumer-practices.html"', life)
-        self.assertIn('id="consumerPracticesCard"', life)
+        self.assertIn('id="consumerPracticesCategory"', life)
 
     def test_inline_javascript_parses_with_node(self):
         if shutil.which("node") is None:
             self.skipTest("Node.js unavailable")
         for page in (self.main, self.research):
-            for script in re.findall(r"<script(?:\\s[^>]*)?>([\\s\\S]*?)</script>", page):
+            for script in re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", page):
                 if not script.strip():
                     continue
                 proc = subprocess.run(
