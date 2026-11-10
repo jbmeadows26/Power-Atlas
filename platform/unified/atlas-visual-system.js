@@ -58,11 +58,14 @@ function chartShell(title,sub){
  return {root,content,note,links};
 }
 function bars(host,rows,formatter){
- const max=Math.max(1,...rows.map(r=>r.value));const wrap=make("div","pa3-chart-bars");wrap.setAttribute("role","img");wrap.setAttribute("aria-label",rows.map(x=>x.label+": "+formatter(x.value)).join("; "));
- rows.forEach(row=>{
- const outer=make("div","pa3-chart-row"),label=make("span","pa3-chart-row-label"),track=make("span","pa3-chart-track"),bar=make("span","pa3-chart-bar"),value=make("strong","pa3-chart-value");
+ const max=Math.max(1,...rows.map(r=>r.value));const wrap=make("div","pa3-chart-bars");wrap.setAttribute("role","group");wrap.setAttribute("aria-label","Select a chart bar to explain its recorded value");
+ const panel=make("p","pa4-chart-takeaway");panel.setAttribute("role","status");panel.setAttribute("aria-live","polite");
+ rows.forEach((row,i)=>{
+ const outer=make("button","pa3-chart-row"),label=make("span","pa3-chart-row-label"),track=make("span","pa3-chart-track"),bar=make("span","pa3-chart-bar"),value=make("strong","pa3-chart-value");
+ outer.type="button";outer.setAttribute("aria-pressed",i===0?"true":"false");outer.setAttribute("aria-label",row.label+": "+formatter(row.value)+". Select for explanation.");
  label.textContent=row.label;bar.style.width=(row.value/max*100)+"%";track.append(bar);value.textContent=formatter(row.value);outer.append(label,track,value);wrap.append(outer);
- });host.replaceWith(wrap);return wrap;
+ outer.addEventListener("click",()=>{wrap.querySelectorAll(".pa3-chart-row").forEach(b=>b.setAttribute("aria-pressed",String(b===outer)));panel.textContent=row.label+": "+formatter(row.value)+". Values are descriptive and reflect this chart's dated source definitions. The size of a bar does not prove a causal relationship."});
+ });host.replaceWith(wrap);wrap.insertAdjacentElement("afterend",panel);if(rows[0])panel.textContent=rows[0].label+": "+formatter(rows[0].value)+". Select another bar to compare source-reported values; this chart does not establish causation.";return wrap;
 }
 function details(root,rows,formatter){
  const d=make("details"),sum=make("summary");sum.textContent="See exact data and source context";d.append(sum);
@@ -123,4 +126,97 @@ async function chart(){
 }
 function start(){story();chart()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
+})();
+
+
+/* Power Atlas v4 preview — an original, source-led visual atlas.
+   Enhances existing evidence connectors in place; never substitutes invented local estimates. */
+(()=>{"use strict";
+const path=(location.pathname.split("/").pop()||"index.html").split("?")[0];
+const researchSurface=location.hostname.includes("research")||document.body.classList.contains("pa-research-site");
+const unifiedPreviewBase="__PA4_UNIFIED_PREVIEW__";
+const localResearchFiles=new Set(["index.html","consumer-practices.html","telecom-promotions.html","service-accountability.html","economic-fragility.html","economic-fragility-review.html","election-2026.html"]);
+const link=(name)=>researchSurface&&!localResearchFiles.has(name)?unifiedPreviewBase+name:name;
+const chapters={
+"index.html":["Visual atlas",["my-life.html","Your community"],["corporate-ownership.html","Corporate ownership"],["dark-money.html","Election money"]],
+"my-life.html":["Everyday life",["corporate-ownership.html","Ownership and prices"],["consumer-practices.html","Consumer Watch"],["source-audit.html","Coverage and limitations"]],
+"corporate-ownership.html":["Corporate power",["my-life.html","See everyday costs"],["business-influence.html","Business and government"],["investigations.html","Open investigations"]],
+"consumer-practices.html":["Consumer Watch",["telecom-promotions.html","Phone promotions"],["class-actions.html","Class-action cases"],["service-accountability.html","Customer-service access"]],
+"telecom-promotions.html":["Consumer Watch",["consumer-practices.html","Consumer Watch"],["my-life.html","Personal cost context"],["class-actions.html","Consumer lawsuits"]],
+"service-accountability.html":["Consumer Watch",["consumer-practices.html","Hidden costs and practices"],["class-actions.html","Consumer lawsuits"],["my-life.html","Daily-life impacts"]],
+"class-actions.html":["Consumer Watch",["consumer-practices.html","Consumer Watch"],["source-audit.html","Evidence methodology"],["service-accountability.html","Customer service"]],
+"dark-money.html":["Political finance",["money-sources.html","Primary filing sources"],["donor-intelligence.html","Major donors"],["election-money.html","Election spending"]],
+"donor-intelligence.html":["Political finance",["dark-money.html","Trace the money"],["election-money.html","Campaign cycles"],["money-sources.html","Source records"]],
+"election-money.html":["Political finance",["donor-intelligence.html","Major donors"],["dark-money.html","Dark-money research"],["money-sources.html","Original filings"]],
+"money-sources.html":["Political finance",["dark-money.html","Follow transfers"],["business-influence.html","Business influence"],["source-audit.html","Data coverage"]],
+"business-influence.html":["Power and money",["business-candidates.html","Investigated businesses"],["corporate-ownership.html","Corporate ownership"],["investigations.html","Case investigations"]],
+"business-candidates.html":["Power and money",["business-influence.html","Business outcomes"],["corporate-ownership.html","Corporate ownership"],["source-audit.html","Source status"]],
+"investigations.html":["Accountability",["navatek.html","Case study"],["business-influence.html","Follow the records"],["source-audit.html","Verification and gaps"]],
+"navatek.html":["Accountability",["investigations.html","Other investigations"],["money-sources.html","Source filings"],["business-influence.html","Business and policy"]],
+"compare.html":["Democracy",["election-2026.html","Election context"],["dark-money.html","Political financing"],["reform-lab.html","Reform choices"]],
+"election-2026.html":["Democracy",["compare.html","Compare evidence"],["dark-money.html","Campaign finance"],["source-audit.html","Evidence status"]],
+"reform-lab.html":["Civic power",["compare.html","Compare outcomes"],["my-life.html","Everyday impacts"],["source-audit.html","Known limitations"]],
+"source-audit.html":["Evidence and methods",["my-life.html","Everyday measurements"],["money-sources.html","Money sources"],["reform-lab.html","Possible responses"]],
+"economic-fragility.html":["Economic resilience",["my-life.html","Household exposure"],["corporate-ownership.html","Market power"],["source-audit.html","Source quality"]],
+"economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
+};
+const measures=[
+{key:"transport",label:"Transport",value:7.77,color:"#e99a7a",src:"https://fred.stlouisfed.org/data/CPITRNSL",explain:"Transportation CPI: +7.77% year over year in September 2026. This includes different transport prices; it does not isolate a toll or fare change."},
+{key:"housing",label:"Rent",value:2.78,color:"#7ed2b9",src:"https://fred.stlouisfed.org/data/CUSR0000SEHA",explain:"Rent of primary residence CPI: +2.78%. Not a measure of a specific bedroom size or current asking rent."},
+{key:"groceries",label:"Groceries",value:1.77,color:"#b59de7",src:"https://fred.stlouisfed.org/data/CUSR0000SAF11",explain:"Food-at-home CPI: +1.77%. Not a local grocery-basket or retailer-specific figure."},
+{key:"health",label:"Medical care",value:1.50,color:"#f3cc76",src:"https://fred.stlouisfed.org/data/CPIMEDSL",explain:"Medical-care CPI: +1.50%. Not a health-insurance premium or personal medical bill."}
+];
+const tiles=[
+["01 · Everyday life","What pushes costs up?","Housing, food, utilities and transportation.","my-life.html","#f3b9a4"],
+["02 · Corporate power","Who owns what?","See investors, companies and the limits of ownership data.","corporate-ownership.html","#dac6f3"],
+["03 · Consumer Watch","What's in the fine print?","Phone deals, subscriptions and hidden conditions.","consumer-practices.html","#bce9df"],
+["04 · Political money","Where does the money go?","Follow reported contributions through public filings.","dark-money.html","#cbdff7"],
+["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
+["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"]
+];
+function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
+function intro(){
+const root=el("section","pa4-home");root.id="pa4-atlas-home";root.setAttribute("aria-label","Explore Power Atlas stories");
+const hero=el("div","pa4-home-main"),copy=el("div"),k=el("span","pa4-kicker","THE STORY BEHIND THE SYSTEM");
+const h=el("h1");h.append("See the big picture. ",(()=>{const em=el("em",null,"Then follow the details.");return em})());copy.append(k,h);
+copy.append(el("p","pa4-lead","From everyday bills to decisions made by companies and governments, explore measurable changes, documented relationships and the unanswered questions. Easy to scan. Deep enough to investigate."));
+const a=el("a","pa4-primary","Explore what affects your life ↗");a.href=link("my-life.html");copy.append(a,el("p","pa4-mini","No ZIP is required for this overview. Local detail remains available through the community explorer."));
+const chart=el("div","pa4-graphic");chart.append(el("span","pa4-kicker","UNITED STATES · SEPTEMBER 2026"),el("h2",null,"How quickly are selected everyday price indexes rising?"));
+const bars=el("div","pa4-bars");bars.setAttribute("role","group");bars.setAttribute("aria-label","Select a national CPI category");
+const detail=el("div","pa4-chart-detail");detail.setAttribute("aria-live","polite");
+function selected(m){detail.textContent="";const b=el("strong",null,m.explain);const s=el("span",null," · National, seasonally adjusted CPI; year-over-year change. Not household bill dollars. ");const source=el("a",null,"Original data ↗");source.href=m.src;source.target="_blank";source.rel="noopener noreferrer";detail.append(b,s,source)}
+measures.forEach((m,i)=>{const btn=el("button","pa4-bar");btn.type="button";btn.setAttribute("aria-pressed",String(i===0));btn.style.setProperty("--val",String(m.value));btn.style.setProperty("--shade",m.color);
+btn.append(el("span",null,m.label));const track=el("span","pa4-bar-track"),fill=el("span","pa4-bar-fill");track.append(fill);btn.append(track,el("b",null,"+"+m.value.toFixed(2)+"%"));
+btn.addEventListener("click",()=>{bars.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===btn)));selected(m)});bars.append(btn)});
+chart.append(bars,detail);selected(measures[0]);hero.append(copy,chart);root.append(hero);
+const headline=el("div","pa4-atlas-head");const hl=el("div");hl.append(el("span","pa4-kicker","VISUAL ATLAS"),el("h2",null,"Start with a question, not a spreadsheet."));headline.append(hl,el("p",null,"Six paths into the evidence. Every chapter connects to a real Power Atlas section."));root.append(headline);
+const gallery=el("div","pa4-gallery");
+tiles.forEach(t=>{const card=el("a","pa4-tile");card.href=link(t[3]);const pic=el("span","pa4-tile-visual");pic.style.setProperty("--tile",t[4]);pic.setAttribute("aria-hidden","true");card.append(pic,el("span","pa4-tile-kicker",t[0]),el("strong",null,t[1]),el("small",null,t[2]),el("span","pa4-go","Explore story ↗"));gallery.append(card)});root.append(gallery);
+const target=document.querySelector("main");
+if(target){target.prepend(root);document.body.classList.add("pa4-unified-home");
+ const promos=Array.from(target.children).filter(x=>x!==root&&(x.tagName==="ASIDE"||x.tagName==="DIV")&&x.getAttribute("style")?.includes("max-width:1240"));
+ if(promos.length>0){const box=el("details","pa4-latest"),summary=el("summary",null,"Recently added investigations and research");box.append(summary);promos.forEach(x=>box.append(x));root.insertAdjacentElement("afterend",box)}
+}else{const old=document.querySelector("header.hero");if(old){old.insertAdjacentElement("beforebegin",root);document.body.classList.add("pa4-research-home")}else document.body.prepend(root)}
+}
+function ribbon(){
+const host=document.body;if(!host)return;
+const s=el("div","pa4-review-ribbon");s.setAttribute("role","note");const inner=el("div","pa4-ribbon-inner");
+inner.append(el("span",null,"◈ POWER ATLAS · DESIGN REVIEW · NOT PRODUCTION"));
+const a=el("a",null,"Review the original source repository ↗");a.href="https://github.com/jbmeadows26/Power-Atlas/tree/review/visual-atlas-platform-20261110";a.target="_blank";a.rel="noopener noreferrer";
+inner.append(a);s.append(inner);host.prepend(s)
+}
+function context(){
+const cfg=chapters[path];if(!cfg)return;
+const story=document.querySelector(".pa3-story");if(story){const head=story.querySelector(".pa3-story-head > div");if(head)head.prepend(el("span","pa4-topic-flag",cfg[0]))}
+if(path==="index.html")return;
+const row=el("nav","pa4-crossroads");row.setAttribute("aria-label","Related visual stories");row.append(el("span",null,"Continue exploring"));
+cfg.slice(1).forEach(p=>{const a=el("a",null,p[1]+" ↗");a.href=link(p[0]);row.append(a)});
+const chart=document.querySelector(".pa3-chart");const anchor=chart||story||document.querySelector("main > .hero")||document.querySelector("main > section")||document.querySelector("main > div")||document.querySelector("main");
+if(anchor){if(anchor.matches("main"))anchor.prepend(row);else anchor.insertAdjacentElement("afterend",row)}else document.body.append(row);
+}
+function main(){
+document.documentElement.classList.add("pa4");if(!chapters[path])return;
+ribbon();if(path==="index.html")intro();context();
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",main,{once:true});else main();
 })();

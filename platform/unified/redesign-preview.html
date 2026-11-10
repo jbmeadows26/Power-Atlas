@@ -1,0 +1,264 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="description" content="Review-only Power Atlas visual-storytelling redesign prototype: explorable cost trends, corporate connections and consumer choice tools.">
+<title>Power Atlas — Visual Redesign Draft</title>
+<style>
+:root{--paper:#f8f7f3;--white:#fff;--ink:#16232d;--soft:#5b6872;--border:#dfded7;--teal:#0c9e95;--salmon:#ed765d;--purple:#8360d9;--blue:#3b78bf;--gold:#ce9b33;--lime:#afd371;--navy:#142c3c;--radius:20px;font-family:Inter,"Avenir Next",Avenir,system-ui,-apple-system,"Segoe UI",sans-serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);overflow-x:hidden}
+a{color:inherit}button,input{font:inherit}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #16857e;outline-offset:4px}
+.wrap{width:min(1230px,calc(100% - 48px));margin:auto}
+.review{background:#192d3b;color:#e7f5f1;padding:9px 0;font-size:12px;font-weight:700;letter-spacing:.075em}
+.review .wrap{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap}
+.review b{color:#a1ead3}.review a{color:#d2ecd7}
+header{background:rgba(248,247,243,.94);position:sticky;top:0;z-index:30;border-bottom:1px solid var(--border);backdrop-filter:blur(16px)}
+.headInner{min-height:78px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;gap:13px;align-items:center;text-decoration:none;font-weight:900;letter-spacing:-.035em;font-size:22px;line-height:.9}
+.brand small{display:block;font-size:10px;font-weight:750;letter-spacing:.2em;margin-top:6px;color:#5f7778}
+.brandMark{position:relative;width:35px;height:35px;display:grid;grid-template-columns:repeat(3,9px);grid-template-rows:repeat(3,9px);gap:4px;transform:rotate(-12deg)}
+.brandMark i{width:9px;height:9px;border-radius:50%;background:var(--navy)}
+.brandMark i:nth-child(2),.brandMark i:nth-child(5){background:var(--teal)}
+.brandMark i:nth-child(3),.brandMark i:nth-child(7){background:var(--salmon)}
+nav{display:flex;gap:25px;align-items:center}nav a{text-decoration:none;font-size:13px;font-weight:750;color:#43505a}nav a:hover{color:var(--teal)}
+.navCTA,.buttonPrimary{border:0;border-radius:40px;background:var(--navy);color:white;padding:13px 20px;text-decoration:none;font-size:13px;font-weight:850;display:inline-flex;align-items:center;justify-content:center;gap:7px}
+.navCTA:hover,.buttonPrimary:hover{background:#245270}.menuBtn{display:none;border:1px solid var(--border);border-radius:10px;background:#fff;padding:9px 12px}
+.eyebrow{display:flex;gap:9px;align-items:center;text-transform:uppercase;font-size:12px;letter-spacing:.18em;font-weight:900}
+.eyebrow:before{content:"";width:22px;height:3px;background:var(--teal)}
+.hero{padding:65px 0 59px;position:relative;isolation:isolate;overflow:hidden}.hero::before{content:"";position:absolute;width:560px;height:560px;border-radius:50%;background:#e4f0ea;right:-290px;top:-120px;z-index:-1;filter:blur(3px)}
+.heroGrid{display:grid;grid-template-columns:minmax(0,.94fr) minmax(0,1.06fr);gap:55px;align-items:center}
+.hero h1{font-size:clamp(49px,6.2vw,86px);line-height:1.005;letter-spacing:-.069em;margin:24px 0 21px;font-weight:900;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--teal)}.intro{font-size:17px;line-height:1.65;color:#4d5d67;max-width:510px}.heroActions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:30px}
+.textLink{color:#1c4c50;font-size:13px;font-weight:850;text-decoration-thickness:2px;text-underline-offset:5px}
+.heroNote{font-size:12px;color:#748187;margin-top:24px;line-height:1.5}
+.visualHero{border-radius:28px;background:#172f40;position:relative;min-height:480px;color:#fff;overflow:hidden;padding:32px 30px 34px;box-shadow:0 22px 55px rgba(17,40,53,.13)}
+.visualHero:before{content:"";position:absolute;width:430px;height:430px;border:1px solid rgba(255,255,255,.18);border-radius:50%;right:-155px;top:-170px;box-shadow:0 0 0 58px rgba(255,255,255,.022),0 0 0 115px rgba(255,255,255,.02)}
+.vizOver{position:relative;letter-spacing:.14em;text-transform:uppercase;color:#b8dadb;font-size:10px;font-weight:900}
+.visualHero h2{font-size:26px;line-height:1.15;letter-spacing:-.04em;max-width:340px;margin:14px 0 23px;position:relative}
+.heroBars{position:relative;display:grid;gap:18px;margin-top:36px}
+.heroBarRow{display:grid;grid-template-columns:112px 1fr 55px;gap:10px;align-items:center;font-size:12px;font-weight:750}
+.heroBarTrack{height:18px;border-radius:9px;background:#284858;overflow:hidden}
+.heroBarFill{height:100%;width:calc(var(--pct)*1%);background:var(--shade);border-radius:9px;min-width:1px}
+.heroBarRow b{font-size:16px;text-align:right}
+.vizFoot{font-size:11px;color:#c6d9dd;margin-top:28px;line-height:1.55;position:relative}
+.miniTag{font-size:10px;letter-spacing:.08em;font-weight:900;text-transform:uppercase;border-radius:40px;padding:7px 10px;background:#ecf4ed;color:#216959}
+.section{padding:68px 0}.sectionHeading{display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:28px}
+.sectionHeading h2{font-size:clamp(32px,4.2vw,52px);letter-spacing:-.06em;line-height:1.09;margin:12px 0 0}
+.sectionHeading p{color:#627078;line-height:1.6;max-width:350px;font-size:14px;margin:0}
+.topicTabs{display:flex;gap:9px;overflow-x:auto;padding:3px 0 16px;scrollbar-width:thin}
+.topicTabs button{white-space:nowrap;background:#fff;border:1px solid var(--border);border-radius:40px;padding:10px 17px;font-weight:800;font-size:13px;color:#43535b}
+.topicTabs button.active,.topicTabs button[aria-pressed="true"]{background:#193546;color:#fff;border-color:#193546}
+.gallery{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.tile{display:flex;flex-direction:column;min-height:340px;border:1px solid #e5e3de;border-radius:20px;overflow:hidden;background:white;text-decoration:none;transition:transform .18s,box-shadow .18s}
+.tile:hover,.tile:focus-visible{transform:translateY(-5px);box-shadow:0 22px 40px rgba(15,36,45,.12)}
+.tileArt{height:198px;padding:16px;overflow:hidden;position:relative}
+.tileArt svg{width:100%;height:100%}.tileMeta{padding:20px 21px 23px;display:flex;flex-direction:column;gap:8px;flex:1}
+.tileMeta small{font-size:10px;letter-spacing:.13em;font-weight:900;text-transform:uppercase;color:#65717b}
+.tileMeta h3{font-size:21px;letter-spacing:-.045em;line-height:1.15;margin:0}
+.tileMeta p{font-size:13px;line-height:1.48;color:#67747a;margin:0}
+.tileMeta strong{display:block;color:#287b72;font-size:12px;margin-top:auto;padding-top:5px}
+.tile[data-topic="costs"] .tileArt{background:#f4b8a6}
+.tile[data-topic="ownership"] .tileArt{background:#d4c3f6}
+.tile[data-topic="consumer"] .tileArt{background:#c1eae2}
+.tile[data-topic="elections"] .tileArt{background:#c9e3f7}
+.tile[data-topic="justice"] .tileArt{background:#f1dcaa}
+.tile[data-topic="solutions"] .tileArt{background:#dfecc5}
+.tile.isHidden{display:none}
+.featureBand{background:#e8eee8;border-top:1px solid #dde5dc;border-bottom:1px solid #dde5dc}
+.twoColumns{display:grid;grid-template-columns:1.2fr .8fr;gap:26px;align-items:stretch}
+.chartCard,.infoCard{background:#fff;border:1px solid #e1e2da;border-radius:24px;padding:clamp(21px,3vw,34px);box-shadow:0 7px 24px rgba(22,52,56,.03)}
+.chartCard h3,.infoCard h3{font-size:25px;letter-spacing:-.048em;margin:11px 0 8px}
+.subline{font-size:13px;color:#62727a;line-height:1.65;margin:0 0 25px}
+.chartArea{display:grid;gap:13px;margin-top:24px}
+.metricRow{border:1px solid transparent;border-radius:13px;background:transparent;display:grid;grid-template-columns:115px 1fr 64px;gap:13px;align-items:center;width:100%;text-align:left;padding:11px 9px;color:#283a42}
+.metricRow:hover{background:#f5f8f5}.metricRow[aria-pressed="true"]{background:#eff7f4;border-color:#b5d7cf}
+.metricLabel{font-size:13px;font-weight:850}.metricTrack{height:22px;border-radius:8px;background:#ecf0ee;overflow:hidden}
+.metricFill{display:block;width:calc(var(--val)*12.5%);height:100%;border-radius:7px;background:var(--color);transition:width .25s}
+.metricRow b{font-size:18px;text-align:right;letter-spacing:-.04em}
+.axis{display:flex;justify-content:space-between;color:#8a989b;font-size:10px;margin:4px 69px 0 128px}
+.sourceLine{padding-top:20px;margin-top:24px;border-top:1px solid #e9ecea;color:#68787d;font-size:12px;line-height:1.6}
+.sourceLine a{font-weight:800;color:#185a64;text-decoration-thickness:1px;text-underline-offset:3px}
+.takeaway{border-left:4px solid var(--teal);padding:12px 0 12px 18px;margin:15px 0 25px;line-height:1.5;font-size:17px;font-weight:800}
+.insight{border-radius:17px;padding:20px;background:#edf4f0}.insight small{text-transform:uppercase;letter-spacing:.12em;font-size:10px;font-weight:900;color:#547770}
+.insight h4{font-size:19px;letter-spacing:-.04em;margin:8px 0}.insight p{font-size:14px;line-height:1.6;margin:0;color:#53656a}
+.clearLink{border:1px solid #94beb7;border-radius:30px;color:#174e4b;background:transparent;padding:11px 17px;font-weight:850;font-size:12px}
+.clearLink:hover{background:#e9f6f2}
+.ownershipLayout{display:grid;grid-template-columns:1.2fr .8fr;gap:30px;align-items:center}
+.networkWrap{border:1px solid #e6e1ed;border-radius:24px;background:#f2eff9;padding:20px;position:relative;min-height:305px}
+.networkWrap svg{width:100%;height:275px;display:block}
+.networkDetail{background:#fbf9ff;border:1px solid #ded7ee;border-radius:22px;padding:27px}
+.networkDetail small{letter-spacing:.12em;text-transform:uppercase;color:#7865a6;font-weight:900;font-size:11px}
+.networkDetail h3{font-size:27px;letter-spacing:-.05em;margin:12px 0}
+.networkDetail p{font-size:14px;line-height:1.7;color:#5b6372}
+.graphChoice{display:flex;flex-wrap:wrap;gap:8px;margin-top:22px}
+.graphChoice button{border-radius:40px;padding:10px 13px;border:1px solid #c8bfdc;background:#fff;color:#594487;font-weight:800;font-size:12px}
+.graphChoice button[aria-pressed="true"]{background:#4a3977;color:white}
+.smallLegend{display:flex;flex-wrap:wrap;gap:16px;font-size:11px;color:#667079;margin-top:12px}
+.lineKey{width:23px;display:inline-block;border-top:3px solid #6c52a0;margin-right:4px;vertical-align:middle}
+.lineKey.dash{border-top-style:dashed;border-color:#a6a2b7}
+.calculator{background:#152e3f;color:#f2f7f5;padding:clamp(24px,4.5vw,50px);border-radius:28px}
+.calcIntro{max-width:750px}.calcIntro .eyebrow:before{background:#91e0bd}.calcIntro .eyebrow{color:#91e0bd}
+.calcIntro h2{font-size:clamp(32px,4vw,49px);letter-spacing:-.055em;line-height:1.09;margin:15px 0}
+.calcIntro p{font-size:14px;line-height:1.65;color:#c5d7dc}
+.calcGrid{display:grid;grid-template-columns:.92fr 1.08fr;gap:34px;margin-top:33px}
+.calcFields{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.calcFields label{font-size:12px;color:#d4e5e6;font-weight:800;display:block}
+.calcFields input{display:block;background:#234458;border:1px solid #5d7b8a;border-radius:12px;color:#fff;padding:13px 14px;width:100%;font-weight:800;font-size:18px;margin-top:7px;min-width:0}
+.calcFields input:focus{background:#274a60}
+.calcFieldFoot{grid-column:1/-1;color:#a6c6d0;font-size:11px;line-height:1.6;margin-top:3px}
+.calcResults{background:#f8faf7;color:#1d2d36;border-radius:20px;padding:24px}
+.calcResultLabels{display:flex;justify-content:space-between;gap:12px;font-size:12px;font-weight:900;margin-bottom:16px}
+.calcCompare{margin:18px 0}.calcTrack{height:22px;border-radius:30px;background:#e6ece9;overflow:hidden}.calcTrack span{display:block;height:100%;border-radius:30px;width:10%;transition:width .2s;background:#2baf94}.calcTrack.promo span{background:#e58b62}
+.calcCompare strong{font-size:23px;letter-spacing:-.05em}.calcResultLabels span{color:#677881}
+.calcSummary{background:#e6f3ec;border-radius:14px;padding:15px 17px;font-size:14px;line-height:1.5;margin-top:18px}
+.calcSummary b{font-size:20px;color:#185950}
+.calcFoot{font-size:11px;line-height:1.6;color:#697982;margin-top:12px}
+.evidenceGrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.evidenceItem{padding:22px;background:#fff;border:1px solid var(--border);border-radius:18px;min-height:215px}
+.evidenceItem .status{display:inline-block;border-radius:40px;padding:7px 11px;font-size:10px;font-weight:900;letter-spacing:.05em}
+.status.measured{background:#e0f4ea;color:#087c5c}.status.documented{background:#e3effd;color:#2864a3}.status.alleged{background:#fff1db;color:#8d5a0e}.status.unknown{background:#f1edf6;color:#745d82}
+.evidenceItem h3{font-size:18px;letter-spacing:-.04em;line-height:1.2;margin:17px 0 8px}
+.evidenceItem p{font-size:12px;line-height:1.58;color:#617078;margin:0}.evidenceItem a{font-size:11px;color:#285d5c;font-weight:800;display:inline-block;margin-top:13px}
+.endStrip{border-radius:24px;background:#f0d2bf;display:flex;align-items:center;justify-content:space-between;gap:30px;padding:38px 44px}
+.endStrip h2{font-size:37px;line-height:1.12;letter-spacing:-.055em;margin:0 0 8px}
+.endStrip p{margin:0;color:#685f5b;font-size:14px;max-width:550px;line-height:1.5}
+.footer{border-top:1px solid var(--border);margin-top:80px;padding:28px 0 50px;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;font-size:12px;color:#69767b;line-height:1.6}
+.hiddenVisual{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:1000px){.heroGrid{gap:28px}.gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.evidenceGrid{grid-template-columns:repeat(2,1fr)}.visualHero{padding:26px}.heroBarRow{grid-template-columns:92px 1fr 50px}}
+@media(max-width:800px){.wrap{width:min(100% - 34px,1230px)}.menuBtn{display:inline-block}nav{display:none;position:absolute;top:78px;left:0;right:0;background:var(--paper);padding:20px 24px;border-bottom:1px solid var(--border);box-shadow:0 15px 25px rgba(10,30,40,.1);flex-direction:column;align-items:flex-start}nav.open{display:flex}.headInner{min-height:70px}.hero{padding:43px 0}.heroGrid,.twoColumns,.ownershipLayout,.calcGrid{grid-template-columns:1fr}.hero h1{font-size:clamp(48px,8vw,69px)}.visualHero{min-height:440px}.section{padding:53px 0}.sectionHeading{align-items:start;flex-direction:column;gap:10px}.sectionHeading p{max-width:620px}.chartCard,.infoCard{padding:24px}.networkWrap{min-height:0}}
+@media(max-width:530px){.topicTabs{flex-wrap:wrap;overflow:visible}.topicTabs button{padding:9px 13px}.hero::before{width:330px;height:330px;right:0;top:-150px}.wrap{width:calc(100% - 28px)}.review .wrap{justify-content:center;text-align:center}.review .wrap a{display:none}.hero h1{font-size:49px}.intro{font-size:15px}.visualHero{min-height:0}.heroBarRow{grid-template-columns:90px 1fr 47px}.gallery,.evidenceGrid,.calcFields{grid-template-columns:1fr}.tile{min-height:0}.tileArt{height:180px}.metricRow{grid-template-columns:82px 1fr 55px;gap:6px;padding:10px 5px}.metricLabel{font-size:11px}.metricRow b{font-size:15px}.axis{margin-left:93px;margin-right:62px}.chartCard,.infoCard{padding:18px}.calcFields{gap:13px}.calcFieldFoot{grid-column:1}.calculator{padding:22px 17px}.endStrip{padding:27px;flex-direction:column;align-items:start}.endStrip h2{font-size:31px}.heroActions{align-items:flex-start}.visualHero h2{font-size:23px}.navCTA{display:none}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="review"><div class="wrap"><span><b>DESIGN STUDY 01</b> · Power Atlas concept preview · Not published to the live site</span><a href="#method">What is real vs illustrative?</a></div></div>
+<header><div class="wrap headInner">
+<a class="brand" href="#top" aria-label="Power Atlas redesign draft home"><span class="brandMark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>POWER ATLAS<small>THE STORY BEHIND THE SYSTEM</small></span></a>
+<button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">☰ Menu</button>
+<nav id="mainNav" aria-label="Draft navigation"><a href="#explore">Explore stories</a><a href="#costs">Your money</a><a href="#ownership">Who owns what</a><a href="#consumer-watch">Consumer Watch</a><a href="#evidence">Evidence</a><a class="navCTA" href="#method">About this draft ↗</a></nav>
+</div></header>
+<main id="top">
+<section class="hero"><div class="wrap heroGrid">
+<div><div class="eyebrow">The power behind the price</div><h1>See the <em>big picture.</em> Then follow the details.</h1><p class="intro">From your rent to your phone bill, everyday life is shaped by decisions you rarely see. Explore the data, discover the connections, and decide what matters to you.</p><div class="heroActions"><a href="#explore" class="buttonPrimary">Explore visual stories <span aria-hidden="true">↗</span></a><a class="textLink" href="#costs">Start with the price data</a></div><p class="heroNote">An original interactive design study using selected verified Power Atlas source records.</p></div>
+<div class="visualHero" aria-label="Four national price category annual change rates">
+<div class="vizOver">A snapshot in four numbers · United States</div>
+<h2>Not every everyday cost changes at the same pace.</h2>
+<div class="heroBars">
+<div class="heroBarRow" style="--shade:#f7af8d;--pct:97.125"><span>Transportation</span><div class="heroBarTrack"><div class="heroBarFill"></div></div><b>7.77%</b></div>
+<div class="heroBarRow" style="--shade:#9ee0bd;--pct:34.75"><span>Rent index</span><div class="heroBarTrack"><div class="heroBarFill"></div></div><b>2.78%</b></div>
+<div class="heroBarRow" style="--shade:#b9a6f4;--pct:22.125"><span>Groceries</span><div class="heroBarTrack"><div class="heroBarFill"></div></div><b>1.77%</b></div>
+<div class="heroBarRow" style="--shade:#f2d681;--pct:18.75"><span>Medical care</span><div class="heroBarTrack"><div class="heroBarFill"></div></div><b>1.50%</b></div>
+</div>
+<div class="vizFoot">Year-over-year change in selected U.S. consumer price indexes, September 2026. These are national index changes—not changes in your bills. Source: BLS indexes via FRED. <a href="#costs" style="color:#d6f1e7;font-weight:800">Explore data ↗</a></div>
+</div>
+</div></section>
+<section class="section" id="explore"><div class="wrap">
+<div class="sectionHeading"><div><div class="eyebrow">Visual atlas</div><h2>Start with a question,<br>not a spreadsheet.</h2></div><p>Find a story that matters to your life. Every visual opens an explanation, not a dead end.</p></div>
+<div class="topicTabs" role="group" aria-label="Filter stories by topic"><button type="button" data-filter="all" aria-pressed="true" class="active">All stories</button><button type="button" data-filter="life" aria-pressed="false">Everyday life</button><button type="button" data-filter="power" aria-pressed="false">Power & money</button><button type="button" data-filter="action" aria-pressed="false">Accountability</button></div>
+<div class="gallery">
+<a class="tile" data-topic="costs" data-group="life" href="#costs"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><path d="M20 158 H322" stroke="#403b3a" stroke-opacity=".3"/><rect x="32" y="74" width="40" height="84" rx="6" fill="#f7ece6"/><rect x="83" y="45" width="40" height="113" rx="6" fill="#fae4da"/><rect x="134" y="23" width="40" height="135" rx="6" fill="#193a42"/><rect x="185" y="59" width="40" height="99" rx="6" fill="#f7e6dc"/><rect x="236" y="92" width="40" height="66" rx="6" fill="#fae9df"/><circle cx="303" cy="45" r="26" fill="#e77e63"/><text x="303" y="51" text-anchor="middle" fill="white" font-size="16" font-weight="900">%</text><path d="M30 136 C90 110,125 95,155 68 S230 77,300 34" fill="none" stroke="#e66d54" stroke-width="5" stroke-linecap="round"/></svg></div><div class="tileMeta"><small>01 · Everyday life</small><h3>What is pushing prices up?</h3><p>See the cost trends before chasing the possible causes.</p><strong>Explore price changes ↗</strong></div></a>
+<a class="tile" data-topic="ownership" data-group="power" href="#ownership"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><path d="M87 91 L177 37 L258 88 L177 143 Z" fill="none" stroke="#7e64bf" stroke-width="5" opacity=".55"/><path d="M87 91 L177 143 M177 37 L258 88" fill="none" stroke="#7e64bf" stroke-width="4"/><circle cx="87" cy="91" r="40" fill="#5d468e"/><circle cx="177" cy="37" r="28" fill="#f8f4ff"/><circle cx="258" cy="88" r="39" fill="#9f86d5"/><circle cx="177" cy="143" r="33" fill="#e0cafa"/><circle cx="86" cy="92" r="9" fill="#ddcaff"/><circle cx="258" cy="88" r="9" fill="#f5f1ff"/><circle cx="177" cy="36" r="7" fill="#5d468e"/><circle cx="177" cy="142" r="7" fill="#5d468e"/></svg></div><div class="tileMeta"><small>02 · Corporate power</small><h3>Who owns the companies you use?</h3><p>Turn complex ownership structures into visible relationships.</p><strong>Follow the ownership ↗</strong></div></a>
+<a class="tile" data-topic="consumer" data-group="life" href="#consumer-watch"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><rect x="65" y="16" width="83" height="150" rx="16" fill="#264e50"/><rect x="71" y="22" width="71" height="138" rx="11" fill="#f8ffff"/><rect x="197" y="16" width="83" height="150" rx="16" fill="#e99072"/><rect x="203" y="22" width="71" height="138" rx="11" fill="#fff9f5"/><circle cx="106" cy="80" r="23" fill="#7fd1c6"/><circle cx="239" cy="80" r="23" fill="#f1b1a0"/><text x="106" y="87" text-anchor="middle" fill="#143b3a" font-size="21" font-weight="900">$</text><text x="239" y="87" text-anchor="middle" fill="#6a3221" font-size="21" font-weight="900">$</text><rect x="87" y="114" width="45" height="6" rx="3" fill="#c8ddd7"/><rect x="219" y="114" width="45" height="6" rx="3" fill="#eac9bc"/></svg></div><div class="tileMeta"><small>03 · Consumer Watch</small><h3>What does a “free” phone cost?</h3><p>Compare the advertised offer with the full-term math.</p><strong>Try the cost calculator ↗</strong></div></a>
+<a class="tile" data-topic="elections" data-group="power" href="#evidence"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><g opacity=".92"><path d="M40 23 Q130 15 175 94 T320 155" fill="none" stroke="#3c80c7" stroke-width="20" stroke-linecap="round"/><path d="M40 79 Q124 60 175 94 T320 101" fill="none" stroke="#78aedf" stroke-width="19" stroke-linecap="round"/><path d="M40 141 Q100 160 175 94 T320 34" fill="none" stroke="#1a4c85" stroke-width="15" stroke-linecap="round"/></g><g fill="#f8fbff"><circle cx="42" cy="23" r="9"/><circle cx="42" cy="79" r="9"/><circle cx="42" cy="141" r="9"/><circle cx="317" cy="155" r="9"/><circle cx="317" cy="101" r="9"/><circle cx="317" cy="34" r="9"/></g></svg></div><div class="tileMeta"><small>04 · Democracy</small><h3>How does power flow?</h3><p>Follow the institutions and rules that shape representation.</p><strong>Understand evidence ↗</strong></div></a>
+<a class="tile" data-topic="justice" data-group="action" href="#evidence"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><circle cx="171" cy="86" r="71" fill="#f9edc8"/><path d="M171 19 V146 M87 56 H255 M114 61 L84 125 H143 Z M224 61 L195 125 H252 Z" stroke="#7a6334" stroke-width="6" fill="none" stroke-linejoin="round"/><path d="M71 129 Q111 146 158 129 M183 129 Q224 146 268 129" fill="none" stroke="#c69339" stroke-width="10" stroke-linecap="round"/><path d="M133 148 H206" stroke="#7a6334" stroke-width="13" stroke-linecap="round"/></svg></div><div class="tileMeta"><small>05 · Accountability</small><h3>What's proven—and what isn't?</h3><p>Separate measured facts, public records, allegations, and gaps.</p><strong>See evidence standards ↗</strong></div></a>
+<a class="tile" data-topic="solutions" data-group="action" href="#method"><div class="tileArt" aria-hidden="true"><svg viewBox="0 0 340 180"><g fill="none" stroke="#497353" stroke-width="5"><circle cx="170" cy="90" r="65"/><circle cx="170" cy="90" r="42"/><circle cx="170" cy="90" r="18"/></g><path d="M96 104 L145 129 L244 38" fill="none" stroke="#196f63" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/><circle cx="244" cy="37" r="12" fill="#7dab67"/></svg></div><div class="tileMeta"><small>06 · What you can do</small><h3>Turn understanding into action.</h3><p>See practical options without steering you toward a party.</p><strong>View the design approach ↗</strong></div></a>
+</div></div></section>
+<section class="section featureBand" id="costs"><div class="wrap">
+<div class="sectionHeading"><div><div class="eyebrow">Story 01 · Everyday economics</div><h2>What's getting more expensive?</h2></div><p>Rather than an overwhelming dashboard, begin with a simple, source-backed comparison. Tap any bar for context.</p></div>
+<div class="twoColumns">
+<div class="chartCard"><span class="miniTag">Measured · U.S. · Sep 2026</span><h3>Price changes are uneven</h3><p class="subline">Year-over-year percent change in selected seasonally adjusted BLS consumer price indexes. Same month, same geography, not dollar amounts.</p>
+<div class="chartArea" id="metricChart" role="group" aria-label="Select a price index to explore">
+<button type="button" class="metricRow" data-metric="transport" aria-pressed="true" style="--val:7.77;--color:#ee8c6b"><span class="metricLabel">Transportation</span><span class="metricTrack"><span class="metricFill"></span></span><b>+7.77%</b></button>
+<button type="button" class="metricRow" data-metric="housing" aria-pressed="false" style="--val:2.78;--color:#14a894"><span class="metricLabel">Rent</span><span class="metricTrack"><span class="metricFill"></span></span><b>+2.78%</b></button>
+<button type="button" class="metricRow" data-metric="groceries" aria-pressed="false" style="--val:1.77;--color:#9275cf"><span class="metricLabel">Food at home</span><span class="metricTrack"><span class="metricFill"></span></span><b>+1.77%</b></button>
+<button type="button" class="metricRow" data-metric="health" aria-pressed="false" style="--val:1.5;--color:#d3a83f"><span class="metricLabel">Medical care</span><span class="metricTrack"><span class="metricFill"></span></span><b>+1.50%</b></button>
+</div><div class="axis" aria-hidden="true"><span>0%</span><span>2%</span><span>4%</span><span>6%</span><span>8%</span></div>
+<p class="sourceLine">Official data snapshot in <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/place-impact/connected-metrics-v1.json" target="_blank" rel="noopener noreferrer">Power Atlas source records ↗</a>. Index movements do not establish reasons, blame, or individual household cost changes.</p>
+</div>
+<div class="infoCard" aria-live="polite"><div class="eyebrow">What the chart says</div><div class="takeaway" id="metricTakeaway">The transportation price index rose faster than the other three displayed indexes.</div><div class="insight"><small>Selected measure</small><h4 id="metricTitle">Transportation</h4><p id="metricDescription">The U.S. transportation CPI increased 7.77% between September 2025 and September 2026. This does not isolate tolls, transit fares, vehicle costs, or the reason for the increase.</p></div><p class="sourceLine"><b>Original source:</b> <a id="metricSource" href="https://fred.stlouisfed.org/data/CPITRNSL" target="_blank" rel="noopener noreferrer">BLS transportation CPI via FRED ↗</a></p><p style="font-size:13px;color:#697a7b;line-height:1.65">The next step in the full platform is to connect each cost category to documented policy decisions, market structure, and international pressures—without asserting causation from unrelated records.</p><a class="clearLink" href="#ownership" style="display:inline-block;text-decoration:none;margin-top:7px">Explore a documented connection ↗</a></div>
+</div></div></section>
+<section class="section" id="ownership"><div class="wrap">
+<div class="sectionHeading"><div><div class="eyebrow">Story 02 · Corporate ownership</div><h2>Follow the relationship.<br>Don't invent the outcome.</h2></div><p>One clear visual separates verifiable ownership from uncertain household impacts.</p></div>
+<div class="ownershipLayout">
+<div><div class="networkWrap"><svg id="ownerGraph" viewBox="0 0 620 275" role="img" aria-label="Documented acquisition of RealPage by Thoma Bravo in 2021; no measured local rental price effect from the ownership record">
+<path d="M186 134 L427 134" stroke="#644f97" stroke-width="8" stroke-linecap="round"/>
+<path d="M328 124 L345 134 L328 144" fill="none" stroke="#644f97" stroke-width="8" stroke-linecap="round"/>
+<rect x="15" y="78" width="179" height="110" rx="20" fill="#51407a"/><text id="ownerLeft" x="105" y="124" text-anchor="middle" fill="white" font-size="23" font-weight="800">Thoma Bravo</text><text id="ownerLeftSub" x="105" y="150" text-anchor="middle" fill="#e3d7fa" font-size="13">Private equity firm</text>
+<rect x="426" y="78" width="178" height="110" rx="20" fill="#a68bd7"/><text id="ownerRight" x="515" y="124" text-anchor="middle" fill="#2c2151" font-size="25" font-weight="800">RealPage</text><text id="ownerRightSub" x="515" y="150" text-anchor="middle" fill="#3a305b" font-size="13">Software company</text>
+<rect x="225" y="75" width="165" height="27" rx="13" fill="#fefeff"/><text id="ownerLinkLabel" x="307" y="93" text-anchor="middle" fill="#594987" font-weight="800" font-size="13">Acquired · 2021</text>
+<path d="M516 188 L516 232" stroke="#a9a0bb" stroke-dasharray="6 6" stroke-width="4"/><rect x="385" y="233" width="219" height="35" rx="16" fill="white" stroke="#c2b9d3"/><text id="ownerUncertainty" x="495" y="255" text-anchor="middle" fill="#786c85" font-size="12" font-weight="800">Local rent impact: not proven</text>
+</svg></div><div class="smallLegend"><span><i class="lineKey"></i>Documented corporate relationship</span><span><i class="lineKey dash"></i>Effect not established by this record</span></div></div>
+<div class="networkDetail" aria-live="polite"><small>Selected relationship</small><h3 id="ownerTitle">Thoma Bravo → RealPage</h3><p id="ownerDescription">RealPage announced that Thoma Bravo completed its acquisition on April 22, 2021. The ownership record does not itself prove a rent increase, an unlawful practice, or a specific effect in your ZIP code.</p><p id="ownerPeriod" style="font-size:12px;font-weight:800">Dated source: April 22, 2021</p><a id="ownerSource" href="https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/" target="_blank" rel="noopener noreferrer" style="font-size:12px;font-weight:850;color:#594487">Read the primary source ↗</a><div class="graphChoice" role="group" aria-label="Choose an ownership relationship"><button type="button" data-owner="realpage" aria-pressed="true">RealPage</button><button type="button" data-owner="kindercare" aria-pressed="false">KinderCare</button></div></div>
+</div>
+<p style="color:#788084;font-size:12px;line-height:1.6;margin-top:19px">Preview includes two primary-source examples. The production ownership explorer contains a larger evidence graph; visual design must preserve relationship types, reporting dates, and missing links.</p>
+</div></section>
+<section class="section" id="consumer-watch" style="padding-top:14px"><div class="wrap">
+<div class="calculator"><div class="calcIntro"><div class="eyebrow">Story 03 · Consumer Watch</div><h2>What does that phone promotion <em style="color:#91e0bd;font-style:normal">really</em> cost?</h2><p>Promotional prices rarely tell the whole story. Change the assumptions to compare an unlocked purchase with a financed promotion that requires a more expensive plan and a trade-in.</p></div>
+<div class="calcGrid"><div class="calcFields">
+<label>New phone retail price ($)<input id="retail" type="number" inputmode="decimal" min="0" max="20000" step="1" value="1199"></label>
+<label>Advertised promo credit ($)<input id="credit" type="number" inputmode="decimal" min="0" max="20000" step="1" value="830"></label>
+<label>Additional plan cost per month ($)<input id="uplift" type="number" inputmode="decimal" min="0" max="2000" step="1" value="25"></label>
+<label>Old phone resale value ($)<input id="resale" type="number" inputmode="decimal" min="0" max="20000" step="1" value="350"></label>
+<label>Promo term (months)<input id="months" type="number" inputmode="numeric" min="1" max="72" step="1" value="36"></label>
+<p class="calcFieldFoot">Illustrative inputs only—not a verified Verizon, T-Mobile or AT&T offer. Same taxes, fees and non-plan usage costs are omitted from both scenarios. Assumes the promotion requires the old phone as a trade-in and credits pay out in full.</p>
+</div>
+<div class="calcResults" aria-live="polite">
+<div class="calcResultLabels"><span>Effective cost comparison</span><span id="calcTerm">Over 36 months</span></div>
+<div class="calcCompare"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px"><span style="font-size:13px;font-weight:850">Buy unlocked + sell old phone</span><strong id="buyValue">$849</strong></div><div class="calcTrack"><span id="buyBar"></span></div></div>
+<div class="calcCompare"><div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:9px"><span style="font-size:13px;font-weight:850">Carrier promotion + trade-in</span><strong id="promoValue">$1,269</strong></div><div class="calcTrack promo"><span id="promoBar"></span></div></div>
+<div class="calcSummary" id="calcSummary">Under these assumptions, the carrier promotion costs <b>$420 more</b> over 36 months.</div>
+<p class="calcFoot">Unlocked = retail price − resale proceeds. Promo = retail price − credits + (required plan increase × months). Both surrender the old phone, by resale or trade-in. Early cancellation, lost promotional credits, taxes, fees, financing terms and eligibility rules can change the result.</p>
+</div></div></div></div></section>
+<section class="section" id="evidence"><div class="wrap">
+<div class="sectionHeading"><div><div class="eyebrow">Trust is part of the design</div><h2>Show the strength of the evidence.</h2></div><p>Beautiful data becomes dangerous when speculation looks like proof. Each visual carries its own evidence label.</p></div>
+<div class="evidenceGrid">
+<div class="evidenceItem"><span class="status measured">MEASURED</span><h3>Transportation CPI +7.77%</h3><p>National BLS price index, year over year to September 2026. Describes observed price change, not its cause.</p><a href="https://fred.stlouisfed.org/data/CPITRNSL" target="_blank" rel="noopener noreferrer">Official index ↗</a></div>
+<div class="evidenceItem"><span class="status documented">DOCUMENTED</span><h3>Thoma Bravo acquisition</h3><p>The 2021 acquisition of RealPage is documented in a dated company announcement.</p><a href="https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/" target="_blank" rel="noopener noreferrer">Primary record ↗</a></div>
+<div class="evidenceItem"><span class="status alleged">ALLEGATION</span><h3>Claims are not findings</h3><p>If a regulator or lawsuit alleges misconduct, label the claim and legal status. Do not convert an allegation into a verdict.</p><a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/corporate-ownership/transparency-price-power-v1.json" target="_blank" rel="noopener noreferrer">Investigation schema ↗</a></div>
+<div class="evidenceItem"><span class="status unknown">NOT ESTABLISHED</span><h3>Your rent's specific cause</h3><p>A documented ownership link cannot establish what caused a particular household's rent increase.</p><a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/corporate-ownership/verified-relationships-v1.json" target="_blank" rel="noopener noreferrer">Coverage notes ↗</a></div>
+</div></div></section>
+<section class="section" id="method" style="padding-top:17px"><div class="wrap"><div class="endStrip"><div><h2>Designed for understanding.<br>Built for verification.</h2><p>This is a navigable design proposal, not the new production website. Current source data is used for the price and ownership examples; the phone calculator is an explicitly illustrative scenario.</p></div><a href="#top" class="buttonPrimary">Back to the top ↑</a></div></div></section>
+</main>
+<footer class="wrap footer"><span>POWER ATLAS · Design exploration 01 · November 10, 2026<br>Original redesign inspired by clear, compelling information design. No third-party artwork copied.</span><span>Source-backed examples · Mobile-responsive · Approval required before production publishing<br><a href="https://github.com/jbmeadows26/Power-Atlas" target="_blank" rel="noopener noreferrer">Explore the existing Power Atlas research ↗</a></span></footer>
+<script>
+(function(){
+"use strict";
+var menuBtn=document.getElementById("menuBtn"),nav=document.getElementById("mainNav");
+menuBtn.addEventListener("click",function(){var open=nav.classList.toggle("open");menuBtn.setAttribute("aria-expanded",String(open));});
+nav.querySelectorAll("a").forEach(function(a){a.addEventListener("click",function(){nav.classList.remove("open");menuBtn.setAttribute("aria-expanded","false");});});
+document.querySelectorAll("[data-filter]").forEach(function(btn){btn.addEventListener("click",function(){
+var f=btn.getAttribute("data-filter");document.querySelectorAll("[data-filter]").forEach(function(b){var on=b===btn;b.classList.toggle("active",on);b.setAttribute("aria-pressed",String(on));});
+document.querySelectorAll(".tile").forEach(function(tile){tile.classList.toggle("isHidden",f!=="all"&&tile.getAttribute("data-group")!==f);});
+});});
+var metrics={
+transport:{title:"Transportation",takeaway:"The transportation price index rose faster than the other three displayed indexes.",description:"The U.S. transportation CPI increased 7.77% between September 2025 and September 2026. This does not isolate tolls, transit fares, vehicle costs, or the reason for the increase.",source:"https://fred.stlouisfed.org/data/CPITRNSL",sourceText:"BLS transportation CPI via FRED ↗"},
+housing:{title:"Rent of primary residence",takeaway:"The national rent index rose 2.78% year over year, below the transportation category shown.",description:"The U.S. rent-of-primary-residence CPI rose 2.78% in the 12 months through September 2026. This is a national price index, not the advertised rent for a one-, two-, or three-bedroom unit.",source:"https://fred.stlouisfed.org/data/CUSR0000SEHA",sourceText:"BLS rent CPI via FRED ↗"},
+groceries:{title:"Food at home",takeaway:"The grocery price index rose 1.77% in this national snapshot.",description:"The seasonally adjusted U.S. food-at-home CPI increased 1.77% year over year through September 2026. It is not a local shopping-basket estimate or proof of any retailer's pricing motive.",source:"https://fred.stlouisfed.org/data/CUSR0000SAF11",sourceText:"BLS food-at-home CPI via FRED ↗"},
+health:{title:"Medical care",takeaway:"The medical-care price index rose 1.50% over the same period.",description:"The U.S. medical-care CPI increased 1.50% over September 2025–September 2026. It is not an insurance-premium quote or an individual patient's out-of-pocket expense.",source:"https://fred.stlouisfed.org/data/CPIMEDSL",sourceText:"BLS medical-care CPI via FRED ↗"}};
+document.querySelectorAll("[data-metric]").forEach(function(b){b.addEventListener("click",function(){var k=b.getAttribute("data-metric"),m=metrics[k];document.querySelectorAll("[data-metric]").forEach(function(row){row.setAttribute("aria-pressed",String(row===b));});
+document.getElementById("metricTitle").textContent=m.title;document.getElementById("metricDescription").textContent=m.description;document.getElementById("metricTakeaway").textContent=m.takeaway;document.getElementById("metricSource").href=m.source;document.getElementById("metricSource").textContent=m.sourceText;});});
+var owners={
+realpage:{title:"Thoma Bravo → RealPage",description:"RealPage announced that Thoma Bravo completed its acquisition on April 22, 2021. The ownership record does not itself prove a rent increase, an unlawful practice, or a specific effect in your ZIP code.",date:"Dated source: April 22, 2021",source:"https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/"},
+kindercare:{title:"Partners Group affiliates → KinderCare",description:"An issuer SEC disclosure identifies Partners Group affiliates as beneficial owners of 68.8% of KinderCare common shares as of April 9, 2026. The precise effect, if any, on a family's childcare price is not established by this filing.",date:"Dated filing: April 2026",source:"https://www.sec.gov/Archives/edgar/data/1873529/000119312526164197/klc-20260417.htm"}};
+document.querySelectorAll("[data-owner]").forEach(function(btn){btn.addEventListener("click",function(){var o=owners[btn.getAttribute("data-owner")];document.querySelectorAll("[data-owner]").forEach(function(x){x.setAttribute("aria-pressed",String(x===btn));});document.getElementById("ownerTitle").textContent=o.title;document.getElementById("ownerDescription").textContent=o.description;document.getElementById("ownerPeriod").textContent=o.date;document.getElementById("ownerSource").href=o.source;var kinder=btn.getAttribute("data-owner")==="kindercare";document.getElementById("ownerLeft").textContent=kinder?"PG affiliates":"Thoma Bravo";document.getElementById("ownerLeftSub").textContent=kinder?"Beneficial owners":"Private equity firm";document.getElementById("ownerRight").textContent=kinder?"KinderCare":"RealPage";document.getElementById("ownerRightSub").textContent=kinder?"Childcare company":"Software company";document.getElementById("ownerLinkLabel").textContent=kinder?"68.8% shares · 2026":"Acquired · 2021";document.getElementById("ownerUncertainty").textContent=kinder?"Local childcare price: unknown":"Local rent impact: not proven";document.getElementById("ownerGraph").setAttribute("aria-label",kinder?"SEC-disclosed 68.8 percent beneficial share ownership by Partners Group affiliates in KinderCare, April 2026; local price effects not established":"Documented acquisition of RealPage by Thoma Bravo in 2021; local rent effects not established");});});
+function amount(v){return "$"+Math.round(v).toLocaleString("en-US");}
+function recompute(){
+function read(id){var v=Number(document.getElementById(id).value);return Number.isFinite(v)?Math.max(0,v):0;}
+var retail=Math.min(read("retail"),20000),credit=Math.min(read("credit"),20000),uplift=Math.min(read("uplift"),2000),resale=Math.min(read("resale"),20000),months=Math.max(1,Math.min(72,Math.floor(read("months")||1)));
+var unlocked=retail-resale,promo=Math.max(0,retail-credit)+uplift*months;
+var max=Math.max(Math.abs(unlocked),promo,1);
+document.getElementById("buyValue").textContent=amount(unlocked);document.getElementById("promoValue").textContent=amount(promo);
+document.getElementById("buyBar").style.width=Math.min(100,Math.max(0,unlocked/max*100))+"%";document.getElementById("promoBar").style.width=Math.min(100,Math.max(0,promo/max*100))+"%";
+document.getElementById("calcTerm").textContent="Over "+months+" months";
+var diff=promo-unlocked,s=document.getElementById("calcSummary");s.textContent="";
+var lead=document.createTextNode(diff>0?"Under these assumptions, the carrier promotion costs ":diff<0?"Under these assumptions, the carrier promotion saves ":"Under these assumptions, the two paths cost the same: ");
+var b=document.createElement("b");b.textContent=amount(Math.abs(diff))+(diff===0?"":" "+(diff>0?"more":"less"));
+s.appendChild(lead);s.appendChild(b);s.appendChild(document.createTextNode(" over "+months+" months."));
+}
+["retail","credit","uplift","resale","months"].forEach(function(id){document.getElementById(id).addEventListener("input",recompute);});recompute();
+})();
+</script>
+</body>
+</html>
