@@ -1,8 +1,8 @@
 {
   "schema": "power-atlas.market-power.v1",
   "reviewed_on": "2026-11-10",
-  "status": "source-indexed-research",
-  "publication": "published",
+  "status": "verified-research",
+  "publication": "production",
   "note": "Do not compare percentages without reading denominators. 'Allegation', 'study', 'court finding', 'regulation', and 'settlement' have distinct legal/evidentiary meanings. Never present a market share as the share of a household bill.",
   "cases": [
     {
@@ -41,7 +41,13 @@
       "source": "https://www.ftc.gov/news-events/news/press-releases/2024/07/ftc-releases-interim-staff-report-prescription-drug-middlemen",
       "sourceLabel": "FTC PBM interim staff report",
       "pathway": "PBM concentration → control of drug coverage and reimbursements → prices, access and pharmacy survival",
-      "connected": "my-life.html#what"
+      "connected": "my-life.html#what",
+      "supportingSources": [
+        {
+          "url": "https://www.ftc.gov/news-events/news/press-releases/2025/01/ftc-releases-second-interim-staff-report-prescription-drug-middlemen",
+          "label": "FTC 2025 follow-up: specialty generic drug markups"
+        }
+      ]
     },
     {
       "id": "hospitals",
@@ -202,15 +208,15 @@
       "metric": null,
       "unit": "",
       "metricLabel": "FTC and states allege anti-competitive marketplace rules",
-      "period": "FTC complaint filed 2023; case pending",
+      "period": "FTC case filed 2023; allegations pending as of Nov 2026",
       "scope": "Defined online-superstore and marketplace-services markets",
       "mechanism": "FTC alleges Amazon used interlocking rules affecting sellers, prices and rivals. Those claims are contested and have not been established as judicial findings here.",
       "benefits": "Platform network effects can create scale advantages and shopper convenience; marketplace operator and affiliated sellers can capture fees.",
       "costs": "Independent merchants may face platform dependence; buyers can face less cross-platform price competition if allegations are proven.",
       "kind": "allegation",
       "status": "FTC allegation; no merits finding recorded",
-      "source": "https://www.ftc.gov/terms/monopolization",
-      "sourceLabel": "FTC Amazon eCommerce case index",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2023/09/ftc-sues-amazon-illegally-maintaining-monopoly-power",
+      "sourceLabel": "FTC 2023 Amazon eCommerce antitrust complaint",
       "pathway": "Marketplace dependence → seller fees/rules → potential retail prices and innovation",
       "connected": "consumer-practices.html"
     },

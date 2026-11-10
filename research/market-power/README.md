@@ -1,6 +1,6 @@
 # Market power: evidence and integration protocol
 
-**Status:** source-linked; 2026-11-10. These records are not a national monopoly index and should not be interpreted as proof of specific household overcharges.
+**Status:** review-only; 2026-11-10. These records are not a national monopoly index and should not be interpreted as proof of specific household overcharges.
 
 ## The story
 

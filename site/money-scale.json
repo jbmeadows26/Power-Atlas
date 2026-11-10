@@ -27,8 +27,7 @@
     "causality": "Neither concentration nor a large number alone establishes monopoly, collusion, policy capture, wrongdoing, inflation, or a household premium. Investigate mechanisms with independent market, policy and transaction evidence.",
     "comparativeMethodologies": "Do not combine IISS and SIPRI defense estimates; they use different inclusion and classification methods.",
     "explainLocalConnection": "No ZIP-level causal effect asserted; only source-backed macro context until joins are tested.",
-    "gdpSeparation": "GDP is nominal annual value added; keep in its own annual-output view rather than treating as wealth, money stock, tax revenue or discretionary funds.",
-    "billionScale": "Billion-scale view includes unlike financial concepts (annual revenues, after-cost net income, announced multiyear investment intention). Show dated amount, unit, geography, type and caveat; never treat as additive or direct measures of consumer losses."
+    "gdpSeparation": "GDP is nominal annual value added; keep in its own annual-output view rather than treating as wealth, money stock, tax revenue or discretionary funds."
   },
   "metrics": [
     {
@@ -198,51 +197,6 @@
       "definition": "U.S. GDP in nominal current U.S. dollars for calendar year 2025.",
       "interpretation": "A geographical subset of world GDP and not an additive second global total. Annual economic output is not equivalent to federal budget outlays.",
       "confidence": "source-confirmed"
-    },
-    {
-      "id": "amazon-net-sales-2025",
-      "label": "Amazon net sales",
-      "valueTrillionsUsd": 0.716924,
-      "valueBillionsUsd": 716.924,
-      "group": "company-and-plans",
-      "measurement": "billion-scale",
-      "year": "2025",
-      "scope": "Amazon consolidated worldwide, full fiscal year",
-      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
-      "sourcePublisher": "Amazon FY2025 earnings release / SEC exhibit",
-      "definition": "Amazon consolidated 2025 net sales of $716.924 billion, an annual revenue flow, not gross profit or net income.",
-      "interpretation": "The amount customers and clients paid Amazon, broadly measured across businesses; it is not an amount collected by shareholders as profit and cannot demonstrate a monopoly markup.",
-      "confidence": "source-confirmed"
-    },
-    {
-      "id": "stargate-announced-plan-2025",
-      "label": "Stargate announced investment plan",
-      "valueTrillionsUsd": 0.5,
-      "valueBillionsUsd": 500,
-      "group": "company-and-plans",
-      "measurement": "billion-scale",
-      "year": "Announced 2025-01-21 for four years",
-      "scope": "United States, multi-party AI infrastructure plan",
-      "sourceUrl": "https://openai.com/index/announcing-the-stargate-project/",
-      "sourcePublisher": "OpenAI — original Stargate announcement",
-      "definition": "Announced intention to invest up to $500 billion over four years; a planned commitment, not investment already executed.",
-      "interpretation": "The consortium's stated plan is neither a government outlay nor completed spending; spending, jobs, public benefits, and possible energy cost effects require independent verification.",
-      "confidence": "source-confirmed-plan-only"
-    },
-    {
-      "id": "amazon-net-income-2025",
-      "label": "Amazon net income",
-      "valueTrillionsUsd": 0.07767,
-      "valueBillionsUsd": 77.67,
-      "group": "company-and-plans",
-      "measurement": "billion-scale",
-      "year": "2025",
-      "scope": "Amazon consolidated worldwide, full fiscal year",
-      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
-      "sourcePublisher": "Amazon FY2025 earnings release / SEC exhibit",
-      "definition": "Amazon consolidated net income of $77.670 billion in 2025 after operating and nonoperating costs and taxes, as reported.",
-      "interpretation": "Net income is not a measure of monopoly profits, consumer harm, cash available to distribute, or any specific billionaire's share of Amazon earnings.",
-      "confidence": "source-confirmed"
     }
   ],
   "sources": {
@@ -258,9 +212,7 @@
     "iiss": "https://www.iiss.org/publications/the-military-balance/2026/the-military-balance-2026/global-defence-spending/",
     "sipri": "https://www.sipri.org/publications/2026/sipri-fact-sheets/trends-world-military-expenditure-2025",
     "worldbank": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion",
-    "worldbankGDP": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
-    "amazon2025": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
-    "stargateOriginalAnnouncement": "https://openai.com/index/announcing-the-stargate-project/"
+    "worldbankGDP": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
   },
   "sourceCorrections": [
     {
@@ -321,18 +273,6 @@
       "resolution": "World Bank WDI reports $118.35T for 2025; approximately $111.67T corresponds to 2024. Use 2025 value, correct date.",
       "status": "corrected",
       "primarySourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
-    },
-    {
-      "sourceRow": "Billion Dollar Gram / Amazon gross-profit portrayal",
-      "resolution": "Amazon 2025 net sales were $716.924B and net income $77.670B. An approximately $360.5B sales-minus-cost-of-sales gross figure is not net income and excludes other operating expenses.",
-      "status": "clarified",
-      "primarySourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/"
-    },
-    {
-      "sourceRow": "Stargate $500 billion / AI infrastructure",
-      "resolution": "Original January 2025 announcement describes intended four-year investment, not verified realized spending. Show as plan with dates and not as government expenditure.",
-      "status": "clarified",
-      "primarySourceUrl": "https://openai.com/index/announcing-the-stargate-project/"
     }
   ],
   "recommendedProductConnections": [
@@ -342,5 +282,5 @@
     "Billionaire influence and political funding",
     "Economic fragility / household and sovereign debt"
   ],
-  "publicationRule": "Any comparison must state year, geography, stock-vs-flow and uncertainty. Do not imply these figures prove monopolistic harm or political corruption."
+  "publicationRule": "Review branch only. Any comparison must state year, geography, stock-vs-flow and uncertainty. Do not imply these figures prove monopolistic harm or political corruption."
 }
