@@ -57,7 +57,7 @@ class EconomicFragilityReviewTests(unittest.TestCase):
         self.assertEqual(len(market["historicalSp500Drawdowns"]), 5)
         self.assertEqual(market["historicalSample"]["atLeastSixPercentEvents"], 56)
         self.assertFalse(market["historicalSample"]["currentSp500InSample"])
-        self.assertIn("not a probability estimate", market["historicalSample"]["description"])
+        self.assertIn("not a model of future crash probability", market["historicalSample"]["description"])
         self.assertEqual(market["evidenceLevel"], "verified_snapshot_with_third_party_historical_comparisons")
         for item in market["measures"]:
             with self.subTest(index=item["id"]):
