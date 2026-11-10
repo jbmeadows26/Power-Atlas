@@ -1,0 +1,53 @@
+name: Verify published Market Power Atlas
+on:
+  push:
+    branches:
+      - main
+      - release/market-power-visual-20261110
+    paths:
+      - 'data/market-power/**'
+      - 'platform/unified/market-power*'
+      - 'site/market-power*'
+      - 'site/household-market-bridge.json'
+      - 'platform/unified/household-market-bridge.json'
+      - 'site/money-scale*'
+      - 'platform/unified/money-scale*'
+      - 'tests/test_market_power_release.py'
+      - '.github/workflows/verify-market-power-release.yml'
+  pull_request:
+    paths:
+      - 'data/market-power/**'
+      - 'platform/unified/market-power*'
+      - 'site/market-power*'
+      - 'tests/test_market_power_release.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release-verification:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate evidence, links, legal status and release copy
+        run: python -m unittest discover -s tests -p 'test_market_power_release.py' -v
+      - name: Validate interactive JavaScript and inline browser scripts
+        run: |
+          node --check site/market-power-household.js
+          node --check platform/unified/market-power-household.js
+          python - <<'PY'
+          from pathlib import Path
+          import subprocess,re
+          for file in ('site/market-power.html','platform/unified/market-power.html','site/money-scale.html','platform/unified/money-scale.html'):
+              html=Path(file).read_text(encoding='utf-8')
+              parts=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',html,re.S)
+              if not any(b.strip() for b in parts): raise SystemExit(f'no inline JavaScript in {file}')
+              for part in parts:
+                  if part.strip(): subprocess.run(['node','--check','--input-type=commonjs'],input=part,text=True,check=True)
+          PY
