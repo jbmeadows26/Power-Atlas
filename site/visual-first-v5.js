@@ -45,6 +45,16 @@ function illustration(kind,color){
  };
  v.innerHTML=paths[kind]||paths.proof;return v;
 }
+function freightFeature(compact){
+ const card=el("a","pa5-freight-feature",undefined);
+ card.href="freight-impact.html";card.setAttribute("aria-label","Explore how freight transportation enters food, medicine, housing and other everyday prices");
+ const art=el("span","pa5-freight-art");art.append(illustration("money","#0b8878"));
+ const body=el("span","pa5-freight-body");body.append(el("small",null,"HIDDEN COST DRIVER · SHIPPING"));
+ body.append(el("strong",null,compact?"Freight also shapes food and medicine prices.":"The transportation cost inside your groceries."));
+ body.append(el("span",null,compact?"Follow the supply chain.":"Truck freight prices rose 14.3% year over year (Aug 2026); retail pass-through is not measured."));
+ const action=el("span","pa5-freight-action","Explore the impact →");
+ card.append(art,body,action);return card;
+}
 function home(){
  const root=document.getElementById("pa4-atlas-home");if(!root)return;
  const h=root.querySelector("h1");if(h){h.replaceChildren(document.createTextNode("Who shapes what you pay? "),el("em",null,"Follow the evidence."));}
@@ -56,6 +66,7 @@ function home(){
  const heading=root.querySelector(".pa4-atlas-head h2");if(heading)heading.textContent="Pick a story. Get the picture.";
  const desc=root.querySelector(".pa4-atlas-head p");if(desc)desc.textContent="Tap to explore. Evidence is one click away.";
  const types=["place","owners","phone","money","proof","trend","trend","owners","money","proof"];
+ const visualHero=root.querySelector(".pa4-home-main");if(visualHero)visualHero.after(freightFeature(false));
  const gallery=root.querySelector(".pa4-gallery");if(!gallery)return;
  const tiles=[...gallery.querySelectorAll(".pa4-tile")];
  tiles.forEach((a,i)=>{const art=a.querySelector(".pa4-tile-visual");if(art){art.replaceChildren(illustration(types[i]||"proof",colors[i%colors.length]));}const summary=a.querySelector("small");if(summary)summary.textContent=brief(summary.textContent,61);const go=a.querySelector(".pa4-go");if(go)go.textContent="Explore →";if(i>=4)a.classList.add("pa5-extra-story");});
@@ -80,6 +91,7 @@ function topic(main){
  const diagram=el("div","pa5-process");diagram.setAttribute("aria-label","Illustrative topic pathway, not quantitative data");diagram.append(el("small",null,"HOW TO EXPLORE THIS"));
  data[3].forEach((t,i)=>{const item=el("div","pa5-stage");item.append(illustration(i===0?"place":i===1?data[2]:"proof",colors[i]),el("b",null,t));diagram.append(item);if(i<2)diagram.append(el("span","pa5-arrow","→"));});
  pre.append(left,diagram);main.prepend(pre);
+ if(new Set(["my-life.html","consumer-practices.html","corporate-ownership.html","market-power.html","economic-fragility.html","cost-gap.html","money-scale.html","service-accountability.html"]).has(path))pre.after(freightFeature(true));
  const hero=main.querySelector(":scope > section.hero, :scope > .hero");
  if(hero&&!hero.querySelector("input,select,textarea,form"))hero.classList.add("pa5-old-hero-hidden");
  if(path==="my-life.html"){pre.classList.add("pa5-topic-light");return;}
