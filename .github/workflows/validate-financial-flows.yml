@@ -1,0 +1,45 @@
+name: Validate financial flow evidence
+on:
+  push:
+    branches:
+      - review/official-trading-20261110
+    paths:
+      - "data/public-integrity/**"
+      - "platform/unified/financial-flows.html"
+      - "platform/unified/official-financial-flows-v1.json"
+      - "platform/unified/public-trading.html"
+      - "tests/test_financial_flows.py"
+      - ".github/workflows/validate-financial-flows.yml"
+  pull_request:
+    paths:
+      - "data/public-integrity/**"
+      - "platform/unified/financial-flows.html"
+      - "platform/unified/official-financial-flows-v1.json"
+      - "platform/unified/public-trading.html"
+      - "tests/test_financial_flows.py"
+      - ".github/workflows/validate-financial-flows.yml"
+permissions:
+  contents: read
+jobs:
+  evidence:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Parse financial-flow dashboard JavaScript
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          html = Path("platform/unified/financial-flows.html").read_text()
+          scripts = re.findall(r'<script(?: [^>]*)?>(.*?)</script>', html, flags=re.S)
+          assert scripts, "No inline JS to validate"
+          Path("/tmp/financial-flows-inline.js").write_text(scripts[0])
+          PY
+          node --check /tmp/financial-flows-inline.js
+      - name: Check receipts, source caveats, and linked pages
+        run: python -m unittest discover -s tests -p 'test_financial_flows.py' -v
+      - name: Check source-disclosed securities transactions
+        run: python -m unittest discover -s tests -p 'test_official_trading_disclosures.py' -v
