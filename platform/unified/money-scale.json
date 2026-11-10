@@ -1,0 +1,346 @@
+{
+  "schema": "power-atlas.money-scale.v1",
+  "asOf": "2026-11-10",
+  "status": "published",
+  "title": "What does a trillion dollars actually mean?",
+  "basedOn": [
+    {
+      "title": "The Billion Dollar Gram",
+      "url": "https://informationisbeautiful.net/visualizations/the-billion-dollar-gram/"
+    },
+    {
+      "title": "Trillions – What is a trillion dollars?",
+      "url": "https://informationisbeautiful.net/visualizations/trillions-what-is-a-trillion-dollars/"
+    },
+    {
+      "title": "Source spreadsheet for Trillions",
+      "url": "https://docs.google.com/spreadsheets/d/1_YoXOf1-5b30Rt0AOxO9O4XNd-JpBQWovM3z2W9QUuI/edit"
+    }
+  ],
+  "methodology": {
+    "originalDesign": true,
+    "copyrightNote": "Original Power Atlas wording and interactive chart; linked graphics are inspirations and research leads, not reproduced images.",
+    "stockVsFlow": "Never rank a stock, such as wealth or debt outstanding, against annual spending as though they are commensurate or additive.",
+    "scope": "Geography matters: global values, U.S. values and developing-country values must stay labeled.",
+    "nominalDollars": "Numbers are nominal USD reported by the named source in their cited year or fiscal year; no implied inflation adjustment.",
+    "projection": "Projections and estimates must be labeled and not treated as realized spending.",
+    "causality": "Neither concentration nor a large number alone establishes monopoly, collusion, policy capture, wrongdoing, inflation, or a household premium. Investigate mechanisms with independent market, policy and transaction evidence.",
+    "comparativeMethodologies": "Do not combine IISS and SIPRI defense estimates; they use different inclusion and classification methods.",
+    "explainLocalConnection": "No ZIP-level causal effect asserted; only source-backed macro context until joins are tested.",
+    "gdpSeparation": "GDP is nominal annual value added; keep in its own annual-output view rather than treating as wealth, money stock, tax revenue or discretionary funds.",
+    "billionScale": "Billion-scale view includes unlike financial concepts (annual revenues, after-cost net income, announced multiyear investment intention). Show dated amount, unit, geography, type and caveat; never treat as additive or direct measures of consumer losses."
+  },
+  "metrics": [
+    {
+      "id": "billionaires-world-2026",
+      "label": "Combined billionaire wealth",
+      "valueTrillionsUsd": 20.1,
+      "group": "wealth",
+      "measurement": "asset-stock",
+      "year": "2026-03-01",
+      "scope": "world",
+      "sourceUrl": "https://www.forbes.com/sites/chasewithorn/2026/03/10/2026-worlds-billionaires-list-facts-and-figures/",
+      "sourcePublisher": "Forbes",
+      "definition": "Forbes list total of 3,428 individuals; net-worth estimate based on March 1, 2026 values.",
+      "interpretation": "Wealth stock is primarily asset valuations, not available cash; does not imply a specific price premium.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "billionaires-us-2026",
+      "label": "U.S. billionaire wealth",
+      "valueTrillionsUsd": 8.4,
+      "group": "wealth",
+      "measurement": "asset-stock",
+      "year": "2026-03-01",
+      "scope": "United States",
+      "sourceUrl": "https://www.forbes.com/sites/samellefson/2026/03/11/the-countries-with-the-most-billionaires/",
+      "sourcePublisher": "Forbes",
+      "definition": "Forbes 989 U.S. billionaires, March 2026 list.",
+      "interpretation": "Overlaps with the global billionaire total; do not add them.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "global-debt-2025",
+      "label": "Global debt outstanding",
+      "valueTrillionsUsd": 348,
+      "group": "debt",
+      "measurement": "liability-stock",
+      "year": "2025-12-31",
+      "scope": "world",
+      "sourceUrl": "https://www.reuters.com/business/finance/government-spending-lifts-global-debt-record-348-trillion-2025-says-iif-2026-02-25/",
+      "sourcePublisher": "IIF via Reuters",
+      "definition": "IIF global debt stock as of end-2025 across sectors.",
+      "interpretation": "Liability-stock across many sectors; debt can finance investment and is not equivalent to a single annual bill.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "us-household-debt-q42025",
+      "label": "U.S. household debt outstanding",
+      "valueTrillionsUsd": 18.8,
+      "group": "debt",
+      "measurement": "liability-stock",
+      "year": "2025-Q4",
+      "scope": "United States",
+      "sourceUrl": "https://www.newyorkfed.org/newsevents/news/research/2026/20260210",
+      "sourcePublisher": "Federal Reserve Bank of New York",
+      "definition": "New York Fed Consumer Credit Panel total debt balance; rounded figure.",
+      "interpretation": "A debt stock, not annual household debt service; does not establish debt was caused by market concentration.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "us-federal-outlays-fy2025",
+      "label": "U.S. federal spending",
+      "valueTrillionsUsd": 7.01,
+      "group": "public-spending",
+      "measurement": "annual-flow",
+      "year": "FY2025",
+      "scope": "United States",
+      "sourceUrl": "https://home.treasury.gov/news/press-releases/sb0307",
+      "sourcePublisher": "U.S. Treasury",
+      "definition": "U.S. Treasury fiscal-year 2025 outlays.",
+      "interpretation": "Annual spending, not a stock of cash; separate from corporate capitalization.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "us-healthcare-spending-2025",
+      "label": "U.S. healthcare spending",
+      "valueTrillionsUsd": 5.7,
+      "group": "public-spending",
+      "measurement": "annual-flow-estimate",
+      "year": "2025 projection published 2026-06-24",
+      "scope": "United States",
+      "sourceUrl": "https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2026.00642",
+      "sourcePublisher": "CMS / Health Affairs",
+      "definition": "CMS/Health Affairs projection for calendar-year 2025, not final historical actual.",
+      "interpretation": "Includes public and private expenditure; overlaps with federal spending; chart's $5.3T was 2024, not 2025.",
+      "confidence": "projected-source-confirmed"
+    },
+    {
+      "id": "global-defense-iiss-2025",
+      "label": "Global defense spending — IISS",
+      "valueTrillionsUsd": 2.63,
+      "group": "public-spending",
+      "measurement": "annual-flow",
+      "year": "2025",
+      "scope": "world",
+      "sourceUrl": "https://www.iiss.org/publications/the-military-balance/2026/the-military-balance-2026/global-defence-spending/",
+      "sourcePublisher": "IISS",
+      "definition": "IISS estimate of global defense spending in 2025.",
+      "interpretation": "Different definition from SIPRI; never add or average the two.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "global-military-sipri-2025",
+      "label": "Global military spending — SIPRI",
+      "valueTrillionsUsd": 2.887,
+      "group": "public-spending",
+      "measurement": "annual-flow-alternative",
+      "year": "2025",
+      "scope": "world",
+      "sourceUrl": "https://www.sipri.org/publications/2026/sipri-fact-sheets/trends-world-military-expenditure-2025",
+      "sourcePublisher": "SIPRI",
+      "definition": "SIPRI estimate of global military spending for 2025.",
+      "interpretation": "Methodological alternative to IISS, not additional spending.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "developing-countries-external-debt-2025",
+      "label": "Developing-country external debt",
+      "valueTrillionsUsd": 9.4,
+      "group": "debt",
+      "measurement": "liability-stock",
+      "year": "2025",
+      "scope": "developing economies",
+      "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion",
+      "sourcePublisher": "World Bank",
+      "definition": "World Bank November 5, 2026 reported external debt outstanding in developing countries.",
+      "interpretation": "Overlaps with the global debt figure; not interchangeable with external debt service.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "developing-countries-debt-service-2025",
+      "label": "Developing-country debt payments",
+      "valueTrillionsUsd": 1.4,
+      "group": "debt-service",
+      "measurement": "annual-flow",
+      "year": "2025",
+      "scope": "developing economies",
+      "sourceUrl": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion",
+      "sourcePublisher": "World Bank",
+      "definition": "World Bank principal and interest paid in 2025 by low- and middle-income countries.",
+      "interpretation": "Debt service is a yearly payment flow and not the same as outstanding principal.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "world-gdp-2025",
+      "label": "World economic output (GDP)",
+      "valueTrillionsUsd": 118.350166,
+      "group": "economy-size",
+      "measurement": "annual-output",
+      "year": "2025",
+      "scope": "world",
+      "sourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
+      "sourcePublisher": "World Bank — WDI",
+      "definition": "World GDP in nominal current U.S. dollars for calendar year 2025, displayed as trillion-dollar annual production; World Bank estimate.",
+      "interpretation": "GDP is value added over a year, not cash available to spend or a stock of wealth. It cannot be added to assets, corporate revenues, or government spending.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "us-gdp-2025",
+      "label": "U.S. economic output (GDP)",
+      "valueTrillionsUsd": 30.7697,
+      "group": "economy-size",
+      "measurement": "annual-output",
+      "year": "2025",
+      "scope": "United States",
+      "sourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
+      "sourcePublisher": "World Bank — WDI",
+      "definition": "U.S. GDP in nominal current U.S. dollars for calendar year 2025.",
+      "interpretation": "A geographical subset of world GDP and not an additive second global total. Annual economic output is not equivalent to federal budget outlays.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "amazon-net-sales-2025",
+      "label": "Amazon net sales",
+      "valueTrillionsUsd": 0.716924,
+      "valueBillionsUsd": 716.924,
+      "group": "company-and-plans",
+      "measurement": "billion-scale",
+      "year": "2025",
+      "scope": "Amazon consolidated worldwide, full fiscal year",
+      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
+      "sourcePublisher": "Amazon FY2025 earnings release / SEC exhibit",
+      "definition": "Amazon consolidated 2025 net sales of $716.924 billion, an annual revenue flow, not gross profit or net income.",
+      "interpretation": "The amount customers and clients paid Amazon, broadly measured across businesses; it is not an amount collected by shareholders as profit and cannot demonstrate a monopoly markup.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "stargate-announced-plan-2025",
+      "label": "Stargate announced investment plan",
+      "valueTrillionsUsd": 0.5,
+      "valueBillionsUsd": 500,
+      "group": "company-and-plans",
+      "measurement": "billion-scale",
+      "year": "Announced 2025-01-21 for four years",
+      "scope": "United States, multi-party AI infrastructure plan",
+      "sourceUrl": "https://openai.com/index/announcing-the-stargate-project/",
+      "sourcePublisher": "OpenAI — original Stargate announcement",
+      "definition": "Announced intention to invest up to $500 billion over four years; a planned commitment, not investment already executed.",
+      "interpretation": "The consortium's stated plan is neither a government outlay nor completed spending; spending, jobs, public benefits, and possible energy cost effects require independent verification.",
+      "confidence": "source-confirmed-plan-only"
+    },
+    {
+      "id": "amazon-net-income-2025",
+      "label": "Amazon net income",
+      "valueTrillionsUsd": 0.07767,
+      "valueBillionsUsd": 77.67,
+      "group": "company-and-plans",
+      "measurement": "billion-scale",
+      "year": "2025",
+      "scope": "Amazon consolidated worldwide, full fiscal year",
+      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
+      "sourcePublisher": "Amazon FY2025 earnings release / SEC exhibit",
+      "definition": "Amazon consolidated net income of $77.670 billion in 2025 after operating and nonoperating costs and taxes, as reported.",
+      "interpretation": "Net income is not a measure of monopoly profits, consumer harm, cash available to distribute, or any specific billionaire's share of Amazon earnings.",
+      "confidence": "source-confirmed"
+    }
+  ],
+  "sources": {
+    "iibTrillions": "https://informationisbeautiful.net/visualizations/trillions-what-is-a-trillion-dollars/",
+    "iibBillions": "https://informationisbeautiful.net/visualizations/the-billion-dollar-gram/",
+    "iibSheet": "https://docs.google.com/spreadsheets/d/1_YoXOf1-5b30Rt0AOxO9O4XNd-JpBQWovM3z2W9QUuI/edit",
+    "forbes": "https://www.forbes.com/sites/chasewithorn/2026/03/10/2026-worlds-billionaires-list-facts-and-figures/",
+    "forbesUS": "https://www.forbes.com/sites/samellefson/2026/03/11/the-countries-with-the-most-billionaires/",
+    "iif": "https://www.reuters.com/business/finance/government-spending-lifts-global-debt-record-348-trillion-2025-says-iif-2026-02-25/",
+    "nyfed": "https://www.newyorkfed.org/newsevents/news/research/2026/20260210",
+    "treasury": "https://home.treasury.gov/news/press-releases/sb0307",
+    "cms": "https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2026.00642",
+    "iiss": "https://www.iiss.org/publications/the-military-balance/2026/the-military-balance-2026/global-defence-spending/",
+    "sipri": "https://www.sipri.org/publications/2026/sipri-fact-sheets/trends-world-military-expenditure-2025",
+    "worldbank": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion",
+    "worldbankGDP": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
+    "amazon2025": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/",
+    "stargateOriginalAnnouncement": "https://openai.com/index/announcing-the-stargate-project/"
+  },
+  "sourceCorrections": [
+    {
+      "sourceRow": "Trillions source spreadsheet: US healthcare spending, $5.3T, year 2025",
+      "resolution": "Correct to $5.7T estimated for calendar-year 2025 using June 2026 CMS projection; $5.3T refers to 2024",
+      "status": "corrected",
+      "primarySourceUrl": "https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2026.00642"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: all billionaires, $20.1T, data year 2025",
+      "resolution": "The $20.1T / 3,428 people corresponds to Forbes 2026 list using 2026-03-01 wealth snapshots",
+      "status": "corrected",
+      "primarySourceUrl": "https://www.forbes.com/sites/chasewithorn/2026/03/10/2026-worlds-billionaires-list-facts-and-figures/"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: Chinese/US billionaire subtotals",
+      "resolution": "Subtotals have source/year inconsistencies: use Forbes 2026 source-specific $8.4T / 989 U.S. billionaires for comparable 2026 data",
+      "status": "corrected",
+      "primarySourceUrl": "https://www.forbes.com/sites/samellefson/2026/03/11/the-countries-with-the-most-billionaires/"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: two incompatible 2026 federal-debt entries ($31T, $38T)",
+      "resolution": "Hold from direct comparison until federal total / debt held by public and measurement date are reconciled with Treasury",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: 2026 wealth of Elon Musk listed as $1.2T",
+      "resolution": "Exclude without dated source verification and definition; billionaire net worth fluctuates and is not cash",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: fossil divestment $40.7T",
+      "resolution": "Pledged divestment of assets by investors is not the same as actually divested dollars; avoid describing as funds moved",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: $42T offshore wealth from inflation-adjusted 2012 estimate",
+      "resolution": "Legacy estimated range with transformed price basis; avoid presenting as current measured offshore wealth",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: $32.6T Medicare for All 10-year projected spending",
+      "resolution": "Gross program spending scenarios are not net incremental taxpayer costs or household savings; hold pending source-specific treatment",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: $208.3T wealth of 1% described as everyone above $1M",
+      "resolution": "1%-wealth and millionaire threshold are not definitionally identical; withhold until original UBS report and population basis confirmed",
+      "status": "excluded-pending-validation"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: climate spending/savings from 2015–2020 proposals",
+      "resolution": "Historical model scenarios; suitable as dated scenario studies only, not 2026 project costs or completed benefits",
+      "status": "research-lead"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: World GDP $112T listed for 2025",
+      "resolution": "World Bank WDI reports $118.35T for 2025; approximately $111.67T corresponds to 2024. Use 2025 value, correct date.",
+      "status": "corrected",
+      "primarySourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
+    },
+    {
+      "sourceRow": "Billion Dollar Gram / Amazon gross-profit portrayal",
+      "resolution": "Amazon 2025 net sales were $716.924B and net income $77.670B. An approximately $360.5B sales-minus-cost-of-sales gross figure is not net income and excludes other operating expenses.",
+      "status": "clarified",
+      "primarySourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/"
+    },
+    {
+      "sourceRow": "Stargate $500 billion / AI infrastructure",
+      "resolution": "Original January 2025 announcement describes intended four-year investment, not verified realized spending. Show as plan with dates and not as government expenditure.",
+      "status": "clarified",
+      "primarySourceUrl": "https://openai.com/index/announcing-the-stargate-project/"
+    }
+  ],
+  "recommendedProductConnections": [
+    "Corporate Ownership / market power",
+    "Consumer Watch / household cost drivers",
+    "Government spending and public-service tradeoffs",
+    "Billionaire influence and political funding",
+    "Economic fragility / household and sovereign debt"
+  ],
+  "publicationRule": "Any comparison must state year, geography, stock-vs-flow and uncertainty. Do not imply these figures prove monopolistic harm or political corruption."
+}
