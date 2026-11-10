@@ -83,6 +83,9 @@
       "refund not honored":"Refund disputes"
     };
     const all = [...counts.entries()].sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0])), max=Math.max(...all.map(x=>x[1]),1);
+    const explore = $("pcExplorePattern");
+    explore.disabled = all.length===0;
+    if(all.length){explore.dataset.pattern=all[0][0]; explore.setAttribute("aria-label","Explore "+(desc[all[0][0]]||all[0][0])+" cases");}
     $("pcPatternGrid").innerHTML = all.map(([t,n])=>
       '<button type="button" class="cw-pattern '+(activePattern===t?"is-active":"")+'" data-pattern="'+clean(t)+'" aria-pressed="'+(activePattern===t)+'" aria-label="'+clean((desc[t]||t)+", "+n+" cases. Filter case files.")+'">'+
       '<span class="cw-pattern-name">'+clean(desc[t]||t)+'</span><span class="cw-track"><span class="cw-fill" style="width:'+(100*n/max)+'%"></span></span><strong>'+n+'</strong></button>'
@@ -155,6 +158,10 @@
     });
     $("pcPatternGrid").addEventListener("click",event=>{
       const btn=event.target.closest("[data-pattern]");if(btn)setPattern(btn.dataset.pattern);
+    });
+    $("pcExplorePattern").addEventListener("click",event=>{
+      const tactic=event.currentTarget.dataset.pattern;
+      if(tactic) { activePattern=""; setPattern(tactic); }
     });
     $("pcSearch").addEventListener("input",renderCases);
     ["pcIndustry","pcEvidence"].forEach(id=>$(id).addEventListener("change",renderCases));
