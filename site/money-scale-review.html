@@ -37,11 +37,12 @@ footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:
 <main class="wrap main">
 <p class="lead">Power becomes easier to understand when you see its scale. But scale by itself is not proof of monopoly, corruption, or why your rent and groceries cost more. The next step is tracing a verified mechanism.</p>
 <section class="card" aria-label="Money at scale explorer">
-<h2>Explore the scale</h2><p class="muted">Switch between outstanding asset or debt balances and annual spending. Comparing stocks to annual flows as if they were the same thing would be misleading.</p>
+<h2>Explore the scale</h2><p class="muted">Switch between wealth, debt, annual spending and economic output. Stocks, annual flows and GDP are different measurement types, so each has its own view.</p>
 <div class="tabs" role="group" aria-label="Measurement type">
 <button type="button" aria-pressed="true" data-group="asset-stock">Wealth / assets</button>
 <button type="button" aria-pressed="false" data-group="liability-stock">Debt balances</button>
-<button type="button" aria-pressed="false" data-group="annual-flow">Annual spending</button>
+<button type="button" aria-pressed="false" data-group="annual-flow">Annual spending &amp; payments</button>
+<button type="button" aria-pressed="false" data-group="annual-output">GDP / economy size</button>
 </div>
 <div id="status" role="status">Loading independently sourced metrics…</div>
 <div id="scale" class="scale" aria-live="polite"></div>
@@ -50,6 +51,7 @@ footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:
 </section>
 <section class="card"><h2>Two corrections the original graphic needed</h2>
 <p class="note"><strong>Healthcare:</strong> The source spreadsheet calls $5.3 trillion U.S. healthcare spending in 2025. CMS reports approximately $5.3T in 2024 and projects around $5.7T in 2025. We label the 2025 number as a projection.</p>
+<p class="note"><strong>GDP:</strong> The source sheet places world GDP around $112T in 2025, closer to the 2024 estimate. World Bank 2025 world GDP is $118.35T. GDP is yearly output, not available cash.</p>
 <p class="note"><strong>Defense:</strong> Two independent agencies use different definitions. The IISS estimate is $2.63T in 2025, while SIPRI reports $2.887T. These are alternatives—not separate amounts to add together.</p>
 </section>
 <section class="card"><h2>Who benefits? Who pays? What can change?</h2>
@@ -68,7 +70,7 @@ footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:
 "use strict";
 const options=document.querySelectorAll('button[data-group]'), chart=document.getElementById("scale"), status=document.getElementById("status"), detail=document.getElementById("detail");
 let records=[],active="asset-stock";
-function groupOf(r){return r.measurement==="asset-stock"?"asset-stock":r.measurement==="liability-stock"?"liability-stock":r.measurement.startsWith("annual-flow")?"annual-flow":null}
+function groupOf(r){return r.measurement==="asset-stock"?"asset-stock":r.measurement==="liability-stock"?"liability-stock":r.measurement==="annual-output"?"annual-output":r.measurement.startsWith("annual-flow")?"annual-flow":null}
 function showDetail(r){detail.textContent="";const b=document.createElement("strong");b.textContent=r.label+" · $"+r.valueTrillionsUsd.toLocaleString("en-US")+" trillion · "+r.year;detail.append(b,document.createElement("br"));
 detail.append(document.createTextNode(r.definition+" "+r.interpretation+" "));
 const link=document.createElement("a");link.href=r.sourceUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Original source: "+r.sourcePublisher;detail.append(link);}
