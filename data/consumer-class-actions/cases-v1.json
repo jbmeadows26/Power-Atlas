@@ -23,8 +23,8 @@
       "Independent aggregation as discovery only"
     ],
     "verification": "Primary-source case facts manually reviewed November 10, 2026. The directory is a set of discovery links, not an automatically synchronized feed. ClassAction.org listing dates, proceedings, claim deadlines and eligibility may change and require rechecking.",
-    "discoverySources": "ClassAction.org is a secondary discovery and legal-news source, never a court docket or official claims administrator. Every published case must be matched to an official court or court-supervised settlement source. Lawsuit news, active attorney investigations, mass torts, regulatory enforcement and settlements must not be conflated.",
-    "sourceUse": "Link to attributed ClassAction.org pages and independently summarize official settlement notices. The provider's terms prohibit crawling, content mining and reposting; no automated scraper, full-text mirroring, continuing monitoring, or implied data license is authorized."
+    "discoverySources": "ClassAction.org, Top Class Actions, Consumer Action, and ClaimDepot are secondary discovery sources. They vary in mission and business model. None is treated as an official claims administrator or a replacement for the court docket.",
+    "sourceUse": "Link to and attribute third-party directories; do not scrape or mirror their content, assume an API or republication license, or treat listing dates as live eligibility. Promote only independently verified court/administrator records into the verified-case explorer."
   },
   "cases": [
     {
@@ -256,6 +256,30 @@
       "kind": "secondary-discovery",
       "purpose": "Discover breach-related litigation signals; do not treat notice of a breach as a finding of liability",
       "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "Top Class Actions — open settlements",
+      "url": "https://topclassactions.com/category/lawsuit-settlements/open-lawsuit-settlements/",
+      "kind": "secondary-discovery",
+      "purpose": "Search open settlement news and locate original administrator notices; a publisher listing is not a live claims guarantee",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Commercial legal news and marketing"
+    },
+    {
+      "name": "Consumer Action — open to claims",
+      "url": "https://www.consumer-action.org/lawsuits/by-status/open",
+      "kind": "secondary-discovery",
+      "purpose": "Browse the nonprofit consumer group's curated class-action database filtered to open-to-claims entries",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Nonprofit consumer advocacy"
+    },
+    {
+      "name": "ClaimDepot — settlement directory",
+      "url": "https://www.claimdepot.com/settlements",
+      "kind": "secondary-discovery",
+      "purpose": "Research settlement categories, deadlines and administrator listings; verify them with official court documents",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Independent settlement directory"
     }
   ]
 }
