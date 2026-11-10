@@ -159,7 +159,9 @@ const chapters={
 "reform-lab.html":["Civic power",["compare.html","Compare outcomes"],["my-life.html","Everyday impacts"],["source-audit.html","Known limitations"]],
 "source-audit.html":["Evidence and methods",["my-life.html","Everyday measurements"],["money-sources.html","Money sources"],["reform-lab.html","Possible responses"]],
 "economic-fragility.html":["Economic resilience",["my-life.html","Household exposure"],["money-scale.html","Wealth and debt in context"],["market-power.html","Market power"],["source-audit.html","Source quality"]],
-"market-power.html":["Market concentration",["my-life.html","Household cost context"],["money-scale.html","Financial scale"],["corporate-ownership.html","Ownership evidence"],["source-audit.html","Evidence gaps"]],\n"money-scale.html":["Financial scale",["market-power.html","Market power and costs"],["my-life.html","Everyday benchmarks"],["economic-fragility.html","Economic resilience"],["source-audit.html","Evidence limitations"]],\n"economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
+"market-power.html":["Market concentration",["my-life.html","Household cost context"],["money-scale.html","Financial scale"],["corporate-ownership.html","Ownership evidence"],["source-audit.html","Evidence gaps"]],
+"money-scale.html":["Financial scale",["market-power.html","Market power and costs"],["my-life.html","Everyday benchmarks"],["economic-fragility.html","Economic resilience"],["source-audit.html","Evidence limitations"]],
+"economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
 };
 const measures=[
 {key:"transport",label:"Transport",value:7.77,color:"#e99a7a",src:"https://fred.stlouisfed.org/data/CPITRNSL",explain:"Transportation CPI: +7.77% year over year in September 2026. This includes different transport prices; it does not isolate a toll or fare change."},
@@ -174,7 +176,9 @@ const tiles=[
 ["04 · Political money","Where does the money go?","Follow reported contributions through public filings.","dark-money.html","#cbdff7"],
 ["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
 ["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"],
-["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],\n["08 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],\n["09 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"]
+["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],
+["08 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],
+["09 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"]
 ];
 function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
 function intro(){
