@@ -164,7 +164,7 @@ const chapters={
 "economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
 };
 const measures=[
-{key:"transport",label:"Transport",value:7.77,color:"#e99a7a",src:"https://fred.stlouisfed.org/data/CPITRNSL",explain:"Transportation CPI: +7.77% year over year in September 2026. This includes different transport prices; it does not isolate a toll or fare change."},
+{key:"transport",label:"Transportation",value:7.77,color:"#e99a7a",src:"https://fred.stlouisfed.org/data/CPITRNSL",explain:"Transportation CPI: +7.77% year over year in September 2026. This includes different transport prices; it does not isolate a toll or fare change."},
 {key:"housing",label:"Rent",value:2.78,color:"#7ed2b9",src:"https://fred.stlouisfed.org/data/CUSR0000SEHA",explain:"Rent of primary residence CPI: +2.78%. Not a measure of a specific bedroom size or current asking rent."},
 {key:"groceries",label:"Groceries",value:1.77,color:"#b59de7",src:"https://fred.stlouisfed.org/data/CUSR0000SAF11",explain:"Food-at-home CPI: +1.77%. Not a local grocery-basket or retailer-specific figure."},
 {key:"health",label:"Medical care",value:1.50,color:"#f3cc76",src:"https://fred.stlouisfed.org/data/CPIMEDSL",explain:"Medical-care CPI: +1.50%. Not a health-insurance premium or personal medical bill."}
@@ -257,4 +257,16 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
       else link.removeAttribute("aria-current");
     }
   }
+})();
+
+
+/* V5 visual-first presentation: progressive enhancement, not a data-feed change. */
+(()=>{"use strict";
+ if(document.querySelector('script[data-pa5-loader]'))return;
+ const style=document.createElement("link");
+ style.rel="stylesheet";style.href="visual-first-v5.css";style.setAttribute("data-pa5-loader","css");
+ document.head.appendChild(style);
+ const script=document.createElement("script");
+ script.src="visual-first-v5.js";script.setAttribute("data-pa5-loader","js");
+ document.head.appendChild(script);
 })();
