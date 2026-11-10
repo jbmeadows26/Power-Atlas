@@ -221,11 +221,26 @@ function topic(){
  }
  if(location.hash){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
+function compactNav(){
+ const header=document.getElementById("pa-global-header");
+ const inner=header?.querySelector(".pa-global-inner");
+ const nav=header?.querySelector(".pa-global-links");
+ if(!header||!inner||!nav||header.querySelector(".vs6-nav-toggle"))return;
+ nav.id="vs6-primary-navigation";
+ const button=E("button","vs6-nav-toggle","Explore menu ☰");
+ button.type="button";button.setAttribute("aria-controls",nav.id);button.setAttribute("aria-expanded","false");
+ button.setAttribute("aria-label","Open all Power Atlas sections");
+ button.addEventListener("click",()=>{const open=header.classList.toggle("vs6-nav-open");button.setAttribute("aria-expanded",String(open));button.textContent=open?"Close menu ×":"Explore menu ☰";});
+ nav.addEventListener("click",e=>{if(e.target.closest("a")){header.classList.remove("vs6-nav-open");button.setAttribute("aria-expanded","false");button.textContent="Explore menu ☰";}});
+ header.addEventListener("keydown",e=>{if(e.key==="Escape"){header.classList.remove("vs6-nav-open");button.setAttribute("aria-expanded","false");button.textContent="Explore menu ☰";button.focus();}});
+ inner.append(button);
+}
 function init(){
  if(root.dataset.vs6==="active")return;
  const v4=document.querySelector("#pa4-atlas-home");
  if(documentPath==="index.html"&&!v4)return;
  root.dataset.vs6="active";
+ compactNav();
  documentPath==="index.html"?home():topic();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
