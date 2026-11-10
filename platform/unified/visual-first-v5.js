@@ -48,6 +48,10 @@ function illustration(kind,color){
 function home(){
  const root=document.getElementById("pa4-atlas-home");if(!root)return;
  const h=root.querySelector("h1");if(h){h.replaceChildren(document.createTextNode("Who shapes what you pay? "),el("em",null,"Follow the evidence."));}
+ const spotlight=el("div","pa5-transport-spotlight");spotlight.setAttribute("aria-label","Featured transportation cost index");
+ const amount=el("div","pa5-transport-amount","+7.77%");const words=el("div","pa5-transport-copy");words.append(el("strong",null,"Transportation"),el("small",null,"U.S. transport price index · year over year · Sep 2026"));
+ const source=el("a","pa5-transport-source","See official data ↗");source.href="https://fred.stlouisfed.org/data/CPITRNSL";source.target="_blank";source.rel="noopener noreferrer";
+ spotlight.append(amount,words,source);if(h)h.insertAdjacentElement("afterend",spotlight);
  const l=root.querySelector(".pa4-lead");if(l)l.textContent="Prices. Power. People. See what connects them.";
  const heading=root.querySelector(".pa4-atlas-head h2");if(heading)heading.textContent="Pick a story. Get the picture.";
  const desc=root.querySelector(".pa4-atlas-head p");if(desc)desc.textContent="Tap to explore. Evidence is one click away.";
