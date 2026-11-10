@@ -100,3 +100,8 @@ body[data-pa-page="class-actions"] footer{margin-top:55px}
 @media(max-width:740px){.ca-hero{padding:43px 0 37px}.ca-hero-grid{grid-template-columns:1fr}.ca-graphic{min-height:0}.ca-graphic-viz{grid-template-columns:150px 1fr}.ca-deadline-layout{grid-template-columns:1fr}.ca-section-intro{display:block}.ca-section-intro p{max-width:100%;margin-top:12px}.ca-explainer{gap:5px}.ca-explainer a{margin-top:15px}body[data-pa-page="class-actions"] .summary{margin-top:17px}}
 @media(max-width:580px){.ca-hero h1{font-size:clamp(2.7rem,11vw,3.5rem)}.ca-graphic{padding:20px}.ca-graphic-viz{grid-template-columns:125px 1fr}.ca-donut-hole strong{font-size:1.6rem}.ca-deadline-row{grid-template-columns:75px 1fr auto}.ca-deadline-row b{font-size:.8rem}.ca-deadline-row span{display:none}body[data-pa-page="class-actions"] .summary{grid-template-columns:repeat(2,1fr)}body[data-pa-page="class-actions"] .summary .stat:last-child{grid-column:span 2}body[data-pa-page="class-actions"] .cards{grid-template-columns:1fr}body[data-pa-page="class-actions"] .sources{grid-template-columns:1fr}body[data-pa-page="class-actions"] .wrap{padding:0 16px}}
 @media(prefers-reduced-motion:reduce){.ca-deadline-row{transition:none}.ca-deadline-row:hover{transform:none}}
+
+/* Keep company and issue distinct in class-action deadline links */
+.ca-deadline-row > div{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.ca-deadline-row > div > b{display:block;overflow-wrap:anywhere}
+.ca-deadline-row > div > span{display:block;overflow-wrap:anywhere;line-height:1.45}
