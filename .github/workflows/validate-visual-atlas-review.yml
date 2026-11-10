@@ -1,0 +1,25 @@
+name: Validate Power Atlas visual review
+
+on:
+  push:
+    branches:
+      - review/visual-atlas-platform-20261110
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  visual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify shared assets, source metrics, route files and JS syntax
+        run: python -m unittest discover -s tests -p 'test_visual_atlas_review.py' -v
