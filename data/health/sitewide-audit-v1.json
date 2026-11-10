@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T05:29:16.215853+00:00",
+  "generatedUTC": "2026-11-10T05:30:01.790526+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 24,
+    "htmlPagesAudited": 25,
     "jsonDataFilesChecked": 307,
     "validJsonFiles": 307,
-    "staticReferencesInspected": 416,
+    "staticReferencesInspected": 435,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 3,
     "unresolvedLiteralDataPointers": 1,
@@ -337,6 +337,18 @@
       "dataReferences": [
         "data/health/sitewide-audit-v1.json",
         "data/health/sitewide-missing-sources-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/telecom-promotions.html",
+      "localReferenceCount": 11,
+      "allReferencesCount": 19,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/consumer-costs/telecom-picks-v1.json"
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
