@@ -24,6 +24,7 @@ jobs:
         run: |
           python -m unittest discover -s tests -p 'test_economic_fragility_review.py' -v
           python -m unittest discover -s tests -p 'test_economic_fragility_publication.py' -v
+          python -m unittest discover -s tests -p 'test_visual_atlas_market_release.py' -v
       - name: Validate inline browser script syntax
         run: |
           python - <<'PY'

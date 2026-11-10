@@ -3,7 +3,7 @@
   "asOf": "2026-11-09",
   "publicationStatus": "published",
   "headline": "Is a growing economy becoming more financially fragile?",
-  "method": "Snapshot of separately timed U.S. macroeconomic and financial indicators. Do not add dollar figures across incompatible financial instruments or interpret stress signals as a probability of a crash.",
+  "method": "Snapshot of separately timed U.S. macroeconomic and financial indicators. Do not add dollar figures across incompatible financial instruments or interpret stress signals as a probability of a crash. Market data present a dated November 9 closing-price-index snapshot and historical peak-to-trough context; comparisons are not crash probabilities.",
   "metrics": [
     {
       "id": "gdp",
@@ -149,8 +149,131 @@
     {
       "item": "Local household incidence",
       "reason": "No causally established ZIP-specific economic-loss figure; avoid invented household premiums"
+    },
+    {
+      "item": "Market-drawdown refresh and scenario testing",
+      "reason": "Confirm each close with a licensed daily series; examine earnings, credit, employment and data-center investment before concluding market losses are spreading to households."
     }
   ],
   "publicationApproval": "User authorized publication after passing corrected Vercel preview QA",
-  "updatedAt": "2026-11-09"
+  "updatedAt": "2026-11-10",
+  "marketStress": {
+    "asOf": "2026-11-09",
+    "scope": "US closing-price-index drawdowns from each series' previous record close (different peak dates)",
+    "headline": "AI-related shares have sold off far more sharply than the broad U.S. market",
+    "summary": "The November 5 drop was severe, but the S&P 500 partly rebounded by November 9. A concentrated semiconductor sell-off is not evidence that the whole U.S. economy is in recession.",
+    "measures": [
+      {
+        "id": "sp500",
+        "label": "S&P 500",
+        "drawdownPercent": 3.44,
+        "recordDate": "2026-10-06",
+        "priceClose": 7549.94,
+        "interpretation": "Broad large-cap U.S. market. Down 3.44% from its October 6 closing high after the November 9 rebound.",
+        "source": "https://fred.stlouisfed.org/series/SP500",
+        "secondarySource": "https://www.kadoa.com/companies/insights/ai-selloff-perspective"
+      },
+      {
+        "id": "nasdaq",
+        "label": "Nasdaq Composite",
+        "drawdownPercent": 8.5,
+        "recordDate": "2026-10-06",
+        "interpretation": "Technology-heavy benchmark; its decline is larger than the broad market's.",
+        "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective"
+      },
+      {
+        "id": "sox",
+        "label": "PHLX Semiconductor",
+        "drawdownPercent": 31.4,
+        "recordDate": "2026-06-22",
+        "interpretation": "Semiconductor index; its June peak is not the same starting date as the S&P 500 and Nasdaq peaks.",
+        "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+        "secondarySource": "https://www.drawdowntracker.com/indexes/phlx-semiconductor"
+      }
+    ],
+    "shockDay": {
+      "date": "2026-11-05",
+      "index": "S&P 500",
+      "dailyChangePercent": -4.4,
+      "source": "https://apnews.com/article/7ee9c212805aa5e70cf34d25aab7a36e"
+    },
+    "reboundDay": {
+      "date": "2026-11-09",
+      "index": "S&P 500",
+      "dailyChangePercent": 2.35,
+      "source": "https://apnews.com/article/f7ec9680fc858e3c2505913e7b3a54e2"
+    },
+    "historicalSp500Drawdowns": [
+      {
+        "event": "April 2025",
+        "drawdownPercent": 18.9,
+        "recordDate": "2025-02-19",
+        "bottomDate": "2025-04-08"
+      },
+      {
+        "event": "2022 inflation shock",
+        "drawdownPercent": 25.4,
+        "recordDate": "2022-01-03",
+        "bottomDate": "2022-10-12"
+      },
+      {
+        "event": "COVID-19",
+        "drawdownPercent": 33.9,
+        "recordDate": "2020-02-19",
+        "bottomDate": "2020-03-23"
+      },
+      {
+        "event": "Dot-com collapse",
+        "drawdownPercent": 49.2,
+        "recordDate": "2000-03-24",
+        "bottomDate": "2002-10-09"
+      },
+      {
+        "event": "2008 financial crisis",
+        "drawdownPercent": 56.8,
+        "recordDate": "2007-10-09",
+        "bottomDate": "2009-03-09"
+      }
+    ],
+    "historicalSource": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+    "historicalSample": {
+      "description": "Provider-reported U.S. index record-to-record drawdown episodes since 1928; not a model of future crash probability",
+      "atLeastSixPercentEvents": 56,
+      "eventsExceedingFifteenPercent": 16,
+      "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+      "methodologyStatus": "third_party_counts_not_independently_rebuilt",
+      "currentSp500InSample": false
+    },
+    "pathways": [
+      {
+        "label": "Workers and retirement",
+        "status": "potential_not_measured",
+        "text": "A longer decline could pressure AI-related hiring, compensation and retirement portfolios; household incidence is not yet established.",
+        "followup": "Track verified payrolls, earnings calls and fund exposure."
+      },
+      {
+        "label": "Financing and credit",
+        "status": "potential_not_measured",
+        "text": "Valuation declines could affect equity financing, borrowing capacity and investment plans. No system-wide credit contagion is demonstrated.",
+        "followup": "Track credit spreads, financing defaults, capital expenditure and lenders."
+      },
+      {
+        "label": "Power and local infrastructure",
+        "status": "potential_not_measured",
+        "text": "Delayed AI data-center projects could alter anticipated electricity demand, grid investment and local tax plans; these effects differ by region.",
+        "followup": "Track confirmed utility filings, project status and rate cases."
+      }
+    ],
+    "safeguards": [
+      "Price-index drawdowns exclude dividends and do not equal portfolio or household losses.",
+      "Each current drawdown starts at its own record date; these are not identical holding-period returns.",
+      "The historical chart compares S&P 500 drawdowns only. It is not a projection of the current sell-off.",
+      "The 56-event historical sample begins at 6% declines; the latest S&P 500 decline is smaller and should not be assigned a sample-derived crash probability.",
+      "A fall in AI-related stocks alone does not establish a recession, criminal conduct or the cause of household price increases.",
+      "Data are a dated November 9 snapshot; a live view requires a refreshed, licensed source and validation."
+    ],
+    "sourceType": "FRED/S&P index observation; AP reporting; Kadoa provider-derived comparisons; independent semiconductor check",
+    "evidenceLevel": "verified_snapshot_with_third_party_historical_comparisons",
+    "contributorLink": "https://www.reddit.com/r/dataisbeautiful/comments/1xp9khz/oc_the_ai_selloff_compared_to_other_sp_500_stock/"
+  }
 }
