@@ -75,3 +75,17 @@ html[data-pa5] .pa4-bar span:first-child{overflow-wrap:break-word;word-break:nor
 html[data-pa5] .pa4-bar .pa4-bar-track{min-width:0}
 html[data-pa5] .pa4-graphic{min-width:0;overflow:visible}
 @media(max-width:580px){.pa5-transport-spotlight{gap:9px;padding:12px;margin:8px 0 13px}.pa5-transport-copy{flex:1 1 140px}.pa5-transport-source{flex-basis:100%;font-size:.71rem}html[data-pa5] .pa4-bar{grid-template-columns:109px minmax(0,1fr) 54px;padding:8px 3px;gap:5px;font-size:.69rem}html[data-pa5] .pa4-bar b{font-size:.74rem}}
+
+
+/* Freight links visible across every affected cost category; no added price claims. */
+.pa5-freight-feature{box-sizing:border-box;display:flex;align-items:center;gap:16px;width:100%;padding:16px 21px;margin:17px 0 21px;border-radius:18px;background:#fff0e8;border:1px solid #f0cab7;text-decoration:none!important;color:#452f31!important;box-shadow:0 7px 21px #7b42350d;transition:transform .17s,box-shadow .17s}
+.pa5-freight-feature:hover{transform:translateY(-2px);box-shadow:0 12px 25px #7b42351c;border-color:#e8a88c}
+.pa5-freight-art{display:grid;place-items:center;flex:0 0 98px;width:98px;height:80px;border-radius:14px;background:#e6f4e9}
+.pa5-freight-art svg{display:block;width:84px;height:70px}
+.pa5-freight-body{min-width:0;flex:1;display:flex;flex-direction:column;gap:5px}
+.pa5-freight-body small{color:#976458;font-size:.68rem;letter-spacing:.1em;font-weight:900;text-transform:uppercase}
+.pa5-freight-body strong{color:#58362f;font-size:clamp(1.03rem,1.75vw,1.4rem);letter-spacing:-.04em;line-height:1.2;font-weight:950}
+.pa5-freight-body>span{color:#77615d;font-size:.79rem;line-height:1.45}
+.pa5-freight-action{flex:0 0 auto;font-size:.79rem;font-weight:950;color:#8f4f3e}
+@media(max-width:650px){.pa5-freight-feature{gap:11px;padding:11px;margin:12px 0}.pa5-freight-art{flex-basis:62px;width:62px;height:70px}.pa5-freight-art svg{width:62px;height:57px}.pa5-freight-body strong{font-size:1.03rem}.pa5-freight-body>span{font-size:.72rem}.pa5-freight-body small{font-size:.57rem}.pa5-freight-action{flex-basis:68px;max-width:68px;font-size:.7rem;line-height:1.25}}
+@media(prefers-reduced-motion:reduce){.pa5-freight-feature{transition:none!important}.pa5-freight-feature:hover{transform:none}}
