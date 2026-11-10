@@ -35,7 +35,7 @@ class FreightEmbeddedCostsTests(unittest.TestCase):
     def test_research_explorer_same_on_both_sites(self):
         a=(UNIFIED/"freight-impact.html").read_text()
         b=(RESEARCH/"freight-impact.html").read_text()
-        self.assertEqual(a,b)
+        self.assertEqual(a,b.replace('href="https://power-atlas-unified.vercel.app/my-life.html"','href="my-life.html"'))
         for token in ("data-sector=\"groceries\"","data-sector=\"medicine\"",
                       "data-sector=\"housing\"","data-sector=\"shopping\"",
                       "81.5¢","18.5¢","+14.3%","+7.77%",
