@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T06:29:34.464449+00:00",
+  "generatedUTC": "2026-11-10T06:30:29.541086+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
@@ -8,8 +8,8 @@
     "htmlPagesAudited": 27,
     "jsonDataFilesChecked": 308,
     "validJsonFiles": 308,
-    "staticReferencesInspected": 462,
-    "unresolvedStaticLinkIssues": 1,
+    "staticReferencesInspected": 468,
+    "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 3,
     "unresolvedLiteralDataPointers": 1,
     "corporateEntitiesIndexed": 84,
@@ -243,8 +243,8 @@
     },
     {
       "path": "platform/unified/index.html",
-      "localReferenceCount": 33,
-      "allReferencesCount": 44,
+      "localReferenceCount": 34,
+      "allReferencesCount": 45,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -284,8 +284,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 22,
-      "allReferencesCount": 27,
+      "localReferenceCount": 23,
+      "allReferencesCount": 28,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -332,8 +332,8 @@
     },
     {
       "path": "platform/unified/service-accountability.html",
-      "localReferenceCount": 11,
-      "allReferencesCount": 11,
+      "localReferenceCount": 12,
+      "allReferencesCount": 12,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [],
@@ -355,8 +355,8 @@
     },
     {
       "path": "platform/unified/telecom-promotions.html",
-      "localReferenceCount": 11,
-      "allReferencesCount": 19,
+      "localReferenceCount": 12,
+      "allReferencesCount": 20,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -377,9 +377,9 @@
     },
     {
       "path": "site/consumer-practices.html",
-      "localReferenceCount": 4,
+      "localReferenceCount": 3,
       "allReferencesCount": 7,
-      "staticLinksBroken": 1,
+      "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
         "data/consumer-practices/cases-v1.json"
@@ -448,8 +448,8 @@
     },
     {
       "path": "site/service-accountability.html",
-      "localReferenceCount": 6,
-      "allReferencesCount": 7,
+      "localReferenceCount": 7,
+      "allReferencesCount": 8,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [],
@@ -458,8 +458,8 @@
     },
     {
       "path": "site/telecom-promotions.html",
-      "localReferenceCount": 4,
-      "allReferencesCount": 12,
+      "localReferenceCount": 5,
+      "allReferencesCount": 13,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -469,14 +469,7 @@
       "primaryHeaderPresent": false
     }
   ],
-  "brokenStaticReferences": [
-    {
-      "kind": "missing_static_link",
-      "target": "my-life.html",
-      "page": "site/consumer-practices.html",
-      "element": "a"
-    }
-  ],
+  "brokenStaticReferences": [],
   "invalidDataFiles": [],
   "unparsedHtml": [],
   "missingBugReportScripts": [
