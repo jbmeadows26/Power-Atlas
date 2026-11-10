@@ -7,7 +7,7 @@ As of 2026-11-10. Branch: `review/market-power-20261110`.
 - [Original Trillions data sheet](https://docs.google.com/spreadsheets/d/1_YoXOf1-5b30Rt0AOxO9O4XNd-JpBQWovM3z2W9QUuI/edit)
 
 ## Outputs
-- [Audited comparison dataset](../../site/data/money-scale-v1.json): 10 source-linked observations and 10 corrections/exclusions, with years, stock/flow type, scope and interpretation.
+- [Audited comparison dataset](../../site/data/money-scale-v1.json): 12 source-linked observations and 11 corrections/exclusions, with years, stock/flow type, scope and interpretation.
 - [Money at Scale prototype](../../site/money-scale-review.html): an original, mobile-friendly chart, with interactive source notes, linked from the [redesign preview](../../site/redesign-preview.html).
 - [Review guards](../../tests/test_money_scale_review.py) check treatment of stock/flow, evidence, dates and no fake household effects.
 
@@ -15,6 +15,8 @@ As of 2026-11-10. Branch: `review/market-power-20261110`.
 The original site is a *lead generator*, not a sole evidentiary source. Figures are independently verified to source publishers where possible.
 
 **Stocks**: Forbes global billionaire net worth $20.1T (March 2026), U.S. billionaire wealth $8.4T (March 2026), IIF global debt $348T (end-2025), NY Fed U.S. household debt $18.8T (Q4 2025), World Bank 2025 developing-country external debt $9.4T. Global and regional subsets must not be added. Debt outstanding is not debt service.
+
+**Annual output (separate from spending)**: World Bank 2025 world GDP $118.35T and U.S. GDP $30.77T. The original sheet's $112T world GDP figure fits 2024 ($111.67T), not 2025. GDP is annual value added, not discretionary cash.
 
 **Annual flows**: Treasury federal FY2025 outlays $7.01T; CMS 2025 health spending projection $5.7T (not actual); IISS 2025 defense expenditure $2.63T; World Bank 2025 developing-country debt service $1.4T. These figures differ by geography and include overlapping categories.
 
