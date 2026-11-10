@@ -75,3 +75,52 @@ html[data-pa5] .pa4-bar span:first-child{overflow-wrap:break-word;word-break:nor
 html[data-pa5] .pa4-bar .pa4-bar-track{min-width:0}
 html[data-pa5] .pa4-graphic{min-width:0;overflow:visible}
 @media(max-width:580px){.pa5-transport-spotlight{gap:9px;padding:12px;margin:8px 0 13px}.pa5-transport-copy{flex:1 1 140px}.pa5-transport-source{flex-basis:100%;font-size:.71rem}html[data-pa5] .pa4-bar{grid-template-columns:109px minmax(0,1fr) 54px;padding:8px 3px;gap:5px;font-size:.69rem}html[data-pa5] .pa4-bar b{font-size:.74rem}}
+
+/* v5 contrast correction: selected CPI rows must remain legible over the dark chart.
+   The legacy site has global button colors, so these scoped rules intentionally win. */
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar,
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar:hover {
+  background:#ffffff !important;
+  color:#16323e !important;
+  border:2px solid #d5e4e1 !important;
+  border-radius:13px;
+  min-height:59px;
+  padding:10px 9px;
+  font-size:clamp(.78rem,1.4vw,.87rem);
+}
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar[aria-pressed="true"],
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar[aria-pressed="true"]:hover {
+  background:#ffe7d8 !important;
+  color:#222d35 !important;
+  border:2px solid #eb8f6a !important;
+  box-shadow:inset 4px 0 0 #dc7751;
+}
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar > span:first-child,
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar > b,
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar[aria-pressed="true"] > span:first-child,
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar[aria-pressed="true"] > b {
+  color:#18303a !important;
+  opacity:1 !important;
+  visibility:visible !important;
+  text-shadow:none !important;
+}
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar > span:first-child {
+  overflow-wrap:break-word;
+  white-space:normal;
+  line-height:1.25;
+  font-weight:850;
+}
+html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar[aria-pressed="true"] > span:first-child::before {
+  content:"✓ ";
+  font-weight:950;
+  color:#a64228;
+}
+@media(max-width:580px){
+ html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar {
+  grid-template-columns:minmax(100px,1fr) minmax(64px,1.9fr) 57px;
+  gap:7px;
+  padding:10px 7px;
+  font-size:.79rem;
+ }
+ html.pa4[data-pa5="active"] body .pa4-graphic .pa4-bars button.pa4-bar > b{font-size:.82rem;white-space:nowrap}
+}
