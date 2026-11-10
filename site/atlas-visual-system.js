@@ -177,6 +177,7 @@ const tiles=[
 ["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
 ["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"],
 ["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],
+["08 · Consumer class actions","Could a settlement affect you?","See documented allegations, case status, verified deadlines and official eligibility rules.","class-actions.html","#f4d6ac"],
 ["08 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],
 ["09 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"],
 ["10 · Class actions","When companies get sued","Read case status, deadlines and official settlement notices.","class-actions.html","#f4d6ac"]
@@ -219,4 +220,42 @@ document.documentElement.classList.add("pa4");if(!chapters[path])return;
 if(path==="index.html")intro();context();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",main,{once:true});else main();
+})();
+
+/* Shared location-first navigation — applied consistently across Power Atlas pages.
+   Consumer Watch remains discoverable in the Costs journey, without misrouting its tab. */
+(()=>{
+  "use strict";
+  const nav=document.querySelector("#pa-global-header .pa-global-links");
+  if(!nav)return;
+  const definitions=[
+    ["place","my-life.html#where","Start Here"],
+    ["issues","my-life.html#what","Issues"],
+    ["costs","my-life.html#benchmarkStory","Costs"],
+    ["why","my-life.html#why","The Why"],
+    ["action","my-life.html#how","Actions"],
+    ["research","index.html","Research"]
+  ];
+  const existing=new Map();
+  for(const link of nav.querySelectorAll("a[data-pa-nav]")){
+    const key=link.dataset.paNav==="consumer"?"costs":link.dataset.paNav;
+    existing.set(key,link);
+  }
+  if(definitions.some(([key])=>!existing.has(key)))return;
+  for(const [key,href,label] of definitions){
+    const link=existing.get(key);
+    link.dataset.paNav=key;
+    link.setAttribute("href",href);
+    const long=link.querySelector(".pa-long"),short=link.querySelector(".pa-short");
+    if(long)long.textContent=label;
+    if(short)short.textContent=label;
+    if(key==="costs"&&link.getAttribute("aria-current")==="page")link.setAttribute("aria-current","location");
+    nav.append(link);
+  }
+  if(location.pathname.endsWith("/my-life.html")&&!location.hash){
+    for(const link of nav.querySelectorAll("a[data-pa-nav]")){
+      if(link.dataset.paNav==="place")link.setAttribute("aria-current","location");
+      else link.removeAttribute("aria-current");
+    }
+  }
 })();
