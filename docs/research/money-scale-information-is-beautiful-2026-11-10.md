@@ -32,3 +32,21 @@ The original site is a *lead generator*, not a sole evidentiary source. Figures 
 5. For **who benefits, who suffers**, pursue actual ownership, margins, price-cost evidence, market structure, lobbying and localized pricing; comparisons alone establish none of those causal links.
 
 **Not approved for production.** The user requested review before publishing; changes stay on a review branch.
+
+
+## Household-cost research bridge — November 10 follow-through
+The Information is Beautiful graphics supply **economic scale**, not a monopoly-cost estimate. The connected Power Atlas presentation now separates three steps:
+
+1. **Scale:** `platform/unified/money-scale.html` and `site/money-scale.html` offer 12 independently sourced, dated metrics with distinct wealth/debt/spending/GDP tabs.
+2. **Exposure:** `platform/unified/household-market-bridge.json` and its `site/` mirror give BLS **2025 national average annual spending**: housing $27,790; transportation $13,492; food-at-home $6,491; healthcare $6,470. This is household expenditure, *not a measured anticompetitive surcharge*. BLS 2025 total spending was $81,905 per consumer unit. The U.S. average consumer unit and a Census ZIP household are different statistical units.
+3. **Mechanisms:** The click-ready bar chart in `market-power.html#household-bridge` links these four categories to the existing 12-case `market-power.json` register: housing (rental algorithms/regulated utilities), transportation (airline competition), groceries (meatpacking buyer concentration), and health (PBMs/hospitals). Each case retains the original research type, agency citation, date, alleged-versus-measured status, beneficiaries, affected parties, and unanswered questions. Employment concentration links separately to the BLS average income figure—not a spending bar.
+
+The hosted research project deploys **`site/`** at the URL root. Its market-power and money-scale assets are mirrored from `platform/unified/` and checked for data parity in `tests/test_market_power_household_bridge.py`. The review UI is `noindex` and does not require any paid data source, sign-in, ZIP, or browser location. Deployment creates a **non-production Vercel preview** only.
+
+**Primary expenditure source:** [BLS Consumer Expenditures—2025, published 2026-10-29](https://www.bls.gov/news.release/cesan.nr0.htm). BLS noted adjusted weights after the 2025 federal data-collection interruption. Spending changes include price, volume and basket changes.
+
+**Explicit non-findings:** No ZIP-level concentration effects, documented typical monopoly premium, exact share of consumers affected, or causal attribution of the spending baseline to political donations. The four categories are not asserted to be all essential spending, and the figures are not suitable to infer a personal budget.
+
+**Quality gates:** `tests/test_money_scale_review.py`, `tests/test_market_power_household_bridge.py`, JavaScript syntax, and `.github/workflows/validate-market-power-household-preview.yml`. Browser-based visual and interaction checks should be reported separately from static and source checks.
+
+**Approval rule:** This review work is not merged or published to production without the user's explicit approval.
