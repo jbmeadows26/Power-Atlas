@@ -1,0 +1,116 @@
+{
+  "schema": "power-atlas.market-power.household-bridge.v1",
+  "asOf": "2026-11-10",
+  "publicationStatus": "review-only",
+  "sources": {
+    "budget": "https://www.bls.gov/news.release/cesan.nr0.htm",
+    "budgetRelease": "Consumer Expenditures—2025, BLS, released 2026-10-29",
+    "market": "./market-power.json",
+    "moneyScale": "./money-scale.json",
+    "originalBillion": "https://informationisbeautiful.net/visualizations/the-billion-dollar-gram/",
+    "originalTrillion": "https://informationisbeautiful.net/visualizations/trillions-what-is-a-trillion-dollars/"
+  },
+  "baseline": {
+    "country": "United States",
+    "period": "calendar year 2025",
+    "unit": "Average annual dollars per BLS consumer unit, not median or per-person",
+    "totalExpenditureUsd": 81905,
+    "averagePreTaxIncomeUsd": 110847,
+    "scopeNotes": "Average national spending by consumer units, not local ZIP prices. BLS survey was weighted to address an October–November 2025 data-collection interruption. Changes in spending reflect prices, quantities, and mix. BLS housing includes utilities; never add a utilities line to housing.",
+    "sourceUrl": "https://www.bls.gov/news.release/cesan.nr0.htm"
+  },
+  "categories": [
+    {
+      "id": "housing",
+      "label": "Housing",
+      "annualUsd": 27790,
+      "priorUsd": 26266,
+      "year": 2025,
+      "coverage": "Housing spending includes shelter, utilities, furnishings and operations, not a typical rent or mortgage quote.",
+      "caseIds": [
+        "rent",
+        "utilities"
+      ],
+      "mechanism": "Rents may be shaped by landlord and software practices; utility networks are regulated natural-monopoly structures. Local supply, rates and taxes also matter.",
+      "whatBenefits": "Property owners and franchise utilities may gain pricing or service-territory advantages, depending on rules and market conditions.",
+      "whoPays": "Renters and ratepayers may face reduced alternatives, but no verified typical dollar overcharge is available.",
+      "unresolved": "No substantiated nationwide concentration-attributable housing premium or ZIP-specific landlord/utility competition map.",
+      "linkedPage": "my-life.html",
+      "evidenceType": "regulatory allegation / regulated structure"
+    },
+    {
+      "id": "transport",
+      "label": "Transportation",
+      "annualUsd": 13492,
+      "priorUsd": 13318,
+      "year": 2025,
+      "coverage": "All BLS transportation spending; not just airfare, tolls or transit fares.",
+      "caseIds": [
+        "airlines"
+      ],
+      "mechanism": "Competition among airline routes can change ticket prices. Auto costs, fuel, toll policy and transit investment are separate drivers.",
+      "whatBenefits": "A carrier with fewer route competitors may retain higher fares, but cost structures and operational efficiencies also matter.",
+      "whoPays": "Passengers on affected routes can pay more when competition falls; the broad transportation average does not measure the airline effect.",
+      "unresolved": "No national fraction of transportation spending attributable to route concentration; geographic route- and fare-level comparisons required.",
+      "linkedPage": "my-life.html",
+      "evidenceType": "GAO review / selected causal studies"
+    },
+    {
+      "id": "groceries",
+      "label": "Groceries at home",
+      "annualUsd": 6491,
+      "priorUsd": 6224,
+      "year": 2025,
+      "coverage": "Food purchased for home consumption only. This is a subset of BLS total food spending ($10,633); excludes restaurants.",
+      "caseIds": [
+        "beef"
+      ],
+      "mechanism": "Concentrated meatpacking buyers can have leverage over cattle producers, but retail shelf prices reflect processing, logistics and retailer decisions too.",
+      "whatBenefits": "Large processors may gain purchasing leverage and scale; efficiency may or may not pass through to retailers or shoppers.",
+      "whoPays": "Independent ranchers may receive lower bids; the effect on grocery customers is unresolved.",
+      "unresolved": "No verified consumer grocery premium derived from four-packer procurement concentration; farmgate-versus-retail causal link not established.",
+      "linkedPage": "my-life.html",
+      "evidenceType": "USDA economic research"
+    },
+    {
+      "id": "health",
+      "label": "Healthcare",
+      "annualUsd": 6470,
+      "priorUsd": 6197,
+      "year": 2025,
+      "coverage": "Direct consumer-unit healthcare outlays, not the country's total national health expenditure and not all employer-paid costs.",
+      "caseIds": [
+        "pbms",
+        "hospitals"
+      ],
+      "mechanism": "PBM network and formulary decisions affect drug access and payments; concentrated local hospitals can negotiate higher insurer rates.",
+      "whatBenefits": "Dominant hospital systems, PBMs and affiliates may capture negotiation leverage, while some bargaining or scale economies lower selected prices.",
+      "whoPays": "Patients, payers, employers, independent pharmacies and medical practices can face restricted choices or higher rates.",
+      "unresolved": "No defensible average household PBM or hospital-concentration premium; plan design, insured versus uninsured status, local market and drug mix vary.",
+      "linkedPage": "my-life.html",
+      "evidenceType": "FTC study / KFF market analysis"
+    }
+  ],
+  "incomeExample": {
+    "id": "work",
+    "label": "Pre-tax average income",
+    "annualUsd": 110847,
+    "year": 2025,
+    "kind": "income—not household spending",
+    "caseIds": [
+      "jobs"
+    ],
+    "comment": "For job-market concentration, the measured issue is potential wage bargaining leverage; do not subtract income from expense categories to claim disposable income. BLS correlation is not a proven nationwide wage loss."
+  },
+  "interpretationRules": [
+    "Bar lengths represent BLS average spending amounts only—not concentration-attributable premiums.",
+    "Do not calculate overcharge dollars by multiplying household spending by market concentration percentages.",
+    "Never sum percentages with unrelated denominators or infer the share of a bill captured by a firm.",
+    "Housing includes utilities; do not double-count those amounts.",
+    "Food-at-home is a subset of food; label it precisely.",
+    "Household expenditure figures represent the BLS average consumer unit, not median local household spending.",
+    "Market case findings, allegations, regulated structures and observational studies must retain their original status.",
+    "No nationwide, ZIP-level or individual-household causal estimate is established.",
+    "Original Information is Beautiful graphics are linked for inspiration only; graphics and wording in Power Atlas are original."
+  ]
+}
