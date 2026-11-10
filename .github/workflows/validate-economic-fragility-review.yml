@@ -1,0 +1,35 @@
+name: Validate economic fragility review
+on:
+  pull_request:
+    paths:
+      - 'data/economic-fragility/**'
+      - 'platform/unified/economic-fragility-review.html'
+      - 'tests/test_economic_fragility_review.py'
+      - '.github/workflows/validate-economic-fragility-review.yml'
+  workflow_dispatch:
+jobs:
+  review-guardrails:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate research and publication safeguards
+        run: python -m unittest discover -s tests -p 'test_economic_fragility_review.py' -v
+      - name: Validate inline browser script syntax
+        run: |
+          python - <<'PY'
+          from html.parser import HTMLParser
+          from pathlib import Path
+          class Extract(HTMLParser):
+              def __init__(self): super().__init__(); self.in_script=False; self.parts=[]
+              def handle_starttag(self,tag,attrs):
+                  if tag=="script" and not dict(attrs).get("src"): self.in_script=True
+              def handle_endtag(self,tag):
+                  if tag=="script": self.in_script=False
+              def handle_data(self,data):
+                  if self.in_script: self.parts.append(data)
+          p=Extract();p.feed(Path("platform/unified/economic-fragility-review.html").read_text())
+          Path("/tmp/fragility-review.js").write_text("\n".join(p.parts))
+          PY
+          node --check /tmp/fragility-review.js
