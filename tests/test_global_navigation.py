@@ -1,4 +1,4 @@
-"""Power Atlas five-link community-first navigation regression checks."""
+"""Power Atlas six-link community-first navigation regression checks."""
 from pathlib import Path
 import re
 import unittest
@@ -9,6 +9,9 @@ PAGES = (
     "reform-lab.html", "business-candidates.html", "donor-intelligence.html",
     "money-sources.html", "election-2026.html", "business-influence.html",
     "election-money.html", "navatek.html", "investigations.html",
+    "consumer-practices.html", "telecom-promotions.html",
+    "service-accountability.html", "corporate-ownership.html",
+    "source-audit.html",
 )
 EXPECTED = (
     ("place", "my-life.html#where"),
@@ -16,11 +19,12 @@ EXPECTED = (
     ("why", "my-life.html#why"),
     ("action", "my-life.html#how"),
     ("research", "index.html"),
+    ("consumer", "consumer-practices.html"),
 )
 
 
 class GlobalNavigationTests(unittest.TestCase):
-    def test_same_five_links_on_all_primary_pages(self):
+    def test_same_six_links_on_all_primary_pages(self):
         for name in PAGES:
             with self.subTest(page=name):
                 text = (UI / name).read_text(encoding="utf-8")
@@ -33,7 +37,7 @@ class GlobalNavigationTests(unittest.TestCase):
                     nav.group(0),
                 )
                 self.assertEqual([(key, href) for href, key in links], list(EXPECTED))
-                self.assertEqual(len(re.findall(r'data-pa-nav=', nav.group(0))), 5)
+                self.assertEqual(len(re.findall(r'data-pa-nav=', nav.group(0))), 6)
                 self.assertIn('<span class="pa-short">', nav.group(0))
                 self.assertIn('<span class="pa-long">', nav.group(0))
                 self.assertNotIn('data-pa-nav="overview"', nav.group(0))
@@ -59,11 +63,14 @@ class GlobalNavigationTests(unittest.TestCase):
         for key in ("redistricting", "authenticity", "promises", "decay", "research", "sources"):
             self.assertIn('data-page="' + key + '"', home)
         self.assertIn("function page(id)", home)
+        self.assertIn('href="consumer-practices.html"', home)
         self.assertIn('data-pa-nav="research" aria-current="page"', home)
 
     def test_responsive_shared_navigation_and_accessibility(self):
         css = (UI / "global-navigation.css").read_text(encoding="utf-8")
-        self.assertIn("grid-template-columns:repeat(5,minmax(0,1fr))", css)
+        self.assertIn("grid-template-columns:repeat(6,minmax(0,1fr))", css)
+        self.assertIn("grid-template-columns:repeat(3,minmax(0,1fr))", css)
+        self.assertIn("Consumer Watch", (UI / "consumer-practices.html").read_text(encoding="utf-8"))
         self.assertIn("min-height:44px", css)
         self.assertIn("max-width:830px", css)
         self.assertIn("max-width:400px", css)
