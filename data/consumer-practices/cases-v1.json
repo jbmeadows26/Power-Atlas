@@ -10,7 +10,8 @@
     "temporal": "Historical allegations may describe past rather than current behavior; current checkout conditions need separate timestamped tests.",
     "geo": "National cases cannot be localized to a ZIP absent documented covered locations or location-specific price data. No personal customer details included.",
     "sourcePolicy": "Primary regulator and company sources preferred. Check procedural updates before describing open cases as decided.",
-    "sampling": "Curated cases selected to illustrate diverse tactics, not a representative sample of all businesses or industries."
+    "sampling": "Curated cases selected to illustrate diverse tactics, not a representative sample of all businesses or industries.",
+    "sourceVerification": "FTC and company source URLs cross-checked on 2026-11-10 for high-impact examples; settlement status reflects stated court timeline as of that date. Continue case-status reviews, including official case pages, to detect later changes."
   },
   "statuses": {
     "terms": {
@@ -88,16 +89,17 @@
   ],
   "industries": [
     "Telecommunications",
-    "Housing",
-    "Retail",
-    "Digital subscriptions",
     "Online shopping",
+    "Housing",
+    "Digital subscriptions",
+    "Retail",
     "Delivery and transport",
     "Live events",
     "Health products",
-    "Financial and bill payment",
+    "Business and restaurants",
     "Auto dealerships",
-    "Business and restaurants"
+    "Financial and bill payment",
+    "Travel booking"
   ],
   "cases": [
     {
@@ -442,6 +444,26 @@
       },
       "evidenceType": "FTC/state proposed settlement",
       "amount": "$600,000"
+    },
+    {
+      "id": "hopper",
+      "name": "Hopper",
+      "industry": "Travel booking",
+      "tactic": "hidden mandatory fees",
+      "status": "settlement",
+      "eventDate": "2026-08-20",
+      "headline": "Travel app included preselected extras despite a 'no hidden fees' message",
+      "claim": "FTC alleged Hopper added Tip and VIP Support charges without informed consent and overstated price-freeze and support benefits; the federal court entered a $35 million settlement order in August 2026.",
+      "mechanism": "A quoted total may exclude preselected charges on the final screen, while add-on services may not provide their advertised protection.",
+      "implication": "Court-entered stipulated order; resolved allegations do not establish that every Hopper booking had these charges or that current practices remain the same.",
+      "action": "Before paying, inspect every preselected service and confirm the final price; save the booking and fee disclosures.",
+      "source": {
+        "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/232-3086-ftc-v-hopper-usa-inc",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC complaint and court-entered stipulated order",
+      "amount": "$35 million"
     }
   ],
   "consumerActions": [
