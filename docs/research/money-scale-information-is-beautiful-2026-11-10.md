@@ -53,3 +53,8 @@ The hosted research project deploys **`site/`** at the URL root. Its market-powe
 
 ## Public release
 November 10, 2026: integrated into both production-oriented Power Atlas source trees and the nine-story visual system, with exact BLS consumer-unit definitions and explicit causal limitations. Review-only artifacts in the previous branch remain archival evidence, but production pages omit review banners.
+
+## Selected billion-dollar primary evidence added
+- Amazon FY2025 consolidated net sales: **$716.924 billion**; net income **$77.670 billion** ([Amazon 2026 release](https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/)). Revenues, gross profit and net income are materially different measures; none alone identifies anticompetitive rent.
+- Stargate **$500 billion** announced investment *intention* over four years, originally announced January 21, 2025 ([original announcement](https://openai.com/index/announcing-the-stargate-project/)). Not an actual expenditure figure; no automatic energy-bill implication.
+- These examples are separately selectable in the billions chart; each carries its own classification, vintage, scope, source and evidence limit.
