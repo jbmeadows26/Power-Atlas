@@ -130,6 +130,26 @@ nav{display:flex;gap:25px;align-items:center}nav a{text-decoration:none;font-siz
 @media(max-width:800px){.wrap{width:min(100% - 34px,1230px)}.menuBtn{display:inline-block}nav{display:none;position:absolute;top:78px;left:0;right:0;background:var(--paper);padding:20px 24px;border-bottom:1px solid var(--border);box-shadow:0 15px 25px rgba(10,30,40,.1);flex-direction:column;align-items:flex-start}nav.open{display:flex}.headInner{min-height:70px}.hero{padding:43px 0}.heroGrid,.twoColumns,.ownershipLayout,.calcGrid{grid-template-columns:1fr}.hero h1{font-size:clamp(48px,8vw,69px)}.visualHero{min-height:440px}.section{padding:53px 0}.sectionHeading{align-items:start;flex-direction:column;gap:10px}.sectionHeading p{max-width:620px}.chartCard,.infoCard{padding:24px}.networkWrap{min-height:0}}
 @media(max-width:530px){.topicTabs{flex-wrap:wrap;overflow:visible}.topicTabs button{padding:9px 13px}.hero::before{width:330px;height:330px;right:0;top:-150px}.wrap{width:calc(100% - 28px)}.review .wrap{justify-content:center;text-align:center}.review .wrap a{display:none}.hero h1{font-size:49px}.intro{font-size:15px}.visualHero{min-height:0}.heroBarRow{grid-template-columns:90px 1fr 47px}.gallery,.evidenceGrid,.calcFields{grid-template-columns:1fr}.tile{min-height:0}.tileArt{height:180px}.metricRow{grid-template-columns:82px 1fr 55px;gap:6px;padding:10px 5px}.metricLabel{font-size:11px}.metricRow b{font-size:15px}.axis{margin-left:93px;margin-right:62px}.chartCard,.infoCard{padding:18px}.calcFields{gap:13px}.calcFieldFoot{grid-column:1}.calculator{padding:22px 17px}.endStrip{padding:27px;flex-direction:column;align-items:start}.endStrip h2{font-size:31px}.heroActions{align-items:flex-start}.visualHero h2{font-size:23px}.navCTA{display:none}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important}}
+/* Reviewed class-action chapter — part of the selected visual direction. */
+.caseChapter{background:#e9efea;border-top:1px solid #dfe5dd;border-bottom:1px solid #dfe5dd}
+.caseChapterGrid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:stretch}
+.caseChapterCopy{padding:20px 0;display:flex;flex-direction:column;align-items:flex-start;justify-content:center}
+.caseChapterCopy h2{font-size:clamp(34px,4.5vw,57px);line-height:1.06;letter-spacing:-.065em;margin:18px 0}
+.caseChapterCopy h2 em{font-style:normal;color:#149b90}
+.caseChapterCopy p{max-width:500px;color:#546b71;line-height:1.65;font-size:15px}
+.caseChapterCopy .buttonPrimary{margin-top:20px}
+.caseChapterGraphic{border-radius:27px;overflow:hidden;background:#163241;color:#fff;padding:29px;box-shadow:0 22px 45px #0e293320;position:relative}
+.caseChapterGraphic:before{content:"";position:absolute;right:-160px;top:-180px;width:380px;height:380px;border:1px solid #ffffff2a;border-radius:50%;box-shadow:0 0 0 60px #ffffff07}
+.caseChapterGraphic small{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#b8e4dd;font-weight:900;position:relative}
+.caseChapterGraphic h3{position:relative;font-size:26px;letter-spacing:-.04em;margin:16px 0 28px}
+.caseStage{display:grid;grid-template-columns:36px 1fr;gap:13px;align-items:center;border-bottom:1px solid #466471;padding:14px 0;position:relative}
+.caseStage:last-of-type{border:0}
+.caseStage b{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#e8947b;color:#17303e;font-size:13px}
+.caseStage:nth-of-type(2) b{background:#96d9c3}
+.caseStage:nth-of-type(3) b{background:#c3b2ef}
+.caseStage span{font-size:13px;color:#daeeeb;line-height:1.6}
+.caseChapterGraphic p{position:relative;color:#b7d4d2;font-size:11px;line-height:1.6;margin-top:18px}
+@media(max-width:800px){.caseChapterGrid{grid-template-columns:1fr}.caseChapterCopy{padding:5px 0}.caseChapterGraphic{padding:24px}.caseChapterCopy h2{font-size:clamp(35px,7vw,53px)}}
 </style>
 </head>
 <body>
@@ -137,7 +157,7 @@ nav{display:flex;gap:25px;align-items:center}nav a{text-decoration:none;font-siz
 <header><div class="wrap headInner">
 <a class="brand" href="#top" aria-label="Power Atlas redesign draft home"><span class="brandMark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><span>POWER ATLAS<small>THE STORY BEHIND THE SYSTEM</small></span></a>
 <button class="menuBtn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">☰ Menu</button>
-<nav id="mainNav" aria-label="Draft navigation"><a href="#explore">Explore stories</a><a href="#costs">Your money</a><a href="#ownership">Who owns what</a><a href="#consumer-watch">Consumer Watch</a><a href="#evidence">Evidence</a><a class="navCTA" href="#method">About this draft ↗</a></nav>
+<nav id="mainNav" aria-label="Draft navigation"><a href="#explore">Explore stories</a><a href="#costs">Your money</a><a href="#ownership">Who owns what</a><a href="#consumer-watch">Consumer Watch</a><a href="#class-actions">Class actions</a><a href="#evidence">Evidence</a><a class="navCTA" href="#method">About this draft ↗</a></nav>
 </div></header>
 <main id="top">
 <section class="hero"><div class="wrap heroGrid">
@@ -211,6 +231,18 @@ nav{display:flex;gap:25px;align-items:center}nav a{text-decoration:none;font-siz
 <div class="calcSummary" id="calcSummary">Under these assumptions, the carrier promotion costs <b>$420 more</b> over 36 months.</div>
 <p class="calcFoot">Unlocked = retail price − resale proceeds. Promo = retail price − credits + (required plan increase × months). Both surrender the old phone, by resale or trade-in. Early cancellation, lost promotional credits, taxes, fees, financing terms and eligibility rules can change the result.</p>
 </div></div></div></div></section>
+<section class="section caseChapter" id="class-actions"><div class="wrap caseChapterGrid">
+<div class="caseChapterCopy"><div class="eyebrow">Story 04 · Consumer Watch / class actions</div><h2>When consumers sue,<br><em>what happens next?</em></h2>
+<p>A filing is not a verdict, and a settlement fund isn't a personal payout. Follow the court process, compare case status and review claim deadlines—all tied to the original notice.</p>
+<a class="buttonPrimary" href="https://power-atlas-unified-git-review-vis-45e28b-jbmeadows26s-projects.vercel.app/class-actions.html">Explore the redesigned class-action dashboard ↗</a>
+<p style="font-size:12px;color:#758285;margin-top:16px">A verified case register; not a live claims eligibility service. Links are available for ClassAction.org, Top Class Actions, Consumer Action and ClaimDepot.</p></div>
+<div class="caseChapterGraphic" role="group" aria-label="Three checks before a consumer submits a class-action claim">
+<small>POWER ATLAS / A CLAIM IS A PROCESS</small><h3>Three questions before you act</h3>
+<div class="caseStage"><b>01</b><span>What is <strong>alleged</strong>, not yet proven?</span></div>
+<div class="caseStage"><b>02</b><span>Has the court <strong>approved</strong> any settlement?</span></div>
+<div class="caseStage"><b>03</b><span>Are you <strong>eligible</strong> under the official notice?</span></div>
+<p>This is a navigation graphic, not a statistical chart. The case dashboard provides dated, source-linked results.</p></div>
+</div></section>
 <section class="section" id="evidence"><div class="wrap">
 <div class="sectionHeading"><div><div class="eyebrow">Trust is part of the design</div><h2>Show the strength of the evidence.</h2></div><p>Beautiful data becomes dangerous when speculation looks like proof. Each visual carries its own evidence label.</p></div>
 <div class="evidenceGrid">
