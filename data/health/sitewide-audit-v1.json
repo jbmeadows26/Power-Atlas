@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T19:41:54.935831+00:00",
+  "generatedUTC": "2026-11-10T19:43:43.336097+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 31,
-    "jsonDataFilesChecked": 314,
-    "validJsonFiles": 314,
-    "staticReferencesInspected": 681,
+    "htmlPagesAudited": 35,
+    "jsonDataFilesChecked": 315,
+    "validJsonFiles": 315,
+    "staticReferencesInspected": 755,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -301,6 +301,28 @@
       "primaryHeaderPresent": true
     },
     {
+      "path": "platform/unified/market-power.html",
+      "localReferenceCount": 21,
+      "allReferencesCount": 26,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/market-power/evidence-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
+      "path": "platform/unified/money-scale.html",
+      "localReferenceCount": 9,
+      "allReferencesCount": 11,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
       "path": "platform/unified/money-sources.html",
       "localReferenceCount": 19,
       "allReferencesCount": 28,
@@ -483,6 +505,28 @@
         "data/organizations/redistricting-committees.json",
         "data/promises/primary-2020-sentence-inventory/index.json"
       ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
+      "path": "site/market-power.html",
+      "localReferenceCount": 12,
+      "allReferencesCount": 26,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/market-power/evidence-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
+      "path": "site/money-scale.html",
+      "localReferenceCount": 7,
+      "allReferencesCount": 11,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
       "missingDataReferences": [],
       "primaryHeaderPresent": false
     },
