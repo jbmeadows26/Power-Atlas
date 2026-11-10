@@ -116,7 +116,7 @@ function topic(main){
  document.addEventListener("click",e=>{const a=e.target.closest?.('a[href^="#"]');if(!a)return;const id=a.getAttribute("href")?.slice(1);if(!id)return;const target=document.getElementById(id);if(!target)return;const r=rows.find(x=>x.sec===target||x.sec.contains(target));if(r&&!r.essential)reveal(r,false);},true);
  window.addEventListener("hashchange",showHash);showHash();
 }
-function start(){if(document.documentElement.dataset.pa5)return;const main=document.querySelector("main");if(!main)return;document.documentElement.dataset.pa5="active";path==="index.html"?home():topic(main);}
+function start(){if(document.documentElement.dataset.pa5)return;const main=document.querySelector("main");if(!main&&path!=="index.html")return;document.documentElement.dataset.pa5="active";path==="index.html"?home():topic(main);}
 const ready=()=>window.requestAnimationFrame(start);
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",ready,{once:true});else ready();
 })();
