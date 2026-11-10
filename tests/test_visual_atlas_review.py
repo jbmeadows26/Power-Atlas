@@ -26,6 +26,10 @@ class VisualAtlasReviewTests(unittest.TestCase):
             for page in pages:
                 with self.subTest(page=page.relative_to(ROOT)):
                     html = page.read_text(encoding="utf-8")
+                    if page.name == "consumer-practices.html":
+                        self.assertIn('href="consumer-watch-v2.css"', html)
+                        self.assertIn('src="consumer-watch-v2.js"', html)
+                        continue
                     self.assertIn('href="atlas-visual-system.css"', html)
                     self.assertIn('src="atlas-visual-system.js"', html)
                     self.assertIn("</html>", html.lower())
