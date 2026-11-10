@@ -30,8 +30,8 @@ class ConsumerClassActionsTests(unittest.TestCase):
     def test_evidence_gates_prevent_false_legality_and_guarantees(self):
         for case in self.cases:
             with self.subTest(case=case["id"]):
-                self.assertEqual(case["proceduralStatus"], "settlement-proposed")
-                self.assertEqual(case["claimStatus"], "open-as-of-review")
+                self.assertIn(case["proceduralStatus"], {"settlement-proposed", "settlement-final"})
+                self.assertIn(case["claimStatus"], {"open-as-of-review", "claims-closed"})
                 self.assertIn("den", case["allegations"].lower())
                 self.assertTrue(case["officialUrl"].startswith("https://"))
                 self.assertNotIn("ftc.gov", case["officialUrl"])
@@ -44,6 +44,7 @@ class ConsumerClassActionsTests(unittest.TestCase):
                 self.assertGreater(case["grossFundUSD"], 0)
                 self.assertTrue((UNIFIED / case["crossLinks"][0]).is_file())
         self.assertEqual(len({x["industry"] for x in self.cases}), 3)
+        self.assertTrue(any(x["claimStatus"] == "claims-closed" for x in self.cases))
 
     def test_frontend_filters_and_fail_closed(self):
         for id_ in ("q", "industry", "claim", "resultCount", "caseList", "countClaims"):
