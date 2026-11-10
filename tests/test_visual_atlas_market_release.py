@@ -34,7 +34,7 @@ class AtlasMarketReleaseTests(unittest.TestCase):
         for folder in (S,U):
             js=(folder/"atlas-visual-system.js").read_text()
             css=(folder/"atlas-visual-system.css").read_text()
-            for phrase in ('07 · Economic resilience','08 · Market power','09 · Financial scale','economic-fragility.html','Nine paths into the evidence','const researchProductionBase='):
+            for phrase in ('07 · Economic resilience','08 · Market power','09 · Financial scale','10 · Class actions','economic-fragility.html','Ten paths into the evidence','const researchProductionBase='):
                 self.assertIn(phrase,js)
             for forbidden in ('__PA4_UNIFIED_PREVIEW__','power-atlas-visual-review.vercel.app','Preview-only link rewrites:','DESIGN REVIEW · NOT PRODUCTION','noindex,nofollow'):
                 self.assertNotIn(forbidden,js)

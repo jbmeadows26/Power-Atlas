@@ -66,13 +66,14 @@ class ProductionVisualAtlasTests(unittest.TestCase):
         self.assertFalse((UNIFIED/"redesign-preview.html").exists())
         self.assertFalse((RESEARCH/"redesign-preview.html").exists())
 
-    def test_all_eight_visual_entry_points_route_to_real_pages(self):
+    def test_all_ten_visual_entry_points_route_to_real_pages(self):
         script=(UNIFIED/"atlas-visual-system.js").read_text(encoding="utf-8")
-        pattern=r'\["0[1-8] · [^"]+","[^"]+","[^"]+","([^"]+\.html)","#[a-fA-F0-9]+"\]'
+        pattern=r'\["(?:0[1-9]|10) · [^"]+","[^"]+","[^"]+","([^"]+\.html)","#[a-fA-F0-9]+"\]'
         matches=re.findall(pattern,script)
-        self.assertEqual(len(matches),8,f"Expected eight visual topic routes: {matches!r}")
+        self.assertEqual(len(matches),10,f"Expected ten visual topic routes: {matches!r}")
         for name in matches:
             self.assertTrue((UNIFIED/name).exists() or (RESEARCH/name).exists(),f"Broken visual entry point: {name}")
+        self.assertIn('class-actions.html',matches)
         self.assertIn('https://power-atlas-unified.vercel.app/',script)
         self.assertIn('https://power-atlas-research.vercel.app/',script)
 
