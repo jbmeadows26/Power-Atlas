@@ -11,16 +11,26 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 3
     steps:
-      - name: Inspect deployment routes without publishing
+      - name: Verify the public preview renders both interactive evidence pages
         env:
-          PREVIEW: https://power-atlas-research-771poget8-jbmeadows26s-projects.vercel.app
+          PREVIEW: https://power-atlas-research-6sj76l9fm-jbmeadows26s-projects.vercel.app
         run: |
-          for page in / /index.html /market-power.html /money-scale.html /redesign-preview.html /platform/unified/market-power.html /platform/unified/money-scale.html /platform/unified/household-market-bridge.json /platform/unified/money-scale.json /site/redesign-preview.html; do
-            echo "::group::Route $page"
-            code=$(curl -sS -L --max-time 15 -o /tmp/atlas-response -w '%{http_code}' "$PREVIEW$page" || echo '000')
-            echo "HTTP status: $code"
-            echo "Response bytes: $(wc -c < /tmp/atlas-response || echo '0')"
-            head -c 80 /tmp/atlas-response | tr '\n' ' ' || true
-            echo
-            echo "::endgroup::"
-          done
+          set -euo pipefail
+          check () {
+            path="$1"
+            expected="$2"
+            code=$(curl -sS -L --retry 1 --max-time 18 -o /tmp/atlas-response -w '%{http_code}' "$PREVIEW/$path")
+            echo "$path: HTTP $code; $(wc -c < /tmp/atlas-response) bytes"
+            if [ "$code" != "200" ]; then echo "Review route is unavailable: $path" >&2; exit 1; fi
+            if ! grep -Fq "$expected" /tmp/atlas-response; then echo "Expected review content missing from $path" >&2; exit 1; fi
+          }
+          check "index.html" "How big is a trillion? Who controls it?"
+          check "redesign-preview.html" 'href="money-scale.html"'
+          check "market-power.html" 'id="household-bridge"'
+          check "market-power.html" 'market-power-household.js'
+          check "market-power-household.js" "addEventListener"
+          check "household-market-bridge.json" "power-atlas.market-power.household-bridge.v1"
+          check "money-scale.html" 'data-group="annual-output"'
+          check "money-scale.json" 'power-atlas.money-scale.v1'
+          check "money-scale-review.html" 'data-group="annual-output"'
+          echo "Review routes verified; no production deployment or merge performed."
