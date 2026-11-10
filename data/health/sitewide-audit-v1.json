@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T06:34:41.957998+00:00",
+  "generatedUTC": "2026-11-10T06:40:15.303338+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
@@ -11,7 +11,7 @@
     "staticReferencesInspected": 486,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 3,
-    "unresolvedLiteralDataPointers": 1,
+    "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
     "transparencyCostCaseStudies": 7,
@@ -408,9 +408,7 @@
       "dataReferences": [
         "data/economic-fragility/2027-v1.json"
       ],
-      "missingDataReferences": [
-        "data/economic-fragility/2027-v1.json"
-      ],
+      "missingDataReferences": [],
       "primaryHeaderPresent": false
     },
     {
@@ -477,12 +475,7 @@
     "site/economic-fragility-review.html",
     "site/economic-fragility.html"
   ],
-  "unresolvedLiteralDataPointers": [
-    {
-      "page": "site/economic-fragility.html",
-      "sourcePath": "data/economic-fragility/2027-v1.json"
-    }
-  ],
+  "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
     "uniqueEntities": 84,
     "sourcedLinks": 64,
