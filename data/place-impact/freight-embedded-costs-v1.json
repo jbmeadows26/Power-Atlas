@@ -1,0 +1,54 @@
+{
+  "schema": "power-atlas.freight-embedded-costs.v1",
+  "updated": "2026-11-10",
+  "verified": {
+    "truckFreightPpiYoY": {
+      "value": 14.3,
+      "unit": "percent",
+      "period": "2026-08",
+      "geography": "United States",
+      "basis": "PPI for truck freight transportation, 12-month change",
+      "source": "https://www.bts.gov/newsroom/transportation-producer-price-index-august-2026"
+    },
+    "transportationConsumerCpiYoY": {
+      "value": 7.77,
+      "unit": "percent",
+      "period": "2026-09",
+      "geography": "United States",
+      "basis": "Consumer Transportation CPI, 12-month change; matches Power Atlas existing snapshot",
+      "source": "https://fred.stlouisfed.org/data/CPITRNSL"
+    },
+    "foodAtHomeFarmShare": {
+      "value": 18.5,
+      "unit": "cents per $1",
+      "period": "2024",
+      "geography": "United States, domestically produced food at home",
+      "basis": "USDA Food Dollar farm share",
+      "source": "https://ers.usda.gov/data-products/charts-of-note/114103"
+    },
+    "foodAtHomeMarketingShare": {
+      "value": 81.5,
+      "unit": "cents per $1",
+      "period": "2024",
+      "geography": "United States, domestically produced food at home",
+      "basis": "USDA Food Dollar post-farm marketing including processing, transportation, storage, wholesale and retail",
+      "source": "https://ers.usda.gov/data-products/charts-of-note/114103"
+    }
+  },
+  "principles": [
+    "No simple CPI + PPI arithmetic; retail goods CPI already embeds freight.",
+    "No unobserved pass-through percentages for medicine, housing, groceries.",
+    "Do not equate USDA marketing share with freight share.",
+    "Concept flows are illustrative, not proven causal attribution."
+  ],
+  "scope": {
+    "directHouseholdTransportation": "Consumer expenditures such as gasoline, vehicles, tolls and transit",
+    "embeddedTransportation": "Freight, shipping, fuel and warehousing already reflected in supplied goods and services",
+    "missing": "Sector/item-specific freight share, date-matched pass-through coefficients, local exposure"
+  },
+  "sources": [
+    "https://www.bls.gov/opub/btn/volume-13/misconceptions-ppi.htm",
+    "https://ers.usda.gov/data-products/food-dollar/documentation",
+    "https://www.bts.gov/bts-publications/transportation-economic-trends/tet-2017-chapter-3-how-much-does-transportation-cost"
+  ]
+}
