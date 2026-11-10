@@ -114,7 +114,7 @@ class ServiceAccountabilityTests(unittest.TestCase):
             self.assertIn("surveyBar(", script)
             self.assertIn('g.totalHeadcount2024,g.totalHeadcount2025', script)
             self.assertIn('s.organizationsWithAIAttributedAgentCutsPercent', script)
-            self.assertIn('not independently observed call', script)
+            self.assertRegex(script, r'not (?:an )?independently observed call')
         self.assertIn('href="service-accountability.html"', consumer)
         self.assertIn('cw-service-panel', consumer)
 
