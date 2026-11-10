@@ -1,0 +1,153 @@
+{
+  "schema": "power-atlas.consumer-costs.telecom-picks.v1",
+  "reviewedUtc": "2026-11-10",
+  "title": "When two wireless lines compete for the same upgrade perks",
+  "company": "T-Mobile US",
+  "product": "T-Mix",
+  "coverage": "U.S. advertised pricing and promotional terms; two-line household benchmark, not a personalized quote",
+  "factualBaseline": {
+    "plan": "T-Mix More",
+    "eligibleVoiceLines": 2,
+    "priceUsdPerMonthAutoPayBeforeTaxesAndFees": 130,
+    "sharedPicks": 4,
+    "officialListPriceUsdPerMonthBeforeAutoPayOrOtherDiscounts": 150,
+    "statedRegulatoryProgramsAndRecoveryFeeUsdPerLineMonthly": 5.49,
+    "otherSurchargesAndTaxes": "vary by location",
+    "oneTimeDeviceConnectionChargeUsdPerLine": 35,
+    "priceGuarantee": false,
+    "accountRatherThanIndividualAllocation": true,
+    "sources": [
+      "https://www.t-mobile.com/cell-phone-plans",
+      "https://www.t-mobile.com/benefits"
+    ]
+  },
+  "offers": [
+    {
+      "id": "iphone1200",
+      "discountCeilingUsd": 1200,
+      "picksPerDevice": 3,
+      "creditMonths": 36,
+      "tradeIn": "No trade-in for the qualifying new-line/port-in version",
+      "requirements": "Qualifying T-Mix plan and credit, eligible device, new line and number transfer from an eligible carrier; additional plan/service minimum and full promotion terms apply.",
+      "source": "https://www.t-mobile.com/stores/pl/t-mobile-southlake-tx-76092-392f?brand=apple&sort=brand-a-z"
+    },
+    {
+      "id": "iphone930",
+      "discountCeilingUsd": 930,
+      "picksPerDevice": 2,
+      "creditMonths": 36,
+      "tradeIn": "No trade-in for the qualifying new-line/port-in version; a separate trade-in version also exists",
+      "requirements": "Qualifying T-Mix plan and credit, eligible device, new line and number transfer for the no-trade-in version; additional terms apply.",
+      "source": "https://www.t-mobile.com/stores/pl/t-mobile-willow-grove-pa-19090-8400?brand=apple&sort=product-z-a"
+    }
+  ],
+  "twoLineScenarios": [
+    {
+      "id": "one-premium",
+      "label": "One $1,200 offer",
+      "picksRequired": 3,
+      "picksAvailable": 4,
+      "potentialCombinedOfferCreditsUsd": 1200,
+      "capacity": "within shared-Pick budget",
+      "qualification": "Promotional eligibility still required"
+    },
+    {
+      "id": "two-premium",
+      "label": "Two $1,200 offers",
+      "picksRequired": 6,
+      "picksAvailable": 4,
+      "potentialCombinedOfferCreditsUsd": 2400,
+      "capacity": "not possible on this four-Pick plan",
+      "qualification": "Requires more available Picks and applicable offer eligibility"
+    },
+    {
+      "id": "mixed",
+      "label": "One $1,200 plus one $930",
+      "picksRequired": 5,
+      "picksAvailable": 4,
+      "potentialCombinedOfferCreditsUsd": 2130,
+      "capacity": "not possible on this four-Pick plan",
+      "qualification": "Requires more available Picks and applicable offer eligibility"
+    },
+    {
+      "id": "two-standard",
+      "label": "Two $930 offers",
+      "picksRequired": 4,
+      "picksAvailable": 4,
+      "potentialCombinedOfferCreditsUsd": 1860,
+      "capacity": "Pick budget sufficient",
+      "qualification": "Each offer must independently qualify; simultaneous fulfillment not verified"
+    }
+  ],
+  "consumerRisk": {
+    "promotionCredits": "Spread across 36 monthly bill credits; not an immediate retail discount.",
+    "paidEarly": "Published device-promotion terms state bill credits end if the financed device is paid off early.",
+    "cancelled": "Published terms say contact T-Mobile before cancelling entire account; remaining credits can stop and remaining financed balance can become due.",
+    "pickLock": "Picks used for device deals remain allocated for their promotion/financing period; they cannot be casually reallocated.",
+    "earlyPickCharge": "T-Mobile's $15 Early Pick Charge applies to freeing a Pick tied to a partner benefit before a change window, not to immediately releasing a device-promotion Pick.",
+    "unilateralRules": "T-Mobile reserves the right to alter catalog/required Picks and says account changes can affect active promotions; see controlling terms.",
+    "noLegalJudgment": "The allocation design is verified; unlawful deception, intent to deny a discount and any typical consumer financial injury are not established."
+  },
+  "caseStudyContext": {
+    "sourceType": "user-reported comparison, unpublished personal quote",
+    "usage": "Two-line structure only; omit personal identifiers, household-specific discount amounts, screenshots and phone numbers from the public story.",
+    "observedQuestion": "Is the advertised device incentive per line or constrained by a shared account-level benefit currency?",
+    "status": "Generic two-line case replicated against carrier terms; purchase, bill credits and individual eligibility not independently tested."
+  },
+  "measurementsToCollect": [
+    "Promotion dollars advertised to each line versus maximum simultaneously redeemable on household account",
+    "Incremental service plan costs needed to increase Pick supply",
+    "Full 36-month household costs: service, taxes, recovery fees, connection fees, equipment installments and credits",
+    "Effect of changing carriers on existing bundle and loyalty discounts",
+    "Bill credits forfeited at months 12, 24 and on early device payoff, with controlling terms",
+    "Frequency of promo mismatch between teaser and checkout across carriers and dates",
+    "Comparison against Verizon, AT&T and other current written offers using identical two-line/36-month assumptions"
+  ],
+  "remedies": [
+    {
+      "title": "Ask for an account-wide written illustration",
+      "detail": "Require each line's phone, plan, promotion, Pick requirement, financing credits and fees before switching."
+    },
+    {
+      "title": "Compare 36-month household totals",
+      "detail": "Include any home-internet or loyalty discount that disappears when you port lines."
+    },
+    {
+      "title": "Escalate a misleading billing representation",
+      "detail": "Save dated advertising and checkout screenshots, contact the carrier, and use the FCC informal complaint process if appropriate.",
+      "source": "https://consumercomplaints.fcc.gov/hc/en-us"
+    }
+  ],
+  "sources": [
+    {
+      "type": "primary",
+      "title": "T-Mobile T-Mix plans and Broadband Facts",
+      "url": "https://www.t-mobile.com/cell-phone-plans"
+    },
+    {
+      "type": "primary",
+      "title": "T-Mobile Picks rules and cancellation/reselection limits",
+      "url": "https://www.t-mobile.com/benefits"
+    },
+    {
+      "type": "primary",
+      "title": "T-Mobile 3-Pick $1,200 offer terms",
+      "url": "https://www.t-mobile.com/stores/pl/t-mobile-southlake-tx-76092-392f?brand=apple&sort=brand-a-z"
+    },
+    {
+      "type": "primary",
+      "title": "T-Mobile 2-Pick $930 offer terms",
+      "url": "https://www.t-mobile.com/stores/pl/t-mobile-willow-grove-pa-19090-8400?brand=apple&sort=product-z-a"
+    },
+    {
+      "type": "independent",
+      "title": "GeekWire reporting on T-Mix shared account Picks",
+      "url": "https://www.geekwire.com/2026/t-mobiles-new-t-mix-plans-let-customers-trade-phone-deals-for-netflix-espn-and-other-perks/"
+    },
+    {
+      "type": "government",
+      "title": "FCC phone billing complaint category",
+      "url": "https://consumercomplaints.fcc.gov/hc/en-us/articles/360001201223-Phone-Form-Descriptions-of-Complaint-Issues"
+    }
+  ]
+}
