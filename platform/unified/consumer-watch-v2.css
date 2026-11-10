@@ -186,3 +186,10 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,su
 .cw-pattern-name{font-size:.73rem}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition:none!important;animation:none!important}}
+
+.cw-claims-callout{margin:43px 0 12px;background:#143d47;color:#f4faf5;border-radius:20px;padding:26px 31px;display:flex;justify-content:space-between;align-items:center;gap:25px;border:1px solid #205b59;background-image:radial-gradient(circle at 99% 5%,#31635a 0,transparent 33%);box-shadow:0 8px 21px #163c3612}
+.cw-claims-callout h2{font-size:clamp(1.45rem,2.4vw,2.25rem);line-height:1.1;letter-spacing:-.04em;margin:1px 0 8px}
+.cw-claims-callout p{color:#d0e3da;font-size:.86rem;line-height:1.57;max-width:620px;margin:0}
+.cw-claims-callout .cw-index{color:#d5f7a7}
+.cw-claims-callout a{background:#d5f7a7;color:#12372e;white-space:nowrap;text-decoration:none;font-size:.83rem;font-weight:850;padding:13px 17px;border-radius:10px;text-align:center;min-height:44px}
+@media(max-width:760px){.cw-claims-callout{display:block;padding:22px 20px}.cw-claims-callout a{display:inline-block;margin-top:16px;white-space:normal}}
