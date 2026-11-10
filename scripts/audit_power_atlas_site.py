@@ -146,7 +146,11 @@ def audit():
         for fp in sorted(pointers):
             # Explicit dataset paths must exist. Some external API paths may be
             # stitched dynamically, so absence of a literal pointer is not a gap.
-            if not (ROOT / fp).is_file():
+            # Raw GitHub references point at the repo root, but relative
+            # browser fetches (e.g. "./data/..." from site/) resolve from
+            # the page's directory. Check both rather than flagging a valid
+            # deployed asset as a missing research dataset.
+            if not (ROOT / fp).is_file() and not (path.parent / fp).is_file():
                 pointer_missing.append(fp)
                 data_pointers_missing.append({"page": name, "sourcePath": fp})
         pages.append({
