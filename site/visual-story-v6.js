@@ -1,0 +1,232 @@
+/* Power Atlas v6 — visual-first editorial stories. Review-only extension.
+   Presentation only. All original research, dates, links, and interaction tools are retained. */
+(()=>{
+"use strict";
+const root=document.documentElement;
+const documentPath=(location.pathname.split("/").pop()||"index.html").toLowerCase();
+const review=location.hostname.includes("visual-review");
+const sourceLinks={
+  transportation:"https://fred.stlouisfed.org/data/CPITRNSL",
+  rent:"https://fred.stlouisfed.org/data/CUSR0000SEHA",
+  groceries:"https://fred.stlouisfed.org/data/CUSR0000SAF11",
+  "medical care":"https://fred.stlouisfed.org/data/CPIMEDSL"
+};
+function E(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x;}
+function S(markup){const n=E("div");n.innerHTML=markup.trim();return n.firstElementChild;}
+function desc(s){return (s||"").replace(/\s+/g," ").trim();}
+function source(a,label){const e=E("a","vs6-source",label||"Source ↗");e.href=a;e.target="_blank";e.rel="noopener noreferrer";return e;}
+function accent(c){return {"teal":"#37d5b0","coral":"#ff9c78","violet":"#ae99ff","blue":"#8ab5ff","gold":"#ffcd68"}[c]||"#37d5b0";}
+function typeFor(label,index){
+ const t=label.toLowerCase();
+ if(t.includes("everyday")||t.includes("cost"))return"costs";
+ if(t.includes("corporate")||t.includes("own"))return"ownership";
+ if(t.includes("consumer")||t.includes("fine print"))return"consumer";
+ if(t.includes("political")||t.includes("money")||t.includes("donor"))return"money";
+ if(t.includes("market")||t.includes("competition"))return"market";
+ if(t.includes("class action")||t.includes("lawsuit"))return"claims";
+ if(t.includes("economic")||t.includes("fragil"))return"economy";
+ if(t.includes("financial scale")||t.includes("trillion"))return"scale";
+ if(t.includes("civic")||t.includes("reform"))return"action";
+ return index===4?"evidence":"action";
+}
+function visual(type){
+ const box=E("div","vs6-art vs6-art--"+type);box.setAttribute("aria-label","Graphic: "+type);box.setAttribute("role","img");
+ if(type==="ownership"){
+  box.append(S('<div class="vs6-owned"><span class="vs6-owned-entity vs6-owned-entity--parent"><i>INVESTOR</i><strong>Thoma Bravo</strong></span><span class="vs6-owned-connector"><b>→</b><small>2021</small></span><span class="vs6-owned-entity vs6-owned-entity--company"><i>COMPANY</i><strong>RealPage</strong></span></div>'));
+  box.append(E("span","vs6-art-foot","Documented acquisition · Not proof of local rent effects"));
+ }else if(type==="consumer"){
+  box.append(S('<div class="vs6-phone-viz"><div class="vs6-phone-outline"><div class="vs6-phone-notch"></div><span class="vs6-phone-tag">THE DEAL</span><strong>“FREE”</strong><span class="vs6-phone-ribbon">Conditions apply</span></div><div class="vs6-phone-stack"><span>Plan requirement</span><span>Monthly credits</span><span>Early-exit costs</span></div></div>'));
+  box.append(E("span","vs6-art-foot","Illustration · Always compare total cost"));
+ }else if(type==="money"){
+  box.append(S('<div class="vs6-money-viz"><div><b>DONOR</b><span class="vs6-money-circle">●</span></div><span class="vs6-money-arrow">→</span><div><b>COMMITTEE</b><span class="vs6-money-circle vs6-money-circle--mid">●</span></div><span class="vs6-money-arrow">→</span><div><b>SPENDING</b><span class="vs6-money-circle vs6-money-circle--end">●</span></div></div>'));
+  box.append(E("span","vs6-art-foot","Public filings show transfers—not their effect on votes"));
+ }else if(type==="market"){
+  box.append(S('<div class="vs6-market-viz"><div class="vs6-market-half"><b>MORE COMPETITORS</b><div class="vs6-market-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><span class="vs6-market-sep">≠</span><div class="vs6-market-half"><b>FEWER COMPETITORS</b><div class="vs6-market-dots vs6-market-dots--few"><i></i><i></i></div></div></div>'));
+  box.append(E("span","vs6-art-foot","Concept diagram · Not measured market shares"));
+ }else if(type==="claims"){
+  box.append(S('<div class="vs6-case-viz"><span class="vs6-case-step"><b>1</b>Filed</span><span class="vs6-case-wire"></span><span class="vs6-case-step"><b>2</b>Reviewed</span><span class="vs6-case-wire"></span><span class="vs6-case-step"><b>3</b>Claim?</span></div>'));
+  box.append(E("span","vs6-art-foot","Allegation ≠ ruling ≠ payout"));
+ }else if(type==="economy"){
+  box.append(S('<svg viewBox="0 0 460 170" class="vs6-wave" aria-hidden="true"><defs><linearGradient id="vs6Wave" x1="0" x2="1"><stop offset="0%" stop-color="#8bb9ff"/><stop offset="100%" stop-color="#ffab84"/></linearGradient></defs><path d="M6 102 L52 62 L93 79 L135 31 L178 57 L222 51 L263 132 L309 92 L354 129 L397 66 L454 81" fill="none" stroke="url(#vs6Wave)" stroke-width="9" stroke-linejoin="round" stroke-linecap="round"/><path d="M6 150 H454" stroke="#ffffff50" stroke-width="2"/><circle cx="263" cy="132" r="11" fill="#ffab84"/></svg>'));
+  box.append(E("span","vs6-art-foot","Illustrative pathways · Not a crash forecast"));
+ }else if(type==="scale"){
+  box.append(S('<div class="vs6-scale-viz"><span class="vs6-scale-sm"><i></i><b>$1M</b></span><span class="vs6-scale-md"><i></i><b>$1B</b></span><span class="vs6-scale-lg"><i></i><b>$1T</b></span></div>'));
+  box.append(E("span","vs6-art-foot","A trillion is 1,000 × a billion"));
+ }else if(type==="costs"){
+  box.append(S('<div class="vs6-cost-viz"><span style="--h:44%;--v:#ff9c78">TRANSPORT</span><span style="--h:27%;--v:#37d5b0">RENT</span><span style="--h:23%;--v:#ae99ff">FOOD</span><span style="--h:19%;--v:#ffcd68">HEALTH</span></div>'));
+  box.append(E("span","vs6-art-foot","See sourced year-on-year indexes above"));
+ }else if(type==="evidence"){
+  box.append(S('<div class="vs6-proof-viz"><span><b>✓</b>Measured</span><span><b>↗</b>Documented</span><span><b>?</b>Unknown</span></div>'));
+  box.append(E("span","vs6-art-foot","Facts and allegations remain separate"));
+ }else{
+  box.append(S('<div class="vs6-action-viz"><span class="vs6-action-start">Problem</span><span class="vs6-action-arc">⟶</span><span class="vs6-action-end">Choice</span></div>'));
+  box.append(E("span","vs6-art-foot","Compare options and trade-offs"));
+ }
+ return box;
+}
+function readMetrics(old){
+ const buttons=[...old.querySelectorAll(".pa4-graphic .pa4-bar")];
+ return buttons.map((button,i)=>{
+  const name=desc(button.querySelector("span")?.textContent);
+  const val=Number(desc(button.querySelector("b")?.textContent).replace(/[^0-9.]/g,""));
+  const key=name.toLowerCase();
+  return{name,value:val,key,url:sourceLinks[key]||"#",element:button,tint:["#ff9c78","#57d7b5","#b09bfb","#ffcd68"][i]};
+ }).filter(m=>m.name&&Number.isFinite(m.value)&&m.value>=0);
+}
+function pathTo(name,original){
+ if(review){const p=original?.getAttribute("href")||name;return p.startsWith("https://power-atlas-unified.vercel.app/")?p.replace("https://power-atlas-unified.vercel.app/","/"):p;}
+ return original?.getAttribute("href")||name;
+}
+function go(target,text,cls){const a=E("a",cls||"vs6-go",text||"Explore why →");a.href=target;return a;}
+function metricPanel(metrics){
+ const panel=E("section","vs6-metrics");panel.setAttribute("aria-label","Comparative price indexes");
+ panel.append(E("span","vs6-micro vs6-micro--light","U.S. PRICE SIGNAL · SEP 2026"));
+ const headline=E("div","vs6-metrics-head");headline.append(E("strong",null,"What moved most?"),E("small",null,"CPI change vs. Sep 2025"));panel.append(headline);
+ if(metrics.length<2){panel.append(E("p","vs6-missing","Source-backed price indexes are unavailable."));return panel;}
+ const max=Math.max(1,...metrics.map(x=>x.value));const wrap=E("div","vs6-metric-rows");
+ const detail=E("div","vs6-metric-detail");detail.setAttribute("aria-live","polite");
+ metrics.forEach((m,i)=>{
+  const btn=E("button","vs6-metric");btn.type="button";btn.setAttribute("aria-pressed",String(i===0));
+  const label=E("span","vs6-metric-label",m.name);
+  const track=E("span","vs6-metric-track");const fill=E("span","vs6-metric-fill");fill.style.width=(m.value/max*100).toFixed(2)+"%";fill.style.background=m.tint;track.append(fill);
+  btn.append(label,track,E("strong","vs6-metric-value","+"+m.value.toFixed(2)+"%"));
+  btn.addEventListener("click",()=>{
+   wrap.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));
+   m.element.click();
+   detail.replaceChildren(E("span",null,m.name+" · +"+m.value.toFixed(2)+"% year over year"),source(m.url,"Original data ↗"));
+  });
+  wrap.append(btn);
+ });
+ panel.append(wrap);
+ const ticks=E("div","vs6-axis");ticks.append(E("span",null,"0"),E("span",null,"+"+(max/2).toFixed(1)+"%"),E("span",null,"+"+max.toFixed(1)+"%"));panel.append(ticks);
+ detail.replaceChildren(E("span",null,metrics[0].name+" · +"+metrics[0].value.toFixed(2)+"% year over year"),source(metrics[0].url,"Original data ↗"));
+ panel.append(detail);
+ panel.append(E("small","vs6-caveat","National index changes—not your personal bill or proof of cause."));
+ return panel;
+}
+const cardMeta=[
+{tag:"OWNERSHIP",heading:"Who owns what?",line:"Follow the company behind the brand.",kind:"ownership",theme:"dark"},
+{tag:"CONSUMER WATCH",heading:"The fine-print trap",line:"The offer isn't always the total.",kind:"consumer",theme:"peach"},
+{tag:"POLITICAL MONEY",heading:"Follow the cash",line:"See the trail—and where it ends.",kind:"money",theme:"lilac"},
+{tag:"MARKET POWER",heading:"When choice shrinks",line:"Find the evidence of concentration.",kind:"market",theme:"mint"},
+{tag:"CLASS ACTIONS",heading:"Sued isn't paid",line:"Case status matters more than headlines.",kind:"claims",theme:"dark"},
+{tag:"ECONOMIC RISK",heading:"Could the shock reach you?",line:"Connect markets with daily life.",kind:"economy",theme:"blue"}
+];
+function home(){
+ const original=document.getElementById("pa4-atlas-home");if(!original)return;
+ const metric=readMetrics(original);
+ const originalCards=[...original.querySelectorAll(".pa4-tile")];
+ const portal=E("section","vs6-home");portal.id="vs6-home";portal.setAttribute("aria-label","Power Atlas visual stories");
+ const mast=E("div","vs6-cover");
+ const left=E("div","vs6-lead");
+ left.append(E("span","vs6-micro","POWER ATLAS · THE BIG PICTURE"));
+ const h=E("h1");h.append(E("span",null,"Your bills"),E("em",null,"have a backstory."));left.append(h);
+ left.append(E("p","vs6-subtitle","Follow the money, ownership and decisions behind everyday life."));
+ const entry=go(pathTo("my-life.html#where",originalCards[0]),"Explore your community ↗","vs6-primary");left.append(entry);
+ const note=E("span","vs6-hero-footnote","One big question. Original sources one tap away.");left.append(note);
+ mast.append(left,metricPanel(metric));portal.append(mast);
+ const sectionTitle=E("div","vs6-gallery-head");sectionTitle.append(E("span","vs6-micro","CHOOSE A THREAD"),E("h2",null,"See the connection."),E("p",null,"Look first. Dive deeper when you're curious."));portal.append(sectionTitle);
+ const gallery=E("div","vs6-gallery");
+ const mapped=[
+  {meta:cardMeta[0],idx:1},{meta:cardMeta[1],idx:2},{meta:cardMeta[2],idx:3},
+  {meta:cardMeta[3],idx:7},{meta:cardMeta[4],idx:9},{meta:cardMeta[5],idx:6}
+ ];
+ mapped.forEach(({meta,idx},i)=>{
+  const a=go(pathTo((originalCards[idx]?.getAttribute("href")||"index.html"),originalCards[idx]),"","vs6-story vs6-story--"+meta.theme+" vs6-story--"+(i%3===0?"wide":"regular"));
+  a.textContent="";a.setAttribute("aria-label",meta.heading+"; explore full sourced story");
+  const top=E("div","vs6-story-head");top.append(E("span","vs6-micro",meta.tag),E("span","vs6-arrow-icon","↗"));
+  const graphic=visual(meta.kind);
+  const bottom=E("div","vs6-story-foot");bottom.append(E("h3",null,meta.heading),E("p",null,meta.line),E("span","vs6-story-cta","Explore why →"));
+  a.append(top,graphic,bottom);gallery.append(a);
+ });
+ portal.append(gallery);
+ const rest=E("details","vs6-more");rest.append(E("summary",null,"Four more stories +"));
+ const extras=E("div","vs6-extra-grid");
+ [{i:0,label:"Your everyday costs",kind:"costs"},{i:4,label:"What is actually proven?",kind:"evidence"},{i:5,label:"What could change?",kind:"action"},{i:8,label:"How big is a trillion?",kind:"scale"}].forEach(o=>{
+   const a=go(pathTo((originalCards[o.i]?.getAttribute("href")||"index.html"),originalCards[o.i]),"","vs6-extra");
+   a.textContent="";a.append(visual(o.kind),E("strong",null,o.label),E("span",null,"Explore →"));extras.append(a);
+ });rest.append(extras);portal.append(rest);
+ const footer=E("div","vs6-research-gate");
+ footer.append(E("span","vs6-micro","ALL THE DATA IS STILL HERE"),E("h2",null,"Want the receipts?"));
+ const btn=E("button","vs6-research-button","Open full research ↗");btn.type="button";btn.setAttribute("aria-expanded","false");
+ btn.addEventListener("click",()=>{
+   const old=document.querySelector(".pa5-library-button");
+   document.body.classList.toggle("vs6-full-research");
+   const expanded=document.body.classList.contains("vs6-full-research");
+   btn.textContent=expanded?"Hide full research ↑":"Open full research ↗";
+   btn.setAttribute("aria-expanded",String(expanded));
+   if(old&&old.getAttribute("aria-expanded")!==String(expanded))old.click();
+   if(expanded){const x=document.querySelector(".pa5-library")||document.querySelector("main > section:not(.pa4-home)");x?.scrollIntoView({behavior:"smooth",block:"start"});}
+ });
+ footer.append(btn);portal.append(footer);
+ original.classList.add("vs6-superseded");
+ original.insertAdjacentElement("beforebegin",portal);
+ document.body.classList.add("vs6-home-mode");
+ if(location.hash)document.body.classList.add("vs6-full-research");
+}
+function topicKind(){
+ const p=documentPath;
+ if(p.includes("consumer")||p.includes("telecom")||p.includes("service-accountability"))return"consumer";
+ if(p.includes("corporate")||p.includes("business"))return"ownership";
+ if(p.includes("market-power"))return"market";
+ if(p.includes("money-scale"))return"scale";
+ if(p.includes("class-action")||p.includes("source-audit")||p.includes("investigation"))return"claims";
+ if(p.includes("economic"))return"economy";
+ if(p.includes("reform"))return"action";
+ if(p.includes("my-life")||p.includes("cost-gap"))return"costs";
+ return"money";
+}
+const topicCopy={
+ "my-life.html":["Your ZIP. Your everyday costs.","Explore the local context, then follow the evidence."],
+ "corporate-ownership.html":["Who owns the companies?","Documented ownership is a starting point—not proof of higher prices."],
+ "consumer-practices.html":["The real cost of a deal","Follow the conditions behind the advertised price."],
+ "class-actions.html":["A lawsuit isn't a refund.","Follow case status before checking a claim."],
+ "market-power.html":["Who gains when choices shrink?","See what concentration data can—and can't—establish."],
+ "dark-money.html":["Follow the political money.","Find the filings, and see where disclosure ends."],
+ "money-scale.html":["Make billions feel real.","Compare numbers using the same units."],
+ "service-accountability.html":["Where did the people go?","Investigate documented staffing and reported service gaps."],
+ "economic-fragility.html":["Could market stress reach you?","Possible pathways are not predictions."],
+ "reform-lab.html":["How can rules change?","See choices and trade-offs, not slogans."],
+ "source-audit.html":["What's proven?","Know what is measured, documented, alleged or missing."]
+};
+function topic(){
+ if(documentPath==="index.html")return;
+ const main=document.querySelector("main");if(!main||document.querySelector(".vs6-topic"))return;
+ const former=main.querySelector(".pa5-topic-hero");
+ if(!former)return;
+ const kind=topicKind();
+ const fallback=[desc(former.querySelector("h2")?.textContent)||"Explore the evidence.",desc(former.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
+ const copy=topicCopy[documentPath]||fallback;
+ const section=E("section","vs6-topic vs6-topic--"+kind);
+ section.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
+ const art=visual(kind);section.append(art);
+ if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
+ const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
+ cta.addEventListener("click",()=>{
+   const active=section.classList.toggle("vs6-expanded");
+   document.body.classList.toggle("vs6-topic-expanded",active);
+   cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":"Explore the evidence ↗";
+   const explorer=main.querySelector(".pa5-explorer");
+   if(active){
+     const first=explorer?.querySelector(".pa5-chapter-card");
+     if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
+   }else section.scrollIntoView({behavior:"smooth",block:"start"});
+ });
+ section.append(cta);
+ former.classList.add("vs6-superseded");
+ main.prepend(section);
+ document.body.classList.add("vs6-topic-mode");
+ if(documentPath==="my-life.html"){
+  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter your ZIP ↓");label.href="#where";section.append(label);}
+ }
+ if(location.hash){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+}
+function init(){
+ if(root.dataset.vs6==="active")return;
+ const v4=document.querySelector("#pa4-atlas-home");
+ if(documentPath==="index.html"&&!v4)return;
+ root.dataset.vs6="active";
+ documentPath==="index.html"?home():topic();
+}
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",init,{once:true});else init();
+})();
