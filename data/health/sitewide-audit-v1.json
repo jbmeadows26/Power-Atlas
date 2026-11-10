@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T06:28:32.383781+00:00",
+  "generatedUTC": "2026-11-10T06:28:47.382700+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 26,
+    "htmlPagesAudited": 27,
     "jsonDataFilesChecked": 308,
     "validJsonFiles": 308,
-    "staticReferencesInspected": 447,
+    "staticReferencesInspected": 461,
     "unresolvedStaticLinkIssues": 1,
     "missingBugReportScripts": 3,
     "unresolvedLiteralDataPointers": 1,
@@ -151,6 +151,18 @@
         "data/money-influence/dark-money-graph-v1.json",
         "data/research/atlas-inventory-v1.json",
         "data/research/cross-domain-evidence-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/consumer-practices.html",
+      "localReferenceCount": 11,
+      "allReferencesCount": 14,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/consumer-practices/cases-v1.json"
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
