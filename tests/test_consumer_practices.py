@@ -110,6 +110,17 @@ class ConsumerPracticesTests(unittest.TestCase):
         self.assertEqual((UNIFIED / "consumer-watch-cost.js").read_bytes(), (SITE / "consumer-watch-cost.js").read_bytes())
         self.assertEqual((UNIFIED / "consumer-watch-cost.css").read_bytes(), (SITE / "consumer-watch-cost.css").read_bytes())
 
+    def test_pattern_prompt_is_actionable(self):
+        for page in (self.main, self.research):
+            self.assertIn('id="pcExplorePattern"', page)
+            self.assertIn('aria-controls="pcCases"', page)
+            self.assertNotIn('↓ Select a bar to explore its cases', page)
+        js = (UNIFIED / "consumer-watch-v2.js").read_text(encoding="utf-8")
+        css = (UNIFIED / "consumer-watch-v2.css").read_text(encoding="utf-8")
+        self.assertIn('$("pcExplorePattern").addEventListener("click"', js)
+        self.assertIn('setPattern(tactic)', js)
+        self.assertIn('cw-pattern-cta', css)
+
     def test_external_javascript_parses_with_node(self):
         if shutil.which("node") is None:
             self.skipTest("Node.js unavailable")
