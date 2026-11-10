@@ -17,14 +17,15 @@
   "case": {
     "lines": 2,
     "horizonMonths": 36,
-    "criteria": "No trade-in revenue or resale included; regular recurring service prices; no temporary promo codes; AutoPay assumed when required; same two iPhone models across scenarios. Service capabilities differ. Figures rounded to cents.",
+    "criteria": "Generic public-price two-line scenarios with AutoPay where listed, no personal account data and no temporary codes. Taxes and unverified local fees excluded. The published offer-specific promotion caps are illustrative and require eligibility verification.",
     "sources": [
       "https://www.visible.com/buy/plans",
       "https://www.usmobile.com/blog/cell-phone-plans-november-2026/",
       "https://www.t-mobile.com/cell-phone-plans",
       "https://www.t-mobile.com/offers/promotional-offer-details/",
       "https://www.verizon.com/support/device-deals-faqs/",
-      "https://www.apple.com/shop/buy-iphone/iphone-18-pro"
+      "https://www.apple.com/shop/buy-iphone/iphone-18-pro",
+      "https://www.t-mobile.com/cell-phone-plans?msockid=22e66b532509623105437da9241e634d"
     ]
   },
   "plans": [
@@ -132,26 +133,10 @@
       "limitations": "Only one device is modeled with the $1,200 offer; second device is full price. A $1,200 + $930 combo needs 5 Picks and doesn't fit.",
       "source": "https://www.t-mobile.com/offers/promotional-offer-details/",
       "feeSource": "https://www.t-mobile.com/cell-phone-plans"
-    },
-    {
-      "id": "verizon-existing",
-      "brand": "Verizon",
-      "name": "Existing discounted service + 2 unlocked phones",
-      "category": "Account-specific benchmark",
-      "monthlyUSD": 70,
-      "feesPerMonthUSD": 0,
-      "connectionUSD": 0,
-      "advertisedDeviceCreditsUSD": 0,
-      "creditMonths": 0,
-      "priorityNote": "Unlimited Welcome is subject to congestion/network-priority limits and may NOT meet a requirement of no deprioritization.",
-      "limitations": "$70 two-line service figure is an anonymized already-discounted customer example, NOT a public tariff. Does not include other fees, existing finance obligations, or whether new upgrades change plan eligibility.",
-      "source": "https://www.verizon.com/support/device-deals-faqs/",
-      "feeSource": "https://www.verizon.com/support/device-payment-faqs"
     }
   ],
   "importantExclusions": [
-    "Do not treat the current Verizon $40/month loyalty credit as additional savings—already reflected in the $70/month existing service benchmark.",
-    "Verizon Fios is a separate household cost. If leaving mobile changes Fios pricing, add the verified monthly difference to every switching scenario. No automatic loss amount is assumed.",
+    "Any existing loyalty credit, bundled home internet discount, or current installment agreement is account-specific; don't disclose private customer information or count a discount twice. Add verified changes to the household cost separately.",
     "Existing installment balance and forfeited legacy promotion credits are excluded from generic totals; add when applicable, distinguishing accelerated principal from foregone credits.",
     "Early device payoff can terminate future promotion credits while the remaining unpaid handset balance is still owed, depending on carrier and offer.",
     "Carrier advertised device credit is a maximum; approval, port-in, new-line, trade-in, service selection, and 36-month good standing may be required.",
@@ -206,5 +191,6 @@
       "instantTradeInValueUSD": null
     },
     "note": "Unknown values are displayed as exclusions, never silently assigned zero in the actual bill."
-  }
+  },
+  "lastReview": "2026-11-10"
 }
