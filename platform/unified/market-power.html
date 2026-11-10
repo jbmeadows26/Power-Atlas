@@ -48,7 +48,7 @@ function render(){const topics=["All",...new Set(all.map(c=>c.topic))];$("filter
 const visible=all.filter(c=>filter==="All"||c.topic===filter);
 $("caseMenu").innerHTML=visible.map(c=>'<button type="button" data-case-id="'+esc(c.id)+'" aria-pressed="'+String(c.id===selected)+'"><span>'+esc(c.name)+'<small>'+esc(c.topic)+' · '+esc(c.period)+'</small></span><b aria-hidden="true">'+(c.metric===null?"↗":esc(fmt(c)))+'</b></button>').join("");
 $("caseMenu").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{renderDetail(all.find(c=>c.id===b.dataset.caseId));$("caseDetail").scrollIntoView({behavior:"smooth",block:"nearest"})}));
-$("filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.topic;render();if(!visible.some(x=>x.id===selected)){const first=all.find(x=>filter==="All"||x.topic===filter);if(first)renderDetail(first)}}));
+$("filters").querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>{filter=b.dataset.topic;render();if(!all.some(x=>x.id===selected&&(filter==="All"||x.topic===filter))){const first=all.find(x=>filter==="All"||x.topic===filter);if(first)renderDetail(first)}}));
 }
 try{const r=await fetch("./market-power.json",{cache:"no-store"});if(!r.ok)throw new Error("No evidence file");const d=await r.json();if(d.schema!=="power-atlas.market-power.v1"||!Array.isArray(d.cases))throw new Error("Invalid evidence schema");all=d.cases;
 const rows=["beef","pbms","hospitals","jobs","search","debit"].map(id=>all.find(x=>x.id===id)).filter(Boolean),colors=["#8bd8bd","#edab85","#cbb9f4","#a7ceeb","#e6d18a","#e39cbe"];
