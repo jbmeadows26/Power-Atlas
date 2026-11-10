@@ -1,0 +1,26 @@
+name: Probe review-only Power Atlas preview routes
+on:
+  push:
+    branches: [review/market-power-20261110]
+    paths: ['.github/workflows/probe-market-power-preview.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - name: Inspect deployment routes without publishing
+        env:
+          PREVIEW: https://power-atlas-research-771poget8-jbmeadows26s-projects.vercel.app
+        run: |
+          for page in / /index.html /market-power.html /money-scale.html /redesign-preview.html /platform/unified/market-power.html /platform/unified/money-scale.html /platform/unified/household-market-bridge.json /platform/unified/money-scale.json /site/redesign-preview.html; do
+            echo "::group::Route $page"
+            code=$(curl -sS -L --max-time 15 -o /tmp/atlas-response -w '%{http_code}' "$PREVIEW$page" || echo '000')
+            echo "HTTP status: $code"
+            echo "Response bytes: $(wc -c < /tmp/atlas-response || echo '0')"
+            head -c 80 /tmp/atlas-response | tr '\n' ' ' || true
+            echo
+            echo "::endgroup::"
+          done
