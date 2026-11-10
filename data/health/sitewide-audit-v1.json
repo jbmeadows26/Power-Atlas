@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T06:41:44.148976+00:00",
+  "generatedUTC": "2026-11-10T06:43:06.696738+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
@@ -8,9 +8,9 @@
     "htmlPagesAudited": 27,
     "jsonDataFilesChecked": 308,
     "validJsonFiles": 308,
-    "staticReferencesInspected": 487,
+    "staticReferencesInspected": 489,
     "unresolvedStaticLinkIssues": 0,
-    "missingBugReportScripts": 2,
+    "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
@@ -207,10 +207,10 @@
     },
     {
       "path": "platform/unified/economic-fragility-review.html",
-      "localReferenceCount": 1,
-      "allReferencesCount": 5,
+      "localReferenceCount": 2,
+      "allReferencesCount": 6,
       "staticLinksBroken": 0,
-      "bugReportScriptPresent": false,
+      "bugReportScriptPresent": true,
       "dataReferences": [
         "data/economic-fragility/2027-review-v1.json"
       ],
@@ -389,10 +389,10 @@
     },
     {
       "path": "site/economic-fragility-review.html",
-      "localReferenceCount": 1,
-      "allReferencesCount": 5,
+      "localReferenceCount": 2,
+      "allReferencesCount": 6,
       "staticLinksBroken": 0,
-      "bugReportScriptPresent": false,
+      "bugReportScriptPresent": true,
       "dataReferences": [
         "data/economic-fragility/2027-review-v1.json"
       ],
@@ -470,10 +470,7 @@
   "brokenStaticReferences": [],
   "invalidDataFiles": [],
   "unparsedHtml": [],
-  "missingBugReportScripts": [
-    "platform/unified/economic-fragility-review.html",
-    "site/economic-fragility-review.html"
-  ],
+  "missingBugReportScripts": [],
   "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
     "uniqueEntities": 84,
