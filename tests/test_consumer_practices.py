@@ -44,7 +44,7 @@ class ConsumerPracticesTests(unittest.TestCase):
                     self.assertIn("ftc.gov", c["source"]["url"])
         t = next(c for c in self.cases if c["id"] == "tmobile")
         self.assertEqual(t["status"], "terms")
-        self.assertIn("not been established", t["implication"])
+        self.assertIn("not been established", t["implication"].lower())
         self.assertEqual(t["relatedPage"], "telecom-promotions.html")
         self.assertTrue((UNIFIED / t["relatedPage"]).is_file())
         h = next(c for c in self.cases if c["id"] == "hopper")
