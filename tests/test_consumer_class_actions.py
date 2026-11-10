@@ -25,7 +25,7 @@ class ConsumerClassActionsTests(unittest.TestCase):
         self.assertGreaterEqual(len(self.cases), 3)
         self.assertEqual(len(self.cases), len({x["id"] for x in self.cases}))
         self.assertIn("not a comprehensive", self.data["scope"])
-        self.assertIn("not a", self.data["methodology"]["classification"].lower())
+        self.assertIn("separate remedies", self.data["methodology"]["classification"].lower())
 
     def test_evidence_gates_prevent_false_legality_and_guarantees(self):
         for case in self.cases:
