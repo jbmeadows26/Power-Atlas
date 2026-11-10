@@ -78,6 +78,29 @@ class ConsumerClassActionsTests(unittest.TestCase):
             self.assertIn("power-atlas-unified.vercel.app/class-actions.html",
                           (SITE / path).read_text(encoding="utf-8"), path)
 
+    def test_visual_atlas_integration_and_clickable_deadline_story(self):
+        html = self.page
+        timeline_js = (UNIFIED / "class-actions-visual.js").read_text(encoding="utf-8")
+        timeline_css = (UNIFIED / "class-actions-visual.css").read_text(encoding="utf-8")
+        consumer = (UNIFIED / "consumer-practices.html").read_text(encoding="utf-8")
+        for asset in ("class-actions-visual.css", "class-actions-visual.js"):
+            self.assertIn(asset, html)
+        for id_ in ("caDonut", "caDeadlineTimeline", "caReportedOpen", "caAsOf"):
+            self.assertIn('id="' + id_ + '"', html)
+        self.assertIn("poweratlas:class-actions-loaded", html)
+        self.assertIn("poweratlas:class-actions-loaded", timeline_js)
+        self.assertIn('claimStatus==="open-as-of-review"', timeline_js)
+        self.assertIn('input.dispatchEvent(new Event("input"', timeline_js)
+        self.assertIn("scrollIntoView", timeline_js)
+        self.assertIn("prefers-reduced-motion", timeline_css)
+        self.assertIn("ca-deadline-row", timeline_css)
+        self.assertIn('href="class-actions.html"', consumer)
+        self.assertLess(consumer.index('class="cw-claims-callout"'),consumer.index('id="story-lab"'))
+        self.assertNotIn("DESIGN REVIEW · NOT PRODUCTION", html)
+        if shutil.which("node"):
+            proc = subprocess.run(["node", "--check", "-"], input=timeline_js, text=True, capture_output=True)
+            self.assertEqual(proc.returncode, 0, proc.stderr)
+
     def test_inline_javascript_parses(self):
         if not shutil.which("node"):
             self.skipTest("Node unavailable")
