@@ -40,6 +40,27 @@ class VisualFirstReviewTests(unittest.TestCase):
                 self.assertIn('.pa5-transport-spotlight',css)
                 self.assertIn('html[data-pa5] .pa4-bar',css)
 
+    def test_selected_and_unselected_chart_labels_have_readable_contrast(self):
+        """Regression for the iPhone screenshot where selected Transportation vanished."""
+        def luminance(value):
+            rgb=[int(value[i:i+2],16)/255 for i in (1,3,5)]
+            linear=[x/12.92 if x <= 0.04045 else ((x+0.055)/1.055)**2.4 for x in rgb]
+            return sum(a*b for a,b in zip(linear,(0.2126,0.7152,0.0722)))
+
+        for folder in SITES:
+            sheet=(folder/"visual-first-v5.css").read_text()
+            with self.subTest(folder=folder.name):
+                self.assertIn('button.pa4-bar[aria-pressed="true"]',sheet)
+                self.assertIn('> span:first-child',sheet)
+                self.assertIn('> b',sheet)
+                self.assertIn('color:#18303a !important;',sheet)
+                self.assertIn('background:#ffe7d8 !important;',sheet)
+                self.assertIn('background:#ffffff !important;',sheet)
+                for foreground,background in (("#18303a","#ffe7d8"),("#18303a","#ffffff")):
+                    a,b=luminance(foreground),luminance(background)
+                    ratio=(max(a,b)+.05)/(min(a,b)+.05)
+                    self.assertGreaterEqual(ratio,4.5)
+
     def test_research_is_never_deleted_and_has_explicit_controls(self):
         for folder in SITES:
             script=(folder/"visual-first-v5.js").read_text()
