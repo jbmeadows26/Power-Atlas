@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Where Does the Money Flow? | Power Atlas</title><meta name="description" content="Documented financial interests, cryptocurrency, foreign-linked business, government gifts, and legal settlements in the public record.">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,sans-serif;background:#f7f9f7;color:#1d3435}
+*{box-sizing:border-box}body{margin:0;background:#f7f9f7}a{color:#186d61}a:hover{text-decoration:underline}button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid #ad8039;outline-offset:3px}main{max-width:1190px;margin:auto;padding:28px 21px 70px}
+.crumb{font-size:.82rem;color:#687a78;margin:0 0 23px}.ey{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;font-weight:800;color:#28776d}
+h1{font-size:clamp(2.8rem,6vw,5.3rem);line-height:1.025;letter-spacing:-.064em;max-width:900px;margin:13px 0 19px}
+h1 em{color:#27786c;font-style:normal}h2{font-size:clamp(1.5rem,3.2vw,2.35rem);letter-spacing:-.037em;line-height:1.14;margin:7px 0 13px}h3{font-size:1.1rem;line-height:1.3;letter-spacing:-.02em}
+p{line-height:1.6}.lead{font-size:1.08rem;color:#58706f;max-width:850px}.sub{color:#66797a;font-size:.9rem;max-width:850px}
+.hero{padding:18px 0 27px;border-bottom:1px solid #e1e9e5}.mini{color:#69817d;font-size:.79rem}
+.story{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:28px 0}
+.story a{display:block;text-decoration:none;color:#1b4540;background:white;border:1px solid #dceae5;border-radius:16px;padding:21px;box-shadow:0 4px 18px #1646380a;min-height:166px}
+.story a:hover,.story a:focus-visible{border-color:#2c8477;box-shadow:0 7px 25px #16463815}.story a b{display:block;font-size:clamp(1.55rem,3.4vw,2.55rem);letter-spacing:-.055em;color:#237467;line-height:1.15;margin:9px 0}.story a span{display:block;color:#576d69;font-size:.88rem;line-height:1.46}
+.story .soft{font-size:.7rem;color:#3f7c70;letter-spacing:.13em;text-transform:uppercase;font-weight:790}
+.section{margin:38px 0}.panel{background:white;border:1px solid #e1e9e6;border-radius:18px;padding:23px;box-shadow:0 5px 21px #14443608}
+.panel h3{margin:0 0 9px}.callout{border-left:4px solid #bd873a;padding:16px 18px;background:#fff9ea;border-radius:0 13px 13px 0;font-size:.89rem;color:#655134}
+.callout strong{color:#4a4330}.sectionLead{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:15px;margin:19px 0}.flow>div{border:1px solid #d6e6de;background:#edf5f0;border-radius:13px;padding:18px;min-height:124px;position:relative}.flow>div small{font-size:.68rem;text-transform:uppercase;font-weight:750;letter-spacing:.12em;color:#2c7668}.flow>div strong{display:block;font-size:.99rem;margin:10px 0;line-height:1.4}.flow>div:not(:last-child)::after{content:'→';position:absolute;right:-18px;top:42%;font-size:24px;color:#23756a;z-index:1}
+.amountTag{color:#356960;font-size:.84rem;font-weight:750}
+.chart{margin:21px 0;display:grid;gap:15px}.chartRow{display:grid;grid-template-columns:minmax(140px,250px) 1fr minmax(76px,105px);gap:12px;align-items:center;text-decoration:none;color:#27443e}
+.chartRow .track{height:29px;background:#edf3ef;border-radius:5px;overflow:hidden}.chartRow .bar{background:#308978;border-radius:5px 0 0 5px;display:block;height:100%}.chartRow small{font-size:.77rem;line-height:1.35}.chartRow b{text-align:right;color:#24594f;font-variant-numeric:tabular-nums;font-size:.92rem}
+.chartRow:hover .bar{background:#15685b}.chartNote{font-size:.79rem;color:#657673;line-height:1.6;margin:18px 0 0}
+.choose{display:flex;gap:8px;flex-wrap:wrap;margin:17px 0}.choose button{border:1px solid #bfcfc9;background:white;color:#366057;border-radius:28px;padding:9px 13px;font-size:.84rem;font-weight:730}
+.choose button[aria-pressed="true"]{background:#216d60;color:white;border-color:#216d60}
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px;margin-top:14px}
+.case{background:#fff;border:1px solid #e0e8e4;border-radius:16px;padding:19px;min-width:0;display:flex;flex-direction:column;gap:11px}
+.case[hidden]{display:none}.case .row{display:flex;gap:8px;align-items:baseline;justify-content:space-between;flex-wrap:wrap}.case .tag{font-size:.69rem;text-transform:uppercase;letter-spacing:.1em;color:#267568;font-weight:770}
+.case h3{margin:0}.case p{margin:0;font-size:.86rem;color:#526663}.case .number{font-size:clamp(1.4rem,2.8vw,2.05rem);font-weight:800;letter-spacing:-.047em;color:#184f49}
+.case small{font-size:.76rem;color:#77827f}.route{border-top:1px solid #e1e8e2;padding:12px 0 0;margin:0;display:grid;gap:6px}
+.route div{display:grid;grid-template-columns:58px 1fr;gap:8px;font-size:.78rem}.route dt{color:#7c8986}.route dd{margin:0;color:#354f4c;font-weight:650;overflow-wrap:anywhere}
+.case details{border-top:1px solid #e1eae5;padding-top:13px;margin-top:auto}.case summary{color:#226e62;font-weight:750;font-size:.84rem;cursor:pointer}
+.case details p{font-size:.83rem;margin:10px 0;color:#566561}.case .sources{display:grid;gap:6px;margin-top:12px}.case .sources a{font-size:.8rem;line-height:1.5}
+.status{font-size:.73rem;color:#5c756e;background:#edf3f1;border-radius:22px;padding:5px 9px;display:inline-block}
+.sourcesBox{background:#f0f5f3;border:1px solid #d6e4de;border-radius:13px;padding:20px}
+.gaps{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;padding:0;list-style:none}.gaps li{background:#fff;border:1px solid #dde8e3;border-radius:10px;padding:13px;font-size:.87rem;line-height:1.5}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.links a{padding:12px 15px;border-radius:9px;border:1px solid #c9ded6;text-decoration:none;font-weight:690;font-size:.84rem}
+.skip{position:absolute;left:-10000px;top:0}.skip:focus{left:12px;background:white;z-index:100;padding:12px}footer{border-top:1px solid #dbe7e0;margin-top:43px;padding:25px 0;color:#667875;font-size:.83rem}
+@media(max-width:790px){.story{grid-template-columns:repeat(2,minmax(0,1fr))}.story a:last-child{grid-column:1/-1}.flow{gap:8px}.flow>div{padding:12px}.flow>div:not(:last-child)::after{right:-13px;font-size:19px}}
+@media(max-width:650px){main{padding:22px 14px 50px}.story,.cards,.gaps{grid-template-columns:1fr}.story a:last-child{grid-column:auto}.story a{min-height:auto}.flow{grid-template-columns:1fr;gap:15px}.flow>div{min-height:0}.flow>div:not(:last-child)::after{right:50%;top:unset;bottom:-21px;transform:rotate(90deg)}.chartRow{grid-template-columns:128px 1fr 77px;gap:7px}.chartRow small{font-size:.68rem}.chartRow b{font-size:.76rem}.panel{padding:17px}}
+</style></head>
+<body data-pa-page="money"><a href="#main" class="skip">Skip to content</a>
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
+<main id="main">
+<nav class="crumb" aria-label="Breadcrumb"><a href="index.html">Research</a> / <a href="public-trading.html">Public official trading</a> / Financial flows</nav>
+<header class="hero"><span class="ey">Public Integrity · Follow the financial trail</span>
+<h1>Where does the <em>money flow?</em></h1>
+<p class="lead">Stock trading is only one part of the story. Here are the documented and reported financial flows involving President Trump, related companies, family interests, overseas investors, government assets and legal settlements.</p>
+<p class="sub"><strong>Read this first:</strong> a $2 billion investment routed through a stablecoin is not a $2 billion payment to Trump. A jet owned by the Pentagon is not a personal gift. Library settlements are not individual income. Every flow has a different recipient.</p></header>
+<div class="story" aria-label="Three starting observations">
+<a href="#income"><span class="soft">Disclosed entity income</span><b>$635.1M</b><span>2025 meme-coin licensing royalty line on the official filing. Not net profit.</span></a>
+<a href="#gifts"><span class="soft">Recipient: U.S. government</span><b>1 aircraft</b><span>Qatar Boeing 747 accepted by Defense. Final post-presidency ownership is unresolved.</span></a>
+<a href="#catalog"><span class="soft">Evidence catalogue</span><b id="caseCount">20 records</b><span>Explore actual recipients, cross-border flows, corporate settlements and what's still unknown.</span></a>
+</div>
+<section class="section" id="income"><span class="ey">01 · Disclosed income</span><h2>What did affiliated businesses report?</h2>
+<p class="sub">Four separately stated 2025 crypto income or proceeds lines, presented on one scale. These are not all the same economic measure and they must not be mistaken for personal take-home pay.</p>
+<div class="panel"><div id="incomeChart" class="chart" role="group" aria-label="2025 official crypto-income and proceeds lines"><p>Reading source records…</p></div><p class="chartNote">Source: 2025 annual OGE disclosure released June 2026. Values are reported at affiliated-entity level and exclude an additional $292.4 million in potentially overlapping wallet entries. This visualization is <strong>not an additive total or a profit chart</strong>.</p>
+<div class="callout"><strong>Important discrepancy:</strong> A source review estimates $1.14–$1.44 billion in 2025 crypto-related income depending on whether wallet entries duplicate the token-sale line. Power Atlas does not resolve that ambiguity by guessing. <a href="https://withreceipts.fyi/donald-trump/cryptocurrency-earnings/" target="_blank" rel="noopener noreferrer">See reconciliation and original filing ↗</a></div></div></section>
+<section class="section" id="gifts"><span class="ey">02 · Follow the actual recipient</span><h2>Who receives the money or asset?</h2>
+<p class="sub">Follow an example from origin through legal arrangement to recipient. Tap another example to change the path.</p>
+<div class="choose" id="examples"><button type="button" data-example="meme_royalties" aria-pressed="true">Meme coin licensing</button><button type="button" data-example="mgx_usd1" aria-pressed="false">UAE-backed investment</button><button type="button" data-example="qatar_747" aria-pressed="false">Qatar aircraft</button><button type="button" data-example="meta_library" aria-pressed="false">Library settlement</button></div>
+<div class="flow" aria-live="polite"><div><small>01 · Origin</small><strong id="from">Celebration Coins</strong></div><div><small>02 · Arrangement</small><strong id="mechanism">Licensing royalties</strong></div><div><small>03 · Recipient</small><strong id="to">CIC Digital LLC</strong></div></div>
+<div class="panel"><strong class="amountTag" id="flowAmount">Reported: $635.1 million · entity royalties</strong><p id="flowExplain" class="sub">The original filing distinguishes the company from the person.</p><p class="callout" id="flowCaveat">Do not confuse company receipts with personally distributed profits.</p><a id="flowSource" target="_blank" rel="noopener noreferrer" href="https://www.oge.gov/">Check the supporting record ↗</a></div></section>
+<section class="section" id="catalog"><div class="sectionLead"><div><span class="ey">03 · Open the evidence</span><h2>Explore the 20 records</h2><p class="sub">Choose a category. Open any record to see its date, recipient, evidence limits, and original sources. Unconfirmed links stay explicitly unconfirmed.</p></div><span class="mini" id="resultCount" aria-live="polite">20 results</span></div>
+<div class="choose" id="filters" aria-label="Filter financial flow records"><button type="button" data-category="all" aria-pressed="true">All records</button></div>
+<div class="cards" id="cards"><p role="status">Loading source-linked records…</p></div></section>
+<section class="section" aria-labelledby="why"><span class="ey">04 · Connect to decisions</span><h2 id="why">What would prove a public impact?</h2>
+<div class="story" style="margin-top:18px"><div class="panel"><h3>Track the beneficiary</h3><p class="sub">Separate the filer, business, family shareholding, sovereign entity, public asset and nonprofit.</p></div><div class="panel"><h3>Track the government action</h3><p class="sub">Find dated executive orders, regulatory decisions, contracts, grants, permits and enforcement actions.</p></div><div class="panel"><h3>Test the outcome</h3><p class="sub">Compare returns, pricing, taxpayer costs and service outcomes with credible benchmarks. Overlap alone is not causation.</p></div></div>
+<div class="links"><a href="public-trading.html">Explore stock trades ↗</a><a href="business-influence.html">Business and public decisions ↗</a><a href="reform-lab.html">Current safeguards and proposed reforms ↗</a><a href="my-life.html#why">Follow the impact on daily life ↗</a></div></section>
+<section class="section sourcesBox" id="sources"><span class="ey">Source notebook</span><h2>What remains unverified?</h2><ul class="gaps" id="gaps"><li>Loading evidence gaps…</li></ul><p class="sub"><strong>Neutrality and legal standard:</strong> This is a factual record of disclosed, reported, announced and unresolved financial relationships. It does not assert bribery, corruption, illegal trading or a measurable cost impact without independent proof. The same criteria should apply to every elected official.</p>
+<a href="https://www.oge.gov/web/oge.nsf/News%2BReleases/B8B9EA45F5EB86EC85258E2600701B77?opendocument" target="_blank" rel="noopener noreferrer">Office of Government Ethics original financial filing announcement ↗</a> · <a href="official-financial-flows-v1.json" target="_blank" rel="noopener noreferrer">View inspectable dataset ↗</a></section>
+<footer>Power Atlas · Financial flows, not speculative financial totals · Dated November 10, 2026 · <a href="index.html">Research home</a></footer>
+</main>
+<script>
+(()=>{'use strict';
+const q=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
+const usd=n=>n===null?'No verified cash amount':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',maximumFractionDigits:0}).format(n);
+const compact=n=>n===null?'Noncash / unquantified':new Intl.NumberFormat('en-US',{style:'currency',currency:'USD',notation:'compact',maximumFractionDigits:1}).format(n);
+const h=(tag,cls,txt)=>{const e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e};
+let data,activeCategory='all';
+function linksInto(node,items){for(const s of items){if(!/^https:\/\//.test(s.url))continue;const link=h('a','',s.id.replaceAll('_',' ')+' · inspect record ↗');link.href=s.url;link.target='_blank';link.rel='noopener noreferrer';node.append(link)}}
+function renderChart(){
+const ids=['meme_royalties','wlf_token','stablecoin_equity','wlf_equity'];
+const node=q('#incomeChart');node.replaceChildren();
+for(const id of ids){const x=data.cases.find(v=>v.id===id),a=h('a','chartRow');a.href='#case-'+id;a.setAttribute('aria-label',x.title+': '+usd(x.amountUsd)+'; inspect transaction');const label=h('small','',x.title);const track=h('div','track');const bar=h('span','bar');bar.style.width=(x.amountUsd/635068835*100)+'%';track.append(bar);a.append(label,track,h('b','',compact(x.amountUsd)));node.append(a)}
+}
+function chooseFlow(id){const x=data.cases.find(v=>v.id===id);if(!x)return;
+all('#examples button').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.example===id)));
+q('#from').textContent=x.from;q('#mechanism').textContent=x.category==='foreign_gift'?'Transfer accepted by Defense':x.category==='settlements'?'Legal settlement allocation':x.id==='mgx_usd1'?'Stablecoin USD1 used in transaction':'Licensing agreement';
+q('#to').textContent=x.to;q('#flowAmount').textContent=(x.amountUsd===null?'Noncash · '+x.measurement:compact(x.amountUsd)+' · '+x.measurement.replaceAll('_',' '));q('#flowExplain').textContent=x.description;q('#flowCaveat').textContent=x.caveat;
+const src=x.sources[0];q('#flowSource').href=src.url;
+}
+function caseNode(x){
+const article=h('article','case');article.id='case-'+x.id;article.dataset.category=x.category;
+const row=h('div','row');row.append(h('span','tag',data.categories.find(c=>c.id===x.category).label),h('span','status',x.status.replaceAll('_',' ')));article.append(row);
+article.append(h('h3','',x.title),h('div','number',compact(x.amountUsd)));const unit=h('small','',x.measurement.replaceAll('_',' ')+' · '+x.period);article.append(unit);
+const route=h('dl','route');for(const [label,val] of [['From',x.from],['To',x.to]]){const d=h('div');d.append(h('dt','',label),h('dd','',val));route.append(d)}article.append(route);
+article.append(h('p','',x.description));
+const details=h('details'),sum=h('summary','', 'What this does—and does not—show');details.append(sum,h('p','',x.caveat));if(x.overlap)details.append(h('p','', 'Overlap group: '+x.overlap.replaceAll('_',' ')+'. Do not sum with overlapping records.'));
+const sourceBox=h('div','sources');linksInto(sourceBox,x.sources);details.append(sourceBox);article.append(details);return article;
+}
+function renderCards(){
+const target=q('#cards');target.replaceChildren();let seen=0;
+for(const x of data.cases){if(activeCategory!=='all'&&x.category!==activeCategory)continue;seen++;target.append(caseNode(x))}
+q('#resultCount').textContent=seen+' of '+data.cases.length+' results';
+}
+function renderFilters(){
+const target=q('#filters');for(const cat of data.categories){const b=h('button','',cat.label);b.type='button';b.dataset.category=cat.id;b.setAttribute('aria-pressed','false');target.append(b)}
+all('#filters button').forEach(b=>b.addEventListener('click',()=>{activeCategory=b.dataset.category;all('#filters button').forEach(v=>v.setAttribute('aria-pressed',String(v===b)));renderCards()}));
+}
+all('#examples button').forEach(b=>b.addEventListener('click',()=>chooseFlow(b.dataset.example)));
+fetch('official-financial-flows-v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{
+if(d.schema!=='power-atlas.official-financial-flows.v1'||d.cases.length!==20||d.crypto.minimumReview+d.crypto.potentialDuplicateWallets!==d.crypto.inclusiveReview)throw Error('Evidence schema mismatch');
+data=d;q('#caseCount').textContent=d.cases.length+' records';renderChart();renderFilters();renderCards();chooseFlow('meme_royalties');
+const gaps=q('#gaps');gaps.replaceChildren();d.evidenceGaps.forEach(g=>gaps.append(h('li','',g)));
+}).catch(e=>{q('#cards').textContent='The source register is temporarily unavailable. Please inspect the original OGE report and linked evidence; no unsourced records are displayed.';q('#incomeChart').textContent='Chart unavailable — source records could not be verified on this page.';q('#resultCount').textContent='Dataset unavailable';q('#gaps').textContent='Evidence list unavailable.';console.error('Financial-flow dataset unavailable',e.message)});
+})();
+</script><script src="bug-report.js" defer></script></body></html>
