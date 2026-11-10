@@ -30,6 +30,21 @@ class MarketPowerHouseholdBridgeTests(unittest.TestCase):
         self.assertIn('name="robots" content="noindex,nofollow"', self.money_page)
         self.assertIn('fetch("money-scale.json"', self.money_page)
 
+    def test_served_research_site_contains_the_same_annotated_evidence(self):
+        site = ROOT / "site"
+        self.assertEqual(self.bridge, json.loads((site / "household-market-bridge.json").read_text(encoding="utf-8")))
+        self.assertEqual(self.money, json.loads((site / "money-scale.json").read_text(encoding="utf-8")))
+        served_market = (site / "market-power.html").read_text(encoding="utf-8")
+        served_money = (site / "money-scale.html").read_text(encoding="utf-8")
+        served_redesign = (site / "redesign-preview.html").read_text(encoding="utf-8")
+        self.assertIn('id="household-bridge"', served_market)
+        self.assertIn('src="market-power-household.js"', served_market)
+        self.assertIn('href="money-scale.html"', served_redesign)
+        self.assertIn('fetch("money-scale.json"', served_money)
+        self.assertIn('name="robots" content="noindex,nofollow"', served_money)
+        self.assertIn('market-power.html#household-bridge', served_money)
+        self.assertIn("household-market-bridge.json", (site / "market-power-household.js").read_text(encoding="utf-8"))
+
     def test_spending_values_identical_to_bls_evidence(self):
         rows = {c["id"]: c for c in self.bridge["categories"]}
         mappings = {"housing":"housing","transport":"transport","groceries":"groceries","health":"health"}
