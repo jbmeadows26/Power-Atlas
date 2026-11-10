@@ -66,9 +66,7 @@ class VisualAtlasReviewTests(unittest.TestCase):
             with self.subTest(folder=folder):
                 self.assertIn('make("button","pa3-chart-row")', script)
                 self.assertIn('"aria-pressed"', script)
-                self.assertIn("Selected", script) if False else None
                 self.assertIn(".pa4-chart-takeaway", css)
-                self.assertIn("Source-backed", script) if False else None
                 self.assertIn("source(links,src", script)
                 self.assertIn("noindex,nofollow", script)
                 self.assertIn("Preview-only link rewrites:", script)
