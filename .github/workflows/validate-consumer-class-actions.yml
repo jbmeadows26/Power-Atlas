@@ -1,0 +1,33 @@
+name: Validate consumer class actions
+on:
+  push:
+    paths:
+      - "data/consumer-class-actions/**"
+      - "platform/unified/class-actions.html"
+      - "platform/unified/index.html"
+      - "platform/unified/my-life.html"
+      - "platform/unified/consumer-practices.html"
+      - "site/index.html"
+      - "site/consumer-practices.html"
+      - "tests/test_consumer_class_actions.py"
+      - ".github/workflows/validate-consumer-class-actions.yml"
+  pull_request:
+    paths:
+      - "data/consumer-class-actions/**"
+      - "platform/unified/class-actions.html"
+      - "platform/unified/index.html"
+      - "platform/unified/my-life.html"
+      - "platform/unified/consumer-practices.html"
+      - "site/index.html"
+      - "site/consumer-practices.html"
+      - "tests/test_consumer_class_actions.py"
+      - ".github/workflows/validate-consumer-class-actions.yml"
+permissions:
+  contents: read
+jobs:
+  consumer-class-actions:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate case evidence, links and JavaScript
+        run: python -m unittest discover -s tests -p test_consumer_class_actions.py -v
