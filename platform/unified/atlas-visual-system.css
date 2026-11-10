@@ -67,3 +67,11 @@ html.pa3 body :is(.pa3-story,.pa3-chart){color:var(--pa3-ink);font:inherit;isola
 }
 @media(max-width:400px){.pa3-chart-row{grid-template-columns:85px minmax(0,1fr) 72px;gap:5px}.pa3-story,.pa3-chart{width:calc(100% - 24px)}}
 @media(prefers-reduced-motion:reduce){html.pa3{scroll-behavior:auto}.pa3-story *, .pa3-chart *{animation:none!important;transition:none!important}}
+
+/* Mobile chart detail fix: the Research landing page's legacy table styles
+   previously imposed a 560px minimum width inside a ~299px phone container. */
+html.pa3 .pa3-chart details{max-width:100%;min-width:0;overflow-x:auto}
+html.pa3 .pa3-chart details table{width:100%!important;min-width:0!important;max-width:100%!important;table-layout:fixed!important}
+html.pa3 .pa3-chart details :is(td,th){min-width:0!important;max-width:100%;white-space:normal!important;overflow-wrap:anywhere;word-break:normal}
+html.pa3 .pa3-chart details :is(td,th):first-child{width:62%}
+html.pa3 .pa3-chart details :is(td,th):last-child{width:38%}
