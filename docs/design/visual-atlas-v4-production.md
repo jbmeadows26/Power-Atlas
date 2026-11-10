@@ -24,3 +24,7 @@ Reconcile the source branch with current main, run CI, deploy the exact approved
 ## Result
 
 This document records the release contract; actual deployment and smoke-test results must be verified independently rather than inferred from this file.
+
+## Latest reconciliation
+
+Includes the economic-fragility story and the independently published service-accountability evidence and links on `main`. Existing source and data ingestion files are not changed by this design release.

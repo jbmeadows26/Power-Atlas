@@ -31,3 +31,5 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_consumer_class_actions.py' -v
       - name: Validate local context and source presentation
         run: python -m unittest discover -s tests -p 'test_place_impact.py' -v
+      - name: Preserve latest service-accountability release
+        run: python -m unittest discover -s tests -p 'test_service_accountability.py' -v

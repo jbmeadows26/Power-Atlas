@@ -109,6 +109,11 @@ class ProductionVisualAtlasTests(unittest.TestCase):
         self.assertIn('claimStatus==="open-as-of-review"',script)
         self.assertIn("Check official settlement notices",script)
 
+    def test_preserve_service_accountability_update(self):
+        html=(RESEARCH/"consumer-practices.html").read_text(encoding="utf-8")
+        self.assertIn("service-accountability.html",html)
+        self.assertTrue((RESEARCH/"service-accountability.html").exists())
+
     @unittest.skipUnless(shutil.which("node"),"Node.js not available")
     def test_java_script_syntax(self):
         paths=[folder/"atlas-visual-system.js" for folder in SITES]
