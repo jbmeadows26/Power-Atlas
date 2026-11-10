@@ -134,9 +134,9 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 (()=>{"use strict";
 const path=(location.pathname.split("/").pop()||"index.html").split("?")[0];
 const researchSurface=location.hostname.includes("research")||document.body.classList.contains("pa-research-site");
-const unifiedPreviewBase="__PA4_UNIFIED_PREVIEW__";
+const unifiedProductionBase="https://power-atlas-unified.vercel.app/";
 const localResearchFiles=new Set(["index.html","consumer-practices.html","telecom-promotions.html","service-accountability.html","economic-fragility.html","economic-fragility-review.html","election-2026.html"]);
-const link=(name)=>researchSurface&&!localResearchFiles.has(name)?unifiedPreviewBase+name:name;
+const link=(name)=>researchSurface&&!localResearchFiles.has(name)?unifiedProductionBase+name:name;
 const chapters={
 "index.html":["Visual atlas",["my-life.html","Your community"],["corporate-ownership.html","Corporate ownership"],["dark-money.html","Election money"]],
 "my-life.html":["Everyday life",["corporate-ownership.html","Ownership and prices"],["consumer-practices.html","Consumer Watch"],["source-audit.html","Coverage and limitations"]],
@@ -198,13 +198,6 @@ if(target){target.prepend(root);document.body.classList.add("pa4-unified-home");
  if(promos.length>0){const box=el("details","pa4-latest"),summary=el("summary",null,"Recently added investigations and research");box.append(summary);promos.forEach(x=>box.append(x));root.insertAdjacentElement("afterend",box)}
 }else{const old=document.querySelector("header.hero");if(old){old.insertAdjacentElement("beforebegin",root);document.body.classList.add("pa4-research-home")}else document.body.prepend(root)}
 }
-function ribbon(){
-const host=document.body;if(!host)return;
-const s=el("div","pa4-review-ribbon");s.setAttribute("role","note");const inner=el("div","pa4-ribbon-inner");
-inner.append(el("span",null,"◈ POWER ATLAS · DESIGN REVIEW · NOT PRODUCTION"));
-const a=el("a",null,"Review the original source repository ↗");a.href="https://github.com/jbmeadows26/Power-Atlas/tree/review/visual-atlas-platform-20261110";a.target="_blank";a.rel="noopener noreferrer";
-inner.append(a);s.append(inner);host.prepend(s)
-}
 function context(){
 const cfg=chapters[path];if(!cfg)return;
 const story=document.querySelector(".pa3-story");if(story){const head=story.querySelector(".pa3-story-head > div");if(head)head.prepend(el("span","pa4-topic-flag",cfg[0]))}
@@ -216,20 +209,7 @@ if(anchor){if(anchor.matches("main"))anchor.prepend(row);else anchor.insertAdjac
 }
 function main(){
 document.documentElement.classList.add("pa4");if(!chapters[path])return;
-ribbon();if(path==="index.html")intro();context();
+if(path==="index.html")intro();context();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",main,{once:true});else main();
-})();
-
-/* Preview-only link rewrites: cross-surface journeys stay in the review environment.
-   Remove this block before a production merge. */
-(()=>{"use strict";
-if(!/\.vercel\.app$/i.test(location.hostname)||["power-atlas-unified.vercel.app","power-atlas-research.vercel.app"].includes(location.hostname))return;
-const unified="https://power-atlas-visual-review.vercel.app/";
-const research="https://power-atlas-research-git-review-vi-feb9f8-jbmeadows26s-projects.vercel.app/";
-const replace=(href)=>href.replace(/^https:\/\/power-atlas-unified\.vercel\.app\//i,unified).replace(/^https:\/\/power-atlas-research\.vercel\.app\//i,research);
-function rewrite(){document.querySelectorAll('a[href^="https://power-atlas-unified.vercel.app/"],a[href^="https://power-atlas-research.vercel.app/"]').forEach(a=>{a.href=replace(a.href)})}
-function meta(){if(document.querySelector('meta[name="robots"]'))return;const m=document.createElement("meta");m.name="robots";m.content="noindex,nofollow";document.head.appendChild(m)}
-document.addEventListener("click",e=>{const a=e.target&&e.target.closest?.("a[href]");if(a)a.href=replace(a.href)},true);
-if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{meta();rewrite()},{once:true});else{meta();rewrite()}
 })();
