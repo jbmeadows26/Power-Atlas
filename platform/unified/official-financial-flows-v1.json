@@ -1,0 +1,584 @@
+{
+  "schema": "power-atlas.official-financial-flows.v1",
+  "asOf": "2026-11-10",
+  "title": "Trump-linked financial flows: disclosed, reported and unresolved",
+  "method": "Non-additive evidence catalogue. Do not sum disparate recipients, entities, principals, gifts, fees and proceeds.",
+  "categories": [
+    {
+      "id": "crypto",
+      "label": "Crypto income and ventures"
+    },
+    {
+      "id": "foreign_finance",
+      "label": "Foreign-linked finance"
+    },
+    {
+      "id": "licensing",
+      "label": "International licensing"
+    },
+    {
+      "id": "foreign_gift",
+      "label": "Foreign-state gifts"
+    },
+    {
+      "id": "settlements",
+      "label": "Legal settlements"
+    },
+    {
+      "id": "family_disclosure",
+      "label": "Family income disclosures"
+    },
+    {
+      "id": "access",
+      "label": "Access-linked events"
+    },
+    {
+      "id": "disclosure",
+      "label": "Disclosure compliance"
+    }
+  ],
+  "crypto": {
+    "minimumReview": 1143196249,
+    "potentialDuplicateWallets": 292388944,
+    "inclusiveReview": 1435585193,
+    "note": "Cautious vs inclusive independent reading of OGE 2025 filing. Possible duplicated wallet proceeds; not audited personal take-home pay."
+  },
+  "guardrails": [
+    "No wrongdoing or policy influence inferred solely from flow or chronology.",
+    "Personal income, entity income, principal routed in third-party deal, future events and government-owned assets are different measurements.",
+    "Do not add overlapping World Liberty wallet entries or subset foreign licensing receipts.",
+    "Recipient and beneficial owner identities must not be collapsed.",
+    "Foreign-located payer is not the same as foreign government payer.",
+    "All records display original sources, event date and caveat.",
+    "Potential conflicts require independent evidence of power exercised, benefit, and a reasonable counterfactual.",
+    "Current legal rules are distinguished from allegations and reform proposals.",
+    "Method and evidence standard must apply without regard to party or person."
+  ],
+  "sources": {
+    "oge": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf",
+    "reuters": "https://www.investing.com/news/politics-news/trump-reports-more-than-14-billion-in-income-from-crypto-ventures-4769043",
+    "receipt": "https://withreceipts.fyi/donald-trump/cryptocurrency-earnings/",
+    "crew": "https://www.citizensforethics.org/reports-investigations/crew-reports/trumps-foreign-revenue-exploded-during-his-first-year-back-in-office/",
+    "gulf": "https://www.thenationalnews.com/business/property/2026/09/03/where-is-trumps-property-empire-expanding-in-the-gulf/",
+    "mgx": "https://www.reuters.com/world/middle-east/wlfs-zach-witkoff-usd1-selected-official-stablecoin-mgx-investment-binance-2025-05-01/",
+    "aqua": "https://www.reuters.com/business/finance/trumps-100-million-crypto-mystery-man-2025-07-11/",
+    "alt5": "https://www.sec.gov/Archives/edgar/data/862861/000164117225022911/form424b5.htm",
+    "qatar": "https://apnews.com/article/c4e1d73c3dbe18397c10e3d3d267bcd6",
+    "qatarFuture": "https://abcnews.com/amp/US/final-decision-future-qatar-donated-air-force-after/story?id=135413499",
+    "ethics": "https://ethics.house.gov/manual/exceptions-to-the-gift-rule-for-permissible-gifts/gifts-from-foreign-governments-and-international-organizations/",
+    "library": "https://www.cbsnews.com/news/trump-library-democratic-congress/",
+    "senate": "https://www.warren.senate.gov/newsroom/press-releases/warren-blumenthal-stansbury-press-trump-library-foundation-on-millions-of-dollars-in-missing-donations-mysterious-expenditures/",
+    "dinner": "https://www.washingtonpost.com/politics/2025/05/22/trump-meme-coin-dinner/",
+    "dinner26": "https://www.cbsnews.com/news/trump-meme-coin-dinner-foreign-top-bidders/",
+    "wlfi": "https://www.reuters.com/business/trump-backed-world-liberty-financial-launches-wlfi-token-buyback-program-2026-11-06/"
+  },
+  "cases": [
+    {
+      "id": "meme_royalties",
+      "category": "crypto",
+      "title": "$TRUMP-linked royalty income",
+      "amountUsd": 635068835,
+      "measurement": "entity_income",
+      "period": "2025",
+      "from": "Celebration Coins licensing arrangement",
+      "to": "CIC Digital LLC / Trump revocable trust",
+      "description": "2025 financial disclosure lists $635,068,835 royalties from a licensing agreement related to meme coins and NFTs.",
+      "caveat": "Company-level disclosure, not a measure of personally received net profit.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=848"
+        },
+        {
+          "id": "receipt",
+          "url": "https://withreceipts.fyi/donald-trump/cryptocurrency-earnings/"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 848
+      }
+    },
+    {
+      "id": "wlf_token",
+      "category": "crypto",
+      "title": "World Liberty token distributions",
+      "amountUsd": 236250000,
+      "measurement": "entity_proceeds",
+      "period": "2025",
+      "from": "World Liberty Financial token sale distributions",
+      "to": "DT Marks Defi LLC interests",
+      "description": "2025 filing reports $236,250,000 in token-sale proceeds.",
+      "caveat": "May overlap with wallet itemization; never add to wallet-specific lines without source reconciliation.",
+      "status": "filing",
+      "overlap": "wlf_duplicate",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=855"
+        },
+        {
+          "id": "receipt",
+          "url": "https://withreceipts.fyi/donald-trump/cryptocurrency-earnings/"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 855
+      }
+    },
+    {
+      "id": "wlf_wallets",
+      "category": "crypto",
+      "title": "Wallet-specific World Liberty entries",
+      "amountUsd": 292388944,
+      "measurement": "overlap_uncertain",
+      "period": "2025",
+      "from": "World Liberty Financial token distributions",
+      "to": "Cryptocurrency wallets disclosed under DT Marks Defi LLC",
+      "description": "Nine wallet entries total $292,388,944 in a source review of the same filing.",
+      "caveat": "The filing does not determine whether the wallet lines repeat or add to the $236,250,000 token-sales line.",
+      "status": "reconciliation_required",
+      "overlap": "wlf_duplicate",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=855"
+        },
+        {
+          "id": "receipt",
+          "url": "https://withreceipts.fyi/donald-trump/cryptocurrency-earnings/"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 855
+      }
+    },
+    {
+      "id": "wlf_equity",
+      "category": "crypto",
+      "title": "World Liberty holding-company equity proceeds",
+      "amountUsd": 65625000,
+      "measurement": "entity_proceeds",
+      "period": "2025",
+      "from": "WLF Holdco equity transaction",
+      "to": "DT Marks Defi LLC interests",
+      "description": "OGE Schedule 1, Part 2, line 124.2 reports $65,625,000 from an equity sale.",
+      "caveat": "Ownership includes Trump-family members; not a proven individual net distribution.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=855"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 855
+      }
+    },
+    {
+      "id": "stablecoin_equity",
+      "category": "crypto",
+      "title": "Stablecoin holding-company capital and unit proceeds",
+      "amountUsd": 196875000,
+      "measurement": "entity_proceeds",
+      "period": "2025",
+      "from": "Stablecoin Holdco investor capital and units",
+      "to": "DT Marks SC LLC interests",
+      "description": "OGE Schedule 1, Part 2, line 114 reports $196,875,000 related to capital contributions and Class C unit sales.",
+      "caveat": "Different financial flow from MGX's Binance investment; cannot equate to personal stablecoin earnings.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=854"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 854
+      }
+    },
+    {
+      "id": "foreign_revenue",
+      "category": "licensing",
+      "title": "Foreign business revenue, analyst estimate",
+      "amountUsd": 117000000,
+      "measurement": "minimum_revenue",
+      "period": "2025",
+      "from": "Overseas licensing and operating customers",
+      "to": "Trump-related operating entities",
+      "description": "CREW estimates over $117 million in 2025 overseas business revenue based on reported income.",
+      "caveat": "Gross business revenue, not a payment from a foreign government; overlaps with subset of licensing deals.",
+      "status": "analysis",
+      "overlap": "foreign_subset",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "crew",
+          "url": "https://www.citizensforethics.org/reports-investigations/crew-reports/trumps-foreign-revenue-exploded-during-his-first-year-back-in-office/"
+        },
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf"
+        }
+      ]
+    },
+    {
+      "id": "gulf_license",
+      "category": "licensing",
+      "title": "Gulf property licensing revenue",
+      "amountUsd": 38000000,
+      "measurement": "approx_license_revenue",
+      "period": "2025",
+      "from": "Development companies in Gulf countries",
+      "to": "Trump Organization-linked licensing entities",
+      "description": "Property coverage identifies around $38 million in fees for projects involving Saudi Arabia, Qatar, Oman and UAE.",
+      "caveat": "Subset of foreign business receipts, not additive, and does not establish sovereign government as the payer.",
+      "status": "reported_analysis",
+      "overlap": "foreign_subset",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "gulf",
+          "url": "https://www.thenationalnews.com/business/property/2026/09/03/where-is-trumps-property-empire-expanding-in-the-gulf/"
+        },
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=853"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 853
+      }
+    },
+    {
+      "id": "mgx_usd1",
+      "category": "foreign_finance",
+      "title": "MGX–Binance settlement using USD1",
+      "amountUsd": 2000000000,
+      "measurement": "investment_principal",
+      "period": "2025-05",
+      "from": "Abu Dhabi-backed MGX",
+      "to": "Binance investment, settled using WLF USD1",
+      "description": "World Liberty announced USD1 would be the stablecoin used in MGX's $2 billion Binance investment.",
+      "caveat": "Not a $2 billion payment, personal profit, or transfer of $2 billion to Trump.",
+      "status": "reported_transaction",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "mgx",
+          "url": "https://www.reuters.com/world/middle-east/wlfs-zach-witkoff-usd1-selected-official-stablecoin-mgx-investment-binance-2025-05-01/"
+        }
+      ]
+    },
+    {
+      "id": "aqua1_wlf",
+      "category": "foreign_finance",
+      "title": "Aqua 1 World Liberty token announcement",
+      "amountUsd": 100000000,
+      "measurement": "announced_purchase",
+      "period": "2025-06",
+      "from": "Aqua 1 Foundation, self-described UAE entity",
+      "to": "World Liberty Financial token venture",
+      "description": "Aqua 1 announced a $100 million token purchase; Reuters identified unresolved ownership and funding-source information.",
+      "caveat": "Beneficial owners and funding source unverified; cannot treat as a verified foreign-government purchase.",
+      "status": "identity_unverified",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "aqua",
+          "url": "https://www.reuters.com/business/finance/trumps-100-million-crypto-mystery-man-2025-07-11/"
+        }
+      ]
+    },
+    {
+      "id": "alt5_wlf",
+      "category": "foreign_finance",
+      "title": "ALT5 WLFI treasury financing",
+      "amountUsd": 1500000000,
+      "measurement": "company_financing",
+      "period": "2025-08",
+      "from": "ALT5 investors",
+      "to": "ALT5 Sigma corporate treasury",
+      "description": "SEC filings describe an approximately $1.5 billion equity funding program and planned WLFI token purchases.",
+      "caveat": "Corporate financing is not personal income; WLFI-token sales may overlap with the venture's revenue.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "alt5",
+          "url": "https://www.sec.gov/Archives/edgar/data/862861/000164117225022911/form424b5.htm"
+        }
+      ]
+    },
+    {
+      "id": "qatar_747",
+      "category": "foreign_gift",
+      "title": "Qatar Boeing 747 accepted by Department of Defense",
+      "amountUsd": null,
+      "measurement": "government_non_cash_gift",
+      "period": "2025-05",
+      "from": "Government of Qatar",
+      "to": "U.S. Defense Department",
+      "description": "The Pentagon accepted a Boeing 747 for possible presidential transport. Its disposition following the presidency remained undecided publicly as of August 2026.",
+      "caveat": "Not an established gift to Trump's personal accounts; value and future transfer are disputed or unresolved.",
+      "status": "government_asset",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "qatar",
+          "url": "https://apnews.com/article/c4e1d73c3dbe18397c10e3d3d267bcd6"
+        },
+        {
+          "id": "qatarFuture",
+          "url": "https://abcnews.com/amp/US/final-decision-future-qatar-donated-air-force-after/story?id=135413499"
+        },
+        {
+          "id": "ethics",
+          "url": "https://ethics.house.gov/manual/exceptions-to-the-gift-rule-for-permissible-gifts/gifts-from-foreign-governments-and-international-organizations/"
+        }
+      ]
+    },
+    {
+      "id": "abc_library",
+      "category": "settlements",
+      "title": "ABC library-designated settlement",
+      "amountUsd": 15000000,
+      "measurement": "settlement_earmark",
+      "period": "2024-12",
+      "from": "ABC News / Disney",
+      "to": "Trump presidential library-related fund",
+      "description": "A $15 million settlement allocation was designated for the presidential library fund.",
+      "caveat": "Foundation-directed money is not personal cash received by the President.",
+      "status": "settlement_reported",
+      "overlap": "library_overlap",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "library",
+          "url": "https://www.cbsnews.com/news/trump-library-democratic-congress/"
+        },
+        {
+          "id": "senate",
+          "url": "https://www.warren.senate.gov/newsroom/press-releases/warren-blumenthal-stansbury-press-trump-library-foundation-on-millions-of-dollars-in-missing-donations-mysterious-expenditures/"
+        }
+      ]
+    },
+    {
+      "id": "meta_library",
+      "category": "settlements",
+      "title": "Meta library-designated settlement",
+      "amountUsd": 22000000,
+      "measurement": "settlement_earmark",
+      "period": "2025",
+      "from": "Meta Platforms",
+      "to": "Trump presidential library-related fund",
+      "description": "A $22 million settlement allocation was designated for the presidential library.",
+      "caveat": "Ultimate fund transfers are under congressional inquiry; do not classify as personal income.",
+      "status": "settlement_reported",
+      "overlap": "library_overlap",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "library",
+          "url": "https://www.cbsnews.com/news/trump-library-democratic-congress/"
+        },
+        {
+          "id": "senate",
+          "url": "https://www.warren.senate.gov/newsroom/press-releases/warren-blumenthal-stansbury-press-trump-library-foundation-on-millions-of-dollars-in-missing-donations-mysterious-expenditures/"
+        }
+      ]
+    },
+    {
+      "id": "paramount_library",
+      "category": "settlements",
+      "title": "Paramount library-designated settlement",
+      "amountUsd": 16000000,
+      "measurement": "settlement_earmark",
+      "period": "2025",
+      "from": "Paramount",
+      "to": "Trump presidential library-related fund",
+      "description": "A $16 million settlement allocation was reported in litigation connected to a 60 Minutes interview.",
+      "caveat": "The settlement does not establish a policy favor or unlawful trade-off.",
+      "status": "settlement_reported",
+      "overlap": "library_overlap",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "library",
+          "url": "https://www.cbsnews.com/news/trump-library-democratic-congress/"
+        },
+        {
+          "id": "senate",
+          "url": "https://www.warren.senate.gov/newsroom/press-releases/warren-blumenthal-stansbury-press-trump-library-foundation-on-millions-of-dollars-in-missing-donations-mysterious-expenditures/"
+        }
+      ]
+    },
+    {
+      "id": "x_library",
+      "category": "settlements",
+      "title": "X settlement routing questioned",
+      "amountUsd": 8000000,
+      "measurement": "destination_unclear",
+      "period": "2025",
+      "from": "X-related settlement",
+      "to": "Reportedly Trump or planned library transfer; final destination unverified",
+      "description": "A July 2026 congressional inquiry discussed $8 million apparently expected to reach the library.",
+      "caveat": "The final recipient is not established; not added to confirmed foundation receipts.",
+      "status": "destination_unverified",
+      "overlap": "library_overlap",
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "senate",
+          "url": "https://www.warren.senate.gov/newsroom/press-releases/warren-blumenthal-stansbury-press-trump-library-foundation-on-millions-of-dollars-in-missing-donations-mysterious-expenditures/"
+        }
+      ]
+    },
+    {
+      "id": "family_film",
+      "category": "family_disclosure",
+      "title": "Spouse's film licensing proceeds",
+      "amountUsd": 10710000,
+      "measurement": "spouse_entity_proceeds",
+      "period": "2025",
+      "from": "Film licensee",
+      "to": "MKT World LLC (spouse disclosure)",
+      "description": "Spousal disclosure lists $10.71 million in film licensing net proceeds, distinct from other family projects.",
+      "caveat": "Spouse-owned venture's disclosed proceeds are not the same as presidential personal income.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=6"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 6
+      }
+    },
+    {
+      "id": "token_dinner25",
+      "category": "access",
+      "title": "Top $TRUMP holders invited to May 2025 dinner",
+      "amountUsd": null,
+      "measurement": "access_condition",
+      "period": "2025-05",
+      "from": "$TRUMP token holders",
+      "to": "Private golf club dinner event",
+      "description": "Event awarded places to top 220 token holders; reporting described exchange-linked, often anonymous wallets.",
+      "caveat": "Holding tokens is not a direct payment to the President; an overseas exchange is not proof of holder nationality.",
+      "status": "reported_event",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "dinner",
+          "url": "https://www.washingtonpost.com/politics/2025/05/22/trump-meme-coin-dinner/"
+        }
+      ]
+    },
+    {
+      "id": "token_dinner26",
+      "category": "access",
+      "title": "November 2026 planned $TRUMP token-holder dinner",
+      "amountUsd": null,
+      "measurement": "future_event",
+      "period": "2026-11-22",
+      "from": "Eligible $TRUMP holders",
+      "to": "Trump National Golf Club event, planned",
+      "description": "CBS reported an upcoming event planned for 185 top token holders and special access for the highest participants.",
+      "caveat": "The event has not yet occurred as of Nov. 10, 2026; no direct individual payment or official action established.",
+      "status": "scheduled_event",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "dinner26",
+          "url": "https://www.cbsnews.com/news/trump-meme-coin-dinner-foreign-top-bidders/"
+        }
+      ]
+    },
+    {
+      "id": "filing_fees",
+      "category": "disclosure",
+      "title": "OGE notes paid late transaction-filing fees",
+      "amountUsd": null,
+      "measurement": "compliance_record",
+      "period": "2026-06",
+      "from": "Filer",
+      "to": "Office of Government Ethics",
+      "description": "The 2026 annual disclosure cover sheet states late fees were paid for transactions not previously reported in periodic 278-Ts.",
+      "caveat": "Filing-compliance note is not a criminal or corruption finding.",
+      "status": "filing",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "oge",
+          "url": "https://extapps2.oge.gov/201/Presiden.nsf/PAS+Index/69AEAA9D7455ACD585258E27002DDEE1/$FILE/Donald-J-Trump-2026-278ANNUAL.pdf#page=1"
+        }
+      ],
+      "primaryLocation": {
+        "document": "OGE Donald J. Trump 2026 annual disclosure for 2025",
+        "pdfPage": 1
+      }
+    },
+    {
+      "id": "wlfi_buyback",
+      "category": "crypto",
+      "title": "World Liberty WLFI buyback announced",
+      "amountUsd": null,
+      "measurement": "company_plan",
+      "period": "2026-11-06",
+      "from": "World Liberty reserves or proceeds under proposal",
+      "to": "WLFI token buyback program",
+      "description": "World Liberty announced a WLFI buyback proposal linked in part to possible USD1 reserve revenue.",
+      "caveat": "Announced corporate program; not a completed or quantified personal receipt.",
+      "status": "announcement",
+      "overlap": null,
+      "legalFinding": "no_legal_finding_established_by_this_record",
+      "sources": [
+        {
+          "id": "wlfi",
+          "url": "https://www.reuters.com/business/trump-backed-world-liberty-financial-launches-wlfi-token-buyback-program-2026-11-06/"
+        }
+      ]
+    }
+  ],
+  "related": {
+    "trading": "public-trading.html",
+    "business": "business-influence.html",
+    "ownership": "corporate-ownership.html",
+    "reform": "reform-lab.html",
+    "community": "my-life.html#why"
+  },
+  "evidenceGaps": [
+    "Resolve $292.4 million possible duplicate token wallet proceeds",
+    "Independently reconcile full OGE 2026 annual filing and later amendments",
+    "Trace settlement funds across library entities and final destinations",
+    "Confirm ultimate ownership and funding source for foreign crypto investments",
+    "Establish final future title of Qatar aircraft",
+    "Date any official actions and evaluate independently whether policy changed asset values or household costs"
+  ]
+}

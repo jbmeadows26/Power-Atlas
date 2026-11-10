@@ -17,7 +17,7 @@ const staffPair=(label,prev,curr)=>{
 
 let record=null;
 const problemNotes={
- "General customer service":"The firsthand caller said the general menu redirected toward SMS/self-service rather than offering an explicit representative route. This is not an independently observed call.",
+ "General customer service":"The firsthand caller said the general menu redirected toward SMS/self-service rather than offering an explicit representative route. This is firsthand reporting, not independently observed call evidence.",
  "Lost baggage":"The caller reported the same problem while exploring baggage options. Whether a separate staffed baggage channel is available has not been established.",
  "Wheelchair assistance":"The caller reported no representative option under wheelchair-assistance choices. Separate U.S. airport CRO obligations must be tested during airline operating hours; no violation is established."
 };
