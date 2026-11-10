@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#f7f8f9">
+<title>Who Trades While Governing? | Power Atlas</title>
+<meta name="description" content="Source-linked analysis of disclosed trading by presidential accounts and congressional filers. Explore monthly transactions and evidence limitations.">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#1e3434;background:#f6f8f7}
+*{box-sizing:border-box}body{margin:0}a{color:#176c64}a:focus-visible,button:focus-visible{outline:3px solid #bb7d21;outline-offset:3px}button{font:inherit;cursor:pointer}main{max-width:1120px;margin:0 auto;padding:30px 21px 70px}
+.crumb{font-size:13px;margin:0 0 24px}.eyebrow{font-size:11px;letter-spacing:.18em;font-weight:830;color:#24766d;text-transform:uppercase}
+h1{font-size:clamp(2.5rem,6vw,4.8rem);line-height:1.08;letter-spacing:-.065em;max-width:830px;margin:12px 0 17px}h1 em{font-style:normal;color:#287b6c}h2{font-size:clamp(1.5rem,3.5vw,2.15rem);letter-spacing:-.035em;margin:0 0 12px}h3{font-size:1.08rem;margin:0 0 8px}p{line-height:1.62}.lead{color:#50666a;font-size:1.07rem;max-width:820px}.intro{border-bottom:1px solid #dce7e3;padding-bottom:22px;margin-bottom:24px}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:22px 0}
+.metric,.panel,.explore{background:white;border:1px solid #e0e8e4;border-radius:18px;padding:23px;box-shadow:0 6px 20px #163c3210}.metric small{font-size:.78rem;color:#617579;display:block}.metric b{font-size:clamp(1.7rem,4vw,2.9rem);letter-spacing:-.055em;display:block;margin:9px 0 3px;font-variant-numeric:tabular-nums}.metric:nth-child(1) b{color:#146b65}.metric:nth-child(2) b{color:#8f6028}.metric:nth-child(3) b{color:#255d66}
+.takeaway{background:#eaf4f0;border-left:4px solid #297e71;border-radius:9px;padding:15px 18px;color:#255249}
+.section{margin:31px 0}.sectionHead{display:flex;justify-content:space-between;gap:14px;align-items:flex-end;flex-wrap:wrap}.sectionHead p{color:#596b70;max-width:780px;margin:0 0 13px}.panel{padding:23px}
+.filters{display:flex;gap:8px;margin:14px 0;flex-wrap:wrap}.filters button{border:1px solid #bdd5cf;border-radius:30px;padding:9px 15px;background:#f0f6f4;color:#285f56;font-weight:700;font-size:.85rem}.filters button[aria-pressed="true"]{background:#246c61;color:white;border-color:#246c61}
+.chartWrap{overflow-x:auto;padding:12px 2px 3px}.chart{display:flex;align-items:flex-end;gap:8px;min-width:650px;height:235px;border-bottom:1px solid #d5e1dc;padding-bottom:8px}.month{flex:1;min-width:28px;display:flex;flex-direction:column;align-items:center;gap:5px;height:100%;justify-content:flex-end}.bars{width:100%;height:186px;display:flex;justify-content:center;align-items:end;gap:3px}.month button{width:48%;max-width:17px;min-height:2px;border:0;border-radius:4px 4px 0 0;padding:0;transition:filter .15s,transform .15s}.month button:hover,.month button:focus-visible{filter:brightness(.82);transform:scaleX(1.12)}.month button[aria-pressed="true"]{outline:2px solid #193a39;outline-offset:2px}.trump{background:#228475}.congress{background:#d39e4e}.month span{font-size:10px;color:#637477;white-space:nowrap}.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.82rem;color:#4c6267}.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px}.selected{border:1px solid #cde0d9;background:#f5f9f7;border-radius:12px;padding:16px 18px;min-height:90px;margin:18px 0 5px}.selected strong{display:block;color:#1d5951;margin-bottom:5px}.selected p{margin:0;font-size:.88rem;color:#526a6d}.tiny{font-size:.79rem;color:#65787e}.disclaimer{font-size:.88rem;color:#4f6266}
+.twoCols{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.explore{padding:18px}.explore p{margin:0 0 9px;font-size:.88rem;color:#546b6b}.explore small{color:#7b704d}.path{display:grid;grid-template-columns:repeat(4,1fr);gap:9px;margin:16px 0}.path article{border:1px solid #d6e5df;border-top:3px solid #357c6d;background:#fff;border-radius:12px;padding:15px;font-size:.86rem}.path b{display:block;margin-bottom:7px}.path p{margin:0;color:#617375;font-size:.83rem}
+.stockTable{width:100%;border-collapse:collapse;font-size:.86rem}th,td{padding:11px;border-bottom:1px solid #e2eae6;text-align:left}th{color:#566c70;font-size:.77rem}.tableScroll{overflow-x:auto}.tableScroll table{min-width:410px}.sourceList{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.sourceList a{display:block;padding:13px;background:#f3f8f6;border:1px solid #dceae4;border-radius:10px;font-size:.86rem;line-height:1.4;text-decoration:none}.sourceList a:hover{text-decoration:underline}
+footer{margin-top:35px;padding:18px 0;border-top:1px solid #d5e4dc;color:#627575;font-size:.82rem}
+@media(max-width:800px){.path{grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(2,1fr)}.metrics .metric:last-child{grid-column:1/-1}}
+@media(max-width:550px){main{padding:18px 14px 45px}.metrics,.twoCols,.sourceList,.path{grid-template-columns:1fr}.metrics .metric:last-child{grid-column:auto}.metric,.panel{padding:17px}.chart{min-width:560px}.lead{font-size:.99rem}}
+</style>
+</head>
+<body data-pa-page="money">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
+<main>
+<div class="crumb"><a href="index.html">Research</a> / <a href="donor-intelligence.html">Follow the money</a> / Trading while governing</div>
+<section class="intro">
+ <span class="eyebrow">Public Integrity / Reported financial interests</span>
+ <h1>Who trades <em>while governing?</em></h1>
+ <p class="lead">A financial disclosure can show where money moved. It cannot, by itself, tell us who chose a trade, whether information was misused, or if a policy helped an investment. Start with the disclosed activity—then ask what else must be verified.</p>
+ <div class="metrics" aria-label="Reported transactions, January 2025 through August 2026">
+  <div class="metric"><small>Trump's eight reported accounts</small><b id="sumTrump">31,877</b><small>Reported transactions</small></div>
+  <div class="metric"><small>Congress, including family reporting</small><b id="sumCongress">20,973</b><small>Reported transactions</small></div>
+  <div class="metric"><small>More transactions in Trump's accounts</small><b id="sumPct">52%</b><small>Compared with Congress, by count</small></div>
+ </div>
+ <p class="takeaway"><strong>The finding:</strong> Kadoa counted 31,877 transactions in eight accounts disclosed by President Trump, versus 20,973 across Congress, for January 2025 through August 2026. The White House says outside managers run the accounts. These are <strong>not independently audited counts or evidence of wrongdoing</strong>.</p>
+</section>
+<section class="section" id="monthly" aria-labelledby="monthlyTitle">
+ <div class="sectionHead"><div><span class="eyebrow">01 / See the pattern</span><h2 id="monthlyTitle">When did trading happen?</h2><p>Each pair of bars is one month. Taller bars mean more disclosed transactions—not more profit or more influence. Tap a bar to see the exact reported count.</p></div></div>
+ <div class="panel">
+  <div class="filters" role="group" aria-label="Choose months to compare"><button type="button" data-period="all" aria-pressed="true">All 20 months</button><button type="button" data-period="2025" aria-pressed="false">2025</button><button type="button" data-period="2026" aria-pressed="false">2026</button></div>
+  <div class="legend"><span><i class="trump"></i>Trump accounts</span><span><i class="congress"></i>Congress</span></div>
+  <div class="chartWrap"><div class="chart" id="chart" role="group" aria-label="Interactive comparison of monthly reported transaction counts"><p>Loading reviewed month-by-month figures…</p></div></div>
+  <div class="selected" aria-live="polite" id="selection"><strong>Choose any bar to inspect a month.</strong><p>Numbers are from the original Kadoa aggregation; filing completeness can change.</p></div>
+  <p class="tiny" id="periodNote">August 2026 is provisional; filing dates and amendment processing affect observed counts. The chart is a third-party aggregation, not our independent transaction-level audit.</p>
+  <p class="tiny" id="chartState" role="status">Checking dataset…</p>
+ </div>
+</section>
+<section class="section" id="exposure" aria-labelledby="exposureTitle">
+ <span class="eyebrow">02 / Follow the exposure</span><h2 id="exposureTitle">Which companies appear?</h2>
+ <p class="lead">The same government can write the rules that affect companies held in disclosed investment accounts. We can show security names and trading frequency. We cannot infer a favorable policy from that overlap alone.</p>
+ <div class="twoCols">
+  <div class="panel">
+   <h3>Ten commonly traded companies</h3>
+   <p class="tiny">Counts for January–May 2026 only; the source lists 746 distinct stock tickers over this window. Holdings and transaction values are not equivalent to these counts.</p>
+   <div class="tableScroll"><table class="stockTable"><thead><tr><th scope="col">Company</th><th scope="col">Buys</th><th scope="col">Sells</th></tr></thead><tbody id="stocks"><tr><td colspan="3">Loading company counts…</td></tr></tbody></table></div>
+  </div>
+  <div class="panel">
+   <h3>The missing context matters</h3>
+   <p>For the reported transaction values, Kadoa estimates broad disclosure ranges of <strong>$1.6–5.2 billion</strong> for presidential accounts and <strong>$0.6–1.8 billion</strong> for Congress. The ranges overlap. Neither represents profits.</p>
+   <p>Company counts also omit assets without tickers (including some bonds). Eight managed accounts and hundreds of congressional filers are fundamentally different reporting populations.</p>
+   <p class="disclaimer"><strong>We cannot conclude:</strong> which trades Trump personally directed, that a particular trade used nonpublic information, or that a trade affected a policy, contract, rate or household bill.</p>
+  </div>
+ </div>
+</section>
+<section class="section" id="your-life" aria-labelledby="impactTitle">
+ <span class="eyebrow">03 / Connect public power to daily life</span><h2 id="impactTitle">Could this affect your costs?</h2>
+ <p class="lead">Possibly, but a valid explanation requires several verified links. Power Atlas will distinguish exposure from actual advantage—and actual advantage from measured consumer harm.</p>
+ <div class="path" aria-label="Evidence pathway">
+  <article><b>1. Disclosed asset</b><p>Identify the exact security, account, date and who controlled the decision.</p></article>
+  <article><b>2. Official decision</b><p>Verify a law, regulatory order, subsidy, contract or enforcement action.</p></article>
+  <article><b>3. Measured benefit</b><p>Test whether the decision changed a company's value versus a proper benchmark.</p></article>
+  <article><b>4. Household effect</b><p>Only then investigate prices, wages, competition, taxes or service quality.</p></article>
+ </div>
+ <div class="twoCols">
+  <div class="explore"><h3>Explore related investigations</h3><p><a href="business-influence.html">Government decisions and business results</a> · <a href="corporate-ownership.html">Company ownership and costs</a> · <a href="donor-intelligence.html">Political funding and donors</a></p><small>Financial overlap is a research lead, not a corruption finding.</small></div>
+  <div class="explore"><h3>Explore possible safeguards</h3><p><a href="reform-lab.html">Trading restrictions, disclosure and enforcement proposals</a> · <a href="source-audit.html">Open evidence gaps</a></p><small>Reform proposals are separate from enacted law.</small></div>
+ </div>
+</section>
+<section class="section panel" id="sources">
+ <span class="eyebrow">Original records and limitations</span><h2>Check the evidence</h2>
+ <p class="disclaimer"><strong>Dataset status:</strong> third-party summary reconstructed from Kadoa's public chart and official disclosure portals. Monthly totals reconciled arithmetically to Kadoa's published headline, but not verified by re-parsing every federal filing. Amendments, delayed filings, coverage gaps and manager discretion may materially affect interpretation.</p>
+ <div class="sourceList">
+ <a href="https://www.kadoa.com/congress/insights/trump-trades" target="_blank" rel="noopener noreferrer">Kadoa — original counts, monthly breakdown and methodology</a>
+ <a href="https://github.com/kadoa-org/congress-trading-monitor" target="_blank" rel="noopener noreferrer">Kadoa — open-source parser and data documentation</a>
+ <a href="https://www.oge.gov/web/oge.nsf/accessdocs_disclosure-quickstart?OpenForm" target="_blank" rel="noopener noreferrer">Office of Government Ethics — official disclosure access</a>
+ <a href="https://disclosures-clerk.house.gov/FinancialDisclosure" target="_blank" rel="noopener noreferrer">U.S. House Clerk — financial disclosures</a>
+ <a href="https://efdsearch.senate.gov/search/home/" target="_blank" rel="noopener noreferrer">U.S. Senate — financial disclosure search</a>
+ <a href="official-trading-data-v1.json" target="_blank" rel="noopener noreferrer">Power Atlas — inspect the comparison data and explicit caveats</a>
+ </div>
+ <details><summary style="cursor:pointer;margin-top:22px;font-weight:700">What would be needed for a genuine conflict-of-interest investigation?</summary><p class="disclaimer">We would need to check original transaction filings and amendments, account ownership and trading discretion, material nonpublic-information access, time-stamped government actions, legal ethics standards applicable to each person, market controls, and evidence of any actual outcome. A mere trading coincidence is insufficient.</p></details>
+</section>
+<footer>Power Atlas · Public records and reproducible research · <a href="index.html">Back to research</a> · <a href="my-life.html">Your community</a></footer>
+</main>
+<script>
+(function(){
+'use strict';
+const number=n=>Number(n).toLocaleString('en-US');
+const chart=document.getElementById('chart'), selection=document.getElementById('selection'), state=document.getElementById('chartState');
+let data=null,period='all';
+function showSelection(row,who){
+ const label=new Date(row.month+'-02T12:00:00').toLocaleDateString('en-US',{month:'long',year:'numeric'});
+ const tr=row.trumpAccounts,co=row.congress,delta=tr-co;
+ selection.replaceChildren();
+ const title=document.createElement('strong');title.textContent=label+' — '+who+' selected';
+ const p=document.createElement('p');p.textContent='Trump accounts: '+number(tr)+' disclosed transactions. Congress: '+number(co)+'. Difference: '+(delta>=0?'+':'')+number(delta)+'. No trade-level conclusion follows from this count.';
+ selection.append(title,p);
+}
+function render(){
+ if(!data)return;
+ const rows=data.monthly.filter(r=>period==='all'||r.month.startsWith(period));
+ const max=Math.max(...rows.flatMap(r=>[r.trumpAccounts,r.congress]));
+ chart.replaceChildren();
+ for(const row of rows){
+  const col=document.createElement('div');col.className='month';
+  const bars=document.createElement('div');bars.className='bars';
+  for(const [key,css,who] of [['trumpAccounts','trump','Trump accounts'],['congress','congress','Congress']]){
+   const btn=document.createElement('button');btn.type='button';btn.className=css;btn.style.height=Math.max(2,row[key]/max*180)+'px';
+   btn.title=row.month+' '+who+': '+number(row[key])+' transactions';
+   btn.setAttribute('aria-label',row.month+' '+who+': '+number(row[key])+' disclosed transactions. Select for detail.');
+   btn.setAttribute('aria-pressed','false');
+   btn.addEventListener('click',()=>{chart.querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed','false'));btn.setAttribute('aria-pressed','true');showSelection(row,who)});
+   bars.append(btn);
+  }
+  const month=document.createElement('span');month.textContent=row.month.slice(5)+(period==='all'&&row.month.endsWith('-01')?' '+row.month.slice(2,4):'');
+  col.append(bars,month);chart.append(col);
+ }
+ const a=rows.reduce((s,r)=>s+r.trumpAccounts,0),b=rows.reduce((s,r)=>s+r.congress,0);
+ document.getElementById('periodNote').textContent=rows.length+' months displayed: '+number(a)+' account transactions and '+number(b)+' congressional transactions. '+rows.filter(r=>r.trumpAccounts>r.congress).length+' months have a higher Trump-account count. August 2026 may be incomplete.';
+ selection.replaceChildren();
+ const title=document.createElement('strong');title.textContent='Tap any bar to inspect its reported month.';
+ const detail=document.createElement('p');detail.textContent='Both bars are measured on the same monthly scale. Count differences do not prove a conflict or price effect.';
+ selection.append(title,detail);
+}
+document.querySelectorAll('[data-period]').forEach(btn=>btn.addEventListener('click',()=>{
+ period=btn.dataset.period;
+ document.querySelectorAll('[data-period]').forEach(b=>b.setAttribute('aria-pressed',String(b===btn)));render();
+}));
+fetch('official-trading-data-v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{
+ if(d.schema!=='power-atlas.public-official-trading.v1'||d.monthly.length!==20)throw Error('Unexpected data shape');
+ if(d.monthly.reduce((s,r)=>s+r.trumpAccounts,0)!==31877||d.monthly.reduce((s,r)=>s+r.congress,0)!==20973)throw Error('Totals do not match');
+ data=d;render();state.textContent='Source: Kadoa's public comparison, accessed November 10, 2026. Derived aggregate, not a transaction-level independent audit.';
+ const tbody=document.getElementById('stocks');tbody.replaceChildren();
+ for(const stock of d.stockCoverage.topTen){const tr=document.createElement('tr');for(const v of [stock.name,number(stock.purchases),number(stock.sales)]){const td=document.createElement('td');td.textContent=v;tr.append(td)}tbody.append(tr)}
+}).catch(()=>{chart.textContent='Monthly chart unavailable. Open the original source or the static dataset below.';state.textContent='Source load failed; live chart counts are not shown. The headline figures above are a cited snapshot as of November 10, 2026.';document.getElementById('stocks').textContent='Company list unavailable; consult the original source.'});
+})();
+</script>
+<script src="bug-report.js" defer></script>
+</body></html>
