@@ -5,7 +5,7 @@
 <meta name="description" content="Interactive consumer accountability stories: hidden fees, subscriptions, unfair advertising allegations and the fine print behind everyday costs.">
 <title>Consumer Watch — The Fine Print Files | Power Atlas</title>
 <link rel="stylesheet" href="global-navigation.css">
-<link rel="stylesheet" href="consumer-watch-v2.css"></head><body data-pa-page="consumer-practices" data-schema="power-atlas.consumer-practices.v1" data-feed="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/consumer-practices/cases-v1.json"><div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer" aria-current="page"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div><div class="cw-top" role="region" aria-label="Consumer Watch introduction">
+<link rel="stylesheet" href="consumer-watch-v2.css"><link rel="stylesheet" href="consumer-watch-cost.css"></head><body data-pa-page="consumer-practices" data-schema="power-atlas.consumer-practices.v1" data-feed="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/consumer-practices/cases-v1.json"><div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer" aria-current="page"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div><div class="cw-top" role="region" aria-label="Consumer Watch introduction">
 <div class="cw-wrap cw-top-inner">
 <div class="cw-top-copyblock">
 <div class="cw-kicker">POWER ATLAS / CONSUMER WATCH</div>
@@ -83,9 +83,29 @@
 <div class="cw-results-meta"><span id="pcCount" role="status" aria-live="polite">Connecting to the case files…</span><span class="cw-filter-badge" id="pcFilterBadge" hidden></span><button id="pcReset" class="cw-reset" type="button">Reset filters</button></div>
 <div id="pcCases" class="cw-cases"><div class="cw-empty">Loading source-backed company records…</div></div>
 </section>
+<section class="cw-section" id="true-cost" aria-labelledby="cwCostTitle">
+<div class="cw-section-head"><div><span class="cw-index">04 / THE REAL COST</span><h2 id="cwCostTitle">What did the deal actually cost?</h2></div><p>The same five-part test for every company: promise, restriction, true cost, alternative, and evidence.</p></div>
+<div class="cw-compare-shell">
+<label class="cw-field" for="cwCompareSelect"><span>CHOOSE A COMPANY OR PRODUCT</span></label>
+<select class="cw-compare-select" id="cwCompareSelect" aria-label="Choose company for true cost comparison"><option>Connecting to the evidence registry…</option></select>
+<h3 class="cw-compare-head" id="cwCompareHeadline">Compare the offer with the reality.</h3>
+<div class="cw-compare-steps" id="cwCompareSteps"><div class="cw-compare-step">Loading the source-backed comparison…</div></div>
+<p class="cw-compare-legend" id="cwCompareUnknown"></p>
+<div class="cw-compare-formula" id="cwCompareFormula"></div>
+<div class="cw-compare-source"><a id="cwCompareSource" href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/consumer-practices" target="_blank" rel="noopener noreferrer">Original evidence ↗</a><span id="cwCompareLegal">Source status pending</span></div>
+<div id="cwCompareNumerical" class="cw-phone-example" hidden>
+<h3>Phone upgrade: carrier credits or buy unlocked?</h3>
+<p id="cwPhoneLead">Loading the full 36-month ownership comparison…</p>
+<div class="cw-period" role="group" aria-label="Compare ownership over time"><button type="button" data-cw-month="12" aria-pressed="false">12 months</button><button type="button" data-cw-month="24" aria-pressed="false">24 months</button><button type="button" data-cw-month="36" aria-pressed="true">36 months</button></div>
+<div id="cwPhoneRows" aria-live="polite"></div>
+<p class="cw-phone-warning" id="cwPhoneCaveat"></p>
+<p class="cw-phone-warning"><strong>Important:</strong> This is a public-price illustration, not your bill. Phone taxes, trade-in opportunity cost, local fees, any lost home-internet bundle benefit, existing installment obligations and differences in network service are not assumed away. Leaving a carrier early may accelerate the unpaid phone balance and forfeit future credits.</p>
+</div>
+<p class="cw-mini" id="cwCompareState" role="status">Connecting source data…</p>
+</div></section>
 <aside class="cw-claims-callout"><div><span class="cw-index">BEYOND THE REGULATOR CASES</span><h2>Could you actually claim money back?</h2><p>Explore consumer class-action settlements, verified claim notices, eligibility rules and deadlines. These are separate from FTC enforcement cases.</p></div><a href="class-actions.html">Explore class-action settlements →</a></aside>
 <section class="cw-section" aria-labelledby="act-title">
-<div class="cw-section-head"><div><span class="cw-index">04 / TAKE BACK CONTROL</span><h2 id="act-title">Make the final price visible.</h2></div><p>Evidence is more useful when you can act on it. These steps link to official consumer guidance.</p></div>
+<div class="cw-section-head"><div><span class="cw-index">05 / TAKE BACK CONTROL</span><h2 id="act-title">Make the final price visible.</h2></div><p>Evidence is more useful when you can act on it. These steps link to official consumer guidance.</p></div>
 <div id="pcActionList" class="cw-actions"><article class="cw-action"><span class="cw-action-number">01</span><div><h3>Compare the total, not the teaser</h3><p>Save the final price and any agreement before completing a purchase.</p><a href="https://reportfraud.ftc.gov/" target="_blank" rel="noopener noreferrer">FTC reporting portal ↗</a></div></article></div>
 </section>
 <section class="cw-section" aria-labelledby="limits-title">
@@ -97,4 +117,4 @@
 <p class="cw-mini">Selected investigations, not a representative sample or company ranking. Source review: <span id="pcAsOf">2026-11-10</span>. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/cases-v1.json" target="_blank" rel="noopener noreferrer">Inspect the full evidence dataset ↗</a>.</p>
 </section>
 <footer class="cw-footer"><strong>POWER ATLAS / CONSUMER WATCH</strong> · Making the cost of everyday decisions easier to see. <a href="index.html">Back to Power Atlas ↗</a></footer>
-</main><script src="consumer-watch-v2.js" defer></script><script src="bug-report.js" defer></script></body></html>
+</main><script src="consumer-watch-v2.js" defer></script><script src="consumer-watch-cost.js" defer></script><script src="bug-report.js" defer></script></body></html>
