@@ -1,0 +1,156 @@
+{
+  "schema": "power-atlas.economic-fragility.v1",
+  "asOf": "2026-11-09",
+  "publicationStatus": "published",
+  "headline": "Is a growing economy becoming more financially fragile?",
+  "method": "Snapshot of separately timed U.S. macroeconomic and financial indicators. Do not add dollar figures across incompatible financial instruments or interpret stress signals as a probability of a crash.",
+  "metrics": [
+    {
+      "id": "gdp",
+      "label": "U.S. output",
+      "value": "+3.4%",
+      "period": "2026 Q3",
+      "measure": "Real GDP, annualized advance estimate",
+      "interpretation": "Economic activity expanded. This does not demonstrate that every household's inflation-adjusted purchasing power rose.",
+      "source": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+      "category": "growth",
+      "direction": "resilience"
+    },
+    {
+      "id": "real_earnings",
+      "label": "Inflation-adjusted pay",
+      "value": "−0.7%",
+      "period": "September 2025–September 2026",
+      "measure": "Real average hourly earnings, all private-sector employees, seasonally adjusted",
+      "interpretation": "Average real hourly earnings fell over the year. Not a direct measure of median household income or inequality.",
+      "source": "https://www.bls.gov/news.release/realer.nr0.htm",
+      "category": "households",
+      "direction": "stress"
+    },
+    {
+      "id": "cpi",
+      "label": "Consumer inflation",
+      "value": "+3.7%",
+      "period": "September 2025–September 2026",
+      "measure": "Consumer Price Index for All Urban Consumers, 12-month change",
+      "interpretation": "Prices rose on average; inflation is not the same as a decline in all real wages or a forecast of future inflation.",
+      "source": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "category": "households",
+      "direction": "stress"
+    },
+    {
+      "id": "total_debt",
+      "label": "Household debt",
+      "value": "$18.771T",
+      "period": "2026 Q2",
+      "measure": "Household debt balances; down $13 billion from Q1",
+      "interpretation": "The stock of debt alone does not establish that debt service is unaffordable; debt decreased slightly quarter over quarter.",
+      "source": "https://www.newyorkfed.org/newsevents/news/research/2026/20260811",
+      "category": "credit",
+      "direction": "mixed"
+    },
+    {
+      "id": "card_debt",
+      "label": "Credit card debt",
+      "value": "$1.263T",
+      "period": "2026 Q2",
+      "measure": "Credit card balances; up $21 billion from Q1",
+      "interpretation": "Credit card balances rose but credit-card delinquency transition rates remained broadly steady in the report.",
+      "source": "https://www.newyorkfed.org/newsevents/news/research/2026/20260811",
+      "category": "credit",
+      "direction": "mixed"
+    }
+  ],
+  "financing": {
+    "period": "IMF October 2026 analysis of 14 publicly disclosed AI-related transactions since 2023",
+    "items": [
+      {
+        "id": "revenue",
+        "name": "Future revenue commitments",
+        "billions": 1400
+      },
+      {
+        "id": "debt",
+        "name": "Debt financing",
+        "billions": 650
+      },
+      {
+        "id": "equity",
+        "name": "Equity investments",
+        "billions": 300
+      }
+    ],
+    "interpretation": "Distinct financial instruments across the IMF's reviewed sample. Figures are neither realized losses nor independent additive exposures. Financing arrangements may interconnect firm valuations and revenue outlooks.",
+    "source": "https://www.elibrary.imf.org/abstract/book/9798229055673/CH001.xml"
+  },
+  "pathways": [
+    {
+      "id": "ai",
+      "title": "AI expectations disappoint",
+      "trigger": "Company revenues or investment returns fall short of expectations",
+      "transmission": "Equity valuations and related credit exposures decline",
+      "householdImpact": "Potential job cuts, reduced retirement assets and tighter lending",
+      "status": "scenario_not_forecast"
+    },
+    {
+      "id": "rates",
+      "title": "Borrowing becomes more expensive",
+      "trigger": "Bond yields rise on inflation, issuance or fiscal concerns",
+      "transmission": "Refinancing pressures on businesses, lenders and governments",
+      "householdImpact": "Potential pressure on mortgages, credit costs and public budgets",
+      "status": "scenario_not_forecast"
+    },
+    {
+      "id": "credit",
+      "title": "Consumer credit weakens",
+      "trigger": "Income or employment deterioration increases payment distress",
+      "transmission": "Lenders tighten standards and household spending slows",
+      "householdImpact": "Harder credit access and higher job-loss vulnerability",
+      "status": "scenario_not_forecast"
+    }
+  ],
+  "evidenceRules": [
+    "No numeric forecast of a 2027 crash is supported by these sources.",
+    "No company or individual is accused of causing a crash without case-specific evidence.",
+    "Disaggregate household exposure by income, geography and timing where reliable data exists.",
+    "Distinguish business ownership, financing, lobbying and direct causal price effects.",
+    "No automatic mapping from a ZIP to a person, political affiliation, company exposure or projected loss."
+  ],
+  "connections": [
+    {
+      "label": "Everyday cost categories",
+      "path": "https://power-atlas-unified.vercel.app/my-life.html",
+      "scope": "Nine issue categories. Local and national data are distinguished."
+    },
+    {
+      "label": "Ownership and price mechanisms",
+      "path": "https://power-atlas-unified.vercel.app/corporate-ownership.html",
+      "scope": "Documented ownership is not proven price causation."
+    },
+    {
+      "label": "Political money and business",
+      "path": "https://power-atlas-unified.vercel.app/business-candidates.html",
+      "scope": "Candidates for investigation, not proof of influence."
+    }
+  ],
+  "pending": [
+    {
+      "item": "2026 Q3 Household Debt and Credit",
+      "reason": "Must refresh debt and delinquency indicators when the New York Fed releases a new vintage"
+    },
+    {
+      "item": "2026 October CPI and real earnings",
+      "reason": "Avoid treating September purchasing-power changes as the latest after the next BLS release"
+    },
+    {
+      "item": "Issuer-level AI financing relationships",
+      "reason": "Reconcile legal entities, guarantees, counterparties and public filing dates before drawing company-network edges"
+    },
+    {
+      "item": "Local household incidence",
+      "reason": "No causally established ZIP-specific economic-loss figure; avoid invented household premiums"
+    }
+  ],
+  "publicationApproval": "User authorized publication after passing corrected Vercel preview QA",
+  "updatedAt": "2026-11-09"
+}
