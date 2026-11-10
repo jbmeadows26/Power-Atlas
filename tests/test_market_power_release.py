@@ -18,7 +18,7 @@ class MarketPowerReleaseTests(unittest.TestCase):
 
     def test_evidence_provenance_and_legal_classification(self):
         self.assertEqual(self.market["schema"], "power-atlas.market-power.v1")
-        self.assertEqual(self.market["publication"], "production")
+        self.assertEqual(self.market["publication"], "published")
         ids = [c["id"] for c in self.market["cases"]]
         self.assertEqual(len(ids), len(set(ids)))
         self.assertGreaterEqual(len(ids), 12)

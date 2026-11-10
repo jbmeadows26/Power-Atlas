@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="robots" content="index,follow"><title>Money at Scale · Power Atlas</title>
+<link rel="stylesheet" href="atlas-visual-system.css">
 <style>
 :root{font-family:Inter,system-ui,-apple-system,sans-serif;color:#18333a;background:#f8f7f3}
 *{box-sizing:border-box}body{margin:0}a{color:#136d68}a:focus-visible,button:focus-visible{outline:3px solid #bc974c;outline-offset:3px}
@@ -43,6 +44,7 @@ footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:
 <button type="button" aria-pressed="false" data-group="liability-stock">Debt balances</button>
 <button type="button" aria-pressed="false" data-group="annual-flow">Annual spending &amp; payments</button>
 <button type="button" aria-pressed="false" data-group="annual-output">GDP / economy size</button>
+<button type="button" aria-pressed="false" data-group="billion-scale">Companies &amp; investments ($B)</button>
 </div>
 <div id="status" role="status">Loading independently sourced metrics…</div>
 <div id="scale" class="scale" aria-live="polite"></div>
@@ -70,8 +72,8 @@ footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:
 "use strict";
 const options=document.querySelectorAll('button[data-group]'), chart=document.getElementById("scale"), status=document.getElementById("status"), detail=document.getElementById("detail");
 let records=[],active="asset-stock";
-function groupOf(r){return r.measurement==="asset-stock"?"asset-stock":r.measurement==="liability-stock"?"liability-stock":r.measurement==="annual-output"?"annual-output":r.measurement.startsWith("annual-flow")?"annual-flow":null}
-function showDetail(r){detail.textContent="";const b=document.createElement("strong");b.textContent=r.label+" · $"+r.valueTrillionsUsd.toLocaleString("en-US")+" trillion · "+r.year;detail.append(b,document.createElement("br"));
+function groupOf(r){return r.measurement==="billion-scale"?"billion-scale":r.measurement==="asset-stock"?"asset-stock":r.measurement==="liability-stock"?"liability-stock":r.measurement==="annual-output"?"annual-output":r.measurement.startsWith("annual-flow")?"annual-flow":null}
+function showDetail(r){detail.textContent="";const b=document.createElement("strong");b.textContent=r.label+" · $"+(r.measurement==="billion-scale"?r.valueBillionsUsd.toLocaleString("en-US",{maximumFractionDigits:3})+" billion":r.valueTrillionsUsd.toLocaleString("en-US")+" trillion")+" · "+r.year;detail.append(b,document.createElement("br"));
 detail.append(document.createTextNode(r.definition+" "+r.interpretation+" "));
 const link=document.createElement("a");link.href=r.sourceUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Original source: "+r.sourcePublisher;detail.append(link);}
 function render(){chart.textContent="";let items=records.filter(r=>groupOf(r)===active&&r.measurement!=="annual-flow-alternative").sort((a,b)=>b.valueTrillionsUsd-a.valueTrillionsUsd);status.hidden=items.length>0; if(!items.length){status.textContent="No verified entries available for this view.";return;}
@@ -79,10 +81,11 @@ const max=Math.max(...items.map(r=>r.valueTrillionsUsd));items.forEach((r,i)=>{c
 const label=document.createElement("span");label.className="bar-label";label.textContent=r.label;
 const meta=document.createElement("small");meta.className="bar-meta";meta.textContent=r.year+" · "+r.scope;label.append(meta);
 const track=document.createElement("span");track.className="track";const fill=document.createElement("span");fill.className="fill";fill.style.display="block";fill.style.width=(r.valueTrillionsUsd/max*100)+"%";track.append(fill);
-const value=document.createElement("span");value.className="value";value.textContent="$"+r.valueTrillionsUsd.toLocaleString("en-US",{maximumFractionDigits:3})+"T";row.append(label,track,value);row.addEventListener("click",()=>showDetail(r));chart.append(row);if(i===0)showDetail(r);});
+const value=document.createElement("span");value.className="value";value.textContent=r.measurement==="billion-scale"?"$"+r.valueBillionsUsd.toLocaleString("en-US",{maximumFractionDigits:3})+"B":"$"+r.valueTrillionsUsd.toLocaleString("en-US",{maximumFractionDigits:3})+"T";row.append(label,track,value);row.addEventListener("click",()=>showDetail(r));chart.append(row);if(i===0)showDetail(r);});
 }
 options.forEach(btn=>btn.addEventListener("click",()=>{active=btn.dataset.group;options.forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));render()}));
 fetch("money-scale.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Data file unavailable");return r.json()}).then(data=>{if(data.schema!=="power-atlas.money-scale.v1"||!Array.isArray(data.metrics))throw Error("Unexpected dataset schema");records=data.metrics;render()}).catch(e=>{status.textContent="Verified data is temporarily unavailable; no values will be fabricated. "+e.message;detail.textContent="Please consult the original sources linked below.";});
 })();
 </script><script src="bug-report.js" defer></script>
+<script src="atlas-visual-system.js" defer></script>
 </body></html>

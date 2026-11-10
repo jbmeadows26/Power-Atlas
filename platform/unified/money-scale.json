@@ -197,6 +197,51 @@
       "definition": "U.S. GDP in nominal current U.S. dollars for calendar year 2025.",
       "interpretation": "A geographical subset of world GDP and not an additive second global total. Annual economic output is not equivalent to federal budget outlays.",
       "confidence": "source-confirmed"
+    },
+    {
+      "id": "amazon-net-sales-2025",
+      "label": "Amazon consolidated net sales",
+      "valueBillionsUsd": 716.924,
+      "valueTrillionsUsd": 0.716924,
+      "group": "corporate",
+      "measurement": "billion-scale",
+      "year": "2025",
+      "scope": "Amazon worldwide consolidated operations",
+      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx",
+      "sourcePublisher": "Amazon Investor Relations",
+      "definition": "FY2025 consolidated net sales, $716,924 million; annual revenue rather than wealth or net profit.",
+      "interpretation": "A yearly revenue flow; neither Amazon's net income nor a measure of any monopoly-related consumer surcharge. Do not add to Amazon net income.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "amazon-net-income-2025",
+      "label": "Amazon consolidated net income",
+      "valueBillionsUsd": 77.67,
+      "valueTrillionsUsd": 0.07767,
+      "group": "corporate",
+      "measurement": "billion-scale",
+      "year": "2025",
+      "scope": "Amazon worldwide consolidated operations",
+      "sourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx",
+      "sourcePublisher": "Amazon Investor Relations",
+      "definition": "FY2025 consolidated net income, $77,670 million after expenses and taxes.",
+      "interpretation": "A yearly profit figure already related to revenue above; neither a consumer overcharge nor a monopoly rent estimate.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "stargate-announced-plan-2025",
+      "label": "Stargate AI infrastructure investment plan",
+      "valueBillionsUsd": 500,
+      "valueTrillionsUsd": 0.5,
+      "group": "investment-plan",
+      "measurement": "billion-scale",
+      "year": "2025-01-21",
+      "scope": "United States, multi-year announced AI infrastructure plan",
+      "sourceUrl": "https://openai.com/index/announcing-the-stargate-project/",
+      "sourcePublisher": "OpenAI and SoftBank Group",
+      "definition": "Announced intention to invest $500 billion over four years; not proof of funds disbursed or construction completed.",
+      "interpretation": "A planned multi-year investment ceiling, not realized annual spending; neither a corporate profit total nor a measured household price effect.",
+      "confidence": "source-confirmed-plan-only"
     }
   ],
   "sources": {
@@ -273,6 +318,24 @@
       "resolution": "World Bank WDI reports $118.35T for 2025; approximately $111.67T corresponds to 2024. Use 2025 value, correct date.",
       "status": "corrected",
       "primarySourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
+    },
+    {
+      "sourceRow": "Amazon 2025 net sales from 2026 earnings announcement",
+      "resolution": "Use exact $716.924B FY2025 consolidated net sales from Amazon primary financial release; revenue, not profit.",
+      "status": "source-confirmed",
+      "primarySourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"
+    },
+    {
+      "sourceRow": "Amazon 2025 net income from 2026 earnings announcement",
+      "resolution": "Use exact $77.670B FY2025 consolidated net income; do not combine with revenue as separate economic resources.",
+      "status": "source-confirmed",
+      "primarySourceUrl": "https://ir.aboutamazon.com/news-release/news-release-details/2026/Amazon-com-Announces-Fourth-Quarter-Results/default.aspx"
+    },
+    {
+      "sourceRow": "2025 Stargate infrastructure $500B announcement",
+      "resolution": "Treat as planned up-to-$500B four-year investment target, not realized spending or an observed monopoly surcharge.",
+      "status": "source-confirmed-plan-only",
+      "primarySourceUrl": "https://openai.com/index/announcing-the-stargate-project/"
     }
   ],
   "recommendedProductConnections": [
@@ -282,5 +345,5 @@
     "Billionaire influence and political funding",
     "Economic fragility / household and sovereign debt"
   ],
-  "publicationRule": "Review branch only. Any comparison must state year, geography, stock-vs-flow and uncertainty. Do not imply these figures prove monopolistic harm or political corruption."
+  "publicationRule": "Published with dated primary sources and evidence safeguards. Preserve years, geography, stock-versus-flow distinctions, and the difference between plans and completed expenditures. These figures do not establish monopolistic harm or political wrongdoing."
 }
