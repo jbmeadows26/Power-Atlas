@@ -1,0 +1,21 @@
+name: Validate infographic-first v6 review
+on:
+  push:
+    branches: [design/infographic-first-v6-review]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-story-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate real source indexes, visual modules and source preservation
+        run: python -m unittest discover -s tests -p 'test_visual_stories_v6.py' -v
