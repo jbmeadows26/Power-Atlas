@@ -1,0 +1,474 @@
+{
+  "schema": "power-atlas.consumer-practices.v1",
+  "asOf": "2026-11-10",
+  "title": "Consumer Deception & Hidden Costs",
+  "purpose": "Track documented promotion restrictions and government-alleged or settled unfair/deceptive practices. This is an evidence register, not a guilt ranking or claim about a company's current conduct.",
+  "methodology": {
+    "definition": "Entries must cite first-party terms, a court/regulator complaint, an agency settlement or official refund record. One agency case can cover several allegations and one company may recur.",
+    "statusRules": "Litigation allegations are not proven; a proposed settlement is not a final order; a consent settlement does not necessarily admit wrongdoing. Published restrictions can be lawful and should not be labeled deceptive without further evidence.",
+    "costRules": "Do not sum settlement, fine or refund values as consumer losses or as one comparable series. Show event dates and amounts exactly as sourced, with proposed or settled qualifiers.",
+    "temporal": "Historical allegations may describe past rather than current behavior; current checkout conditions need separate timestamped tests.",
+    "geo": "National cases cannot be localized to a ZIP absent documented covered locations or location-specific price data. No personal customer details included.",
+    "sourcePolicy": "Primary regulator and company sources preferred. Check procedural updates before describing open cases as decided.",
+    "sampling": "Curated cases selected to illustrate diverse tactics, not a representative sample of all businesses or industries."
+  },
+  "statuses": {
+    "terms": {
+      "name": "Terms documented",
+      "explanation": "Terms and constraints are visible in company materials; no regulator deception finding.",
+      "severity": 0
+    },
+    "lawsuit": {
+      "name": "Regulator allegations",
+      "explanation": "Agency lawsuit filed; allegations remain to be resolved.",
+      "severity": 1
+    },
+    "proposed": {
+      "name": "Proposed / announced settlement",
+      "explanation": "Settlement announced or proposed; do not assume final court entry.",
+      "severity": 2
+    },
+    "settlement": {
+      "name": "Settlement or refunds",
+      "explanation": "Settlement documented, sometimes accompanied by distributed refunds; not necessarily an admission of wrongdoing.",
+      "severity": 3
+    }
+  },
+  "tactics": [
+    {
+      "name": "Hidden mandatory fees",
+      "slug": "hidden mandatory fees",
+      "simple": "The price grows after the consumer has already chosen."
+    },
+    {
+      "name": "Cancellation traps",
+      "slug": "cancellation trap",
+      "simple": "Signing up is easy, leaving or stopping charges is hard."
+    },
+    {
+      "name": "Restricted promotions",
+      "slug": "promotion limits",
+      "simple": "Advertised benefits compete with restrictions revealed in terms."
+    },
+    {
+      "name": "Early-exit penalties",
+      "slug": "early-exit penalty",
+      "simple": "A monthly headline conceals a longer commitment."
+    },
+    {
+      "name": "Service mismatch",
+      "slug": "service mismatch",
+      "simple": "A headline service promise may not match actual delivery."
+    },
+    {
+      "name": "Bait pricing",
+      "slug": "bait price",
+      "simple": "A low headline price allegedly cannot be bought as advertised."
+    },
+    {
+      "name": "Checkout mismatch",
+      "slug": "checkout price mismatch",
+      "simple": "The register charges more than the displayed price."
+    },
+    {
+      "name": "Misleading intermediaries",
+      "slug": "misleading intermediary",
+      "simple": "A consumer thinks they're paying directly but pays a middleman."
+    },
+    {
+      "name": "Refund barriers",
+      "slug": "refund not honored",
+      "simple": "Promised refund or protection can be difficult to obtain."
+    },
+    {
+      "name": "Service and contract traps",
+      "slug": "service and contract trap",
+      "simple": "Unexpected terms, extra charges and difficult exit hit business customers."
+    }
+  ],
+  "industries": [
+    "Telecommunications",
+    "Housing",
+    "Retail",
+    "Digital subscriptions",
+    "Online shopping",
+    "Delivery and transport",
+    "Live events",
+    "Health products",
+    "Financial and bill payment",
+    "Auto dealerships",
+    "Business and restaurants"
+  ],
+  "cases": [
+    {
+      "id": "tmobile",
+      "name": "T-Mobile / T-Mix",
+      "industry": "Telecommunications",
+      "tactic": "promotion limits",
+      "status": "terms",
+      "eventDate": "2026-11-10",
+      "headline": "Two advertised upgrades can compete for one pool of benefits",
+      "claim": "Published T-Mix terms allocate device-promotion Picks at the account level. A two-line More plan has four shared Picks; a $1,200 promotion consumes three.",
+      "mechanism": "One account may not have enough Picks for both phones to claim the largest advertised deals, even though each line is eligible to shop offers.",
+      "implication": "Documented shared-promotion constraint; deception, financial injury, and legal violations have NOT been established.",
+      "action": "Ask for a written two-line, 36-month quote showing all Picks, promo conditions and credits.",
+      "source": {
+        "url": "https://www.t-mobile.com/benefits",
+        "kind": "primary",
+        "agency": "Company terms"
+      },
+      "evidenceType": "published company terms",
+      "amount": null,
+      "relatedPage": "telecom-promotions.html",
+      "secondarySource": "https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-costs/telecom-picks-v1.json"
+    },
+    {
+      "id": "att",
+      "name": "AT&T Mobility",
+      "industry": "Telecommunications",
+      "tactic": "service mismatch",
+      "status": "settlement",
+      "eventDate": "2019-11-05",
+      "headline": "Unlimited data was allegedly slowed after usage thresholds",
+      "claim": "FTC alleged the company failed to adequately disclose that some unlimited plans would be throttled after as little as 2 GB of data usage.",
+      "mechanism": "Customers continued paying for an unlimited plan but could experience severely reduced speeds.",
+      "implication": "2019 $60 million FTC settlement. Refund activity continued into 2026.",
+      "action": "Compare disclosed prioritization/throttling thresholds and request written terms for any new plan.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2019/11/att-pay-60-million-resolve-ftc-allegations-it-misled-consumers-unlimited-data-promises",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC settlement",
+      "amount": "$60 million"
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon Prime",
+      "industry": "Online shopping",
+      "tactic": "cancellation trap",
+      "status": "settlement",
+      "eventDate": "2026-09-17",
+      "headline": "Prime enrollment and cancellation traps led to major settlement",
+      "claim": "FTC alleged millions were enrolled without consent and cancellation was deliberately difficult.",
+      "mechanism": "Recurring fees could continue unless consumers navigated difficult enrollment and cancellation paths.",
+      "implication": "2025 $2.5 billion settlement; 2026 FTC reports more than $845 million paid in redress by September.",
+      "action": "Check subscriptions and refund eligibility through official FTC and Amazon channels; avoid refund solicitation scams.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC settlement",
+      "amount": "$2.5 billion"
+    },
+    {
+      "id": "progress",
+      "name": "Progress Residential / Pretium Partners",
+      "industry": "Housing",
+      "tactic": "hidden mandatory fees",
+      "status": "proposed",
+      "eventDate": "2026-11-06",
+      "headline": "Advertised rent allegedly left out mandatory monthly charges",
+      "claim": "FTC and four states alleged misleading advertised rents, hidden charges, disputed deposit deductions, move-in condition failures and service problems.",
+      "mechanism": "A renter comparing base rents may underestimate the monthly and move-out cost.",
+      "implication": "Proposed $49.75 million settlement with $48.5 million designated for consumer redress; final court approval not confirmed in this review.",
+      "action": "Request all required charges in writing, document move-in/out conditions and save itemized deposit records.",
+      "source": {
+        "url": "https://search.ftc.gov/news-events/news/press-releases/2026/11/progress-residential-owner-pretium-partners-pay-4975-million-settle-ftc-states-charges-over",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC and state proposed settlement",
+      "amount": "$49.75 million",
+      "ownership": "Pretium Partners owns Progress Residential"
+    },
+    {
+      "id": "shutterstock",
+      "name": "Shutterstock",
+      "industry": "Digital subscriptions",
+      "tactic": "cancellation trap",
+      "status": "proposed",
+      "eventDate": "2026-05-13",
+      "headline": "Automatic renewals and cancellation penalties inadequately disclosed",
+      "claim": "FTC alleged annual-paid-monthly renewal conditions and early-cancellation fees were obscured; some users were charged without informed consent.",
+      "mechanism": "A low displayed monthly price may hide a longer obligation and early-exit costs.",
+      "implication": "FTC announced proposed $35 million settlement; final court approval not established here.",
+      "action": "Check whether a plan is monthly or annual-paid-monthly and record the actual cancellation charge.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/05/shutterstock-pay-35-million-settle-ftc-allegations-over-illegal-subscription-cancellation-practices",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC proposed settlement",
+      "amount": "$35 million"
+    },
+    {
+      "id": "dollar-general",
+      "name": "Dollar General",
+      "industry": "Retail",
+      "tactic": "checkout price mismatch",
+      "status": "lawsuit",
+      "eventDate": "2026-10-26",
+      "headline": "FTC alleges shelf prices did not match register charges",
+      "claim": "FTC and 20 states sued over alleged repeated checkout overcharges relative to shelf, tag and advertising prices.",
+      "mechanism": "Small per-item discrepancies can accumulate across ordinary grocery and household purchases.",
+      "implication": "Active FTC/state lawsuit; no final liability decision identified.",
+      "action": "Compare scanned price to shelf price and preserve the receipt and shelf-tag photo.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-state-partners-sue-dollar-general-charging-consumers-more-advertised-many-products",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state complaint",
+      "amount": null
+    },
+    {
+      "id": "uber-one",
+      "name": "Uber One",
+      "industry": "Delivery and transport",
+      "tactic": "cancellation trap",
+      "status": "lawsuit",
+      "eventDate": "2025-12-15",
+      "headline": "Savings promises allegedly masked subscription costs and cancellation friction",
+      "claim": "FTC and states alleged enrollment without consent, advertised savings that omitted membership fees, and cancellation flows as long as 23 screens and 32 actions.",
+      "mechanism": "Customers may save less than advertised and pay unwanted recurring fees.",
+      "implication": "FTC/state amended complaint; allegations have not been adjudicated.",
+      "action": "Compare savings after membership fees; save cancellation confirmation and inspect following statements.",
+      "source": {
+        "url": "https://search.ftc.gov/news-events/news/press-releases/2025/12/ftc-states-file-amended-complaint-against-uber-deceptive-billing-cancellation-practices",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state complaint",
+      "amount": null
+    },
+    {
+      "id": "stubhub",
+      "name": "StubHub",
+      "industry": "Live events",
+      "tactic": "hidden mandatory fees",
+      "status": "settlement",
+      "eventDate": "2026-04-09",
+      "headline": "Ticket price display did not show complete mandatory fees up front",
+      "claim": "FTC charged that tickets were advertised without clear disclosure of mandatory fees until later in purchasing.",
+      "mechanism": "The ticket that appears cheapest can become more costly at checkout.",
+      "implication": "FTC announced $10 million settlement/refunds in April 2026.",
+      "action": "Compare the all-in price before purchasing and keep pre-checkout screenshots.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/04/stubhub-refunding-10-million-fees-consumers-after-deceptive-ticket-pricing",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC settlement",
+      "amount": "$10 million"
+    },
+    {
+      "id": "grubhub",
+      "name": "Grubhub",
+      "industry": "Delivery and transport",
+      "tactic": "hidden mandatory fees",
+      "status": "settlement",
+      "eventDate": "2024-12-31",
+      "headline": "Delivery price, subscription and worker earnings representations challenged",
+      "claim": "FTC and Illinois said consumers were misled about total delivery charges and subscription cancellation; settlement also addressed workers and unaffiliated restaurants.",
+      "mechanism": "A low menu/delivery price may be a poor proxy for the final order total.",
+      "implication": "$25 million payment under a court-entered settlement; FTC issued refunds in 2026.",
+      "action": "Compare checkout total and membership charges; use official FTC refund portal for program status.",
+      "source": {
+        "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/202-3157-grubhub-inc-ftc-illinois-v",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "court-entered consent order",
+      "amount": "$25 million"
+    },
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "industry": "Digital subscriptions",
+      "tactic": "early-exit penalty",
+      "status": "lawsuit",
+      "eventDate": "2024-06-17",
+      "headline": "Annual commitment sold with prominent monthly price",
+      "claim": "FTC/DOJ alleged a 50% remaining-payments early termination fee was inadequately disclosed and that cancellation was burdensome.",
+      "mechanism": "Customers may think they are buying a month-to-month subscription when they are committing to a year.",
+      "implication": "Regulator complaint; do not treat allegation as a proven violation.",
+      "action": "Find the contract duration and termination formula before purchasing a subscription.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2024/06/ftc-takes-action-against-adobe-executives-hiding-fees-preventing-consumers-easily-cancelling",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/DOJ lawsuit",
+      "amount": null
+    },
+    {
+      "id": "lens",
+      "name": "Lens.com",
+      "industry": "Health products",
+      "tactic": "hidden mandatory fees",
+      "status": "lawsuit",
+      "eventDate": "2026-10-02",
+      "headline": "Advertised contact-lens prices allegedly doubled at checkout",
+      "claim": "FTC, Utah and Nevada alleged mandatory charges labeled taxes and fees were obscured and could routinely double the advertised lens price.",
+      "mechanism": "A product's advertised price becomes misleading for side-by-side comparison if mandatory charges appear only later.",
+      "implication": "FTC/state complaint; amounts are agency allegations, not audited aggregate consumer harm.",
+      "action": "Compare the total final order charge, not search-ad unit price, and preserve the full checkout.",
+      "source": {
+        "url": "https://search.ftc.gov/news-events/news/press-releases/2026/10/ftc-states-sue-lenscom-misrepresenting-price-contact-lenses-search-ads-its-website",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state complaint",
+      "amount": null
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "industry": "Business and restaurants",
+      "tactic": "service and contract trap",
+      "status": "lawsuit",
+      "eventDate": "2026-10-29",
+      "headline": "Restaurants allegedly faced unauthorized add-ons and difficult exits",
+      "claim": "FTC and states alleged hidden fees, costly cancellation terms, unauthorized add-ons, and customer-support promises not met.",
+      "mechanism": "Business operators may pay more or become locked into a service contract; some diner fees were also challenged.",
+      "implication": "FTC/state lawsuit; individual customer experiences and all alleged harms are not court findings.",
+      "action": "Request line-by-line processing and service fees, all exit terms, and payment-system access remedies.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-states-take-action-against-toast-inc-over-hidden-unauthorized-fees-deceptive-subscription",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state complaint",
+      "amount": null
+    },
+    {
+      "id": "stream",
+      "name": "Stream Auto Outlet",
+      "industry": "Auto dealerships",
+      "tactic": "bait price",
+      "status": "proposed",
+      "eventDate": "2026-11-09",
+      "headline": "Advertised vehicle prices allegedly understated actual purchase costs",
+      "claim": "FTC alleged that the Long Island dealership group advertised cars at low prices it would not honor.",
+      "mechanism": "Shoppers may invest travel and time in an offer that cannot be completed at the advertised price.",
+      "implication": "FTC announced agreement/proposed order in November 2026; court approval not established in this review.",
+      "action": "Obtain an out-the-door written quote including all mandatory dealer charges.",
+      "source": {
+        "url": "https://search.ftc.gov/news-events/news/press-releases/2026/11/ftc-secures-settlement-stream-auto-outlet-advancing-price-transparency-auto-buying-consumers",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC proposed order",
+      "amount": null
+    },
+    {
+      "id": "doxo",
+      "name": "Doxo",
+      "industry": "Financial and bill payment",
+      "tactic": "misleading intermediary",
+      "status": "proposed",
+      "eventDate": "2026-08-12",
+      "headline": "Search ads made a third-party bill-payment service look like the biller",
+      "claim": "FTC alleged deceptive search ads, add-on charges and unclear subscription enrollment; federal court found ROSCA violations.",
+      "mechanism": "Consumers may pay an intermediary and additional fees when they intended to pay their utility or another biller directly.",
+      "implication": "Court finding on subscription disclosures/consent; FTC announced proposed $2.1 million settlement.",
+      "action": "Navigate directly to the biller's official website and confirm payment destination.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/08/bill-payment-firm-doxo-pay-21-million-settle-ftc-allegations-it-deceived-consumers-charged-them-add",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "court finding and proposed FTC settlement",
+      "amount": "$2.1 million"
+    },
+    {
+      "id": "goat",
+      "name": "GOAT",
+      "industry": "Online shopping",
+      "tactic": "refund not honored",
+      "status": "settlement",
+      "eventDate": "2026-10-06",
+      "headline": "Buyer protection and expedited shipping did not always match promises",
+      "claim": "FTC alleged delayed shipments and failure to provide promised refunds for defective, incorrect or inauthentic items.",
+      "mechanism": "Shoppers may pay for speed or protection and then face extra friction recovering the purchase price.",
+      "implication": "FTC distributed more than $100,000 in 2026 refunds from a prior settlement.",
+      "action": "Keep delivery commitments and buyer-protection terms, file documented claim promptly.",
+      "source": {
+        "url": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-redress-payments-consumers-impacted-goats-deceptive-shipping-refund-policies",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC settlement and refunds",
+      "amount": "More than $100,000 distributed in 2026"
+    },
+    {
+      "id": "ticketmaster",
+      "name": "Ticketmaster / Live Nation",
+      "industry": "Live events",
+      "tactic": "bait price",
+      "status": "lawsuit",
+      "eventDate": "2026-09-30",
+      "headline": "Ticket advertising and resale limits challenged",
+      "claim": "FTC and states alleged misleading lower advertised prices and claims of limits on ticket sales that professional brokers circumvented.",
+      "mechanism": "Ticket buyers may pay higher all-in resale prices and face constrained direct ticket availability.",
+      "implication": "Pending case; September 2026 order denied a motion to dismiss, which is not a decision on merits.",
+      "action": "Compare face-value, full fees and resale prices; distinguish original issue from resales.",
+      "source": {
+        "url": "https://www.ftc.gov/legal-library/browse/cases-proceedings/ticketmaster",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state lawsuit",
+      "amount": null
+    },
+    {
+      "id": "riverside",
+      "name": "Riverside Payments / Cascade Equipment Leasing",
+      "industry": "Business and restaurants",
+      "tactic": "service and contract trap",
+      "status": "proposed",
+      "eventDate": "2026-11-02",
+      "headline": "Risk-free savings pitch allegedly turned into long contracts",
+      "claim": "FTC and Washington alleged misleading claimed savings and undisclosed automatic renewal plus equipment leasing restrictions.",
+      "mechanism": "A small business may become bound to equipment and processing contracts with costly exit terms.",
+      "implication": "Proposed $600,000 payment to resolve claims; much larger judgment partly suspended based on ability to pay.",
+      "action": "Demand separate hardware lease, auto-renewal and termination documents; preserve the sales proposal.",
+      "source": {
+        "url": "https://search.ftc.gov/news-events/news/press-releases/2026/11/ftc-washington-take-action-against-payment-processor-deceiving-small-businesses-about-costs",
+        "kind": "primary",
+        "agency": "U.S. Federal Trade Commission"
+      },
+      "evidenceType": "FTC/state proposed settlement",
+      "amount": "$600,000"
+    }
+  ],
+  "consumerActions": [
+    {
+      "name": "Price audit",
+      "detail": "Compare advertisements with a screenshot of the all-in final price and all recurring charges.",
+      "url": "https://reportfraud.ftc.gov/"
+    },
+    {
+      "name": "Subscription audit",
+      "detail": "Confirm contract length, renewal date, cancellation method, and written confirmation.",
+      "url": "https://consumer.ftc.gov/articles/getting-and-out-free-trials-auto-renewals-and-negative-option-subscriptions"
+    },
+    {
+      "name": "Wireless complaints",
+      "detail": "Document service promises and screenshots before contacting the provider or filing an FCC billing/service complaint.",
+      "url": "https://consumercomplaints.fcc.gov/hc/en-us"
+    },
+    {
+      "name": "Refund eligibility",
+      "detail": "Check official FTC refund programs; nobody should ask you to pay to receive an FTC refund.",
+      "url": "https://www.ftc.gov/enforcement/refunds"
+    },
+    {
+      "name": "Rent document review",
+      "detail": "Ask for the full mandatory rent amount and keep signed documents and move-in/move-out photographs.",
+      "url": "https://consumer.ftc.gov/consumer-alerts/2026/11/ftc-says-progress-residential-charged-renters-hidden-fees"
+    }
+  ]
+}
