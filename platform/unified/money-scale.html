@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Money at Scale · Power Atlas Review</title>
+<style>
+:root{font-family:Inter,system-ui,-apple-system,sans-serif;color:#18333a;background:#f8f7f3}
+*{box-sizing:border-box}body{margin:0}a{color:#136d68}a:focus-visible,button:focus-visible{outline:3px solid #bc974c;outline-offset:3px}
+.wrap{max-width:1040px;padding:0 22px;margin:auto}.ribbon{background:#153442;color:#e7f5ef;padding:12px 0;font-size:12px;font-weight:800;letter-spacing:.08em}
+header{background:#133341;color:white;padding:51px 0 46px}header .eyebrow{color:#abe7c4;font-size:11px;font-weight:850;letter-spacing:.14em;text-transform:uppercase}
+h1{font-size:clamp(38px,6.8vw,72px);letter-spacing:-.065em;line-height:1.02;margin:17px 0 18px;max-width:770px}
+header p{max-width:690px;font-size:16px;line-height:1.7;color:#d0e5dd}
+.main{padding:32px 0 70px}.lead{font-size:17px;line-height:1.68;max-width:810px}
+.card{background:white;border:1px solid #e0e7df;border-radius:20px;padding:clamp(18px,3vw,29px);margin:20px 0}
+h2{font-size:clamp(24px,4vw,36px);letter-spacing:-.04em;margin:0 0 8px}h3{font-size:19px;margin:0 0 8px;letter-spacing:-.025em}
+.muted{color:#657678;font-size:13px;line-height:1.6}.tabs{display:flex;gap:9px;flex-wrap:wrap;margin:20px 0}
+button{background:#edf4ee;border:1px solid #d1e2d7;border-radius:40px;padding:11px 18px;font-weight:850;color:#315c57;cursor:pointer}
+button[aria-pressed="true"]{background:#173b45;color:#fff;border-color:#173b45}
+.legend{display:flex;gap:15px;flex-wrap:wrap;margin-bottom:13px;color:#59706e;font-size:12px}
+.legend b{background:#d4f3cd;border-radius:30px;padding:4px 9px;color:#26574b}
+.scale{display:grid;gap:12px}.bar-row{display:grid;grid-template-columns:minmax(140px,1.2fr) minmax(0,2.5fr) 86px;align-items:center;gap:13px;text-decoration:none;color:inherit;border:1px solid #e1eae3;border-radius:12px;padding:12px}
+.bar-row:hover{border-color:#98bdb3;background:#fbfdfb}.bar-label{font-size:13px;font-weight:750}.bar-meta{display:block;color:#788785;font-size:11px;font-weight:500;margin-top:5px}
+.track{width:100%;height:24px;border-radius:7px;background:#ebf1ed;overflow:hidden}.fill{height:100%;width:0;min-width:2px;border-radius:6px;background:#2b9c8e;transition:width .3s}.bar-row:nth-child(2n) .fill{background:#a08cce}.value{font-weight:900;text-align:right;font-variant-numeric:tabular-nums}
+.details{margin-top:14px;font-size:14px;line-height:1.7;color:#48605b;background:#f2f6f1;border-radius:12px;padding:14px 16px}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.grid article{border:1px solid #e0e7df;background:white;border-radius:16px;padding:19px}.grid article p{font-size:13px;line-height:1.65;color:#607471}
+.grid article strong{font-size:24px;letter-spacing:-.04em;color:#147f72}.source-list{font-size:13px;line-height:1.8;padding-left:21px}
+.note{border-left:3px solid #e8b980;padding-left:14px;color:#5d6264;line-height:1.6;font-size:13px}
+footer{border-top:1px solid #dce6dc;padding:24px 0 50px;color:#687c78;font-size:12px}
+#status{padding:15px;font-size:13px;color:#607571}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(max-width:720px){.grid{grid-template-columns:1fr}.bar-row{grid-template-columns:1fr 75px;gap:6px}.bar-label{grid-column:1/-1}.track{height:21px}.wrap{padding:0 15px}header{padding:40px 0}.card{margin:14px 0}}
+@media(prefers-reduced-motion:reduce){.fill{transition:none}}
+</style><link rel="stylesheet" href="atlas-visual-system.css"></head><body>
+<div class="ribbon"><div class="wrap">POWER ATLAS · PUBLIC EVIDENCE · UPDATED NOVEMBER 2026</div></div>
+<header><div class="wrap"><div class="eyebrow">Economic power / public choices / everyday costs</div>
+<h1>A trillion dollars is huge. What does it actually mean?</h1>
+<p>Explore verified scales of wealth, debt and spending. Every figure has a source and date. We never imply that dollars of wealth, debt and annual budgets are interchangeable.</p>
+<p><a style="color:#baf5e3" href="index.html">← Return to platform redesign preview</a> &nbsp; <a style="color:#baf5e3" href="market-power.html#household-bridge">See the household cost connections →</a></p>
+</div></header>
+<main class="wrap main">
+<p class="lead">Power becomes easier to understand when you see its scale. But scale by itself is not proof of monopoly, corruption, or why your rent and groceries cost more. The next step is tracing verified ownership, market structures and household costs.</p><p><a href="market-power.html#household-bridge" style="font-weight:800">Open the market-power → household-cost explorer</a></p>
+<section class="card" aria-label="Money at scale explorer">
+<h2>Explore the scale</h2><p class="muted">Switch between wealth, debt, annual spending and economic output. Stocks, annual flows and GDP are different measurement types, so each has its own view.</p>
+<div class="tabs" role="group" aria-label="Measurement type">
+<button type="button" aria-pressed="true" data-group="asset-stock">Wealth / assets</button>
+<button type="button" aria-pressed="false" data-group="liability-stock">Debt balances</button>
+<button type="button" aria-pressed="false" data-group="annual-flow">Annual spending &amp; payments</button>
+<button type="button" aria-pressed="false" data-group="annual-output">GDP / economy size</button>
+</div>
+<div id="status" role="status">Loading independently sourced metrics…</div>
+<div id="scale" class="scale" aria-live="polite"></div>
+<div id="detail" class="details" aria-live="polite">Select a figure to view its meaning, source and limits.</div>
+<div class="legend"><span><b>$1T = $1,000B</b></span><span>USD trillions, nominal, dated observations</span><span>All comparisons are descriptive</span></div>
+</section>
+<section class="card"><h2>Three corrections the original graphic needed</h2>
+<p class="note"><strong>Healthcare:</strong> The source spreadsheet calls $5.3 trillion U.S. healthcare spending in 2025. CMS reports approximately $5.3T in 2024 and projects around $5.7T in 2025. We label the 2025 number as a projection.</p>
+<p class="note"><strong>GDP:</strong> The source sheet places world GDP around $112T in 2025, closer to the 2024 estimate. World Bank 2025 world GDP is $118.35T. GDP is yearly output, not available cash.</p>
+<p class="note"><strong>Defense:</strong> Two independent agencies use different definitions. The IISS estimate is $2.63T in 2025, while SIPRI reports $2.887T. These are alternatives—not separate amounts to add together.</p>
+</section>
+<section class="card"><h2>Who benefits? Who pays? What can change?</h2>
+<div class="grid">
+<article><strong>01</strong><h3>Who controls assets?</h3><p>Follow corporate ownership, voting control, acquisitions and market share. Large market value alone is not evidence of monopoly.</p><a href="corporate-ownership.html">Explore corporate ownership</a></article>
+<article><strong>02</strong><h3>Who carries the cost?</h3><p>Compare household debt burdens, verified service fees, and public spending. Show geography, timing and reliable benchmarks before attributing costs.</p><a href="my-life.html">Explore everyday costs</a></article>
+<article><strong>03</strong><h3>What choices exist?</h3><p>Put spending and policy proposals in comparable per-year terms. Explain financing, opportunity costs and tradeoffs instead of treating a wealth valuation as an available budget.</p><a href="market-power.html#explore">Explore the legal and economic evidence</a></article>
+</div></section>
+<section class="card"><h2>Where the figures came from</h2>
+<p class="muted">Inspired by the <a href="https://informationisbeautiful.net/visualizations/the-billion-dollar-gram/">Billion Dollar Gram</a> and <a href="https://informationisbeautiful.net/visualizations/trillions-what-is-a-trillion-dollars/">Trillions</a>, created by Information is Beautiful. This is an original Power Atlas visualization. Each figure is checked against the originating publisher, rather than copying infographic claims without verifying them.</p>
+<p class="muted">Figures that require additional verification—such as older offshore wealth estimates, speculative climate investment scenarios and fluctuating individual valuations—are excluded from these headline charts.</p>
+</section>
+</main><footer><div class="wrap">Power Atlas · Evidence review, November 10, 2026. Not a calculation of an individual's expenses or proof of antitrust violations.</div></footer>
+<script>
+(function(){
+"use strict";
+const options=document.querySelectorAll('button[data-group]'), chart=document.getElementById("scale"), status=document.getElementById("status"), detail=document.getElementById("detail");
+let records=[],active="asset-stock";
+function groupOf(r){return r.measurement==="asset-stock"?"asset-stock":r.measurement==="liability-stock"?"liability-stock":r.measurement==="annual-output"?"annual-output":r.measurement.startsWith("annual-flow")?"annual-flow":null}
+function showDetail(r){detail.textContent="";const b=document.createElement("strong");b.textContent=r.label+" · $"+r.valueTrillionsUsd.toLocaleString("en-US")+" trillion · "+r.year;detail.append(b,document.createElement("br"));
+detail.append(document.createTextNode(r.definition+" "+r.interpretation+" "));
+const link=document.createElement("a");link.href=r.sourceUrl;link.target="_blank";link.rel="noopener noreferrer";link.textContent="Original source: "+r.sourcePublisher;detail.append(link);}
+function render(){chart.textContent="";let items=records.filter(r=>groupOf(r)===active&&r.measurement!=="annual-flow-alternative").sort((a,b)=>b.valueTrillionsUsd-a.valueTrillionsUsd);status.hidden=items.length>0; if(!items.length){status.textContent="No verified entries available for this view.";return;}
+const max=Math.max(...items.map(r=>r.valueTrillionsUsd));items.forEach((r,i)=>{const row=document.createElement("button");row.type="button";row.className="bar-row";row.setAttribute("aria-label","View source and interpretation for "+r.label);row.style.borderRadius="12px";row.style.background="white";row.style.textAlign="left";
+const label=document.createElement("span");label.className="bar-label";label.textContent=r.label;
+const meta=document.createElement("small");meta.className="bar-meta";meta.textContent=r.year+" · "+r.scope;label.append(meta);
+const track=document.createElement("span");track.className="track";const fill=document.createElement("span");fill.className="fill";fill.style.display="block";fill.style.width=(r.valueTrillionsUsd/max*100)+"%";track.append(fill);
+const value=document.createElement("span");value.className="value";value.textContent="$"+r.valueTrillionsUsd.toLocaleString("en-US",{maximumFractionDigits:3})+"T";row.append(label,track,value);row.addEventListener("click",()=>showDetail(r));chart.append(row);if(i===0)showDetail(r);});
+}
+options.forEach(btn=>btn.addEventListener("click",()=>{active=btn.dataset.group;options.forEach(b=>b.setAttribute("aria-pressed",String(b===btn)));render()}));
+fetch("money-scale.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Data file unavailable");return r.json()}).then(data=>{if(data.schema!=="power-atlas.money-scale.v1"||!Array.isArray(data.metrics))throw Error("Unexpected dataset schema");records=data.metrics;render()}).catch(e=>{status.textContent="Verified data is temporarily unavailable; no values will be fabricated. "+e.message;detail.textContent="Please consult the original sources linked below.";});
+})();
+</script><script src="bug-report.js" defer></script>
+<script src="atlas-visual-system.js" defer></script></body></html>
