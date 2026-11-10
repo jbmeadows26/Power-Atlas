@@ -23,11 +23,11 @@ class MoneyScaleReviewTests(unittest.TestCase):
         self.assertIn('fetch("data/money-scale-v1.json"', self.page)
 
     def test_every_metric_has_a_source_a_year_and_a_measurement_kind(self):
-        self.assertGreaterEqual(len(self.data["metrics"]), 9)
+        self.assertGreaterEqual(len(self.data["metrics"]), 12)
         ids = [x["id"] for x in self.data["metrics"]]
         self.assertEqual(len(ids), len(set(ids)))
         allowed = {"asset-stock", "liability-stock", "annual-flow",
-                   "annual-flow-estimate", "annual-flow-alternative"}
+                   "annual-flow-estimate", "annual-flow-alternative", "annual-output"}
         for x in self.data["metrics"]:
             with self.subTest(id=x["id"]):
                 self.assertIn(x["measurement"], allowed)
@@ -52,6 +52,9 @@ class MoneyScaleReviewTests(unittest.TestCase):
         self.assertEqual(health["measurement"], "annual-flow-estimate")
         self.assertIn("projected-source-confirmed", health["confidence"])
         self.assertIn("2024", health["interpretation"])
+        gdp = {x["id"]:x for x in self.data["metrics"]}["world-gdp-2025"]
+        self.assertEqual(gdp["measurement"], "annual-output")
+        self.assertAlmostEqual(gdp["valueTrillionsUsd"], 118.350166)
         self.assertIn("healthcare", str(self.data["sourceCorrections"]).lower())
 
     def test_no_synthetic_zip_specific_costs_or_claimed_causality(self):
