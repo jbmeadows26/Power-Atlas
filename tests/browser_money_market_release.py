@@ -13,7 +13,14 @@ async def check(browser, label, origin, width):
     page.set_default_timeout(24000)
     r = await page.goto(origin + "/", wait_until="domcontentloaded", timeout=30000)
     assert r and r.status == 200, (label, "home",r.status if r else None)
-    await page.locator(".pa4-home").wait_for()
+    try:
+        await page.locator(".pa4-home").wait_for(timeout=8000)
+    except Exception:
+        print("DEBUG",label,width,"title=",await page.title(),"url=",page.url)
+        print("BODY", (await page.locator("body").inner_text())[:1000])
+        print("JS", await page.locator('script[src]').evaluate_all("(xs)=>xs.map(x=>x.src)"))
+        print("MAIN", await page.locator("main").count())
+        raise
     tiles=page.locator(".pa4-tile")
     assert await tiles.count()==9, (label, "story cards",await tiles.count())
     hrefs=await tiles.locator("a").evaluate_all("(nodes)=>nodes.map(x=>x.getAttribute('href'))")
@@ -29,6 +36,9 @@ async def check(browser, label, origin, width):
     text=await page.locator("#scale").inner_text()
     assert "World economic output (GDP)" in text, (label,text)
     assert "U.S. economic output (GDP)" in text, (label,text)
+    await page.locator('button[data-group="billion-scale"]').click()
+    btext=await page.locator("#scale").inner_text()
+    assert "Amazon net sales" in btext and "Stargate announced investment plan" in btext, (label,btext)
     await page.locator('button[data-group="liability-stock"]').click()
     debt=await page.locator("#scale").inner_text()
     assert "Global debt" in debt, (label,debt)

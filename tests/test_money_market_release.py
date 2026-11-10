@@ -21,7 +21,7 @@ class MoneyMarketReleaseTests(unittest.TestCase):
         self.assertEqual(self.bridge,load(S/"household-market-bridge.json"))
         self.assertEqual(self.market,load(S/"market-power.json"))
     def test_source_quality_and_measures_are_not_conflated(self):
-        metrics=self.money["metrics"];self.assertGreaterEqual(len(metrics),12)
+        metrics=self.money["metrics"];self.assertGreaterEqual(len(metrics),15)
         self.assertEqual(len(metrics),len({x["id"] for x in metrics}))
         for x in metrics:
             self.assertTrue(x["sourceUrl"].startswith("https://"),x["id"])
@@ -34,7 +34,12 @@ class MoneyMarketReleaseTests(unittest.TestCase):
         self.assertEqual(m["billionaires-world-2026"]["measurement"],"asset-stock")
         self.assertEqual(m["us-healthcare-spending-2025"]["measurement"],"annual-flow-estimate")
         self.assertEqual(m["global-military-sipri-2025"]["measurement"],"annual-flow-alternative")
-        self.assertGreaterEqual(len(self.money["sourceCorrections"]),11)
+        self.assertGreaterEqual(len(self.money["sourceCorrections"]),13)
+        billions=[x for x in metrics if x["measurement"]=="billion-scale"]
+        self.assertEqual(len(billions),3)
+        self.assertAlmostEqual(m["amazon-net-sales-2025"]["valueBillionsUsd"],716.924)
+        self.assertAlmostEqual(m["amazon-net-income-2025"]["valueBillionsUsd"],77.670)
+        self.assertIn("planned",m["stargate-announced-plan-2025"]["interpretation"].lower()) if "planned" in m["stargate-announced-plan-2025"]["interpretation"].lower() else self.assertIn("neither",m["stargate-announced-plan-2025"]["interpretation"].lower())
     def test_bls_household_cost_baseline_exact(self):
         rows={x["id"]:x for x in self.bridge["categories"]}
         for key in ("housing","transport","groceries","health"):
@@ -69,6 +74,7 @@ class MoneyMarketReleaseTests(unittest.TestCase):
             self.assertIn('src="market-power-household.js"',h)
             self.assertIn('href="money-scale.html"',h)
             self.assertIn('data-group="annual-output"',ms)
+            self.assertIn('data-group="billion-scale"',ms)
             self.assertIn('href="atlas-visual-system.css"',ms)
             self.assertIn('src="atlas-visual-system.js"',ms)
             self.assertNotIn("noindex,nofollow",h+ms)
