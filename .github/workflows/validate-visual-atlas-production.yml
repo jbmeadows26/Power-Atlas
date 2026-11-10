@@ -1,0 +1,35 @@
+name: Validate approved visual atlas production
+on:
+  push:
+    branches:
+      - release/visual-atlas-approved-reconciled-20261110
+      - main
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  visual-atlas-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify production route coverage, source consistency, banner removal, and JavaScript
+        run: python -m unittest discover -s tests -p 'test_visual_atlas_production.py' -v
+      - name: Validate economic resilience source and seven-story navigation
+        run: python -m unittest discover -s tests -p 'test_visual_atlas_market_release.py' -v
+      - name: Validate consumer class-action evidence, links, and timing
+        run: python -m unittest discover -s tests -p 'test_consumer_class_actions.py' -v
+      - name: Validate local context and source presentation
+        run: python -m unittest discover -s tests -p 'test_place_impact.py' -v
+      - name: Preserve latest service-accountability release
+        run: python -m unittest discover -s tests -p 'test_service_accountability.py' -v
