@@ -1,0 +1,442 @@
+{
+  "schema": "power-atlas.consumer-watch.comparison-framework.v1",
+  "asOf": "2026-11-10",
+  "purpose": "Compare advertised consumer promises against total cost and real alternatives without inventing unobserved prices",
+  "methodology": {
+    "steps": [
+      "advertised promise",
+      "documented restriction or regulator allegation",
+      "total-cost formula",
+      "comparable alternative",
+      "evidence status and remedy"
+    ],
+    "principles": [
+      "Regulator allegations are not proven violations",
+      "A settlement may not admit liability",
+      "Never turn a formula into a dollar total without dated verified inputs",
+      "Do not infer deceptive intent from a more expensive plan",
+      "Use same horizon, units and service requirements across alternatives",
+      "Treat unknown fees and household bundle effects as unknown rather than zero"
+    ],
+    "measurementStatuses": {
+      "verified-example": "Numerical constraints or prices documented in primary terms; not a personal bill",
+      "formula-only": "Cost calculation is specified but required transaction inputs are not established"
+    }
+  },
+  "scenarios": [
+    {
+      "id": "tmobile",
+      "name": "T-Mobile / T-Mix",
+      "industry": "Telecommunications",
+      "caseStatus": "terms",
+      "source": "https://www.t-mobile.com/benefits",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Two simultaneous phone discounts",
+        "advertised": "Up to $1,200 off a qualifying phone",
+        "constraint": "Each $1,200 deal uses 3 Picks; a two-line T-Mix More account has 4 shared Picks.",
+        "comparison": "Two 3-Pick promotions need 6 Picks, exceeding the 4-Pick pool by 2.",
+        "metric": {
+          "kind": "shared-allocation",
+          "required": 6,
+          "available": 4,
+          "unit": "Picks"
+        },
+        "unknown": [
+          "Offer-specific eligibility",
+          "Tax and household bundle effects"
+        ]
+      },
+      "measurementStatus": "verified-example",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "att",
+      "name": "AT&T Mobility",
+      "industry": "Telecommunications",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2019/11/att-pay-60-million-resolve-ftc-allegations-it-misled-consumers-unlimited-data-promises",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Wireless service versus what was promised",
+        "advertised": "Mobile service represented as suitable for the customer's needs",
+        "constraint": "Review the original regulator record for the challenged performance or service representation.",
+        "comparison": "Compare advertised coverage, delivered service and contract terms; no verified comparable dollar total.",
+        "unknown": [
+          "Consumer-specific measured service",
+          "Comparable plan pricing"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon Prime",
+      "industry": "Online shopping",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/09/ftc-announces-additional-payments-consumers-stemming-ftcs-amazon-prime-settlement",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The subscription exit",
+        "advertised": "Convenient Prime membership",
+        "constraint": "FTC challenged consent and cancellation flow; settlement is not a finding about every signup.",
+        "comparison": "Full cost = months subscribed × actual fee + any unwanted renewal months; unknown without account history.",
+        "formula": "monthly fee × charged months + documented unwanted charges",
+        "unknown": [
+          "Account billing history",
+          "Unwanted renewal months"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "progress",
+      "name": "Progress Residential / Pretium Partners",
+      "industry": "Housing",
+      "caseStatus": "proposed",
+      "source": "https://search.ftc.gov/news-events/news/press-releases/2026/11/progress-residential-owner-pretium-partners-pay-4975-million-settle-ftc-states-charges-over",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The rent that grows at checkout",
+        "advertised": "Monthly base rent on a listing",
+        "constraint": "FTC alleged mandatory charges were excluded from the advertised rent.",
+        "comparison": "All-in rent = base rent + mandatory recurring fees + mandatory one-time fees amortized over lease.",
+        "formula": "base rent + mandatory monthly fees + mandatory upfront fees ÷ lease months",
+        "unknown": [
+          "Property-specific base rent",
+          "Fee schedule",
+          "Lease length"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "shutterstock",
+      "name": "Shutterstock",
+      "industry": "Digital subscriptions",
+      "caseStatus": "proposed",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/05/shutterstock-pay-35-million-settle-ftc-allegations-over-illegal-subscription-cancellation-practices",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Subscription cancellation cost",
+        "advertised": "Subscription with access to digital content",
+        "constraint": "FTC alleged deceptive cancellation terms and early termination charges.",
+        "comparison": "Effective subscription cost = paid months + unavoidable exit fees.",
+        "formula": "subscription charges + verified termination fee",
+        "unknown": [
+          "Plan selected",
+          "Cancellation date",
+          "Applicable exit fee"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "dollar-general",
+      "name": "Dollar General",
+      "industry": "Retail",
+      "caseStatus": "lawsuit",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-state-partners-sue-dollar-general-charging-consumers-more-advertised-many-products",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Shelf price versus register price",
+        "advertised": "Displayed shelf or advertised product price",
+        "constraint": "Regulators alleged some checkout prices exceeded posted prices.",
+        "comparison": "Overcharge per basket = sum(max(register price − shelf price, 0)) for matched items.",
+        "formula": "sum of verified register–shelf price differences",
+        "unknown": [
+          "Dated shelf photos",
+          "Itemized receipts"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "uber-one",
+      "name": "Uber One",
+      "industry": "Delivery and transport",
+      "caseStatus": "lawsuit",
+      "source": "https://search.ftc.gov/news-events/news/press-releases/2025/12/ftc-states-file-amended-complaint-against-uber-deceptive-billing-cancellation-practices",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Membership renewals",
+        "advertised": "Membership savings and convenience",
+        "constraint": "FTC challenged enrollment and cancellation practices.",
+        "comparison": "Actual value = benefits actually used − membership charges − unwanted renewals.",
+        "formula": "membership charges − verified realized savings",
+        "unknown": [
+          "Renewal dates",
+          "Actual benefits redeemed"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "stubhub",
+      "name": "StubHub",
+      "industry": "Live events",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/04/stubhub-refunding-10-million-fees-consumers-after-deceptive-ticket-pricing",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The ticket checkout surprise",
+        "advertised": "Ticket price shown during browsing",
+        "constraint": "FTC alleged ticket-fee presentation misled buyers.",
+        "comparison": "All-in price = ticket face/offer price + mandatory service and delivery fees.",
+        "formula": "advertised ticket price + mandatory transaction fees",
+        "unknown": [
+          "Event-specific fees",
+          "Purchase date"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "grubhub",
+      "name": "Grubhub",
+      "industry": "Delivery and transport",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/legal-library/browse/cases-proceedings/202-3157-grubhub-inc-ftc-illinois-v",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The delivery fee stack",
+        "advertised": "Menu and delivery prices",
+        "constraint": "Regulators challenged hidden fees and restaurant listing practices.",
+        "comparison": "All-in order = menu items + service, delivery and other mandatory fees, excluding optional tips.",
+        "formula": "items + required delivery/service fees + taxes",
+        "unknown": [
+          "Basket contents",
+          "Checkout fee breakdown"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "adobe",
+      "name": "Adobe",
+      "industry": "Digital subscriptions",
+      "caseStatus": "lawsuit",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2024/06/ftc-takes-action-against-adobe-executives-hiding-fees-preventing-consumers-easily-cancelling",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Monthly price, annual contract",
+        "advertised": "Subscription presented with a monthly rate",
+        "constraint": "FTC/DOJ alleged inadequate disclosure of annual commitment and early cancellation fees.",
+        "comparison": "Total exit cost = paid subscription months + applicable early termination fee.",
+        "formula": "monthly fee × billed months + applicable early exit fee",
+        "unknown": [
+          "Plan commitment",
+          "Termination month",
+          "Exit fee"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "lens",
+      "name": "Lens.com",
+      "industry": "Health products",
+      "caseStatus": "lawsuit",
+      "source": "https://search.ftc.gov/news-events/news/press-releases/2026/10/ftc-states-sue-lenscom-misrepresenting-price-contact-lenses-search-ads-its-website",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Contacts with added fees",
+        "advertised": "Advertised contact lens price",
+        "constraint": "FTC challenged the way extra charges were disclosed.",
+        "comparison": "All-in order = lens price + mandatory processing and shipping charges.",
+        "formula": "advertised lens price + unavoidable checkout fees",
+        "unknown": [
+          "Prescription/order",
+          "Checkout fee schedule"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "toast",
+      "name": "Toast",
+      "industry": "Business and restaurants",
+      "caseStatus": "lawsuit",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-states-take-action-against-toast-inc-over-hidden-unauthorized-fees-deceptive-subscription",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Restaurant technology contract changes",
+        "advertised": "Payment and technology service terms",
+        "constraint": "Regulator case involves disputed contract or service representations.",
+        "comparison": "Total merchant cost = processing charges + platform fees + cancellation costs, if documented.",
+        "formula": "processing + subscription + documented termination charges",
+        "unknown": [
+          "Merchant agreement",
+          "Transaction volume"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "stream",
+      "name": "Stream Auto Outlet",
+      "industry": "Auto dealerships",
+      "caseStatus": "proposed",
+      "source": "https://search.ftc.gov/news-events/news/press-releases/2026/11/ftc-secures-settlement-stream-auto-outlet-advancing-price-transparency-auto-buying-consumers",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The car's advertised price",
+        "advertised": "Vehicle listing price",
+        "constraint": "Regulator challenged allegedly misleading price and fee representations.",
+        "comparison": "Drive-away cost = advertised vehicle price + mandatory dealer charges + taxes/title, excluding optional add-ons.",
+        "formula": "listing + required dealer charges + taxes/title",
+        "unknown": [
+          "Vehicle VIN and dated listing",
+          "Written buyer order"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "doxo",
+      "name": "Doxo",
+      "industry": "Financial and bill payment",
+      "caseStatus": "proposed",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/08/bill-payment-firm-doxo-pay-21-million-settle-ftc-allegations-it-deceived-consumers-charged-them-add",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Paying a bill through a lookalike",
+        "advertised": "Convenient online bill payment",
+        "constraint": "FTC challenged misleading impressions of official biller affiliation and fee disclosures.",
+        "comparison": "Compare third-party transaction fee and processing time with direct biller payment.",
+        "formula": "third-party fee − direct-biller fee + documented late-payment charges",
+        "unknown": [
+          "Biller direct fee",
+          "Processing times",
+          "Late fees"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "goat",
+      "name": "GOAT",
+      "industry": "Online shopping",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/news-events/news/press-releases/2026/10/ftc-issues-redress-payments-consumers-impacted-goats-deceptive-shipping-refund-policies",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The refund promise",
+        "advertised": "Marketplace return and refund protections",
+        "constraint": "Regulator challenged refund and buyer-protection fulfillment.",
+        "comparison": "Consumer loss = eligible refund promised − refund actually received, where verified.",
+        "formula": "contractually eligible refund − actual refund",
+        "unknown": [
+          "Order records",
+          "Refund eligibility",
+          "Refund paid"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "ticketmaster",
+      "name": "Ticketmaster / Live Nation",
+      "industry": "Live events",
+      "caseStatus": "lawsuit",
+      "source": "https://www.ftc.gov/legal-library/browse/cases-proceedings/ticketmaster",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The ticket price maze",
+        "advertised": "Ticket price at search",
+        "constraint": "FTC challenged allegedly misleading price presentation and resale tactics.",
+        "comparison": "All-in ticket = advertised price + required platform and delivery fees.",
+        "formula": "advertised ticket + required fees",
+        "unknown": [
+          "Event and ticket class",
+          "Checkout fee schedule"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "riverside",
+      "name": "Riverside Payments / Cascade Equipment Leasing",
+      "industry": "Business and restaurants",
+      "caseStatus": "proposed",
+      "source": "https://search.ftc.gov/news-events/news/press-releases/2026/11/ftc-washington-take-action-against-payment-processor-deceiving-small-businesses-about-costs",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "The merchant contract trap",
+        "advertised": "Card processing equipment and service quote",
+        "constraint": "Regulators challenged merchant contract and equipment leasing representations.",
+        "comparison": "Lifetime contract = monthly service + equipment lease + termination obligations.",
+        "formula": "monthly processing/lease × term + verified exit charges",
+        "unknown": [
+          "Merchant contract",
+          "Equipment term",
+          "Termination charges"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    },
+    {
+      "id": "hopper",
+      "name": "Hopper",
+      "industry": "Travel booking",
+      "caseStatus": "settlement",
+      "source": "https://www.ftc.gov/legal-library/browse/cases-proceedings/232-3086-ftc-v-hopper-usa-inc",
+      "sourceType": "primary",
+      "consumerCostModel": {
+        "headline": "Travel booking extras",
+        "advertised": "Travel booking price and no-hidden-fees message",
+        "constraint": "FTC alleged preselected Tip and VIP Support charges and overstated some benefits; court-entered order.",
+        "comparison": "All-in booking = fare + mandatory fees + any selected add-ons; compare to direct booking.",
+        "formula": "base fare + mandatory fees + selected extras",
+        "unknown": [
+          "Itinerary and dates",
+          "Checkout add-ons",
+          "Direct fare comparison"
+        ]
+      },
+      "measurementStatus": "formula-only",
+      "verifiedConsumerTotalUSD": null,
+      "scope": "Illustrative framework; no consumer-specific transaction has been established"
+    }
+  ],
+  "linkedModels": [
+    {
+      "id": "phone-ownership",
+      "path": "data/consumer-practices/phone-upgrade-true-cost-v1.json",
+      "note": "Separate numeric comparison of unlocked purchases versus qualifying carrier device credits; requires plan and eligibility validation"
+    }
+  ]
+}
