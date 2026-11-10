@@ -68,7 +68,7 @@ class ProductionVisualAtlasTests(unittest.TestCase):
 
     def test_all_eight_visual_entry_points_route_to_real_pages(self):
         script=(UNIFIED/"atlas-visual-system.js").read_text(encoding="utf-8")
-        pattern=r'\["0[1-7] · [^"]+","[^"]+","[^"]+","([^"]+\.html)","#[a-fA-F0-9]+"\]'
+        pattern=r'\["0[1-8] · [^"]+","[^"]+","[^"]+","([^"]+\.html)","#[a-fA-F0-9]+"\]'
         matches=re.findall(pattern,script)
         self.assertEqual(len(matches),8,f"Expected eight visual topic routes: {matches!r}")
         for name in matches:
