@@ -69,7 +69,7 @@ $("caseList").innerHTML=matches.length?matches.map(function(c){return '<article 
 }
 async function load(){
 try{var res=await fetch(SOURCE,{cache:"no-store"});if(!res.ok)throw Error("Status "+res.status);var data=await res.json();if(data.schema!=="power-atlas.consumer-class-actions.v1"||!Array.isArray(data.cases))throw Error("Unexpected evidence schema");
-cases=data.cases.slice().sort(function(a,b){return (a.deadline||"9999").localeCompare(b.deadline||"9999")});
+cases=data.cases.slice().sort(function(a,b){return (a.claimStatus==="open-as-of-review"?0:1)-(b.claimStatus==="open-as-of-review"?0:1)||(a.deadline||"9999").localeCompare(b.deadline||"9999")});
 $("countCases").textContent=cases.length;$("countClaims").textContent=cases.filter(function(c){return c.claimStatus==="open-as-of-review"}).length;$("countIndustries").textContent=new Set(cases.map(function(c){return c.industry})).size;
 $("reviewDate").textContent="Source review: "+date(data.asOf);$("asOf").textContent=date(data.asOf);
 Array.from(new Set(cases.map(function(c){return c.industry}))).sort().forEach(function(i){$("industry").add(new Option(i,i))});render();
