@@ -1,0 +1,55 @@
+name: Validate money-scale and market-power household preview
+on:
+  push:
+    branches:
+      - review/market-power-20261110
+    paths:
+      - 'platform/unified/market-power.html'
+      - 'platform/unified/market-power.json'
+      - 'platform/unified/market-power-household.js'
+      - 'platform/unified/market-power-household.css'
+      - 'platform/unified/household-market-bridge.json'
+      - 'platform/unified/money-scale.html'
+      - 'platform/unified/money-scale.json'
+      - 'site/data/money-scale-v1.json'
+      - 'site/money-scale-review.html'
+      - 'tests/test_money_scale_review.py'
+      - 'tests/test_market_power_household_bridge.py'
+      - '.github/workflows/validate-market-power-household-preview.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence-and-interactions:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Validate source consistency, no fabricated harm and interactive links
+        run: |
+          python -m unittest discover -s tests -p 'test_money_scale_review.py' -v
+          python -m unittest discover -s tests -p 'test_market_power_household_bridge.py' -v
+      - name: Check JS syntax and inline script syntax on both prototype pages
+        run: |
+          node --check platform/unified/market-power-household.js
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          for file in ['platform/unified/market-power.html', 'platform/unified/money-scale.html']:
+              html=Path(file).read_text(encoding='utf-8')
+              blocks=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',html,re.S)
+              if not blocks:
+                  raise SystemExit(f'No inline script in {file}')
+              for i, body in enumerate(blocks):
+                  if body.strip():
+                      Path('/tmp/'+Path(file).stem+f'-{i}.js').write_text(body,encoding='utf-8')
+          PY
+          for script in /tmp/market-power-*.js /tmp/money-scale-*.js; do
+            if test -f "$script"; then node --check "$script"; fi
+          done
