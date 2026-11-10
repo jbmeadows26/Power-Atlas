@@ -1,0 +1,28 @@
+name: Browser acceptance - Power Atlas financial scale and market power
+on:
+  push:
+    branches: [release/visual-atlas-money-scale-20261110]
+    paths:
+      - 'tests/browser_money_market_release.py'
+      - '.github/workflows/browser-money-market-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  browser-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with: {persist-credentials: false}
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Set up free headless browser
+        run: |
+          python -m pip install 'playwright==1.55.0'
+          python -m playwright install --with-deps chromium
+      - name: Check clickable charts and responsive layouts at 375 and 1280 pixels
+        run: python tests/browser_money_market_release.py
+        env:
+          POWER_ATLAS_RESEARCH_PREVIEW: https://power-atlas-research-j3t1midj5-jbmeadows26s-projects.vercel.app
+          POWER_ATLAS_UNIFIED_PREVIEW: https://power-atlas-unified-q0fweki5w-jbmeadows26s-projects.vercel.app
