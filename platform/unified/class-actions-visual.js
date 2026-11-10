@@ -21,7 +21,7 @@ function render(data){
   if(byId("caReportedOpen"))byId("caReportedOpen").textContent=String(open.length);
   if(byId("caOtherCount"))byId("caOtherCount").textContent=String(notReported);
   if(byId("caAsOf"))byId("caAsOf").textContent="Reviewed "+prettyDate(data.asOf);
-  if(byId("caDonut"))byId("caDonut").style.setProperty("--ca-percent",String(cases.length?Math.round(open.length*100/cases.length):0));
+  if(byId("caDonut"))byId("caDonut").style.setProperty("--ca-percent",String(cases.length?Math.round(open.length*100/cases.length):0)+"%");
   var list=byId("caDeadlineTimeline");
   if(!list)return;
   list.replaceChildren();
