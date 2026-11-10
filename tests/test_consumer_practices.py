@@ -95,6 +95,21 @@ class ConsumerPracticesTests(unittest.TestCase):
         self.assertIn('href="consumer-practices.html"', life)
         self.assertIn('id="consumerPracticesCategory"', life)
 
+    def test_cross_industry_cost_comparison(self):
+        model = json.loads((ROOT / "data" / "consumer-practices" / "comparison-framework-v1.json").read_text(encoding="utf-8"))
+        phone = json.loads((ROOT / "data" / "consumer-practices" / "phone-upgrade-true-cost-v1.json").read_text(encoding="utf-8"))
+        self.assertEqual(model["schema"], "power-atlas.consumer-watch.comparison-framework.v1")
+        self.assertEqual({c["id"] for c in self.cases}, {s["id"] for s in model["scenarios"]})
+        self.assertTrue(all(s["consumerCostModel"]["unknown"] for s in model["scenarios"]))
+        self.assertTrue(all(s["source"].startswith("https://") for s in model["scenarios"]))
+        self.assertEqual(phone["schema"], "power-atlas.consumer-watch.phone-true-cost.v1")
+        self.assertGreaterEqual(len(phone["plans"]), 6)
+        for page in (self.main, self.research):
+            for text in ('id="cwCompareSelect"', 'id="cwPhoneRows"', 'src="consumer-watch-cost.js"', 'href="consumer-watch-cost.css"'):
+                self.assertIn(text, page)
+        self.assertEqual((UNIFIED / "consumer-watch-cost.js").read_bytes(), (SITE / "consumer-watch-cost.js").read_bytes())
+        self.assertEqual((UNIFIED / "consumer-watch-cost.css").read_bytes(), (SITE / "consumer-watch-cost.css").read_bytes())
+
     def test_external_javascript_parses_with_node(self):
         if shutil.which("node") is None:
             self.skipTest("Node.js unavailable")
@@ -104,6 +119,8 @@ class ConsumerPracticesTests(unittest.TestCase):
                 capture_output=True, text=True,
             )
             self.assertEqual(proc.returncode, 0, proc.stderr)
+            cost = subprocess.run(["node", "--check", str(directory / "consumer-watch-cost.js")], capture_output=True, text=True)
+            self.assertEqual(cost.returncode, 0, cost.stderr)
 
 
 if __name__ == "__main__":
