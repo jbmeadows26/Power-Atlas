@@ -1,0 +1,28 @@
+name: Validate visual atlas release candidate
+on:
+  push:
+    branches: [release/visual-atlas-v4-verified-20261110]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  release-validation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Build source-backed feeds
+        run: python scripts/build.py
+      - name: Validate entire Power Atlas test suite
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+      - name: Verify review-only pages and references are absent
+        run: |
+          test ! -f platform/unified/redesign-preview.html
+          test ! -f site/redesign-preview.html
+          ! grep -R 'power-atlas-visual-review.vercel.app\|__PA4_UNIFIED_PREVIEW__\|noindex,nofollow' platform/unified/atlas-visual-system.js site/atlas-visual-system.js
