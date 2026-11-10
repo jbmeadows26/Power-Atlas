@@ -1,37 +1,38 @@
-# Power Atlas — visual atlas review handoff
+# Power Atlas — visual atlas release handoff
+Date: 2026-11-10
 
-**Branch:** `review/visual-atlas-platform-20261110`  
-**Review-only public environment:** https://power-atlas-visual-review.vercel.app/  
-**Research review:** https://power-atlas-research-git-review-vi-feb9f8-jbmeadows26s-projects.vercel.app/  
-**Production status:** No change to `main` or the production Power Atlas aliases.
+## Release scope
 
-## What has been implemented
+The approved editorial visual redesign is implemented across the unified and research frontends. This is a production-ready release candidate, sourced from `review/visual-atlas-platform-20261110`. Merge and deploy only after successful tests and a production deployment readiness check.
 
-- An original, editorial visual atlas homepage with six topic routes and a dated, sourced consumer-price snapshot. The numbers are historical CPI index changes, not estimated household bills or attributed corporate/political effects.
-- Consistent visual tokens for the shared navigation, story guides, chart cards, topic paths, source links, and evidence details.
-- Accessible, keyboard-focusable chart bars that update source-scoped explanatory text when selected.
-- Related-story navigation covering 21 named sections on both research and unified site surfaces, with Consumer Watch using the same shared components.
-- Responsive gallery, chart labels, tap targets, focus outlines, and source-table safeguards; reduced-motion support.
-- A separate Vercel review project to avoid login protection on the existing unified preview deployment.
-- A source-preserving branch created from the latest available main baseline, incorporating all earlier data/research updates.
+- Visual atlas: seven entry points, including **Consumer Class Actions**, built using the shared visual assets `atlas-visual-system.css` and `atlas-visual-system.js`.
+- Shared story pathways, accessible chart selection, source and scope labels, evidence limitations, and responsive layouts.
+- Consumer Watch: redesigned case explorer, true-cost story, and prominent class-action pathway.
+- Consumer Class Actions: redesigned evidence-led page with interactive status distribution and an accessible, clickable claim-deadline timeline, official notice links, legal-status caveats, and source-directory cards.
+- Four secondary discovery publishers are attributed via source-directory links: ClassAction.org, Top Class Actions, Consumer Action, and ClaimDepot. Publishing a case requires independent official source verification.
 
-## Guardrails
+## Production safeguards
 
-- No verified evidence has been reclassified, no production data sources replaced, and no causal conclusions invented.
-- The public preview is accessible to people with the link, so do not put private research or unpublished personal data in it.
-- The review-only scripts carry a GitHub review banner, non-indexing browser meta tag, and internal preview URL rewrites. **Remove or disable these preview-only behaviors before a production merge**; do not copy preview hostnames into production.
-- The six visual entry points are navigation to existing full pages. Each full page's local source, date, measurement units, caveats, data-gap labels, and applications must stay intact.
+- The release scripts no longer inject a `DESIGN REVIEW · NOT PRODUCTION` banner, noindex metadata, or links to protected preview builds.
+- Cross-site links from the research surface go to `https://power-atlas-unified.vercel.app/` where the destination page does not exist in research.
+- Claims status is a **dated snapshot**, not a live status or eligibility guarantee; settlement amounts are not individual compensation.
+- No evidence relationships or metrics are upgraded to causal conclusions, and no source feed is silently replaced.
+- Old `redesign-preview.html` pages are clearly labeled archived design references and excluded from search indexing. The live design is the main homepage.
 
-## Browser acceptance checks
+## Verification gates
 
-- Unauthenticated review homepage opens; no Vercel login wall
-- Six visual story cards route correctly
-- Viewport 390px: no document-level horizontal scrolling on homepage, Everyday Life, Corporate Ownership
-- Readable selected metric details and primary-source links
-- Consumer Watch, Political Money, Accountability, Reforms and Class Actions navigate without 404s
-- Confirm mobile category strip is scrollable only within its component, not the whole document
-- No console errors and no missing required source data
+1. `tests/test_visual_atlas_review.py`: all pages use shared assets; CPI matches the connected metric snapshots; chart bars work; preview-only behaviors are absent; class-action assets and routes exist.
+2. `tests/test_consumer_class_actions.py`: data schema, legal classifications, discovery-source attribution, accessible visual timeline, JS syntax, and source-safe fallbacks.
+3. Existing sitewide source/data/page-integrity audit, Consumer Watch suite and place-first story checks.
+4. A Vercel production **READY** deployment with both canonical aliases mapped to the intended Git commit.
+5. Public browser checks of navigation and responsive interactions where site access allows. An authenticated/protected preview cannot substitute for the public production smoke test.
 
-## Remaining before publishing
+## Related URLs
 
-Use the review preview for user approval. Then run the same visual and interaction checks on the final merged candidate, remove all preview-only redirects/banner/noindex and verify `main` is current. Production deployment must be a separate, explicit approval step.
+- Public unified platform: https://power-atlas-unified.vercel.app/
+- Class actions: https://power-atlas-unified.vercel.app/class-actions.html
+- Consumer Watch: https://power-atlas-unified.vercel.app/consumer-practices.html
+- Research platform: https://power-atlas-research.vercel.app/
+- Official settlement examples: https://www.personalcareproductssettlement.com/ and https://www.venuefeesettlement.com/
+
+Data limitations remain visible in original source records. The release does not include unrelated open review branches (e.g. government-trading or market-power investigations).
