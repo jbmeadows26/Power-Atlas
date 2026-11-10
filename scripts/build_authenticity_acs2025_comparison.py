@@ -44,6 +44,7 @@ def build(acs: dict, roster: dict) -> dict:
     matched = set()
     party = {}
     pop25 = popyoung = 0
+    occupied_pop25 = occupied_popyoung = 0
     vacant = []
     for row in records:
         adult, young = row["populationAge25plusEstimate"], row["populationAge25to34Estimate"]
@@ -55,6 +56,8 @@ def build(acs: dict, roster: dict) -> dict:
         if bioguide is None:
             vacant.append(row["seatKey"])
             continue
+        occupied_pop25 += adult
+        occupied_popyoung += young
         if bioguide not in by_id or bioguide in matched:
             raise ValueError("Unmatched or duplicated House member")
         member = by_id[bioguide]
@@ -77,6 +80,11 @@ def build(acs: dict, roster: dict) -> dict:
     young_members = sum(g["membersAge25to34"] for g in party.values())
     member_share = young_members / len(active)
     resident_share = popyoung / pop25
+    occupied_share = occupied_popyoung / occupied_pop25 if occupied_pop25 else None
+    vacant_count = len(vacant)
+    vacancy_noun = "district" if vacant_count == 1 else "districts"
+    vacancy_num = "two" if vacant_count == 2 else ("one" if vacant_count == 1 else str(vacant_count))
+    vacancy_label = " and ".join(sorted(vacant))
     return {
         "schema": "power-atlas.political-authenticity.acs2025-age-representation-comparison.v1",
         "publicationStatus": "OBSERVED_DESCRIPTIVE_TWO_DATE_NONCAUSAL",
@@ -106,6 +114,25 @@ def build(acs: dict, roster: dict) -> dict:
         "memberMinusResidentPercentagePoints": round((member_share - resident_share) * 100, 4),
         "memberToResidentAge25to34ShareRatio": round(member_share / resident_share, 6),
         "partyStrataDescriptive": dict(sorted(party.items())),
+        "unoccupiedDistrictPopulationDescriptive": {
+            "scope": f"ACS 2025 residents in the {vacancy_num} {vacancy_noun} recorded vacant in {roster['asOf']} member snapshot; aggregate residual across {vacancy_label}, not separately inferred district figures",
+            "districts": sorted(vacant),
+            "residentsAge25plusEstimate": pop25 - occupied_pop25,
+            "residentsAge25to34Estimate": popyoung - occupied_popyoung,
+            "derivation": "all435DistrictsACS - sum(partyStrataDescriptive districtResidents) for both age denominators",
+            "partyAssignment": None,
+            "partyAssignmentReason": "No seated member in snapshot; previous incumbent party must not be imputed",
+            "asOfMemberSnapshotDate": roster["asOf"],
+            "acsYear": acs["surveyYear"],
+            "uncertainty": "Residual of published ACS point estimates; not an independently measured variance or MOE",
+        },
+        "occupiedDistrictPopulationDescriptive": {
+            "residentsAge25plusEstimate": occupied_pop25,
+            "residentsAge25to34Estimate": occupied_popyoung,
+            "age25to34ShareOf25plus": round(occupied_share, 9) if occupied_share is not None else None,
+            "comparisonUniverse": "Only districts with a seated voting House member in 2026-10-30 roster; retains resident-versus-member eligibility and vintage caveats",
+            "memberMinusOccupiedDistrictResidentPercentagePoints": round((member_share - occupied_share) * 100, 4) if occupied_share is not None else None,
+        },
         "uncertainty": {"ageBandSourceMOE90": "Published district MOEs exist; no valid national aggregate/share MOE or confidence interval calculated",
                         "memberAgeSourceStatus": "Secondary roster birth dates not independently primary-source-verified",
                         "statisticalSignificanceClaim": None},
@@ -117,6 +144,8 @@ def build(acs: dict, roster: dict) -> dict:
             "Member biographies and birth dates require independent primary-source confirmation",
             "No survey microdata, occupational histories, disclosed-wealth intervals, or voter preferences used",
             "No statistical tests: ACS design covariance and valid share standard errors not available in this aggregate",
+            "Party-stratified district residents exclude the two vacant districts; vacancy residual is reported explicitly and not assigned to any party.",
+            "The all-435-district resident comparison and occupied-433-district resident comparison use different denominators; neither is a voter-eligible or causal comparison.",
         ],
     }
 
