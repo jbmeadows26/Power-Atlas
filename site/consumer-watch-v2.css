@@ -193,3 +193,11 @@ button:focus-visible,input:focus-visible,select:focus-visible,a:focus-visible,su
 .cw-claims-callout .cw-index{color:#d5f7a7}
 .cw-claims-callout a{background:#d5f7a7;color:#12372e;white-space:nowrap;text-decoration:none;font-size:.83rem;font-weight:850;padding:13px 17px;border-radius:10px;text-align:center;min-height:44px}
 @media(max-width:760px){.cw-claims-callout{display:block;padding:22px 20px}.cw-claims-callout a{display:inline-block;margin-top:16px;white-space:normal}}
+
+/* Clear interactive affordance in the pattern sidebar: full-width, touch-friendly action. */
+.cw-pattern-note .cw-pattern-cta{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:24px;width:100%;min-height:52px;padding:13px 16px;color:#123b36;background:#d5f7a7;border:2px solid #d5f7a7;border-radius:12px;font:inherit;font-size:.86rem;line-height:1.25;font-weight:850;text-align:left;cursor:pointer;box-shadow:0 5px 0 #032a29}
+.cw-pattern-note .cw-pattern-cta span{font-size:1.2rem;line-height:1}
+.cw-pattern-note .cw-pattern-cta:hover{background:#ecffc9;border-color:#ecffc9}
+.cw-pattern-note .cw-pattern-cta:focus-visible{outline:3px solid #fff;outline-offset:4px}
+.cw-pattern-note .cw-pattern-cta:disabled{cursor:not-allowed;opacity:.65}
+@media(max-width:760px){.cw-pattern-note .cw-pattern-cta{min-height:54px}}
