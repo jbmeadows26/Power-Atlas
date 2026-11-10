@@ -1,0 +1,139 @@
+{
+  "schema": "power-atlas.consumer-class-actions.v1",
+  "asOf": "2026-11-10",
+  "title": "Consumer Class Actions",
+  "scope": "United States; selected, source-linked consumer class-action settlements; not a comprehensive case database",
+  "methodology": {
+    "classification": "Class-action settlements only. FTC/CFPB enforcement refunds are separate remedies and never counted as class-action settlements.",
+    "statuses": [
+      "alleged",
+      "class-certified",
+      "settlement-proposed",
+      "settlement-final",
+      "claims-closed",
+      "dismissed",
+      "judgment"
+    ],
+    "claims": "A proposed settlement and an open claim window are independent attributes. Claim deadlines, class eligibility, payments, final approvals, and appeals may change. Confirm against the settlement notice before taking action.",
+    "damages": "Settlement fund amounts are gross figures, not per-person payouts, proven consumer losses, or admissions of liability.",
+    "sourceHierarchy": [
+      "Court docket, settlement order and notice",
+      "Official court-authorized settlement administrator site",
+      "Regulator primary-source page (distinct enforcement lane)",
+      "Independent aggregation as discovery only"
+    ],
+    "verification": "Source review dated 2026-11-10. No automated court-docket monitoring or live claims verification is presently connected."
+  },
+  "cases": [
+    {
+      "id": "brewer-cvs-criteo-2026",
+      "company": "CVS Pharmacy / Criteo",
+      "industry": "Privacy & data",
+      "issue": "Website tracking and data sharing",
+      "stateScope": "Nationwide (U.S. users)",
+      "caseName": "Brewer et al. v. CVS Pharmacy, Inc. and Criteo Corp.",
+      "court": "Circuit Court of the 17th Judicial Circuit, Broward County, Florida",
+      "docket": "CACE-26-008094",
+      "proceduralStatus": "settlement-proposed",
+      "claimStatus": "open-as-of-review",
+      "headline": "A proposed $20.5M settlement addresses allegations about third-party tracking on CVS digital properties.",
+      "allegations": "Plaintiffs alleged that data from visitors to CVS digital sites and apps was disclosed to technology providers without valid consent. CVS and Criteo deny wrongdoing.",
+      "classSummary": "People who accessed certain CVS websites or apps in the United States before July 27, 2026; exclusions and notice conditions apply.",
+      "deadline": "2026-11-16",
+      "optOutDeadline": "2026-11-01",
+      "hearingDate": "2026-12-01",
+      "grossFundUSD": 20500000,
+      "payout": "Up to $5 without documentation or $10 with proof, potentially reduced; not guaranteed.",
+      "action": "Review the official notice and only file if the class definition fits. Claim deadline is November 16, 2026.",
+      "officialUrl": "https://www.cvsdigitalprivacysettlement.com/",
+      "officialEvidence": "Administrator website cited by case reporting; direct automated access returned 403 on 2026-11-10. Reverify official notice before relying on terms.",
+      "secondaryUrl": "https://www.classaction.org/news/up-to-20.5m-cvs-digital-privacy-settlement-ends-lawsuit-over-website-and-app-user-data-disclosures",
+      "confidence": "source-access-limited",
+      "crossLinks": [
+        "consumer-practices.html",
+        "corporate-ownership.html"
+      ]
+    },
+    {
+      "id": "apple-smartphone-ai-2026",
+      "company": "Apple",
+      "industry": "Technology & devices",
+      "issue": "Advertised AI features",
+      "stateScope": "U.S. eligible purchases",
+      "caseName": "Smartphone AI Settlement",
+      "court": "See official settlement notice",
+      "docket": null,
+      "proceduralStatus": "settlement-proposed",
+      "claimStatus": "open-as-of-review",
+      "headline": "A $250M proposed settlement covers claims about certain Siri Apple Intelligence features.",
+      "allegations": "Consumers alleged that eligible iPhones were purchased expecting certain advertised Siri Apple Intelligence features that allegedly were not delivered. Apple denies the allegations and any wrongdoing.",
+      "classSummary": "Original U.S. purchasers, not for resale, of specified iPhone 15 Pro or iPhone 16 models bought June 10, 2024–March 29, 2025; eligibility details matter.",
+      "deadline": "2026-12-21",
+      "optOutDeadline": "2026-12-21",
+      "hearingDate": "2027-02-24",
+      "grossFundUSD": 250000000,
+      "payout": "Administrator describes a $25 starting amount per eligible device, adjusted pro rata up to $95 or down; not guaranteed.",
+      "action": "Check purchase date, model and the official notice; submit a separate claim per eligible device if qualified.",
+      "officialUrl": "https://smartphoneaisettlement.com/",
+      "officialEvidence": "Settlement administrator landing page and important dates; accessed 2026-11-10.",
+      "secondaryUrl": null,
+      "confidence": "official-website-verified",
+      "crossLinks": [
+        "consumer-practices.html",
+        "corporate-ownership.html"
+      ]
+    },
+    {
+      "id": "burke-atm-2026",
+      "company": "Visa / Mastercard",
+      "industry": "Banking & payments",
+      "issue": "Independent ATM surcharges",
+      "stateScope": "Nationwide with additional state classes",
+      "caseName": "Burke v. Visa Inc.",
+      "court": "U.S. District Court for the District of Columbia",
+      "docket": "1:11-cv-01882",
+      "proceduralStatus": "settlement-proposed",
+      "claimStatus": "open-as-of-review",
+      "headline": "A proposed $167.5M antitrust settlement concerns surcharges at independent ATMs.",
+      "allegations": "Plaintiffs alleged network rules limited price competition among independent ATMs, causing higher surcharges. Defendants deny wrongdoing.",
+      "classSummary": "Certain U.S. ATM or PIN-debit withdrawals at independently operated ATMs from October 24, 2007 through August 14, 2026, where surcharge fees were not fully reimbursed; see official notice.",
+      "deadline": "2027-02-10",
+      "optOutDeadline": "2026-12-11",
+      "hearingDate": "2027-02-17",
+      "grossFundUSD": 167500000,
+      "payout": "Unknown until claims and deductions are finalized. The fund is not a guaranteed payout to an individual.",
+      "action": "Review transactions and official settlement notice; eligible claims are due February 10, 2027.",
+      "officialUrl": "https://www.nonbankatmsurchargesettlement.com/",
+      "officialEvidence": "Official settlement administrator website and notice; accessed 2026-11-10.",
+      "secondaryUrl": null,
+      "confidence": "official-website-verified",
+      "crossLinks": [
+        "consumer-practices.html",
+        "corporate-ownership.html"
+      ]
+    }
+  ],
+  "relatedRemedies": [
+    {
+      "type": "Regulatory refunds — not class actions",
+      "name": "FTC refund programs",
+      "url": "https://www.ftc.gov/enforcement/refunds"
+    },
+    {
+      "type": "Federal court records",
+      "name": "PACER case lookup",
+      "url": "https://www.uscourts.gov/court-records/find-a-case-pacer"
+    },
+    {
+      "type": "Class-action procedure",
+      "name": "Federal Rule of Civil Procedure 23",
+      "url": "https://www.law.cornell.edu/rules/frcp/rule_23"
+    }
+  ],
+  "discoverySources": [
+    {
+      "name": "ClassAction.org — leads only, verify with notice",
+      "url": "https://www.classaction.org/settlements"
+    }
+  ]
+}
