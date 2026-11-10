@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#f7f8f9">
 <title>Who Trades While Governing? | Power Atlas</title>
 <meta name="description" content="Source-linked analysis of disclosed trading by presidential accounts and congressional filers. Explore monthly transactions and evidence limitations.">
-<link rel="stylesheet" href="global-navigation.css">
+<link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="atlas-visual-system.css">
 <style>
 :root{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;color:#1e3434;background:#f6f8f7}
 *{box-sizing:border-box}body{margin:0}a{color:#176c64}a:focus-visible,button:focus-visible{outline:3px solid #bb7d21;outline-offset:3px}button{font:inherit;cursor:pointer}main{max-width:1120px;margin:0 auto;padding:30px 21px 70px}
@@ -152,5 +152,5 @@ fetch('official-trading-data-v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)thro
 }).catch(()=>{chart.textContent='Monthly chart unavailable. Open the original source or the static dataset below.';state.textContent='Source load failed; live chart counts are not shown. The headline figures above are a cited snapshot as of November 10, 2026.';document.getElementById('stocks').textContent='Company list unavailable; consult the original source.'});
 })();
 </script>
-<script src="bug-report.js" defer></script>
+<script src="atlas-visual-system.js" defer></script><script src="bug-report.js" defer></script>
 </body></html>
