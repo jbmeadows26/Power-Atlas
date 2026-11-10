@@ -1,7 +1,7 @@
-"""Review-only validation for Power Atlas visual atlas v4.
+"""Release validation for Power Atlas visual atlas v4.
 
 Run: python -m unittest discover -s tests -p 'test_visual_atlas_review.py'
-No paid services, secret credentials or production URLs required.
+No paid services or secret credentials required; cross-site links are checked statically.
 """
 from __future__ import annotations
 
@@ -68,8 +68,30 @@ class VisualAtlasReviewTests(unittest.TestCase):
                 self.assertIn('"aria-pressed"', script)
                 self.assertIn(".pa4-chart-takeaway", css)
                 self.assertIn("source(links,src", script)
-                self.assertIn("noindex,nofollow", script)
-                self.assertIn("Preview-only link rewrites:", script)
+                self.assertIn('https://power-atlas-unified.vercel.app/', script)
+                self.assertIn('class-actions.html', script)
+                self.assertIn('Seven paths into the evidence.', script)
+                self.assertIn('pa4-tile--claims', script)
+                self.assertNotIn('noindex,nofollow', script)
+                self.assertNotIn('Preview-only link rewrites:', script)
+                self.assertNotIn('DESIGN REVIEW · NOT PRODUCTION', script)
+                self.assertNotIn('__PA4_UNIFIED_PREVIEW__', script)
+                self.assertNotIn('power-atlas-visual-review.vercel.app', script)
+                self.assertNotIn('.pa4-review-ribbon', css)
+
+    def test_class_actions_source_links_and_visual_integrity(self):
+        html = (UNIFIED / "class-actions.html").read_text(encoding="utf-8")
+        visual_js = (UNIFIED / "class-actions-visual.js").read_text(encoding="utf-8")
+        consumer = (UNIFIED / "consumer-practices.html").read_text(encoding="utf-8")
+        preview = (UNIFIED / "redesign-preview.html").read_text(encoding="utf-8")
+        for asset in ("class-actions-visual.css", "class-actions-visual.js"):
+            self.assertIn(asset, html)
+            self.assertTrue((UNIFIED / asset).is_file())
+        self.assertIn("poweratlas:class-actions-loaded", visual_js)
+        self.assertIn('id="caDeadlineTimeline"', html)
+        self.assertIn('id="caDonut"', html)
+        self.assertIn('href="class-actions.html"', consumer)
+        self.assertIn('href="class-actions.html"', preview)
 
     @unittest.skipUnless(shutil.which("node"), "Node.js unavailable")
     def test_shared_javascript_parses(self):
