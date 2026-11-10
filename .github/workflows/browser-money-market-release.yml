@@ -1,7 +1,7 @@
 name: Browser acceptance - Power Atlas financial scale and market power
 on:
   push:
-    branches: [release/visual-atlas-money-scale-20261110]
+    branches: [release/money-market-current-main-20261110, main]
     paths:
       - 'tests/browser_money_market_release.py'
       - '.github/workflows/browser-money-market-release.yml'
