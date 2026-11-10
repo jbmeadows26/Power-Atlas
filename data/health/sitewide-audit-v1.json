@@ -1,16 +1,16 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-09T20:43:11.489287+00:00",
+  "generatedUTC": "2026-11-10T02:24:23.287609+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 20,
-    "jsonDataFilesChecked": 305,
-    "validJsonFiles": 305,
-    "staticReferencesInspected": 385,
+    "htmlPagesAudited": 21,
+    "jsonDataFilesChecked": 306,
+    "validJsonFiles": 306,
+    "staticReferencesInspected": 390,
     "unresolvedStaticLinkIssues": 0,
-    "missingBugReportScripts": 0,
+    "missingBugReportScripts": 1,
     "unresolvedLiteralDataPointers": 0,
     "corporateEntitiesIndexed": 84,
     "corporateRelationsSourceAttributed": 64,
@@ -192,6 +192,18 @@
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/economic-fragility-review.html",
+      "localReferenceCount": 1,
+      "allReferencesCount": 5,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": false,
+      "dataReferences": [
+        "data/economic-fragility/2027-review-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
     },
     {
       "path": "platform/unified/election-2026.html",
@@ -386,7 +398,9 @@
   "brokenStaticReferences": [],
   "invalidDataFiles": [],
   "unparsedHtml": [],
-  "missingBugReportScripts": [],
+  "missingBugReportScripts": [
+    "platform/unified/economic-fragility-review.html"
+  ],
   "unresolvedLiteralDataPointers": [],
   "corporateGraph": {
     "uniqueEntities": 84,
