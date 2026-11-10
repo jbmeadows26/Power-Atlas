@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0d3038">
+<meta name="description" content="Compare two U.S. places with source-backed housing benchmarks, understand who shapes prices, and explore what could change. No cost-of-living calculator.">
+<title>The Cost Gap | Power Atlas</title>
+<link rel="stylesheet" href="global-navigation.css">
+<link rel="stylesheet" href="atlas-visual-system.css">
+<link rel="stylesheet" href="cost-gap.css?v=20261110">
+</head>
+<body class="cg-page">
+<header class="cg-hero">
+  <nav class="cg-nav" aria-label="Power Atlas navigation"><a class="cg-logo" href="index.html">P<span>/</span>A <small>POWER ATLAS</small></a><div><a href="my-life.html#what">Everyday life</a><a href="corporate-ownership.html">Who owns what</a><a href="reform-lab.html">Ways forward</a></div></nav>
+  <div class="cg-hero-inner"><span class="cg-kicker">POWER ATLAS / EVERYDAY LIFE / COMPARE PLACES</span>
+  <h1>Two places.<br>One cost gap.<br><em>What's behind it?</em></h1>
+  <p>See where costs differ, trace the forces behind them, and explore what could change. This is an evidence explorer, not a budget or relocation calculator.</p>
+  <div class="cg-roadmap" aria-label="How this story works"><span><b>01</b> Compare verified figures</span><span><b>02</b> Follow the drivers</span><span><b>03</b> Explore solutions</span></div></div>
+</header>
+<main id="main" class="cg-shell">
+<section class="cg-setup cg-panel" aria-labelledby="compare-heading">
+ <div class="cg-section-head"><div><span class="cg-kicker">01 / FIND THE DIFFERENCE</span><h2 id="compare-heading">Compare two communities</h2><p>Use one five-digit ZIP in each place to compare the same official rent measure. The labels identify postal areas, not exact municipal boundaries.</p></div><span class="cg-pill">No salary, bills or personal spending required</span></div>
+ <form id="cg-form" class="cg-form" novalidate>
+  <label>Place A <span>ZIP code</span><input id="cg-zip-a" name="from" inputmode="numeric" autocomplete="postal-code" pattern="[0-9]{5}" maxlength="5" required placeholder="10001" aria-describedby="cg-privacy"></label>
+  <span class="cg-versus" aria-hidden="true">VS</span>
+  <label>Place B <span>ZIP code</span><input id="cg-zip-b" name="to" inputmode="numeric" pattern="[0-9]{5}" maxlength="5" required placeholder="19103" aria-describedby="cg-privacy"></label>
+  <button class="cg-action" type="submit">Compare places <span aria-hidden="true">→</span></button>
+ </form>
+ <div class="cg-presets" aria-label="Example pairs"><span>Explore an example:</span><button type="button" data-a="10001" data-b="19103">New York / Philadelphia</button><button type="button" data-a="07010" data-b="10001">Bergen County / Manhattan</button><button type="button" data-a="60601" data-b="90012">Chicago / Los Angeles</button></div>
+ <p id="cg-privacy" class="cg-fine">On submission, your two ZIP codes are sent to <a href="https://www.zippopotam.us/" target="_blank" rel="noopener noreferrer">Zippopotam.us</a> for approximate city and state labels. Rent references are fetched from the public Power Atlas repository. No ZIPs are stored by this page.</p>
+ <p id="cg-status" class="cg-status" role="status" aria-live="polite">Choose two places to explore published comparisons.</p>
+</section>
+<section id="cg-comparison" class="cg-compare cg-panel" aria-labelledby="cg-results-title">
+ <div class="cg-section-head"><div><span class="cg-kicker">02 / WHAT THE EVIDENCE SHOWS</span><h2 id="cg-results-title">The difference is only the beginning.</h2><p id="cg-scope">We will show comparable local data where it exists, and mark the evidence gaps where it doesn't.</p></div><span class="cg-pill" id="cg-period">Source-labelled measures</span></div>
+ <div class="cg-topics" role="group" aria-label="Expense category"><button type="button" class="cg-topic" data-topic="housing" aria-pressed="true">Housing</button><button type="button" class="cg-topic" data-topic="transport">Transportation</button><button type="button" class="cg-topic" data-topic="groceries">Groceries</button><button type="button" class="cg-topic" data-topic="utilities">Utilities</button><button type="button" class="cg-topic" data-topic="health">Healthcare</button><button type="button" class="cg-topic" data-topic="schools">Childcare &amp; education</button></div>
+ <div id="cg-view" class="cg-view" aria-live="polite"><div class="cg-empty"><strong>Choose a pair above.</strong><p>We'll compare 0–4-bedroom HUD gross-rent references and show the underlying source, date and geographic scope.</p></div></div>
+</section>
+<section class="cg-panel cg-explain" id="cg-why" aria-labelledby="cg-why-title">
+ <div class="cg-section-head"><div><span class="cg-kicker">03 / FOLLOW THE POWER</span><h2 id="cg-why-title">Why might one place cost more?</h2><p>These are evidence-backed mechanisms to investigate—not a statistical attribution of the difference above.</p></div></div>
+ <div class="cg-drivers">
+  <article><span class="cg-driver-num">01</span><h3>Housing supply and land use</h3><p>Construction limits, local zoning, access to employment and demand affect the available housing stock.</p><p><strong>Decision-makers:</strong> planning boards, local elected officials, developers and landowners.</p><a href="https://www.huduser.gov/portal/datasets/fmr.html" target="_blank" rel="noopener noreferrer">Explore HUD rent methods ↗</a></article>
+  <article><span class="cg-driver-num">02</span><h3>Ownership and finance</h3><p>Landlords, investors, lenders and borrowing conditions can change the incentives behind pricing.</p><p><strong>Who may benefit:</strong> owners collecting rent or financing revenue. A particular local effect requires separate evidence.</p><a href="corporate-ownership.html">Trace documented ownership →</a></article>
+  <article><span class="cg-driver-num">03</span><h3>Public decisions and essential services</h3><p>Taxes, insurance, utilities and transportation shape total household burdens; none is automatically explained by a rent benchmark.</p><p><strong>Who pays:</strong> households facing the charges. Follow the source and actual rate structure before assigning responsibility.</p><a href="my-life.html#what">Investigate transportation →</a></article>
+ </div>
+ <div class="cg-integrity"><strong>Evidence rule:</strong> A ZIP-level rent gap is a measured difference. It is not proof that a named corporation, politician, regulation or investor caused that gap. Source-backed connections and unresolved leads remain visibly separate.</div>
+</section>
+<section class="cg-next cg-panel" aria-labelledby="cg-next-title"><span class="cg-kicker">04 / WHAT CAN CHANGE</span><h2 id="cg-next-title">Move from differences to decisions.</h2><p>Examine practical choices, reforms and public records—not just a ranking of which city is cheaper.</p><div class="cg-next-grid"><a href="reform-lab.html"><strong>Explore policy options</strong><span>What governments can change →</span></a><a href="business-influence.html"><strong>Follow influence</strong><span>Compare documented money and decisions →</span></a><a href="my-life.html#what"><strong>Explore your issue</strong><span>More economic forces and local context →</span></a></div></section>
+<section class="cg-method cg-panel" aria-labelledby="cg-method-title"><h2 id="cg-method-title">Sources and limits</h2><p><strong>Housing:</strong> FY2027 HUD Small Area Fair Market Rent (SAFMR) gross-rent references, 0–4 bedrooms; effective October 1, 2026 unless an area has a current-year exception. HUD references are used in housing-assistance programs and are not apartment listings, the median rent residents currently pay, or a guarantee of voucher payment. The ZIP records in this feature are a CC BY 4.0 compilation by Multifamily Today of HUD-derived data, not a direct HUD API. The page labels any FY2026 carryover where supplied.</p><p><strong>Other expenses:</strong> nationally or regionally reported measures are not presented as precise ZIP-level prices. Where consistent comparisons are missing, the feature explains what is missing rather than calculating a fictional total.</p><p><a href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html" target="_blank" rel="noopener noreferrer">HUD Small Area FMRs ↗</a> · <a href="https://multifamily.today/data/" target="_blank" rel="noopener noreferrer">Data compilation and license ↗</a> · <a href="https://www.bls.gov/news.release/cesan.htm" target="_blank" rel="noopener noreferrer">BLS Consumer Expenditure Survey ↗</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/housing/bedroom-rents" target="_blank" rel="noopener noreferrer">Power Atlas source snapshots ↗</a></p></section>
+</main>
+<footer class="cg-footer">POWER ATLAS · Explain the gap. Follow the evidence. <a href="index.html">Return to Power Atlas</a></footer>
+<script src="cost-gap.js?v=20261110" defer></script>
+<script src="bug-report.js" defer></script>
+<script src="atlas-visual-system.js" defer></script>
+</body></html>
