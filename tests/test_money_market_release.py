@@ -61,7 +61,7 @@ class MoneyMarketReleaseTests(unittest.TestCase):
         for folder in (S,U):
             js=(folder/"atlas-visual-system.js").read_text()
             css=(folder/"atlas-visual-system.css").read_text()
-            self.assertIn("Nine paths into the evidence",js)
+            self.assertIn("Ten paths into the evidence",js)
             self.assertIn("09 · Financial scale",js)
             self.assertIn("08 · Market power",js)
             self.assertIn('"market-power.html"',js)
