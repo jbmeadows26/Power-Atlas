@@ -67,3 +67,17 @@ body[data-pa-page] > header:has(.sectionNav) > .topbar{display:none!important}
  #pa-global-header .pa-global-links{gap:4px}
  #pa-global-header .pa-global-links a{font-size:.735rem;min-height:47px;padding:7px 2px}
 }
+
+/* Consumer Watch is a dedicated sixth top-level category. On narrow screens the
+   six links form a readable three-by-two grid rather than six tiny tap targets. */
+#pa-global-header .pa-global-links{grid-template-columns:repeat(6,minmax(0,1fr));width:min(100%,840px)}
+@media(max-width:830px){
+  html{scroll-padding-top:159px}
+  #pa-global-header .pa-global-links{grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:5px}
+  #pa-global-header .pa-global-links a{font-size:.81rem;min-height:39px;padding:7px 5px}
+  body[data-pa-page] > main [id],body[data-pa-page] > main section[id]{scroll-margin-top:163px}
+}
+@media(max-width:400px){
+  #pa-global-header .pa-global-links{grid-template-columns:repeat(3,minmax(0,1fr))}
+  #pa-global-header .pa-global-links a{font-size:.79rem;min-height:39px;padding:7px 4px}
+}
