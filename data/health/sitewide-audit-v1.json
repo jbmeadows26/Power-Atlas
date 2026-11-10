@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T19:36:17.204667+00:00",
+  "generatedUTC": "2026-11-10T19:40:06.127774+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 30,
+    "htmlPagesAudited": 31,
     "jsonDataFilesChecked": 314,
     "validJsonFiles": 314,
-    "staticReferencesInspected": 653,
+    "staticReferencesInspected": 680,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -190,6 +190,16 @@
       "primaryHeaderPresent": true
     },
     {
+      "path": "platform/unified/cost-gap.html",
+      "localReferenceCount": 16,
+      "allReferencesCount": 22,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
+    {
       "path": "platform/unified/dark-money.html",
       "localReferenceCount": 18,
       "allReferencesCount": 20,
@@ -265,8 +275,8 @@
     },
     {
       "path": "platform/unified/index.html",
-      "localReferenceCount": 41,
-      "allReferencesCount": 52,
+      "localReferenceCount": 43,
+      "allReferencesCount": 54,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -306,8 +316,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 29,
-      "allReferencesCount": 34,
+      "localReferenceCount": 31,
+      "allReferencesCount": 36,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -456,7 +466,7 @@
     {
       "path": "site/index.html",
       "localReferenceCount": 10,
-      "allReferencesCount": 41,
+      "allReferencesCount": 42,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
