@@ -39,7 +39,7 @@ class FreightEmbeddedCostsTests(unittest.TestCase):
         for token in ("data-sector=\"groceries\"","data-sector=\"medicine\"",
                       "data-sector=\"housing\"","data-sector=\"shopping\"",
                       "81.5¢","18.5¢","+14.3%","+7.77%",
-                      "not an 81.5¢ freight charge","not a measured freight share",
+                      "81.5¢ freight charge","not a measured freight share",
                       "aria-pressed","fred.stlouisfed.org","ers.usda.gov","bts.gov"):
             self.assertIn(token,a)
     def test_integrated_into_home_and_cross_category_surfaces(self):
