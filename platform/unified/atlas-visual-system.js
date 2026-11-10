@@ -220,3 +220,41 @@ if(path==="index.html")intro();context();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",main,{once:true});else main();
 })();
+
+/* Shared location-first navigation — applied consistently across Power Atlas pages.
+   Consumer Watch remains discoverable in the Costs journey, without misrouting its tab. */
+(()=>{
+  "use strict";
+  const nav=document.querySelector("#pa-global-header .pa-global-links");
+  if(!nav)return;
+  const definitions=[
+    ["place","my-life.html#where","Start Here"],
+    ["issues","my-life.html#what","Issues"],
+    ["costs","my-life.html#benchmarkStory","Costs"],
+    ["why","my-life.html#why","The Why"],
+    ["action","my-life.html#how","Actions"],
+    ["research","index.html","Research"]
+  ];
+  const existing=new Map();
+  for(const link of nav.querySelectorAll("a[data-pa-nav]")){
+    const key=link.dataset.paNav==="consumer"?"costs":link.dataset.paNav;
+    existing.set(key,link);
+  }
+  if(definitions.some(([key])=>!existing.has(key)))return;
+  for(const [key,href,label] of definitions){
+    const link=existing.get(key);
+    link.dataset.paNav=key;
+    link.setAttribute("href",href);
+    const long=link.querySelector(".pa-long"),short=link.querySelector(".pa-short");
+    if(long)long.textContent=label;
+    if(short)short.textContent=label;
+    if(key==="costs"&&link.getAttribute("aria-current")==="page")link.setAttribute("aria-current","location");
+    nav.append(link);
+  }
+  if(location.pathname.endsWith("/my-life.html")&&!location.hash){
+    for(const link of nav.querySelectorAll("a[data-pa-nav]")){
+      if(link.dataset.paNav==="place")link.setAttribute("aria-current","location");
+      else link.removeAttribute("aria-current");
+    }
+  }
+})();

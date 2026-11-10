@@ -529,15 +529,48 @@
 .tp-static-relief{background:#f5faf5;color:#4c715b}
 @media(max-width:700px){.ts-base-grid,.tv-agency-baselines,.tp-static-cards{grid-template-columns:1fr}}
 @media(max-width:520px){.ts-national-baseline{padding:13px}.ts-base-line{padding:11px}.tp-static-card{padding:12px}}
+
+/* Location-first onboarding: the ZIP field is visible before the hero, without burying privacy text. */
+.pa-zip-start.wrapper{max-width:1150px;margin:0 auto;padding:15px 20px 13px;scroll-margin-top:0}
+.pa-zip-shell{background:#fff;border:1px solid #d1e1d9;border-radius:20px;padding:19px 23px 15px;box-shadow:0 7px 25px #153a3e0b}
+.pa-zip-kicker{display:block;color:#20796f;letter-spacing:.13em;text-transform:uppercase;font-weight:900;font-size:.68rem;margin-bottom:5px}
+.pa-zip-head h2{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.2;letter-spacing:-.04em;color:#173c42;margin:2px 0 5px}
+.pa-zip-head p{color:#51696c;font-size:.86rem;line-height:1.5;margin:0 0 13px;max-width:850px}
+.pa-zip-controls{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr);gap:18px;align-items:center}
+.pa-zip-controls form{min-width:0}
+.pa-zip-controls label{display:block;color:#284f52;font-size:.78rem;letter-spacing:.015em;font-weight:830;margin-bottom:6px}
+.pa-zip-controls .fields{display:flex;gap:9px;align-items:stretch}
+.pa-zip-controls .fields input{flex:1;max-width:none;min-width:0;min-height:48px;width:100%;font-size:1.02rem;background:#fcfdfb}
+.pa-zip-controls .fields button{min-height:48px;white-space:nowrap;background:#216f69;border-radius:11px}
+.pa-zip-controls .fields button:hover{background:#14534f}
+.pa-zip-result{min-width:0;border-left:2px solid #bfdbd0;padding:3px 0 3px 15px}
+.pa-zip-result strong{display:block;font-size:1.02rem;color:#224c4c;line-height:1.3}
+.pa-zip-result p{font-size:.77rem;line-height:1.45;color:#5c7274;margin:5px 0}
+.pa-zip-result a{font-size:.74rem;font-weight:740}
+.pa-zip-privacy{font-size:.72rem;line-height:1.5;color:#647679;margin:13px 0 0}
+.pa-zip-disclosure{font-size:.72rem;color:#506e6f;margin-top:5px}
+.pa-zip-disclosure summary{cursor:pointer;font-weight:730;color:#2c7069;display:inline-block;min-height:30px;padding:5px 0}
+.pa-zip-disclosure p{font-size:.75rem;line-height:1.6;margin:5px 0}
+body[data-pa-page="overview"] :is(#where,#what,#benchmarkStory,#why,#how,#issueResult){scroll-margin-top:0!important}
+@media(max-width:800px){.pa-zip-controls{grid-template-columns:1fr;gap:10px}.pa-zip-result{border-left:0;border-top:1px solid #dce8e1;padding:9px 0 0}.pa-zip-result a{display:inline-block;margin-top:2px}}
+@media(max-width:550px){.pa-zip-start.wrapper{padding:9px 12px 10px}.pa-zip-shell{padding:13px 14px 10px;border-radius:16px}.pa-zip-head h2{font-size:1.29rem}.pa-zip-head p{font-size:.79rem;line-height:1.4;margin-bottom:9px}.pa-zip-controls .fields{gap:7px}.pa-zip-controls .fields input{font-size:1rem;min-height:44px;padding:8px 10px}.pa-zip-controls .fields button{font-size:.84rem;min-height:44px;padding:8px 10px}.pa-zip-privacy{margin-top:8px;font-size:.7rem}}
 </style><link rel="stylesheet" href="atlas-visual-system.css"></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
+<section class="pa-zip-start wrapper" id="where" aria-labelledby="whereTitle">
+  <div class="pa-zip-shell">
+    <div class="pa-zip-head"><span class="pa-zip-kicker">01 / START HERE</span><h2 id="whereTitle">Explore what shapes life in your area.</h2><p>Start with your ZIP code. Then choose an everyday issue to see the costs, decisions, evidence, and options connected to it.</p></div>
+    <div class="pa-zip-controls">
+      <form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div></form>
+      <div class="pa-zip-result" aria-live="polite"><strong id="placeName">No ZIP selected</strong><p id="placeStatus">Enter a ZIP for approximate local context, or explore national issues without one.</p><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">Find your U.S. House representative ↗</a></div>
+    </div>
+    <p id="zipPrivacy" class="pa-zip-privacy">Privacy: your ZIP is sent to third-party postal and Census services for approximate local information; Power Atlas does not store or share it in a link.</p>
+    <details class="pa-zip-disclosure"><summary>How location data and rent sources work</summary><p>When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Bedroom rent comparisons download a state-level HUD-derived rent file from GitHub or Multifamily Today; the rent file request contains a state, not your individual ZIP. Power Atlas does not store the ZIP, put it in a shared link, or infer your politics. A ZIP is not a verified electoral, school, utility or city boundary.</p></details>
+  </div>
+</section>
 <div class="hero"><div class="wrapper"><nav class="crumb" aria-label="Breadcrumb"><a href="index.html">← Research home</a><a href="compare.html">Evidence studio</a><a href="business-candidates.html">Company investigations</a></nav><div class="ey">Power Atlas · A place-first guide to power</div><h1>Your life is shaped by decisions. <em>See which ones.</em></h1><p class="lead">Start with where you live and an everyday concern. Follow the people, rules, organizations and money connected to that issue—then explore what can actually help.</p>
 <div class="steps" aria-label="Four steps"><div class="step"><b>01 · Where</b>Your community</div><div class="step"><b>02 · What</b>Your everyday issue</div><div class="step"><b>03 · Why</b>Follow the decisions and evidence</div><div class="step"><b>04 · How</b>Explore ways forward</div></div></div></div>
 <main class="wrapper">
-<section class="section" id="where"><div class="section-head"><div><div class="number"><span>1</span> Where you live</div><h2>Start with your community.</h2><p>Enter a ZIP code to label a place. This is not a street address, and it does not identify your elected officials, school district or utility provider.</p></div></div>
-<div class="location"><div class="panel loc-form"><form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div></form><p class="fine" id="zipPrivacy">Optional. When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Bedroom rent comparisons download a state-level HUD-derived rent file from GitHub or Multifamily Today; the rent file request contains a state, not your individual ZIP. Power Atlas does not store the ZIP, put it in a shared link, or infer your politics.</p></div><div class="loc-result" aria-live="polite"><span class="local-flag">Geographic context</span><strong id="placeName">No ZIP selected</strong><p class="fine" id="placeStatus">Choose an issue below or look up a postal area.</p><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer" class="fine">Find your current U.S. House representative using the official tool ↗</a></div></div>
-</section>
 <section class="section" id="what"><div class="section-head"><div><div class="number"><span>2</span> Your daily life</div><h2>What matters most right now?</h2><p>Choose one issue. The explanation, connected research and practical resources will update together.</p></div></div>
 <p id="step2Place" class="fine" role="status">Explore a category without a ZIP, or enter your ZIP above for additional local context.</p>
 <div class="issue-grid" id="issueGrid" role="group" aria-label="Choose an everyday-life issue"><p>Loading life topics…</p></div>
@@ -939,10 +972,10 @@ function renderSources(){
  $("originAll").setAttribute("aria-pressed",String(showAllOriginalSources));
 }
 
-const pageSections=new Set(["where","what","why","how"]);
-const navBySection={where:"place",what:"issues",why:"why",how:"action"};
+const pageSections=new Set(["where","what","benchmarkStory","why","how"]);
+const navBySection={where:"place",what:"issues",benchmarkStory:"costs",why:"why",how:"action"};
 function markPrimaryNav(section){
- const key=navBySection[section]||"why";
+ const key=navBySection[section]||"place";
  document.querySelectorAll("#pa-global-header [data-pa-nav]").forEach(a=>{
   if(a.dataset.paNav===key)a.setAttribute("aria-current","location");
   else a.removeAttribute("aria-current");
@@ -1067,7 +1100,7 @@ function pick(id,scroll=false,updateHash=true){
  selected=id;expanded=false;const optionalCostPanel=document.getElementById("compareYourCosts");if(optionalCostPanel){optionalCostPanel.hidden=id==="transport";if(id==="transport")optionalCostPanel.open=false;}window.PowerAtlasCostExplorer?.setTopic(id);const costLink=document.querySelector('a.ce-invite[href="#benchmarkStory"]');if(costLink)costLink.textContent=id==="housing"?"See rent by bedroom size ↓":id==="transport"?"Compare fares, tolls & trip costs ↓":"See the spending benchmark ↓";renderIssueChoices();renderChain();renderResearch();renderSources();renderCorporatePaths();renderMissingCostSources();renderLocalMeasures();renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();if(activeZIP)loadLocalMeasures(activeZIP,id);
  // The URL contains an issue slug only; never a ZIP, address or inferred political preference.
  if(updateHash&&window.history?.replaceState)window.history.replaceState(null,"","#"+id);
- markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):"what");
+ markPrimaryNav(scroll?"what":pageSections.has(location.hash.slice(1))?location.hash.slice(1):(location.hash?"what":"where"));
  if(scroll){scrollToSection("issueResult","what");requestAnimationFrame(()=>$("issueQuestion").focus({preventScroll:true}));}
 }
 window.addEventListener("hashchange",()=>{
@@ -1075,6 +1108,25 @@ window.addEventListener("hashchange",()=>{
  if(pageSections.has(target))markPrimaryNav(target);
  else if(stories?.issues.some(x=>x.id===target))pick(target,false,false);
 });
+// Keep the highlighted menu aligned with the visible section, not the last clicked tab.
+let paNavFrame=0;
+function syncPrimaryNavWithScroll(){
+  paNavFrame=0;
+  const header=document.getElementById("pa-global-header");
+  const threshold=(header?.getBoundingClientRect().height||0)+18;
+  let visible="where";
+  for(const id of ["where","what","benchmarkStory","why","how"]){
+    const node=$(id);
+    if(node&&node.getBoundingClientRect().top<=threshold)visible=id;
+  }
+  markPrimaryNav(visible);
+}
+function schedulePrimaryNavSync(){
+  if(!paNavFrame)paNavFrame=requestAnimationFrame(syncPrimaryNavWithScroll);
+}
+window.addEventListener("scroll",schedulePrimaryNavSync,{passive:true});
+window.addEventListener("resize",schedulePrimaryNavSync);
+window.addEventListener("load",schedulePrimaryNavSync,{once:true});
 async function lookUpZIP(zip){
  const out=$("placeStatus"),name=$("placeName");
  name.textContent="ZIP "+zip;out.textContent="Checking the postal-place label…";
@@ -1130,7 +1182,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[13].status==="fulfilled"&&Array.isArray(results[13].value.cases))businessInfluence=results[13].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
- pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,!pageSections.has(hash));
+ pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,Boolean(hash)&&!pageSections.has(hash));
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
 </script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-baselines-v3" defer></script><script src="transport-value-ezpass.js?v=20261107-baselines-v3" defer></script><script src="transport-toll-penalties.js?v=20261107-baselines-v3" defer></script><script src="personal-cost-explorer.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
