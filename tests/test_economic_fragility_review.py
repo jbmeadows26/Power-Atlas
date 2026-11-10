@@ -49,5 +49,34 @@ class EconomicFragilityReviewTests(unittest.TestCase):
         self.assertIn("scenario_not_forecast",str(self.d["pathways"]))
         self.assertEqual(len(self.d["connections"]),3)
 
+
+    def test_market_stress_is_sourced_comparable_and_review_only(self):
+        market = self.d["marketStress"]
+        self.assertEqual(market["asOf"], self.d["asOf"])
+        self.assertEqual({m["id"] for m in market["measures"]}, {"sp500", "nasdaq", "sox"})
+        self.assertEqual(len(market["historicalSp500Drawdowns"]), 5)
+        self.assertEqual(market["historicalSample"]["atLeastSixPercentEvents"], 56)
+        self.assertFalse(market["historicalSample"]["currentSp500InSample"])
+        self.assertIn("not a probability estimate", market["historicalSample"]["description"])
+        self.assertEqual(market["evidenceLevel"], "verified_snapshot_with_third_party_historical_comparisons")
+        for item in market["measures"]:
+            with self.subTest(index=item["id"]):
+                self.assertGreater(item["drawdownPercent"], 0)
+                self.assertLess(item["drawdownPercent"], 100)
+                self.assertTrue(item["source"].startswith("https://"))
+                self.assertTrue(item["recordDate"].startswith("2026-"))
+        self.assertIn('id="markets"', self.html)
+        self.assertIn('id="marketBars"', self.html)
+        self.assertIn('id="historicBars"', self.html)
+        self.assertIn('id="marketPathways"', self.html)
+        self.assertIn('class="marketItem"', self.html)
+        self.assertIn("s.historicalSp500Drawdowns", self.html)
+        self.assertIn("scenarios to investigate", self.html.lower())
+        site_data = json.loads((ROOT / "site/data/economic-fragility/2027-review-v1.json").read_text(encoding="utf-8"))
+        self.assertEqual(site_data, self.d)
+        site_page = (ROOT / "site/economic-fragility-review.html").read_text(encoding="utf-8")
+        self.assertIn('id="markets"', site_page)
+        self.assertIn('name="robots" content="noindex,nofollow"', site_page)
+
 if __name__=="__main__":
     unittest.main()
