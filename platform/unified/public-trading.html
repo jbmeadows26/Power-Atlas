@@ -146,7 +146,7 @@ document.querySelectorAll('[data-period]').forEach(btn=>btn.addEventListener('cl
 fetch('official-trading-data-v1.json',{cache:'no-store'}).then(r=>{if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(d=>{
  if(d.schema!=='power-atlas.public-official-trading.v1'||d.monthly.length!==20)throw Error('Unexpected data shape');
  if(d.monthly.reduce((s,r)=>s+r.trumpAccounts,0)!==31877||d.monthly.reduce((s,r)=>s+r.congress,0)!==20973)throw Error('Totals do not match');
- data=d;render();state.textContent='Source: Kadoa's public comparison, accessed November 10, 2026. Derived aggregate, not a transaction-level independent audit.';
+ data=d;render();state.textContent="Source: Kadoa's public comparison, accessed November 10, 2026. Derived aggregate, not a transaction-level independent audit.";
  const tbody=document.getElementById('stocks');tbody.replaceChildren();
  for(const stock of d.stockCoverage.topTen){const tr=document.createElement('tr');for(const v of [stock.name,number(stock.purchases),number(stock.sales)]){const td=document.createElement('td');td.textContent=v;tr.append(td)}tbody.append(tr)}
 }).catch(()=>{chart.textContent='Monthly chart unavailable. Open the original source or the static dataset below.';state.textContent='Source load failed; live chart counts are not shown. The headline figures above are a cited snapshot as of November 10, 2026.';document.getElementById('stocks').textContent='Company list unavailable; consult the original source.'});
