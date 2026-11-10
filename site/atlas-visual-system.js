@@ -134,7 +134,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 (()=>{"use strict";
 const path=(location.pathname.split("/").pop()||"index.html").split("?")[0];
 const researchSurface=location.hostname.includes("research")||document.body.classList.contains("pa-research-site");
-const unifiedPreviewBase="__PA4_UNIFIED_PREVIEW__";
+const unifiedPreviewBase="https://power-atlas-visual-review.vercel.app/";
 const localResearchFiles=new Set(["index.html","consumer-practices.html","telecom-promotions.html","service-accountability.html","economic-fragility.html","economic-fragility-review.html","election-2026.html"]);
 const link=(name)=>researchSurface&&!localResearchFiles.has(name)?unifiedPreviewBase+name:name;
 const chapters={
@@ -219,4 +219,17 @@ document.documentElement.classList.add("pa4");if(!chapters[path])return;
 ribbon();if(path==="index.html")intro();context();
 }
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",main,{once:true});else main();
+})();
+
+/* Preview-only link rewrites: cross-surface journeys stay in the review environment.
+   Remove this block before a production merge. */
+(()=>{"use strict";
+if(!/\.vercel\.app$/i.test(location.hostname)||["power-atlas-unified.vercel.app","power-atlas-research.vercel.app"].includes(location.hostname))return;
+const unified="https://power-atlas-visual-review.vercel.app/";
+const research="https://power-atlas-research-git-review-vi-feb9f8-jbmeadows26s-projects.vercel.app/";
+const replace=(href)=>href.replace(/^https:\/\/power-atlas-unified\.vercel\.app\//i,unified).replace(/^https:\/\/power-atlas-research\.vercel\.app\//i,research);
+function rewrite(){document.querySelectorAll('a[href^="https://power-atlas-unified.vercel.app/"],a[href^="https://power-atlas-research.vercel.app/"]').forEach(a=>{a.href=replace(a.href)})}
+function meta(){if(document.querySelector('meta[name="robots"]'))return;const m=document.createElement("meta");m.name="robots";m.content="noindex,nofollow";document.head.appendChild(m)}
+document.addEventListener("click",e=>{const a=e.target&&e.target.closest?.("a[href]");if(a)a.href=replace(a.href)},true);
+if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",()=>{meta();rewrite()},{once:true});else{meta();rewrite()}
 })();
