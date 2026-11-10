@@ -1,0 +1,41 @@
+name: Validate market-power and money-scale release
+on:
+  push:
+    branches: [main, release/money-market-current-main-20261110]
+    paths:
+      - 'site/*market-power*'
+      - 'site/*money-scale*'
+      - 'site/household-market-bridge.json'
+      - 'site/data/money-scale-v1.json'
+      - 'site/atlas-visual-system.*'
+      - 'platform/unified/*market-power*'
+      - 'platform/unified/*money-scale*'
+      - 'platform/unified/household-market-bridge.json'
+      - 'platform/unified/atlas-visual-system.*'
+      - 'data/market-power/**'
+      - 'tests/test_money_market_release.py'
+      - 'tests/test_visual_atlas_market_release.py'
+      - '.github/workflows/validate-money-market-release.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  validated-release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Check money scale source parity, legal safeguards, charts and JS
+        run: python -m unittest discover -s tests -p 'test_money_market_release.py' -v
+      - name: Verify visual design and economic resilience haven't regressed
+        run: |
+          python -m unittest discover -s tests -p 'test_visual_atlas_market_release.py' -v
+          python -m unittest discover -s tests -p 'test_visual_system.py' -v
