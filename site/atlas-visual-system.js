@@ -258,3 +258,15 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
     }
   }
 })();
+
+
+/* V5 visual-first presentation: progressive enhancement, not a data-feed change. */
+(()=>{"use strict";
+ if(document.querySelector('script[data-pa5-loader]'))return;
+ const style=document.createElement("link");
+ style.rel="stylesheet";style.href="visual-first-v5.css";style.setAttribute("data-pa5-loader","css");
+ document.head.appendChild(style);
+ const script=document.createElement("script");
+ script.src="visual-first-v5.js";script.setAttribute("data-pa5-loader","js");
+ document.head.appendChild(script);
+})();
