@@ -22,7 +22,9 @@
       "Regulator primary-source page (distinct enforcement lane)",
       "Independent aggregation as discovery only"
     ],
-    "verification": "Source review dated 2026-11-10. No automated court-docket monitoring or live claims verification is presently connected."
+    "verification": "Primary-source case facts manually reviewed November 10, 2026. The directory is a set of discovery links, not an automatically synchronized feed. ClassAction.org listing dates, proceedings, claim deadlines and eligibility may change and require rechecking.",
+    "discoverySources": "ClassAction.org, Top Class Actions, Consumer Action, and ClaimDepot are secondary discovery sources. They vary in mission and business model. None is treated as an official claims administrator or a replacement for the court docket.",
+    "sourceUse": "Link to and attribute third-party directories; do not scrape or mirror their content, assume an API or republication license, or treat listing dates as live eligibility. Promote only independently verified court/administrator records into the verified-case explorer."
   },
   "cases": [
     {
@@ -140,6 +142,66 @@
         "consumer-practices.html",
         "corporate-ownership.html"
       ]
+    },
+    {
+      "id": "guzman-dr-squatch-2026",
+      "company": "Dr. Squatch",
+      "industry": "Personal care",
+      "issue": "Natural labeling",
+      "stateScope": "Nationwide (eligible U.S. purchases)",
+      "caseName": "Guzman et al. v. Dr. Squatch, LLC",
+      "court": "Superior Court of California, County of Los Angeles",
+      "docket": "25STCV03523",
+      "proceduralStatus": "settlement-proposed",
+      "claimStatus": "open-as-of-review",
+      "headline": "A proposed $9M settlement concerns allegations that some 'natural' personal-care products contained synthetic ingredients.",
+      "allegations": "Consumers alleged that labels describing specified Dr. Squatch products as natural were misleading because certain ingredients were allegedly synthetic. Dr. Squatch denies the allegations and denies wrongdoing.",
+      "classSummary": "U.S. purchasers of qualifying Dr. Squatch products bearing a 'natural' label between November 1, 2018 and August 29, 2026; covered-product list and exclusions apply.",
+      "deadline": "2026-11-27",
+      "optOutDeadline": "2026-10-13",
+      "hearingDate": "2027-03-02",
+      "grossFundUSD": 9000000,
+      "payout": "The court-supervised notice describes a pro rata settlement fund after fees and costs. Amounts depend on documented purchases, valid claims and court approval; not guaranteed.",
+      "action": "Check whether your purchases are on the covered-products list and submit a claim by November 27, 2026 if eligible.",
+      "officialUrl": "https://www.personalcareproductssettlement.com/",
+      "officialEvidence": "Official settlement administrator notice and FAQs, reviewed 2026-11-10; preliminary settlement awaiting final court approval.",
+      "secondaryUrl": "https://www.classaction.org/news/9m-dr.-squatch-settlement-ends-lawsuit-over-alleged-synthetic-ingredients-in-natural-personal-care-products",
+      "discoverySource": "ClassAction.org",
+      "confidence": "official-website-verified",
+      "crossLinks": [
+        "consumer-practices.html",
+        "corporate-ownership.html"
+      ]
+    },
+    {
+      "id": "garner-aramark-venue-fee-2026",
+      "company": "Aramark / Capital One Arena",
+      "industry": "Entertainment & venues",
+      "issue": "Undisclosed venue fees",
+      "stateScope": "Capital One Arena, Washington, D.C.",
+      "caseName": "Alexander Garner v. Aramark Management Services LP",
+      "court": "Superior Court of the District of Columbia, Civil Division",
+      "docket": "2025-CAB-007444",
+      "proceduralStatus": "settlement-proposed",
+      "claimStatus": "open-as-of-review",
+      "headline": "A proposed $4.5M settlement covers an allegedly undisclosed 3% concession venue fee.",
+      "allegations": "The lawsuit alleged that Aramark failed to properly disclose a 3% venue fee charged on food and beverage purchases at Capital One Arena. Aramark denies wrongdoing and liability.",
+      "classSummary": "People who paid the venue fee on Aramark purchases at Capital One Arena between October 1, 2024 and December 31, 2025, subject to the official notice.",
+      "deadline": "2026-12-04",
+      "optOutDeadline": "2026-12-04",
+      "hearingDate": "2027-01-15",
+      "grossFundUSD": 4500000,
+      "payout": "Eligible claimants receive a pro rata share of the net fund after court-approved costs and fees. No fixed per-person payment is promised.",
+      "action": "Review whether your concession purchases included the 3% venue fee; file a claim by December 4, 2026 if eligible.",
+      "officialUrl": "https://www.venuefeesettlement.com/",
+      "officialEvidence": "Official court-supervised settlement website and FAQs, reviewed 2026-11-10; court has not granted final approval.",
+      "secondaryUrl": "https://www.classaction.org/news/4.5m-aramark-settlement-resolves-class-action-lawsuit-over-capital-one-arena-venue-fees",
+      "discoverySource": "ClassAction.org",
+      "confidence": "official-website-verified",
+      "crossLinks": [
+        "consumer-practices.html",
+        "corporate-ownership.html"
+      ]
     }
   ],
   "relatedRemedies": [
@@ -161,8 +223,63 @@
   ],
   "discoverySources": [
     {
-      "name": "ClassAction.org — leads only, verify with notice",
-      "url": "https://www.classaction.org/settlements"
+      "name": "ClassAction.org — settlement listings",
+      "url": "https://www.classaction.org/settlements",
+      "kind": "secondary-discovery",
+      "purpose": "Discover possible settlement claims and the linked official administrator notice",
+      "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "ClassAction.org — lawsuit and investigation directory",
+      "url": "https://www.classaction.org/list-of-lawsuits",
+      "kind": "secondary-discovery",
+      "purpose": "Find current litigation and attorney investigations; independently verify court filing and class status",
+      "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "ClassAction.org — legal news",
+      "url": "https://www.classaction.org/news",
+      "kind": "secondary-discovery",
+      "purpose": "Find recent lawsuit filings and settlement developments for separate verification",
+      "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "ClassAction.org — searchable newswire database",
+      "url": "https://www.classaction.org/database",
+      "kind": "secondary-discovery",
+      "purpose": "Research newswire-covered complaints, defendant names, jurisdictions and allegations",
+      "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "ClassAction.org — data-breach tracker",
+      "url": "https://www.classaction.org/data-breach-lawsuits",
+      "kind": "secondary-discovery",
+      "purpose": "Discover breach-related litigation signals; do not treat notice of a breach as a finding of liability",
+      "ingestion": "attributed-links-only; no scraping"
+    },
+    {
+      "name": "Top Class Actions — open settlements",
+      "url": "https://topclassactions.com/category/lawsuit-settlements/open-lawsuit-settlements/",
+      "kind": "secondary-discovery",
+      "purpose": "Search open settlement news and locate original administrator notices; a publisher listing is not a live claims guarantee",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Commercial legal news and marketing"
+    },
+    {
+      "name": "Consumer Action — open to claims",
+      "url": "https://www.consumer-action.org/lawsuits/by-status/open",
+      "kind": "secondary-discovery",
+      "purpose": "Browse the nonprofit consumer group's curated class-action database filtered to open-to-claims entries",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Nonprofit consumer advocacy"
+    },
+    {
+      "name": "ClaimDepot — settlement directory",
+      "url": "https://www.claimdepot.com/settlements",
+      "kind": "secondary-discovery",
+      "purpose": "Research settlement categories, deadlines and administrator listings; verify them with official court documents",
+      "ingestion": "attributed-links-only; no scraping",
+      "publisherType": "Independent settlement directory"
     }
   ]
 }

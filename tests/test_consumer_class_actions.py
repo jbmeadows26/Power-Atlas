@@ -6,6 +6,7 @@ import re
 import shutil
 import subprocess
 import unittest
+from urllib.parse import urlsplit
 
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "consumer-class-actions" / "cases-v1.json"
@@ -43,8 +44,16 @@ class ConsumerClassActionsTests(unittest.TestCase):
                     datetime.date.fromisoformat(case[name])
                 self.assertGreater(case["grossFundUSD"], 0)
                 self.assertTrue((UNIFIED / case["crossLinks"][0]).is_file())
-        self.assertEqual(len({x["industry"] for x in self.cases}), 3)
+        self.assertGreaterEqual(len({x["industry"] for x in self.cases}), 5)
         self.assertTrue(any(x["claimStatus"] == "claims-closed" for x in self.cases))
+        self.assertGreaterEqual(len(self.data["discoverySources"]), 8)
+        self.assertTrue(all(x["kind"] == "secondary-discovery" for x in self.data["discoverySources"]))
+        self.assertTrue(all(x["ingestion"] == "attributed-links-only; no scraping" for x in self.data["discoverySources"]))
+        self.assertEqual({urlsplit(x["url"]).hostname for x in self.data["discoverySources"]}, {"www.classaction.org", "topclassactions.com", "www.consumer-action.org", "www.claimdepot.com"})
+        promoted = [x for x in self.cases if x.get("discoverySource") == "ClassAction.org"]
+        self.assertGreaterEqual(len(promoted), 2)
+        self.assertTrue(all("classaction.org/news/" in x["secondaryUrl"] for x in promoted))
+        self.assertTrue(all(x["officialUrl"].startswith("https://www.") for x in promoted))
 
     def test_frontend_filters_and_fail_closed(self):
         for id_ in ("q", "industry", "claim", "resultCount", "caseList", "countClaims"):
@@ -53,6 +62,11 @@ class ConsumerClassActionsTests(unittest.TestCase):
         self.assertIn('src="bug-report.js"', self.page)
         self.assertIn('href="global-navigation.css"', self.page)
         self.assertIn("Evidence feed temporarily unavailable", self.page)
+        self.assertIn('id="directoryLinks"', self.page)
+        self.assertIn("ClassAction.org coverage", self.page)
+        for source in ("ClassAction.org", "Top Class Actions", "Consumer Action", "ClaimDepot"):
+            self.assertIn(source, self.page)
+        self.assertIn("discovery leads, not independently verified findings", self.page.lower())
         self.assertIn("proposed settlement, not final approval", self.page)
         self.assertNotIn("localStorage", self.page)
         self.assertNotIn("sendBeacon", self.page)
