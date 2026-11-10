@@ -90,9 +90,9 @@ html.pa4 #pa-global-header .pa-global-brand span{color:#108c80}
 html.pa4 #pa-global-header .pa-global-links a{background:#fff;border:1px solid #dae4e0;border-radius:24px;color:#3f5960;font-weight:760}
 html.pa4 #pa-global-header .pa-global-links a:hover{background:#e7f4ed;border-color:#7bb7aa;color:#124d48}
 html.pa4 #pa-global-header .pa-global-links a[aria-current]{background:#173441;border-color:#173441;color:white}
-.pa4-review-ribbon{background:#162e3b;color:#d1e7e0;font-size:.7rem;font-weight:850;letter-spacing:.1em;text-transform:uppercase;line-height:1.5}
-.pa4-review-ribbon .pa4-ribbon-inner{display:flex;max-width:1240px;margin:auto;padding:8px 20px;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-.pa4-review-ribbon strong{color:#9ee7cc}.pa4-review-ribbon a{color:#dff6ee}
+
+
+
 .pa4-home{position:relative;isolation:isolate;overflow:hidden;background:var(--pa4-paper);color:var(--pa4-ink);border-radius:24px;width:min(100%,1320px);margin:20px auto 23px;padding:clamp(23px,4vw,56px);box-shadow:0 15px 55px #061e2715}
 .pa4-home *{box-sizing:border-box}
 .pa4-home:before{content:"";position:absolute;right:-140px;top:-240px;width:530px;height:530px;border:75px solid #dfece4;border-radius:50%;opacity:.62;z-index:-1}
@@ -169,7 +169,7 @@ html.pa4 body table{font-variant-numeric:tabular-nums}
 html.pa4 body :is(svg,canvas){max-width:100%}
 html.pa4 body .pa4-research-title{text-align:center;font-weight:950;font-size:clamp(1.3rem,2.4vw,2rem);margin:12px auto 18px;color:#143846}
 @media(max-width:900px){.pa4-home-main{grid-template-columns:1fr}.pa4-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.pa4-home h1{font-size:clamp(2.5rem,7vw,4.5rem)!important}.pa4-graphic{max-width:700px}}
-@media(max-width:600px){.pa4-home{margin:12px auto;padding:21px;border-radius:17px}.pa4-home h1{font-size:clamp(2.2rem,10vw,3.3rem)!important}.pa4-gallery{grid-template-columns:1fr;gap:10px}.pa4-tile{display:grid;grid-template-columns:89px minmax(0,1fr);column-gap:12px;align-items:center;padding:12px;min-height:105px}.pa4-tile-visual{grid-row:1/span 4;min-height:90px}.pa4-tile strong{font-size:1.04rem}.pa4-tile small{font-size:.73rem}.pa4-tile-kicker{margin-top:0}.pa4-tile .pa4-go{padding-top:0}.pa4-atlas-head{display:block}.pa4-atlas-head p{max-width:100%;margin-top:7px}.pa4-bar{grid-template-columns:83px minmax(0,1fr) 51px;gap:5px;font-size:.7rem;padding:7px 4px}.pa4-bar b{font-size:.78rem}.pa4-graphic{padding:17px}.pa4-crossroads{padding:12px}.pa4-review-ribbon .pa4-ribbon-inner{padding:7px 14px}.pa4-review-ribbon a{display:none}html.pa4 body .pa3-chart-row{padding:8px 4px}}
+@media(max-width:600px){.pa4-home{margin:12px auto;padding:21px;border-radius:17px}.pa4-home h1{font-size:clamp(2.2rem,10vw,3.3rem)!important}.pa4-gallery{grid-template-columns:1fr;gap:10px}.pa4-tile{display:grid;grid-template-columns:89px minmax(0,1fr);column-gap:12px;align-items:center;padding:12px;min-height:105px}.pa4-tile-visual{grid-row:1/span 4;min-height:90px}.pa4-tile strong{font-size:1.04rem}.pa4-tile small{font-size:.73rem}.pa4-tile-kicker{margin-top:0}.pa4-tile .pa4-go{padding-top:0}.pa4-atlas-head{display:block}.pa4-atlas-head p{max-width:100%;margin-top:7px}.pa4-bar{grid-template-columns:83px minmax(0,1fr) 51px;gap:5px;font-size:.7rem;padding:7px 4px}.pa4-bar b{font-size:.78rem}.pa4-graphic{padding:17px}.pa4-crossroads{padding:12px}html.pa4 body .pa3-chart-row{padding:8px 4px}}
 @media(prefers-reduced-motion:reduce){.pa4-tile,.pa3-chart-row{transition:none!important}.pa4-tile:hover{transform:none}}
 
 
@@ -186,3 +186,11 @@ body.pa4-research-home>header.hero{padding:23px max(22px,calc((100vw - 1100px)/2
 body.pa4-research-home>header.hero h1{font-size:clamp(1.65rem,3.3vw,2.7rem);line-height:1.15}
 body.pa4-research-home>.pa4-home{width:min(calc(100% - 34px),1220px)}
 @media(max-width:600px){.pa4-latest{width:calc(100% - 24px)}.pa4-latest>summary{padding:15px 17px}}
+
+/* Seventh atlas route: Consumer Class Actions uses the existing visual language. */
+.pa4-tile--claims{grid-column:1/-1;display:grid;grid-template-columns:minmax(135px,230px) minmax(0,1fr);grid-template-rows:repeat(4,auto);gap:7px 23px;align-items:center;min-height:165px;background:#fff9ef}
+.pa4-tile--claims .pa4-tile-visual{grid-column:1;grid-row:1/span 4;min-height:130px}
+.pa4-tile--claims .pa4-tile-visual:before{border-radius:14px;width:100px;height:72px;border:12px solid #b17d3b70;box-shadow:22px -15px 0 -4px #1e637374;transform:rotate(-12deg)}
+.pa4-tile--claims :is(.pa4-tile-kicker,strong,small,.pa4-go){grid-column:2}
+.pa4-tile--claims strong{font-size:clamp(1.2rem,2.3vw,1.6rem)}
+@media(max-width:600px){.pa4-tile--claims{grid-template-columns:89px minmax(0,1fr);min-height:115px;gap:5px 12px}.pa4-tile--claims .pa4-tile-visual{min-height:93px}.pa4-tile--claims strong{font-size:1.05rem}}
