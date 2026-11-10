@@ -1,9 +1,13 @@
-name: Validate Power Atlas visual review
+name: Validate Power Atlas visual atlas
 
 on:
   push:
     branches:
+      - main
       - review/visual-atlas-platform-20261110
+  pull_request:
+    branches:
+      - main
   workflow_dispatch:
 
 permissions:
