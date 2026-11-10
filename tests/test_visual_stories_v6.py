@@ -53,6 +53,16 @@ class VisualStoriesV6Tests(unittest.TestCase):
             self.assertTrue((SITES[0]/name).is_file())
         self.assertIn("vs6-topic-expanded",(SITES[0]/"visual-story-v6.js").read_text())
 
+    def test_corporate_ownership_has_valid_main_and_visual_route(self):
+        page=(SITES[0]/"corporate-ownership.html").read_text()
+        self.assertNotIn("<main<main",page)
+        self.assertIn('<main class="wrap">',page)
+        script=(SITES[0]/"visual-story-v6.js").read_text()
+        self.assertIn("corporate-ownership.html",script)
+        self.assertIn("Explore the evidence",script)
+        style=(SITES[0]/"visual-story-v6.css").read_text()
+        self.assertIn("body.vs6-topic-mode > .hero",style)
+
     @unittest.skipUnless(shutil.which("node"),"node unavailable")
     def test_javascript_syntax(self):
         for site in SITES:
