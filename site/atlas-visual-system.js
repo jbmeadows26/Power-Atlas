@@ -177,9 +177,9 @@ const tiles=[
 ["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
 ["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"],
 ["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],
-["08 · Consumer class actions","Could a settlement affect you?","See documented allegations, case status, verified deadlines and official eligibility rules.","class-actions.html","#f4d6ac"],
-["09 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],
-["10 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"]
+["08 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],
+["09 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"],
+["10 · Class actions","When companies get sued","Read case status, deadlines and official settlement notices.","class-actions.html","#f4d6ac"]
 ];
 function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
 function intro(){
