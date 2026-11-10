@@ -3,8 +3,14 @@ on:
   pull_request:
     paths:
       - 'data/economic-fragility/**'
+      - 'site/data/economic-fragility/**'
+      - 'site/economic-fragility.html'
+      - 'site/index.html'
+      - 'platform/unified/index.html'
+      - 'platform/unified/my-life.html'
       - 'platform/unified/economic-fragility-review.html'
       - 'tests/test_economic_fragility_review.py'
+      - 'tests/test_economic_fragility_publication.py'
       - '.github/workflows/validate-economic-fragility-review.yml'
   workflow_dispatch:
 jobs:
@@ -15,7 +21,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Validate research and publication safeguards
-        run: python -m unittest discover -s tests -p 'test_economic_fragility_review.py' -v
+        run: |
+          python -m unittest discover -s tests -p 'test_economic_fragility_review.py' -v
+          python -m unittest discover -s tests -p 'test_economic_fragility_publication.py' -v
       - name: Validate inline browser script syntax
         run: |
           python - <<'PY'
@@ -29,7 +37,9 @@ jobs:
                   if tag=="script": self.in_script=False
               def handle_data(self,data):
                   if self.in_script: self.parts.append(data)
-          p=Extract();p.feed(Path("platform/unified/economic-fragility-review.html").read_text())
-          Path("/tmp/fragility-review.js").write_text("\n".join(p.parts))
+          for path in ("platform/unified/economic-fragility-review.html","site/economic-fragility.html"):
+              p=Extract();p.feed(Path(path).read_text())
+              Path("/tmp/"+Path(path).stem+".js").write_text("\n".join(p.parts))
           PY
-          node --check /tmp/fragility-review.js
+          node --check /tmp/economic-fragility-review.js
+          node --check /tmp/economic-fragility.js
