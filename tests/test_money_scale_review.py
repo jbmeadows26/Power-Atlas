@@ -19,7 +19,7 @@ class MoneyScaleReviewTests(unittest.TestCase):
         self.assertEqual(self.data["status"], "review-only")
         self.assertIn('name="robots" content="noindex,nofollow"', self.page)
         self.assertIn("REVIEW ONLY", self.page)
-        self.assertIn("money-scale-review.html", self.redesign)
+        self.assertIn("money-scale.html", self.redesign)
         self.assertIn('fetch("data/money-scale-v1.json"', self.page)
 
     def test_every_metric_has_a_source_a_year_and_a_measurement_kind(self):
