@@ -45,6 +45,13 @@ class VisualSystemTests(unittest.TestCase):
         self.assertNotIn("Math.random", js)
         self.assertNotIn("innerHTML", js)
 
+    def test_mobile_chart_detail_does_not_force_wide_tables(self):
+        css=(DIRS[0] / "atlas-visual-system.css").read_text(encoding="utf-8")
+        self.assertIn(".pa3-chart details table", css)
+        self.assertIn("table-layout:fixed!important", css)
+        self.assertIn("min-width:0!important", css)
+        self.assertIn("overflow-wrap:anywhere", css)
+
     def test_chart_sources_support_data(self):
         bls = json.loads((ROOT / "data" / "place-impact" / "cost-benchmark-drivers-v1.json").read_text())
         for key in ("housing", "transport", "groceries", "health", "schools"):
