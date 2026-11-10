@@ -31,4 +31,5 @@ function render(d){
  el("connections").innerHTML=d.connections.map(c=>'<a href="'+local(c.path)+'">'+esc(c.label)+'<small>'+esc(c.scope)+'</small></a>').join("");
 }
 fetch("../../data/economic-fragility/2027-review-v1.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Evidence unavailable");return r.json()}).then(render).catch(()=>{el("metricCards").innerHTML='<div class="error">Evidence cannot be loaded. Data are unavailable rather than zero. This draft requires a branch-aware static preview serving the review data alongside the page.</div>';});
-</script></body></html>
+</script><script src="bug-report.js" defer></script>
+</body></html>
