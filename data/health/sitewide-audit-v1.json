@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-10T06:43:06.696738+00:00",
+  "generatedUTC": "2026-11-10T06:53:25.052697+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 27,
-    "jsonDataFilesChecked": 308,
-    "validJsonFiles": 308,
-    "staticReferencesInspected": 489,
+    "htmlPagesAudited": 28,
+    "jsonDataFilesChecked": 309,
+    "validJsonFiles": 309,
+    "staticReferencesInspected": 514,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -140,6 +140,18 @@
       "primaryHeaderPresent": true
     },
     {
+      "path": "platform/unified/class-actions.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 20,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/consumer-class-actions/cases-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
       "path": "platform/unified/compare.html",
       "localReferenceCount": 15,
       "allReferencesCount": 30,
@@ -157,8 +169,8 @@
     },
     {
       "path": "platform/unified/consumer-practices.html",
-      "localReferenceCount": 12,
-      "allReferencesCount": 15,
+      "localReferenceCount": 13,
+      "allReferencesCount": 16,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -243,8 +255,8 @@
     },
     {
       "path": "platform/unified/index.html",
-      "localReferenceCount": 35,
-      "allReferencesCount": 46,
+      "localReferenceCount": 36,
+      "allReferencesCount": 47,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -284,8 +296,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 24,
-      "allReferencesCount": 29,
+      "localReferenceCount": 25,
+      "allReferencesCount": 30,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -378,7 +390,7 @@
     {
       "path": "site/consumer-practices.html",
       "localReferenceCount": 3,
-      "allReferencesCount": 7,
+      "allReferencesCount": 8,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -424,7 +436,7 @@
     {
       "path": "site/index.html",
       "localReferenceCount": 7,
-      "allReferencesCount": 37,
+      "allReferencesCount": 38,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
