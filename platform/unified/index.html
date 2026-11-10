@@ -20,6 +20,83 @@
 @media(max-width:930px){body[data-pa-page="overview"] > header{display:none!important}}
 @media(max-width:560px){main{padding-top:15px}.analyticsPanel .metricStrip strong{font-size:1.3rem}}
 @media(prefers-reduced-motion:reduce){.storyCard{transition:none!important}html{scroll-behavior:auto!important}}
+
+/* Editorial dataviz exploration | Information Is Beautiful-inspired, original Power Atlas treatment.
+   Review branch only; preserve semantic data encodings and the evidence model. */
+:root{
+  --viz-violet:#b49bff;--viz-pink:#ff95bd;--viz-coral:#ffad87;
+  --viz-teal:#79e4d2;--viz-yellow:#ffdc89;--viz-blue:#8abaff;
+  --viz-outline:#456077;--viz-surface:#102437;
+}
+body{
+  background:
+    radial-gradient(circle at 12% 4%,rgba(141,98,209,.17),transparent 28rem),
+    radial-gradient(circle at 90% 20%,rgba(49,172,192,.13),transparent 32rem),
+    #08101d;
+}
+main{max-width:1450px}
+.storyHero{padding:clamp(46px,7vw,105px) 0 27px}
+.storyHero h1{max-width:1050px;font-size:clamp(3rem,7.6vw,7rem);line-height:.98;letter-spacing:-.065em;text-wrap:balance}
+.storyHero .lead{max-width:680px;font-size:clamp(1.07rem,1.8vw,1.3rem);line-height:1.55}
+.storyKicker,.over{font-weight:800;letter-spacing:.19em}
+.storyMap{gap:18px;margin-top:45px}
+.storyCard{
+  isolation:isolate;overflow:hidden;min-height:260px;
+  background:linear-gradient(143deg,rgba(30,65,83,.96),rgba(12,30,48,.98));
+  box-shadow:0 14px 36px rgba(0,0,0,.13);
+  border-color:#3c5b70;
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.storyCard:before{
+  content:"";position:absolute;z-index:-1;right:-43px;top:-43px;
+  width:175px;height:175px;border:29px solid var(--topic,#79e4d2);
+  opacity:.16;border-radius:50%;transform:rotate(-15deg);
+}
+.storyCard:nth-child(6n+1){--topic:var(--viz-teal)}
+.storyCard:nth-child(6n+2){--topic:var(--viz-coral)}
+.storyCard:nth-child(6n+3){--topic:var(--viz-violet)}
+.storyCard:nth-child(6n+4){--topic:var(--viz-blue)}
+.storyCard:nth-child(6n+5){--topic:var(--viz-pink)}
+.storyCard:nth-child(6n+6){--topic:var(--viz-yellow)}
+.storyCard:hover,.storyCard:focus-visible{box-shadow:0 20px 42px rgba(0,0,0,.3);border-color:var(--topic)}
+.storyCard .symbol{display:grid;place-items:center;width:62px;height:62px;border-radius:18px;background:color-mix(in srgb,var(--topic) 13%,transparent);font-size:2rem}
+.storyCard h3{font-size:clamp(1.24rem,2vw,1.55rem);letter-spacing:-.028em;line-height:1.15}
+.storyCard .storyAction{color:var(--topic)}
+.chapterLead,.dataStory,.analyticsPanel,.comparisonFeature{
+  box-shadow:0 8px 28px rgba(0,0,0,.08);
+}
+.dataStory{border-color:#46667b;border-radius:22px;padding:clamp(18px,3vw,32px)}
+.dataStory h2,.analyticsPanel h2{letter-spacing:-.035em;line-height:1.15;text-wrap:balance}
+.dataStory svg,.analyticsPanel svg{overflow:visible}
+.dataStory svg text,.analyticsPanel svg text{font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+.storyDivider{margin-top:54px;font-weight:800}
+.metrics strong{font-variant-numeric:tabular-nums;letter-spacing:-.045em}
+.card{border-radius:18px}
+.card,.analyticsPanel,.chapterLead{border-color:#3b5269}
+.card h3{letter-spacing:-.022em}
+a:focus-visible,button:focus-visible,.tab:focus-visible,select:focus-visible{
+  outline:3px solid var(--viz-yellow);outline-offset:3px;
+}
+button,.tab{min-height:42px}
+@media (max-width:800px){
+  .storyHero{padding-top:36px}
+  .storyMap{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .storyCard{min-height:220px;padding:18px}
+  .storyCard:before{width:135px;height:135px;right:-50px;top:-55px}
+  .storyCard .symbol{width:52px;height:52px}
+}
+@media (max-width:540px){
+  main{padding:18px 4vw}
+  .storyHero h1{font-size:clamp(2.55rem,11.5vw,4.4rem)}
+  .storyMap{grid-template-columns:1fr}
+  .storyCard{min-height:0;padding:20px}
+  .storyCard .storyAction{margin-top:10px}
+  .dataStory{padding:17px}
+  .journey{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .analyticsPanel,.card{min-width:0}
+}
+@media(prefers-reduced-motion:reduce){.storyCard{transition:none}.storyCard:hover{transform:none}}
+
 </style><style id="plainLanguageUpgrade">.plainTakeaway{background:#eaf5f1;border-left:4px solid #2b8074;border-radius:6px;padding:13px 15px!important;margin:18px 0!important;color:#244b46!important}.plainDetails{margin:12px 0;color:#42585c}.plainDetails summary{cursor:pointer;color:#176a63;font-weight:700;padding:9px 0}.plainDetails p{margin:7px 0 12px!important}.simpleBars .barRow{grid-template-columns:minmax(145px,200px) 1fr 38px!important}.simpleBars .barRow span{line-height:1.35}.analyticsPanel h3{line-height:1.25}@media(max-width:520px){.simpleBars .barRow{grid-template-columns:minmax(125px,145px) 1fr 30px!important;gap:8px!important;font-size:.78rem!important}}.plainGuide{margin:16px 0 22px;background:#eaf4f1;border:1px solid #cbded8;border-radius:15px;padding:20px 23px;max-width:900px}.plainGuide h2{font-size:1.3rem;margin:6px 0 8px;color:#173d36}.plainGuide p{font-size:.97rem;line-height:1.55;color:#354c48;margin:6px 0}.guideEyebrow{font-size:.7rem;letter-spacing:.11em;font-weight:800;color:#26766a}.plainGuide .guideTip{font-weight:650;color:#235d52;margin-top:10px}.analyticsPanel h3{line-height:1.35}.analyticsPanel .chartNote{line-height:1.5}@media(max-width:550px){.plainGuide{padding:17px;margin:12px 0 18px}.plainGuide h2{font-size:1.15rem}}</style><link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="atlas-visual-system.css"></head><body data-pa-page="overview"><div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research" aria-current="page"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
 
 <main><div style="max-width:1240px;margin:16px auto 8px;padding:0 18px"><a href="class-actions.html" style="display:block;border:1px solid #4e9295;background:linear-gradient(110deg,#123b47,#1a5451);color:#f5fffd;border-radius:16px;padding:19px 22px;line-height:1.5;text-decoration:none"><span style="display:block;font-size:11px;color:#b6e6d8;letter-spacing:.12em;font-weight:850;text-transform:uppercase">Consumer Watch · New category</span><strong style="display:block;font-size:clamp(19px,3vw,27px);color:white">Consumer Class Actions</strong><span style="color:#dcefea;font-size:14px">Which companies face class actions, what consumers allege, and how to check settlement eligibility and deadlines →</span></a></div><div style="max-width:1240px;margin:18px auto 5px;padding:0 18px"><a href="consumer-practices.html" style="display:block;border:1px solid #2f756f;background:#123e46;color:#f1fbfa;border-radius:16px;padding:20px;text-decoration:none;line-height:1.5"><span style="display:block;color:#a1e4d2;font-size:11px;letter-spacing:.12em;font-weight:850;text-transform:uppercase">New category · Consumer accountability</span><strong style="display:block;font-size:clamp(19px,3vw,27px)">Consumer Deception & Hidden Costs</strong><span style="font-size:14px;color:#d7eeea">18 source-backed cases across 12 industries—what consumers were promised, what changed and what regulators established →</span></a></div><aside style="max-width:1240px;margin:18px auto 5px;padding:0 18px"><a href="telecom-promotions.html" style="display:block;border:1px solid #bdd9d2;border-radius:13px;padding:17px 19px;background:#e7f3ef;color:#164f50;text-decoration:none;font-weight:750;line-height:1.5"><span style="font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#236e63;display:block">New · Consumer cost investigation</span>Two phone lines, one upgrade budget: see how T-Mobile T-Mix limits shared device promotions →</a></aside><details class="pa-research-drawer"><summary>Browse all research sections and evidence dashboards</summary><nav><a class="tab" href="source-audit.html">Source coverage & data gaps</a><a class="tab" href="my-life.html">Your community</a><button class="tab active" data-page="overview">Research</button><button class="tab" data-page="redistricting">Redistricting</button><a class="tab" href="election-2026.html">2026 Election</a><button class="tab" data-page="access">Voting access</button><button class="tab" data-page="tribalism">Tribalism</button><button class="tab" data-page="authenticity">Authenticity</button><button class="tab" data-page="promises">Political Promises</button><button class="tab" data-page="decay">Institutional Decay</button><button class="tab" data-page="research">Research programs</button><a class="tab" href="navatek.html">Money & influence</a><a class="tab" href="election-money.html">Election money</a><a class="tab" href="money-sources.html">Visual money map</a><a class="tab" href="donor-intelligence.html">Donor rankings</a><a class="tab" href="dark-money.html">Dark money tracker</a><a class="tab" href="business-influence.html">Business outcomes</a><a class="tab" href="compare.html" style="border-color:#69dce2">Compare evidence</a><a class="tab" href="reform-lab.html">Civic power & reforms</a><a class="tab" href="investigations.html">Investigations</a><button class="tab" data-page="sources">Evidence & coverage</button></nav></details><div class="over">One research platform · public evidence · transparent limitations</div>
