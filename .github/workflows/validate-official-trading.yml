@@ -1,0 +1,36 @@
+name: Validate official trading disclosures
+on:
+  push:
+    branches:
+      - review/official-trading-20261110
+    paths:
+      - 'data/public-integrity/official-trading-2025-2026-v1.json'
+      - 'platform/unified/official-trading-data-v1.json'
+      - 'platform/unified/public-trading.html'
+      - 'platform/unified/index.html'
+      - 'platform/unified/donor-intelligence.html'
+      - 'platform/unified/my-life.html'
+      - 'tests/test_official_trading_disclosures.py'
+      - '.github/workflows/validate-official-trading.yml'
+  pull_request:
+    paths:
+      - 'data/public-integrity/official-trading-2025-2026-v1.json'
+      - 'platform/unified/official-trading-data-v1.json'
+      - 'platform/unified/public-trading.html'
+      - 'platform/unified/index.html'
+      - 'platform/unified/donor-intelligence.html'
+      - 'platform/unified/my-life.html'
+      - 'tests/test_official_trading_disclosures.py'
+      - '.github/workflows/validate-official-trading.yml'
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify aggregate counts, source limitations and site links
+        run: python -m unittest discover -s tests -p 'test_official_trading_disclosures.py' -v
