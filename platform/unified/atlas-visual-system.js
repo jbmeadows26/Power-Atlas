@@ -29,7 +29,7 @@ const current=config[path];if(!current||path==="consumer-practices.html")return;
 document.documentElement.classList.add("pa3");
 const make=(tag,cls)=>{const el=document.createElement(tag);if(cls)el.className=cls;return el};
 function story(){
- const target=document.querySelector("main");if(!target)return;
+ const target=document.querySelector("main")||document.body;if(!target)return;
  const section=make("section","pa3-story");section.setAttribute("aria-label","Visual research guide");
  const head=make("div","pa3-story-head");
  const left=make("div");const kicker=make("span","pa3-story-kicker");kicker.textContent="VISUAL GUIDE / THREE STEPS";
