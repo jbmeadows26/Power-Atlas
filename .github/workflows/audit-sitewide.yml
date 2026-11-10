@@ -59,17 +59,27 @@ jobs:
           print('Valid inline browser scripts:',checked)
           PY
       - name: Commit dated read-only audit report if changed
-        if: always()
+        if: success()
         run: |
+          set -euo pipefail
           if test -f data/health/sitewide-audit-v1.json; then
             git config user.name power-atlas-audit-bot
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add -- data/health/sitewide-audit-v1.json
-            if ! git diff --cached --quiet; then
-              git commit -m 'audit: publish complete indexed site, source and data gap findings'
-              git pull --rebase origin main
-              git push origin HEAD:main
-            else
+            if git diff --cached --quiet; then
               echo 'Site audit unchanged'
+              exit 0
+            fi
+            # Never rebase a stale generated report over newer live source data:
+            # another workflow may already have published a later audit snapshot.
+            base_sha="$(git rev-parse HEAD)"
+            git fetch origin main
+            if [ "$base_sha" != "$(git rev-parse FETCH_HEAD)" ]; then
+              echo 'Repository advanced; skip committing a stale audit report.'
+              exit 0
+            fi
+            git commit -m 'audit: publish complete indexed site, source and data gap findings'
+            if ! git push origin HEAD:main; then
+              echo 'Concurrent update prevented report push; the next audit will refresh it.'
             fi
           fi
