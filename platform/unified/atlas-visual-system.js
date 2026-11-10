@@ -136,13 +136,13 @@ const path=(location.pathname.split("/").pop()||"index.html").split("?")[0];
 const researchSurface=location.hostname.includes("research")||document.body.classList.contains("pa-research-site");
 const unifiedProductionBase="https://power-atlas-unified.vercel.app/";
 const researchProductionBase="https://power-atlas-research.vercel.app/";
-const localResearchFiles=new Set(["index.html","consumer-practices.html","telecom-promotions.html","service-accountability.html","economic-fragility.html","economic-fragility-review.html","election-2026.html"]);
+const localResearchFiles=new Set(["index.html","consumer-practices.html","telecom-promotions.html","service-accountability.html","economic-fragility.html","economic-fragility-review.html","election-2026.html","market-power.html","money-scale.html"]);
 const link=name=>researchSurface&&!localResearchFiles.has(name)?unifiedProductionBase+name:(!researchSurface&&name==="economic-fragility.html"?researchProductionBase+name:name);
 const chapters={
-"index.html":["Visual atlas",["my-life.html","Your community"],["corporate-ownership.html","Corporate ownership"],["dark-money.html","Election money"]],
-"my-life.html":["Everyday life",["corporate-ownership.html","Ownership and prices"],["consumer-practices.html","Consumer Watch"],["source-audit.html","Coverage and limitations"],["economic-fragility.html","Economic stability"]],
-"corporate-ownership.html":["Corporate power",["my-life.html","See everyday costs"],["business-influence.html","Business and government"],["investigations.html","Open investigations"],["economic-fragility.html","Market stress"]],
-"consumer-practices.html":["Consumer Watch",["telecom-promotions.html","Phone promotions"],["class-actions.html","Class-action cases"],["service-accountability.html","Customer-service access"]],
+"index.html":["Visual atlas",["my-life.html","Your community"],["market-power.html","Concentration and household costs"],["money-scale.html","Billions and trillions"],["dark-money.html","Election money"]],
+"my-life.html":["Everyday life",["corporate-ownership.html","Ownership and prices"],["market-power.html","Concentration and household costs"],["money-scale.html","Billions and trillions"],["consumer-practices.html","Consumer Watch"],["source-audit.html","Coverage and limitations"],["economic-fragility.html","Economic stability"]],
+"corporate-ownership.html":["Corporate power",["my-life.html","See everyday costs"],["market-power.html","Market concentration"],["business-influence.html","Business and government"],["economic-fragility.html","Market stress"]],
+"consumer-practices.html":["Consumer Watch",["market-power.html","Market power"],["telecom-promotions.html","Phone promotions"],["class-actions.html","Class-action cases"],["service-accountability.html","Customer-service access"]],
 "telecom-promotions.html":["Consumer Watch",["consumer-practices.html","Consumer Watch"],["my-life.html","Personal cost context"],["class-actions.html","Consumer lawsuits"]],
 "service-accountability.html":["Consumer Watch",["consumer-practices.html","Hidden costs and practices"],["class-actions.html","Consumer lawsuits"],["my-life.html","Daily-life impacts"]],
 "class-actions.html":["Consumer Watch",["consumer-practices.html","Consumer Watch"],["source-audit.html","Evidence methodology"],["service-accountability.html","Customer service"]],
@@ -158,8 +158,8 @@ const chapters={
 "election-2026.html":["Democracy",["compare.html","Compare evidence"],["dark-money.html","Campaign finance"],["source-audit.html","Evidence status"]],
 "reform-lab.html":["Civic power",["compare.html","Compare outcomes"],["my-life.html","Everyday impacts"],["source-audit.html","Known limitations"]],
 "source-audit.html":["Evidence and methods",["my-life.html","Everyday measurements"],["money-sources.html","Money sources"],["reform-lab.html","Possible responses"]],
-"economic-fragility.html":["Economic resilience",["my-life.html","Household exposure"],["corporate-ownership.html","Market power"],["source-audit.html","Source quality"]],
-"economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
+"economic-fragility.html":["Economic resilience",["my-life.html","Household exposure"],["money-scale.html","Wealth and debt in context"],["market-power.html","Market power"],["source-audit.html","Source quality"]],
+"market-power.html":["Market concentration",["my-life.html","Household cost context"],["money-scale.html","Financial scale"],["corporate-ownership.html","Ownership evidence"],["source-audit.html","Evidence gaps"]],\n"money-scale.html":["Financial scale",["market-power.html","Market power and costs"],["my-life.html","Everyday benchmarks"],["economic-fragility.html","Economic resilience"],["source-audit.html","Evidence limitations"]],\n"economic-fragility-review.html":["Economic resilience",["my-life.html","Household exposure"],["source-audit.html","Source quality"],["economic-fragility.html","Economic risk overview"]]
 };
 const measures=[
 {key:"transport",label:"Transport",value:7.77,color:"#e99a7a",src:"https://fred.stlouisfed.org/data/CPITRNSL",explain:"Transportation CPI: +7.77% year over year in September 2026. This includes different transport prices; it does not isolate a toll or fare change."},
@@ -174,7 +174,7 @@ const tiles=[
 ["04 · Political money","Where does the money go?","Follow reported contributions through public filings.","dark-money.html","#cbdff7"],
 ["05 · Accountability","What's actually proven?","Separate measured records, claims and open questions.","source-audit.html","#f0dcaa"],
 ["06 · Civic action","What can change?","Explore options and their documented trade-offs.","reform-lab.html","#dfeac8"],
-["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"]
+["07 · Economic resilience","Could a market sell-off affect you?","Compare market declines with historical crashes and potential household spillovers.","economic-fragility.html","#bddce8"],\n["08 · Market power","Who gains when competition shrinks?","Follow evidence on food, housing, healthcare and wages to everyday cost categories.","market-power.html","#c1e7d3"],\n["09 · Financial scale","How big is a trillion dollars?","Separate wealth, debt, GDP and public spending with sourced, dated comparisons.","money-scale.html","#decdf3"]
 ];
 function el(tag,cls,txt){const x=document.createElement(tag);if(cls)x.className=cls;if(txt!==undefined)x.textContent=txt;return x}
 function intro(){
@@ -191,7 +191,7 @@ measures.forEach((m,i)=>{const btn=el("button","pa4-bar");btn.type="button";btn.
 btn.append(el("span",null,m.label));const track=el("span","pa4-bar-track"),fill=el("span","pa4-bar-fill");track.append(fill);btn.append(track,el("b",null,"+"+m.value.toFixed(2)+"%"));
 btn.addEventListener("click",()=>{bars.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",String(x===btn)));selected(m)});bars.append(btn)});
 chart.append(bars,detail);selected(measures[0]);hero.append(copy,chart);root.append(hero);
-const headline=el("div","pa4-atlas-head");const hl=el("div");hl.append(el("span","pa4-kicker","VISUAL ATLAS"),el("h2",null,"Start with a question, not a spreadsheet."));headline.append(hl,el("p",null,"Seven paths into the evidence. Every chapter connects to a real Power Atlas section."));root.append(headline);
+const headline=el("div","pa4-atlas-head");const hl=el("div");hl.append(el("span","pa4-kicker","VISUAL ATLAS"),el("h2",null,"Start with a question, not a spreadsheet."));headline.append(hl,el("p",null,"Nine paths into the evidence. Every chapter connects to a real Power Atlas section."));root.append(headline);
 const gallery=el("div","pa4-gallery");
 tiles.forEach(t=>{const card=el("a","pa4-tile");card.href=link(t[3]);const pic=el("span","pa4-tile-visual");pic.style.setProperty("--tile",t[4]);pic.setAttribute("aria-hidden","true");card.append(pic,el("span","pa4-tile-kicker",t[0]),el("strong",null,t[1]),el("small",null,t[2]),el("span","pa4-go","Explore story ↗"));gallery.append(card)});root.append(gallery);
 const target=document.querySelector("main");
