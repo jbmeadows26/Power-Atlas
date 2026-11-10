@@ -63,6 +63,15 @@ class VisualStoriesV6Tests(unittest.TestCase):
         style=(SITES[0]/"visual-story-v6.css").read_text()
         self.assertIn("body.vs6-topic-mode > .hero",style)
 
+    def test_mobile_menu_exposes_every_section(self):
+        script=(SITES[0]/"visual-story-v6.js").read_text()
+        style=(SITES[0]/"visual-story-v6.css").read_text()
+        for token in ("function compactNav()","vs6-nav-toggle","aria-expanded",
+                      "vs6-primary-navigation","Escape"):
+            self.assertIn(token,script)
+        self.assertIn("#pa-global-header.vs6-nav-open .pa-global-links",style)
+        self.assertIn("grid-template-columns:repeat(2,minmax(0,1fr))",style)
+
     @unittest.skipUnless(shutil.which("node"),"node unavailable")
     def test_javascript_syntax(self):
         for site in SITES:
