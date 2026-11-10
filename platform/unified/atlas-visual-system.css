@@ -171,3 +171,18 @@ html.pa4 body .pa4-research-title{text-align:center;font-weight:950;font-size:cl
 @media(max-width:900px){.pa4-home-main{grid-template-columns:1fr}.pa4-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}.pa4-home h1{font-size:clamp(2.5rem,7vw,4.5rem)!important}.pa4-graphic{max-width:700px}}
 @media(max-width:600px){.pa4-home{margin:12px auto;padding:21px;border-radius:17px}.pa4-home h1{font-size:clamp(2.2rem,10vw,3.3rem)!important}.pa4-gallery{grid-template-columns:1fr;gap:10px}.pa4-tile{display:grid;grid-template-columns:89px minmax(0,1fr);column-gap:12px;align-items:center;padding:12px;min-height:105px}.pa4-tile-visual{grid-row:1/span 4;min-height:90px}.pa4-tile strong{font-size:1.04rem}.pa4-tile small{font-size:.73rem}.pa4-tile-kicker{margin-top:0}.pa4-tile .pa4-go{padding-top:0}.pa4-atlas-head{display:block}.pa4-atlas-head p{max-width:100%;margin-top:7px}.pa4-bar{grid-template-columns:83px minmax(0,1fr) 51px;gap:5px;font-size:.7rem;padding:7px 4px}.pa4-bar b{font-size:.78rem}.pa4-graphic{padding:17px}.pa4-crossroads{padding:12px}.pa4-review-ribbon .pa4-ribbon-inner{padding:7px 14px}.pa4-review-ribbon a{display:none}html.pa4 body .pa3-chart-row{padding:8px 4px}}
 @media(prefers-reduced-motion:reduce){.pa4-tile,.pa3-chart-row{transition:none!important}.pa4-tile:hover{transform:none}}
+
+
+/* Shared homepage simplification: preserve old highlights inside an expandable chapter. */
+.pa4-latest{box-sizing:border-box;max-width:1168px;width:min(100% - 34px,1168px);margin:15px auto 25px;background:#fff;color:#24414c;border:1px solid #dce4df;border-radius:17px;box-shadow:0 7px 20px #122c3b0d}
+.pa4-latest>summary{cursor:pointer;list-style:none;font-size:.89rem;font-weight:900;padding:18px 22px;color:#245951}
+.pa4-latest>summary::-webkit-details-marker{display:none}
+.pa4-latest>summary:after{content:" +";float:right;color:#27877f;font-size:1.2rem}
+.pa4-latest[open]>summary:after{content:" −"}
+.pa4-latest>div,.pa4-latest>aside{margin:8px auto!important}
+.pa4-latest>div:last-child,.pa4-latest>aside:last-child{padding-bottom:12px!important}
+body.pa4-unified-home #overview>.storyHero{display:none}
+body.pa4-research-home>header.hero{padding:23px max(22px,calc((100vw - 1100px)/2));margin:19px 0 22px}
+body.pa4-research-home>header.hero h1{font-size:clamp(1.65rem,3.3vw,2.7rem);line-height:1.15}
+body.pa4-research-home>.pa4-home{width:min(calc(100% - 34px),1220px)}
+@media(max-width:600px){.pa4-latest{width:calc(100% - 24px)}.pa4-latest>summary{padding:15px 17px}}
