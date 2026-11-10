@@ -20,6 +20,8 @@ class ConsumerPracticesTests(unittest.TestCase):
         cls.cases = cls.data["cases"]
         cls.main = (UNIFIED / "consumer-practices.html").read_text(encoding="utf-8")
         cls.research = (SITE / "consumer-practices.html").read_text(encoding="utf-8")
+        cls.js = (UNIFIED / "consumer-watch-v2.js").read_text(encoding="utf-8")
+        cls.css = (UNIFIED / "consumer-watch-v2.css").read_text(encoding="utf-8")
 
     def test_evidence_schema_and_unique_cases(self):
         d = self.data
@@ -62,11 +64,24 @@ class ConsumerPracticesTests(unittest.TestCase):
             self.assertIn('id="pcCount"', page)
             self.assertIn('id="pcReset"', page)
             self.assertIn('src="bug-report.js"', page)
-            self.assertIn("No unsourced company findings are displayed", page)
+            self.assertIn('src="consumer-watch-v2.js"', page)
+            self.assertIn('href="consumer-watch-v2.css"', page)
+            self.assertIn('id="pcStoryButtons"', page)
+            self.assertIn('id="pcPatternGrid"', page)
+            self.assertIn('id="pcStoryStages"', page)
+            self.assertIn('id="pcStatusOverview"', page)
+            self.assertIn("No verdicts by graphic design.", page)
             self.assertNotIn("localStorage", page)
             self.assertNotIn("sendBeacon", page)
         self.assertIn('href="global-navigation.css"', self.main)
         self.assertIn('data-pa-nav="consumer" aria-current="page"', self.main)
+        self.assertIn("No unsourced company findings are displayed", self.js)
+        self.assertIn("unexpected evidence schema", self.js)
+        self.assertIn("data-story", self.js)
+        self.assertIn("data-pattern", self.js)
+        self.assertIn("prefers-reduced-motion", self.css)
+        self.assertEqual(self.js, (SITE / "consumer-watch-v2.js").read_text(encoding="utf-8"))
+        self.assertEqual(self.css, (SITE / "consumer-watch-v2.css").read_text(encoding="utf-8"))
 
     def test_links_and_parent_category(self):
         for directory in (UNIFIED, SITE):
@@ -78,17 +93,15 @@ class ConsumerPracticesTests(unittest.TestCase):
         self.assertIn('href="consumer-practices.html"', life)
         self.assertIn('id="consumerPracticesCategory"', life)
 
-    def test_inline_javascript_parses_with_node(self):
+    def test_external_javascript_parses_with_node(self):
         if shutil.which("node") is None:
             self.skipTest("Node.js unavailable")
-        for page in (self.main, self.research):
-            for script in re.findall(r"<script(?:\s[^>]*)?>([\s\S]*?)</script>", page):
-                if not script.strip():
-                    continue
-                proc = subprocess.run(
-                    ["node", "--check", "-"], input=script, capture_output=True, text=True
-                )
-                self.assertEqual(proc.returncode, 0, proc.stderr)
+        for directory in (UNIFIED, SITE):
+            proc = subprocess.run(
+                ["node", "--check", str(directory / "consumer-watch-v2.js")],
+                capture_output=True, text=True,
+            )
+            self.assertEqual(proc.returncode, 0, proc.stderr)
 
 
 if __name__ == "__main__":
