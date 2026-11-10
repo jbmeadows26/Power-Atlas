@@ -71,6 +71,8 @@ class ConsumerPracticesTests(unittest.TestCase):
             self.assertIn('id="pcStoryStages"', page)
             self.assertIn('id="pcStatusOverview"', page)
             self.assertIn("No verdicts by graphic design.", page)
+            self.assertIn('class="cw-top" role="region"', page)
+            self.assertNotIn('<header class="cw-top">', page)
             self.assertNotIn("localStorage", page)
             self.assertNotIn("sendBeacon", page)
         self.assertIn('href="global-navigation.css"', self.main)
