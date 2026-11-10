@@ -26,7 +26,8 @@
     "projection": "Projections and estimates must be labeled and not treated as realized spending.",
     "causality": "Neither concentration nor a large number alone establishes monopoly, collusion, policy capture, wrongdoing, inflation, or a household premium. Investigate mechanisms with independent market, policy and transaction evidence.",
     "comparativeMethodologies": "Do not combine IISS and SIPRI defense estimates; they use different inclusion and classification methods.",
-    "explainLocalConnection": "No ZIP-level causal effect asserted; only source-backed macro context until joins are tested."
+    "explainLocalConnection": "No ZIP-level causal effect asserted; only source-backed macro context until joins are tested.",
+    "gdpSeparation": "GDP is nominal annual value added; keep in its own annual-output view rather than treating as wealth, money stock, tax revenue or discretionary funds."
   },
   "metrics": [
     {
@@ -168,6 +169,34 @@
       "definition": "World Bank principal and interest paid in 2025 by low- and middle-income countries.",
       "interpretation": "Debt service is a yearly payment flow and not the same as outstanding principal.",
       "confidence": "source-confirmed"
+    },
+    {
+      "id": "world-gdp-2025",
+      "label": "World economic output (GDP)",
+      "valueTrillionsUsd": 118.350166,
+      "group": "economy-size",
+      "measurement": "annual-output",
+      "year": "2025",
+      "scope": "world",
+      "sourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
+      "sourcePublisher": "World Bank — WDI",
+      "definition": "World GDP in nominal current U.S. dollars for calendar year 2025, displayed as trillion-dollar annual production; World Bank estimate.",
+      "interpretation": "GDP is value added over a year, not cash available to spend or a stock of wealth. It cannot be added to assets, corporate revenues, or government spending.",
+      "confidence": "source-confirmed"
+    },
+    {
+      "id": "us-gdp-2025",
+      "label": "U.S. economic output (GDP)",
+      "valueTrillionsUsd": 30.7697,
+      "group": "economy-size",
+      "measurement": "annual-output",
+      "year": "2025",
+      "scope": "United States",
+      "sourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US",
+      "sourcePublisher": "World Bank — WDI",
+      "definition": "U.S. GDP in nominal current U.S. dollars for calendar year 2025.",
+      "interpretation": "A geographical subset of world GDP and not an additive second global total. Annual economic output is not equivalent to federal budget outlays.",
+      "confidence": "source-confirmed"
     }
   ],
   "sources": {
@@ -182,7 +211,8 @@
     "cms": "https://www.healthaffairs.org/doi/full/10.1377/hlthaff.2026.00642",
     "iiss": "https://www.iiss.org/publications/the-military-balance/2026/the-military-balance-2026/global-defence-spending/",
     "sipri": "https://www.sipri.org/publications/2026/sipri-fact-sheets/trends-world-military-expenditure-2025",
-    "worldbank": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion"
+    "worldbank": "https://www.worldbank.org/en/news/press-release/2026/11/05/developing-countries-external-debt-surges-to-record-9-4-trillion",
+    "worldbankGDP": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
   },
   "sourceCorrections": [
     {
@@ -237,6 +267,12 @@
       "sourceRow": "Trillions spreadsheet: climate spending/savings from 2015–2020 proposals",
       "resolution": "Historical model scenarios; suitable as dated scenario studies only, not 2026 project costs or completed benefits",
       "status": "research-lead"
+    },
+    {
+      "sourceRow": "Trillions spreadsheet: World GDP $112T listed for 2025",
+      "resolution": "World Bank WDI reports $118.35T for 2025; approximately $111.67T corresponds to 2024. Use 2025 value, correct date.",
+      "status": "corrected",
+      "primarySourceUrl": "https://data.worldbank.org/indicator/NY.GDP.MKTP.CD?locations=1W-US"
     }
   ],
   "recommendedProductConnections": [
