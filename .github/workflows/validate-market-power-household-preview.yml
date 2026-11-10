@@ -13,6 +13,13 @@ on:
       - 'platform/unified/money-scale.json'
       - 'site/data/money-scale-v1.json'
       - 'site/money-scale-review.html'
+      - 'site/market-power.html'
+      - 'site/market-power-household.js'
+      - 'site/market-power-household.css'
+      - 'site/household-market-bridge.json'
+      - 'site/money-scale.html'
+      - 'site/money-scale.json'
+      - 'site/redesign-preview.html'
       - 'tests/test_money_scale_review.py'
       - 'tests/test_market_power_household_bridge.py'
       - '.github/workflows/validate-market-power-household-preview.yml'
@@ -38,10 +45,11 @@ jobs:
       - name: Check JS syntax and inline script syntax on both prototype pages
         run: |
           node --check platform/unified/market-power-household.js
+          node --check site/market-power-household.js
           python - <<'PY'
           from pathlib import Path
           import re
-          for file in ['platform/unified/market-power.html', 'platform/unified/money-scale.html']:
+          for file in ['platform/unified/market-power.html', 'platform/unified/money-scale.html', 'site/market-power.html', 'site/money-scale.html']:
               html=Path(file).read_text(encoding='utf-8')
               blocks=re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>',html,re.S)
               if not blocks:
