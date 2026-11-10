@@ -78,6 +78,38 @@ class ConsumerClassActionsTests(unittest.TestCase):
             self.assertIn("power-atlas-unified.vercel.app/class-actions.html",
                           (SITE / path).read_text(encoding="utf-8"), path)
 
+    def test_visual_redesign_uses_live_evidence_and_clickable_deadlines(self):
+        page = self.page
+        visual_css = (UNIFIED / "class-actions-visual.css").read_text(encoding="utf-8")
+        visual_js = (UNIFIED / "class-actions-visual.js").read_text(encoding="utf-8")
+        preview = (UNIFIED / "redesign-preview.html").read_text(encoding="utf-8")
+        consumer = (UNIFIED / "consumer-practices.html").read_text(encoding="utf-8")
+
+        for required in ("class-actions-visual.css", "class-actions-visual.js",
+                         'id="caDonut"', 'id="caDeadlineTimeline"',
+                         'id="caAsOf"', 'id="caReportedOpen"',
+                         "Four publishers. Eight research directories.",
+                         'id="caseList"', 'id="q"', 'id="claim"'):
+            self.assertIn(required, page, required)
+        self.assertIn('window.__powerAtlasClassActions=data', page)
+        self.assertIn('poweratlas:class-actions-loaded', page)
+        self.assertIn('claimStatus==="open-as-of-review"', visual_js)
+        self.assertIn('input.dispatchEvent(new Event("input"', visual_js)
+        self.assertIn('aria-controls', visual_js)
+        self.assertIn('scrollIntoView', visual_js)
+        self.assertIn('minmax(0,1fr)', visual_css)
+        self.assertIn('prefers-reduced-motion', visual_css)
+        self.assertIn('id="class-actions"', preview)
+        self.assertIn('href="class-actions.html"', preview)
+        self.assertIn('class="cw-claims-callout"', consumer)
+        self.assertLess(consumer.index('class="cw-claims-callout"'),
+                        consumer.index('id="story-lab"'))
+
+        if shutil.which("node"):
+            check = subprocess.run(["node", "--check", "-"], input=visual_js,
+                                   text=True, capture_output=True)
+            self.assertEqual(check.returncode, 0, check.stderr)
+
     def test_inline_javascript_parses(self):
         if not shutil.which("node"):
             self.skipTest("Node unavailable")
