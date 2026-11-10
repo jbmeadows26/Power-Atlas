@@ -1,106 +1,99 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#0b2735">
-<meta name="description" content="A source-backed investigation of hidden fees, restrictive promotions, cancellation traps and other consumer-cost practices across 11 industries.">
-<title>Consumer Deception & Hidden Costs | Power Atlas</title>
-<style>
-:root{font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color:#1a3640;background:#f4f7f6}*{box-sizing:border-box}body{margin:0}a{color:#146f72;text-underline-offset:3px}button,select,input{font:inherit}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible{outline:3px solid #efb95b;outline-offset:3px}
-.pc-nav{background:#0c2532;color:#f4ffff;display:flex;gap:16px;justify-content:space-between;align-items:center;flex-wrap:wrap;padding:14px max(18px,calc((100vw - 1160px)/2))}.pc-nav a{color:#e8f4f2;font-size:.86rem;font-weight:750;text-decoration:none}.pc-nav strong{letter-spacing:.1em}
-.pc-hero{padding:58px 0 75px;background:linear-gradient(124deg,#0b2938,#194a50);color:#fff}.wrap{max-width:1160px;padding:0 18px;margin:auto}.eyebrow{font-size:.74rem;font-weight:850;letter-spacing:.15em;text-transform:uppercase;color:#ace7d6}.pc-hero h1{font-size:clamp(2.3rem,5.5vw,5rem);line-height:1.06;letter-spacing:-.045em;max-width:920px;margin:13px 0 18px}.pc-hero p{max-width:780px;font-size:1.08rem;color:#d5e7e5;line-height:1.65}.pc-counts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:13px;position:relative;margin-top:-40px}.pc-stat,.pc-card,.pc-steps,.pc-filter-wrap{background:#fff;border:1px solid #d4e4e2;border-radius:17px;padding:20px;box-shadow:0 5px 15px #09272b10}.pc-stat strong{display:block;font-size:clamp(2rem,4vw,3rem);line-height:1.1;color:#0c766a;letter-spacing:-.04em}.pc-stat span{color:#516a70;font-size:.89rem}.pc-section{margin-top:38px}.pc-section h2{font-size:clamp(1.5rem,3vw,2.3rem);letter-spacing:-.03em;line-height:1.2;margin:0 0 10px}.pc-sub{max-width:800px;color:#526a72;margin:3px 0 18px}.pc-steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}.pc-step b{font-size:1.7rem;color:#12776c}.pc-step h3{font-size:1.04rem;margin:7px 0}.pc-step p{margin:0;color:#60767d;font-size:.89rem}.pc-mini{font-size:.8rem;color:#5e7679}.pc-tactic-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}.pc-tactic{background:#fff;border:1px solid #d4e4e2;border-radius:13px;padding:18px;min-height:154px}.pc-tactic .number{font-size:1.8rem;color:#116d6d;font-weight:850}.pc-tactic h3{font-size:.99rem;line-height:1.25;margin:4px 0 7px}.pc-tactic p{font-size:.82rem;color:#60757b;line-height:1.43;margin:0}
-.pc-filter-wrap{padding:19px;margin-bottom:16px;position:relative}.pc-filters{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:11px}.pc-filters label{display:block;font-weight:780;font-size:.81rem;color:#4c666c;margin-bottom:5px}.pc-filters input,.pc-filters select{display:block;width:100%;min-height:44px;background:#fff;border:1px solid #a6c4c0;border-radius:9px;padding:10px 12px;color:#163d44}.pc-meta{display:flex;justify-content:space-between;align-items:center;gap:13px;flex-wrap:wrap;margin-top:13px}.pc-reset{background:none;color:#17685d;border:0;font-weight:750;cursor:pointer;text-decoration:underline}.pc-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.pc-card{box-shadow:0 2px 13px #113d3e0a;display:flex;flex-direction:column;gap:9px}.pc-card h3{font-size:1.26rem;margin:0;letter-spacing:-.02em}.pc-card p{margin:0;color:#4f656b;font-size:.9rem;line-height:1.52}.pc-card .pc-claim{font-weight:690;color:#24434a}.pc-pill{display:inline-flex;padding:5px 9px;background:#eef3f3;color:#48686b;font-weight:750;border-radius:50px;font-size:.72rem}.pc-tags{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.pc-card-link{margin-top:auto;display:flex;gap:15px;align-items:center;flex-wrap:wrap;border-top:1px solid #e4eeee;padding-top:12px;font-size:.86rem;font-weight:780}.pc-amt{font-weight:800;color:#176e65;font-size:.84rem}.pc-sig{color:#687d80;font-size:.77rem}.pc-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.pc-actions article{border:1px solid #d5e5e1;background:#fff;border-radius:13px;padding:18px}.pc-actions p{font-size:.88rem;color:#556e72}.pc-note{padding:17px;background:#fffae9;border-left:4px solid #d8ae56;border-radius:0 12px 12px 0;color:#5b5747;line-height:1.6;margin-top:18px}.pc-alert{padding:18px;border:1px solid #eccb9a;background:#fff6e7;border-radius:12px}.pc-status{min-height:22px;font-size:.85rem;color:#596f72}.pc-footer{border-top:1px solid #d0e1de;color:#567076;padding:24px 0;margin:42px 0 0;font-size:.85rem}
-@media(max-width:890px){.pc-tactic-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:710px){.pc-hero{padding:40px 0 69px}.pc-counts{grid-template-columns:repeat(3,minmax(0,1fr));gap:7px}.pc-stat{padding:13px 11px}.pc-stat strong{font-size:1.9rem}.pc-stat span{font-size:.77rem}.pc-steps{grid-template-columns:1fr;gap:12px}.pc-tactic-grid,.pc-results,.pc-actions{grid-template-columns:1fr}.pc-tactic{min-height:auto}.pc-filters{grid-template-columns:1fr}.pc-section{margin-top:30px}.pc-card{padding:17px}.pc-nav{padding:12px 16px}}
-</style>
-</head>
-<body data-pa-page="consumer-practices">
-<nav class="pc-nav" aria-label="Power Atlas topics"><a href="index.html"><strong>◇ POWER ATLAS</strong></a><div><a href="https://power-atlas-unified.vercel.app/my-life.html">Your daily life</a> · <a href="telecom-promotions.html">Phone-plan investigation</a></div></nav>
-<div class="pc-hero"><div class="wrap"><div class="eyebrow">Power Atlas / Consumer accountability</div><h1>They advertise the deal.<br>What do you actually pay?</h1>
-<p>Hidden fees. Tricky subscriptions. Promised benefits with costly restrictions. Track companies through official evidence—not rumors—and see the real ways these practices can affect everyday costs.</p></div></div>
-<main class="wrap"><aside class="pc-note" style="margin-top:15px;border-left:4px solid #178c7b;background:#e9f5f1;padding:16px 19px;border-radius:10px"><strong>New: Consumer Class Actions</strong> — Review lawsuits, proposed settlements, eligibility and official claim deadlines. These are distinct from agency refund programs. <a href="https://power-atlas-unified.vercel.app/class-actions.html" style="font-weight:800">Explore consumer class actions →</a></aside>
-<div class="pc-counts" aria-label="Evidence registry overview">
-<div class="pc-stat"><strong id="pcTotal">18</strong><span>Company/group investigations</span></div>
-<div class="pc-stat"><strong id="pcIndustries">12</strong><span>Industries covered</span></div>
-<div class="pc-stat"><strong id="pcEnforcement">17</strong><span>Regulatory actions or settlements</span></div>
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#092e3b">
+<meta name="description" content="Interactive consumer accountability stories: hidden fees, subscriptions, unfair advertising allegations and the fine print behind everyday costs.">
+<title>Consumer Watch — The Fine Print Files | Power Atlas</title>
+
+<link rel="stylesheet" href="consumer-watch-v2.css"></head><body data-pa-page="consumer-practices" data-schema="power-atlas.consumer-practices.v1" data-feed="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/consumer-practices/cases-v1.json"><nav class="cw-mobile-home" aria-label="Power Atlas"><a href="index.html" style="display:inline-block;padding:12px 16px;font-weight:850;color:#0d4238;text-decoration:none">◇ POWER ATLAS · RESEARCH</a></nav><header class="cw-top">
+<div class="cw-wrap cw-top-inner">
+<div class="cw-top-copyblock">
+<div class="cw-kicker">POWER ATLAS / CONSUMER WATCH</div>
+<h1>The deal looked good.<br><em>Then came the fine print.</em></h1>
+<p class="cw-top-copy">A phone upgrade. A monthly subscription. A rent listing. What happens between the price you see and the price—or commitment—you actually get?</p>
+<div class="cw-top-actions"><a href="#story-lab">See how the catch works ↓</a><span id="pcDataState" role="status">VERIFYING ORIGINAL SOURCES…</span></div>
 </div>
-<section class="pc-section"><h2>How the extra cost gets hidden</h2><p class="pc-sub">Most tactics exploit a gap between the first promise and the final obligation. Here's the pattern in plain English.</p>
-<div class="pc-steps">
-<div class="pc-step"><b>01</b><h3>The attractive headline</h3><p>A low price, “unlimited” service, big upgrade discount or easy cancellation gets your attention.</p></div>
-<div class="pc-step"><b>02</b><h3>The catch emerges later</h3><p>Mandatory fees, shared allowances, recurring charges, early-exit penalties or extra steps change the true bargain.</p></div>
-<div class="pc-step"><b>03</b><h3>The consumer absorbs the cost</h3><p>You spend more money, time, or effort—or discover that the promised offer cannot be combined as expected.</p></div>
-</div></section>
-<section class="pc-section"><h2>Four common patterns</h2>
-<div class="pc-tactic-grid"><div class="pc-tactic"><span class="number">01</span><h3>Hidden final price</h3><p>Fees or register charges differ from the upfront offer.</p></div><div class="pc-tactic"><span class="number">02</span><h3>Subscription traps</h3><p>Joining is easy; canceling or avoiding renewal isn't.</p></div><div class="pc-tactic"><span class="number">03</span><h3>Restricted promotions</h3><p>The advertised benefit is limited by account-wide rules or qualification requirements.</p></div><div class="pc-tactic"><span class="number">04</span><h3>Broken promises</h3><p>Delivery, refunds, service quality or product terms allegedly differ from what was promised.</p></div></div>
-<div class="pc-note"><strong>Important distinction:</strong> A regulator's allegation is not a court finding. A settlement often resolves claims without admitting wrongdoing. T-Mobile's shared-Pick rules are documented terms, but whether they constitute consumer deception is <strong>not established</strong>.</div>
-</section>
-<section class="pc-section" id="case-explorer">
-<h2>Explore the company investigations</h2><p class="pc-sub">Filter by the part of your life affected or by how far the evidence has progressed. Every company record links to its original source.</p>
-<div class="pc-filter-wrap"><div class="pc-filters">
-<div><label for="pcSearch">Search company or issue</label><input id="pcSearch" type="search" placeholder="Company, price, renewal…" autocomplete="off"></div>
-<div><label for="pcIndustry">Industry</label><select id="pcIndustry"><option value="all">All industries</option></select></div>
-<div><label for="pcEvidence">Evidence level</label><select id="pcEvidence"><option value="all">All evidence levels</option><option value="settlement">Settlements and refunds</option><option value="proposed">Proposed settlements</option><option value="lawsuit">Regulator allegations</option><option value="terms">Published terms only</option></select></div>
-</div><div class="pc-meta"><span id="pcCount" class="pc-status" role="status">Loading official records…</span><button type="button" id="pcReset" class="pc-reset">Clear filters</button></div></div>
-<div id="pcCases" class="pc-results" aria-live="polite"><article class="pc-card"><h3>Loading verified investigations</h3><p>Connecting to official FTC case records and published company terms.</p></article></div>
-</section>
-<section class="pc-section"><h2>What you can do about it</h2><p class="pc-sub">The most useful first step is usually to preserve the exact promise and the final charge. That turns a frustrating experience into verifiable evidence.</p>
-<div id="pcActions" class="pc-actions">
-<article><h3>Document the full price</h3><p>Save the advertisement and the total shown at checkout.</p><a href="https://reportfraud.ftc.gov/" target="_blank" rel="noopener noreferrer">FTC report portal →</a></article>
-<article><h3>Check existing refunds</h3><p>Look for an official refund program, never a paid claims agent.</p><a href="https://www.ftc.gov/enforcement/refunds" target="_blank" rel="noopener noreferrer">FTC refunds →</a></article>
+<div class="cw-receipt-stage">
+<div class="cw-receipt" aria-label="Example of an account-shared phone promotion constraint: two three-Pick deals would need six Picks, but the two-line plan provides four">
+<div class="cw-receipt-top"><span>CASE NO. 001</span><span>THE FINE PRINT FILES</span></div>
+<h2>Two new phones.<br>One shared budget.</h2>
+<p>Illustrative T-Mobile T-Mix More offer math · November 2026</p>
+<div class="cw-receipt-line"><span>Phone deal A</span><strong>3 Picks</strong></div>
+<div class="cw-receipt-line"><span>Phone deal B</span><strong>3 Picks</strong></div>
+<div class="cw-receipt-line"><span>Included for both lines</span><strong>4 Picks</strong></div>
+<div class="cw-receipt-total"><span>BENEFITS NEEDED</span><strong>6 / 4</strong></div>
+<div class="cw-pick-track" aria-hidden="true"><i></i><i></i><i></i><i></i><i class="missing"></i><i class="missing"></i></div>
+<div class="cw-outcome">Short by 2 shared Picks</div>
+<div class="cw-dashline"></div>
+<small>A documented promotion constraint, <strong>not a finding of illegal deception</strong>. <a href="telecom-promotions.html">Inspect the full phone-plan breakdown →</a></small>
+</div>
+</div>
+</div>
+</header>
+<main class="cw-wrap">
+<div class="cw-evidence-strip" aria-label="Case registry overview">
+<div class="cw-metric"><b id="pcTotal">—</b><span>company/group<br>case files</span></div>
+<div class="cw-metric"><b id="pcIndustries">—</b><span>industries<br>examined</span></div>
+<div class="cw-metric"><b id="pcEnforcement">—</b><span>cases involving<br>regulatory action</span></div>
+</div>
+<section class="cw-section" id="story-lab" aria-labelledby="story-title">
+<div class="cw-section-head">
+<div><span class="cw-index">01 / FOLLOW THE DEAL</span><h2 id="story-title">See where the promise changes.</h2></div>
+<p>Choose an everyday situation. Three short steps explain the documented restriction or the regulator’s allegation.</p>
+</div>
+<div class="cw-story-frame">
+<div class="cw-tablist" id="pcStoryButtons" role="group" aria-label="Choose a consumer experience"><span class="cw-mini">Connecting stories to evidence…</span></div>
+<div class="cw-story-main">
+<div class="cw-story-metadata" id="pcStoryMeta"></div>
+<h3 id="pcStoryTitle">Exploring consumer experiences</h3>
+<div id="pcStoryStages" class="cw-stages"><p>Loading original sources…</p></div>
+<p id="pcStoryNote" class="cw-story-note" aria-live="polite"></p>
+<div class="cw-story-links"><span id="pcStorySource"></span><span id="pcStoryLink"></span></div>
+</div>
 </div>
 </section>
-<section class="pc-section"><h2>What this evidence can—and cannot—show</h2>
-<div class="pc-actions"><article><h3>Documented</h3><p>Regulatory actions, court-entered orders, agency-announced settlements, publicly disclosed terms and dated refund activity.</p></article>
-<article><h3>Still to investigate</h3><p>Whether an allegation is proven, how frequently the same practice occurs today, what each household actually paid, and whether a particular actor intended to mislead.</p></article></div>
-<p class="pc-mini">This collection is selected to illustrate recurring mechanisms, not a statistically representative sample or a company risk score. Settlement amounts are not summed as consumer harm. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/cases-v1.json" target="_blank" rel="noopener noreferrer">Inspect the complete evidence dataset</a>.</p>
+<section class="cw-section" aria-labelledby="patterns-title">
+<div class="cw-section-head">
+<div><span class="cw-index">02 / SPOT THE PATTERN</span><h2 id="patterns-title">Different companies. Familiar tricks.</h2></div>
+<p>These bars show how many cases in this curated collection involve each tactic—not how common the conduct is industry-wide.</p>
+</div>
+<div class="cw-pattern-shell">
+<div class="cw-pattern-list" id="pcPatternGrid" role="group" aria-label="Filter cases by consumer practice">Loading patterns from case files…</div>
+<div class="cw-pattern-note"><div>
+<div class="cw-kicker">WHAT THE DATA SAYS</div>
+<h3>One tactic can show up in very different parts of your life.</h3>
+<p>Click any bar to see which companies appear in that pattern. A filed complaint is not a verdict, and an announced settlement is not proof that a practice continues today.</p>
+</div><div class="cw-archive-hint">↓ Select a bar to explore its cases</div></div>
+</div>
+<div class="cw-evidence-overview" id="pcStatusOverview" aria-label="Case-file counts by evidence status"></div>
+<p class="cw-mini">Case count is not a measure of misconduct severity. Settlement and refund amounts are not summed as consumer losses.</p>
 </section>
-<footer class="pc-footer">Power Atlas · Consumer Deception & Hidden Costs · Source review November 10, 2026. Primary-source claims labeled by their legal and evidentiary status. <span id="pcAsOf"></span></footer>
-</main>
-<script>
-(()=>{
-"use strict";
-const SOURCE="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/consumer-practices/cases-v1.json";
-const $=id=>document.getElementById(id),esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
-const link=(url,label)=>'<a href="'+esc(url)+'" target="_blank" rel="noopener noreferrer">'+esc(label)+' ↗</a>';
-let data=null;
-function card(c) {
- const status=(data.statuses[c.status]||{name:"Check source"}).name;
- let body='<article class="pc-card" data-id="'+esc(c.id)+'"><div class="pc-tags"><span class="pc-pill">'+esc(c.industry)+'</span><span class="pc-pill">'+esc(status)+'</span></div>';
- body+='<h3>'+esc(c.name)+'</h3><p class="pc-claim">'+esc(c.headline)+'</p>';
- body+='<p><strong>What happened:</strong> '+esc(c.claim)+'</p><p><strong>Why it matters:</strong> '+esc(c.mechanism)+'</p>';
- body+='<p class="pc-sig"><strong>Evidence:</strong> '+esc(c.implication)+'</p>';
- body+='<p class="pc-sig"><strong>What to do:</strong> '+esc(c.action)+'</p>';
- if(c.amount)body+='<span class="pc-amt">Enforcement / refund figure: '+esc(c.amount)+'</span>';
- body+='<div class="pc-card-link">'+link(c.source.url,"Original evidence")+(c.relatedPage?'<a href="'+esc(c.relatedPage)+'">Visual breakdown →</a>':'')+'</div></article>';
- return body;
-}
-function display(){
- if(!data)return;
- const q=$("pcSearch").value.trim().toLowerCase(),industry=$("pcIndustry").value,st=$("pcEvidence").value;
- const arr=data.cases.filter(c=>(industry==="all"||c.industry===industry)&&(st==="all"||c.status===st)&&(!q||[c.name,c.headline,c.claim,c.mechanism,c.industry,c.tactic].join(" ").toLowerCase().includes(q)));
- $("pcCases").innerHTML=arr.length?arr.map(card).join(""):'<div class="pc-alert">No matches. Change the filters or try a broader search.</div>';
- $("pcCount").textContent=arr.length+" of "+data.cases.length+" investigations shown";
-}
-async function init(){
- try{
-  const r=await fetch(SOURCE,{cache:"no-store"});if(!r.ok)throw Error("evidence feed unavailable");
-  const v=await r.json();if(v.schema!=="power-atlas.consumer-practices.v1"||!Array.isArray(v.cases)||!v.statuses)throw Error("unexpected evidence schema");
-  data=v;$("pcTotal").textContent=v.cases.length;$("pcIndustries").textContent=new Set(v.cases.map(c=>c.industry)).size;
-  $("pcEnforcement").textContent=v.cases.filter(c=>c.status!=="terms").length;
-  $("pcIndustry").innerHTML='<option value="all">All industries</option>'+[...new Set(v.cases.map(c=>c.industry))].sort().map(x=>'<option value="'+esc(x)+'">'+esc(x)+'</option>').join("");
-  $("pcActions").innerHTML=v.consumerActions.map(x=>'<article><h3>'+esc(x.name)+'</h3><p>'+esc(x.detail)+'</p>'+link(x.url,"Official guidance")+'</article>').join("");
-  $("pcAsOf").textContent="Evidence dataset: "+v.asOf+".";
-  display();
- }catch(e){
-  $("pcCount").textContent="Could not connect to the evidence dataset.";
-  $("pcCases").innerHTML='<div class="pc-alert"><strong>Evidence unavailable.</strong> No unsourced company findings are displayed. '+link("https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/cases-v1.json","View the public evidence file")+'</div>';
- }
-}
-["pcSearch","pcIndustry","pcEvidence"].forEach(id=>$(id).addEventListener(id==="pcSearch"?"input":"change",display));
-$("pcReset").addEventListener("click",()=>{$("pcSearch").value="";$("pcIndustry").value="all";$("pcEvidence").value="all";display()});
-init();
-})();
-</script>
-<script src="bug-report.js" defer></script>
-</body>
-</html>
+<section class="cw-section" id="case-explorer" aria-labelledby="archive-title">
+<div class="cw-section-head"><div><span class="cw-index">03 / OPEN THE CASE FILES</span><h2 id="archive-title">Find the company. Check the evidence.</h2></div><p>Clear headlines first. Primary sources, legal status, and consumer actions inside each expandable file.</p></div>
+<div class="cw-filterbar">
+<label for="pcSearch" class="cw-field"><span>SEARCH BY COMPANY OR ISSUE</span><input type="search" id="pcSearch" autocomplete="off" placeholder="e.g. refund, mobile, rent…"></label>
+<label for="pcIndustry" class="cw-field"><span>PART OF LIFE</span><select id="pcIndustry"><option value="all">All industries</option></select></label>
+<label for="pcEvidence" class="cw-field"><span>LEGAL / EVIDENCE STAGE</span><select id="pcEvidence">
+<option value="all">All evidence stages</option>
+<option value="settlement">Settlements and refunds</option>
+<option value="proposed">Proposed settlements</option>
+<option value="lawsuit">Regulator allegations</option>
+<option value="terms">Company terms only</option></select></label>
+</div>
+<div class="cw-results-meta"><span id="pcCount" role="status" aria-live="polite">Connecting to the case files…</span><span class="cw-filter-badge" id="pcFilterBadge" hidden></span><button id="pcReset" class="cw-reset" type="button">Reset filters</button></div>
+<div id="pcCases" class="cw-cases"><div class="cw-empty">Loading source-backed company records…</div></div>
+</section>
+<section class="cw-section" aria-labelledby="act-title">
+<div class="cw-section-head"><div><span class="cw-index">04 / TAKE BACK CONTROL</span><h2 id="act-title">Make the final price visible.</h2></div><p>Evidence is more useful when you can act on it. These steps link to official consumer guidance.</p></div>
+<div id="pcActionList" class="cw-actions"><article class="cw-action"><span class="cw-action-number">01</span><div><h3>Compare the total, not the teaser</h3><p>Save the final price and any agreement before completing a purchase.</p><a href="https://reportfraud.ftc.gov/" target="_blank" rel="noopener noreferrer">FTC reporting portal ↗</a></div></article></div>
+</section>
+<section class="cw-section" aria-labelledby="limits-title">
+<div class="cw-section-head"><div><span class="cw-index">THE EVIDENCE STANDARD</span><h2 id="limits-title">No verdicts by graphic design.</h2></div></div>
+<div class="cw-boundaries">
+<div><h3>What we can document</h3><p>Published plan restrictions, regulator complaints, court actions, announced settlements, refund programs and first-party terms. Every case links to its original record.</p></div>
+<div><h3>What these charts do not prove</h3><p>How many consumers were harmed, present-day prevalence, intentional wrongdoing, or legal liability in pending cases. A settlement does not necessarily admit wrongdoing.</p></div>
+</div>
+<p class="cw-mini">Selected investigations, not a representative sample or company ranking. Source review: <span id="pcAsOf">2026-11-10</span>. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/cases-v1.json" target="_blank" rel="noopener noreferrer">Inspect the full evidence dataset ↗</a>.</p>
+</section>
+<footer class="cw-footer"><strong>POWER ATLAS / CONSUMER WATCH</strong> · Making the cost of everyday decisions easier to see. <a href="index.html">Back to Power Atlas ↗</a></footer>
+</main><script src="consumer-watch-v2.js" defer></script><script src="bug-report.js" defer></script></body></html>
