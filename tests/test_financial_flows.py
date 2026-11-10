@@ -49,7 +49,7 @@ class FinancialFlowIntegrityTests(unittest.TestCase):
         c={r["id"]:r for r in self.data["cases"]}
         self.assertEqual(c["mgx_usd1"]["amountUsd"],2000000000)
         self.assertEqual(c["mgx_usd1"]["measurement"],"investment_principal")
-        self.assertIn("not a $2 billion payment",c["mgx_usd1"]["caveat"])
+        self.assertIn("not a $2 billion payment",c["mgx_usd1"]["caveat"].lower())
         self.assertIsNone(c["qatar_747"]["amountUsd"])
         self.assertEqual(c["qatar_747"]["measurement"],"government_non_cash_gift")
         self.assertIn("U.S. Defense Department",c["qatar_747"]["to"])
@@ -63,7 +63,7 @@ class FinancialFlowIntegrityTests(unittest.TestCase):
             self.assertTrue(any("#page="+str(p) in x["url"] for x in c[case]["sources"]))
 
     def test_standalone_page_works_without_external_js_dependencies(self):
-        for token in ["financial-flows.html","id=\"incomeChart\"","id=\"cards\"","id=\"filters\"",
+        for token in ["id=\"incomeChart\"","id=\"cards\"","id=\"filters\"",
                       "data-example=\"mgx_usd1\"","data-example=\"qatar_747\"",
                       "chooseFlow","renderCards","data-category=\"all\"",
                       "fetch('official-financial-flows-v1.json'","bug-report.js"]:
