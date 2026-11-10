@@ -1,0 +1,28 @@
+name: Validate freight and visual-first review
+on:
+  push:
+    branches:
+      - design/visual-first-progressive-v5-20261110
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  freight-visual-review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Confirm freight source dates, chapter links, visual hooks and JS syntax
+        run: python -m unittest discover -s tests -p 'test_freight_embedded_costs.py' -v
+      - name: Run service and class action compatibility tests
+        run: |
+          python -m unittest discover -s tests -p 'test_service_accountability.py' -v
+          python -m unittest discover -s tests -p 'test_consumer_class_actions.py' -v
