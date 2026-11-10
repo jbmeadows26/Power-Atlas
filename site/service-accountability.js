@@ -7,6 +7,14 @@ const link=(href,label)=>'<a href="'+esc(href)+'" target="_blank" rel="noopener 
 const box=(n,title,subtitle)=>'<article class="sa-kpi"><div class="sa-big">'+esc(n)+'</div><strong>'+esc(title)+'</strong><small>'+esc(subtitle)+'</small></article>';
 const line=(label,value,desc)=>'<div class="sa-line"><span>'+esc(label)+'</span><strong>'+esc(value)+'</strong><small>'+esc(desc)+'</small></div>';
 const fmtGbp=n=>"£"+Number(n).toFixed(1)+"m";
+
+const surveyBar=(label,value)=>'<div class="sa-bar-group"><div class="sa-bar-head"><span>'+esc(label)+'</span><strong>'+esc(value)+'%</strong></div><div class="sa-bar-track" role="img" aria-label="'+esc(label+': '+value+' percent of surveyed service leaders')+'"><span class="sa-bar-fill" style="width:'+Math.max(0,Math.min(100,Number(value)))+'%"></span></div></div>';
+const staffPair=(label,prev,curr)=>{
+ const max=Math.max(1,Number(prev),Number(curr));
+ const series=(year,n,cls)=>'<div class="sa-bar-group"><div class="sa-bar-head"><span>'+esc(year)+'</span><strong>'+esc(number(n))+'</strong></div><div class="sa-bar-track" role="img" aria-label="'+esc(label+', '+year+': '+number(n))+'"><span class="sa-bar-fill '+cls+'" style="width:'+(100*Number(n)/max).toFixed(2)+'%"></span></div></div>';
+ return '<div class="sa-group-heading">'+esc(label)+'</div>'+series('2024',prev,'')+series('2025',curr,'sa-bar-lime');
+};
+
 let record=null;
 const problemNotes={
  "General customer service":"The firsthand caller said the general menu redirected toward SMS/self-service rather than offering an explicit representative route. This is not an independently observed call.",
@@ -19,6 +27,10 @@ function render(data){
   box(s.organizationsWithAIAttributedAgentCutsPercent+"%","Surveyed organizations reporting AI-related agent reductions","Gartner · "+number(s.sampleSize)+" service leaders · July–August 2026")+
   box(s.meanWorkforceReductionAmongCuttersPercent+"%","Average workforce reduction among those reporting AI cuts","Conditional subgroup only—not the entire sample")+
   box(b.projectedChangePercent+"%","Projected U.S. customer-service employment change",b.baseYear+"–"+b.projectedYear+" · BLS projection, not realized AI layoffs");
+ $("saSurveyChart").innerHTML=
+  surveyBar("AI-related human agent cuts",s.organizationsWithAIAttributedAgentCutsPercent)+
+  surveyBar("Rehired after earlier cuts",s.rehiredAfterPriorReductionsPercent)+
+  surveyBar("Planning to rehire",s.planToRehireNext18MonthsPercent);
  $("saScope").textContent=data.scope;
  $("saSurvey").textContent="Also: "+s.rehiredAfterPriorReductionsPercent+"% reported rehiring previously cut staff and "+s.planToRehireNext18MonthsPercent+"% planned to rehire. "+s.footnote;
  $("saWork").innerHTML=
@@ -35,6 +47,9 @@ function render(data){
   ["Aggregate directors' remuneration",fmtGbp(g.directorsRemunerationGbpM2024),fmtGbp(g.directorsRemunerationGbpM2025)]
  ];
  $("saFinancial").innerHTML=moneyRows.map(r=>'<tr><th scope="row">'+esc(r[0])+'</th><td>'+esc(r[1])+'</td><td>'+esc(r[2])+'</td></tr>').join("");
+ $("saWorkforceChart").innerHTML=
+  staffPair("Year-end employees",g.totalHeadcount2024,g.totalHeadcount2025)+
+  staffPair("Reservations / sales / retail FTE",g.reservationsSalesRetailFte2024,g.reservationsSalesRetailFte2025);
  $("saFinanceNotes").textContent=g.limitations+" "+g.directorContext;
  $("saOwner").textContent=g.ownerDisclosure;
  $("saAnnual").innerHTML=link(g.source,"2025 annual report (primary source)");

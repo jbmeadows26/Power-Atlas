@@ -97,5 +97,26 @@ class ServiceAccountabilityTests(unittest.TestCase):
         self.assertEqual(result.returncode, 0, result.stderr)
 
 
+
+    def test_editorial_visual_integration_and_working_charts(self):
+        """Consumer Watch entry, data-bound charts, source limits and accessible controls."""
+        site = (ROOT / "site" / "service-accountability.html").read_text(encoding="utf-8")
+        site_js = (ROOT / "site" / "service-accountability.js").read_text(encoding="utf-8")
+        consumer = (ROOT / "site" / "consumer-practices.html").read_text(encoding="utf-8")
+        for markup in (site, self.page):
+            self.assertIn('id="saSurveyChart"', markup)
+            self.assertIn('id="saWorkforceChart"', markup)
+            self.assertIn('class="sa-editorial"', markup)
+            self.assertIn('id="saQuestions"', markup)
+            self.assertIn('not independently', markup)
+        for script in (site_js, self.script):
+            self.assertIn("staffPair(", script)
+            self.assertIn("surveyBar(", script)
+            self.assertIn('g.totalHeadcount2024,g.totalHeadcount2025', script)
+            self.assertIn('s.organizationsWithAIAttributedAgentCutsPercent', script)
+            self.assertIn('not independently observed call', script)
+        self.assertIn('href="service-accountability.html"', consumer)
+        self.assertIn('cw-service-panel', consumer)
+
 if __name__ == "__main__":
     unittest.main()
