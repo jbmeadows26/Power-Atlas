@@ -1,0 +1,210 @@
+{
+  "schema": "power-atlas.consumer-watch.phone-true-cost.v1",
+  "asOf": "2026-11-10",
+  "publicationScope": "generic US household two-line worked example; no user account details published",
+  "headline": "The free phone isn't always the cheapest phone",
+  "device": {
+    "model": "Apple iPhone 18 Pro Max 512GB",
+    "unlockedRetailUSD": 1499,
+    "quantity": 2,
+    "combinedRetailUSD": 2998,
+    "financeTermMonths": 36,
+    "source": "https://www.apple.com/shop/buy-iphone/iphone-18-pro",
+    "taxRule": "Sales tax on full or pre-credit purchase price can be charged at sale. Amount varies by jurisdiction and is omitted from modeled totals.",
+    "resaleValueUSD": null,
+    "unlockedTradeInValueUSD": null
+  },
+  "case": {
+    "lines": 2,
+    "horizonMonths": 36,
+    "criteria": "No trade-in revenue or resale included; regular recurring service prices; no temporary promo codes; AutoPay assumed when required; same two iPhone models across scenarios. Service capabilities differ. Figures rounded to cents.",
+    "sources": [
+      "https://www.visible.com/buy/plans",
+      "https://www.usmobile.com/blog/cell-phone-plans-november-2026/",
+      "https://www.t-mobile.com/cell-phone-plans",
+      "https://www.t-mobile.com/offers/promotional-offer-details/",
+      "https://www.verizon.com/support/device-deals-faqs/",
+      "https://www.apple.com/shop/buy-iphone/iphone-18-pro"
+    ]
+  },
+  "plans": [
+    {
+      "id": "us-starter",
+      "brand": "US Mobile",
+      "name": "Unlimited Starter × 2",
+      "category": "Prepaid + own phones",
+      "monthlyUSD": 50,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Priority and high-speed treatment depend on selected network; not suitable as a blanket guarantee of no deprioritization.",
+      "limitations": "20GB hotspot per line. Check underlying network's premium-data priority and high-speed allowances.",
+      "source": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/",
+      "feeSource": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/"
+    },
+    {
+      "id": "us-mixed",
+      "brand": "US Mobile",
+      "name": "Unlimited Premium + Starter",
+      "category": "Prepaid + own phones",
+      "monthlyUSD": 69,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Premium's priority and network handling vary; Starter does not automatically inherit Premium priority.",
+      "limitations": "Different plans for the two people; full high-priority service not established on every network.",
+      "source": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/",
+      "feeSource": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/"
+    },
+    {
+      "id": "us-premium",
+      "brand": "US Mobile",
+      "name": "Unlimited Premium × 2",
+      "category": "Prepaid + own phones",
+      "monthlyUSD": 88,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Carrier advertises unlimited priority data, with network-dependent policies and features.",
+      "limitations": "Confirm chosen underlying network and what priority means on that network.",
+      "source": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/",
+      "feeSource": "https://www.usmobile.com/blog/cell-phone-plans-november-2026/"
+    },
+    {
+      "id": "visible-plus",
+      "brand": "Visible",
+      "name": "Visible+ × 2",
+      "category": "Prepaid + own phones",
+      "monthlyUSD": 70,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Premium data on Verizon's network subject to carrier broadband facts; no constant-speed guarantee.",
+      "limitations": "Hotspot speed cap and feature differences matter; regular $35/line, not the advertised temporary $30/line.",
+      "source": "https://www.visible.com/buy/plans",
+      "feeSource": "https://www.visible.com/buy/plans"
+    },
+    {
+      "id": "visible-pro",
+      "brand": "Visible",
+      "name": "Visible+ Pro × 2",
+      "category": "Prepaid + own phones",
+      "monthlyUSD": 90,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Premium data on Verizon's network, subject to network management; hotspot speed cap remains.",
+      "limitations": "Regular $45/line, excluding temporary promo; international and hotspot benefits may exceed Visible+.",
+      "source": "https://www.visible.com/buy/plans",
+      "feeSource": "https://www.visible.com/buy/plans"
+    },
+    {
+      "id": "tmix-more-two930",
+      "brand": "T-Mobile",
+      "name": "T-Mix More + 2 × $930 offers",
+      "category": "Postpaid promo credits",
+      "monthlyUSD": 130,
+      "feesPerMonthUSD": 10.98,
+      "connectionUSD": 70,
+      "advertisedDeviceCreditsUSD": 1860,
+      "creditMonths": 36,
+      "priorityNote": "Qualifying plans promise premium network treatment subject to official policy; not identical to other carriers.",
+      "limitations": "Both promotions need individual eligibility and 2 Picks each; together use all 4 shared Picks. Two $1,200 promos do NOT fit. Includes stated regulatory/recovery fees, not taxes/surcharges.",
+      "source": "https://www.t-mobile.com/offers/promotional-offer-details/",
+      "feeSource": "https://www.t-mobile.com/cell-phone-plans"
+    },
+    {
+      "id": "tmix-more-one1200",
+      "brand": "T-Mobile",
+      "name": "T-Mix More + 1 × $1,200 offer",
+      "category": "Postpaid promo credits",
+      "monthlyUSD": 130,
+      "feesPerMonthUSD": 10.98,
+      "connectionUSD": 70,
+      "advertisedDeviceCreditsUSD": 1200,
+      "creditMonths": 36,
+      "priorityNote": "Same base service as above; one offer uses 3 of 4 account-shared Picks.",
+      "limitations": "Only one device is modeled with the $1,200 offer; second device is full price. A $1,200 + $930 combo needs 5 Picks and doesn't fit.",
+      "source": "https://www.t-mobile.com/offers/promotional-offer-details/",
+      "feeSource": "https://www.t-mobile.com/cell-phone-plans"
+    },
+    {
+      "id": "verizon-existing",
+      "brand": "Verizon",
+      "name": "Existing discounted service + 2 unlocked phones",
+      "category": "Account-specific benchmark",
+      "monthlyUSD": 70,
+      "feesPerMonthUSD": 0,
+      "connectionUSD": 0,
+      "advertisedDeviceCreditsUSD": 0,
+      "creditMonths": 0,
+      "priorityNote": "Unlimited Welcome is subject to congestion/network-priority limits and may NOT meet a requirement of no deprioritization.",
+      "limitations": "$70 two-line service figure is an anonymized already-discounted customer example, NOT a public tariff. Does not include other fees, existing finance obligations, or whether new upgrades change plan eligibility.",
+      "source": "https://www.verizon.com/support/device-deals-faqs/",
+      "feeSource": "https://www.verizon.com/support/device-payment-faqs"
+    }
+  ],
+  "importantExclusions": [
+    "Do not treat the current Verizon $40/month loyalty credit as additional savings—already reflected in the $70/month existing service benchmark.",
+    "Verizon Fios is a separate household cost. If leaving mobile changes Fios pricing, add the verified monthly difference to every switching scenario. No automatic loss amount is assumed.",
+    "Existing installment balance and forfeited legacy promotion credits are excluded from generic totals; add when applicable, distinguishing accelerated principal from foregone credits.",
+    "Early device payoff can terminate future promotion credits while the remaining unpaid handset balance is still owed, depending on carrier and offer.",
+    "Carrier advertised device credit is a maximum; approval, port-in, new-line, trade-in, service selection, and 36-month good standing may be required.",
+    "Trade-in value must be handled consistently: compare a carrier's conditional trade-in credit with the actual resale/instant trade-in value forgone by handing over the phone.",
+    "The Apple device's satellite messaging capability is not an ordinary satellite voice or fully carrier-independent call guarantee.",
+    "Tax and federal/local surcharges where not included, activation costs beyond reported charges, insurance, accessories, financing opportunity cost and inflation are not quantified.",
+    "Temporary first-year pricing and annual prepaid plan discounts have not been blended into regular monthly prices; they require a separate time-varying ledger.",
+    "Cheaper regular-price plan is not necessarily equivalent in coverage, network priority, international service, customer support, hotspot or satellite access."
+  ],
+  "consumerPatterns": [
+    {
+      "tag": "The monthly-plan premium",
+      "question": "Does the plan cost more each month than buying a phone unlocked and using service with the features you need?",
+      "test": "(carrier monthly service + required carrier recovery fees − comparison monthly service) × months; compare with credits actually earned"
+    },
+    {
+      "tag": "A free phone with a 36-month string",
+      "question": "How many credits would you lose if you left in month 12?",
+      "test": "Unredeemed promotional credits = maximum eligible credits × remaining months ÷ total months, with eligibility and credit timing caveats"
+    },
+    {
+      "tag": "The shared-Picks collision",
+      "question": "Can two family members claim simultaneous deals?",
+      "test": "Total promotion Picks demanded ≤ account's available Picks; T-Mix More two lines: 4 Picks; two $1,200 offers need 6"
+    },
+    {
+      "tag": "The double-counted discount",
+      "question": "Did the quote subtract a loyalty discount that was already part of the current bill?",
+      "test": "Use actual NET baseline, not list price minus the already-applied credit again"
+    },
+    {
+      "tag": "The bundle cost shift",
+      "question": "Does moving phones increase home-internet price?",
+      "test": "Household delta includes verified post-switch internet price minus present internet price"
+    },
+    {
+      "tag": "The forfeited phone",
+      "question": "What happens to a financed phone and its trade-in promotion if you leave early?",
+      "test": "Unpaid principal is distinct from the value of unearned credits and early payoff restrictions"
+    }
+  ],
+  "sensitivity": {
+    "months": [
+      12,
+      24,
+      36
+    ],
+    "switchingExtras": {
+      "oldDevicePayoffUSD": null,
+      "netInternetIncreasePerMonthUSD": null,
+      "deviceSalesTaxUSD": null,
+      "instantTradeInValueUSD": null
+    },
+    "note": "Unknown values are displayed as exclusions, never silently assigned zero in the actual bill."
+  }
+}
