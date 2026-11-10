@@ -18,9 +18,8 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
+      # Validate the triggering branch commit; scheduled runs naturally use default main.
       - uses: actions/checkout@v4
-        with:
-          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
