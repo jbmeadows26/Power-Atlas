@@ -656,3 +656,35 @@ html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-tile-value{display:none!
  html[data-vs6="active"] body[data-pa-page="overview"]
    .vs6-topic-cover .vs6-zip-grid > .vs6-zip-tile:last-child{grid-column:1/-1}
 }
+
+
+/* The primary rent story now reports verified asking-listing averages.
+   HUD program figures remain in a separate lower comparison panel. */
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-bedroom-list{
+  grid-template-columns:repeat(4,minmax(0,1fr));gap:9px
+}
+.vs6-zip-market-filter{display:flex;align-items:center;justify-content:space-between;
+ gap:12px;flex-wrap:wrap;font-size:.78rem;font-weight:900;color:#25544e;margin:3px 0 6px}
+.vs6-zip-market-select{max-width:100%;min-width:145px;padding:8px 31px 8px 12px;
+ color:#123e41;background:#fff;border:1px solid #a5caba;border-radius:10px;
+ font-family:inherit;font-size:.85rem;font-weight:800;cursor:pointer}
+.vs6-zip-market-select:focus-visible{outline:3px solid #cd8a4b;outline-offset:2px}
+.vs6-zip-market-select:disabled{opacity:.6;cursor:not-allowed}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-compare{
+ line-height:1.5;font-size:.72rem;color:#365e59
+}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-detail{
+ background:#fff;color:#1a6258;border-color:#b4d9cb
+}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-detail:hover,
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-detail:focus-visible{
+ background:#dff3e8;color:#104439;border-color:#288c79
+}
+@media(max-width:570px){
+ html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-bedroom-list{
+  grid-template-columns:repeat(2,minmax(0,1fr));gap:7px
+ }
+ html[data-vs6="active"] .vs6-zip-market-filter{font-size:.7rem;margin-bottom:5px}
+ html[data-vs6="active"] .vs6-zip-market-select{font-size:.79rem;flex:1}
+ html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-compare{font-size:.67rem}
+}
