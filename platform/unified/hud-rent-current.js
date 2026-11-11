@@ -121,9 +121,14 @@ async function show(zip,state){
    send(zip,[],"unavailable");
  }
 }
+let requestedKey="";
 window.addEventListener("poweratlas:zip-visual-context",event=>{
  const d=event?.detail;
- if(d?.status==="loading"&&/^\d{5}$/.test(d.zip||"")){
+ if((d?.status==="loading"||d?.status==="ready") &&
+    /^\d{5}$/.test(d.zip||"")&&/^[A-Z]{2}$/.test(d.stateCode||"")){
+   const key=d.zip+":"+d.stateCode;
+   if(key===requestedKey)return;
+   requestedKey=key;
    show(d.zip,d.stateCode);
  }
 });
