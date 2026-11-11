@@ -132,12 +132,38 @@ function home(){
   {meta:cardMeta[3],idx:7},{meta:cardMeta[4],idx:9},{meta:cardMeta[5],idx:6}
  ];
  mapped.forEach(({meta,idx},i)=>{
-  const a=go(pathTo((originalCards[idx]?.getAttribute("href")||"index.html"),originalCards[idx]),"","vs6-story vs6-story--"+meta.theme+" vs6-story--"+(i%3===0?"wide":"regular"));
-  a.textContent="";a.setAttribute("aria-label",meta.heading+"; explore full sourced story");
-  if(meta.kind==="market")a.href="market-power.html#market-power-pathways";
+  const target=pathTo((originalCards[idx]?.getAttribute("href")||"index.html"),originalCards[idx]);
   const top=E("div","vs6-story-head");top.append(E("span","vs6-micro",meta.tag),E("span","vs6-arrow-icon","↗"));
   const graphic=visual(meta.kind);
   const bottom=E("div","vs6-story-foot");bottom.append(E("h3",null,meta.heading),E("p",null,meta.line),E("span","vs6-story-cta","Explore why →"));
+  if(meta.kind==="consumer"){
+    // Separate independent links, not links nested within links.
+    const tile=E("article","vs6-story vs6-story--peach vs6-story--regular vs6-consumer-card");
+    const feature=go(target,"","vs6-consumer-feature");
+    feature.setAttribute("aria-label","The fine-print trap; explore Consumer Watch");
+    feature.append(top,graphic,bottom);
+    const shortcuts=E("nav","vs6-consumer-shortcuts");
+    shortcuts.setAttribute("aria-label","Explore Consumer Watch topics");
+    [
+      {icon:"📱",label:"Phone deals",url:"consumer-practices.html?story=tmobile#story-lab"},
+      {icon:"🏠",label:"Rental fees",url:"consumer-practices.html?story=progress#story-lab"},
+      {icon:"↻",label:"Subscriptions",url:"consumer-practices.html?story=amazon#story-lab"},
+      {icon:"✈",label:"Travel extras",url:"consumer-practices.html?story=hopper#story-lab"},
+      {icon:"📦",label:"Shrinking packages",url:"consumer-practices.html#shrinkflation"},
+      {icon:"☎",label:"Automated support",url:"service-accountability.html"},
+      {icon:"⚖",label:"Class actions",url:"https://power-atlas-unified.vercel.app/class-actions.html"}
+    ].forEach(item=>{
+      const shortcut=go(item.url,"","vs6-consumer-shortcut");
+      shortcut.setAttribute("aria-label","Explore "+item.label);
+      shortcut.append(E("span","vs6-consumer-shortcut-icon",item.icon),E("span","vs6-consumer-shortcut-label",item.label),E("span","vs6-consumer-shortcut-arrow","↗"));
+      shortcuts.append(shortcut);
+    });
+    tile.append(feature,shortcuts,E("span","vs6-consumer-note","Company terms, allegations and legal findings are labeled separately."));
+    gallery.append(tile);return;
+  }
+  const a=go(target,"","vs6-story vs6-story--"+meta.theme+" vs6-story--"+(i%3===0?"wide":"regular"));
+  a.setAttribute("aria-label",meta.heading+"; explore full sourced story");
+  if(meta.kind==="market")a.href="market-power.html#market-power-pathways";
   a.append(top,graphic,bottom);gallery.append(a);
  });
  portal.append(gallery);
