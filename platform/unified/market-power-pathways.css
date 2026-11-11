@@ -59,3 +59,10 @@ html[data-vs6="active"] .vs6-topic.vs6-topic--mpx>h1{color:#153e39!important}
 html[data-vs6="active"] .vs6-topic.vs6-topic--mpx .vs6-topic-summary{color:#45655b!important}
 .mpx{scroll-margin-top:78px}
 @media(max-width:480px){.mpx-measure{padding:11px 12px;gap:6px}.mpx-metric{font-size:1.65rem}}
+
+/* Dark Money uses the global platform shell above its research sub-navigation. */
+body[data-pa-page="market-power"] > header{position:relative;top:auto;z-index:2;background:#fff;border-bottom:1px solid #d9e5e7}
+body[data-pa-page="market-power"] > header .top{min-height:56px}
+body[data-pa-page="market-power"] > header .brand{font-size:1rem}
+body[data-pa-page="market-power"] > header .navlinks{gap:15px}
+@media(max-width:620px){body[data-pa-page="market-power"] > header .top{padding:10px 0}body[data-pa-page="market-power"] > header .navlinks{gap:8px}}
