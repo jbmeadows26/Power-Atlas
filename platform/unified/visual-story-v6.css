@@ -563,3 +563,6 @@ html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :
 .pa-coverage-card{padding:13px;min-height:154px}.pa-coverage{margin:22px 12px}}
 @media(prefers-reduced-motion:reduce){.pa-coverage-card{transition:none}
  .pa-coverage-card:hover{transform:none}}
+
+/* The old ZIP-first hero was a second, competing introduction. Preserve #where form. */
+html[data-vs6="active"] body:has(#where) > .hero{display:none!important}
