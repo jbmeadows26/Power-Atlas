@@ -29,6 +29,8 @@ class MarketPowerVisualPathwaysTests(unittest.TestCase):
                       "Concept map:", "NOT ESTABLISHED"):
             self.assertIn(token, js)
         self.assertIn("market-power.html?case=", js)
+        self.assertIn("aria-atomic", js)
+        self.assertIn("Evidence status:", js)
 
     def test_template_structure_and_progressive_disclosure(self):
         template = (FRONTENDS[1] / "political-money-story.css").read_text(encoding="utf-8")
