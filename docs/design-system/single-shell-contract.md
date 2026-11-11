@@ -2,6 +2,9 @@
 
 Status: approved V6 visual-first system · November 2026. This contract is enforced by `tests/test_visual_atlas_production.py` and the production visual-atlas GitHub Actions gate.
 
+## Default design policy for every future change
+Every new page, section, chart, module, investigation and redesign **must use the approved V6 visual-first Power Atlas shell from its first implementation**, not just link its CSS or JavaScript. The canonical navigation, palette, visual introduction, interactive graphics, short summary and expandable evidence are mandatory release criteria. Standalone layouts or competing theme systems are defects. Merge/publish only after checking the visible result on desktop and mobile. Existing research data and citations must survive the visual conversion.
+
 ## Canonical presentation owners
 - `visual-story-v6.js` and `visual-story-v6.css` own the homepage visual stories, every primary page's compact visual-first introduction, and the single mobile menu.
 - `global-navigation.css` owns the shared primary-navigation styling. Keep identical copies in `platform/unified` and `site`.

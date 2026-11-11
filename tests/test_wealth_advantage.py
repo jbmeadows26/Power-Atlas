@@ -39,6 +39,25 @@ class WealthAdvantageTests(unittest.TestCase):
         self.assertEqual((SITES[0]/"visual-story-v6.js").read_bytes(),
                          (SITES[1]/"visual-story-v6.js").read_bytes())
 
+    def test_approved_v6_visual_first_shell_is_mandatory(self):
+        """Pages must present the approved V6 story before the research cards."""
+        for site in SITES:
+            page = (site / "wealth-advantage.html").read_text()
+            self.assertIn('class="vs6-topic vs6-topic--money wa-v6-cover"', page)
+            self.assertIn('class="wa-v6-graphic"', page)
+            self.assertIn('id="wa-v6-expand"', page)
+            self.assertIn('aria-controls="wa-deep-dive"', page)
+            self.assertIn('node("button","wa-case-head wa-case-open")', page)
+            self.assertIn('node("div","wa-case-reveal")', page)
+            self.assertIn('node("span","wa-case-glyph",cardSymbols[index])', page)
+            self.assertIn('vs6-topic-expanded', page)
+            self.assertNotIn('<section class="wa-hero">', page)
+            self.assertEqual(page.count('id="pa-global-header"'), 1)
+            self.assertEqual(page.count('data-pa-nav='), 6)
+            self.assertIn('src="visual-story-v6.js"', page)
+            self.assertIn('href="visual-story-v6.css"', page)
+            self.assertIn('src="bug-report.js"', page)
+
     def test_all_comparisons_have_three_profiles_and_primary_sources(self):
         page = (SITES[0] / "wealth-advantage.html").read_text()
         self.assertIn('Ordinary household', page)
