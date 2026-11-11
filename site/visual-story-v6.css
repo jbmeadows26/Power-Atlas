@@ -593,3 +593,6 @@ html[data-vs6="active"] body .ownershipPage > .threadResearch{
  background:#fffdf8!important;border:1px solid #dce6dd!important;
  border-radius:22px!important;margin-top:22px!important;
 }
+
+/* Evidence hub remains discoverable without forcing a visitor to open deep research. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main > #pa-coverage-discovery{display:block!important}
