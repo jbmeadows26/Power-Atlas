@@ -274,3 +274,25 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
 .vs6-market-proofline i{display:block;width:100%;height:13px;border-radius:100px;background:linear-gradient(to right,#178a78 0 var(--p),#badacb var(--p) 100%)}
 .vs6-market-proofline:nth-child(2) i{background:linear-gradient(to right,#17635f 0 var(--p),#badacb var(--p) 100%)}
 @media(max-width:570px){.vs6-market-proofline strong{font-size:1.75rem}.vs6-market-proofline small{font-size:.61rem}}
+
+/* Consumer Watch: multiple separately accessible evidence routes. */
+.vs6-consumer-card{overflow:hidden}
+.vs6-consumer-feature{display:flex;flex-direction:column;flex:1;text-decoration:none!important;color:inherit!important}
+.vs6-consumer-feature:hover .vs6-story-cta{text-decoration-thickness:3px}
+.vs6-consumer-feature:focus-visible,.vs6-consumer-shortcut:focus-visible{outline:3px solid #a34b2e!important;outline-offset:-3px;border-radius:10px}
+.vs6-consumer-shortcuts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:0 20px 10px}
+.vs6-consumer-shortcut{display:flex;align-items:center;gap:7px;min-width:0;min-height:46px;padding:8px 9px;border:1px solid #e0ad99;border-radius:11px;background:#fff7f0;color:#21444b!important;text-decoration:none!important;font-size:clamp(.69rem,.91vw,.8rem);font-weight:840;line-height:1.2}
+.vs6-consumer-shortcut:hover{background:#fff;border-color:#b65b3c}
+.vs6-consumer-shortcut-icon{width:24px;flex:none;font-size:1.04rem;text-align:center}
+.vs6-consumer-shortcut-label{flex:1;min-width:0;overflow-wrap:anywhere}
+.vs6-consumer-shortcut-arrow{flex:none;opacity:.65}
+.vs6-consumer-note{display:block;padding:0 20px 16px;font-size:.64rem;line-height:1.35;color:#5b6365}
+@media(max-width:610px){.vs6-consumer-shortcuts{padding:4px 16px 9px;gap:7px}.vs6-consumer-shortcut{font-size:.74rem;min-height:44px}.vs6-consumer-note{padding:0 17px 17px}}
+/* Mobile QA: readable single-column shortcut labels, 44px tap targets. */
+@media(max-width:480px){
+ .vs6-consumer-shortcuts{grid-template-columns:minmax(0,1fr)!important;gap:6px}
+ .vs6-consumer-shortcut{width:100%;min-width:0;min-height:44px;padding:8px 12px;font-size:.82rem}
+ .vs6-consumer-shortcut-label{overflow-wrap:normal;word-break:normal;white-space:normal}
+ .vs6-consumer-shortcut-arrow{margin-left:auto}
+ .vs6-consumer-card{min-width:0;width:100%}
+}

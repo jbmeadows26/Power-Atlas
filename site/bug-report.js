@@ -45,13 +45,14 @@
       .foot { font-size: 12px; color: #526975; margin: 13px 0 0; }
       .status { min-height: 18px; font-size: 13px; color: #176a51; margin-top: 8px; }
       @media (max-width: 520px) {
-        #open { right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px) + 8px); }
+        #open { right: 8px; bottom: max(8px, env(safe-area-inset-bottom, 0px) + 6px); width: 44px; height: 44px; padding: 0; gap: 0; justify-content: center; font-size: 0; }
+        #open span { font-size: 20px; }
         #shade { padding: 10px; align-items: flex-end; }
         #dialog { width: 100%; padding: 19px; border-radius: 16px 16px 10px 10px; max-height: 89dvh; }
       }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
     </style>
-    <button id="open" type="button" aria-haspopup="dialog" aria-controls="dialog">
+    <button id="open" type="button" aria-label="Report a bug" aria-haspopup="dialog" aria-controls="dialog">
       <span aria-hidden="true">⚑</span> Report a bug
     </button>
     <div id="shade" hidden>

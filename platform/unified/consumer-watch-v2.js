@@ -66,6 +66,12 @@
       '<a href="'+clean(c.relatedPage)+'" class="cw-secondary-link">Explore the phone deal math →</a>' :
       '<a href="#case-explorer" class="cw-secondary-link" data-showcase="'+clean(c.id)+'">Open the full case file →</a>';
     renderStoryButtons();
+    // Keep active tab in view in mobile scrollable tab strip.
+    const strip=$("pcStoryButtons"), active=strip.querySelector(".cw-tab.is-active");
+    if(active && strip.scrollWidth>strip.clientWidth){
+      const rect=active.getBoundingClientRect(), area=strip.getBoundingClientRect();
+      strip.scrollLeft+=rect.left-area.left-(area.width-rect.width)/2;
+    }
   }
   function renderPatternMap() {
     const counts = new Map();
@@ -155,6 +161,10 @@
     $("pcStoryButtons").addEventListener("click",event=>{
       const btn=event.target.closest("[data-story]");if(!btn)return;
       chosen=btn.dataset.story;renderStory();
+      const next=new URL(window.location.href);
+      next.searchParams.set("story",chosen);
+      next.hash="story-lab";
+      window.history.replaceState(null,"",next);
     });
     $("pcPatternGrid").addEventListener("click",event=>{
       const btn=event.target.closest("[data-pattern]");if(btn)setPattern(btn.dataset.pattern);
@@ -185,6 +195,8 @@
       if(d.schema!==SCHEMA || !Array.isArray(d.cases) || d.cases.length===0 || !d.statuses)
         throw Error("unexpected evidence schema");
       data=d;
+      const requestedStory=new URLSearchParams(window.location.search).get("story");
+      if(requestedStory && STORIES.some(s=>s.id===requestedStory && lookup(s.id))) chosen=requestedStory;
       if(!lookup(chosen)){const first=STORIES.find(s=>lookup(s.id));if(first)chosen=first.id;}
       setupCounts();renderStory();renderCases();
       $("pcDataState").textContent="SOURCE CONNECTED · "+d.asOf;
