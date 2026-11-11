@@ -138,7 +138,7 @@ async function hydrateOwnerCard({graphic,prev,next,counter,links,target}){
    note.textContent=label+" · Not proof of local price effects";
    counter.textContent=(active+1)+" of "+rows.length+" · sourced ownership threads";
    graphic.setAttribute("aria-label",from.name+" to "+to.name+", "+e.asOf+", "+label);
-   const url=new URL(target,location.href);url.searchParams.set("owner",e.from);url.hash="ownership-network";
+   const url=new URL(target,location.href);url.searchParams.delete("issue");url.searchParams.set("owner",e.from);url.hash="ownership-network";
    links.forEach(l=>{l.href=url.href;l.setAttribute("aria-label","Explore "+from.name+" and "+to.name+" ownership evidence")});
   }
   prev.addEventListener("click",()=>{active=(active-1+rows.length)%rows.length;render()});
