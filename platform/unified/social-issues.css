@@ -1,0 +1,33 @@
+/* Power Atlas — visual-first issue cards, matching the approved unified palette. */
+.pa-social-library{margin:24px 0 28px;padding:23px;border-radius:20px;border:1px solid #cadcd4;background:linear-gradient(150deg,#f1f6ef,#e8f3ec)}
+.pa-social-heading{display:flex;justify-content:space-between;align-items:end;gap:14px;flex-wrap:wrap;margin-bottom:17px}
+.pa-social-heading h3{font-size:clamp(1.42rem,3.3vw,2.1rem);line-height:1.13;letter-spacing:-.045em;margin:7px 0 5px;color:#173c40}
+.pa-social-heading p{margin:0;color:#547071;font-size:.89rem;line-height:1.45;max-width:590px}
+.pa-social-kicker{display:block;color:#267367;font-size:.7rem;letter-spacing:.13em;text-transform:uppercase;font-weight:850}
+.pa-social-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.pa-social-card{min-width:0;background:#fff;border:1px solid #cadbd2;border-top:3px solid #367d72;border-radius:14px;overflow:hidden;box-shadow:0 6px 20px #1d56470a}
+.pa-social-card:nth-of-type(4n+2){border-top-color:#ba9851}.pa-social-card:nth-of-type(4n+3){border-top-color:#3a788f}
+.pa-social-card[hidden]{display:none}
+.pa-social-summary{cursor:pointer;display:flex;flex-direction:column;align-items:stretch;gap:8px;min-height:170px;padding:18px;list-style:none}
+.pa-social-summary::-webkit-details-marker{display:none}
+.pa-social-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.pa-social-icon{display:grid;place-items:center;border-radius:10px;background:#e7f2ed;color:#195c58;font-weight:900;width:39px;height:39px;font-size:1.4rem}
+.pa-social-group{color:#638278;font-weight:850;font-size:.62rem;letter-spacing:.075em;text-align:right}
+.pa-social-name{display:block;font-size:clamp(1.02rem,1.7vw,1.2rem);line-height:1.14;letter-spacing:-.02em;color:#1b3940}
+.pa-social-lead{font-size:.79rem;line-height:1.38;color:#597176;flex:1}
+.pa-social-expand{color:#1e6e67;font-weight:850;font-size:.73rem;white-space:nowrap}
+.pa-social-card[open] .pa-social-expand{font-size:0}.pa-social-card[open] .pa-social-expand::after{content:"Less detail −";font-size:.73rem}
+.pa-social-body{border-top:1px solid #e1ece5;padding:12px 18px 18px;background:#fbfdfb}
+.pa-social-body p{margin:0 0 10px;font-size:.82rem;line-height:1.53;color:#486467}
+.pa-social-evidence-note{display:block;color:#7c7564;font-size:.69rem;line-height:1.4}
+.pa-social-actions{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-top:14px}
+.pa-social-related{background:#216c63;color:#fff;border:0;border-radius:9px;padding:10px 12px;font-weight:800;font-size:.75rem;min-height:43px}
+.pa-social-related:hover{background:#124e49}
+.pa-social-source{font-size:.75rem;font-weight:800;color:#176b69}
+.pa-social-show{display:inline-flex;align-items:center;justify-content:center;min-height:44px;background:#173b45;color:#fff;border:0;border-radius:10px;padding:11px 16px;font-weight:800;font-size:.84rem;cursor:pointer}
+.pa-social-show:hover{background:#235b61}
+.pa-social-footer{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-top:15px}
+.pa-social-footnote{color:#647979;font-size:.72rem;max-width:570px;line-height:1.48}
+@media(max-width:900px){.pa-social-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:580px){.pa-social-library{margin:17px 0;padding:16px 12px}.pa-social-grid{grid-template-columns:1fr;gap:9px}.pa-social-summary{min-height:0;padding:14px;gap:7px}.pa-social-body{padding:12px 14px 15px}.pa-social-group{font-size:.6rem}.pa-social-heading{align-items:start}.pa-social-footer{flex-direction:column;align-items:stretch}.pa-social-show{width:100%}}
+@media(prefers-reduced-motion:reduce){.pa-social-card,.pa-social-summary{scroll-behavior:auto}}
