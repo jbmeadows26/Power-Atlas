@@ -10,6 +10,12 @@ hud=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(hud)
 
 class HUDIngestionTests(unittest.TestCase):
+    def test_rest_count_and_page_queries_target_query_endpoint(self):
+        self.assertEqual(hud.QUERY,hud.TABLE+"/query")
+        source=(ROOT/"scripts/ingest_hud_safmr_fy2026.py").read_text()
+        self.assertIn('get_json(QUERY, where="1=1", returnCountOnly="true")',source)
+        self.assertIn('payload = get_json(QUERY, where="1=1",',source)
+
     def test_preserve_leading_zeros_and_original_hud_grain(self):
         row={"OBJECTID":11,"ZCTA_ID":"07010","HUD_CODE":"METRO001",
              "FMR_NAME":"Test area","SAFMR_0BR":1700,"SAFMR_1BR":2100,
