@@ -171,7 +171,7 @@ class ProductionVisualAtlasTests(unittest.TestCase):
                 ("issues","Issues","my-life.html#what"),
                 ("costs","Costs","my-life.html#benchmarkStory"),
                 ("why","The Why","my-life.html#why"),
-                ("action","Actions","my-life.html#how"),
+                ("action","Actions","take-action.html"),
                 ("research","Research","index.html")):
             self.assertIn('["'+key+'","'+label+'","'+url+'"]',js)
         self.assertNotIn('https://power-atlas-research.vercel.app/"',js)
