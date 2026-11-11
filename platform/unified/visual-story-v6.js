@@ -386,11 +386,11 @@ function attachZIPVisual(section){
  const heading=E("div","vs6-zip-heading");
  const kicker=E("span","vs6-zip-kicker","YOUR LOCAL PICTURE");
  const place=E("strong","vs6-zip-place","Enter a ZIP to see your area");
- const note=E("small","vs6-zip-period","Census household indicators · HUD FY2027 rent benchmarks · neither is a live listing feed");
+ const note=E("small","vs6-zip-period","Market asking rents where verified · Census household indicators · separate HUD program data");
  heading.append(kicker,place,note);
  const grid=E("div","vs6-zip-grid");
  const foot=E("div","vs6-zip-footer");
- foot.append(E("span",null,"HUD rent figures are program benchmarks by bedroom, not market asking rents. Other indicators are historical Census estimates—not today’s fares, grocery bills, or insurance premiums."));
+ foot.append(E("span",null,"Market rent = advertised listings, not signed leases. HUD voucher benchmarks are shown separately; Census household estimates are historical."));
  const link=E("a","vs6-zip-method","How these figures are sourced ↗");
  link.href="https://www.census.gov/data/developers/data-sets/acs-5year.html";
  link.target="_blank";link.rel="noopener noreferrer";foot.append(link);
@@ -400,14 +400,15 @@ function attachZIPVisual(section){
  host.append(heading,grid,foot);
  art.replaceChildren(host);
  const topics=[
-   {key:"housing",label:"RENT BY BEDROOM",desc:"HUD FY2027 monthly voucher benchmark · not asking rent",color:"#39d4b0"},
+   {key:"housing",label:"MARKET ASKING RENT",desc:"Provider-reported listing averages by bedroom · not HUD program rents",color:"#39d4b0"},
    {key:"transport",label:"TRANSPORT",desc:"Commuters using transit",color:"#ff9d77"},
    {key:"groceries",label:"FOOD",desc:"Households on SNAP",color:"#ae98fd"},
    {key:"health",label:"HEALTH",desc:"Residents uninsured",color:"#ffce70"}
  ];
  const nodes=new Map();
  let currentZip="";
- let lastHUDResult=null;
+ let lastMarketResult=null;
+ let activeHomeType="all";
  topics.forEach((t,i)=>{
    const tile=E("div","vs6-zip-tile");
    if(t.key==="housing")tile.classList.add("vs6-zip-tile--housing");
@@ -444,37 +445,51 @@ function attachZIPVisual(section){
    });
    const bedrooms=t.key==="housing"?E("div","vs6-zip-bedroom-list"):null;
    if(bedrooms){
-     bedrooms.setAttribute("aria-label","HUD monthly rent benchmarks by unit size");
+     bedrooms.setAttribute("aria-label","Advertised market asking rents by property type and bedroom");
      local.hidden=true;
      chart.hidden=true;
-     detail.textContent="View full rent chart and methodology ↗";
-     compare.textContent="Enter ZIP for HUD 0–4 bedroom figures. These are not current listings.";
+     detail.textContent="Compare with separate HUD voucher benchmark ↓";
+     compare.textContent="Enter ZIP to check whether current listing-market rent data are available.";
    }
    tile.append(top,local,title);
+   let typeSelect=null;
+   if(bedrooms){
+     const filter=E("label","vs6-zip-market-filter");
+     filter.append(E("span",null,"Property type"));
+     typeSelect=E("select","vs6-zip-market-select");
+     typeSelect.setAttribute("aria-label","Filter advertised market rent by property type");
+     for(const [value,label] of [["all","All homes"],["apartment_condo","Apartments & condos"],["house","Houses"],["townhouse","Townhomes"]]){
+       const option=E("option",null,label);option.value=value;typeSelect.append(option);
+     }
+     typeSelect.addEventListener("change",()=>{
+       activeHomeType=typeSelect.value;
+       if(lastMarketResult?.zip===currentZip)renderMarket();
+     });
+     filter.append(typeSelect);
+     tile.append(filter);
+   }
    if(bedrooms)tile.append(bedrooms);
    tile.append(chart,compare,detail);
    grid.append(tile);
-   nodes.set(t.key,{local,compare,chart,ownFill,usFill,bedrooms});
+   nodes.set(t.key,{local,compare,chart,ownFill,usFill,bedrooms,typeSelect});
  });
  function paint(event){
    const d=event?.detail;if(!d||!/^\d{5}$/.test(d.zip||""))return;
    place.textContent=d.place+" · "+d.zip;
-   note.textContent=(d.status==="loading"?"Finding historical Census and HUD ZIP-area figures…":
-     d.status==="ready"?"Census ACS 2020–2024 (household indicators) · HUD FY2027 (bedroom rents) · statistical ZIP areas":
-     "Local estimates unavailable · original sources remain accessible");
+   note.textContent=lastMarketResult?.zip===d.zip&&lastMarketResult?.status==="ready"?
+     "Listing-market snapshot · "+lastMarketResult.market.snapshotMonth+" · citywide, not ZIP-specific · Census historical context":
+     "Census ACS 2020–2024 household indicators · market asking-rent coverage separately verified";
    currentZip=d.zip;
    const metrics=new Map((d.metrics||[]).map(m=>[m.key,m]));
    for(const t of topics){
      const els=nodes.get(t.key),m=metrics.get(t.key);
      if(t.key==="housing"){
-       // ACS median gross rent is an ALL-bedroom historical statistic.
-       // Never render it as a current ZIP asking-rent or a comparable unit.
+       // A 5-year all-unit ACS median and HUD voucher limits are not asking rents.
        els.chart.hidden=true;
        els.local.hidden=true;
-       if(!lastHUDResult||lastHUDResult.zip!==d.zip){
+       if(!lastMarketResult||lastMarketResult.zip!==d.zip){
          els.bedrooms.replaceChildren();
-         els.compare.textContent=d.status==="loading"?"Checking current HUD FY2027 bedroom rents…":
-           "Loading HUD bedroom benchmarks. Current asking rents have not been independently verified.";
+         els.compare.textContent="Checking independently sourced listing-market averages for this area…";
        }
        continue;
      }
@@ -499,38 +514,44 @@ function attachZIPVisual(section){
    }
  }
  window.addEventListener("poweratlas:zip-visual-context",paint);
- window.addEventListener("poweratlas:hud-benchmarks-ready",(event)=>{
-   const d=event?.detail;
-   if(!d||d.zip!==currentZip)return;
-   lastHUDResult={zip:d.zip,status:d.status};
-   const els=nodes.get("housing");
-   if(!els?.bedrooms)return;
+ function renderMarket(){
+   const els=nodes.get("housing"),d=lastMarketResult;
+   if(!els?.bedrooms||!d||d.zip!==currentZip)return;
    els.bedrooms.replaceChildren();
    els.chart.hidden=true;
-   const records=Array.isArray(d.records)?d.records.filter(r=>r.zip===d.zip):[];
-   if(d.status!=="ready"||!records.length){
-     els.compare.textContent="HUD bedroom figures are unavailable for this ZIP. No estimate substituted.";
+   if(d.status!=="ready"||!d.market){
+     els.compare.textContent="No verified, recent asking-rent figures for this ZIP. HUD values are not substituted for market prices.";
+     if(els.typeSelect)els.typeSelect.disabled=true;
      return;
    }
-   if(records.length!==1){
-     els.compare.textContent="Multiple HUD metro areas overlap this ZIP. View each separately in the full rent chart; no artificial single estimate.";
+   if(els.typeSelect)els.typeSelect.disabled=false;
+   const market=d.market,type=market.propertyTypes?.[activeHomeType];
+   if(!type){
+     els.compare.textContent="No verified property-type breakdown in this snapshot.";
      return;
    }
-   const record=records[0];
-   const sizes=[["Studio","0"],["1 BR","1"],["2 BR","2"],["3 BR","3"],["4 BR","4"]];
-   for(const [label,key] of sizes){
-     const price=record.usdByBedroom?.[key];
-     if(!Number.isFinite(price)||price<=0)continue;
-     const entry=E("div","vs6-zip-bedroom-cell");
-     entry.append(E("small","vs6-zip-bedroom-name",label),
-       E("strong","vs6-zip-bedroom-price","$"+Math.round(price).toLocaleString("en-US")));
-     els.bedrooms.append(entry);
+   for(const [label,key] of [["1 BR","1"],["2 BR","2"],["3 BR","3"],["4 BR","4"]]){
+     const value=type.bedrooms?.[key];
+     const item=E("div","vs6-zip-bedroom-cell");
+     item.append(E("small","vs6-zip-bedroom-name",label),
+       E("strong","vs6-zip-bedroom-price",Number.isFinite(value)&&value>0?
+         "$"+Math.round(value).toLocaleString("en-US"):"Not reported"));
+     els.bedrooms.append(item);
    }
-   els.compare.replaceChildren(
-     E("span",null,"HUD FY"+String(record.fiscalYear||2027)+" · "+record.hudArea+" · program benchmark, not a listing price."));
-   const link=E("a",null,"HUD source ↗");
-   link.href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html";
-   link.target="_blank";link.rel="noopener noreferrer";els.compare.append(link);
+   els.compare.replaceChildren(E("span",null,
+     market.source.name+" · "+market.source.publishedPeriod+
+     " · "+market.geography.name+" citywide, not exact ZIP · average advertised rents, not signed leases · individual subgroup counts undisclosed."));
+   const link=E("a",null,"Source ↗");
+   link.href=market.source.url;link.target="_blank";link.rel="noopener noreferrer";
+   els.compare.append(link);
+   note.textContent="Listing-market averages · "+market.source.publishedPeriod+
+     " · citywide, not ZIP-specific · Census ACS historical indicators";
+ }
+ window.addEventListener("poweratlas:market-rent-ready",(event)=>{
+   const d=event?.detail;
+   if(!d||d.zip!==currentZip)return;
+   lastMarketResult=d;
+   renderMarket();
  });
 }
 
