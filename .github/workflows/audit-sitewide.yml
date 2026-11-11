@@ -4,6 +4,9 @@ on:
     paths:
       - 'scripts/audit_power_atlas_site.py'
       - 'tests/test_sitewide_audit.py'
+      - 'tests/test_v6_site_acceptance.py'
+      - 'platform/unified/*.js'
+      - 'platform/unified/*.css'
       - 'data/health/sitewide-missing-sources-v1.json'
       - 'data/health/completion-gates.json'
       - 'data/corporate-ownership/**'
@@ -35,6 +38,12 @@ jobs:
         run: python scripts/audit_power_atlas_site.py
       - name: Test all source references, nine issues, research and internal routes
         run: python -m unittest discover -s tests -p 'test_sitewide_audit.py' -v
+      - name: Assert approved navigation, design and evidence completeness flags
+        run: python -m unittest discover -s tests -p 'test_v6_site_acceptance.py' -v
+      - name: Parse all shared visual system JavaScript
+        run: |
+          set -euo pipefail
+          for file in platform/unified/*.js; do node --check "$file"; done
       - name: Confirm JavaScript on all static HTML surfaces parses
         run: |
           python - <<'PY'
