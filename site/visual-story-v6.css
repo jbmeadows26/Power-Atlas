@@ -222,15 +222,15 @@ html[data-vs6="active"] body.vs6-topic-mode > .hero + div[style*="max-width"]{di
 /* Research frontend has no original global-navigation shell: style the shared V6 menu. */
 html[data-vs6="active"] #pa-global-header.vs6-research-nav{
  position:relative;z-index:70;box-sizing:border-box;width:100%;
- background:#fafbf7;color:#16343f;border-bottom:1px solid #d7e5de;
- box-shadow:0 5px 17px #15363e13;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+ background:#081625;color:#eff8fb;border-bottom:1px solid #2d4857;
+ box-shadow:0 3px 13px #06121e1a;font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-inner{
  box-sizing:border-box;max-width:1320px;margin:0 auto;padding:12px 22px;
  display:flex;align-items:center;justify-content:space-between;gap:18px;
 }
 html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-brand{
- display:block;font-size:1rem;font-weight:950;letter-spacing:.025em;color:#173d48;
+ display:block;font-size:1rem;font-weight:950;letter-spacing:.12em;color:#f5fafb;
  text-decoration:none;white-space:nowrap;
 }
 html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links{
@@ -238,12 +238,12 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links{
  overflow:visible;scroll-snap-type:none;
 }
 html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a{
- color:#23464e;background:#fff;border:1px solid #d9e6df;text-decoration:none;
+ color:#d5e9e8;background:#112b3a;border:1px solid #365564;text-decoration:none;
  border-radius:30px;padding:9px 12px;font-size:.75rem;font-weight:800;
  white-space:nowrap;
 }
 html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[aria-current="page"]{
- color:#fff;background:#173e4b;border-color:#173e4b;
+ color:#fff;background:#246b64;border-color:#a1e5d2;
 }
 @media(max-width:720px){
  html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-inner{
@@ -253,7 +253,7 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
  html[data-vs6="active"] #pa-global-header.vs6-research-nav .vs6-nav-toggle{display:flex!important;grid-column:2;grid-row:1}
  html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links{
    display:none!important;grid-column:1/-1;grid-row:2;max-width:none;
-   padding:8px 0 0;margin-top:10px;border-top:1px solid #dce8e2;
+   padding:8px 0 0;margin-top:10px;border-top:1px solid #365564;
  }
  html[data-vs6="active"] #pa-global-header.vs6-research-nav.vs6-nav-open .pa-global-links{
    display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;
@@ -307,3 +307,28 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
 .vs6-owner-card .vs6-arrow-icon{color:inherit;text-decoration:none}
 .vs6-owner-card .vs6-owned{transition:opacity .12s ease}
 @media(max-width:600px){.vs6-owner-card .vs6-owner-controls{gap:9px;padding:0 18px 15px}.vs6-owner-card .vs6-owner-controls button{width:42px;height:42px}.vs6-owner-card .vs6-owner-count{font-size:.69rem;flex:1}}
+
+
+/* Legacy research links are secondary navigation, not a second site masthead.
+   Collapsed by default; remains accessible when visitors expand the evidence. */
+details[data-pa-context-nav]{box-sizing:border-box;max-width:1200px;width:100%;margin:12px auto 22px;border:1px solid #dbe8e0;border-radius:15px;background:#f8faf6;color:#193c40;box-shadow:0 4px 15px #173c3810;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+details[data-pa-context-nav]>summary{cursor:pointer;list-style:none;padding:14px 17px;font-weight:850;font-size:.84rem;color:#20594f}
+details[data-pa-context-nav]>summary::-webkit-details-marker{display:none}
+details[data-pa-context-nav]>summary:after{content:"+";float:right;color:#246d63;font-size:1.15rem}
+details[data-pa-context-nav][open]>summary:after{content:"−"}
+details[data-pa-context-nav] nav{display:flex;gap:8px;flex-wrap:wrap;padding:0 15px 16px}
+details[data-pa-context-nav] nav a{min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:8px 12px;background:#fff;border:1px solid #cbdfd5;border-radius:11px;color:#185f55;text-decoration:none;font-weight:750;font-size:.79rem}
+details[data-pa-context-nav] nav a:hover,details[data-pa-context-nav] nav a:focus-visible{background:#e2f2e9;border-color:#3d9d88}
+@media(max-width:520px){details[data-pa-context-nav]{border-radius:12px}details[data-pa-context-nav] nav a{width:100%;justify-content:flex-start}}
+
+/* Money Scale keeps its original non-JS introduction but never stacks two V6 heroes. */
+html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-ribbon,
+html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-hero{display:none!important}
+
+/* Do not stack original large Cost Gap or Consumer Watch marketing covers over V6.
+   Their original illustrations remain accessible in the expanded research view. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > .cw-top,
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > header.cg-hero{display:none!important}
+
+/* Research archive's original P/A wordmark is redundant once the shared header mounts. */
+html[data-vs6="active"] body > header.hero .top .logo{display:none!important}
