@@ -29,6 +29,10 @@ class WealthAdvantageTests(unittest.TestCase):
         a, b = [(site / "wealth-advantage.html").read_text() for site in SITES]
         self.assertEqual(a, b)
         self.assertEqual(a.count('name:"'), 10)
+        self.assertIn('href="atlas-visual-system.css"', a)
+        self.assertIn('src="atlas-visual-system.js"', a)
+        self.assertNotIn('href="my-life.html', a)
+        self.assertIn('https://power-atlas-unified.vercel.app/take-action.html', a)
         for site in SITES:
             self.assertIn("wealth-advantage.html", (site / "visual-story-v6.js").read_text())
             self.assertIn('href="wealth-advantage.html"', (site / "consumer-practices.html").read_text())
