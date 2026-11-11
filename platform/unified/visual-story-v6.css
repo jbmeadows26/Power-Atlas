@@ -596,3 +596,63 @@ html[data-vs6="active"] body .ownershipPage > .threadResearch{
 
 /* Evidence hub remains discoverable without forcing a visitor to open deep research. */
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main > #pa-coverage-discovery{display:block!important}
+
+/* Rent accuracy: bedroom-level HUD voucher figures belong in the visible ZIP
+   summary; never headline a blended ACS 5-year all-unit median as market rent. */
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-zip-grid{
+ grid-template-columns:repeat(3,minmax(0,1fr));
+}
+html[data-vs6="active"] .vs6-zip-tile--housing{
+ grid-column:1/-1;gap:8px;padding:clamp(14px,2vw,20px);
+ border:1px solid #b5ddca;background:#eff8ef;
+}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-tile-label{
+ font-size:.76rem;letter-spacing:.06em;
+}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-tile-title{
+ color:#526c68;font-size:.78rem;min-height:0;margin-bottom:3px;
+}
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-comparison,
+html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-tile-value{display:none!important}
+.vs6-zip-bedroom-list{
+ display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;
+}
+.vs6-zip-bedroom-cell{
+ display:flex;flex-direction:column;justify-content:center;gap:4px;
+ padding:11px 7px;background:#fff;border:1px solid #d0e7d9;
+ border-radius:12px;min-width:0;text-align:center;
+}
+.vs6-zip-bedroom-name{
+ display:block;color:#4f716b;font-size:.7rem;line-height:1.1;font-weight:850;
+}
+.vs6-zip-bedroom-price{
+ display:block;color:#133f40;font-size:clamp(.83rem,1.3vw,1.14rem);
+ font-weight:950;font-variant-numeric:tabular-nums;
+ letter-spacing:-.045em;white-space:nowrap;
+}
+.vs6-zip-tile--housing .vs6-zip-compare{
+ margin-top:4px;display:flex;align-items:center;
+ font-size:.7rem;line-height:1.38;color:#45645f;
+}
+.vs6-zip-tile--housing .vs6-zip-detail{
+ align-self:flex-start;padding:10px 16px;font-size:.74rem;margin-top:2px;
+}
+@media(max-width:850px){
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-zip-grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+ }
+ .vs6-zip-bedroom-list{grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+}
+@media(max-width:570px){
+ html[data-vs6="active"] .vs6-zip-tile--housing{padding:13px 11px;gap:7px}
+ html[data-vs6="active"] .vs6-zip-tile--housing .vs6-zip-tile-title{
+  font-size:.69rem;line-height:1.35;
+ }
+ .vs6-zip-bedroom-list{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+ .vs6-zip-bedroom-cell{padding:9px 5px}
+ .vs6-zip-bedroom-name{font-size:.65rem}
+ .vs6-zip-bedroom-price{font-size:clamp(.78rem,3.75vw,1.03rem)}
+ .vs6-zip-tile--housing .vs6-zip-detail{width:100%;font-size:.71rem;min-height:42px}
+ html[data-vs6="active"] body[data-pa-page="overview"]
+   .vs6-topic-cover .vs6-zip-grid > .vs6-zip-tile:last-child{grid-column:1/-1}
+}
