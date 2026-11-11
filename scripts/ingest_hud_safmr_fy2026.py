@@ -17,6 +17,7 @@ import urllib.request
 BASE = ("https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/"
         "HUD_PDR_Small_Area_Fair_Market_Rents/FeatureServer")
 TABLE = BASE + "/1"
+QUERY = TABLE + "/query"
 FIELDS = ["OBJECTID", "ZCTA_ID", "HUD_CODE", "FMR_NAME",
           "SAFMR_0BR", "SAFMR_1BR", "SAFMR_2BR", "SAFMR_3BR", "SAFMR_4BR"]
 OUT = Path(__file__).resolve().parents[1] / "data/housing/hud-safmr-fy2026-v1.json"
@@ -73,12 +74,12 @@ def collect():
     field_names = {f.get("name") for f in table.get("fields", [])}
     if not set(FIELDS).issubset(field_names):
         raise RuntimeError("HUD table schema changed: " + str(set(FIELDS) - field_names))
-    count = get_json(TABLE, where="1=1", returnCountOnly="true").get("count")
+    count = get_json(QUERY, where="1=1", returnCountOnly="true").get("count")
     if not isinstance(count, int) or count < 1000:
         raise RuntimeError("HUD returned suspicious record count: "+repr(count))
     seen, rows, skipped = set(), [], 0
     for offset in range(0, count, 900):
-        payload = get_json(TABLE, where="1=1", outFields=",".join(FIELDS),
+        payload = get_json(QUERY, where="1=1", outFields=",".join(FIELDS),
                            orderByFields="OBJECTID ASC", resultOffset=offset,
                            resultRecordCount=900, returnGeometry="false")
         features = payload.get("features")
