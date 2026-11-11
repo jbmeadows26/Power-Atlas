@@ -223,6 +223,17 @@ async function hydrateInfluenceCard({graphic,prev,next,counter,arrow,cta,sourceL
  }
 }
 
+function evidenceStatus(){
+ const panel=E("aside","vs6-evidence-status");
+ panel.setAttribute("aria-label","Research coverage and original sources");
+ panel.append(E("span","vs6-micro","EVIDENCE STATUS"),E("strong",null,"What is documented — and what is still missing."));
+ const a=E("a","vs6-evidence-link","Inspect missing sources ↗");a.href="source-audit.html";panel.append(a);
+ fetch("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/sitewide-audit-v1.json",{cache:"no-store"})
+   .then(r=>{if(!r.ok)throw Error("Audit unavailable");return r.json();})
+   .then(d=>{const n=d?.summary?.unresolvedOriginalSourceGaps;if(Number.isInteger(n)&&n>=0)panel.querySelector("strong").textContent=n+" documented research gaps remain open. No absent figures are treated as zero.";})
+   .catch(()=>{});
+ return panel;
+}
 function home(){
  const original=document.getElementById("pa4-atlas-home");if(!original)return;
  const metric=readMetrics(original);
@@ -235,7 +246,7 @@ function home(){
  left.append(E("p","vs6-subtitle","Follow the money, ownership and decisions behind everyday life."));
  const entry=go(pathTo("my-life.html#where",originalCards[0]),"Explore your community ↗","vs6-primary");left.append(entry);
  const note=E("span","vs6-hero-footnote","One big question. Original sources one tap away.");left.append(note);
- mast.append(left,metricPanel(metric));portal.append(mast);
+ mast.append(left,metricPanel(metric));portal.append(mast,evidenceStatus());
  const sectionTitle=E("div","vs6-gallery-head");sectionTitle.append(E("span","vs6-micro","CHOOSE A THREAD"),E("h2",null,"See the connection."),E("p",null,"Look first. Dive deeper when you're curious."));portal.append(sectionTitle);
  const gallery=E("div","vs6-gallery");
  const mapped=[
@@ -466,13 +477,13 @@ function attachZIPVisual(section){
  window.addEventListener("poweratlas:zip-visual-context",paint);
 }
 
-function topic(){if(documentPath==="corporate-ownership.html")return;
- if(documentPath==="index.html")return;
+function topic(){
+ if(documentPath==="index.html"||documentPath==="take-action.html"||documentPath==="wealth-advantage.html")return;
  const main=document.querySelector("main");if(!main||document.querySelector(".vs6-topic"))return;
  const former=main.querySelector(".pa5-topic-hero");
- if(!former)return;
+ if(!former&&documentPath!=="corporate-ownership.html")return;
  const kind=topicKind();
- const fallback=[desc(former.querySelector("h2")?.textContent)||"Explore the evidence.",desc(former.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
+ const fallback=[desc(former?.querySelector("h2")?.textContent)||desc(main.querySelector("h1")?.textContent)||"Explore the evidence.",desc(former?.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
  const isPlaceStory=documentPath==="my-life.html";
@@ -494,7 +505,8 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
  if(isPlaceStory)intro.append(cta);else section.append(cta);
- former.classList.add("vs6-superseded");
+ former?.classList.add("vs6-superseded");
+ if(documentPath!=="source-audit.html")section.append(evidenceStatus());
  main.prepend(section);
  document.body.classList.add("vs6-topic-mode");
  attachZIPVisual(section);
