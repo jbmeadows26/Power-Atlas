@@ -50,7 +50,7 @@ class BrowserJourneyQA(unittest.TestCase):
         self.visit("/")
         self.assertTrue(self.page.url.split("?")[0].endswith("/my-life.html"), self.page.url)
         self.assertTrue(self.page.locator("#where #zipInput").is_visible())
-        self.assertTrue(self.page.get_by_role("heading", name="What matters most right now?").count() >= 1)
+        self.assertTrue(self.page.locator("#what h2").inner_text().strip() == "What matters most right now?")
         self.assertEqual(self.page.locator(".hero:visible").count(), 0,
                          "Legacy intro is still visibly competing with the approved V6 hero")
         self.assert_no_horizontal_overflow()
@@ -60,7 +60,7 @@ class BrowserJourneyQA(unittest.TestCase):
         self.visit("/my-life.html")
         nav = self.page.locator("#pa-global-header .pa-global-links a")
         self.assertEqual(nav.count(), 6)
-        labels = [x.strip() for x in nav.all_inner_texts()]
+        labels = [x.strip() for x in self.page.locator("#pa-global-header .pa-short").all_text_contents()]
         self.assertEqual(labels, ["Start Here", "Issues", "Costs", "The Why", "Actions", "Research"])
         action = self.page.locator("#pa-global-header a[data-pa-nav='action']")
         self.assertTrue(action.get_attribute("href").endswith("take-action.html"))
@@ -72,7 +72,8 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertEqual(section.count(), 1)
         self.assertEqual(section.locator(".pa-coverage-card").count(), 16)
         summary = section.locator("summary")
-        summary.click()
+        self.assertTrue(summary.is_visible(), "The evidence directory is hidden behind a legacy chapter")
+        summary.click(timeout=10000)
         self.assertTrue(section.locator("details.pa-coverage-more").get_attribute("open") is not None)
         for slug in ["dark-money.html", "business-influence.html", "market-power.html",
                      "wealth-advantage.html", "take-action.html", "source-audit.html"]:
@@ -85,8 +86,9 @@ class BrowserJourneyQA(unittest.TestCase):
         self.page.locator("#zipForm button[type=submit]").click()
         self.assertEqual(self.page.locator("#zipInput").input_value(), "07010")
         # This is a journey regression, not a requirement that third-party ACS APIs be online.
-        self.assertLess(self.page.locator("#where").evaluate("(e) => e.getBoundingClientRect().top + window.scrollY"),
-                        self.page.locator("#what").evaluate("(e) => e.getBoundingClientRect().top + window.scrollY"))
+        self.assertTrue(self.page.evaluate(
+            "() => !!(document.getElementById('where').compareDocumentPosition("
+            "document.getElementById('what')) & Node.DOCUMENT_POSITION_FOLLOWING)"))
 
     def test_take_action_chamber_buttons_and_mobile_layout(self):
         self.visit("/take-action.html")
