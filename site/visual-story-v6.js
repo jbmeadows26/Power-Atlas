@@ -39,7 +39,7 @@ function visual(type){
   box.append(E("span","vs6-art-foot","Illustration · Always compare total cost"));
  }else if(type==="money"){
   box.append(S('<div class="vs6-money-viz"><div><b>DONOR</b><span class="vs6-money-circle">●</span></div><span class="vs6-money-arrow">→</span><div><b>COMMITTEE</b><span class="vs6-money-circle vs6-money-circle--mid">●</span></div><span class="vs6-money-arrow">→</span><div><b>SPENDING</b><span class="vs6-money-circle vs6-money-circle--end">●</span></div></div>'));
-  box.append(E("span","vs6-art-foot","Public filings show transfers—not their effect on votes"));
+  box.append(E("span","vs6-art-foot","Records show transactions—not proof of bought decisions"));
  }else if(type==="market"){
   box.append(S('<div class="vs6-market-proof"><div class="vs6-market-proofline"><span><strong>85%</strong><small>Top 4 U.S. beef packers<br>Share of steer/heifer purchases</small></span><i style="--p:85%" aria-hidden="true"></i></div><div class="vs6-market-proofline"><span><strong>~80%</strong><small>Top 3 prescription middlemen<br>Share of U.S. claims</small></span><i style="--p:80%" aria-hidden="true"></i></div></div>'));
   box.append(E("span","vs6-art-foot","USDA 2024 · FTC 2023 claims · Separate markets, not price markups"));
@@ -107,7 +107,7 @@ function metricPanel(metrics){
 const cardMeta=[
 {tag:"OWNERSHIP",heading:"Who owns what?",line:"Follow the company behind the brand.",kind:"ownership",theme:"dark"},
 {tag:"CONSUMER WATCH",heading:"The fine-print trap",line:"Shrinking packs, hidden fees, real costs.",kind:"consumer",theme:"peach"},
-{tag:"POLITICAL MONEY",heading:"Follow the cash",line:"See the trail—and where it ends.",kind:"money",theme:"lilac"},
+{tag:"POLITICAL MONEY",heading:"Follow the cash",line:"Follow donors, dark money, lobbying and decisions.",kind:"money",theme:"lilac"},
 {tag:"MARKET POWER",heading:"When choice shrinks",line:"See who controls the market—and how it reaches you.",kind:"market",theme:"mint"},
 {tag:"CLASS ACTIONS",heading:"Sued isn't paid",line:"Case status matters more than headlines.",kind:"claims",theme:"dark"},
 {tag:"ECONOMIC RISK",heading:"Could the shock reach you?",line:"Connect markets with daily life.",kind:"economy",theme:"blue"}
