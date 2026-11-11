@@ -1,40 +1,123 @@
-/* Interactive market-power stories use the same dated evidence register as the full explorer. */
-(()=>{"use strict";
-const root=document.getElementById("market-power-pathways");
-if(!root)return;
+/* Market Power investigation: same visual-first interaction architecture as Dark Money.
+   Every displayed measurement and legal status comes from market-power.json. */
+(()=>{
+"use strict";
 const choices=[
- {id:"pbms",short:"Medicine",headline:"Three gatekeepers between you and your prescriptions",actors:[["Express Scripts","The Cigna Group"],["CVS Caremark","CVS Health"],["OptumRx","UnitedHealth Group"]],actorLabel:"Documented operating business → parent",lever:"Drug formularies, rebates and pharmacy networks",outcome:"Potential out-of-pocket costs, independent-pharmacy access and plan choices",next:"Look at the PBM behind your plan and compare in-network pharmacy options.",actorSource:"https://www.kff.org/other-health/what-to-know-about-pharmacy-benefit-managers-pbms-and-federal-efforts-at-regulation/"},
- {id:"beef",short:"Groceries",headline:"Four giant meatpackers negotiate with ranchers",actors:[["Cargill","Major processor"],["Tyson Foods","Major processor"],["JBS USA","Major processor"],["National Beef","Major processor"]],actorLabel:"Named large processors, not individual company market shares",lever:"Fewer rival buyers for finished cattle",outcome:"Potential pressure on rancher payments; retail beef price impacts require separate evidence",next:"Follow the supply chain. Do not treat the producer concentration ratio as a grocery markup.",actorSource:"https://www.ers.usda.gov/amber-waves/2024/january/concentration-in-u-s-meatpacking-industry-and-how-it-affects-competition-and-cattle-prices"},
- {id:"hospitals",short:"Healthcare",headline:"Hospital markets can leave patients with few alternatives",actors:[["Local hospital","Provider"],["Health system","Ownership / affiliation"],["Insurer","Negotiates coverage"]],actorLabel:"Illustrative relationship; actual owners depend on location",lever:"Negotiating leverage and referral networks in local hospital markets",outcome:"Potentially higher negotiated prices and fewer nearby options; not a household surcharge",next:"Check local system ownership and your insurer’s in-network choices.",actorSource:"https://www.gao.gov/products/gao-25-107450"},
- {id:"jobs",short:"Paychecks",headline:"Fewer employers can weaken bargaining power",actors:[["Worker","Job seeker"],["Local employers","Same occupation and area"],["Competing job offers","Bargaining alternatives"]],actorLabel:"Illustrative labor-market structure; no single national owner",lever:"Recruitment competition, noncompetes and local labor demand",outcome:"Possible wage pressure; measured concentration does not establish an individual wage loss",next:"Compare employers for your occupation and commuting area rather than national company shares.",actorSource:"https://www.bls.gov/cew/"},
- {id:"search",short:"Online",headline:"The search gatekeeper also controls a key doorway to customers",actors:[["Google Search","Operating service"],["Alphabet","Corporate parent"],["Publishers & advertisers","Business users"]],actorLabel:"Documented operating service and corporate parent",lever:"Default placement and distribution agreements",outcome:"Effects on competing search engines, advertisers and access; not a verified personal fee",next:"Compare alternative services and read the court finding separately from ongoing remedies.",actorSource:"https://www.justice.gov/atr/case/us-and-plaintiff-states-v-google-llc-2020"}
+ {id:"pbms",name:"Medicine",icon:"✚",tag:"PRESCRIPTION GATEKEEPERS",headline:"Who stands between you and your medicine?",
+ summary:"A few pharmacy benefit managers control much of the claims pipeline. Look at their influence on networks, reimbursements and prices.",
+ stages:[["CUSTOMER","Patient or health plan"],["MIDDLEMAN","Pharmacy benefit manager"],["LEVER","Drug lists & network rules"],["QUESTION","Cost & pharmacy access"]],
+ gap:"Prescription share is not a measured medicine price markup. Savings and patient costs can differ by drug, plan and pharmacy."},
+ {id:"beef",name:"Groceries",icon:"▥",tag:"FOOD SUPPLY POWER",headline:"Who can negotiate with the rancher?",
+ summary:"Large processors buy most finished cattle. Their purchasing position may matter long before meat reaches the checkout.",
+ stages:[["PRODUCER","Cattle rancher"],["BUYER","Major meatpacker"],["LEVER","Fewer competing bids"],["QUESTION","Farm & retail prices"]],
+ gap:"Concentration in cattle purchases does not measure the share of your grocery bill caused by meatpacking."},
+ {id:"hospitals",name:"Hospitals",icon:"✚",tag:"LOCAL HEALTHCARE MARKETS",headline:"How many hospital systems can you choose?",
+ summary:"Hospital competition is local. Consolidation can change negotiations with insurers and patients' available choices.",
+ stages:[["PATIENT","Care near home"],["PROVIDER","Local hospital systems"],["LEVER","Insurance negotiations"],["QUESTION","Prices & access"]],
+ gap:"A metro-area concentration measure does not identify your local hospital choices or how much any individual bill increased."},
+ {id:"jobs",name:"Paychecks",icon:"◇",tag:"EMPLOYER BUYER POWER",headline:"Can workers negotiate when employers are scarce?",
+ summary:"Employers compete for people as buyers of labor. Local industry concentration can limit outside job offers.",
+ stages:[["WORKER","Skills & time"],["BUYERS","Local employers"],["LEVER","Job alternatives"],["QUESTION","Wages & bargaining"]],
+ gap:"An observed association is not a proven causal wage loss for a specific worker, employer or town."},
+ {id:"search",name:"Search",icon:"◎",tag:"DIGITAL MARKET POWER",headline:"Who controls the doorway to the internet?",
+ summary:"Search defaults and distribution agreements influence whether competing services can reach users.",
+ stages:[["USER","Search for information"],["PLATFORM","Google Search"],["LEVER","Default agreements"],["QUESTION","Rivals & choice"]],
+ gap:"A historical search share is not a current measurement. A court ruling establishes specific violations, not a universal consumer surcharge."},
+ {id:"tickets",name:"Tickets",icon:"▣",tag:"LIVE EVENTS & ACCESS",headline:"Who controls your way into a concert?",
+ summary:"Ticketing, venues and promotion may be connected. Keep government allegations and proposed settlements distinct from findings.",
+ stages:[["FAN","Buy event access"],["BUSINESS","Ticketing & promotion"],["LEVER","Venue / platform access"],["QUESTION","Fees & competition"]],
+ gap:"A proposed settlement or pending complaint is not a final finding of liability or a calculated fee overcharge."}
 ];
-const $=s=>root.querySelector(s);
-const E=(tag,cls,text)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(text!==undefined)n.textContent=text;return n};
-const button=(txt,cls)=>{const e=E("button",cls,txt);e.type="button";return e};
-let all=new Map();let selected="pbms";
-function evidenceName(kind){return kind==="finding"?"Court finding":kind==="allegation"?"Allegation / proceeding":kind==="context"?"Regulated structure":"Measured research"}
-function render(){
- const a=choices.find(c=>c.id===selected),c=all.get(selected);if(!a||!c)return;
- for(const b of root.querySelectorAll("[data-mpx-id]"))b.setAttribute("aria-pressed",String(b.dataset.mpxId===selected));
- const metric=$("#mpxMeasure"),detail=$("#mpxDetail"),extra=$("#mpxExtra");metric.replaceChildren();detail.replaceChildren();extra.replaceChildren();
- const eyebrow=E("span","mpx-kicker",c.topic+" · "+c.period);metric.append(eyebrow);
- if(typeof c.metric==="number"){
-  const ring=E("div","mpx-ring");const amount=(c.unit==="~%"?"~":c.unit===">%"?">":"")+c.metric+"%";ring.style.setProperty("--progress",Math.min(100,Math.max(0,c.metric))+"%");
-  ring.append(E("span",null,amount));ring.setAttribute("role","img");ring.setAttribute("aria-label",amount+" "+c.metricLabel);metric.append(ring);
- }else metric.append(E("div","mpx-ring", "See case"));
- metric.append(E("h3",null,c.metricLabel));metric.append(E("p",null,"Defined market: "+c.scope));metric.append(E("span","mpx-source-badge",evidenceName(c.kind)+" · Dated measure"));
- detail.append(E("span","mpx-kicker","WHO IS BEHIND IT?"),E("h3",null,a.headline));
- const ownership=E("div","mpx-ownership");for(const [brand,parent] of a.actors){const card=E("div","mpx-node");card.append(E("small",null,"Name / relationship"),E("strong",null,brand),E("span","mpx-arrow","↓"),E("span",null,parent));ownership.append(card)}detail.append(ownership);
- detail.append(E("p","mpx-scope",a.actorLabel));
- const flow=E("div","mpx-flow");
- for(const [label,txt] of [["01 / LEVER",a.lever],["02 / IMPACT TO TEST",a.outcome],["03 / YOUR NEXT STEP",a.next]]){const card=E("div");card.append(E("b",null,label),E("p",null,txt));flow.append(card)}detail.append(flow);
- const proof=E("div","mpx-proof"),kind=E("span","mpx-pill",evidenceName(c.kind));kind.dataset.kind=c.kind;proof.append(kind,E("small",null,"Evidence does not itself establish a national consumer price surcharge."));detail.append(proof);
- const actions=E("div","mpx-actions"),open=E("a",null,"Explore full case →"),original=E("a",null,"Read original evidence ↗");open.href="market-power.html?case="+encodeURIComponent(c.id)+"#explore";original.href=c.source;original.target="_blank";original.rel="noopener noreferrer";actions.append(open,original);detail.append(actions);
- const source=E("p","mpx-scope","Relationship evidence: "),sourceLink=E("a",null,"Check operator / parent and context ↗");sourceLink.href=a.actorSource;sourceLink.target="_blank";sourceLink.rel="noopener noreferrer";source.append(sourceLink);detail.append(source);
- const items=[["WHO MAY BENEFIT",c.benefits],["WHO MAY PAY",c.costs],["WHAT IS NOT ESTABLISHED","No case here converts a concentration ratio into a verified percent of your bill. Compare the place, product, date and independent causes first."]];
- for(const [head,body] of items){let box=E("article");box.append(E("b",null,head),E("p",null,body));extra.append(box)}
+const el=(tag,cls,txt)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=String(txt);return n;};
+const link=(href,txt,cls,external)=>{const a=el("a",cls,txt);a.href=href;if(external){a.target="_blank";a.rel="noopener noreferrer";}return a;};
+const stateName=k=>({finding:"COURT FINDING",allegation:"ALLEGATION / PROCEEDING",measured:"MEASURED RESEARCH",context:"REGULATED STRUCTURE"}[k]||"SOURCE EVIDENCE");
+const metricValue=c=>typeof c.metric==="number"?(c.unit==="~%"?"~":c.unit===">%"?">":"")+c.metric+"%":null;
+function mount(host){
+ if(!host||host.querySelector(".mpx"))return;
+ host.classList.add("vs6-topic--mpx");
+ const wrap=el("div","mpx");wrap.id="market-power-pathways";wrap.setAttribute("aria-label","Explore how market power can affect everyday life");
+ const intro=el("div","mpx-intro");
+ intro.append(el("span","mpx-kicker","SIX WAYS POWER REACHES YOUR LIFE"),
+   el("h2","mpx-h2","The company behind the price."),
+   el("p","mpx-sub","Pick a market. Trace the leverage, the evidence and what we still don't know."));
+ wrap.append(intro);
+ const tabs=el("div","mpx-pathways");tabs.setAttribute("role","group");tabs.setAttribute("aria-label","Choose a market power investigation");
+ const buttons=new Map();
+ for(const choice of choices){
+  const b=el("button","mpx-path");b.type="button";b.dataset.pathway=choice.id;
+  b.setAttribute("aria-pressed","false");
+  b.append(el("span","mpx-path-icon",choice.icon),el("span","mpx-path-name",choice.name));
+  tabs.append(b);buttons.set(choice.id,b);
+ }
+ wrap.append(tabs);
+ const chapter=el("div","mpx-chapter");chapter.setAttribute("aria-live","polite");chapter.setAttribute("aria-atomic","true");
+ const kicker=el("span","mpx-tag"),title=el("h3","mpx-title"),summary=el("p","mpx-explain");
+ const measure=el("div","mpx-measure");
+ const metric=el("strong","mpx-metric"),metricLabel=el("span","mpx-metric-label");
+ measure.append(metric,metricLabel);
+ const route=el("div","mpx-route");route.setAttribute("aria-label","Conceptual market power mechanism");
+ const caption=el("p","mpx-caption","Concept map: these are mechanisms to investigate, not proof that every step caused the next.");
+ const split=el("div","mpx-evidence");
+ const recorded=el("div","mpx-fact"),gap=el("div","mpx-gap");
+ const knownState=el("span","mpx-state mpx-state--filed","● SOURCE EVIDENCE");
+ const gapState=el("span","mpx-state mpx-state--gap","◌ NOT ESTABLISHED");
+ const knownBody=el("p"),gapBody=el("p");
+ recorded.append(knownState,knownBody);gap.append(gapState,gapBody);split.append(recorded,gap);
+ const actions=el("div","mpx-actions");
+ const deep=link("#","Explore all evidence →","mpx-mainlink");
+ const original=link("#","Original source ↗","mpx-sourcelink",true);
+ actions.append(deep,original);
+ const status=el("small","mpx-coverage");
+ chapter.append(kicker,title,summary,measure,route,caption,split,actions,status);
+ wrap.append(chapter);
+ const bridge=el("div","mpx-bridge");
+ bridge.append(el("div","mpx-bridge-copy","Want to follow the consequences?"));
+ const bridgeLinks=el("div","mpx-bridge-links");
+ bridgeLinks.append(link("corporate-ownership.html","Who owns what? →"),
+    link("my-life.html#why","Effects on daily life →"),
+    link("consumer-practices.html","Consumer Watch →"),
+    link("reform-lab.html","What could change? →"));
+ bridge.append(bridgeLinks);wrap.append(bridge);
+ const disclosure=el("details","mpx-method");
+ disclosure.append(el("summary",null,"What counts as evidence of market power?"),
+  el("p",null,"First define the actual product, buyer and geography. Compare competition, prices, wages, access, quality and alternative explanations. A measured concentration ratio is not proof of illegal conduct or a household overcharge; an allegation is not a finding."));
+ wrap.append(disclosure);
+ const cta=host.querySelector(".vs6-expand");
+ if(cta)host.insertBefore(wrap,cta);else host.append(wrap);
+ let cases=new Map();
+ function select(id){
+  const t=choices.find(x=>x.id===id)||choices[0],c=cases.get(t.id);if(!c)return;
+  for(const [key,b] of buttons)b.setAttribute("aria-pressed",String(key===t.id));
+  kicker.textContent=t.tag+" · "+stateName(c.kind);
+  title.textContent=t.headline;summary.textContent=t.summary;
+  metric.replaceChildren();
+  const val=metricValue(c);
+  metric.textContent=val||"Source record";
+  metricLabel.textContent=c.metricLabel+" · "+c.period;
+  measure.dataset.kind=c.kind;
+  route.replaceChildren();
+  for(const [i,step] of t.stages.entries()){
+   const node=el("div","mpx-node"+(i===t.stages.length-1?" mpx-node--question":""));
+   node.append(el("small",null,step[0]),el("strong",null,step[1]));route.append(node);
+   if(i<t.stages.length-1)route.append(el("span","mpx-route-arrow","→"));
+  }
+  knownState.textContent="● "+stateName(c.kind);
+  knownBody.textContent=val?val+" "+c.metricLabel+". "+c.period+".":c.metricLabel+". "+c.status+".";
+  gapBody.textContent=t.gap;
+  deep.href="market-power.html?case="+encodeURIComponent(c.id)+"#explore";
+  deep.textContent="Open "+c.name+" case →";
+  original.href=c.source;original.textContent="Original "+c.topic+" evidence ↗";
+  status.textContent="Market: "+c.scope+" · Evidence status: "+c.status+".";
+ }
+ tabs.addEventListener("click",e=>{const b=e.target.closest("button[data-pathway]");if(b&&tabs.contains(b))select(b.dataset.pathway);});
+ const requested=new URLSearchParams(location.search).get("story");
+ fetch("./market-power.json",{cache:"no-store"})
+   .then(r=>{if(!r.ok)throw Error("Source unavailable");return r.json();})
+   .then(data=>{if(data.schema!=="power-atlas.market-power.v1"||!Array.isArray(data.cases))throw Error("Incorrect source schema");
+     cases=new Map(data.cases.map(c=>[c.id,c]));select(choices.some(c=>c.id===requested)?requested:"pbms");
+     if(location.hash==="#market-power-pathways")requestAnimationFrame(()=>wrap.scrollIntoView({block:"start",behavior:"auto"}));
+   })
+   .catch(()=>{chapter.replaceChildren(el("p","mpx-explain","The evidence register did not load. You can still open the original twelve-case research explorer below."));});
 }
-const tabs=$("#mpxTabs");choices.forEach(c=>{const b=button(c.short);b.dataset.mpxId=c.id;b.setAttribute("aria-pressed","false");b.addEventListener("click",()=>{selected=c.id;render()});tabs.append(b)});
-fetch("market-power.json",{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Unavailable");return r.json()}).then(data=>{if(data.schema!=="power-atlas.market-power.v1"||!Array.isArray(data.cases))throw Error("Invalid evidence");all=new Map(data.cases.map(x=>[x.id,x]));render()}).catch(()=>{const m=$("#mpxDetail");m.textContent="The evidence register is temporarily unavailable. The original case links remain in the explorer below.";$("#mpxMeasure").textContent="Data temporarily unavailable."});
+window.PowerAtlasMarketPower={mount};
 })();
