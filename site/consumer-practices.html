@@ -5,7 +5,7 @@
 <meta name="description" content="Interactive consumer accountability stories: hidden fees, subscriptions, unfair advertising allegations and the fine print behind everyday costs.">
 <title>Consumer Watch — The Fine Print Files | Power Atlas</title>
 
-<link rel="stylesheet" href="consumer-watch-v2.css"><link rel="stylesheet" href="consumer-watch-cost.css"><style>
+<link rel="stylesheet" href="consumer-watch-v2.css"><link rel="stylesheet" href="consumer-watch-cost.css"><link rel="stylesheet" href="shrinkflation.css"><style>
 .cw-service-panel{display:flex;justify-content:space-between;align-items:center;gap:26px;flex-wrap:wrap;margin:20px 0 0;border:1px solid #406b5b;background:radial-gradient(circle at 98% 3%,#245c55,transparent 45%),#0e353e;color:#f6fff8;padding:25px 27px;border-radius:20px}
 .cw-service-panel .cw-service-label{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:900;color:#d5f7a7}
 .cw-service-panel h2{color:#fff;font-weight:900;letter-spacing:-.045em;font-size:clamp(1.4rem,3.2vw,2.25rem);line-height:1.15;margin:9px 0}
@@ -20,7 +20,7 @@
 <div class="cw-kicker">POWER ATLAS / CONSUMER WATCH</div>
 <h1>The deal looked good.<br><em>Then came the fine print.</em></h1>
 <p class="cw-top-copy">A phone upgrade. A monthly subscription. A rent listing. What happens between the price you see and the price—or commitment—you actually get?</p>
-<div class="cw-top-actions"><a href="market-power.html" style="background:#e6f6ee;color:#13564c;border:1px solid #a8cfc3;border-radius:99px;padding:9px 13px;text-decoration:none;font-weight:850;font-size:12px">Investigate market power ↗</a><a href="#story-lab">See how the catch works ↓</a><span id="pcDataState" role="status">VERIFYING ORIGINAL SOURCES…</span></div>
+<div class="cw-top-actions"><a href="market-power.html" style="background:#e6f6ee;color:#13564c;border:1px solid #a8cfc3;border-radius:99px;padding:9px 13px;text-decoration:none;font-weight:850;font-size:12px">Investigate market power ↗</a><a href="#shrinkflation">Explore shrinkflation ↓</a><a href="#story-lab">See how the catch works ↓</a><span id="pcDataState" role="status">VERIFYING ORIGINAL SOURCES…</span></div>
 </div>
 <div class="cw-receipt-stage">
 <div class="cw-receipt" aria-label="Example of an account-shared phone promotion constraint: two three-Pick deals would need six Picks, but the two-line plan provides four">
@@ -51,6 +51,45 @@
 <p>One traveler's report, verified 2025 staffing figures and a 2026 service-industry survey. Compare the evidence before blaming automation for lost jobs or inaccessible support.</p>
 </div><a href="service-accountability.html">Explore the service investigation →</a></aside>
 <aside class="cw-claims-callout" aria-label="Consumer class actions"><div><span class="cw-index">CONSUMER WATCH / CLASS ACTIONS</span><h2>A lawsuit is not a refund check.</h2><p>Explore documented case status, possible eligibility and deadlines; confirm your rights in the official settlement notice.</p></div><a href="https://power-atlas-unified.vercel.app/class-actions.html">Explore class actions and claim deadlines →</a></aside>
+
+<section class="cw-section sf" id="shrinkflation" aria-labelledby="sfTitle">
+ <div class="cw-section-head"><div><span class="cw-index">CONSUMER WATCH / SHRINKFLATION</span><h2 id="sfTitle">Smaller package. Bigger bill.</h2></div><p>When brands reduce quantities, the price per ounce, sheet or item can rise even if the sticker price does not.</p></div>
+ <div class="sf-panels">
+  <div class="sf-example">
+   <div class="sf-eyebrow">THE HIDDEN PRICE HIKE · ILLUSTRATIVE EXAMPLE</div>
+   <div class="sf-packs">
+    <div class="sf-pack-unit"><span>BEFORE</span><div class="sf-package sf-package-old"><small>EVERYDAY PRODUCT</small><b>16 oz</b></div><strong id="sfOldPrice">$4.99</strong><small id="sfOldUnit">31.2¢ per oz</small></div>
+    <span class="sf-arrow" aria-hidden="true">→</span>
+    <div class="sf-pack-unit"><span>AFTER</span><div class="sf-package sf-package-new"><small>EVERYDAY PRODUCT</small><b>14 oz</b></div><strong>$4.99</strong><small>35.6¢ per oz</small></div>
+   </div>
+   <div class="sf-result" aria-live="polite"><strong id="sfIncrease">+14.3%</strong><span id="sfExplanation">higher unit price, despite an unchanged shelf price</span></div>
+   <div class="sf-toggle" role="group" aria-label="Illustrative price scenarios"><button type="button" data-sf-price="same" aria-pressed="true">Price stays $4.99</button><button type="button" data-sf-price="rises" aria-pressed="false">Price rises too</button></div>
+   <p class="sf-fine">Hypothetical package sizes and prices—not an actual brand accusation. Unit-price change = (new price / new size) / (old price / old size) − 1.</p>
+  </div>
+  <div class="sf-findings">
+   <div class="sf-eyebrow">GAO · DEC 2019–DEC 2024</div><h3>Where did downsizing add to inflation?</h3>
+   <p>Each bar is the <strong>extra percentage points of price inflation</strong> attributed to package downsizing within that category—not the percentage of products that shrank.</p>
+   <div class="sf-bars" role="group" aria-label="Explore GAO shrinkflation findings">
+    <button type="button" data-sf-category="paper" aria-pressed="true"><span>Paper products</span><i><em style="width:100%"></em></i><strong>3.0 pp</strong></button>
+    <button type="button" data-sf-category="snacks" aria-pressed="false"><span>Snacks</span><i><em style="width:86.7%"></em></i><strong>2.6 pp</strong></button>
+    <button type="button" data-sf-category="candy" aria-pressed="false"><span>Candy &amp; gum</span><i><em style="width:76.7%"></em></i><strong>2.3 pp</strong></button>
+    <button type="button" data-sf-category="icecream" aria-pressed="false"><span>Ice cream</span><i><em style="width:60%"></em></i><strong>1.8 pp</strong></button>
+    <button type="button" data-sf-category="cereal" aria-pressed="false"><span>Breakfast cereal</span><i><em style="width:53.3%"></em></i><strong>1.6 pp</strong></button>
+    <button type="button" data-sf-category="coffee" aria-pressed="false"><span>Coffee</span><i><em style="width:46.7%"></em></i><strong>1.4 pp</strong></button>
+   </div>
+   <div class="sf-detail" id="sfDetail" aria-live="polite"><strong>Paper products: +3.0 percentage points</strong><p>Over five years, downsizing added an estimated 3.0 percentage points to household paper-product inflation.</p></div>
+   <p class="sf-footnote">Source: <a href="https://www.gao.gov/products/gao-25-107451" target="_blank" rel="noopener noreferrer">GAO 2025 report ↗</a>. These are five-year contributions, not annual rates.</p>
+  </div>
+ </div>
+ <div class="sf-case-head"><div><span class="cw-index">REPORTED PACKAGE SIZE CHANGES · OCTOBER 2026</span><h3>Real products. Less inside.</h3></div><p>Reported by consumer watchdog Mouse Print. The actual before-and-after shelf prices have not been verified.</p></div>
+ <div class="sf-cases">
+  <article><span>BREAKFAST / STORE BRAND</span><h4>Stop &amp; Shop instant oatmeal</h4><div class="sf-qty">10 packets <b>→ 8 packets</b></div><strong class="sf-change">20% less</strong><p>If the sticker price stayed the same: +25% per packet. Actual price change: unverified.</p><a href="https://www.mouseprint.org/2026/10/17/here-we-shrink-again-fall-2026-part-1/" target="_blank" rel="noopener noreferrer">Original comparison ↗</a></article>
+  <article><span>CANDY</span><h4>Hershey's Kisses share pack</h4><div class="sf-qty">10 oz <b>→ 8.7 oz</b></div><strong class="sf-change">13% less</strong><p>If the sticker price stayed the same: +14.9% per ounce. Actual price change: unverified.</p><a href="https://www.mouseprint.org/2026/10/17/here-we-shrink-again-fall-2026-part-1/" target="_blank" rel="noopener noreferrer">Original comparison ↗</a></article>
+  <article><span>HOUSEHOLD</span><h4>Ziploc gallon freezer bags</h4><div class="sf-qty">152 bags <b>→ 136 bags</b></div><strong class="sf-change">16 fewer</strong><p>If the sticker price stayed the same: +11.8% per bag. Actual price change: unverified.</p><a href="https://www.mouseprint.org/2026/10/17/here-we-shrink-again-fall-2026-part-1/" target="_blank" rel="noopener noreferrer">Original comparison ↗</a></article>
+ </div>
+ <div class="sf-next"><div><span class="cw-index">WHO BENEFITS · WHO PAYS</span><h3>Follow the product, the price and the decision.</h3><p>Manufacturers choose pack sizes; retailers set shelf prices. Size cuts may reflect rising production costs, business strategy or other factors. These examples do not establish intent, profiteering or illegality.</p></div><div><h4>What can consumers do?</h4><p>Compare the unit price, check net weight or item count, and look at comparable alternatives rather than relying on package size.</p><a href="https://consumer.ftc.gov/consumer-alerts/2024/10/case-shrinking-packaging" target="_blank" rel="noopener noreferrer">FTC guidance ↗</a></div></div>
+ <details class="sf-method"><summary>Research methods, source links and important limits</summary><p>GAO found that downsizing added less than 0.1 percentage point to the 34.5% rise in overall consumer prices during 2019–2024. Its category-specific figures above are percentage-point contributions to category CPI, not percentage changes in unit prices or measures of prevalence. Mouse Print documented the three package-size comparisons in October 2026; Power Atlas has not independently verified their historic prices, so associated unit-price changes are conditional illustrations, not confirmed company price increases.</p><p><a href="https://www.gao.gov/products/gao-25-107451" target="_blank" rel="noopener noreferrer">GAO primary findings ↗</a> · <a href="https://www.bls.gov/cpi/research-series/r-cpi-sc.htm" target="_blank" rel="noopener noreferrer">BLS size-adjusted CPI methods ↗</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/shrinkflation-v1.json" target="_blank" rel="noopener noreferrer">Open evidence dataset ↗</a></p></details>
+</section>
 <section class="cw-section" id="story-lab" aria-labelledby="story-title">
 <div class="cw-section-head">
 <div><span class="cw-index">01 / FOLLOW THE DEAL</span><h2 id="story-title">See where the promise changes.</h2></div>
@@ -132,5 +171,5 @@
 <p class="cw-mini">Selected investigations, not a representative sample or company ranking. Source review: <span id="pcAsOf">2026-11-10</span>. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/consumer-practices/cases-v1.json" target="_blank" rel="noopener noreferrer">Inspect the full evidence dataset ↗</a>.</p>
 </section>
 <footer class="cw-footer"><strong>POWER ATLAS / CONSUMER WATCH</strong> · Making the cost of everyday decisions easier to see. <a href="index.html">Back to Power Atlas ↗</a></footer>
-</main><script src="consumer-watch-v2.js" defer></script><script src="consumer-watch-cost.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script>
+</main><script src="consumer-watch-v2.js" defer></script><script src="consumer-watch-cost.js" defer></script><script src="shrinkflation.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script>
 </body></html>

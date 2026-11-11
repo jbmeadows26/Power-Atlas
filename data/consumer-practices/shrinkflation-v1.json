@@ -1,0 +1,63 @@
+{
+  "schema": "power-atlas.shrinkflation.v1",
+  "reviewedAt": "2026-11-10",
+  "governmentSource": "https://www.gao.gov/products/gao-25-107451",
+  "period": "December 2019 through December 2024",
+  "overallPriceGrowthPct": 34.5,
+  "overallShrinkflationContributionPp": "less than 0.1",
+  "categoryDownsizingCpiEffectPp": {
+    "householdPaper": 3,
+    "snacks": 2.6,
+    "candyGum": 2.3,
+    "iceCream": 1.8,
+    "breakfastCereal": 1.6,
+    "coffee": 1.4
+  },
+  "illustrations": [
+    {
+      "oldSizeOz": 16,
+      "newSizeOz": 14,
+      "oldPriceUsd": 4.99,
+      "newPriceUsd": 4.99,
+      "unitPriceChangePct": 14.285714285714
+    },
+    {
+      "oldSizeOz": 16,
+      "newSizeOz": 14,
+      "oldPriceUsd": 4.49,
+      "newPriceUsd": 4.99,
+      "unitPriceChangePct": 27.012408526885
+    }
+  ],
+  "reportedPackageChanges": [
+    {
+      "name": "Stop & Shop instant oatmeal",
+      "oldQuantity": 10,
+      "newQuantity": 8,
+      "unit": "packets"
+    },
+    {
+      "name": "Hershey's Kisses share pack",
+      "oldQuantity": 10,
+      "newQuantity": 8.7,
+      "unit": "oz"
+    },
+    {
+      "name": "Ziploc gallon freezer bags",
+      "oldQuantity": 152,
+      "newQuantity": 136,
+      "unit": "bags"
+    }
+  ],
+  "reportedPackageSource": "https://www.mouseprint.org/2026/10/17/here-we-shrink-again-fall-2026-part-1/",
+  "reportType": "third-party product-size comparisons, matched historical/current shelf price not independently verified",
+  "methods": {
+    "unitPrice": "shelf price / net quantity",
+    "effectivePriceChange": "(new price / new quantity) / (old price / old quantity) - 1",
+    "brandPriceChangesVerified": false
+  },
+  "additionalSources": [
+    "https://www.bls.gov/cpi/research-series/r-cpi-sc.htm",
+    "https://consumer.ftc.gov/consumer-alerts/2024/10/case-shrinking-packaging"
+  ]
+}
