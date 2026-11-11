@@ -75,7 +75,7 @@ def collect():
         raise RuntimeError("HUD table schema changed: " + str(set(FIELDS) - field_names))
     count = get_json(TABLE, where="1=1", returnCountOnly="true").get("count")
     if not isinstance(count, int) or count < 1000:
-        raise RuntimeError("HUD returned suspicious record count")
+        raise RuntimeError("HUD returned suspicious record count: "+repr(count))
     seen, rows, skipped = set(), [], 0
     for offset in range(0, count, 900):
         payload = get_json(TABLE, where="1=1", outFields=",".join(FIELDS),
