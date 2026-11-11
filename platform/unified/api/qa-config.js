@@ -2,7 +2,6 @@
    Values are read from Vercel environment and never stored in git. */
 module.exports = function handler(req,res){
   res.setHeader("Cache-Control","no-store");
-  res.setHeader("Access-Control-Allow-Origin","same-origin");
   if(req.method!=="GET")return res.status(405).json({enabled:false});
   const token=process.env.POSTHOG_PUBLIC_TOKEN||"";
   const host=process.env.POSTHOG_API_HOST||"";
