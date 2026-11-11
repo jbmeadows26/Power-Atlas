@@ -128,6 +128,16 @@ def main():
     options.output.parent.mkdir(parents=True, exist_ok=True)
     options.output.write_text(json.dumps(data, separators=(",", ":"), ensure_ascii=False)+"\n",
                               encoding="utf-8")
+    for digit in "0123456789":
+        selected = [r for r in data["rows"] if r["zip"].startswith(digit)]
+        shard = {key: value for key, value in data.items() if key != "rows"}
+        shard["schema"] = "power-atlas.hud-fy2026-safmr-shard-v1"
+        shard["prefix"] = digit
+        shard["validSourceRelations"] = len(selected)
+        shard["rows"] = selected
+        target = options.output.parent / ("hud-safmr-fy2026-" + digit + ".json")
+        target.write_text(json.dumps(shard, separators=(",", ":"), ensure_ascii=False)+"\\n",
+                          encoding="utf-8")
     print(json.dumps({k: data[k] for k in ("fiscalYear", "sourceObjectCount",
                "validSourceRelations", "excludedIncompleteRelations", "uniqueZctas")}))
 
