@@ -716,7 +716,7 @@ function getBenchmarkContext(){
   stages:(c.evidenceSteps||[]).map(st=>({actor:st.actor,detail:st.detail,status:st.evidenceStatus})),
   sources:(c.originalSources||[]).filter(src=>/^https:\/\//.test(src.url)).slice(0,4).map(src=>({label:src.label,url:src.url,kind:src.kind}))
  }));
- const ownershipIds=selected==="schools"?["pg-kindercare"]:selected==="transport"?["as-portfolio-fleetpride"]:selected==="work"?["pg-kindercare"]:selected==="housing"?["orlando-thoma-bravo"]:selected==="groceries"?["bezos-amazon-2026"]:selected==="health"?["cvs-caremark","cigna-es","unh-optum"]:[];
+ const ownershipIds=selected==="schools"?["pg-kindercare","american-securities-lcg","psp-lcg"]:selected==="transport"?["as-portfolio-fleetpride","berkshire-geico"]:selected==="work"?["as-portfolio-amentum","as-portfolio-fullbloom","as-portfolio-trace3"]:selected==="housing"?["orlando-thoma-bravo","tb-realpage","blackstone-tricon"]:selected==="groceries"?["bezos-amazon-2026","parent-brand-pepsi","mars-kellanova"]:selected==="health"?["cvs-caremark","cigna-es","unh-optum"]:[];
  const nodes=Object.fromEntries((corporateGraph?.entities||[]).map(e=>[e.id,e]));
  const ownershipExamples=(corporateGraph?.relations||[]).filter(r=>ownershipIds.includes(r.id)&&nodes[r.from]&&nodes[r.to]&&/^https:\/\//.test(r.source||"")).map(r=>({
   owner:nodes[r.from].name,business:nodes[r.to].name,relation:r.relation,

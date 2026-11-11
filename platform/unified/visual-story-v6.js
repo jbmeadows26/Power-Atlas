@@ -116,7 +116,7 @@ const cardMeta=[
 const ownerThreadIds=["tb-realpage","mars-kellanova","parent-brand-pepsi","parent-brand-tide","general-mills-blue-buffalo","blackstone-tricon","amazon-one-medical","amazon-whole-foods","berkshire-geico","pg-kindercare","cvs-caremark","as-portfolio-fleetpride"];
 async function hydrateOwnerCard({graphic,prev,next,counter,links,target}){
  try{
-  const res=await fetch("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/corporate-ownership/verified-relationships-v1.json");
+  const res=await fetch("./owner-card-threads.json",{cache:"no-store"});
   if(!res.ok)throw Error("Ownership source unavailable");
   const graph=await res.json();
   if(graph.schema!=="power-atlas.corporate-ownership.evidence-graph.v1")throw Error("Unexpected ownership source");
@@ -145,6 +145,82 @@ async function hydrateOwnerCard({graphic,prev,next,counter,links,target}){
   next.addEventListener("click",()=>{active=(active+1)%rows.length;render()});
   prev.disabled=false;next.disabled=false;render();
  }catch(e){counter.textContent="Explore more sourced ownership in the full research";prev.hidden=true;next.hidden=true;}
+}
+
+
+/* Case carousel: court records and documented public-integrity money trails.
+   All case names, legal stages, figures and URLs come from the locally deployed
+   reviewed index. The order is editorial variety, never a severity ranking. */
+async function hydrateInfluenceCard({graphic,prev,next,counter,arrow,cta,sourceLink,heading,description}){
+ const preferred=["ohio-firstenergy","illinois-comed","menendez-foreign-influence",
+  "usaid-procurement","la-development","fat-leonard-navy","nyc-shelter-2026",
+  "vi-police-procurement","nm-school-technology","newark-redevelopment",
+  "ct-school-construction","santos-campaign-finance","hawaii-affordable-housing",
+  "gsa-construction-bribery","army-hawaii-innovation"];
+ const names={
+  "ohio-firstenergy":"Ohio: the nuclear bailout",
+  "illinois-comed":"Illinois: utility influence",
+  "menendez-foreign-influence":"Senate: cash and gold",
+  "usaid-procurement":"USAID: contract steering",
+  "la-development":"Los Angeles: land deals",
+  "fat-leonard-navy":"Navy: gifts for contracts",
+  "nyc-shelter-2026":"New York: shelter contracts",
+  "vi-police-procurement":"Virgin Islands: public contracts",
+  "nm-school-technology":"New Mexico: school technology",
+  "newark-redevelopment":"Newark: redevelopment",
+  "ct-school-construction":"Connecticut: school construction",
+  "santos-campaign-finance":"Congress: donor fraud",
+  "hawaii-affordable-housing":"Hawaii: affordable housing",
+  "gsa-construction-bribery":"Federal construction: bid steering",
+  "army-hawaii-innovation":"Defense: innovation contracts"
+ };
+ const legal={convicted:"Conviction documented",pleaded:"Guilty plea documented",
+  charged:"Charges only — allegations",mixed:"Mixed legal outcomes"};
+ try{
+  const res=await fetch("./investigations-data.json",{cache:"no-store"});
+  if(!res.ok)throw Error("HTTP "+res.status);
+  const data=await res.json();
+  if(data.schema!=="power-atlas.public-integrity-case-index.v1"||!Array.isArray(data.cases))throw Error("Unexpected case index");
+  const byId=Object.fromEntries(data.cases.map(c=>[c.id,c]));
+  const rows=preferred.map(id=>byId[id]).filter(c=>c&&c.flow?.length===3&&c.sources?.some(s=>/^https:\/\/www\.justice\.gov\//.test(s.url||"")));
+  if(rows.length<10)throw Error("Insufficient source-linked cases");
+  let active=0;
+  function render(){
+   const c=rows[active];
+   const caseFile="investigations.html?case="+encodeURIComponent(c.id);
+   const evidence=c.sources.find(s=>/^https:\/\/www\.justice\.gov\//.test(s.url||""));
+   const path=E("div","vs6-influence-path");
+   ["BENEFIT OR PAYMENT","INTERMEDIARY","PUBLIC DECISION"].forEach((tag,i)=>{
+    const step=E("div","vs6-influence-step");
+    step.append(E("small",null,tag),E("strong",null,c.flow[i]));
+    path.append(step);
+   });
+   const figure=E("div","vs6-influence-figure");
+   figure.append(E("strong",null,c.money),E("span",null,c.meaning));
+   const status=E("span","vs6-influence-status",legal[c.status]||"Check legal outcome");
+   if(c.status==="charged")status.classList.add("vs6-influence-status--charge");
+   const foot=E("span","vs6-art-foot","Reviewed public records · No guilt inferred from charges");
+   graphic.replaceChildren(status,path,figure,foot);
+   graphic.setAttribute("aria-label",c.title+"; "+(legal[c.status]||"case status recorded")+". "+c.flow.join(" to "));
+   heading.textContent=names[c.id]||c.title;
+   description.textContent=c.region+" · "+c.category;
+   counter.textContent=(active+1)+" of "+rows.length+" · reviewed case stories";
+   arrow.href=caseFile;cta.href=caseFile;
+   arrow.setAttribute("aria-label","Read "+c.title);
+   cta.setAttribute("aria-label","Open court records for "+c.title);
+   sourceLink.href=evidence.url;
+   sourceLink.setAttribute("aria-label","Official source for "+c.title);
+  }
+  prev.addEventListener("click",()=>{active=(active-1+rows.length)%rows.length;render()});
+  next.addEventListener("click",()=>{active=(active+1)%rows.length;render()});
+  prev.disabled=false;next.disabled=false;render();
+ }catch(err){
+  counter.textContent="Case index unavailable · Browse the source library";
+  prev.hidden=true;next.hidden=true;sourceLink.hidden=true;
+  heading.textContent="Follow documented influence cases";
+  description.textContent="Explore official cases, the legal outcomes, and the original evidence.";
+  arrow.href=cta.href="investigations.html";
+ }
 }
 
 function home(){
@@ -183,6 +259,30 @@ function home(){
     controls.append(prev,count,next);
     tile.append(top,graphic,bottom,controls);gallery.append(tile);
     hydrateOwnerCard({graphic,prev,next,counter:count,links:[arrow,cta],target});
+    return;
+  }
+  if(meta.kind==="money"){
+    // Real public-integrity cases rotate within the approved V6 card,
+    // with independent controls and original-source links, not nested links.
+    const tile=E("article","vs6-story vs6-story--lilac vs6-story--regular vs6-influence-card");
+    const arrow=go("investigations.html","↗","vs6-arrow-icon");
+    arrow.setAttribute("aria-label","Browse documented public-integrity cases");
+    top.lastElementChild.replaceWith(arrow);
+    const heading=bottom.querySelector("h3"),description=bottom.querySelector("p");
+    const cta=go("investigations.html","Read the case →","vs6-story-cta");
+    bottom.lastElementChild.replaceWith(cta);
+    const sourceLink=go("investigations.html","Official source ↗","vs6-influence-source");
+    sourceLink.setAttribute("target","_blank");
+    sourceLink.setAttribute("rel","noopener noreferrer");
+    const controls=E("nav","vs6-influence-controls");
+    controls.setAttribute("aria-label","Browse political influence cases");
+    const prev=E("button",null,"←");prev.type="button";prev.disabled=true;prev.setAttribute("aria-label","Previous political influence case");
+    const counter=E("span",null,"Loading verified cases");counter.setAttribute("aria-live","polite");
+    const next=E("button",null,"→");next.type="button";next.disabled=true;next.setAttribute("aria-label","Next political influence case");
+    controls.append(prev,counter,next);
+    const directory=go("business-candidates.html","Explore 8 more company money trails →","vs6-influence-directory");
+    tile.append(top,graphic,bottom,sourceLink,controls,directory);gallery.append(tile);
+    hydrateInfluenceCard({graphic,prev,next,counter,arrow,cta,sourceLink,heading,description});
     return;
   }
   if(meta.kind==="consumer"){
