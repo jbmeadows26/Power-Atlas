@@ -312,17 +312,20 @@ function compactNav(){
    brand.setAttribute("aria-label","Power Atlas — Start Here");
    const nav=E("nav","pa-global-links");
    nav.setAttribute("aria-label","Explore Power Atlas");
+   // One canonical visitor journey, on both the Unified and Research origins.
+   // Topic-specific research stays in the page, never in a competing masthead.
+   const base="https://power-atlas-unified.vercel.app/";
    [
-     ["Start Here","https://power-atlas-unified.vercel.app/my-life.html#where"],
-     ["Issues","https://power-atlas-unified.vercel.app/my-life.html#what"],
-     ["Costs","https://power-atlas-unified.vercel.app/consumer-practices.html"],
-     ["The Why","https://power-atlas-unified.vercel.app/my-life.html#why"],
-     ["Actions","https://power-atlas-unified.vercel.app/my-life.html#how"],
-     ["Research","https://power-atlas-research.vercel.app/"]
-   ].forEach(([title,url])=>{
+     ["place","Start Here","my-life.html#where"],
+     ["issues","Issues","my-life.html#what"],
+     ["costs","Costs","my-life.html#benchmarkStory"],
+     ["why","The Why","my-life.html#why"],
+     ["action","Actions","my-life.html#how"],
+     ["research","Research","index.html"]
+   ].forEach(([key,title,path])=>{
      const a=E("a",null,title);
-     a.href=url;
-     if(title==="Research")a.setAttribute("aria-current","page");
+     a.dataset.paNav=key;
+     a.href=base+path;
      nav.append(a);
    });
    shell.append(brand,nav);
@@ -332,6 +335,15 @@ function compactNav(){
  const inner=header.querySelector(".pa-global-inner");
  const nav=header.querySelector(".pa-global-links");
  if(!inner||!nav||header.querySelector(".vs6-nav-toggle"))return;
+ // Keep one active journey even when a legacy page had no preselected nav item.
+ // Community pages own their in-page section state; all other sections use this route map.
+ if(documentPath!=="my-life.html"){
+   const active=["consumer-practices.html","telecom-promotions.html","service-accountability.html","cost-gap.html"].includes(documentPath)?"costs":"research";
+   nav.querySelectorAll("a[data-pa-nav]").forEach(a=>{
+     if(a.dataset.paNav===active)a.setAttribute("aria-current","page");
+     else a.removeAttribute("aria-current");
+   });
+ }
  nav.id="vs6-primary-navigation";
  const button=E("button","vs6-nav-toggle","Explore menu ☰");
  button.type="button";button.setAttribute("aria-controls",nav.id);button.setAttribute("aria-expanded","false");
@@ -357,7 +369,13 @@ function compactNav(){
 function init(){
  if(root.dataset.vs6==="active")return;
  const v4=document.querySelector("#pa4-atlas-home");
- if(documentPath==="index.html"&&!v4)return;
+ // The Research archive intentionally has its own evidence-rich body, but must
+ // share the same persistent global navigation and visual tokens.
+ if(documentPath==="index.html"&&!v4){
+   root.dataset.vs6="active";
+   compactNav();
+   return;
+ }
  root.dataset.vs6="active";
  compactNav();
  documentPath==="index.html"?home():topic();
