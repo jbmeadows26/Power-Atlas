@@ -444,3 +444,155 @@ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intr
   padding:13px;
  }
 }
+
+
+/* Political influence cases: native V6 visual story, not a second design. */
+.vs6-influence-card .vs6-art{gap:9px;justify-content:center;min-height:224px;padding-bottom:6px}
+.vs6-influence-status{align-self:flex-start;font-size:.65rem;line-height:1.3;text-transform:uppercase;letter-spacing:.055em;font-weight:900;color:#284969;background:#d4e7fa;border-radius:6px;padding:6px 8px}
+.vs6-influence-status--charge{color:#644a15;background:#fff0c9}
+.vs6-influence-path{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;width:100%;position:relative}
+.vs6-influence-step{display:flex;flex-direction:column;gap:6px;text-align:center;justify-content:center;padding:12px 7px;min-width:0;min-height:87px;border:1px solid #b7a3d4;border-radius:11px;background:#f9f4ffb8}
+.vs6-influence-step small{font-size:.51rem;font-weight:900;letter-spacing:.05em;line-height:1.15;color:#6a4f96}
+.vs6-influence-step strong{font-size:clamp(.65rem,1.2vw,.86rem);font-weight:860;line-height:1.25;overflow-wrap:anywhere;color:#263d59}
+.vs6-influence-figure{text-align:center;max-width:99%;display:flex;flex-direction:column;align-items:center;gap:3px}
+.vs6-influence-figure strong{font-size:clamp(1.45rem,3vw,2.4rem);line-height:1.06;letter-spacing:-.05em;color:#4b3279}
+.vs6-influence-figure span{font-size:.66rem;line-height:1.3;max-width:37ch;color:#654b83}
+.vs6-influence-card .vs6-art-foot{margin-top:0;font-size:.6rem}
+.vs6-influence-card .vs6-story-foot{padding-bottom:7px}
+.vs6-influence-card .vs6-story-foot h3{font-size:clamp(1.34rem,2.3vw,1.95rem)!important}
+.vs6-influence-source{display:block;font-size:.73rem;font-weight:850;color:#45326c;text-underline-offset:3px;text-decoration:underline;margin:0 23px 9px;width:fit-content}
+.vs6-influence-controls{display:flex;align-items:center;justify-content:flex-end;gap:9px;margin-top:auto;padding:0 20px 11px}
+.vs6-influence-controls button{width:39px;height:39px;border:1px solid #77599e;background:#fff9;color:#44326e;border-radius:50%;font-size:1.18rem;font-weight:850;cursor:pointer}
+.vs6-influence-controls button:focus-visible,.vs6-influence-controls button:hover{background:#f8f3ff;outline:2px solid #6c489c}
+.vs6-influence-controls button:disabled{opacity:.35;cursor:default}
+.vs6-influence-controls span{font-size:.69rem;font-weight:750;text-align:right;max-width:14ch;line-height:1.2;color:#4d416a}
+.vs6-influence-directory{display:block;color:#493676;font-size:.7rem;font-weight:850;padding:9px 20px 15px;border-top:1px solid #cdbde2;text-underline-offset:3px}
+@media(max-width:600px){
+ .vs6-influence-card .vs6-art{min-height:200px}
+ .vs6-influence-step{min-height:88px;padding:9px 4px}
+ .vs6-influence-step strong{font-size:.67rem}
+ .vs6-influence-controls button{min-width:42px;min-height:42px}
+ .vs6-influence-card .vs6-story-foot{padding-bottom:7px}
+}
+
+
+/* QA 2026-11-11: unify legacy research surfaces with approved V6 editorial shell. */
+/* V3/V4/V5 content is retained as evidence, but never shown as a competing
+   hero, masthead, or unexplained second navigation system. */
+html[data-vs6="active"] body.vs6-topic-mode .pa3-story,
+html[data-vs6="active"] body.vs6-topic-mode .pa5-topic-hero,
+html[data-vs6="active"] body.vs6-home-mode .pa3-story,
+html[data-vs6="active"] body.vs6-home-mode .pa5-topic-hero{display:none!important}
+html[data-vs6="active"] body[data-pa-page] .pa4-crossroads,
+html[data-vs6="active"] body[data-pa-page] .pa5-explorer,
+html[data-vs6="active"] body[data-pa-page] .pa3-chart{
+  border:1px solid #dae5dd!important;border-radius:22px!important;
+  background:#fffdf8!important;color:#173744!important;
+  box-shadow:0 9px 27px #14394410!important;
+}
+html[data-vs6="active"] body[data-pa-page] .pa5-explorer-head h2,
+html[data-vs6="active"] body[data-pa-page] .pa3-chart h2{
+  color:#153541!important;letter-spacing:-.045em!important;
+  font-size:clamp(1.35rem,3vw,2.15rem)!important;line-height:1.1!important;
+}
+html[data-vs6="active"] body[data-pa-page] button.pa5-chapter-card{
+  border-radius:18px!important;border:1px solid #d8e6dc!important;
+  background:#f8f6ef!important;color:#173744!important;
+  box-shadow:none!important;text-align:left!important;
+  min-height:122px!important;
+}
+html[data-vs6="active"] body[data-pa-page] button.pa5-chapter-card:hover,
+html[data-vs6="active"] body[data-pa-page] button.pa5-chapter-card:focus-visible{
+  border-color:#247e70!important;background:#ebf7f1!important;
+}
+html[data-vs6="active"] body[data-pa-page] button.pa5-chapter-card[aria-expanded="true"]{
+  border-color:#1e8977!important;background:#e5f4ed!important;
+}
+html[data-vs6="active"] body[data-pa-page] .pa5-chapter-copy small,
+html[data-vs6="active"] body[data-pa-page] .pa5-explorer .pa5-eyebrow{
+  color:#1d8174!important;font-weight:850!important;
+}
+html[data-vs6="active"] body[data-pa-page] .pa5-chapter-copy strong{
+  color:#17343f!important;font-size:clamp(.96rem,1.4vw,1.13rem)!important;
+}
+html[data-vs6="active"] body[data-pa-page] .pa5-cta,
+html[data-vs6="active"] body[data-pa-page] .pa4-crossroads a{
+  color:#126b62!important;font-weight:850!important;
+}
+html[data-vs6="active"] body[data-pa-page] .pa3-chart :is(.pa3-chart-row,.pa3-chart-takeaway){
+  color:#22434b;
+}
+/* The archival research page contains original dark charts and tables.
+   Preserve them, but keep high contrast once the reader expands details. */
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :not(#vs6-home):not(.pa4-home):not(.pa5-library){
+  color:#f2f8f8;background:#123241;border-radius:18px;
+  padding:clamp(12px,2vw,23px);
+}
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :not(#vs6-home):not(.pa4-home) :is(h2,h3,th,strong){
+  color:#eafff9;
+}
+/* Evidence discovery gives every source-backed investigation one V6 card
+   and exposes unknowns as unknowns, never fabricated local price effects. */
+.pa-coverage{font-family:Inter,ui-sans-serif,system-ui,sans-serif;
+  margin:30px auto;max-width:1160px;padding:clamp(18px,3vw,30px);
+  background:#fbf8f0;border:1px solid #e3e5da;border-radius:24px;color:#153744;
+}
+.pa-coverage-head{display:flex;align-items:flex-start;justify-content:space-between;
+  flex-wrap:wrap;gap:18px;margin-bottom:19px}
+.pa-coverage-head h2{font-size:clamp(1.6rem,4vw,2.8rem);letter-spacing:-.057em;
+  line-height:1.05;margin:8px 0;color:#153541}
+.pa-coverage-head p{line-height:1.48;font-size:.91rem;max-width:55ch;color:#4d656a;margin:8px 0}
+.pa-coverage-status{background:#123543;color:#d8faf0;border-radius:15px;
+  padding:13px 16px;font-size:.82rem;max-width:310px}
+.pa-coverage-status b{color:#e9fffb;font-size:1.05rem}
+.pa-coverage-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.pa-coverage-card{display:flex;flex-direction:column;min-height:170px;
+  padding:17px;text-decoration:none!important;border:1px solid #d8e4da;
+  border-radius:18px;background:#fff;color:#153744!important;gap:10px}
+.pa-coverage-card:hover,.pa-coverage-card:focus-visible{border-color:#198d7a;
+  transform:translateY(-2px);box-shadow:0 9px 20px #113c3b13}
+.pa-coverage-symbol{font-size:1.7rem;line-height:1.2}
+.pa-coverage-card b{font-size:1.08rem;line-height:1.16;letter-spacing:-.025em}
+.pa-coverage-card small{font-size:.79rem;color:#587174;line-height:1.42}
+.pa-coverage-card span:last-child{margin-top:auto;font-weight:900;color:#137b6d;font-size:.8rem}
+.pa-coverage-foot{margin-top:15px;display:flex;align-items:center;justify-content:space-between;
+  gap:12px;flex-wrap:wrap;font-size:.78rem;color:#596f70}
+.pa-coverage-foot a{font-weight:850;color:#12665e}
+@media(max-width:900px){.pa-coverage-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:650px){.pa-coverage-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pa-coverage-card{padding:13px;min-height:154px}.pa-coverage{margin:22px 12px}}
+@media(prefers-reduced-motion:reduce){.pa-coverage-card{transition:none}
+ .pa-coverage-card:hover{transform:none}}
+
+/* The old ZIP-first hero was a second, competing introduction. Preserve #where form. */
+html[data-vs6="active"] body:has(#where) > .hero{display:none!important}
+
+/* Corporate ownership has a bespoke evidence carousel, not a V5 hero.
+   Bring the existing interactive thread gallery into the same V6 cover. */
+html[data-vs6="active"] body .ownershipPage > .threadGallery{
+ background:#faf6ed!important;border:1px solid #eee4d6!important;
+ border-radius:27px!important;padding:clamp(20px,3vw,35px)!important;
+ color:#163743!important;box-shadow:none!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery h1{
+ font-size:clamp(2.8rem,6vw,5.7rem)!important;line-height:1!important;
+ letter-spacing:-.062em!important;color:#153543!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery .threadKicker{
+ color:#147c72!important;text-transform:uppercase!important;
+ font-size:.72rem!important;letter-spacing:.15em!important;font-weight:900!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery .threadIntro{
+ color:#4e686d!important;font-size:clamp(1rem,1.8vw,1.24rem)!important;
+ line-height:1.45!important;
+}
+html[data-vs6="active"] body .ownershipPage :is(.threadGallery,.threadResearch) :is(button,summary,a):focus-visible{
+ outline:3px solid #c98245!important;outline-offset:3px;
+}
+html[data-vs6="active"] body .ownershipPage > .threadResearch{
+ background:#fffdf8!important;border:1px solid #dce6dd!important;
+ border-radius:22px!important;margin-top:22px!important;
+}
+
+/* Evidence hub remains discoverable without forcing a visitor to open deep research. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main > #pa-coverage-discovery{display:block!important}

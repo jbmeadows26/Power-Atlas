@@ -14,8 +14,11 @@ class LocationCategoryScrollTests(unittest.TestCase):
     def setUpClass(cls):
         cls.html = PAGE.read_text(encoding="utf-8")
 
-    def test_location_submission_advances_to_category_choices(self):
-        self.assertIn('scrollToSection("what","what");', self.html)
+    def test_location_submission_shows_zip_visual_before_category_choices(self):
+        # ZIP submission now anchors the visual summary instead of skipping it.
+        self.assertIn('const visualOverview=document.querySelector("main > .vs6-topic");', self.html)
+        self.assertIn('scrollToSection("where","where");', self.html)
+        self.assertNotIn('scrollToSection("what","what");', self.html)
         self.assertIn('id="step2Place"', self.html)
         self.assertIn('Looking up ZIP "+zip+', self.html)
 
