@@ -222,17 +222,59 @@ function topic(){
  if(location.hash){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
 function compactNav(){
- const header=document.getElementById("pa-global-header");
- const inner=header?.querySelector(".pa-global-inner");
- const nav=header?.querySelector(".pa-global-links");
- if(!header||!inner||!nav||header.querySelector(".vs6-nav-toggle"))return;
+ let header=document.getElementById("pa-global-header");
+ if(!header){
+   // The Research frontend has a different legacy shell and no global header.
+   // Supply the same compact navigation, retaining all original research sections.
+   header=E("div","vs6-research-nav");
+   header.id="pa-global-header";
+   header.setAttribute("aria-label","Power Atlas primary navigation");
+   const shell=E("div","pa-global-inner");
+   const brand=E("a","pa-global-brand","◇ POWER ATLAS");
+   brand.href="https://power-atlas-unified.vercel.app/my-life.html#where";
+   brand.setAttribute("aria-label","Power Atlas — Start Here");
+   const nav=E("nav","pa-global-links");
+   nav.setAttribute("aria-label","Explore Power Atlas");
+   [
+     ["Start Here","https://power-atlas-unified.vercel.app/my-life.html#where"],
+     ["Issues","https://power-atlas-unified.vercel.app/my-life.html#what"],
+     ["Costs","https://power-atlas-unified.vercel.app/consumer-practices.html"],
+     ["The Why","https://power-atlas-unified.vercel.app/my-life.html#why"],
+     ["Actions","https://power-atlas-unified.vercel.app/my-life.html#how"],
+     ["Research","https://power-atlas-research.vercel.app/"]
+   ].forEach(([title,url])=>{
+     const a=E("a",null,title);
+     a.href=url;
+     if(title==="Research")a.setAttribute("aria-current","page");
+     nav.append(a);
+   });
+   shell.append(brand,nav);
+   header.append(shell);
+   document.body.prepend(header);
+ }
+ const inner=header.querySelector(".pa-global-inner");
+ const nav=header.querySelector(".pa-global-links");
+ if(!inner||!nav||header.querySelector(".vs6-nav-toggle"))return;
  nav.id="vs6-primary-navigation";
  const button=E("button","vs6-nav-toggle","Explore menu ☰");
  button.type="button";button.setAttribute("aria-controls",nav.id);button.setAttribute("aria-expanded","false");
  button.setAttribute("aria-label","Open all Power Atlas sections");
- button.addEventListener("click",()=>{const open=header.classList.toggle("vs6-nav-open");button.setAttribute("aria-expanded",String(open));button.textContent=open?"Close menu ×":"Explore menu ☰";});
- nav.addEventListener("click",e=>{if(e.target.closest("a")){header.classList.remove("vs6-nav-open");button.setAttribute("aria-expanded","false");button.textContent="Explore menu ☰";}});
- header.addEventListener("keydown",e=>{if(e.key==="Escape"){header.classList.remove("vs6-nav-open");button.setAttribute("aria-expanded","false");button.textContent="Explore menu ☰";button.focus();}});
+ const toggle=(open,focus)=>{
+   header.classList.toggle("vs6-nav-open",open);
+   button.setAttribute("aria-expanded",String(open));
+   button.setAttribute("aria-label",open?"Close Power Atlas sections":"Open all Power Atlas sections");
+   button.textContent=open?"Close menu ×":"Explore menu ☰";
+   if(focus)button.focus();
+ };
+ button.addEventListener("click",()=>toggle(!header.classList.contains("vs6-nav-open"),false));
+ nav.addEventListener("click",e=>{if(e.target.closest("a"))toggle(false,false);});
+ // Listen on the document: Escape must work even when focus has left the header.
+ document.addEventListener("keydown",e=>{
+   if(e.key==="Escape"&&header.classList.contains("vs6-nav-open")){
+     e.preventDefault();
+     toggle(false,true);
+   }
+ });
  inner.append(button);
 }
 function init(){
