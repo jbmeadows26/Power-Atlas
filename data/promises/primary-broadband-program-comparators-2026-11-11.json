@@ -1,0 +1,87 @@
+{
+  "schema": "power-atlas.campaign-broadband-comparators.v1",
+  "asOf": "2026-11-11",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "newPledgeCount": 0,
+  "independentHumanReviewCount": 0,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "source": {
+    "id": "GAO-26-107725",
+    "publisher": "US Government Accountability Office",
+    "url": "https://files.gao.gov/reports/GAO-26-107725/index.html",
+    "locator": "Broadband Deployment: Agencies Should Take Steps to Better Target Underserved Areas and Consider Sustainability; BIP and TBCP program sections",
+    "publicationDate": "2026-08-31",
+    "rights": "Federal government authored factual findings paraphrased; verify rights of any embedded third-party figures before reuse",
+    "retrievedOn": "2026-11-11",
+    "contentHash": null
+  },
+  "observations": [
+    {
+      "id": "GAO26-BIP-DISBURSEMENT-2026-04",
+      "program": "NTIA Broadband Infrastructure Program (BIP)",
+      "asOf": "2026-04",
+      "measure": "share_of_obligated_funds_disbursed",
+      "value": 79,
+      "unit": "percent_rounded",
+      "scope": "BIP only; NOT BEAD",
+      "sourceLocator": "BIP section, disbursement paragraph",
+      "caution": "Disbursement to recipient is not recipient expenditure or finished infrastructure."
+    },
+    {
+      "id": "GAO26-TBCP-DISBURSEMENT-2026-04",
+      "program": "NTIA Tribal Broadband Connectivity Program (TBCP)",
+      "asOf": "2026-04",
+      "measure": "cumulative_disbursement",
+      "value": 506000000,
+      "unit": "USD_approximate",
+      "denominator": 1800000000,
+      "denominatorMeaning": "TBCP funds awarded for projects in fiscal years 2022–2025",
+      "scope": "TBCP only; NOT BEAD",
+      "sourceLocator": "TBCP section, disbursement paragraph",
+      "caution": "GAO describes roughly 28%; amounts rounded; no quarterly flow."
+    },
+    {
+      "id": "GAO26-BIP-BUILT-2026-05",
+      "program": "BIP",
+      "asOf": "2026-05",
+      "measure": "reported_completed_buildout_locations",
+      "value": 27900,
+      "unit": "locations_approximate",
+      "share": 20,
+      "shareUnit": "percent_approximate",
+      "sourceLocator": "BIP section, Broadband Funding Map as-of May 2026",
+      "caution": "GAO warns location reporting is incomplete and units vary."
+    },
+    {
+      "id": "GAO26-TBCP-BUILT-2026-05",
+      "program": "TBCP",
+      "asOf": "2026-05",
+      "measure": "reported_completed_buildout_locations",
+      "value": 4600,
+      "unit": "locations_approximate",
+      "share": 3,
+      "shareUnit": "percent_approximate",
+      "sourceLocator": "TBCP section, Broadband Funding Map as-of May 2026",
+      "caution": "Not a BEAD household coverage measure."
+    }
+  ],
+  "comparability": "BIP and TBCP are separate NTIA programs; do not pool with BEAD, all-NTIA IIJA totals, or monthly Treasury outlays. Cumulative and snapshot figures are not election-quarter spending.",
+  "relatedUnmergedEvidence": "PR #48 contains all-NTIA IIJA funding observations and BEAD milestones; this record is a distinct program-level comparator, not a duplicate BEAD estimate.",
+  "uncertainty": [
+    "Figures rounded and time-stamped; source revisions possible.",
+    "GAO warns about project and location data reliability.",
+    "No verified quarter-by-quarter expenditure series or election-cycle attribution."
+  ],
+  "competingExplanations": [
+    "Award timing and statutory program design differ across programs.",
+    "Infrastructure and procurement lead times differ.",
+    "Recipient capacity, geography and reporting lags differ.",
+    "2025 policy changes and external shocks may affect observed timelines."
+  ],
+  "independentReviewRequired": true,
+  "licensingReviewRequired": true,
+  "publicationGate": "Discovery only; cross-ledger duplicate audit and two independent human coders before public scoring."
+}
