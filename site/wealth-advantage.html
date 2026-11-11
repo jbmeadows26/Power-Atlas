@@ -16,6 +16,68 @@
 .wa-case-footer{display:flex;justify-content:space-between;gap:12px 18px;align-items:center;flex-wrap:wrap;padding:14px 22px}.wa-case-footer>span{font-size:12px;line-height:1.5;color:#51716b;max-width:750px}.wa-case-footer button{background:#143f42;border:0;color:white;border-radius:25px;font-size:12px;font-weight:850;padding:10px 15px}.wa-more{padding:0 22px 21px;border-top:1px solid #e0eae6}.wa-more p{font-size:13px;line-height:1.65;color:#405c59}.wa-more .wa-sources{display:flex;gap:12px;flex-wrap:wrap}.wa-more .wa-sources a{font-size:12px;font-weight:800}.wa-more[hidden],.wa-case[hidden]{display:none!important}
 .wa-box{padding:24px;border:1px solid #d5e4d9;border-radius:19px;background:#edf6f0;margin:22px 0}.wa-box h2{margin:0 0 8px;font-size:1.5rem;letter-spacing:-.04em}.wa-box p{line-height:1.58;color:#395b58;margin:0;font-size:14px}.wa-context{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:21px 0 55px}.wa-context>div{padding:18px;border:1px solid #dde4df;border-radius:15px;background:#fff}.wa-context strong{display:block;font-size:13px;margin-bottom:7px}.wa-context p{font-size:12px;line-height:1.55;color:#536a66;margin:0}.wa-linkbar{display:flex;gap:9px;flex-wrap:wrap;padding:16px 0 50px}.wa-linkbar a{background:#174641;color:#fff;text-decoration:none;border-radius:28px;padding:12px 15px;font-size:12px;font-weight:900}.wa-strong{font-weight:900}.wa-foot{color:#637873;padding:28px 0 45px;border-top:1px solid #d4e0d8;font-size:12px;line-height:1.5}
 @media(max-width:760px){.wa-hero{padding:42px 0 54px}.wa-figures{grid-template-columns:1fr;gap:10px;margin-bottom:32px}.wa-number{padding:20px}.wa-intro{display:block}.wa-compare{grid-template-columns:1fr}.wa-persona{padding:15px 19px}.wa-case-head{padding:19px;gap:7px}.wa-case-head h3{font-size:1.45rem}.wa-case-footer{padding:16px 18px}.wa-case-index{min-width:32px;height:32px}.wa-context{grid-template-columns:1fr}.wa-wrap{width:min(1190px,calc(100% - 28px))}}
+
+/* Approved V6 shell — one visual story, evidence revealed on demand. */
+body[data-pa-page="wealth-advantage"]{margin:0;background:#f7f8f4}
+html[data-vs6="active"] .wa-hero{display:none!important}
+.wa .wa-v6-cover{width:min(1250px,calc(100% - 32px));margin:19px auto 25px;padding:clamp(23px,3.2vw,41px);background:#122e3f;color:#fff;border:1px solid #315463;border-radius:26px}
+.wa .wa-v6-layout{width:100%;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);align-items:center;gap:clamp(21px,3.5vw,44px)}
+.wa .wa-v6-lead{min-width:0;max-width:560px}
+.wa .wa-v6-title{display:block}
+.wa .wa-v6-lead h1{color:white;font-size:clamp(2.7rem,5.2vw,5rem);line-height:1.01;font-weight:950;letter-spacing:-.071em;margin:16px 0 19px;text-wrap:balance}
+.wa .wa-v6-lead h1 span{display:block;color:#9de9cd}
+.wa .wa-v6-lead p{font-size:clamp(1rem,1.52vw,1.16rem);line-height:1.5;color:#d0e4e1;margin:0 0 22px;max-width:470px}
+.wa .wa-v6-tokens{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 23px}
+.wa .wa-v6-tokens span{color:#d1e8e3;border:1px solid #557984;padding:7px 10px;border-radius:30px;font-size:.69rem;font-weight:800}
+.wa .wa-v6-cover .vs6-primary{min-height:47px;white-space:normal;text-align:center}
+.wa .wa-v6-graphic{min-width:0;background:#214454;border:1px solid #47717c;border-radius:20px;padding:clamp(13px,2vw,25px);box-shadow:0 12px 30px #04151f40}
+.wa .wa-v6-graphic-top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px 13px;font-size:.62rem;font-weight:950;letter-spacing:.12em;color:#b8d4d5;padding-bottom:16px}
+.wa .wa-v6-lanes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.wa .wa-v6-lane{display:flex;flex-direction:column;align-items:flex-start;min-height:224px;min-width:0;border-radius:15px;padding:15px 12px;background:#f1f5ed;color:#1e4048;overflow-wrap:anywhere}
+.wa .wa-v6-lane--home{background:#e5eee9}
+.wa .wa-v6-lane--biz{background:#d1f0d8}
+.wa .wa-v6-lane--jet{background:#f8ddb6}
+.wa .wa-v6-lane-icon{display:grid;place-items:center;width:34px;height:34px;background:#173f4620;border:1px solid #173f4633;border-radius:10px;font-size:1.3rem;font-weight:900;margin-bottom:15px}
+.wa .wa-v6-lane small{font-size:.62rem;letter-spacing:.06em;font-weight:950;line-height:1.25;min-height:27px}
+.wa .wa-v6-lane strong{font-size:clamp(1.5rem,2.1vw,2.55rem);font-weight:950;letter-spacing:-.065em;line-height:1.1;margin:13px 0 9px;white-space:nowrap}
+.wa .wa-v6-lane>span:last-child{font-size:.71rem;line-height:1.35;color:#37565b}
+.wa .wa-v6-graphic-note{font-size:.7rem;line-height:1.55;margin:15px 0 0;color:#d5e7e4}
+.wa .wa-v6-graphic-note a{color:#aaf0d9!important;font-weight:800}
+.wa #wa-deep-dive{padding-top:12px}
+.wa .wa-collection{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:16px}
+.wa .wa-case{margin:0;border-radius:20px;min-width:0;align-self:start;box-shadow:0 6px 20px #112f3b0d;transition:border-color .18s,box-shadow .18s}
+.wa .wa-case:hover{border-color:#65b6a4;box-shadow:0 13px 27px #112f3b18}
+.wa .wa-case.is-open{grid-column:1/-1;border-color:#76b5a4}
+.wa .wa-case-head.wa-case-open{width:100%;display:grid;grid-template-columns:minmax(0,1fr) minmax(110px,.38fr);gap:16px;text-align:left;background:#fff;border:0;border-radius:0;padding:21px;cursor:pointer;align-items:stretch;min-height:210px}
+.wa .wa-case-open:focus-visible,.wa .wa-v6-cover button:focus-visible{outline:3px solid #dfad52;outline-offset:-4px}
+.wa .wa-case-copy{display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.wa .wa-case-kicker{color:#248879;font-size:.61rem;letter-spacing:.13em;font-weight:950}
+.wa .wa-case-title{display:block;font-size:clamp(1.3rem,1.88vw,1.8rem);letter-spacing:-.05em;line-height:1.12;font-weight:950;color:#163643;margin:12px 0 9px}
+.wa .wa-case-description{font-size:.78rem;line-height:1.5;color:#5b7375}
+.wa .wa-case-cue{display:inline-block;margin-top:auto;padding-top:16px;color:#176d62;font-size:.74rem;font-weight:900}
+.wa .wa-case-art{display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;min-width:0;min-height:150px;border-radius:16px;overflow:hidden;background:#dcece4}
+.wa .wa-case-art:before{content:"";position:absolute;inset:auto -26px -80px auto;width:170px;height:170px;border:20px solid #ffffff76;border-radius:50%}
+.wa .wa-case-art--vehicles{background:#c9e4dc}
+.wa .wa-case-art--business{background:#f8dcbf}
+.wa .wa-case-art--assets{background:#d9d1fa}
+.wa .wa-case-art--future{background:#b7dbe9}
+.wa .wa-case-glyph{font-size:clamp(3rem,5vw,4.7rem);line-height:1;position:relative;color:#194e52;filter:drop-shadow(0 10px 14px #13353328)}
+.wa .wa-case-index{position:absolute;top:10px;right:10px;width:35px;height:35px;display:grid;place-items:center;background:#ffffffbd;color:#1b5e60;font-size:.72rem;font-weight:950;border-radius:99px}
+.wa .wa-case-reveal[hidden]{display:none!important}
+.wa .wa-case-reveal{border-top:1px solid #e2ece6}
+.wa .wa-compare{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wa .wa-case-footer button{min-height:44px}
+.wa .wa-method{background:#f2f7ef;border:1px solid #d8e6db;border-radius:18px;margin:19px 0 38px;overflow:hidden}
+.wa .wa-method>summary{padding:20px 22px;font-size:.92rem;font-weight:900;cursor:pointer;color:#1c4b49;display:flex;justify-content:space-between;gap:12px;list-style:none}
+.wa .wa-method>summary::-webkit-details-marker{display:none}
+.wa .wa-method[open]>summary span{transform:rotate(45deg)}
+.wa .wa-method-body{padding:0 18px 3px}
+.wa .wa-method .wa-box{margin:0 0 14px}
+.wa .wa-method .wa-context{margin:0 0 19px}
+@media(max-width:950px){.wa .wa-v6-layout{grid-template-columns:1fr}.wa .wa-v6-lead{max-width:100%}.wa .wa-v6-cover{padding:23px}.wa .wa-v6-lane{min-height:180px}.wa .wa-case-head.wa-case-open{grid-template-columns:minmax(0,1fr) 115px}}
+@media(max-width:740px){.wa .wa-collection{grid-template-columns:1fr}.wa .wa-case.is-open{grid-column:auto}.wa .wa-compare{grid-template-columns:1fr}.wa .wa-v6-cover{width:calc(100% - 22px);margin:11px auto 21px;padding:20px;border-radius:18px}.wa .wa-v6-lane{padding:13px 10px;min-height:174px}.wa .wa-v6-lane strong{font-size:clamp(1.28rem,5.1vw,2rem)}.wa .wa-v6-lane-icon{margin-bottom:10px}.wa .wa-v6-lead h1{font-size:clamp(2.55rem,10vw,4.2rem)}.wa .wa-v6-graphic{padding:12px}.wa .wa-case-head.wa-case-open{min-height:181px}}
+@media(max-width:400px){.wa .wa-v6-lanes{gap:5px}.wa .wa-v6-lane{padding:10px 7px;min-height:186px}.wa .wa-v6-lane strong{font-size:1.28rem}.wa .wa-v6-lane small{font-size:.55rem}.wa .wa-v6-lane>span:last-child{font-size:.63rem}.wa .wa-case-head.wa-case-open{grid-template-columns:minmax(0,1fr) 102px;padding:16px;gap:11px}.wa .wa-case-art{min-height:135px}}
+
 </style></head>
 <body data-pa-page="wealth-advantage">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner">
@@ -23,18 +85,29 @@
 <nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="https://power-atlas-unified.vercel.app/my-life.html#where">Start Here</a><a href="https://power-atlas-unified.vercel.app/my-life.html#what">Issues</a><a href="https://power-atlas-unified.vercel.app/my-life.html#benchmarkStory">Costs</a><a href="https://power-atlas-unified.vercel.app/my-life.html#why">The Why</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Actions</a><a href="index.html" aria-current="page">Research</a></nav>
 </div></div>
 <main class="wa">
-<section class="wa-hero"><div class="wa-wrap"><div class="wa-eyebrow">POWER ATLAS / TAX ADVANTAGE INVESTIGATION / 2026</div>
-<h1>Same tax system.<br><em>Different playbook.</em></h1>
-<p>When a household buys a car, the purchase generally comes from after-tax income. When a business buys qualifying equipment, it may deduct the business-use cost. Wealthier owners can deploy those same rules at a scale most households cannot.</p>
-<div class="wa-pills"><span>10 side-by-side investigations</span><span>3 taxpayer profiles</span><span>Official IRS rules</span></div>
-<div class="wa-actions"><a href="#comparisons" class="wa-primary">Compare every advantage ↓</a><a class="wa-secondary" href="https://power-atlas-unified.vercel.app/take-action.html">Explore civic action ↗</a></div>
-<p class="wa-aside">Real legal distinctions, not accusations of tax fraud. A deduction reduces taxable income; it is not a cash rebate. Eligibility, income limits, business use and timing can change the outcome.</p></div></section>
-<div class="wa-wrap">
-<div class="wa-figures" aria-label="Illustrative 2026 first-year depreciation comparisons">
-<div class="wa-number"><small>Business passenger car / 2026</small><strong>$20,300</strong><p>Maximum first-year depreciation for an eligible passenger automobile if bonus depreciation applies and business use is 100%. Lower business use means a lower deduction. <a href="https://www.irs.gov/irb/2026-13_IRB" target="_blank" rel="noopener noreferrer">IRS 2026 limits ↗</a></p></div>
-<div class="wa-number"><small>Qualifying business aircraft / hypothetical</small><strong>$25 million</strong><p>Potential first-year deduction on a $25 million qualifying jet used entirely for eligible business purposes. Aircraft tests, tax basis, and loss limits still apply. <a href="https://www.irs.gov/publications/p946" target="_blank" rel="noopener noreferrer">IRS aircraft rules ↗</a></p></div>
-</div>
-<div id="comparisons" class="wa-intro"><div><div class="wa-eyebrow">EXPLORE THE GAP</div><h2>Compare each rule.</h2></div><p>Switch categories, then open the rules behind any comparison. Each row uses the same lens: household → small business → wealthy asset owner.</p></div>
+
+<section class="vs6-topic vs6-topic--money wa-v6-cover" aria-labelledby="wa-cover-title">
+ <div class="wa-v6-layout">
+  <div class="wa-v6-lead">
+   <span class="vs6-micro">POWER ATLAS / THE WEALTH ADVANTAGE</span>
+   <h1 id="wa-cover-title">Same tax system.<span>Different playing field.</span></h1>
+   <p>Ten tax rules. Three different starting points. See what each can deduct—and why scale changes everything.</p>
+   <div class="wa-v6-tokens"><span>10 investigations</span><span>3 perspectives</span><span>IRS evidence</span></div>
+   <button id="wa-v6-expand" class="vs6-primary vs6-expand" type="button" aria-expanded="false" aria-controls="wa-deep-dive">Explore the 10 comparisons ↗</button>
+  </div>
+  <div class="wa-v6-graphic" aria-label="Three examples of different 2026 first-year deduction treatment">
+   <div class="wa-v6-graphic-top"><span>2026 / HOW THE RULES SCALE</span><span>ILLUSTRATIVE</span></div>
+   <div class="wa-v6-lanes">
+    <div class="wa-v6-lane wa-v6-lane--home"><span class="wa-v6-lane-icon" aria-hidden="true">⌂</span><small>PERSONAL CAR</small><strong>$0</strong><span>No purchase-price deduction for personal use</span></div>
+    <div class="wa-v6-lane wa-v6-lane--biz"><span class="wa-v6-lane-icon" aria-hidden="true">▥</span><small>BUSINESS CAR</small><strong>$20,300</strong><span>2026 qualifying first-year depreciation ceiling</span></div>
+    <div class="wa-v6-lane wa-v6-lane--jet"><span class="wa-v6-lane-icon" aria-hidden="true">✦</span><small>BUSINESS JET</small><strong>$25M</strong><span>Potential deduction on a fully qualifying $25M aircraft</span></div>
+   </div>
+   <p class="wa-v6-graphic-note">Different assets and tax uses, not a like-for-like comparison. Deductions are not cash refunds. Each figure has eligibility and loss limits. <a href="https://www.irs.gov/irb/2026-13_IRB" target="_blank" rel="noopener noreferrer">Car limits ↗</a> <a href="https://www.irs.gov/publications/p946" target="_blank" rel="noopener noreferrer">Aircraft rules ↗</a></p>
+  </div>
+ </div>
+</section>
+<div class="wa-wrap" id="wa-deep-dive">
+<div id="comparisons" class="wa-intro"><div><div class="wa-eyebrow">EXPLORE THE GAP</div><h2>Pick an advantage.</h2></div><p>Choose a topic. Compare three taxpayers. Open the official rules only when you want the details.</p></div>
 <div class="wa-filters" role="group" aria-label="Filter tax advantage comparisons">
 <button type="button" class="wa-filter" aria-pressed="true" data-filter="all">All 10</button>
 <button type="button" class="wa-filter" aria-pressed="false" data-filter="vehicles">Vehicles & travel</button>
@@ -44,11 +117,12 @@
 </div>
 <div class="wa-count" id="wa-count" aria-live="polite">10 comparisons · 2026 federal framework</div>
 <div id="wa-cases" class="wa-collection" aria-label="Federal tax treatment across three taxpayer profiles"></div>
-<section class="wa-box" aria-label="What taxes fund"><h2>Who ultimately pays?</h2><p>A tax deduction or deferral can reduce federal revenue relative to the alternative tax treatment. It does <strong>not</strong> prove an identical dollar increase on any particular family’s tax bill. To quantify the public cost, Power Atlas must pair these legal rules with Treasury/JCT tax-expenditure estimates, utilization data, and distributional analysis. Those figures are not invented here.</p></section>
+<details class="wa-method"><summary>What the numbers do—and don’t—prove <span aria-hidden="true">＋</span></summary><div class="wa-method-body"><section class="wa-box" aria-label="What taxes fund"><h2>Who ultimately pays?</h2><p>A tax deduction or deferral can reduce federal revenue relative to the alternative tax treatment. It does <strong>not</strong> prove an identical dollar increase on any particular family’s tax bill. To quantify the public cost, Power Atlas must pair these legal rules with Treasury/JCT tax-expenditure estimates, utilization data, and distributional analysis. Those figures are not invented here.</p></section>
 <section class="wa-context" aria-label="How to interpret these comparisons">
 <div><strong>Deduction ≠ cash</strong><p>A $100,000 qualifying deduction at a 37% marginal federal rate can reduce tax by up to $37,000 if usable—not return $100,000 in cash.</p></div>
 <div><strong>Business use ≠ personal use</strong><p>Recordkeeping, business purpose, at-risk, passive-loss, basis and recapture rules can sharply reduce or disallow a claimed benefit.</p></div>
 <div><strong>Access ≠ exclusivity</strong><p>Small businesses, employees with investments, homeowners and heirs can qualify for many of these rules too. Wealth may make them easier to use at scale.</p></div></section>
+</div></details>
 <nav class="wa-linkbar" aria-label="Related Power Atlas stories"><a href="consumer-practices.html">Consumer Watch ↗</a><a href="market-power.html">Market Power ↗</a><a href="money-scale.html">Money at scale ↗</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Take action ↗</a></nav>
 <footer class="wa-foot">Power Atlas · Tax Advantage investigation · IRS primary-source review November 11, 2026 · Federal rules only; not individualized tax or legal advice. No estimate of actual taxpayer savings, tax expenditures or household burden is claimed from illustrative scenarios.</footer>
 </div></main>
@@ -129,11 +203,21 @@ sources:[["IRS · Depreciable property","https://www.irs.gov/taxtopics/tc704"],[
 const list=document.getElementById("wa-cases"),count=document.getElementById("wa-count"),buttons=[...document.querySelectorAll("[data-filter]")];
 function node(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el;}
 function persona(icon,title,items){const panel=node("div","wa-persona"),label=node("div","wa-persona-kicker");label.append(node("span",null,icon),document.createTextNode(title));const strong=node("strong",null,items[0]);panel.append(label,strong,node("p",null,items[1]));return panel;}
+const cardSymbols=["🚗","✈","▧","%","↗","⌂","⇄","◆","◎","↔"];
 const sections=cases.map((entry,index)=>{
  const article=node("article","wa-case");article.dataset.category=entry.tag;article.id="advantage-"+(index+1);
- const top=node("header","wa-case-head"),info=node("div");
- info.append(node("small",null,entry.tag.toUpperCase()+" / FEDERAL TAX LAW"),node("h3",null,entry.name),node("p",null,entry.summary));
- top.append(info,node("div","wa-case-index",String(index+1).padStart(2,"0")));
+ const top=node("button","wa-case-head wa-case-open"),info=node("span","wa-case-copy");
+ top.type="button";top.setAttribute("aria-expanded","false");
+ const panel=node("div","wa-case-reveal");panel.hidden=true;panel.id="wa-panel-"+index;top.setAttribute("aria-controls",panel.id);
+ info.append(node("span","wa-case-kicker",entry.tag.toUpperCase()+" / IRS INVESTIGATION"),node("span","wa-case-title",entry.name),node("span","wa-case-description",entry.summary),node("span","wa-case-cue","Compare 3 perspectives ↗"));
+ const graphic=node("span","wa-case-art wa-case-art--"+entry.tag);graphic.setAttribute("aria-hidden","true");
+ graphic.append(node("span","wa-case-glyph",cardSymbols[index]),node("span","wa-case-index",String(index+1).padStart(2,"0")));
+ top.append(info,graphic);
+ top.addEventListener("click",()=>{
+  const show=panel.hidden;panel.hidden=!show;article.classList.toggle("is-open",show);
+  top.setAttribute("aria-expanded",String(show));
+  info.querySelector(".wa-case-cue").textContent=show?"Close comparison ↑":"Compare 3 perspectives ↗";
+ });
  const body=node("div","wa-compare");
  body.append(persona("🏠","Ordinary household",entry.house),persona("🧰","Small business owner",entry.small),persona("◆","High-wealth owner",entry.wealth));
  const foot=node("div","wa-case-footer"),toggle=node("button",null,"Inspect rules & sources ↓");toggle.type="button";
@@ -144,10 +228,27 @@ const sections=cases.map((entry,index)=>{
  more.append(rule,sources);
  toggle.addEventListener("click",()=>{const expanded=more.hidden;more.hidden=!expanded;toggle.setAttribute("aria-expanded",String(expanded));toggle.textContent=expanded?"Hide rules ↑":"Inspect rules & sources ↓"});
  foot.append(node("span",null,entry.take),toggle);
- article.append(top,body,foot,more);list.append(article);return article;
+ panel.append(body,foot,more);article.append(top,panel);list.append(article);return article;
 });
 buttons.forEach(button=>button.addEventListener("click",()=>{const filter=button.dataset.filter;buttons.forEach(b=>b.setAttribute("aria-pressed",String(b===button)));let n=0;
  sections.forEach(card=>{const visible=filter==="all"||card.dataset.category===filter;card.hidden=!visible;if(visible)n++});
  count.textContent=n+" comparison"+(n===1?"":"s")+" · 2026 federal framework";
 }));
+
+const coverButton=document.getElementById("wa-v6-expand");
+function revealWealthStory(open,scroll){
+ document.body.classList.toggle("vs6-topic-expanded",open);
+ const cover=document.querySelector(".wa-v6-cover");cover.classList.toggle("vs6-expanded",open);
+ coverButton.setAttribute("aria-expanded",String(open));
+ coverButton.textContent=open?"Back to the big picture ↑":"Explore the 10 comparisons ↗";
+ if(scroll)(open?document.getElementById("comparisons"):cover).scrollIntoView({behavior:"smooth",block:"start"});
+}
+coverButton.addEventListener("click",()=>revealWealthStory(!document.body.classList.contains("vs6-topic-expanded"),true));
+const initialHash=decodeURIComponent(location.hash.slice(1));
+if(initialHash==="comparisons"||initialHash==="wa-deep-dive"||/^advantage-([1-9]|10)$/.test(initialHash)){
+ revealWealthStory(true,false);
+ const card=document.getElementById(initialHash);
+ if(card&&card.classList.contains("wa-case"))card.querySelector(".wa-case-open")?.click();
+}
+document.body.classList.add("vs6-topic-mode");
 </script><script src="visual-story-v6.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
