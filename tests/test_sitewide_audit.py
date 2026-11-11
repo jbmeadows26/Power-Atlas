@@ -59,6 +59,22 @@ class SitewideAuditTests(unittest.TestCase):
         self.assertEqual(r["summary"]["stalePageTwoQueueEntries"], 0)
         self.assertEqual(r["summary"]["boundedKeywordPageTasksReconciled"], 10)
 
+    def test_verified_hud_benchmark_remains_partial_not_local_market_rent(self):
+        item = next(g for g in self.catalog["gaps"] if g["id"] == "housing__price")
+        self.assertEqual(item["status"], "partial_program_benchmark_verified_actual_prices_unresolved")
+        evidence = item["verifiedPartialIntegration"]
+        self.assertEqual(evidence["sourceObjectCount"], 51895)
+        self.assertEqual(evidence["sourceZctaCount"], 38601)
+        self.assertIn("Actual year-matched local rents", evidence["missingToResolve"])
+        shard = json.loads((ROOT / "data/housing/hud-safmr-fy2026-0.json").read_text())
+        self.assertEqual(shard["sourceObjectCount"], evidence["sourceObjectCount"])
+        self.assertEqual(shard["uniqueZctas"], evidence["sourceZctaCount"])
+        self.assertEqual(shard["fiscalYear"], 2026)
+        local = [r for r in shard["rows"] if r["zip"] == "07010"]
+        self.assertTrue(local)
+        self.assertTrue(all(r["usdByBedroom"]["1"] > 0 and r["usdByBedroom"]["2"] > 0 for r in local))
+        self.assertEqual(self.report["sourceIntegrity"]["unresolvedGapCount"], 55)
+
     def test_static_url_resolution(self):
         p = ROOT / "platform/unified/my-life.html"
         link = {"platform/unified/my-life.html": {"where", "what", "why", "how"}}
