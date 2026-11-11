@@ -26,3 +26,17 @@ def test_visual_zip_story_is_the_target_and_has_four_issues():
     assert 'attachZIPVisual(section);' in visual
     for metric in ('key:"housing"', 'key:"transport"', 'key:"groceries"', 'key:"health"'):
         assert metric in visual
+
+
+def test_community_cover_uses_approved_v6_visual_design():
+    """The ZIP results must not regress to the original full-width legacy hero."""
+    for directory in (ROOT / "platform" / "unified", ROOT / "site"):
+        script = (directory / "visual-story-v6.js").read_text(encoding="utf-8")
+        stylesheet = (directory / "visual-story-v6.css").read_text(encoding="utf-8")
+        assert 'const isPlaceStory=documentPath==="my-life.html";' in script
+        assert 'section.classList.add("vs6-topic-cover")' in script
+        assert "if(isPlaceStory)intro.append(cta)" in script
+        assert "vs6-topic-cover>.vs6-intro" in stylesheet
+        assert "grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr)" in stylesheet
+        assert "background:var(--vs6-cream)" in stylesheet
+        assert ".vs6-topic-cover .vs6-zip-grid" in stylesheet
