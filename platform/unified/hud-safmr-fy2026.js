@@ -14,7 +14,8 @@ function record(record){
   const pairs=[["Studio",record.usdByBedroom["0"]],
                ["1 bedroom",record.usdByBedroom["1"]],
                ["2 bedrooms",record.usdByBedroom["2"]],
-               ["3 bedrooms",record.usdByBedroom["3"]]];
+               ["3 bedrooms",record.usdByBedroom["3"]],
+               ["4 bedrooms",record.usdByBedroom["4"]]];
   const max=Math.max(...pairs.map(x=>Number(x[1])||0),1);
   for(const [label,value] of pairs){
     if(!Number.isFinite(value))continue;
@@ -72,15 +73,26 @@ async function show(zip){
     const rows=data.rows.filter(r=>r.zip===zip);
     if(!rows.length){
       status.textContent="No FY2026 small-area HUD record in the indexed source for this ZIP. No county rent has been substituted.";
+      window.dispatchEvent(new CustomEvent("poweratlas:hud-benchmarks-ready",{
+        detail:{zip,status:"unavailable",records:[]}
+      }));
       return;
     }
     status.textContent=rows.length>1?"This ZCTA overlaps "+rows.length+" distinct HUD rent areas. Each is shown separately.":
      "HUD FY2026 monthly gross-rent voucher benchmark for this ZCTA and FMR area.";
     rows.forEach(r=>results.append(record(r)));
+    window.dispatchEvent(new CustomEvent("poweratlas:hud-benchmarks-ready",{
+      detail:{zip,status:"ready",records:rows}
+    }));
     const source=box.querySelector(".pa-hud-source");
     source.title="HUD FY2026 SAFMR; source table collected "+data.retrievedUTC;
   }catch(_){
-    if(seq===serial)status.textContent="This FY2026 archive is not available. The existing FY2027 and original HUD links remain accessible; no values are inferred.";
+    if(seq===serial){
+      status.textContent="The FY2026 HUD archive is temporarily unavailable. No rent values have been inferred.";
+      window.dispatchEvent(new CustomEvent("poweratlas:hud-benchmarks-ready",{
+        detail:{zip,status:"unavailable",records:[]}
+      }));
+    }
   }
 }
 window.addEventListener("poweratlas:zip-visual-context",e=>{
