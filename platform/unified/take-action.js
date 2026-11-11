@@ -244,6 +244,12 @@ document.querySelectorAll("#issue-options button").forEach(button=>button.addEve
  $("issue-link").href=issueData[currentIssue].source;
  buildMessage();
 }));
+/* Visual advocacy steps select their corresponding question instead of being inert anchors. */
+document.querySelectorAll("[data-question-jump]").forEach(link=>link.addEventListener("click",()=>{
+ const type=link.dataset.questionJump;
+ const button=document.querySelector('#question-options button[data-question="'+type+'"]');
+ if(button)button.click();
+}));
 document.querySelectorAll("#question-options button").forEach(button=>button.addEventListener("click",()=>{
  currentQuestion=button.dataset.question;
  document.querySelectorAll("#question-options button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
