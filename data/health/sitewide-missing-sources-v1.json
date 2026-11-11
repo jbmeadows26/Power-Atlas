@@ -530,8 +530,19 @@
         "fhfa_hpi"
       ],
       "requiredJoin": "ZCTA/county and dated rent/price measures with consistent units",
-      "limitation": "Observed median gross rent is not a live asking-rent series.",
-      "status": "identified_source_not_yet_integrated_or_validated",
+      "limitation": "A validated FY2026 HUD SAFMR rent-by-bedroom ZCTA benchmark is published, but it is a Housing Choice Voucher benchmark—not observed rent paid, local listings, current asking rents, or an ownership-driven price effect. Neighborhood/year transaction series and legal-owner joins remain unavailable.",
+      "status": "partial_program_benchmark_verified_actual_prices_unresolved",
+      "verifiedPartialIntegration": {
+        "type": "FY2026 HUD Small Area Fair Market Rent benchmark",
+        "status": "source_collected_and_validated_not_market_rent",
+        "sourceObjectCount": 51895,
+        "sourceZctaCount": 38601,
+        "dataset": "data/housing/hud-safmr-fy2026-v1.json",
+        "presentation": "platform/unified/hud-safmr-fy2026.js",
+        "originalData": "https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/HUD_PDR_Small_Area_Fair_Market_Rents/FeatureServer",
+        "officialProgramExplanation": "https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html",
+        "missingToResolve": "Actual year-matched local rents, lease and asking-price series, verified ownership and causally supported comparisons"
+      },
       "importance": "high",
       "severity": "medium",
       "notZero": true
