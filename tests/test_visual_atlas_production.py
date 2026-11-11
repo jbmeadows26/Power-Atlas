@@ -98,6 +98,28 @@ class ProductionVisualAtlasTests(unittest.TestCase):
                 self.assertIsNotNone(m)
                 self.assertAlmostEqual(float(m.group(1)),float(data["national"][topic]["yoyPct"]),places=2)
 
+    def test_market_power_uses_single_platform_nav_and_visual_story(self):
+        for folder in SITES:
+            with self.subTest(site=folder.name):
+                html=(folder/"market-power.html").read_text(encoding="utf-8")
+                self.assertEqual(html.count('id="pa-global-header"'),1)
+                self.assertNotIn('class="navlinks"',html)
+                self.assertNotIn('<header><div class="wrap top">',html)
+                self.assertIn('class="market-related-nav"',html)
+                self.assertIn('href="global-navigation.css"',html)
+                self.assertIn('src="atlas-visual-system.js"',html)
+                self.assertIn('id="marketBars"',html)
+                self.assertIn('id="explore"',html)
+                self.assertEqual(html.count('data-pa-nav='),6)
+                self.assertEqual(html.count('<main>'),1)
+                self.assertIn('market-power-pathways.js',html)
+                self.assertIn('market-power-household.js',html)
+        unified=(UNIFIED/"market-power.html").read_text(encoding="utf-8")
+        self.assertIn('data-pa-nav="research" aria-current="page"',unified)
+        script=(UNIFIED/"visual-story-v6.js").read_text(encoding="utf-8")
+        self.assertIn('documentPath==="market-power.html"',script)
+        self.assertIn('PowerAtlasMarketPower.mount(section)',script)
+
     def test_class_actions_visual_is_filing_sourced(self):
         html=(UNIFIED/"class-actions.html").read_text(encoding="utf-8")
         script=(UNIFIED/"class-actions-visual.js").read_text(encoding="utf-8")
