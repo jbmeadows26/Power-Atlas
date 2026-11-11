@@ -141,6 +141,75 @@ class ProductionVisualAtlasTests(unittest.TestCase):
         self.assertIn("service-accountability.html",html)
         self.assertTrue((RESEARCH/"service-accountability.html").exists())
 
+    def test_no_competing_navigation_or_standalone_mastheads_across_public_pages(self):
+        for folder in SITES:
+            for path in sorted(folder.glob("*.html")):
+                with self.subTest(page=str(path.relative_to(ROOT))):
+                    html=path.read_text(encoding="utf-8")
+                    self.assertLessEqual(html.count('id="pa-global-header"'),1)
+                    self.assertIn("atlas-visual-system.js",html)
+                    for old in ('class="navlinks"', 'class="cw-mobile-home"',
+                                '<nav class="cg-nav"'):
+                        self.assertNotIn(old,html)
+                    # A research chapter may use its own tabs, but never another
+                    # header made exclusively of global navigation links.
+                    for header in re.findall(r'<header\\b[^>]*>[\\s\\S]*?</header>',html,re.I):
+                        if "<nav" in header and "<h1" not in header.lower():
+                            self.assertIn('class="sectionNav"',header,
+                                          "Secondary top-level masthead survived")
+
+    def test_canonical_visual_shell_and_navigation_destinations(self):
+        shared=("atlas-visual-system.js","atlas-visual-system.css",
+                "visual-first-v5.js","visual-story-v6.js",
+                "visual-story-v6.css","global-navigation.css")
+        for name in shared:
+            with self.subTest(asset=name):
+                self.assertEqual((UNIFIED/name).read_bytes(),(RESEARCH/name).read_bytes())
+        js=(UNIFIED/"visual-story-v6.js").read_text(encoding="utf-8")
+        for key,label,url in (
+                ("place","Start Here","my-life.html#where"),
+                ("issues","Issues","my-life.html#what"),
+                ("costs","Costs","my-life.html#benchmarkStory"),
+                ("why","The Why","my-life.html#why"),
+                ("action","Actions","my-life.html#how"),
+                ("research","Research","index.html")):
+            self.assertIn('["'+key+'","'+label+'","'+url+'"]',js)
+        self.assertNotIn('https://power-atlas-research.vercel.app/"',js)
+        self.assertIn('const active=["consumer-practices.html"',js)
+        self.assertIn('compactNav();\\n   return;',js)
+        sheet=(UNIFIED/"visual-story-v6.css").read_text(encoding="utf-8")
+        self.assertIn('background:#081625;color:#eff8fb',sheet)
+        self.assertIn('details[data-pa-context-nav]',sheet)
+
+    def test_legacy_page_presentation_is_contextual_not_competing(self):
+        for name in ("dark-money.html","compare.html","donor-intelligence.html",
+                     "election-money.html","investigations.html","navatek.html",
+                     "reform-lab.html","telecom-promotions.html",
+                     "money-sources.html","cost-gap.html"):
+            page=(UNIFIED/name).read_text(encoding="utf-8")
+            with self.subTest(page=name):
+                self.assertIn('data-pa-context-nav',page)
+                self.assertIn('aria-label="Related research"',page)
+        for folder in SITES:
+            money=(folder/"money-scale.html").read_text(encoding="utf-8")
+            self.assertIn('class="money-scale-legacy-hero"',money)
+            self.assertIn('class="ribbon money-scale-legacy-ribbon"',money)
+        self.assertNotIn('cw-mobile-home', (RESEARCH/"consumer-practices.html").read_text())
+        self.assertIn('money-scale-legacy-hero{display:none!important}',
+                      (UNIFIED/"visual-story-v6.css").read_text())
+
+    def test_compare_loads_authoritative_evidence_first_and_avoids_static_404s(self):
+        html=(UNIFIED/"compare.html").read_text(encoding="utf-8")
+        self.assertIn('return fetch(BASE+path,{cache:"no-store"})',html)
+        self.assertNotIn('return fetch(path,{cache:"no-store"}).then',html)
+        for p in ("money-influence/civic-accountability-evidence-v1.json",
+                  "hyperpartisanship/voteview-party-divisions-v1.json",
+                  "money-influence/dark-money-graph-v1.json",
+                  "research/cross-domain-evidence-v1.json",
+                  "research/atlas-inventory-v1.json"):
+            with self.subTest(evidence=p):
+                self.assertTrue((ROOT/"data"/p).is_file())
+
     @unittest.skipUnless(shutil.which("node"),"Node.js not available")
     def test_java_script_syntax(self):
         paths=[folder/"atlas-visual-system.js" for folder in SITES]
