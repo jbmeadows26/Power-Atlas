@@ -14,8 +14,8 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: power-atlas-hud-fy2026
-  cancel-in-progress: false
+  group: power-atlas-hud-fy2026-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   fetch-verify:
     runs-on: ubuntu-latest
