@@ -87,6 +87,42 @@ class CorporateOwnershipIntegrationTests(unittest.TestCase):
         self.assertIn('slice(0,6)',life)
         self.assertIn('#ownership-network',life)
 
+    def test_visual_thread_follows_native_power_atlas_pattern(self):
+        page=PAGE.read_text(encoding="utf-8")
+        shared=(ROOT/"platform/unified/atlas-visual-system.js").read_text(encoding="utf-8")
+        for marker in (
+            'class="threadGallery"', 'Choose a thread', 'See the connection.',
+            'Look first. Dive deeper when you', 'class="threadCard"',
+            'class="threadDiagram"', 'Explore why', 'id="networkPrev"',
+            'id="networkNext"', 'id="networkSearch"',
+            'id="ownershipResearch"', 'Explore the full ownership research and sources',
+            'function renderOwnershipNetwork()',
+        ):
+            self.assertIn(marker,page)
+        self.assertNotIn('class="ownershipNetwork"',page)
+        self.assertNotIn('class="hero"',page)
+        self.assertIn('if(path!=="corporate-ownership.html")story();',shared)
+        self.assertIn("Documented corporate relationships do not establish local",page)
+
+    def test_homepage_owned_thread_rotates_real_graph_edges_in_existing_v6_card(self):
+        graph_edges={x["id"] for x in self.g["relations"]}
+        for edge in ("tb-realpage","mars-kellanova","blackstone-tricon",
+                     "amazon-one-medical","parent-brand-tide","berkshire-geico"):
+            self.assertIn(edge,graph_edges)
+        for folder in (ROOT/"platform/unified",ROOT/"site"):
+            script=(folder/"visual-story-v6.js").read_text(encoding="utf-8")
+            css=(folder/"visual-story-v6.css").read_text(encoding="utf-8")
+            v5=(folder/"visual-first-v5.js").read_text(encoding="utf-8")
+            self.assertIn("ownerThreadIds=",script)
+            self.assertIn("async function hydrateOwnerCard(",script)
+            self.assertIn('if(meta.kind==="ownership"){',script)
+            self.assertIn("vs6-owner-controls",script)
+            self.assertIn('url.searchParams.set("owner",e.from)',script)
+            self.assertIn('url.searchParams.delete("issue")',script)
+            self.assertIn("vs6-owner-card .vs6-owner-controls",css)
+            self.assertIn('path==="corporate-ownership.html"?null:topic(main)',v5)
+        self.assertIn('params.get("owner")',PAGE.read_text(encoding="utf-8"))
+
     def test_price_cases_keep_proven_alleged_and_unknown_distinct(self):
         c=self.c
         self.assertEqual(c["schema"],"power-atlas.corporate-ownership.transparency-price-power.v1")

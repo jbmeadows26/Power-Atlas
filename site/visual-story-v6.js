@@ -112,6 +112,41 @@ const cardMeta=[
 {tag:"CLASS ACTIONS",heading:"Sued isn't paid",line:"Case status matters more than headlines.",kind:"claims",theme:"dark"},
 {tag:"ECONOMIC RISK",heading:"Could the shock reach you?",line:"Connect markets with daily life.",kind:"economy",theme:"blue"}
 ];
+/* Homepage ownership rotation uses the canonical graph, not unsourced visual placeholders. */
+const ownerThreadIds=["tb-realpage","mars-kellanova","parent-brand-pepsi","parent-brand-tide","general-mills-blue-buffalo","blackstone-tricon","amazon-one-medical","amazon-whole-foods","berkshire-geico","pg-kindercare","cvs-caremark","as-portfolio-fleetpride"];
+async function hydrateOwnerCard({graphic,prev,next,counter,links,target}){
+ try{
+  const res=await fetch("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/corporate-ownership/verified-relationships-v1.json");
+  if(!res.ok)throw Error("Ownership source unavailable");
+  const graph=await res.json();
+  if(graph.schema!=="power-atlas.corporate-ownership.evidence-graph.v1")throw Error("Unexpected ownership source");
+  const nodes=Object.fromEntries((graph.entities||[]).map(n=>[n.id,n]));
+  const refs=Object.fromEntries((graph.relations||[]).map(e=>[e.id,e]));
+  const rows=ownerThreadIds.map(id=>refs[id]).filter(e=>e&&nodes[e.from]&&nodes[e.to]&&/^https:\/\/[^ ]+/.test(e.source)&&/^\d{4}-\d{2}-\d{2}$/.test(e.asOf));
+  if(rows.length<2)throw Error("Fewer than two sourced ownership threads");
+  let active=0;
+  function type(n){if(n.kind==="consumer_brand")return"BRAND";if(["private_equity_firm","institutional_investor","investment_shareholder","investment_firm"].includes(n.kind))return"INVESTOR";if((n.kind||"").includes("operator"))return"OPERATOR";return"COMPANY";}
+  function render(){
+   const e=rows[active],from=nodes[e.from],to=nodes[e.to];
+   const owned=graphic.querySelector(".vs6-owned"),note=graphic.querySelector(".vs6-art-foot");
+   if(!owned||!note)return;
+   const [a,b]=owned.querySelectorAll(".vs6-owned-entity");
+   a.querySelector("i").textContent=type(from);a.querySelector("strong").textContent=from.name;
+   b.querySelector("i").textContent=type(to);b.querySelector("strong").textContent=to.name;
+   owned.querySelector(".vs6-owned-connector small").textContent=e.asOf.slice(0,4);
+   const label=e.relation==="ACQUIRED_AND_PORTFOLIO_BACKED"?"Documented acquisition":e.relation==="BENEFICIAL_SHARES"?"Dated shareholding":e.relation==="REPORTS_BRAND_IN_PORTFOLIO"?"Documented brand":e.relation==="LISTED_PORTFOLIO_COMPANY"?"Dated portfolio listing":e.relation==="OPERATES_BUSINESS"?"Documented business relationship":"Source-backed relationship";
+   note.textContent=label+" · Not proof of local price effects";
+   counter.textContent=(active+1)+" of "+rows.length+" · sourced ownership threads";
+   graphic.setAttribute("aria-label",from.name+" to "+to.name+", "+e.asOf+", "+label);
+   const url=new URL(target,location.href);url.searchParams.delete("issue");url.searchParams.set("owner",e.from);url.hash="ownership-network";
+   links.forEach(l=>{l.href=url.href;l.setAttribute("aria-label","Explore "+from.name+" and "+to.name+" ownership evidence")});
+  }
+  prev.addEventListener("click",()=>{active=(active-1+rows.length)%rows.length;render()});
+  next.addEventListener("click",()=>{active=(active+1)%rows.length;render()});
+  prev.disabled=false;next.disabled=false;render();
+ }catch(e){counter.textContent="Explore more sourced ownership in the full research";prev.hidden=true;next.hidden=true;}
+}
+
 function home(){
  const original=document.getElementById("pa4-atlas-home");if(!original)return;
  const metric=readMetrics(original);
@@ -136,6 +171,20 @@ function home(){
   const top=E("div","vs6-story-head");top.append(E("span","vs6-micro",meta.tag),E("span","vs6-arrow-icon","↗"));
   const graphic=visual(meta.kind);
   const bottom=E("div","vs6-story-foot");bottom.append(E("h3",null,meta.heading),E("p",null,meta.line),E("span","vs6-story-cta","Explore why →"));
+  if(meta.kind==="ownership"){
+    // Keep the exact existing V6 ownership card layout. The buttons are siblings of links, never nested inside a link.
+    const tile=E("article","vs6-story vs6-story--dark vs6-story--wide vs6-owner-card");
+    const arrow=go(target,"↗","vs6-arrow-icon");arrow.setAttribute("aria-label","Explore source-backed corporate ownership");top.lastElementChild.replaceWith(arrow);
+    const cta=go(target,"Explore why →","vs6-story-cta vs6-owner-cta");bottom.lastElementChild.replaceWith(cta);
+    const controls=E("nav","vs6-owner-controls");controls.setAttribute("aria-label","Browse ownership threads");
+    const prev=E("button","vs6-owner-prev","←");prev.type="button";prev.disabled=true;prev.setAttribute("aria-label","Previous ownership relationship");
+    const count=E("span","vs6-owner-count","1 of 1 · ownership");count.setAttribute("aria-live","polite");
+    const next=E("button","vs6-owner-next","→");next.type="button";next.disabled=true;next.setAttribute("aria-label","Next ownership relationship");
+    controls.append(prev,count,next);
+    tile.append(top,graphic,bottom,controls);gallery.append(tile);
+    hydrateOwnerCard({graphic,prev,next,counter:count,links:[arrow,cta],target});
+    return;
+  }
   if(meta.kind==="consumer"){
     // Separate independent links, not links nested within links.
     const tile=E("article","vs6-story vs6-story--peach vs6-story--regular vs6-consumer-card");
@@ -216,7 +265,7 @@ const topicCopy={
  "reform-lab.html":["How can rules change?","See choices and trade-offs, not slogans."],
  "source-audit.html":["What's proven?","Know what is measured, documented, alleged or missing."]
 };
-function topic(){
+function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="index.html")return;
  const main=document.querySelector("main");if(!main||document.querySelector(".vs6-topic"))return;
  const former=main.querySelector(".pa5-topic-hero");

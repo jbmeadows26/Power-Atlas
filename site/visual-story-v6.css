@@ -296,3 +296,14 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
  .vs6-consumer-shortcut-arrow{margin-left:auto}
  .vs6-consumer-card{min-width:0;width:100%}
 }
+
+/* Inline ownership stories on the approved V6 homepage card. */
+.vs6-owner-card .vs6-owner-controls{margin-top:auto;display:flex;align-items:center;justify-content:flex-end;gap:10px;padding:0 21px 19px;color:#c2dfdc}
+.vs6-owner-card .vs6-owner-controls button{width:39px;height:39px;border-radius:50%;border:1px solid #83afa9;background:#234f56;color:#e6f8f2;font-size:1.15rem;font-weight:850;cursor:pointer}
+.vs6-owner-card .vs6-owner-controls button:hover,.vs6-owner-card .vs6-owner-controls button:focus-visible{background:#386c70}
+.vs6-owner-card .vs6-owner-controls button:disabled{opacity:.45;cursor:default}
+.vs6-owner-card .vs6-owner-count{font-size:.71rem;color:#c1e0da;font-weight:760;white-space:normal;text-align:right}
+.vs6-owner-card .vs6-owner-cta{color:#fff!important;cursor:pointer}
+.vs6-owner-card .vs6-arrow-icon{color:inherit;text-decoration:none}
+.vs6-owner-card .vs6-owned{transition:opacity .12s ease}
+@media(max-width:600px){.vs6-owner-card .vs6-owner-controls{gap:9px;padding:0 18px 15px}.vs6-owner-card .vs6-owner-controls button{width:42px;height:42px}.vs6-owner-card .vs6-owner-count{font-size:.69rem;flex:1}}
