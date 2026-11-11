@@ -118,6 +118,7 @@ class CorporateOwnershipIntegrationTests(unittest.TestCase):
             self.assertIn('if(meta.kind==="ownership"){',script)
             self.assertIn("vs6-owner-controls",script)
             self.assertIn('url.searchParams.set("owner",e.from)',script)
+            self.assertIn('url.searchParams.delete("issue")',script)
             self.assertIn("vs6-owner-card .vs6-owner-controls",css)
             self.assertIn('path==="corporate-ownership.html"?null:topic(main)',v5)
         self.assertIn('params.get("owner")',PAGE.read_text(encoding="utf-8"))
