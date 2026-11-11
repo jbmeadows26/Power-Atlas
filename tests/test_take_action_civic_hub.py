@@ -49,6 +49,33 @@ class CivicActionTests(unittest.TestCase):
         self.assertIn('["action","Actions","take-action.html"]',unified.decode())
         self.assertIn('documentPath==="take-action.html"?"action"',unified.decode())
 
+    def test_hero_chamber_cards_are_real_keyboard_controls(self):
+        for chamber in ("house", "senate"):
+            self.assertIn('class="ta-chamber-link" data-chamber="'+chamber+'" aria-pressed="false"', PAGE)
+        self.assertIn('aria-controls="member-results"', PAGE)
+        self.assertNotIn('class="ta-visual" aria-hidden="true"', PAGE)
+        self.assertIn('.ta-visual-nodes>.ta-chamber-link', CSS)
+        self.assertIn('.ta-member--selected-chamber', CSS)
+        self.assertIn('min-height:68px', CSS)
+
+    def test_house_and_senate_taps_run_the_correct_lookup_flow(self):
+        for token in (
+            'document.querySelectorAll(".ta-chamber-link")',
+            'button.addEventListener("click"',
+            'selectedChamber=chamber',
+            'card.dataset.chamber=m.chamber',
+            'card.tabIndex=-1',
+            'status.textContent=chamber==="house"',
+            '$("find").scrollIntoView',
+            'input.focus({preventScroll:true})',
+            'locate(code).then(()=>focusChosenChamber(chamber))',
+            'focusChosenChamber(selectedChamber)',
+            'matches[0].scrollIntoView',
+            'card.classList.toggle("ta-member--selected-chamber"',
+        ):
+            with self.subTest(token=token):
+                self.assertIn(token,SCRIPT)
+
     @unittest.skipUnless(shutil.which("node"),"Node.js unavailable")
     def test_javascript_syntax(self):
         for path in (ROOT/"platform/unified/take-action.js",ROOT/"platform/unified/visual-story-v6.js"):

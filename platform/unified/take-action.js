@@ -18,7 +18,7 @@ position:"What is your position on this issue, and what public evidence or legis
 action:"What steps has your office taken on this issue, and where can I verify that record?",
 oversight:"What oversight or public review is underway, and how can constituents follow its progress?"
 };
-let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0,ambiguous=false;
+let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0,ambiguous=false,selectedChamber=null;
 const officeFallback="https://www.congress.gov/members/find-your-member";
 const switchboard="tel:+12022243121";
 const status=$("lookup-status"),result=$("member-results"),recipients=$("recipient-options");
@@ -65,6 +65,8 @@ function renderMembers(){
  $("ambiguous-notice").hidden=house.length===0;
  for(const m of members){
   const card=make("article","ta-member");
+  card.dataset.chamber=m.chamber;
+  card.tabIndex=-1;
   card.append(make("span","ta-member-role",roleLabel(m)+(m.chamber==="house"&&multi?" · possible district":"")));
   card.append(make("h3",null,displayName(m)));
   const sub=make("p","ta-member-meta",m.chamber==="house"?(multi?"One of "+house.length+" House members for this ZIP. Verify your address with House.gov." :"Possible House member for ZIP. Confirm your full address with House.gov."):"Senator for "+(m.state||"your state"));
@@ -78,7 +80,7 @@ function renderMembers(){
   button.addEventListener("click",()=>setRecipient(m));recipients.append(button);
  }
  const info=make("p","ta-small","Choose the member whose office you intend to contact. Power Atlas never sends the message for you.");
- recipients.append(info);buildMessage();
+ recipients.append(info);buildMessage();highlightMemberCards();
 }
 function normalize(raw){
  if(!raw||typeof raw!=="object"||!["sen","rep"].includes(raw.type))return null;
@@ -164,10 +166,46 @@ async function locate(zipCode){
   result.append(fallback);
  }finally{clearTimeout(timer)}
 }
+/* Illustration chamber cards are actual routes into the ZIP member finder.
+   No ZIP is inferred or sent until the visitor enters one and activates a control. */
+function highlightMemberCards(){
+ const cards=[...result.querySelectorAll(".ta-member")];
+ cards.forEach(card=>card.classList.toggle("ta-member--selected-chamber",card.dataset.chamber===selectedChamber));
+ return cards.filter(card=>card.dataset.chamber===selectedChamber);
+}
+function focusChosenChamber(chamber){
+ if(selectedChamber!==chamber)return;
+ const matches=highlightMemberCards();
+ const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+ const behavior=reduced?"auto":"smooth";
+ if(matches.length){
+  matches[0].scrollIntoView({behavior,block:"center"});
+  matches[0].focus({preventScroll:true});
+ }else{
+  document.querySelector(".ta-official-links")?.scrollIntoView({behavior,block:"center"});
+ }
+}
+document.querySelectorAll(".ta-chamber-link").forEach(button=>button.addEventListener("click",()=>{
+ const chamber=button.dataset.chamber;
+ if(chamber!=="house"&&chamber!=="senate")return;
+ selectedChamber=chamber;
+ document.querySelectorAll(".ta-chamber-link").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
+ const input=$("zip"),code=input.value.trim();
+ const reduced=window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+ if(!/^\d{5}$/.test(code)){
+  status.textContent=chamber==="house"?"Enter your five-digit ZIP to find your U.S. House representative.":"Enter your five-digit ZIP to find your U.S. senators.";
+  $("find").scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
+  input.focus({preventScroll:true});
+  return;
+ }
+ if(zip===code&&members.some(m=>m.chamber===chamber)){focusChosenChamber(chamber);return;}
+ $("find").scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
+ locate(code).then(()=>focusChosenChamber(chamber));
+}));
 $("lookup-form").addEventListener("submit",e=>{
  e.preventDefault();const input=$("zip");const code=input.value.trim();
  if(!/^\d{5}$/.test(code)){status.textContent="Enter exactly five digits for a U.S. ZIP code.";input.setAttribute("aria-invalid","true");input.focus();return;}
- input.removeAttribute("aria-invalid");locate(code);
+ input.removeAttribute("aria-invalid");locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
 });
 $("zip").addEventListener("input",()=>{$("zip").value=$("zip").value.replace(/\D/g,"").slice(0,5);});
 document.querySelectorAll("#issue-options button").forEach(button=>button.addEventListener("click",()=>{
