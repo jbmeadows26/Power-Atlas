@@ -1,0 +1,25 @@
+/* HUD rent story uses the approved Power Atlas V6 visual grammar. */
+html[data-vs6="active"] .pa-hud-safmr{background:#fbf6ea;color:#163743;
+border:1px solid #e3e4d9;border-radius:23px;margin:20px 0;padding:clamp(17px,3vw,28px);
+font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+html[data-vs6="active"] .pa-hud-safmr[hidden]{display:none}
+.pa-hud-kicker{display:block;color:#187b70;font-size:.7rem;font-weight:900;
+text-transform:uppercase;letter-spacing:.13em}
+.pa-hud-safmr h2{color:#153a45!important;font-size:clamp(1.65rem,4vw,2.85rem)!important;
+letter-spacing:-.06em;line-height:1.03;margin:8px 0 10px}
+.pa-hud-safmr p{max-width:700px;color:#4c676d;font-size:.91rem;line-height:1.48}
+.pa-hud-status{padding:10px 0;min-height:34px}
+.pa-hud-results{display:grid;gap:10px;margin:12px 0}
+.pa-hud-area{border:1px solid #d9e5dc;border-radius:17px;background:#fff;padding:16px}
+.pa-hud-label{font-size:.78rem;color:#246d66;font-weight:870}
+.pa-hud-bars{margin:11px 0 2px;display:grid;gap:8px}
+.pa-hud-row{display:grid;grid-template-columns:minmax(85px,1fr) minmax(45px,2fr) 84px;
+gap:10px;align-items:center}
+.pa-hud-name{color:#24444b;font-size:.79rem;font-weight:740}
+.pa-hud-price{text-align:right;color:#173845;font-size:.91rem;font-variant-numeric:tabular-nums}
+.pa-hud-track{height:22px;background:#e8f0e8;border-radius:8px;overflow:hidden}
+.pa-hud-fill{height:100%;display:block;background:#238f80;border-radius:8px}
+.pa-hud-limits{display:block;max-width:760px;color:#56696c;font-size:.74rem;line-height:1.46}
+.pa-hud-source{display:inline-block;margin-top:13px;color:#17695e;font-weight:870}
+@media(max-width:450px){.pa-hud-row{grid-template-columns:78px minmax(30px,1fr) 72px;gap:6px}
+.pa-hud-area{padding:12px}.pa-hud-name{font-size:.72rem}.pa-hud-price{font-size:.79rem}}
