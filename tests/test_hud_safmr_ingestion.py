@@ -21,6 +21,9 @@ class HUDIngestionTests(unittest.TestCase):
              "FMR_NAME":"Test area","SAFMR_0BR":1700,"SAFMR_1BR":2100,
              "SAFMR_2BR":2500,"SAFMR_3BR":3200,"SAFMR_4BR":3900}
         parsed=hud.parse_row(row)
+        linked=dict(row, ZCTA_ID=None, ID="07010")
+        self.assertEqual(hud.parse_row(linked)["zip"],"07010")
+        with self.assertRaises(ValueError): hud.parse_row(dict(linked, ZCTA_ID="07011"))
         self.assertEqual(parsed["zip"],"07010")
         self.assertEqual(parsed["hudCode"],"METRO001")
         self.assertEqual(parsed["usdByBedroom"]["2"],2500)
