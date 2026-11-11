@@ -205,7 +205,7 @@ document.querySelectorAll(".ta-chamber-link").forEach(button=>button.addEventLis
 $("lookup-form").addEventListener("submit",e=>{
  e.preventDefault();const input=$("zip");const code=input.value.trim();
  if(!/^\d{5}$/.test(code)){status.textContent="Enter exactly five digits for a U.S. ZIP code.";input.setAttribute("aria-invalid","true");input.focus();return;}
- input.removeAttribute("aria-invalid");locate(code);
+ input.removeAttribute("aria-invalid");locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
 });
 $("zip").addEventListener("input",()=>{$("zip").value=$("zip").value.replace(/\D/g,"").slice(0,5);});
 document.querySelectorAll("#issue-options button").forEach(button=>button.addEventListener("click",()=>{
