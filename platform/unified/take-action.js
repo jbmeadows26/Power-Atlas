@@ -141,6 +141,6 @@ $("copy-message").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(text);$("copy-message").textContent="Copied ✓";setTimeout(()=>$("copy-message").textContent="Copy message",1600);}
  catch{const t=$("message-preview");t.focus();t.select();$("copy-message").textContent="Select text & copy";}
 });
-const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\\d{5}$/.test(incoming))$("zip").value=incoming;
+const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();
