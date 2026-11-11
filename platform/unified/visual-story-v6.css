@@ -566,3 +566,30 @@ html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :
 
 /* The old ZIP-first hero was a second, competing introduction. Preserve #where form. */
 html[data-vs6="active"] body:has(#where) > .hero{display:none!important}
+
+/* Corporate ownership has a bespoke evidence carousel, not a V5 hero.
+   Bring the existing interactive thread gallery into the same V6 cover. */
+html[data-vs6="active"] body .ownershipPage > .threadGallery{
+ background:#faf6ed!important;border:1px solid #eee4d6!important;
+ border-radius:27px!important;padding:clamp(20px,3vw,35px)!important;
+ color:#163743!important;box-shadow:none!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery h1{
+ font-size:clamp(2.8rem,6vw,5.7rem)!important;line-height:1!important;
+ letter-spacing:-.062em!important;color:#153543!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery .threadKicker{
+ color:#147c72!important;text-transform:uppercase!important;
+ font-size:.72rem!important;letter-spacing:.15em!important;font-weight:900!important;
+}
+html[data-vs6="active"] body .ownershipPage > .threadGallery .threadIntro{
+ color:#4e686d!important;font-size:clamp(1rem,1.8vw,1.24rem)!important;
+ line-height:1.45!important;
+}
+html[data-vs6="active"] body .ownershipPage :is(.threadGallery,.threadResearch) :is(button,summary,a):focus-visible{
+ outline:3px solid #c98245!important;outline-offset:3px;
+}
+html[data-vs6="active"] body .ownershipPage > .threadResearch{
+ background:#fffdf8!important;border:1px solid #dce6dd!important;
+ border-radius:22px!important;margin-top:22px!important;
+}
