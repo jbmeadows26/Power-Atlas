@@ -1,0 +1,27 @@
+name: Verify Take Action civic hub
+on:
+  push:
+    branches: [feature/take-action-civic-hub-20261111]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  civic-action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify issue constraints and representative lookup
+        run: python -m unittest discover -s tests -p 'test_take_action_civic_hub.py' -v
+      - name: Check JavaScript syntax
+        run: |
+          node --check platform/unified/take-action.js
+          node --check platform/unified/visual-story-v6.js
