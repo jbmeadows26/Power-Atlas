@@ -1223,7 +1223,19 @@ $("zipForm").addEventListener("submit",e=>{
  if(!/^[0-9]{5}$/.test(zip)){$("placeStatus").textContent="Please enter a five-digit U.S. ZIP code.";return;}
  $("step2Place").textContent="Looking up ZIP "+zip+"… Select an issue below.";
  lookUpZIP(zip);
- scrollToSection("what","what");
+ // Keep the new visual ZIP summary as the first stop after submitting a location.
+ // Step 2 should only be reached when someone explicitly explores an issue.
+ const visualOverview=document.querySelector("main > .vs6-topic");
+ if(visualOverview){
+  markPrimaryNav("where");
+  requestAnimationFrame(()=>visualOverview.scrollIntoView({
+   behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",
+   block:"start"
+  }));
+ }else{
+  // If the visual enhancement is still loading, do not skip past its position.
+  scrollToSection("where","where");
+ }
 });
 $("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
