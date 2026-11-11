@@ -163,7 +163,8 @@ var BASE="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/";
 function el(id){return document.getElementById(id)}
 function n(x){return Number(x||0).toLocaleString("en-US")}
 function safe(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]})}
-function load(path){return fetch(path,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(String(r.status));return r.json()}).catch(function(){return fetch(BASE+path,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(String(r.status));return r.json()})})}
+/* Root data are hosted in the public evidence repository, not under this Vercel static directory. */
+function load(path){return fetch(BASE+path,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(String(r.status));return r.json()}).catch(function(){return fetch(path,{cache:"no-store"}).then(function(r){if(!r.ok)throw Error(String(r.status));return r.json()})})}
 var votes=null,mode="raw";
 function voteDots(count,yes,side,percent){var html="";for(var i=0;i<count;i++){var pass=i<yes;html+='<span class="dot '+(pass?"":"no")+'" title="'+safe(side+": "+(pass?"yea":"nay")+(percent?" share bin":" recorded vote"))+'" aria-hidden="true"></span>'}return html}
 function renderVotes(){
