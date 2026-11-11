@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Find your members of Congress by ZIP code and contact them about evidence-backed Power Atlas issues through their official contact channels.">
+<title>Take Action | Power Atlas</title>
+<link rel="stylesheet" href="global-navigation.css">
+<link rel="stylesheet" href="visual-story-v6.css">
+<link rel="stylesheet" href="take-action.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body data-pa-page="action">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner">
+<a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas home">◇ POWER <span>ATLAS</span></a>
+<nav class="pa-global-links" aria-label="Explore Power Atlas">
+<a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">Start Here</span></a>
+<a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a>
+<a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a>
+<a href="take-action.html" data-pa-nav="action" aria-current="page"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a>
+<a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a>
+<a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a>
+</nav></div></div>
+<main class="ta-wrap">
+<section class="ta-hero" aria-labelledby="ta-title">
+<div class="ta-hero-copy">
+<p class="ta-ey">Power Atlas / Civic action</p>
+<h1 id="ta-title">Know the issue.<br><em>Contact the people in power.</em></h1>
+<p class="ta-lead">From your ZIP code to your elected officials—then one concise, sourced question. No petition spam. No party line. Your message, your choice.</p>
+<a class="ta-hero-cta" href="#find">Find my members <span aria-hidden="true">↘</span></a>
+</div>
+<div class="ta-visual" aria-hidden="true">
+<div class="ta-visual-top"><span>YOUR COMMUNITY</span><strong>ZIP → REPRESENTATION</strong></div>
+<div class="ta-map-lines"><div class="ta-visual-pin">YOU<br><b>●</b></div><div class="ta-visual-wire"><i></i><i></i><i></i></div><div class="ta-visual-nodes"><div>🏛 <span>U.S. HOUSE</span></div><div>🏛 <span>U.S. SENATE</span></div></div></div>
+<p>Discover → Understand → Ask → Follow up</p>
+</div>
+</section>
+<div class="ta-steps" aria-label="How this works"><span><b>01</b> Find your members</span><span><b>02</b> Pick an issue</span><span><b>03</b> Review & contact</span></div>
+<section id="find" class="ta-block" aria-labelledby="find-title">
+<div class="ta-heading"><div><span class="ta-ey">01 / Your representation</span><h2 id="find-title">Who represents you?</h2><p>Enter a ZIP. We show possible current members and link to official offices for district confirmation.</p></div></div>
+<form id="lookup-form" class="ta-lookup" novalidate>
+<label for="zip">U.S. ZIP code</label><div class="ta-input-line"><input id="zip" name="zip" inputmode="numeric" pattern="[0-9]{5}" autocomplete="postal-code" maxlength="5" placeholder="e.g. 07010" aria-describedby="zip-hint" required><button type="submit" id="lookup-button">Find my members <span aria-hidden="true">→</span></button></div>
+<p id="zip-hint">ZIP-only lookups can cross House district lines. We flag uncertain matches and link to the official address finder. After you search, your ZIP is sent to independent public directories (RepsContact and Open America). Power Atlas does not collect street addresses or store your messages.</p>
+</form>
+<p id="lookup-status" class="ta-status" role="status" aria-live="polite">Ready when you are. No street address is needed on Power Atlas.</p>
+<div class="ta-official-links"><a href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Congress.gov address finder ↗</a><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">House ZIP finder ↗</a><a href="https://www.senate.gov/senators/senators-contact.htm" target="_blank" rel="noopener noreferrer">Senate contact directory ↗</a></div>
+<div id="member-results" class="ta-members" aria-live="polite" aria-label="Members who may represent your ZIP"></div>
+<div id="ambiguous-notice" class="ta-caution" hidden><strong>A ZIP is not always a congressional district.</strong><p>This ZIP may touch multiple districts. Confirm your full street address on <a href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Congress.gov</a> or through the <a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">official House finder</a> before contacting a House office. We won't guess which House member is yours.</p></div>
+</section>
+<section id="issue" class="ta-block" aria-labelledby="issue-title">
+<div class="ta-heading"><span class="ta-ey">02 / Power Atlas investigations</span><h2 id="issue-title">What should your representative address?</h2><p>Choose one issue covered by the platform. Only vetted, neutral questions are available.</p></div>
+<div id="issue-options" class="ta-issues" role="group" aria-label="Select a policy issue">
+<button type="button" data-issue="housing" aria-pressed="true"><span class="ta-icon">⌂</span><b>Housing</b><small>Affordability & supply</small></button>
+<button type="button" data-issue="consumer" aria-pressed="false"><span class="ta-icon">◎</span><b>Consumer protection</b><small>Hidden fees & marketing</small></button>
+<button type="button" data-issue="market" aria-pressed="false"><span class="ta-icon">▥</span><b>Market power</b><small>Competition & prices</small></button>
+<button type="button" data-issue="work" aria-pressed="false"><span class="ta-icon">⌘</span><b>Jobs & automation</b><small>Workers & service quality</small></button>
+<button type="button" data-issue="health" aria-pressed="false"><span class="ta-icon">✚</span><b>Healthcare</b><small>Access & cost</small></button>
+<button type="button" data-issue="transport" aria-pressed="false"><span class="ta-icon">⇄</span><b>Transportation</b><small>Fares, tolls & oversight</small></button>
+<button type="button" data-issue="money" aria-pressed="false"><span class="ta-icon">$</span><b>Money in politics</b><small>Disclosure & ethics</small></button>
+<button type="button" data-issue="voting" aria-pressed="false"><span class="ta-icon">▤</span><b>Voting access</b><small>Rules & representation</small></button>
+</div>
+<div class="ta-issue-source"><span id="issue-description">Access to affordable housing and the public decisions that shape it.</span><a id="issue-link" href="my-life.html#what">Explore the research ↗</a></div>
+</section>
+<section id="contact" class="ta-block ta-compose" aria-labelledby="contact-title">
+<div class="ta-heading"><span class="ta-ey">03 / Your message</span><h2 id="contact-title">Ask a question. Get it on record.</h2><p>Choose one question, preview the message, then contact your selected member using their official website or phone number.</p></div>
+<div class="ta-compose-grid">
+<div><div class="ta-choice-label">Your question</div><div id="question-options" class="ta-question-buttons" role="group" aria-label="Choose one question">
+<button type="button" data-question="position" aria-pressed="true">What is your position?</button>
+<button type="button" data-question="action" aria-pressed="false">What action have you taken?</button>
+<button type="button" data-question="oversight" aria-pressed="false">What oversight is underway?</button>
+</div>
+<div class="ta-choice-label">Contact</div>
+<div id="recipient-options" class="ta-recipients"><p>Find your representatives above to choose an individual member.</p></div>
+<div class="ta-guardrail"><strong>Built-in limits</strong><p>One issue. One question. No custom text, attachments, bulk sending or automated submissions. You decide whether to send after reviewing the official office’s form.</p></div>
+</div>
+<div class="ta-message">
+<div class="ta-message-head"><span>MESSAGE PREVIEW</span><span id="message-count">0 / 500 characters</span></div>
+<textarea id="message-preview" readonly rows="8" aria-label="Read-only suggested message preview"></textarea>
+<div class="ta-message-actions"><button type="button" id="copy-message">Copy message</button><a id="write-member" class="ta-contact-link" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Open official contact form ↗</a></div>
+<a id="call-member" class="ta-call" href="tel:+12022243121">Call U.S. Capitol switchboard · (202) 224-3121</a>
+<p class="ta-small">Contact forms vary and may ask you to confirm your address. Power Atlas does not send, store, or track your message. Copy and paste it into your representative’s official form. An office may choose not to respond.</p>
+</div>
+</div>
+</section>
+<section class="ta-after" aria-labelledby="after-title"><span class="ta-ey">04 / Follow through</span><h2 id="after-title">A message is the beginning.</h2><div class="ta-next"><a href="https://www.congress.gov/" target="_blank" rel="noopener noreferrer"><span>01</span><strong>Track legislation</strong><small>Verify proposals and status at Congress.gov ↗</small></a><a href="https://clerk.house.gov/Votes" target="_blank" rel="noopener noreferrer"><span>02</span><strong>Check House votes</strong><small>See official roll-call records ↗</small></a><a href="https://www.senate.gov/legislative/votes_new.htm" target="_blank" rel="noopener noreferrer"><span>03</span><strong>Check Senate votes</strong><small>Read official voting records ↗</small></a></div>
+<p class="ta-local">Is this a state or local issue? Start with <a href="https://www.usa.gov/elected-officials/" target="_blank" rel="noopener noreferrer">USAGov’s elected-official finder ↗</a>. Congress may not control municipal fares, state tolls or local zoning.</p></section>
+<footer>Power Atlas · A nonpartisan public-evidence project. Lookups are informational, not proof of district residency. <a href="https://www.congress.gov/members/find-your-member">Official Congress.gov directory</a>. No affiliation with Congress or any government office.</footer>
+</main>
+<script src="atlas-visual-system.js" defer></script><script src="atlas-visual-system.js" defer></script><script src="take-action.js" defer></script><script src="visual-story-v6.js" defer></script>
+</body></html>
