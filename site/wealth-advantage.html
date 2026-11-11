@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Compare the 2026 US tax rules available to an ordinary household, a small business owner, and a wealthy asset owner—across vehicles, aircraft, investments, real estate and inheritance.">
+<title>The Wealth Advantage | Power Atlas</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="atlas-visual-system.css"><link rel="stylesheet" href="visual-story-v6.css">
+<style>
+/* Isolated page-level visual system; does not override global navigation. */
+.wa{--wa-ink:#17353d;--wa-teal:#168d7b;--wa-cream:#f9f7f1;--wa-muted:#53696e;--wa-line:#d7e4dc;background:var(--wa-cream);font-family:Inter,"Avenir Next",system-ui,sans-serif;color:var(--wa-ink);min-height:100vh;overflow-x:clip}
+.wa *{box-sizing:border-box}.wa-wrap{width:min(1190px,calc(100% - 36px));margin:auto}.wa a{color:#146c62}.wa button{font:inherit;cursor:pointer}.wa-hero{background:radial-gradient(circle at 83% 7%,#27766b 0,#153a45 37%,#102c38 70%);color:#fff;padding:64px 0 57px}.wa-eyebrow{font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:#8be4c6}.wa-hero h1{font-size:clamp(2.9rem,6.7vw,5.7rem);max-width:930px;letter-spacing:-.072em;line-height:1.02;margin:16px 0}.wa-hero h1 em{font-style:normal;color:#a2ecd3}.wa-hero p{color:#cbe1e0;max-width:740px;line-height:1.57;font-size:clamp(1rem,2vw,1.13rem)}.wa-pills{display:flex;flex-wrap:wrap;gap:8px;margin:23px 0}.wa-pills span{border:1px solid #7bb9ac66;border-radius:40px;padding:8px 12px;color:#cff2e7;font-size:12px;font-weight:800}
+.wa-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}.wa-primary,.wa-secondary{display:inline-flex;align-items:center;border-radius:30px;padding:12px 18px;font-weight:850;font-size:13px;text-decoration:none}.wa-primary{background:#b3f0d0;color:#17353d!important}.wa-secondary{color:#d6f6e8!important;border:1px solid #8db6aa}.wa-aside{font-size:12px!important;color:#aacdc7!important;margin-top:21px}
+.wa-figures{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:-25px auto 46px;position:relative}.wa-number{background:#fff;border:1px solid var(--wa-line);border-radius:19px;padding:24px;box-shadow:0 11px 30px #113c2d15}.wa-number small{display:block;color:#486b70;font-size:11px;letter-spacing:.1em;text-transform:uppercase;font-weight:900}.wa-number strong{display:block;font-size:clamp(2.2rem,5vw,4.3rem);letter-spacing:-.06em;margin:8px 0;color:#113f40}.wa-number p{font-size:13px;color:var(--wa-muted);margin:0;line-height:1.5}
+.wa-intro{display:flex;justify-content:space-between;gap:20px;align-items:flex-end;margin-bottom:18px}.wa-intro h2{font-size:clamp(2rem,4vw,3.7rem);letter-spacing:-.065em;margin:9px 0 0;line-height:1.03}.wa-intro p{max-width:440px;font-size:14px;line-height:1.6;color:var(--wa-muted)}.wa-filters{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 27px}.wa-filter{border:1px solid #c8dad2;background:#fff;border-radius:25px;padding:9px 13px;font-size:12px;font-weight:850;color:#315b5b}.wa-filter[aria-pressed="true"]{background:#153d43;border-color:#153d43;color:#fff}.wa-count{font-weight:800;font-size:12px;color:#536b6a;padding:9px 0}
+.wa-collection{display:grid;gap:19px;margin-bottom:36px}.wa-case{border:1px solid var(--wa-line);border-radius:22px;background:white;overflow:hidden;box-shadow:0 9px 28px #17382b0d;scroll-margin-top:85px}.wa-case-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:23px 24px 17px}.wa-case-head small{display:block;color:var(--wa-teal);font-weight:900;letter-spacing:.12em;font-size:10px}.wa-case-head h3{font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.1;letter-spacing:-.045em;margin:9px 0}.wa-case-head p{font-size:13px;color:var(--wa-muted);max-width:720px;line-height:1.5;margin:0}.wa-case-index{background:#e6f3ec;color:#1b6960;border-radius:99px;min-width:40px;height:40px;display:grid;place-items:center;font-size:13px;font-weight:900}
+.wa-compare{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:#e1e9e6;border-top:1px solid #e1e9e6;border-bottom:1px solid #e1e9e6}.wa-persona{background:#fff;padding:19px 20px 22px;min-width:0}.wa-persona:nth-child(2){background:#f0f8f3}.wa-persona:nth-child(3){background:#eaf4f2}.wa-persona-kicker{display:flex;align-items:center;gap:8px;font-size:11px;font-weight:900;color:#3e6262;text-transform:uppercase;letter-spacing:.06em}.wa-persona-kicker span{font-size:17px}.wa-persona strong{display:block;margin:13px 0 5px;color:#153e40;font-size:16px;line-height:1.35}.wa-persona p{color:#465d5c;font-size:12.5px;line-height:1.55;margin:0}
+.wa-case-footer{display:flex;justify-content:space-between;gap:12px 18px;align-items:center;flex-wrap:wrap;padding:14px 22px}.wa-case-footer>span{font-size:12px;line-height:1.5;color:#51716b;max-width:750px}.wa-case-footer button{background:#143f42;border:0;color:white;border-radius:25px;font-size:12px;font-weight:850;padding:10px 15px}.wa-more{padding:0 22px 21px;border-top:1px solid #e0eae6}.wa-more p{font-size:13px;line-height:1.65;color:#405c59}.wa-more .wa-sources{display:flex;gap:12px;flex-wrap:wrap}.wa-more .wa-sources a{font-size:12px;font-weight:800}.wa-more[hidden],.wa-case[hidden]{display:none!important}
+.wa-box{padding:24px;border:1px solid #d5e4d9;border-radius:19px;background:#edf6f0;margin:22px 0}.wa-box h2{margin:0 0 8px;font-size:1.5rem;letter-spacing:-.04em}.wa-box p{line-height:1.58;color:#395b58;margin:0;font-size:14px}.wa-context{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:21px 0 55px}.wa-context>div{padding:18px;border:1px solid #dde4df;border-radius:15px;background:#fff}.wa-context strong{display:block;font-size:13px;margin-bottom:7px}.wa-context p{font-size:12px;line-height:1.55;color:#536a66;margin:0}.wa-linkbar{display:flex;gap:9px;flex-wrap:wrap;padding:16px 0 50px}.wa-linkbar a{background:#174641;color:#fff;text-decoration:none;border-radius:28px;padding:12px 15px;font-size:12px;font-weight:900}.wa-strong{font-weight:900}.wa-foot{color:#637873;padding:28px 0 45px;border-top:1px solid #d4e0d8;font-size:12px;line-height:1.5}
+@media(max-width:760px){.wa-hero{padding:42px 0 54px}.wa-figures{grid-template-columns:1fr;gap:10px;margin-bottom:32px}.wa-number{padding:20px}.wa-intro{display:block}.wa-compare{grid-template-columns:1fr}.wa-persona{padding:15px 19px}.wa-case-head{padding:19px;gap:7px}.wa-case-head h3{font-size:1.45rem}.wa-case-footer{padding:16px 18px}.wa-case-index{min-width:32px;height:32px}.wa-context{grid-template-columns:1fr}.wa-wrap{width:min(1190px,calc(100% - 28px))}}
+</style></head>
+<body data-pa-page="wealth-advantage">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner">
+<a class="pa-global-brand" href="https://power-atlas-unified.vercel.app/my-life.html#where" aria-label="Power Atlas — Start Here">◇ POWER <span>ATLAS</span></a>
+<nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="https://power-atlas-unified.vercel.app/my-life.html#where">Start Here</a><a href="https://power-atlas-unified.vercel.app/my-life.html#what">Issues</a><a href="https://power-atlas-unified.vercel.app/my-life.html#benchmarkStory">Costs</a><a href="https://power-atlas-unified.vercel.app/my-life.html#why">The Why</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Actions</a><a href="index.html" aria-current="page">Research</a></nav>
+</div></div>
+<main class="wa">
+<section class="wa-hero"><div class="wa-wrap"><div class="wa-eyebrow">POWER ATLAS / TAX ADVANTAGE INVESTIGATION / 2026</div>
+<h1>Same tax system.<br><em>Different playbook.</em></h1>
+<p>When a household buys a car, the purchase generally comes from after-tax income. When a business buys qualifying equipment, it may deduct the business-use cost. Wealthier owners can deploy those same rules at a scale most households cannot.</p>
+<div class="wa-pills"><span>10 side-by-side investigations</span><span>3 taxpayer profiles</span><span>Official IRS rules</span></div>
+<div class="wa-actions"><a href="#comparisons" class="wa-primary">Compare every advantage ↓</a><a class="wa-secondary" href="https://power-atlas-unified.vercel.app/take-action.html">Explore civic action ↗</a></div>
+<p class="wa-aside">Real legal distinctions, not accusations of tax fraud. A deduction reduces taxable income; it is not a cash rebate. Eligibility, income limits, business use and timing can change the outcome.</p></div></section>
+<div class="wa-wrap">
+<div class="wa-figures" aria-label="Illustrative 2026 first-year depreciation comparisons">
+<div class="wa-number"><small>Business passenger car / 2026</small><strong>$20,300</strong><p>Maximum first-year depreciation for an eligible passenger automobile if bonus depreciation applies and business use is 100%. Lower business use means a lower deduction. <a href="https://www.irs.gov/irb/2026-13_IRB" target="_blank" rel="noopener noreferrer">IRS 2026 limits ↗</a></p></div>
+<div class="wa-number"><small>Qualifying business aircraft / hypothetical</small><strong>$25 million</strong><p>Potential first-year deduction on a $25 million qualifying jet used entirely for eligible business purposes. Aircraft tests, tax basis, and loss limits still apply. <a href="https://www.irs.gov/publications/p946" target="_blank" rel="noopener noreferrer">IRS aircraft rules ↗</a></p></div>
+</div>
+<div id="comparisons" class="wa-intro"><div><div class="wa-eyebrow">EXPLORE THE GAP</div><h2>Compare each rule.</h2></div><p>Switch categories, then open the rules behind any comparison. Each row uses the same lens: household → small business → wealthy asset owner.</p></div>
+<div class="wa-filters" role="group" aria-label="Filter tax advantage comparisons">
+<button type="button" class="wa-filter" aria-pressed="true" data-filter="all">All 10</button>
+<button type="button" class="wa-filter" aria-pressed="false" data-filter="vehicles">Vehicles & travel</button>
+<button type="button" class="wa-filter" aria-pressed="false" data-filter="business">Business income</button>
+<button type="button" class="wa-filter" aria-pressed="false" data-filter="assets">Assets & investments</button>
+<button type="button" class="wa-filter" aria-pressed="false" data-filter="future">Inheritance & retirement</button>
+</div>
+<div class="wa-count" id="wa-count" aria-live="polite">10 comparisons · 2026 federal framework</div>
+<div id="wa-cases" class="wa-collection" aria-label="Federal tax treatment across three taxpayer profiles"></div>
+<section class="wa-box" aria-label="What taxes fund"><h2>Who ultimately pays?</h2><p>A tax deduction or deferral can reduce federal revenue relative to the alternative tax treatment. It does <strong>not</strong> prove an identical dollar increase on any particular family’s tax bill. To quantify the public cost, Power Atlas must pair these legal rules with Treasury/JCT tax-expenditure estimates, utilization data, and distributional analysis. Those figures are not invented here.</p></section>
+<section class="wa-context" aria-label="How to interpret these comparisons">
+<div><strong>Deduction ≠ cash</strong><p>A $100,000 qualifying deduction at a 37% marginal federal rate can reduce tax by up to $37,000 if usable—not return $100,000 in cash.</p></div>
+<div><strong>Business use ≠ personal use</strong><p>Recordkeeping, business purpose, at-risk, passive-loss, basis and recapture rules can sharply reduce or disallow a claimed benefit.</p></div>
+<div><strong>Access ≠ exclusivity</strong><p>Small businesses, employees with investments, homeowners and heirs can qualify for many of these rules too. Wealth may make them easier to use at scale.</p></div></section>
+<nav class="wa-linkbar" aria-label="Related Power Atlas stories"><a href="consumer-practices.html">Consumer Watch ↗</a><a href="market-power.html">Market Power ↗</a><a href="money-scale.html">Money at scale ↗</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Take action ↗</a></nav>
+<footer class="wa-foot">Power Atlas · Tax Advantage investigation · IRS primary-source review November 11, 2026 · Federal rules only; not individualized tax or legal advice. No estimate of actual taxpayer savings, tax expenditures or household burden is claimed from illustrative scenarios.</footer>
+</div></main>
+<script>
+"use strict";
+const cases = [
+{tag:"vehicles",name:"The car you need to get to work",summary:"The purchase is personal for a commuter; it can be a depreciable asset when genuinely used for business.",
+house:["No deduction for the purchase price of a personal car.","A qualifying U.S.-assembled new-car loan may yield up to $10,000 of annual interest deductions in 2025–28, subject to income and other limits."],
+small:["Eligible business use can be deducted by mileage or actual expenses.","For 2026 passenger cars eligible for bonus depreciation, the first-year depreciation ceiling is $20,300 at 100% business use."],
+wealth:["An affluent owner faces the same passenger-auto caps on an ordinary car.","Different asset classes, such as certain heavy SUVs or business aircraft, have different limits; buying through an LLC alone does not erase personal-use restrictions."],
+take:"Same vehicle, different tax purpose. This is a business-use distinction—not a special unlimited car deduction for rich people.",
+detail:"2026 Revenue Procedure 2026-15 sets the passenger-automobile limit. Section 179 has a separate 2026 $32,000 SUV cap (other rules may also apply). A financed personal car may qualify for an interest deduction, not a purchase-price deduction. Normal commuting is personal travel.",
+sources:[["IRS · 2026 passenger cars","https://www.irs.gov/irb/2026-13_IRB"],["IRS · New car-loan interest","https://www.irs.gov/newsroom/purchasing-a-new-vehicle-car-loan-interest-could-be-eligible-for-a-tax-deduction"]]},
+{tag:"vehicles",name:"The $25 million private jet",summary:"An extreme illustration of how deduction size scales with the price of a qualifying business asset.",
+house:["Airfare and leisure travel are generally personal costs.","A household cannot depreciate personal travel."],
+small:["Ordinary, necessary business airfare may be deductible when properly substantiated.","Owning a plane is not a prerequisite to deduct legitimate business travel."],
+wealth:["A qualifying business jet may receive 100% first-year bonus depreciation on its eligible business-use basis.","At a 37% marginal rate, a fully usable $25M deduction could produce $9.25M federal tax reduction; this is hypothetical, not a verified owner's saving."],
+take:"The issue is potential scale, not a legal exemption for vacations.",
+detail:"IRS aircraft rules require both the >50% qualified-business-use test and a separate 25% test, measured by individual passengers and legs, with contemporaneous records. Personal/entertainment use, depreciation recapture, interest rules and loss restrictions matter. Charter operations alone do not automatically make every owner's flight deductible. 100% bonus depreciation is available for eligible property acquired after January 19, 2025.",
+sources:[["IRS · Business aircraft and listed property","https://www.irs.gov/publications/p946"],["IRS · Permanent bonus depreciation","https://www.irs.gov/newsroom/treasury-irs-issue-guidance-on-the-additional-first-year-depreciation-deduction-amended-as-part-of-the-one-big-beautiful-bill"]]},
+{tag:"business",name:"Everyday operating expenses",summary:"What counts as a deductible cost depends on whether the activity generates business income.",
+house:["Personal groceries, family travel and most household expenses are not business deductions.","Ordinary commuting remains personal even when work is far away."],
+small:["Business-related supplies, travel, equipment and the business-use portion of a car may be deductible.","Receipts, logs, and separation of personal and business use are necessary."],
+wealth:["Legitimate corporate operating expenses and the business-use share of aircraft, property, staff or facilities can be deductible.","Private leisure and nonbusiness consumption are not transformed into deductions by a company name."],
+take:"A legitimate small business can use the same broad business-expense rules; access and dollar scale differ.",
+detail:"IRS Publication 583 expressly requires prorating mixed-use vehicles. Under IRC 162, costs must be ordinary and necessary to the trade or business. Multiple deductions for the same expense are not allowed.",
+sources:[["IRS · Car and truck expenses","https://www.irs.gov/publications/p583"],["IRS · Depreciation vs personal property","https://www.irs.gov/taxtopics/tc704"]]},
+{tag:"business",name:"The 20% pass-through deduction",summary:"Qualifying business income can receive a deduction that employee wages cannot.",
+house:["W-2 wages themselves are excluded from qualified business income.","Standard and other personal deductions still apply where eligible."],
+small:["An eligible sole proprietor, partner or S-corporation owner may deduct up to 20% of qualifying business income.","Income thresholds, business types and wage/property limits can constrain the amount."],
+wealth:["Owners of large qualifying pass-through businesses may also use Section 199A.","Higher incomes can bring additional limits, including specified-service-business restrictions."],
+take:"This is one of the clearest employee-versus-business-income differences, though not solely a wealthy-owner benefit.",
+detail:"The 2026 Section 199A threshold is $403,500 for married joint returns and $201,750 for single returns before applicable phase-ins. Employee services and C-corporation income are not QBI.",
+sources:[["IRS · Qualified business income","https://www.irs.gov/newsroom/qualified-business-income-deduction"],["IRS · 2026 thresholds","https://www.irs.gov/irb/2025-45_IRB"]]},
+{tag:"assets",name:"Paycheck income vs long-term gains",summary:"The source and timing of income can influence the applicable federal tax rate.",
+house:["Wages are generally taxed at ordinary income-tax rates, with applicable payroll taxes.","Households that own investments can also qualify for capital-gains rates."],
+small:["Operating profits may face ordinary income and, where applicable, self-employment tax.","Eligible long-term gains from investments may receive preferential treatment."],
+wealth:["Eligible appreciated investments held long term can be taxed at 0%, 15% or 20% federal capital-gains rates.","High earners can also owe 3.8% net investment income tax; special gains and recapture may differ."],
+take:"Employment income and qualifying capital gains follow different rate schedules—not a universal flat tax on the wealthy.",
+detail:"A 37% top ordinary marginal income-tax bracket and a 20% top long-term capital-gains bracket are not directly comparable without including the taxpayer's deductions, payroll taxes and applicable NIIT. Some gains are ordinary or taxed at special rates.",
+sources:[["IRS · Capital gains","https://www.irs.gov/taxtopics/tc409"],["IRS · 2026 rates","https://www.irs.gov/irb/2025-45_IRB"]]},
+{tag:"assets",name:"Depreciating an investment property",summary:"A rental building can generate depreciation deductions even while its market price rises.",
+house:["A personal home generally cannot be depreciated.","A qualifying primary-home sale may allow a gain exclusion; a loss on sale is generally not deductible."],
+small:["A landlord generally depreciates the rental-building basis over 27.5 years, excluding land.","Operating deductions and losses are subject to passive-activity and at-risk rules."],
+wealth:["Larger rental portfolios can generate substantial aggregate depreciation and permitted deductions.","Cost-segregation studies may identify eligible shorter-lived components; they do not make all land or buildings immediately deductible."],
+take:"Depreciation follows income-producing use. A growing portfolio can multiply the size of legal deductions.",
+detail:"No rental loss automatically erases a high-income person's salary. Passive-activity restrictions generally limit losses to passive income, unless an exception applies; later depreciation recapture may apply.",
+sources:[["IRS · Residential rental property","https://www.irs.gov/publications/p527"],["IRS · Passive activity rules","https://www.irs.gov/publications/p925"]]},
+{tag:"assets",name:"Sell a home vs exchange investment real estate",summary:"Primary residences and business/investment properties have different tax preferences.",
+house:["A qualifying main-home seller can exclude up to $250,000 of gain ($500,000 married filing jointly).","Primary homes do not qualify for an ordinary Section 1031 exchange."],
+small:["An owner exchanging qualifying business or investment real estate may defer recognition of gain via Section 1031.","Deadlines, replacement property and intermediary requirements apply."],
+wealth:["Institutional or wealthy investment-property owners can use the same 1031 rule on larger transactions.","It is typically a deferral, not permanent forgiveness; other estate or sale rules can later change consequences."],
+take:"The home-sale exclusion is a real household benefit; 1031 supplies another tool for owners of investment real estate.",
+detail:"Section 1031 exchanges apply only to eligible real property used in business or held for investment. Cash or other non-like-kind property received can trigger taxable gain. A 1031 transaction is not a way to exchange a personal vacation home tax-free.",
+sources:[["IRS · Like-kind exchanges","https://www.irs.gov/businesses/small-businesses-self-employed/like-kind-exchanges-real-estate-tax-tips"],["IRS · Principal residence exclusion","https://www.irs.gov/taxtopics/tc701"]]},
+{tag:"future",name:"Passing appreciated wealth to heirs",summary:"Inherited assets generally receive basis treatment tied to value at death, not the decedent's original price.",
+house:["The step-up in basis rule can apply to an eligible inherited asset regardless of an heir's wealth.","A family without substantial appreciated investments may have less opportunity to benefit."],
+small:["Eligible inherited ownership interests and other assets may receive a date-of-death basis, subject to special rules.","Valuation and estate or business exceptions may complicate treatment."],
+wealth:["Highly appreciated portfolios passed at death may receive an adjusted basis that reduces heirs' capital gains on later sale.","Federal and state estate or inheritance taxes may still apply; special exceptions exist."],
+take:"The same legal basis rule can deliver vastly different dollar benefits depending on inherited wealth.",
+detail:"IRC 1014 generally sets basis of inherited property to fair-market value at death or an alternate valuation where applicable. This is not a universal rule for all inherited accounts or items (for example, some income in respect of a decedent).",
+sources:[["IRS · Inherited property basis","https://www.irs.gov/publications/p551"]]},
+{tag:"future",name:"Retirement contribution capacity",summary:"Higher earnings and employer sponsorship can change how much can be sheltered each year.",
+house:["An employee can generally defer up to $24,500 into a 401(k) in 2026, before applicable catch-up contributions.","IRA annual contribution limit is $7,500 in 2026, subject to eligibility."],
+small:["A qualifying self-employed owner may use SEP or solo-401(k) employer contributions in addition to eligible employee deferrals.","2026 defined-contribution overall limit is generally $72,000, excluding permitted catch-up; compensation and plan rules apply."],
+wealth:["Well-funded business owners may more readily maximize qualified retirement contributions.","Business ownership does not automatically permit unlimited contributions; employees may also receive employer contributions up to overall plan limits."],
+take:"The legal cap is not purely based on wealth; the ability to fund accounts consistently is a separate advantage.",
+detail:"The $24,500 employee-deferral ceiling and $72,000 overall defined-contribution limit measure different contribution categories. They must not be simply added as independent deductions for one plan.",
+sources:[["IRS · 2026 contribution limits","https://www.irs.gov/retirement-plans/cola-increases-for-dollar-limitations-on-benefits-and-contributions"]]},
+{tag:"business",name:"Using borrowed money to acquire assets",summary:"Financing changes the initial cash outlay, but does not by itself make purchases deductible.",
+house:["Interest on most personal debt is not deductible.","Qualified personal new-car loan interest and certain mortgages are exceptions under their own rules."],
+small:["A business may borrow to buy eligible equipment, with depreciation based on tax basis rather than down payment alone.","Business interest deductions can face Section 163(j) limits and other conditions."],
+wealth:["An investor or company can finance large qualifying income-producing assets while claiming permitted depreciation and interest deductions.","A debt-funded jet cannot be treated as a personal tax-free purchase; cash flow, interest, debt service and loss limits still matter."],
+take:"Deduction size can exceed the cash down payment, but never assume a deduction produces cash profit.",
+detail:"For illustration, a $25M qualifying asset financed with $5M down can still have a $25M tax basis if statutory requirements are met; deductibility, available taxable income, substantiation and later dispositions are separate issues. This does not imply the IRS sends $9.25M to the owner.",
+sources:[["IRS · Depreciable property","https://www.irs.gov/taxtopics/tc704"],["IRS · Interest expense rules","https://www.irs.gov/taxtopics/tc505"]]}
+];
+const list=document.getElementById("wa-cases"),count=document.getElementById("wa-count"),buttons=[...document.querySelectorAll("[data-filter]")];
+function node(tag,cls,txt){const el=document.createElement(tag);if(cls)el.className=cls;if(txt!==undefined)el.textContent=txt;return el;}
+function persona(icon,title,items){const panel=node("div","wa-persona"),label=node("div","wa-persona-kicker");label.append(node("span",null,icon),document.createTextNode(title));const strong=node("strong",null,items[0]);panel.append(label,strong,node("p",null,items[1]));return panel;}
+const sections=cases.map((entry,index)=>{
+ const article=node("article","wa-case");article.dataset.category=entry.tag;article.id="advantage-"+(index+1);
+ const top=node("header","wa-case-head"),info=node("div");
+ info.append(node("small",null,entry.tag.toUpperCase()+" / FEDERAL TAX LAW"),node("h3",null,entry.name),node("p",null,entry.summary));
+ top.append(info,node("div","wa-case-index",String(index+1).padStart(2,"0")));
+ const body=node("div","wa-compare");
+ body.append(persona("🏠","Ordinary household",entry.house),persona("🧰","Small business owner",entry.small),persona("◆","High-wealth owner",entry.wealth));
+ const foot=node("div","wa-case-footer"),toggle=node("button",null,"Inspect rules & sources ↓");toggle.type="button";
+ toggle.setAttribute("aria-expanded","false");
+ const more=node("div","wa-more");more.hidden=true;more.id="wa-detail-"+index;toggle.setAttribute("aria-controls",more.id);
+ const rule=node("p",null,entry.detail),sources=node("div","wa-sources");
+ entry.sources.forEach(([name,url])=>{const a=node("a",null,name+" ↗");a.href=url;a.target="_blank";a.rel="noopener noreferrer";sources.append(a)});
+ more.append(rule,sources);
+ toggle.addEventListener("click",()=>{const expanded=more.hidden;more.hidden=!expanded;toggle.setAttribute("aria-expanded",String(expanded));toggle.textContent=expanded?"Hide rules ↑":"Inspect rules & sources ↓"});
+ foot.append(node("span",null,entry.take),toggle);
+ article.append(top,body,foot,more);list.append(article);return article;
+});
+buttons.forEach(button=>button.addEventListener("click",()=>{const filter=button.dataset.filter;buttons.forEach(b=>b.setAttribute("aria-pressed",String(b===button)));let n=0;
+ sections.forEach(card=>{const visible=filter==="all"||card.dataset.category===filter;card.hidden=!visible;if(visible)n++});
+ count.textContent=n+" comparison"+(n===1?"":"s")+" · 2026 federal framework";
+}));
+</script><script src="visual-story-v6.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>

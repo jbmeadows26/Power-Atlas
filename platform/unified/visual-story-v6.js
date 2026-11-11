@@ -215,6 +215,14 @@ function home(){
   if(meta.kind==="market")a.href="market-power.html";
   a.append(top,graphic,bottom);gallery.append(a);
  });
+ // Same V6 card system and one primary navigation: tax investigation is a research thread.
+ const taxStory=go("wealth-advantage.html","","vs6-story vs6-story--blue vs6-story--regular");
+ taxStory.setAttribute("aria-label","Compare the tax treatment of households, small businesses and high-wealth owners");
+ const taxTop=E("div","vs6-story-head");taxTop.append(E("span","vs6-micro","THE WEALTH ADVANTAGE"),E("span","vs6-arrow-icon","↗"));
+ const taxArt=E("div","vs6-art vs6-art--money");taxArt.setAttribute("role","img");taxArt.setAttribute("aria-label","Three-column comparison: household, small business and wealthy owner");
+ const taxChart=E("div","vs6-proof-viz");taxChart.append(E("span",null,"🏠 Household"),E("span",null,"🧰 Business"),E("span",null,"◆ Wealth"));taxArt.append(taxChart,E("span","vs6-art-foot","10 IRS-sourced tax comparisons · Rules and limits included"));
+ const taxBottom=E("div","vs6-story-foot");taxBottom.append(E("h3",null,"Same rules. Different scale."),E("p",null,"Cars, private jets, investment gains and inherited wealth."),E("span","vs6-story-cta","Compare every advantage →"));
+ taxStory.append(taxTop,taxArt,taxBottom);gallery.append(taxStory);
  portal.append(gallery);
  const rest=E("details","vs6-more");rest.append(E("summary",null,"Four more stories +"));
  const extras=E("div","vs6-extra-grid");
