@@ -72,6 +72,21 @@ class VisualStoriesV6Tests(unittest.TestCase):
         self.assertIn("#pa-global-header.vs6-nav-open .pa-global-links",style)
         self.assertIn("grid-template-columns:repeat(2,minmax(0,1fr))",style)
 
+    def test_production_research_menu_and_global_escape_handler(self):
+        unified=(SITES[0]/"visual-story-v6.js").read_text()
+        research=(SITES[1]/"visual-story-v6.js").read_text()
+        css=(SITES[1]/"visual-story-v6.css").read_text()
+        for script in (unified,research):
+            self.assertIn('if(!header){',script)
+            self.assertIn('"vs6-research-nav"',script)
+            self.assertIn('document.addEventListener("keydown"',script)
+            self.assertIn('e.key==="Escape"',script)
+            self.assertIn('if(focus)button.focus()',script)
+            for name in ("Start Here","Issues","Costs","The Why","Actions","Research"):
+                self.assertIn('"'+name+'"',script)
+        self.assertIn(".vs6-research-nav.vs6-nav-open .pa-global-links",css)
+        self.assertIn("@media(max-width:720px)",css)
+
     @unittest.skipUnless(shutil.which("node"),"node unavailable")
     def test_javascript_syntax(self):
         for site in SITES:
