@@ -212,7 +212,7 @@ function home(){
   }
   const a=go(target,"","vs6-story vs6-story--"+meta.theme+" vs6-story--"+(i%3===0?"wide":"regular"));
   a.setAttribute("aria-label",meta.heading+"; explore full sourced story");
-  if(meta.kind==="market")a.href="market-power.html#market-power-pathways";
+  if(meta.kind==="market")a.href="market-power.html";
   a.append(top,graphic,bottom);gallery.append(a);
  });
  portal.append(gallery);
@@ -258,7 +258,7 @@ const topicCopy={
  "consumer-practices.html":["The real cost of a deal","Follow the conditions behind the advertised price."],
  "class-actions.html":["A lawsuit isn't a refund.","Follow case status before checking a claim."],
  "market-power.html":["Who gains when choices shrink?","See what concentration data can—and can't—establish."],
- "dark-money.html":["Follow the political money.","Find the filings, and see where disclosure ends."],
+ "dark-money.html":["Who funds power—and who benefits?","Follow campaign cash, dark money and lobbying. Separate the public records from unproven influence."],
  "money-scale.html":["Make billions feel real.","Compare numbers using the same units."],
  "service-accountability.html":["Where did the people go?","Investigate documented staffing and reported service gaps."],
  "economic-fragility.html":["Could market stress reach you?","Possible pathways are not predictions."],
@@ -275,7 +275,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
  section.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
- const art=visual(kind);section.append(art);
+ if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}else{const art=visual(kind);section.append(art);}
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
  cta.addEventListener("click",()=>{
@@ -284,7 +284,8 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
    cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":"Explore the evidence ↗";
    const explorer=main.querySelector(".pa5-explorer");
    if(active){
-     const first=explorer?.querySelector(".pa5-chapter-card");
+     const requested=documentPath==="market-power.html"?explorer?.querySelector('button.pa5-chapter-card[aria-controls="explore"]'):null;
+     const first=requested||explorer?.querySelector(".pa5-chapter-card");
      if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
@@ -295,7 +296,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="my-life.html"){
   const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter your ZIP ↓");label.href="#where";section.append(label);}
  }
- if(location.hash){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ if(location.hash&&location.hash!=="#market-power-pathways"){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");
