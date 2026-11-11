@@ -235,7 +235,8 @@ function topic(){
    cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":"Explore the evidence ↗";
    const explorer=main.querySelector(".pa5-explorer");
    if(active){
-     const first=explorer?.querySelector(".pa5-chapter-card");
+     const requested=documentPath==="market-power.html"?explorer?.querySelector('button.pa5-chapter-card[aria-controls="explore"]'):null;
+     const first=requested||explorer?.querySelector(".pa5-chapter-card");
      if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
