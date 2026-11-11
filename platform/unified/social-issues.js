@@ -44,38 +44,45 @@ const topics=[
 ["geopolitics","Great-power competition & supply chains","GLOBAL STABILITY","⌁","Why do distant rivalries affect prices at home?","Follow trade policy, semiconductors, critical minerals, shipping routes and strategic dependencies. Distinguish risks from realized disruptions.","transport","un","UN · Global Issues"]
 ];
 function el(tag,klass,value){const node=document.createElement(tag);if(klass)node.className=klass;if(value!==undefined)node.textContent=value;return node;}
-const grid=document.getElementById("paSocialGrid"),toggle=document.getElementById("paSocialShowAll"),count=document.getElementById("paSocialCount");
-if(!grid||!toggle)return;
 const existingIds=new Set(["housing","groceries","energy","health","work","schools","transport","public-services","representation"]);
 if(new Set(topics.map(t=>t[0])).size!==topics.length||topics.some(t=>!existingIds.has(t[6])||!sources[t[7]])){console.error("Power Atlas issue catalog validation failed");return;}
-if(count)count.textContent=String(topics.length)+" broader issues · 9 everyday-life topics above · no duplicate cards";
-const nodes=topics.map((t,i)=>{
- const article=el("details","pa-social-card");article.dataset.socialTopic=t[0];
- const summary=el("summary","pa-social-summary");
- const top=el("span","pa-social-top");
- top.append(el("span","pa-social-icon",t[3]),el("span","pa-social-group",t[2]));
- summary.append(top,el("strong","pa-social-name",t[1]),el("span","pa-social-lead",t[4]),el("span","pa-social-expand","Explore the issue +"));
- const body=el("div","pa-social-body");
- body.append(el("p",null,t[5]),el("span","pa-social-evidence-note","Broader research theme · not a local ZIP measurement"));
- const actions=el("div","pa-social-actions");
- const related=el("button","pa-social-related","Explore related Power Atlas evidence");
- related.type="button";related.addEventListener("click",()=>{
-   const choice=document.querySelector('#issueGrid button[data-topic="'+t[6]+'"]');
-   if(choice)choice.click();
+/* All twenty additional topics belong in the exact SAME nine-topic grid under
+   "What matters most right now?". Each remains explorable without inventing
+   ZIP-level evidence or overwriting the nine source-backed local topic panels. */
+function render(){
+ const grid=document.getElementById("issueGrid");
+ if(!grid)return;
+ // Keep the nine canonical ZIP-connected cards. Replace only our own cards.
+ grid.querySelectorAll(":scope > .pa-social-card").forEach(node=>node.remove());
+ const fragment=document.createDocumentFragment();
+ topics.forEach(t=>{
+   const card=el("details","pa-social-card");card.dataset.socialTopic=t[0];
+   const summary=el("summary","pa-social-summary");
+   const icon=el("span","issue-icon pa-social-icon",t[3]);icon.setAttribute("aria-hidden","true");
+   const copy=el("span","pa-social-copy");
+   copy.append(el("strong",null,t[1]),el("small",null,"Explore why →"));
+   summary.append(icon,copy);
+   const body=el("div","pa-social-body");
+   body.append(el("span","pa-social-group",t[2]),el("h4",null,t[4]),el("p",null,t[5]),el("span","pa-social-evidence-note","Global/national context · not a ZIP-level statistic"));
+   const actions=el("div","pa-social-actions");
+   const related=el("button","pa-social-related","Explore related local evidence");
+   related.type="button";
+   related.addEventListener("click",()=>{
+     const choice=document.querySelector('#issueGrid button[data-topic="'+t[6]+'"]');
+     if(choice)choice.click();
+   });
+   const source=el("a","pa-social-source","Original source ↗");
+   source.href=sources[t[7]];source.target="_blank";source.rel="noopener noreferrer";
+   source.title=t[8];source.setAttribute("aria-label","Open "+t[8]+" (new tab)");
+   actions.append(related,source);body.append(actions);card.append(summary,body);
+   card.addEventListener("toggle",()=>{
+     // Only one expanded card in the unified grid; easier to scan on mobile.
+     if(card.open&&card.isConnected)grid.querySelectorAll(".pa-social-card[open]").forEach(other=>{if(other!==card)other.open=false;});
+   });
+   fragment.append(card);
  });
- const source=el("a","pa-social-source","Original source ↗");
- source.href=sources[t[7]];source.target="_blank";source.rel="noopener noreferrer";
- source.title=t[8];source.setAttribute("aria-label","Open "+t[8]+" (new tab)");
- actions.append(related,source);body.append(actions);article.append(summary,body);grid.append(article);
- return article;
-});
-let expanded=false;
-function refresh(){
- nodes.forEach((node,i)=>{node.hidden=!expanded&&i>=6;if(node.hidden)node.open=false;});
- toggle.textContent=expanded?"Show fewer issues ↑":"View all "+topics.length+" broader issues ↓";
- toggle.setAttribute("aria-expanded",String(expanded));
+ grid.append(fragment);
 }
-toggle.addEventListener("click",()=>{expanded=!expanded;refresh();});
-refresh();
-window.PowerAtlasSocialIssueCatalog=Object.freeze({count:topics.length,slugs:topics.map(t=>t[0])});
+window.PowerAtlasSocialIssueCatalog=Object.freeze({count:topics.length,slugs:topics.map(t=>t[0]),render});
+render();
 })();
