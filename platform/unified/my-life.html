@@ -109,6 +109,7 @@
 .ownerPath p{font-size:.82rem;line-height:1.53;color:#56716b;margin:6px 0}
 .ownerPath .ownerSrc{font-size:.75rem;color:#5a7971;margin:11px 0 0}
 .ownerTrail .ownerQuestion{border:1px solid #edd9ac;border-radius:12px;background:#fffaed;padding:12px 15px;margin:15px 0 11px;color:#6d583e;font-size:.85rem;line-height:1.48}
+.ownerPath details{border-top:1px solid #cddfd4;padding-top:9px;margin-top:9px;font-size:.78rem;color:#436c62}.ownerPath summary{cursor:pointer;color:#236d62;font-weight:800}.ownerPath details a{font-weight:800;color:#176e65}
 .ownerTrail .ownerFooter{font-size:.83rem;margin:11px 0 0;font-weight:800}
 .ownerTrail .ownerGap{font-size:.79rem;color:#647a75;line-height:1.5;margin:9px 0}
 @media(max-width:640px){.ownerTrail{padding:16px}.ownerStory{grid-template-columns:1fr}}
@@ -614,7 +615,7 @@
  <div class="ownerStory" id="ownerPathCards" aria-live="polite"><p>Checking sourced ownership links…</p></div>
  <div class="ownerQuestion" id="ownerCostQuestion">An ownership relationship alone does not establish what residents pay.</div>
  <p class="ownerGap" id="ownerLocalGap"></p>
- <div class="ownerFooter"><a id="ownershipFullLink" href="corporate-ownership.html">Explore ownership and the original research →</a> · <a href="market-power.html" style="font-weight:850">Trace corporate market power →</a></div>
+ <div class="ownerFooter"><a id="ownershipFullLink" href="corporate-ownership.html">Explore the interactive ownership map →</a> · <a href="market-power.html" style="font-weight:850">Trace corporate market power →</a></div>
  </section>
  <div style="max-width:1120px;margin:20px auto;padding:0 16px"><a href="https://power-atlas-research.vercel.app/economic-fragility.html" style="display:block;background:#eaf4f0;border:1px solid #bcd9ce;color:#194f47;border-radius:15px;padding:18px 20px;text-decoration:none;font-weight:700;line-height:1.45">National context · Why the economy can grow while households feel squeezed — Explore the economic fragility investigation → <small style="display:block;color:#59736c;font-weight:400;margin-top:6px">Source-backed national indicators; not a ZIP-specific crash prediction.</small></a></div>
  <section class="ownerTrail" aria-label="Government financial interests and public decisions" style="margin:18px 0"><span class="ey-dark">Public integrity · Evidence to investigate</span><h3>Do officials have financial interests in industries they govern?</h3><p class="ownerIntro">Explore reported trading by presidential accounts and Congress, then follow the unanswered questions about decision-makers, government policy and possible household impacts. No individual cost increase has been attributed to these transactions.</p><div class="ownerFooter"><a href="public-trading.html">Explore government financial interests and the source records →</a></div></section>
@@ -870,11 +871,12 @@ function renderCorporatePaths(){
  });
  const prioritized=["BENEFICIAL_SHARES","ACQUIRED_AND_PORTFOLIO_BACKED","CONTROLLING_SHAREHOLDER_REPORTED","OPERATES_BUSINESS","MARKETS_PROGRAM_UNDER_BRAND","REPORTED_OPERATING_BRAND","ACQUIRED_BUSINESS_CONTAINING_BRAND","LISTED_PORTFOLIO_COMPANY"];
  relations.sort((a,b)=>prioritized.indexOf(a.relation)-prioritized.indexOf(b.relation));
- const visible=relations.slice(0,3);
+ const ownerCaps=new Map();
+ const visible=relations.filter(r=>{const count=ownerCaps.get(r.from)||0;if(count>=2)return false;ownerCaps.set(r.from,count+1);return true}).slice(0,6);
  $("ownerPathCards").innerHTML=visible.length?visible.map(r=>{
   const owner=nodes[r.from],business=nodes[r.to];
   const type={BENEFICIAL_SHARES:"Reported ownership",CONTROLLING_SHAREHOLDER_REPORTED:"Reported control",ACQUIRED_AND_PORTFOLIO_BACKED:"Investor acquisition",OPERATES_BUSINESS:"Business unit",MARKETS_PROGRAM_UNDER_BRAND:"Corporate brand",REPORTED_OPERATING_BRAND:"Dated brand roster",ACQUIRED_BUSINESS_CONTAINING_BRAND:"Dated acquisition",LISTED_PORTFOLIO_COMPANY:"Investor portfolio",FOUNDED_AND_LEADS:"Leadership, not ownership"}[r.relation]||"Source-backed relationship";
-  return '<article class="ownerPath"><span class="ownerLabel">'+esc(type)+(Number.isFinite(r.stakePct)?' · '+esc(r.stakePct.toFixed(1))+'% shares':'')+'</span><b>'+esc(owner.name)+' → '+esc(business.name)+'</b><p>'+esc(r.note)+'</p><p class="ownerSrc">'+esc(r.asOf||"Date unknown")+' · '+link(r.source,"Original source ↗")+'</p></article>';
+  return '<article class="ownerPath"><span class="ownerLabel">'+esc(type)+(Number.isFinite(r.stakePct)?' · '+esc(r.stakePct.toFixed(1))+'% shares':'')+'</span><b>'+esc(owner.name)+' → '+esc(business.name)+'</b><p class="ownerSrc">Sourced '+esc(r.asOf||"date unavailable")+'</p><details><summary>Evidence & limits</summary><p>'+esc(r.note)+'</p>'+link(r.source,"Read original source ↗")+'</details></article>';
  }).join(""):'<article class="ownerPath"><b>Verified ownership links not yet available</b><p>Company names and funding records may exist, but they have not been matched to current legal owners in this category. Missing ownership data is not evidence of no concentration.</p></article>';
  const cases=(transparencyCases?.cases||[]).filter(c=>(c.powerAtlasIssues||[]).includes(selected));
  const research=cases.find(c=>c.economicMechanismStatus==="observed"||c.economicMechanismStatus==="association")||cases[0];
@@ -882,7 +884,7 @@ function renderCorporatePaths(){
  '<strong>What could affect costs?</strong> '+esc(research.summary)+' <strong>Not established:</strong> '+esc(research.interpretationLimits):
  '<strong>What could affect costs?</strong> Shared ownership could influence pricing, staffing, expansion or competition. No company-specific local price change has been verified for this category.';
  $("ownerLocalGap").textContent="What we still need: a verified local company/brand/facility inventory and comparable actual prices. National ownership links do not show which businesses serve the entered ZIP.";
- $("ownershipFullLink").href="corporate-ownership.html?issue="+encodeURIComponent(selected);
+ $("ownershipFullLink").href="corporate-ownership.html?issue="+encodeURIComponent(selected)+"#ownership-network";
 }
 
 function renderLocalMeasures(){

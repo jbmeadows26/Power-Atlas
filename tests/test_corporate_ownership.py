@@ -58,6 +58,35 @@ class CorporateOwnershipIntegrationTests(unittest.TestCase):
         for x in g["relations"]:
             self.assertNotIn("PAC",x["relation"])
 
+    def test_expanded_corporate_families_are_sourced_and_not_local_price_claims(self):
+        g=self.g
+        entities={x["id"]:x for x in g["entities"]}
+        relations={x["id"]:x for x in g["relations"]}
+        self.assertGreaterEqual(len(entities),108)
+        self.assertGreaterEqual(len(relations),84)
+        for id_,source in (
+            ("blackstone-tricon","blackstone.com"),
+            ("amazon-one-medical","aboutamazon.com"),
+            ("amazon-whole-foods","sec.gov"),
+            ("mars-kellanova","mars.com"),
+            ("kellanova-cheez-it","mars.com"),
+            ("general-mills-blue-buffalo","generalmills.com"),
+            ("berkshire-geico","sec.gov"),
+            ("berkshire-bnsf","sec.gov"),
+        ):
+            self.assertIn(id_,relations)
+            self.assertIn(source,relations[id_]["source"])
+            self.assertFalse(relations[id_]["localEffectEstablished"])
+        self.assertEqual(relations["mars-kellanova"]["to"],relations["kellanova-cheez-it"]["from"])
+        page=PAGE.read_text(encoding="utf-8")
+        life=LIFE.read_text(encoding="utf-8")
+        for marker in ('id="ownership-network"','id="networkOwners"','id="networkSearch"',
+                       "renderOwnershipNetwork()","function ownershipPaths(","Dated evidence:",
+                       "Original source ("):
+            self.assertIn(marker,page)
+        self.assertIn('slice(0,6)',life)
+        self.assertIn('#ownership-network',life)
+
     def test_price_cases_keep_proven_alleged_and_unknown_distinct(self):
         c=self.c
         self.assertEqual(c["schema"],"power-atlas.corporate-ownership.transparency-price-power.v1")
