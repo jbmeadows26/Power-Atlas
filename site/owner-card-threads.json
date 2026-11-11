@@ -1,0 +1,392 @@
+{
+  "schema": "power-atlas.corporate-ownership.evidence-graph.v1",
+  "sourceSnapshot": "data/corporate-ownership/verified-relationships-v1.json",
+  "reviewedUtc": "2026-11-11",
+  "entities": [
+    {
+      "id": "thoma-bravo",
+      "name": "Thoma Bravo",
+      "kind": "private_equity_firm",
+      "issues": [
+        "housing",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "realpage",
+      "name": "RealPage",
+      "kind": "software_company",
+      "issues": [
+        "housing",
+        "public-services"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "partners-group",
+      "name": "Partners Group affiliates (PG)",
+      "kind": "investment_shareholder",
+      "issues": [
+        "schools",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "ownershipScope": "Beneficial stockholders in KinderCare; not 100% owner"
+    },
+    {
+      "id": "kindercare",
+      "name": "KinderCare Learning Companies, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "schools",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0001873529"
+      },
+      "publicTicker": "KLC"
+    },
+    {
+      "id": "american-securities",
+      "name": "American Securities",
+      "kind": "private_equity_firm",
+      "issues": [
+        "schools",
+        "health",
+        "energy",
+        "transport",
+        "work",
+        "public-services",
+        "housing"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "cvs",
+      "name": "CVS Health Corporation",
+      "kind": "public_company",
+      "issues": [
+        "health",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000064803"
+      },
+      "publicTicker": "CVS"
+    },
+    {
+      "id": "caremark",
+      "name": "CVS Caremark",
+      "kind": "pharmacy_benefit_business",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "pg",
+      "name": "The Procter & Gamble Company",
+      "kind": "public_company",
+      "issues": [
+        "groceries",
+        "housing",
+        "schools"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000080424"
+      },
+      "publicTicker": "PG",
+      "note": "OpenLedger had placeholder brand names, NOT verified brand ownership records; omitted from graph."
+    },
+    {
+      "id": "pepsico",
+      "name": "PepsiCo, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0000077476"
+      },
+      "publicTicker": "PEP",
+      "note": "OpenLedger placeholder brand names omitted from graph pending primary confirmation."
+    },
+    {
+      "id": "fleetpride",
+      "name": "FleetPride",
+      "kind": "portfolio_company",
+      "issues": [
+        "transport",
+        "work"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "listingNote": "American Securities publicly lists this as a current portfolio company. Percentage owned, controlling person and local outlet presence are unverified."
+    },
+    {
+      "id": "amazon",
+      "name": "Amazon.com, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "groceries",
+        "work",
+        "public-services"
+      ],
+      "scope": "national_corporate_relation_not_local_presence",
+      "identifiers": {
+        "cik": "0001018724"
+      },
+      "publicTicker": "AMZN"
+    },
+    {
+      "id": "brand-tide",
+      "name": "Tide",
+      "kind": "consumer_brand",
+      "issues": [
+        "groceries",
+        "public-services"
+      ],
+      "scope": "company_published_brand_roster_not_local_market_presence"
+    },
+    {
+      "id": "brand-pepsi",
+      "name": "Pepsi",
+      "kind": "consumer_brand",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "company_published_brand_roster_not_local_market_presence"
+    },
+    {
+      "id": "blackstone",
+      "name": "Blackstone real estate funds",
+      "kind": "private_equity_firm",
+      "issues": [
+        "housing"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "tricon",
+      "name": "Tricon Residential",
+      "kind": "housing_operator",
+      "issues": [
+        "housing"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "whole-foods",
+      "name": "Whole Foods Market",
+      "kind": "grocery_operator",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "one-medical",
+      "name": "One Medical",
+      "kind": "healthcare_operator",
+      "issues": [
+        "health"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "general-mills",
+      "name": "General Mills, Inc.",
+      "kind": "public_company",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "brand-blue-buffalo",
+      "name": "Blue Buffalo",
+      "kind": "consumer_brand",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "mars",
+      "name": "Mars, Incorporated",
+      "kind": "private_company",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "kellanova",
+      "name": "Kellanova",
+      "kind": "subsidiary_company",
+      "issues": [
+        "groceries"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "berkshire-hathaway",
+      "name": "Berkshire Hathaway Inc.",
+      "kind": "public_company",
+      "issues": [
+        "transport",
+        "housing",
+        "energy"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    },
+    {
+      "id": "geico",
+      "name": "GEICO",
+      "kind": "insurance_operator",
+      "issues": [
+        "transport"
+      ],
+      "scope": "national_corporate_relation_not_local_presence"
+    }
+  ],
+  "relations": [
+    {
+      "id": "tb-realpage",
+      "from": "thoma-bravo",
+      "to": "realpage",
+      "relation": "ACQUIRED_AND_PORTFOLIO_BACKED",
+      "asOf": "2021-04-22",
+      "source": "https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/",
+      "confidence": "source_reported",
+      "note": "RealPage's dated April 22, 2021 announcement confirms completion of acquisition by Thoma Bravo. The firm's current portfolio page separately lists RealPage; no ZIP-level rent effect is inferred.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "pg-kindercare",
+      "from": "partners-group",
+      "to": "kindercare",
+      "relation": "BENEFICIAL_SHARES",
+      "asOf": "2026-04-09",
+      "source": "https://www.sec.gov/Archives/edgar/data/1873529/000119312526164197/klc-20260417.htm",
+      "confidence": "issuer_sec_disclosure",
+      "note": "68.8% of common shares beneficially owned by PG affiliates as of April 9, 2026, with documented board nomination rights.",
+      "localEffectEstablished": false,
+      "stakePct": 68.8
+    },
+    {
+      "id": "cvs-caremark",
+      "from": "cvs",
+      "to": "caremark",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2025-12-31",
+      "source": "https://www.sec.gov/Archives/edgar/data/64803/000006480326000010/cvs-20251231.htm",
+      "confidence": "source_reported",
+      "note": "CVS 10-K reports PBM business operations and competitors. Business affiliation is not a location-specific drug price claim.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "as-portfolio-fleetpride",
+      "from": "american-securities",
+      "to": "fleetpride",
+      "relation": "LISTED_PORTFOLIO_COMPANY",
+      "asOf": "2026-11-06",
+      "source": "https://www.american-securities.com/companies/",
+      "confidence": "current_portfolio_list_no_stake",
+      "note": "Current portfolio listing; financial ownership percentage, local location and actual household cost effect not established.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "parent-brand-tide",
+      "from": "pg",
+      "to": "brand-tide",
+      "relation": "REPORTS_BRAND_IN_PORTFOLIO",
+      "asOf": "2026-11-06",
+      "source": "https://us.pg.com/brands/",
+      "confidence": "current_company_brand_listing",
+      "note": "The company lists this as one of its brands. Brand marketing does not identify its retailer, distributor, local price, factory, product inputs or a local anti-competitive effect.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "parent-brand-pepsi",
+      "from": "pepsico",
+      "to": "brand-pepsi",
+      "relation": "REPORTS_BRAND_IN_PORTFOLIO",
+      "asOf": "2026-11-06",
+      "source": "https://www.pepsico.com/en/brands",
+      "confidence": "current_company_brand_listing",
+      "note": "The company lists this as one of its brands. Brand marketing does not identify its retailer, distributor, local price, factory, product inputs or a local anti-competitive effect.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "blackstone-tricon",
+      "from": "blackstone",
+      "to": "tricon",
+      "relation": "ACQUIRED_AND_PORTFOLIO_BACKED",
+      "asOf": "2024-05-01",
+      "source": "https://www.blackstone.com/news/press/blackstone-real-estate-completes-privatization-of-tricon/",
+      "confidence": "source_reported",
+      "note": "Blackstone-managed real estate vehicles completed acquisition of Tricon. The structure includes Blackstone Real Estate Partners X and BREIT; do not attribute an individual tenant rent increase to this purchase.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "amazon-whole-foods",
+      "from": "amazon",
+      "to": "whole-foods",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2017-08-28",
+      "source": "https://www.sec.gov/Archives/edgar/data/1018724/000101872417000143/exhibit993.htm",
+      "confidence": "source_reported",
+      "note": "Amazon's SEC filing confirms the completed 2017 acquisition of Whole Foods. This records corporate ownership, not a measured change in local grocery prices.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "amazon-one-medical",
+      "from": "amazon",
+      "to": "one-medical",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2023-02-22",
+      "source": "https://press.aboutamazon.com/2023/2/one-medical-joins-amazon-to-make-it-easier-for-people-to-get-and-stay-healthier",
+      "confidence": "source_reported",
+      "note": "Amazon completed the One Medical acquisition in 2023. Ownership does not establish care quality, membership pricing, or a local provider's terms.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "general-mills-blue-buffalo",
+      "from": "general-mills",
+      "to": "brand-blue-buffalo",
+      "relation": "ACQUIRED_BUSINESS_CONTAINING_BRAND",
+      "asOf": "2018-04-24",
+      "source": "https://investors.generalmills.com/press-releases/press-release-details/2018/General-Mills-Completes-Acquisition-of-Blue-Buffalo-Pet-Products/",
+      "confidence": "source_reported",
+      "note": "General Mills completed its Blue Buffalo acquisition in 2018; no specific retail price consequence follows from the transaction alone.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "mars-kellanova",
+      "from": "mars",
+      "to": "kellanova",
+      "relation": "ACQUIRED_AND_PORTFOLIO_BACKED",
+      "asOf": "2025-12-11",
+      "source": "https://www.mars.com/en-dk/news-and-stories/press-releases-statements/mars-completes-acquisition-of-kellanova",
+      "confidence": "source_reported",
+      "note": "Mars announced the completed Kellanova acquisition December 11, 2025. This is an acquisition, not proof of reduced competition in a particular ZIP or a price change.",
+      "localEffectEstablished": false
+    },
+    {
+      "id": "berkshire-geico",
+      "from": "berkshire-hathaway",
+      "to": "geico",
+      "relation": "OPERATES_BUSINESS",
+      "asOf": "2025-12-31",
+      "source": "https://www.sec.gov/Archives/edgar/data/1067983/000119312526083899/brka-20251231.htm",
+      "confidence": "source_reported",
+      "note": "Berkshire Hathaway's 2025 consolidated report describes GEICO as an insurance business. This does not establish auto insurance rates for any driver.",
+      "localEffectEstablished": false
+    }
+  ]
+}
