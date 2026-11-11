@@ -386,25 +386,30 @@ function attachZIPVisual(section){
  const heading=E("div","vs6-zip-heading");
  const kicker=E("span","vs6-zip-kicker","YOUR LOCAL PICTURE");
  const place=E("strong","vs6-zip-place","Enter a ZIP to see your area");
- const note=E("small","vs6-zip-period","2020–2024 Census ZCTA survey · not a live price feed");
+ const note=E("small","vs6-zip-period","Census household indicators · HUD FY2026 rent benchmarks · neither is a live listing feed");
  heading.append(kicker,place,note);
  const grid=E("div","vs6-zip-grid");
  const foot=E("div","vs6-zip-footer");
- foot.append(E("span",null,"Local indicators describe residents—not transit fares, grocery prices, insurance premiums, or why costs change."));
+ foot.append(E("span",null,"HUD rent figures are program benchmarks by bedroom, not market asking rents. Other indicators are historical Census estimates—not today’s fares, grocery bills, or insurance premiums."));
  const link=E("a","vs6-zip-method","How these figures are sourced ↗");
  link.href="https://www.census.gov/data/developers/data-sets/acs-5year.html";
  link.target="_blank";link.rel="noopener noreferrer";foot.append(link);
+ const hudLink=E("a","vs6-zip-method","HUD bedroom benchmark source ↗");
+ hudLink.href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html";
+ hudLink.target="_blank";hudLink.rel="noopener noreferrer";foot.append(hudLink);
  host.append(heading,grid,foot);
  art.replaceChildren(host);
  const topics=[
-   {key:"housing",label:"RENT",desc:"Median gross rent",color:"#39d4b0"},
+   {key:"housing",label:"RENT BY BEDROOM",desc:"HUD FY2026 monthly voucher benchmark · not asking rent",color:"#39d4b0"},
    {key:"transport",label:"TRANSPORT",desc:"Commuters using transit",color:"#ff9d77"},
    {key:"groceries",label:"FOOD",desc:"Households on SNAP",color:"#ae98fd"},
    {key:"health",label:"HEALTH",desc:"Residents uninsured",color:"#ffce70"}
  ];
  const nodes=new Map();
+ let currentZip="";
  topics.forEach((t,i)=>{
    const tile=E("div","vs6-zip-tile");
+   if(t.key==="housing")tile.classList.add("vs6-zip-tile--housing");
    tile.style.setProperty("--zip-accent",t.color);
    const top=E("div","vs6-zip-tile-top");
    top.append(E("span","vs6-zip-tile-number",String(i+1).padStart(2,"0")),E("strong","vs6-zip-tile-label",t.label));
@@ -423,6 +428,12 @@ function attachZIPVisual(section){
    const compare=E("small","vs6-zip-compare","Select a ZIP to compare");
    const detail=E("button","vs6-zip-detail","Explore this issue ↗");detail.type="button";
    detail.addEventListener("click",()=>{
+     if(t.key==="housing"){
+       const rentPanel=document.getElementById("pa-hud-safmr");
+       if(rentPanel&&!rentPanel.hidden)rentPanel.scrollIntoView({behavior:"smooth",block:"start"});
+       else document.getElementById("where")?.scrollIntoView({behavior:"smooth",block:"start"});
+       return;
+     }
      const open=section.querySelector(".vs6-expand");
      if(open?.getAttribute("aria-expanded")==="false")open.click();
      const choice=document.querySelector('#issueGrid button[data-topic="'+t.key+'"]');
@@ -430,19 +441,38 @@ function attachZIPVisual(section){
      const issue=document.getElementById("issueResult")||document.getElementById("what");
      issue?.scrollIntoView({behavior:"smooth",block:"start"});
    });
-   tile.append(top,local,title,chart,compare,detail);
+   const bedrooms=t.key==="housing"?E("div","vs6-zip-bedroom-list"):null;
+   if(bedrooms){
+     bedrooms.setAttribute("aria-label","HUD monthly rent benchmarks by unit size");
+     local.hidden=true;
+     chart.hidden=true;
+     detail.textContent="View full rent chart and methodology ↗";
+     compare.textContent="Enter ZIP for HUD 0–4 bedroom figures. These are not current listings.";
+   }
+   tile.append(top,local,title);
+   if(bedrooms)tile.append(bedrooms);
+   tile.append(chart,compare,detail);
    grid.append(tile);
-   nodes.set(t.key,{local,compare,chart,ownFill,usFill});
+   nodes.set(t.key,{local,compare,chart,ownFill,usFill,bedrooms});
  });
  function paint(event){
    const d=event?.detail;if(!d||!/^\d{5}$/.test(d.zip||""))return;
    place.textContent=d.place+" · "+d.zip;
-   note.textContent=(d.status==="loading"?"Finding Census ZIP-area estimates…":
-     d.status==="ready"?"Census ACS 2020–2024 · ZCTA statistical area, not a precise ZIP boundary":
+   note.textContent=(d.status==="loading"?"Finding historical Census and HUD ZIP-area figures…":
+     d.status==="ready"?"Census ACS 2020–2024 (household indicators) · HUD FY2026 (bedroom rents) · statistical ZIP areas":
      "Local estimates unavailable · original sources remain accessible");
+   currentZip=d.zip;
    const metrics=new Map((d.metrics||[]).map(m=>[m.key,m]));
    for(const t of topics){
      const els=nodes.get(t.key),m=metrics.get(t.key);
+     if(t.key==="housing"){
+       els.bedrooms.replaceChildren();
+       els.chart.hidden=true;
+       els.local.hidden=true;
+       els.compare.textContent=d.status==="loading"?"Checking the HUD FY2026 source…":
+         "Loading HUD 0–4 bedroom figures. Current asking rents are not verified.";
+       continue;
+     }
      const have=Number.isFinite(m?.localValue)&&m?.localText;
      const hasUs=have&&Number.isFinite(m.usValue)&&m.usText;
      els.local.textContent=have?m.localText:d.status==="loading"?"…":"Unavailable";
@@ -464,6 +494,38 @@ function attachZIPVisual(section){
    }
  }
  window.addEventListener("poweratlas:zip-visual-context",paint);
+ window.addEventListener("poweratlas:hud-benchmarks-ready",(event)=>{
+   const d=event?.detail;
+   if(!d||d.zip!==currentZip)return;
+   const els=nodes.get("housing");
+   if(!els?.bedrooms)return;
+   els.bedrooms.replaceChildren();
+   els.chart.hidden=true;
+   const records=Array.isArray(d.records)?d.records.filter(r=>r.zip===d.zip):[];
+   if(d.status!=="ready"||!records.length){
+     els.compare.textContent="HUD bedroom figures are unavailable for this ZIP. No estimate substituted.";
+     return;
+   }
+   if(records.length!==1){
+     els.compare.textContent="Multiple HUD metro areas overlap this ZIP. View each separately in the full rent chart; no artificial single estimate.";
+     return;
+   }
+   const record=records[0];
+   const sizes=[["Studio","0"],["1 BR","1"],["2 BR","2"],["3 BR","3"],["4 BR","4"]];
+   for(const [label,key] of sizes){
+     const price=record.usdByBedroom?.[key];
+     if(!Number.isFinite(price)||price<=0)continue;
+     const entry=E("div","vs6-zip-bedroom-cell");
+     entry.append(E("small","vs6-zip-bedroom-name",label),
+       E("strong","vs6-zip-bedroom-price","$"+Math.round(price).toLocaleString("en-US")));
+     els.bedrooms.append(entry);
+   }
+   els.compare.replaceChildren(
+     E("span",null,"HUD FY2026 · "+record.hudArea+" · voucher benchmark, not a listing price."));
+   const link=E("a",null,"HUD source ↗");
+   link.href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html";
+   link.target="_blank";link.rel="noopener noreferrer";els.compare.append(link);
+ });
 }
 
 function topic(){if(documentPath==="corporate-ownership.html")return;
