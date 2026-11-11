@@ -48,7 +48,8 @@ class MarketRentAccuracyTests(unittest.TestCase):
     def test_no_unlicensed_guesses_or_previous_false_substitution(self):
         c=self.client
         self.assertIn('const SUPPORTED="07010"',c)
-        self.assertIn('if(zip!==SUPPORTED){emit(zip,"unavailable");return;}',c)
+        self.assertIn('if(zip!==SUPPORTED){',c)
+        self.assertIn('Promise.resolve().then(()=>{if(run===serial)emit(zip,"unavailable");})',c)
         self.assertIn('m.geography.zipSpecific!==false',c)
         self.assertIn('Market snapshot is stale',c)
         self.assertIn('poweratlas:market-rent-ready',c)
