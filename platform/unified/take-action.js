@@ -48,6 +48,7 @@ function buildMessage(){
  const limited=msg.slice(0,500);
  $("message-preview").value=limited;
  $("message-count").textContent=limited.length+" / 500 characters";
+ $("brief-preview").value=makeBrief();
  const dest=$("write-member");
  dest.href=selected?contactFor(selected):officeFallback;
  dest.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website to contact ↗"):"Find an official contact form ↗";
@@ -70,9 +71,17 @@ function makeBrief(){
   "My follow-up plan: verify the underlying sources; contact the office; request a staff meeting where appropriate; record the reply and check any cited legislation or votes.\n"+
   "This is a starting brief, not evidence that an office received or agreed to a request.";
 }
-async function copyValue(value,button,label){
- try{await navigator.clipboard.writeText(value);button.textContent="Copied ✓";setTimeout(()=>button.textContent=label,1600);}
- catch{button.textContent="Copy manually";const preview=$("message-preview");preview.focus();preview.select();}
+async function copyValue(value,button,label,previewId){
+ try{
+  await navigator.clipboard.writeText(value);
+  button.textContent="Copied ✓";
+  setTimeout(()=>button.textContent=label,1600);
+ }catch{
+  const preview=$(previewId);
+  const disclosure=preview.closest("details");if(disclosure)disclosure.open=true;
+  preview.focus();preview.select();
+  button.textContent="Select text & copy";
+ }
 }
 function setRecipient(m){
  selected=m;recipients.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.member===m.bioguide_id)));
@@ -240,8 +249,8 @@ document.querySelectorAll("#question-options button").forEach(button=>button.add
  document.querySelectorAll("#question-options button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
  buildMessage();
 }));
-$("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message"));
-$("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief"));
+$("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message","message-preview"));
+$("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief","brief-preview"));
 const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();
