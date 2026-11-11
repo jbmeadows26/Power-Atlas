@@ -1,0 +1,66 @@
+"""Source and visual integrity checks for the Wealth Advantage comparison."""
+from pathlib import Path
+import re
+import shutil
+import subprocess
+import unittest
+from html.parser import HTMLParser
+
+ROOT = Path(__file__).resolve().parents[1]
+SITES = [ROOT / "platform/unified", ROOT / "site"]
+
+class ScriptParser(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.in_script = False
+        self.inline = []
+    def handle_starttag(self, tag, attrs):
+        if tag == "script":
+            self.in_script = not dict(attrs).get("src")
+    def handle_endtag(self, tag):
+        if tag == "script":
+            self.in_script = False
+    def handle_data(self, data):
+        if self.in_script and data.strip():
+            self.inline.append(data)
+
+class WealthAdvantageTests(unittest.TestCase):
+    def test_pages_identical_and_linked(self):
+        a, b = [(site / "wealth-advantage.html").read_text() for site in SITES]
+        self.assertEqual(a, b)
+        self.assertEqual(a.count('name:"'), 10)
+        for site in SITES:
+            self.assertIn("wealth-advantage.html", (site / "visual-story-v6.js").read_text())
+            self.assertIn('href="wealth-advantage.html"', (site / "consumer-practices.html").read_text())
+        self.assertEqual((SITES[0]/"visual-story-v6.js").read_bytes(),
+                         (SITES[1]/"visual-story-v6.js").read_bytes())
+
+    def test_all_comparisons_have_three_profiles_and_primary_sources(self):
+        page = (SITES[0] / "wealth-advantage.html").read_text()
+        self.assertIn('Ordinary household', page)
+        self.assertIn('Small business owner', page)
+        self.assertIn('High-wealth owner', page)
+        self.assertIn('data-filter="all"', page)
+        self.assertIn('aria-pressed="true"', page)
+        self.assertIn('aria-expanded', page)
+        self.assertGreaterEqual(page.count("https://www.irs.gov/"), 20)
+        for name in ("private jet", "car you need", "operating expenses", "20% pass-through",
+                     "Paycheck income", "investment property", "Sell a home", "Passing appreciated",
+                     "Retirement", "borrowed money"):
+            self.assertIn(name.lower(), page.lower())
+        self.assertIn("does <strong>not</strong> prove", page)
+        self.assertIn("$20,300", page)
+        self.assertIn("hypothetical", page)
+
+    @unittest.skipUnless(shutil.which("node"), "Node unavailable")
+    def test_inline_js_parses(self):
+        page = (SITES[0] / "wealth-advantage.html").read_text()
+        parser = ScriptParser()
+        parser.feed(page)
+        self.assertEqual(len(parser.inline), 1)
+        result = subprocess.run(["node", "--check", "-"], input=parser.inline[0],
+                                text=True, capture_output=True, timeout=20)
+        self.assertEqual(result.returncode, 0, result.stderr)
+
+if __name__ == "__main__":
+    unittest.main()
