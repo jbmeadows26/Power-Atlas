@@ -320,3 +320,7 @@ details[data-pa-context-nav] nav{display:flex;gap:8px;flex-wrap:wrap;padding:0 1
 details[data-pa-context-nav] nav a{min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:8px 12px;background:#fff;border:1px solid #cbdfd5;border-radius:11px;color:#185f55;text-decoration:none;font-weight:750;font-size:.79rem}
 details[data-pa-context-nav] nav a:hover,details[data-pa-context-nav] nav a:focus-visible{background:#e2f2e9;border-color:#3d9d88}
 @media(max-width:520px){details[data-pa-context-nav]{border-radius:12px}details[data-pa-context-nav] nav a{width:100%;justify-content:flex-start}}
+
+/* Money Scale keeps its original non-JS introduction but never stacks two V6 heroes. */
+html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-ribbon,
+html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-hero{display:none!important}
