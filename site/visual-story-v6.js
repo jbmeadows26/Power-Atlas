@@ -265,6 +265,99 @@ const topicCopy={
  "reform-lab.html":["How can rules change?","See choices and trade-offs, not slogans."],
  "source-audit.html":["What's proven?","Know what is measured, documented, alleged or missing."]
 };
+
+/* Location-aware source chart: one user ZIP, four different Census ZCTA measures.
+   Values arrive via the validated existing Census definitions in my-life.html.
+   Indicators are NOT local retail prices, insurance premiums, fares or tax claims. */
+function attachZIPVisual(section){
+ if(documentPath!=="my-life.html")return;
+ const art=section.querySelector(":scope > .vs6-art");
+ if(!art||art.querySelector(".vs6-zip-live"))return;
+ art.classList.add("vs6-zip-chart");
+ const host=E("div","vs6-zip-live");
+ const heading=E("div","vs6-zip-heading");
+ const kicker=E("span","vs6-zip-kicker","YOUR LOCAL PICTURE");
+ const place=E("strong","vs6-zip-place","Enter a ZIP to see your area");
+ const note=E("small","vs6-zip-period","2020–2024 Census ZCTA survey · not a live price feed");
+ heading.append(kicker,place,note);
+ const grid=E("div","vs6-zip-grid");
+ const foot=E("div","vs6-zip-footer");
+ foot.append(E("span",null,"Local indicators describe residents—not transit fares, grocery prices, insurance premiums, or why costs change."));
+ const link=E("a","vs6-zip-method","How these figures are sourced ↗");
+ link.href="https://www.census.gov/data/developers/data-sets/acs-5year.html";
+ link.target="_blank";link.rel="noopener noreferrer";foot.append(link);
+ host.append(heading,grid,foot);
+ art.replaceChildren(host);
+ const topics=[
+   {key:"housing",label:"RENT",desc:"Median gross rent",color:"#39d4b0"},
+   {key:"transport",label:"TRANSPORT",desc:"Commuters using transit",color:"#ff9d77"},
+   {key:"groceries",label:"FOOD",desc:"Households on SNAP",color:"#ae98fd"},
+   {key:"health",label:"HEALTH",desc:"Residents uninsured",color:"#ffce70"}
+ ];
+ const nodes=new Map();
+ topics.forEach((t,i)=>{
+   const tile=E("div","vs6-zip-tile");
+   tile.style.setProperty("--zip-accent",t.color);
+   const top=E("div","vs6-zip-tile-top");
+   top.append(E("span","vs6-zip-tile-number",String(i+1).padStart(2,"0")),E("strong","vs6-zip-tile-label",t.label));
+   const local=E("strong","vs6-zip-tile-value","—");
+   const title=E("span","vs6-zip-tile-title",t.desc);
+   const chart=E("div","vs6-zip-comparison");
+   const own=E("div","vs6-zip-comparison-row");
+   const ownLabel=E("span",null,"ZIP area");
+   const ownTrack=E("span","vs6-zip-track");const ownFill=E("span","vs6-zip-fill");
+   ownTrack.append(ownFill);own.append(ownLabel,ownTrack);
+   const us=E("div","vs6-zip-comparison-row");
+   const usLabel=E("span",null,"U.S.");
+   const usTrack=E("span","vs6-zip-track");const usFill=E("span","vs6-zip-fill vs6-zip-fill--us");
+   usTrack.append(usFill);us.append(usLabel,usTrack);
+   chart.append(own,us);
+   const compare=E("small","vs6-zip-compare","Select a ZIP to compare");
+   const detail=E("button","vs6-zip-detail","Explore this issue ↗");detail.type="button";
+   detail.addEventListener("click",()=>{
+     const open=section.querySelector(".vs6-expand");
+     if(open?.getAttribute("aria-expanded")==="false")open.click();
+     const choice=document.querySelector('#issueGrid button[data-topic="'+t.key+'"]');
+     if(choice)choice.click();
+     const issue=document.getElementById("issueResult")||document.getElementById("what");
+     issue?.scrollIntoView({behavior:"smooth",block:"start"});
+   });
+   tile.append(top,local,title,chart,compare,detail);
+   grid.append(tile);
+   nodes.set(t.key,{local,compare,chart,ownFill,usFill});
+ });
+ function paint(event){
+   const d=event?.detail;if(!d||!/^\d{5}$/.test(d.zip||""))return;
+   place.textContent=d.place+" · "+d.zip;
+   note.textContent=(d.status==="loading"?"Finding Census ZIP-area estimates…":
+     d.status==="ready"?"Census ACS 2020–2024 · ZCTA statistical area, not a precise ZIP boundary":
+     "Local estimates unavailable · original sources remain accessible");
+   const metrics=new Map((d.metrics||[]).map(m=>[m.key,m]));
+   for(const t of topics){
+     const els=nodes.get(t.key),m=metrics.get(t.key);
+     const have=Number.isFinite(m?.localValue)&&m?.localText;
+     const hasUs=have&&Number.isFinite(m.usValue)&&m.usText;
+     els.local.textContent=have?m.localText:d.status==="loading"?"…":"Unavailable";
+     els.local.classList.toggle("vs6-zip-tile-value--unavailable",!have);
+     els.chart.hidden=!have;
+     if(have){
+       const scale=Math.max(m.localValue,hasUs?m.usValue:0,0.01);
+       els.ownFill.style.width=(100*m.localValue/scale).toFixed(1)+"%";
+       els.usFill.style.width=hasUs?(100*m.usValue/scale).toFixed(1)+"%":"0%";
+       els.ownFill.setAttribute("aria-label","ZIP-area "+m.localText);
+       els.usFill.setAttribute("aria-label",hasUs?"US "+m.usText:"US comparison unavailable");
+       els.chart.querySelectorAll(".vs6-zip-comparison-row")[1].hidden=!hasUs;
+       els.compare.replaceChildren(E("span",null,hasUs?"US: "+m.usText+" · same survey":"ZCTA estimate · U.S. comparison unavailable"));
+       if(m.source&&/^https:\/\//.test(m.source)){const a=E("a",null,"Source ↗");a.href=m.source;a.target="_blank";a.rel="noopener noreferrer";els.compare.append(a);}
+     }else{
+       els.compare.textContent=d.status==="loading"?"Retrieving verified figures…":
+         "This measure was not returned. No estimate inferred.";
+     }
+   }
+ }
+ window.addEventListener("poweratlas:zip-visual-context",paint);
+}
+
 function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="index.html")return;
  const main=document.querySelector("main");if(!main||document.querySelector(".vs6-topic"))return;
@@ -293,6 +386,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  former.classList.add("vs6-superseded");
  main.prepend(section);
  document.body.classList.add("vs6-topic-mode");
+ attachZIPVisual(section);
  if(documentPath==="my-life.html"){
   const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter your ZIP ↓");label.href="#where";section.append(label);}
  }
