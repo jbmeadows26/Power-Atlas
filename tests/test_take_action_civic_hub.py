@@ -58,6 +58,18 @@ class CivicActionTests(unittest.TestCase):
         self.assertIn('Copy my issue brief', SCRIPT)
         self.assertIn('This is a starting brief, not evidence that an office received', SCRIPT)
         self.assertIn('.ta-lobby-track', CSS)
+        self.assertIn('data-question-jump="meeting"', PAGE)
+        self.assertIn('data-question-jump="action"', PAGE)
+        self.assertIn('document.querySelectorAll("[data-question-jump]")', SCRIPT)
+        self.assertIn('button.click()', SCRIPT)
+        self.assertIn('href="atlas-visual-system.css"', PAGE)
+        self.assertIn('href="visual-story-v6.css"', PAGE)
+        self.assertIn('src="atlas-visual-system.js"', PAGE)
+        self.assertIn('src="visual-story-v6.js"', PAGE)
+        self.assertIn('var(--vs6-cream,#faf6ed)', CSS)
+        self.assertIn('var(--vs6-night,#102d3d)', CSS)
+        self.assertIn('color:#148c7e', CSS)
+
         self.assertIn('.ta-brief-disclosure', CSS)
         self.assertNotIn('type="file"', PAGE)
 
