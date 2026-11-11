@@ -3,7 +3,7 @@
 <meta name="description" content="Compare the 2026 US tax rules available to an ordinary household, a small business owner, and a wealthy asset owner—across vehicles, aircraft, investments, real estate and inheritance.">
 <title>The Wealth Advantage | Power Atlas</title>
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="visual-story-v6.css">
+<link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="atlas-visual-system.css"><link rel="stylesheet" href="visual-story-v6.css">
 <style>
 /* Isolated page-level visual system; does not override global navigation. */
 .wa{--wa-ink:#17353d;--wa-teal:#168d7b;--wa-cream:#f9f7f1;--wa-muted:#53696e;--wa-line:#d7e4dc;background:var(--wa-cream);font-family:Inter,"Avenir Next",system-ui,sans-serif;color:var(--wa-ink);min-height:100vh;overflow-x:clip}
@@ -19,15 +19,15 @@
 </style></head>
 <body data-pa-page="wealth-advantage">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner">
-<a class="pa-global-brand" href="my-life.html#where" aria-label="Power Atlas — Start Here">◇ POWER <span>ATLAS</span></a>
-<nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where">Start Here</a><a href="my-life.html#what">Issues</a><a href="my-life.html#benchmarkStory">Costs</a><a href="my-life.html#why">The Why</a><a href="my-life.html#how">Actions</a><a href="index.html" aria-current="page">Research</a></nav>
+<a class="pa-global-brand" href="https://power-atlas-unified.vercel.app/my-life.html#where" aria-label="Power Atlas — Start Here">◇ POWER <span>ATLAS</span></a>
+<nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="https://power-atlas-unified.vercel.app/my-life.html#where">Start Here</a><a href="https://power-atlas-unified.vercel.app/my-life.html#what">Issues</a><a href="https://power-atlas-unified.vercel.app/my-life.html#benchmarkStory">Costs</a><a href="https://power-atlas-unified.vercel.app/my-life.html#why">The Why</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Actions</a><a href="index.html" aria-current="page">Research</a></nav>
 </div></div>
 <main class="wa">
 <section class="wa-hero"><div class="wa-wrap"><div class="wa-eyebrow">POWER ATLAS / TAX ADVANTAGE INVESTIGATION / 2026</div>
 <h1>Same tax system.<br><em>Different playbook.</em></h1>
 <p>When a household buys a car, the purchase generally comes from after-tax income. When a business buys qualifying equipment, it may deduct the business-use cost. Wealthier owners can deploy those same rules at a scale most households cannot.</p>
 <div class="wa-pills"><span>10 side-by-side investigations</span><span>3 taxpayer profiles</span><span>Official IRS rules</span></div>
-<div class="wa-actions"><a href="#comparisons" class="wa-primary">Compare every advantage ↓</a><a class="wa-secondary" href="my-life.html#how">Explore civic action ↗</a></div>
+<div class="wa-actions"><a href="#comparisons" class="wa-primary">Compare every advantage ↓</a><a class="wa-secondary" href="https://power-atlas-unified.vercel.app/take-action.html">Explore civic action ↗</a></div>
 <p class="wa-aside">Real legal distinctions, not accusations of tax fraud. A deduction reduces taxable income; it is not a cash rebate. Eligibility, income limits, business use and timing can change the outcome.</p></div></section>
 <div class="wa-wrap">
 <div class="wa-figures" aria-label="Illustrative 2026 first-year depreciation comparisons">
@@ -40,7 +40,7 @@
 <button type="button" class="wa-filter" aria-pressed="false" data-filter="vehicles">Vehicles & travel</button>
 <button type="button" class="wa-filter" aria-pressed="false" data-filter="business">Business income</button>
 <button type="button" class="wa-filter" aria-pressed="false" data-filter="assets">Assets & investments</button>
-<button type="button" class="wa-filter" aria-pressed="false" data-filter="future">Wealth transfer</button>
+<button type="button" class="wa-filter" aria-pressed="false" data-filter="future">Inheritance & retirement</button>
 </div>
 <div class="wa-count" id="wa-count" aria-live="polite">10 comparisons · 2026 federal framework</div>
 <div id="wa-cases" class="wa-collection" aria-label="Federal tax treatment across three taxpayer profiles"></div>
@@ -49,7 +49,7 @@
 <div><strong>Deduction ≠ cash</strong><p>A $100,000 qualifying deduction at a 37% marginal federal rate can reduce tax by up to $37,000 if usable—not return $100,000 in cash.</p></div>
 <div><strong>Business use ≠ personal use</strong><p>Recordkeeping, business purpose, at-risk, passive-loss, basis and recapture rules can sharply reduce or disallow a claimed benefit.</p></div>
 <div><strong>Access ≠ exclusivity</strong><p>Small businesses, employees with investments, homeowners and heirs can qualify for many of these rules too. Wealth may make them easier to use at scale.</p></div></section>
-<nav class="wa-linkbar" aria-label="Related Power Atlas stories"><a href="consumer-practices.html">Consumer Watch ↗</a><a href="market-power.html">Market Power ↗</a><a href="money-scale.html">Money at scale ↗</a><a href="my-life.html#how">Take action ↗</a></nav>
+<nav class="wa-linkbar" aria-label="Related Power Atlas stories"><a href="consumer-practices.html">Consumer Watch ↗</a><a href="market-power.html">Market Power ↗</a><a href="money-scale.html">Money at scale ↗</a><a href="https://power-atlas-unified.vercel.app/take-action.html">Take action ↗</a></nav>
 <footer class="wa-foot">Power Atlas · Tax Advantage investigation · IRS primary-source review November 11, 2026 · Federal rules only; not individualized tax or legal advice. No estimate of actual taxpayer savings, tax expenditures or household burden is claimed from illustrative scenarios.</footer>
 </div></main>
 <script>
@@ -150,4 +150,4 @@ buttons.forEach(button=>button.addEventListener("click",()=>{const filter=button
  sections.forEach(card=>{const visible=filter==="all"||card.dataset.category===filter;card.hidden=!visible;if(visible)n++});
  count.textContent=n+" comparison"+(n===1?"":"s")+" · 2026 federal framework";
 }));
-</script><script src="visual-story-v6.js" defer></script><script src="bug-report.js" defer></script></body></html>
+</script><script src="visual-story-v6.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
