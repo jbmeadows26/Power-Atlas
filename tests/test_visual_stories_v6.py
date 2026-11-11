@@ -21,7 +21,7 @@ class VisualStoriesV6Tests(unittest.TestCase):
             js=(site/"visual-story-v6.js").read_text()
             css=(site/"visual-story-v6.css").read_text()
             loader=(site/"visual-first-v5.js").read_text()
-            for marker in ("vs6-metrics","vs6-owned","vs6-phone-viz","vs6-money-viz","vs6-market-viz",
+            for marker in ("vs6-metrics","vs6-owned","vs6-phone-viz","vs6-money-viz","vs6-market-proof",
                            "vs6-case-viz","vs6-wave","vs6-story","vs6-topic","vs6-research-button",
                            "vs6-expand","vs6-metric-label","Original data"):
                 with self.subTest(site=site.name,marker=marker):
