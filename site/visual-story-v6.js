@@ -106,7 +106,7 @@ function metricPanel(metrics){
 }
 const cardMeta=[
 {tag:"OWNERSHIP",heading:"Who owns what?",line:"Follow the company behind the brand.",kind:"ownership",theme:"dark"},
-{tag:"CONSUMER WATCH",heading:"The fine-print trap",line:"The offer isn't always the total.",kind:"consumer",theme:"peach"},
+{tag:"CONSUMER WATCH",heading:"The fine-print trap",line:"Shrinking packs, hidden fees, real costs.",kind:"consumer",theme:"peach"},
 {tag:"POLITICAL MONEY",heading:"Follow the cash",line:"See the trail—and where it ends.",kind:"money",theme:"lilac"},
 {tag:"MARKET POWER",heading:"When choice shrinks",line:"See who controls the market—and how it reaches you.",kind:"market",theme:"mint"},
 {tag:"CLASS ACTIONS",heading:"Sued isn't paid",line:"Case status matters more than headlines.",kind:"claims",theme:"dark"},
