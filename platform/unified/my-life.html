@@ -1130,6 +1130,72 @@ function schedulePrimaryNavSync(){
 window.addEventListener("scroll",schedulePrimaryNavSync,{passive:true});
 window.addEventListener("resize",schedulePrimaryNavSync);
 window.addEventListener("load",schedulePrimaryNavSync,{once:true});
+// The visual ZIP explainer and original issue research share a single validated
+// 2020–2024 ACS data definition. No postcode becomes a political or price inference.
+let paZIPVisualSequence=0;
+const paZIPVisualTopics=[
+ {key:"housing",label:"Typical gross rent"},
+ {key:"transport",label:"Transit commuting"},
+ {key:"groceries",label:"SNAP households"},
+ {key:"health",label:"Uninsured residents"}
+];
+function publishZIPVisual(detail){
+ window.dispatchEvent(new CustomEvent("poweratlas:zip-visual-context",{detail}));
+}
+async function updateZIPVisualSnapshot(zip,placeLabel){
+ const seq=++paZIPVisualSequence;
+ const base={zip,place:placeLabel||"ZIP "+zip,stateCode:selectedStateCode||null,
+   survey:"U.S. Census ACS 2020–2024 5-year",scope:"ZCTA (not a verified USPS delivery boundary)",
+   status:"loading",metrics:[]};
+ publishZIPVisual(base);
+ const provider=localMeasures?.provider;
+ if(!provider||!/^https:\/\/api\.censusreporter\.org\//.test(provider.api||"")||
+    provider.release!=="acs2024_5yr"){
+  if(seq===paZIPVisualSequence)publishZIPVisual({...base,status:"unavailable",reason:"Verified ACS table definitions are unavailable."});
+  return;
+ }
+ const defs=paZIPVisualTopics.map(({key,label})=>{
+  const m=localMeasures.issues?.[key]?.measures?.[0];
+  return {key,label,measure:m};
+ });
+ const tables=[...new Set(defs.map(x=>x.measure?.table).filter(Boolean))];
+ const geoid="86000US"+zip;
+ const prefix=provider.api+"?table_ids="+encodeURIComponent(tables.join(","));
+ const urls=[prefix+"&geo_ids="+encodeURIComponent(geoid+",01000US"),
+             prefix+"&geo_ids="+encodeURIComponent(geoid)];
+ try{
+  if(tables.length!==4)throw Error("Source measurement coverage is incomplete");
+  let response=null,requestURL=null;
+  for(const url of urls){
+   const r=await fetch(url,{cache:"no-store"});
+   if(r.ok){response=r;requestURL=url;break;}
+  }
+  if(!response)throw Error("Census request unavailable");
+  const json=await response.json();
+  if(json?.release?.id!==provider.release||!json.data?.[geoid])throw Error("Unverified ACS release or geography");
+  const area=json.data[geoid],us=json.data["01000US"];
+  const metrics=defs.map(({key,label,measure:m})=>{
+   const val=json.tables?.[m.table]?evaluateMeasure(m,area[m.table]?.estimate):null;
+   const usVal=us&&json.tables?.[m.table]&&val!==null&&canCompareGeographies(m)?
+     evaluateMeasure(m,us[m.table]?.estimate):null;
+   return {key,label,localValue:val,usValue:usVal,format:m.format,
+     localText:val===null?null:formatMeasure(m,val),
+     usText:usVal===null?null:formatMeasure(m,usVal),
+     source:m.originalTable,definition:m.why,limits:m.limits};
+  });
+  if(seq===paZIPVisualSequence)publishZIPVisual({...base,status:"ready",
+    apiSource:requestURL,metrics});
+ }catch(err){
+  if(seq===paZIPVisualSequence)publishZIPVisual({...base,status:"unavailable",
+    reason:"Census ZIP-area measures could not be loaded. No estimates have been invented.",
+    metrics:defs.map(({key,label,measure:m})=>({
+      key,label,localValue:null,usValue:null,localText:null,usText:null,
+      format:m?.format||null,source:m?.originalTable||provider.original,
+      definition:m?.why||"",limits:m?.limits||""
+    }))});
+ }
+}
+
 async function lookUpZIP(zip){
  const out=$("placeStatus"),name=$("placeName");
  name.textContent="ZIP "+zip;out.textContent="Checking the postal-place label…";
@@ -1144,11 +1210,13 @@ async function lookUpZIP(zip){
   selectedStateName=first.state;
   selectedStateCode=electionAuthorities?.records?.find(x=>x.stateName?.toLowerCase()===first.state.toLowerCase())?.state||(/^[A-Z]{2}$/.test(first["state abbreviation"]||"")?first["state abbreviation"]:null);
   name.textContent=first["place name"]+", "+first.state;
+  updateZIPVisualSnapshot(zip,name.textContent);
   renderMeasuredSnapshot();renderVerifiedLinks();renderCivicRecordLinks();
   out.textContent="Postal ZIP "+zip+" identified. This is a third-party approximate place label, not a verified boundary for elections, utilities, taxes or school districts. Research below remains issue-specific until local records are joined.";
   $("step2Place").textContent="Exploring ZIP "+zip+" · "+first["place name"]+", "+first.state+" (approximate postal area). Select an issue below.";
   renderLocalMeasures();await loadLocalMeasures(zip,selected);
- }catch(e){activeZIP=zip;selectedStateCode=null;selectedStateName=null;renderMeasuredSnapshot();renderVerifiedLinks();name.textContent="Postal ZIP "+zip+" (place label unavailable)";out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";$("step2Place").textContent="Exploring ZIP "+zip+" · Exact postal place unavailable. Census ZIP-area estimates may still be provided.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
+ }catch(e){activeZIP=zip;selectedStateCode=null;selectedStateName=null;renderMeasuredSnapshot();renderVerifiedLinks();name.textContent="Postal ZIP "+zip+" (place label unavailable)";
+  updateZIPVisualSnapshot(zip,name.textContent);out.textContent="Postal place lookup unavailable. The Census ZCTA with the same digits may still have statistical estimates, but no city, district or exact boundary has been inferred.";$("step2Place").textContent="Exploring ZIP "+zip+" · Exact postal place unavailable. Census ZIP-area estimates may still be provided.";renderLocalMeasures();await loadLocalMeasures(zip,selected);}
 }
 $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
