@@ -116,6 +116,7 @@ class ProductionVisualAtlasTests(unittest.TestCase):
                 self.assertIn('market-power-household.js',html)
                 theme=(folder/"market-power-pathways.css").read_text(encoding="utf-8")
                 self.assertIn('background:var(--vs6-cream,#faf6ed)',theme)
+                self.assertNotIn("#ddf1e5",theme)
                 self.assertNotIn('body[data-pa-page="market-power"] > header',theme)
         unified=(UNIFIED/"market-power.html").read_text(encoding="utf-8")
         self.assertIn('data-pa-nav="research" aria-current="page"',unified)
