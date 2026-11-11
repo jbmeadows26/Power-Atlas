@@ -81,7 +81,7 @@ class CorporateOwnershipIntegrationTests(unittest.TestCase):
         page=PAGE.read_text(encoding="utf-8")
         life=LIFE.read_text(encoding="utf-8")
         for marker in ('id="ownership-network"','id="networkOwners"','id="networkSearch"',
-                       "renderOwnershipNetwork()","function ownershipPaths(","Evidence dated:",
+                       "renderOwnershipNetwork()","function ownershipPaths(","Dated evidence:",
                        "Original source ("):
             self.assertIn(marker,page)
         self.assertIn('slice(0,6)',life)
