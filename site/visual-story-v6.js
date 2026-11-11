@@ -421,7 +421,7 @@ function compactNav(){
      ["issues","Issues","my-life.html#what"],
      ["costs","Costs","my-life.html#benchmarkStory"],
      ["why","The Why","my-life.html#why"],
-     ["action","Actions","my-life.html#how"],
+     ["action","Actions","take-action.html"],
      ["research","Research","index.html"]
    ].forEach(([key,title,path])=>{
      const a=E("a",null,title);
