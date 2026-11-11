@@ -18,7 +18,7 @@ position:"What is your position on this issue, and what public evidence or legis
 action:"What steps has your office taken on this issue, and where can I verify that record?",
 oversight:"What oversight or public review is underway, and how can constituents follow its progress?"
 };
-let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0;
+let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0,ambiguous=false;
 const officeFallback="https://www.congress.gov/members/find-your-member";
 const switchboard="tel:+12022243121";
 const status=$("lookup-status"),result=$("member-results"),recipients=$("recipient-options");
@@ -43,13 +43,13 @@ function buildMessage(){
  const topic=issueData[currentIssue];
  const salutation=selected?("Dear "+(selected.chamber==="senate"?"Senator ":"Representative ")+(selected.last_name||displayName(selected).split(" ").slice(-1)[0])+","):"Dear Member of Congress,";
  const location=zip?"I live in ZIP code "+zip+". ":"";
- const msg="Subject: Constituent question about "+topic.label+"\n\n"+salutation+"\n\n"+location+"I am contacting your office about "+topic.label+". "+questions[currentQuestion]+"\n\nThank you for your time.";
+ const msg="Subject: Question about "+topic.label+"\n\n"+salutation+"\n\n"+location+"I am contacting your office about "+topic.label+". "+questions[currentQuestion]+"\n\nThank you for your time.";
  const limited=msg.slice(0,500);
  $("message-preview").value=limited;
  $("message-count").textContent=limited.length+" / 500 characters";
  const dest=$("write-member");
  dest.href=selected?contactFor(selected):officeFallback;
- dest.textContent=selected?("Open "+(selected.chamber==="senate"?"senator":"representative")+"’s official contact page ↗"):"Find an official contact form ↗";
+ dest.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website to contact ↗"):"Find an official contact form ↗";
  const phone=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?selected.phone:"(202) 224-3121";
  $("call-member").href=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?"tel:"+selected.phone.replace(/[^+0-9]/g,""):switchboard;
  $("call-member").textContent=selected&&phone!=="(202) 224-3121"?"Call "+displayName(selected)+"’s office · "+phone:"Call U.S. Capitol switchboard · (202) 224-3121";
@@ -61,7 +61,7 @@ function setRecipient(m){
 function renderMembers(){
  result.replaceChildren();recipients.replaceChildren();selected=null;
  if(members.length===0){const p=make("p","ta-empty","Member data is not available. Use the official congressional finder above to locate your offices.");result.append(p);recipients.append(make("p",null,"Use the official directory above, then copy a prepared message."));buildMessage();return;}
- const house=members.filter(m=>m.chamber==="house"),multi=house.length>1;
+ const house=members.filter(m=>m.chamber==="house"),multi=ambiguous||house.length>1;
  $("ambiguous-notice").hidden=!multi;
  for(const m of members){
   const card=make("article","ta-member");
@@ -69,7 +69,7 @@ function renderMembers(){
   card.append(make("h3",null,displayName(m)));
   const sub=make("p","ta-member-meta",m.chamber==="house"?(multi?"One of "+house.length+" House members for this ZIP. Verify your address with House.gov.":"Matching House district from public directory."):"Senator for "+(m.state||"your state"));
   card.append(sub);
-  card.append(link("Official contact ↗",contactFor(m)));
+  card.append(link(m.contact?"Official contact form ↗":m.website?"Official member website ↗":"Official finder ↗",contactFor(m)));
   if(m.chamber==="house")card.append(link("Verify district on House.gov ↗",houseLookup(zip)));
   if(m.phone)card.append(link("Call office ↗","tel:"+String(m.phone).replace(/[^+0-9]/g,"")));
   result.append(card);
@@ -80,59 +80,40 @@ function renderMembers(){
  const info=make("p","ta-small","Choose the member whose office you intend to contact. Power Atlas never sends the message for you.");
  recipients.append(info);buildMessage();
 }
-function normalize(raw,chamber,state){
- if(!raw||typeof raw!=="object"||!/^[A-Z][0-9]{6}$/.test(raw.bioguide_id||"")||!raw.name)return null;
- return{bioguide_id:raw.bioguide_id,name:String(raw.name),natural_name:String(raw.natural_name||"").slice(0,100),chamber,state,contact:null,website:null,phone:null,last_name:null};
-}
-function getRosterMember(p){
- if(!p||!Array.isArray(p.terms))return null;
- const now=new Date().toISOString().slice(0,10);
- return p.terms.find(t=>t&&t.start<=now&&t.end>now&&/^(rep|sen)$/.test(t.type));
-}
-async function enrichContacts(serial){
- // Legislator records are an optional public convenience source; official directories remain definitive.
- try{
-  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),7500);
-  let response;
-  try{response=await fetch("https://unitedstates.github.io/congress-legislators/legislators-current.json",{signal:controller.signal})}finally{clearTimeout(timeout)}
-  if(!response.ok)throw Error("Roster temporarily unavailable");
-  const people=await response.json();
-  if(serial!==lookupSerial||!Array.isArray(people))return;
-  const byId=new Map(people.map(p=>[p.id?.bioguide,p]));
-  for(const m of members){
-   const p=byId.get(m.bioguide_id),term=getRosterMember(p);
-   if(!term||((m.chamber==="house"&&term.type!=="rep")||(m.chamber==="senate"&&term.type!=="sen")))continue;
-   m.contact=isHttps(term.contact_form,true);
-   m.website=isHttps(term.url,true);
-   m.phone=term.phone||null;
-   m.last_name=p.name?.last||null;
-  }
-  renderMembers();
- }catch{/* Keep House ZIP and Senate state official lookup links intact. */}
+function normalize(raw){
+ if(!raw||typeof raw!=="object"||!["sen","rep"].includes(raw.type))return null;
+ const first=String(raw.first_name||"").trim(),last=String(raw.last_name||"").trim(),name=(first+" "+last).trim();
+ const id=String(raw.bioguide_id||""),state=String(raw.state||"").toUpperCase();
+ if(!name||!/^([A-Z][0-9]{6})$/.test(id)||!(/^[A-Z]{2}$/.test(state)))return null;
+ return {bioguide_id:id,name:last+", "+first,natural_name:name,chamber:raw.type==="sen"?"senate":"house",
+  state,district:Number.isInteger(raw.district)?raw.district:null,contact:isHttps(raw.contact_form,true),
+  website:isHttps(raw.url,true),phone:String(raw.phone||"").slice(0,28),last_name:last};
 }
 async function locate(zipCode){
- const serial=++lookupSerial;zip=zipCode;status.textContent="Looking up current congressional offices for ZIP "+zip+"…";result.replaceChildren();$("ambiguous-notice").hidden=true;
+ const serial=++lookupSerial;zip=zipCode;status.textContent="Finding current congressional offices for ZIP "+zip+"…";
+ result.replaceChildren();$("ambiguous-notice").hidden=true;
  const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),9000);
  try{
-  let response;try{response=await fetch("https://openamerica.io/api/zip-lookup/"+encodeURIComponent(zip)+"/",{signal:controller.signal,cache:"no-store"})}finally{clearTimeout(timeout)}
+  let response;try{response=await fetch("https://repscontact.com/api/reps?zip="+encodeURIComponent(zip),{signal:controller.signal,mode:"cors",credentials:"omit",cache:"no-store"});}
+  finally{clearTimeout(timeout)}
   if(!response.ok)throw Error("Lookup unavailable");
   const data=await response.json();
   if(serial!==lookupSerial)return;
-  if(data.ok!==true||data.zip!==zip||!Array.isArray(data.representatives)||!Array.isArray(data.senators))throw Error("Incomplete lookup");
-  const state=String(data.state||"").toUpperCase();
-  const house=(data.representatives||[]).map(p=>normalize(p,"house",state)).filter(Boolean);
-  const senate=(data.senators||[]).map(p=>normalize(p,"senate",state)).filter(Boolean);
-  members=[...house,...senate].filter((m,i,a)=>a.findIndex(x=>x.bioguide_id===m.bioguide_id)===i);
-  if(!members.length)throw Error("No current members returned");
-  status.textContent=house.length>1?"We found "+house.length+" possible House districts and "+senate.length+" senators. Confirm your House district before sending.":"We found "+house.length+" House representative and "+senate.length+" senators. Check official links before sending.";
+  if(data.zip!==zip||!Array.isArray(data.representatives))throw Error("Unexpected directory response");
+  members=data.representatives.map(normalize).filter(Boolean);
+  if(!members.length||members.length>15)throw Error("No valid members");
+  members=[...new Map(members.map(m=>[m.bioguide_id,m])).values()];
+  members.sort((a,b)=>a.chamber===b.chamber?a.natural_name.localeCompare(b.natural_name):a.chamber==="senate"?-1:1);
+  const house=members.filter(m=>m.chamber==="house");
+  ambiguous=data.ambiguous===true||house.length>1;
+  status.textContent=members.length+" current member"+(members.length===1?"":"s")+" found via independent directory (RepsContact). "+(ambiguous?"Your ZIP spans House districts; confirm the correct district through the official finder.":"Please verify with Congress.gov before contacting.");
   renderMembers();
-  enrichContacts(serial);
  }catch(e){
   if(serial!==lookupSerial)return;
-  clearTimeout(timeout);members=[];renderMembers();
-  status.textContent="Live lookup could not confirm member identities. Use these government sources instead—no guessed results are shown.";
+  members=[];ambiguous=false;renderMembers();
+  status.textContent="Live member lookup is unavailable. Use official Congress.gov or House.gov directories; we do not guess member names.";
   const fallback=make("div","ta-fallback");
-  fallback.append(link("Find my House member (ZIP prefilled) ↗",houseLookup(zip)));
+  fallback.append(link("Find my House member on House.gov ↗","https://www.house.gov/representatives/find-your-representative"));
   fallback.append(link("Find my members on Congress.gov ↗",officeFallback));
   result.append(fallback);
  }
@@ -160,5 +141,6 @@ $("copy-message").addEventListener("click",async()=>{
  try{await navigator.clipboard.writeText(text);$("copy-message").textContent="Copied ✓";setTimeout(()=>$("copy-message").textContent="Copy message",1600);}
  catch{const t=$("message-preview");t.focus();t.select();$("copy-message").textContent="Select text & copy";}
 });
+const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();
