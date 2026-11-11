@@ -375,7 +375,10 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  const fallback=[desc(former.querySelector("h2")?.textContent)||"Explore the evidence.",desc(former.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
- section.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
+ const isPlaceStory=documentPath==="my-life.html";
+ const intro=isPlaceStory?E("div","vs6-intro"):section;
+ intro.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
+ if(isPlaceStory){section.classList.add("vs6-topic-cover");section.append(intro);}
  if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}else{const art=visual(kind);section.append(art);}
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
@@ -390,13 +393,13 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
      if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
- section.append(cta);
+ if(isPlaceStory)intro.append(cta);else section.append(cta);
  former.classList.add("vs6-superseded");
  main.prepend(section);
  document.body.classList.add("vs6-topic-mode");
  attachZIPVisual(section);
  if(documentPath==="my-life.html"){
-  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter your ZIP ↓");label.href="#where";section.append(label);}
+  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter or change your ZIP ↓");label.href="#where";intro.append(label);}
  }
  if(location.hash&&location.hash!=="#market-power-pathways"){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
