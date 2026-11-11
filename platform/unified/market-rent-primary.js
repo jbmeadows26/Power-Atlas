@@ -42,7 +42,12 @@ function get(){
 }
 async function show(zip){
  const run=++serial;
- if(zip!==SUPPORTED){emit(zip,"unavailable");return;}
+ if(zip!==SUPPORTED){
+   // Dynamic V6 listeners may be registered after the market loader; finish
+   // the original ZIP event before updating the rendered unknown-ZIP state.
+   Promise.resolve().then(()=>{if(run===serial)emit(zip,"unavailable");});
+   return;
+ }
  emit(zip,"loading");
  try{
    const market=await get();
