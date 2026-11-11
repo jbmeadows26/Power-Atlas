@@ -58,10 +58,22 @@ jobs:
             exit 0
           fi
           prior="$(git rev-parse HEAD)"
-          git fetch origin main
-          if [ "$prior" != "$(git rev-parse FETCH_HEAD)" ]; then
-            echo "Source branch advanced; prevent overwriting newer publication."
-            exit 0
-          fi
           git commit -m "data(housing): publish verified HUD FY2026 ZIP-bedroom benchmark snapshot"
-          git push origin HEAD:main
+          # An unrelated dated audit may update main during the read-only
+          # source collection. Rebase only this new source-data commit, never
+          # force push, and retry if another audit advances the ref.
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git rebase origin/main || {
+              git rebase --abort || true
+              echo "Conflict with newer source data; stop without publishing."
+              exit 1
+            }
+            if git push origin HEAD:main; then
+              echo "Verified official HUD snapshot published."
+              exit 0
+            fi
+            echo "Concurrent main update; safe publication retry $attempt."
+          done
+          echo "Could not publish verified data after three non-force attempts."
+          exit 1
