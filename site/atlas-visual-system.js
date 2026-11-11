@@ -124,7 +124,7 @@ async function chart(){
  source(links,src,"Original source");source(links,"https://github.com/jbmeadows26/Power-Atlas/blob/main/data/"+(current.chart==="bls"?"place-impact/cost-benchmark-drivers-v1.json":current.chart==="fec"?"money-influence/fec-federal-cycle-overview-2002-2026.json":current.chart==="donors"?"money-influence/brennan-top40-midterms-2014-2026.json":"consumer-class-actions/cases-v1.json"),"Review dataset");
  }catch(e){content.textContent="Reviewed data unavailable. No chart is shown without verified source values.";note.textContent="Inspect the underlying data and source registry before drawing conclusions."}
 }
-function start(){story();chart()}
+function start(){if(path!=="corporate-ownership.html")story();chart()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
 })();
 
