@@ -163,7 +163,7 @@ function home(){
   }
   const a=go(target,"","vs6-story vs6-story--"+meta.theme+" vs6-story--"+(i%3===0?"wide":"regular"));
   a.setAttribute("aria-label",meta.heading+"; explore full sourced story");
-  if(meta.kind==="market")a.href="market-power.html#market-power-pathways";
+  if(meta.kind==="market")a.href="market-power.html";
   a.append(top,graphic,bottom);gallery.append(a);
  });
  portal.append(gallery);
@@ -226,7 +226,7 @@ function topic(){
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
  section.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
- const art=visual(kind);section.append(art);
+ if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}else{const art=visual(kind);section.append(art);}
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
  cta.addEventListener("click",()=>{
@@ -246,7 +246,7 @@ function topic(){
  if(documentPath==="my-life.html"){
   const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter your ZIP ↓");label.href="#where";section.append(label);}
  }
- if(location.hash){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ if(location.hash&&location.hash!=="#market-power-pathways"){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");
