@@ -1,0 +1,26 @@
+name: Verify ZIP-driven visual story
+on:
+  push:
+    branches:
+      - fix/zip-live-visual-context-20261111
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  zip-visual-data:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test ZIP data integrity and reactive mobile graphics
+        run: python -m unittest discover -s tests -p 'test_zip_visual_context.py' -v
+      - name: Preserve original ZIP and source-linked benchmarks
+        run: python -m unittest discover -s tests -p 'test_place_impact.py' -v

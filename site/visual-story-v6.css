@@ -332,3 +332,56 @@ html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > header.cg
 
 /* Research archive's original P/A wordmark is redundant once the shared header mounts. */
 html[data-vs6="active"] body > header.hero .top .logo{display:none!important}
+
+
+/* ZIP-specific visual story: the four cards use comparable ACS measures, not
+   decorative bars or estimates inferred from a user's postal town. */
+html[data-vs6="active"] .vs6-topic>.vs6-art.vs6-zip-chart{
+ background:#1f4858;display:block;padding:clamp(13px,2.5vw,23px);
+ min-height:unset;overflow:hidden;
+}
+.vs6-zip-live{width:100%;max-width:100%;color:#eafbfa}
+.vs6-zip-heading{display:flex;flex-wrap:wrap;align-items:baseline;gap:7px 16px;margin:2px 0 18px}
+.vs6-zip-kicker{display:block;flex-basis:100%;font-size:.66rem;letter-spacing:.15em;font-weight:900;color:#9fe8d3}
+.vs6-zip-place{font-size:clamp(1.3rem,2.4vw,2.25rem);font-weight:950;line-height:1.14;letter-spacing:-.045em;color:#fff}
+.vs6-zip-period{font-size:.7rem;color:#b9d9d8;line-height:1.45}
+.vs6-zip-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px}
+.vs6-zip-tile{background:#f5faf6;color:#203945;border-radius:15px;padding:16px 12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0;box-shadow:0 5px 13px #071e281c;border:1px solid #d4e7de}
+.vs6-zip-tile-top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+.vs6-zip-tile-number{font-size:.7rem;font-weight:950;color:#567473;font-variant-numeric:tabular-nums}
+.vs6-zip-tile-label{font-size:.63rem;letter-spacing:.05em;font-weight:950;color:#1c4546}
+.vs6-zip-tile-value{font-size:clamp(1.4rem,2vw,2.15rem);font-variant-numeric:tabular-nums;line-height:1.08;letter-spacing:-.055em;color:#173f43;white-space:nowrap}
+.vs6-zip-tile-value--unavailable{font-size:.88rem;letter-spacing:-.02em;white-space:normal;line-height:1.25}
+.vs6-zip-tile-title{font-size:.72rem;line-height:1.25;color:#527477;font-weight:700;min-height:2.4em}
+.vs6-zip-comparison{display:grid;gap:7px;margin:5px 0}
+.vs6-zip-comparison-row{display:grid;grid-template-columns:50px minmax(0,1fr);gap:5px;align-items:center}
+.vs6-zip-comparison-row>span:first-child{font-size:.59rem;color:#456d6b;font-weight:850}
+.vs6-zip-track{height:9px;display:block;background:#d4e5dd;border-radius:9px;overflow:hidden;min-width:0}
+.vs6-zip-fill{display:block;height:100%;border-radius:9px;background:var(--zip-accent);max-width:100%}
+.vs6-zip-fill--us{background:#7899a2}
+.vs6-zip-compare{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 6px;font-size:.62rem;color:#536d6d;line-height:1.3;min-height:2.2em}
+.vs6-zip-compare a{color:#126e64!important;text-decoration:underline!important;text-underline-offset:2px;font-weight:900;white-space:nowrap}
+.vs6-zip-detail{appearance:none;background:#184754;color:#fff;border:1px solid #184754;border-radius:11px;min-height:39px;padding:8px 10px;font-size:.69rem;font-weight:900;cursor:pointer;text-align:center;margin-top:auto}
+.vs6-zip-detail:hover,.vs6-zip-detail:focus-visible{background:#2b7d71;border-color:#2b7d71}
+.vs6-zip-footer{display:flex;flex-wrap:wrap;justify-content:space-between;gap:6px 16px;margin:14px 2px 2px;color:#d5e7e6;font-size:.66rem;line-height:1.5}
+.vs6-zip-footer>span{flex:1 1 320px}
+.vs6-zip-method{color:#9dedd2!important;font-size:.66rem;font-weight:850;text-decoration:underline!important;text-underline-offset:2px}
+@media(max-width:1100px){.vs6-zip-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.vs6-zip-tile-value{font-size:clamp(1.4rem,4vw,2rem)}}
+@media(max-width:570px){
+ html[data-vs6="active"] .vs6-topic>.vs6-art.vs6-zip-chart{padding:12px;border-radius:15px}
+ .vs6-zip-heading{margin-bottom:11px;gap:5px}
+ .vs6-zip-place{font-size:1.34rem}
+ .vs6-zip-period{font-size:.62rem}
+ .vs6-zip-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ .vs6-zip-tile{padding:11px 8px 10px;border-radius:11px;gap:5px}
+ .vs6-zip-tile-top{gap:2px}
+ .vs6-zip-tile-label{font-size:.59rem}
+ .vs6-zip-tile-number{font-size:.56rem}
+ .vs6-zip-tile-value{font-size:clamp(1.25rem,5.5vw,1.73rem)}
+ .vs6-zip-tile-title{font-size:.64rem;min-height:2.5em}
+ .vs6-zip-comparison-row{grid-template-columns:45px minmax(0,1fr);gap:3px}
+ .vs6-zip-comparison-row>span:first-child{font-size:.52rem}
+ .vs6-zip-compare{font-size:.56rem}
+ .vs6-zip-detail{min-height:36px;font-size:.61rem;padding:6px 4px}
+ .vs6-zip-footer{font-size:.61rem;margin-top:12px}
+}
