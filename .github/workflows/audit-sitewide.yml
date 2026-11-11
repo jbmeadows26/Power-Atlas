@@ -15,6 +15,7 @@ on:
       - 'site/*.html'
       - 'research/voting-access/*.html'
       - '.github/workflows/audit-sitewide.yml'
+  pull_request:
   schedule:
     - cron: '15 10 * * 1'
   workflow_dispatch:
@@ -68,7 +69,7 @@ jobs:
           print('Valid inline browser scripts:',checked)
           PY
       - name: Commit dated read-only audit report if changed
-        if: success()
+        if: success() && github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           if test -f data/health/sitewide-audit-v1.json; then
