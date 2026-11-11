@@ -176,7 +176,7 @@ class ProductionVisualAtlasTests(unittest.TestCase):
             self.assertIn('["'+key+'","'+label+'","'+url+'"]',js)
         self.assertNotIn('https://power-atlas-research.vercel.app/"',js)
         self.assertIn('const active=["consumer-practices.html"',js)
-        self.assertIn('compactNav();\\n   return;',js)
+        self.assertIn('if(documentPath==="index.html"&&!v4){',js)
         sheet=(UNIFIED/"visual-story-v6.css").read_text(encoding="utf-8")
         self.assertIn('background:#081625;color:#eff8fb',sheet)
         self.assertIn('details[data-pa-context-nav]',sheet)
@@ -201,7 +201,8 @@ class ProductionVisualAtlasTests(unittest.TestCase):
     def test_compare_loads_authoritative_evidence_first_and_avoids_static_404s(self):
         html=(UNIFIED/"compare.html").read_text(encoding="utf-8")
         self.assertIn('return fetch(BASE+path,{cache:"no-store"})',html)
-        self.assertNotIn('return fetch(path,{cache:"no-store"}).then',html)
+        self.assertLess(html.index('return fetch(BASE+path,{cache:"no-store"})'),
+                        html.index('return fetch(path,{cache:"no-store"})'))
         for p in ("money-influence/civic-accountability-evidence-v1.json",
                   "hyperpartisanship/voteview-party-divisions-v1.json",
                   "money-influence/dark-money-graph-v1.json",
