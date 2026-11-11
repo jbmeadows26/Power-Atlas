@@ -56,6 +56,7 @@ class MarketPowerVisualPathwaysTests(unittest.TestCase):
             self.assertIn('src="market-power-pathways.js"', html)
             self.assertNotIn('<section class="mpx-section"', html)
             self.assertIn("PowerAtlasMarketPower.mount(section)", v6)
+            self.assertIn('button.pa5-chapter-card[aria-controls="explore"]', v6)
             self.assertIn('id="market-power-pathways"', (root / "market-power-pathways.js").read_text(encoding="utf-8"))
             self.assertIn('id="household-bridge"', html)
             self.assertIn('id="explore"', html)
