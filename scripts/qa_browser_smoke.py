@@ -8,6 +8,7 @@ Does not send civic correspondence, collect personal data, or invoke paid APIs.
 from __future__ import annotations
 import os
 import re
+import json
 import unittest
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -89,6 +90,40 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(self.page.evaluate(
             "() => !!(document.getElementById('where').compareDocumentPosition("
             "document.getElementById('what')) & Node.DOCUMENT_POSITION_FOLLOWING)"))
+
+    def test_zip_housing_rent_uses_five_hud_bedroom_sizes_not_census_median(self):
+        # Stub only the HUD file response using a real, source-verified repo row.
+        # Tests presentation deterministically, without third-party service outages.
+        shard = json.loads((Path(__file__).resolve().parents[1] /
+                            "data/housing/hud-safmr-fy2026-0.json").read_text())
+        local = next(x for x in shard["rows"] if x["zip"] == "07010")
+        self.assertEqual(local["usdByBedroom"]["4"], 3740)
+        payload = {k: shard[k] for k in ("schema", "fiscalYear", "prefix", "retrievedUTC")}
+        payload["rows"] = [local]
+        self.page.route(
+            "**/data/housing/hud-safmr-fy2026-0.json",
+            lambda route: route.fulfill(
+                status=200, content_type="application/json",
+                headers={"Access-Control-Allow-Origin": "*"},
+                body=json.dumps(payload)))
+        self.visit("/my-life.html")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type=submit]").click()
+        tile = self.page.locator(".vs6-zip-tile--housing")
+        tile.locator(".vs6-zip-bedroom-cell").first.wait_for(timeout=20000)
+        self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 5)
+        rendered = tile.inner_text()
+        for value in ["$1,840", "$2,090", "$2,400", "$2,930", "$3,740"]:
+            self.assertIn(value, rendered)
+        self.assertNotIn("$1,837", rendered)
+        self.assertIn("not a listing price", rendered)
+        self.assertIn("HUD FY2026", rendered)
+        panel = self.page.locator("#pa-hud-safmr")
+        self.assertTrue(panel.is_visible())
+        self.assertIn("4 bedrooms", panel.inner_text())
+        self.assert_no_horizontal_overflow()
+        tile.scroll_into_view_if_needed()
+        self.page.screenshot(path=str(REPORTS / "rent-by-bedrooms-mobile.png"), full_page=False)
 
     def test_take_action_chamber_buttons_and_mobile_layout(self):
         self.visit("/take-action.html")
