@@ -18,7 +18,7 @@ BASE = ("https://services.arcgis.com/VTyQ9soqVukalItT/arcgis/rest/services/"
         "HUD_PDR_Small_Area_Fair_Market_Rents/FeatureServer")
 TABLE = BASE + "/1"
 QUERY = TABLE + "/query"
-FIELDS = ["OBJECTID", "ZCTA_ID", "HUD_CODE", "FMR_NAME",
+FIELDS = ["OBJECTID", "ID", "ZCTA_ID", "HUD_CODE", "FMR_NAME",
           "SAFMR_0BR", "SAFMR_1BR", "SAFMR_2BR", "SAFMR_3BR", "SAFMR_4BR"]
 OUT = Path(__file__).resolve().parents[1] / "data/housing/hud-safmr-fy2026-v1.json"
 
@@ -44,7 +44,9 @@ def get_json(path, **params):
     raise RuntimeError("HUD source request failed: " + str(last))
 
 def parse_row(attrs):
-    zip_ = attrs.get("ZCTA_ID")
+    zip_ = attrs.get("ZCTA_ID") or attrs.get("ID")
+    if attrs.get("ZCTA_ID") and attrs.get("ID") and attrs["ZCTA_ID"] != attrs["ID"]:
+        raise ValueError("HUD ZIP keys conflict; inspect ArcGIS relationship")
     if not isinstance(zip_, str) or len(zip_) != 5 or not zip_.isdigit():
         return None
     if not attrs.get("HUD_CODE") or not attrs.get("FMR_NAME"):
@@ -112,6 +114,7 @@ def collect():
         "excludedIncompleteRelations": skipped,
         "uniqueZctas": len({r["zip"] for r in rows}),
         "grain": "ZIP Code Tabulation Area × HUD-defined FMR area",
+        "joinKey": "Layer 1 ID (ZCTA_ID is null); ArcGIS relationship to layer 0 ZCTA5CE20",
         "geographicLimitation": ("A ZCTA can intersect multiple HUD metropolitan areas; do not "
                                  "collapse distinct records, assume precise ZIP boundaries, or "
                                  "assign legal jurisdiction from a ZCTA."),
