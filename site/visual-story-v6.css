@@ -307,3 +307,16 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
 .vs6-owner-card .vs6-arrow-icon{color:inherit;text-decoration:none}
 .vs6-owner-card .vs6-owned{transition:opacity .12s ease}
 @media(max-width:600px){.vs6-owner-card .vs6-owner-controls{gap:9px;padding:0 18px 15px}.vs6-owner-card .vs6-owner-controls button{width:42px;height:42px}.vs6-owner-card .vs6-owner-count{font-size:.69rem;flex:1}}
+
+
+/* Legacy research links are secondary navigation, not a second site masthead.
+   Collapsed by default; remains accessible when visitors expand the evidence. */
+details[data-pa-context-nav]{box-sizing:border-box;max-width:1200px;width:100%;margin:12px auto 22px;border:1px solid #dbe8e0;border-radius:15px;background:#f8faf6;color:#193c40;box-shadow:0 4px 15px #173c3810;font-family:Inter,ui-sans-serif,system-ui,sans-serif}
+details[data-pa-context-nav]>summary{cursor:pointer;list-style:none;padding:14px 17px;font-weight:850;font-size:.84rem;color:#20594f}
+details[data-pa-context-nav]>summary::-webkit-details-marker{display:none}
+details[data-pa-context-nav]>summary:after{content:"+";float:right;color:#246d63;font-size:1.15rem}
+details[data-pa-context-nav][open]>summary:after{content:"−"}
+details[data-pa-context-nav] nav{display:flex;gap:8px;flex-wrap:wrap;padding:0 15px 16px}
+details[data-pa-context-nav] nav a{min-height:44px;box-sizing:border-box;display:inline-flex;align-items:center;padding:8px 12px;background:#fff;border:1px solid #cbdfd5;border-radius:11px;color:#185f55;text-decoration:none;font-weight:750;font-size:.79rem}
+details[data-pa-context-nav] nav a:hover,details[data-pa-context-nav] nav a:focus-visible{background:#e2f2e9;border-color:#3d9d88}
+@media(max-width:520px){details[data-pa-context-nav]{border-radius:12px}details[data-pa-context-nav] nav a{width:100%;justify-content:flex-start}}
