@@ -385,3 +385,62 @@ html[data-vs6="active"] .vs6-topic>.vs6-art.vs6-zip-chart{
  .vs6-zip-detail{min-height:36px;font-size:.61rem;padding:6px 4px}
  .vs6-zip-footer{font-size:.61rem;margin-top:12px}
 }
+
+
+/* Approved V6 visual-first community cover: cream editorial headline alongside
+   the dark source-backed ZIP picture. Keep legacy issue research progressive. */
+html[data-vs6="active"] body[data-pa-page="overview"] main>.vs6-topic.vs6-topic-cover{
+ background:var(--vs6-cream);color:var(--vs6-ink);
+ border:1px solid #eee4d6;display:grid;
+ grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);
+ align-items:center;gap:clamp(16px,3vw,35px);
+ padding:clamp(17px,3vw,33px);min-width:0;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover:before{
+ border-color:#cfe5dc66;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover>.vs6-intro{
+ position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start;
+ justify-content:center;min-width:0;padding:clamp(4px,1vw,17px);
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>.vs6-micro{
+ color:#187d73;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>h1{
+ font-size:clamp(2.45rem,4.4vw,4.65rem)!important;
+ color:#12343d!important;line-height:1.02!important;
+ letter-spacing:-.065em!important;max-width:11ch;
+ margin:14px 0!important;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>.vs6-topic-summary{
+ color:#4d686b;font-size:clamp(1rem,1.5vw,1.2rem);
+ max-width:31ch;line-height:1.45;margin:2px 0 24px;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover>.vs6-art.vs6-zip-chart{
+ background:#1c4253;border-radius:19px;min-width:0;width:100%;
+ margin:0;padding:clamp(12px,2vw,24px);align-self:stretch;
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-zip-grid{
+ grid-template-columns:repeat(2,minmax(0,1fr));
+}
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>.vs6-zip-link{
+ color:#176a62!important;display:inline-flex;align-items:center;
+ min-height:44px;margin-top:8px;font-weight:850;text-underline-offset:4px;
+}
+@media(max-width:850px){
+ html[data-vs6="active"] body[data-pa-page="overview"] main>.vs6-topic.vs6-topic-cover{
+  grid-template-columns:minmax(0,1fr);gap:17px;padding:15px;
+ }
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover>.vs6-intro{
+  padding:10px 5px 0;
+ }
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>h1{
+  font-size:clamp(2.2rem,9vw,3.5rem)!important;max-width:16ch;
+ }
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-intro>.vs6-topic-summary{
+  margin-bottom:18px;
+ }
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover>.vs6-art.vs6-zip-chart{
+  padding:13px;
+ }
+}
