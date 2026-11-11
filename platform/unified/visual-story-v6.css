@@ -263,3 +263,14 @@ html[data-vs6="active"] #pa-global-header.vs6-research-nav .pa-global-links a[ar
    font-size:.76rem!important;display:flex;align-items:center;justify-content:center;text-align:center;
  }
 }
+
+
+/* Two distinct sourced measures replace the purely illustrative market graphic. */
+.vs6-market-proof{display:grid;width:100%;max-width:470px;gap:17px}
+.vs6-market-proofline{display:grid;gap:7px}
+.vs6-market-proofline span{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.vs6-market-proofline strong{font-size:clamp(1.7rem,3.5vw,2.4rem);font-weight:950;letter-spacing:-.06em;line-height:1}
+.vs6-market-proofline small{font-size:.68rem;font-weight:800;line-height:1.35;text-align:right}
+.vs6-market-proofline i{display:block;width:100%;height:13px;border-radius:100px;background:linear-gradient(to right,#178a78 0 var(--p),#badacb var(--p) 100%)}
+.vs6-market-proofline:nth-child(2) i{background:linear-gradient(to right,#17635f 0 var(--p),#badacb var(--p) 100%)}
+@media(max-width:570px){.vs6-market-proofline strong{font-size:1.75rem}.vs6-market-proofline small{font-size:.61rem}}

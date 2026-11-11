@@ -13,7 +13,7 @@ header{position:sticky;top:0;z-index:20;background:#f8f7f3f2;backdrop-filter:blu
 @media(max-width:960px){.hero-grid,.stage{grid-template-columns:1fr}.hero{padding:48px 0}.art{max-width:700px}.rules{grid-template-columns:1fr 1fr}.links{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:620px){.wrap{width:calc(100% - 28px)}.top{min-height:64px;align-items:flex-start;padding:15px 0;flex-wrap:wrap}.navlinks{gap:12px}.navlinks a{font-size:11px}.hero h1{font-size:47px}.lead{font-size:15px}.hero-tags{gap:6px}.art{padding:22px 14px}.measure{grid-template-columns:94px 1fr 45px;gap:6px;padding:7px 3px}.measure span{font-size:10px}.section{padding:46px 0}.case-menu{grid-template-columns:1fr}.way{grid-template-columns:1fr!important}.who,.rules,.links{grid-template-columns:1fr}.meter strong{font-size:46px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-</style><link rel="stylesheet" href="market-power-household.css"></head>
+</style><link rel="stylesheet" href="market-power-household.css"><link rel="stylesheet" href="market-power-pathways.css"></head>
 <body data-pa-page="market-power" data-schema="power-atlas.market-power.v1">
 <div class="review"><div class="wrap"><span>POWER ATLAS / MARKET POWER / EVIDENCE EXPLORER</span><a href="index.html">← Return to Power Atlas</a></div></div>
 <header><div class="wrap top"><a class="brand" href="index.html">POWER <em>ATLAS</em></a><nav class="navlinks" aria-label="Research navigation"><a href="my-life.html">Everyday costs</a><a href="corporate-ownership.html">Corporate ownership</a><a href="consumer-practices.html">Consumer Watch</a><a href="money-scale.html">Money at scale</a><a href="#explore" aria-current="page">Explore market power</a></nav></div></header>
@@ -21,8 +21,15 @@ header{position:sticky;top:0;z-index:20;background:#f8f7f3f2;backdrop-filter:blu
 <div class="eyebrow">The power behind the price / 2026</div><h1>When competition disappears, <em>who gains?</em></h1>
 <p class="lead">Your rent, prescription, paycheck, grocery bill and even concert ticket can be shaped by a small number of powerful firms. Explore the evidence—then see where the money, choices and consequences may go.</p>
 <div class="hero-tags"><span>Consumer prices</span><span>Worker wages</span><span>Small businesses</span><span>Market access</span></div>
-<a href="#household-bridge" class="action">See where the costs land ↓</a><a href="money-scale.html" style="display:inline-block;margin-left:14px;font-weight:850;font-size:13px">Compare billions &amp; trillions →</a><p class="note">Every measure has its own year, product market and denominator. Concentration does not automatically mean wrongdoing—or a quantified price surcharge.</p>
+<a href="#market-power-pathways" class="action">Follow who has power ↓</a><a href="money-scale.html" style="display:inline-block;margin-left:14px;font-weight:850;font-size:13px">Compare billions &amp; trillions →</a><p class="note">Every measure has its own year, product market and denominator. Concentration does not automatically mean wrongdoing—or a quantified price surcharge.</p>
 </div><div class="art"><div class="eyebrow" style="color:#9ce5d4">SIX WINDOWS INTO MARKET POWER</div><h2>How concentrated is the market?</h2><p>Tap a measure to see its original evidence. The denominators differ, so these bars are not a single ranking.</p><div class="metric-bars" id="marketBars" aria-label="Select a concentration measure"></div><p class="measure-footer" id="marketReadout" role="status" aria-live="polite">Loading dated measures…</p></div></div></section>
+<section class="mpx-section" id="market-power-pathways" aria-labelledby="mpxTitle"><div class="wrap">
+<div class="mpx-head"><div><span class="mpx-kicker">01 / Who controls the choices?</span><h2 id="mpxTitle">Follow the power.</h2></div><p>Choose part of everyday life. See the companies, the leverage and the evidence—not just a big number.</p></div>
+<div class="mpx-tabs" id="mpxTabs" role="group" aria-label="Choose a market to investigate"></div>
+<div class="mpx-grid"><article class="mpx-measure" id="mpxMeasure" aria-label="Dated sector measure"><p>Loading original-source measure…</p></article><article class="mpx-detail" id="mpxDetail" aria-live="polite" aria-label="Market power and ownership story"><p>Loading sector and ownership story…</p></article></div>
+<div id="mpxExtra" class="mpx-bottom" aria-label="Benefits, costs and research limits"></div>
+<p class="mpx-scope">These measures use different years and denominators; they are not comparable market rankings or estimates of price gouging. Company relationships are distinct from proof of anticompetitive conduct. <a href="#explore">See all 12 evidence cases ↓</a> · <a href="#household-bridge">See the household spending baseline ↓</a></p>
+</div></section>
 <section class="section" id="household-bridge" aria-labelledby="hbTitle"><div class="wrap">
 <div class="hb-eyebrow">Everyday money / Evidence connected to costs</div>
 <h2 id="hbTitle">Where might concentrated power reach your budget?</h2>
@@ -75,6 +82,6 @@ const requestedCase=new URLSearchParams(window.location.search).get("case");cons
 const old=renderDetail;renderDetail=function(c){old(c);$("marketBars").querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.caseId===c.id)))};
 }catch(e){$("caseDetail").textContent="The market-power register could not load. Please open the original evidence register linked in the footer.";$("marketReadout").textContent="Evidence file temporarily unavailable.";$("filters").textContent="Source data currently unavailable.";console.error(e)}
 })();
-</script><script src="market-power-household.js" defer></script><script src="bug-report.js" defer></script>
+</script><script src="market-power-pathways.js" defer></script><script src="market-power-household.js" defer></script><script src="bug-report.js" defer></script>
 <script src="atlas-visual-system.js" defer></script>
 </body></html>
