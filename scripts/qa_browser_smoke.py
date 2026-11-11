@@ -144,11 +144,18 @@ class BrowserJourneyQA(unittest.TestCase):
 
     def test_market_not_inferred_for_unverified_zip(self):
         self.visit("/my-life.html")
+        tile = self.page.locator(".vs6-zip-tile--housing")
+        tile.wait_for(state="attached", timeout=15000)
+        # Wait for both dynamic listeners, not only the initial CSS state.
+        self.page.wait_for_function(
+            "() => !!document.querySelector('.vs6-zip-market-select')", timeout=15000)
         self.page.evaluate("""() => window.dispatchEvent(new CustomEvent(
             'poweratlas:zip-visual-context',
             {detail:{zip:'10001',place:'New York',status:'loading',metrics:[]}}))""")
-        tile = self.page.locator(".vs6-zip-tile--housing")
-        self.page.get_by_text("No verified, recent asking-rent figures for this ZIP.").wait_for(timeout=10000)
+        self.page.wait_for_function(
+            "() => !!document.querySelector('.vs6-zip-tile--housing .vs6-zip-compare')?.textContent.includes('No verified, recent asking-rent figures')",
+            timeout=12000)
+        self.assertIn("HUD values are not substituted", tile.inner_text())
         self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 0)
         self.assert_no_horizontal_overflow()
 
