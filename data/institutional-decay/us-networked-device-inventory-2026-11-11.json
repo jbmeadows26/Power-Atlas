@@ -1,0 +1,99 @@
+{
+  "schema": "power-atlas.institutional-decay.comparative-evidence.v1",
+  "asOf": "2026-11-11",
+  "scope": "US federal networked-device inventory oversight; official audit, no causal or incident attribution",
+  "sources": [
+    {
+      "id": "gao-26-108937",
+      "url": "https://www.gao.gov/products/gao-26-108937",
+      "published": "2026-09-30",
+      "authority": "US Government Accountability Office",
+      "license": "US federal government authored text generally public domain in United States; original factual summaries only, no third-party images or graphics reproduced",
+      "access": "public_no_paid_access"
+    }
+  ],
+  "observations": [
+    {
+      "id": "gao-iot-inventories-established-2026",
+      "source": "gao-26-108937",
+      "geography": "United States",
+      "period": "2026-09",
+      "value": 15,
+      "denominator": 22,
+      "unit": "civilian_CFO_Act_agencies",
+      "measure": "Agencies that established initial networked-device inventories",
+      "population": "22 civilian CFO Act agencies reviewed by GAO",
+      "evidenceClass": "official_audit",
+      "note": "Agency counts overlap; do not add across categories or extrapolate to all federal agencies. No incident or misconduct inferred."
+    },
+    {
+      "id": "gao-iot-inventories-maintained-2026",
+      "source": "gao-26-108937",
+      "geography": "United States",
+      "period": "2026-09",
+      "value": 11,
+      "denominator": 22,
+      "unit": "civilian_CFO_Act_agencies",
+      "measure": "Agencies maintaining networked-device inventories",
+      "population": "22 civilian CFO Act agencies reviewed by GAO",
+      "evidenceClass": "official_audit",
+      "note": "Agency counts overlap; do not add across categories or extrapolate to all federal agencies. No incident or misconduct inferred."
+    },
+    {
+      "id": "gao-iot-inventories-complete-fields-2026",
+      "source": "gao-26-108937",
+      "geography": "United States",
+      "period": "2026-09",
+      "value": 10,
+      "denominator": 22,
+      "unit": "civilian_CFO_Act_agencies",
+      "measure": "Agencies including all required device-inventory information",
+      "population": "22 civilian CFO Act agencies reviewed by GAO",
+      "evidenceClass": "official_audit",
+      "note": "Agency counts overlap; do not add across categories or extrapolate to all federal agencies. No incident or misconduct inferred."
+    },
+    {
+      "id": "gao-iot-all-three-requirements-2026",
+      "source": "gao-26-108937",
+      "geography": "United States",
+      "period": "2026-09",
+      "value": 7,
+      "denominator": 22,
+      "unit": "civilian_CFO_Act_agencies",
+      "measure": "Agencies fully addressing all three OMB inventory requirements",
+      "population": "22 civilian CFO Act agencies reviewed by GAO",
+      "evidenceClass": "official_audit",
+      "note": "Agency counts overlap; do not add across categories or extrapolate to all federal agencies. No incident or misconduct inferred."
+    },
+    {
+      "id": "gao-iot-waivers-reported-2026",
+      "source": "gao-26-108937",
+      "geography": "United States",
+      "period": "2026-09",
+      "value": 0,
+      "denominator": 22,
+      "unit": "agencies_reporting_waivers",
+      "measure": "Reviewed agencies reporting an IoT cybersecurity waiver",
+      "population": "22 civilian CFO Act agencies in GAO review",
+      "evidenceClass": "official_audit",
+      "note": "Zero reported waivers does not establish zero waiver-eligible situations."
+    }
+  ],
+  "events": [
+    {
+      "id": "gao-iot-inventory-audit-2026-09-30",
+      "date": "2026-09-30",
+      "source": "gao-26-108937",
+      "event": "GAO published audit of 22 civilian CFO Act agencies' implementation of OMB networked-device inventory requirements and recommended updated OMB guidance and oversight",
+      "status": "official_audit",
+      "note": "OMB did not provide comments; audit recommendations are not sanctions, criminal findings, or proof of a cybersecurity incident."
+    }
+  ],
+  "causality": "The reported inventory-control gaps do not establish cyberattack incidence, culpability, citizen service impact, or changes in public trust.",
+  "limitations": [
+    "The 22-agency denominator is not all federal agencies.",
+    "Counts of agencies meeting individual requirements overlap and cannot be summed.",
+    "The initial inventory deadline was September 2024; observations reflect September 2026 status.",
+    "No agency-level causal linkage to service failure or trust is established."
+  ]
+}
