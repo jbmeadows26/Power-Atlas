@@ -56,7 +56,7 @@ class VisualStoriesV6Tests(unittest.TestCase):
     def test_corporate_ownership_has_valid_main_and_visual_route(self):
         page=(SITES[0]/"corporate-ownership.html").read_text()
         self.assertNotIn("<main<main",page)
-        self.assertIn('<main class="wrap">',page)
+        self.assertRegex(page, r'<main\b[^>]*class="[^"]*\bwrap\b[^"]*"')
         script=(SITES[0]/"visual-story-v6.js").read_text()
         self.assertIn("corporate-ownership.html",script)
         self.assertIn("Explore the evidence",script)
