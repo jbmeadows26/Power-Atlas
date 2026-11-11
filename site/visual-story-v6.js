@@ -421,7 +421,7 @@ function compactNav(){
      ["issues","Issues","my-life.html#what"],
      ["costs","Costs","my-life.html#benchmarkStory"],
      ["why","The Why","my-life.html#why"],
-     ["action","Actions","my-life.html#how"],
+     ["action","Actions","take-action.html"],
      ["research","Research","index.html"]
    ].forEach(([key,title,path])=>{
      const a=E("a",null,title);
@@ -435,11 +435,14 @@ function compactNav(){
  }
  const inner=header.querySelector(".pa-global-inner");
  const nav=header.querySelector(".pa-global-links");
+ // The dedicated action page replaces the old My Life section as the action destination.
+ const actionLink=nav?.querySelector('a[data-pa-nav="action"]');
+ if(actionLink){const host=location.hostname.toLowerCase();const local=host.startsWith("power-atlas-unified")||host.startsWith("power-atlas-visual-review")||host==="localhost"||host==="127.0.0.1";actionLink.href=local?"take-action.html":"https://power-atlas-unified.vercel.app/take-action.html";}
  if(!inner||!nav||header.querySelector(".vs6-nav-toggle"))return;
  // Keep one active journey even when a legacy page had no preselected nav item.
  // Community pages own their in-page section state; all other sections use this route map.
  if(documentPath!=="my-life.html"){
-   const active=["consumer-practices.html","telecom-promotions.html","service-accountability.html","cost-gap.html"].includes(documentPath)?"costs":"research";
+   const active=documentPath==="take-action.html"?"action":["consumer-practices.html","telecom-promotions.html","service-accountability.html","cost-gap.html"].includes(documentPath)?"costs":"research";
    nav.querySelectorAll("a[data-pa-nav]").forEach(a=>{
      if(a.dataset.paNav===active)a.setAttribute("aria-current","page");
      else a.removeAttribute("aria-current");
