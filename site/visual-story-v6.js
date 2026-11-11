@@ -386,7 +386,7 @@ function attachZIPVisual(section){
  const heading=E("div","vs6-zip-heading");
  const kicker=E("span","vs6-zip-kicker","YOUR LOCAL PICTURE");
  const place=E("strong","vs6-zip-place","Enter a ZIP to see your area");
- const note=E("small","vs6-zip-period","Census household indicators · HUD FY2026 rent benchmarks · neither is a live listing feed");
+ const note=E("small","vs6-zip-period","Census household indicators · HUD FY2027 rent benchmarks · neither is a live listing feed");
  heading.append(kicker,place,note);
  const grid=E("div","vs6-zip-grid");
  const foot=E("div","vs6-zip-footer");
@@ -400,13 +400,14 @@ function attachZIPVisual(section){
  host.append(heading,grid,foot);
  art.replaceChildren(host);
  const topics=[
-   {key:"housing",label:"RENT BY BEDROOM",desc:"HUD FY2026 monthly voucher benchmark · not asking rent",color:"#39d4b0"},
+   {key:"housing",label:"RENT BY BEDROOM",desc:"HUD FY2027 monthly voucher benchmark · not asking rent",color:"#39d4b0"},
    {key:"transport",label:"TRANSPORT",desc:"Commuters using transit",color:"#ff9d77"},
    {key:"groceries",label:"FOOD",desc:"Households on SNAP",color:"#ae98fd"},
    {key:"health",label:"HEALTH",desc:"Residents uninsured",color:"#ffce70"}
  ];
  const nodes=new Map();
  let currentZip="";
+ let lastHUDResult=null;
  topics.forEach((t,i)=>{
    const tile=E("div","vs6-zip-tile");
    if(t.key==="housing")tile.classList.add("vs6-zip-tile--housing");
@@ -459,18 +460,22 @@ function attachZIPVisual(section){
    const d=event?.detail;if(!d||!/^\d{5}$/.test(d.zip||""))return;
    place.textContent=d.place+" · "+d.zip;
    note.textContent=(d.status==="loading"?"Finding historical Census and HUD ZIP-area figures…":
-     d.status==="ready"?"Census ACS 2020–2024 (household indicators) · HUD FY2026 (bedroom rents) · statistical ZIP areas":
+     d.status==="ready"?"Census ACS 2020–2024 (household indicators) · HUD FY2027 (bedroom rents) · statistical ZIP areas":
      "Local estimates unavailable · original sources remain accessible");
    currentZip=d.zip;
    const metrics=new Map((d.metrics||[]).map(m=>[m.key,m]));
    for(const t of topics){
      const els=nodes.get(t.key),m=metrics.get(t.key);
      if(t.key==="housing"){
-       els.bedrooms.replaceChildren();
+       // ACS median gross rent is an ALL-bedroom historical statistic.
+       // Never render it as a current ZIP asking-rent or a comparable unit.
        els.chart.hidden=true;
        els.local.hidden=true;
-       els.compare.textContent=d.status==="loading"?"Checking the HUD FY2026 source…":
-         "Loading HUD 0–4 bedroom figures. Current asking rents are not verified.";
+       if(!lastHUDResult||lastHUDResult.zip!==d.zip){
+         els.bedrooms.replaceChildren();
+         els.compare.textContent=d.status==="loading"?"Checking current HUD FY2027 bedroom rents…":
+           "Loading HUD bedroom benchmarks. Current asking rents have not been independently verified.";
+       }
        continue;
      }
      const have=Number.isFinite(m?.localValue)&&m?.localText;
@@ -497,6 +502,7 @@ function attachZIPVisual(section){
  window.addEventListener("poweratlas:hud-benchmarks-ready",(event)=>{
    const d=event?.detail;
    if(!d||d.zip!==currentZip)return;
+   lastHUDResult={zip:d.zip,status:d.status};
    const els=nodes.get("housing");
    if(!els?.bedrooms)return;
    els.bedrooms.replaceChildren();
@@ -521,7 +527,7 @@ function attachZIPVisual(section){
      els.bedrooms.append(entry);
    }
    els.compare.replaceChildren(
-     E("span",null,"HUD FY2026 · "+record.hudArea+" · voucher benchmark, not a listing price."));
+     E("span",null,"HUD FY"+String(record.fiscalYear||2027)+" · "+record.hudArea+" · program benchmark, not a listing price."));
    const link=E("a",null,"HUD source ↗");
    link.href="https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html";
    link.target="_blank";link.rel="noopener noreferrer";els.compare.append(link);
