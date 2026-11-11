@@ -38,7 +38,7 @@ class LocationFirstNavigationTests(unittest.TestCase):
                 '["issues","my-life.html#what","Issues"]',
                 '["costs","my-life.html#benchmarkStory","Costs"]',
                 '["why","my-life.html#why","The Why"]',
-                '["action","my-life.html#how","Actions"]',
+                '["action","take-action.html","Actions"]',
                 '["research","index.html","Research"]']
         positions = [js.index(key) for key in keys]
         self.assertEqual(positions, sorted(positions))
