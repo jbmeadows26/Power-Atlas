@@ -140,7 +140,7 @@ def main():
         shard["validSourceRelations"] = len(selected)
         shard["rows"] = selected
         target = options.output.parent / ("hud-safmr-fy2026-" + digit + ".json")
-        target.write_text(json.dumps(shard, separators=(",", ":"), ensure_ascii=False)+"\\n",
+        target.write_text(json.dumps(shard, separators=(",", ":"), ensure_ascii=False)+"\n",
                           encoding="utf-8")
     print(json.dumps({k: data[k] for k in ("fiscalYear", "sourceObjectCount",
                "validSourceRelations", "excludedIncompleteRelations", "uniqueZctas")}))
