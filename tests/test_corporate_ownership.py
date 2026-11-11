@@ -87,6 +87,23 @@ class CorporateOwnershipIntegrationTests(unittest.TestCase):
         self.assertIn('slice(0,6)',life)
         self.assertIn('#ownership-network',life)
 
+    def test_visual_thread_follows_native_power_atlas_pattern(self):
+        page=PAGE.read_text(encoding="utf-8")
+        shared=(ROOT/"platform/unified/atlas-visual-system.js").read_text(encoding="utf-8")
+        for marker in (
+            'class="threadGallery"', 'Choose a thread', 'See the connection.',
+            'Look first. Dive deeper when you', 'class="threadCard"',
+            'class="threadDiagram"', 'Explore why', 'id="networkPrev"',
+            'id="networkNext"', 'id="networkSearch"',
+            'id="ownershipResearch"', 'Explore the full ownership research and sources',
+            'function renderOwnershipNetwork()',
+        ):
+            self.assertIn(marker,page)
+        self.assertNotIn('class="ownershipNetwork"',page)
+        self.assertNotIn('class="hero"',page)
+        self.assertIn('if(path!=="corporate-ownership.html")story();',shared)
+        self.assertIn("Documented corporate relationships do not establish local",page)
+
     def test_price_cases_keep_proven_alleged_and_unknown_distinct(self):
         c=self.c
         self.assertEqual(c["schema"],"power-atlas.corporate-ownership.transparency-price-power.v1")
