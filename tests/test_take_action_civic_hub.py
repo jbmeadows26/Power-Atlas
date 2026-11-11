@@ -28,7 +28,7 @@ class CivicActionTests(unittest.TestCase):
 
     def test_constrained_issue_and_question_selection(self):
         self.assertEqual(PAGE.count("data-issue="),8)
-        self.assertEqual(PAGE.count("data-question="),3)
+        self.assertEqual(PAGE.count("data-question="),4)
         self.assertIn('textarea id="message-preview" readonly',PAGE)
         self.assertIn('slice(0,500)',SCRIPT)
         self.assertIn("navigator.clipboard.writeText",SCRIPT)
@@ -37,6 +37,29 @@ class CivicActionTests(unittest.TestCase):
         self.assertNotIn("method=\"post\"",PAGE.lower())
         self.assertNotIn("fetch(office",SCRIPT)
         self.assertNotIn("mailto:",SCRIPT)
+
+    def test_citizen_influence_playbook_and_stronger_accountability(self):
+        self.assertIn('class="ta-civic-lobby"', PAGE)
+        self.assertIn('id="civic-power-title"', PAGE)
+        self.assertIn('id="follow-through"', PAGE)
+        self.assertIn('href="#contact"', PAGE)
+        self.assertIn('data-question="meeting"', PAGE)
+        self.assertIn('Request a staff meeting', PAGE)
+        self.assertIn('id="copy-brief"', PAGE)
+        self.assertIn('id="brief-preview"', PAGE)
+        self.assertIn('https://www.house.gov/visitors/meeting-with-your-member', PAGE)
+        self.assertIn('https://www.senate.gov/senators/contact/', PAGE)
+        self.assertIn('Constituent accountability request:', SCRIPT)
+        self.assertIn('Identify concrete action you have taken', SCRIPT)
+        self.assertIn('Identify the hearings, reports', SCRIPT)
+        self.assertIn('I request a meeting with you', SCRIPT)
+        self.assertIn('Please respond in writing with a concrete next step', SCRIPT)
+        self.assertIn('function makeBrief()', SCRIPT)
+        self.assertIn('Copy my issue brief', SCRIPT)
+        self.assertIn('This is a starting brief, not evidence that an office received', SCRIPT)
+        self.assertIn('.ta-lobby-track', CSS)
+        self.assertIn('.ta-brief-disclosure', CSS)
+        self.assertNotIn('type="file"', PAGE)
 
     def test_matching_nav_and_design_shell(self):
         self.assertIn('data-pa-nav="action" aria-current="page"',PAGE)
