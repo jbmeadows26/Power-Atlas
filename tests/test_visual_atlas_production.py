@@ -197,6 +197,10 @@ class ProductionVisualAtlasTests(unittest.TestCase):
         self.assertNotIn('cw-mobile-home', (RESEARCH/"consumer-practices.html").read_text())
         self.assertIn('money-scale-legacy-hero{display:none!important}',
                       (UNIFIED/"visual-story-v6.css").read_text())
+        sheet=(UNIFIED/"visual-story-v6.css").read_text(encoding="utf-8")
+        self.assertIn('body.vs6-topic-mode:not(.vs6-topic-expanded) > .cw-top',sheet)
+        self.assertIn('body.vs6-topic-mode:not(.vs6-topic-expanded) > header.cg-hero',sheet)
+
 
     def test_compare_loads_authoritative_evidence_first_and_avoids_static_404s(self):
         html=(UNIFIED/"compare.html").read_text(encoding="utf-8")
