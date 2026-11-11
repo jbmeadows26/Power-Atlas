@@ -259,8 +259,11 @@ $("topicFilter").addEventListener("click",e=>{const b=e.target.closest("button[d
 $("entitySearch").addEventListener("input",e=>{query=e.target.value;renderRelations();renderCases()});
 $("clearSearch").addEventListener("click",()=>{$("entitySearch").value="";query="";renderRelations();renderCases()});
 (async()=>{
- const p=new URLSearchParams(location.search).get("issue");
+ const params=new URLSearchParams(location.search);
+ const p=params.get("issue");
  if(Object.prototype.hasOwnProperty.call(issueLabels,p))issue=p;
+ const linkedOwner=params.get("owner");
+ if(featuredOwners.includes(linkedOwner))activeOwner=linkedOwner;
  const [a,b]=await Promise.allSettled([fetch(root+"verified-relationships-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch(root+"transparency-price-power-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]);
  if(a.status==="fulfilled"&&a.value.schema==="power-atlas.corporate-ownership.evidence-graph.v1")graph=a.value;
  if(b.status==="fulfilled"&&b.value.schema==="power-atlas.corporate-ownership.transparency-price-power.v1")casebook=b.value;
