@@ -40,6 +40,9 @@ jobs:
           node --check platform/unified/atlas-visual-system.js
           node --check platform/unified/visual-first-v5.js
           node --check platform/unified/visual-story-v6.js
+          node --check platform/unified/qa-monitor.js
+          node --check platform/unified/api/qa-config.js
+          node --check platform/unified/hud-safmr-fy2026.js
       - name: Check that redesigns never break local links or evidence pointers
         run: python scripts/audit_power_atlas_site.py --fail-on-broken-assets
       - name: Install free Chromium QA runner

@@ -270,3 +270,12 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
  script.src="visual-first-v5.js";script.setAttribute("data-pa5-loader","js");
  document.head.appendChild(script);
 })();
+
+
+/* One optional QA monitor across all pages using the shared visual system. */
+(()=>{"use strict";if(document.querySelector('script[data-pa-monitor]'))return;
+  if(!location.hostname.startsWith("power-atlas-unified") && !["localhost","127.0.0.1"].includes(location.hostname))return;
+  const script=document.createElement("script");script.src="qa-monitor.js";
+  script.defer=true;script.dataset.paMonitor="1";
+  document.head.append(script);
+})();
