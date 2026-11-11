@@ -1,0 +1,42 @@
+/* Market Power: visual evidence pathways. No unsupported household markup estimates. */
+.mpx-section{padding:56px 0 38px;background:linear-gradient(165deg,#eff8f2 0%,#f6f9f5 72%,#f8f7f3 100%);border-block:1px solid #d9e9e0}
+.mpx-head{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:24px}
+.mpx-head h2{font-size:clamp(32px,4.8vw,58px);letter-spacing:-.065em;line-height:1.02;margin:12px 0}
+.mpx-head p{max-width:490px;margin:0 0 5px;color:#4c6866;line-height:1.5}
+.mpx-kicker{color:#187c70;font-size:11px;font-weight:950;letter-spacing:.18em;text-transform:uppercase}
+.mpx-tabs{display:flex;flex-wrap:wrap;gap:9px;margin:24px 0 16px}
+.mpx-tabs button{border:1px solid #b9d4c7;background:#fff;color:#28534b;border-radius:100px;padding:12px 16px;font-size:13px;font-weight:850;transition:background .15s ease}
+.mpx-tabs button:hover,.mpx-tabs button[aria-pressed="true"]{background:#153e3b;border-color:#153e3b;color:#fff}
+.mpx-grid{display:grid;grid-template-columns:minmax(230px,.86fr) minmax(0,1.3fr);gap:15px}
+.mpx-measure,.mpx-detail{background:white;border-radius:24px;border:1px solid #cfe2d9;padding:clamp(20px,3vw,32px)}
+.mpx-measure{display:flex;flex-direction:column;justify-content:space-between;background:#163f3b;color:#e9fcf4}
+.mpx-measure .mpx-kicker{color:#93dcc0}.mpx-ring{width:min(230px,76%);aspect-ratio:1;align-self:center;border-radius:50%;background:conic-gradient(#8fddba var(--progress),#3c625d 0);display:grid;place-items:center;margin:24px 0 18px;position:relative}
+.mpx-ring:before{content:"";position:absolute;inset:18px;border-radius:50%;background:#163f3b}.mpx-ring span{position:relative;z-index:1;font-size:clamp(36px,6vw,64px);font-weight:950;letter-spacing:-.07em}
+.mpx-measure h3{font-size:21px;line-height:1.24;margin:0 0 10px;letter-spacing:-.045em}.mpx-measure p{font-size:12px;line-height:1.6;color:#bedbd3;margin:0}
+.mpx-source-badge{display:inline-block;margin-top:16px;font-size:11px;font-weight:800;color:#a3e3ca}
+.mpx-detail h3{font-size:clamp(25px,3vw,38px);letter-spacing:-.05em;line-height:1.1;margin:12px 0 16px}
+.mpx-ownership{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px;margin:14px 0 23px}
+.mpx-node{background:#edf7f2;border:1px solid #d5e9df;padding:15px;border-radius:15px;min-width:0}
+.mpx-node small{display:block;font-size:10px;letter-spacing:.07em;text-transform:uppercase;color:#66857b;font-weight:850}
+.mpx-node strong{display:block;font-size:15px;line-height:1.3;margin:6px 0;color:#163e3a}
+.mpx-node span{display:block;font-size:12px;color:#375e57;line-height:1.35}
+.mpx-arrow{display:block;color:#23957c;font-size:17px;font-weight:900}
+.mpx-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;margin:12px 0 20px}
+.mpx-flow div{border-radius:14px;border:1px solid #e2e4dc;padding:15px;background:#fcfcfa}
+.mpx-flow b{font-size:10px;letter-spacing:.1em;color:#56766d}
+.mpx-flow p{font-size:12px;color:#385751;line-height:1.5;margin:7px 0 0}
+.mpx-proof{display:flex;gap:16px;align-items:center;flex-wrap:wrap;border-top:1px solid #e1ebe5;padding-top:16px}
+.mpx-proof small{font-size:12px;color:#526862;line-height:1.5}
+.mpx-pill{border-radius:40px;padding:8px 10px;background:#e7f4ec;color:#1f7358;font-size:11px;font-weight:850}
+.mpx-pill[data-kind="allegation"]{background:#fff0dd;color:#8c6719}.mpx-pill[data-kind="finding"]{background:#e5f1fc;color:#245c86}
+.mpx-actions{display:flex;flex-wrap:wrap;gap:12px;margin-top:18px}
+.mpx-actions a{display:inline-flex;align-items:center;justify-content:center;min-height:44px;border-radius:24px;padding:10px 17px;background:#183b38;color:white;text-decoration:none;font-size:12px;font-weight:850}
+.mpx-actions a:last-child{background:#fff;color:#205b50;border:1px solid #b8d9cb}
+.mpx-bottom{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:16px}
+.mpx-bottom article{padding:20px;border-radius:18px;border:1px solid #cfe0d6;background:white}
+.mpx-bottom b{font-size:12px;color:#1b7462}.mpx-bottom p{font-size:12px;line-height:1.5;color:#4b625d;margin:9px 0 0}
+.mpx-scope{font-size:12px;color:#526c65;line-height:1.6;margin-top:18px}
+.mpx-scope a{color:#18695e;font-weight:800}
+@media(max-width:800px){.mpx-grid{grid-template-columns:1fr}.mpx-measure{display:grid;grid-template-columns:130px 1fr;gap:10px;align-items:center}.mpx-measure .mpx-kicker{grid-column:1/-1}.mpx-ring{width:124px;margin:0;grid-row:2/5}.mpx-ring:before{inset:13px}.mpx-ring span{font-size:33px}.mpx-bottom{grid-template-columns:1fr}}
+@media(max-width:520px){.mpx-section{padding:36px 0}.mpx-tabs{gap:6px}.mpx-tabs button{padding:10px 12px;font-size:12px}.mpx-detail,.mpx-measure{padding:18px;border-radius:18px}.mpx-flow{grid-template-columns:1fr}.mpx-flow div{padding:13px}.mpx-ownership{grid-template-columns:repeat(2,minmax(0,1fr))}.mpx-head h2{font-size:38px}}
+@media(prefers-reduced-motion:reduce){.mpx-tabs button{transition:none}}
