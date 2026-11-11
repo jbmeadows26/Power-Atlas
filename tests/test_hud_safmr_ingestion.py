@@ -49,7 +49,15 @@ class HUDIngestionTests(unittest.TestCase):
 
     def test_ui_and_runtime_monitor_are_wired(self):
         html=(ROOT/"platform/unified/my-life.html").read_text()
-        self.assertIn('src="hud-safmr-fy2026.js"',html)
+        self.assertIn('src="hud-rent-current.js"',html)
+        self.assertNotIn('src="hud-safmr-fy2026.js"',html)
+        current = (ROOT/"platform/unified/hud-rent-current.js").read_text()
+        self.assertIn("doc.fy===2027",current)
+        self.assertIn("HUD FY2027", (ROOT/"platform/unified/visual-story-v6.js").read_text())
+        self.assertIn("not current apartment listings",current)
+        nj = json.loads((ROOT/"data/housing/bedroom-rents/NJ.json").read_text())
+        self.assertEqual(nj["fy"],2027)
+        self.assertEqual(nj["zips"]["07010"][0][1], [1820,2040,2340,2840,3590])
         self.assertIn('href="hud-safmr-fy2026.css"',html)
         visual=(ROOT/"platform/unified/atlas-visual-system.js").read_text()
         self.assertIn('script.src="qa-monitor.js"',visual)
