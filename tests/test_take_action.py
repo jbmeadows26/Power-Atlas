@@ -11,15 +11,21 @@ RESEARCH=ROOT/"site"
 
 class TakeActionTests(unittest.TestCase):
     def test_both_frontends_have_identical_page_and_assets(self):
-        for filename in ("take-action.html","take-action.css","take-action.js"):
+        for filename in ("take-action.css","take-action.js"):
             with self.subTest(filename=filename):
                 self.assertEqual((UNIFIED/filename).read_bytes(),(RESEARCH/filename).read_bytes())
+
+    def test_single_canonical_page(self):
+        self.assertTrue((UNIFIED/"take-action.html").exists())
+        self.assertFalse((RESEARCH/"take-action.html").exists())
 
     def test_visual_shell_and_navigational_journey(self):
         html=(UNIFIED/"take-action.html").read_text()
         self.assertEqual(html.count('id="pa-global-header"'),1)
         self.assertIn('aria-current="page"',html)
         self.assertIn('href="global-navigation.css"',html)
+        self.assertIn('href="atlas-visual-system.css"',html)
+        self.assertIn('src="atlas-visual-system.js"',html)
         self.assertIn('href="take-action.css"',html)
         self.assertIn('src="take-action.js"',html)
         self.assertIn('src="bug-report.js"',html)
