@@ -1,0 +1,71 @@
+{
+  "schema": "power-atlas.market-asking-rent-snapshot.v1",
+  "snapshotMonth": "2026-11",
+  "retrievedOn": "2026-11-11",
+  "geography": {
+    "kind": "municipality",
+    "name": "Cliffside Park",
+    "state": "NJ",
+    "country": "USA",
+    "relatedZipCode": "07010",
+    "zipSpecific": false
+  },
+  "measure": {
+    "unit": "USD/month",
+    "statistic": "provider-reported average advertised rent by bedroom and property type",
+    "notices": [
+      "Market asking rents for listed rental properties, not signed leases or HUD voucher amounts.",
+      "Citywide provider aggregates; do not claim precise ZIP 07010 geography.",
+      "Per-bedroom and property-type observation counts not published by source. Interpretation is less certain for large homes.",
+      "Monthly listings and data are dynamic; this is a sourced November 2026 snapshot, not an automatic live listing feed."
+    ]
+  },
+  "source": {
+    "name": "Trulia Rental Market Trends",
+    "url": "https://www.trulia.com/average-rent-market-trends/cliffside-park-nj/",
+    "publishedPeriod": "November 2026",
+    "providerReportedTotalAvailableRentals": 111
+  },
+  "propertyTypes": {
+    "all": {
+      "label": "All home types",
+      "bedrooms": {
+        "1": 2000,
+        "2": 2850,
+        "3": 4200,
+        "4": 5500
+      }
+    },
+    "apartment_condo": {
+      "label": "Apartments & condos",
+      "bedrooms": {
+        "1": 2000,
+        "2": 2850,
+        "3": 3200,
+        "4": 3678
+      }
+    },
+    "house": {
+      "label": "Houses",
+      "bedrooms": {
+        "1": 2350,
+        "2": 2400,
+        "3": 4200,
+        "4": 5500
+      }
+    },
+    "townhouse": {
+      "label": "Townhomes",
+      "bedrooms": {
+        "1": 1800,
+        "2": null,
+        "3": 5200,
+        "4": 4500
+      }
+    }
+  },
+  "coverage": {
+    "otherZips": "No inference. Explicitly source and verify each municipality or ZIP before enabling a market price.",
+    "currentAskingRentVsHUD": "Never use HUD FMR as a market-rent substitution."
+  }
+}

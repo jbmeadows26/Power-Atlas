@@ -530,7 +530,7 @@
         "fhfa_hpi"
       ],
       "requiredJoin": "ZCTA/county and dated rent/price measures with consistent units",
-      "limitation": "A validated FY2026 HUD SAFMR rent-by-bedroom ZCTA benchmark is published, but it is a Housing Choice Voucher benchmark—not observed rent paid, local listings, current asking rents, or an ownership-driven price effect. Neighborhood/year transaction series and legal-owner joins remain unavailable.",
+      "limitation": "HUD FY2027 program rents, ACS historic all-unit median, Trulia citywide advertised asking-rent averages, and actual lease rents are different measures. A November 2026 Cliffside Park market snapshot now exists, but exact ZIP, current nationwide comparable listings and signed leases remain unresolved.",
       "status": "partial_program_benchmark_verified_actual_prices_unresolved",
       "verifiedPartialIntegration": {
         "type": "FY2026 HUD Small Area Fair Market Rent benchmark",
@@ -545,7 +545,20 @@
       },
       "importance": "high",
       "severity": "medium",
-      "notZero": true
+      "notZero": true,
+      "verifiedPartialMarketIntegration": {
+        "status": "documented_provider_snapshot_partial_geography",
+        "source": "Trulia Rental Market Trends",
+        "sourceURL": "https://www.trulia.com/average-rent-market-trends/cliffside-park-nj/",
+        "reportedPeriod": "2026-11",
+        "collectedDate": "2026-11-11",
+        "geographicScope": "Cliffside Park municipality, NJ; not exact ZIP 07010",
+        "measure": "Provider-reported advertised asking-rent averages, 1–4 bedrooms, by home type",
+        "availableMarketRecord": "data/housing/market-asking-rent-cliffside-park-2026-11.json",
+        "publicPresentation": "platform/unified/market-rent-primary.js",
+        "limitations": "Only this municipality verified; no listing-level sample counts by bedroom and property type; asking rent is not signed rent, net effective rent, concessions, or proof of landlord conduct.",
+        "stillMissing": "Other ZIP/municipality asking-rent sources, updated market feeds, lease/contract rent data, legal ownership joins, comparable 3BR and 4BR property characteristics and causal estimates"
+      }
     },
     {
       "id": "housing__ownership",

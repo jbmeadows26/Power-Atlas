@@ -91,42 +91,73 @@ class BrowserJourneyQA(unittest.TestCase):
             "() => !!(document.getElementById('where').compareDocumentPosition("
             "document.getElementById('what')) & Node.DOCUMENT_POSITION_FOLLOWING)"))
 
-    def test_zip_housing_rent_uses_current_fy2027_by_bedroom_not_acs_median(self):
-        # Stub only the FY2027 NJ HUD-derived file with a genuine validated row,
-        # avoiding external-network test flakiness while checking rendered labels.
-        state = json.loads((Path(__file__).resolve().parents[1] /
-                            "data/housing/bedroom-rents/NJ.json").read_text())
-        self.assertEqual(state["fy"], 2027)
-        self.assertEqual(state["zips"]["07010"][0][1],
-                         [1820, 2040, 2340, 2840, 3590])
-        payload = {k: state[k] for k in ("state", "fy", "areas")}
-        payload["zips"] = {"07010": state["zips"]["07010"]}
+    def test_market_asking_rent_leads_and_hud_is_separate(self):
+        # Source-specific market snapshot is verified, static, citywide and NOT
+        # substituted with HUD or a historical all-bedroom ACS median.
+        root = Path(__file__).resolve().parents[1]
+        market = json.loads((root / "data/housing/market-asking-rent-cliffside-park-2026-11.json").read_text())
+        self.assertEqual(market["geography"]["relatedZipCode"], "07010")
+        self.assertFalse(market["geography"]["zipSpecific"])
+        self.assertEqual(market["propertyTypes"]["all"]["bedrooms"]["4"], 5500)
+        self.page.route(
+            "**/data/housing/market-asking-rent-cliffside-park-2026-11.json",
+            lambda route: route.fulfill(status=200, content_type="application/json",
+                headers={"Access-Control-Allow-Origin": "*"}, body=json.dumps(market)))
+        nj = json.loads((root / "data/housing/bedroom-rents/NJ.json").read_text())
+        hud = {k: nj[k] for k in ("state", "fy", "areas")}
+        hud["zips"] = {"07010": nj["zips"]["07010"]}
         self.page.route(
             "**/data/housing/bedroom-rents/NJ.json",
-            lambda route: route.fulfill(
-                status=200, content_type="application/json",
-                headers={"Access-Control-Allow-Origin": "*"},
-                body=json.dumps(payload)))
+            lambda route: route.fulfill(status=200, content_type="application/json",
+                headers={"Access-Control-Allow-Origin": "*"}, body=json.dumps(hud)))
         self.visit("/my-life.html")
         self.page.locator("#zipInput").fill("07010")
         self.page.locator("#zipForm button[type=submit]").click()
         tile = self.page.locator(".vs6-zip-tile--housing")
         tile.locator(".vs6-zip-bedroom-cell").first.wait_for(timeout=20000)
-        self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 5)
-        rendered = tile.inner_text()
-        for value in ["$1,820", "$2,040", "$2,340", "$2,840", "$3,590"]:
-            self.assertIn(value, rendered)
-        self.assertNotIn("$1,837", rendered)
-        self.assertNotIn("$3,740", rendered)
-        self.assertIn("not a listing price", rendered)
-        self.assertIn("HUD FY2027", rendered)
-        panel = self.page.locator("#pa-hud-safmr")
-        self.assertTrue(panel.is_visible())
-        self.assertIn("4 bedrooms", panel.inner_text())
-        self.assertIn("not current apartment listings", panel.inner_text())
+        self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 4)
+        displayed = tile.inner_text()
+        for number in ["$2,000", "$2,850", "$4,200", "$5,500"]:
+            self.assertIn(number, displayed)
+        for invalid in ["$1,837", "$2,340", "$3,590", "HUD FY2027"]:
+            self.assertNotIn(invalid, displayed)
+        self.assertIn("Cliffside Park citywide", displayed)
+        self.assertIn("not exact ZIP", displayed)
+        self.assertIn("average advertised rents", displayed)
+        control = tile.locator("select.vs6-zip-market-select")
+        control.select_option("apartment_condo")
+        self.assertIn("$3,678", tile.inner_text())
+        self.assertIn("$3,200", tile.inner_text())
+        control.select_option("townhouse")
+        self.assertIn("Not reported", tile.inner_text())
+        self.assertIn("$5,200", tile.inner_text())
+        control.select_option("all")
+        # The HUD program figures are in their separate lower panel.
+        hud_panel = self.page.locator("#pa-hud-safmr")
+        self.assertTrue(hud_panel.is_visible())
+        self.assertIn("4 bedrooms", hud_panel.inner_text())
+        self.assertIn("not current apartment listings", hud_panel.inner_text())
+        self.assertIn("$3,590", hud_panel.inner_text())
         self.assert_no_horizontal_overflow()
         tile.scroll_into_view_if_needed()
-        self.page.screenshot(path=str(REPORTS / "rent-by-bedrooms-mobile.png"), full_page=False)
+        self.page.screenshot(path=str(REPORTS / "asking-rent-vs-hud-mobile.png"), full_page=False)
+
+    def test_market_not_inferred_for_unverified_zip(self):
+        self.visit("/my-life.html")
+        tile = self.page.locator(".vs6-zip-tile--housing")
+        tile.wait_for(state="attached", timeout=15000)
+        # Wait for both dynamic listeners, not only the initial CSS state.
+        self.page.wait_for_function(
+            "() => !!document.querySelector('.vs6-zip-market-select')", timeout=15000)
+        self.page.evaluate("""() => window.dispatchEvent(new CustomEvent(
+            'poweratlas:zip-visual-context',
+            {detail:{zip:'10001',place:'New York',status:'loading',metrics:[]}}))""")
+        self.page.wait_for_function(
+            "() => !!document.querySelector('.vs6-zip-tile--housing .vs6-zip-compare')?.textContent.includes('No verified, recent asking-rent figures')",
+            timeout=12000)
+        self.assertIn("HUD values are not substituted", tile.inner_text())
+        self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 0)
+        self.assert_no_horizontal_overflow()
 
     def test_take_action_chamber_buttons_and_mobile_layout(self):
         self.visit("/take-action.html")
