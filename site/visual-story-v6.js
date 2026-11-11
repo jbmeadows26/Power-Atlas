@@ -39,7 +39,7 @@ function visual(type){
   box.append(E("span","vs6-art-foot","Illustration · Always compare total cost"));
  }else if(type==="money"){
   box.append(S('<div class="vs6-money-viz"><div><b>DONOR</b><span class="vs6-money-circle">●</span></div><span class="vs6-money-arrow">→</span><div><b>COMMITTEE</b><span class="vs6-money-circle vs6-money-circle--mid">●</span></div><span class="vs6-money-arrow">→</span><div><b>SPENDING</b><span class="vs6-money-circle vs6-money-circle--end">●</span></div></div>'));
-  box.append(E("span","vs6-art-foot","Public filings show transfers—not their effect on votes"));
+  box.append(E("span","vs6-art-foot","Records show transactions—not proof of bought decisions"));
  }else if(type==="market"){
   box.append(S('<div class="vs6-market-viz"><div class="vs6-market-half"><b>MORE COMPETITORS</b><div class="vs6-market-dots"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><span class="vs6-market-sep">≠</span><div class="vs6-market-half"><b>FEWER COMPETITORS</b><div class="vs6-market-dots vs6-market-dots--few"><i></i><i></i></div></div></div>'));
   box.append(E("span","vs6-art-foot","Concept diagram · Not measured market shares"));
@@ -107,7 +107,7 @@ function metricPanel(metrics){
 const cardMeta=[
 {tag:"OWNERSHIP",heading:"Who owns what?",line:"Follow the company behind the brand.",kind:"ownership",theme:"dark"},
 {tag:"CONSUMER WATCH",heading:"The fine-print trap",line:"The offer isn't always the total.",kind:"consumer",theme:"peach"},
-{tag:"POLITICAL MONEY",heading:"Follow the cash",line:"See the trail—and where it ends.",kind:"money",theme:"lilac"},
+{tag:"POLITICAL MONEY",heading:"Follow the cash",line:"Follow donors, dark money, lobbying and decisions.",kind:"money",theme:"lilac"},
 {tag:"MARKET POWER",heading:"When choice shrinks",line:"Find the evidence of concentration.",kind:"market",theme:"mint"},
 {tag:"CLASS ACTIONS",heading:"Sued isn't paid",line:"Case status matters more than headlines.",kind:"claims",theme:"dark"},
 {tag:"ECONOMIC RISK",heading:"Could the shock reach you?",line:"Connect markets with daily life.",kind:"economy",theme:"blue"}
