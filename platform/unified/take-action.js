@@ -62,12 +62,12 @@ function renderMembers(){
  result.replaceChildren();recipients.replaceChildren();selected=null;
  if(members.length===0){const p=make("p","ta-empty","Member data is not available. Use the official congressional finder above to locate your offices.");result.append(p);recipients.append(make("p",null,"Use the official directory above, then copy a prepared message."));buildMessage();return;}
  const house=members.filter(m=>m.chamber==="house"),multi=ambiguous||house.length>1;
- $("ambiguous-notice").hidden=!multi;
+ $("ambiguous-notice").hidden=house.length===0;
  for(const m of members){
   const card=make("article","ta-member");
   card.append(make("span","ta-member-role",roleLabel(m)+(m.chamber==="house"&&multi?" · possible district":"")));
   card.append(make("h3",null,displayName(m)));
-  const sub=make("p","ta-member-meta",m.chamber==="house"?(multi?"One of "+house.length+" House members for this ZIP. Verify your address with House.gov.":"Matching House district from public directory."):"Senator for "+(m.state||"your state"));
+  const sub=make("p","ta-member-meta",m.chamber==="house"?(multi?"One of "+house.length+" House members for this ZIP. Verify your address with House.gov." :"Possible House member for ZIP. Confirm your full address with House.gov."):"Senator for "+(m.state||"your state"));
   card.append(sub);
   card.append(link(m.contact?"Official contact form ↗":m.website?"Official member website ↗":"Official finder ↗",contactFor(m)));
   if(m.chamber==="house")card.append(link("Verify district on House.gov ↗",houseLookup(zip)));
@@ -89,34 +89,80 @@ function normalize(raw){
   state,district:Number.isInteger(raw.district)?raw.district:null,contact:isHttps(raw.contact_form,true),
   website:isHttps(raw.url,true),phone:String(raw.phone||"").slice(0,28),last_name:last};
 }
+/* Compare independent ZIP data against the House-derived match list.
+   Never treat ZIP-only district assignment as proof of address-level representation. */
+function normalizeOpenAmerica(raw,chamber,state){
+ if(!raw||!/^([A-Z][0-9]{6})$/.test(String(raw.bioguide_id||""))||!raw.name)return null;
+ const text=String(raw.name);
+ const natural=String(raw.natural_name||"").trim()||(text.includes(",")?(text.split(",").slice(1).join(",").trim()+" "+text.split(",")[0].trim()):text);
+ return{bioguide_id:raw.bioguide_id,name:text,natural_name:natural,chamber,state,
+   district:null,contact:null,website:null,phone:null,last_name:text.includes(",")?text.split(",")[0].trim():natural.split(" ").slice(-1)[0]};
+}
+async function enrichMissingOffices(serial){
+ const needed=members.filter(m=>!m.contact&&!m.website).slice(0,8);
+ if(!needed.length)return;
+ await Promise.all(needed.map(async m=>{
+  try{
+   const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),6500);
+   let res;try{res=await fetch("https://openamerica.io/legislator/"+m.bioguide_id+"/?format=json",{signal:controller.signal,mode:"cors",credentials:"omit"});}finally{clearTimeout(timer)}
+   if(!res.ok||serial!==lookupSerial)return;
+   const data=await res.json();
+   if(data.current_member===true){m.website=isHttps(data.official_website,true);}
+  }catch{/* Government finder remains available for each candidate. */}
+ }));
+ if(serial!==lookupSerial)return;
+ const previous=selected?.bioguide_id;
+ renderMembers();
+ const saved=members.find(m=>m.bioguide_id===previous);if(saved)setRecipient(saved);
+}
 async function locate(zipCode){
- const serial=++lookupSerial;zip=zipCode;status.textContent="Finding current congressional offices for ZIP "+zip+"…";
+ const serial=++lookupSerial;zip=zipCode;status.textContent="Cross-checking congressional offices for ZIP "+zip+"…";
  result.replaceChildren();$("ambiguous-notice").hidden=true;
- const controller=new AbortController(),timeout=setTimeout(()=>controller.abort(),9000);
+ const controller=new AbortController(),timer=setTimeout(()=>controller.abort(),9500);
+ let one,two;
  try{
-  let response;try{response=await fetch("https://repscontact.com/api/reps?zip="+encodeURIComponent(zip),{signal:controller.signal,mode:"cors",credentials:"omit",cache:"no-store"});}
-  finally{clearTimeout(timeout)}
-  if(!response.ok)throw Error("Lookup unavailable");
-  const data=await response.json();
+  const requests=await Promise.allSettled([
+   fetch("https://repscontact.com/api/reps?zip="+encodeURIComponent(zip),{signal:controller.signal,mode:"cors",credentials:"omit",cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(Error("RepsContact error"))),
+   fetch("https://openamerica.io/api/zip-lookup/"+encodeURIComponent(zip)+"/",{signal:controller.signal,mode:"cors",credentials:"omit",cache:"no-store"}).then(r=>r.ok?r.json():Promise.reject(Error("Open America error")))
+  ]);
   if(serial!==lookupSerial)return;
-  if(data.zip!==zip||!Array.isArray(data.representatives))throw Error("Unexpected directory response");
-  members=data.representatives.map(normalize).filter(Boolean);
-  if(!members.length||members.length>15)throw Error("No valid members");
-  members=[...new Map(members.map(m=>[m.bioguide_id,m])).values()];
+  one=requests[0].status==="fulfilled"?requests[0].value:null;
+  two=requests[1].status==="fulfilled"?requests[1].value:null;
+  const validOne=one&&one.zip===zip&&Array.isArray(one.representatives);
+  const validTwo=two&&two.ok===true&&two.zip===zip&&/^[A-Z]{2}$/.test(two.state||"")&&Array.isArray(two.representatives)&&Array.isArray(two.senators);
+  if(!validOne&&!validTwo)throw Error("Both member sources unavailable");
+  const fromOne=validOne?one.representatives.map(normalize).filter(Boolean):[];
+  const fromTwo=validTwo?[
+   ...two.representatives.map(m=>normalizeOpenAmerica(m,"house",two.state)),
+   ...two.senators.map(m=>normalizeOpenAmerica(m,"senate",two.state))
+  ].filter(Boolean):[];
+  const byId=new Map(fromTwo.map(m=>[m.bioguide_id,m]));
+  for(const m of fromOne){
+   const old=byId.get(m.bioguide_id);
+   if(old){byId.set(m.bioguide_id,{...old,...m,website:m.website||old.website,contact:m.contact||old.contact,phone:m.phone||old.phone});}
+   else byId.set(m.bioguide_id,m);
+  }
+  members=[...byId.values()];
+  if(!members.length||members.length>25)throw Error("No trustworthy current members");
   members.sort((a,b)=>a.chamber===b.chamber?a.natural_name.localeCompare(b.natural_name):a.chamber==="senate"?-1:1);
   const house=members.filter(m=>m.chamber==="house");
-  ambiguous=data.ambiguous===true||house.length>1;
-  status.textContent=members.length+" current member"+(members.length===1?"":"s")+" found via independent directory (RepsContact). "+(ambiguous?"Your ZIP spans House districts; confirm the correct district through the official finder.":"Please verify with Congress.gov before contacting.");
+  const houseOne=new Set(fromOne.filter(m=>m.chamber==="house").map(m=>m.bioguide_id));
+  const houseTwo=new Set(fromTwo.filter(m=>m.chamber==="house").map(m=>m.bioguide_id));
+  const conflict=!!(validOne&&validTwo&&(houseOne.size!==houseTwo.size||[...houseOne].some(id=>!houseTwo.has(id))));
+  ambiguous=one?.ambiguous===true||house.length>1||conflict;
+  status.textContent=(ambiguous?"ZIP "+zip+" has multiple possible House districts or inconsistent lookup coverage. ":"Showing "+house.length+" possible House member for ZIP "+zip+". ")+
+    "Confirm your House district using the official address finder. "+(conflict?"Independent sources disagreed; all distinct candidates are displayed.":"");
   renderMembers();
+  enrichMissingOffices(serial);
  }catch(e){
   if(serial!==lookupSerial)return;
   members=[];ambiguous=false;renderMembers();
-  status.textContent="Live member lookup is unavailable. Use official Congress.gov or House.gov directories; we do not guess member names.";
+  status.textContent="Live lookup could not verify members. Use the official House and Congress.gov tools; Power Atlas will not guess.";
   const fallback=make("div","ta-fallback");
-  fallback.append(link("Find my House member on House.gov ↗","https://www.house.gov/representatives/find-your-representative"));
+  fallback.append(link("Official House ZIP lookup (ZIP prefilled) ↗",houseLookup(zip)));
   fallback.append(link("Find my members on Congress.gov ↗",officeFallback));
   result.append(fallback);
- }
+ }finally{clearTimeout(timer)}
 }
 $("lookup-form").addEventListener("submit",e=>{
  e.preventDefault();const input=$("zip");const code=input.value.trim();
