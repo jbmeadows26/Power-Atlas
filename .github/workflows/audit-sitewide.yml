@@ -4,6 +4,9 @@ on:
     paths:
       - 'scripts/audit_power_atlas_site.py'
       - 'tests/test_sitewide_audit.py'
+      - 'tests/test_v6_site_acceptance.py'
+      - 'platform/unified/*.js'
+      - 'platform/unified/*.css'
       - 'data/health/sitewide-missing-sources-v1.json'
       - 'data/health/completion-gates.json'
       - 'data/corporate-ownership/**'
@@ -12,6 +15,7 @@ on:
       - 'site/*.html'
       - 'research/voting-access/*.html'
       - '.github/workflows/audit-sitewide.yml'
+  pull_request:
   schedule:
     - cron: '15 10 * * 1'
   workflow_dispatch:
@@ -35,6 +39,12 @@ jobs:
         run: python scripts/audit_power_atlas_site.py
       - name: Test all source references, nine issues, research and internal routes
         run: python -m unittest discover -s tests -p 'test_sitewide_audit.py' -v
+      - name: Assert approved navigation, design and evidence completeness flags
+        run: python -m unittest discover -s tests -p 'test_v6_site_acceptance.py' -v
+      - name: Parse all shared visual system JavaScript
+        run: |
+          set -euo pipefail
+          for file in platform/unified/*.js; do node --check "$file"; done
       - name: Confirm JavaScript on all static HTML surfaces parses
         run: |
           python - <<'PY'
@@ -59,7 +69,7 @@ jobs:
           print('Valid inline browser scripts:',checked)
           PY
       - name: Commit dated read-only audit report if changed
-        if: success()
+        if: success() && github.event_name != 'pull_request'
         run: |
           set -euo pipefail
           if test -f data/health/sitewide-audit-v1.json; then

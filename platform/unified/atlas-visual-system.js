@@ -232,7 +232,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
     ["issues","my-life.html#what","Issues"],
     ["costs","my-life.html#benchmarkStory","Costs"],
     ["why","my-life.html#why","The Why"],
-    ["action","my-life.html#how","Actions"],
+    ["action","take-action.html","Actions"],
     ["research","index.html","Research"]
   ];
   const existing=new Map();
