@@ -329,3 +329,6 @@ html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-hero{display:n
    Their original illustrations remain accessible in the expanded research view. */
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > .cw-top,
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > header.cg-hero{display:none!important}
+
+/* Research archive's original P/A wordmark is redundant once the shared header mounts. */
+html[data-vs6="active"] body > header.hero .top .logo{display:none!important}
