@@ -314,7 +314,14 @@ function compactNav(){
    nav.setAttribute("aria-label","Explore Power Atlas");
    // One canonical visitor journey, on both the Unified and Research origins.
    // Topic-specific research stays in the page, never in a competing masthead.
-   const base="https://power-atlas-unified.vercel.app/";
+   // Keep review/unified navigation on its current origin. Research-site routes
+   // intentionally lead back to the public unified experience.
+   const host=location.hostname.toLowerCase();
+   const onUnified=host.startsWith("power-atlas-unified")||
+     host.startsWith("power-atlas-visual-review")||
+     host==="localhost"||host==="127.0.0.1";
+   const base=onUnified?new URL("/",location.href).href:
+     "https://power-atlas-unified.vercel.app/";
    [
      ["place","Start Here","my-life.html#where"],
      ["issues","Issues","my-life.html#what"],
