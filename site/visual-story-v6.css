@@ -324,3 +324,8 @@ details[data-pa-context-nav] nav a:hover,details[data-pa-context-nav] nav a:focu
 /* Money Scale keeps its original non-JS introduction but never stacks two V6 heroes. */
 html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-ribbon,
 html[data-vs6="active"] body.vs6-topic-mode > .money-scale-legacy-hero{display:none!important}
+
+/* Do not stack original large Cost Gap or Consumer Watch marketing covers over V6.
+   Their original illustrations remain accessible in the expanded research view. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > .cw-top,
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) > header.cg-hero{display:none!important}
