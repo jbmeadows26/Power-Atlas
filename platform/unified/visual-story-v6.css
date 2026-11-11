@@ -494,3 +494,7 @@ html[data-vs6="active"] body.vs6-topic-expanded main :is(.pa5-chapter-card,.issu
 .vs6-evidence-link{color:#136d61!important;font-weight:900;text-decoration:underline;text-underline-offset:3px;white-space:nowrap}
 .vs6-evidence-status a:focus-visible{outline:3px solid #d4a355;outline-offset:3px}
 @media(max-width:680px){.vs6-evidence-status{padding:12px 14px;gap:9px}.vs6-evidence-status strong{flex-basis:100%;font-size:.8rem}.vs6-evidence-link{white-space:normal}}
+
+/* Prevent the superseded full-page masthead from appearing above the V6 cover. */
+html[data-vs6="active"] body.vs6-topic-mode > header.hero{display:none!important}
+html[data-vs6="active"] body.vs6-topic-mode > header:not(#pa-global-header):not(.hero) + main{scroll-margin-top:0}
