@@ -182,7 +182,7 @@ const topicCopy={
  "consumer-practices.html":["The real cost of a deal","Follow the conditions behind the advertised price."],
  "class-actions.html":["A lawsuit isn't a refund.","Follow case status before checking a claim."],
  "market-power.html":["Who gains when choices shrink?","See what concentration data can—and can't—establish."],
- "dark-money.html":["Follow the political money.","Find the filings, and see where disclosure ends."],
+ "dark-money.html":["Who funds power—and who benefits?","Follow campaign cash, dark money and lobbying. Separate the public records from unproven influence."],
  "money-scale.html":["Make billions feel real.","Compare numbers using the same units."],
  "service-accountability.html":["Where did the people go?","Investigate documented staffing and reported service gaps."],
  "economic-fragility.html":["Could market stress reach you?","Possible pathways are not predictions."],
@@ -199,7 +199,7 @@ function topic(){
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
  section.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
- const art=visual(kind);section.append(art);
+ if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}else{const art=visual(kind);section.append(art);}
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
  cta.addEventListener("click",()=>{
