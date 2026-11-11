@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-11T00:42:17.004355+00:00",
+  "generatedUTC": "2026-11-11T00:43:34.837327+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
     "htmlPagesAudited": 35,
-    "jsonDataFilesChecked": 315,
-    "validJsonFiles": 315,
-    "staticReferencesInspected": 771,
+    "jsonDataFilesChecked": 316,
+    "validJsonFiles": 316,
+    "staticReferencesInspected": 794,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -169,12 +169,13 @@
     },
     {
       "path": "platform/unified/consumer-practices.html",
-      "localReferenceCount": 19,
-      "allReferencesCount": 23,
+      "localReferenceCount": 21,
+      "allReferencesCount": 34,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
-        "data/consumer-practices/cases-v1.json"
+        "data/consumer-practices/cases-v1.json",
+        "data/consumer-practices/shrinkflation-v1.json"
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
@@ -338,8 +339,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 32,
-      "allReferencesCount": 37,
+      "localReferenceCount": 33,
+      "allReferencesCount": 38,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -441,12 +442,13 @@
     },
     {
       "path": "site/consumer-practices.html",
-      "localReferenceCount": 12,
-      "allReferencesCount": 17,
+      "localReferenceCount": 14,
+      "allReferencesCount": 28,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
-        "data/consumer-practices/cases-v1.json"
+        "data/consumer-practices/cases-v1.json",
+        "data/consumer-practices/shrinkflation-v1.json"
       ],
       "missingDataReferences": [],
       "primaryHeaderPresent": false
