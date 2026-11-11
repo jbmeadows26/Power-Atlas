@@ -5,7 +5,7 @@ import unittest
 
 UI = Path(__file__).resolve().parents[1] / "platform" / "unified"
 PAGES = (
-    "index.html", "my-life.html", "compare.html", "dark-money.html",
+    "index.html", "my-life.html", "take-action.html", "compare.html", "dark-money.html",
     "reform-lab.html", "business-candidates.html", "donor-intelligence.html",
     "money-sources.html", "election-2026.html", "business-influence.html",
     "election-money.html", "navatek.html", "investigations.html",
@@ -17,7 +17,7 @@ EXPECTED = (
     ("place", "my-life.html#where"),
     ("issues", "my-life.html#what"),
     ("why", "my-life.html#why"),
-    ("action", "my-life.html#how"),
+    ("action", "take-action.html"),
     ("research", "index.html"),
     ("consumer", "consumer-practices.html"),
 )
