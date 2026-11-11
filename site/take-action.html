@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Take Action | Contact Your Members of Congress | Power Atlas</title>
+<meta name="description" content="Find the members of Congress who represent you by ZIP code, choose a verified Power Atlas issue, and contact their official offices with a short, factual message.">
+<link rel="stylesheet" href="global-navigation.css">
+<link rel="stylesheet" href="take-action.css">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+</head>
+<body data-pa-page="action">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas home">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="take-action.html" data-pa-nav="action" aria-current="page"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a></nav></div></div>
+<main>
+<section class="action-hero" aria-labelledby="pageTitle">
+  <div class="hero-copy">
+    <p class="eyebrow">POWER ATLAS / CIVIC ACTION</p>
+    <h1 id="pageTitle">The issue affects you.<br><em>Your voice belongs in the room.</em></h1>
+    <p class="lead">See who represents you, pick an issue you've explored, and reach their office—without the noise, spam, or a 12-page essay.</p>
+    <a class="hero-cta" href="#find">Find my members <span aria-hidden="true">↓</span></a>
+  </div>
+  <div class="civic-art" aria-label="Three-step path from a real-world issue to a congressional office" role="img">
+    <div class="art-step"><span class="art-symbol">⌂</span><small>YOUR COMMUNITY</small><strong>The issue</strong><span class="art-line"></span></div>
+    <div class="art-step art-mid"><span class="art-symbol">→</span><small>YOUR VOICE</small><strong>The message</strong><span class="art-line"></span></div>
+    <div class="art-step art-end"><span class="art-symbol">◎</span><small>YOUR MEMBER</small><strong>The office</strong></div>
+    <p class="art-foot">One constituent · One issue · One official office</p>
+  </div>
+</section>
+<div class="progress-strip" aria-label="How this works"><span><b>01</b> Find your members</span><span><b>02</b> Choose one issue</span><span><b>03</b> Contact their office</span></div>
+<section class="surface" id="find" aria-labelledby="findTitle">
+  <div class="section-heading"><div><p class="eyebrow dark">01 / YOUR REPRESENTATION</p><h2 id="findTitle">Who speaks for your ZIP?</h2><p>Find your two U.S. senators and possible House representative. Verify your House district using your full address on the official website when needed.</p></div><span class="number-mark" aria-hidden="true">01</span></div>
+  <form id="zipForm" class="zip-form">
+    <label for="zip">U.S. ZIP code</label>
+    <div class="zip-row"><input id="zip" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 07010" required aria-describedby="zipHelp"><button type="submit" id="findButton">Find my members <span aria-hidden="true">→</span></button></div>
+    <p id="zipHelp" class="micro">Only a five-digit ZIP is used for this lookup. ZIP boundaries can overlap House districts; no street address is collected here.</p>
+  </form>
+  <p class="result-status" id="memberStatus" role="status" aria-live="polite">Enter a ZIP to see your congressional delegation.</p>
+  <div class="member-grid" id="memberGrid" aria-live="polite"></div>
+  <div class="fallback-links"><a id="houseFinder" href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">Official House ZIP finder ↗</a><a href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Congress.gov address finder ↗</a><a href="https://www.senate.gov/senators/contact/" target="_blank" rel="noopener noreferrer">Official Senate contacts ↗</a></div>
+  <p class="evidence-note">Member names are retrieved from an independent ZIP lookup based on House district records. Always confirm your current representative and contact information with House.gov or Senate.gov. Changes after elections or vacancies can take time to appear.</p>
+</section>
+<section class="surface" id="choose" aria-labelledby="chooseTitle">
+  <div class="section-heading"><div><p class="eyebrow dark">02 / WHAT MATTERS</p><h2 id="chooseTitle">Choose one issue to raise</h2><p>Start with the evidence, then ask an accountable, specific question. You choose what to say.</p></div><span class="number-mark" aria-hidden="true">02</span></div>
+  <div class="issue-options" id="issues" role="group" aria-label="Power Atlas issues"></div>
+  <div class="selected-issue" id="selectedIssue" aria-live="polite"><span>Choose a topic above to see its research and suggested question.</span></div>
+</section>
+<section class="surface" id="contact" aria-labelledby="contactTitle">
+  <div class="section-heading"><div><p class="eyebrow dark">03 / CONTACT YOUR OFFICE</p><h2 id="contactTitle">A short message beats a copied rant.</h2><p>One issue, one brief message, and the official channel. No mass email and no submissions stored by Power Atlas.</p></div><span class="number-mark" aria-hidden="true">03</span></div>
+  <div class="contact-layout">
+    <div class="message-form">
+      <label for="note">Your personal context <span class="optional">(optional)</span></label>
+      <textarea id="note" maxlength="280" rows="4" placeholder="Briefly explain how this issue affects you, without including personal identifiers." aria-describedby="noteHelp"></textarea>
+      <div class="note-guard"><span id="noteHelp">Up to 280 characters. No links, email addresses, phone numbers, private information, threats, or attachments.</span><strong id="remaining">0 / 280</strong></div>
+      <div class="preview" aria-label="Your message preview"><span class="eyebrow dark">MESSAGE PREVIEW · NOT SENT</span><p id="previewText">Select an issue to build a short, factual inquiry to your member of Congress.</p></div>
+      <div class="contact-actions"><button type="button" id="copyMessage" disabled>Copy message</button><a class="secondary-action" id="contactMember" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Find official contact form ↗</a></div>
+      <p id="messageStatus" role="status" aria-live="polite" class="micro">Choose a topic. Then copy your inquiry and paste it into the official member's contact form.</p>
+    </div>
+    <aside class="rules"><span class="rule-label">WHY WE SET LIMITS</span><h3>Keep civic action credible.</h3><ul><li><b>One topic</b> from Power Atlas research at a time.</li><li><b>280-character</b> optional firsthand note. No attachments or external links.</li><li><b>No autofill or auto-send.</b> You review and submit through the official office.</li><li><b>No platform inbox.</b> We do not store names, full addresses, messages, or submission histories.</li></ul><p>Congressional offices may require name, address, or residency checks on their own websites. Their privacy policies apply there.</p></aside>
+  </div>
+</section>
+<section class="next-row" aria-label="More ways to participate"><div><p class="eyebrow dark">STAY INFORMED</p><h2>Follow the evidence before you follow the headlines.</h2><p>Search legislation, learn what your members are working on, and bring a specific, verifiable question.</p></div><a href="https://www.congress.gov/" target="_blank" rel="noopener noreferrer">Track legislation on Congress.gov ↗</a></section>
+<footer>Power Atlas is independent and nonpartisan. It does not represent Congress or send messages on anyone's behalf. <a href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Official member finder</a> · <a href="my-life.html">Back to Power Atlas</a></footer>
+</main>
+<script src="take-action.js" defer></script>
+<script src="bug-report.js" defer></script>
+</body>
+</html>
