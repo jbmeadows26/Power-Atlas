@@ -91,17 +91,18 @@ class BrowserJourneyQA(unittest.TestCase):
             "() => !!(document.getElementById('where').compareDocumentPosition("
             "document.getElementById('what')) & Node.DOCUMENT_POSITION_FOLLOWING)"))
 
-    def test_zip_housing_rent_uses_five_hud_bedroom_sizes_not_census_median(self):
-        # Stub only the HUD file response using a real, source-verified repo row.
-        # Tests presentation deterministically, without third-party service outages.
-        shard = json.loads((Path(__file__).resolve().parents[1] /
-                            "data/housing/hud-safmr-fy2026-0.json").read_text())
-        local = next(x for x in shard["rows"] if x["zip"] == "07010")
-        self.assertEqual(local["usdByBedroom"]["4"], 3740)
-        payload = {k: shard[k] for k in ("schema", "fiscalYear", "prefix", "retrievedUTC")}
-        payload["rows"] = [local]
+    def test_zip_housing_rent_uses_current_fy2027_by_bedroom_not_acs_median(self):
+        # Stub only the FY2027 NJ HUD-derived file with a genuine validated row,
+        # avoiding external-network test flakiness while checking rendered labels.
+        state = json.loads((Path(__file__).resolve().parents[1] /
+                            "data/housing/bedroom-rents/NJ.json").read_text())
+        self.assertEqual(state["fy"], 2027)
+        self.assertEqual(state["zips"]["07010"][0][1],
+                         [1820, 2040, 2340, 2840, 3590])
+        payload = {k: state[k] for k in ("state", "fy", "areas")}
+        payload["zips"] = {"07010": state["zips"]["07010"]}
         self.page.route(
-            "**/data/housing/hud-safmr-fy2026-0.json",
+            "**/data/housing/bedroom-rents/NJ.json",
             lambda route: route.fulfill(
                 status=200, content_type="application/json",
                 headers={"Access-Control-Allow-Origin": "*"},
@@ -113,14 +114,16 @@ class BrowserJourneyQA(unittest.TestCase):
         tile.locator(".vs6-zip-bedroom-cell").first.wait_for(timeout=20000)
         self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 5)
         rendered = tile.inner_text()
-        for value in ["$1,840", "$2,090", "$2,400", "$2,930", "$3,740"]:
+        for value in ["$1,820", "$2,040", "$2,340", "$2,840", "$3,590"]:
             self.assertIn(value, rendered)
         self.assertNotIn("$1,837", rendered)
+        self.assertNotIn("$3,740", rendered)
         self.assertIn("not a listing price", rendered)
-        self.assertIn("HUD FY2026", rendered)
+        self.assertIn("HUD FY2027", rendered)
         panel = self.page.locator("#pa-hud-safmr")
         self.assertTrue(panel.is_visible())
         self.assertIn("4 bedrooms", panel.inner_text())
+        self.assertIn("not current apartment listings", panel.inner_text())
         self.assert_no_horizontal_overflow()
         tile.scroll_into_view_if_needed()
         self.page.screenshot(path=str(REPORTS / "rent-by-bedrooms-mobile.png"), full_page=False)
