@@ -14,9 +14,10 @@ money:{label:"political money transparency",summary:"Political spending disclosu
 voting:{label:"voting access and representation",summary:"Voting rules, democratic participation and fair representation.",source:"index.html"}
 };
 const questions={
-position:"What is your position on this issue, and what public evidence or legislation informs it?",
-action:"What steps has your office taken on this issue, and where can I verify that record?",
-oversight:"What oversight or public review is underway, and how can constituents follow its progress?"
+position:"State your position clearly. Which bills, votes, or public evidence support it?",
+action:"Identify concrete action you have taken, what comes next, and when constituents can verify progress. Cite bill numbers where applicable.",
+oversight:"Identify the hearings, reports, or oversight actions addressing this issue, and the next steps or deadlines.",
+meeting:"I request a meeting with you or the relevant staff member. Who handles scheduling, and how can I submit an evidence brief?"
 };
 let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0,ambiguous=false,selectedChamber=null;
 const officeFallback="https://www.congress.gov/members/find-your-member";
@@ -43,16 +44,44 @@ function buildMessage(){
  const topic=issueData[currentIssue];
  const salutation=selected?("Dear "+(selected.chamber==="senate"?"Senator ":"Representative ")+(selected.last_name||displayName(selected).split(" ").slice(-1)[0])+","):"Dear Member of Congress,";
  const location=zip?"I live in ZIP code "+zip+". ":"";
- const msg="Subject: Question about "+topic.label+"\n\n"+salutation+"\n\n"+location+"I am contacting your office about "+topic.label+". "+questions[currentQuestion]+"\n\nThank you for your time.";
+ const msg="Subject: Constituent accountability request: "+topic.label+"\n\n"+salutation+"\n\n"+location+"I am requesting specific answers on "+topic.label+". "+questions[currentQuestion]+" Please respond in writing with a concrete next step or the relevant public record.";
  const limited=msg.slice(0,500);
  $("message-preview").value=limited;
  $("message-count").textContent=limited.length+" / 500 characters";
+ $("brief-preview").value=makeBrief();
  const dest=$("write-member");
  dest.href=selected?contactFor(selected):officeFallback;
  dest.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website to contact ↗"):"Find an official contact form ↗";
  const phone=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?selected.phone:"(202) 224-3121";
  $("call-member").href=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?"tel:"+selected.phone.replace(/[^+0-9]/g,""):switchboard;
  $("call-member").textContent=selected&&phone!=="(202) 224-3121"?"Call "+displayName(selected)+"’s office · "+phone:"Call U.S. Capitol switchboard · (202) 224-3121";
+}
+/* Build a portable, user-controlled issue brief; this includes a research entry point,
+   not an invented fact or a claim that the constituent sent anything. */
+function makeBrief(){
+ const topic=issueData[currentIssue];
+ const researchLink=new URL(topic.source,location.href).href;
+ const recipient=selected?memberTitle(selected):"The member of Congress I select";
+ return "POWER ATLAS | CITIZEN INFLUENCE BRIEF\n"+
+  "Issue: "+topic.label+"\n"+
+  "Why it matters: "+topic.summary+"\n"+
+  "Power Atlas research: "+researchLink+"\n"+
+  "Office: "+recipient+"\n"+
+  "Accountability request: "+questions[currentQuestion]+"\n"+
+  "My follow-up plan: verify the underlying sources; contact the office; request a staff meeting where appropriate; record the reply and check any cited legislation or votes.\n"+
+  "This is a starting brief, not evidence that an office received or agreed to a request.";
+}
+async function copyValue(value,button,label,previewId){
+ try{
+  await navigator.clipboard.writeText(value);
+  button.textContent="Copied ✓";
+  setTimeout(()=>button.textContent=label,1600);
+ }catch{
+  const preview=$(previewId);
+  const disclosure=preview.closest("details");if(disclosure)disclosure.open=true;
+  preview.focus();preview.select();
+  button.textContent="Select text & copy";
+ }
 }
 function setRecipient(m){
  selected=m;recipients.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.member===m.bioguide_id)));
@@ -215,16 +244,19 @@ document.querySelectorAll("#issue-options button").forEach(button=>button.addEve
  $("issue-link").href=issueData[currentIssue].source;
  buildMessage();
 }));
+/* Visual advocacy steps select their corresponding question instead of being inert anchors. */
+document.querySelectorAll("[data-question-jump]").forEach(link=>link.addEventListener("click",()=>{
+ const type=link.dataset.questionJump;
+ const button=document.querySelector('#question-options button[data-question="'+type+'"]');
+ if(button)button.click();
+}));
 document.querySelectorAll("#question-options button").forEach(button=>button.addEventListener("click",()=>{
  currentQuestion=button.dataset.question;
  document.querySelectorAll("#question-options button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
  buildMessage();
 }));
-$("copy-message").addEventListener("click",async()=>{
- const text=$("message-preview").value;
- try{await navigator.clipboard.writeText(text);$("copy-message").textContent="Copied ✓";setTimeout(()=>$("copy-message").textContent="Copy message",1600);}
- catch{const t=$("message-preview");t.focus();t.select();$("copy-message").textContent="Select text & copy";}
-});
+$("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message","message-preview"));
+$("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief","brief-preview"));
 const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();

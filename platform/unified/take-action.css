@@ -41,3 +41,47 @@ button,input,textarea{font:inherit}button{cursor:pointer}a{color:#166b60}a:focus
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 
 @media(prefers-reduced-motion:reduce){.ta-visual-nodes>.ta-chamber-link{transition:none}.ta-visual-nodes>.ta-chamber-link:hover{transform:none}}
+
+/* Citizen influence playbook: the same visual system, with tappable steps. */
+.ta-civic-lobby{border-radius:18px;background:#e7f2e9;border:1px solid #cfdfd3;padding:clamp(18px,3.3vw,29px);margin:-12px 0 27px}
+.ta-lobby-head{display:flex;align-items:end;justify-content:space-between;gap:22px;margin-bottom:18px}
+.ta-lobby-head>div{flex:1}.ta-lobby-head h2{font-size:clamp(1.4rem,3vw,2.15rem);letter-spacing:-.05em;line-height:1.12;margin:0}
+.ta-lobby-head>p{max-width:415px;flex:1;font-size:.82rem;line-height:1.55;color:#49695c;margin:0}
+.ta-lobby-track{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.ta-lobby-track a{display:flex;gap:9px;align-items:center;text-decoration:none;min-width:0;color:#1b4d43;background:#fff;border:1px solid #c8dfd0;border-radius:12px;padding:15px 12px}
+.ta-lobby-track a:hover,.ta-lobby-track a:focus-visible{border-color:#2b8d78;background:#f8fffa}
+.ta-lobby-track a>span:nth-child(2){min-width:0;flex:1}
+.ta-lobby-track b,.ta-lobby-track small{display:block;line-height:1.3}
+.ta-lobby-track b{font-size:.86rem}.ta-lobby-track small{font-size:.7rem;color:#668076;margin-top:4px}
+.ta-lobby-symbol{display:grid;place-items:center;flex-shrink:0;width:34px;height:34px;border-radius:9px;background:#d5eee0;font-weight:900;font-size:1.25rem}
+.ta-brief-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:12px}
+#copy-brief{min-height:44px;border:1px solid #23836f;border-radius:9px;padding:11px 15px;background:#246b5e;color:#fff;font-weight:850;font-size:.84rem}
+#copy-brief:hover{background:#145b4c}.ta-brief-actions span{font-size:.75rem;color:#58736b;max-width:530px}
+.ta-meeting-guide{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.ta-meeting-guide a{font-size:.76rem;font-weight:750}
+.ta-follow-intro{max-width:730px;color:#5a746a;font-size:.87rem;line-height:1.55}
+@media(max-width:900px){.ta-lobby-head{display:block}.ta-lobby-head>p{max-width:700px;margin-top:12px}.ta-lobby-track{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.ta-civic-lobby{margin:0 0 20px;padding:16px}.ta-lobby-track{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ta-lobby-track a{padding:12px 9px;gap:6px;min-height:74px}.ta-lobby-track b{font-size:.76rem}.ta-lobby-track small{font-size:.66rem}.ta-lobby-symbol{width:27px;height:27px;font-size:1rem}.ta-brief-actions{display:block}.ta-brief-actions span{display:block;margin-top:8px}}
+
+.ta-brief-disclosure{margin:13px 0 0;border:1px solid #d3e2d8;border-radius:10px;padding:11px;background:#f9fcf9}
+.ta-brief-disclosure summary{cursor:pointer;font-weight:750;font-size:.82rem;color:#315d51}
+.ta-brief-disclosure textarea{display:block;width:100%;min-height:190px;border:1px solid #d5e4da;border-radius:9px;margin-top:11px;padding:12px;resize:vertical;color:#264d46;background:#fff;font:inherit;font-size:.82rem;line-height:1.6}
+
+/* Canonical Power Atlas V6 art direction: warm paper story + dark evidence visual. */
+.ta-hero{background:var(--vs6-cream,#faf6ed);color:var(--vs6-ink,#152c38);border:1px solid #efe4d6;box-shadow:0 8px 24px #153a3e09}
+.ta-hero .ta-ey{color:#1b8078}
+.ta-hero h1{color:#102e39;font-weight:950;text-wrap:balance}
+.ta-hero h1 em{color:#148c7e}
+.ta-lead{color:#48656a;font-weight:650;line-height:1.48;max-width:480px}
+.ta-hero-cta{border:2px solid #132f3b;border-radius:999px;background:#132f3b;color:#fff;min-height:49px;padding:12px 20px}
+.ta-hero-cta:hover{background:#277c6e;border-color:#277c6e;color:#fff}
+.ta-visual{border:1px solid #365765;background:radial-gradient(circle at 65% 25%,#2c6972,transparent 54%),var(--vs6-night,#102d3d);box-shadow:0 17px 31px #0c2c3b22}
+.ta-civic-lobby{background:#fffdf8;border:1px solid #eee4d6}
+.ta-civic-lobby .ta-ey{color:#1b8078}
+.ta-lobby-head h2{color:#102e39}
+.ta-lobby-track a{border:1px solid #dbe5df;background:#f7faf7}
+.ta-lobby-track a:hover,.ta-lobby-track a:focus-visible{background:#e6f4ec;border-color:#1b8078}
+.ta-steps span{background:#fffdf8;border-color:#e1e8de}
+.ta-block{border-color:var(--vs6-line,#dbe5df);box-shadow:0 8px 24px #153a3e09}
+.ta-heading h2{color:#102e39}
+@media(max-width:650px){.ta-hero h1{font-size:clamp(2.45rem,10.3vw,3.8rem)}.ta-hero{padding:clamp(19px,4vw,24px)}.ta-lobby-head h2{font-size:1.6rem}}
