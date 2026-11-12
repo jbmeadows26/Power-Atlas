@@ -623,6 +623,12 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const collapsedCTA=documentPath==="consumer-practices.html"?"See cases, comparisons & sources ↗":"Explore the evidence ↗";
  const cta=E("button","vs6-primary vs6-expand",collapsedCTA);cta.type="button";cta.setAttribute("aria-expanded","false");
+ const controlled=main.querySelector(".pa5-explorer")||
+   main.querySelector("#what")||main.querySelector("section:not(.vs6-topic)");
+ if(controlled){
+   if(!controlled.id)controlled.id="vs6-evidence-sections";
+   cta.setAttribute("aria-controls",controlled.id);
+ }
  cta.addEventListener("click",()=>{
    const active=section.classList.toggle("vs6-expanded");
    document.body.classList.toggle("vs6-topic-expanded",active);
@@ -699,7 +705,28 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
   });
   intro.append(shortcuts);
  }
- if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ // Deep links must reveal the actual requested evidence, not a generic cover
+ // that hides the already-selected case underneath it.
+ const query=new URLSearchParams(location.search);
+ const evidenceTarget=documentPath==="consumer-practices.html"&&query.has("story")?"story-lab":
+   documentPath==="market-power.html"&&query.has("case")?"caseDetail":null;
+ const linkedEvidence=!!evidenceTarget||
+   (location.hash&&location.hash!=="#market-power-pathways"&&
+    !(documentPath==="my-life.html"&&location.hash==="#where"));
+ if(linkedEvidence){
+   section.classList.add("vs6-expanded");
+   document.body.classList.add("vs6-topic-expanded");
+   cta.setAttribute("aria-expanded","true");
+   cta.textContent="Back to the big picture ↑";
+   if(evidenceTarget)requestAnimationFrame(()=>{
+     const target=document.getElementById(evidenceTarget);
+     const controlledSection=target?.closest("section[id]")||target;
+     const chapter=Array.from(main.querySelectorAll(".pa5-chapter-card")).find(
+       b=>b.getAttribute("aria-controls")===controlledSection?.id);
+     if(chapter&&chapter.getAttribute("aria-expanded")!=="true")chapter.click();
+     target?.scrollIntoView({behavior:"auto",block:"start"});
+   });
+ }
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");
