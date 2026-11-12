@@ -1,0 +1,186 @@
+{
+  "schema": "power-atlas.source-reference-index.v1",
+  "generatedFrom": "research/assessments/ORIGINAL_SOURCE_GAP_EXECUTION_2026-11-12.json",
+  "asOf": "2026-11-12",
+  "activeMode": "reference",
+  "activeModeMeans": "Official-source pointers only. The index does not fetch, cache, import, verify record contents, or close an evidence gap.",
+  "futureMode": "hybrid_reference_cache_selective_archive_after_local_hardware_and_backup_gates",
+  "referencedSourceCount": 11,
+  "integrityPolicy": {
+    "noImplicitGapClosure": true,
+    "noAutomaticRecordDownload": true,
+    "noClaimsOfSourceFreshness": true,
+    "publicLinkNotEqualToVerifiedEvidence": true,
+    "licenseAndTermsReviewBeforeArchival": true,
+    "zipAndUserIdentityNotPersisted": true,
+    "strictOriginAllowlistForFutureFetch": true,
+    "piHardwareNotYetActivated": true
+  },
+  "sources": [
+    {
+      "id": "fec-bulk-entry",
+      "publisher": "Federal Election Commission",
+      "authority": "official",
+      "officialReferenceURL": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "verified_committee_financial_transfers"
+      ],
+      "coverageCaveat": "Federal records only",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "fec-committee-candidate-bulk",
+      "publisher": "Federal Election Commission",
+      "authority": "official",
+      "officialReferenceURL": "https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "verified_committee_financial_transfers"
+      ],
+      "coverageCaveat": "Committee-to-candidate contributions only; not all committee-to-committee transfers",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "fec-committee-to-committee-oth",
+      "publisher": "Federal Election Commission",
+      "authority": "official",
+      "officialReferenceURL": "https://www.fec.gov/campaign-finance-data/any-transaction-one-committee-another-file-description/",
+      "archiveCandidateURL": "https://www.fec.gov/files/bulk-downloads/2026/oth26.zip",
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "verified_committee_financial_transfers"
+      ],
+      "coverageCaveat": "Federal committee-to-committee itemized transaction file; contains transfers, contributions and other transaction types; not solely transfer money and not state/local transactions",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "fec-disbursement-bulk",
+      "publisher": "Federal Election Commission",
+      "authority": "official",
+      "officialReferenceURL": "https://www.fec.gov/campaign-finance-data/operating-expenditures-file-description/",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "verified_committee_financial_transfers"
+      ],
+      "coverageCaveat": "Operating expenditures by committee; includes payee and stated purpose, not a comprehensive intercommittee transfer ledger",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "nj-campaign-finance",
+      "publisher": "New Jersey Election Law Enforcement Commission",
+      "authority": "official",
+      "officialReferenceURL": "https://www.elec.nj.gov/publicinformation/searchdatabase.htm",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_campaign_finance"
+      ],
+      "coverageCaveat": "Search portal, not yet a verified bulk transaction download",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "nj-election-archive",
+      "publisher": "New Jersey Division of Elections",
+      "authority": "official",
+      "officialReferenceURL": "https://www.nj.gov/state/elections/election-information.shtml",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_certified_election_canvasses"
+      ],
+      "coverageCaveat": "Archive and results pages, not a reconciled certified contest-year dataset",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "nj-leg-rollcalls",
+      "publisher": "New Jersey Legislature",
+      "authority": "official",
+      "officialReferenceURL": "https://www.njleg.state.nj.us/voting-records",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "official_state_rollcalls"
+      ],
+      "coverageCaveat": "Official vote search page; bulk member-vote API/exports not yet established",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "recap-archive",
+      "publisher": "Free Law Project RECAP (secondary mirror of original PACER dockets)",
+      "authority": "secondary_mirror",
+      "officialReferenceURL": "https://www.courtlistener.com/help/coverage/recap/",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "nationwide_lower_court_case_lifecycle"
+      ],
+      "coverageCaveat": "Incomplete/crowd-sourced federal docket mirror, not authoritative nationwide case lifecycle or state judiciary",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "va-campaign-archives",
+      "publisher": "Virginia Department of Elections",
+      "authority": "official",
+      "officialReferenceURL": "https://apps.elections.virginia.gov/SBE_CSV/CF/",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_campaign_finance"
+      ],
+      "coverageCaveat": "Year/month archive subdirectories from 1999; public archive listing exists; file contents not yet downloaded",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "vt-campaign-archives",
+      "publisher": "Vermont Secretary of State",
+      "authority": "official",
+      "officialReferenceURL": "https://campaignfinance.vermont.gov/public/cf/downloads",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_campaign_finance"
+      ],
+      "coverageCaveat": "Contribution/loan and expenditure per-filing-year export links from 2014–2025 on inspected page; 2026 not confirmed",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "wa-leg-rollcalls",
+      "publisher": "Washington State Legislature",
+      "authority": "official",
+      "officialReferenceURL": "https://app.leg.wa.gov/bi/RollCallsOnABill/RollCall?biennium=2025-26&billNumber=2618&initiative=False",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "official_state_rollcalls"
+      ],
+      "coverageCaveat": "One example bill reference is illustrative; no claim of statewide completeness",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    }
+  ]
+}
