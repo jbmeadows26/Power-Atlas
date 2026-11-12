@@ -598,6 +598,38 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
      }
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
+ if(documentPath==="consumer-practices.html"){
+   // A visible, concise graphical path makes Consumer Watch useful even before
+   // readers expand the detailed evidence. The original evidence remains intact.
+   const shortcuts=E("nav","vs6-topic-shortcuts");
+   shortcuts.setAttribute("aria-label","Explore Consumer Watch investigations");
+   const subjects=[
+     ["▦","SHRINKFLATION","Less inside. Higher unit cost.","#shrinkflation"],
+     ["▤","PHONE DEALS","Compare the total plan cost.","telecom-promotions.html"],
+     ["◉","CLASS ACTIONS","Lawsuit status is not a payout.","class-actions.html"]
+   ];
+   for(const [symbol,title,note,url] of subjects){
+     const link=E("a","vs6-topic-shortcut");link.href=url;
+     link.append(E("span","vs6-topic-shortcut-icon",symbol));
+     const caption=E("span","vs6-topic-shortcut-copy");
+     caption.append(E("strong",null,title),E("small",null,note));
+     link.append(caption,E("span","vs6-topic-shortcut-arrow","↗"));
+     if(url.startsWith("#")){
+       link.addEventListener("click",event=>{
+         event.preventDefault();
+         if(!document.body.classList.contains("vs6-topic-expanded"))cta.click();
+         const id=url.slice(1);
+         const chapter=main.querySelector('.pa5-chapter-card[aria-controls="'+id+'"]');
+         chapter?.click();
+         const target=document.getElementById(id);
+         if(target)target.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+         history.replaceState(null,"",url);
+       });
+     }
+     shortcuts.append(link);
+   }
+   section.append(shortcuts);
+ }
  if(isPlaceStory)intro.append(cta);else section.append(cta);
  former.classList.add("vs6-superseded");
  main.prepend(section);
