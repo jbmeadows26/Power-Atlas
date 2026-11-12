@@ -623,6 +623,12 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
  const collapsedCTA=documentPath==="consumer-practices.html"?"See cases, comparisons & sources ↗":"Explore the evidence ↗";
  const cta=E("button","vs6-primary vs6-expand",collapsedCTA);cta.type="button";cta.setAttribute("aria-expanded","false");
+ const controlled=main.querySelector(".pa5-explorer")||
+   main.querySelector("#what")||main.querySelector("section:not(.vs6-topic)");
+ if(controlled){
+   if(!controlled.id)controlled.id="vs6-evidence-sections";
+   cta.setAttribute("aria-controls",controlled.id);
+ }
  cta.addEventListener("click",()=>{
    const active=section.classList.toggle("vs6-expanded");
    document.body.classList.toggle("vs6-topic-expanded",active);
