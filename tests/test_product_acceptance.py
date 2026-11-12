@@ -141,7 +141,7 @@ class ProductAcceptanceTests(unittest.TestCase):
         css = (SITE / "visual-story-v6.css").read_text(encoding="utf-8")
         research_css = (ROOT / "site" / "visual-story-v6.css").read_text(encoding="utf-8")
         self.assertEqual(css, research_css, "Production frontends have competing V6 versions")
-        self.assertIn(".vs6-topic{background:var(--vs6-cream)", css)
+        self.assertIn(".vs6-topic{box-sizing:border-box;background:var(--vs6-cream)", css)
         self.assertNotIn(".vs6-topic{background:#122e3f", css)
         self.assertIn("vs6-full-research", css)
         pmx = (SITE / "political-money-story.css").read_text(encoding="utf-8")
