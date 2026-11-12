@@ -568,18 +568,34 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  const intro=isPlaceStory?E("div","vs6-intro"):section;
  intro.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
  if(isPlaceStory){section.classList.add("vs6-topic-cover");section.append(intro);}
- if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}else{const art=visual(kind);section.append(art);}
+ /* A compact V6 infographic is always the opening visual. Detailed exploratory
+    controls are preserved but revealed only when requested, not shown as a
+    competing 1,300px page-long first screen. */
+ const art=visual(kind);section.append(art);
+ if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}
+ else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}
+ if(documentPath==="consumer-practices.html"){
+   const peek=E("div","vs6-evidence-peek");
+   peek.setAttribute("aria-label","Available consumer investigations");
+   ["Deceptive deals","Shrinkflation","Class actions"].forEach(label=>peek.append(E("span",null,label)));
+   section.append(peek);
+ }
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
- const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
+ const collapsedCTA=documentPath==="consumer-practices.html"?"See cases, comparisons & sources ↗":"Explore the evidence ↗";
+ const cta=E("button","vs6-primary vs6-expand",collapsedCTA);cta.type="button";cta.setAttribute("aria-expanded","false");
  cta.addEventListener("click",()=>{
    const active=section.classList.toggle("vs6-expanded");
    document.body.classList.toggle("vs6-topic-expanded",active);
-   cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":"Explore the evidence ↗";
+   cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":collapsedCTA;
    const explorer=main.querySelector(".pa5-explorer");
    if(active){
-     const requested=documentPath==="market-power.html"?explorer?.querySelector('button.pa5-chapter-card[aria-controls="explore"]'):null;
-     const first=requested||explorer?.querySelector(".pa5-chapter-card");
-     if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
+     const pathways=section.querySelector(".pmx,.mpx");
+     if(pathways){pathways.scrollIntoView({behavior:"smooth",block:"start"});}
+     else {
+       const first=explorer?.querySelector(".pa5-chapter-card");
+       if(first){first.click();}
+       else {const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
+     }
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
  if(isPlaceStory)intro.append(cta);else section.append(cta);
