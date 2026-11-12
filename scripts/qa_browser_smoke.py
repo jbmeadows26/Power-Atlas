@@ -72,6 +72,10 @@ class BrowserJourneyQA(unittest.TestCase):
         section = self.page.locator("#pa-coverage-discovery")
         self.assertEqual(section.count(), 1)
         self.assertEqual(section.locator(".pa-coverage-card").count(), 19)
+        self.assertTrue(self.page.locator("#what .section-head h2").is_visible(),
+                        "What matters most heading must stay visible above the investigation cards")
+        self.assertTrue(section.locator(".pa-coverage-card").first.is_visible(),
+                        "Featured source-backed stories should be visible on the first V6 screen")
         summary = section.locator("summary")
         self.assertTrue(summary.is_visible(), "The evidence directory is hidden behind a legacy chapter")
         summary.click(timeout=10000)
@@ -81,6 +85,10 @@ class BrowserJourneyQA(unittest.TestCase):
                      "voting-access.html", "economic-fragility.html", "research-archive.html"]:
             self.assertTrue(section.locator(f'a[href="{slug}"]').count() >= 1, slug)
         self.assert_no_horizontal_overflow()
+        # From the featured evidence row, the jump must reveal the full issues grid.
+        section.locator(".pa-coverage-jump").click(timeout=10000)
+        self.assertTrue(self.page.locator("#issueGrid").is_visible(),
+                        "Browse the 29 issues must expand the hidden V6 chapter")
 
     def test_zip_preserves_first_section(self):
         self.visit("/my-life.html")
