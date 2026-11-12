@@ -13,7 +13,7 @@ Keep the site fast and source-backed without storing full public datasets today.
 - When an official source is unavailable, show **unavailable / last verified date**, not a fabricated zero, stale result disguised as current, or unsupported narrative.
 - The registry is static metadata. Actual on-demand fetching must use a source-specific adapter, HTTPS origin allowlist, timeouts, rate limits, license review and cache controls; no arbitrary-URL proxy or browser-side secret API keys.
 
-## Phase 1 — ONCE TWO PI 5s ARE AVAILABLE: reference + cache
+## Phase 1 — AFTER BOTH EXISTING PI 5s ARE CONFIGURED AND ONLINE: reference + cache
 ```
 Visitor → Vercel presentation → bounded evidence resolver
                                   ├─ official URL / provider-specific free API
