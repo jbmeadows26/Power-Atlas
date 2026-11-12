@@ -270,5 +270,50 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assert_no_horizontal_overflow()
 
 
+    def test_zip_remains_between_pages_return_visits_and_can_be_cleared(self):
+        """One saved ZIP; no ZIP query params, auto-scroll or civic request on revisit."""
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get", timeout=15000)
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '07010'")
+        self.assertIn("07010", self.page.locator("#zipInput").input_value())
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/take-action.html")
+        self.page.wait_for_function("() => document.getElementById('zip')?.value === '07010'")
+        self.assertEqual(self.page.locator("#member-results").inner_text().strip(), "",
+                         "Reopening Take Action must not contact third parties automatically")
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/cost-gap.html")
+        self.page.wait_for_function("() => document.getElementById('cg-zip-a')?.value === '07010'")
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => document.getElementById('zipInput')?.value === '07010'")
+        self.assertTrue(self.page.locator("#clearSavedZIP").is_visible())
+        self.assertNotIn("07010", self.page.url)
+        self.page.locator("#clearSavedZIP").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === null", timeout=15000)
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "")
+        self.assertFalse(self.page.locator("#clearSavedZIP").is_visible())
+        self.assert_no_horizontal_overflow()
+
+    def test_changing_saved_zip_updates_another_page(self):
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '07010'")
+        self.page.locator("#zipInput").fill("10001")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '10001'")
+        self.visit("/take-action.html")
+        self.page.wait_for_function("() => document.getElementById('zip')?.value === '10001'")
+        self.assertNotIn("10001", self.page.url)
+
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
