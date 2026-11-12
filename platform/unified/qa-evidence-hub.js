@@ -19,6 +19,9 @@ const threads=[
  {icon:"🏦",name:"Financial flows",caption:"Trace who paid and who received",href:"financial-flows.html"},
  {icon:"🗳",name:"Representation",caption:"Voting, public decisions and political rules",href:"compare.html"},
  {icon:"📣",name:"Take action",caption:"Reach representatives with verified facts",href:"take-action.html"},
+ {icon:"🗳",name:"Voting access",caption:"Voter ID, early/mail ballots and state-law evidence",href:"voting-access.html"},
+ {icon:"📉",name:"Economic fragility detail",caption:"Market scenarios and source-linked risk evidence",href:"economic-fragility.html"},
+ {icon:"📚",name:"Deep research archive",caption:"Political promises, authenticity and institutional trust",href:"research-archive.html"},
  {icon:"🔎",name:"Evidence gaps",caption:"Which claims still need original records?",href:"source-audit.html"}
 ];
 function e(tag,cls,txt){const n=document.createElement(tag);if(cls)n.className=cls;if(txt!==undefined)n.textContent=txt;return n;}
@@ -42,7 +45,7 @@ function render(){
  const grid=e("div","pa-coverage-grid");threads.slice(0,8).forEach(x=>grid.append(card(x)));
  section.append(grid);
  const more=e("details","pa-coverage-more");
- const summary=e("summary",null,"Explore eight more investigations +");more.append(summary);
+ const summary=e("summary",null,"Explore "+(threads.length-8)+" more investigations +");more.append(summary);
  const extra=e("div","pa-coverage-grid");extra.style.marginTop="13px";
  threads.slice(8).forEach(x=>extra.append(card(x)));more.append(extra);section.append(more);
  const foot=e("div","pa-coverage-foot");
