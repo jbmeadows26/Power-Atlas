@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-12T06:17:27.040265+00:00",
+  "generatedUTC": "2026-11-12T06:44:13.625925+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 43,
+    "htmlPagesAudited": 44,
     "jsonDataFilesChecked": 332,
     "validJsonFiles": 332,
-    "staticReferencesInspected": 1053,
+    "staticReferencesInspected": 1071,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -187,6 +187,16 @@
         "data/consumer-practices/cases-v1.json",
         "data/consumer-practices/shrinkflation-v1.json"
       ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/contact-tester.html",
+      "localReferenceCount": 14,
+      "allReferencesCount": 15,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
     },
@@ -465,8 +475,8 @@
     },
     {
       "path": "platform/unified/take-action.html",
-      "localReferenceCount": 17,
-      "allReferencesCount": 36,
+      "localReferenceCount": 18,
+      "allReferencesCount": 37,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [],
@@ -507,8 +517,8 @@
     },
     {
       "path": "platform/unified/why-costs-more.html",
-      "localReferenceCount": 15,
-      "allReferencesCount": 27,
+      "localReferenceCount": 17,
+      "allReferencesCount": 29,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [],
