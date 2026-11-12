@@ -96,6 +96,19 @@
       </section>
     </div>
   `;
+  // The AI Crash story has a persistent bug-report button in its mobile header.
+  // Keep the form trigger in normal document flow on small screens so it
+  // cannot cover explanations and interactive cards while scrolling.
+  if (document.body.getAttribute("data-pa-page") === "ai-crash") {
+    var mobileStoryStyle = document.createElement("style");
+    mobileStoryStyle.textContent =
+      "@media (max-width: 850px) {" +
+      ":host { display:block!important; text-align:right!important; padding:13px 18px!important; }" +
+      "#open { position:static!important; right:auto!important; bottom:auto!important;" +
+      " margin:0!important; display:inline-flex!important; }" +
+      "}";
+    ui.appendChild(mobileStoryStyle);
+  }
   var $ = function (selector) { return ui.querySelector(selector); };
   var shade = $("#shade");
   var launch = $("#open");
