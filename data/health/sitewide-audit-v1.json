@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-12T06:44:13.625925+00:00",
+  "generatedUTC": "2026-11-12T14:54:43.612432+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 44,
-    "jsonDataFilesChecked": 332,
-    "validJsonFiles": 332,
-    "staticReferencesInspected": 1071,
+    "htmlPagesAudited": 45,
+    "jsonDataFilesChecked": 333,
+    "validJsonFiles": 333,
+    "staticReferencesInspected": 1102,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -111,6 +111,16 @@
     }
   ],
   "pages": [
+    {
+      "path": "platform/unified/ai-financing-shock.html",
+      "localReferenceCount": 15,
+      "allReferencesCount": 29,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
     {
       "path": "platform/unified/banking-power.html",
       "localReferenceCount": 24,
@@ -262,8 +272,8 @@
     },
     {
       "path": "platform/unified/economic-fragility.html",
-      "localReferenceCount": 13,
-      "allReferencesCount": 18,
+      "localReferenceCount": 14,
+      "allReferencesCount": 19,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -371,8 +381,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 45,
-      "allReferencesCount": 48,
+      "localReferenceCount": 46,
+      "allReferencesCount": 49,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
