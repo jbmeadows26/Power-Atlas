@@ -599,9 +599,9 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="index.html")return;
  const main=document.querySelector("main");if(!main||document.querySelector(".vs6-topic"))return;
  const former=main.querySelector(".pa5-topic-hero");
- if(!former)return;
+ if(!former&&documentPath!=="my-life.html")return;
  const kind=topicKind();
- const fallback=[desc(former.querySelector("h2")?.textContent)||"Explore the evidence.",desc(former.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
+ const fallback=[desc(former?.querySelector("h2")?.textContent)||"Explore the evidence.",desc(former?.querySelector(".pa5-intro p")?.textContent)||"Follow the facts and what remains unknown."];
  const copy=topicCopy[documentPath]||fallback;
  const section=E("section","vs6-topic vs6-topic--"+kind);
  const isPlaceStory=documentPath==="my-life.html";
@@ -671,12 +671,33 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
    section.append(shortcuts);
  }
  if(isPlaceStory)intro.append(cta);else section.append(cta);
- former.classList.add("vs6-superseded");
+ if(former)former.classList.add("vs6-superseded");
  main.prepend(section);
  document.body.classList.add("vs6-topic-mode");
  attachZIPVisual(section);
  if(documentPath==="my-life.html"){
-  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link",window.PowerAtlasZIP?.get?.()?"Change ZIP ↗":"Enter your ZIP ↓");label.href="#where";intro.append(label);}
+  const zip=document.getElementById("where");
+  if(zip){
+    const label=E("a","vs6-zip-link",window.PowerAtlasZIP?.get?.()?"Change ZIP ↗":"Enter your ZIP ↓");
+    label.href="#where";intro.append(label);
+  }
+  // The same canonical story hero owns discovery: no V3/V4/V5 carousel
+  // or legacy hiding/override rules may bury working investigation routes.
+  const shortcuts=E("nav","vs6-story-routes");
+  shortcuts.setAttribute("aria-label","Featured interactive stories and action");
+  [
+    ["01","Why prices rise","why-costs-more.html","Follow the evidence"],
+    ["02","When banks fail","banking-power.html","Follow the money"],
+    ["03","Write your representative","take-action.html","Prepare a message"]
+  ].forEach(([step,name,href,note])=>{
+    const link=E("a","vs6-story-route");link.href=href;
+    link.append(E("span","vs6-story-route-step",step));
+    const words=E("span","vs6-story-route-copy");
+    words.append(E("strong",null,name),E("small",null,note));
+    link.append(words,E("span","vs6-story-route-arrow","↗"));
+    shortcuts.append(link);
+  });
+  intro.append(shortcuts);
  }
  if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
