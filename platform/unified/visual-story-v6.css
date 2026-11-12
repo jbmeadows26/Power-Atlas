@@ -125,7 +125,7 @@ html[data-vs6="active"] body button.vs6-metric[aria-pressed="true"] .vs6-metric-
 .vs6-research-button:hover{background:#25665e;color:#fff}
 html[data-vs6="active"] body.vs6-home-mode:not(.vs6-full-research) .pa5-library{display:none!important}
 html[data-vs6="active"] body.vs6-home-mode.vs6-full-research .pa5-library{display:flex}
-.vs6-topic{background:var(--vs6-cream);color:var(--vs6-ink);border:1px solid #eee4d6;border-radius:25px;max-width:1190px;width:100%;margin:14px auto 18px;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 8px 24px #153a3e09}
+.vs6-topic{box-sizing:border-box;background:var(--vs6-cream);color:var(--vs6-ink);border:1px solid #eee4d6;border-radius:25px;max-width:1190px;width:100%;margin:14px auto 18px;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 8px 24px #153a3e09}
 .vs6-topic:before{content:"";position:absolute;width:400px;height:400px;border:70px solid #c5ded845;border-radius:50%;right:-200px;top:-260px;pointer-events:none}
 .vs6-topic .vs6-micro{color:#1b8078}
 .vs6-topic>h1{font-size:clamp(2.45rem,5.2vw,4.6rem)!important;color:#102e39!important;font-weight:950;line-height:1.05;letter-spacing:-.065em!important;margin:16px 0 13px!important;max-width:920px}
