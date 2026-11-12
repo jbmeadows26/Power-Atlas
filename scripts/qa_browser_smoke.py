@@ -220,6 +220,52 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assert_no_horizontal_overflow()
 
 
+    def test_all_canonical_routes_have_a_single_visible_v6_entry(self):
+        """Prevent any investigation silently reverting to a legacy site shell."""
+        pages = sorted(p.name for p in (Path(__file__).resolve().parents[1] / "platform" / "unified").glob("*.html"))
+        self.assertGreaterEqual(len(pages), 30)
+        for name in pages:
+            with self.subTest(page=name):
+                self.visit("/" + name)
+                header = self.page.locator("#pa-global-header")
+                self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
+                self.assertTrue(header.is_visible(), name + ": brand not visible")
+                entry = self.page.locator(
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home")
+                self.assertGreater(entry.count(), 0,
+                    name + ": missing approved V6 topic, custom V6 cover, or V6 home")
+                self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
+                self.assert_no_horizontal_overflow()
+
+    def test_zip_preference_persists_across_routes_and_can_be_cleared(self):
+        """Remember locally without a user account, URL parameter or automatic page jump."""
+        self.visit("/my-life.html")
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type=submit]").click()
+        self.assertEqual(self.page.evaluate(
+            "() => localStorage.getItem('power-atlas:visitor-zip:v1')"), "07010")
+        self.visit("/dark-money.html")
+        chip = self.page.locator("#pa-global-header .pa-remembered-zip")
+        self.assertTrue(chip.is_visible())
+        self.assertIn("07010", chip.inner_text())
+        chip.click()
+        self.page.wait_for_url("**/my-life.html#where")
+        self.page.wait_for_function(
+            "() => document.documentElement.dataset.vs6 === 'active'")
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "07010")
+        self.assertNotIn("vs6-topic-expanded",
+            self.page.locator("body").get_attribute("class") or "",
+            "ZIP navigation reopened legacy deep research")
+        clear = self.page.locator("#clearSavedZIP")
+        self.assertTrue(clear.is_visible())
+        clear.click()
+        self.page.wait_for_function(
+            "() => !localStorage.getItem('power-atlas:visitor-zip:v1') && document.getElementById('zipInput')?.value === ''",
+            timeout=16000)
+        self.assertEqual(self.page.locator(".pa-remembered-zip").count(), 0)
+        self.assert_no_horizontal_overflow()
+
     def test_v6_editorial_covers_match_on_mobile_and_desktop(self):
         """Visual contract: page-specific stories may vary, outer V6 shell may not."""
         covers = {
