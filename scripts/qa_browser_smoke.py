@@ -450,5 +450,47 @@ class BrowserJourneyQA(unittest.TestCase):
 
 
 
+    def test_deep_linked_evidence_opens_instead_of_generic_cover(self):
+        self.visit("/consumer-practices.html?story=amazon")
+        self.page.wait_for_function(
+            "() => document.getElementById('pcStoryTitle')?.textContent?.toLowerCase().includes('subscription')",
+            timeout=25000)
+        self.assertIn("vs6-topic-expanded", self.page.locator("body").get_attribute("class") or "")
+        self.assertTrue(self.page.locator("#pcStoryTitle").is_visible())
+        self.assert_no_horizontal_overflow()
+
+        self.visit("/market-power.html?case=jobs")
+        self.page.wait_for_function(
+            "() => document.getElementById('caseDetail')?.textContent?.includes('Employer power over wages')",
+            timeout=25000)
+        self.assertIn("vs6-topic-expanded", self.page.locator("body").get_attribute("class") or "")
+        self.assertTrue(self.page.locator("#caseDetail").is_visible())
+        self.assert_no_horizontal_overflow()
+
+    def test_corporate_ownership_food_alias_shows_grocery_context(self):
+        self.visit("/corporate-ownership.html?issue=food")
+        self.page.wait_for_function("() => document.querySelector('#topicFilter button[data-issue=groceries]') !== null", timeout=25000)
+        self.assertEqual(
+            self.page.locator('#topicFilter button[data-issue="groceries"]').get_attribute("aria-pressed"), "true")
+        self.assert_no_horizontal_overflow()
+
+    def test_disclosures_identify_controlled_content_and_navigation_is_consistent(self):
+        self.visit("/market-power.html")
+        trigger=self.page.locator("main > .vs6-topic .vs6-expand")
+        target=trigger.get_attribute("aria-controls")
+        self.assertTrue(target, "Evidence expander has no aria-controls")
+        self.assertEqual(self.page.locator("#"+target).count(), 1)
+
+        self.visit("/ai-crash.html")
+        self.assertEqual(self.page.locator(".story-navlinks a").all_inner_texts(),
+                         ["Start Here","Issues","Costs","The Why","Actions","Research"])
+        self.assertEqual(self.page.locator("#pa-global-header").count(), 1)
+
+        self.visit("/banking-power.html")
+        self.assertEqual(self.page.locator(".pa-global-links a").all_inner_texts(),
+                         ["Start Here","Issues","Costs","The Why","Actions","Research"])
+        self.assert_no_horizontal_overflow()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
