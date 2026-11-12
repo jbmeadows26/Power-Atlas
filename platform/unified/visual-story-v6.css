@@ -809,3 +809,68 @@ html[data-vs6="active"] .vs6-topic-shortcut:focus-visible{outline:3px solid #ce7
  html[data-vs6="active"] .vs6-topic-shortcut{min-height:70px;padding:9px 12px}
  .vs6-topic-shortcut-icon{width:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){html[data-vs6="active"] .vs6-topic-shortcut:hover{transform:none}}
+
+/* Section 2 integration: source investigations and the 29 life issues share one discoverable journey. */
+#what .pa-coverage--integrated{
+  max-width:none;margin:18px 0 21px;padding:clamp(16px,2.6vw,25px);
+  background:linear-gradient(125deg,#faf6ed,#f0f6ee);border:1px solid #d8e5da;
+  border-radius:22px;box-shadow:none;min-width:0;
+}
+#what .pa-coverage--integrated .pa-coverage-head{align-items:center;margin-bottom:15px;gap:9px 20px}
+#what .pa-coverage--integrated .pa-coverage-head h3{
+  font-size:clamp(1.45rem,2.7vw,2.15rem);line-height:1.09;letter-spacing:-.052em;
+  color:#153541;margin:6px 0 4px;font-weight:900;
+}
+#what .pa-coverage--integrated .pa-coverage-head p{
+  font-size:.81rem;line-height:1.43;margin:0;color:#4f6669;max-width:55ch;
+}
+#what .pa-coverage--integrated .pa-coverage-jump{
+  display:inline-flex;align-items:center;justify-content:center;min-height:44px;
+  border:1px solid #a6cec1;background:#fff;border-radius:100px;padding:9px 15px;
+  color:#175a54;font-size:.77rem;font-weight:850;text-decoration:none;white-space:normal;
+}
+#what .pa-coverage--integrated .pa-coverage-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+#what .pa-coverage--integrated .pa-coverage-card{
+  min-height:135px;padding:14px 15px;gap:6px;overflow-wrap:break-word;
+}
+#what .pa-coverage--integrated .pa-coverage-symbol{font-size:1.45rem}
+#what .pa-coverage--integrated .pa-coverage-card b{font-size:.99rem;line-height:1.18}
+#what .pa-coverage--integrated .pa-coverage-card small{font-size:.75rem;line-height:1.33}
+#what .pa-coverage--integrated .pa-coverage-card span:last-child{font-size:.74rem}
+#what .pa-coverage--integrated .pa-coverage-more{margin-top:12px}
+#what .pa-coverage--integrated .pa-coverage-more>summary{
+  display:list-item;list-style-position:inside;border-radius:12px;cursor:pointer;
+  min-height:44px;padding:12px 14px;background:#e4f1ea;border:1px solid #bfdbce;
+  font-weight:850;color:#185a52;font-size:.79rem;
+}
+#what .pa-coverage--integrated .pa-coverage-more[open] .pa-coverage-grid{margin-top:12px}
+#what .pa-coverage--integrated .pa-coverage-foot{margin-top:13px;font-size:.72rem;line-height:1.45}
+#what .pa-coverage--integrated .pa-coverage-status{
+  background:transparent;color:#6d756e;max-width:none;border:0;
+  padding:9px 0 0;margin-top:9px;border-top:1px solid #dbe5d9;
+  border-radius:0;font-size:.69rem;line-height:1.4;
+}
+#what .pa-coverage--integrated .pa-coverage-status b{
+  font-weight:850;color:#52665e;font-size:.7rem;
+}
+#what .pa-coverage-issues-lead{margin:22px 0 12px;display:grid;gap:5px}
+#what .pa-coverage-issues-lead h3{
+  margin:0;font-size:clamp(1.28rem,2.3vw,1.65rem);
+  line-height:1.13;color:#193940;letter-spacing:-.035em;
+}
+@media(max-width:700px){
+ #what .pa-coverage--integrated{margin:15px 0 19px;padding:16px 13px}
+ #what .pa-coverage--integrated .pa-coverage-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ #what .pa-coverage--integrated .pa-coverage-card{padding:12px;min-height:133px;gap:5px}
+ #what .pa-coverage--integrated .pa-coverage-card b{font-size:.9rem}
+ #what .pa-coverage--integrated .pa-coverage-card small{font-size:.7rem}
+ #what .pa-coverage--integrated .pa-coverage-card span:last-child{font-size:.7rem}
+ #what .pa-coverage--integrated .pa-coverage-jump{font-size:.73rem}
+}
+@media(max-width:365px){
+ #what .pa-coverage--integrated .pa-coverage-grid{gap:7px}
+ #what .pa-coverage--integrated .pa-coverage-card{padding:11px 9px;min-height:143px}
+}
+@media(prefers-reduced-motion:reduce){
+ #what .pa-coverage--integrated .pa-coverage-card:hover{transform:none}
+}
