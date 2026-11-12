@@ -64,6 +64,30 @@ class ProductAcceptanceTests(unittest.TestCase):
         self.assertIn("pa-coverage-discovery", discovery)
         self.assertIn("sitewide-audit-v1.json", discovery)
 
+    def test_follow_the_whole_story_is_part_of_the_issues_journey(self):
+        """The investigation gallery must be discoverable before the 29 life cards."""
+        script = (SITE / "qa-evidence-hub.js").read_text(encoding="utf-8")
+        css = (SITE / "visual-story-v6.css").read_text(encoding="utf-8")
+        page = (SITE / "my-life.html").read_text(encoding="utf-8")
+        self.assertIn('id="what"', page)
+        self.assertIn('id="issueGrid"', page)
+        self.assertIn('src="qa-evidence-hub.js"', page)
+        self.assertIn('document.getElementById("what")', script)
+        self.assertIn('document.getElementById("issueGrid")', script)
+        self.assertIn('issues.insertAdjacentElement("beforebegin",section)', script)
+        self.assertIn('issues.insertAdjacentElement("beforebegin",issueHeading)', script)
+        self.assertIn('title.id="pa-coverage-title"', script)
+        self.assertIn('threads.slice(0,6)', script)
+        self.assertIn('threads.slice(6)', script)
+        self.assertNotIn('why.insertAdjacentElement("afterend",section)', script)
+        self.assertIn('pa-coverage--integrated', css)
+        self.assertIn('grid-template-columns:repeat(2,minmax(0,1fr))', css)
+        for route in ('business-influence.html', 'dark-money.html',
+                      'corporate-ownership.html', 'market-power.html',
+                      'consumer-practices.html', 'class-actions.html'):
+            self.assertIn('href:"' + route + '"', script)
+            self.assertTrue((SITE / route).exists())
+
     def test_four_vercel_project_features_have_unified_routes(self):
         """Retirement gate: migrate unique Research/Voting functionality before redirects."""
         routes = {
