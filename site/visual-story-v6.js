@@ -699,7 +699,23 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
   });
   intro.append(shortcuts);
  }
- if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ // Deep links must reveal the actual requested evidence, not a generic cover
+ // that hides the already-selected case underneath it.
+ const query=new URLSearchParams(location.search);
+ const evidenceTarget=documentPath==="consumer-practices.html"&&query.has("story")?"story-lab":
+   documentPath==="market-power.html"&&query.has("case")?"caseDetail":null;
+ const linkedEvidence=!!evidenceTarget||
+   (location.hash&&location.hash!=="#market-power-pathways"&&
+    !(documentPath==="my-life.html"&&location.hash==="#where"));
+ if(linkedEvidence){
+   section.classList.add("vs6-expanded");
+   document.body.classList.add("vs6-topic-expanded");
+   cta.setAttribute("aria-expanded","true");
+   cta.textContent="Back to the big picture ↑";
+   if(evidenceTarget)requestAnimationFrame(()=>{
+     document.getElementById(evidenceTarget)?.scrollIntoView({behavior:"auto",block:"start"});
+   });
+ }
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");
