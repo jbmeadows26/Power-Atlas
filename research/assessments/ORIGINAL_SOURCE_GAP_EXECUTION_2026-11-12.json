@@ -1,0 +1,1239 @@
+{
+  "schema": "power-atlas.original-evidence-gap-execution-backlog.v1",
+  "createdAt": "2026-11-12",
+  "corpusSnapshot": {
+    "localGapSource": "data/health/sitewide-missing-sources-v1.json",
+    "nationalGateSource": "data/health/completion-gates.json",
+    "localGapCount": 55,
+    "nationalBlockingGateCount": 9
+  },
+  "policy": {
+    "pipeline": "discover → retrieve original record → record license/access → preserve raw reference/hash → normalize and deduplicate → independently reconcile → source-check reader claim → close gate",
+    "statusRule": "CANDIDATE_SOURCE_VERIFIED is NOT ORIGINAL_RECORD_INGESTED or NATIONWIDE_COMPLETE; never reduce outstanding gap count until acceptance evidence exists",
+    "costRule": "Prefer no-cost original public official datasets. Paid Alexandria provider credits, PACER fees and paid data are not approved by this tracker.",
+    "provenanceRule": "Separate allegations, filings, verified dispositions, associations and proven causal relationships; do not expose private individuals' sensitive details."
+  },
+  "availableIntegrationRoles": [
+    {
+      "plugin": "GitHub",
+      "role": "versioned collectors, provenance ledger, CI checks and evidence review"
+    },
+    {
+      "plugin": "Parallel",
+      "role": "independent official-source portal and file documentation discovery"
+    },
+    {
+      "plugin": "Firecrawl",
+      "role": "targeted public record extraction and provider discovery; paid provider calls not preapproved"
+    },
+    {
+      "plugin": "Legal Data Hunter",
+      "role": "case law/legislation verification; original court docket reconciliation still required"
+    },
+    {
+      "plugin": "Scite/Consensus",
+      "role": "peer-reviewed empirical findings, limitations, causal challenge"
+    },
+    {
+      "plugin": "Data",
+      "role": "grain, join, freshness, denominator and metric validity checks"
+    },
+    {
+      "plugin": "Quartr",
+      "role": "public-company disclosures and filing research, not a substitute for SEC originals"
+    }
+  ],
+  "verifiedEntryPoints": [
+    {
+      "id": "fec-committee-candidate-bulk",
+      "url": "https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/",
+      "origin": "Federal Election Commission",
+      "relevantGates": [
+        "verified_committee_financial_transfers"
+      ],
+      "stage": "original_schema_page_retrieved",
+      "coverage": "Committee-to-candidate contributions only; not all committee-to-committee transfers",
+      "next": "Download a bounded two-year original bulk file, verify IDs/amount/date, reconcile amendments and duplicates"
+    },
+    {
+      "id": "fec-disbursement-bulk",
+      "url": "https://www.fec.gov/campaign-finance-data/operating-expenditures-file-description/",
+      "origin": "Federal Election Commission",
+      "relevantGates": [
+        "verified_committee_financial_transfers"
+      ],
+      "stage": "original_schema_page_retrieved",
+      "coverage": "Operating expenditures by committee; includes payee and stated purpose, not a comprehensive intercommittee transfer ledger",
+      "next": "Collect matching filing records and distinguish vendors, refunds, contributions and true transfers"
+    },
+    {
+      "id": "fec-bulk-entry",
+      "url": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
+      "origin": "Federal Election Commission",
+      "relevantGates": [
+        "verified_committee_financial_transfers"
+      ],
+      "stage": "official_portal_retrieved",
+      "coverage": "Federal records only",
+      "next": "Determine official free current-cycle zip links and report formats for bounded original-record validation"
+    },
+    {
+      "id": "va-campaign-archives",
+      "url": "https://apps.elections.virginia.gov/SBE_CSV/CF/",
+      "origin": "Virginia Department of Elections",
+      "relevantGates": [
+        "state_campaign_finance"
+      ],
+      "stage": "official_download_directory_retrieved",
+      "coverage": "Year/month archive subdirectories from 1999; public archive listing exists; file contents not yet downloaded",
+      "next": "Pilot one dated CSV folder, validate field definitions, cycle completeness and amendments; keep raw file hash"
+    },
+    {
+      "id": "vt-campaign-archives",
+      "url": "https://campaignfinance.vermont.gov/public/cf/downloads",
+      "origin": "Vermont Secretary of State",
+      "relevantGates": [
+        "state_campaign_finance"
+      ],
+      "stage": "official_transaction_csv_portal_retrieved",
+      "coverage": "Contribution/loan and expenditure per-filing-year export links from 2014–2025 on inspected page; 2026 not confirmed",
+      "next": "Retrieve one CSV with documented source timestamp, schema, row counts and duplicate/amendment controls"
+    },
+    {
+      "id": "nj-campaign-finance",
+      "url": "https://www.elec.nj.gov/publicinformation/searchdatabase.htm",
+      "origin": "New Jersey Election Law Enforcement Commission",
+      "relevantGates": [
+        "state_campaign_finance"
+      ],
+      "stage": "official_search_portal_retrieved",
+      "coverage": "Search portal, not yet a verified bulk transaction download",
+      "next": "Identify public export formats, filing coverage, license, and historical reconciliation; avoid assuming scraper access"
+    },
+    {
+      "id": "nj-election-archive",
+      "url": "https://www.nj.gov/state/elections/election-information.shtml",
+      "origin": "New Jersey Division of Elections",
+      "relevantGates": [
+        "state_certified_election_canvasses"
+      ],
+      "stage": "official_archive_portal_retrieved",
+      "coverage": "Archive and results pages, not a reconciled certified contest-year dataset",
+      "next": "Select one formally certified election contest and year; compare state PDF totals with county-level official figures"
+    },
+    {
+      "id": "nj-leg-rollcalls",
+      "url": "https://www.njleg.state.nj.us/voting-records",
+      "origin": "New Jersey Legislature",
+      "relevantGates": [
+        "official_state_rollcalls"
+      ],
+      "stage": "official_vote_portal_retrieved",
+      "coverage": "Official vote search page; bulk member-vote API/exports not yet established",
+      "next": "Pilot dated bill votes, member/chamber/session joins, and redistricting subject adjudication"
+    },
+    {
+      "id": "wa-leg-rollcalls",
+      "url": "https://app.leg.wa.gov/bi/RollCallsOnABill/RollCall?biennium=2025-26&billNumber=2618&initiative=False",
+      "origin": "Washington State Legislature",
+      "relevantGates": [
+        "official_state_rollcalls"
+      ],
+      "stage": "official_rollcall_page_retrieved",
+      "coverage": "One example bill reference is illustrative; no claim of statewide completeness",
+      "next": "Extend existing WA pilot to tagged redistricting cases, not general non-map bills"
+    },
+    {
+      "id": "recap-archive",
+      "url": "https://www.courtlistener.com/help/coverage/recap/",
+      "origin": "Free Law Project RECAP (secondary mirror of original PACER dockets)",
+      "relevantGates": [
+        "nationwide_lower_court_case_lifecycle"
+      ],
+      "stage": "public_coverage_documentation_retrieved",
+      "coverage": "Incomplete/crowd-sourced federal docket mirror, not authoritative nationwide case lifecycle or state judiciary",
+      "next": "For bounded docket cohort, attach originating court case number/filing history and independently verify court orders/dispositions"
+    }
+  ],
+  "localGaps": [
+    {
+      "id": "housing__price",
+      "issue": "housing",
+      "kind": "price",
+      "originalStatus": "partial_program_benchmark_verified_actual_prices_unresolved",
+      "question": "What do renters and buyers actually pay by neighborhood and year?",
+      "sourceIds": [
+        "hud_safmr",
+        "census_acs",
+        "fhfa_hpi"
+      ],
+      "requiredJoin": "ZCTA/county and dated rent/price measures with consistent units",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "housing__ownership",
+      "issue": "housing",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which legal landlord entities ultimately control rentals and developments?",
+      "sourceIds": [
+        "county_assessor",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "hmda"
+      ],
+      "requiredJoin": "parcel-address legal owner → ultimate parent → dated ownership with corporate filings",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "housing__decisions",
+      "issue": "housing",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which zoning, housing and antitrust decisions materially affect supply?",
+      "sourceIds": [
+        "state_localgov",
+        "doj_antitrust",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "municipality and property geometry → dated law, permits, decisions",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "housing__outcomes",
+      "issue": "housing",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "How much of housing cost growth can be linked to supply, ownership or regulation?",
+      "sourceIds": [
+        "census_acs",
+        "fhfa_hpi",
+        "hud_safmr"
+      ],
+      "requiredJoin": "comparison areas, building age, financing, trends, rents, vacancies and model specification",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "groceries__price",
+      "issue": "groceries",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What has a consistent grocery basket cost locally over time?",
+      "sourceIds": [
+        "bls_prices",
+        "openfoodfacts",
+        "ftc_grocery"
+      ],
+      "requiredJoin": "retail item+size+date+store+geography with product substitution controls",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "groceries__ownership",
+      "issue": "groceries",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which local grocery and packaged-food brands share ownership?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "requiredJoin": "actual store operator / chain / CIK; outlet address & date",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "groceries__decisions",
+      "issue": "groceries",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What competition or price-related public decisions concern food retailers?",
+      "sourceIds": [
+        "ftc_grocery",
+        "ftc_mergers",
+        "doj_antitrust"
+      ],
+      "requiredJoin": "case and final order → affected local market and timeline",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "groceries__outcomes",
+      "issue": "groceries",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Does store access or concentration correlate with higher prices in comparable markets?",
+      "sourceIds": [
+        "usda_fara",
+        "usda_retailer",
+        "bls_prices"
+      ],
+      "requiredJoin": "census tract grocery access + comparable market baskets and transport",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "energy__price",
+      "issue": "energy",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What is the actual residential utility tariff and current bill impact?",
+      "sourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "eia_gas"
+      ],
+      "requiredJoin": "utility service territory → approved tariff, usage, billing period",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "energy__ownership",
+      "issue": "energy",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Who owns the utility, suppliers and generation assets serving this address?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "eia_electric"
+      ],
+      "requiredJoin": "account service provider, franchise territory, parent filings, asset list",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "energy__decisions",
+      "issue": "energy",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which rate-case orders, fuel cost rules and subsidies changed the price?",
+      "sourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "usaspending"
+      ],
+      "requiredJoin": "utility docket → approved customer class rates → effective date",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "energy__outcomes",
+      "issue": "energy",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "How much of the change is fuel, delivery, tax, use or margin?",
+      "sourceIds": [
+        "eia_electric",
+        "eia_gas",
+        "puc_directory"
+      ],
+      "requiredJoin": "disaggregated bill, utility expenditure and counterfactual usage",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "health__price",
+      "issue": "health",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which actual prices, premiums and out-of-pocket charges are paid?",
+      "sourceIds": [
+        "cms_hospital",
+        "state_insurance",
+        "ftc_pbm"
+      ],
+      "requiredJoin": "service code + insurance plan + date + hospital + actual cost sharing",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "health__ownership",
+      "issue": "health",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Who owns provider groups, hospitals, PBMs and clinics nearby?",
+      "sourceIds": [
+        "nppes",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "NPI → facility/operator → parent → transaction/date",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "health__decisions",
+      "issue": "health",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which insurance rules, consolidation cases and payment policies apply?",
+      "sourceIds": [
+        "state_insurance",
+        "ftc_mergers",
+        "doj_antitrust",
+        "cms_hospital"
+      ],
+      "requiredJoin": "state regulator, final rule, approved acquisition and effective date",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "health__outcomes",
+      "issue": "health",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Did acquisition or policy measurably change negotiated and patient prices?",
+      "sourceIds": [
+        "cms_hospital",
+        "ftc_pbm",
+        "cms_provider"
+      ],
+      "requiredJoin": "service-adjusted price trend with comparable non-acquired providers",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "work__price",
+      "issue": "work",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What wages and openings are actually available in local sectors?",
+      "sourceIds": [
+        "bls_qcew",
+        "bls_laus",
+        "census_cbp"
+      ],
+      "requiredJoin": "county NAICS time series + vacancies with employer identification",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "work__ownership",
+      "issue": "work",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which employers and staffing providers share an owner?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "requiredJoin": "operating employers → ultimate parents / merger chronology",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "work__decisions",
+      "issue": "work",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which contracts and workplace rules were enacted and for whom?",
+      "sourceIds": [
+        "usaspending",
+        "congress",
+        "house_votes",
+        "lda"
+      ],
+      "requiredJoin": "UEI and place of performance → paid jobs and enacted rule",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "work__outcomes",
+      "issue": "work",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Does local employer concentration explain wage growth after controls?",
+      "sourceIds": [
+        "bls_ownership",
+        "bls_qcew",
+        "census_cbp"
+      ],
+      "requiredJoin": "metro-industry employer shares, wage percentiles, controls and validation",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "schools__price",
+      "issue": "schools",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What does infant and preschool childcare cost by county and setting?",
+      "sourceIds": [
+        "childcare_ndcp",
+        "childcare_ccdf"
+      ],
+      "requiredJoin": "county FIPS + childcare age/setting + cost vintage",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "schools__ownership",
+      "issue": "schools",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Who owns or operates licensed local childcare centres and brands?",
+      "sourceIds": [
+        "childcare_licensing",
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "license number → legal operator → brand and owner as of date",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "schools__decisions",
+      "issue": "schools",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which subsidy rules and funding allocations affect care?",
+      "sourceIds": [
+        "childcare_ccdf",
+        "census_school_finances",
+        "state_education"
+      ],
+      "requiredJoin": "state subsidy rates, eligibility, provider license & funding years",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "schools__outcomes",
+      "issue": "schools",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Do parent changes, subsidy rules or scarcity influence comparable childcare prices?",
+      "sourceIds": [
+        "childcare_ndcp",
+        "childcare_licensing",
+        "census_cbp"
+      ],
+      "requiredJoin": "facility age-setting tuition history, capacity, occupancy, labor and comparison",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "transport__price",
+      "issue": "transport",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What do residents pay for fares, tolls, fuel and car insurance?",
+      "sourceIds": [
+        "fta_ntd",
+        "bts_transport",
+        "state_insurance"
+      ],
+      "requiredJoin": "journey, route, fare version, operator and date",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "transport__ownership",
+      "issue": "transport",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Who owns operators, mobility platforms and local assets?",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "fta_ntd"
+      ],
+      "requiredJoin": "licensed operator / system parent / service territory",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "transport__decisions",
+      "issue": "transport",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which fare increases and infrastructure funding decisions occurred?",
+      "sourceIds": [
+        "fta_ntd",
+        "usaspending",
+        "state_localgov"
+      ],
+      "requiredJoin": "local transit authority board decision, effective date and budget",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "transport__outcomes",
+      "issue": "transport",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Did competitive options or spending change commute costs?",
+      "sourceIds": [
+        "ftadata_gtfs",
+        "fta_ntd",
+        "bts_transport"
+      ],
+      "requiredJoin": "route frequency, travel time, fares and modal alternatives",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "public-services__price",
+      "issue": "public-services",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What taxes and local service charges actually apply to the resident?",
+      "sourceIds": [
+        "census_localgov",
+        "state_localgov"
+      ],
+      "requiredJoin": "tax parcel, municipality, school district, approved budgets, line items",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "public-services__ownership",
+      "issue": "public-services",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Who owns contractors and broadband providers paid by local governments?",
+      "sourceIds": [
+        "fcc_broadband",
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "requiredJoin": "contractor UEI → parent; broadband operator → served address",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "public-services__decisions",
+      "issue": "public-services",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which contracts, grants, subsidies and budget votes were approved?",
+      "sourceIds": [
+        "usaspending",
+        "state_localgov",
+        "irs_990"
+      ],
+      "requiredJoin": "government expenditure / award ID / council vote / date and jurisdiction",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "public-services__outcomes",
+      "issue": "public-services",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What measured service improvements resulted per taxpayer dollar?",
+      "sourceIds": [
+        "census_localgov",
+        "fcc_broadband",
+        "usaspending"
+      ],
+      "requiredJoin": "service KPI, disbursement, denominator, quality and independent comparison",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "representation__price",
+      "issue": "representation",
+      "kind": "price",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which current laws and elected officials have jurisdiction over an expense?",
+      "sourceIds": [
+        "tiger_congress",
+        "state_localgov",
+        "congress"
+      ],
+      "requiredJoin": "verified address or official district lookup / legal effective date",
+      "priority": "high",
+      "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "representation__ownership",
+      "issue": "representation",
+      "kind": "ownership",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Which donors and lobbying organizations connect to decision makers?",
+      "sourceIds": [
+        "fec_official",
+        "state_finance",
+        "lda",
+        "irs_990"
+      ],
+      "requiredJoin": "original donor → committee → legally matched recipient → decision date",
+      "priority": "high",
+      "proposedWorkflow": "Official assessor/SEC original records → dated legal-entity matching; validate beneficial ownership",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "representation__decisions",
+      "issue": "representation",
+      "kind": "decisions",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What actual votes, orders and certified election outcomes exist?",
+      "sourceIds": [
+        "house_votes",
+        "senate_votes",
+        "voting_rights",
+        "congress"
+      ],
+      "requiredJoin": "member roll call, law text and effective date, adjudicated case",
+      "priority": "medium",
+      "proposedWorkflow": "Official administrative docket/statute + Legal Data Hunter → status, effective dates, disposition",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "representation__outcomes",
+      "issue": "representation",
+      "kind": "outcomes",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "What household outcomes changed after those decisions?",
+      "sourceIds": [
+        "census_acs",
+        "census_localgov",
+        "bls_qcew"
+      ],
+      "requiredJoin": "policy-exposure boundary and date, comparator and household effect",
+      "priority": "medium",
+      "proposedWorkflow": "Primary metrics + audited comparison design; Scite to challenge generalization; no causal assertion without identification",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "corp_registry",
+      "issue": "platform-wide",
+      "kind": "corporate_owner",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Current SEC Exhibit 21 + dated shareholder filings across all named corporate entities; match exact CIK, EIN, LEI, UEI and business aliases.",
+      "sourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "Canonical corporate graph by source, ownership share, dates and legal name; keep conflicts",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "local_outlets",
+      "issue": "platform-wide",
+      "kind": "corporate_owner",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Tie named national brands to licensed local establishments without assuming ZIP equals legal boundary.",
+      "sourceIds": [
+        "childcare_licensing",
+        "county_assessor",
+        "nppes",
+        "fcc_broadband"
+      ],
+      "requiredJoin": "Verified outlet ID+physical address → operator → ultimate parent",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "employer_market_denominator",
+      "issue": "platform-wide",
+      "kind": "competition",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Measure denominator of local employer/store market shares, not just names or national PAC contributions.",
+      "sourceIds": [
+        "census_cbp",
+        "bls_qcew",
+        "ftc_mergers"
+      ],
+      "requiredJoin": "Exact market and competitor set plus numerator/denominator and year",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "federal_itemized_finance",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Reconcile donor and itemized committee transfers with amendments and reporting periods.",
+      "sourceIds": [
+        "fec_official",
+        "state_finance"
+      ],
+      "requiredJoin": "Original committee IDs + FEC filings + amendments + transaction IDs",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_local_money",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Collect official state, county, local and ballot-initiative campaign finance transactions.",
+      "sourceIds": [
+        "state_finance",
+        "irs_990"
+      ],
+      "requiredJoin": "jurisdiction, filing, contributor, committee and candidate identity",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "recipient_provenance",
+      "issue": "platform-wide",
+      "kind": "federal_contract",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Tie Treasury registered UEIs to corporate parents and employer location; avoid conflating unrelated legal subsidiaries.",
+      "sourceIds": [
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "requiredJoin": "UEI award ID+entity hierarchy+place of performance+time",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "regional_company_price_series",
+      "issue": "platform-wide",
+      "kind": "price_causation",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Join local transaction/tuition/rent prices to precise parent company and observed service quality.",
+      "sourceIds": [
+        "hud_safmr",
+        "childcare_ndcp",
+        "cms_hospital",
+        "bls_prices"
+      ],
+      "requiredJoin": "price within same product/category, time, geography, and legal operator",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "certified_elections",
+      "issue": "platform-wide",
+      "kind": "elections",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Download and reconcile certified state/DC election canvasses.",
+      "sourceIds": [
+        "state_finance",
+        "voting_rights"
+      ],
+      "requiredJoin": "certified contest returns, district, date, stage, original authority",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_law_rollcalls",
+      "issue": "platform-wide",
+      "kind": "legislation",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Reconcile full state redistricting histories with member-level original legislative roll calls.",
+      "sourceIds": [
+        "state_localgov",
+        "congress",
+        "house_votes",
+        "senate_votes"
+      ],
+      "requiredJoin": "official bill/version → chamber/member vote → final law/court effective date",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "lower_court_lifecycle",
+      "issue": "platform-wide",
+      "kind": "judiciary",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Case filings, merits rulings, appeals, orders and final dispositions for election-map cases.",
+      "sourceIds": [
+        "courtlistener",
+        "voting_rights",
+        "state_judiciary"
+      ],
+      "requiredJoin": "docket → ruling/outcome/status/date with primary document",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_judicial_selection",
+      "issue": "platform-wide",
+      "kind": "judiciary",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "State judges' verified appointment/election/retention histories and deciding authorities.",
+      "sourceIds": [
+        "state_judiciary",
+        "state_localgov"
+      ],
+      "requiredJoin": "judge identifier+selection mechanism+term dates",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "congressional_trades",
+      "issue": "platform-wide",
+      "kind": "finance_integrity",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Verify congressional trades, beneficial holdings and recusals with issuer identity and relevant policy dates.",
+      "sourceIds": [
+        "house_disclosure",
+        "senate_disclosure",
+        "ogepublic",
+        "sec_beneficial"
+      ],
+      "requiredJoin": "member+date range+issuer CIK+policy action with privacy guard",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "lobbying_outcomes",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Distinguish lobbying contact/filing from actual legislative or procurement result.",
+      "sourceIds": [
+        "lda",
+        "congress",
+        "usaspending"
+      ],
+      "requiredJoin": "client, filing, bill number, action date, company UEI, time controls",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "nonprofit_dark_money",
+      "issue": "platform-wide",
+      "kind": "political_money",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Build permitted funding flows across non-profits and political committees with unknown donors explicit.",
+      "sourceIds": [
+        "irs_990",
+        "fec_official",
+        "state_finance"
+      ],
+      "requiredJoin": "EIN + fiscal year + grantee and committee transfer IDs",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "legal_map_geometry",
+      "issue": "platform-wide",
+      "kind": "elections",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Reconcile district geometries, effective dates and court-ordered revisions.",
+      "sourceIds": [
+        "census_tiger",
+        "tiger_congress",
+        "state_localgov"
+      ],
+      "requiredJoin": "date-qualified geometry crosswalk, not ZIP fuzzy match",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "household_causal_design",
+      "issue": "platform-wide",
+      "kind": "impact_study",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Distinguish correlation, case allegations and causal neighborhood cost impacts.",
+      "sourceIds": [
+        "census_acs",
+        "bls_prices",
+        "bls_qcew",
+        "fhfa_hpi"
+      ],
+      "requiredJoin": "registered methodology, comparison geography, confounders, sensitivity, uncertainty",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "sources_licensing",
+      "issue": "platform-wide",
+      "kind": "provenance",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Validate third-party licenses and allowed use before automated copying into public datasets.",
+      "sourceIds": [
+        "open_secrets",
+        "openfoodfacts",
+        "fec_official"
+      ],
+      "requiredJoin": "URL, retrieval date, license rights, data transformation and record hash",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "data_freshness",
+      "issue": "platform-wide",
+      "kind": "operations",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Time-stamp public source snapshots and signal stale/partial live retrieval in the application.",
+      "sourceIds": [
+        "fec_official",
+        "bls_prices",
+        "usaspending"
+      ],
+      "requiredJoin": "source retrieval/coverage time, data cutoff, update SLA and failure status",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "frontend_broken_links",
+      "issue": "platform-wide",
+      "kind": "frontend",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "question": "Audit static page assets, dataset references, back links, and bug-report affordances across every page.",
+      "sourceIds": [
+        "census_acs",
+        "fec_official"
+      ],
+      "requiredJoin": "repo build path, Vercel route, source data files and browser tests",
+      "priority": "high",
+      "proposedWorkflow": "Official source discovery and original-file reconciliation",
+      "executionState": "not_closed",
+      "closedOn": null
+    }
+  ],
+  "nationalGates": [
+    {
+      "id": "state_bill_full_history",
+      "description": "States/DC with verified exhaustive historical legislative redistricting census",
+      "originalStatus": "partial_not_exhaustive",
+      "observed": 0,
+      "nextAction": "Reconcile official legislative indexes and all relevant sessions",
+      "sourceEntryPoints": [],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_certified_election_canvasses",
+      "description": "Official state/DC canvass totals actually downloaded and reconciled",
+      "originalStatus": "incomplete",
+      "observed": 0,
+      "nextAction": "Retrieve certified state election contest/year/office totals from the 51 indexed authority URLs",
+      "sourceEntryPoints": [
+        "nj-election-archive"
+      ],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_campaign_finance",
+      "description": "Nationwide state-level donor to PAC/candidate/recipient transaction coverage",
+      "originalStatus": "not_established",
+      "observed": 0,
+      "nextAction": "Prioritize licensed official state election campaign finance exports, with privacy minimization",
+      "sourceEntryPoints": [
+        "va-campaign-archives",
+        "vt-campaign-archives",
+        "nj-campaign-finance"
+      ],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "official_state_rollcalls",
+      "description": "State bill aggregate tallies independently verified against an official chamber source",
+      "originalStatus": "partial_sample_not_member_ballot_census",
+      "observed": 1,
+      "nextAction": "Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata",
+      "sourceEntryPoints": [
+        "nj-leg-rollcalls",
+        "wa-leg-rollcalls"
+      ],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "verified_committee_financial_transfers",
+      "description": "Individual, source-supported committee-to-committee transfer records",
+      "originalStatus": "not_proven_by_aggregates",
+      "observed": 0,
+      "nextAction": "Connect FEC itemized disbursements or official state filings to legally identified recipients",
+      "sourceEntryPoints": [
+        "fec-committee-candidate-bulk",
+        "fec-disbursement-bulk",
+        "fec-bulk-entry"
+      ],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "nationwide_lower_court_case_lifecycle",
+      "description": "Completed nationwide election-map litigation docket, motion, judgment and appeal census",
+      "originalStatus": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Connect accessible official dockets or CourtListener records with final dispositions and dates",
+      "sourceEntryPoints": [
+        "recap-archive"
+      ],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "state_judicial_selection",
+      "description": "Verified nationwide state judicial selection, retention, election and appointment chain",
+      "originalStatus": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Collect official state judicial records, term dates, election commissions and nominating actors",
+      "sourceEntryPoints": [],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "district_legal_maps_history",
+      "description": "Source-verified legal redistricting plan histories including superseded, enjoined and enacted maps",
+      "originalStatus": "not_verified_nationwide",
+      "observed": null,
+      "nextAction": "Reconcile official plan geometries, legal effective dates and court-ordered plans to election results",
+      "sourceEntryPoints": [],
+      "executionState": "not_closed",
+      "closedOn": null
+    },
+    {
+      "id": "causal_decision_graph",
+      "description": "Verified complete actor-to-decision chain linking money, consultation, votes, enactment, lawsuits and electoral effects",
+      "originalStatus": "not_established",
+      "observed": null,
+      "nextAction": "Require dated primary sources for each action; graph affiliations are not guilt or causation",
+      "sourceEntryPoints": [],
+      "executionState": "not_closed",
+      "closedOn": null
+    }
+  ],
+  "startSequence": [
+    {
+      "stage": 1,
+      "targets": [
+        "verified_committee_financial_transfers",
+        "state_campaign_finance"
+      ],
+      "definitionOfDone": "Bounded raw original donor/payee/reporter transactions with IDs, filing date, transaction ID, provenance hashes, amendments reconciled; no nationwide closure unless all jurisdictions/cycles covered"
+    },
+    {
+      "stage": 2,
+      "targets": [
+        "state_certified_election_canvasses",
+        "official_state_rollcalls"
+      ],
+      "definitionOfDone": "One state/contest/year primary-source reconciliation and one redistricting-related member vote pilot, then scale with per-state coverage ledger"
+    },
+    {
+      "stage": 3,
+      "targets": [
+        "nationwide_lower_court_case_lifecycle",
+        "state_judicial_selection",
+        "district_legal_maps_history",
+        "state_bill_full_history"
+      ],
+      "definitionOfDone": "Verified docket/decision/map version and legislative session cohorts with explicit missing jurisdictions"
+    },
+    {
+      "stage": 4,
+      "targets": [
+        "causal_decision_graph"
+      ],
+      "definitionOfDone": "Case-level original records establish every dated relationship; correlations and money flows alone are not proof"
+    }
+  ]
+}
