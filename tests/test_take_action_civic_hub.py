@@ -32,15 +32,19 @@ class CivicActionTests(unittest.TestCase):
         self.assertIn('textarea id="message-preview" readonly',PAGE)
         self.assertIn('slice(0,500)',SCRIPT)
         self.assertIn("navigator.clipboard.writeText",SCRIPT)
-        # Only the explicitly selected five-digit ZIP may persist locally.
-        # The drafted correspondence, representative selections and issue text
-        # must never be saved in browser storage or submitted to our server.
+        # ZIP is persistent locally, but the approved testing-only constituent
+        # email may be staged in tab-scoped sessionStorage. No server storage,
+        # verified office send, or unbounded browser persistence is allowed.
         self.assertIn('ZIP_KEY="power-atlas:visitor-zip:v1"',SCRIPT)
         self.assertIn("localStorage.setItem(ZIP_KEY,code)",SCRIPT)
         self.assertEqual(SCRIPT.count("localStorage.setItem("),1)
         self.assertNotIn('localStorage.setItem("message',SCRIPT)
         self.assertNotIn('localStorage.setItem("issue',SCRIPT)
-        self.assertNotIn("sessionStorage",SCRIPT)
+        self.assertIn('sessionStorage.setItem("power-atlas:member-email-test:v1"',SCRIPT)
+        self.assertEqual(SCRIPT.count("sessionStorage.setItem("),1)
+        self.assertIn('status:"preview-only"',SCRIPT)
+        self.assertIn('href="contact-tester.html"',PAGE)
+        self.assertTrue((ROOT/"platform/unified/contact-tester.html").is_file())
         self.assertNotIn("method=\"post\"",PAGE.lower())
         self.assertNotIn("fetch(office",SCRIPT)
         self.assertNotIn("mailto:",SCRIPT)
@@ -56,11 +60,11 @@ class CivicActionTests(unittest.TestCase):
         self.assertIn('id="brief-preview"', PAGE)
         self.assertIn('https://www.house.gov/visitors/meeting-with-your-member', PAGE)
         self.assertIn('https://www.senate.gov/senators/contact/', PAGE)
-        self.assertIn('Constituent accountability request:', SCRIPT)
+        self.assertIn('Constituent accountability:', SCRIPT)
         self.assertIn('Identify concrete action you have taken', SCRIPT)
         self.assertIn('Identify the hearings, reports', SCRIPT)
         self.assertIn('I request a meeting with you', SCRIPT)
-        self.assertIn('Please respond in writing with a concrete next step', SCRIPT)
+        self.assertIn('Please give a substantive written response with specific next steps and a timeline', SCRIPT)
         self.assertIn('function makeBrief()', SCRIPT)
         self.assertIn('Copy my issue brief', SCRIPT)
         self.assertIn('This is a starting brief, not evidence that an office received', SCRIPT)
