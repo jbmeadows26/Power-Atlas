@@ -538,11 +538,11 @@ html[data-vs6="active"] body[data-pa-page] .pa3-chart :is(.pa3-chart-row,.pa3-ch
 /* The archival research page contains original dark charts and tables.
    Preserve them, but keep high contrast once the reader expands details. */
 html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :not(#vs6-home):not(.pa4-home):not(.pa5-library){
-  color:#f2f8f8;background:#123241;border-radius:18px;
-  padding:clamp(12px,2vw,23px);
+  color:#173744;background:#fffdf8;border:1px solid #dae5dd;border-radius:22px;
+  box-shadow:0 9px 27px #14394410;padding:clamp(16px,3vw,30px);
 }
 html[data-vs6="active"] body[data-pa-page="overview"].vs6-full-research main > :not(#vs6-home):not(.pa4-home) :is(h2,h3,th,strong){
-  color:#eafff9;
+  color:#153541;
 }
 /* Evidence discovery gives every source-backed investigation one V6 card
    and exposes unknowns as unknowns, never fabricated local price effects. */
