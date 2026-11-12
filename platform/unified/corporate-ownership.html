@@ -261,7 +261,8 @@ $("clearSearch").addEventListener("click",()=>{$("entitySearch").value="";query=
 (async()=>{
  const params=new URLSearchParams(location.search);
  const p=params.get("issue");
- if(Object.prototype.hasOwnProperty.call(issueLabels,p))issue=p;
+ const normalizedIssue=({food:"groceries",jobs:"work",utilities:"energy",rent:"housing",healthcare:"health"})[p]||p;
+ if(Object.prototype.hasOwnProperty.call(issueLabels,normalizedIssue))issue=normalizedIssue;
  const linkedOwner=params.get("owner");
  if(featuredOwners.includes(linkedOwner))activeOwner=linkedOwner;
  const [a,b]=await Promise.allSettled([fetch(root+"verified-relationships-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()}),fetch(root+"transparency-price-power-v1.json").then(r=>{if(!r.ok)throw Error(r.status);return r.json()})]);
