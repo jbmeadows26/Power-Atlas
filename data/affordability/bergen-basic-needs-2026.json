@@ -1,0 +1,128 @@
+{
+  "schema": "power-atlas.local-basic-needs-gap.2026.v1",
+  "year": 2026,
+  "asOf": "2026-11-11",
+  "location": {
+    "county": "Bergen County",
+    "state": "NJ",
+    "countyFips": "34003",
+    "verifiedZipExample": "07010",
+    "geographicScope": "MIT models countywide. One ZIP demonstration is not a precise ZIP-specific budget; do not extrapolate to other counties."
+  },
+  "benchmarks": {
+    "hhs": "2026 HHS administrative poverty guidelines (48 contiguous states and DC); not an actual living wage, and distinct from Census official statistical poverty thresholds.",
+    "mit": "2026 MIT Living Wage Calculator county family-type gross income needed for modeled basic necessities; one or two adults working full-time (2,080 hours per worker).",
+    "ratio": "Annual MIT modeled gross income ÷ HHS guideline (descriptive model comparison, not benefits eligibility or individual judgment)."
+  },
+  "sources": [
+    {
+      "organization": "U.S. Department of Health and Human Services",
+      "title": "2026 Poverty Guidelines",
+      "url": "https://aspe.hhs.gov/poverty-guidelines",
+      "asOf": "2026-01"
+    },
+    {
+      "organization": "MIT Living Wage Institute",
+      "title": "Living Wage Calculation for Bergen County, NJ",
+      "url": "https://livingwage.mit.edu/counties/34003",
+      "asOf": "2026-02-15"
+    },
+    {
+      "organization": "MIT Living Wage Institute",
+      "title": "Methodology and model exclusions",
+      "url": "https://livingwage.mit.edu/pages/methodology",
+      "asOf": "2026-02-15"
+    },
+    {
+      "organization": "MIT Living Wage Institute",
+      "title": "Living Wage Calculator FAQs",
+      "url": "https://livingwage.mit.edu/pages/faqs",
+      "asOf": "2026-02-15"
+    }
+  ],
+  "disclaimers": [
+    "The HHS administrative guideline is not the Census official statistical poverty threshold.",
+    "MIT estimates a minimum adequate basket, not a complete comfort standard, and excludes savings, emergencies, leisure and retirement.",
+    "Families with one working and one nonworking adult are modeled with zero paid childcare expenses, excluding the second adult's unpaid time and opportunity cost.",
+    "2026 MIT costs represent county-level modeled budgets, not actual current rent listings or any household's expenses.",
+    "No user income or personal financial information is requested, stored or sent."
+  ],
+  "scenarios": [
+    {
+      "id": "one-adult-0",
+      "adults": 1,
+      "children": 0,
+      "workers": 1,
+      "gross": 59784,
+      "net": 48924,
+      "taxes": 10860,
+      "hhs": 15960,
+      "hourlyPerWorker": 28.74
+    },
+    {
+      "id": "one-adult-1",
+      "adults": 1,
+      "children": 1,
+      "workers": 1,
+      "gross": 108662,
+      "net": 90366,
+      "taxes": 18296,
+      "hhs": 21640,
+      "hourlyPerWorker": 52.24
+    },
+    {
+      "id": "two-adults-one-worker-1",
+      "adults": 2,
+      "children": 1,
+      "workers": 1,
+      "gross": 95330,
+      "net": 82764,
+      "taxes": 12567,
+      "hhs": 27320,
+      "hourlyPerWorker": 45.83,
+      "expenseBreakdown": {
+        "food": 11165,
+        "childcare": 0,
+        "medical": 11287,
+        "housing": 29764,
+        "transportation": 11199,
+        "civic": 7694,
+        "internetMobile": 2057,
+        "otherNecessities": 9598
+      }
+    },
+    {
+      "id": "two-adults-both-working-1",
+      "adults": 2,
+      "children": 1,
+      "workers": 2,
+      "gross": 120077,
+      "net": 101290,
+      "taxes": 18787,
+      "hhs": 27320,
+      "hourlyPerWorker": 28.86
+    },
+    {
+      "id": "two-adults-one-worker-2",
+      "adults": 2,
+      "children": 2,
+      "workers": 1,
+      "gross": 101579,
+      "net": 89706,
+      "taxes": 11872,
+      "hhs": 33000,
+      "hourlyPerWorker": 48.84
+    },
+    {
+      "id": "two-adults-both-working-2",
+      "adults": 2,
+      "children": 2,
+      "workers": 2,
+      "gross": 153388,
+      "net": 126759,
+      "taxes": 26628,
+      "hhs": 33000,
+      "hourlyPerWorker": 36.87
+    }
+  ]
+}
