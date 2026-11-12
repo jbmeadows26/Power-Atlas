@@ -43,6 +43,7 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertIn(".network-detail .next{color:#344d52}", self.html)
         self.assertIn(".storyclock .tiny,.dark .tiny{color:#cadbd9}", self.html)
         self.assertIn(".numberproof{color:#4c656b}", self.html)
+        self.assertIn("08 / EVIDENCE NOTEBOOK", self.html)
 
     def test_mobile_navigation_remains_available(self):
         self.assertIn('id="mobileMenuToggle"', self.html)
@@ -63,6 +64,8 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertTrue(BUG_API.exists())
         self.assertIn("fetch('/api/bug-report'", BUG_CLIENT.read_text(encoding="utf-8"))
         self.assertIn("POSTHOG_PUBLIC_TOKEN", BUG_API.read_text(encoding="utf-8"))
+        self.assertIn('id="mobileReportTrigger"', self.html)
+        self.assertIn('position:static!important', BUG_CLIENT.read_text(encoding="utf-8"))
 
     def test_evidence_protects_readers_from_false_predictions(self):
         for phrase in ("$300B", "$650B", "$1.4T", "not a forecast",
