@@ -546,6 +546,9 @@
 .pa-zip-controls .fields input{flex:1;max-width:none;min-width:0;min-height:48px;width:100%;font-size:1.02rem;background:#fcfdfb}
 .pa-zip-controls .fields button{min-height:48px;white-space:nowrap;background:#216f69;border-radius:11px}
 .pa-zip-controls .fields button:hover{background:#14534f}
+.pa-clear-zip{display:inline-flex;align-items:center;margin-top:7px;padding:4px 0;border:0;background:transparent;color:#15675d;text-decoration:underline;text-underline-offset:3px;font-size:.77rem;font-weight:800;cursor:pointer}
+.pa-clear-zip[hidden]{display:none!important}
+
 .pa-zip-result{min-width:0;border-left:2px solid #bfdbd0;padding:3px 0 3px 15px}
 .pa-zip-result strong{display:block;font-size:1.02rem;color:#224c4c;line-height:1.3}
 .pa-zip-result p{font-size:.77rem;line-height:1.45;color:#5c7274;margin:5px 0}
@@ -558,18 +561,18 @@
 @media(max-width:830px){.pa-zip-start.wrapper{scroll-margin-top:175px}}
 @media(max-width:800px){.pa-zip-controls{grid-template-columns:1fr;gap:10px}.pa-zip-result{border-left:0;border-top:1px solid #dce8e1;padding:9px 0 0}.pa-zip-result a{display:inline-block;margin-top:2px}}
 @media(max-width:550px){.pa-zip-start.wrapper{padding:9px 12px 10px}.pa-zip-shell{padding:13px 14px 10px;border-radius:16px}.pa-zip-head h2{font-size:1.29rem}.pa-zip-head p{font-size:.79rem;line-height:1.4;margin-bottom:9px}.pa-zip-controls .fields{gap:7px}.pa-zip-controls .fields input{font-size:1rem;min-height:44px;padding:8px 10px}.pa-zip-controls .fields button{font-size:.84rem;min-height:44px;padding:8px 10px}.pa-zip-privacy{margin-top:8px;font-size:.7rem}}
-</style><link rel="stylesheet" href="atlas-visual-system.css"></head>
+</style><link rel="stylesheet" href="atlas-visual-system.css"><script src="pa-zip-persistence.js"></script></head>
 <body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
 <section class="pa-zip-start wrapper" id="where" aria-labelledby="whereTitle">
   <div class="pa-zip-shell">
     <div class="pa-zip-head"><span class="pa-zip-kicker">01 / START HERE</span><h2 id="whereTitle">Explore what shapes life in your area.</h2><p>Start with your ZIP code. Then choose an everyday issue to see the costs, decisions, evidence, and options connected to it.</p></div>
     <div class="pa-zip-controls">
-      <form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div></form>
+      <form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div><button class="pa-clear-zip" type="button" id="clearSavedZIP" aria-label="Forget saved ZIP on this device" hidden>Clear saved ZIP</button></form>
       <div class="pa-zip-result" aria-live="polite"><strong id="placeName">No ZIP selected</strong><p id="placeStatus">Enter a ZIP for approximate local context, or explore national issues without one.</p><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">Find your U.S. House representative ↗</a></div>
     </div>
-    <p id="zipPrivacy" class="pa-zip-privacy">Privacy: your ZIP is sent to third-party postal and Census services for approximate local information; Power Atlas does not store or share it in a link.</p>
-    <details class="pa-zip-disclosure"><summary>How location data and rent sources work</summary><p>When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Bedroom rent comparisons download a state-level HUD-derived rent file from GitHub or Multifamily Today; the rent file request contains a state, not your individual ZIP. Power Atlas does not store the ZIP, put it in a shared link, or infer your politics. A ZIP is not a verified electoral, school, utility or city boundary.</p></details>
+    <p id="zipPrivacy" class="pa-zip-privacy">Privacy: your ZIP is saved only in this browser on your device so you can return without re-entering it. It is not placed in shared URLs or saved to a Power Atlas account. Postal and Census lookups still contact external providers.</p>
+    <details class="pa-zip-disclosure"><summary>How location data and rent sources work</summary><p>When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Bedroom rent comparisons download a state-level HUD-derived rent file from GitHub or Multifamily Today; the rent file request contains a state, not your individual ZIP. Power Atlas saves only your five ZIP digits locally in your browser until you choose Clear ZIP. Power Atlas does not store your ZIP on its servers or put it in a shared link. Power Atlas does not infer your politics from your ZIP. A ZIP is not a verified electoral, school, utility or city boundary.</p></details>
   </div>
 </section>
 <div class="hero"><div class="wrapper"><nav class="crumb" aria-label="Breadcrumb"><a href="index.html">← Research home</a><a href="compare.html">Evidence studio</a><a href="business-candidates.html">Company investigations</a></nav><div class="ey">Power Atlas · A place-first guide to power</div><h1>Your life is shaped by decisions. <em>See which ones.</em></h1><p class="lead">Start with where you live and an everyday concern. Follow the people, rules, organizations and money connected to that issue—then explore what can actually help.</p>
@@ -622,7 +625,7 @@
  <p class="ownerGap" id="ownerLocalGap"></p>
  <div class="ownerFooter"><a id="ownershipFullLink" href="corporate-ownership.html">Explore the interactive ownership map →</a> · <a href="market-power.html" style="font-weight:850">Trace corporate market power →</a></div>
  </section>
- <div style="max-width:1120px;margin:20px auto;padding:0 16px"><a href="https://power-atlas-research.vercel.app/economic-fragility.html" style="display:block;background:#eaf4f0;border:1px solid #bcd9ce;color:#194f47;border-radius:15px;padding:18px 20px;text-decoration:none;font-weight:700;line-height:1.45">National context · Why the economy can grow while households feel squeezed — Explore the economic fragility investigation → <small style="display:block;color:#59736c;font-weight:400;margin-top:6px">Source-backed national indicators; not a ZIP-specific crash prediction.</small></a></div>
+ <div style="max-width:1120px;margin:20px auto;padding:0 16px"><a href="economic-fragility.html" style="display:block;background:#eaf4f0;border:1px solid #bcd9ce;color:#194f47;border-radius:15px;padding:18px 20px;text-decoration:none;font-weight:700;line-height:1.45">National context · Why the economy can grow while households feel squeezed — Explore the economic fragility investigation → <small style="display:block;color:#59736c;font-weight:400;margin-top:6px">Source-backed national indicators; not a ZIP-specific crash prediction.</small></a></div>
  <section class="ownerTrail" aria-label="Government financial interests and public decisions" style="margin:18px 0"><span class="ey-dark">Public integrity · Evidence to investigate</span><h3>Do officials have financial interests in industries they govern?</h3><p class="ownerIntro">Explore reported trading by presidential accounts and Congress, then follow the unanswered questions about decision-makers, government policy and possible household impacts. No individual cost increase has been attributed to these transactions.</p><div class="ownerFooter"><a href="public-trading.html">Explore government financial interests and the source records →</a></div></section>
 <section class="ownerTrail" aria-label="Political finance and personal-cost investigations" style="margin:18px 0"><span class="ey-dark">Public integrity · Financial flows</span><h3>What other financial interests could intersect with public decisions?</h3><p class="ownerIntro">Follow documented cryptocurrency, foreign licensing, government gifts and settlement flows. We distinguish an official's reported business income from a corporate transaction or a government-owned asset and do not assign a household cost without evidence.</p><div class="ownerFooter"><a href="financial-flows.html">Open the verified-source financial flow map →</a></div></section>
 <section class="localFactSection" id="sourceMeasured" aria-label="Measured conditions for selected daily-life issue">
@@ -685,6 +688,18 @@ const SOURCE_CIVIC_REFORMS=base+"data/money-influence/civic-power-reforms-v1.jso
 const SOURCE_BUSINESS_INFLUENCE=base+"data/business-influence/evidence-v1.json";
 
 const $=id=>document.getElementById(id);
+const ZIP_PREFERENCE_KEY="power-atlas:visitor-zip:v1";
+function savedHomeZIP(){
+ const fromManager=window.PowerAtlasZIP?.get?.();
+ if(/^[0-9]{5}$/.test(fromManager||""))return fromManager;
+ try{const stored=localStorage.getItem(ZIP_PREFERENCE_KEY);return /^[0-9]{5}$/.test(stored||"")?stored:null}catch(_){return null}
+}
+function saveHomeZIP(zip){
+ if(window.PowerAtlasZIP?.save)return window.PowerAtlasZIP.save(zip);
+ try{localStorage.setItem(ZIP_PREFERENCE_KEY,zip);return true}catch(_){return false}
+}
+const onLoadZIP=savedHomeZIP();
+if(onLoadZIP){$("zipInput").value=onLoadZIP;$("clearSavedZIP").hidden=false;}
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a-z0-9-]+)?$/.test(s||"")?s:null;
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
@@ -1146,6 +1161,7 @@ const paZIPVisualTopics=[
  {key:"health",label:"Uninsured residents"}
 ];
 function publishZIPVisual(detail){
+ window.PowerAtlasLastZIPVisualContext=detail;
  window.dispatchEvent(new CustomEvent("poweratlas:zip-visual-context",{detail}));
 }
 async function updateZIPVisualSnapshot(zip,placeLabel){
@@ -1228,6 +1244,9 @@ $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
  if(!/^[0-9]{5}$/.test(zip)){$("placeStatus").textContent="Please enter a five-digit U.S. ZIP code.";return;}
  $("step2Place").textContent="Looking up ZIP "+zip+"… Select an issue below.";
+ saveHomeZIP(zip);
+ $("clearSavedZIP").hidden=!savedHomeZIP();
+ if(!stories){$("placeStatus").textContent="ZIP saved in this browser. Local evidence is loading.";return;}
  lookUpZIP(zip);
  // Keep the new visual ZIP summary as the first stop after submitting a location.
  // Step 2 should only be reached when someone explicitly explores an issue.
@@ -1242,6 +1261,14 @@ $("zipForm").addEventListener("submit",e=>{
   // If the visual enhancement is still loading, do not skip past its position.
   scrollToSection("where","where");
  }
+});
+$("clearSavedZIP").addEventListener("click",()=>{
+ if(window.PowerAtlasZIP?.clear)window.PowerAtlasZIP.clear();
+ else try{localStorage.removeItem(ZIP_PREFERENCE_KEY)}catch(_){}
+ // Reload the same canonical community page to clear all ZIP-specific
+ // charts, cached place labels and pending requests atomically.
+ history.replaceState(null,"",location.pathname+"#where");
+ window.location.reload();
 });
 $("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
@@ -1271,7 +1298,10 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[13].status==="fulfilled"&&Array.isArray(results[13].value.cases))businessInfluence=results[13].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
+ const rememberedZIP=savedHomeZIP();
+ if(rememberedZIP){$("zipInput").value=rememberedZIP;$("clearSavedZIP").hidden=false;}
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,Boolean(hash)&&!pageSections.has(hash));
+ if(rememberedZIP)lookUpZIP(rememberedZIP);
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
 })();
 </script><script src="cost-benchmark-story.js?v=20261107-transit-v1" defer></script><script src="transport-cost-story.js?v=20261107-baselines-v3" defer></script><script src="transport-value-ezpass.js?v=20261107-baselines-v3" defer></script><script src="transport-toll-penalties.js?v=20261107-baselines-v3" defer></script><script src="personal-cost-explorer.js" defer></script><script src="social-issues.js?v=20261111-unified-grid" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script><script src="qa-evidence-hub.js" defer></script><script src="market-rent-primary.js" defer></script><script src="hud-rent-current.js" defer></script><script src="basic-needs-gap.js" defer></script></body></html>

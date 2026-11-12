@@ -9,7 +9,9 @@ const SUPPORTED="07010";
 let serial=0;
 let cache=null;
 function emit(zip,status,market=null){
- window.dispatchEvent(new CustomEvent("poweratlas:market-rent-ready",{detail:{zip,status,market}}));
+ const detail={zip,status,market};
+ window.PowerAtlasLastMarketRent=detail;
+ window.dispatchEvent(new CustomEvent("poweratlas:market-rent-ready",{detail}));
 }
 function validate(m){
  if(!m||m.schema!=="power-atlas.market-asking-rent-snapshot.v1"||
@@ -63,4 +65,8 @@ window.addEventListener("poweratlas:zip-visual-context",event=>{
  previous=d.zip;
  show(d.zip);
 });
+if(window.PowerAtlasLastZIPVisualContext){
+ const zip=window.PowerAtlasLastZIPVisualContext.zip;
+ if(/^\d{5}$/.test(zip||"")&&zip!==previous){previous=zip;show(zip);}
+}
 })();

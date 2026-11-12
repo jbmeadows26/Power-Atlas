@@ -514,6 +514,9 @@ function attachZIPVisual(section){
    }
  }
  window.addEventListener("poweratlas:zip-visual-context",paint);
+ // A saved ZIP may finish loading before V6 mounts. Restore that exact
+ // source-backed snapshot; do not fabricate fallback measurements.
+ if(window.PowerAtlasLastZIPVisualContext)paint({detail:window.PowerAtlasLastZIPVisualContext});
  function renderMarket(){
    const els=nodes.get("housing"),d=lastMarketResult;
    if(!els?.bedrooms||!d||d.zip!==currentZip)return;
@@ -553,6 +556,10 @@ function attachZIPVisual(section){
    lastMarketResult=d;
    renderMarket();
  });
+ if(window.PowerAtlasLastMarketRent?.zip===currentZip){
+   lastMarketResult=window.PowerAtlasLastMarketRent;
+   renderMarket();
+ }
 }
 
 function topic(){if(documentPath==="corporate-ownership.html")return;
@@ -568,20 +575,68 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  const intro=isPlaceStory?E("div","vs6-intro"):section;
  intro.append(E("span","vs6-micro","THE STORY IN 10 SECONDS"),E("h1",null,copy[0]),E("p","vs6-topic-summary",copy[1]));
  if(isPlaceStory){section.classList.add("vs6-topic-cover");section.append(intro);}
- if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}else{const art=visual(kind);section.append(art);}
+ /* A compact V6 infographic is always the opening visual. Detailed exploratory
+    controls are preserved but revealed only when requested, not shown as a
+    competing 1,300px page-long first screen. */
+ const art=visual(kind);section.append(art);
+ if(documentPath==="market-power.html"&&window.PowerAtlasMarketPower){window.PowerAtlasMarketPower.mount(section);}
+ else if(documentPath==="dark-money.html"&&window.PowerAtlasPoliticalMoney){window.PowerAtlasPoliticalMoney.mount(section);}
+ if(documentPath==="consumer-practices.html"){
+   const peek=E("div","vs6-evidence-peek");
+   peek.setAttribute("aria-label","Available consumer investigations");
+   ["Deceptive deals","Shrinkflation","Class actions"].forEach(label=>peek.append(E("span",null,label)));
+   section.append(peek);
+ }
  if(documentPath==="corporate-ownership.html")section.append(source("https://www.realpage.com/news/thoma-bravo-completes-acquisition-of-realpage/","Original acquisition announcement ↗"));
- const cta=E("button","vs6-primary vs6-expand","Explore the evidence ↗");cta.type="button";cta.setAttribute("aria-expanded","false");
+ const collapsedCTA=documentPath==="consumer-practices.html"?"See cases, comparisons & sources ↗":"Explore the evidence ↗";
+ const cta=E("button","vs6-primary vs6-expand",collapsedCTA);cta.type="button";cta.setAttribute("aria-expanded","false");
  cta.addEventListener("click",()=>{
    const active=section.classList.toggle("vs6-expanded");
    document.body.classList.toggle("vs6-topic-expanded",active);
-   cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":"Explore the evidence ↗";
+   cta.setAttribute("aria-expanded",String(active));cta.textContent=active?"Back to the big picture ↑":collapsedCTA;
    const explorer=main.querySelector(".pa5-explorer");
    if(active){
-     const requested=documentPath==="market-power.html"?explorer?.querySelector('button.pa5-chapter-card[aria-controls="explore"]'):null;
-     const first=requested||explorer?.querySelector(".pa5-chapter-card");
-     if(first){first.click();}else{const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
+     const pathways=section.querySelector(".pmx,.mpx");
+     if(pathways){pathways.scrollIntoView({behavior:"smooth",block:"start"});}
+     else {
+       const first=explorer?.querySelector(".pa5-chapter-card");
+       if(first){first.click();}
+       else {const sec=main.querySelector(":scope > section:not(.vs6-topic):not(.pa5-topic-hero)");sec?.scrollIntoView({behavior:"smooth",block:"start"});}
+     }
    }else section.scrollIntoView({behavior:"smooth",block:"start"});
  });
+ if(documentPath==="consumer-practices.html"){
+   // A visible, concise graphical path makes Consumer Watch useful even before
+   // readers expand the detailed evidence. The original evidence remains intact.
+   const shortcuts=E("nav","vs6-topic-shortcuts");
+   shortcuts.setAttribute("aria-label","Explore Consumer Watch investigations");
+   const subjects=[
+     ["▦","SHRINKFLATION","Less inside. Higher unit cost.","#shrinkflation"],
+     ["▤","PHONE DEALS","Compare the total plan cost.","telecom-promotions.html"],
+     ["◉","CLASS ACTIONS","Lawsuit status is not a payout.","class-actions.html"]
+   ];
+   for(const [symbol,title,note,url] of subjects){
+     const link=E("a","vs6-topic-shortcut");link.href=url;
+     link.append(E("span","vs6-topic-shortcut-icon",symbol));
+     const caption=E("span","vs6-topic-shortcut-copy");
+     caption.append(E("strong",null,title),E("small",null,note));
+     link.append(caption,E("span","vs6-topic-shortcut-arrow","↗"));
+     if(url.startsWith("#")){
+       link.addEventListener("click",event=>{
+         event.preventDefault();
+         if(!document.body.classList.contains("vs6-topic-expanded"))cta.click();
+         const id=url.slice(1);
+         const chapter=main.querySelector('.pa5-chapter-card[aria-controls="'+id+'"]');
+         chapter?.click();
+         const target=document.getElementById(id);
+         if(target)target.scrollIntoView({behavior:window.matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+         history.replaceState(null,"",url);
+       });
+     }
+     shortcuts.append(link);
+   }
+   section.append(shortcuts);
+ }
  if(isPlaceStory)intro.append(cta);else section.append(cta);
  former.classList.add("vs6-superseded");
  main.prepend(section);
@@ -590,7 +645,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="my-life.html"){
   const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter or change your ZIP ↓");label.href="#where";intro.append(label);}
  }
- if(location.hash&&location.hash!=="#market-power-pathways"){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");

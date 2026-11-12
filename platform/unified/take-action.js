@@ -20,6 +20,17 @@ oversight:"Identify the hearings, reports, or oversight actions addressing this 
 meeting:"I request a meeting with you or the relevant staff member. Who handles scheduling, and how can I submit an evidence brief?"
 };
 let zip="",currentIssue="housing",currentQuestion="position",members=[],selected=null,lookupSerial=0,ambiguous=false,selectedChamber=null;
+const ZIP_KEY="power-atlas:visitor-zip:v1";
+function rememberedZIP(){
+ const fromManager=window.PowerAtlasZIP?.get?.();
+ if(/^\d{5}$/.test(fromManager||""))return fromManager;
+ try{const value=localStorage.getItem(ZIP_KEY);return /^\d{5}$/.test(value||"")?value:null}catch(_){return null}
+}
+function saveZIP(code){
+ if(!/^\d{5}$/.test(code))return false;
+ if(window.PowerAtlasZIP?.save)return window.PowerAtlasZIP.save(code);
+ try{localStorage.setItem(ZIP_KEY,code);return true}catch(_){return false}
+}
 const officeFallback="https://www.congress.gov/members/find-your-member";
 const switchboard="tel:+12022243121";
 const status=$("lookup-status"),result=$("member-results"),recipients=$("recipient-options");
@@ -228,13 +239,16 @@ document.querySelectorAll(".ta-chamber-link").forEach(button=>button.addEventLis
   return;
  }
  if(zip===code&&members.some(m=>m.chamber===chamber)){focusChosenChamber(chamber);return;}
+ saveZIP(code);
  $("find").scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
  locate(code).then(()=>focusChosenChamber(chamber));
 }));
 $("lookup-form").addEventListener("submit",e=>{
  e.preventDefault();const input=$("zip");const code=input.value.trim();
  if(!/^\d{5}$/.test(code)){status.textContent="Enter exactly five digits for a U.S. ZIP code.";input.setAttribute("aria-invalid","true");input.focus();return;}
- input.removeAttribute("aria-invalid");locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
+ input.removeAttribute("aria-invalid");
+ saveZIP(code);
+ locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
 });
 $("zip").addEventListener("input",()=>{$("zip").value=$("zip").value.replace(/\D/g,"").slice(0,5);});
 document.querySelectorAll("#issue-options button").forEach(button=>button.addEventListener("click",()=>{
@@ -257,6 +271,9 @@ document.querySelectorAll("#question-options button").forEach(button=>button.add
 }));
 $("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message","message-preview"));
 $("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief","brief-preview"));
+const savedZIP=rememberedZIP();
+if(savedZIP&&!$("zip").value)$("zip").value=savedZIP;
+// Legacy inbound links remain accepted, but the ZIP is not added to outbound links.
 const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();

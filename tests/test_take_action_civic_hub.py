@@ -32,7 +32,14 @@ class CivicActionTests(unittest.TestCase):
         self.assertIn('textarea id="message-preview" readonly',PAGE)
         self.assertIn('slice(0,500)',SCRIPT)
         self.assertIn("navigator.clipboard.writeText",SCRIPT)
-        self.assertNotIn("localStorage",SCRIPT)
+        # Only the explicitly selected five-digit ZIP may persist locally.
+        # The drafted correspondence, representative selections and issue text
+        # must never be saved in browser storage or submitted to our server.
+        self.assertIn('ZIP_KEY="power-atlas:visitor-zip:v1"',SCRIPT)
+        self.assertIn("localStorage.setItem(ZIP_KEY,code)",SCRIPT)
+        self.assertEqual(SCRIPT.count("localStorage.setItem("),1)
+        self.assertNotIn('localStorage.setItem("message',SCRIPT)
+        self.assertNotIn('localStorage.setItem("issue',SCRIPT)
         self.assertNotIn("sessionStorage",SCRIPT)
         self.assertNotIn("method=\"post\"",PAGE.lower())
         self.assertNotIn("fetch(office",SCRIPT)

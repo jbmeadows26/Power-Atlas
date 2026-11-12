@@ -95,3 +95,16 @@ body[data-pa-page] > header:has(.sectionNav) > .topbar{display:none!important}
   #pa-global-header .pa-global-links a{min-height:44px}
   html{scroll-padding-top:170px}
 }
+
+
+/* Device-local visitor ZIP shown across the one canonical navigation journey. */
+#pa-global-header a.pa-remembered-zip{
+ display:inline-flex;align-items:center;justify-content:center;flex:none;
+ color:#d9fff3;background:#173e46;border:1px solid #4a8b80;
+ border-radius:999px;padding:7px 9px;font-size:.73rem;font-weight:820;
+ letter-spacing:0;white-space:nowrap;min-height:35px;
+}
+#pa-global-header a.pa-remembered-zip:focus-visible{outline:3px solid #f0c477;outline-offset:2px}
+@media(max-width:880px){
+ #pa-global-header a.pa-remembered-zip{margin:0 0 7px 8px;padding:6px 9px;min-height:29px;font-size:.71rem}
+}

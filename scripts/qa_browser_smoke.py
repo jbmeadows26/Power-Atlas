@@ -67,19 +67,28 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(action.get_attribute("href").endswith("take-action.html"))
         self.assert_no_horizontal_overflow()
 
-    def test_all_16_research_threads_are_discoverable(self):
+    def test_all_19_research_threads_are_discoverable(self):
         self.visit("/my-life.html")
         section = self.page.locator("#pa-coverage-discovery")
         self.assertEqual(section.count(), 1)
-        self.assertEqual(section.locator(".pa-coverage-card").count(), 16)
+        self.assertEqual(section.locator(".pa-coverage-card").count(), 19)
+        self.assertTrue(self.page.locator("#what .section-head h2").is_visible(),
+                        "What matters most heading must stay visible above the investigation cards")
+        self.assertTrue(section.locator(".pa-coverage-card").first.is_visible(),
+                        "Featured source-backed stories should be visible on the first V6 screen")
         summary = section.locator("summary")
         self.assertTrue(summary.is_visible(), "The evidence directory is hidden behind a legacy chapter")
         summary.click(timeout=10000)
         self.assertTrue(section.locator("details.pa-coverage-more").get_attribute("open") is not None)
         for slug in ["dark-money.html", "business-influence.html", "market-power.html",
-                     "wealth-advantage.html", "take-action.html", "source-audit.html"]:
+                     "wealth-advantage.html", "take-action.html", "source-audit.html",
+                     "voting-access.html", "economic-fragility.html", "research-archive.html"]:
             self.assertTrue(section.locator(f'a[href="{slug}"]').count() >= 1, slug)
         self.assert_no_horizontal_overflow()
+        # From the featured evidence row, the jump must reveal the full issues grid.
+        section.locator(".pa-coverage-jump").click(timeout=10000)
+        self.assertTrue(self.page.locator("#issueGrid").is_visible(),
+                        "Browse the 29 issues must expand the hidden V6 chapter")
 
     def test_zip_preserves_first_section(self):
         self.visit("/my-life.html")
@@ -218,6 +227,149 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.visit(path)
                 self.assertTrue(self.page.locator("#pa-global-header").is_visible())
                 self.assert_no_horizontal_overflow()
+
+
+    def test_all_canonical_routes_have_a_single_visible_v6_entry(self):
+        """Prevent any investigation silently reverting to a legacy site shell."""
+        pages = sorted(p.name for p in (Path(__file__).resolve().parents[1] / "platform" / "unified").glob("*.html"))
+        self.assertGreaterEqual(len(pages), 30)
+        for name in pages:
+            with self.subTest(page=name):
+                self.visit("/" + name)
+                header = self.page.locator("#pa-global-header")
+                self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
+                self.assertTrue(header.is_visible(), name + ": brand not visible")
+                entry = self.page.locator(
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home")
+                self.assertGreater(entry.count(), 0,
+                    name + ": missing approved V6 topic, custom V6 cover, or V6 home")
+                self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
+                self.assert_no_horizontal_overflow()
+
+    def test_zip_preference_persists_across_routes_and_can_be_cleared(self):
+        """Remember locally without a user account, URL parameter or automatic page jump."""
+        self.visit("/my-life.html")
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type=submit]").click()
+        self.assertEqual(self.page.evaluate(
+            "() => localStorage.getItem('power-atlas:visitor-zip:v1')"), "07010")
+        self.visit("/dark-money.html")
+        chip = self.page.locator("#pa-global-header .pa-remembered-zip")
+        chip.wait_for(state="visible", timeout=10000)
+        self.assertTrue(chip.is_visible())
+        self.assertIn("07010", chip.inner_text())
+        chip.click()
+        self.page.wait_for_url("**/my-life.html#where")
+        self.page.wait_for_function(
+            "() => document.documentElement.dataset.vs6 === 'active'")
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "07010")
+        self.assertNotIn("vs6-topic-expanded",
+            self.page.locator("body").get_attribute("class") or "",
+            "ZIP navigation reopened legacy deep research")
+        clear = self.page.locator("#clearSavedZIP")
+        self.assertTrue(clear.is_visible())
+        clear.click()
+        self.page.wait_for_function(
+            "() => !localStorage.getItem('power-atlas:visitor-zip:v1') && document.getElementById('zipInput')?.value === ''",
+            timeout=16000)
+        self.assertEqual(self.page.locator(".pa-remembered-zip").count(), 0)
+        self.assert_no_horizontal_overflow()
+
+    def test_v6_editorial_covers_match_on_mobile_and_desktop(self):
+        """Visual contract: page-specific stories may vary, outer V6 shell may not."""
+        covers = {
+            "/dark-money.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/market-power.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/consumer-practices.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/take-action.html": (".ta-hero", ".ta-hero h1"),
+        }
+        for width, height in ((390, 844), (1440, 900)):
+            self.page.set_viewport_size({"width": width, "height": height})
+            for path, (cover_selector, headline_selector) in covers.items():
+                with self.subTest(path=path, width=width):
+                    self.visit(path)
+                    cover = self.page.locator(cover_selector)
+                    heading = self.page.locator(headline_selector)
+                    self.assertTrue(cover.is_visible(), f"{path}: missing V6 cover")
+                    self.assertTrue(heading.is_visible(), f"{path}: missing readable headline")
+                    appearance = cover.evaluate("""node => ({
+                        background: getComputedStyle(node).backgroundColor,
+                        width: node.getBoundingClientRect().width,
+                        font: parseFloat(getComputedStyle(node.querySelector('h1')).fontSize)
+                    })""")
+                    self.assertEqual(appearance["background"], "rgb(250, 246, 237)",
+                        f"{path}: competing theme instead of canonical V6 cream")
+                    self.assertLessEqual(appearance["width"], 1192,
+                        f"{path}: cover exceeds canonical maximum width")
+                    self.assertGreaterEqual(appearance["font"], 38,
+                        f"{path}: headline too small to work as the leading graphic")
+                    self.assertLessEqual(appearance["font"], 76,
+                        f"{path}: headline exceeds canonical type scale")
+                    self.assertEqual(self.page.locator("#pa-global-header").count(), 1)
+                    self.assert_no_horizontal_overflow()
+                    name = path.strip("/").replace(".html", "")
+                    self.page.screenshot(path=str(REPORTS / f"v6-{name}-{width}.png"),
+                                         full_page=False)
+
+    def test_consumer_watch_evidence_is_reachable_after_explore(self):
+        self.visit("/consumer-practices.html")
+        cta = self.page.locator("main > .vs6-topic .vs6-expand")
+        self.assertTrue(cta.is_visible())
+        self.assertEqual(cta.get_attribute("aria-expanded"), "false")
+        cta.click()
+        self.assertEqual(cta.get_attribute("aria-expanded"), "true")
+        self.assertIn("vs6-topic-expanded", self.page.locator("body").get_attribute("class") or "")
+        chapters = self.page.locator("main > .pa5-explorer .pa5-chapter-card")
+        self.assertGreater(chapters.count(), 0, "Consumer Watch evidence has no discoverable chapters")
+        self.assertTrue(self.page.locator("main > .pa5-explorer").is_visible())
+        self.assert_no_horizontal_overflow()
+
+
+    def test_zip_remains_between_pages_return_visits_and_can_be_cleared(self):
+        """One saved ZIP; no ZIP query params, auto-scroll or civic request on revisit."""
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get", timeout=15000)
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '07010'")
+        self.assertIn("07010", self.page.locator("#zipInput").input_value())
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/take-action.html")
+        self.page.wait_for_function("() => document.getElementById('zip')?.value === '07010'")
+        self.assertEqual(self.page.locator("#member-results").inner_text().strip(), "",
+                         "Reopening Take Action must not contact third parties automatically")
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/cost-gap.html")
+        self.page.wait_for_function("() => document.getElementById('cg-zip-a')?.value === '07010'")
+        self.assertNotIn("07010", self.page.url)
+
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => document.getElementById('zipInput')?.value === '07010'")
+        self.assertTrue(self.page.locator("#clearSavedZIP").is_visible())
+        self.assertNotIn("07010", self.page.url)
+        with self.page.expect_navigation(wait_until="domcontentloaded", timeout=20000):
+            self.page.locator("#clearSavedZIP").click()
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get && window.PowerAtlasZIP.get() === null", timeout=15000)
+        self.assertEqual(self.page.locator("#zipInput").input_value(), "")
+        self.assertFalse(self.page.locator("#clearSavedZIP").is_visible())
+        self.assert_no_horizontal_overflow()
+
+    def test_changing_saved_zip_updates_another_page(self):
+        self.visit("/my-life.html")
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '07010'")
+        self.page.locator("#zipInput").fill("10001")
+        self.page.locator("#zipForm button[type='submit']").click()
+        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '10001'")
+        self.visit("/take-action.html")
+        self.page.wait_for_function("() => document.getElementById('zip')?.value === '10001'")
+        self.assertNotIn("10001", self.page.url)
+
 
 
 if __name__ == "__main__":

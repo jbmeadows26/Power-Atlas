@@ -1,0 +1,279 @@
+{
+  "schema": "power-atlas.economic-fragility.v1",
+  "asOf": "2026-11-09",
+  "publicationStatus": "published",
+  "headline": "Is a growing economy becoming more financially fragile?",
+  "method": "Snapshot of separately timed U.S. macroeconomic and financial indicators. Do not add dollar figures across incompatible financial instruments or interpret stress signals as a probability of a crash. Market data present a dated November 9 closing-price-index snapshot and historical peak-to-trough context; comparisons are not crash probabilities.",
+  "metrics": [
+    {
+      "id": "gdp",
+      "label": "U.S. output",
+      "value": "+3.4%",
+      "period": "2026 Q3",
+      "measure": "Real GDP, annualized advance estimate",
+      "interpretation": "Economic activity expanded. This does not demonstrate that every household's inflation-adjusted purchasing power rose.",
+      "source": "https://www.bea.gov/news/2026/gdp-advance-estimate-3rd-quarter-2026",
+      "category": "growth",
+      "direction": "resilience"
+    },
+    {
+      "id": "real_earnings",
+      "label": "Inflation-adjusted pay",
+      "value": "−0.7%",
+      "period": "September 2025–September 2026",
+      "measure": "Real average hourly earnings, all private-sector employees, seasonally adjusted",
+      "interpretation": "Average real hourly earnings fell over the year. Not a direct measure of median household income or inequality.",
+      "source": "https://www.bls.gov/news.release/realer.nr0.htm",
+      "category": "households",
+      "direction": "stress"
+    },
+    {
+      "id": "cpi",
+      "label": "Consumer inflation",
+      "value": "+3.7%",
+      "period": "September 2025–September 2026",
+      "measure": "Consumer Price Index for All Urban Consumers, 12-month change",
+      "interpretation": "Prices rose on average; inflation is not the same as a decline in all real wages or a forecast of future inflation.",
+      "source": "https://www.bls.gov/news.release/cpi.nr0.htm",
+      "category": "households",
+      "direction": "stress"
+    },
+    {
+      "id": "total_debt",
+      "label": "Household debt",
+      "value": "$18.771T",
+      "period": "2026 Q2",
+      "measure": "Household debt balances; down $13 billion from Q1",
+      "interpretation": "The stock of debt alone does not establish that debt service is unaffordable; debt decreased slightly quarter over quarter.",
+      "source": "https://www.newyorkfed.org/newsevents/news/research/2026/20260811",
+      "category": "credit",
+      "direction": "mixed"
+    },
+    {
+      "id": "card_debt",
+      "label": "Credit card debt",
+      "value": "$1.263T",
+      "period": "2026 Q2",
+      "measure": "Credit card balances; up $21 billion from Q1",
+      "interpretation": "Credit card balances rose but credit-card delinquency transition rates remained broadly steady in the report.",
+      "source": "https://www.newyorkfed.org/newsevents/news/research/2026/20260811",
+      "category": "credit",
+      "direction": "mixed"
+    }
+  ],
+  "financing": {
+    "period": "IMF October 2026 analysis of 14 publicly disclosed AI-related transactions since 2023",
+    "items": [
+      {
+        "id": "revenue",
+        "name": "Future revenue commitments",
+        "billions": 1400
+      },
+      {
+        "id": "debt",
+        "name": "Debt financing",
+        "billions": 650
+      },
+      {
+        "id": "equity",
+        "name": "Equity investments",
+        "billions": 300
+      }
+    ],
+    "interpretation": "Distinct financial instruments across the IMF's reviewed sample. Figures are neither realized losses nor independent additive exposures. Financing arrangements may interconnect firm valuations and revenue outlooks.",
+    "source": "https://www.elibrary.imf.org/abstract/book/9798229055673/CH001.xml"
+  },
+  "pathways": [
+    {
+      "id": "ai",
+      "title": "AI expectations disappoint",
+      "trigger": "Company revenues or investment returns fall short of expectations",
+      "transmission": "Equity valuations and related credit exposures decline",
+      "householdImpact": "Potential job cuts, reduced retirement assets and tighter lending",
+      "status": "scenario_not_forecast"
+    },
+    {
+      "id": "rates",
+      "title": "Borrowing becomes more expensive",
+      "trigger": "Bond yields rise on inflation, issuance or fiscal concerns",
+      "transmission": "Refinancing pressures on businesses, lenders and governments",
+      "householdImpact": "Potential pressure on mortgages, credit costs and public budgets",
+      "status": "scenario_not_forecast"
+    },
+    {
+      "id": "credit",
+      "title": "Consumer credit weakens",
+      "trigger": "Income or employment deterioration increases payment distress",
+      "transmission": "Lenders tighten standards and household spending slows",
+      "householdImpact": "Harder credit access and higher job-loss vulnerability",
+      "status": "scenario_not_forecast"
+    }
+  ],
+  "evidenceRules": [
+    "No numeric forecast of a 2027 crash is supported by these sources.",
+    "No company or individual is accused of causing a crash without case-specific evidence.",
+    "Disaggregate household exposure by income, geography and timing where reliable data exists.",
+    "Distinguish business ownership, financing, lobbying and direct causal price effects.",
+    "No automatic mapping from a ZIP to a person, political affiliation, company exposure or projected loss."
+  ],
+  "connections": [
+    {
+      "label": "Everyday cost categories",
+      "path": "https://power-atlas-unified.vercel.app/my-life.html",
+      "scope": "Nine issue categories. Local and national data are distinguished."
+    },
+    {
+      "label": "Ownership and price mechanisms",
+      "path": "https://power-atlas-unified.vercel.app/corporate-ownership.html",
+      "scope": "Documented ownership is not proven price causation."
+    },
+    {
+      "label": "Political money and business",
+      "path": "https://power-atlas-unified.vercel.app/business-candidates.html",
+      "scope": "Candidates for investigation, not proof of influence."
+    }
+  ],
+  "pending": [
+    {
+      "item": "2026 Q3 Household Debt and Credit",
+      "reason": "Must refresh debt and delinquency indicators when the New York Fed releases a new vintage"
+    },
+    {
+      "item": "2026 October CPI and real earnings",
+      "reason": "Avoid treating September purchasing-power changes as the latest after the next BLS release"
+    },
+    {
+      "item": "Issuer-level AI financing relationships",
+      "reason": "Reconcile legal entities, guarantees, counterparties and public filing dates before drawing company-network edges"
+    },
+    {
+      "item": "Local household incidence",
+      "reason": "No causally established ZIP-specific economic-loss figure; avoid invented household premiums"
+    },
+    {
+      "item": "Market-drawdown refresh and scenario testing",
+      "reason": "Confirm each close with a licensed daily series; examine earnings, credit, employment and data-center investment before concluding market losses are spreading to households."
+    }
+  ],
+  "publicationApproval": "User authorized publication after passing corrected Vercel preview QA",
+  "updatedAt": "2026-11-10",
+  "marketStress": {
+    "asOf": "2026-11-09",
+    "scope": "US closing-price-index drawdowns from each series' previous record close (different peak dates)",
+    "headline": "AI-related shares have sold off far more sharply than the broad U.S. market",
+    "summary": "The November 5 drop was severe, but the S&P 500 partly rebounded by November 9. A concentrated semiconductor sell-off is not evidence that the whole U.S. economy is in recession.",
+    "measures": [
+      {
+        "id": "sp500",
+        "label": "S&P 500",
+        "drawdownPercent": 3.44,
+        "recordDate": "2026-10-06",
+        "priceClose": 7549.94,
+        "interpretation": "Broad large-cap U.S. market. Down 3.44% from its October 6 closing high after the November 9 rebound.",
+        "source": "https://fred.stlouisfed.org/series/SP500",
+        "secondarySource": "https://www.kadoa.com/companies/insights/ai-selloff-perspective"
+      },
+      {
+        "id": "nasdaq",
+        "label": "Nasdaq Composite",
+        "drawdownPercent": 8.5,
+        "recordDate": "2026-10-06",
+        "interpretation": "Technology-heavy benchmark; its decline is larger than the broad market's.",
+        "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective"
+      },
+      {
+        "id": "sox",
+        "label": "PHLX Semiconductor",
+        "drawdownPercent": 31.4,
+        "recordDate": "2026-06-22",
+        "interpretation": "Semiconductor index; its June peak is not the same starting date as the S&P 500 and Nasdaq peaks.",
+        "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+        "secondarySource": "https://www.drawdowntracker.com/indexes/phlx-semiconductor"
+      }
+    ],
+    "shockDay": {
+      "date": "2026-11-05",
+      "index": "S&P 500",
+      "dailyChangePercent": -4.4,
+      "source": "https://apnews.com/article/7ee9c212805aa5e70cf34d25aab7a36e"
+    },
+    "reboundDay": {
+      "date": "2026-11-09",
+      "index": "S&P 500",
+      "dailyChangePercent": 2.35,
+      "source": "https://apnews.com/article/f7ec9680fc858e3c2505913e7b3a54e2"
+    },
+    "historicalSp500Drawdowns": [
+      {
+        "event": "April 2025",
+        "drawdownPercent": 18.9,
+        "recordDate": "2025-02-19",
+        "bottomDate": "2025-04-08"
+      },
+      {
+        "event": "2022 inflation shock",
+        "drawdownPercent": 25.4,
+        "recordDate": "2022-01-03",
+        "bottomDate": "2022-10-12"
+      },
+      {
+        "event": "COVID-19",
+        "drawdownPercent": 33.9,
+        "recordDate": "2020-02-19",
+        "bottomDate": "2020-03-23"
+      },
+      {
+        "event": "Dot-com collapse",
+        "drawdownPercent": 49.2,
+        "recordDate": "2000-03-24",
+        "bottomDate": "2002-10-09"
+      },
+      {
+        "event": "2008 financial crisis",
+        "drawdownPercent": 56.8,
+        "recordDate": "2007-10-09",
+        "bottomDate": "2009-03-09"
+      }
+    ],
+    "historicalSource": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+    "historicalSample": {
+      "description": "Provider-reported U.S. index record-to-record drawdown episodes since 1928; not a model of future crash probability",
+      "atLeastSixPercentEvents": 56,
+      "eventsExceedingFifteenPercent": 16,
+      "source": "https://www.kadoa.com/companies/insights/ai-selloff-perspective",
+      "methodologyStatus": "third_party_counts_not_independently_rebuilt",
+      "currentSp500InSample": false
+    },
+    "pathways": [
+      {
+        "label": "Workers and retirement",
+        "status": "potential_not_measured",
+        "text": "A longer decline could pressure AI-related hiring, compensation and retirement portfolios; household incidence is not yet established.",
+        "followup": "Track verified payrolls, earnings calls and fund exposure."
+      },
+      {
+        "label": "Financing and credit",
+        "status": "potential_not_measured",
+        "text": "Valuation declines could affect equity financing, borrowing capacity and investment plans. No system-wide credit contagion is demonstrated.",
+        "followup": "Track credit spreads, financing defaults, capital expenditure and lenders."
+      },
+      {
+        "label": "Power and local infrastructure",
+        "status": "potential_not_measured",
+        "text": "Delayed AI data-center projects could alter anticipated electricity demand, grid investment and local tax plans; these effects differ by region.",
+        "followup": "Track confirmed utility filings, project status and rate cases."
+      }
+    ],
+    "safeguards": [
+      "Price-index drawdowns exclude dividends and do not equal portfolio or household losses.",
+      "Each current drawdown starts at its own record date; these are not identical holding-period returns.",
+      "The historical chart compares S&P 500 drawdowns only. It is not a projection of the current sell-off.",
+      "The 56-event historical sample begins at 6% declines; the latest S&P 500 decline is smaller and should not be assigned a sample-derived crash probability.",
+      "A fall in AI-related stocks alone does not establish a recession, criminal conduct or the cause of household price increases.",
+      "Data are a dated November 9 snapshot; a live view requires a refreshed, licensed source and validation."
+    ],
+    "sourceType": "FRED/S&P index observation; AP reporting; Kadoa provider-derived comparisons; independent semiconductor check",
+    "evidenceLevel": "verified_snapshot_with_third_party_historical_comparisons",
+    "contributorLink": "https://www.reddit.com/r/dataisbeautiful/comments/1xp9khz/oc_the_ai_selloff_compared_to_other_sp_500_stock/"
+  }
+}

@@ -54,7 +54,9 @@ class GlobalNavigationTests(unittest.TestCase):
         self.assertIn('aria-current","location"', life)
         self.assertIn("hashchange", life)
         self.assertIn("window.history.replaceState", life)
-        self.assertNotIn("localStorage", life)
+        self.assertIn("power-atlas:visitor-zip:v1", life)
+        self.assertIn("savedHomeZIP", life)
+        self.assertIn('id="clearSavedZIP"', life)
 
     def test_research_archive_is_collapsed_not_lost(self):
         home = (UI / "index.html").read_text(encoding="utf-8")

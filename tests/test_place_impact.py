@@ -97,7 +97,11 @@ class PlaceImpactTests(unittest.TestCase):
         self.assertIn("no city, district or exact boundary has been inferred", txt)
         self.assertIn("ZIP code", txt)
         self.assertNotIn("navigator.geolocation", txt)
-        self.assertNotIn("localStorage", txt)
+        # Location is still opt-in. Only an explicitly submitted five-digit ZIP
+        # is remembered on-device; no geolocation or server-side profile.
+        self.assertIn('ZIP_PREFERENCE_KEY="power-atlas:visitor-zip:v1"',txt)
+        self.assertIn("saveHomeZIP(zip)",txt)
+        self.assertIn('id="clearSavedZIP"',txt)
         self.assertNotIn("sessionStorage", txt)
         self.assertNotIn("political ideology", txt)
 

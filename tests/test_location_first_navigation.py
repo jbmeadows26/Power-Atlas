@@ -29,8 +29,11 @@ class LocationFirstNavigationTests(unittest.TestCase):
         self.assertIn('<details class="pa-zip-disclosure">', self.page)
         self.assertIn("Zippopotam.us", self.page)
         self.assertIn("Census Reporter", self.page)
-        self.assertIn("does not store", self.page)
-        self.assertNotIn("localStorage", self.page)
+        self.assertIn("saved only in this browser", self.page)
+        self.assertIn("does not store your ZIP on its servers", self.page)
+        self.assertIn("does not infer your politics from your ZIP", self.page)
+        self.assertIn("power-atlas:visitor-zip:v1", self.page)
+        self.assertIn("Clear saved ZIP", self.page)
 
     def test_six_menu_items_appear_in_customer_journey_order(self):
         js = self.navigation

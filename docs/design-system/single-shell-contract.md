@@ -17,13 +17,14 @@ All journeys resolve to `https://power-atlas-unified.vercel.app/` on either prod
 2. Issues → `my-life.html#what`
 3. Costs → `my-life.html#benchmarkStory`
 4. The Why → `my-life.html#why`
-5. Actions → `my-life.html#how`
+5. Actions → `take-action.html`
 6. Research → `index.html`
 
 Community pages set the active item from their current section. Cost investigations use **Costs**; other research investigations use **Research**. The mobile menu must expose the same items in the same order.
 
 ## Visible layout and CSS rules
 - Use the shared cream, teal, dark-ink and navy palette for the visual-first cover and global navigation. Topic-specific color accents in subordinate charts are allowed; do not replace the platform's outer shell.
+- Public topic covers (Dark Money, Market Power, Consumer Watch), Take Action and expanded Research share a centered maximum-width cream or white editorial outer frame with common typography. Topic-specific colors belong in interior evidence graphics, not the overall page frame.
 - Prefer one graphic and one clear takeaway initially. Place detailed charts, source notes, methods and unknowns behind an explicit action.
 - Scope new CSS under a page or component class (e.g. `.mpx`); do not introduce global `header`, `nav`, `body`, `.hero`, `--paper`, or `:root` overrides that compete with the shared visual shell.
 - Do not append late `!important` theme overrides duplicating a previous V6 selector. Recheck computed styles at desktop and 390px mobile, not just CSS source order.
@@ -40,6 +41,6 @@ Before merging a design change, verify across `platform/unified` and `site`:
 - Correct six-link labels, active state, and mobile menu behavior; no duplicate brand strip.
 - No broken local routes or network errors, and no horizontal overflow at 390px.
 - Source-backed controls still work after `Explore the evidence`; source links remain reachable.
-- GitHub Actions tests pass, and the exact branch/revision is inspected in a Vercel review preview before production publication. If deployment quota blocks the preview, do not claim that untested code is live.
+- GitHub Actions tests pass, including real Chromium screenshots and computed-style checks at 390px mobile and 1440px desktop across the critical routes, plus evidence-reveal and navigation tests; inspect the exact revision in a review preview before release. If deployment quota blocks the preview, do not claim that untested code is live.
 
 This does **not** require every investigation to have identical charts. Their data stories can vary; the interface's navigation and core visual hierarchy cannot.
