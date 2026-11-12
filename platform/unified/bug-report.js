@@ -207,10 +207,10 @@
       navigator.clipboard.writeText(content).then(function () {
         status.textContent = "Report copied. You can paste it into a message.";
       }).catch(function () {
-        status.textContent = "Copy was blocked by the browser. You can continue through GitHub.";
+        status.textContent = "Copy was blocked by the browser. Retry sending or use another browser to copy this report.";
       });
     } else {
-      status.textContent = "Clipboard is unavailable. You can continue through GitHub.";
+      status.textContent = "Clipboard is unavailable. Retry sending or copy this report from another browser.";
     }
   });
 })();
