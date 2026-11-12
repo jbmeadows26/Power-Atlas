@@ -85,10 +85,27 @@ class BrowserJourneyQA(unittest.TestCase):
                      "voting-access.html", "economic-fragility.html", "research-archive.html"]:
             self.assertTrue(section.locator(f'a[href="{slug}"]').count() >= 1, slug)
         self.assert_no_horizontal_overflow()
-        # From the featured evidence row, the jump must reveal the full issues grid.
-        section.locator(".pa-coverage-jump").click(timeout=10000)
+        self.assertEqual(section.locator(".pa-coverage-jump").count(), 0,
+                         "Issue invitations belong only in the dedicated issue section")
+        self.assertFalse(summary.is_visible(),
+                         "Expanded investigation list should hide the now-redundant summary")
+        section.locator(".pa-coverage-collapse").click()
+        self.assertTrue(summary.is_visible())
+        self.page.wait_for_function(
+            "() => document.querySelectorAll('#issueGrid > button.issue-card').length === 9"
+            " && document.querySelectorAll('#issueGrid > details.pa-social-card').length === 20",
+            timeout=20000)
         self.assertTrue(self.page.locator("#issueGrid").is_visible(),
-                        "Browse the 29 issues must expand the hidden V6 chapter")
+                        "The 29 issue cards must continue immediately below investigations")
+        self.assertTrue(self.page.locator(".pa-coverage-issues-lead").is_visible())
+        self.assertTrue(self.page.evaluate(
+            "() => document.getElementById('issueGrid').getBoundingClientRect().top"
+            " >= document.getElementById('pa-coverage-discovery').getBoundingClientRect().top"),
+            "Issues must follow investigations, not precede them")
+        # Clicking a primary life topic must still reveal its full evidence panel.
+        self.page.locator('#issueGrid button[data-topic="housing"]').click()
+        self.assertTrue(self.page.locator("#issueResult").is_visible(),
+                        "Selecting a life issue must not lead to hidden legacy research")
 
     def test_zip_preserves_first_section(self):
         self.visit("/my-life.html")
@@ -264,6 +281,8 @@ class BrowserJourneyQA(unittest.TestCase):
         self.page.wait_for_function(
             "() => document.documentElement.dataset.vs6 === 'active'")
         self.assertEqual(self.page.locator("#zipInput").input_value(), "07010")
+        self.assertTrue(self.page.locator("#zipForm").is_visible(),
+                        "ZIP chip must open the edit form on the dedicated home section")
         self.assertNotIn("vs6-topic-expanded",
             self.page.locator("body").get_attribute("class") or "",
             "ZIP navigation reopened legacy deep research")
@@ -348,8 +367,14 @@ class BrowserJourneyQA(unittest.TestCase):
 
         self.visit("/my-life.html")
         self.page.wait_for_function("() => document.getElementById('zipInput')?.value === '07010'")
-        self.assertTrue(self.page.locator("#clearSavedZIP").is_visible())
+        self.assertFalse(self.page.locator("#where").is_visible(),
+                         "A remembered ZIP must collapse the original entry card")
+        self.assertFalse(self.page.locator("#clearSavedZIP").is_visible())
+        self.assertIn("Change ZIP", self.page.locator(".vs6-zip-link").inner_text())
         self.assertNotIn("07010", self.page.url)
+        self.page.locator(".vs6-zip-link").click()
+        self.assertTrue(self.page.locator("#where").is_visible())
+        self.assertTrue(self.page.locator("#clearSavedZIP").is_visible())
         with self.page.expect_navigation(wait_until="domcontentloaded", timeout=20000):
             self.page.locator("#clearSavedZIP").click()
         self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get && window.PowerAtlasZIP.get() === null", timeout=15000)
@@ -363,6 +388,9 @@ class BrowserJourneyQA(unittest.TestCase):
         self.page.locator("#zipInput").fill("07010")
         self.page.locator("#zipForm button[type='submit']").click()
         self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '07010'")
+        self.assertFalse(self.page.locator("#zipForm").is_visible())
+        self.page.locator(".vs6-zip-link").click()
+        self.assertTrue(self.page.locator("#zipForm").is_visible())
         self.page.locator("#zipInput").fill("10001")
         self.page.locator("#zipForm button[type='submit']").click()
         self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === '10001'")
