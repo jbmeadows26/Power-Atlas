@@ -16,7 +16,8 @@ class LocationFirstNavigationTests(unittest.TestCase):
 
     def test_zip_entry_is_first_real_step_before_hero_and_issues(self):
         page = self.page
-        self.assertLess(page.index('id="where"'), page.index('<div class="hero">'))
+        self.assertLess(page.index('id="where"'), page.index('<main class="wrapper">'))
+        self.assertNotIn('<div class="hero">', page, "Superseded standalone hero must be deleted, not masked")
         self.assertLess(page.index('id="zipForm"'), page.index('id="what"'))
         for marker in ('id="zipInput"', 'id="placeName"', 'id="placeStatus"', 'id="zipPrivacy"'):
             self.assertEqual(page.count(marker), 1, marker)
@@ -41,7 +42,7 @@ class LocationFirstNavigationTests(unittest.TestCase):
                 '["issues","my-life.html#what","Issues"]',
                 '["costs","my-life.html#benchmarkStory","Costs"]',
                 '["why","my-life.html#why","The Why"]',
-                '["action","my-life.html#how","Actions"]',
+                '["action","take-action.html","Actions"]',
                 '["research","index.html","Research"]']
         positions = [js.index(key) for key in keys]
         self.assertEqual(positions, sorted(positions))
