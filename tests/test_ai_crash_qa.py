@@ -67,6 +67,13 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertIn('id="mobileReportTrigger"', self.html)
         self.assertIn('position:static!important', BUG_CLIENT.read_text(encoding="utf-8"))
 
+    def test_main_platform_discovery_links(self):
+        home = (ROOT / "my-life.html").read_text(encoding="utf-8")
+        fragility = (ROOT / "economic-fragility.html").read_text(encoding="utf-8")
+        self.assertIn('href="ai-crash.html"', home)
+        self.assertIn('href="ai-crash.html"', fragility)
+        self.assertIn("THE BOOM. THE BREAK.", home)
+
     def test_evidence_protects_readers_from_false_predictions(self):
         for phrase in ("$300B", "$650B", "$1.4T", "not a forecast",
                        "not probabilities", "not investment advice",
