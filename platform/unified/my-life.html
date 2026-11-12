@@ -1313,7 +1313,17 @@ $("clearSavedZIP").addEventListener("click",()=>{
  history.replaceState(null,"",location.pathname+"#where");
  window.location.reload();
 });
-$("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
+$("issueGrid").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-topic]");
+ if(!b)return;
+ // A topic card is the visitor's explicit request for deeper evidence:
+ // reveal its selected explanation instead of scrolling into hidden content.
+ if(document.body.classList.contains("vs6-topic-mode")&&!document.body.classList.contains("vs6-topic-expanded")){
+   const expand=document.querySelector("main > .vs6-topic .vs6-expand");
+   if(expand?.getAttribute("aria-expanded")==="false")expand.click();
+ }
+ pick(b.dataset.topic,true);
+});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
 $("allButton").addEventListener("click",()=>{onlyRelevant=false;expanded=false;renderResearch()});
 $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
