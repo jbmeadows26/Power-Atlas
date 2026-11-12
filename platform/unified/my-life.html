@@ -1264,7 +1264,8 @@ $("clearSavedZIP").addEventListener("click",()=>{
  else try{localStorage.removeItem(ZIP_PREFERENCE_KEY)}catch(_){}
  // Reload the same canonical community page to clear all ZIP-specific
  // charts, cached place labels and pending requests atomically.
- window.location.replace("my-life.html#where");
+ history.replaceState(null,"",location.pathname+"#where");
+ window.location.reload();
 });
 $("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
