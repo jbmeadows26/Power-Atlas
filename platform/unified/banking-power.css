@@ -45,3 +45,9 @@ body[data-pa-page="banking"]{margin:0;background:#f5f7f1;color:#173f41}
 .bank-contrib-track{height:15px;background:#cee1d1;border-radius:99px;overflow:hidden}.bank-contrib-track i{display:block;background:linear-gradient(90deg,#2e8879,#9bcb9e);height:100%;border-radius:99px}
 .bank-contrib-source{grid-column:1/-1;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid #c7ded0;padding-top:13px;font-size:.73rem;color:#547568}.bank-contrib-source a{font-weight:840}
 @media(max-width:850px){.bank-contrib{grid-template-columns:1fr}}@media(max-width:470px){.bank-contrib-rows>div{grid-template-columns:1fr auto;gap:3px 10px}.bank-contrib-track{grid-column:1/-1;grid-row:2}.bank-contrib-rows b{grid-column:2;grid-row:1}}
+
+.bank-policy-case{display:grid;grid-template-columns:1.2fr .8fr;gap:22px;border-radius:23px;margin:25px 0;background:#f5e5bf;border:1px solid #e6c991;padding:clamp(23px,4vw,38px)}
+.bank-policy-case h3{font-size:clamp(1.7rem,3.7vw,3rem);letter-spacing:-.06em;line-height:1.09;margin:13px 0}.bank-policy-case p{color:#5c6355;font-size:.87rem}.bank-policy-seq{display:grid;align-content:center;gap:8px}
+.bank-policy-seq div{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:14px;background:#fff8eb;border-radius:10px;border:1px solid #e6d4b2;font-size:.78rem}
+.bank-policy-seq strong{color:#135c56}.bank-policy-seq a{font-size:.8rem;font-weight:800}
+@media(max-width:750px){.bank-policy-case{grid-template-columns:1fr}}
