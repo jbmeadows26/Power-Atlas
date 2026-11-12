@@ -643,7 +643,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  document.body.classList.add("vs6-topic-mode");
  attachZIPVisual(section);
  if(documentPath==="my-life.html"){
-  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter or change your ZIP ↓");label.href="#where";intro.append(label);}
+  const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link",window.PowerAtlasZIP?.get?.()?"Change ZIP ↗":"Enter your ZIP ↓");label.href="#where";intro.append(label);}
  }
  if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
