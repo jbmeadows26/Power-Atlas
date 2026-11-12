@@ -784,3 +784,28 @@ html[data-vs6="active"] body.vs6-topic-mode main > #pa-basic-needs[hidden]{displ
  .pa-basic-amount small{font-size:.65rem}
  .pa-basic-expense-list{grid-template-columns:1fr}
 }
+
+
+/* Visible topic directory: graphic-first discovery without an empty hero-only page. */
+html[data-vs6="active"] .vs6-topic-shortcuts{
+ display:grid;grid-template-columns:repeat(3,minmax(0,1fr));
+ width:100%;gap:10px;margin:4px 0 17px;
+}
+html[data-vs6="active"] .vs6-topic-shortcut{
+ display:flex;align-items:center;gap:11px;min-width:0;min-height:86px;
+ background:#fffdf8;color:#153744!important;border:1px solid #cfded6;
+ border-radius:17px;padding:13px 14px;text-decoration:none!important;
+ transition:border-color .15s,transform .15s;
+}
+html[data-vs6="active"] .vs6-topic-shortcut:hover{border-color:#1d8174;transform:translateY(-2px)}
+html[data-vs6="active"] .vs6-topic-shortcut:focus-visible{outline:3px solid #ce7b45;outline-offset:3px}
+.vs6-topic-shortcut-icon{display:grid;place-items:center;flex:none;width:42px;height:46px;
+ background:#e5f3ed;color:#156a60;font-size:1.75rem;border-radius:12px}
+.vs6-topic-shortcut-copy{display:grid;gap:5px;min-width:0}
+.vs6-topic-shortcut-copy strong{font-size:.79rem;letter-spacing:.065em;font-weight:950}
+.vs6-topic-shortcut-copy small{font-size:.74rem;line-height:1.3;color:#527073}
+.vs6-topic-shortcut-arrow{margin-left:auto;color:#267b70;font-weight:900}
+@media(max-width:800px){html[data-vs6="active"] .vs6-topic-shortcuts{grid-template-columns:1fr}
+ html[data-vs6="active"] .vs6-topic-shortcut{min-height:70px;padding:9px 12px}
+ .vs6-topic-shortcut-icon{width:40px;height:40px}}
+@media(prefers-reduced-motion:reduce){html[data-vs6="active"] .vs6-topic-shortcut:hover{transform:none}}
