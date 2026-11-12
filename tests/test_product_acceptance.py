@@ -64,6 +64,33 @@ class ProductAcceptanceTests(unittest.TestCase):
         self.assertIn("pa-coverage-discovery", discovery)
         self.assertIn("sitewide-audit-v1.json", discovery)
 
+    def test_four_vercel_project_features_have_unified_routes(self):
+        """Retirement gate: migrate unique Research/Voting functionality before redirects."""
+        routes = {
+            "voting-access.html": ("id=\"idrows\"", "id=\"records\"", "ncsl-id-index-v1.json"),
+            "economic-fragility.html": ("id=\"marketBars\"", "id=\"financeChart\"", "2027-v1.json"),
+            "research-archive.html": ("id=\"idR\"", "id=\"hpMetrics\"", "campaign-promises.js",
+                                      "political-authenticity.js", "institutional-decay.js"),
+        }
+        for filename, markers in routes.items():
+            with self.subTest(route=filename):
+                html = (SITE / filename).read_text(encoding="utf-8")
+                self.assertIn('id="pa-global-header"', html)
+                self.assertIn("atlas-visual-system.js", html)
+                for marker in markers:
+                    self.assertIn(marker, html)
+        for module in ("campaign-promises.js", "political-authenticity.js",
+                       "institutional-decay.js", "pa-zip-persistence.js"):
+            self.assertTrue((SITE / module).is_file(), module)
+        home = (SITE / "my-life.html").read_text(encoding="utf-8")
+        self.assertIn('id="clearSavedZIP"', home)
+        self.assertIn('src="pa-zip-persistence.js"', home)
+        self.assertIn("savedHomeZIP()", home)
+        for filename in ("index.html", "my-life.html"):
+            html = (SITE / filename).read_text(encoding="utf-8")
+            self.assertNotIn("https://power-atlas-research.vercel.app/", html)
+            self.assertNotIn("https://power-atlas-voting-access.vercel.app/", html)
+
     def test_original_evidence_gaps_are_not_misreported_as_complete(self):
         catalog = json.loads((DATA / "health" / "sitewide-missing-sources-v1.json").read_text(encoding="utf-8"))
         audit = json.loads((DATA / "health" / "sitewide-audit-v1.json").read_text(encoding="utf-8"))
