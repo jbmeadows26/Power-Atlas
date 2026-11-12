@@ -8,6 +8,7 @@ const threads=[
  {icon:"💸",name:"Dark money",caption:"Trace disclosures and unknown funders",href:"dark-money.html"},
  {icon:"🏢",name:"Who owns what?",caption:"Parents, investors and operating brands",href:"corporate-ownership.html"},
  {icon:"↘",name:"Market power",caption:"Who benefits when choices shrink?",href:"market-power.html"},
+ {icon:"▦",name:"Banking & financial power",caption:"Who got rescued, who booked gains and who faced sanctions?",href:"banking-power.html"},
  {icon:"🧾",name:"Consumer Watch",caption:"Hidden fees, unfair offers and true costs",href:"consumer-practices.html"},
  {icon:"⚖",name:"Class actions",caption:"Court status, official claims and deadlines",href:"class-actions.html"},
  {icon:"📦",name:"Shrinkflation",caption:"Less product for the same or higher price",href:"consumer-practices.html#shrinkflation"},
@@ -32,7 +33,7 @@ function render(){
  if(document.getElementById("pa-coverage-discovery"))return;
  const what=document.getElementById("what"),issues=document.getElementById("issueGrid");
  if(!what||!issues)return;
- // Investigations belong to the same visitor decision point as the 29 life issues.
+ // Investigations belong to the same visitor decision point as the 30 life issues.
  // Do not mount a second disconnected deep-research section below #why.
  const section=e("section","pa-coverage pa-coverage--integrated");
  section.id="pa-coverage-discovery";
@@ -42,7 +43,7 @@ function render(){
  const title=e("h3",null,"Follow the whole story");
  title.id="pa-coverage-title";
  left.append(title,e("p",null,"Who shapes the prices, rules and choices behind everyday life? Follow the documented trail."));
- // 29 topics follow this gallery directly; avoid a redundant Browse link.
+ // 30 topics follow this gallery directly; avoid a redundant Browse link.
  head.append(left);section.append(head);
  const featured=e("div","pa-coverage-grid");
  threads.slice(0,6).forEach(x=>featured.append(card(x)));
@@ -67,7 +68,7 @@ function render(){
  section.append(status);
  issues.insertAdjacentElement("beforebegin",section);
  const issueHeading=e("div","pa-coverage-issues-lead");
- issueHeading.append(e("span","vs6-micro","YOUR DAILY LIFE · 29 TOPICS"),
+ issueHeading.append(e("span","vs6-micro","YOUR DAILY LIFE · 30 TOPICS"),
  e("h3",null,"Explore what affects you"));
  issues.insertAdjacentElement("beforebegin",issueHeading);
  /* Source audit is maintained in the canonical research data tree, not the static frontend root. */
