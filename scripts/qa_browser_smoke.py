@@ -342,8 +342,9 @@ class BrowserJourneyQA(unittest.TestCase):
         self.page.wait_for_function("() => document.getElementById('zipInput')?.value === '07010'")
         self.assertTrue(self.page.locator("#clearSavedZIP").is_visible())
         self.assertNotIn("07010", self.page.url)
-        self.page.locator("#clearSavedZIP").click()
-        self.page.wait_for_function("() => window.PowerAtlasZIP?.get() === null", timeout=15000)
+        with self.page.expect_navigation(wait_until="domcontentloaded", timeout=20000):
+            self.page.locator("#clearSavedZIP").click()
+        self.page.wait_for_function("() => !!window.PowerAtlasZIP?.get && window.PowerAtlasZIP.get() === null", timeout=15000)
         self.assertEqual(self.page.locator("#zipInput").input_value(), "")
         self.assertFalse(self.page.locator("#clearSavedZIP").is_visible())
         self.assert_no_horizontal_overflow()
