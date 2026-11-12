@@ -11,6 +11,7 @@ on:
       - 'data/market-power/**'
       - 'data/place-impact/life-issues-v1.json'
       - 'tests/test_product_acceptance.py'
+      - 'scripts/qa_browser_smoke.py'
       - '.github/workflows/validate-product-acceptance.yml'
   pull_request:
     paths:
@@ -23,6 +24,7 @@ on:
       - 'data/market-power/**'
       - 'data/place-impact/life-issues-v1.json'
       - 'tests/test_product_acceptance.py'
+      - 'scripts/qa_browser_smoke.py'
       - '.github/workflows/validate-product-acceptance.yml'
   workflow_dispatch:
 permissions:

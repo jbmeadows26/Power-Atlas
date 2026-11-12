@@ -67,11 +67,11 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(action.get_attribute("href").endswith("take-action.html"))
         self.assert_no_horizontal_overflow()
 
-    def test_all_19_research_threads_are_discoverable(self):
+    def test_all_20_research_threads_are_discoverable(self):
         self.visit("/my-life.html")
         section = self.page.locator("#pa-coverage-discovery")
         self.assertEqual(section.count(), 1)
-        self.assertEqual(section.locator(".pa-coverage-card").count(), 19)
+        self.assertEqual(section.locator(".pa-coverage-card").count(), 20)
         self.assertTrue(self.page.locator("#what .section-head h2").is_visible(),
                         "What matters most heading must stay visible above the investigation cards")
         self.assertTrue(section.locator(".pa-coverage-card").first.is_visible(),
@@ -93,10 +93,10 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(summary.is_visible())
         self.page.wait_for_function(
             "() => document.querySelectorAll('#issueGrid > button.issue-card').length === 9"
-            " && document.querySelectorAll('#issueGrid > details.pa-social-card').length === 20",
+            " && document.querySelectorAll('#issueGrid > details.pa-social-card').length === 21",
             timeout=20000)
         self.assertTrue(self.page.locator("#issueGrid").is_visible(),
-                        "The 29 issue cards must continue immediately below investigations")
+                        "The 30 issue cards must continue immediately below investigations")
         self.assertTrue(self.page.locator(".pa-coverage-issues-lead").is_visible())
         self.assertTrue(self.page.evaluate(
             "() => document.getElementById('issueGrid').getBoundingClientRect().top"
@@ -297,7 +297,7 @@ class BrowserJourneyQA(unittest.TestCase):
 
 
     def test_all_canonical_routes_have_a_single_visible_v6_entry(self):
-        """Prevent any investigation silently reverting to a legacy site shell."""
+        """Accept approved visual-documentary chapters while rejecting legacy-only shells."""
         pages = sorted(p.name for p in (Path(__file__).resolve().parents[1] / "platform" / "unified").glob("*.html"))
         self.assertGreaterEqual(len(pages), 30)
         for name in pages:
@@ -307,9 +307,9 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
                 self.assertTrue(header.is_visible(), name + ": brand not visible")
                 entry = self.page.locator(
-                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home")
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter, main > .bank-hero")
                 self.assertGreater(entry.count(), 0,
-                    name + ": missing approved V6 topic, custom V6 cover, or V6 home")
+                    name + ": missing an approved V6 or interactive-documentary visual entry")
                 self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
                 self.assert_no_horizontal_overflow()
 
