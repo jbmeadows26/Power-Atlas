@@ -44,6 +44,7 @@
       .secondary { background: #eff5f6; color: #244153; border: 1px solid #b4cbd1; padding: 11px 15px; border-radius: 9px; font-size: 14px; font-weight: 700; }
       .foot { font-size: 12px; color: #526975; margin: 13px 0 0; }
       .status { min-height: 18px; font-size: 13px; color: #176a51; margin-top: 8px; }
+      .status.error { color: #b42318; }
       @media (max-width: 520px) {
         #open { right: 12px; bottom: max(12px, env(safe-area-inset-bottom, 0px) + 8px); width: 46px; height: 46px; min-height: 46px; padding: 0; border-radius: 50%; gap: 0; justify-content: center; }
         #open .bug-icon { font-size: 20px; line-height: 1; }
@@ -81,10 +82,10 @@
           <label for="steps">How can we reproduce it? (optional)</label>
           <textarea id="steps" name="steps" maxlength="2000" rows="2" style="min-height:70px" placeholder="1. Open ...  2. Tap ..."></textarea>
           <div class="actions">
-            <button class="primary" type="submit">Continue to GitHub</button>
+            <button class="primary" type="submit">Send bug report</button>
             <button id="copy" type="button" class="secondary">Copy report</button>
           </div>
-          <p class="foot">GitHub sign-in is required to submit. Your report is <strong>not sent</strong> until you review and submit it there. You can add screenshots on GitHub. Reports are public: don't include private information.</p>
+          <p class="foot">No account required. Reports go to Power Atlas through PostHog and include this page's path, but no URL parameters. Don't include private information. If reporting fails, use Copy report.</p>
           <div id="status" role="status" aria-live="polite" class="status"></div>
         </form>
       </section>
@@ -96,17 +97,43 @@
   var form = $("#form");
   var status = $("#status");
   var lastFocus = null;
+  var submissionId = null;
+  var submitted = false;
+  var sending = false;
+  var submit = ui.querySelector('button[type="submit"]');
+
+  function makeId() {
+    if (window.crypto && window.crypto.randomUUID) return window.crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+      var r = window.crypto.getRandomValues(new Uint8Array(1))[0] & 15;
+      return (c === 'x' ? r : (r & 3 | 8)).toString(16);
+    });
+  }
+  function sendAction(action, data) {
+    return fetch('/api/bug-report', {
+      method: 'POST', credentials: 'same-origin',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(Object.assign({
+        action:action, submissionId:submissionId, page:window.location.pathname, website:''
+      }, data || {}))
+    });
+  }
 
   function openDialog() {
     lastFocus = document.activeElement;
+    if (!submissionId) submissionId = makeId();
     shade.hidden = false;
     launch.setAttribute("aria-expanded", "true");
     $("#summary").focus();
+    if (!submitted) sendAction("shown").catch(function () { /* Do not block the form. */ });
   }
   function closeDialog() {
+    if (!submitted && submissionId) sendAction("dismissed").catch(function () {});
     shade.hidden = true;
     launch.setAttribute("aria-expanded", "false");
     status.textContent = "";
+    status.classList.remove("error");
+    if (submitted) { form.reset(); submissionId = null; submitted = false; submit.disabled = false; submit.textContent = "Send bug report"; }
     if (lastFocus && typeof lastFocus.focus === "function") lastFocus.focus();
     else launch.focus();
   }
@@ -122,11 +149,6 @@
       "", "## Steps to reproduce", val("steps") || "(Not provided)",
       "", "## Additional context", "Submitted from the Power Atlas on-page bug report form."
     ].join("\n");
-  }
-  function issueUrl() {
-    var title = "[Bug] " + $("#summary").value.trim();
-    return "https://github.com/jbmeadows26/Power-Atlas/issues/new?title=" +
-      encodeURIComponent(title) + "&body=" + encodeURIComponent(reportText());
   }
   launch.addEventListener("click", openDialog);
   $("#close").addEventListener("click", closeDialog);
@@ -144,11 +166,39 @@
     if (event.shiftKey && ui.activeElement === first) { event.preventDefault(); last.focus(); }
     else if (!event.shiftKey && ui.activeElement === last) { event.preventDefault(); first.focus(); }
   });
-  form.addEventListener("submit", function (event) {
+  form.addEventListener("submit", async function (event) {
     event.preventDefault();
-    if (!form.reportValidity()) return;
-    // Deliberately open a user-confirmed GitHub issue instead of silently claiming submission.
-    window.location.assign(issueUrl());
+    if (sending || submitted || !form.reportValidity()) return;
+    if (!submissionId) submissionId = makeId();
+    sending = true;
+    submit.disabled = true;
+    submit.textContent = "Sending…";
+    status.classList.remove("error");
+    status.textContent = "Submitting your report…";
+    try {
+      var payload = {
+        category: $("#category").value,
+        summary: $("#summary").value.trim(),
+        details: $("#details").value.trim(),
+        expected: $("#expected").value.trim(),
+        steps: $("#steps").value.trim()
+      };
+      var response = await sendAction("sent", payload);
+      var result = await response.json();
+      if (!response.ok || !result.ok || !result.received) {
+        throw new Error(result.message || "Could not confirm receipt.");
+      }
+      submitted = true;
+      status.textContent = "Report received. Reference: PA-" + submissionId.slice(0, 8) + ". Thank you.";
+      submit.textContent = "Report received";
+    } catch (error) {
+      status.classList.add("error");
+      status.textContent = (error && error.message) || "Unable to submit. Try again or copy your report.";
+      submit.textContent = "Retry sending";
+      submit.disabled = false;
+    } finally {
+      sending = false;
+    }
   });
   $("#copy").addEventListener("click", function () {
     if (!form.reportValidity()) return;
