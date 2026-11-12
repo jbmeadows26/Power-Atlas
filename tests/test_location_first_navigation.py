@@ -30,7 +30,7 @@ class LocationFirstNavigationTests(unittest.TestCase):
         self.assertIn("Zippopotam.us", self.page)
         self.assertIn("Census Reporter", self.page)
         self.assertIn("saved only in this browser", self.page)
-        self.assertIn("does not put it in a shared link", self.page)
+        self.assertIn("does not store your ZIP on its servers", self.page)
         self.assertIn("does not infer your politics", self.page)
         self.assertIn("power-atlas:visitor-zip:v1", self.page)
         self.assertIn("Clear saved ZIP", self.page)
