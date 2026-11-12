@@ -124,7 +124,7 @@ async function chart(){
  source(links,src,"Original source");source(links,"https://github.com/jbmeadows26/Power-Atlas/blob/main/data/"+(current.chart==="bls"?"place-impact/cost-benchmark-drivers-v1.json":current.chart==="fec"?"money-influence/fec-federal-cycle-overview-2002-2026.json":current.chart==="donors"?"money-influence/brennan-top40-midterms-2014-2026.json":"consumer-class-actions/cases-v1.json"),"Review dataset");
  }catch(e){content.textContent="Reviewed data unavailable. No chart is shown without verified source values.";note.textContent="Inspect the underlying data and source registry before drawing conclusions."}
 }
-function start(){if(path!=="corporate-ownership.html")story();chart()}
+function start(){if(path==="my-life.html")return; if(path!=="corporate-ownership.html")story();chart()}
 if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",start,{once:true});else start();
 })();
 
@@ -215,6 +215,7 @@ const chart=document.querySelector(".pa3-chart");const anchor=chart||story||docu
 if(anchor){if(anchor.matches("main"))anchor.prepend(row);else anchor.insertAdjacentElement("afterend",row)}else document.body.append(row);
 }
 function main(){
+if(path==="my-life.html")return; // The place-first home now uses the canonical V6 story directly.
 document.documentElement.classList.add("pa4");if(!chapters[path])return;
 if(path==="index.html")intro();context();
 }
@@ -232,7 +233,7 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
     ["issues","my-life.html#what","Issues"],
     ["costs","my-life.html#benchmarkStory","Costs"],
     ["why","my-life.html#why","The Why"],
-    ["action","my-life.html#how","Actions"],
+    ["action","take-action.html","Actions"],
     ["research","index.html","Research"]
   ];
   const existing=new Map();
@@ -260,8 +261,21 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
 })();
 
 
-/* V5 visual-first presentation: progressive enhancement, not a data-feed change. */
+/* Keep earlier visual layers out of the canonical My Place journey.
+   The current interactive documentary loads V6 directly. Earlier versions
+   remain on unconverted legacy research routes until their replacement. */
 (()=>{"use strict";
+ const standalone=/\/my-life\.html$/.test(location.pathname);
+ if(standalone){
+   if(document.querySelector('script[data-vs6-loader]'))return;
+   const style=document.createElement("link");
+   style.rel="stylesheet";style.href="visual-story-v6.css";style.dataset.vs6Loader="css";
+   document.head.appendChild(style);
+   const script=document.createElement("script");
+   script.src="visual-story-v6.js";script.dataset.vs6Loader="script";
+   document.head.appendChild(script);
+   return;
+ }
  if(document.querySelector('script[data-pa5-loader]'))return;
  const style=document.createElement("link");
  style.rel="stylesheet";style.href="visual-first-v5.css";style.setAttribute("data-pa5-loader","css");
