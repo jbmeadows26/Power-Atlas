@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Power Atlas deep research archive: public records, voting, campaigns, institutions, political authenticity and evidence quality.">
+<title>Deep Research Archive | Power Atlas</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<style>
+:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1c3245;background:#f3f6f9;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0}button,input,select{font:inherit}
+a{color:#147a86;text-decoration:none}a:hover{text-decoration:underline}
+.hero{background:linear-gradient(132deg,#0c1d31 0%,#112b43 70%,#124659 100%);color:#fff;padding:26px max(24px,calc((100vw - 1140px)/2));}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;color:#a8c0d0;font-size:12px;letter-spacing:.09em}
+.logo{font-size:17px;font-weight:800;letter-spacing:.06em;color:#fff}.logo b{color:#55dfce}
+.pill{display:inline-flex;gap:7px;align-items:center;border:1px solid #456477;border-radius:40px;padding:7px 11px;font-size:11px;letter-spacing:.04em}
+.dot{width:7px;height:7px;background:#58d8ae;border-radius:50%;display:inline-block}
+.eyebrow{font-size:11px;letter-spacing:.17em;font-weight:800;color:#39958e;text-transform:uppercase}
+.hero .eyebrow{color:#6fdbd0;margin-top:42px}
+h1{font-size:clamp(32px,6vw,60px);line-height:1.08;letter-spacing:-.05em;margin:13px 0 12px;max-width:750px}
+.hero p{color:#bfd1df;max-width:660px;font-size:15px;line-height:1.65}
+.wrap{max-width:1140px;margin:auto;padding:26px 24px 60px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:8px;border-bottom:1px solid #dce5ec;position:sticky;top:0;background:#f3f6f9;z-index:2}
+.tabs button{border:0;border-radius:8px;background:transparent;padding:12px 17px;cursor:pointer;color:#64798a;white-space:nowrap;font-size:13px;font-weight:700}
+.tabs button[aria-selected="true"]{color:#116c72;background:#dcefed}
+.panel{display:none;padding-top:26px}.panel.active{display:block}h2{font-size:27px;letter-spacing:-.04em;margin:8px 0 7px}h3{margin:2px 0 8px;font-size:16px}
+.sub{color:#617587;line-height:1.55;margin:5px 0 22px}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:25px}
+.metric,.card,.filters,.alert{background:white;border:1px solid #e0e8ee;border-radius:13px;padding:20px;box-shadow:0 2px 12px #0e294008}
+.metric strong{display:block;font-size:30px;letter-spacing:-.04em;color:#173950}.metric span{color:#667c8b;font-size:12px}
+.columns{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}
+.card{margin-bottom:15px}.card small{color:#698493}.card p{color:#50667a;line-height:1.55;font-size:14px}
+.tag{display:inline-block;font-size:10px;letter-spacing:.05em;text-transform:uppercase;font-weight:800;background:#e8f2f5;border-radius:5px;color:#276477;padding:5px 7px}
+.tag.warn{background:#f6eddf;color:#865c28}
+.row{display:flex;gap:10px;align-items:center;justify-content:space-between}
+.coverage{padding:9px 0;border-bottom:1px solid #e9eef2;font-size:13px;color:#456376}
+.coverage:last-child{border:0}
+input,select{background:#fff;border:1px solid #d4e0e9;padding:12px;border-radius:8px;min-width:0;color:#18384c}
+.filters{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.filters input{flex:2;min-width:170px}.filters select{flex:1;min-width:150px}
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.list .card{margin:0}.meta{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.source{display:inline-flex;margin-top:4px;font-weight:700;font-size:12px}
+.muted{color:#788b9b;font-size:12px}.money{font-size:25px;font-weight:800;color:#173b51}
+.bar{height:9px;background:#e5eff1;border-radius:9px;overflow:hidden;margin:7px 0 12px}.fill{height:100%;background:#2aa8a1;border-radius:9px}
+.note{font-size:12px;color:#758b98;line-height:1.6;margin-top:15px}.mapbox{background:#fff;border:1px solid #d9e5ec;border-radius:12px;padding:12px;margin-bottom:17px;overflow:hidden}.mapbox svg{width:100%;height:auto;background:#f6fafb;border-radius:9px}.mapbox path{fill:#8ccbc6;stroke:#fff;stroke-width:1.4;cursor:pointer;transition:fill .13s}.mapbox path:hover,.mapbox path:focus{fill:#167d8c;outline:none}.mapbox path.picked{fill:#15647b}.mapstatus{color:#5e7d8d;font-size:12px;margin:8px 0}
+button.retry{border:1px solid #2a8a8c;background:#e0f4f1;color:#126c6b;border-radius:8px;padding:10px;cursor:pointer}
+footer{max-width:1140px;margin:auto;border-top:1px solid #dce5e9;padding:22px 24px 40px;font-size:12px;color:#7c8996}
+@media(max-width:720px){.wrap{padding:20px 14px 45px}.hero{padding:20px}.hero .eyebrow{margin-top:30px}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.columns,.list{grid-template-columns:1fr}.tabs button{padding:11px 13px}.card{padding:16px}.metric{padding:15px}.metric strong{font-size:27px}}
+</style>
+<link rel="stylesheet" href="global-navigation.css"><link rel="stylesheet" href="atlas-visual-system.css">
+<style>
+/* Existing source-heavy tables stay interactive, but are revealed through one
+   canonical V6 editorial frame rather than a competing legacy landing page. */
+.pa-ra-root{max-width:1230px;margin:0 auto;padding:18px 20px 65px}
+.pa-ra-root .vs6-topic{margin:0 auto 20px}
+.pa-ra-source{max-width:1190px;margin:0 auto;background:#fffdf8;color:#183744;
+ border:1px solid #dae5dd;border-radius:22px;padding:clamp(10px,2vw,22px)}
+.pa-ra-source .wrap{max-width:100%;padding:10px 12px 30px}
+.pa-ra-source .tabs{position:static;background:#fffdf8;top:auto;display:flex;flex-wrap:wrap;gap:7px}
+.pa-ra-source .tabs button{border:1px solid #d8e5db;border-radius:999px;background:#f5f8f4;color:#20544b;font-weight:800}
+.pa-ra-source .tabs button[aria-selected="true"]{background:#1b786b;color:white;border-color:#1b786b}
+.pa-ra-source .panel{background:transparent;border:0;box-shadow:none;border-radius:0}
+.pa-ra-source .metric,.pa-ra-source .card,.pa-ra-source .filters,.pa-ra-source .alert{
+ border:1px solid #d8e5dd;border-radius:17px;background:#fff;
+ box-shadow:0 6px 22px #1439440c;color:#183940}
+.pa-ra-source .metric strong,.pa-ra-source .card h3{color:#164b46}
+.pa-ra-source .sub,.pa-ra-source .note{color:#596f71}
+.pa-ra-source h2{color:#153541;letter-spacing:-.045em}
+.pa-ra-source :is(button,a,select,input):focus-visible{outline:3px solid #b67735;outline-offset:3px}
+.pa-ra-reveal{border:1px solid #d9e5dd;border-radius:22px;background:#fffdf8;padding:clamp(12px,2.5vw,26px)}
+.pa-ra-reveal>summary{cursor:pointer;font-size:1rem;color:#126e65;font-weight:900;padding:10px}
+.pa-ra-reveal[open]>summary{border-bottom:1px solid #dbe5df;margin-bottom:20px}
+.pa-ra-diagram{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;
+ background:#153745;border:1px solid #285968;border-radius:18px;padding:22px;width:100%;color:#f5fffb;margin:10px 0 21px}
+.pa-ra-diagram span{text-align:center;min-height:100px;display:flex;align-items:center;justify-content:center;padding:12px;
+ border:1px solid #5b9290;border-radius:12px;font-weight:900}
+@media(max-width:670px){.pa-ra-root{padding:12px}.pa-ra-diagram{grid-template-columns:1fr;gap:6px;padding:12px}
+.pa-ra-diagram span{min-height:47px}.pa-ra-source .wrap{padding:6px}.pa-ra-source .metrics{grid-template-columns:repeat(2,minmax(0,1fr))}}
+</style></head>
+<body data-pa-page="research-archive"><div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
+<main class="pa-ra-root">
+<section class="vs6-topic" aria-labelledby="ra-title">
+<span class="vs6-micro">POWER ATLAS · DEEP RESEARCH</span>
+<h1 id="ra-title">The evidence behind the headlines.</h1>
+<p class="vs6-topic-summary">Explore indexed political records, representation research, institutions and reported financial relationships.</p>
+<div class="pa-ra-diagram" role="img" aria-label="Three steps in Power Atlas research: Records, comparison, uncertainties">
+<span>01 · ORIGINAL RECORDS</span><span>02 · COMPARE THE DATA</span><span>03 · VERIFY THE LIMITS</span>
+</div>
+<a class="vs6-primary" href="#ra-evidence" onclick="document.getElementById('ra-evidence').open=true">Open research and sources ↗</a>
+</section>
+<details class="pa-ra-reveal" id="ra-evidence"><summary>Full research corpus, charts, and methods</summary>
+<div class="pa-ra-source"><section aria-label="Corporate market power and money scale" style="max-width:1240px;margin:15px auto;padding:0 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px"><a href="market-power.html" style="display:block;border:1px solid #80c9b4;border-radius:16px;background:linear-gradient(135deg,#e4f5eb,#f5faf5);padding:20px 22px;text-decoration:none;color:#163f3a;line-height:1.5"><small style="display:block;color:#277164;font-weight:900;letter-spacing:.12em;text-transform:uppercase">Market Power / New Investigation</small><strong style="display:block;font-size:clamp(21px,2.7vw,29px);line-height:1.16;margin:8px 0">When competition disappears, who benefits?</strong><span style="font-size:13px">Explore 12 documented market investigations, who gains, who bears costs, and the evidence behind each finding.</span><span style="display:block;font-size:12px;font-weight:850;color:#0e7368;margin-top:12px">Explore market power →</span></a><a href="money-scale.html" style="display:block;border:1px solid #5c99a1;border-radius:16px;background:linear-gradient(135deg,#163e4d,#275e68);padding:20px 22px;text-decoration:none;color:#e4f8f4;line-height:1.5"><small style="display:block;color:#ace8d6;font-weight:900;letter-spacing:.12em;text-transform:uppercase">Money at Scale / Visual Story</small><strong style="display:block;font-size:clamp(21px,2.7vw,29px);line-height:1.16;margin:8px 0;color:white">What does a trillion dollars really mean?</strong><span style="font-size:13px">Compare wealth, debt, annual spending and the economic forces behind everyday prices.</span><span style="display:block;font-size:12px;font-weight:850;color:#b7ead9;margin-top:12px">Explore money at scale →</span></a></section>
+<div style="max-width:1140px;margin:14px auto;padding:0 22px"><a href="https://power-atlas-unified.vercel.app/cost-gap.html" style="display:block;background:linear-gradient(110deg,#103b43,#16605a);border:1px solid #78b9a7;color:#eaffed;text-decoration:none;border-radius:17px;padding:20px 23px"><span style="display:block;color:#d9f6a3;font-size:11px;font-weight:850;letter-spacing:.13em;text-transform:uppercase">Everyday life · Compare places</span><strong style="font-size:clamp(21px,3vw,29px);display:block;margin:6px 0">Two places. One cost gap. What is behind it? →</strong><span style="font-size:14px;line-height:1.6">Understand measured housing differences and follow the power behind prices. No calculator, no invented city totals.</span></a></div>
+<div style="max-width:1140px;margin:12px auto;padding:0 22px"><a href="https://power-atlas-unified.vercel.app/source-audit.html" style="display:block;background:#e8f1ee;border:1px solid #b8d7cb;border-radius:12px;padding:12px 17px;color:#225e54;text-decoration:none;font-weight:790;font-size:14px">Power Atlas data audit · Source gaps, evidence status and original public-source links →</a></div>
+<div style="max-width:1140px;margin:17px auto 0;padding:0 22px"><a href="https://power-atlas-unified.vercel.app/compare.html" style="display:block;border:1px solid #3d7b8b;background:#14394b;color:#f3fbff;border-radius:16px;padding:19px 23px;text-decoration:none"><span style="display:block;color:#9de4d6;font-size:11px;font-weight:850;text-transform:uppercase;letter-spacing:.15em">Power Atlas / unified research</span><strong style="display:block;font-size:clamp(20px,3vw,31px);margin:7px 0">Compare the evidence. Don't guess the motives. →</strong><span style="display:block;color:#c4d9e2;font-size:14px;line-height:1.5">Explore political coalitions, congressional division, campaign-money evidence, and a searchable inventory of 25 interconnected research topics. See what's proven and what's missing.</span></a></div>
+<div style="max-width:1140px;margin:15px auto 0;padding:0 22px"><a href="economic-fragility.html" style="display:block;border:1px solid #a9d6cb;background:linear-gradient(110deg,#e5f4ef,#f6fbf9);color:#143f3c;border-radius:16px;padding:19px 22px;text-decoration:none"><span style="display:block;color:#267b71;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase">New / Economic risk investigation</span><strong style="display:block;font-size:clamp(20px,3vw,29px);line-height:1.2;margin:7px 0">The fragile economy: who bears the risk? →</strong><span style="display:block;color:#4a6766;font-size:14px;line-height:1.5">Compare GDP, real pay, household debt and AI financing; follow evidence-backed pathways to possible 2027 shocks. Not a crash prediction.</span></a></div>
+<div style="max-width:1140px;margin:15px auto 0;padding:0 22px"><a href="https://power-atlas-unified.vercel.app/my-life.html" style="display:block;border:1px solid #a6ded0;background:linear-gradient(110deg,#dff6ed,#eef8f5);color:#193c3c;border-radius:16px;padding:20px 23px;text-decoration:none"><span style="display:block;color:#287f71;font-size:11px;font-weight:850;letter-spacing:.13em;text-transform:uppercase">New / Location-first Power Atlas</span><strong style="display:block;font-size:clamp(20px,3vw,30px);line-height:1.16;margin:8px 0">What shapes your life where you live? →</strong><span style="display:block;color:#526d70;font-size:14px;line-height:1.5">Choose a U.S. ZIP and an everyday issue, then follow 25 research tracks, nine recent deep dives, 37 upstream source directories, and practical ways to get help or participate.</span></a></div>
+<div style="max-width:1140px;margin:14px auto;padding:0 22px"><a href="telecom-promotions.html" style="display:block;border:1px solid #b8d7cb;background:#e3f4f2;color:#204e47;border-radius:14px;padding:16px 20px;line-height:1.5;font-weight:750;text-decoration:none"><span style="color:#338477;font-size:11px;display:block;letter-spacing:.09em">NEW · WIRELESS PLAN ACCOUNTABILITY</span>Two phone lines. One shared upgrade budget. Explore T-Mobile T-Mix promotional constraints with 36-month household costs →</a></div>
+<div style="max-width:1140px;margin:14px auto;padding:0 22px"><a href="service-accountability.html" style="display:block;border:1px solid #b8d7cb;background:#e9f5ee;color:#204e47;border-radius:14px;padding:16px 20px;line-height:1.5;font-weight:750;text-decoration:none"><span style="color:#338477;font-size:11px;display:block;letter-spacing:.09em">NEW · CORPORATE SERVICE ACCOUNTABILITY</span>When companies replace people with automation, who pays the human cost? <span style="white-space:nowrap">Explore the evidence →</span></a></div>
+<div style="max-width:1140px;margin:14px auto;padding:0 22px"><a href="https://power-atlas-unified.vercel.app/class-actions.html" style="display:block;border:1px solid #9acdc3;background:linear-gradient(110deg,#e7f7f1,#f1faf8);color:#153f3f;border-radius:14px;padding:17px 20px;line-height:1.5;text-decoration:none"><span style="display:block;color:#3d786f;letter-spacing:.12em;font-size:11px;font-weight:850;text-transform:uppercase">Consumer Watch · New category</span><strong style="display:block;font-size:21px">Consumer Class Actions</strong><span style="font-size:14px">Search documented lawsuits, follow court status, and verify official claim deadlines and eligibility →</span></a></div><div style="max-width:1140px;margin:14px auto;padding:0 22px"><a href="consumer-practices.html" style="display:block;background:#103c43;color:#f7ffff;border:1px solid #337f77;border-radius:16px;padding:22px;line-height:1.5;text-decoration:none"><span style="display:block;color:#9bdacb;font-size:11px;letter-spacing:.12em;font-weight:850;text-transform:uppercase">Dedicated category · Consumer accountability</span><strong style="display:block;font-size:clamp(19px,3vw,28px);margin:4px 0">Consumer Deception & Hidden Costs</strong><span style="display:block;color:#d4e8e4;font-size:14px">Explore 18 source-backed company investigations across 12 industries. See hidden fees, subscription traps, misleading prices and costly promotion restrictions. →</span></a></div>
+
+  <nav class="tabs" role="tablist" aria-label="Research sections">
+    <button role="tab" aria-selected="true" data-tab="overview">Overview</button>
+    <button role="tab" aria-selected="false" data-tab="records">Research records</button>
+    <button role="tab" aria-selected="false" data-tab="finance">Money & committees</button>
+    <button role="tab" aria-selected="false" data-tab="legislators">Congressional members</button>
+    <button role="tab" aria-selected="false" data-tab="state-legislators">State legislators</button>
+    <button role="tab" aria-selected="false" data-tab="committees">Mapmaking committees</button>
+    <button role="tab" aria-selected="false" data-tab="bills">Federal mapmaking bills</button>
+    <button role="tab" aria-selected="false" data-tab="state-bills">State mapmaking bills</button>
+    <button role="tab" aria-selected="false" data-tab="audit">Evidence audit</button>
+    <button role="tab" aria-selected="false" data-tab="network">Evidence network</button>
+    <button role="tab" aria-selected="false" data-tab="governors">Governors & executives</button>
+    <button role="tab" aria-selected="false" data-tab="judiciary">Federal judiciary</button>
+    <button role="tab" aria-selected="false" data-tab="lobbying">Lobbying disclosures</button>
+    <button role="tab" aria-selected="false" data-tab="elections">House elections</button>
+    <button role="tab" aria-selected="false" data-tab="states">States & maps</button>
+    <button role="tab" aria-selected="false" data-tab="quality">Evidence & gaps</button>
+    <button role="tab" aria-selected="false" data-tab="gridlock">Congress & gridlock</button>
+    <button role="tab" aria-selected="false" data-tab="campaign-promises">Promises &amp; elections</button>
+    <button role="tab" aria-selected="false" data-tab="institutional-decay">Institutional decay</button>
+  </nav>
+  <section class="panel" data-panel="campaign-promises">
+    <span class="eyebrow">Political Promises / U.S. states, FY2012–2024</span>
+    <h2>What elections might change — and what the data can show</h2>
+    <p class="sub">Source-linked U.S. 2020 pledge cases and 50-state spending research. The cases are <strong>not</strong> an exhaustive campaign-promise denominator, and the regression estimates below are <strong>observational associations, not causal or intent findings</strong>.</p>
+    <div class="metrics">
+      <div class="metric"><strong id="promiseCaseCount">—</strong><span>Provisional, selected pledge cases</span></div>
+      <div class="metric"><strong id="promiseReviewCount">—</strong><span>Primary-source sentences indexed</span></div>
+      <div class="metric"><strong id="promiseStateYears">—</strong><span>Official Census state–fiscal-year records</span></div>
+      <div class="metric"><strong id="promiseModelCount">—</strong><span>Observed-data model variants</span></div>
+    </div>
+    <p class="muted" role="status" id="promiseStatus">Select this tab to load the source-verified Political Promises research feed.</p>
+    <div class="card">
+      <span class="eyebrow">A falsifiable hypothesis</span>
+      <h3>Is capital investment lower around gubernatorial elections?</h3>
+      <p>The first actual-source fixed-effects models produce generally <strong>positive</strong> estimates, not the hypothesized negative association. But their uncertainty intervals and the unresolved historical fiscal-clock and election-timing identification problems prevent causal claims.</p>
+      <div style="overflow-x:auto" id="promiseCoefficientChart" aria-label="Six models' election-fiscal-year coefficients and confidence intervals"></div>
+      <p class="note">Dots indicate the fitted election-fiscal-year association in percentage points; horizontal whiskers are 95% state-clustered confidence intervals. The zero line means no conditional association. The number and direction do not prove individual politician intent.</p>
+    </div>
+    <div class="card">
+      <h3>Inspectable regression models</h3>
+      <div style="overflow-x:auto">
+        <table style="border-collapse:collapse;width:100%;font-size:12px;text-align:left">
+          <thead><tr>
+            <th style="padding:9px 12px">Model</th><th style="padding:9px 12px">State–FYs</th>
+            <th style="padding:9px 12px">Election FY</th><th style="padding:9px 12px">95% CI</th>
+            <th style="padding:9px 12px">Pre-election FY</th><th style="padding:9px 12px">95% CI</th>
+          </tr></thead>
+          <tbody id="promiseModelRows"></tbody>
+        </table>
+      </div>
+      <p class="note">TWFE = state and fiscal-year fixed effects. "Macro" includes lagged BEA real GDP and BLS unemployment. The transfers-only sensitivity includes same-year Census federal revenues, a potential post-treatment variable. The 2022 Census classification break and fiscal-year alignment require independent validation. None of the displayed estimates proves elections caused spending changes.</p>
+    </div>
+    <div class="card">
+      <h3>Campaign pledges: observed evidence versus unknown outcomes</h3>
+      <p id="promisePledgeNotice">The selected 2020 records are currently provisional case studies. Source coverage and independent adjudication must be completed before publishing any overall pledge fulfillment percentage.</p>
+      <p class="note">A fulfilled pledge can later be reversed; a blocked promise can have meaningful effort; an abandoned proposal is not, by itself, evidence of intentional deception. Heuristic future-tense matches are candidate review signals, not verified promises.</p>
+    </div>
+    <div class="card">
+      <h3>Primary data, research safeguards and unresolved work</h3>
+      <div class="coverage">2020 source-text inventory — <span class="tag">Source-indexed; incomplete source universe</span></div>
+      <div class="coverage">2020 independent pledge outcome adjudication — <span class="tag warn">Not completed</span></div>
+      <div class="coverage">Census 2012–24 annual state finance — <span class="tag">Official values verified</span></div>
+      <div class="coverage">Governor election and economic data — <span class="tag">Source-linked; fiscal dates provisional</span></div>
+      <div class="coverage">Election-year observational regressions — <span class="tag">Reproducible</span></div>
+      <div class="coverage">Causal identification and political intent — <span class="tag warn">Not established</span></div>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/campaign-promises/observed-election-associations-2012-2024.md" target="_blank" rel="noopener noreferrer">Read the six-model evidence assessment</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json" target="_blank" rel="noopener noreferrer">Inspect full observed model coefficients and uncertainty</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/promises/primary-2020-sentence-inventory/index.json" target="_blank" rel="noopener noreferrer">Inspect original 2020 source-document inventory</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/campaign-promises/causal-identification-gates.md" target="_blank" rel="noopener noreferrer">Read the adjudication and causal-identification gates</a></p>
+    </div>
+  </section>
+  <section class="panel" data-panel="institutional-decay">
+    <span class="eyebrow">Comparative governance / OECD 2023–2025</span>
+    <h2>Institutional trust, without the shortcuts</h2>
+    <p class="sub">Explore how political and administrative trust differ. Source: OECD Trust Survey 2026, Table 1.3. This view is descriptive research, <strong>not a causal finding or corruption ranking</strong>.</p>
+    <div class="metrics" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="metric"><strong id="idR">—</strong><span>Cross-country Pearson correlation (r)</span></div>
+      <div class="metric"><strong id="idN">—</strong><span>Comparable countries shown</span></div>
+      <div class="metric"><strong>407</strong><span>Published country–year–institution cells</span></div>
+    </div>
+    <div class="filters">
+      <label for="idComparison" style="font-size:13px;font-weight:700">Compare institutions</label>
+      <select id="idComparison" style="flex:2">
+        <option value="civil-2025">2025 — Civil service vs national government</option>
+        <option value="local-2025">2025 — Local vs national government</option>
+        <option value="parliament-2025">2025 — Parliament vs national government</option>
+        <option value="civil-change">2023–25 change — Civil service vs national government</option>
+        <option value="local-change">2023–25 change — Local vs national government</option>
+      </select>
+    </div>
+    <div class="card">
+      <p id="idStatus" role="status">Select this research tab to load the verified OECD country feed.</p>
+      <div class="mapbox" style="border:0;padding:0" id="idPlot">
+        <svg id="idScatter" viewBox="0 0 740 460" style="display:block;width:100%;height:auto;min-height:220px" aria-label="Country trust scatter plot"></svg>
+      </div>
+      <p class="muted" id="idRecordStatus"></p>
+      <p class="note">Correlation is not causation. Country scores are rounded survey estimates; the same respondents were not interviewed in both waves. The United States did not participate in the 2025 OECD Trust Survey. No results here establish that elite impunity or administrative failure caused a trust change.</p>
+    </div>
+    <div class="card">
+      <h3>Inspectable country observations</h3>
+      <div style="overflow-x:auto">
+        <table style="border-collapse:collapse;width:100%;font-size:13px;text-align:left">
+          <thead><tr><th style="padding:8px 12px">Country</th><th id="idXAxis" style="padding:8px 12px">X measure</th><th id="idYAxis" style="padding:8px 12px">Y measure</th></tr></thead>
+          <tbody id="idCountryRows"></tbody>
+        </table>
+      </div>
+      <p class="note">Positive and negative country changes should not be interpreted as statistically significant without respondent-level uncertainty estimates.</p>
+    </div>
+    <div class="card">
+      <h3>Research status and provenance</h3>
+      <div class="coverage">Causal 2×2 survey experiment — <span class="tag warn">Designed, not fielded</span></div>
+      <div class="coverage">Arellano–Bond feedback model — <span class="tag warn">Not identified with two OECD waves</span></div>
+      <div class="coverage">2025 cross-country descriptive correlations — <span class="tag">Reproducible</span></div>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/institutional-decay/FINAL-ASSESSMENT-2026-10-29.md" target="_blank" rel="noopener noreferrer">Read the evidence assessment</a></p>
+      <p><a class="source" href="https://github.com/jbmeadows26/Power-Atlas/blob/main/data/institutional-decay/trust-country-waves-2023-2025.json" target="_blank" rel="noopener noreferrer">Inspect source data and missing values</a></p>
+    </div>
+  </section>
+  <section class="panel" data-panel="gridlock">
+    <span class="eyebrow">Congressional research / 100th–119th</span><h2>Hyper-partisanship and legislative gridlock</h2>
+    <p class="sub">Source-attributed measures of partisan floor voting, bipartisan co-sponsorship and legislative throughput. These are descriptive, not findings of misconduct or causation.</p>
+    <p class="muted" id="hpStatus">Loading compact validated research data…</p>
+    <div class="metrics" id="hpMetrics"></div>
+    <div class="columns">
+      <article class="card"><span class="eyebrow">Recorded floor votes</span><h3>Strict party opposition over time</h3>
+        <p>Share of eligible recorded roll calls where 90% or more of one party voted yes and 90% or more of the other voted no.</p>
+        <div id="hpVoteTrend"></div>
+        <p class="note">Unavailable periods are displayed as missing, never zero. The 119th Congress is incomplete and shown separately.</p>
+      </article>
+      <article class="card"><span class="eyebrow">119th Congress bill universe</span><h3>Cross-party co-sponsorship</h3>
+        <div id="hpCosponsor"></div>
+        <p class="note">A co-sponsor relationship is not a completed compromise, floor vote, enacted law or proof of a constituent-aligned position.</p>
+      </article>
+    </div>
+    <div class="card"><h3>Legislative throughput and procedure</h3><div id="hpLawComparison"></div>
+      <p class="note">Pew counts substantive laws before Election Day; Senate cloture totals cover the full Congress and include nominations. Do not combine these as a causal model or compare the unfinished 119th as a completed term.</p>
+    </div>
+    <div class="card"><h3>Sources, scope and gaps</h3>
+      <p>Read the <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/research/hyperpartisanship/README.md" target="_blank" rel="noopener noreferrer">research protocol and quality audit</a>, <a href="https://www.pewresearch.org/chart/congress-productivity-continues-to-dwindle/" target="_blank" rel="noopener noreferrer">Pew's law counts</a>, <a href="https://www.senate.gov/legislative/cloture/clotureCounts.htm" target="_blank" rel="noopener noreferrer">official Senate cloture records</a>, <a href="https://voteview.com/articles/data_help_votes" target="_blank" rel="noopener noreferrer">Voteview voting definitions</a>, and <a href="https://www.govinfo.gov/bulkdata/BILLSTATUS/119" target="_blank" rel="noopener noreferrer">GovInfo's bill-status records</a>.</p>
+      <p class="note" id="hpLimitations"></p>
+    </div>
+  </section>
+  <section class="panel active" data-panel="overview">
+    <div class="eyebrow">Live GitHub feed</div><h2>Research coverage</h2>
+    <p class="sub" id="connection">Loading latest published source records…</p>
+    <div class="metrics">
+      <div class="metric"><strong id="countRecords">—</strong><span>Source-indexed records</span></div>
+      <div class="metric"><strong id="countStates">—</strong><span>Census geographic references</span></div>
+      <div class="metric"><strong id="countMoney">—</strong><span>FEC financial summaries</span></div>
+      <div class="metric"><strong id="countLinks">—</strong><span>Indexed formal relationships</span></div>
+    </div>
+    <div class="columns"><div class="card"><span class="eyebrow">Research charter</span><h2>What is — and isn't — established</h2>
+      <p>This platform publishes source-linked references, not accusations. Litigation listings do not establish a judgment. Committee names do not prove relationships. Aggregate receipts and disbursements do not identify a beneficiary or influence over a map.</p>
+      <a class="source" href="https://github.com/jbmeadows26/Power-Atlas" rel="noopener noreferrer" target="_blank">Inspect the full public GitHub repository ↗</a>
+    </div><div class="card"><span class="eyebrow">Coverage gaps</span><h3>Verified coverage by research area</h3><p class="note">Current official records are counted separately from full historical or jurisdiction-wide completion. Gaps are not hidden.</p><div id="gapOverview"></div></div></div>
+  </section>
+  <section class="panel" data-panel="records">
+    <span class="eyebrow">Document provenance</span><h2>Research records</h2>
+    <p class="sub">Search the indexed dataset. All rows are references that require claim-level verification; duplicate-source candidates may still be present.</p>
+    <div class="filters"><input id="query" placeholder="Search cases, organizations or identifiers…" aria-label="Search research records"><select id="stateFilter" aria-label="Filter by state"><option value="">All states</option></select><span id="matchCount" class="muted"></span></div>
+    <div id="recordList" class="list"></div>
+  </section>
+  <section class="panel" data-panel="finance">
+    <span class="eyebrow">Federal Election Commission</span><h2>Money & committees</h2>
+    <p class="sub">Source-reported committee-cycle aggregates and indexed committee-to-committee records. An empty data section means not yet collected, not zero financial activity.</p>
+    <div id="financialList" class="list"></div>
+    <h3>Official PAC and party financial-cycle summaries</h3>
+    <p class="note">FEC bulk-file totals for indexed PACs and party committees. Financial activity is not evidence that a particular committee funded redistricting or transferred money to a specific person.</p>
+    <div class="filters"><input id="pacQuery" aria-label="Search PAC and party committees" placeholder="Committee name or FEC ID…">
+      <select id="pacCycle" aria-label="PAC summary cycle"><option value="">2024 and 2026</option><option value="2026">2026</option><option value="2024">2024</option></select><span id="pacCount" class="muted"></span></div>
+    <div id="pacList" class="list"></div>
+    <h3>Reported candidate–committee associations</h3>
+    <p class="note">These FEC linkages describe reported candidate/committee associations, including unauthorized designations, and do not establish payments or candidate endorsement. The current congressional roster is matched by published candidate IDs.</p>
+    <div class="filters"><input id="fecLinkQuery" aria-label="Search FEC associations" placeholder="Candidate, committee ID or designation…">
+      <select id="fecLinkYear" aria-label="FEC linkage cycle"><option value="">2024 and 2026</option><option value="2026">2026</option><option value="2024">2024</option></select>
+      <span class="muted" id="fecLinkCount"></span></div>
+    <div id="fecLinkList" class="list"></div>
+    <h3>Reported committee payments</h3><div id="paymentList"></div>
+    <p class="note">Do not combine reporting periods to infer an actual transfer or count candidate support from monetary aggregates. See the original FEC filing for any substantive claim.</p>
+  </section>
+  <section class="panel" data-panel="lobbying">
+    <span class="eyebrow">Senate / House lobbying disclosure</span><h2>Federal lobbying filings</h2>
+    <p class="sub">The public disclosure index lists a lobbying firm or registrant and the reported client. This does not establish a redistricting-related lobbying objective, a government decision, or misconduct.</p>
+    <div id="lobbyingList" class="list"></div>
+    <p class="note">Attribution: U.S. Senate Office of Public Records. The Office cannot vouch for analyses derived from its data after retrieval. Consult the original filing to confirm its legislative issues and amendments.</p>
+  </section>
+  <section class="panel" data-panel="legislators">
+    <span class="eyebrow">Legislative power / Identity register</span><h2>Serving members of Congress</h2>
+    <p class="sub">Search the House, nonvoting delegates, and Senate. Bioguide and FEC identifiers are reference crosswalks only; membership does not imply an official's involvement in a particular district-map decision.</p>
+    <div class="filters"><input id="peopleQuery" placeholder="Search name, state or FEC ID…" aria-label="Search legislators">
+    <select id="peopleChamber" aria-label="Chamber"><option value="">Both chambers</option><option value="House">House and delegates</option><option value="Senate">Senate</option></select><span id="peopleCount" class="muted"></span></div>
+    <div id="peopleList" class="list"></div>
+    <p class="note">Registry source: <a href="https://github.com/unitedstates/congress-legislators" target="_blank" rel="noopener noreferrer">congress-legislators ↗</a> (CC0 1.0). Party, office and terms require a current official Bioguide cross-check. The House count includes nonvoting delegates.</p>
+  </section>
+  <section class="panel" data-panel="state-legislators">
+    <span class="eyebrow">State legislative mapmaking / Office identity</span><h2>Serving state legislators</h2>
+    <p class="sub">Search a state's current legislative roster by chamber, district, party, or name. Office-holding alone is not evidence of voting on a redistricting bill, influencing judges, or drawing a map.</p>
+    <div class="filters"><label for="stateLegislatorState">Jurisdiction</label><select id="stateLegislatorState" aria-label="State legislature"><option value="NJ">New Jersey</option></select>
+      <input id="stateLegislatorQuery" aria-label="Search state legislators" placeholder="Name, district, party…"></div>
+    <p id="stateLegislatorStatus" class="mapstatus">Choose this section to load current state legislators.</p>
+    <div id="stateLegislatorList" class="list"></div>
+    <p class="note">Public CC0 data compiled by <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States ↗</a> from official state legislative sources and curated contributions. State-specific service dates and district numbers may need verification against current official records.</p>
+  </section>
+  <section class="panel" data-panel="committees">
+    <span class="eyebrow">Documented institutional relationships</span><h2>Redistricting & elections committees</h2>
+    <p class="sub">Discover committee chairs, vice chairs, and members with source links. An explicitly named redistricting committee is distinguished from a broader elections committee; membership is not proof of map design, influence, voting, or misconduct.</p>
+    <div class="filters">
+      <input id="committeeQuery" aria-label="Search committees or members" placeholder="Committee, member, chair or state…">
+      <select id="committeeTopic" aria-label="Committee topic"><option value="">Redistricting & elections</option><option value="redistricting">Redistricting/reapportionment only</option><option value="elections_related">Other elections committees</option></select>
+      <span id="committeeCount" class="muted"></span>
+    </div>
+    <p id="committeeStatus" class="mapstatus">Open this section to retrieve source-backed committees.</p>
+    <div id="committeeList" class="list"></div>
+    <p class="note">Source: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States committee registry ↗</a> (CC0). Membership entries may reflect state-specific data refresh dates. Click the original source for dates and confirmation. No person-to-map causality is inferred.</p>
+  </section>
+  <section class="panel" data-panel="network">
+    <span class="eyebrow">Source-attributed institutional graph</span><h2>Who sits on the mapmaking committees?</h2>
+    <p class="sub">Select a state and committee to see an interactive, evidence-linked network of documented membership and leadership roles. Connecting a person to a committee does not demonstrate influence over maps, judge appointments, or improper conduct.</p>
+    <div class="filters"><label for="networkState">State</label><select id="networkState" aria-label="Network state"><option value="TX">Texas</option></select>
+      <select id="networkCommittee" aria-label="Network committee"><option value="">Choose a committee</option></select></div>
+    <div class="mapbox"><p id="networkStatus" class="mapstatus">Choose this section to load committee membership connections.</p>
+      <div id="networkGraph"></div>
+      <p id="networkSelection" class="note">Select a person to inspect their original membership record.</p></div>
+    <p class="note">Connections in this view represent only roles published by Open States. Committee listings may be historical or incomplete; check the source's current membership before attributing a specific decision.</p>
+  </section>
+  <section class="panel" data-panel="bills">
+    <span class="eyebrow">Legislative proposals / Documented sponsors</span><h2>Redistricting & voting legislation</h2>
+    <p class="sub">Publicly indexed proposals from the 119th Congress with original Congress.gov references. Introduction and sponsorship do not establish enactment, floor voting, improper influence, or resulting map changes.</p>
+    <div class="filters"><input id="billQuery" aria-label="Search federal legislation" placeholder="Bill, sponsor or issue…">
+      <select id="billTopic" aria-label="Legislation topic"><option value="">All indexed proposals</option><option value="redistricting_specific_title">Redistricting-specific titles</option><option value="broader_voting_or_elections_title">Voting and elections titles</option><option value="keyword_hit_not_title_verified">Other keyword matches</option></select>
+      <span id="billCount" class="muted"></span></div>
+    <div id="billList" class="list"></div>
+    <p class="note">Indexed by <a href="https://www.ballotwatch.io/developers" target="_blank" rel="noopener noreferrer">BallotWatch's free, CC0 public API ↗</a> with source links to Congress.gov. These are bounded search candidates, not a census of legislation or verified roll-call outcomes.</p>
+  </section>
+  <section class="panel" data-panel="audit">
+    <span class="eyebrow">Data integrity / Evidence review</span><h2>What has actually been verified?</h2>
+    <p class="sub">Source search hits, parsed tallies, official certifications, and legal determinations have distinct evidence standards. Counts here are about the research pipeline, not proof of improper redistricting.</p>
+    <div class="grid">
+      <div class="card"><div class="eyebrow">Bill candidates staged</div><h3 id="auditBillCandidates">Not loaded</h3><p>Search results, not verified enacted laws</p></div>
+      <div class="card"><div class="eyebrow">Official legislative vote tallies</div><h3 id="auditCertifiedVotes">Not loaded</h3><p>No secondary-index-only count qualifies</p></div>
+      <div class="card"><div class="eyebrow">Partial vote tallies</div><h3 id="auditPartialVotes">Not loaded</h3><p>Await independent chamber record cross-check</p></div>
+      <div class="card"><div class="eyebrow">Election canvasses reconciled</div><h3 id="auditElectionCanvasses">Not loaded</h3><p>Directory links aren't certified contest returns</p></div>
+    </div>
+    <h3>Jurisdiction search completion</h3><p id="auditCoverage" class="sub"></p>
+    <h3>First-page searches still pending</h3><p id="auditPendingStates" class="sub"></p>
+    <h3>Applicable judicial precedent</h3>
+    <p class="note">For research on the law at the time a map was drawn, retain its drawing date. For a case being decided, also retain adjudication date, precedent and procedural posture. The April 29, 2026 decision in <em>Louisiana v. Callais</em> may affect litigation over maps drawn earlier; this site does not assign a legal-risk score from dates alone.</p>
+    <p><a class="source" href="https://www.supremecourt.gov/docket/docketfiles/html/public/24-109.html" target="_blank" rel="noopener noreferrer">Read Callais docket ↗</a></p>
+    <p class="note"><a href="https://github.com/jbmeadows26/Power-Atlas/tree/main/data/reconciliation" target="_blank" rel="noopener noreferrer">Inspect source reconciliation records ↗</a> · <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/schema/0001_evidence_domain_separation.sql" target="_blank" rel="noopener noreferrer">Review domain schema ↗</a></p>
+  </section>
+  <section class="panel" data-panel="state-bills">
+    <span class="eyebrow">State legislation / Bills & recorded votes</span><h2>State redistricting proposals</h2>
+    <p class="sub">Source-indexed state bills from bounded public searches. Coverage varies widely by jurisdiction and may omit bills. A recorded vote is labeled separately from bill status and does not, by itself, prove a redistricting map was adopted.</p>
+    <div class="filters"><input id="stateBillQuery" aria-label="Search state bills" placeholder="State, title, bill number…">
+      <select id="stateBillTopic" aria-label="State bill topic"><option value="redistricting_specific_title" selected>Directly related titles</option><option value="">All candidates (including unverified matches)</option><option value="keyword_search_candidate_unverified">Other keyword matches</option></select>
+      <span id="stateBillCount" class="muted"></span></div>
+    <p id="stateBillStatus" class="mapstatus">Showing title-specific proposals by default. Broader keyword candidates are unverified and can be displayed with the topic filter.</p>
+    <div id="stateBillList" class="list"></div>
+    <h3>Recorded state bill votes</h3><div id="stateVoteList" class="list"></div>
+    <p class="note">Metadata source: <a href="https://billcommons.org/docs/api" target="_blank" rel="noopener noreferrer">Bill Commons public API ↗</a>. Official state bill sources control, and the API does not offer a complete verified national legislative-vote census. An empty vote list means no matching vote collected.</p>
+  </section>
+  <section class="panel" data-panel="governors">
+    <span class="eyebrow">Executive / institutional responsibility</span><h2>Governors & state executives</h2>
+    <p class="sub">Source-indexed state governors and executives. Their office gives them defined institutional powers; it does not establish that they approved a map, influenced a court, or directed a particular redistricting process.</p>
+    <div class="filters"><input id="executiveQuery" aria-label="Search governors and executives" placeholder="Search name, state or office…"><span id="executiveCount" class="muted"></span></div>
+    <div class="list" id="executiveList"></div>
+    <p class="note">Data: <a href="https://github.com/openstates/people" target="_blank" rel="noopener noreferrer">Open States People CC0 source ↗</a>. Office records are cross-check pending against state government sources.</p>
+  </section>
+  <section class="panel" data-panel="judiciary">
+    <span class="eyebrow">Judicial appointments / Federal Judicial Center</span><h2>Who appointed the judges?</h2>
+    <p class="sub">Historical Article III judicial appointments from the Federal Judicial Center: court, appointing president, nomination, Senate confirmation and commission dates. An appointment is a documented institutional relationship—not evidence of a ruling's motive or improper influence.</p>
+    <div class="filters"><input id="judgeQuery" placeholder="Judge, court, president or seat…" aria-label="Search federal judicial appointments">
+      <select id="judgeStatus" aria-label="Judge service date filter"><option value="">All appointments</option><option value="no-termination">No termination date recorded</option></select>
+      <span id="judgeCount" class="muted"></span></div>
+    <p id="judgeStatusText" class="mapstatus">Select this section to load official Federal Judicial Center appointment records.</p>
+    <div id="judgeList" class="list"></div>
+    <p class="note">Source: <a href="https://www.fjc.gov/node/7436" target="_blank" rel="noopener noreferrer">Federal Judicial Center Biographical Directory ↗</a>. The agency reports its data current as of October 23, 2026; missing termination data does not itself prove active service. State judges are outside this federal dataset.</p>
+  </section>
+  <section class="panel" data-panel="elections">
+    <span class="eyebrow">District election outcomes</span><h2>U.S. House party vote totals</h2>
+    <p class="sub">MIT Election Data and Science Lab source; compact state-year totals. These are <b>not</b> gerrymandering scores. Uncontested districts, changing boundaries, and third-party votes limit comparisons.</p>
+    <div class="filters"><label for="electionYear">Election year</label><select id="electionYear" aria-label="Election year"><option value="2024">2024</option></select><span id="electionCount" class="muted"></span></div>
+    <div id="electionAudit" class="card" aria-live="polite"></div>
+    <p class="note">State-level observed seat-versus-vote figures are shown only for datasets with both major parties reporting votes in every indexed district and without known missing unopposed returns. These are descriptive—not gerrymandering scores.</p>
+    <div id="electionList" class="list"></div>
+    <p class="note">Data source: <a href="https://doi.org/10.7910/DVN/IG0UN2" target="_blank" rel="noopener noreferrer">MIT Election Data and Science Lab U.S. House 1976-2024 ↗</a>, CC0 1.0. Source-specific validation is pending. Neither a vote margin nor a partisan advantage alone proves improper district design.</p>
+  </section>
+  <section class="panel" data-panel="states">
+    <span class="eyebrow">Census geography</span><h2>States & district sources</h2>
+    <p class="sub">Explore generalized 119th Congressional District boundaries from the U.S. Census Bureau. The compressed source archive is not stored; this site loads a compact, display-only geometry file when a map is requested. No partisan-bias score is implied.</p>
+    <div class="filters"><label for="districtState">State</label><select id="districtCongress" aria-label="Congressional map edition"><option value="119">119th Congress (2025)</option><option value="116">116th Congress (2020)</option></select><select id="districtState" aria-label="Map state"><option value="37">North Carolina</option></select><a class="source" href="https://www.census.gov/geographies/mapping-files/2025/geo/carto-boundary-file.html" target="_blank" rel="noopener noreferrer">Census methodology ↗</a></div>
+    <div class="mapbox"><p id="mapStatus" class="mapstatus">Select this tab to load the compact 119th Congress map.</p><div id="districtMap" aria-live="polite"></div><p id="districtSelected" class="note">Click a congressional district to inspect its Census identifier.</p></div>
+    <h3>Official map and election authority sources</h3><p class="note">State election offices certify votes. These links identify the source offices only: Power Atlas has not imported or reconciled all 51 official statewide canvasses, and research vote totals are not automatically certified.</p>
+    <div id="stateList" class="list"></div>
+  </section>
+  <section class="panel" data-panel="quality">
+    <span class="eyebrow">Evidence governance</span><h2>What the data actually supports</h2>
+    <div class="columns"><div class="card"><h3>Source evidence policy</h3><p>Research records are published with source URLs, review statuses, stable identifiers and coverage notes. A tentative name match never proves causation or misconduct.</p><p>Directly attributable filings are kept distinct from inferred networks. Unreviewed relationships should not be used as allegations.</p></div><div class="card"><h3>Remaining gaps</h3><div id="gapQuality"></div></div></div>
+    <div class="card"><h3>State-by-state missing evidence</h3>
+      <p class="note">Select a state to see exactly which of the six domains have source records, which need reconciliation, and what the next evidence blocker is. A source index is not a verified investigation or complete state dataset.</p>
+      <div class="filters"><label for="gapStateSelect">Jurisdiction</label><select id="gapStateSelect" aria-label="Choose state for detailed evidence gaps"><option value="">Loading state evidence…</option></select></div>
+      <p class="mapstatus" id="gapStateStatus">The state evidence matrix loads from the public six-domain audit.</p>
+      <div class="list" id="gapStateDetails"></div>
+      <p class="note">Original public sources and official state election offices are linked when known. Source discovery is not evidence of a particular person's political influence.</p>
+    </div>
+    <div class="card"><h3>Nationwide research completion audit</h3>
+      <p class="note">Completed bounded collections do not establish complete national evidence or causation. Each item below is source-scoped, with unfinished dependencies shown explicitly.</p>
+      <p id="gateStatus" class="mapstatus">Open Evidence & gaps to read the latest public completion-gate audit.</p>
+      <div id="gateList" class="list"></div>
+      <a class="source" href="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/completion-gates.json" target="_blank" rel="noopener noreferrer">Machine-readable completion audit ↗</a></div>
+    <div class="card"><h3>Data access</h3><p><a href="https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json" target="_blank" rel="noopener noreferrer">Unified machine-readable feed ↗</a></p><p><a href="https://github.com/jbmeadows26/Power-Atlas/actions" target="_blank" rel="noopener noreferrer">Ingestion and validation workflows ↗</a></p><p class="note">This view reads from a public read-only GitHub data feed. It does not independently verify court decisions or authenticate the accuracy of source filings.</p></div>
+  </section>
+</div>
+<footer>POWER ATLAS · RESEARCH EDITION · INDEPENDENT PUBLIC RECORDS EXPLORER · NOT AN OFFICIAL GOVERNMENT SERVICE</footer>
+</div>
+</details>
+</main>
+<script>
+(function(){
+  'use strict';
+  var url='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/app-feed.json';
+  var data=null;
+  function esc(x){return String(x===null||x===undefined?'':x).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+  function safe(url){try{var u=new URL(url);return u.protocol==='https:'?u.href:'#'}catch(e){return '#'}}
+  function set(id,value){document.getElementById(id).textContent=String(value)}
+  function card(record){var label=record.reviewStatus||record.status||'source_indexed_unreviewed';
+    return '<article class="card"><div class="meta"><span class="tag warn">'+esc(label.replace(/_/g,' '))+'</span><span class="muted">'+esc(record.state||'State not indexed')+'</span></div><h3>'+esc(record.title)+'</h3><p>'+esc(record.date||record.asOf||'Date not indexed')+' · '+esc(record.id)+'</p>'+(record.possibleDuplicateOf?'<p class="note">Possible duplicate of '+esc(record.possibleDuplicateOf)+' — requires review</p>':'')+'<a class="source" href="'+esc(safe(record.source))+'" target="_blank" rel="noopener noreferrer">Original source ↗</a></article>';
+  }
+  function renderRecords(){
+    if(!data)return;var q=document.getElementById('query').value.trim().toLowerCase();var state=document.getElementById('stateFilter').value;
+    var items=data.records.filter(function(x){return (!state||x.state===state)&&(!q||[x.title,x.id,x.state,x.status].join(' ').toLowerCase().includes(q))});
+    set('matchCount',items.length+' of '+data.records.length);
+    document.getElementById('recordList').innerHTML=items.slice(0,300).map(card).join('')||'<div class="card"><p>No indexed records match these filters.</p></div>';
+  }
+  function usd(x){return typeof x==='number'?x.toLocaleString('en-US',{style:'currency',currency:'USD',maximumFractionDigits:2}):'Not reported'}
+  var pacSummaries=null,pacBusy=false;
+  function renderPACs(){
+    if(!pacSummaries)return;
+    var query=document.getElementById('pacQuery').value.trim().toLowerCase();
+    var cycle=document.getElementById('pacCycle').value;
+    var filtered=pacSummaries.filter(function(r){return (!cycle||String(r.cycle)===cycle)&&(!query||[r.name,r.committeeId].join(' ').toLowerCase().includes(query))});
+    set('pacCount',filtered.length+' of '+pacSummaries.length+' source-indexed cycle summaries');
+    document.getElementById('pacList').innerHTML=filtered.length?filtered.slice(0,100).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">Official FEC · '+esc(r.cycle)+'</span><span class="tag warn">Cycle aggregate, not payment edge</span></div><h3>'+esc(r.name)+'</h3><p>FEC ID '+esc(r.committeeId)+' · coverage through '+esc(r.coverageEnd||'not reported')+'</p><p><strong>Receipts:</strong> '+esc(usd(r.totalReceiptsUSD))+' · <strong>Disbursements:</strong> '+esc(usd(r.totalDisbursementsUSD))+'</p><p><strong>Contributions to other committees:</strong> '+esc(usd(r.contributionsToOtherCommitteesUSD))+' · <strong>Independent expenditures:</strong> '+esc(usd(r.independentExpendituresUSD))+'</p><a class="source" href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" target="_blank" rel="noopener noreferrer">Official committee financial filings ↗</a></article>';
+    }).join(''):'<article class="card"><p>No matching FEC PAC/party summaries in the limited indexed committee set.</p></article>';
+  }
+  function loadPACs(){
+    if(pacSummaries){renderPACs();return}
+    if(pacBusy)return;
+    pacBusy=true;set('pacCount','Loading official FEC summary records...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-pac-party-summaries.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.fec-pac-party-summaries.v1'||!Array.isArray(j.records))throw Error('Unrecognized PAC summary format');
+        pacSummaries=j.records;renderPACs()})
+      .catch(function(e){set('pacCount','FEC summary file not yet published: '+e.message)})
+      .finally(function(){pacBusy=false});
+  }
+  var fecLinks=null,fecLinkBusy=false,fecMasterById={};
+  function renderFECLinks(){
+    if(!fecLinks){return}
+    var q=document.getElementById('fecLinkQuery').value.trim().toLowerCase();
+    var year=document.getElementById('fecLinkYear').value;
+    var names={};
+    ((data.people||{}).congressMembers||[]).forEach(function(person){
+      (person.fecCandidateIds||[]).forEach(function(id){names[id]=person.name})
+    });
+    var rows=fecLinks.filter(function(x){
+      return (!year||String(x.fecYear)===year)&&(!q||[x.fecCandidateId,x.committeeId,names[x.fecCandidateId]||'',(fecMasterById[x.committeeId]||{}).name||'',x.designation,x.fecYear].join(' ').toLowerCase().includes(q))
+    });
+    set('fecLinkCount',rows.length+' of '+fecLinks.length+' source-link records');
+    document.getElementById('fecLinkList').innerHTML=rows.length?rows.slice(0,100).map(function(r){
+      var candidateName=names[r.fecCandidateId]||r.fecCandidateId;
+      var committeeName=(fecMasterById[r.committeeId]||{}).name||r.committeeId;
+      var officialConnected=(fecMasterById[r.committeeId]||{}).connectedOrganization||'';
+      var desc=r.designation==='P'?'Principal campaign':r.designation==='A'?'Authorized':r.designation==='U'?'Unauthorized':r.designation==='J'?'Joint fundraising':r.designation==='D'?'Leadership PAC':r.designation||'Unknown';
+      return '<article class="card"><div class="meta"><span class="tag">FEC '+esc(r.fecYear)+'</span><span class="tag warn">Registration link · '+esc(desc)+'</span></div><h3>'+esc(candidateName)+'</h3><p>'+esc(r.fecCandidateId)+' → <strong>'+esc(committeeName)+'</strong> ('+esc(r.committeeId)+')</p>'+(officialConnected && officialConnected.toUpperCase()!=='NONE'?'<p class="muted">FEC listed connected organization: '+esc(officialConnected)+'</p>':'')+'<a href="https://www.fec.gov/data/committee/'+esc(r.committeeId)+'/" class="source" target="_blank" rel="noopener noreferrer">FEC committee profile ↗</a> · <a href="'+esc(safe(r.source))+'" class="source" target="_blank" rel="noopener noreferrer">Official source bulk file ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching official candidate–committee associations are indexed.</p></div>';
+  }
+  function loadFECLinks(){
+    if(fecLinks){renderFECLinks();return}
+    if(fecLinkBusy)return;
+    fecLinkBusy=true;
+    set('fecLinkCount','Loading official FEC linkage index...');
+    Promise.all([fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-candidate-links.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}),
+      fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/finance/fec-committee-master.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).catch(function(){return {records:[]}})])
+      .then(function(pair){var j=pair[0],master=pair[1];if(j.schema!=='power-atlas.fec.candidate-committee-links.v1'||!Array.isArray(j.records))throw Error('FEC schema mismatch');
+        fecLinks=j.records;
+        (master.records||[]).forEach(function(x){fecMasterById[x.committeeId]=x});
+        renderFECLinks();renderFinance();
+      }).catch(function(e){set('fecLinkCount','Candidate association records not available yet: '+e.message)})
+      .finally(function(){fecLinkBusy=false});
+  }
+  function renderFinance(){
+    var fin=data.finance||{};var totals=fin.committeeTotals||[];var records=data.records||[];
+    var html=totals.length?totals.map(function(r){
+      var name=(records.find(function(x){return x.id==='fec-'+r.committeeId})||{}).title||r.committeeId;
+      var receipts=r.receipts;var spending=r.disbursements;var m=Math.max(receipts||0,spending||0,1);
+      return '<article class="card"><div class="meta"><span class="tag">FEC · '+esc(r.cycle)+'</span><span class="tag warn">Unreviewed filing</span></div><h3>'+esc(name)+'</h3><p>'+esc(r.committeeId)+'</p><small>Reported receipts</small><div class="money">'+esc(usd(receipts))+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,(receipts||0)/m*100))+'%"></div></div><small>Reported disbursements</small><div class="money">'+esc(usd(spending))+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,(spending||0)/m*100))+'%"></div></div><a class="source" href="'+esc(safe(r.source))+'" target="_blank" rel="noopener noreferrer">View FEC filing ↗</a></article>';
+    }).join(''):'<article class="card"><p>Financial summaries have not yet been published to this feed.</p></article>';
+    document.getElementById('financialList').innerHTML=html;
+    var payments=fin.committeePayments||[];
+    document.getElementById('paymentList').innerHTML=payments.length?payments.slice(0,50).map(function(r){return '<div class="card"><h3>'+esc(r.committeeId)+' → '+esc(r.recipientCommitteeId)+'</h3><p>'+esc(usd(r.amountUSD))+' · '+esc(r.date)+'</p><a href="'+esc(safe(r.source))+'" class="source">Source record ↗</a></div>'}).join(''):'<div class="card"><p>No committee-to-committee payment records have yet been confirmed by this collector. This is a coverage gap, not evidence of no payments.</p></div>';
+  }
+  function renderLobbying(){
+    var rows=((data.lobbying||{}).filings)||[];
+    document.getElementById('lobbyingList').innerHTML=rows.length?rows.slice(0,120).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">LDA · '+esc(r.year||'year not indexed')+'</span><span class="tag warn">Unreviewed</span></div><h3>'+esc(r.client)+'</h3><p>Reported registrant: '+esc(r.registrant)+'</p><p>'+esc(r.period||'Period not indexed')+' · '+esc(r.type||'Filing')+'</p><p>Income: '+esc(usd(r.incomeUSD))+' · Expenses: '+esc(usd(r.expensesUSD))+'</p><a class="source" href="'+esc(safe(r.sourceApi||r.source))+'" target="_blank" rel="noopener noreferrer">Original filing ↗</a></article>';
+    }).join(''):'<div class="card"><p>No lobbying filings have been published by the scoped collector yet. This is a coverage gap, not an assertion that lobbying did not occur.</p></div>';
+  }
+  function renderPeople(){
+    var people=((data.people||{}).congressMembers)||[];
+    var q=document.getElementById('peopleQuery').value.trim().toLowerCase();
+    var chamber=document.getElementById('peopleChamber').value;
+    var matched=people.filter(function(p){
+      return (!chamber||p.chamber===chamber)&&(!q||[p.name,p.party,p.state,p.chamber,p.bioguideId].concat(p.fecCandidateIds||[]).join(' ').toLowerCase().includes(q))
+    });
+    set('peopleCount',matched.length+' of '+people.length+' members');
+    document.getElementById('peopleList').innerHTML=matched.length?matched.slice(0,120).map(function(p){
+      var office=p.chamber==='House'?(p.district===0?'At-large / delegate':'District '+p.district):'Senator';
+      var ids=(p.fecCandidateIds||[]).slice(0,5).map(function(id){return '<a href="https://www.fec.gov/data/candidate/'+esc(id)+'/" target="_blank" rel="noopener noreferrer">'+esc(id)+'</a>'}).join(', ')||'None in registry';
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(p.chamber)+'</span><span class="tag warn">Identity / unreviewed</span></div><h3>'+esc(p.name)+'</h3><p>'+esc(p.party)+' · '+esc(p.state)+' · '+esc(office)+'</p><p class="muted">Bioguide '+esc(p.bioguideId)+' · '+esc(p.termStart)+' to '+esc(p.termEnd)+'</p><p class="muted">FEC candidate IDs: '+ids+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(p.source))+'">Official biographical directory ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching members are indexed. Check the registry feed or broaden your search.</p></div>';
+  }
+  var stateRoster=null,rosterState='';
+  function renderStateLegislators(){
+    var q=document.getElementById('stateLegislatorQuery').value.trim().toLowerCase();
+    var root=document.getElementById('stateLegislatorList');
+    if(!stateRoster){root.innerHTML='';return}
+    var rows=stateRoster.filter(function(x){return !q||[x.name,x.state,x.district,x.party,x.chamber].join(' ').toLowerCase().includes(q)});
+    set('stateLegislatorStatus',rows.length+' matches from '+stateRoster.length+' indexed serving legislators in '+rosterState+'.');
+    root.innerHTML=rows.length?rows.slice(0,150).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.chamber==='legislature'?'Unicameral legislature':(r.chamber==='upper'?'State Senate':'State House'))+'</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(r.name)+'</h3><p>'+esc(r.party)+' · '+esc(r.state)+' District '+esc(r.district)+'</p><p class="muted">Open Civic Data ID: '+esc(r.id)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">View original public record ↗</a></article>';
+    }).join(''):'<article class="card"><p>No records matched this state’s search.</p></article>';
+  }
+  function loadStateLegislators(){
+    var state=document.getElementById('stateLegislatorState').value;
+    if(!/^[A-Z]{2}$/.test(state))return;
+    if(rosterState===state && stateRoster){renderStateLegislators();return}
+    rosterState=state;stateRoster=null;
+    set('stateLegislatorStatus','Loading '+state+' public legislative identities...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/people/states/'+state+'.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.state-legislators.state.v1'||!Array.isArray(j.records)||j.state!==state)throw Error('Schema mismatch');
+        if(rosterState!==state)return;
+        stateRoster=j.records;renderStateLegislators()
+      }).catch(function(e){if(rosterState===state){set('stateLegislatorStatus','State roster is not yet available: '+e.message);document.getElementById('stateLegislatorList').innerHTML=''}});
+  }
+  var sourceCommittees=null,committeeBusy=false;
+  function renderCommittees(){
+    var root=document.getElementById('committeeList');
+    if(!sourceCommittees){root.innerHTML='';return}
+    var q=document.getElementById('committeeQuery').value.trim().toLowerCase();
+    var topic=document.getElementById('committeeTopic').value;
+    var matches=sourceCommittees.filter(function(c){
+      return (!topic||c.topic===topic)&&(!q||[c.state,c.name,c.chamber].concat((c.members||[]).map(function(m){return m.name+' '+m.role})).join(' ').toLowerCase().includes(q));
+    });
+    set('committeeCount',matches.length+' of '+sourceCommittees.length+' committees');
+    root.innerHTML=matches.length?matches.slice(0,150).map(function(c){
+      var chairs=(c.members||[]).filter(function(m){return /chair|vice|co-chair/i.test(m.role)});
+      var roleList=chairs.length?chairs.slice(0,10):c.members.slice(0,6);
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(c.state)+' · '+esc(c.chamber)+'</span><span class="tag warn">'+esc(c.topic.replace('_',' '))+'</span></div><h3>'+esc(c.name)+'</h3><p>'+esc(c.members.length)+' source-listed memberships</p><p>'+roleList.map(function(m){return '<strong>'+esc(m.name)+'</strong> ('+esc(m.role)+')'}).join(' · ')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.officialLink||c.source))+'">Official committee source ↗</a> · <a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(c.source))+'">Membership record ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching committee records were indexed for this search.</p></div>';
+  }
+  function renderNetwork(){
+    if(!sourceCommittees)return;
+    var stateSelect=document.getElementById('networkState'),committeeSelect=document.getElementById('networkCommittee');
+    var states=[...new Set(sourceCommittees.map(function(c){return c.state}))].sort();
+    var priorState=stateSelect.value||'TX';
+    if(states.indexOf(priorState)<0)priorState=states[0]||'';
+    stateSelect.innerHTML=states.map(function(st){return '<option value="'+esc(st)+'" '+(st===priorState?'selected':'')+'>'+esc(st)+'</option>'}).join('');
+    var available=sourceCommittees.filter(function(c){return c.state===priorState}).sort(function(a,b){return a.topic==='redistricting'&&b.topic!=='redistricting'?-1:a.name.localeCompare(b.name)});
+    var priorCommittee=committeeSelect.value;
+    if(!available.some(function(c){return c.id===priorCommittee}))priorCommittee=(available[0]||{}).id||'';
+    committeeSelect.innerHTML=available.map(function(c){return '<option value="'+esc(c.id)+'" '+(c.id===priorCommittee?'selected':'')+'>'+esc(c.name)+'</option>'}).join('');
+    var committee=available.find(function(c){return c.id===priorCommittee}),holder=document.getElementById('networkGraph');
+    if(!committee){holder.innerHTML='<p>No committee membership index is available for this state.</p>';return}
+    var members=(committee.members||[]),display=members.slice(0,35),many=display.length;
+    var centerX=450,centerY=260,rx=370,ry=200;
+    var lines=[],nodes=[];
+    display.forEach(function(m,i){
+      var angle=-Math.PI/2+2*Math.PI*i/Math.max(1,many);
+      var x=centerX+rx*Math.cos(angle),y=centerY+ry*Math.sin(angle);
+      var isLeader=/chair/i.test(m.role);
+      lines.push('<line x1="450" y1="260" x2="'+x.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="'+(isLeader?'#ce9b59':'#a4c3cc')+'" stroke-width="'+(isLeader?3:1.2)+'"/>');
+      nodes.push('<g class="network-member" tabindex="0" role="button" data-person="'+esc(m.personId)+'" data-name="'+esc(m.name)+'" data-role="'+esc(m.role)+'"><circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="'+(isLeader?13:10)+'" fill="'+(isLeader?'#d6a05a':'#328f9d')+'" stroke="white" stroke-width="2"/><text x="'+x.toFixed(1)+'" y="'+(y+22).toFixed(1)+'" font-size="10" fill="#1d4659" text-anchor="middle">'+esc(m.name.slice(0,24))+'</text><title>'+esc(m.name)+' — '+esc(m.role)+'</title></g>');
+    });
+    holder.innerHTML='<svg viewBox="0 0 900 520" role="group" aria-label="Committee and member institutional graph">'+lines.join('')+'<rect x="326" y="220" width="248" height="80" rx="12" fill="#173d54"/><text x="450" y="247" text-anchor="middle" font-size="12" fill="#e9fbfa">'+esc(committee.state)+' · '+esc(committee.chamber)+'</text><text x="450" y="269" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">'+esc(committee.name.slice(0,30))+'</text><text x="450" y="287" text-anchor="middle" font-size="10" fill="#9fc6d0">'+esc(String(members.length))+' memberships</text>'+nodes.join('')+'</svg>';
+    set('networkStatus',committee.name+' · '+members.length+' listed memberships · '+committee.topic.replace('_',' ')+' topic');
+    document.getElementById('networkSelection').innerHTML='Original committee evidence: <a href="'+esc(safe(committee.officialLink||committee.source))+'" target="_blank" rel="noopener noreferrer">Official source ↗</a> · <a href="'+esc(safe(committee.source))+'" target="_blank" rel="noopener noreferrer">Open States membership record ↗</a>'+(members.length>many?' · Display limited to '+many+' connections':'');
+    holder.querySelectorAll('.network-member').forEach(function(el){
+      function choose(){
+        var name=el.getAttribute('data-name'),role=el.getAttribute('data-role');
+        document.getElementById('networkSelection').innerHTML='<strong>'+esc(name)+'</strong> · '+esc(role)+' · documented committee membership, not evidence of misconduct. <a href="'+esc(safe(committee.source))+'" target="_blank" rel="noopener noreferrer">Membership source ↗</a>';
+      }
+      el.addEventListener('click',choose);el.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();choose()}});
+    });
+  }
+  function loadCommittees(){
+    if(sourceCommittees){renderCommittees();renderNetwork();return}
+    if(committeeBusy)return;
+    committeeBusy=true;set('committeeStatus','Loading institutional membership records from the public GitHub corpus...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/organizations/redistricting-committees.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.state-committees.v1'||!Array.isArray(j.committees))throw Error('Unrecognized committee schema');
+        sourceCommittees=j.committees;
+        set('committeeStatus',sourceCommittees.length+' source-indexed committees, including broader elections committees · relationship claims pending review.');
+        renderCommittees();renderNetwork()
+      }).catch(function(e){set('committeeStatus','Committee ingestion is not yet published: '+e.message)})
+      .finally(function(){committeeBusy=false});
+  }
+  var readinessLoaded=false,readinessBusy=false;
+  function loadCompletionGates(){
+    if(readinessLoaded||readinessBusy)return;
+    readinessBusy=true;
+    set('gateStatus','Loading source-backed completion checks from public GitHub data...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/completion-gates.json',{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){
+        if(j.schema!=='power-atlas.completion-gates.v1'||!Array.isArray(j.gates))throw Error('Completion audit schema mismatch');
+        set('gateStatus',j.asOfDate+' · '+j.gates.length+' research readiness gates · '+j.blockingGates.length+' unresolved nationally. The evidence remains partial.');
+        document.getElementById('gateList').innerHTML=j.gates.map(function(g){
+          var label=/^complete/.test(g.status)?'Bounded source completed':'Coverage incomplete or unverified';
+          var count=g.observed===null?'Not assessed':String(g.observed);
+          return '<article class="card"><div class="meta"><span class="tag">'+esc(label)+'</span><span class="tag warn">'+esc(g.status.replaceAll('_',' '))+'</span></div><h3>'+esc(g.description)+'</h3><p>'+esc(count)+' · '+esc(g.scope.replaceAll('_',' '))+'</p><p class="note">Next evidence step: '+esc(g.nextAction)+'</p>'+(g.source?'<a class="source" href="'+esc(safe(g.source))+'" target="_blank" rel="noopener noreferrer">Source context ↗</a>':'')+'</article>';
+        }).join('');
+        readinessLoaded=true;
+      }).catch(function(e){set('gateStatus','Completion audit unavailable: '+e.message+'. Follow the machine-readable audit link.')})
+      .finally(function(){readinessBusy=false});
+  }
+  function renderEvidenceAudit(){
+    var audit=data.evidenceReconciliation||{}, summary=audit.summary||{}, c=audit.searchCoverage||{},
+        votes=audit.rollcallVerification||{}, cert=audit.certificationStatus||{},
+        pending=(audit.ingestionQueue||{}).pendingBaselineStates||[];
+    set('auditBillCandidates',summary.billCandidatesStaged===undefined?'Pending':summary.billCandidatesStaged.toLocaleString('en-US'));
+    set('auditCertifiedVotes',votes.certified_tally===undefined?'Pending':votes.certified_tally);
+    set('auditPartialVotes',votes.partially_parsed===undefined?'Pending':votes.partially_parsed);
+    set('auditElectionCanvasses',cert.reconciledOfficial===undefined?'Pending':cert.reconciledOfficial);
+    set('auditCoverage',c.page1Complete===undefined?'Reconciliation not published yet':c.page1Complete+' of '+c.jurisdictionsTotal+' first pages indexed · '+c.fullSweep+' fully swept · '+c.pendingFirstPage+' pending. First-page access is not a complete search of state laws.');
+    set('auditPendingStates',pending.length?pending.join(', '):'None currently pending in baseline queue; full search sweeps still require separate verification.');
+  }
+  function renderStateBills(){
+    var legislative=(data.legislation||{});
+    var rows=legislative.stateRedistrictingBillCandidates||[];
+    var votes=legislative.stateRedistrictingRecordedVotes||[];
+    var q=document.getElementById('stateBillQuery').value.trim().toLowerCase();
+    var topic=document.getElementById('stateBillTopic').value;
+    var filtered=rows.filter(function(r){return (!topic||r.issueClass===topic)&&(!q||[r.state,r.title,r.identifier,r.latestAction].join(' ').toLowerCase().includes(q))});
+    set('stateBillCount',filtered.length+' of '+rows.length+' candidates');
+    document.getElementById('stateBillList').innerHTML=filtered.length?filtered.slice(0,160).map(function(r){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.state)+' · '+esc(r.identifier)+'</span><span class="tag warn">'+esc(r.issueClass.replaceAll('_',' '))+'</span></div><h3>'+esc(r.title)+'</h3><p>Latest indexed action: '+esc(r.latestAction||'Not verified')+'</p><p class="muted">Indexed date: '+esc(r.latestActionDate||'Not indexed')+' · status '+esc(r.status||'Unknown')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">Original state bill source ↗</a></article>';
+    }).join(''):'<div class="card"><p>There are no source-indexed bills matching this filter. This is not a statement about all bills nationally.</p></div>';
+    var allowed=new Set(filtered.map(function(r){return r.id}));
+    var matchingVotes=votes.filter(function(r){return allowed.has(r.billId)});
+    document.getElementById('stateVoteList').innerHTML=matchingVotes.length?matchingVotes.slice(0,80).map(function(v){
+      var c=v.counts||{};
+      return '<article class="card"><div class="meta"><span class="tag">Recorded vote · '+esc(v.state)+'</span><span class="tag warn">Official review pending</span></div><h3>'+esc(v.identifier)+' — '+esc(v.motion||'Recorded vote')+'</h3><p>Result: '+esc(v.result||'Not indexed')+' · '+esc(v.date||'Date not indexed')+'</p><p>Yes '+esc(c.yes_count===undefined?'not reported':c.yes_count)+' · No '+esc(c.no_count===undefined?'not reported':c.no_count)+' · Other '+esc(c.other_count===undefined?'not reported':c.other_count)+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(v.source))+'">Original bill evidence ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching recorded vote tallies have been captured in this bounded subset. Do not assume that no votes took place.</p></div>';
+  }
+  function renderFederalBills(){
+    var rows=((data.legislation||{}).federalBillCandidates)||[];
+    var q=document.getElementById('billQuery').value.trim().toLowerCase();
+    var topic=document.getElementById('billTopic').value;
+    var selected=rows.filter(function(r){return (!topic||r.issueClass===topic)&&(!q||[r.id,r.billId,r.title,r.sponsorName,r.sponsorState].join(' ').toLowerCase().includes(q))});
+    set('billCount',selected.length+' of '+rows.length+' source-indexed bills');
+    document.getElementById('billList').innerHTML=selected.length?selected.map(function(r){
+      var category=r.issueClass==='redistricting_specific_title'?'Redistricting title':r.issueClass==='broader_voting_or_elections_title'?'Voting/elections title':'Search candidate';
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(r.billId.toUpperCase())+'</span><span class="tag warn">'+esc(category)+'</span></div><h3>'+esc(r.title)+'</h3><p>Reported sponsor: <strong>'+esc(r.sponsorName||'Not indexed')+'</strong> · '+esc(r.sponsorParty||'')+' '+esc(r.sponsorState||'')+'</p><p class="muted">Introduced: '+esc(r.introducedAt||'Not indexed')+' · Indexed stage: '+esc(r.legislativeStage||'Not verified')+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(r.source))+'">Original Congress.gov bill record ↗</a></article>';
+    }).join(''):'<article class="card"><p>No matching federal bills indexed. A missing result here is not evidence that a bill does not exist.</p></article>';
+  }
+  function renderExecutives(){
+    var rows=((data.people||{}).stateExecutives)||[];
+    var q=document.getElementById('executiveQuery').value.trim().toLowerCase();
+    var chosen=rows.filter(function(x){return !q||[x.name,x.state,x.role,x.party].join(' ').toLowerCase().includes(q)});
+    set('executiveCount',chosen.length+' source-indexed office records');
+    document.getElementById('executiveList').innerHTML=chosen.length?chosen.slice(0,150).map(function(x){
+      return '<article class="card"><div class="meta"><span class="tag">'+esc(x.state)+'</span><span class="tag warn">Unreviewed registry</span></div><h3>'+esc(x.name)+'</h3><p>'+esc(x.party)+' · '+esc(String(x.role).replace(/_/g,' '))+'</p><a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(x.source))+'">Original public source ↗</a></article>';
+    }).join(''):'<article class="card"><p>No source-indexed state executives matched, or ingestion is still pending.</p></article>';
+  }
+  var judicialData=null,judiciaryBusy=false;
+  function renderJudiciary(){
+    var rows=judicialData||[],q=document.getElementById('judgeQuery').value.trim().toLowerCase();
+    var onlyNoTerm=document.getElementById('judgeStatus').value==='no-termination';
+    var selected=rows.filter(function(x){return (!onlyNoTerm||!x.terminationDate)&&(!q||[x.name,x.court,x.appointingPresident,x.presidentParty,x.seatId].join(' ').toLowerCase().includes(q))});
+    set('judgeCount',selected.length+' of '+rows.length+' appointment records');
+    var ordered=selected.slice().sort(function(a,b){return (b.commissionDate||'').localeCompare(a.commissionDate||'')}).slice(0,100);
+    document.getElementById('judgeList').innerHTML=ordered.length?ordered.map(function(x){
+      return '<article class="card"><div class="meta"><span class="tag">FJC appointment</span><span class="tag warn">Source-indexed</span></div><h3>'+esc(x.name)+'</h3><p>'+esc(x.court)+'</p><p>Appointed by: <b>'+esc(x.appointingPresident)+'</b> · '+esc(x.presidentParty||'Party not indexed')+'</p><p class="muted">Nominated: '+esc(x.nominationDate||'Not recorded')+' · Confirmed: '+esc(x.confirmationDate||'Not recorded')+' · Commissioned: '+esc(x.commissionDate||'Not recorded')+'</p><p class="muted">Termination: '+esc(x.terminationDate||'Not recorded')+' · Seat '+esc(x.seatId||'not indexed')+'</p><a class="source" href="'+esc(safe(x.source))+'" target="_blank" rel="noopener noreferrer">FJC judge biography ↗</a></article>';
+    }).join(''):'<div class="card"><p>No matching appointments are indexed for this filter.</p></div>';
+  }
+  function loadJudiciary(){
+    if(judicialData){renderJudiciary();return}
+    if(judiciaryBusy)return;
+    judiciaryBusy=true;
+    set('judgeStatusText','Retrieving compact official FJC appointment export from GitHub...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/judiciary/fjc-appointments.json',{cache:'force-cache'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.schema!=='power-atlas.fjc.article-iii-appointments.v1'||!Array.isArray(j.appointments))throw Error('FJC schema mismatch');
+        judicialData=j.appointments;set('judgeStatusText','Official-source FJC appointment archive · records require independent claim verification');renderJudiciary()
+      }).catch(function(e){set('judgeStatusText','FJC appointment file is not yet published: '+e.message)})
+      .finally(function(){judiciaryBusy=false});
+  }
+  function renderElections(){
+    var items=((data.elections||{}).houseStateYears)||[];
+    var audit=((data.elections||{}).house2024KeyAudit)||{};
+    var unopposed=((data.elections||{}).house2024UnopposedStatusOnly)||[];
+    var representation=((data.elections||{}).representationByStateYear)||[];
+    var representationById={};representation.forEach(function(row){representationById[row.id]=row});
+    var select=document.getElementById('electionYear');
+    var years=[...new Set(items.map(function(x){return x.year}))].sort(function(a,b){return b-a});
+    var chosen=select.value;
+    if(years.length && years.map(String).indexOf(chosen)<0){chosen=String(years[0])}
+    select.innerHTML=years.map(function(y){return '<option value="'+esc(y)+'" '+(String(y)===chosen?'selected':'')+'>'+esc(y)+'</option>'}).join('')||'<option value="">Not collected</option>';
+    var current=items.filter(function(x){return String(x.year)===chosen});
+    set('electionCount',current.length+' state-year entries');
+    var auditHtml=String(chosen)==='2024' && audit.expectedCensusDistrictKeys?
+      '<h3>2024 district-key coverage · '+esc(audit.accountedForDistrictKeys)+' of '+esc(audit.expectedCensusDistrictKeys)+'</h3>'+
+      '<p>'+esc(audit.observedMEDSLDistrictKeys)+' districts have derived vote rows; '+esc(audit.officialUnopposedStatusOnlyKeys)+' are documented as elected unopposed without a reported general-election vote total. '+esc(audit.missingCount)+' unresolved district keys.</p>'+
+      '<p class="note">No zero votes were invented for uncontested seats. Key coverage does not verify vote totals or map fairness. <a class="source" href="https://clerk.house.gov/member_info/electionInfo/2024/statistics2024.pdf" target="_blank" rel="noopener noreferrer">Official House Clerk 2024 statistics ↗</a></p>':
+      '<p>2024 district-key reconciliation is not available for this year.</p>';
+    document.getElementById('electionAudit').innerHTML=auditHtml;
+    document.getElementById('electionList').innerHTML=current.length?current.map(function(x){
+      var d=x.democraticVotes||0,r=x.republicanVotes||0,t=d+r;
+      var share=t>0?100*d/t:0;
+      var statusRows=String(chosen)==='2024'?unopposed.filter(function(r){return r.state===x.state}):[];
+      var statusNote=statusRows.length?'<p class="note">'+esc(statusRows.length)+' unopposed district(s) with no reported vote total: '+statusRows.map(function(r){return esc(r.candidate)+' ('+esc(r.state)+'-'+esc(r.district)+')'}).join(', ')+'</p>':'';
+      var gap=representationById['representation-'+chosen+'-'+x.state];
+      var descriptiveGap=gap?(gap.comparableOnIndexedReturns?
+        '<p class="note"><strong>Observed D seat share:</strong> '+esc(gap.democraticObservedSeatSharePct)+'% · <strong>D seat minus two-party vote share:</strong> '+(gap.observedSeatMinusVotePctPoints>0?'+':'')+esc(gap.observedSeatMinusVotePctPoints)+' percentage points. Descriptive only, not a map-bias or misconduct score.</p>':
+        '<p class="note"><strong>Seat-vote comparison withheld:</strong> incomplete contested returns or officially documented unopposed district(s). No unsupported seats or vote totals were imputed.</p>'):'';
+
+      return '<article class="card"><div class="meta"><span class="tag">State '+esc(x.state)+'</span><span class="tag warn">Derived / unreviewed</span></div><h3>'+esc(x.state)+' · '+esc(x.year)+'</h3><p>'+esc(x.districts)+' districts indexed; '+esc(x.contestedTwoPartyDistricts)+' with both major parties reporting votes.</p><small>Democratic two-party vote share (not map bias)</small><div class="money">'+(t?share.toFixed(1)+'%':'Not available')+'</div><div class="bar"><div class="fill" style="width:'+Math.max(0,Math.min(100,share))+'%"></div></div><p>D votes: '+d.toLocaleString('en-US')+' · R votes: '+r.toLocaleString('en-US')+'</p>'+statusNote+descriptiveGap+'</article>';
+    }).join(''):'<div class="card"><p>Election data is not yet published in the compact feed. Check the ingestion and validation workflow; no zero values are assumed.</p></div>';
+  }
+  var districtGeo=null,geoStatus='idle',mapLoadedEdition='';
+  function toGeometries(shape){
+    return shape.type==='Polygon'?[shape.coordinates]:shape.coordinates;
+  }
+  function renderMap(){
+    if(!districtGeo)return;
+    var fips=document.getElementById('districtState').value;
+    var features=(districtGeo.features||[]).filter(function(f){return f.properties&&f.properties.STATEFP===fips});
+    var edition=document.getElementById('districtCongress').value;
+    var holder=document.getElementById('districtMap');
+    if(!features.length){holder.innerHTML='<p class="muted">No map geometry indexed for this state.</p>';return}
+    var longitude=function(lon){return fips==='02'&&lon<0?lon+360:lon};
+    var minx=Infinity,miny=Infinity,maxx=-Infinity,maxy=-Infinity;
+    features.forEach(function(f){toGeometries(f.geometry).forEach(function(poly){poly.forEach(function(ring){ring.forEach(function(p){
+      var x=longitude(p[0]),y=p[1];if(x<minx)minx=x;if(x>maxx)maxx=x;if(y<miny)miny=y;if(y>maxy)maxy=y;
+    })})})});
+    var width=Math.max(0.1,maxx-minx),height=Math.max(0.1,maxy-miny);
+    var scale=Math.min(920/width,550/height),left=(1000-width*scale)/2,top=(620-height*scale)/2;
+    var paths=features.map(function(f){
+      var rings=toGeometries(f.geometry),segments=[];
+      rings.forEach(function(poly){poly.forEach(function(ring){if(ring.length<3)return;
+        segments.push(ring.map(function(p,i){
+          var x=left+(longitude(p[0])-minx)*scale,y=top+(maxy-p[1])*scale;
+          return (i?'L':'M')+x.toFixed(1)+' '+y.toFixed(1)
+        }).join(' ')+' Z');
+      })});
+      var cd=f.properties['CD'+edition+'FP'];
+      var label=cd==='00'?'At-large district':'Congressional district '+cd;
+      return '<path tabindex="0" role="button" aria-label="'+esc(label)+'" data-geoid="'+esc(f.id)+'" d="'+segments.join(' ')+'"><title>'+esc(label)+'</title></path>';
+    });
+    holder.innerHTML='<svg id="districtSvg" viewBox="0 0 1000 620" role="group" aria-label="Generalized Census congressional district shapes">'+paths.join('')+'</svg>';
+    set('mapStatus',features.length+' congressional district geometry records · '+edition+'th Congress · display-only simplification');
+    holder.querySelectorAll('path').forEach(function(path){
+      function pick(){holder.querySelectorAll('path').forEach(function(p){p.classList.remove('picked')});path.classList.add('picked');
+        set('districtSelected','Selected Census district GEOID '+path.getAttribute('data-geoid')+' · generalized cartographic boundaries, not legal parcel mapping');
+      }
+      path.addEventListener('click',pick);
+      path.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick()}});
+    });
+  }
+  function loadMaps(){
+    var edition=document.getElementById('districtCongress').value;
+    if(geoStatus==='ready'&&mapLoadedEdition===edition){renderMap();return}
+    if(geoStatus==='loading')return;
+    geoStatus='loading';
+    set('mapStatus','Loading the compact Census '+edition+'th Congressional District boundaries...');
+    fetch('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/geography/districts-'+edition+'.geojson',{cache:'force-cache'})
+      .then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()})
+      .then(function(j){if(j.type!=='FeatureCollection'||!Array.isArray(j.features))throw Error('Map format mismatch');
+        districtGeo=j;mapLoadedEdition=edition;geoStatus='ready';renderMap()})
+      .catch(function(e){geoStatus='idle';set('mapStatus','Map unavailable: '+e.message+'. Original Census source links remain below.')});
+  }
+  function renderStates(){
+    var states=data.states||[];
+    var authorities=((data.officialElectionAuthorities||{}).records)||[];
+    var authorityByState={};
+    authorities.forEach(function(a){authorityByState[a.state]=a});
+    var districtState=document.getElementById('districtState'),chosen=districtState.value||'37';
+    districtState.innerHTML=states.map(function(s){return '<option value="'+esc(s.fips)+'" '+(s.fips===chosen?'selected':'')+'>'+esc(s.name)+'</option>'}).join('');
+    document.getElementById('stateList').innerHTML=states.length?states.map(function(s){return '<div class="card"><div class="meta"><span class="tag">FIPS '+esc(s.fips)+'</span><span class="tag warn">Boundary source only</span></div><h3>'+esc(s.name)+'</h3><p>119th and 116th congressional maps · compact geometry available above</p><a class="source" href="'+esc(safe(s.districtMapSource))+'" target="_blank" rel="noopener noreferrer">Census district file ↗</a>'+(authorityByState[s.postal]?
+     '<p class="note"><span class="tag warn">Certified election canvass not retrieved</span></p><a class="source" href="'+esc(safe(authorityByState[s.postal].electionOfficeURL))+'" target="_blank" rel="noopener noreferrer">Official state election authority ↗</a>':'<p class="note">Election authority not indexed in source registry</p>')+'</div>'}).join(''):'<article class="card"><p>Census state source index is being collected; no polygons are stored in this repository.</p></article>';
+  }
+  function gaps(items){return (items||[]).map(function(x){return '<div class="coverage">○ '+esc(String(x).replace(/_/g,' '))+'</div>'}).join('')||'<p>No coverage report available.</p>'}
+  function loadSixGapEvidence(){
+    var source='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/coverage-six-domains.json';
+    var labels={
+      state_campaign_finance:'State campaign finance',
+      state_roll_calls:'State legislative roll calls',
+      state_legislative_district_polygons_and_legal_boundary_history:'State legislative boundaries & legal map history',
+      lower_court_litigation_dockets_and_state_cases:'Lower-court dockets & state cases',
+      state_judicial_selection_and_election_outcomes:'Judicial selection & election outcomes',
+      statewide_local_returns_and_official_vote_reconciliation:'Local returns & official vote reconciliation'
+    };
+    var context={
+      state_campaign_finance:'Washington PDC 2020, 2022 and 2024 grouped financial summaries ingested without personal contributor lists; original filings and commercial licensing remain unverified.',
+      state_roll_calls:'Washington 2023–24: 56 official roll calls and 4,017 legislator positions verified; the full biennium and other states remain outstanding.',
+      state_legislative_district_polygons_and_legal_boundary_history:'Original Census 2024 district shapefiles indexed for all 99 chambers; earlier plans, court revisions and legal effective dates remain incomplete.',
+      lower_court_litigation_dockets_and_state_cases:'State trial-court/county docket records still require jurisdiction-specific lawful access.',
+      state_judicial_selection_and_election_outcomes:'North Carolina 2024 judicial-candidate tallies collected; seat/selection history and individual certification remain incomplete.',
+      statewide_local_returns_and_official_vote_reconciliation:'North Carolina 2024 precinct returns cover all 100 counties; four certified canvass differences remain unresolved. Other states and years outstanding.'
+    };
+    fetch(source,{cache:'no-store'})
+      .then(function(r){if(!r.ok)throw new Error('six-gap evidence '+r.status);return r.json()})
+      .then(function(d){
+        if(!Array.isArray(d.records)||d.records.length!==300)throw new Error('Expected 50 × 6 per-state source evidence records');
+        var states=Array.from(new Set(d.records.map(function(x){return x.state}))).sort();
+        if(states.length!==50)throw new Error('Incomplete per-state audit');
+        var select=document.getElementById('gapStateSelect');
+        var prior=select.value||'NJ';
+        select.innerHTML=states.map(function(code){var r=d.records.find(function(x){return x.state===code});
+          return '<option value="'+esc(code)+'"'+(code===prior?' selected':'')+'>'+esc(r.stateName)+' ('+esc(code)+')</option>';
+        }).join('');
+        function detail(){
+          var code=select.value,records=d.records.filter(function(x){return x.state===code});
+          if(records.length!==6){set('gapStateStatus','Incomplete source audit for '+code);return}
+          var selected=records[0].stateName;
+          set('gapStateStatus',selected+' · '+records.filter(function(x){return x.officialRecordsSourceLinked}).length+'/6 domains with original records; '+records.filter(function(x){return x.domainFullyComplete}).length+'/6 nationally defined domains complete.');
+          document.getElementById('gapStateDetails').innerHTML=records.map(function(x){
+            var link=x.sourceDiscovery&&x.sourceDiscovery.electionOfficeURL;
+            var polygon=x.sourceDiscovery&&x.sourceDiscovery.current2024CensusZIPs||[];
+            var urls=polygon.map(function(y){return '<a class="source" target="_blank" rel="noopener noreferrer" href="'+esc(safe(y.url))+'">Official Census '+esc(y.chamber)+' plan</a>'}).join(' · ');
+            return '<article class="card"><div class="meta"><span class="tag'+(x.domainFullyComplete?'':' warn')+'">'+(x.domainFullyComplete?'Complete':x.officialRecordsSourceLinked?'Partially evidenced':'Source not verified')+'</span></div>'+
+              '<h3>'+esc(labels[x.domain]||x.domain)+'</h3>'+
+              '<p>'+Number(x.recordsIngested||0).toLocaleString()+' original records indexed · '+esc(x.coverageStatus)+'</p>'+
+              '<p class="note"><b>Unresolved:</b> '+esc(x.blockingDependency||'Independent completeness and reconciliation verification pending')+'</p>'+
+              '<p class="note"><b>Validation:</b> '+esc(x.certificationStatus||'not verified')+'; '+esc(x.reconciliationStatus||'not run')+'</p>'+
+              (link?'<a class="source" href="'+esc(safe(link))+'" target="_blank" rel="noopener noreferrer">Official state election office</a>':'')+
+              (urls?'<div>'+urls+'</div>':'')+'</article>';
+          }).join('');
+        }
+        select.onchange=detail;
+        detail();
+        if(d.schema!=='power-atlas.six-domain-coverage.v1'||d.jurisdictions!==50||!Array.isArray(d.domains)||d.domains.length!==6)throw new Error('unrecognized six-gap evidence');
+        var rows=d.domains.map(function(k){
+          var c=d.coverage[k]||{},verified=Number(c.sourceVerifiedJurisdictions)||0,completed=Number(c.jurisdictionsCompleted)||0;
+          var count=Number(c.officialSourceRecordsIngested)||0;
+          var status=completed===50?'Complete':verified>0?'Partial':'Not source-verified';
+          return '<div class="coverage"><strong>'+esc(labels[k]||k)+'</strong> '+
+            '<span class="tag'+(status==='Complete'?'':' warn')+'">'+esc(status)+'</span>'+
+            '<div class="muted">'+verified+'/50 states with record-level sources; '+completed+'/50 complete; '+count.toLocaleString()+' source records indexed.</div>'+
+            '<div class="note">'+esc(context[k]||'Evidence review remains incomplete.')+'</div></div>';
+        }).join('');
+        var overview=document.getElementById('gapOverview'),quality=document.getElementById('gapQuality');
+        if(overview)overview.innerHTML=rows;
+        if(quality)quality.innerHTML=rows;
+      })
+      .catch(function(err){
+        var block=document.getElementById('gapOverview');
+        if(block)block.insertAdjacentHTML('beforeend','<p class="muted">Live coverage evidence unavailable; legacy gap list shown. <a href="'+esc(source)+'" target="_blank" rel="noopener noreferrer">View source register</a>.</p>');
+      });
+  }
+  function render(){
+    set('countRecords',data.records.length);set('countStates',(data.states||[]).length);
+    set('countMoney',((data.finance||{}).committeeTotals||[]).length);set('countLinks',(data.relationships||[]).length);
+    var uncovered=(data.coverage||{}).uncovered||[];
+    document.getElementById('gapOverview').innerHTML=gaps(uncovered);
+    document.getElementById('gapQuality').innerHTML=gaps(uncovered);
+    loadSixGapEvidence();
+    var stateList=((data.people||{}).stateLegislatorIndex)||[];
+    var selector=document.getElementById('stateLegislatorState'),prev=selector.value||'NJ';
+    selector.innerHTML=stateList.map(function(x){return '<option value="'+esc(x.state)+'" '+(x.state===prev?'selected':'')+'>'+esc(x.state)+' · '+esc(x.members)+' members</option>'}).join('')||'<option value="">No state roster indexed</option>';
+    var states=[...new Set(data.records.map(function(x){return x.state||''}).filter(Boolean))].sort();
+    document.getElementById('stateFilter').innerHTML='<option value="">All states</option>'+states.map(function(x){return '<option value="'+esc(x)+'">'+esc(x)+'</option>'}).join('');
+    renderRecords();renderFinance();renderLobbying();renderPeople();renderExecutives();renderFederalBills();renderStateBills();renderEvidenceAudit();renderElections();renderStates();
+  }
+  var hpLoaded=false;
+  function loadGridlock(){
+    if(hpLoaded)return;
+    hpLoaded=true;
+    var hpUrl='https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/hyperpartisanship/app-summary-v1.json';
+    fetch(hpUrl,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(d){
+      if(d.schema!=='power-atlas.hyperpartisanship.app-summary.v1')throw Error('Unsupported research schema');
+      var c=d.coverage;
+      var pct=function(v){return (v===null||v===undefined)?'Unavailable':(100*v).toFixed(1)+'%'};
+      var num=function(v){return Number(v).toLocaleString('en-US')};
+      var get=function(n,ch){return d.voting.find(function(v){return v.congress===n&&v.chamber===ch})};
+      var metric=function(v,title){return '<div class="metric"><strong>'+esc(v)+'</strong><span>'+esc(title)+'</span></div>'};
+      document.getElementById('hpMetrics').innerHTML=
+        metric(pct(get(100,'House').strictPartyOppositionShare),'House: 100th Congress')+
+        metric(pct(get(118,'House').strictPartyOppositionShare),'House: 118th Congress')+
+        metric(pct(get(100,'Senate').strictPartyOppositionShare),'Senate: 100th Congress')+
+        metric(pct(get(118,'Senate').strictPartyOppositionShare),'Senate: 118th Congress');
+      var roll=d.voting.filter(function(v){return v.congress<119}).map(function(v){
+        var label=v.congress+'th '+v.chamber;
+        if(!v.observed)return '<div class="coverage">'+esc(label)+' · <span class="tag warn">Source missing</span></div>';
+        var val=Math.max(0,Math.min(100,100*v.strictPartyOppositionShare));
+        return '<div class="coverage">'+esc(label)+' <b>'+pct(v.strictPartyOppositionShare)+'</b><div class="bar"><div class="fill" style="width:'+val.toFixed(3)+'%"></div></div></div>';
+      }).join('');
+      document.getElementById('hpVoteTrend').innerHTML=roll;
+      document.getElementById('hpCosponsor').innerHTML=
+        metric(pct(c.knownCrossPartyShareClassified),'Of classifiable H.R./S. bills with active opposite-party cosponsor')+
+        '<div class="coverage">Documented cross-party: <b>'+num(c.crossPartyBills119)+'</b></div>'+
+        '<div class="coverage">Classified no cross-party: <b>'+num(c.noCrossPartyBills119)+'</b></div>'+
+        '<div class="coverage">Identity unresolved: <b>'+num(c.unknownPartyBills119)+'</b></div>'+
+        '<div class="coverage">Total bills: <b>'+num(c.bills119)+'</b></div>';
+      var early=d.legislation.find(function(x){return x.congress===102});
+      var late=d.legislation.find(function(x){return x.congress===118});
+      document.getElementById('hpLawComparison').innerHTML=
+        '<div class="coverage">Substantive laws before Election Day, 102nd: <b>'+num(early.substantive)+'</b></div>'+
+        '<div class="coverage">Substantive laws before Election Day, 118th: <b>'+num(late.substantive)+'</b></div>'+
+        '<div class="coverage">Total cloture motions (all types), 102nd: <b>'+num(early.clotureAllTypes)+'</b></div>'+
+        '<div class="coverage">Total cloture motions (all types), 118th: <b>'+num(late.clotureAllTypes)+'</b></div>';
+      document.getElementById('hpLimitations').textContent=d.limitations.join(' · ');
+      set('hpStatus','Published source-backed research snapshot · '+d.asOf+' · '+c.observedCompletedChamberCongresses+'/'+c.totalCompletedChamberCongresses+' historical chamber-periods observed');
+    }).catch(function(e){hpLoaded=false;set('hpStatus','Research feed unavailable: '+e.message+' · Source data remain available in GitHub')});
+  }
+  document.querySelectorAll('[data-tab]').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('[data-tab]').forEach(function(x){x.setAttribute('aria-selected',String(x===b))});
+    document.querySelectorAll('[data-panel]').forEach(function(p){p.classList.toggle('active',p.dataset.panel===b.dataset.tab)});
+    if(b.dataset.tab==='gridlock')loadGridlock();
+    if(b.dataset.tab==='states')loadMaps();
+    if(b.dataset.tab==='quality')loadCompletionGates();
+    if(b.dataset.tab==='state-legislators')loadStateLegislators();
+    if(b.dataset.tab==='judiciary')loadJudiciary();
+    if(b.dataset.tab==='committees')loadCommittees();
+    if(b.dataset.tab==='network')loadCommittees();
+    if(b.dataset.tab==='finance'){loadFECLinks();loadPACs();}
+  })});
+  document.getElementById('pacQuery').addEventListener('input',renderPACs);
+  document.getElementById('pacCycle').addEventListener('change',renderPACs);
+  document.getElementById('fecLinkQuery').addEventListener('input',renderFECLinks);
+  document.getElementById('fecLinkYear').addEventListener('change',renderFECLinks);
+  document.getElementById('networkState').addEventListener('change',function(){document.getElementById('networkCommittee').value='';renderNetwork()});
+  document.getElementById('networkCommittee').addEventListener('change',renderNetwork);
+  document.getElementById('committeeQuery').addEventListener('input',renderCommittees);
+  document.getElementById('committeeTopic').addEventListener('change',renderCommittees);
+  document.getElementById('judgeQuery').addEventListener('input',renderJudiciary);
+  document.getElementById('judgeStatus').addEventListener('change',renderJudiciary);
+  document.getElementById('stateBillQuery').addEventListener('input',renderStateBills);
+  document.getElementById('stateBillTopic').addEventListener('change',renderStateBills);
+  document.getElementById('billQuery').addEventListener('input',renderFederalBills);
+  document.getElementById('billTopic').addEventListener('change',renderFederalBills);
+  document.getElementById('executiveQuery').addEventListener('input',renderExecutives);
+  document.getElementById('stateLegislatorQuery').addEventListener('input',renderStateLegislators);
+  document.getElementById('stateLegislatorState').addEventListener('change',loadStateLegislators);
+  document.getElementById('districtState').addEventListener('change',renderMap);
+  document.getElementById('districtCongress').addEventListener('change',function(){geoStatus='idle';loadMaps()});
+  document.getElementById('electionYear').addEventListener('change',renderElections);
+  document.getElementById('peopleQuery').addEventListener('input',renderPeople);
+  document.getElementById('peopleChamber').addEventListener('change',renderPeople);
+  document.getElementById('query').addEventListener('input',renderRecords);
+  document.getElementById('stateFilter').addEventListener('change',renderRecords);
+  fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw Error('HTTP '+r.status);return r.json()}).then(function(json){
+    if(json.schema!=='power-atlas.frontend.v1'||!Array.isArray(json.records))throw Error('Unsupported feed schema');
+    data=json;render();set('connection','Connected to the live GitHub corpus · Fetched '+new Date().toLocaleString()+'. Review status applies to all indexed records.');
+  }).catch(function(e){set('connection','Public research feed is temporarily unavailable ('+e.message+'). Open the GitHub data link below; the existing Power Atlas application is unaffected.')});
+  var decayScript=document.createElement('script');
+  decayScript.src='institutional-decay.js';
+  decayScript.onerror=function(){var el=document.getElementById('idStatus');if(el)el.textContent='Research component failed to load. Inspect the GitHub evidence links below.';};
+  document.head.appendChild(decayScript);
+})();
+</script>
+<script src="political-authenticity.js"></script>
+<script src="campaign-promises.js"></script>
+<script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script>
+<script>if(location.hash&&location.hash!=="#ra-evidence"){document.getElementById("ra-evidence").open=true}</script>
+</body></html>
