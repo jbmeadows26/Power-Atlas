@@ -118,7 +118,10 @@ class AllIssueLocalEvidenceTests(unittest.TestCase):
         self.assertIn("No location has been assumed",s)
         self.assertIn("No data has been inferred",s)
         self.assertNotIn("navigator.geolocation",s)
-        self.assertNotIn("localStorage",s)
+        # Browser-only remembered ZIP is now an approved explicit user setting.
+        self.assertIn('ZIP_PREFERENCE_KEY="power-atlas:visitor-zip:v1"',s)
+        self.assertIn("saveHomeZIP(zip)",s)
+        self.assertNotIn("sessionStorage",s)
 
 if __name__=="__main__":
     unittest.main()
