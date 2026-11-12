@@ -911,3 +911,65 @@ html[data-vs6="active"] body[data-pa-page="overview"].vs6-topic-mode.vs6-topic-e
 @media(prefers-reduced-motion:reduce){
  #what .pa-coverage--integrated .pa-coverage-card:hover{transform:none}
 }
+
+/* Readable percent comparisons: preserve source values, encode both on one labeled zero-based axis. */
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison{
+ display:grid;gap:10px;min-width:0;margin:9px 0 8px;
+}
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-row,
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-axis{
+ display:grid;grid-template-columns:70px minmax(0,1fr) 60px;align-items:center;gap:8px;min-width:0;
+}
+html[data-vs6="active"] .vs6-zip-comparison-name{
+ font-size:.74rem!important;line-height:1.2;font-weight:850;color:#315a59;
+}
+html[data-vs6="active"] .vs6-zip-track{
+ position:relative;display:block;min-width:0;height:17px;overflow:hidden;
+ background:#e4ece7;border-left:1px solid #9cb6ad;border-radius:3px;
+}
+html[data-vs6="active"] .vs6-zip-fill{
+ display:block;height:100%;border-radius:2px;max-width:100%;
+ background:var(--zip-accent);
+}
+html[data-vs6="active"] .vs6-zip-fill--us{background:#748e96}
+html[data-vs6="active"] .vs6-zip-comparison-value{
+ display:block;min-width:0;text-align:right;color:#143e43;
+ font-size:.81rem;font-weight:900;font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+html[data-vs6="active"] .vs6-zip-axis-ticks{
+ grid-column:2;display:flex;justify-content:space-between;gap:3px;
+ font-size:.68rem;line-height:1.4;font-weight:700;color:#496d6a;
+ font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-compare{
+ min-height:0;font-size:.73rem;line-height:1.45;gap:7px;
+}
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-tile-title{
+ font-size:.75rem;min-height:0;line-height:1.4;
+}
+html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-tile-label{
+ font-size:.7rem;
+}
+@media(max-width:720px){
+ html[data-vs6="active"] body[data-pa-page="overview"] .vs6-topic-cover .vs6-zip-grid{
+  grid-template-columns:minmax(0,1fr)!important;
+ }
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing){
+  grid-column:1/-1;gap:8px;padding:15px 14px;
+ }
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison{
+  gap:10px;margin:8px 0;
+ }
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-row,
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-axis{
+  grid-template-columns:58px minmax(0,1fr) 54px;gap:6px;
+ }
+}
+@media(max-width:365px){
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-row,
+ html[data-vs6="active"] .vs6-zip-tile:not(.vs6-zip-tile--housing) .vs6-zip-comparison-axis{
+  grid-template-columns:53px minmax(0,1fr) 53px;gap:5px;
+ }
+ html[data-vs6="active"] .vs6-zip-comparison-value{font-size:.76rem}
+ html[data-vs6="active"] .vs6-zip-axis-ticks{font-size:.61rem}
+}

@@ -43,14 +43,22 @@ class ZIPVisualContextTests(unittest.TestCase):
         style=(UNIFIED/"visual-story-v6.css").read_text()
         for token in ("attachZIPVisual(section);","vs6-zip-chart","poweratlas:zip-visual-context",
                       "vs6-zip-track","vs6-zip-fill--us","vs6-zip-tile-value",
-                      "vs6-zip-tile-value--unavailable","ZIP-area","No estimate inferred.",
+                      "vs6-zip-tile-value--unavailable","ZIP area","No estimate inferred.",
+                      "vs6-zip-comparison-value","vs6-zip-axis-ticks","percentage points",
                       "vs6-zip-method","vs6-zip-detail"):
             with self.subTest(token=token):
                 self.assertIn(token,script)
         self.assertIn("if(documentPath!==\"my-life.html\")return;",script)
         self.assertIn("if(open?.getAttribute(\"aria-expanded\")===\"false\")open.click()",script)
-        self.assertIn("if(have)",script)
-        self.assertIn("@media(max-width:570px)",style)
+        self.assertIn("if(validLocal)",script)
+        self.assertIn("Math.ceil(largest*1.08/5)*5",script,
+                      "Bar length must be relative to a labeled axis, not the observed max")
+        self.assertIn("m.localValue/ceiling",script)
+        self.assertIn("m.usValue/ceiling",script)
+        self.assertNotIn("const scale=Math.max(m.localValue",script,
+                         "Do not normalize the largest observed percentage to 100% width")
+        self.assertIn("@media(max-width:720px)",style)
+        self.assertIn("grid-template-columns:minmax(0,1fr)!important",style)
 
     @unittest.skipUnless(shutil.which("node"),"Node.js unavailable")
     def test_shared_javascript_syntax(self):

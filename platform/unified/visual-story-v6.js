@@ -417,16 +417,25 @@ function attachZIPVisual(section){
    top.append(E("span","vs6-zip-tile-number",String(i+1).padStart(2,"0")),E("strong","vs6-zip-tile-label",t.label));
    const local=E("strong","vs6-zip-tile-value","—");
    const title=E("span","vs6-zip-tile-title",t.desc);
+   // One zero-based numerical axis per metric, shared by ZIP and U.S.
+   // Never normalize either bar to the largest observation.
    const chart=E("div","vs6-zip-comparison");
+   chart.setAttribute("role","img");
    const own=E("div","vs6-zip-comparison-row");
-   const ownLabel=E("span",null,"ZIP area");
+   const ownLabel=E("span","vs6-zip-comparison-name","ZIP area");
    const ownTrack=E("span","vs6-zip-track");const ownFill=E("span","vs6-zip-fill");
-   ownTrack.append(ownFill);own.append(ownLabel,ownTrack);
+   const ownValue=E("strong","vs6-zip-comparison-value","—");
+   ownTrack.append(ownFill);own.append(ownLabel,ownTrack,ownValue);
    const us=E("div","vs6-zip-comparison-row");
-   const usLabel=E("span",null,"U.S.");
+   const usLabel=E("span","vs6-zip-comparison-name","U.S.");
    const usTrack=E("span","vs6-zip-track");const usFill=E("span","vs6-zip-fill vs6-zip-fill--us");
-   usTrack.append(usFill);us.append(usLabel,usTrack);
-   chart.append(own,us);
+   const usValue=E("strong","vs6-zip-comparison-value","—");
+   usTrack.append(usFill);us.append(usLabel,usTrack,usValue);
+   const axis=E("div","vs6-zip-comparison-axis");
+   const ticks=E("div","vs6-zip-axis-ticks");
+   ticks.append(E("span",null,"0%"),E("span",null,"—"),E("span",null,"—"));
+   axis.append(ticks);
+   chart.append(own,us,axis);
    const compare=E("small","vs6-zip-compare","Select a ZIP to compare");
    const detail=E("button","vs6-zip-detail","Explore this issue ↗");detail.type="button";
    detail.addEventListener("click",()=>{
@@ -471,7 +480,7 @@ function attachZIPVisual(section){
    if(bedrooms)tile.append(bedrooms);
    tile.append(chart,compare,detail);
    grid.append(tile);
-   nodes.set(t.key,{local,compare,chart,ownFill,usFill,bedrooms,typeSelect});
+   nodes.set(t.key,{local,compare,chart,ownFill,usFill,ownValue,usValue,ticks,us,bedrooms,typeSelect});
  });
  function paint(event){
    const d=event?.detail;if(!d||!/^\d{5}$/.test(d.zip||""))return;
@@ -493,22 +502,46 @@ function attachZIPVisual(section){
        }
        continue;
      }
-     const have=Number.isFinite(m?.localValue)&&m?.localText;
-     const hasUs=have&&Number.isFinite(m.usValue)&&m.usText;
+     const have=Number.isFinite(m?.localValue)&&Boolean(m?.localText);
+     const percentage=(m?.format==="share"||m?.format==="sumshare");
+     const validLocal=have&&percentage&&m.localValue>=0&&m.localValue<=100;
+     const hasUs=validLocal&&Number.isFinite(m.usValue)&&m.usValue>=0&&m.usValue<=100&&Boolean(m.usText);
      els.local.textContent=have?m.localText:d.status==="loading"?"…":"Unavailable";
      els.local.classList.toggle("vs6-zip-tile-value--unavailable",!have);
-     els.chart.hidden=!have;
-     if(have){
-       const scale=Math.max(m.localValue,hasUs?m.usValue:0,0.01);
-       els.ownFill.style.width=(100*m.localValue/scale).toFixed(1)+"%";
-       els.usFill.style.width=hasUs?(100*m.usValue/scale).toFixed(1)+"%":"0%";
-       els.ownFill.setAttribute("aria-label","ZIP-area "+m.localText);
-       els.usFill.setAttribute("aria-label",hasUs?"US "+m.usText:"US comparison unavailable");
-       els.chart.querySelectorAll(".vs6-zip-comparison-row")[1].hidden=!hasUs;
-       els.compare.replaceChildren(E("span",null,hasUs?"US: "+m.usText+" · same survey":"ZCTA estimate · U.S. comparison unavailable"));
-       if(m.source&&/^https:\/\//.test(m.source)){const a=E("a",null,"Source ↗");a.href=m.source;a.target="_blank";a.rel="noopener noreferrer";els.compare.append(a);}
+     // Exact values now label the bars directly; do not repeat the ZIP
+     // percentage as an unrelated oversized number above the chart.
+     els.local.hidden=validLocal;
+     els.chart.hidden=!validLocal;
+     if(validLocal){
+       // The two bars share a labeled axis that starts at zero. A rounded
+       // ceiling leaves headroom, unlike the old maximum-equals-100%-width
+       // presentation that made small survey percentages look oversized.
+       const largest=Math.max(m.localValue,hasUs?m.usValue:0);
+       const ceiling=Math.min(100,Math.max(5,Math.ceil(largest*1.08/5)*5));
+       const midpoint=ceiling/2;
+       const tick=n=>(Number.isInteger(n)?String(n):n.toFixed(1))+"%";
+       els.ticks.replaceChildren(E("span",null,"0%"),E("span",null,tick(midpoint)),E("span",null,tick(ceiling)));
+       els.ownFill.style.width=(100*m.localValue/ceiling).toFixed(2)+"%";
+       els.usFill.style.width=hasUs?(100*m.usValue/ceiling).toFixed(2)+"%":"0%";
+       els.ownValue.textContent=m.localText;
+       els.usValue.textContent=hasUs?m.usText:"";
+       els.us.hidden=!hasUs;
+       els.chart.setAttribute("aria-label",
+         t.desc+": ZIP area "+m.localText+
+         (hasUs?", United States "+m.usText:"; U.S. comparison unavailable")+
+         ". Both bars begin at zero on the same 0%–"+tick(ceiling)+" axis.");
+       const difference=hasUs?Math.abs(m.localValue-m.usValue).toFixed(1):null;
+       const delta=hasUs?
+         Number(difference)===0?"Same as U.S. · "+d.survey:
+         difference+" percentage points "+(m.localValue>m.usValue?"above":"below")+" U.S. · "+d.survey:
+         "U.S. comparison unavailable · "+d.survey;
+       els.compare.replaceChildren(E("span",null,delta));
+       if(m.source&&/^https:\/\//.test(m.source)){
+         const link=E("a",null,"Source ↗");link.href=m.source;link.target="_blank";link.rel="noopener noreferrer";els.compare.append(link);
+       }
      }else{
        els.compare.textContent=d.status==="loading"?"Retrieving verified figures…":
+         have?"Source metric is not a comparable percentage; no bar shown.":
          "This measure was not returned. No estimate inferred.";
      }
    }
