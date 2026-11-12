@@ -67,11 +67,11 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(action.get_attribute("href").endswith("take-action.html"))
         self.assert_no_horizontal_overflow()
 
-    def test_all_19_research_threads_are_discoverable(self):
+    def test_all_20_research_threads_are_discoverable(self):
         self.visit("/my-life.html")
         section = self.page.locator("#pa-coverage-discovery")
         self.assertEqual(section.count(), 1)
-        self.assertEqual(section.locator(".pa-coverage-card").count(), 19)
+        self.assertEqual(section.locator(".pa-coverage-card").count(), 20)
         self.assertTrue(self.page.locator("#what .section-head h2").is_visible(),
                         "What matters most heading must stay visible above the investigation cards")
         self.assertTrue(section.locator(".pa-coverage-card").first.is_visible(),
@@ -307,7 +307,7 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
                 self.assertTrue(header.is_visible(), name + ": brand not visible")
                 entry = self.page.locator(
-                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter")
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter, main > .bank-hero")
                 self.assertGreater(entry.count(), 0,
                     name + ": missing an approved V6 or interactive-documentary visual entry")
                 self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
