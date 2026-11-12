@@ -50,6 +50,17 @@ A story can have 3–6 scenes and may vary its visual form. Do not mechanically 
 - **Evidence drawer:** Accessible source list, dates, methods, limitations, unanswered questions and raw figures. Disclosure must remain usable by keyboard and screen readers.
 - **Action:** Relevant, bounded pathways that do not misrepresent legal rights or automatically send messages on users' behalf.
 
+## Member-contact exception — intentional, narrow
+
+The **Take Action / contact your members** flow is the **only intentionally different treatment** from the visual documentary's usual exploration panels. It stays in the same Power Atlas palette, typography, navigation, and evidence-led design. When the visitor transitions from discovery to personal advocacy, use a tactile, legible **letter/email composition** motif so the intent and next step are unmistakable.
+
+- Choose one actual office, one issue, and one bounded request; no free-text bulk campaigning.
+- Present a real email subject separately from a short, assertive-but-factual message; keep message length limited and reveal the full content before any handoff.
+- Preserve the verify-your-district warning, official source links, alternate public contact channel, and appropriate caveats for state/local issues.
+- **Temporary test mode:** route the email action into `platform/unified/contact-tester.html`, using tab-scoped `sessionStorage` solely for preview. This is an internal tester route, **not** a verified external tester plugin and **not** an email send. Do not imply delivery or fabricate recipient email addresses.
+- When user login and the actual tester provider are configured later, replace the test-only adapter only after explicit integration, secure authentication, consent, recipient validation, rate limits and delivery QA. Do not send automatically or claim connectivity until a real integration exists.
+- Deep public records, source review and other parts of Power Atlas continue using the common interactive documentary storytelling form, not separate design variants.
+
 ## Visual language
 
 - Keep the **one canonical global navigation shell**, current floating desktop pill and mobile dock. Use the existing Power Atlas brand, cream/teal/deep-ink foundation, and a single shared header; use topic accents inside the scenes.
