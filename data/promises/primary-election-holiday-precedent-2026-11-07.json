@@ -1,0 +1,42 @@
+{
+  "schema": "power-atlas.campaign-pre-election-legislative-precedent.v1",
+  "asOf": "2026-11-07",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "independentHumanReviewCount": 0,
+  "pledgeCandidatesAdded": 0,
+  "officialLegislativeDocumentsAdded": 1,
+  "relatedPledge": "2020 Democratic platform Election Day national holiday; existing candidate in prior ledger; do not count twice",
+  "evidence": [
+    {
+      "id": "US19-HR1-IH-ELECTION-DAY-HOLIDAY-PRECEDENT",
+      "country": "US",
+      "document": "H.R.1, 116th Congress, introduced House text",
+      "documentDate": "2019-01-03",
+      "source": "https://www.congress.gov/116/bills/hr1/BILLS-116hr1ih.pdf",
+      "locator": "Section 1903, page 163, Election Day Holiday",
+      "paraphrase": "The 2019 introduced bill proposed treating federal general Election Day in even-numbered years as a legal public holiday for federal-employment purposes.",
+      "classification": "pre_2020_election_legislative_precedent_not_campaign_pledge_or_enactment",
+      "uncertainty": "The provision is narrower than a universal private-sector paid holiday. Verify subsequent bill versions and legislative status separately.",
+      "competingExplanations": [
+        "Legislative sponsorship predates the 2020 platform, so post-election proposals cannot by themselves demonstrate the platform caused the policy idea.",
+        "Federal-employment holiday treatment and generally applicable federal legal-holiday designation are distinct legislative designs."
+      ],
+      "rights": "Government legislative text; store short paraphrase and source link, not a bulk reproduced document."
+    }
+  ],
+  "crossReferences": [
+    "data/promises/primary-election-holiday-discovery-2026-11-04.json",
+    "data/promises/primary-election-holiday-followup-2026-11-05.json",
+    "data/promises/primary-election-holiday-provision-audit-2026-11-06.json"
+  ],
+  "reviewRequirements": [
+    "Confirm 2019 bill introduction date and Section 1903 against official history and text.",
+    "Two independent human coders must separately assess 2020 platform pledge scope, eligibility, and outcome.",
+    "Check duplicates and source version before any denominator freeze.",
+    "Do not infer causation, motive, fulfillment or enacted status from bill introduction."
+  ]
+}
