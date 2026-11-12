@@ -5,6 +5,7 @@ on:
       - 'platform/unified/**'
       - 'data/health/sitewide-*.json'
       - 'data/housing/market-asking-rent-*.json'
+      - 'data/affordability/**'
       - 'data/consumer-practices/**'
       - 'data/consumer-class-actions/**'
       - 'data/market-power/**'
@@ -16,6 +17,7 @@ on:
       - 'platform/unified/**'
       - 'data/health/sitewide-*.json'
       - 'data/housing/market-asking-rent-*.json'
+      - 'data/affordability/**'
       - 'data/consumer-practices/**'
       - 'data/consumer-class-actions/**'
       - 'data/market-power/**'
@@ -38,6 +40,8 @@ jobs:
         run: python -m unittest discover -s tests -p 'test_product_acceptance.py' -v
       - name: Validate market asking-rent evidence and reject HUD substitution
         run: python -m unittest discover -s tests -p 'test_market_rent_accuracy.py' -v
+      - name: Verify local poverty guideline versus basic needs comparison
+        run: python -m unittest discover -s tests -p 'test_basic_needs_gap.py' -v
       - name: Check interactive presentation scripts parse
         run: |
           node --check platform/unified/qa-evidence-hub.js
@@ -45,6 +49,7 @@ jobs:
           node --check platform/unified/visual-first-v5.js
           node --check platform/unified/visual-story-v6.js
           node --check platform/unified/market-rent-primary.js
+          node --check platform/unified/basic-needs-gap.js
           node --check platform/unified/qa-monitor.js
           node --check platform/unified/api/qa-config.js
           node --check platform/unified/hud-safmr-fy2026.js
