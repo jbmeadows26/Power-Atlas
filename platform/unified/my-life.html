@@ -1342,7 +1342,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  const rememberedZIP=savedHomeZIP();
- if(rememberedZIP){$("zipInput").value=rememberedZIP;setZIPEntryVisibility(rememberedZIP);}
+ if(rememberedZIP){$("zipInput").value=rememberedZIP;if(!$("where").classList.contains("pa-zip-editing"))setZIPEntryVisibility(rememberedZIP);}
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,Boolean(hash)&&!pageSections.has(hash));
  if(rememberedZIP)lookUpZIP(rememberedZIP);
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
