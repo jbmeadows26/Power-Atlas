@@ -103,5 +103,25 @@ class ProductAcceptanceTests(unittest.TestCase):
             self.assertIn("bug-report.js", (SITE / filename).read_text(encoding="utf-8"))
 
 
+    def test_all_public_html_routes_load_shared_design_before_new_releases(self):
+        """Static inventory gate; browser screenshots remain the visual authority."""
+        pages = sorted(SITE.glob("*.html"))
+        self.assertGreaterEqual(len(pages), 27, "A research route was dropped")
+        for page in pages:
+            with self.subTest(page=page.name):
+                self.assertIn("atlas-visual-system.js", page.read_text(encoding="utf-8"),
+                    "A public route bypasses the V6 design loader")
+        css = (SITE / "visual-story-v6.css").read_text(encoding="utf-8")
+        research_css = (ROOT / "site" / "visual-story-v6.css").read_text(encoding="utf-8")
+        self.assertEqual(css, research_css, "Production frontends have competing V6 versions")
+        self.assertIn(".vs6-topic{background:var(--vs6-cream)", css)
+        self.assertNotIn(".vs6-topic{background:#122e3f", css)
+        self.assertIn("vs6-full-research", css)
+        pmx = (SITE / "political-money-story.css").read_text(encoding="utf-8")
+        self.assertIn(".vs6-topic.vs6-topic--pmx{background:var(--vs6-cream", pmx)
+        action = (SITE / "take-action.css").read_text(encoding="utf-8")
+        self.assertIn("font-size:clamp(2.45rem,5.2vw,4.6rem)", action)
+
+
 if __name__ == "__main__":
     unittest.main()
