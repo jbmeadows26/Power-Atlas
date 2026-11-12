@@ -297,7 +297,7 @@ class BrowserJourneyQA(unittest.TestCase):
 
 
     def test_all_canonical_routes_have_a_single_visible_v6_entry(self):
-        """Prevent any investigation silently reverting to a legacy site shell."""
+        """Accept approved visual-documentary chapters while rejecting legacy-only shells."""
         pages = sorted(p.name for p in (Path(__file__).resolve().parents[1] / "platform" / "unified").glob("*.html"))
         self.assertGreaterEqual(len(pages), 30)
         for name in pages:
@@ -307,9 +307,9 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
                 self.assertTrue(header.is_visible(), name + ": brand not visible")
                 entry = self.page.locator(
-                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home")
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter")
                 self.assertGreater(entry.count(), 0,
-                    name + ": missing approved V6 topic, custom V6 cover, or V6 home")
+                    name + ": missing an approved V6 or interactive-documentary visual entry")
                 self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
                 self.assert_no_horizontal_overflow()
 
