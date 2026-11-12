@@ -51,20 +51,42 @@ function contactFor(m){
  if(isHttps(m.website,true))return m.website;
  return m.chamber==="senate"?senateLookup(m.state):houseLookup(zip);
 }
-function buildMessage(){
+/* Build a genuine subject + body for review, without ever sending an email.
+   Only a local tab-scoped preview is staged when the visitor opens the tester.
+   The selected office's public website is a separate verified handoff. */
+function makeEmail(){
  const topic=issueData[currentIssue];
  const salutation=selected?("Dear "+(selected.chamber==="senate"?"Senator ":"Representative ")+(selected.last_name||displayName(selected).split(" ").slice(-1)[0])+","):"Dear Member of Congress,";
- const location=zip?"I live in ZIP code "+zip+". ":"";
- const msg="Subject: Constituent accountability request: "+topic.label+"\n\n"+salutation+"\n\n"+location+"I am requesting specific answers on "+topic.label+". "+questions[currentQuestion]+" Please respond in writing with a concrete next step or the relevant public record.";
- const limited=msg.slice(0,500);
- $("message-preview").value=limited;
- $("message-count").textContent=limited.length+" / 500 characters";
+ const location=zip?"As a constituent in ZIP "+zip+", ":"As a constituent, ";
+ const request=questions[currentQuestion];
+ const body=salutation+"\n\n"+location+
+  "I expect a clear, on-the-record answer about "+topic.label+". "+request+
+  " Please give a substantive written response with specific next steps and a timeline, not a generic acknowledgment.\n\nSincerely,\n[Your name]";
+ return {
+  subject:("Constituent accountability: "+topic.label+" — "+(currentQuestion==="meeting"?"meeting request":currentQuestion==="oversight"?"oversight":currentQuestion==="action"?"documented action":"position and votes")).slice(0,110),
+  body:body.slice(0,500),
+  recipient:selected?memberTitle(selected):"Select one member of Congress",
+  officialUrl:selected?contactFor(selected):officeFallback
+ };
+}
+function buildMessage(){
+ const email=makeEmail();
+ $("email-subject").value=email.subject;
+ $("message-preview").value=email.body;
+ $("message-count").textContent=email.body.length+" / 500 characters";
+ $("email-recipient").textContent=email.recipient;
+ $("recipient-status").textContent=selected?
+  "Choose a verified office contact channel before contacting this member.":
+  "Choose a member from the official ZIP lookup before sending.";
  $("brief-preview").value=makeBrief();
  const dest=$("write-member");
- dest.href=selected?contactFor(selected):officeFallback;
- dest.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website to contact ↗"):"Find an official contact form ↗";
- const phone=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?selected.phone:"(202) 224-3121";
- $("call-member").href=selected&&/^\+?[0-9()\-\s]{10,25}$/.test(selected.phone||"")?"tel:"+selected.phone.replace(/[^+0-9]/g,""):switchboard;
+ dest.href="contact-tester.html";
+ dest.textContent="Preview in email tester ↗";
+ const official=$("official-member");
+ official.href=email.officialUrl;
+ official.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website ↗"):"Find an official member contact channel ↗";
+ const phone=selected&&/^\\+?[0-9()\\-\\s]{10,25}$/.test(selected.phone||"")?selected.phone:"(202) 224-3121";
+ $("call-member").href=selected&&/^\\+?[0-9()\\-\\s]{10,25}$/.test(selected.phone||"")?"tel:"+selected.phone.replace(/[^+0-9]/g,""):switchboard;
  $("call-member").textContent=selected&&phone!=="(202) 224-3121"?"Call "+displayName(selected)+"’s office · "+phone:"Call U.S. Capitol switchboard · (202) 224-3121";
 }
 /* Build a portable, user-controlled issue brief; this includes a research entry point,
@@ -269,7 +291,24 @@ document.querySelectorAll("#question-options button").forEach(button=>button.add
  document.querySelectorAll("#question-options button").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
  buildMessage();
 }));
-$("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message","message-preview"));
+$("copy-message").addEventListener("click",()=>copyValue("Subject: "+$("email-subject").value+"\n\n"+$("message-preview").value,$("copy-message"),"Copy email","message-preview"));
+$("write-member").addEventListener("click",()=>{
+ const email=makeEmail();
+ const payload={
+  schema:"power-atlas.member-email-tester.v1",
+  subject:email.subject,
+  body:email.body,
+  office:email.recipient,
+  officialUrl:email.officialUrl,
+  issue:currentIssue,
+  request:currentQuestion,
+  preparedAt:new Date().toISOString(),
+  status:"preview-only"
+ };
+ // Browser-session storage is never submitted to a Power Atlas server.
+ try{sessionStorage.setItem("power-atlas:member-email-test:v1",JSON.stringify(payload));}
+ catch(_){/* The tester has an honest no-draft fallback. */}
+});
 $("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief","brief-preview"));
 const savedZIP=rememberedZIP();
 if(savedZIP&&!$("zip").value)$("zip").value=savedZIP;
