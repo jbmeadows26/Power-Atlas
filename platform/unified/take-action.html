@@ -73,7 +73,7 @@
 <details class="ta-brief-disclosure"><summary>Preview the brief before sharing</summary><textarea id="brief-preview" rows="8" readonly aria-label="Your research brief for a member of Congress"></textarea></details>
 </section>
 <section id="contact" class="ta-block ta-compose" aria-labelledby="contact-title">
-<div class="ta-heading"><span class="ta-ey">03 / Make a specific request</span><h2 id="contact-title">Don't settle for a generic talking point.</h2><p>Ask for the position, the public record, concrete next steps—or a meeting with the office. You remain in control of the final message.</p></div>
+<div class="ta-heading"><span class="ta-ey">03 / Make a specific request</span><h2 id="contact-title">Don't settle for a generic talking point.</h2><p>Choose one clear demand and see the exact email before testing. Your message stays yours.</p></div>
 <div class="ta-compose-grid">
 <div><div class="ta-choice-label">Your question</div><div id="question-options" class="ta-question-buttons" role="group" aria-label="Choose one question">
 <button type="button" data-question="position" aria-pressed="true">State your position clearly</button>
@@ -83,14 +83,20 @@
 </div>
 <div class="ta-choice-label">Contact</div>
 <div id="recipient-options" class="ta-recipients"><p>Find your representatives above to choose an individual member.</p></div>
-<div class="ta-guardrail"><strong>Citizen-led, not an automated campaign</strong><p>One issue and one specific request at a time. No unverified allegations, custom uploads, bulk sending, or automatic submissions. Offices receive only what you choose to submit.</p><div class="ta-meeting-guide"><a href="https://www.house.gov/visitors/meeting-with-your-member" target="_blank" rel="noopener noreferrer">How to meet your House member ↗</a><a href="https://www.senate.gov/senators/contact/" target="_blank" rel="noopener noreferrer">Find a senator's office ↗</a></div></div>
+<div class="ta-guardrail"><strong>Citizen-led, not an automated campaign</strong><p>One verified issue. One specific request. No unverified allegations, custom uploads, bulk sending, or automatic submission. The tester sends nothing to an office.</p><div class="ta-meeting-guide"><a href="https://www.house.gov/visitors/meeting-with-your-member" target="_blank" rel="noopener noreferrer">How to meet your House member ↗</a><a href="https://www.senate.gov/senators/contact/" target="_blank" rel="noopener noreferrer">Find a senator's office ↗</a></div></div>
 </div>
-<div class="ta-message">
-<div class="ta-message-head"><span>MESSAGE PREVIEW</span><span id="message-count">0 / 500 characters</span></div>
-<textarea id="message-preview" readonly rows="8" aria-label="Read-only suggested message preview"></textarea>
-<div class="ta-message-actions"><button type="button" id="copy-message">Copy message</button><a id="write-member" class="ta-contact-link" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Open official contact form ↗</a></div>
+<div class="ta-message ta-letter" aria-labelledby="letter-title">
+<div class="ta-letter-stamp" aria-hidden="true">✉</div>
+<div class="ta-message-head"><span id="letter-title">YOUR LETTER · EMAIL READY</span><span id="message-count">0 / 500 characters</span></div>
+<div class="ta-letter-address"><span>TO</span><strong id="email-recipient">Choose your member of Congress</strong><small id="recipient-status">Confirm your district and choose one office.</small></div>
+<label class="ta-letter-subject-label" for="email-subject">SUBJECT</label>
+<input id="email-subject" class="ta-letter-subject" type="text" readonly aria-label="Suggested email subject">
+<label class="ta-letter-body-label" for="message-preview">MESSAGE</label>
+<textarea id="message-preview" readonly rows="10" aria-label="Read-only constituent email message preview"></textarea>
+<div class="ta-message-actions"><button type="button" id="copy-message">Copy email</button><a id="write-member" class="ta-contact-link" href="contact-tester.html">Preview in email tester ↗</a></div>
+<a id="official-member" class="ta-official-handoff" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Open official member contact channel ↗</a>
 <a id="call-member" class="ta-call" href="tel:+12022243121">Call U.S. Capitol switchboard · (202) 224-3121</a>
-<p class="ta-small">Contact forms vary and may ask you to confirm your address. Power Atlas does not send, store, or track your message. Copy and paste it into your representative’s official form. An office may choose not to respond.</p>
+<p class="ta-small ta-test-note"><strong>Test mode:</strong> The email tester is an internal preview route, not a connected email-sending plugin. Nothing is transmitted. Verified office emails and authenticated delivery will be configured when member login is built. Member selection, the message and the official contact channel remain visible here.</p>
 </div>
 </div>
 </section>
