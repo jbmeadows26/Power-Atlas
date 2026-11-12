@@ -27,6 +27,21 @@ class ReferenceSourceTests(unittest.TestCase):
             self.assertNotIn("closed", s)
             self.assertNotIn("records", s)
 
+    def test_browser_quick_reference_reuses_local_source_index(self):
+        from scripts.reference_sources import ROOT
+        page = (ROOT / "platform/unified/source-audit.html").read_text(encoding="utf-8")
+        frontend = (ROOT / "platform/unified/quick-reference.js").read_text(encoding="utf-8")
+        life = (ROOT / "platform/unified/my-life.html").read_text(encoding="utf-8")
+        self.assertIn('id="quick-reference"', page)
+        self.assertIn('id="quickReferenceResults"', page)
+        self.assertIn('<script src="quick-reference.js" defer></script>', page)
+        self.assertIn("./data/source-reference-index-v1.json", frontend)
+        self.assertIn("safeHttps", frontend)
+        self.assertIn("source-audit.html#quick-reference", life)
+        self.assertIn("underlying records are not yet verified", frontend)
+        self.assertNotIn("oth26.zip", frontend)
+        self.assertNotIn("archiveCandidateURL", frontend)
+
     def test_urls_and_gate_bindings(self):
         gates = set(self.backlog["corpusSnapshot"].keys())
         known = {s["id"] for s in self.backlog["verifiedEntryPoints"]}

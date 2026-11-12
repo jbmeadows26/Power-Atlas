@@ -25,6 +25,26 @@
 .incomplete{border-left:4px solid #c09b52;background:#fff9ee;color:#6b5c43;padding:15px 18px;border-radius:0 12px 12px 0;font-size:.85rem;line-height:1.55}
 .footer{color:#667c79;font-size:.79rem;line-height:1.55;margin-top:24px}
 @media(max-width:700px){.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.gaplist{grid-template-columns:1fr}.panel{padding:16px}.wrapper{padding:0 13px 62px}}@media(max-width:380px){.filterBar select{width:100%}}
+
+/* Reference-first: short links, no record downloads or implied completeness. */
+#quick-reference{scroll-margin-top:120px}
+.quick-lead{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.quick-indicator{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:30px;background:#d9eee5;color:#125a46;font-size:.77rem;font-weight:800;letter-spacing:.02em}
+.quick-indicator::before{content:"";width:7px;height:7px;background:#2b8164;border-radius:50%}
+.quick-intro{max-width:650px}
+.quick-controls{display:grid;grid-template-columns:1fr minmax(210px,280px);gap:10px;margin:16px 0}
+.quick-controls input,.quick-controls select{width:100%;min-width:0;padding:12px;border:1px solid #abc4b7;border-radius:10px;background:#fff;color:#1d3c3b}
+.quick-results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.quick-card{min-width:0;background:#f8fbfa;border:1px solid #cfdfd7;border-radius:13px;padding:16px;display:flex;flex-direction:column;align-items:flex-start}
+.quick-card h3{font-size:1.05rem;margin:9px 0 3px;line-height:1.3}
+.quick-card p{font-size:.85rem;line-height:1.5;margin:5px 0 12px;flex:1}
+.quick-type{color:#366f60;font-weight:750;text-transform:uppercase;letter-spacing:.05em;font-size:.69rem;line-height:1.5}
+.quick-link-row{display:flex;gap:8px;margin:4px 0 8px}
+.quick-visit{font-size:.82rem;font-weight:800;text-decoration:none;border-radius:9px;padding:9px 12px;background:#174b44;color:#fff}
+.quick-visit:hover{background:#216558;color:#fff}
+.quick-status{color:#5c7774;font-size:.72rem;line-height:1.4}
+.quick-foot{font-size:.8rem;color:#536d6a;margin-top:13px}
+@media(max-width:700px){.quick-controls{grid-template-columns:1fr}.quick-results{grid-template-columns:1fr}}
 </style><link rel="stylesheet" href="atlas-visual-system.css"></head><body data-pa-page="overview">
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research" aria-current="page"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
 <header class="hero"><div class="wrapper"><div class="links"><a href="index.html">← Research home</a><a href="my-life.html">Daily life dashboard</a><a href="corporate-ownership.html">Corporate ownership</a></div><div class="ey" style="margin-top:24px">Evidence integrity · All nine life categories + research</div>
@@ -33,6 +53,17 @@
 <main class="wrapper">
 <div class="stats" aria-label="Source audit totals"><div class="tile"><b id="pageCount">—</b><span>Pages inspected</span></div><div class="tile"><b id="datasetCount">—</b><span>Structured JSON datasets checked</span></div><div class="tile"><b id="gapCount">—</b><span>Identified unresolved data joins</span></div><div class="tile"><b id="sourceCount">—</b><span>Original public source candidates</span></div></div>
 <div class="incomplete"><strong>Read the evidence level.</strong> A named data portal does not mean its records have been downloaded, legally licensed, reconciled or shown to cause local price changes. Where records are unavailable, we show a gap—not a fabricated statistic or a verdict about an individual or organization.</div>
+<section class="panel" id="quick-reference" aria-labelledby="quick-reference-title">
+<div class="quick-lead"><div class="quick-intro"><span class="overline">Use now · no local hardware required</span><h2 id="quick-reference-title">Open the original source</h2><p>Find public records directly instead of storing entire databases. Use the official link first; the source register shows what is covered and what still needs verification.</p></div><span class="quick-indicator">Quick reference mode</span></div>
+<div class="quick-controls">
+<input id="quickReferenceSearch" type="search" aria-label="Search public reference sources" placeholder="Search campaign money, elections, court records…" autocomplete="off">
+<select id="quickReferenceGate" aria-label="Filter references by research area"><option value="">All research areas</option></select>
+</div>
+<p id="quickReferenceStatus" class="compact" role="status" aria-live="polite">Loading public source references…</p>
+<div id="quickReferenceResults" class="quick-results" aria-live="polite"><p class="compact">Source links are loading. <a href="https://github.com/jbmeadows26/Power-Atlas/blob/main/platform/unified/data/source-reference-index-v1.json">View the source register in GitHub ↗</a></p></div>
+<p class="quick-foot" id="quickReferenceAsOf">Source links are entry points, not confirmed record downloads.</p>
+<p class="quick-foot">For specific household costs, ownership and local decisions, use the 55-gap source directory below. A source link alone never establishes a causal relationship or closes a research gap.</p>
+</section>
 <section class="panel" aria-label="Filter missing sources"><span class="overline">The source-to-impact checklist</span><h2>Find exactly what's still unconnected</h2><p>Choose your concern. Each investigation needs four kinds of evidence: what the price is, who controls the relevant businesses, what decisions occurred, and whether those decisions actually changed outcomes.</p>
 <div class="filterBar"><label for="topic" class="overline" style="align-self:center">Category</label><select id="topic" aria-label="Filter source gaps by issue"><option value="all">All sources and categories</option><option value="housing">Housing</option><option value="groceries">Groceries</option><option value="energy">Utilities</option><option value="health">Healthcare</option><option value="work">Jobs & pay</option><option value="schools">Schools & childcare</option><option value="transport">Transportation</option><option value="public-services">Taxes & services</option><option value="representation">Political representation</option><option value="platform-wide">Cross-platform research</option></select>
 <input id="search" type="search" placeholder="Search ownership, childcare prices, contracts…" aria-label="Search missing evidence and sources"></div>
@@ -92,4 +123,4 @@ $("search").addEventListener("input",draw);
  else $("auditFacts").innerHTML='<p class="compact">The latest scanned audit is temporarily unavailable; source catalogue is separate from runtime verification.</p>';
  draw();
 })();
-</script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
+</script><script src="quick-reference.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
