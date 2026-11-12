@@ -145,11 +145,11 @@ class BrowserJourneyQA(unittest.TestCase):
                          ["20.4%", "3.2%"])
         self.assertEqual(transport.locator(".vs6-zip-axis-ticks span").all_text_contents(),
                          ["0%", "12.5%", "25%"])
-        self.assertEqual(transport.locator(".vs6-zip-fill").first.get_attribute("style"),
-                         "width: 81.60%;",
-                         "The ZIP bar must use an explicit axis, not normalize to max=20.4")
-        self.assertEqual(transport.locator(".vs6-zip-fill--us").get_attribute("style"),
-                         "width: 12.80%;")
+        self.assertAlmostEqual(transport.locator(".vs6-zip-fill").first.evaluate(
+            "node => parseFloat(node.style.width)"), 81.6, places=1,
+            msg="The local bar must not normalize to the 20.4% observed maximum")
+        self.assertAlmostEqual(transport.locator(".vs6-zip-fill--us").evaluate(
+            "node => parseFloat(node.style.width)"), 12.8, places=1)
         self.assertIn("17.2 percentage points above U.S.", transport.inner_text())
         self.assertIn("same 0%–25% axis", transport.locator(".vs6-zip-comparison").get_attribute("aria-label"))
         self.assertEqual(grocery.locator(".vs6-zip-axis-ticks span").all_text_contents(),
