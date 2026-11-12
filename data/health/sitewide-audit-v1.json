@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-12T00:08:22.490578+00:00",
+  "generatedUTC": "2026-11-12T04:31:47.280219+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 38,
+    "htmlPagesAudited": 41,
     "jsonDataFilesChecked": 332,
     "validJsonFiles": 332,
-    "staticReferencesInspected": 883,
+    "staticReferencesInspected": 968,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -241,6 +241,18 @@
       "primaryHeaderPresent": false
     },
     {
+      "path": "platform/unified/economic-fragility.html",
+      "localReferenceCount": 13,
+      "allReferencesCount": 18,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/economic-fragility/2027-v1.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
       "path": "platform/unified/election-2026.html",
       "localReferenceCount": 12,
       "allReferencesCount": 15,
@@ -276,8 +288,8 @@
     },
     {
       "path": "platform/unified/index.html",
-      "localReferenceCount": 45,
-      "allReferencesCount": 56,
+      "localReferenceCount": 50,
+      "allReferencesCount": 55,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -339,7 +351,7 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 40,
+      "localReferenceCount": 42,
       "allReferencesCount": 45,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
@@ -396,6 +408,29 @@
       "primaryHeaderPresent": true
     },
     {
+      "path": "platform/unified/research-archive.html",
+      "localReferenceCount": 20,
+      "allReferencesCount": 53,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [
+        "data/app-feed.json",
+        "data/coverage-six-domains.json",
+        "data/finance/fec-candidate-links.json",
+        "data/finance/fec-committee-master.json",
+        "data/finance/fec-pac-party-summaries.json",
+        "data/fiscal/state-timeseries/governor-election-fiscal-associations-2012-2024.json",
+        "data/health/completion-gates.json",
+        "data/hyperpartisanship/app-summary-v1.json",
+        "data/institutional-decay/trust-country-waves-2023-2025.json",
+        "data/judiciary/fjc-appointments.json",
+        "data/organizations/redistricting-committees.json",
+        "data/promises/primary-2020-sentence-inventory/index.json"
+      ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
       "path": "platform/unified/service-accountability.html",
       "localReferenceCount": 14,
       "allReferencesCount": 17,
@@ -437,6 +472,16 @@
       "dataReferences": [
         "data/consumer-costs/telecom-picks-v1.json"
       ],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": true
+    },
+    {
+      "path": "platform/unified/voting-access.html",
+      "localReferenceCount": 13,
+      "allReferencesCount": 15,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
       "missingDataReferences": [],
       "primaryHeaderPresent": true
     },
