@@ -537,7 +537,7 @@
 .pa-zip-start.wrapper{max-width:1150px;margin:0 auto;padding:15px 20px 13px;scroll-margin-top:0}
 .pa-zip-shell{background:#fff;border:1px solid #d1e1d9;border-radius:20px;padding:19px 23px 15px;box-shadow:0 7px 25px #153a3e0b}
 .pa-zip-kicker{display:block;color:#20796f;letter-spacing:.13em;text-transform:uppercase;font-weight:900;font-size:.68rem;margin-bottom:5px}
-.pa-zip-head h2{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.2;letter-spacing:-.04em;color:#173c42;margin:2px 0 5px}
+.pa-zip-head h1{font-size:clamp(1.35rem,3vw,1.9rem);line-height:1.2;letter-spacing:-.04em;color:#173c42;margin:2px 0 5px}
 .pa-zip-head p{color:#51696c;font-size:.86rem;line-height:1.5;margin:0 0 13px;max-width:850px}
 .pa-zip-controls{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(220px,.8fr);gap:18px;align-items:center}
 .pa-zip-controls form{min-width:0}
@@ -564,7 +564,7 @@
 .pa-zip-start.wrapper{scroll-margin-top:120px}
 @media(max-width:830px){.pa-zip-start.wrapper{scroll-margin-top:175px}}
 @media(max-width:800px){.pa-zip-controls{grid-template-columns:1fr;gap:10px}.pa-zip-result{border-left:0;border-top:1px solid #dce8e1;padding:9px 0 0}.pa-zip-result a{display:inline-block;margin-top:2px}}
-@media(max-width:550px){.pa-zip-start.wrapper{padding:9px 12px 10px}.pa-zip-shell{padding:13px 14px 10px;border-radius:16px}.pa-zip-head h2{font-size:1.29rem}.pa-zip-head p{font-size:.79rem;line-height:1.4;margin-bottom:9px}.pa-zip-controls .fields{gap:7px}.pa-zip-controls .fields input{font-size:1rem;min-height:44px;padding:8px 10px}.pa-zip-controls .fields button{font-size:.84rem;min-height:44px;padding:8px 10px}.pa-zip-privacy{margin-top:8px;font-size:.7rem}}
+@media(max-width:550px){.pa-zip-start.wrapper{padding:9px 12px 10px}.pa-zip-shell{padding:13px 14px 10px;border-radius:16px}.pa-zip-head h1{font-size:1.29rem}.pa-zip-head p{font-size:.79rem;line-height:1.4;margin-bottom:9px}.pa-zip-controls .fields{gap:7px}.pa-zip-controls .fields input{font-size:1rem;min-height:44px;padding:8px 10px}.pa-zip-controls .fields button{font-size:.84rem;min-height:44px;padding:8px 10px}.pa-zip-privacy{margin-top:8px;font-size:.7rem}}
 </style><link rel="stylesheet" href="atlas-visual-system.css"><script src="pa-zip-persistence.js"></script><style id="pa-cost-progressive">
 /* Cost-story progressive disclosure: preserve data and provenance, reduce visual overload. */
 .bs-rent-caption{margin:4px 0 10px;color:#315d54;font-size:.75rem;line-height:1.45;font-weight:760}
@@ -593,7 +593,7 @@
 <div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner"><a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas — My Community">◇ POWER <span>ATLAS</span></a><nav class="pa-global-links" aria-label="Explore Power Atlas"><a href="my-life.html#where" data-pa-nav="place" aria-current="page"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a><a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a><a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a><a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a><a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a><a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a></nav></div></div>
 <section class="pa-zip-start wrapper" id="where" aria-labelledby="whereTitle">
   <div class="pa-zip-shell">
-    <div class="pa-zip-head"><span class="pa-zip-kicker">01 / START HERE</span><h2 id="whereTitle">Explore what shapes life in your area.</h2><p>Start with your ZIP code. Then choose an everyday issue to see the costs, decisions, evidence, and options connected to it.</p></div>
+    <div class="pa-zip-head"><span class="pa-zip-kicker">01 / START HERE</span><h1 id="whereTitle">Explore what shapes life in your area.</h1><p>Start with your ZIP code. Then choose an everyday issue to see the costs, decisions, evidence, and options connected to it.</p></div>
     <div class="pa-zip-controls">
       <form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div><button class="pa-clear-zip" type="button" id="clearSavedZIP" aria-label="Forget saved ZIP on this device" hidden>Clear saved ZIP</button></form>
       <div class="pa-zip-result" aria-live="polite"><strong id="placeName">No ZIP selected</strong><p id="placeStatus">Enter a ZIP for approximate local context, or explore national issues without one.</p></div>
