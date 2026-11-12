@@ -43,7 +43,6 @@ async function capture(host, token, event, distinctId, submissionId, properties)
         api_key: token,
         event,
         distinct_id: distinctId,
-        uuid: submissionId + (event === "survey sent" ? "-sent" : event === "survey shown" ? "-shown" : "-dismissed"),
         properties: { ...properties, $lib: "power-atlas-bug-report", $lib_version: "1" },
       }),
       signal: controller.signal,
