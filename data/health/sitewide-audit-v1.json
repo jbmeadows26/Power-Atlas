@@ -1,14 +1,14 @@
 {
   "schema": "power-atlas.sitewide-static-source-audit.v1",
-  "generatedUTC": "2026-11-12T15:08:56.790435+00:00",
+  "generatedUTC": "2026-11-12T16:37:40.497539+00:00",
   "overall": "research_partially_connected_not_nationwide_complete",
   "auditDefinition": "Static pages, JSON source files, internal href/src references, data pointers, issue/ownership integrity and known empirical coverage gates. NOT live API availability, browser UX, external-source URL HTTP checks, legal licensing, or completeness of a private database.",
   "repository": "jbmeadows26/Power-Atlas",
   "summary": {
-    "htmlPagesAudited": 45,
+    "htmlPagesAudited": 46,
     "jsonDataFilesChecked": 333,
     "validJsonFiles": 333,
-    "staticReferencesInspected": 1099,
+    "staticReferencesInspected": 1139,
     "unresolvedStaticLinkIssues": 0,
     "missingBugReportScripts": 0,
     "unresolvedLiteralDataPointers": 0,
@@ -111,6 +111,16 @@
     }
   ],
   "pages": [
+    {
+      "path": "platform/unified/ai-crash.html",
+      "localReferenceCount": 1,
+      "allReferencesCount": 38,
+      "staticLinksBroken": 0,
+      "bugReportScriptPresent": true,
+      "dataReferences": [],
+      "missingDataReferences": [],
+      "primaryHeaderPresent": false
+    },
     {
       "path": "platform/unified/ai-financing-shock.html",
       "localReferenceCount": 15,
@@ -272,8 +282,8 @@
     },
     {
       "path": "platform/unified/economic-fragility.html",
-      "localReferenceCount": 14,
-      "allReferencesCount": 19,
+      "localReferenceCount": 15,
+      "allReferencesCount": 20,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
@@ -381,8 +391,8 @@
     },
     {
       "path": "platform/unified/my-life.html",
-      "localReferenceCount": 43,
-      "allReferencesCount": 46,
+      "localReferenceCount": 44,
+      "allReferencesCount": 47,
       "staticLinksBroken": 0,
       "bugReportScriptPresent": true,
       "dataReferences": [
