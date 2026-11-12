@@ -8,11 +8,24 @@
  const valid=zip=>typeof zip==="string"&&/^\d{5}$/.test(zip);
  function read(){try{const zip=window.localStorage.getItem(KEY);return valid(zip)?zip:null}catch(_){return null}}
  function emit(){window.dispatchEvent(new CustomEvent("poweratlas:zip-preference",{detail:{zip:read()}}));refresh();}
- function save(zip){if(!valid(zip))return false;try{window.localStorage.setItem(KEY,zip)}catch(_){/* Private browsing may block storage */}emit();return true}
+ function save(zip){
+  if(!valid(zip))return false;
+  try{window.localStorage.setItem(KEY,zip)}catch(_){return false}
+  emit();return true;
+ }
  function clear(){try{window.localStorage.removeItem(KEY)}catch(_){}emit();}
  const api=Object.freeze({get:read,save,clear,valid});
  window.PowerAtlasZIP=api;
  function refresh(){
+  // A ZIP identifies the user's chosen community, never a precise address.
+  // Prefill local form fields without making a third-party request or scrolling.
+  const selected=read();
+  for(const id of ["zipInput","zip","cg-zip-a"]){
+    const field=document.getElementById(id);
+    if(field&&selected&&!field.value&&document.activeElement!==field)field.value=selected;
+  }
+  const clear=document.getElementById("clearSavedZIP");
+  if(clear)clear.hidden=!selected;
   const header=document.getElementById("pa-global-header");
   const inner=header?.querySelector(".pa-global-inner");
   if(!inner)return;
@@ -34,5 +47,6 @@
  }
  if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",refresh,{once:true});else refresh();
  window.addEventListener("storage",e=>{if(e.key===KEY)emit()});
+ window.addEventListener("pageshow",refresh);
  window.addEventListener("poweratlas:zip-preference",refresh);
 })();
