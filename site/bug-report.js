@@ -50,6 +50,11 @@
         #shade { padding: 10px; align-items: flex-end; }
         #dialog { width: 100%; padding: 19px; border-radius: 16px 16px 10px 10px; max-height: 89dvh; }
       }
+
+      /* Keep the report control independent of, and above, the floating mobile dock. */
+      @media (max-width:830px) {
+        #open { bottom: calc(111px + env(safe-area-inset-bottom, 0px)); }
+      }
       @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto !important; } }
     </style>
     <button id="open" type="button" aria-label="Report a bug" aria-haspopup="dialog" aria-controls="dialog">
