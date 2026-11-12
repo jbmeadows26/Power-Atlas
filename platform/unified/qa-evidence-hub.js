@@ -70,7 +70,8 @@ function render(){
  issueHeading.append(e("span","vs6-micro","YOUR DAILY LIFE · 29 TOPICS"),
  e("h3",null,"Explore what affects you"));
  issues.insertAdjacentElement("beforebegin",issueHeading);
- const urls=["sitewide-audit-v1.json","https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/sitewide-audit-v1.json"];
+ /* Source audit is maintained in the canonical research data tree, not the static frontend root. */
+ const urls=["https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/data/health/sitewide-audit-v1.json"];
  (async()=>{for(const url of urls){try{
    const r=await fetch(url,{cache:"no-store"});if(!r.ok)continue;const data=await r.json();
    if(data.schema!=="power-atlas.sitewide-static-source-audit.v1")continue;
