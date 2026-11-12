@@ -93,10 +93,10 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(summary.is_visible())
         self.page.wait_for_function(
             "() => document.querySelectorAll('#issueGrid > button.issue-card').length === 9"
-            " && document.querySelectorAll('#issueGrid > details.pa-social-card').length === 20",
+            " && document.querySelectorAll('#issueGrid > details.pa-social-card').length === 21",
             timeout=20000)
         self.assertTrue(self.page.locator("#issueGrid").is_visible(),
-                        "The 29 issue cards must continue immediately below investigations")
+                        "The 30 issue cards must continue immediately below investigations")
         self.assertTrue(self.page.locator(".pa-coverage-issues-lead").is_visible())
         self.assertTrue(self.page.evaluate(
             "() => document.getElementById('issueGrid').getBoundingClientRect().top"
