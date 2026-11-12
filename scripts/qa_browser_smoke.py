@@ -67,17 +67,18 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertTrue(action.get_attribute("href").endswith("take-action.html"))
         self.assert_no_horizontal_overflow()
 
-    def test_all_16_research_threads_are_discoverable(self):
+    def test_all_19_research_threads_are_discoverable(self):
         self.visit("/my-life.html")
         section = self.page.locator("#pa-coverage-discovery")
         self.assertEqual(section.count(), 1)
-        self.assertEqual(section.locator(".pa-coverage-card").count(), 16)
+        self.assertEqual(section.locator(".pa-coverage-card").count(), 19)
         summary = section.locator("summary")
         self.assertTrue(summary.is_visible(), "The evidence directory is hidden behind a legacy chapter")
         summary.click(timeout=10000)
         self.assertTrue(section.locator("details.pa-coverage-more").get_attribute("open") is not None)
         for slug in ["dark-money.html", "business-influence.html", "market-power.html",
-                     "wealth-advantage.html", "take-action.html", "source-audit.html"]:
+                     "wealth-advantage.html", "take-action.html", "source-audit.html",
+                     "voting-access.html", "economic-fragility.html", "research-archive.html"]:
             self.assertTrue(section.locator(f'a[href="{slug}"]').count() >= 1, slug)
         self.assert_no_horizontal_overflow()
 
@@ -247,6 +248,7 @@ class BrowserJourneyQA(unittest.TestCase):
             "() => localStorage.getItem('power-atlas:visitor-zip:v1')"), "07010")
         self.visit("/dark-money.html")
         chip = self.page.locator("#pa-global-header .pa-remembered-zip")
+        chip.wait_for(state="visible", timeout=10000)
         self.assertTrue(chip.is_visible())
         self.assertIn("07010", chip.inner_text())
         chip.click()
