@@ -151,6 +151,13 @@ html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded main > :is(.panel
 .vs6-expand{font:inherit}
 .vs6-zip-link{color:#8af0d0!important;font-weight:850;margin-top:15px;text-decoration:underline}
 html[data-vs6="active"] body.vs6-topic-mode main>.pa5-topic-hero{display:none!important}
+/* V6 first-screen disclosure: large legacy investigation controls remain functional,
+   but their full set belongs behind the same Explore action as other evidence. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) .vs6-topic :is(.pmx,.mpx){display:none!important}
+html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded .vs6-topic :is(.pmx,.mpx){display:grid;margin:16px 0 20px}
+html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded .vs6-topic:has(.pmx,.mpx) > .vs6-art{display:none}
+.vs6-evidence-peek{width:100%;display:flex;flex-wrap:wrap;gap:7px;margin:2px 0 20px}
+.vs6-evidence-peek span{display:inline-flex;align-items:center;padding:8px 12px;border:1px solid #d2e5dc;background:#fffdf8;color:#234a49;font-size:.76rem;font-weight:820;border-radius:999px}
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main>.pa5-explorer{display:none!important}
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main>:not(.vs6-topic):not(script){display:none!important}
 html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded main>.pa5-explorer{display:block}
