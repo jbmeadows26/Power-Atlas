@@ -220,5 +220,55 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assert_no_horizontal_overflow()
 
 
+    def test_v6_editorial_covers_match_on_mobile_and_desktop(self):
+        """Visual contract: page-specific stories may vary, outer V6 shell may not."""
+        covers = {
+            "/dark-money.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/market-power.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/consumer-practices.html": ("main > .vs6-topic", "main > .vs6-topic > h1"),
+            "/take-action.html": (".ta-hero", ".ta-hero h1"),
+        }
+        for width, height in ((390, 844), (1440, 900)):
+            self.page.set_viewport_size({"width": width, "height": height})
+            for path, (cover_selector, headline_selector) in covers.items():
+                with self.subTest(path=path, width=width):
+                    self.visit(path)
+                    cover = self.page.locator(cover_selector)
+                    heading = self.page.locator(headline_selector)
+                    self.assertTrue(cover.is_visible(), f"{path}: missing V6 cover")
+                    self.assertTrue(heading.is_visible(), f"{path}: missing readable headline")
+                    appearance = cover.evaluate("""node => ({
+                        background: getComputedStyle(node).backgroundColor,
+                        width: node.getBoundingClientRect().width,
+                        font: parseFloat(getComputedStyle(node.querySelector('h1')).fontSize)
+                    })""")
+                    self.assertEqual(appearance["background"], "rgb(250, 246, 237)",
+                        f"{path}: competing theme instead of canonical V6 cream")
+                    self.assertLessEqual(appearance["width"], 1192,
+                        f"{path}: cover exceeds canonical maximum width")
+                    self.assertGreaterEqual(appearance["font"], 38,
+                        f"{path}: headline too small to work as the leading graphic")
+                    self.assertLessEqual(appearance["font"], 76,
+                        f"{path}: headline exceeds canonical type scale")
+                    self.assertEqual(self.page.locator("#pa-global-header").count(), 1)
+                    self.assert_no_horizontal_overflow()
+                    name = path.strip("/").replace(".html", "")
+                    self.page.screenshot(path=str(REPORTS / f"v6-{name}-{width}.png"),
+                                         full_page=False)
+
+    def test_consumer_watch_evidence_is_reachable_after_explore(self):
+        self.visit("/consumer-practices.html")
+        cta = self.page.locator("main > .vs6-topic .vs6-expand")
+        self.assertTrue(cta.is_visible())
+        self.assertEqual(cta.get_attribute("aria-expanded"), "false")
+        cta.click()
+        self.assertEqual(cta.get_attribute("aria-expanded"), "true")
+        self.assertIn("vs6-topic-expanded", self.page.locator("body").get_attribute("class") or "")
+        chapters = self.page.locator("main > .pa5-explorer .pa5-chapter-card")
+        self.assertGreater(chapters.count(), 0, "Consumer Watch evidence has no discoverable chapters")
+        self.assertTrue(self.page.locator("main > .pa5-explorer").is_visible())
+        self.assert_no_horizontal_overflow()
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)
