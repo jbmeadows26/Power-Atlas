@@ -685,6 +685,18 @@ const SOURCE_CIVIC_REFORMS=base+"data/money-influence/civic-power-reforms-v1.jso
 const SOURCE_BUSINESS_INFLUENCE=base+"data/business-influence/evidence-v1.json";
 
 const $=id=>document.getElementById(id);
+const ZIP_PREFERENCE_KEY="power-atlas:visitor-zip:v1";
+function savedHomeZIP(){
+ const fromManager=window.PowerAtlasZIP?.get?.();
+ if(/^[0-9]{5}$/.test(fromManager||""))return fromManager;
+ try{const stored=localStorage.getItem(ZIP_PREFERENCE_KEY);return /^[0-9]{5}$/.test(stored||"")?stored:null}catch(_){return null}
+}
+function saveHomeZIP(zip){
+ if(window.PowerAtlasZIP?.save)return window.PowerAtlasZIP.save(zip);
+ try{localStorage.setItem(ZIP_PREFERENCE_KEY,zip);return true}catch(_){return false}
+}
+const onLoadZIP=savedHomeZIP();
+if(onLoadZIP){$("zipInput").value=onLoadZIP;$("clearSavedZIP").hidden=false;}
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a-z0-9-]+)?$/.test(s||"")?s:null;
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
@@ -1146,6 +1158,7 @@ const paZIPVisualTopics=[
  {key:"health",label:"Uninsured residents"}
 ];
 function publishZIPVisual(detail){
+ window.PowerAtlasLastZIPVisualContext=detail;
  window.dispatchEvent(new CustomEvent("poweratlas:zip-visual-context",{detail}));
 }
 async function updateZIPVisualSnapshot(zip,placeLabel){
@@ -1228,7 +1241,9 @@ $("zipForm").addEventListener("submit",e=>{
  e.preventDefault();const zip=$("zipInput").value.trim();
  if(!/^[0-9]{5}$/.test(zip)){$("placeStatus").textContent="Please enter a five-digit U.S. ZIP code.";return;}
  $("step2Place").textContent="Looking up ZIP "+zip+"… Select an issue below.";
- window.PowerAtlasZIP?.save(zip);
+ saveHomeZIP(zip);
+ $("clearSavedZIP").hidden=!savedHomeZIP();
+ if(!stories){$("placeStatus").textContent="ZIP saved in this browser. Local evidence is loading.";return;}
  lookUpZIP(zip);
  // Keep the new visual ZIP summary as the first stop after submitting a location.
  // Step 2 should only be reached when someone explicitly explores an issue.
@@ -1245,7 +1260,8 @@ $("zipForm").addEventListener("submit",e=>{
  }
 });
 $("clearSavedZIP").addEventListener("click",()=>{
- window.PowerAtlasZIP?.clear();
+ if(window.PowerAtlasZIP?.clear)window.PowerAtlasZIP.clear();
+ else try{localStorage.removeItem(ZIP_PREFERENCE_KEY)}catch(_){}
  // Reload the same canonical community page to clear all ZIP-specific
  // charts, cached place labels and pending requests atomically.
  window.location.replace("my-life.html#where");
@@ -1278,8 +1294,8 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(results[13].status==="fulfilled"&&Array.isArray(results[13].value.cases))businessInfluence=results[13].value;
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
- const rememberedZIP=window.PowerAtlasZIP?.get();
- if(rememberedZIP){$("zipInput").value=rememberedZIP;}
+ const rememberedZIP=savedHomeZIP();
+ if(rememberedZIP){$("zipInput").value=rememberedZIP;$("clearSavedZIP").hidden=false;}
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,Boolean(hash)&&!pageSections.has(hash));
  if(rememberedZIP)lookUpZIP(rememberedZIP);
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));
