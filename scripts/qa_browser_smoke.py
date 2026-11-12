@@ -143,6 +143,8 @@ class BrowserJourneyQA(unittest.TestCase):
             has=self.page.locator(".vs6-zip-tile-label", has_text="HEALTH"))
         self.assertEqual(transport.locator(".vs6-zip-comparison-value").all_text_contents(),
                          ["20.4%", "3.2%"])
+        self.assertFalse(transport.locator(".vs6-zip-tile-value").is_visible(),
+                         "Directly labeled bars replace the duplicate standalone ZIP percentage")
         self.assertEqual(transport.locator(".vs6-zip-axis-ticks span").all_text_contents(),
                          ["0%", "12.5%", "25%"])
         self.assertAlmostEqual(transport.locator(".vs6-zip-fill").first.evaluate(
