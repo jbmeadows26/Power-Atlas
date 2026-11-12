@@ -817,11 +817,35 @@ html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main > #wha
  display:block!important;max-width:1190px;margin:0 auto;padding:20px max(16px,2vw) 0;
 }
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
- main > #what > :not(.section-head):not(#pa-coverage-discovery){display:none!important}
+ main > #what > :not(.section-head):not(#pa-coverage-discovery):not(.pa-coverage-issues-lead):not(#issueGrid):not(.pa-social-scope-note){display:none!important}
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
  main > #what > .section-head{display:flex!important}
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
  main > #what > #pa-coverage-discovery{display:block!important}
+
+/* A chosen community needs a clean city heading, not a repeat of the
+   previous ZIP explainer. Source qualifications remain available below
+   the actual charts and in their dedicated methodology sections. */
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-zip-period{display:none!important}
+html[data-vs6="active"] body[data-pa-page="overview"] #step2Place{display:none!important}
+/* The homepage is a continuous flow: featured investigations, then 29 topic cards.
+   Do not end the page after the featured directory or duplicate an issue CTA
+   outside the section that owns the issues. Keep deep evidence opt-in. */
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > #issueGrid{display:grid!important}
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > .pa-coverage-issues-lead{display:grid!important}
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > .pa-social-scope-note{display:block!important}
+#what .pa-coverage--integrated .pa-coverage-more[open] > summary{display:none!important}
+#what .pa-coverage--integrated .pa-coverage-collapse{
+ display:block;min-height:44px;margin:14px 0 0 auto;padding:11px 14px;
+ border:1px solid #b5d8c9;border-radius:11px;background:#fff;color:#205e54;
+ font:inherit;font-size:.78rem;font-weight:850;cursor:pointer;
+}
+#what .pa-coverage--integrated .pa-coverage-collapse:hover{background:#eaf5ed}
+#what .pa-coverage--integrated .pa-coverage-collapse:focus-visible{outline:3px solid #ce8947;outline-offset:3px}
+html[data-vs6="active"] body[data-pa-page="overview"].vs6-topic-mode.vs6-topic-expanded main > .vs6-topic{display:none!important}
 
 /* Section 2 integration: source investigations and the 29 life issues share one discoverable journey. */
 #what .pa-coverage--integrated{

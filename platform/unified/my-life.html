@@ -557,6 +557,10 @@
 .pa-zip-disclosure{font-size:.72rem;color:#506e6f;margin-top:5px}
 .pa-zip-disclosure summary{cursor:pointer;font-weight:730;color:#2c7069;display:inline-block;min-height:30px;padding:5px 0}
 .pa-zip-disclosure p{font-size:.75rem;line-height:1.6;margin:5px 0}
+/* Once a user saves a ZIP, the editor is not a recurring homepage card.
+   The city remains in the V6 visual, and Change ZIP reopens the editor. */
+.pa-zip-start.pa-zip-established:not(.pa-zip-editing){display:none!important}
+.pa-zip-result p[hidden]{display:none!important}
 .pa-zip-start.wrapper{scroll-margin-top:120px}
 @media(max-width:830px){.pa-zip-start.wrapper{scroll-margin-top:175px}}
 @media(max-width:800px){.pa-zip-controls{grid-template-columns:1fr;gap:10px}.pa-zip-result{border-left:0;border-top:1px solid #dce8e1;padding:9px 0 0}.pa-zip-result a{display:inline-block;margin-top:2px}}
@@ -569,7 +573,7 @@
     <div class="pa-zip-head"><span class="pa-zip-kicker">01 / START HERE</span><h2 id="whereTitle">Explore what shapes life in your area.</h2><p>Start with your ZIP code. Then choose an everyday issue to see the costs, decisions, evidence, and options connected to it.</p></div>
     <div class="pa-zip-controls">
       <form id="zipForm" novalidate><label for="zipInput">U.S. ZIP code</label><div class="fields"><input id="zipInput" name="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" pattern="[0-9]{5}" placeholder="e.g. 10001" aria-describedby="zipPrivacy" required><button class="primary" type="submit">Explore area</button></div><button class="pa-clear-zip" type="button" id="clearSavedZIP" aria-label="Forget saved ZIP on this device" hidden>Clear saved ZIP</button></form>
-      <div class="pa-zip-result" aria-live="polite"><strong id="placeName">No ZIP selected</strong><p id="placeStatus">Enter a ZIP for approximate local context, or explore national issues without one.</p><a href="https://www.house.gov/representatives/find-your-representative" target="_blank" rel="noopener noreferrer">Find your U.S. House representative ↗</a></div>
+      <div class="pa-zip-result" aria-live="polite"><strong id="placeName">No ZIP selected</strong><p id="placeStatus">Enter a ZIP for approximate local context, or explore national issues without one.</p></div>
     </div>
     <p id="zipPrivacy" class="pa-zip-privacy">Privacy: your ZIP is saved only in this browser on your device so you can return without re-entering it. It is not placed in shared URLs or saved to a Power Atlas account. Postal and Census lookups still contact external providers.</p>
     <details class="pa-zip-disclosure"><summary>How location data and rent sources work</summary><p>When you submit, your five-digit ZIP is sent from your browser to Zippopotam.us for an approximate place name and Census Reporter for historic Census estimates. Those third parties have their own privacy practices. Bedroom rent comparisons download a state-level HUD-derived rent file from GitHub or Multifamily Today; the rent file request contains a state, not your individual ZIP. Power Atlas saves only your five ZIP digits locally in your browser until you choose Clear ZIP. Power Atlas does not store your ZIP on its servers or put it in a shared link. Power Atlas does not infer your politics from your ZIP. A ZIP is not a verified electoral, school, utility or city boundary.</p></details>
@@ -698,8 +702,47 @@ function saveHomeZIP(zip){
  if(window.PowerAtlasZIP?.save)return window.PowerAtlasZIP.save(zip);
  try{localStorage.setItem(ZIP_PREFERENCE_KEY,zip);return true}catch(_){return false}
 }
+function setZIPEntryVisibility(zip){
+ const remembered=/^[0-9]{5}$/.test(zip||"");
+ const panel=$("where");
+ if(!panel)return;
+ panel.classList.toggle("pa-zip-established",remembered);
+ panel.classList.remove("pa-zip-editing");
+ // The city and ZIP are already shown in the V6 summary. Do not repeat the
+ // legacy postal-boundary explanation below the name on every visit.
+ $("placeStatus").hidden=remembered;
+ const clear=$("clearSavedZIP");
+ if(clear)clear.hidden=!remembered;
+ const link=document.querySelector(".vs6-zip-link");
+ if(link)link.textContent=remembered?"Change ZIP ↗":"Enter your ZIP ↓";
+}
+function revealZIPEntry(){
+ const panel=$("where");
+ if(!panel)return;
+ panel.classList.add("pa-zip-editing");
+ $("placeStatus").hidden=false;
+ $("placeStatus").textContent="Enter a new ZIP to update your area.";
+ const input=$("zipInput");
+ requestAnimationFrame(()=>{
+   panel.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+   input?.focus({preventScroll:true});
+ });
+}
+// ZIP chips, V6 hero links, and direct my-life.html#where destinations all
+// reopen the SAME input without accidentally expanding old research chapters.
+document.addEventListener("click",event=>{
+ const link=event.target.closest('a[href="#where"],a[href="my-life.html#where"],a[data-pa-zip-control]');
+ if(!link||!savedHomeZIP()||!link.getAttribute("href")?.endsWith("#where"))return;
+ event.preventDefault();
+ if(location.hash!=="#where")history.replaceState(null,"","#where");
+ revealZIPEntry();
+});
 const onLoadZIP=savedHomeZIP();
-if(onLoadZIP){$("zipInput").value=onLoadZIP;$("clearSavedZIP").hidden=false;}
+if(onLoadZIP){
+ $("zipInput").value=onLoadZIP;
+ setZIPEntryVisibility(onLoadZIP);
+ if(location.hash==="#where")revealZIPEntry();
+}
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const safeURL=s=>/^https:\/\/[^\s<>"']+$/.test(s||"")?s:/^[a-z0-9-]+\.html(?:#[a-z0-9-]+)?$/.test(s||"")?s:null;
 const link=(href,label)=>{let url=safeURL(href);return url?'<a href="'+esc(url)+'"'+(url.startsWith("https://")?' target="_blank" rel="noopener noreferrer"':'')+'>'+esc(label)+'</a>':""};
@@ -1245,7 +1288,7 @@ $("zipForm").addEventListener("submit",e=>{
  if(!/^[0-9]{5}$/.test(zip)){$("placeStatus").textContent="Please enter a five-digit U.S. ZIP code.";return;}
  $("step2Place").textContent="Looking up ZIP "+zip+"… Select an issue below.";
  saveHomeZIP(zip);
- $("clearSavedZIP").hidden=!savedHomeZIP();
+ setZIPEntryVisibility(savedHomeZIP()||zip);
  if(!stories){$("placeStatus").textContent="ZIP saved in this browser. Local evidence is loading.";return;}
  lookUpZIP(zip);
  // Keep the new visual ZIP summary as the first stop after submitting a location.
@@ -1270,7 +1313,17 @@ $("clearSavedZIP").addEventListener("click",()=>{
  history.replaceState(null,"",location.pathname+"#where");
  window.location.reload();
 });
-$("issueGrid").addEventListener("click",e=>{const b=e.target.closest("button[data-topic]");if(b)pick(b.dataset.topic,true)});
+$("issueGrid").addEventListener("click",e=>{
+ const b=e.target.closest("button[data-topic]");
+ if(!b)return;
+ // A topic card is the visitor's explicit request for deeper evidence:
+ // reveal its selected explanation instead of scrolling into hidden content.
+ if(document.body.classList.contains("vs6-topic-mode")&&!document.body.classList.contains("vs6-topic-expanded")){
+   const expand=document.querySelector("main > .vs6-topic .vs6-expand");
+   if(expand?.getAttribute("aria-expanded")==="false")expand.click();
+ }
+ pick(b.dataset.topic,true);
+});
 $("scopeButton").addEventListener("click",()=>{onlyRelevant=true;expanded=false;renderResearch()});
 $("allButton").addEventListener("click",()=>{onlyRelevant=false;expanded=false;renderResearch()});
 $("loadMore").addEventListener("click",()=>{expanded=true;renderResearch()});
@@ -1299,7 +1352,7 @@ $("researchSearch").addEventListener("input",e=>{search=e.target.value;renderRes
  if(!deepMap){$("researchStatus").textContent="Deep research registry not available; do not infer evidence connections.";}
  const hash=location.hash.slice(1);
  const rememberedZIP=savedHomeZIP();
- if(rememberedZIP){$("zipInput").value=rememberedZIP;$("clearSavedZIP").hidden=false;}
+ if(rememberedZIP){$("zipInput").value=rememberedZIP;if(!$("where").classList.contains("pa-zip-editing"))setZIPEntryVisibility(rememberedZIP);}
  pick(stories.issues.some(x=>x.id===hash)?hash:stories.defaultIssue||"housing",false,Boolean(hash)&&!pageSections.has(hash));
  if(rememberedZIP)lookUpZIP(rememberedZIP);
  if(pageSections.has(hash))requestAnimationFrame(()=>$(hash).scrollIntoView({behavior:"auto",block:"start"}));

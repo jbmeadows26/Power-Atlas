@@ -79,6 +79,10 @@ class ProductAcceptanceTests(unittest.TestCase):
         self.assertIn('title.id="pa-coverage-title"', script)
         self.assertIn('threads.slice(0,6)', script)
         self.assertIn('threads.slice(6)', script)
+        self.assertIn('pa-coverage-collapse', script)
+        self.assertNotIn('pa-coverage-jump', script,
+                         "Do not duplicate a 29-issue invitation outside its dedicated section")
+        self.assertIn('main > #what > #issueGrid{display:grid!important}', css)
         self.assertNotIn('why.insertAdjacentElement("afterend",section)', script)
         self.assertIn('pa-coverage--integrated', css)
         self.assertIn('grid-template-columns:repeat(2,minmax(0,1fr))', css)
@@ -87,6 +91,19 @@ class ProductAcceptanceTests(unittest.TestCase):
                       'consumer-practices.html', 'class-actions.html'):
             self.assertIn('href:"' + route + '"', script)
             self.assertTrue((SITE / route).exists())
+
+    def test_remembered_zip_hides_legacy_entry_and_reopens_only_on_request(self):
+        page = (SITE / "my-life.html").read_text(encoding="utf-8")
+        css = (SITE / "visual-story-v6.css").read_text(encoding="utf-8")
+        v6 = (SITE / "visual-story-v6.js").read_text(encoding="utf-8")
+        self.assertIn("function revealZIPEntry", page)
+        self.assertIn("pa-zip-established:not(.pa-zip-editing){display:none!important}", page)
+        self.assertIn('setZIPEntryVisibility(rememberedZIP)', page)
+        self.assertIn('event.preventDefault();', page)
+        self.assertIn('vs6-zip-period{display:none!important}', css)
+        self.assertIn('window.PowerAtlasZIP?.get?.()?"Change ZIP ↗"', v6)
+        self.assertNotIn("Find your U.S. House representative ↗", page,
+                         "Representative contact belongs to the dedicated Take Action page")
 
     def test_four_vercel_project_features_have_unified_routes(self):
         """Retirement gate: migrate unique Research/Voting functionality before redirects."""
