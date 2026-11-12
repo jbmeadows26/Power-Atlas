@@ -33,5 +33,25 @@ class BugReportPostHogTests(unittest.TestCase):
             self.assertIn(expected, js)
         self.assertNotIn("github.com", js)
 
+
+    def test_qa_monitor_captures_privacy_safe_browser_failures(self):
+        js = (SITE / "qa-monitor.js").read_text(encoding="utf-8")
+        self.assertIn('pa_qa_browser_error', js)
+        self.assertIn('unhandledrejection', js)
+        self.assertIn('window.addEventListener("error"', js)
+        self.assertIn('disable_session_recording:true', js)
+        self.assertIn('capture_pageview:false', js)
+        self.assertIn('autocapture:false', js)
+        self.assertIn('pa_page:path', js)
+        self.assertNotIn('captureException(', js)
+
+    def test_web_vital_numeric_measurements_survive_privacy_redaction(self):
+        js = (SITE / "qa-monitor.js").read_text(encoding="utf-8")
+        self.assertIn('capture_performance:true', js)
+        self.assertIn('event.event==="$web_vitals"', js)
+        self.assertIn('typeof obj[k]==="number" && Number.isFinite(obj[k])', js)
+        self.assertIn('event.properties.pa_page=path', js)
+        self.assertIn('zip|postal|form|element|text|input|value', js)
+
 if __name__ == "__main__":
     unittest.main()
