@@ -287,3 +287,11 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
   script.defer=true;script.dataset.paMonitor="1";
   document.head.append(script);
 })();
+
+
+/* Single-origin, device-local ZIP preference. Shared by every public page. */
+(()=>{"use strict";
+ if(window.PowerAtlasZIP||document.querySelector('script[src^="pa-zip-persistence.js"]'))return;
+ const script=document.createElement("script");script.src="pa-zip-persistence.js";
+ script.defer=true;script.dataset.paZipLoader="1";document.head.appendChild(script);
+})();
