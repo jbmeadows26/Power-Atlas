@@ -46,9 +46,10 @@ class EconomicFragilityPublicationTests(unittest.TestCase):
 
     def test_navigation_staged_in_everyday_and_research_entrypoints(self):
         self.assertIn('href="economic-fragility.html"', self.research)
-        url="https://power-atlas-research.vercel.app/economic-fragility.html"
-        self.assertIn(url, self.unified)
-        self.assertIn(url, self.everyday)
+        url="economic-fragility.html"
+        self.assertIn('href="'+url+'"', self.unified)
+        self.assertIn('href="'+url+'"', self.everyday)
+        self.assertTrue((BASE / "platform/unified/economic-fragility.html").is_file())
 
     def test_evidence_categories_cannot_be_added(self):
         f = self.d["financing"]
