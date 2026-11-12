@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Review a prepared Power Atlas constituent email without transmitting or sending it.">
+<title>Member Email Tester | Power Atlas</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;--ink:#153d3b;--green:#216f61;--paper:#f7f6ee;--line:#d6e5d9}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink)}
+button,input,textarea{font:inherit}
+button{cursor:pointer}
+a{color:#176f62}
+a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid #c48c36;outline-offset:3px}
+main{max-width:1030px;margin:auto;padding:clamp(30px,5vw,70px) 18px 100px}
+.kicker{font-weight:900;text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:#267c6e}
+h1{font-size:clamp(2.6rem,6vw,5.2rem);line-height:1.05;letter-spacing:-.07em;margin:13px 0;max-width:750px}
+.lead{font-size:1.07rem;color:#536e65;line-height:1.55;max-width:700px}
+.status{display:inline-flex;gap:9px;align-items:center;background:#e3f1e6;border:1px solid #b3d5c3;color:#216556;border-radius:99px;padding:9px 16px;font-weight:850;font-size:.8rem;margin:18px 0 25px}
+.wrap{display:grid;grid-template-columns:minmax(0,1.45fr) minmax(250px,.55fr);gap:18px}
+.letter{border-radius:23px;background:#fefdf9;border:1px solid #d9e6db;box-shadow:0 15px 40px #1a48341d;padding:clamp(20px,4vw,40px);min-width:0;position:relative;overflow:hidden}
+.letter:before{content:"✉";position:absolute;top:-22px;right:-10px;font-size:7rem;color:#d2e8d6;transform:rotate(-15deg)}
+.letter>div{position:relative}
+.letter label{display:block;letter-spacing:.1em;font-weight:850;color:#4d7b6e;font-size:.69rem;margin:14px 0 7px}
+.letter input,.letter textarea{width:100%;border:1px solid #c9dfd2;border-radius:11px;background:#f5f9f3;padding:14px;line-height:1.53;color:#193e36;resize:none}
+.letter input{font-weight:760}
+.letter textarea{min-height:310px;white-space:pre-wrap}
+.letter .to-line{font-size:1.15rem;font-weight:850}
+.help{border:1px solid var(--line);background:#e6f2e8;border-radius:19px;padding:23px;align-self:start}
+.help h2{font-size:1.3rem;margin:0 0 8px}
+.help p{font-size:.88rem;color:#557268;line-height:1.58}
+.actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:17px}
+.actions button,.actions a{font-size:.85rem;font-weight:850;border-radius:999px;padding:13px 19px;text-decoration:none;min-height:48px;display:inline-flex;align-items:center;justify-content:center;border:1px solid #236f60}
+.actions button{background:#216c5c;color:white}
+.actions a{background:transparent;color:#185f53}
+.actions button:disabled{opacity:.48;cursor:not-allowed}
+.help a{font-weight:790}
+#preview-feedback{font-size:.82rem;color:#3f7b67;margin-top:12px;min-height:24px}
+.empty{border:1px solid #eccd99;padding:11px 14px;border-radius:10px;background:#fff7e9;color:#705837;font-size:.85rem}
+@media(max-width:750px){.wrap{grid-template-columns:1fr}main{padding-bottom:150px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+</style>
+</head>
+<body data-pa-page="action">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation"><div class="pa-global-inner">
+<a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas home">◇ POWER <span>ATLAS</span></a>
+<nav class="pa-global-links" aria-label="Explore Power Atlas">
+<a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">Start Here</span></a>
+<a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a>
+<a href="my-life.html#benchmarkStory" data-pa-nav="consumer"><span class="pa-long">Costs</span><span class="pa-short">Costs</span></a>
+<a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a>
+<a href="take-action.html" data-pa-nav="action" aria-current="page"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a>
+<a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a>
+</nav></div></div>
+<main>
+<div class="kicker">Power Atlas / Constituent email laboratory</div>
+<h1>Your message is ready.<br><span style="color:#277e70">Nothing has been sent.</span></h1>
+<p class="lead">This is a temporary, private-in-your-browser testing stop—not a connected tester plugin or delivery service. It can be replaced when Power Atlas adds user accounts and authenticated delivery. Check the recipient, subject, and message as one complete letter.</p>
+<div class="status" role="status">✓ Preview only · No outbound email</div>
+<div class="wrap">
+<section class="letter" aria-labelledby="letter-title"><div>
+<div class="kicker" id="letter-title">Your prepared constituent email</div>
+<p id="no-draft" class="empty" hidden>No email draft is staged in this tab. Return to Take Action to choose an issue and preview a new message.</p>
+<label for="preview-to">TO · OFFICE</label>
+<input id="preview-to" readonly value="No member selected">
+<label for="preview-subject">SUBJECT</label>
+<input id="preview-subject" readonly value="">
+<label for="preview-body">BODY · 500 CHARACTERS MAXIMUM</label>
+<textarea id="preview-body" rows="12" readonly aria-label="Prepared constituent message"></textarea>
+<div class="actions"><button id="copy-email" type="button">Copy full email</button><a href="take-action.html#contact">Edit selections ↗</a></div>
+<p id="preview-feedback" aria-live="polite"></p>
+</div></section>
+<aside class="help">
+<h2>What happens next?</h2>
+<p><strong>Today:</strong> Nothing gets submitted, emailed, or delivered to an elected official. This page simply displays a draft prepared in your browser tab.</p>
+<p><strong>When user login is ready:</strong> The test destination can be replaced by an authenticated, consent-based delivery flow. Any real email service will require separate verification and testing.</p>
+<p><strong>Need to contact the office now?</strong> Use the official channel, verify your district, and submit only after reviewing the final text.</p>
+<p><a id="official-destination" href="https://www.congress.gov/members/find-your-member" target="_blank" rel="noopener noreferrer">Open official member contact directory ↗</a></p>
+<p><button id="clear-test" type="button" style="border:1px solid #abd0bd;border-radius:9px;background:#fff;padding:11px 13px;color:#1b6053;font-weight:820">Clear this staged draft</button></p>
+</aside>
+</div>
+</main>
+<script src="pa-zip-persistence.js"></script>
+<script src="bug-report.js" defer></script>
+<script>
+(()=>{
+"use strict";
+const $=id=>document.getElementById(id);
+const KEY="power-atlas:member-email-test:v1";
+function read(){
+ try{
+  const raw=sessionStorage.getItem(KEY);if(!raw||raw.length>3000)return null;
+  const data=JSON.parse(raw);
+  if(!data||data.schema!=="power-atlas.member-email-tester.v1"||data.status!=="preview-only")return null;
+  if(typeof data.body!=="string"||data.body.length>500||typeof data.subject!=="string"||data.subject.length>110||typeof data.office!=="string"||data.office.length>180)return null;
+  return data;
+ }catch(_){return null}
+}
+function safeOfficeLink(value){
+ try{
+  const u=new URL(value);
+  if(u.protocol!=="https:"||!/(^|\.)(house|senate)\.gov$/.test(u.hostname))return null;
+  return u.href;
+ }catch(_){return null}
+}
+function render(){
+ const data=read();
+ $("no-draft").hidden=Boolean(data);
+ $("preview-to").value=data?.office||"No member selected";
+ $("preview-subject").value=data?.subject||"";
+ $("preview-body").value=data?.body||"";
+ $("copy-email").disabled=!data;
+ $("official-destination").href=safeOfficeLink(data?.officialUrl)||"https://www.congress.gov/members/find-your-member";
+ $("preview-feedback").textContent="";
+}
+$("copy-email").addEventListener("click",async()=>{
+ const data=read();if(!data)return;
+ const draft="To: "+data.office+"\nSubject: "+data.subject+"\n\n"+data.body;
+ try{await navigator.clipboard.writeText(draft);$("preview-feedback").textContent="Email draft copied. No email was sent."}
+ catch(_){$("preview-feedback").textContent="Copy unavailable in this browser. Select the subject and body above to copy them.";}
+});
+$("clear-test").addEventListener("click",()=>{try{sessionStorage.removeItem(KEY)}catch(_){}render();});
+render();
+})();
+</script>
+</body>
+</html>

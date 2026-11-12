@@ -85,3 +85,29 @@ button,input,textarea{font:inherit}button{cursor:pointer}a{color:#166b60}a:focus
 .ta-block{border-color:var(--vs6-line,#dbe5df);box-shadow:0 8px 24px #153a3e09}
 .ta-heading h2{color:#102e39}
 @media(max-width:650px){.ta-hero h1{font-size:clamp(2.45rem,10.3vw,3.8rem)}.ta-hero{padding:clamp(19px,4vw,24px)}.ta-lobby-head h2{font-size:1.6rem}}
+
+/* Approved interactive-documentary exception: the member-contact scene becomes a
+   tactile, email-ready letter. It retains the shared shell, palette, and navigation. */
+.ta-compose .ta-letter{position:relative;overflow:hidden;background:radial-gradient(circle at 96% 0%,#335e53,#173e3d 45%,#12373a);border:1px solid #8bbbad;box-shadow:0 18px 35px #163e3525;border-radius:23px;padding:clamp(20px,3vw,32px)}
+.ta-letter-stamp{position:absolute;right:16px;top:6px;font-size:4.6rem;line-height:1;color:#bbd9b9;opacity:.18;transform:rotate(-12deg);pointer-events:none}
+.ta-letter .ta-message-head{position:relative;color:#c7e9db;border-bottom:1px solid #6d968a8a;padding-bottom:17px;margin-bottom:17px;z-index:1}
+.ta-letter-address{border-radius:12px;padding:13px 16px;margin:0 0 15px;background:#f1f4e9;color:#264c42;display:grid;gap:4px;position:relative}
+.ta-letter-address>span,.ta-letter-subject-label,.ta-letter-body-label{font-size:.68rem;letter-spacing:.13em;font-weight:900}
+.ta-letter-address>span{color:#54816f}
+.ta-letter-address strong{font-size:1.15rem;line-height:1.2}
+.ta-letter-address small{font-size:.75rem;color:#5b746c}
+.ta-letter-subject-label,.ta-letter-body-label{display:block;margin:17px 0 6px;color:#c1e7db}
+.ta-letter input.ta-letter-subject,.ta-letter textarea#message-preview{width:100%;border:1px solid #aed7c5;border-radius:10px;background:#f9faf4;color:#183c35;padding:13px 15px;font-size:.9rem;line-height:1.55;resize:none;opacity:1;-webkit-text-fill-color:#183c35}
+.ta-letter input.ta-letter-subject{font-weight:820;min-height:48px}
+.ta-letter textarea#message-preview{min-height:285px}
+.ta-letter .ta-message-actions{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:9px;margin:16px 0}
+.ta-letter .ta-message-actions button,.ta-letter .ta-message-actions a{min-height:48px;border-radius:999px;font-size:.85rem;font-weight:850;display:flex;align-items:center;justify-content:center;padding:10px 14px;text-align:center}
+.ta-letter .ta-message-actions button{border:1px solid #86c3a8;color:#ecf7ed;background:#235c51}
+.ta-letter .ta-message-actions button:hover{background:#2d7967}
+.ta-letter .ta-contact-link{border:1px solid #f0c97d;background:#f0c97d;color:#153d35}
+.ta-letter .ta-contact-link:hover{background:#ffe0a1;color:#153d35}
+.ta-letter .ta-official-handoff{display:inline-block;color:#d1eadf;font-size:.85rem;font-weight:800;margin:6px 0 16px}
+.ta-letter .ta-call{display:block;padding-top:12px;border-top:1px solid #77988980}
+.ta-letter .ta-test-note{border-top:1px solid #6b978582;padding-top:11px;color:#c0dcd2;font-size:.74rem;max-width:540px}
+.ta-letter .ta-test-note strong{color:#f2d28d}
+@media(max-width:650px){.ta-compose .ta-letter{padding:20px 16px}.ta-letter .ta-message-actions{grid-template-columns:1fr}.ta-letter textarea#message-preview{min-height:270px}}

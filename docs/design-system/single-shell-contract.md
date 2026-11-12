@@ -2,6 +2,12 @@
 
 Status: approved V6 visual-first system · November 2026. This contract is enforced by `tests/test_visual_atlas_production.py` and the production visual-atlas GitHub Actions gate.
 
+## Approved interactive-documentary experience (2026-11-12)
+
+The **visitor experience standard** is now the [Interactive Visual Documentary Standard](interactive-documentary-standard.md), with the approved [Why does everything cost so much?](../../platform/unified/why-costs-more.html) story as its working reference. The single V6 shell, brand, navigation, verified data pipelines and evidence preservation **remain required infrastructure**, but a consistent shell alone is not a finished experience.
+
+**Every new or redesigned investigation must now tell a short visual story and support meaningful user-directed discovery**: initial visual question, working comparison/interaction, source-scoped explanation, evidence one clear action away, and relevant agency or action. Decorative charts plus paragraphs, fake interactive controls, and multiple visible design generations fail this acceptance gate. Conversion is progressive, not permission to delete research or break existing links.
+
 ## Default design policy for every future change
 Every new page, section, chart, module, investigation and redesign **must use the approved V6 visual-first Power Atlas shell from its first implementation**, not just link its CSS or JavaScript. The canonical navigation, palette, visual introduction, interactive graphics, short summary and expandable evidence are mandatory release criteria. Standalone layouts or competing theme systems are defects. Merge/publish only after checking the visible result on desktop and mobile. Existing research data and citations must survive the visual conversion.
 
