@@ -514,6 +514,9 @@ function attachZIPVisual(section){
    }
  }
  window.addEventListener("poweratlas:zip-visual-context",paint);
+ // A saved ZIP may finish loading before V6 mounts. Restore that exact
+ // source-backed snapshot; do not fabricate fallback measurements.
+ if(window.PowerAtlasLastZIPVisualContext)paint({detail:window.PowerAtlasLastZIPVisualContext});
  function renderMarket(){
    const els=nodes.get("housing"),d=lastMarketResult;
    if(!els?.bedrooms||!d||d.zip!==currentZip)return;
@@ -553,6 +556,10 @@ function attachZIPVisual(section){
    lastMarketResult=d;
    renderMarket();
  });
+ if(window.PowerAtlasLastMarketRent?.zip===currentZip){
+   lastMarketResult=window.PowerAtlasLastMarketRent;
+   renderMarket();
+ }
 }
 
 function topic(){if(documentPath==="corporate-ownership.html")return;
