@@ -1,0 +1,104 @@
+{
+  "schema": "power-atlas.institutional-decay.evidence.v1",
+  "asOf": "2026-11-12",
+  "publicationStatus": "source_attributed_official_aggregate_not_causal",
+  "scope": "New Zealand Ombudsman 2025/26 administrative accountability and remedy performance",
+  "dataUse": "Original factual extracts and paraphrases only. Source-specific reproduction licence not independently established; do not redistribute report, images, or bulk source text.",
+  "causality": "Complaint volumes, clearance and early resolution do not establish misconduct prevalence, public trust changes or causation.",
+  "sources": [
+    {
+      "id": "nz-ombudsman-ar-2025-26",
+      "url": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "publisher": "Office of the Ombudsman, New Zealand",
+      "published": "2026-10-20",
+      "sourceType": "official_annual_report",
+      "permission": "factual_extract_only_license_unverified"
+    }
+  ],
+  "observations": [
+    {
+      "id": "nz-ombudsman-2026-completed",
+      "dimension": "complaint_handling",
+      "geography": "New Zealand",
+      "period": "FY2025/26",
+      "value": 11700,
+      "unit": "count",
+      "measure": "Complaints completed in 2025/26",
+      "population": "All complaints completed by NZ Office of Ombudsman",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "evidenceStatus": "official_agency_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Not a finding of individual guilt or causality."
+    },
+    {
+      "id": "nz-ombudsman-2026-clearance",
+      "dimension": "complaint_handling",
+      "geography": "New Zealand",
+      "period": "FY2025/26",
+      "value": 109,
+      "unit": "percent",
+      "measure": "Complaint clearance rate",
+      "population": "Completed complaints divided by complaints received; published rounded rate",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "evidenceStatus": "official_agency_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Rounded published rate; do not infer exact received count from rounded percentage."
+    },
+    {
+      "id": "nz-ombudsman-2026-early",
+      "dimension": "complaint_handling",
+      "geography": "New Zealand",
+      "period": "FY2025/26",
+      "value": 48,
+      "unit": "percent",
+      "measure": "Complaints resolved before final opinion in 2025/26",
+      "population": "Complaints in office early-resolution reporting cohort",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "evidenceStatus": "official_agency_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Office-defined early resolution, not substantiated wrongdoing; cohorts differ across years."
+    },
+    {
+      "id": "nz-ombudsman-2026-early-prior",
+      "dimension": "complaint_handling",
+      "geography": "New Zealand",
+      "period": "FY2024/25",
+      "value": 34,
+      "unit": "percent",
+      "measure": "Complaints resolved before final opinion in 2024/25",
+      "population": "Prior-year complaints in office early-resolution reporting cohort",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "evidenceStatus": "official_agency_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Office-defined early resolution, not substantiated wrongdoing; cohorts differ across years."
+    },
+    {
+      "id": "nz-ombudsman-2026-proactive",
+      "dimension": "oversight_activity",
+      "geography": "New Zealand",
+      "period": "FY2025/26",
+      "value": 5,
+      "unit": "count",
+      "measure": "Proactive investigations into central-government official information practices completed",
+      "population": "Proactive investigations; distinct from individual complaints",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "evidenceStatus": "official_agency_reported_aggregate",
+      "claimType": "descriptive_observation",
+      "note": "Not a finding of individual guilt or causality."
+    }
+  ],
+  "events": [
+    {
+      "id": "nz-ombudsman-annual-report-2026-10-20",
+      "geography": "New Zealand",
+      "eventDate": "2026-10-20",
+      "eventType": "official_oversight_reporting",
+      "subject": "Chief Ombudsman annual report 2025/26",
+      "finding": "Reported 11,700 complaints completed, 109% clearance, 48% resolved before final opinion, and five proactive official-information investigations.",
+      "disposition": "Annual report published; no individual adjudication implied.",
+      "legalStatus": "official_administrative_report_not_adjudicated_misconduct",
+      "source": "https://www.ombudsman.parliament.nz/resources/chief-ombudsmans-annual-report-2025-2026",
+      "causalLinkToTrust": "not_established"
+    }
+  ]
+}
