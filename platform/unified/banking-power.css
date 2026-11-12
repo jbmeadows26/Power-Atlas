@@ -34,3 +34,14 @@ body[data-pa-page="banking"]{margin:0;background:#f5f7f1;color:#173f41}
 @media(max-width:950px){.bank-hero-grid{grid-template-columns:1fr}.bank-visual{width:min(470px,100%);min-height:420px;margin:auto}.bank-ledger{grid-template-columns:repeat(2,minmax(0,1fr))}.bank-aig-flow{grid-template-columns:1fr}.bank-flow-arrow{transform:rotate(90deg)}.bank-mechanisms{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:650px){.bank-wrap{width:calc(100% - 30px)}.bank-hero{padding:60px 0 67px}.bank-hero h1{font-size:clamp(3rem,12vw,5rem)}.bank-visual{min-height:330px;width:320px;max-width:100%}.bank-visual-number span{font-size:2.65rem}.bank-visual-tiny{margin:0 0 8px}.bank-visual:before{inset:17px}.bank-chapters{width:calc(100% - 20px)}.bank-section{padding-block:70px}.bank-section h2{font-size:clamp(2.35rem,10vw,4rem)}.bank-case-top{grid-template-columns:1fr}.bank-case-metric{text-align:left}.bank-ledger{grid-template-columns:1fr}.bank-ledger>div{padding:17px 22px}.bank-case-grid,.bank-mechanisms,.bank-fee-demo,.bank-lobby-stat,.bank-three,.bank-outro-grid{grid-template-columns:1fr}.bank-fee-demo{padding:24px}.bank-crisis-picker button{min-width:112px}.bank-misconduct{padding:20px}.bank-flow-node{min-height:170px}.bank-legend{margin:15px 0}.bank-outro-question{font-size:1.8rem}.bank-section .bank-intro{margin-bottom:22px}}
 @media(prefers-reduced-motion:reduce){.bank-btn:hover{transform:none}.bank-fee-bar:after{transition:none}}
+
+.bank-contrib{display:grid;grid-template-columns:1fr 1.1fr;gap:30px;border:1px solid #bdd7ca;background:#ecf5ed;border-radius:24px;padding:clamp(24px,4vw,39px);margin:24px 0}
+.bank-contrib h3{font-size:clamp(1.5rem,3vw,2.45rem);line-height:1.15;letter-spacing:-.05em;margin:13px 0}
+.bank-contrib p{font-size:.85rem;color:#547368}
+.bank-contrib-rows{display:flex;flex-direction:column;gap:15px;justify-content:center}
+.bank-contrib-rows>div{display:grid;grid-template-columns:130px 1fr 76px;gap:12px;align-items:center;font-size:.78rem}
+.bank-contrib-rows span{font-weight:780;color:#305a52}
+.bank-contrib-rows b{text-align:right;color:#194c45;font-variant-numeric:tabular-nums}
+.bank-contrib-track{height:15px;background:#cee1d1;border-radius:99px;overflow:hidden}.bank-contrib-track i{display:block;background:linear-gradient(90deg,#2e8879,#9bcb9e);height:100%;border-radius:99px}
+.bank-contrib-source{grid-column:1/-1;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;border-top:1px solid #c7ded0;padding-top:13px;font-size:.73rem;color:#547568}.bank-contrib-source a{font-weight:840}
+@media(max-width:850px){.bank-contrib{grid-template-columns:1fr}}@media(max-width:470px){.bank-contrib-rows>div{grid-template-columns:1fr auto;gap:3px 10px}.bank-contrib-track{grid-column:1/-1;grid-row:2}.bank-contrib-rows b{grid-column:2;grid-row:1}}
