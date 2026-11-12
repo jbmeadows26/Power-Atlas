@@ -823,6 +823,11 @@ html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
 html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
  main > #what > #pa-coverage-discovery{display:block!important}
 
+/* A chosen community needs a clean city heading, not a repeat of the
+   previous ZIP explainer. Source qualifications remain available below
+   the actual charts and in their dedicated methodology sections. */
+html[data-vs6="active"] body[data-pa-page="overview"] .vs6-zip-period{display:none!important}
+html[data-vs6="active"] body[data-pa-page="overview"] #step2Place{display:none!important}
 /* The homepage is a continuous flow: featured investigations, then 29 topic cards.
    Do not end the page after the featured directory or duplicate an issue CTA
    outside the section that owns the issues. Keep deep evidence opt-in. */
