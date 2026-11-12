@@ -100,7 +100,10 @@ class ConnectedDailyLifeEvidenceTests(unittest.TestCase):
             self.assertIn(fragment,self.ui)
         self.assertIn("Census Reporter",self.ui)
         self.assertIn("Zippopotam.us",self.ui)
-        self.assertNotIn("localStorage",self.ui)
+        # Explicitly submitted ZIP is retained only in the visitor's browser.
+        self.assertIn('ZIP_PREFERENCE_KEY="power-atlas:visitor-zip:v1"', self.ui)
+        self.assertIn("function savedHomeZIP()", self.ui)
+        self.assertNotIn("sessionStorage", self.ui)
         self.assertNotIn("navigator.geolocation",self.ui)
         self.assertNotIn("No URL",self.ui)
 
