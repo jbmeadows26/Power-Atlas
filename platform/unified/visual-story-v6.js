@@ -638,7 +638,7 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
  if(documentPath==="my-life.html"){
   const zip=document.getElementById("where");if(zip){const label=E("a","vs6-zip-link","Enter or change your ZIP ↓");label.href="#where";intro.append(label);}
  }
- if(location.hash&&location.hash!=="#market-power-pathways"){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
+ if(location.hash&&location.hash!=="#market-power-pathways"&&!(documentPath==="my-life.html"&&location.hash==="#where")){document.body.classList.add("vs6-topic-expanded");cta.setAttribute("aria-expanded","true");cta.textContent="Back to the big picture ↑";}
 }
 function compactNav(){
  let header=document.getElementById("pa-global-header");
