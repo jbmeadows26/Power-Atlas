@@ -66,7 +66,7 @@ class AICrashStoryQATests(unittest.TestCase):
 
     def test_evidence_protects_readers_from_false_predictions(self):
         for phrase in ("$300B", "$650B", "$1.4T", "not a forecast",
-                       "not a probability", "not investment advice",
+                       "not probabilities", "not investment advice",
                        "https://www.imf.org", "https://www.bankofengland.co.uk"):
             self.assertIn(phrase.lower(), self.html.lower())
 
