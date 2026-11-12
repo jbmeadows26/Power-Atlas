@@ -125,16 +125,29 @@ html[data-vs6="active"] body button.vs6-metric[aria-pressed="true"] .vs6-metric-
 .vs6-research-button:hover{background:#25665e;color:#fff}
 html[data-vs6="active"] body.vs6-home-mode:not(.vs6-full-research) .pa5-library{display:none!important}
 html[data-vs6="active"] body.vs6-home-mode.vs6-full-research .pa5-library{display:flex}
-.vs6-topic{background:#122e3f;color:#fff;border-radius:25px;margin:14px 0 18px;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden}
-.vs6-topic:before{content:"";position:absolute;width:400px;height:400px;border:70px solid #ffffff09;border-radius:50%;right:-200px;top:-260px;pointer-events:none}
-.vs6-topic .vs6-micro{color:#9ce4cc}
-.vs6-topic>h1{font-size:clamp(2.4rem,5.1vw,5rem)!important;color:#fff!important;font-weight:950;line-height:1.05;letter-spacing:-.065em!important;margin:16px 0 13px!important;max-width:800px}
-.vs6-topic-summary{font-size:clamp(1.01rem,1.5vw,1.2rem);color:#cce0e1;line-height:1.42;max-width:680px;margin:0 0 23px}
-.vs6-topic>.vs6-art{background:#1e4758;border-radius:18px;width:100%;min-height:210px;margin-bottom:20px}
+.vs6-topic{background:var(--vs6-cream);color:var(--vs6-ink);border:1px solid #eee4d6;border-radius:25px;max-width:1190px;width:100%;margin:14px auto 18px;padding:clamp(22px,4vw,40px);display:flex;flex-direction:column;align-items:flex-start;position:relative;overflow:hidden;box-shadow:0 8px 24px #153a3e09}
+.vs6-topic:before{content:"";position:absolute;width:400px;height:400px;border:70px solid #c5ded845;border-radius:50%;right:-200px;top:-260px;pointer-events:none}
+.vs6-topic .vs6-micro{color:#1b8078}
+.vs6-topic>h1{font-size:clamp(2.45rem,5.2vw,4.6rem)!important;color:#102e39!important;font-weight:950;line-height:1.05;letter-spacing:-.065em!important;margin:16px 0 13px!important;max-width:920px}
+.vs6-topic-summary{font-size:clamp(1.01rem,1.5vw,1.2rem);color:#48656a;line-height:1.42;max-width:790px;margin:0 0 23px}
+.vs6-topic>.vs6-art{background:#193f4e;color:#f5fffb;border-radius:18px;width:100%;min-height:210px;margin-bottom:20px}
 .vs6-topic>.vs6-art .vs6-owned{max-width:530px}
 .vs6-topic>.vs6-art .vs6-phone-viz{transform:scale(1.08)}
 .vs6-topic>.vs6-art .vs6-case-viz{transform:scale(1.2)}
 .vs6-topic>.vs6-source{margin-bottom:15px}
+/* V6 single-shell rule: interactive evidence keeps its distinct facts and charts,
+   but older route cards do not revert to independent page frames on reveal. */
+html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded main > :is(.pa5-explorer,.panel,.cw-section,.ownerTrail,.section){
+ max-width:1190px;margin-left:auto;margin-right:auto;
+}
+html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded main > :is(.panel,.cw-section,.ownerTrail){
+ background:#fffdf8;border:1px solid #dae5dd;border-radius:22px;
+ color:#173744;box-shadow:0 9px 27px #14394410;
+ padding:clamp(16px,3vw,30px);
+}
+html[data-vs6="active"] body.vs6-topic-mode.vs6-topic-expanded main > :is(.panel,.cw-section,.ownerTrail) :is(h2,h3){
+ color:#153541;
+}
 .vs6-expand{font:inherit}
 .vs6-zip-link{color:#8af0d0!important;font-weight:850;margin-top:15px;text-decoration:underline}
 html[data-vs6="active"] body.vs6-topic-mode main>.pa5-topic-hero{display:none!important}
