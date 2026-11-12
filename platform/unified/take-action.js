@@ -228,13 +228,16 @@ document.querySelectorAll(".ta-chamber-link").forEach(button=>button.addEventLis
   return;
  }
  if(zip===code&&members.some(m=>m.chamber===chamber)){focusChosenChamber(chamber);return;}
+ window.PowerAtlasZIP?.save(code);
  $("find").scrollIntoView({behavior:reduced?"auto":"smooth",block:"start"});
  locate(code).then(()=>focusChosenChamber(chamber));
 }));
 $("lookup-form").addEventListener("submit",e=>{
  e.preventDefault();const input=$("zip");const code=input.value.trim();
  if(!/^\d{5}$/.test(code)){status.textContent="Enter exactly five digits for a U.S. ZIP code.";input.setAttribute("aria-invalid","true");input.focus();return;}
- input.removeAttribute("aria-invalid");locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
+ input.removeAttribute("aria-invalid");
+ window.PowerAtlasZIP?.save(code);
+ locate(code).then(()=>{if(selectedChamber)focusChosenChamber(selectedChamber);});
 });
 $("zip").addEventListener("input",()=>{$("zip").value=$("zip").value.replace(/\D/g,"").slice(0,5);});
 document.querySelectorAll("#issue-options button").forEach(button=>button.addEventListener("click",()=>{
@@ -257,6 +260,9 @@ document.querySelectorAll("#question-options button").forEach(button=>button.add
 }));
 $("copy-message").addEventListener("click",()=>copyValue($("message-preview").value,$("copy-message"),"Copy message","message-preview"));
 $("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief"),"Copy my issue brief","brief-preview"));
+const savedZIP=window.PowerAtlasZIP?.get();
+if(savedZIP&&!$("zip").value)$("zip").value=savedZIP;
+// Legacy inbound links remain accepted, but the ZIP is not added to outbound links.
 const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
 buildMessage();
 })();
