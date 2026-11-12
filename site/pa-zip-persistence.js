@@ -5,7 +5,7 @@
  "use strict";
  if(window.PowerAtlasZIP)return;
  const KEY="power-atlas:visitor-zip:v1";
- const valid=zip=>typeof zip==="string"&&/^\\d{5}$/.test(zip);
+ const valid=zip=>typeof zip==="string"&&/^\d{5}$/.test(zip);
  function read(){try{const zip=window.localStorage.getItem(KEY);return valid(zip)?zip:null}catch(_){return null}}
  function emit(){window.dispatchEvent(new CustomEvent("poweratlas:zip-preference",{detail:{zip:read()}}));refresh();}
  function save(zip){if(!valid(zip))return false;try{window.localStorage.setItem(KEY,zip)}catch(_){/* Private browsing may block storage */}emit();return true}
