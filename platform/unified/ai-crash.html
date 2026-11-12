@@ -6,6 +6,8 @@
 <meta name="description" content="An interactive, evidence-led Power Atlas documentary: what could happen if the AI investment boom reverses, and how that financial shock could reach everyday life.">
 <meta name="theme-color" content="#101c2b">
 <title>What If the AI Boom Breaks? | Power Atlas</title>
+<!-- Shared navigation, ZIP and QA hooks; the documentary retains its own visual styling. -->
+<link rel="stylesheet" href="atlas-visual-system.css">
 <style>
 :root{--night:#101c2b;--deep:#162735;--ink:#17323c;--paper:#f6f4ee;--cloud:#edf1ec;--mint:#9df6cd;--jade:#207c73;--orange:#ffaf88;--yellow:#ffde85;--lilac:#c9bbff;--line:#d5ddd6;--muted:#597077;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);background:var(--paper);font-size:16px}
 *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:90px}body{margin:0}button,input{font:inherit}button{cursor:pointer}a{color:inherit}a:focus-visible,button:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #f5a671;outline-offset:4px}button[aria-pressed=true]{cursor:default}
@@ -158,5 +160,6 @@ function updateProgress(){var root=document.documentElement;var range=root.scrol
 document.addEventListener("scroll",updateProgress,{passive:true});window.addEventListener("resize",updateProgress);updateProgress();
 })();
 </script>
+<script src="atlas-visual-system.js" defer></script>
 <script src="bug-report.js" defer></script>
 </body></html>
