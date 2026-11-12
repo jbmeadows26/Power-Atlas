@@ -42,17 +42,8 @@ function render(){
  const title=e("h3",null,"Follow the whole story");
  title.id="pa-coverage-title";
  left.append(title,e("p",null,"Who shapes the prices, rules and choices behind everyday life? Follow the documented trail."));
- const jump=e("a","pa-coverage-jump","Browse the 29 issues ↓");
- jump.href="#issueGrid";
- // The V6 first screen collapses its long issue chapter. Open that chapter
- // before following this link so the destination is never hidden.
- jump.addEventListener("click",()=>{
-   if(document.body.classList.contains("vs6-topic-mode")&&!document.body.classList.contains("vs6-topic-expanded")){
-     const expand=document.querySelector(".vs6-topic .vs6-expand");
-     if(expand?.getAttribute("aria-expanded")==="false")expand.click();
-   }
- });
- head.append(left,jump);section.append(head);
+ // 29 topics follow this gallery directly; avoid a redundant Browse link.
+ head.append(left);section.append(head);
  const featured=e("div","pa-coverage-grid");
  threads.slice(0,6).forEach(x=>featured.append(card(x)));
  section.append(featured);
@@ -61,7 +52,11 @@ function render(){
  more.append(summary);
  const extra=e("div","pa-coverage-grid");
  threads.slice(6).forEach(x=>extra.append(card(x)));
- more.append(extra);section.append(more);
+ more.append(extra);
+ const collapse=e("button","pa-coverage-collapse","Show fewer investigations ↑");
+ collapse.type="button";
+ collapse.addEventListener("click",()=>{more.open=false;summary.focus({preventScroll:true});});
+ more.append(collapse);section.append(more);
  const foot=e("div","pa-coverage-foot");
  foot.append(e("span",null,"Records, reported claims and unknowns stay separate."));
  const audit=e("a",null,"See source coverage and evidence gaps ↗");
