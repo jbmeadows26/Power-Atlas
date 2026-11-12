@@ -810,6 +810,19 @@ html[data-vs6="active"] .vs6-topic-shortcut:focus-visible{outline:3px solid #ce7
  .vs6-topic-shortcut-icon{width:40px;height:40px}}
 @media(prefers-reduced-motion:reduce){html[data-vs6="active"] .vs6-topic-shortcut:hover{transform:none}}
 
+/* Feature the evidence investigation entry even before the long V6 chapter opens.
+   Keep the 29 issue buttons, metrics and comparison tools behind the original
+   Explore action; the Browse link expands that chapter before scrolling. */
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded) main > #what{
+ display:block!important;max-width:1190px;margin:0 auto;padding:20px max(16px,2vw) 0;
+}
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > :not(.section-head):not(#pa-coverage-discovery){display:none!important}
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > .section-head{display:flex!important}
+html[data-vs6="active"] body.vs6-topic-mode:not(.vs6-topic-expanded)
+ main > #what > #pa-coverage-discovery{display:block!important}
+
 /* Section 2 integration: source investigations and the 29 life issues share one discoverable journey. */
 #what .pa-coverage--integrated{
   max-width:none;margin:18px 0 21px;padding:clamp(16px,2.6vw,25px);
