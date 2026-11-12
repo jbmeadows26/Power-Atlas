@@ -81,7 +81,7 @@ function buildMessage(){
  $("brief-preview").value=makeBrief();
  const dest=$("write-member");
  dest.href="contact-tester.html";
- dest.textContent="Preview in email tester ↗";
+ dest.textContent="Preview prepared message ↗";
  const official=$("official-member");
  official.href=email.officialUrl;
  official.textContent=selected?(selected.contact?"Open official contact form ↗":"Open official member website ↗"):"Find an official member contact channel ↗";
