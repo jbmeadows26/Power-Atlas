@@ -45,6 +45,18 @@
   ],
   "verifiedEntryPoints": [
     {
+      "id": "fec-committee-to-committee-oth",
+      "url": "https://www.fec.gov/campaign-finance-data/any-transaction-one-committee-another-file-description/",
+      "bulkFile": "https://www.fec.gov/files/bulk-downloads/2026/oth26.zip",
+      "origin": "Federal Election Commission",
+      "relevantGates": [
+        "verified_committee_financial_transfers"
+      ],
+      "stage": "original_OTH_schema_retrieved_and_official_bulk_zip_endpoint_confirmed",
+      "coverage": "Federal committee-to-committee itemized transaction file; contains transfers, contributions and other transaction types; not solely transfer money and not state/local transactions",
+      "next": "Pilot one bounded original OTH cycle ZIP; parse pipe-delimited data and official header; distinguish direction and transaction type, handle amendments and memo, normalize committee IDs and reconcile to filing/report IDs; preserve SHA256, cutoff date and publication limitation"
+    },
+    {
       "id": "fec-committee-candidate-bulk",
       "url": "https://www.fec.gov/campaign-finance-data/contributions-committees-candidates-file-description/",
       "origin": "Federal Election Commission",
@@ -1151,6 +1163,7 @@
       "observed": 0,
       "nextAction": "Connect FEC itemized disbursements or official state filings to legally identified recipients",
       "sourceEntryPoints": [
+        "fec-committee-to-committee-oth",
         "fec-committee-candidate-bulk",
         "fec-disbursement-bulk",
         "fec-bulk-entry"
