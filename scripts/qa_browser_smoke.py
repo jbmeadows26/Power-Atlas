@@ -117,6 +117,54 @@ class BrowserJourneyQA(unittest.TestCase):
             "() => !!(document.getElementById('where').compareDocumentPosition("
             "document.getElementById('what')) & Node.DOCUMENT_POSITION_FOLLOWING)"))
 
+    def test_mobile_percentage_charts_use_shared_zero_axes_and_direct_labels(self):
+        """A 20.4% share must not appear as an unqualified 100%-width bar."""
+        self.visit("/my-life.html")
+        # Synthetic QA fixtures only; never displayed as public research data.
+        self.page.evaluate("""() => {
+            window.dispatchEvent(new CustomEvent('poweratlas:zip-visual-context', {detail: {
+                zip: '07010', place: 'QA fixture', status: 'ready',
+                survey: 'U.S. Census ACS 2020–2024 5-year',
+                metrics: [
+                    {key:'transport', localValue:20.4, usValue:3.2,
+                     localText:'20.4%', usText:'3.2%', format:'share'},
+                    {key:'groceries', localValue:7.8, usValue:12.1,
+                     localText:'7.8%', usText:'12.1%', format:'share'},
+                    {key:'health', localValue:7.7, usValue:8.4,
+                     localText:'7.7%', usText:'8.4%', format:'share'}
+                ]
+            }}));
+        }""")
+        transport = self.page.locator(".vs6-zip-tile").filter(
+            has=self.page.locator(".vs6-zip-tile-label", has_text="TRANSPORT"))
+        grocery = self.page.locator(".vs6-zip-tile").filter(
+            has=self.page.locator(".vs6-zip-tile-label", has_text="FOOD"))
+        health = self.page.locator(".vs6-zip-tile").filter(
+            has=self.page.locator(".vs6-zip-tile-label", has_text="HEALTH"))
+        self.assertEqual(transport.locator(".vs6-zip-comparison-value").all_text_contents(),
+                         ["20.4%", "3.2%"])
+        self.assertEqual(transport.locator(".vs6-zip-axis-ticks span").all_text_contents(),
+                         ["0%", "12.5%", "25%"])
+        self.assertEqual(transport.locator(".vs6-zip-fill").first.get_attribute("style"),
+                         "width: 81.60%;",
+                         "The ZIP bar must use an explicit axis, not normalize to max=20.4")
+        self.assertEqual(transport.locator(".vs6-zip-fill--us").get_attribute("style"),
+                         "width: 12.80%;")
+        self.assertIn("17.2 percentage points above U.S.", transport.inner_text())
+        self.assertIn("same 0%–25% axis", transport.locator(".vs6-zip-comparison").get_attribute("aria-label"))
+        self.assertEqual(grocery.locator(".vs6-zip-axis-ticks span").all_text_contents(),
+                         ["0%", "7.5%", "15%"])
+        self.assertEqual(health.locator(".vs6-zip-axis-ticks span").all_text_contents(),
+                         ["0%", "5%", "10%"])
+        self.assertIn("4.3 percentage points below U.S.", grocery.inner_text())
+        # Each comparison receives the full phone width instead of two cramped
+        # adjacent mini-bars that are difficult to read or tap.
+        tx, gx = transport.bounding_box(), grocery.bounding_box()
+        self.assertLess(abs(tx["x"] - gx["x"]), 5)
+        self.assertGreater(gx["y"], tx["y"])
+        self.assertGreater(transport.locator(".vs6-zip-track").first.bounding_box()["width"], 140)
+        self.assert_no_horizontal_overflow()
+
     def test_market_asking_rent_leads_and_hud_is_separate(self):
         # Source-specific market snapshot is verified, static, citywide and NOT
         # substituted with HUD or a historical all-bedroom ACS median.
