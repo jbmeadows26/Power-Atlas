@@ -3,6 +3,7 @@
 "use strict";
 const sources={
   un:"https://www.un.org/en/global-issues",
+  fdic:"https://www.fdic.gov/",
   social:"https://desapublications.un.org/publications/world-social-report-2025-new-policy-consensus-accelerate-social-progress",
   ilo:"https://www.ilo.org/",
   oecd:"https://www.oecd.org/en/topics/sub-issues/trust-in-government.html",
@@ -19,7 +20,7 @@ const sources={
   unodc:"https://www.unodc.org/"
 };
 /* [slug,heading,domain,icon,short introduction,details,closest existing cost/civic track,original source,source name].
-   These 20 entries exclude the 9 existing local-life cards. Related tracks are explicitly
+   These 21 entries exclude the 9 existing local-life cards. Related tracks are explicitly
    adjacent evidence, NOT measurements of the broader topic or proof of cause. */
 const topics=[
 ["mobility","Upward mobility","ECONOMIC SECURITY","↗","Can hard work still improve your standard of living?","Compare wages and the price of housing, childcare, education and care. Rules, costs and access differ by location and generation.","housing","social","UN · World Social Report"],
@@ -40,13 +41,14 @@ const topics=[
 ["conflict","War, violence & displacement","GLOBAL STABILITY","⚑","What happens when safety and home disappear?","Track conflict, humanitarian access, forced displacement and spillovers into prices, infrastructure, public health and schooling. Use dated UNHCR definitions.","public-services","unhcr","UNHCR · Global Trends"],
 ["safety","Community safety & the rule of law","DEMOCRACY & RIGHTS","⬡","Do people feel safe—and are rules fairly enforced?","Explore crime, drug markets, public-space conditions, trafficking and equal access to justice. Perception, reported incidents and proven trends must remain separate.","public-services","unodc","UNODC · Crime and justice"],
 ["industry","Energy transition & industrial capacity","PLANET & RESOURCES","⚡","Can we build a cleaner, more resilient economy?","Examine grids, energy affordability, domestic manufacturing, critical infrastructure and decarbonization trade-offs.","energy","iea","IEA · Energy analysis"],
+["banking","Banking & financial power","ECONOMIC SECURITY","▦","When a bank fails, who gets the rescue?","Follow fees, credit, lobbying and historic bailouts. The interactive crisis ledger separates depositors, shareholders, counterparties, taxpayers and legal outcomes.","housing","fdic","FDIC · Bank supervision"],
 ["debt","Public debt & social protection","ECONOMIC SECURITY","▤","Who pays for today's commitments tomorrow?","Compare debt servicing, taxes, retirement systems and public-service trade-offs. Spending pressure is not itself evidence of insolvency.","public-services","imf","IMF · Fiscal Monitor"],
 ["geopolitics","Great-power competition & supply chains","GLOBAL STABILITY","⌁","Why do distant rivalries affect prices at home?","Follow trade policy, semiconductors, critical minerals, shipping routes and strategic dependencies. Distinguish risks from realized disruptions.","transport","un","UN · Global Issues"]
 ];
 function el(tag,klass,value){const node=document.createElement(tag);if(klass)node.className=klass;if(value!==undefined)node.textContent=value;return node;}
 const existingIds=new Set(["housing","groceries","energy","health","work","schools","transport","public-services","representation"]);
 if(new Set(topics.map(t=>t[0])).size!==topics.length||topics.some(t=>!existingIds.has(t[6])||!sources[t[7]])){console.error("Power Atlas issue catalog validation failed");return;}
-/* All twenty additional topics belong in the exact SAME nine-topic grid under
+/* All twenty-one additional topics belong in the exact SAME nine-topic grid under
    "What matters most right now?". Each remains explorable without inventing
    ZIP-level evidence or overwriting the nine source-backed local topic panels. */
 function render(){
@@ -74,7 +76,7 @@ function render(){
    const source=el("a","pa-social-source","Original source ↗");
    source.href=sources[t[7]];source.target="_blank";source.rel="noopener noreferrer";
    source.title=t[8];source.setAttribute("aria-label","Open "+t[8]+" (new tab)");
-   actions.append(related,source);body.append(actions);card.append(summary,body);
+   actions.append(related,source);body.append(actions);if(t[0]==="banking"){const deep=el("a","pa-social-source","Follow the banking investigation →");deep.href="banking-power.html";deep.style.display="inline-block";deep.style.marginTop="12px";deep.style.fontWeight="850";body.append(deep);}card.append(summary,body);
    card.addEventListener("toggle",()=>{
      // Only one expanded card in the unified grid; easier to scan on mobile.
      if(card.open&&card.isConnected)grid.querySelectorAll(".pa-social-card[open]").forEach(other=>{if(other!==card)other.open=false;});

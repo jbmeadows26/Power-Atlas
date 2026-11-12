@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#13383b">
+<meta name="description" content="An interactive, evidence-led Power Atlas story about what a dollar buys, where prices come from, and the choices people can make.">
+<title>Why Does Everything Cost So Much? | Power Atlas</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="stylesheet" href="global-navigation.css">
+<style>
+:root{--ink:#173a3a;--deep:#12363a;--teal:#267f76;--sea:#a0d7c2;--paper:#f5f5ef;--card:#fffef9;--gold:#f0c875;--orange:#f09b71;--line:#d9e5dd;--mute:#58706c;color-scheme:light;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);line-height:1.45}
+a{color:#176e64}
+button,input{font:inherit}button{cursor:pointer}
+button:focus-visible,a:focus-visible,input:focus-visible,summary:focus-visible{outline:3px solid #c57d30;outline-offset:4px}
+img,svg{max-width:100%}
+[data-stage]{scroll-margin-top:94px}
+.story-shell{max-width:1270px;padding:0 clamp(18px,4vw,62px);margin-inline:auto}
+.eyebrow{text-transform:uppercase;letter-spacing:.16em;font-size:.72rem;font-weight:860}
+.story-hero{background:radial-gradient(circle at 79% 24%,#315c58 0,#13393c 39%,#112c34 77%);color:#f6fcf5;overflow:hidden}
+.story-hero-inner{min-height:640px;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(290px,.95fr);align-items:center;gap:clamp(22px,5vw,66px);padding-block:clamp(74px,9vw,126px) clamp(64px,9vw,116px)}
+.story-hero .eyebrow{color:#a5e0d3}
+.story-hero h1{font-size:clamp(3.2rem,7.5vw,7.8rem);letter-spacing:-.078em;line-height:.99;font-weight:840;margin:20px 0 25px;max-width:800px}
+.story-hero h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:clamp(1.05rem,1.75vw,1.35rem);color:#d5e9df;max-width:555px;margin:0 0 34px;line-height:1.5}
+.cta{display:inline-flex;align-items:center;justify-content:center;gap:10px;background:var(--gold);border:1px solid var(--gold);border-radius:999px;padding:14px 21px;text-decoration:none;color:#183733;font-weight:850;min-height:48px;transition:transform .2s}
+.cta:hover{transform:translateY(-2px);background:#f6d594;color:#163936}
+.cta:focus-visible{outline-color:#fff}
+.hero-foot{font-size:.79rem;color:#b5cec5;margin-top:21px}
+.hero-art{position:relative;min-height:470px;display:grid;place-items:center;isolation:isolate}
+.hero-art:before{content:"";position:absolute;inset:3% 2%;border:1px solid #88c9b43a;border-radius:50%;transform:rotate(-26deg) scaleX(.94)}
+.hero-art:after{content:"";position:absolute;width:75%;aspect-ratio:1;border:1px dashed #9be0c459;border-radius:50%;transform:rotate(34deg);pointer-events:none}
+.art-disc{position:relative;width:min(85%,410px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 45% 40%,#f8efd8,#e9d7ad 66%,#b69d77 100%);box-shadow:0 24px 55px #07191b80,inset 0 0 0 20px #ffffff25;display:grid;place-items:center;transform:rotate(-12deg)}
+.art-disc:before{content:"";position:absolute;inset:19px;border:2px solid #c1ad89;border-radius:50%}
+.art-disc .disc-inner{text-align:center;transform:rotate(12deg);color:#1a4a45}
+.disc-symbol{font-size:clamp(4rem,11vw,8rem);font-weight:900;letter-spacing:-.13em;line-height:1}
+.disc-caption{display:block;font-weight:850;font-size:.8rem;text-transform:uppercase;letter-spacing:.16em;margin:12px 0}
+.art-sticker{position:absolute;z-index:2;border:1px solid #a3d4c3;border-radius:18px;background:#f8f8ee;color:#214941;box-shadow:0 16px 22px #08262660;padding:12px 17px;min-width:150px}
+.art-sticker span{font-size:.71rem;color:#587069;display:block;font-weight:750}
+.art-sticker strong{font-size:clamp(1.25rem,3.4vw,2.2rem);line-height:1.2;display:block;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.art-sticker.old{top:10%;left:0;transform:rotate(-6deg)}
+.art-sticker.new{bottom:9%;right:-2%;transform:rotate(6deg);background:#f2c775;border-color:#ffd898}
+.art-sticker.new span{color:#3f4c3c}
+.art-tiny{position:absolute;bottom:0;left:0;color:#b4d6c9;font-size:.75rem;max-width:240px;line-height:1.5}
+.chapter-index{display:flex;gap:12px;overflow:auto;padding:17px 0;scrollbar-width:thin}
+.chapter-index a{flex:0 0 auto;text-decoration:none;font-size:.82rem;color:#47736b;border:1px solid #c6d8cc;background:#fff;border-radius:999px;padding:8px 15px;font-weight:760}
+.chapter-index a:hover,.chapter-index a:focus-visible{border-color:#327e6b;color:#1f5e58}
+.scene{padding-block:clamp(80px,11vw,152px);border-bottom:1px solid #dbe6de}
+.scene-label{color:#338377;margin-bottom:13px;display:flex;align-items:center;gap:14px}
+.scene-label:before{content:"";width:40px;height:2px;background:currentColor}
+.scene h2{font-size:clamp(2.65rem,6vw,5.7rem);letter-spacing:-.075em;line-height:1.05;max-width:940px;margin:0 0 18px;font-weight:850}
+.scene .intro{font-size:clamp(1rem,1.5vw,1.22rem);line-height:1.52;color:#566e69;max-width:720px;margin:0 0 39px}
+.scene h2 mark{background:linear-gradient(transparent 64%,#f0d89a 64%);color:inherit}
+.big-frame{background:var(--card);border:1px solid #d5e4d9;border-radius:28px;box-shadow:0 15px 55px #173e3520;overflow:hidden}
+.timeline-head{display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap;padding:22px clamp(18px,4vw,42px);border-bottom:1px solid #e4e9e1;background:#eaf4ec}
+.timeline-head strong{font-size:1.04rem}
+.evidence-tag{font-size:.75rem;font-weight:830;color:#225f55;background:#d4e8d9;border:1px solid #a8d3be;padding:8px 12px;border-radius:100px}
+.timeline-body{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(250px,.85fr);gap:30px;padding:clamp(20px,5vw,55px);align-items:center}
+.basket-chart{display:flex;flex-direction:column;gap:21px}
+.basket-row>div:first-child{display:flex;align-items:baseline;justify-content:space-between;gap:10px;margin-bottom:10px;flex-wrap:wrap}
+.basket-row strong{font-size:clamp(1.55rem,3vw,2.3rem);letter-spacing:-.05em;font-variant-numeric:tabular-nums}
+.basket-row span{color:#59716d;font-weight:750;font-size:.87rem}
+.basket-track{height:70px;background:#edf3e9;border-radius:13px;overflow:hidden;position:relative}
+.basket-fill{height:100%;display:flex;align-items:center;gap:5px;padding:0 14px;border-radius:13px;transition:width .45s cubic-bezier(.2,.7,.2,1);min-width:0}
+.basket-fill:before{content:"";width:100%;height:28px;opacity:.19;background:repeating-linear-gradient(90deg,#143c37 0 3px,transparent 3px 14px);border-radius:4px}
+.basket-fill.base{width:74%;background:#a7d8c4}
+.basket-fill.current{width:92%;background:#efc46b}
+.basket-note{font-size:.78rem;color:#607771;line-height:1.5}
+.cost-callout{border-radius:22px;background:#163d3c;color:#fff;padding:clamp(25px,4vw,39px)}
+.cost-callout small{display:block;color:#b1e1d1;font-weight:750;letter-spacing:.1em;text-transform:uppercase}
+.cost-callout strong{display:block;font-size:clamp(3.2rem,5.3vw,5.7rem);letter-spacing:-.08em;line-height:1.1;margin:11px 0;font-variant-numeric:tabular-nums}
+.cost-callout p{color:#d8e8dc;font-size:.94rem;line-height:1.5;margin:0}
+.time-controls{padding:22px clamp(20px,5vw,50px) 28px;background:#f7f9f5;border-top:1px solid #e2ece2}
+.range-head{display:flex;align-items:center;justify-content:space-between;gap:12px;font-weight:820;font-size:.95rem}
+.range-head output{color:#1a675d;font-size:1.3rem;font-variant-numeric:tabular-nums}
+input[type=range]{accent-color:#21796c;cursor:pointer;width:100%;margin:22px 0}
+.range-labels{display:flex;justify-content:space-between;color:#6b8177;font-size:.75rem}
+.story-rail{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:20px}
+.rail-card{border:1px solid #d3e2d6;background:#e9f2e9;border-radius:14px;padding:17px}
+.rail-card span{display:block;font-size:.8rem;color:#487267;margin-bottom:8px;font-weight:750}
+.rail-card b{font-size:1.04rem;letter-spacing:-.02em}
+.factnote{color:#5d746e;font-size:.8rem;line-height:1.54;margin:17px 0 0}
+.factnote a{font-weight:800}
+.scene-dark{background:#15383b;color:#f8f9f4;border:0}
+.scene-dark .scene-label{color:#9edacb}
+.scene-dark .intro{color:#c8dfd4}
+.story-controls{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:23px}
+.story-choice{border:1px solid #86ae9f;border-radius:999px;background:transparent;color:#e8f4eb;padding:13px 20px;min-height:48px;font-weight:850}
+.story-choice[aria-pressed=true]{background:#eec677;border-color:#eec677;color:#1d3b36}
+.story-choice:hover{border-color:#f6d391}
+.network{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch;position:relative;margin:36px 0}
+.node{position:relative;border:1px solid #8eb7a752;background:#1e494b;border-radius:18px;padding:24px 20px;min-height:178px;text-align:left;display:flex;flex-direction:column;align-items:start;justify-content:space-between;color:#f7f7ec;cursor:pointer}
+.node:hover,.node[aria-pressed=true]{background:#275d58;border-color:#f0c777;box-shadow:0 0 0 3px #f0c77725}
+.node:not(:last-child):after{content:"→";position:absolute;left:calc(100% + 3px);top:41%;width:17px;text-align:center;color:#f1c573;font-size:1.55rem;font-weight:850}
+.node .symbol{font-size:2.3rem;filter:saturate(.7);margin-bottom:14px}
+.node b{font-size:clamp(1.1rem,1.7vw,1.42rem);line-height:1.16;letter-spacing:-.03em}
+.node small{display:block;color:#b8d8ca;margin-top:9px;font-size:.8rem}
+.node-detail{display:flex;align-items:flex-start;justify-content:space-between;gap:23px;border:1px solid #629789;background:#e7f0e6;color:#234b44;border-radius:20px;padding:clamp(19px,3vw,35px)}
+.node-detail .eyebrow{color:#267f73}
+.node-detail h3{font-size:clamp(1.45rem,2.7vw,2.45rem);line-height:1.13;letter-spacing:-.045em;margin:8px 0}
+.node-detail p{max-width:710px;margin:0;color:#455c56;line-height:1.5}
+.node-detail a{font-size:.84rem;font-weight:850;white-space:nowrap}
+.node-detail .source-state{display:block;margin-top:15px;font-size:.77rem;color:#386d5c;font-weight:800}
+.causality{margin-top:16px;color:#c2d9cb;font-size:.8rem;line-height:1.5}
+.lever-switch{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:30px 0}
+.lever-switch button{min-height:95px;background:#fff;border:1px solid #bed6c9;border-radius:17px;color:#28544d;text-align:left;padding:17px;font-weight:850}
+.lever-switch button span{display:block;font-size:1.6rem;margin-bottom:9px}
+.lever-switch button[aria-pressed=true]{background:#dcefe6;border-color:#237f70;box-shadow:inset 0 0 0 2px #237f70}
+.lever-stage{display:grid;grid-template-columns:minmax(0,1fr) minmax(210px,.72fr);gap:30px;align-items:center;background:#fffdf9;border:1px solid #d2e3d5;border-radius:25px;padding:clamp(22px,5vw,58px)}
+.lever-stage h3{font-size:clamp(2rem,4vw,3.65rem);letter-spacing:-.06em;line-height:1.12;margin:8px 0 15px}
+.lever-stage p{color:#4e6861;font-size:1rem;line-height:1.6;max-width:560px}
+.lever-stage a{font-weight:850}
+.lever-illustration{width:min(100%,290px);aspect-ratio:1;margin:auto;position:relative;display:grid;place-items:center}
+.lever-ring{position:absolute;border:2px solid #a9d7c2;border-radius:50%;inset:0}
+.lever-ring:nth-child(2){inset:14%;border-color:#e8c475}
+.lever-ring:nth-child(3){inset:28%;border-color:#73b5a4;background:#e6f2e9}
+.lever-icon{z-index:1;font-size:5.2rem;line-height:1;transition:transform .35s}
+.lever-stage .source-state{font-size:.8rem;letter-spacing:.02em;color:#388072;font-weight:800}
+.ending{padding:clamp(94px,12vw,170px) 0;background:#e6f1e9}
+.ending .story-shell{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);align-items:center;gap:clamp(25px,6vw,80px)}
+.ending h2{font-size:clamp(2.8rem,5.3vw,5.1rem);letter-spacing:-.073em;line-height:1.05;margin:14px 0 16px}
+.ending p{font-size:1.06rem;line-height:1.6;color:#49685d}
+.ending-actions{display:flex;gap:11px;flex-wrap:wrap;margin-top:26px}
+.ending .cta{background:#1c655d;color:#fff;border-color:#1c655d}
+.ending .cta.secondary{background:transparent;color:#1c665d}
+.ending .cta:focus-visible{outline-color:#206c60}
+.end-graphic{position:relative;min-height:320px;background:#214e49;border-radius:28px;overflow:hidden;display:grid;place-items:center}
+.end-graphic:before,.end-graphic:after{content:"";width:400px;height:400px;border-radius:50%;border:44px solid #8dbca3;position:absolute;transform:translate(40%,35%);opacity:.6}
+.end-graphic:after{transform:translate(-45%,-45%);border-width:25px;border-color:#ebcb7e}
+.end-graphic .center{position:relative;z-index:1;background:#fcf5e6;padding:23px 26px;border-radius:20px;box-shadow:0 13px 22px #122d2955;text-align:center;transform:rotate(-5deg)}
+.end-graphic .center b{font-size:2.8rem;display:block;color:#185f53}
+.end-graphic .center small{font-size:.78rem;font-weight:850;color:#427166}
+.evidence{padding:36px 0 80px}
+.evidence details{background:#fff;border:1px solid #d3e0d8;border-radius:17px;padding:19px clamp(19px,4vw,31px)}
+.evidence summary{cursor:pointer;color:#275e56;font-size:1rem;font-weight:850}
+.evidence p,.evidence li{color:#586c65;line-height:1.6;font-size:.91rem}
+.evidence ul{padding-left:20px}
+.evidence a{font-weight:750;overflow-wrap:anywhere}
+.story-footer{border-top:1px solid #cfded2;padding:20px 0 44px;color:#59766e;font-size:.78rem}
+.story-footer .story-shell{display:flex;gap:18px;justify-content:space-between;flex-wrap:wrap}
+@media(max-width:900px){.story-hero-inner{grid-template-columns:1fr;min-height:auto;padding-top:62px}.hero-art{min-height:400px;max-width:550px;width:100%;margin:0 auto}.timeline-body{grid-template-columns:1fr}.cost-callout strong{font-size:4rem}.ending .story-shell{grid-template-columns:1fr}.end-graphic{min-height:280px}.art-sticker.old{left:3%}.art-sticker.new{right:2%}}
+@media(max-width:620px){.story-hero-inner{padding-top:48px}.story-hero h1{font-size:clamp(3.2rem,14vw,5.1rem)}.hero-art{min-height:305px}.art-disc{width:75%}.art-sticker{min-width:110px;padding:9px 11px}.art-sticker.old{top:0;left:0}.art-sticker.new{right:0;bottom:6%}.art-tiny{display:none}.scene{padding-block:74px}.scene h2{font-size:clamp(2.55rem,11vw,3.9rem)}.timeline-head{padding:15px}.timeline-body{padding:18px}.basket-track{height:56px}.story-rail{grid-template-columns:1fr}.network{grid-template-columns:1fr;gap:20px}.node{min-height:unset;flex-direction:row;align-items:center;gap:15px}.node .symbol{margin:0}.node b{font-size:1.24rem}.node:not(:last-child):after{left:49%;top:calc(100% + 2px);transform:rotate(90deg)}.node-detail{display:block}.node-detail a{white-space:normal;display:inline-block;margin-top:12px}.lever-switch{gap:6px}.lever-switch button{padding:12px 9px;font-size:.78rem}.lever-switch button span{font-size:1.5rem}.lever-stage{grid-template-columns:1fr}.lever-illustration{width:170px}.lever-icon{font-size:3.5rem}.end-graphic{min-height:235px}.ending-actions{flex-direction:column}.ending-actions .cta{width:100%}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.basket-fill,.lever-icon,.cta{transition:none}}
+</style>
+</head>
+<body data-pa-page="story">
+<div id="pa-global-header" aria-label="Power Atlas primary navigation">
+<div class="pa-global-inner">
+<a class="pa-global-brand" href="my-life.html" aria-label="Power Atlas home">◇ POWER <span>ATLAS</span></a>
+<nav class="pa-global-links" aria-label="Explore Power Atlas">
+<a href="my-life.html#where" data-pa-nav="place"><span class="pa-long">My Community</span><span class="pa-short">My Place</span></a>
+<a href="my-life.html#what" data-pa-nav="issues"><span class="pa-long">Daily Life</span><span class="pa-short">Issues</span></a>
+<a href="my-life.html#why" data-pa-nav="why"><span class="pa-long">Follow the Power</span><span class="pa-short">The Why</span></a>
+<a href="my-life.html#how" data-pa-nav="action"><span class="pa-long">Take Action</span><span class="pa-short">Actions</span></a>
+<a href="index.html" data-pa-nav="research"><span class="pa-long">Research</span><span class="pa-short">Research</span></a>
+<a href="consumer-practices.html" data-pa-nav="consumer"><span class="pa-long">Consumer Watch</span><span class="pa-short">Costs</span></a>
+</nav>
+</div>
+</div>
+<main>
+<section class="story-hero" id="start" data-stage>
+<div class="story-shell story-hero-inner">
+<div>
+<div class="eyebrow">Power Atlas / An interactive investigation</div>
+<h1>The price went <em>up.</em> Why?</h1>
+<p class="hero-sub">What happened to your dollar—and who shapes the prices we all live with? Follow the clues. Decide what to explore.</p>
+<a class="cta" href="#same-basket">Start the story <span aria-hidden="true">↓</span></a>
+<div class="hero-foot">One national benchmark. Multiple forces. No invented local prices.</div>
+</div>
+<div class="hero-art" role="img" aria-label="A large illustrated dollar coin surrounded by comparison labels: a basket costing $100 in 2020 would cost about $124.39 in 2025 using the national CPI.">
+<div class="art-disc"><div class="disc-inner"><div class="disc-symbol">$</div><span class="disc-caption">The same dollar</span></div></div>
+<div class="art-sticker old"><span>2020 · CPI example</span><strong>$100.00</strong></div>
+<div class="art-sticker new"><span>2025 · Same basket</span><strong>$124.39</strong></div>
+<div class="art-tiny">BLS annual-average CPI-U, all items. A national index, not a quote for a real basket.</div>
+</div>
+</div>
+</section>
+<div class="story-shell"><nav class="chapter-index" aria-label="Story chapters"><a href="#same-basket">01 · What changed?</a><a href="#follow-price">02 · Follow a price</a><a href="#power">03 · Who decides?</a><a href="#action">04 · What you can do</a></nav></div>
+<section class="scene story-shell" id="same-basket" data-stage>
+<div class="eyebrow scene-label">01 / See the change</div>
+<h2>Same basket. <mark>Different price.</mark></h2>
+<p class="intro">Move through the years. Watch what the same $100 of typical consumer spending in 2020 would cost, using the official U.S. price index.</p>
+<div class="big-frame">
+<div class="timeline-head"><strong>What $100 became</strong><span class="evidence-tag">✓ BLS data · 2020–2025</span></div>
+<div class="timeline-body">
+<div class="basket-chart">
+<div class="basket-row"><div><span>2020 baseline</span><strong>$100.00</strong></div><div class="basket-track"><div class="basket-fill base"></div></div></div>
+<div class="basket-row"><div><span id="selectedYearLabel">2025 price level</span><strong id="basketPrice">$124.39</strong></div><div class="basket-track"><div class="basket-fill current" id="costFill"></div></div></div>
+<div class="basket-note">Both bars use the same scale. The second bar changes as you move the year slider.</div>
+</div>
+<div class="cost-callout" aria-live="polite" aria-atomic="true"><small>Extra needed for the same basket</small><strong id="extraCost">+$24.39</strong><p id="costNarrative">Not a forecast. A comparison of national average consumer price levels.</p></div>
+</div>
+<div class="time-controls">
+<div class="range-head"><label for="yearRange">Move through time</label><output for="yearRange" id="yearOutput">2025</output></div>
+<input type="range" id="yearRange" min="2020" max="2025" value="2025" step="1" aria-describedby="cpiMethod">
+<div class="range-labels"><span>2020</span><span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span></div>
+</div>
+</div>
+<div class="story-rail" aria-label="How to read this comparison">
+<div class="rail-card"><span>What this shows</span><b>Price-level change—not the annual inflation rate</b></div>
+<div class="rail-card"><span>What it doesn't show</span><b>Your personal grocery bill or rent</b></div>
+<div class="rail-card"><span>Why that matters</span><b>Different households feel different pressures</b></div>
+</div>
+<p class="factnote" id="cpiMethod">Calculation: selected year CPI-U annual average ÷ 2020 CPI-U annual average × $100. Source: <a href="https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexannualandsemiannual_table.htm" target="_blank" rel="noopener noreferrer">Bureau of Labor Statistics annual CPI table</a>. This example is not a market-price survey or a local affordability estimate.</p>
+</section>
+<section class="scene scene-dark" id="follow-price" data-stage>
+<div class="story-shell">
+<div class="eyebrow scene-label">02 / Follow the price</div>
+<h2>Prices don't move <br>by <span style="color:#f1ca7f">magic.</span></h2>
+<p class="intro">Pick an everyday bill. Follow the chain of forces that may shape its price. Tap any part of the chain to see the question worth investigating.</p>
+<div class="story-controls" role="group" aria-label="Choose a cost to investigate">
+<button class="story-choice" type="button" data-topic="housing" aria-pressed="true">⌂ Housing</button>
+<button class="story-choice" type="button" data-topic="food" aria-pressed="false">◕ Groceries</button>
+<button class="story-choice" type="button" data-topic="phone" aria-pressed="false">▣ Phone plans</button>
+</div>
+<div class="network" id="network" aria-label="Interactive price pathways"></div>
+<div class="node-detail" aria-live="polite" aria-atomic="true">
+<div><div class="eyebrow" id="detailLabel">A question worth asking</div><h3 id="detailTitle">Who can build nearby?</h3><p id="detailBody"></p><span class="source-state" id="detailState">Evidence status · Mechanism, not measured local effect</span></div>
+<a id="detailLink" href="market-power.html">Explore the evidence →</a>
+</div>
+<p class="causality">Important: a possible mechanism isn't proof that it caused a particular rent, food price, or phone bill. Power Atlas distinguishes established data from open investigative questions.</p>
+</div>
+</section>
+<section class="scene story-shell" id="power" data-stage>
+<div class="eyebrow scene-label">03 / Follow the power</div>
+<h2>Who has the <mark>power to change it?</mark></h2>
+<p class="intro">There isn't one answer. Different forces shape different prices. Switch between them to see where power sits—and where evidence should lead.</p>
+<div class="lever-switch" role="group" aria-label="Explore different sources of power">
+<button type="button" data-lever="business" aria-pressed="true"><span aria-hidden="true">◈</span>Businesses</button>
+<button type="button" data-lever="government" aria-pressed="false"><span aria-hidden="true">▤</span>Public decisions</button>
+<button type="button" data-lever="people" aria-pressed="false"><span aria-hidden="true">✺</span>Everyday people</button>
+</div>
+<div class="lever-stage">
+<div aria-live="polite">
+<div class="source-state" id="leverKicker">Market decisions</div>
+<h3 id="leverTitle">Who sets the price?</h3>
+<p id="leverBody">Companies choose prices, products, fees and terms within markets and laws. Competition, costs and consumer options can constrain those choices.</p>
+<a id="leverLink" href="market-power.html">Explore documented market power →</a>
+</div>
+<div class="lever-illustration" aria-hidden="true"><div class="lever-ring"></div><div class="lever-ring"></div><div class="lever-ring"></div><div id="leverIcon" class="lever-icon">◈</div></div>
+</div>
+<p class="factnote">A campaign donation is evidence of a contribution—not evidence of a purchased vote or a proven price impact. Our investigations must connect public records and actual decisions before drawing conclusions.</p>
+</section>
+<section class="ending" id="action" data-stage>
+<div class="story-shell">
+<div>
+<div class="eyebrow" style="color:#247668">04 / Your next move</div>
+<h2>Knowing more is <br>only the beginning.</h2>
+<p>Explore what shapes life where you live, investigate the records, or tell an elected representative which issue matters to you.</p>
+<div class="ending-actions">
+<a class="cta" href="my-life.html#where" id="communityLink">See my community <span aria-hidden="true">↗</span></a>
+<a class="cta secondary" href="take-action.html">Take action <span aria-hidden="true">↗</span></a>
+</div>
+<p id="savedZipNote" style="font-size:.83rem;margin-top:14px"></p>
+</div>
+<div class="end-graphic" aria-hidden="true"><div class="center"><b>YOU</b><small>Belong in the story.</small></div></div>
+</div>
+</section>
+<section class="evidence story-shell" aria-label="Open the research behind this story">
+<details><summary>Open the evidence, calculations and limitations +</summary>
+<p><strong>What we verified:</strong> The BLS publishes CPI-U all-items annual averages of 258.811 (2020), 270.970 (2021), 292.655 (2022), 304.702 (2023), 313.689 (2024), and 321.943 (2025; based on available monthly observations, with October 2025 unavailable). We calculate the relative price level by dividing each by the 2020 value.</p>
+<ul>
+<li><a href="https://www.bls.gov/regions/mid-atlantic/data/consumerpriceindexannualandsemiannual_table.htm" target="_blank" rel="noopener noreferrer">BLS annual and semiannual CPI index table</a> — numeric basis for the interactive comparison.</li>
+<li><a href="https://www.bls.gov/cpi/questions-and-answers.htm" target="_blank" rel="noopener noreferrer">BLS CPI questions and answers</a> — methodology and what the CPI measures.</li>
+<li><a href="https://www.ers.usda.gov/data-products/food-price-outlook/" target="_blank" rel="noopener noreferrer">USDA food price outlook</a> — food price categories and monitoring.</li>
+<li><a href="https://www.census.gov/construction/bps/" target="_blank" rel="noopener noreferrer">Census building permits</a> — housing construction evidence.</li>
+<li><a href="https://www.fcc.gov/broadbandlabels" target="_blank" rel="noopener noreferrer">FCC broadband consumer labels</a> — plan-price disclosure.</li>
+<li><a href="https://www.fec.gov/data/" target="_blank" rel="noopener noreferrer">FEC campaign finance data</a> — contribution and committee records, not proof of causation.</li>
+</ul>
+<p><strong>Boundaries:</strong> CPI is a national consumer-price index, not a local advertised-rent dataset, an individual household budget, or a measure of wages or financial hardship. Price pathways are explanatory mechanisms and questions; they are not quantified causal attributions. No specific company or official is accused in this visual experience.</p>
+<p>All content in this prototype is informational. Prices are not offered as a quote for any product, home, or service. Read the linked investigation pages for evidence linked to specific cases.</p>
+</details>
+</section>
+</main>
+<footer class="story-footer"><div class="story-shell"><span>Power Atlas · Public evidence. Human stories. Your agency.</span><span>Visual story concept · Sources in the open evidence drawer.</span></div></footer>
+<script src="pa-zip-persistence.js"></script>
+<script src="bug-report.js" defer></script>
+<script>
+(function(){
+"use strict";
+var cpi={2020:258.811,2021:270.970,2022:292.655,2023:304.702,2024:313.689,2025:321.943};
+var base=cpi[2020], range=document.getElementById("yearRange");
+function dollars(n){return "$"+n.toFixed(2);}
+function updateYear(){
+ var year=Number(range.value);if(!Object.prototype.hasOwnProperty.call(cpi,year))return;
+ var price=100*cpi[year]/base,delta=price-100;
+ document.getElementById("selectedYearLabel").textContent=year+" price level";
+ document.getElementById("basketPrice").textContent=dollars(price);
+ document.getElementById("extraCost").textContent="+"+dollars(Math.max(0,delta));
+ document.getElementById("yearOutput").textContent=year;
+ document.getElementById("costNarrative").textContent=year===2020?"The 2020 comparison starts at $100.":"The same national CPI basket needs about "+dollars(delta)+" more than in 2020.";
+ document.getElementById("costFill").style.width=(price/135*100).toFixed(1)+"%";
+}
+range.addEventListener("input",updateYear);updateYear();
+var topics={
+housing:{nodes:[
+ {icon:"⌂",name:"Homes and land",sub:"How much gets built",title:"Who can build nearby?",body:"Land availability, construction, financing and local approval rules can limit supply. The effect varies enormously by location.",link:"https://www.census.gov/construction/bps/",linkText:"Explore building-permit data →"},
+ {icon:"▦",name:"Ownership",sub:"Who controls units",title:"Who owns and manages the housing?",body:"Ownership patterns, management strategies and competition deserve scrutiny. A landlord's ownership is not proof of illegal pricing.",link:"corporate-ownership.html",linkText:"Investigate corporate ownership →"},
+ {icon:"$" ,name:"The asking rent",sub:"What renters actually face",title:"What are homes really listed for?",body:"Current asking rents can differ substantially from HUD fair-market rents or Census contract-rent statistics. We should show bedroom counts, source dates and local coverage.",link:"my-life.html#what",linkText:"Explore local housing costs →"}]},
+food:{nodes:[
+ {icon:"✿",name:"Farm and inputs",sub:"Growing and production",title:"What does it cost to produce food?",body:"Weather, labor, equipment, energy and agricultural input costs can influence what producers charge. These pressures change across foods and seasons.",link:"https://www.ers.usda.gov/data-products/food-price-outlook/",linkText:"See USDA food prices →"},
+ {icon:"⇢",name:"Processing and delivery",sub:"Moving food to shelves",title:"What happens between farm and store?",body:"Processing, transport, storage and wholesale negotiations are part of the price chain. None alone explains every change at checkout.",link:"https://www.ers.usda.gov/",linkText:"Explore USDA research →"},
+ {icon:"▤",name:"Retail shelf",sub:"Pricing and competition",title:"Who sets the shelf price?",body:"Retailers make pricing decisions within competitive markets, supplier terms and costs. Investigate actual evidence before attributing a price increase to market power.",link:"market-power.html",linkText:"Investigate market power →"}]},
+phone:{nodes:[
+ {icon:"▣",name:"The offer",sub:"What an ad promises",title:"What price caught your attention?",body:"A promotional monthly price may depend on autopay, trade-in eligibility, bundles or limited-duration credits. Look at all of the conditions.",link:"consumer-practices.html",linkText:"See consumer investigations →"},
+ {icon:"◫",name:"The plan",sub:"Features and restrictions",title:"What are you really getting?",body:"Coverage, prioritized data, hotspot limits and device financing can matter as much as the headline price. Compare plans on a like-for-like basis.",link:"telecom-promotions.html",linkText:"Compare promotion terms →"},
+ {icon:"$",name:"The total bill",sub:"Fees and duration",title:"What's the cost over time?",body:"The best comparison adds required fees, equipment costs, the discount expiry date and what happens if you change plans.",link:"https://www.fcc.gov/broadbandlabels",linkText:"See FCC consumer labels →"}]}
+};
+var topic="housing",selected=0,network=document.getElementById("network");
+function selectNode(i){
+ selected=i;
+ var n=topics[topic].nodes[i];if(!n)return;
+ Array.prototype.forEach.call(network.querySelectorAll(".node"),function(el,k){el.setAttribute("aria-pressed",String(i===k));});
+ document.getElementById("detailLabel").textContent="Question "+(i+1)+" of 3 · "+topic;
+ document.getElementById("detailTitle").textContent=n.title;
+ document.getElementById("detailBody").textContent=n.body;
+ var a=document.getElementById("detailLink");a.href=n.link;a.textContent=n.linkText;
+ document.getElementById("detailState").textContent="Evidence status · Explanatory mechanism, not a proven local effect";
+}
+function renderNetwork(){
+ network.textContent="";
+ topics[topic].nodes.forEach(function(n,i){
+ var b=document.createElement("button");b.type="button";b.className="node";b.setAttribute("aria-pressed",String(selected===i));
+ var sym=document.createElement("span");sym.className="symbol";sym.setAttribute("aria-hidden","true");sym.textContent=n.icon;
+ var copy=document.createElement("span"),name=document.createElement("b"),sub=document.createElement("small");
+ name.textContent=n.name;sub.textContent=n.sub;copy.append(name,sub);b.append(sym,copy);
+ b.addEventListener("click",function(){selectNode(i);});network.appendChild(b);
+ });selectNode(selected);
+}
+Array.prototype.forEach.call(document.querySelectorAll("[data-topic]"),function(b){
+ b.addEventListener("click",function(){topic=b.getAttribute("data-topic");selected=0;Array.prototype.forEach.call(document.querySelectorAll("[data-topic]"),function(x){x.setAttribute("aria-pressed",String(x===b));});renderNetwork();});
+});renderNetwork();
+var levers={
+ business:{kicker:"Market decisions",title:"Who sets the price?",body:"Companies choose prices, products, fees and terms within markets and laws. Competition, costs and consumer options can constrain those choices.",href:"market-power.html",label:"Explore documented market power →",icon:"◈"},
+ government:{kicker:"Public rules and trade-offs",title:"Who sets the rules?",body:"Elected bodies and agencies shape land use, taxes, infrastructure, competition enforcement and consumer protections. Every case needs a traceable decision and its actual effect.",href:"dark-money.html",label:"Trace money and public decisions →",icon:"▤"},
+ people:{kicker:"Collective and individual agency",title:"What can people do?",body:"People can compare offers, organize, report deceptive practices, participate in local hearings, and contact representatives. Collective action is strongest when it starts with verified facts.",href:"take-action.html",label:"Explore concrete civic actions →",icon:"✺"}
+};
+Array.prototype.forEach.call(document.querySelectorAll("[data-lever]"),function(b){
+ b.addEventListener("click",function(){
+ var k=b.getAttribute("data-lever"),n=levers[k];
+ Array.prototype.forEach.call(document.querySelectorAll("[data-lever]"),function(x){x.setAttribute("aria-pressed",String(x===b));});
+ document.getElementById("leverKicker").textContent=n.kicker;document.getElementById("leverTitle").textContent=n.title;document.getElementById("leverBody").textContent=n.body;
+ var a=document.getElementById("leverLink");a.href=n.href;a.textContent=n.label;
+ document.getElementById("leverIcon").textContent=n.icon;
+ });
+});
+function syncZip(){
+ var z=window.PowerAtlasZIP&&window.PowerAtlasZIP.get();
+ var note=document.getElementById("savedZipNote");
+ note.textContent=z?"Your saved community ZIP "+z+" is still available on the next page.":"Choose your community on the next page. Your ZIP is saved for future visits.";
+}
+window.addEventListener("poweratlas:zip-preference",syncZip);
+syncZip();
+})();
+</script>
+</body></html>
