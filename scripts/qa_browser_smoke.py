@@ -307,7 +307,7 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assertEqual(header.count(), 1, name + ": missing/duplicate global navigation")
                 self.assertTrue(header.is_visible(), name + ": brand not visible")
                 entry = self.page.locator(
-                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter, main > .bank-hero")
+                    "main > .vs6-topic, main .threadGallery, main .ta-hero, main #vs6-home, main > .story-hero, main .letter, main > .bank-hero, main > header.hero[data-pa-story-hero]")
                 self.assertGreater(entry.count(), 0,
                     name + ": missing an approved V6 or interactive-documentary visual entry")
                 self.assertTrue(entry.first.is_visible(), name + ": empty or hidden entry")
