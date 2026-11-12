@@ -41,10 +41,13 @@ jobs:
       - name: Verify source-backed journeys, V6 loading, discovery, and open gaps
         run: python -m unittest discover -s tests -p 'test_product_acceptance.py' -v
       - name: Validate market asking-rent evidence and reject HUD substitution
+        if: ${{ !cancelled() }}
         run: python -m unittest discover -s tests -p 'test_market_rent_accuracy.py' -v
       - name: Verify local poverty guideline versus basic needs comparison
+        if: ${{ !cancelled() }}
         run: python -m unittest discover -s tests -p 'test_basic_needs_gap.py' -v
       - name: Check interactive presentation scripts parse
+        if: ${{ !cancelled() }}
         run: |
           node --check platform/unified/qa-evidence-hub.js
           node --check platform/unified/atlas-visual-system.js
@@ -56,12 +59,15 @@ jobs:
           node --check platform/unified/api/qa-config.js
           node --check platform/unified/hud-safmr-fy2026.js
       - name: Check that redesigns never break local links or evidence pointers
+        if: ${{ !cancelled() }}
         run: python scripts/audit_power_atlas_site.py --fail-on-broken-assets
       - name: Install free Chromium QA runner
+        if: ${{ !cancelled() }}
         run: |
           python -m pip install --disable-pip-version-check playwright==1.56.0
           python -m playwright install chromium --with-deps
       - name: Run real-browser ZIP, mobile, evidence and civic action journeys
+        if: ${{ !cancelled() }}
         run: |
           python -m http.server 8765 --directory platform/unified > /tmp/power-atlas-http.log 2>&1 &
           pid=$!
