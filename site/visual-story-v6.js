@@ -719,7 +719,12 @@ function topic(){if(documentPath==="corporate-ownership.html")return;
    cta.setAttribute("aria-expanded","true");
    cta.textContent="Back to the big picture ↑";
    if(evidenceTarget)requestAnimationFrame(()=>{
-     document.getElementById(evidenceTarget)?.scrollIntoView({behavior:"auto",block:"start"});
+     const target=document.getElementById(evidenceTarget);
+     const controlledSection=target?.closest("section[id]")||target;
+     const chapter=Array.from(main.querySelectorAll(".pa5-chapter-card")).find(
+       b=>b.getAttribute("aria-controls")===controlledSection?.id);
+     if(chapter&&chapter.getAttribute("aria-expanded")!=="true")chapter.click();
+     target?.scrollIntoView({behavior:"auto",block:"start"});
    });
  }
 }
