@@ -508,6 +508,9 @@ function attachZIPVisual(section){
      const hasUs=validLocal&&Number.isFinite(m.usValue)&&m.usValue>=0&&m.usValue<=100&&Boolean(m.usText);
      els.local.textContent=have?m.localText:d.status==="loading"?"…":"Unavailable";
      els.local.classList.toggle("vs6-zip-tile-value--unavailable",!have);
+     // Exact values now label the bars directly; do not repeat the ZIP
+     // percentage as an unrelated oversized number above the chart.
+     els.local.hidden=validLocal;
      els.chart.hidden=!validLocal;
      if(validLocal){
        // The two bars share a labeled axis that starts at zero. A rounded
