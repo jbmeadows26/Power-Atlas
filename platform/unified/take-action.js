@@ -1,5 +1,5 @@
 /* Power Atlas Take Action — issue-constrained constituent contact handoff.
-   No submissions or personal data are retained by this site. */
+   No submissions are sent and no messages are retained server-side. Test drafts stay in tab-scoped sessionStorage. */
 (()=>{
 "use strict";
 const $=id=>document.getElementById(id);
