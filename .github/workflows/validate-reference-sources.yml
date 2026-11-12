@@ -1,0 +1,28 @@
+name: Validate reference-first source catalog
+on:
+  pull_request:
+    paths:
+      - 'platform/unified/data/source-reference-index-v1.json'
+      - 'research/assessments/ORIGINAL_SOURCE_GAP_EXECUTION_2026-11-12.json'
+      - 'scripts/reference_sources.py'
+      - 'tests/test_reference_sources.py'
+      - '.github/workflows/validate-reference-sources.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'platform/unified/data/source-reference-index-v1.json'
+      - 'scripts/reference_sources.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  offline-check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/reference_sources.py --check
+      - run: python -m unittest discover -s tests -p 'test_reference_sources.py' -v
