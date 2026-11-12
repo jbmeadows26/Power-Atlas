@@ -159,6 +159,47 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertEqual(tile.locator(".vs6-zip-bedroom-cell").count(), 0)
         self.assert_no_horizontal_overflow()
 
+    def test_local_basic_needs_gap_not_mistaken_for_poverty_eligibility(self):
+        root=Path(__file__).resolve().parents[1]
+        data=json.loads((root/"data/affordability/bergen-basic-needs-2026.json").read_text())
+        self.page.route("**/data/affordability/bergen-basic-needs-2026.json",
+            lambda route: route.fulfill(status=200,content_type="application/json",
+                headers={"Access-Control-Allow-Origin":"*"},body=json.dumps(data)))
+        self.visit("/my-life.html")
+        self.page.locator("#zipInput").fill("07010")
+        self.page.locator("#zipForm button[type=submit]").click()
+        panel=self.page.locator("#pa-basic-needs")
+        panel.get_by_text("Above poverty. Still short.").wait_for(timeout=15000)
+        self.assertTrue(panel.is_visible())
+        self.assertIn("$27,320",panel.inner_text())
+        self.assertIn("$95,330",panel.inner_text())
+        self.assertIn("3.49×",panel.inner_text())
+        self.assertIn("county",panel.inner_text().lower())
+        control=self.page.locator("#pa-basic-family")
+        control.select_option("one-adult-0")
+        self.assertIn("$15,960",panel.inner_text())
+        self.assertIn("$59,784",panel.inner_text())
+        control.select_option("two-adults-both-working-1")
+        self.assertIn("$120,077",panel.inner_text())
+        control.select_option("two-adults-one-worker-1")
+        disclosure=panel.locator("details.pa-basic-expense-detail")
+        disclosure.locator("summary").click()
+        self.assertIn("$29,764",disclosure.inner_text())
+        self.assertIn("$0",disclosure.inner_text())
+        self.assert_no_horizontal_overflow()
+
+    def test_unknown_zip_shows_no_inferred_local_living_wage(self):
+        self.visit("/my-life.html")
+        panel=self.page.locator("#pa-basic-needs")
+        panel.wait_for(state="attached",timeout=12000)
+        self.page.evaluate("""() => window.dispatchEvent(new CustomEvent(
+            'poweratlas:zip-visual-context',
+            {detail:{zip:'10001',place:'New York',status:'ready',metrics:[]}}))""")
+        panel.get_by_text("No verified local basic-needs model is connected for this ZIP yet.",exact=False).wait_for(timeout=10000)
+        self.assertTrue(panel.locator("#pa-basic-family").is_disabled())
+        self.assertNotIn("$95,330",panel.inner_text())
+        self.assert_no_horizontal_overflow()
+
     def test_take_action_chamber_buttons_and_mobile_layout(self):
         self.visit("/take-action.html")
         house = self.page.locator('[data-chamber="house"]')
