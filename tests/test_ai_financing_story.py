@@ -74,6 +74,18 @@ class AIFinancingStoryTests(unittest.TestCase):
         self.assertIn("openArchive(true)", self.story)
         self.assertIn('href="#evidence-stage"', self.story)
 
+    def test_homepage_embeds_interactive_investigation(self):
+        for token in ('id="featuredAiInvestigation"', 'data-home-ai-trail="chips"',
+                      'data-home-ai-trail="oversight"', 'data-home-ai-trail="money"',
+                      'data-home-ai-node="0"', 'data-home-ai-node="3"',
+                      'id="homeAiTitle"', 'id="homeAiMetric"',
+                      'href="ai-financing-shock.html#evidence-stage"',
+                      'q("homeAiSource")', 'a.href=r[8]'):
+            self.assertIn(token.lower(), self.home.lower())
+        self.assertEqual(3,len(re.findall(r'data-home-ai-trail="(?:chips|oversight|money)"',self.home)))
+        self.assertEqual(4,len(re.findall(r'data-home-ai-node="[0-3]"',self.home)))
+        self.assertEqual(1,len(re.findall(r'id="featuredAiInvestigation"',self.home)))
+
     def test_sources_and_links(self):
         self.assertIn('href="economic-fragility.html"', self.story)
         self.assertIn('href="banking-power.html"', self.story)
