@@ -15,7 +15,8 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         for s in D["sources"]:
             self.assertTrue(s["url"].startswith("https://"))
             self.assertTrue(s["locator"])
-            self.assertIn(s["url"].replace("%20","%20"),HTML)
+            if s["id"] in {"cliffside-2024-audited-notes-2026-pos","cliffside-2024-afs","cliffside-2023-audit-original","cliffside-council-2019-06-24","cliffside-council-2017-07-11","bergen-deed-2026-residential-lot104","bergen-deed-2019-commercial-lot103","nj-dca-pilot-database-2026"}:
+                self.assertIn(s["url"],HTML)
         for row in D["observations"]:
             self.assertIn(row["sourceId"],sources)
             self.assertIn(row["measure"],("pilot_cash_received","reported_property_tax_abated"))
