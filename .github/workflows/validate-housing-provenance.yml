@@ -1,0 +1,43 @@
+name: Validate housing provenance and live-reference tripwires
+on:
+  pull_request:
+    paths:
+      - 'schema/0002_housing_temporal_evidence.sql'
+      - 'schema/0003_housing_tax_receipts.sql'
+      - 'schema/0004_housing_publication_gate.sql'
+      - 'scripts/audit_live_reference.py'
+      - 'data/housing/temporal-evidence-contract-v1.json'
+      - 'data/housing/official-tax-rate-cliffside-park-2024-2025.json'
+      - 'tests/test_housing_provenance_gate.py'
+      - '.github/workflows/validate-housing-provenance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'schema/0004_housing_publication_gate.sql'
+      - 'scripts/audit_live_reference.py'
+      - 'tests/test_housing_provenance_gate.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  guardrail-tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline live-reference safety and publication-state tests
+        run: python -m unittest discover -s tests -p 'test_housing_provenance_gate.py' -v
+      - name: Validate collected housing contract JSON
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          for name in ('data/housing/temporal-evidence-contract-v1.json',
+                       'data/housing/official-tax-rate-cliffside-park-2024-2025.json'):
+              data=json.loads(Path(name).read_text(encoding='utf-8'))
+              assert data.get('asOf')=='2026-11-12', name
+              print('Validated', name)
+          PY
