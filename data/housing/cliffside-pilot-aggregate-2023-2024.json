@@ -1,0 +1,124 @@
+{
+  "schema": "power-atlas.housing.cliffside-pilot-aggregate-v1",
+  "asOf": "2026-11-13",
+  "jurisdiction": {
+    "municipality": "Cliffside Park",
+    "county": "Bergen",
+    "state": "NJ"
+  },
+  "currency": "USD",
+  "accountingPeriod": "calendar-year ended December 31",
+  "scope": "Borough-wide program totals, not property-level agreements or taxpayer bills",
+  "sources": [
+    {
+      "id": "cliffside-2024-audited-notes-2026-pos",
+      "authority": "Borough of Cliffside Park",
+      "title": "Financial statements FY2024 and FY2023, Note 16, reproduced in May 28 2026 Preliminary Official Statement, appendix B",
+      "url": "https://www.i-dealprospectus.com/api/PdfDownload/101881?action=Get",
+      "locator": "Note 16 TAX ABATEMENTS, Appendix B pages B-88 and B-89",
+      "review": "source_text_inspected_no_capture_hash"
+    },
+    {
+      "id": "cliffside-2024-afs",
+      "authority": "Borough of Cliffside Park",
+      "title": "2024 Annual Financial Statement (unaudited)",
+      "url": "https://webgen1files.revize.com/boroughcspnj/Cliffside%20Park-2024%20AFS.pdf",
+      "locator": "Sheet 20, Schedule of Miscellaneous Revenues Not Anticipated, 'CP Housing Authority - In Lieu of'; Sheet 21 Current Taxes 2024 Levy",
+      "review": "source_text_inspected_no_capture_hash"
+    }
+  ],
+  "observations": [
+    {
+      "id": "ltte-2023-received",
+      "program": "long_term_tax_exemption",
+      "year": 2023,
+      "measure": "pilot_cash_received",
+      "usd": 1131862,
+      "sourceId": "cliffside-2024-audited-notes-2026-pos",
+      "locator": "Note 16, Appendix B-88"
+    },
+    {
+      "id": "ltte-2024-received",
+      "program": "long_term_tax_exemption",
+      "year": 2024,
+      "measure": "pilot_cash_received",
+      "usd": 1190602,
+      "sourceId": "cliffside-2024-audited-notes-2026-pos",
+      "locator": "Note 16, Appendix B-88"
+    },
+    {
+      "id": "njhmfa-2023-received",
+      "program": "njhmfa",
+      "year": 2023,
+      "measure": "pilot_cash_received",
+      "usd": 199306,
+      "sourceId": "cliffside-2024-audited-notes-2026-pos",
+      "locator": "Note 16, Appendix B-89"
+    },
+    {
+      "id": "njhmfa-2024-received",
+      "program": "njhmfa",
+      "year": 2024,
+      "measure": "pilot_cash_received",
+      "usd": 120775,
+      "sourceId": "cliffside-2024-afs",
+      "locator": "2024 AFS Sheet 20, CP Housing Authority - In Lieu of; 2024/2023 audited Note 16 Appendix B-89 corroborates"
+    },
+    {
+      "id": "njhmfa-2023-abated",
+      "program": "njhmfa",
+      "year": 2023,
+      "measure": "reported_property_tax_abated",
+      "usd": 1040175,
+      "sourceId": "cliffside-2024-audited-notes-2026-pos",
+      "locator": "Note 16, Appendix B-89"
+    },
+    {
+      "id": "njhmfa-2024-abated",
+      "program": "njhmfa",
+      "year": 2024,
+      "measure": "reported_property_tax_abated",
+      "usd": 1144482,
+      "sourceId": "cliffside-2024-audited-notes-2026-pos",
+      "locator": "Note 16, Appendix B-89"
+    }
+  ],
+  "derived": [
+    {
+      "id": "pilot-total-2023",
+      "year": 2023,
+      "measure": "sum_of_two_reported_program_pilot_receipts",
+      "usd": 1331168,
+      "formula": "1,131,862 + 199,306",
+      "notExhaustive": true
+    },
+    {
+      "id": "pilot-total-2024",
+      "year": 2024,
+      "measure": "sum_of_two_reported_program_pilot_receipts",
+      "usd": 1311377,
+      "formula": "1,190,602 + 120,775",
+      "notExhaustive": true
+    }
+  ],
+  "epistemicBoundaries": [
+    "No specific parcel, titleholder, sponsor, campaign contributor, elected official or ordinance is identified by the two program totals.",
+    "LTTE and NJHMFA receipts are not ordinary property taxes and are not interchangeable with taxes abated.",
+    "NJHMFA tax abated is a reported amount, not proof of a direct fiscal loss, ordinary levy substitution, or local household burden.",
+    "Adding the two program receipts is an arithmetic subtotal for only the two reported programs, not a claim of all PILOTs.",
+    "Do not subtract PILOT receipts from reported taxes abated to imply an opportunity cost or calculate a developer windfall.",
+    "Underlying financial statements cover 2023–2024, not the 2025 rate-year comparison; do not imply the years are identical.",
+    "The AFS is labeled unaudited; audited notes reproduced in a municipal borrowing disclosure provide context. Retain source distinction.",
+    "Per-parcel financial agreements, public votes, and donation matches remain separately unresolved.",
+    "No person-level data or protected addresses are stored.",
+    "These aggregate observations are research inputs; live publication-gate assertions require independent editorial approval."
+  ],
+  "nextRecords": [
+    "Execution copies of specific PILOT financial agreements and authorizing ordinances",
+    "Block-and-lot / assessment identification for named projects, subject to Daniel's Law safeguards",
+    "Municipal 2023/2024 PILOT receipt schedule by agreement, redacted appropriately",
+    "Board or council adoption records and minutes with exact vote and effective date",
+    "Dated business ownership filings and legally relevant finance disclosures",
+    "Bedroom-specific asking and lease rent observations before any price-effects analysis"
+  ]
+}
