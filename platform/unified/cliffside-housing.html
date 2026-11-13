@@ -20,6 +20,16 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 @media(max-width:720px){.chapter{padding-block:35px}.hero{padding:29px 0 42px}.crumb{margin-bottom:28px}.comparison,.explainer-grid,.sources{grid-template-columns:1fr}.trail{grid-template-columns:repeat(2,minmax(0,1fr))}.trail button{padding:15px;min-height:155px}.trail button[aria-pressed=true]{padding:14px}.inspector{padding:22px}.rate-card{padding:22px}}
 @media(max-width:410px){.trail{grid-template-columns:1fr}.trail button{min-height:115px}.rate-card strong{font-size:3.3rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+.pilot-section{background:#ebf4ed;border-block:1px solid #c8dfd2}.pilot-wrap{background:white;border:1px solid #cfdfd5;border-radius:20px;padding:22px;margin-top:22px}
+.pilot-total{font-size:clamp(2.6rem,7vw,4.3rem);color:#175d54;letter-spacing:-.06em;font-weight:900;margin:14px 0;font-variant-numeric:tabular-nums}
+.pilot-twins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:19px 0}.pilot-item{border:1px solid #d5e6dd;border-radius:14px;padding:18px}
+.pilot-item strong{display:block;font-size:clamp(1.5rem,4vw,2.3rem);margin:9px 0;font-variant-numeric:tabular-nums}
+.pilot-track{background:#e2ebe6;border-radius:10px;height:15px;overflow:hidden}.pilot-track>span{display:block;background:#237c6a;height:100%;transition:width .2s}
+.pilot-abatement{border:1px dashed #9baea7;border-radius:13px;padding:15px;display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.pilot-abatement strong{font-size:1.8rem;font-variant-numeric:tabular-nums}
+.pilot-note{font-size:.88rem;color:#4b6b63;line-height:1.6;margin:20px 0}
+@media(max-width:600px){.pilot-twins{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -55,6 +65,23 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 </div>
 <div class="stop"><strong>Don't make this leap:</strong> A higher general rate does not prove every household's tax bill rose 2.90%. A lower effective rate does not mean anyone received a tax break. And neither rate tells us who owns a building, whether it has a PILOT, or who donated to a politician.</div>
 </div></section>
+<section class="chapter pilot-section story-hero" id="borough-money"><div class="wrap">
+<div class="ey">03 / Follow the borough's money</div><h2>Tax breaks actually exist here.</h2>
+<p class="intro">The borough's financial disclosures identify two separate PILOT programs. Explore <strong>borough-wide</strong> annual amounts, not unverified deals or properties.</p>
+<div class="control-line" role="group" aria-label="Select annual PILOT data">
+<button class="switch" type="button" data-pilot-year="2024" aria-pressed="true">2024</button>
+<button class="switch" type="button" data-pilot-year="2023" aria-pressed="false">2023</button></div>
+<div class="pilot-wrap">
+<div class="ey" id="pilot-label">2024 · Two program receipts</div>
+<div class="pilot-total" id="pilot-total">$1,311,377</div>
+<p class="footnote">The arithmetic subtotal of receipts under these two reported programs, <strong>not an all-program PILOT total.</strong></p>
+<div class="pilot-twins">
+<div class="pilot-item"><span>Long-term exemption program</span><strong id="pilot-long">$1,190,602</strong><div class="pilot-track"><span id="pilot-long-bar" style="width:91.6%"></span></div><p class="footnote">Annual service charges received</p></div>
+<div class="pilot-item"><span>NJHMFA housing program</span><strong id="pilot-housing">$120,775</strong><div class="pilot-track"><span id="pilot-housing-bar" style="width:9.3%;background:#7daeb0"></span></div><p class="footnote">Separate housing-project PILOT receipts</p></div></div>
+<div class="pilot-abatement"><span id="pilot-abated-label">2024 · NJHMFA property tax reported abated</span><strong id="pilot-abated">$1,144,482</strong></div>
+<p class="pilot-note"><strong>Not the same measure.</strong> The reported property taxes abated are not cash received, a household tax bill, a verified public cost, or developer profit. These figures cover 2023–2024, not the 2025 tax-rate observation. No agreement holder, property, vote or donor is identified by the totals.</p>
+<p class="pilot-note">Sources: <a href="https://www.i-dealprospectus.com/api/PdfDownload/101881?action=Get" target="_blank" rel="noopener noreferrer">Borough FY2024/FY2023 financial statement, Note 16, appendix B-88 and B-89 ↗</a> · <a href="https://webgen1files.revize.com/boroughcspnj/Cliffside%20Park-2024%20AFS.pdf" target="_blank" rel="noopener noreferrer">Borough 2024 AFS (unaudited), sheet 20 ↗</a></p>
+</div></div></section>
 <section class="chapter" id="trace"><div class="wrap">
 <div class="ey">03 / Follow the evidence</div><h2>What would it take to tell the whole story?</h2>
 <p class="intro">Choose a link in the chain. <strong>Green means a bounded official observation.</strong> Amber means no publishable link has been verified. An open question is not evidence of wrongdoing.</p>
@@ -115,6 +142,25 @@ document.getElementById("delta-explain").textContent=row.desc;
 document.getElementById("rate-note").firstChild.textContent=row.note+" ";
 }
 document.querySelectorAll("[data-rate]").forEach(b=>b.addEventListener("click",()=>updateRate(b.dataset.rate)));updateRate("general");
+const pilotFigures={
+2023:{long:1131862,housing:199306,abated:1040175},
+2024:{long:1190602,housing:120775,abated:1144482}
+};
+const money=v=>"$"+v.toLocaleString("en-US");
+function showPilotYear(year){
+const r=pilotFigures[year];if(!r)return;
+document.querySelectorAll("[data-pilot-year]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pilotYear===String(year))));
+document.getElementById("pilot-label").textContent=year+" · Two program receipts";
+document.getElementById("pilot-total").textContent=money(r.long+r.housing);
+document.getElementById("pilot-long").textContent=money(r.long);
+document.getElementById("pilot-housing").textContent=money(r.housing);
+document.getElementById("pilot-long-bar").style.width=(r.long/1300000*100).toFixed(1)+"%";
+document.getElementById("pilot-housing-bar").style.width=(r.housing/1300000*100).toFixed(1)+"%";
+document.getElementById("pilot-abated").textContent=money(r.abated);
+document.getElementById("pilot-abated-label").textContent=year+" · NJHMFA property tax reported abated";
+}
+document.querySelectorAll("[data-pilot-year]").forEach(b=>b.addEventListener("click",()=>showPilotYear(b.dataset.pilotYear)));
+showPilotYear("2024");
 const stages=[
 ["Official record checked · municipality","The starting point is real.","The New Jersey Division of Taxation publishes 2024 and 2025 Cliffside Park general and effective tax rates. This proves only the reported municipality-wide rates.","https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf","Open official 2025 source ↗","Exact locator: 2025 General Tax Rates · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO."],
 ["Unresolved · parcel","Which property and assessment?","We need a dated, legally public block-and-lot assessment tied to an exact tax year. The municipal rate cannot reveal the assessed value of an individual property.",null,null,"Personal tenant details and protected address records must not be exposed."],
