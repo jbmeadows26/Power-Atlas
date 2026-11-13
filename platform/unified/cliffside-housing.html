@@ -20,14 +20,24 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 @media(max-width:720px){.chapter{padding-block:35px}.hero{padding:29px 0 42px}.crumb{margin-bottom:28px}.comparison,.explainer-grid,.sources{grid-template-columns:1fr}.trail{grid-template-columns:repeat(2,minmax(0,1fr))}.trail button{padding:15px;min-height:155px}.trail button[aria-pressed=true]{padding:14px}.inspector{padding:22px}.rate-card{padding:22px}}
 @media(max-width:410px){.trail{grid-template-columns:1fr}.trail button{min-height:115px}.rate-card strong{font-size:3.3rem}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+
+.pilot-section{background:#ebf4ed;border-block:1px solid #c8dfd2}.pilot-wrap{background:white;border:1px solid #cfdfd5;border-radius:20px;padding:22px;margin-top:22px}
+.pilot-total{font-size:clamp(2.6rem,7vw,4.3rem);color:#175d54;letter-spacing:-.06em;font-weight:900;margin:14px 0;font-variant-numeric:tabular-nums}
+.pilot-twins{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:19px 0}.pilot-item{border:1px solid #d5e6dd;border-radius:14px;padding:18px}
+.pilot-item strong{display:block;font-size:clamp(1.5rem,4vw,2.3rem);margin:9px 0;font-variant-numeric:tabular-nums}
+.pilot-track{background:#e2ebe6;border-radius:10px;height:15px;overflow:hidden}.pilot-track>span{display:block;background:#237c6a;height:100%;transition:width .2s}
+.pilot-abatement{border:1px dashed #9baea7;border-radius:13px;padding:15px;display:flex;gap:14px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.pilot-abatement strong{font-size:1.8rem;font-variant-numeric:tabular-nums}
+.pilot-note{font-size:.88rem;color:#4b6b63;line-height:1.6;margin:20px 0}
+@media(max-width:600px){.pilot-twins{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
 <header class="hero" id="top"><div class="wrap">
 <div class="crumb"><a href="my-life.html">← My life</a><span> / </span><a href="why-costs-more.html">Visual stories</a><span> / Cliffside Park</span></div>
 <div class="kicker">Power Atlas / The local evidence trail</div>
-<h1>One town.<br>Two tax rates.<br><em>Nine unanswered links.</em></h1>
-<p class="lede">Cliffside Park, New Jersey. The numbers are real. The relationships behind local housing costs deserve proof—not guesswork. Tap your way through the evidence.</p>
+<h1>One town.<br>Two tax rates.<br><em>A documented decision.</em></h1>
+<p class="lede">Cliffside Park, New Jersey. The public numbers are real. Now we have a named redevelopment, a recorded council decision, and more questions worth pursuing—not guesses. Tap your way through the evidence.</p>
 <div class="hero-actions"><a class="primary" href="#the-numbers">Explore the numbers ↓</a><a class="outline" href="#trace">Follow the evidence trail ↗</a></div>
 <div class="eyeline"><span><span class="dot"></span>Official NJ source tables</span><span>2024–2025 comparison</span><span>Evidence-first investigation</span></div>
 </div></header>
@@ -55,6 +65,45 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 </div>
 <div class="stop"><strong>Don't make this leap:</strong> A higher general rate does not prove every household's tax bill rose 2.90%. A lower effective rate does not mean anyone received a tax break. And neither rate tells us who owns a building, whether it has a PILOT, or who donated to a politician.</div>
 </div></section>
+<section class="chapter pilot-section story-hero" id="borough-money"><div class="wrap">
+<div class="ey">03 / Follow the borough's money</div><h2>Tax breaks actually exist here.</h2>
+<p class="intro">The borough's financial disclosures identify two separate PILOT programs. Explore <strong>borough-wide</strong> annual amounts, not unverified deals or properties.</p>
+<div class="control-line" role="group" aria-label="Select annual PILOT data">
+<button class="switch" type="button" data-pilot-year="2024" aria-pressed="true">2024</button>
+<button class="switch" type="button" data-pilot-year="2023" aria-pressed="false">2023</button></div>
+<div class="pilot-wrap">
+<div class="ey" id="pilot-label">2024 · Two program receipts</div>
+<div class="pilot-total" id="pilot-total">$1,311,377</div>
+<p class="footnote">The arithmetic subtotal of receipts under these two reported programs, <strong>not an all-program PILOT total.</strong></p>
+<div class="pilot-twins">
+<div class="pilot-item"><span>Long-term exemption program</span><strong id="pilot-long">$1,190,602</strong><div class="pilot-track"><span id="pilot-long-bar" style="width:91.6%"></span></div><p class="footnote">Annual service charges received</p></div>
+<div class="pilot-item"><span>NJHMFA housing program</span><strong id="pilot-housing">$120,775</strong><div class="pilot-track"><span id="pilot-housing-bar" style="width:9.3%;background:#7daeb0"></span></div><p class="footnote">Separate housing-project PILOT receipts</p></div></div>
+<div class="pilot-abatement"><span id="pilot-abated-label">2024 · NJHMFA property tax reported abated</span><strong id="pilot-abated">$1,144,482</strong></div>
+<p class="pilot-note"><strong>Not the same measure.</strong> The reported property taxes abated are not cash received, a household tax bill, a verified public cost, or developer profit. These figures cover 2023–2024, not the 2025 tax-rate observation. No agreement holder, property, vote or donor is identified by the totals.</p>
+<div class="pilot-abatement" style="margin-top:16px"><div><span class="ey">2023 audit · Anderson Avenue PILOT account</span><p class="pilot-note" style="margin:4px 0">Gross $1,237,908 − county allocation $106,046</p><small>Net municipal revenue: $1,131,862 · a revenue-account label, not proof of an individual agreement or owner</small></div><a href="https://webgen1files.revize.com/boroughcspnj/Borough%20of%20Cliffside%20Park%202023%20Audit%20Report.pdf" target="_blank" rel="noopener noreferrer">Original 2023 audited Exhibit A-2 ↗</a></div>
+<p class="pilot-note">Sources: <a href="https://www.i-dealprospectus.com/api/PdfDownload/101881?action=Get" target="_blank" rel="noopener noreferrer">Borough FY2024/FY2023 financial statement, Note 16, appendix B-88 and B-89 ↗</a> · <a href="https://webgen1files.revize.com/boroughcspnj/Cliffside%20Park-2024%20AFS.pdf" target="_blank" rel="noopener noreferrer">Borough 2024 AFS (unaudited), sheet 20 ↗</a></p>
+</div></div></section>
+<section class="chapter" id="towne-centre"><div class="wrap">
+<div class="ey">04 / The first dated decision</div>
+<h2>Here’s an agreement we can actually trace.</h2>
+<p class="intro">A 2019 borough resolution describes the Towne Centre redevelopment on Anderson Avenue, including a <strong>2010 long-term tax exemption</strong>, two proposed condominium components, and actions authorized by the council in June 2019.</p>
+<div class="pilot-twins" style="margin:24px 0">
+<div class="pilot-item"><span class="ey">Residential component</span><strong style="font-size:clamp(1.6rem,4vw,2.5rem)">314 homes</strong><p>2019 described project · Block 2803, Lot 1.04 · Cliffside Urban Renewal Company LLC approved as new owner subject to amended agreement.</p></div>
+<div class="pilot-item"><span class="ey">Commercial component</span><strong style="font-size:clamp(1.6rem,4vw,2.5rem)">49,418 ft²</strong><p>2019 described project · Block 2803, Lot 1.03 · Shairco Urban Renewal Company LLC approved as new owner subject to amended agreement.</p></div>
+</div>
+<div class="pilot-wrap">
+<div class="ey">Decision timeline · dated documents</div>
+<div class="trail" style="margin:18px 0">
+<div class="pilot-item"><strong style="font-size:1.6rem">2006</strong><small>Initial redevelopment agreement, as recited in council minutes</small></div>
+<div class="pilot-item"><strong style="font-size:1.6rem">2010</strong><small>April 13 long-term PILOT agreement cited</small></div>
+<div class="pilot-item"><strong style="font-size:1.6rem">2019</strong><small>Resolution 2019-158 authorizes amended agreements and transfers subject to conditions</small></div>
+</div>
+<div class="pilot-abatement"><div><span class="ey">June 24, 2019 council vote</span><p class="pilot-note" style="margin:4px 0">Five ayes recorded; one council member absent</p></div><strong>5–0</strong></div>
+<p class="pilot-note">Ayes: Bongard, Martinotti, Corcoran, Colao and Nikaj. Spoto absent. This vote is documented for <strong>Resolution 2019-158</strong>, not a claim about anyone’s motive or campaign finances.</p>
+<a href="https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf" target="_blank" rel="noopener noreferrer"><strong>Inspect the original June 24, 2019 council minutes, printed pages 2–5 ↗</strong></a>
+<p class="pilot-note"><strong>Still not proven:</strong> that amended contracts were executed, that 2019 owner approvals describe current ownership, or that the 2023–2024 PILOT cash totals are attributable to a particular condominium lot. The signed agreements, recorded deeds and parcel-level payment schedules are still needed.</p>
+</div>
+</div></section>
 <section class="chapter" id="trace"><div class="wrap">
 <div class="ey">03 / Follow the evidence</div><h2>What would it take to tell the whole story?</h2>
 <p class="intro">Choose a link in the chain. <strong>Green means a bounded official observation.</strong> Amber means no publishable link has been verified. An open question is not evidence of wrongdoing.</p>
@@ -62,10 +111,10 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 <button type="button" data-stage="0" aria-pressed="true"><span class="num">01 / SOURCE</span><span class="state ok">Official record checked</span><b>Municipal rates</b><small>2024 and 2025 NJ tax tables</small><span class="hint">Explore ↗</span></button>
 <button type="button" data-stage="1" aria-pressed="false"><span class="num">02 / PARCEL</span><span class="state">Unresolved</span><b>Property assessment</b><small>Which block, lot and assessment?</small><span class="hint">Explore ↗</span></button>
 <button type="button" data-stage="2" aria-pressed="false"><span class="num">03 / TAX BILL</span><span class="state">Unresolved</span><b>Bill and payments</b><small>Billed isn't necessarily collected</small><span class="hint">Explore ↗</span></button>
-<button type="button" data-stage="3" aria-pressed="false"><span class="num">04 / INCENTIVE</span><span class="state">Unresolved</span><b>PILOT or abatement</b><small>Agreement and actual remittances</small><span class="hint">Explore ↗</span></button>
-<button type="button" data-stage="4" aria-pressed="false"><span class="num">05 / MUNICIPALITY</span><span class="state">Unresolved</span><b>Government receipts</b><small>Annual cash and budget records</small><span class="hint">Explore ↗</span></button>
-<button type="button" data-stage="5" aria-pressed="false"><span class="num">06 / DECISION</span><span class="state">Unresolved</span><b>Who voted?</b><small>Ordinance, minutes and dates</small><span class="hint">Explore ↗</span></button>
-<button type="button" data-stage="6" aria-pressed="false"><span class="num">07 / OWNERSHIP</span><span class="state">Unresolved</span><b>Who controls it?</b><small>Titleholder isn't always controller</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="3" aria-pressed="false"><span class="num">04 / INCENTIVE</span><span class="state ok">2019 agreement cited</span><b>PILOT or abatement</b><small>Agreement and actual remittances</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="4" aria-pressed="false"><span class="num">05 / MUNICIPALITY</span><span class="state ok">Borough totals checked</span><b>Government receipts</b><small>Annual cash and budget records</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="5" aria-pressed="false"><span class="num">06 / DECISION</span><span class="state ok">2019 vote documented</span><b>Who voted?</b><small>Ordinance, minutes and dates</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="6" aria-pressed="false"><span class="num">07 / OWNERSHIP</span><span class="state">Historic approvals only</span><b>Who controls it?</b><small>Titleholder isn't always controller</small><span class="hint">Explore ↗</span></button>
 <button type="button" data-stage="7" aria-pressed="false"><span class="num">08 / POLITICAL MONEY</span><span class="state">Unresolved</span><b>Who funded whom?</b><small>Verified filings, identity and dates</small><span class="hint">Explore ↗</span></button>
 <button type="button" data-stage="8" aria-pressed="false"><span class="num">09 / OUTCOME</span><span class="state">Unresolved</span><b>What changed for renters?</b><small>Comparable rents and other causes</small><span class="hint">Explore ↗</span></button>
 </div>
@@ -115,14 +164,33 @@ document.getElementById("delta-explain").textContent=row.desc;
 document.getElementById("rate-note").firstChild.textContent=row.note+" ";
 }
 document.querySelectorAll("[data-rate]").forEach(b=>b.addEventListener("click",()=>updateRate(b.dataset.rate)));updateRate("general");
+const pilotFigures={
+2023:{long:1131862,housing:199306,abated:1040175},
+2024:{long:1190602,housing:120775,abated:1144482}
+};
+const money=v=>"$"+v.toLocaleString("en-US");
+function showPilotYear(year){
+const r=pilotFigures[year];if(!r)return;
+document.querySelectorAll("[data-pilot-year]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.pilotYear===String(year))));
+document.getElementById("pilot-label").textContent=year+" · Two program receipts";
+document.getElementById("pilot-total").textContent=money(r.long+r.housing);
+document.getElementById("pilot-long").textContent=money(r.long);
+document.getElementById("pilot-housing").textContent=money(r.housing);
+document.getElementById("pilot-long-bar").style.width=(r.long/1300000*100).toFixed(1)+"%";
+document.getElementById("pilot-housing-bar").style.width=(r.housing/1300000*100).toFixed(1)+"%";
+document.getElementById("pilot-abated").textContent=money(r.abated);
+document.getElementById("pilot-abated-label").textContent=year+" · NJHMFA property tax reported abated";
+}
+document.querySelectorAll("[data-pilot-year]").forEach(b=>b.addEventListener("click",()=>showPilotYear(b.dataset.pilotYear)));
+showPilotYear("2024");
 const stages=[
 ["Official record checked · municipality","The starting point is real.","The New Jersey Division of Taxation publishes 2024 and 2025 Cliffside Park general and effective tax rates. This proves only the reported municipality-wide rates.","https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf","Open official 2025 source ↗","Exact locator: 2025 General Tax Rates · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO."],
 ["Unresolved · parcel","Which property and assessment?","We need a dated, legally public block-and-lot assessment tied to an exact tax year. The municipal rate cannot reveal the assessed value of an individual property.",null,null,"Personal tenant details and protected address records must not be exposed."],
 ["Unresolved · tax collection","What was billed—and what was paid?","A tax assessment, issued bill, posted payment, credit, appeal and refund are separate records. Reconciliation requires a redacted, source-checked collector ledger.",null,null,"Do not treat amounts billed as municipal cash received."],
-["Unresolved · incentive","Is there a documented PILOT agreement?","We have not verified a specific property's payment-in-lieu-of-taxes agreement or abatement. The existence of general and effective municipal rates does not establish one.",null,null,"Needed: named project, executed agreement, ordinance, annual charge and payment evidence."],
-["Unresolved · revenue","What entered the borough budget?","Budget estimates and cash receipts are not the same. A meaningful comparison needs audited municipal receipts, school and county allocation, and the dates funds were received.",null,null,"Needed: official local budget, audit and collection reconciliation."],
-["Unresolved · public decision","Who approved which decision?","No specific ordinance, council vote, board action or decision-maker has been joined to this tax-rate finding. A signed agreement does not identify every voter or motive.",null,null,"Needed: adopted ordinance, minutes, roll call and effective dates."],
-["Unresolved · ownership","Who legally owns or controls the property?","A deeded titleholder, registered agent, manager, equity investor and beneficial controller can be different parties. Name or mailing-address matches alone are not proof of control.",null,null,"Needed: title and corporate filings matched to stable identifiers and time."],
+["Official 2019 record · agreement cited","An original PILOT agreement is identified.","Resolution 2019-158 cites the Towne Centre long-term tax-exemption agreement dated April 13, 2010, and authorizes amended arrangements. We still need executed amendment copies and recorded parcel-level schedules.","https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf","Open official 2019 resolution ↗","Resolution 2019-158, council minutes pp. 3–5; the authorization does not establish current ownership or actual 2024 receipts by lot."],
+["Borough totals checked · allocation not parcel-linked","How much did the municipality report?","Audited notes report long-term PILOT cash of $1,190,602 for 2024 and $1,131,862 for 2023. The 2023 audit also shows $1,237,908 gross for the Anderson Avenue account, with $106,046 allocated to the county. Individual project and parcel allocations remain to be reconciled.","https://webgen1files.revize.com/boroughcspnj/Borough%20of%20Cliffside%20Park%202023%20Audit%20Report.pdf","Open original 2023 audit ↗","2023 audit Exhibit A-2 p. 3; gross, county allocation and municipal net must remain separate."],
+["2019 decision documented · scope limited","Who voted on the 2019 authorization?","The minutes record Resolution 2019-158, authorizing Towne Centre redevelopment-related transfers and first and second amended PILOT agreements. Ayes: Bongard, Martinotti, Corcoran, Colao and Nikaj; Spoto absent. This is the 2019 decision, not evidence about a 2025 tax-rate change or a donation.","https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf","Open resolution and recorded vote ↗","June 24, 2019 minutes pp. 2–5; separate 2010 adoption vote and executed agreement are still needed."],
+["2019 council approvals · current title unresolved","Who was named in 2019?","The council approved Cliffside Urban Renewal Company LLC for residential Block 2803 Lot 1.04 and Shairco Urban Renewal Company LLC for commercial Lot 1.03, subject to amended agreements. This is an official historical authorization—not a title search, not proof of control, not a verified 2026 owner, and not beneficial-control evidence.","https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf","Inspect source and parcel references ↗","Resolution 2019-158 pp. 4–5; retrieve filed master deed, post-transfer deeds and legal-entity registration timelines."],
 ["Unresolved · political finance","Were any relevant political payments disclosed?","No donor-to-project-to-decision connection has been verified here. Personal contributions, PAC expenditures, corporate activity and lobbying disclosures cannot be collapsed into one financial flow.",null,null,"Needed: exact filing, legal entity match, date, recipient and decision timeline."],
 ["Unresolved · household outcome","Did any of this change rent?","A price effect requires dated comparable rents and a credible alternative explanation or counterfactual. No specific increase, decrease or corruption-related rent effect is established by the municipal rates.",null,null,"Needed: bedroom-level asking and signed-lease series, supply factors, comparable neighborhoods and uncertainty."]
 ];
@@ -140,7 +208,7 @@ fetch("api/housing-evidence",{credentials:"omit",headers:{"Accept":"application/
 .then(data=>{
 if(!data||data.status!=="approved_only"||!Array.isArray(data.evidence))throw Error("invalid response");
 rows.replaceChildren();state.textContent=data.evidence.length+" published findings";
-if(!data.evidence.length){const p=document.createElement("p");p.className="live-empty";p.textContent="No parcel-specific or political-finance assertions are approved for publication yet. The documentary above only presents the source-checked municipal tax-rate comparison.";rows.append(p);return;}
+if(!data.evidence.length){const p=document.createElement("p");p.className="live-empty";p.textContent="No parcel-specific or political-finance assertions are approved for publication yet. Public municipal financial reports and council minutes are separately linked above; the restricted evidence ledger still requires editorial approval for every assertion.";rows.append(p);return;}
 data.evidence.slice(0,50).forEach(item=>{
 if(!item||!item.assertion_id||!item.assertion_text||!["verified_in_reviewed_scope","manual_change_caution"].includes(item.display_evidence_state))return;
 const card=document.createElement("div");card.className="live-row";const title=document.createElement("strong");title.textContent=item.assertion_text;card.append(title);
