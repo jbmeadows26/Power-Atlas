@@ -52,7 +52,7 @@ class AICrashStoryQATests(unittest.TestCase):
                        "Not established:", "replaceChildren("):
             self.assertIn(marker.lower(), self.html.lower())
         for name in ("lenders", "builders", "suppliers", "models", "buyers"):
-            self.assertRegex(self.html, rf'(?:^|,)\\?"?{name}\\?"?\\s*:\\s*\\{{')
+            self.assertIn('"' + name + '":{"gap":', self.html)
 
     def test_mobile_navigation_remains_available(self):
         self.assertIn('id="mobileMenuToggle"', self.html)
