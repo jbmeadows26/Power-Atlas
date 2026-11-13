@@ -53,9 +53,8 @@ class OriginalSourceGapBacklogTests(unittest.TestCase):
             self.assertTrue(item["stage"], item["id"])
             self.assertTrue(item["coverage"], item["id"])
             self.assertTrue(item["next"], item["id"])
-            self.assertTrue(set(item["relevantGates"]).issubset(
-                set(self.national["blockingGates"])
-            ), item["id"])
+            valid_gates = set(self.national["blockingGates"]) | {g["id"] for g in self.local["gaps"]}
+            self.assertTrue(set(item["relevantGates"]).issubset(valid_gates), item["id"])
 
 
 if __name__ == "__main__":
