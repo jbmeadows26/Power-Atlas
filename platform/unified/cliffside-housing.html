@@ -123,6 +123,26 @@ section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem
 <p class="pilot-note"><strong>Identity warning:</strong> the 2019 council resolution named “Shairco Urban Renewal Company LLC,” while the county deed metadata names “Shairco Urban Renewal LLC.” We cannot merge those names without an official entity-number or executed-agreement match. A deed grantee is not proof of present beneficial control. No political-money connection has been established.</p>
 </div>
 </div></section>
+<section class="chapter" id="property-records"><div class="wrap">
+<div class="ey">05 / Trace the title & the financing</div>
+<h2>We have the instrument numbers now.</h2>
+<p class="intro">The county clerk's index and federal mortgage filings provide exact locators. Select a record to see what it proves—and what it doesn't. <strong>Index metadata is not the scanned deed.</strong></p>
+<div class="trail" role="group" aria-label="Choose a documented property record" id="recordChooser">
+<button data-record="residential" type="button" aria-pressed="true"><span class="num">2026 · RESIDENTIAL LOT</span><span class="state ok">Deed index located</span><b>Lot 1.04</b><small>Instrument 2026000586 · recorded Jan. 5</small><span class="hint">Open record ↗</span></button>
+<button data-record="commercial" type="button" aria-pressed="false"><span class="num">2019 · COMMERCIAL LOT</span><span class="state ok">Deed index located</span><b>Lot 1.03</b><small>Instrument 19-071078 · recorded Oct. 23</small><span class="hint">Open record ↗</span></button>
+<button data-record="mortgage" type="button" aria-pressed="false"><span class="num">2019 · SEC FINANCING</span><span class="state ok">SEC filing located</span><b>$130 million</b><small>Loan origination · stated maturity July 2024</small><span class="hint">Open record ↗</span></button>
+<button data-record="pilot" type="button" aria-pressed="false"><span class="num">2026 · NJ DCA WORKBOOK</span><span class="state ok">Project row located</span><b>Town Center PILOT</b><small>$1,131,162 reported billing · not cash</small><span class="hint">Open record ↗</span></button>
+<button data-record="reported-sale" type="button" aria-pressed="false"><span class="num">2025 · NEWS REPORT</span><span class="state">Unreconciled with deed</span><b>$165 million sale</b><small>Reported HyperionMFP / Benenson venture transaction</small><span class="hint">Open lead ↗</span></button>
+</div>
+<div class="inspector" aria-live="polite" id="recordInspector">
+<small id="record-status">County index · metadata inspected</small>
+<h3 id="record-title">Jan. 5, 2026 residential deed index</h3>
+<p id="record-text">Instrument 2026000586 (Book 5693/Page 1691) lists Cliffside Urban Renewal Company LLC as grantor and DDL Urban Renewal Company LLC as grantee of Lot 1.04. The scanned image was not accessible; no full title opinion or beneficial ownership is implied.</p>
+<a id="record-link" class="source-link" href="https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354" target="_blank" rel="noopener noreferrer">Open source index ↗</a>
+<div id="record-limit" class="tip">Historic and indexed legal-entity names are not proof of current natural-person control.</div>
+</div>
+<div class="stop" style="margin-top:18px"><strong>Conflicts requiring reconciliation:</strong> The 2019 resolution and commercial deed index use different Shairco legal names; a 2025 reported sale precedes a January 2026 deed filing to DDL Urban Renewal Company LLC; and the state PILOT workbook dates the agreement to 2014 while council minutes cite 2010. These records cannot be joined into one verified ownership or payment chain without reviewing the underlying documents.</div>
+</div></section>
 <section class="chapter" id="trace"><div class="wrap">
 <div class="ey">03 / Follow the evidence</div><h2>What would it take to tell the whole story?</h2>
 <p class="intro">Choose a link in the chain. <strong>Green means a bounded official observation.</strong> Amber means no publishable link has been verified. An open question is not evidence of wrongdoing.</p>
@@ -202,6 +222,21 @@ document.getElementById("pilot-abated-label").textContent=year+" · NJHMFA prope
 }
 document.querySelectorAll("[data-pilot-year]").forEach(b=>b.addEventListener("click",()=>showPilotYear(b.dataset.pilotYear)));
 showPilotYear("2024");
+const propertyRecords={
+residential:["County index · deed metadata","Jan. 5, 2026 residential deed index","Instrument 2026000586 (Book 5693/Page 1691) lists Cliffside Urban Renewal Company LLC as grantor and DDL Urban Renewal Company LLC as grantee of Lot 1.04. Scanned deed not read; legal control unverified.","https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354","Indexed document, not a complete legal chain of title."],
+commercial:["County index · deed metadata","Oct. 23, 2019 commercial deed index","Instrument 19-071078 (Book 3383/Page 1484) lists Cliffside Urban Renewal Company LLC as grantor and Shairco Urban Renewal LLC as grantee of Lot 1.03. The borough 2019 resolution uses a different LLC name; do not equate them without the recorded deed and registry.","https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9367974","Document code DEED1MIL reproduced as indexed; recorded image still needs review."],
+mortgage:["SEC filing · original mortgage terms","2019 mortgage: $130 million","The SEC-filed 2019 mortgage loan schedule names Cliffside Urban Renewal Company LLC as borrower and Citi Real Estate Funding Inc. as lender, with initial principal $130 million and stated maturity July 6, 2024. This is not the 2011 municipal bond, a current balance or a donation.","https://www.sec.gov/Archives/edgar/data/1783287/000153949719001377/exh4-18thecentre.htm","SEC mortgage agreement, Exhibit A; individual note balances and later payoff require separate records."],
+pilot:["NJ DCA workbook · project-level reported values","Town Center PILOT in state records","The DCA workbook, Raw Data from User Friendly Budgets row 59 (municipality 0206), lists Town Center, billing $1,131,162, assessed value $84,654,400 and an agreement-period entry 2014–2044. Billing is not cash collected, and the 2014 date differs from the 2010 agreement date cited by the council.","https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx","2026 user-friendly-budget submission metadata; not an executed agreement or independent current parcel assessment."],
+"reported-sale":["Secondary report · needs deed reconciliation","A $165 million sale was reported in 2025","October 24, 2025 reporting identifies a joint venture involving HyperionMFP Partners and Benenson Capital Partners as buyer of The Centre for $165 million. The January 2026 recorded index names DDL Urban Renewal Company LLC as grantee. Their precise legal relationship is not established.","https://therealdeal.com/new-york/tristate/2025/10/24/hyperion-jv-buys-cliffside-parks-centre-for-165m/","News reporting is not a primary title instrument; never equate a venture sponsor with a parcel owner or beneficial controller."]
+};
+document.getElementById("recordChooser").addEventListener("click",function(event){
+const b=event.target.closest("button[data-record]");if(!b||!propertyRecords[b.dataset.record])return;
+document.querySelectorAll("#recordChooser [data-record]").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+const v=propertyRecords[b.dataset.record];document.getElementById("record-status").textContent=v[0];
+document.getElementById("record-title").textContent=v[1];document.getElementById("record-text").textContent=v[2];
+const link=document.getElementById("record-link");link.href=v[3];link.textContent="Inspect original source ↗";
+document.getElementById("record-limit").textContent=v[4];
+});
 const stages=[
 ["Official record checked · municipality","The starting point is real.","The New Jersey Division of Taxation publishes 2024 and 2025 Cliffside Park general and effective tax rates. This proves only the reported municipality-wide rates.","https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf","Open official 2025 source ↗","Exact locator: 2025 General Tax Rates · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO."],
 ["Unresolved · parcel","Which property and assessment?","We need a dated, legally public block-and-lot assessment tied to an exact tax year. The municipal rate cannot reveal the assessed value of an individual property.",null,null,"Personal tenant details and protected address records must not be exposed."],
