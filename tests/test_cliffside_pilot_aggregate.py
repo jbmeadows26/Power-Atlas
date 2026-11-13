@@ -32,7 +32,7 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
     def test_abated_not_mixed_with_received(self):
         abated={x["year"]:x["usd"] for x in D["observations"] if x["measure"]=="reported_property_tax_abated"}
         self.assertEqual(abated,{2023:1040175,2024:1144482})
-        self.assertIn("not a household tax bill",HTML)
+        self.assertIn("are not cash received, a household tax bill",HTML)
         self.assertIn("No agreement holder, property, vote or donor is identified",HTML)
         self.assertEqual(D["andersonAveAudit2023"]["grossReportedUSD"]-D["andersonAveAudit2023"]["allocatedToCountyUSD"], D["andersonAveAudit2023"]["netMunicipalReportedUSD"])
         self.assertIn("independent editorial approval",str(D).lower())
