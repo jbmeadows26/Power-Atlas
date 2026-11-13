@@ -54,6 +54,16 @@ class AICrashStoryQATests(unittest.TestCase):
         for name in ("lenders", "builders", "suppliers", "models", "buyers"):
             self.assertIn('"' + name + '":{"gap":', self.html)
 
+    def test_status_labels_are_visible_without_opening_evidence_cards(self):
+        for status in ("FINANCING STRAIN", "PROJECT DELAYS", "POWER BOTTLENECKS",
+                       "HIGH COMPUTE COSTS", "MIXED RETURNS"):
+            self.assertIn(status, self.html)
+        self.assertEqual(5, len(re.findall(r'<span class="case-hint">', self.html)))
+        for marker in ('Chart evidence guide', '10 sourced examples',
+                       'Not 10 confirmed defaults', 'data-source-type',
+                       'kind.dataset.sourceType'):
+            self.assertIn(marker, self.html)
+
     def test_mobile_navigation_remains_available(self):
         self.assertIn('id="mobileMenuToggle"', self.html)
         self.assertIn('aria-controls="mobileNav"', self.html)

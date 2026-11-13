@@ -301,6 +301,16 @@ class BrowserJourneyQA(unittest.TestCase):
                 self.assertIn("Not established", self.page.locator("#nodeSystemGap").inner_text())
         self.assert_no_horizontal_overflow()
 
+    def test_ai_ecosystem_shows_status_on_all_five_nodes(self):
+        self.visit("/ai-crash.html")
+        for node in ("lenders", "builders", "suppliers", "models", "buyers"):
+            with self.subTest(node=node):
+                self.assertTrue(self.page.locator('[data-node="' + node + '"] .case-hint').is_visible())
+                self.page.locator('[data-node="' + node + '"]').click()
+                self.assertEqual(2, self.page.locator("#nodeCaseList .source-kind[data-source-type]").count())
+        self.assertIn("10 sourced examples", self.page.locator(".network-evidence-key").inner_text())
+        self.assert_no_horizontal_overflow()
+
     def test_market_power_and_consumer_watch_have_v6_and_mobile_fit(self):
         for path in ["/market-power.html", "/consumer-practices.html", "/dark-money.html"]:
             with self.subTest(page=path):
