@@ -347,5 +347,95 @@
     "sampleCase": "data/housing/official-tax-rate-cliffside-park-2024-2025.json",
     "privacy": "No private payer names, bank details, escrow details, taxpayer account identifiers, or redacted protected-person information.",
     "status": "official_2024_2025_tax_rates_checked_other_receipts_and_incentive_links_unverified"
+  },
+  "publicationGate": {
+    "status": "design_only_not_live_migrated",
+    "migration": "schema/0004_housing_publication_gate.sql",
+    "auditClassifier": "scripts/audit_live_reference.py",
+    "operativeRule": "Public-facing verified view contains only an exact-row matched source assertion, with locator, source-review and rights check, explicit human editorial approval and no active dispute.",
+    "liveSourceRequirement": {
+      "sourceRecordURL": "official_live_https_url",
+      "exactLocator": "required",
+      "expectedExcerpt": "required",
+      "reviewedBy": "required_for_verified",
+      "originalFileHash": "optional_only_if_authorized_capture",
+      "archiveURL": "optional_not_a_gate",
+      "publishedOnDate": "must_not_be_inferred_from_capture"
+    },
+    "auditStates": [
+      {
+        "id": "http_error",
+        "publicMeaning": "No automatic change to verified claim",
+        "internalAction": "retry_or_check_access"
+      },
+      {
+        "id": "access_blocked",
+        "publicMeaning": "No automatic change to verified claim",
+        "internalAction": "review_portal_access_no_bypass"
+      },
+      {
+        "id": "hard_404",
+        "publicMeaning": "No automatic change to verified claim",
+        "internalAction": "collect_distinct_daily_checks"
+      },
+      {
+        "id": "dead_link_review_candidate",
+        "publicMeaning": "No auto-accusation or automatic claim removal",
+        "internalAction": "manual_link_review_after_three_consecutive_404_days"
+      },
+      {
+        "id": "parse_error",
+        "publicMeaning": "No automatic warning about altered documents",
+        "internalAction": "fix_extractor_with_original_check"
+      },
+      {
+        "id": "content_verified",
+        "publicMeaning": "Source excerpt located within checked scope, not evidence of motive or causation",
+        "internalAction": "retain_and_record_check"
+      },
+      {
+        "id": "pending_manual_review",
+        "publicMeaning": "Keep existing publication unchanged pending review",
+        "internalAction": "manual_review_of_clean_readable_content"
+      },
+      {
+        "id": "human_confirmed_change",
+        "publicMeaning": "Explicit caution only after reviewed source change",
+        "internalAction": "editorial_reassessment"
+      }
+    ],
+    "publicDisplayStates": [
+      {
+        "id": "verified_in_reviewed_scope",
+        "lineStyle": "solid",
+        "text": "Original record checked",
+        "isCausalProof": false
+      },
+      {
+        "id": "unknown",
+        "lineStyle": "dashed",
+        "text": "Connection not established",
+        "isCausalProof": false
+      },
+      {
+        "id": "disputed_not_a_verified_conclusion",
+        "lineStyle": "caution",
+        "text": "Sources disagree; see both",
+        "isCausalProof": false
+      },
+      {
+        "id": "manual_change_caution",
+        "lineStyle": "caution",
+        "text": "A source change was confirmed by a reviewer; assessment may need revision",
+        "isCausalProof": false
+      }
+    ],
+    "negativeSearchRule": "Zero public hits supports only documented protocol scope and date; never a claim of no regulatory action.",
+    "privacy": "Publication views only; no public direct access to raw research tables, redacted protected-person data or individual tax payment account details.",
+    "caveats": [
+      "This schema guards publication but does not prove causal influence.",
+      "The current Power Atlas public site is static; the proposed PostgreSQL migration, public DB roles and API integration are not yet live.",
+      "The classifier is an offline testable module, not yet a deployed live polling job."
+    ]
   }
 }

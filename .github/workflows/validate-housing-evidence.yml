@@ -1,0 +1,62 @@
+name: Verify housing evidence and publication safeguards
+on:
+  pull_request:
+    paths:
+      - 'schema/0002_housing_temporal_evidence.sql'
+      - 'schema/0003_housing_tax_receipts.sql'
+      - 'schema/0004_housing_publication_gate.sql'
+      - 'scripts/audit_live_reference.py'
+      - 'tests/test_housing_reference_audit.py'
+      - 'tests/sql/housing_publication_gate_smoke.sql'
+      - 'data/housing/temporal-evidence-contract-v1.json'
+      - 'data/housing/official-tax-rate-cliffside-park-2024-2025.json'
+      - '.github/workflows/validate-housing-evidence.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'schema/0004_housing_publication_gate.sql'
+      - 'scripts/audit_live_reference.py'
+      - 'tests/test_housing_reference_audit.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  publication-gate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 9
+    services:
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_DB: atlas_test
+          POSTGRES_USER: atlas
+          POSTGRES_PASSWORD: atlas_test_password
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U atlas -d atlas_test"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: atlas
+      PGDATABASE: atlas_test
+      PGPASSWORD: atlas_test_password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run defensive audit failure-injection tests offline
+        run: python -m unittest discover -s tests -p 'test_housing_reference_audit.py' -v
+      - name: Compile Python audit logic
+        run: python -m py_compile scripts/audit_live_reference.py
+      - name: Verify required PostgreSQL smoke tool
+        run: psql --version
+      - name: Apply unexecuted design migrations in isolated test database
+        run: |
+          psql -v ON_ERROR_STOP=1 -f schema/0002_housing_temporal_evidence.sql
+          psql -v ON_ERROR_STOP=1 -f schema/0003_housing_tax_receipts.sql
+          psql -v ON_ERROR_STOP=1 -f schema/0004_housing_publication_gate.sql
+      - name: Assert publication refusals, disputes and human-only drift findings
+        run: psql -v ON_ERROR_STOP=1 -f tests/sql/housing_publication_gate_smoke.sql
