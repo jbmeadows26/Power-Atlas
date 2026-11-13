@@ -34,6 +34,36 @@
       "status": "bounded_verified",
       "sourceId": "cliffside-council-2019-06-24",
       "scope": "Named LLCs approved as new owners, not a recorded transfer or current title"
+    },
+    {
+      "stage": "2019_commercial_lot_deed_metadata",
+      "status": "bounded_verified_index",
+      "source": "bergen-deed-2019-commercial-lot103",
+      "scope": "Instrument 19-071078 grants index name Shairco Urban Renewal LLC for Lot 1.03, not a scanned verified deed copy"
+    },
+    {
+      "stage": "2026_residential_lot_deed_metadata",
+      "status": "bounded_verified_index",
+      "source": "bergen-deed-2026-residential-lot104",
+      "scope": "Instrument 2026000586 recorded Jan 5 2026 lists DDL Urban Renewal Company LLC as grantee of Lot 1.04"
+    },
+    {
+      "stage": "NJ_DCA_Town_Center_project_pilot_row",
+      "status": "bounded_verified_workbook",
+      "source": "nj-dca-pilot-database-2026",
+      "scope": "DCA Municode 0206 row 59, source-reported start/end, billing and assessed value; not executed agreement or collected cash"
+    },
+    {
+      "stage": "SEC_2019_Centre_mortgage",
+      "status": "bounded_verified_sec_filing",
+      "source": "sec-cgcmt-2019-gc41-exh4-18",
+      "scope": "2019 borrower Cliffside Urban Renewal LLC and origination loan $130m, July 6 2024 stated maturity"
+    },
+    {
+      "stage": "2025_reported_sale",
+      "status": "secondary_reporting_only",
+      "source": "realdeal-hyperion-sale-2025",
+      "scope": "Reported $165m venture acquisition; not a recorder-confirmed legal-title and beneficial-control chain"
     }
   ],
   "unresolved": [
@@ -50,16 +80,24 @@
       "recordNeeded": "Scanned contents of recorded 2019 and 2026 deeds; full title chain through as-of date, condo amendments and legally public current ownership. County Clerk metadata locators now known: 19-071078 (2019 lot 1.03) and 2026000586 (2026 lot 1.04).",
       "owner": "Bergen County Clerk",
       "sourcePortal": "https://bclrs.co.bergen.nj.us/browserview/",
-      "closure": "Confirm instrument pages, chain and no later transfers; metadata alone not full chain.",
-      "status": "partial_metadata_verified"
+      "closure": "Inspect full recorded deed images and underlying legal descriptions for 2019/2026 instruments; reconcile conflicting legal entity strings and 2025 reported sale; chain through current date",
+      "status": "indexed_deeds_found_scans_unread",
+      "observed": [
+        "2019 commercial transfer: instrument 19-071078, Book 3383/Page 1484",
+        "2026 residential transfer: instrument 2026000586, Book 5693/Page 1691",
+        "2019 condo association indexed document 19-048778.01, type not interpreted"
+      ]
     },
     {
       "id": "current_legal_entity_control",
       "recordNeeded": "Contemporaneous NJ entity status plus formation/amendment/manager filings for specifically identified LLCs; 2026 recorded grantee DDL Urban Renewal Company LLC, 2019 recorded Shairco Urban Renewal LLC; compare NJ corporate identifiers without conflating names.",
       "owner": "NJ Department of Treasury Division of Revenue",
       "sourcePortal": "https://www.njportal.com/DOR/businessrecords/Default.aspx",
-      "closure": "Legal identifiers and official filing with date; registered agent does not establish beneficial ownership",
-      "status": "historical_record_names_identified_control_unverified"
+      "closure": "Confirm NJ Secretary of State legal-entity ID, exact company name and changes, management/control and effective dates independently; registered agent not sufficient",
+      "status": "historic_and_2026_grantee_names_found_beneficial_control_unverified",
+      "observed": [
+        "Bergen Jan 5 2026 grant to DDL Urban Renewal Company LLC, commercial 2019 grant to Shairco Urban Renewal LLC"
+      ]
     },
     {
       "id": "parcel_tax_assessment_bill",
@@ -106,8 +144,11 @@
       "recordNeeded": "Reconcile Town Center row 59, reported FY2026 PILOT billing $1,131,162, with signed project agreement and same-period collector receipts; verify date inconsistencies.",
       "owner": "NJ Department of Community Affairs",
       "sourcePortal": "https://www.nj.gov/dca/dlgs/taxabatementkit.shtml",
-      "closure": "DCA project row identified, full closure requires verified original agreement and payment ledger.",
-      "status": "project_row_checked_billing_only"
+      "closure": "Reconcile row to 2010 financial agreement, 2014 start, actual parcel and 2023/2024 cash receipts; do not assume numbers are interchangeable",
+      "status": "official_project_row_found_not_legal_reconciled",
+      "observed": [
+        "Town Center row 59 (2026 submission) reports agreement start 2014-01-01, end 2044-01-01, PILOT Billing $1,131,162, assessed value $84,654,400"
+      ]
     }
   ],
   "requestPreparation": {
@@ -190,5 +231,11 @@
         "No tax-benefit estimate or causal impact from simply subtracting figures"
       ]
     }
-  }
+  },
+  "crossSourceDiscrepancies": [
+    "2019 borough resolution Shairco Urban Renewal Company LLC versus 2019 county index Shairco Urban Renewal LLC — same entity not established.",
+    "2019 borough minutes cite 2010-04-13 financial agreement; DCA 2026 workbook row says PILOT Agreement Start 2014-01-01.",
+    "DCA PILOT Billing $1,131,162 is not 2023 LTTE borough cash $1,131,862; do not infer typo or a reconciliation.",
+    "2025 media reports Hyperion/Benenson venture sale while Jan 2026 county index reports grantor Cliffside Urban Renewal Company LLC to grantee DDL Urban Renewal Company LLC — legal relationship unverified."
+  ]
 }
