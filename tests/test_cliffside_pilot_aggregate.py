@@ -11,7 +11,7 @@ HTML=(ROOT/"platform/unified/cliffside-housing.html").read_text()
 class CliffsidePilotEvidenceTests(unittest.TestCase):
     def test_source_locators_and_annual_totals(self):
         sources={s["id"] for s in D["sources"]}
-        self.assertEqual(len(sources),3)
+        self.assertEqual(len(sources),4)
         for s in D["sources"]:
             self.assertTrue(s["url"].startswith("https://"))
             self.assertTrue(s["locator"])
@@ -41,6 +41,13 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         self.assertIn('data-pilot-year="2023"',HTML)
         self.assertIn('data-pilot-year="2024"',HTML)
         self.assertIn("showPilotYear",HTML)
+        self.assertEqual(D["projectCase"]["resolution"],"2019-158")
+        self.assertEqual(D["projectCase"]["describedComponents"]["residentialUnits"],314)
+        self.assertEqual(len(D["projectCase"]["recordedVote"]["ayes"]),5)
+        self.assertIn("Resolution 2019-158",HTML)
+        self.assertIn("314 homes",HTML)
+        self.assertIn("Shairco Urban Renewal Company LLC",HTML)
+
         self.assertIn("2023:{long:1131862,housing:199306,abated:1040175}",HTML)
         self.assertIn("2024:{long:1190602,housing:120775,abated:1144482}",HTML)
         self.assertIn('fetch("api/housing-evidence"',HTML)
