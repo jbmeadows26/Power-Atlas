@@ -1,0 +1,1036 @@
+{
+  "schema": "power-atlas.reference-gap-progress.v1",
+  "asOfLocalDate": "2026-11-12",
+  "operatingMode": "reference_first_no_bulk_ingestion",
+  "scope": {
+    "localGapCount": 55,
+    "nationalBlockingGateCount": 9,
+    "openTotal": 64,
+    "fullGapClosures": 0,
+    "boundedEvidenceCasesReviewed": 3,
+    "distinctGapsWithNewBoundedEvidence": 4,
+    "originalPublicSourceEntryPoints": 15
+  },
+  "safeguard": "Source discovery and narrow checks are not completion. Continue work on every remaining required join; all original nationwide and local gates stay open.",
+  "gaps": [
+    {
+      "gapId": "certified_elections",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "bounded_source_evidence_reviewed_gap_open",
+      "originalGateClosed": false,
+      "boundedCaseIds": [
+        "nj-2024-bergen-presidential-official-cross-report"
+      ],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_finance",
+        "voting_rights"
+      ],
+      "stillRequired": "certified contest returns, district, date, stage, original authority",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "congressional_trades",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "house_disclosure",
+        "senate_disclosure",
+        "ogepublic",
+        "sec_beneficial"
+      ],
+      "stillRequired": "member+date range+issuer CIK+policy action with privacy guard",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "corp_registry",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "stillRequired": "Canonical corporate graph by source, ownership share, dates and legal name; keep conflicts",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "data_freshness",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "fec_official",
+        "bls_prices",
+        "usaspending"
+      ],
+      "stillRequired": "source retrieval/coverage time, data cutoff, update SLA and failure status",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "employer_market_denominator",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_cbp",
+        "bls_qcew",
+        "ftc_mergers"
+      ],
+      "stillRequired": "Exact market and competitor set plus numerator/denominator and year",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "energy__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "usaspending"
+      ],
+      "stillRequired": "utility docket → approved customer class rates → effective date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "energy__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "eia_electric",
+        "eia_gas",
+        "puc_directory"
+      ],
+      "stillRequired": "disaggregated bill, utility expenditure and counterfactual usage",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "energy__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "eia_electric"
+      ],
+      "stillRequired": "account service provider, franchise territory, parent filings, asset list",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "energy__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "puc_directory",
+        "eia_electric",
+        "eia_gas"
+      ],
+      "stillRequired": "utility service territory → approved tariff, usage, billing period",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "federal_itemized_finance",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "fec_official",
+        "state_finance"
+      ],
+      "stillRequired": "Original committee IDs + FEC filings + amendments + transaction IDs",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "frontend_broken_links",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "bounded_source_evidence_reviewed_gap_open",
+      "originalGateClosed": false,
+      "boundedCaseIds": [
+        "sitewide-static-route-audit-2026-11-12"
+      ],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_acs",
+        "fec_official"
+      ],
+      "stillRequired": "repo build path, Vercel route, source data files and browser tests",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "groceries__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "ftc_grocery",
+        "ftc_mergers",
+        "doj_antitrust"
+      ],
+      "stillRequired": "case and final order → affected local market and timeline",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "groceries__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "usda_fara",
+        "usda_retailer",
+        "bls_prices"
+      ],
+      "stillRequired": "census tract grocery access + comparable market baskets and transport",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "groceries__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "stillRequired": "actual store operator / chain / CIK; outlet address & date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "groceries__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "bls_prices",
+        "openfoodfacts",
+        "ftc_grocery"
+      ],
+      "stillRequired": "retail item+size+date+store+geography with product substitution controls",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "health__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_insurance",
+        "ftc_mergers",
+        "doj_antitrust",
+        "cms_hospital"
+      ],
+      "stillRequired": "state regulator, final rule, approved acquisition and effective date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "health__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "cms_hospital",
+        "ftc_pbm",
+        "cms_provider"
+      ],
+      "stillRequired": "service-adjusted price trend with comparable non-acquired providers",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "health__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "nppes",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "ftc_mergers"
+      ],
+      "stillRequired": "NPI → facility/operator → parent → transaction/date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "health__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "cms_hospital",
+        "state_insurance",
+        "ftc_pbm"
+      ],
+      "stillRequired": "service code + insurance plan + date + hospital + actual cost sharing",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "household_causal_design",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_acs",
+        "bls_prices",
+        "bls_qcew",
+        "fhfa_hpi"
+      ],
+      "stillRequired": "registered methodology, comparison geography, confounders, sensitivity, uncertainty",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "housing__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_localgov",
+        "doj_antitrust",
+        "ftc_mergers"
+      ],
+      "stillRequired": "municipality and property geometry → dated law, permits, decisions",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "housing__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_acs",
+        "fhfa_hpi",
+        "hud_safmr"
+      ],
+      "stillRequired": "comparison areas, building age, financing, trends, rents, vacancies and model specification",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "housing__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "county_assessor",
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "hmda"
+      ],
+      "stillRequired": "parcel-address legal owner → ultimate parent → dated ownership with corporate filings",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "housing__price",
+      "category": "local",
+      "originalStatus": "partial_program_benchmark_verified_actual_prices_unresolved",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "hud_safmr",
+        "census_acs",
+        "fhfa_hpi"
+      ],
+      "stillRequired": "ZCTA/county and dated rent/price measures with consistent units",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "legal_map_geometry",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_tiger",
+        "tiger_congress",
+        "state_localgov"
+      ],
+      "stillRequired": "date-qualified geometry crosswalk, not ZIP fuzzy match",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "lobbying_outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "lda",
+        "congress",
+        "usaspending"
+      ],
+      "stillRequired": "client, filing, bill number, action date, company UEI, time controls",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "local_outlets",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "childcare_licensing",
+        "county_assessor",
+        "nppes",
+        "fcc_broadband"
+      ],
+      "stillRequired": "Verified outlet ID+physical address → operator → ultimate parent",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "lower_court_lifecycle",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "courtlistener",
+        "voting_rights",
+        "state_judiciary"
+      ],
+      "stillRequired": "docket → ruling/outcome/status/date with primary document",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "nonprofit_dark_money",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "irs_990",
+        "fec_official",
+        "state_finance"
+      ],
+      "stillRequired": "EIN + fiscal year + grantee and committee transfer IDs",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "public-services__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "usaspending",
+        "state_localgov",
+        "irs_990"
+      ],
+      "stillRequired": "government expenditure / award ID / council vote / date and jurisdiction",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "public-services__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_localgov",
+        "fcc_broadband",
+        "usaspending"
+      ],
+      "stillRequired": "service KPI, disbursement, denominator, quality and independent comparison",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "public-services__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "fcc_broadband",
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "stillRequired": "contractor UEI → parent; broadband operator → served address",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "public-services__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_localgov",
+        "state_localgov"
+      ],
+      "stillRequired": "tax parcel, municipality, school district, approved budgets, line items",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "recipient_provenance",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "usaspending",
+        "sec_subsidiaries"
+      ],
+      "stillRequired": "UEI award ID+entity hierarchy+place of performance+time",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "regional_company_price_series",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "hud_safmr",
+        "childcare_ndcp",
+        "cms_hospital",
+        "bls_prices"
+      ],
+      "stillRequired": "price within same product/category, time, geography, and legal operator",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "representation__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "house_votes",
+        "senate_votes",
+        "voting_rights",
+        "congress"
+      ],
+      "stillRequired": "member roll call, law text and effective date, adjudicated case",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "representation__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "census_acs",
+        "census_localgov",
+        "bls_qcew"
+      ],
+      "stillRequired": "policy-exposure boundary and date, comparator and household effect",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "representation__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "fec_official",
+        "state_finance",
+        "lda",
+        "irs_990"
+      ],
+      "stillRequired": "original donor → committee → legally matched recipient → decision date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "representation__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "tiger_congress",
+        "state_localgov",
+        "congress"
+      ],
+      "stillRequired": "verified address or official district lookup / legal effective date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "schools__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "childcare_ccdf",
+        "census_school_finances",
+        "state_education"
+      ],
+      "stillRequired": "state subsidy rates, eligibility, provider license & funding years",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "schools__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "childcare_ndcp",
+        "childcare_licensing",
+        "census_cbp"
+      ],
+      "stillRequired": "facility age-setting tuition history, capacity, occupancy, labor and comparison",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "schools__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "childcare_licensing",
+        "sec_subsidiaries",
+        "sec_beneficial"
+      ],
+      "stillRequired": "license number → legal operator → brand and owner as of date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "schools__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "childcare_ndcp",
+        "childcare_ccdf"
+      ],
+      "stillRequired": "county FIPS + childcare age/setting + cost vintage",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "sources_licensing",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "open_secrets",
+        "openfoodfacts",
+        "fec_official"
+      ],
+      "stillRequired": "URL, retrieval date, license rights, data transformation and record hash",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_judicial_selection",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_judiciary",
+        "state_localgov"
+      ],
+      "stillRequired": "judge identifier+selection mechanism+term dates",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_law_rollcalls",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_localgov",
+        "congress",
+        "house_votes",
+        "senate_votes"
+      ],
+      "stillRequired": "official bill/version → chamber/member vote → final law/court effective date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_local_money",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "state_finance",
+        "irs_990"
+      ],
+      "stillRequired": "jurisdiction, filing, contributor, committee and candidate identity",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "transport__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "fta_ntd",
+        "usaspending",
+        "state_localgov"
+      ],
+      "stillRequired": "local transit authority board decision, effective date and budget",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "transport__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "ftadata_gtfs",
+        "fta_ntd",
+        "bts_transport"
+      ],
+      "stillRequired": "route frequency, travel time, fares and modal alternatives",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "transport__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "fta_ntd"
+      ],
+      "stillRequired": "licensed operator / system parent / service territory",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "transport__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "bounded_source_evidence_reviewed_gap_open",
+      "originalGateClosed": false,
+      "boundedCaseIds": [
+        "njt-northern-interstate-2026-two-zone-tariff"
+      ],
+      "quickReferenceSourceIds": [
+        "njt-2026-adjusted-fares",
+        "njt-2026-northern-interstate"
+      ],
+      "originalDirectorySourceIds": [
+        "fta_ntd",
+        "bts_transport",
+        "state_insurance"
+      ],
+      "stillRequired": "journey, route, fare version, operator and date",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "work__decisions",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "usaspending",
+        "congress",
+        "house_votes",
+        "lda"
+      ],
+      "stillRequired": "UEI and place of performance → paid jobs and enacted rule",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "work__outcomes",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "bls_ownership",
+        "bls_qcew",
+        "census_cbp"
+      ],
+      "stillRequired": "metro-industry employer shares, wage percentiles, controls and validation",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "work__ownership",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "sec_subsidiaries",
+        "sec_beneficial",
+        "census_cbp"
+      ],
+      "stillRequired": "operating employers → ultimate parents / merger chronology",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "work__price",
+      "category": "local",
+      "originalStatus": "identified_source_not_yet_integrated_or_validated",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [
+        "bls_qcew",
+        "bls_laus",
+        "census_cbp"
+      ],
+      "stillRequired": "county NAICS time series + vacancies with employer identification",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "causal_decision_graph",
+      "category": "national",
+      "originalStatus": "not_established",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Require dated primary sources for each action; graph affiliations are not guilt or causation",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "district_legal_maps_history",
+      "category": "national",
+      "originalStatus": "not_verified_nationwide",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Reconcile official plan geometries, legal effective dates and court-ordered plans to election results",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "nationwide_lower_court_case_lifecycle",
+      "category": "national",
+      "originalStatus": "not_verified_nationwide",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [
+        "recap-archive"
+      ],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Connect accessible official dockets or CourtListener records with final dispositions and dates",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "official_state_rollcalls",
+      "category": "national",
+      "originalStatus": "partial_sample_not_member_ballot_census",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [
+        "nj-leg-rollcalls",
+        "wa-leg-rollcalls"
+      ],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Obtain official chamber roll-call member votes and dates, not merely secondary bill search metadata",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_bill_full_history",
+      "category": "national",
+      "originalStatus": "partial_not_exhaustive",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Reconcile official legislative indexes and all relevant sessions",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_campaign_finance",
+      "category": "national",
+      "originalStatus": "not_established",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [
+        "nj-campaign-finance",
+        "va-campaign-archives",
+        "vt-campaign-archives"
+      ],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Prioritize licensed official state election campaign finance exports, with privacy minimization",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_certified_election_canvasses",
+      "category": "national",
+      "originalStatus": "incomplete",
+      "status": "bounded_source_evidence_reviewed_gap_open",
+      "originalGateClosed": false,
+      "boundedCaseIds": [
+        "nj-2024-bergen-presidential-official-cross-report"
+      ],
+      "quickReferenceSourceIds": [
+        "nj-2024-bergen-presidential-municipal",
+        "nj-2024-general-presidential-official-list",
+        "nj-election-archive"
+      ],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Retrieve certified state election contest/year/office totals from the 51 indexed authority URLs",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "state_judicial_selection",
+      "category": "national",
+      "originalStatus": "not_verified_nationwide",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Collect official state judicial records, term dates, election commissions and nominating actors",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    },
+    {
+      "gapId": "verified_committee_financial_transfers",
+      "category": "national",
+      "originalStatus": "not_proven_by_aggregates",
+      "status": "open_no_new_bounded_evidence",
+      "originalGateClosed": false,
+      "boundedCaseIds": [],
+      "quickReferenceSourceIds": [
+        "fec-bulk-entry",
+        "fec-committee-candidate-bulk",
+        "fec-committee-to-committee-oth",
+        "fec-disbursement-bulk"
+      ],
+      "originalDirectorySourceIds": [],
+      "stillRequired": "Connect FEC itemized disbursements or official state filings to legally identified recipients",
+      "acceptanceRule": "Verify exact original records, provenance, time, place, entity joins, legal status, completeness and independent review within the claimed scope; no automatic national closure."
+    }
+  ]
+}
