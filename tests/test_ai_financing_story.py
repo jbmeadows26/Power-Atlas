@@ -39,6 +39,17 @@ class AIFinancingStoryTests(unittest.TestCase):
         self.assertIn('src="bug-report.js"', self.story)
         self.assertEqual(3, len(re.findall(r'data-scenario="(?:contained|squeeze|contagion)"', self.story)))
 
+    def test_megaspeed_evidence_trail(self):
+        for token in ('data-mega="singapore"', 'data-mega="malaysia"', 'data-mega="us"',
+                      'data-mega="money"', 'insufficient evidence', 'six others',
+                      'November 13, 2026', 'Speedmatrix', 'not about espionage',
+                      'not a finding', 'not proven losses'):
+            self.assertIn(token.lower(), self.story.lower())
+        self.assertIn('getElementById("megaSources").replaceChildren(', self.story)
+        self.assertIn("https://www.mha.gov.sg/", self.story)
+        self.assertIn("https://www.reuters.com/world/asia-pacific/malaysia-", self.story)
+        self.assertEqual(4, len(re.findall(r'data-mega="(?:singapore|malaysia|us|money)"', self.story)))
+
     def test_sources_and_links(self):
         self.assertIn('href="economic-fragility.html"', self.story)
         self.assertIn('href="banking-power.html"', self.story)
