@@ -80,7 +80,7 @@ class AICrashStoryQATests(unittest.TestCase):
                       'data-bet-node="0"', 'data-bet-node="2"',
                       'id="betHeadline"', 'id="betCitation"', '$166.94B',
                       '0.3 percentage points', 'not evidence of broad bank impairment',
-                      'no certain 2027 recession'):
+                      'a certain 2027 recession'):
             self.assertIn(token.lower(), self.html.lower())
         self.assertEqual(3,len(re.findall(r'data-bet-trail="(?:sports|prediction|collision)"',self.html)))
         self.assertEqual(3,len(re.findall(r'data-bet-node="[0-2]"',self.html)))
