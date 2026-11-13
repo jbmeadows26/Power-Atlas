@@ -16,7 +16,7 @@ class AIFinancingStoryTests(unittest.TestCase):
         cls.fragility = FRAGILITY.read_text(encoding="utf-8")
 
     def test_story_is_integrated(self):
-        self.assertIn('href="ai-financing-shock.html"', self.home)
+        self.assertIn('href="ai-financing-shock.html#evidence-stage"', self.home)
         self.assertIn('href="ai-financing-shock.html"', self.fragility)
 
     def test_three_scenarios_are_interactive(self):
