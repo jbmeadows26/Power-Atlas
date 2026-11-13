@@ -74,6 +74,18 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertIn('href="ai-crash.html"', fragility)
         self.assertIn("THE BOOM. THE BREAK.", home)
 
+    def test_sports_betting_household_explorer(self):
+        for token in ('id="household-betting"', 'data-bet-trail="sports"',
+                      'data-bet-trail="prediction"', 'data-bet-trail="collision"',
+                      'data-bet-node="0"', 'data-bet-node="2"',
+                      'id="betHeadline"', 'id="betCitation"', '$166.94B',
+                      '0.3 percentage points', 'not evidence of broad bank impairment',
+                      'no certain 2027 recession'):
+            self.assertIn(token.lower(), self.html.lower())
+        self.assertEqual(3,len(re.findall(r'data-bet-trail="(?:sports|prediction|collision)"',self.html)))
+        self.assertEqual(3,len(re.findall(r'data-bet-node="[0-2]"',self.html)))
+        self.assertIn('id="household-exposure"', (ROOT / "economic-fragility.html").read_text(encoding="utf-8"))
+
     def test_evidence_protects_readers_from_false_predictions(self):
         for phrase in ("$300B", "$650B", "$1.4T", "not a forecast",
                        "not probabilities", "not investment advice",
