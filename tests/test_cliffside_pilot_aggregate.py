@@ -56,6 +56,23 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         self.assertTrue(all(x["status"]!="closed" for x in register["unresolved"]))
         self.assertIn("publication",str(register["closureRule"]).lower()) if False else None
 
+    def test_bounded_deed_metadata_and_dca_pilot_row(self):
+        register=json.loads((ROOT/"research/housing/CLIFFSIDE_TOWNE_CENTRE_GAP_REGISTER_2026-11-13.json").read_text())
+        findings=register["newOriginalRecordFindings"]
+        deed=findings["countyClerkSearch"]
+        self.assertEqual(deed["status"],"metadata_inspected_scanned_document_unavailable")
+        self.assertEqual(len(deed["transactions"]),3)
+        assert any(x["instrument"]=="19-071078" and x["grantee"]=="SHAIRCO URBAN RENEWAL LLC" for x in deed["transactions"])
+        assert any(x["instrument"]=="2026000586" and x["grantee"]=="DDL URBAN RENEWAL COMPANY LLC" for x in deed["transactions"])
+        self.assertIn("distinct",deed["unresolvedNameMatch"])
+        pilot=findings["statePilotDataset"]
+        self.assertEqual((pilot["sheet"],pilot["row"]),("Raw Data from User Friendly Budgets",59))
+        self.assertEqual(pilot["pilotBilling"],1131162)
+        self.assertEqual(pilot["assessedValue"],84654400)
+        for snippet in ("DCA original workbook","not verified cash received","not proof of control","2026000586","19-071078"):
+            self.assertIn(snippet.lower(),HTML.lower())
+        self.assertTrue(all(x["status"]!="closed" for x in register["unresolved"]))
+
     def test_interactive_years_sourced_in_ui(self):
         self.assertIn('data-pilot-year="2023"',HTML)
         self.assertIn('data-pilot-year="2024"',HTML)
