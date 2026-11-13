@@ -183,14 +183,20 @@ CREATE OR REPLACE VIEW atlas_housing.public_evidence AS
 SELECT a.assertion_id,a.target_table,a.target_row_id,a.assertion_text,a.exact_locator,
        a.expected_excerpt,a.verification_status,
        d.authority,d.source_url,d.reviewed_at,p.approved_at,
-       CASE WHEN EXISTS (SELECT 1 FROM atlas_housing.live_reference_audit t
-                          WHERE t.source_record_id=a.source_record_id
-                          AND t.manual_disposition='source_changed')
+       CASE WHEN latest_review.manual_disposition='source_changed'
             THEN 'manual_change_caution'
             ELSE 'verified_in_reviewed_scope' END AS display_evidence_state
 FROM atlas_housing.source_assertion a
 JOIN atlas_housing.source_document d ON d.source_record_id=a.source_record_id
 JOIN atlas_housing.publication_decision p ON p.assertion_id=a.assertion_id
+LEFT JOIN LATERAL (
+ SELECT t.manual_disposition
+ FROM atlas_housing.live_reference_audit t
+ WHERE t.source_record_id=a.source_record_id
+   AND t.manual_disposition <> 'not_reviewed'
+ ORDER BY t.manual_reviewed_at DESC, t.checked_at DESC
+ LIMIT 1
+) latest_review ON true
 WHERE p.publish_state='approved'
  AND a.verification_status IN ('original_record_checked','independently_reconciled')
  AND d.review_stage IN ('original_record_checked','cross_source_reconciled')
@@ -198,6 +204,26 @@ WHERE p.publish_state='approved'
  AND d.record_locator IS NOT NULL
  AND NOT EXISTS (SELECT 1 FROM atlas_housing.assertion_dispute q
                  WHERE q.assertion_id=a.assertion_id AND q.is_active);
+
+-- Disputes must not masquerade as verified findings. The public surface can
+-- provide an explicit disputed-evidence notice with inspected primary sources.
+CREATE OR REPLACE VIEW atlas_housing.public_disputed_evidence AS
+SELECT a.assertion_id, a.assertion_text, a.exact_locator,
+       d.source_url AS claimed_source_url,
+       q.dispute_reason, q.opened_at,
+       contrary.source_url AS contrary_source_url,
+       'disputed_not_a_verified_conclusion'::TEXT AS display_evidence_state
+FROM atlas_housing.assertion_dispute q
+JOIN atlas_housing.source_assertion a ON a.assertion_id=q.assertion_id
+JOIN atlas_housing.source_document d ON d.source_record_id=a.source_record_id
+JOIN atlas_housing.publication_decision p ON p.assertion_id=a.assertion_id
+LEFT JOIN atlas_housing.source_document contrary
+  ON contrary.source_record_id=q.contradictory_source_record_id
+   AND contrary.review_stage IN ('original_record_checked','cross_source_reconciled')
+   AND contrary.source_terms_status IN ('public_reference_allowed','reuse_permitted')
+WHERE q.is_active AND p.publish_state='approved'
+  AND d.review_stage IN ('original_record_checked','cross_source_reconciled')
+  AND d.source_terms_status IN ('public_reference_allowed','reuse_permitted');
 
 -- Research workspace may hold source links, candidate matches and searches.
 -- None of these are published as verified relationships by this view.
