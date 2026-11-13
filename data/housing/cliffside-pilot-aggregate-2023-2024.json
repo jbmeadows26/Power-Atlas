@@ -49,6 +49,30 @@
       "url": "https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2017/Caucus-Meeting-Minutes-July-11-2017.pdf",
       "locator": "Printed pages 2–4 (PDF pages 2–4), Resolution 2017-154, redeveloper financing and conditional payment terms",
       "review": "original_record_text_checked_source_locator_not_archived"
+    },
+    {
+      "id": "sec-cgcmt-2019-gc41-the-centre",
+      "authority": "U.S. Securities and Exchange Commission (issuer-provided securitization filing)",
+      "title": "CGCMT 2019-GC41, filing Annex A and intercreditor mortgage-loan exhibit",
+      "url": "https://www.sec.gov/Archives/edgar/data/1783287/000153949719001205/n1708_x2-anxa1.htm",
+      "locator": "Loan control number 27, The Centre, 314 units; original loan and 7/6/2024 maturity; borrower and loan economics",
+      "review": "SEC EDGAR source text inspected with row-level locator, not verified as a title instrument"
+    },
+    {
+      "id": "sec-cgcmt-2019-gc41-exh4-18",
+      "authority": "U.S. Securities and Exchange Commission (filed noteholder agreement exhibit)",
+      "title": "The Centre loan agreement exhibit 4.18",
+      "url": "https://www.sec.gov/Archives/edgar/data/1783287/000153949719001377/exh4-18thecentre.htm",
+      "locator": "Exhibit A Mortgage Loan Schedule, agreement June 28 2019, Cliffside Urban Renewal Company LLC borrower, $130m principal, maturity July 6 2024",
+      "review": "SEC exhibit source text inspected, not a current loan payoff statement"
+    },
+    {
+      "id": "realdeal-hyperion-sale-2025",
+      "authority": "The Real Deal, secondary reporting",
+      "title": "Hyperion JV buys luxury NJ apartment complex for $165M",
+      "url": "https://therealdeal.com/new-york/tristate/2025/10/24/hyperion-jv-buys-cliffside-parks-centre-for-165m/",
+      "locator": "October 24 2025 article, sale price $165m, reported HyperionMFP / Benenson venture, no cited recorded deed number",
+      "review": "secondary_source_read_original_deed_not_verified"
     }
   ],
   "observations": [
@@ -248,6 +272,40 @@
       "Executed Omnibus Agreement and amended ground lease",
       "Executed amended and restated 2019 financial agreements",
       "Recorded deed chain for Block 2803 Lots 1.01, 1.03, 1.04"
+    ]
+  },
+  "financingCase2019": {
+    "sourceIds": [
+      "sec-cgcmt-2019-gc41-the-centre",
+      "sec-cgcmt-2019-gc41-exh4-18"
+    ],
+    "date": "2019-06-28",
+    "borrower": "Cliffside Urban Renewal Company LLC",
+    "originator": "Citi Real Estate Funding Inc.",
+    "loanOriginalPrincipalUSD": 130000000,
+    "statedMaturityDate": "2024-07-06",
+    "property": "The Centre",
+    "reportedCollateralUnits": 314,
+    "sourceClassification": "filed_securitization_original_loan_terms",
+    "notes": [
+      "This is not the $12.005m municipal bond from 2011.",
+      "Historical borrower does not prove current legal title or beneficial control.",
+      "Stated maturity does not by itself prove a missed payment or remaining loan balance after the date.",
+      "The SEC issuer-provided information is subject to filing terms and updates."
+    ]
+  },
+  "saleLead2025": {
+    "sourceId": "realdeal-hyperion-sale-2025",
+    "reportedDate": "2025-10-24",
+    "reportedTransactionAmountUSD": 165000000,
+    "reportedBuyerDescription": "Joint venture involving HyperionMFP Partners and Benenson Capital Partners",
+    "reportedSellerDescription": "Arilex Realty (as described by news reporting)",
+    "evidenceState": "credible_secondary_reporting_unreconciled_recorded_deed",
+    "notes": [
+      "A reported sale is not a verified Bergen County title instrument.",
+      "Reported price is not a PILOT tax benefit or a measured investment profit.",
+      "Need recorded deed, instrument identifier, party names, exact parcel map and transfer date.",
+      "Do not equate media-described sponsor with registered property owner or beneficial controller."
     ]
   }
 }
