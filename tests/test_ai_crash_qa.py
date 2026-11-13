@@ -45,6 +45,15 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertIn(".numberproof{color:#4c656b}", self.html)
         self.assertIn("08 / EVIDENCE NOTEBOOK", self.html)
 
+    def test_real_world_cases_for_each_ecosystem_node(self):
+        for marker in ("nodeCaseList", "nodeSystemGap", "nodeCases=", "renderNodeEvidence(key)",
+                       "SEC earnings exhibit", "CRE Finance Council", "FERC official order",
+                       "Stanford AI Index", "Deloitte enterprise survey", "Microsoft 10-Q",
+                       "Not established:", "replaceChildren("):
+            self.assertIn(marker.lower(), self.html.lower())
+        for name in ("lenders", "builders", "suppliers", "models", "buyers"):
+            self.assertRegex(self.html, rf'(?:^|,)\\?"?{name}\\?"?\\s*:\\s*\\{{')
+
     def test_mobile_navigation_remains_available(self):
         self.assertIn('id="mobileMenuToggle"', self.html)
         self.assertIn('aria-controls="mobileNav"', self.html)
