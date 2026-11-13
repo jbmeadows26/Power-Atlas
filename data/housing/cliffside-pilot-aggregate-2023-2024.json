@@ -41,6 +41,14 @@
       "url": "https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf",
       "locator": "Minutes printed pp. 2–5: Resolution 2019-158, roll call, project chronology, PILOT agreement and amended agreements",
       "review": "official_minutes_text_and_pdf_page_inspected"
+    },
+    {
+      "id": "cliffside-council-2017-07-11",
+      "authority": "Borough of Cliffside Park Mayor and Council",
+      "title": "Caucus Meeting Minutes July 11, 2017, Resolution 2017-154",
+      "url": "https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2017/Caucus-Meeting-Minutes-July-11-2017.pdf",
+      "locator": "Printed pages 2–4 (PDF pages 2–4), Resolution 2017-154, redeveloper financing and conditional payment terms",
+      "review": "original_record_text_checked_source_locator_not_archived"
     }
   ],
   "observations": [
@@ -191,5 +199,55 @@
       "The borough's initial redevelopment-area lot description and later condo lot designations differ by chronology; require deed/plat validation before GIS joins."
     ],
     "nextEvidence": "Executed 2019 amended financial agreements, title transfers/master deed and current annual service charge schedules, with original municipal source locations"
+  },
+  "financingCase2017": {
+    "id": "towne-centre-2017-resolution-154",
+    "date": "2017-07-11",
+    "sourceId": "cliffside-council-2017-07-11",
+    "resolution": "2017-154",
+    "subject": "Towne Centre redevelopment financing and conditional municipal obligations",
+    "findings": [
+      {
+        "measure": "municipal_2011_bond_original_principal",
+        "amountUSD": 12005000,
+        "year": 2011,
+        "kind": "historical_bond_principal"
+      },
+      {
+        "measure": "redeveloper_total_outstanding_obligations_if_paid_by_2017_07_21",
+        "amountUSD": 14429453,
+        "kind": "conditional_resolution_payment_required"
+      },
+      {
+        "measure": "redeveloper_total_outstanding_obligations_if_paid_after_2017_07_21",
+        "amountUSD": 14529453,
+        "kind": "conditional_resolution_payment_required"
+      },
+      {
+        "measure": "bond_final_payment_deadline_before_approved_amendment",
+        "date": "2038-02-01",
+        "kind": "prior_due_date"
+      },
+      {
+        "measure": "bond_final_payment_deadline_if_amendment_effective",
+        "date": "2021-12-31",
+        "kind": "conditional_revised_due_date"
+      }
+    ],
+    "scope": "Council resolution approved negotiating and executing an Omnibus Agreement and amended ground lease; contingent on developer execution and additional conditions",
+    "explicitUnknowns": [
+      "Actual payment receipt of either conditional amount not verified",
+      "Bond redemption/defeasance satisfaction document not verified",
+      "Executed Omnibus Agreement and amended ground lease not verified",
+      "Contractual 15% membership-interest settlement language not evidence of actual equity transfer or current beneficial ownership",
+      "No debt-term-to-2023 PILOT-cash attribution is possible from these minutes"
+    ],
+    "nextSources": [
+      "Municipal Treasurer dated payment receipts and ledger",
+      "Borough bond official statement, redemption notices, sinking fund statements or defeasance confirmation",
+      "Executed Omnibus Agreement and amended ground lease",
+      "Executed amended and restated 2019 financial agreements",
+      "Recorded deed chain for Block 2803 Lots 1.01, 1.03, 1.04"
+    ]
   }
 }
