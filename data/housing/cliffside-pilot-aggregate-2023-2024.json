@@ -73,6 +73,38 @@
       "url": "https://therealdeal.com/new-york/tristate/2025/10/24/hyperion-jv-buys-cliffside-parks-centre-for-165m/",
       "locator": "October 24 2025 article, sale price $165m, reported HyperionMFP / Benenson venture, no cited recorded deed number",
       "review": "secondary_source_read_original_deed_not_verified"
+    },
+    {
+      "id": "bergen-deed-2026-residential-lot104",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 2026000586, Block 2803 Lot 1.04",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354",
+      "locator": "Instrument 2026000586; DEED; recorded 2026-01-05 14:29:44; Book 5693, Page 1691; Lot 1.04",
+      "review": "public_clerk_verified_index_metadata_only_scanned_instrument_unreadable"
+    },
+    {
+      "id": "bergen-deed-2019-commercial-lot103",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 19-071078, Block 2803 Lot 1.03",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9367974",
+      "locator": "Instrument 19-071078; DEED1MIL; recorded 2019-10-23; Book 3383, Page 1484; Lot 1.03",
+      "review": "public_clerk_verified_index_metadata_only_scanned_instrument_unreadable"
+    },
+    {
+      "id": "bergen-2019-condominium-association-index",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 19-048778.01, Blocks 2803 Lots 1.03 and 1.04",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9327820",
+      "locator": "Instrument 19-048778.01; recorded 2019-07-29; Book 3306, Page 1102; type code 2 not interpreted",
+      "review": "metadata_only_no_instrument_image"
+    },
+    {
+      "id": "nj-dca-pilot-database-2026",
+      "authority": "NJ Department of Community Affairs (DLGS)",
+      "title": "PILOT Database and Viewer, Raw Data from User Friendly Budgets",
+      "url": "https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx",
+      "locator": "Raw Data from User Friendly Budgets, row 59, Municode 0206, Cliffside Park borough, Town Center",
+      "review": "original_workbook_row_inspected_browser_session_not_captured_local"
     }
   ],
   "observations": [
@@ -307,5 +339,89 @@
       "Need recorded deed, instrument identifier, party names, exact parcel map and transfer date.",
       "Do not equate media-described sponsor with registered property owner or beneficial controller."
     ]
-  }
+  },
+  "recordedTransferIndex": [
+    {
+      "parcel": "Block 2803 Lot 1.04",
+      "instrument": "2026000586",
+      "recordedDate": "2026-01-05",
+      "book": 5693,
+      "page": 1691,
+      "typeCode": "DEED",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "DDL Urban Renewal Company LLC",
+      "sourceId": "bergen-deed-2026-residential-lot104",
+      "confidence": "recorded_index_verified_instrument_not_read"
+    },
+    {
+      "parcel": "Block 2803 Lot 1.03",
+      "instrument": "19-071078",
+      "recordedDate": "2019-10-23",
+      "book": 3383,
+      "page": 1484,
+      "typeCode": "DEED1MIL",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "Shairco Urban Renewal LLC",
+      "sourceId": "bergen-deed-2019-commercial-lot103",
+      "confidence": "recorded_index_verified_instrument_not_read"
+    },
+    {
+      "parcel": "Block 2803 Lots 1.03 and 1.04",
+      "instrument": "19-048778.01",
+      "recordedDate": "2019-07-29",
+      "book": 3306,
+      "page": 1102,
+      "typeCode": "2",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "Cliffside Park Towne Centre Condominium Association Incorporated",
+      "sourceId": "bergen-2019-condominium-association-index",
+      "confidence": "index_type_not_interpreted"
+    }
+  ],
+  "dcaPilotRecord": {
+    "sourceId": "nj-dca-pilot-database-2026",
+    "municipalCode": "0206",
+    "municipality": "Cliffside Park borough",
+    "project": "Town Center",
+    "type": "Other",
+    "agreementStart": "2014-01-01",
+    "agreementEnd": "2044-01-01",
+    "pilotBillingUSD": 1131162,
+    "assessedValueUSD": 84654400,
+    "taxesIfBilledAtPriorYearRateUSD": 2400798.784,
+    "latestSubmissionYear": 2026,
+    "scope": "statewide workbook reporting by municipality, project-level row, not original executed agreement",
+    "unreconciled": [
+      "The state workbook reports agreement start 2014, while 2019 council minutes cite an April 13 2010 long-term exemption agreement.",
+      "The workbook billing of $1,131,162 is not necessarily same as 2023 long-term PILOT cash $1,131,862.",
+      "The workbook project name alone does not establish exactly which condominium lot or present legal titleholder is represented.",
+      "The workbook tax counterfactual is a reported column; not a verified parcel-specific tax loss or avoided tax calculation."
+    ]
+  },
+  "crossSourceConflicts": [
+    {
+      "topic": "agreement_start_date",
+      "sourceA": "2019 council minutes: original long-term exemption agreement dated 2010-04-13",
+      "sourceB": "NJ DCA workbook: agreement start 2014-01-01",
+      "status": "needs_signed_agreement_vintage_explanation"
+    },
+    {
+      "topic": "2019_commercial_entity_name",
+      "sourceA": "Council resolution: Shairco Urban Renewal Company LLC",
+      "sourceB": "County index: Shairco Urban Renewal LLC",
+      "status": "different_legal_strings_no_unverified_identity_equivalence"
+    },
+    {
+      "topic": "2025_sale_vs_2026_deed",
+      "sourceA": "October 2025 media-reported venture purchase",
+      "sourceB": "2026-01-05 county deed index naming DDL Urban Renewal Company LLC as grantee",
+      "status": "date_entity_reconciliation_pending_recorded_instrument_and_company_filings"
+    },
+    {
+      "topic": "PILOT_billed_vs_cash",
+      "sourceA": "DCA project row: PILOT Billing $1,131,162 (reported workbook)",
+      "sourceB": "2023 borough LTTE cash received $1,131,862",
+      "status": "different measures and periods; cannot reconcile by subtracting or assuming typo"
+    }
+  ]
 }
