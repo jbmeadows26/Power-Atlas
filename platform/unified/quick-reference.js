@@ -12,6 +12,7 @@
   const labels = {
     verified_committee_financial_transfers: "Federal political money",
     state_campaign_finance: "State campaign finance",
+    transport__price: "Transportation fares",
     state_certified_election_canvasses: "Certified election results",
     official_state_rollcalls: "Legislative votes",
     nationwide_lower_court_case_lifecycle: "Court dockets and decisions"
