@@ -1,0 +1,131 @@
+{
+  "schema": "power-atlas.housing.cliffside-gap-audit.v1",
+  "asOf": "2026-11-13",
+  "case": "Towne Centre / Anderson Avenue municipal PILOT and redevelopment",
+  "status": "partial_original_record_chain_only",
+  "closureRule": "A portal link, search result, resolution, or incomplete chain does not close a record-verified gap. Never infer wrongdoing or causal effects.",
+  "verified": [
+    {
+      "stage": "official_municipal_rates",
+      "status": "bounded_verified",
+      "source": "data/housing/official-tax-rate-cliffside-park-2024-2025.json",
+      "scope": "Municipal 2024 and 2025 rates"
+    },
+    {
+      "stage": "program_cash_totals",
+      "status": "bounded_verified",
+      "source": "data/housing/cliffside-pilot-aggregate-2023-2024.json",
+      "scope": "2023/2024 borough-wide LTTE and NJHMFA receipts, not property-specific"
+    },
+    {
+      "stage": "2017_finance_authorization",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2017-07-11",
+      "scope": "Resolution 2017-154 conditional sums/bond timeline, not proof of payment or discharge"
+    },
+    {
+      "stage": "2019_public_decision",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2019-06-24",
+      "scope": "Resolution 2019-158 authorized conditional amendments and described residential/commercial lots"
+    },
+    {
+      "stage": "2019_historical_owners_in_resolution",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2019-06-24",
+      "scope": "Named LLCs approved as new owners, not a recorded transfer or current title"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "executed_2010_2019_pilot_agreements",
+      "recordNeeded": "Signed 2010 financial agreement and all 2019 amended/restated agreements with appendices, annual-service-charge schedules, amendments and effective dates",
+      "owner": "Cliffside Park municipal clerk",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Identify execution date, named legal parties, parcel list, method, term and schedule from the actual executed agreement",
+      "status": "record_required"
+    },
+    {
+      "id": "deeds_current_title",
+      "recordNeeded": "Recorded deeds, master deed/condominium mapping and any subsequent transfers for Block 2803, Lots 1.01/1.03/1.04 (with temporal land-map changes)",
+      "owner": "Bergen County Clerk",
+      "sourcePortal": "https://bclrs.co.bergen.nj.us/browserview/",
+      "closure": "Recorded instrument numbers and dates plus legally public titleholder at specified as-of date; screen Daniel's Law and restrict private-person data",
+      "status": "record_required"
+    },
+    {
+      "id": "current_legal_entity_control",
+      "recordNeeded": "Contemporaneous NJ entity status plus formation/amendment/manager filings for specifically identified LLCs",
+      "owner": "NJ Department of Treasury Division of Revenue",
+      "sourcePortal": "https://www.njportal.com/DOR/businessrecords/Default.aspx",
+      "closure": "Legal identifiers and official filing with date; registered agent does not establish beneficial ownership",
+      "status": "record_required"
+    },
+    {
+      "id": "parcel_tax_assessment_bill",
+      "recordNeeded": "Assessor tax list, parcel-specific assessment, annual tax bill, exemption classification and appeal history for linked tax years",
+      "owner": "Borough tax assessor / county tax board",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Valid dated parcel ID and official assessment/bill link; do not substitute borough tax rate",
+      "status": "record_required"
+    },
+    {
+      "id": "parcel_pilot_cash_2023_2025",
+      "recordNeeded": "Year-by-year property/project PILOT assessment schedules, billed amounts, receipts, reconciliations, county remittance for the Towne Centre lots",
+      "owner": "Borough CFO / tax collector",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Project-specific PILOT billed-versus-collected, dated reconciliation with audit totals",
+      "status": "record_required"
+    },
+    {
+      "id": "2017_obligations_paid_bond_defeased",
+      "recordNeeded": "Executed Omnibus Agreement, payment/receipt ledger supporting 2017 obligations, bond trustee notices and defeasance/satisfaction records",
+      "owner": "Borough CFO, bond trustee, clerk",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Dated bank/treasury confirmations and documented bond discharge; initial approval insufficient",
+      "status": "record_required"
+    },
+    {
+      "id": "political_finance",
+      "recordNeeded": "NJ ELEC filings for identified legal-entity donors, committees, dated transactions in 2006–2026 and local pay-to-play forms",
+      "owner": "NJ Election Law Enforcement Commission",
+      "sourcePortal": "https://www.njelecefilesearch.com/SearchContributionByContributor",
+      "closure": "Exact filer/contributor identity, recipient, legal capacity, contribution date, and independent verification of any relation to decision",
+      "status": "search_not_reconciled"
+    },
+    {
+      "id": "rent_impact",
+      "recordNeeded": "Anonymized bedroom-specific asking rents and signed leases, dates, units, comparables, vacancy and housing supply controls",
+      "owner": "Public and appropriately licensed housing evidence sources",
+      "sourcePortal": "https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html",
+      "closure": "Correct market-versus-HUD definitions; causal evaluation requires credible counterfactual and uncertainty",
+      "status": "not_estimated"
+    },
+    {
+      "id": "nj_dca_pilot_rows",
+      "recordNeeded": "Actual contents of statewide NJ DCA PILOT Database and Viewer spreadsheet, if populated with individual project rows",
+      "owner": "NJ Department of Community Affairs",
+      "sourcePortal": "https://www.nj.gov/dca/dlgs/taxabatementkit.shtml",
+      "closure": "Read dataset metadata and exact Cliffside Park rows; workbook availability alone does not prove a row exists",
+      "status": "download_unverified"
+    }
+  ],
+  "requestPreparation": {
+    "type": "draft_records_scope_only_not_sent",
+    "purpose": "Request existing public records, not the creation of a new explanation; privacy-redact personal tenant and protected identifiers",
+    "requestedCategories": [
+      "Executed 2010 and 2019 Towne Centre financial agreements and all approved annexes",
+      "2017 omnibus/ground lease agreement and any bond defeasance or satisfaction evidence",
+      "2017–2025 Town Centre annual PILOT billing, collections, county share and adjustments",
+      "Master deed/condo parcel map crosswalk and legally public title instruments, preserving protected data",
+      "2019 authorization public roll call and subsequent implementation records"
+    ]
+  },
+  "prohibitions": [
+    "Do not call search portal hits verified deeds",
+    "Do not equate a registered agent or historic approval with present beneficial ownership",
+    "Do not interpret no matching donation as no political spending occurred",
+    "Do not sum 2017 proposed obligations with 2023/24 cash receipts",
+    "Do not treat a PILOT abatement as a measured household rent effect"
+  ]
+}
