@@ -11,7 +11,7 @@ HTML=(ROOT/"platform/unified/cliffside-housing.html").read_text()
 class CliffsidePilotEvidenceTests(unittest.TestCase):
     def test_source_locators_and_annual_totals(self):
         sources={s["id"] for s in D["sources"]}
-        self.assertEqual(len(sources),5)
+        self.assertGreaterEqual(len(sources),12)
         for s in D["sources"]:
             self.assertTrue(s["url"].startswith("https://"))
             self.assertTrue(s["locator"])
@@ -47,6 +47,21 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         self.assertIn("Actual payment receipt",str(finance["explicitUnknowns"]))
         self.assertIn("Resolution 2017-154",HTML)
         self.assertIn("Not verified:",HTML)
+
+    def test_recorded_index_and_pilot_conflicts_preserved(self):
+        deed={x["instrument"]:x for x in D["recordedTransferIndex"]}
+        self.assertEqual(deed["2026000586"]["grantee"],"DDL Urban Renewal Company LLC")
+        self.assertEqual(deed["19-071078"]["grantee"],"Shairco Urban Renewal LLC")
+        self.assertEqual(D["dcaPilotRecord"]["pilotBillingUSD"],1131162)
+        self.assertEqual(D["financingCase2019"]["loanOriginalPrincipalUSD"],130000000)
+        self.assertEqual(D["saleLead2025"]["reportedTransactionAmountUSD"],165000000)
+        self.assertEqual(D["saleLead2025"]["evidenceState"],"credible_secondary_reporting_unreconciled_recorded_deed")
+        self.assertGreaterEqual(len(D["crossSourceConflicts"]),4)
+        for key in ('data-record="residential"','data-record="commercial"','data-record="mortgage"','data-record="pilot"','data-record="reported-sale"'):
+            self.assertIn(key,HTML)
+        self.assertIn('document.getElementById("recordChooser").addEventListener',HTML)
+        self.assertIn("Scanned deed not read",HTML)
+        self.assertIn("Billing is not cash collected",HTML)
 
     def test_closure_register_does_not_equate_source_portal_with_completed_chain(self):
         path=ROOT/"research/housing/CLIFFSIDE_TOWNE_CENTRE_GAP_REGISTER_2026-11-13.json"
