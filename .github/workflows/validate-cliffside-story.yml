@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'platform/unified/cliffside-housing.html'
+      - 'data/housing/cliffside-pilot-aggregate-2023-2024.json'
+      - 'tests/test_cliffside_pilot_aggregate.py'
       - 'platform/unified/my-life.html'
       - 'platform/unified/investigations.html'
       - 'platform/unified/why-costs-more.html'
@@ -23,7 +25,7 @@ jobs:
         with:
           node-version: '22'
       - name: Validate source data, interactions, publication boundary and page links
-        run: python -m unittest discover -s tests -p 'test_cliffside_housing_story.py' -v
+        run: python -m unittest discover -s tests -p 'test_cliffside_*.py' -v
       - name: Check inline story JavaScript syntax
         run: |
           python - <<'PY'
