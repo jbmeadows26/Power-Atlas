@@ -1,0 +1,37 @@
+name: Validate Cliffside Park visual documentary
+on:
+  pull_request:
+    paths:
+      - 'platform/unified/cliffside-housing.html'
+      - 'platform/unified/my-life.html'
+      - 'platform/unified/investigations.html'
+      - 'platform/unified/why-costs-more.html'
+      - 'tests/test_cliffside_housing_story.py'
+      - '.github/workflows/validate-cliffside-story.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  story:
+    runs-on: ubuntu-latest
+    timeout-minutes: 6
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Validate source data, interactions, publication boundary and page links
+        run: python -m unittest discover -s tests -p 'test_cliffside_housing_story.py' -v
+      - name: Check inline story JavaScript syntax
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          text = Path("platform/unified/cliffside-housing.html").read_text()
+          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', text, re.S | re.I)
+          assert len(scripts) == 1, f'Expected exactly one inline script: {len(scripts)}'
+          Path('/tmp/cliffside-story.js').write_text(scripts[0])
+          PY
+          node --check /tmp/cliffside-story.js
