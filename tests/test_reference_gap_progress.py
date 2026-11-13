@@ -79,6 +79,18 @@ class ReferenceFirstGapEvidenceTests(unittest.TestCase):
             self.assertTrue(case["limits"])
             self.assertFalse(case["originalGapClosureAllowed"])
 
+    def test_evidence_ui_is_read_only_and_explicit_about_open_gaps(self):
+        from scripts.build_reference_gap_progress import ROOT
+        page = (ROOT / "platform/unified/source-audit.html").read_text(encoding="utf-8")
+        js = (ROOT / "platform/unified/verified-evidence-cases.js").read_text(encoding="utf-8")
+        self.assertIn('id="verifiedEvidenceCards"', page)
+        self.assertIn('<script src="verified-evidence-cases.js" defer></script>', page)
+        self.assertIn("reference-gap-progress-v1.json", js)
+        self.assertIn("reference-first-evidence-cases-v1.json", js)
+        self.assertIn("originalGapClosureAllowed !== false", js)
+        self.assertIn("does not close the full research gap", js)
+        self.assertNotIn("archiveCandidateURL", js)
+
     def test_all_verified_case_ids_link_to_real_open_gaps(self):
         ids = {g["gapId"] for g in self.ledger["gaps"]}
         for case in self.cases:
