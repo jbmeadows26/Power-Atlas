@@ -50,6 +50,16 @@ class AIFinancingStoryTests(unittest.TestCase):
         self.assertIn("https://www.reuters.com/world/asia-pacific/malaysia-", self.story)
         self.assertEqual(4, len(re.findall(r'data-mega="(?:singapore|malaysia|us|money)"', self.story)))
 
+    def test_federal_oversight_claim_boundaries(self):
+        for term in ('data-oversight="bis"', 'data-oversight="cabinet"',
+                     'data-oversight="hardware"', 'data-oversight="court"',
+                     'Kistenmacher', 'undersecretary', 'November 13, 2026',
+                     'does not prove that Nvidia caused the pause',
+                     'not a judicial finding', 'not proven illicit transfers'):
+            self.assertIn(term.lower(), self.story.lower())
+        self.assertEqual(4, len(re.findall(r'data-oversight="(?:bis|cabinet|hardware|court)"', self.story)))
+        self.assertIn('getElementById("oversightSources").replaceChildren(', self.story)
+
     def test_sources_and_links(self):
         self.assertIn('href="economic-fragility.html"', self.story)
         self.assertIn('href="banking-power.html"', self.story)
