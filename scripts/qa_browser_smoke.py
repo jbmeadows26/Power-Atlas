@@ -288,6 +288,19 @@ class BrowserJourneyQA(unittest.TestCase):
         self.assertEqual(senate.get_attribute("aria-pressed"), "true")
         self.assert_no_horizontal_overflow()
 
+    def test_ai_ecosystem_nodes_reveal_source_backed_examples(self):
+        self.visit("/ai-crash.html")
+        for node, title in (("lenders", "CoreWeave"), ("builders", "47 projects"),
+                            ("suppliers", "Grid connection"), ("models", "Anthropic"),
+                            ("buyers", "Adoption ahead")):
+            with self.subTest(node=node):
+                self.page.locator('[data-node="' + node + '"]').click()
+                self.assertTrue(self.page.locator("#nodeCaseList .node-case").count() >= 2)
+                self.assertIn(title, self.page.locator("#nodeCaseList").inner_text())
+                self.assertEqual(self.page.locator("#nodeCaseList a[target='_blank']").count(), 2)
+                self.assertIn("Not established", self.page.locator("#nodeSystemGap").inner_text())
+        self.assert_no_horizontal_overflow()
+
     def test_market_power_and_consumer_watch_have_v6_and_mobile_fit(self):
         for path in ["/market-power.html", "/consumer-practices.html", "/dark-money.html"]:
             with self.subTest(page=path):
