@@ -45,16 +45,15 @@
   ],
   "verifiedEntryPoints": [
     {
-      "id": "fec-committee-to-committee-oth",
-      "url": "https://www.fec.gov/campaign-finance-data/any-transaction-one-committee-another-file-description/",
-      "bulkFile": "https://www.fec.gov/files/bulk-downloads/2026/oth26.zip",
+      "id": "fec-bulk-entry",
+      "url": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
       "origin": "Federal Election Commission",
       "relevantGates": [
         "verified_committee_financial_transfers"
       ],
-      "stage": "original_OTH_schema_retrieved_and_official_bulk_zip_endpoint_confirmed",
-      "coverage": "Federal committee-to-committee itemized transaction file; contains transfers, contributions and other transaction types; not solely transfer money and not state/local transactions",
-      "next": "Pilot one bounded original OTH cycle ZIP; parse pipe-delimited data and official header; distinguish direction and transaction type, handle amendments and memo, normalize committee IDs and reconcile to filing/report IDs; preserve SHA256, cutoff date and publication limitation"
+      "stage": "official_portal_retrieved",
+      "coverage": "Federal records only",
+      "next": "Determine official free current-cycle zip links and report formats for bounded original-record validation"
     },
     {
       "id": "fec-committee-candidate-bulk",
@@ -68,6 +67,18 @@
       "next": "Download a bounded two-year original bulk file, verify IDs/amount/date, reconcile amendments and duplicates"
     },
     {
+      "id": "fec-committee-to-committee-oth",
+      "url": "https://www.fec.gov/campaign-finance-data/any-transaction-one-committee-another-file-description/",
+      "bulkFile": "https://www.fec.gov/files/bulk-downloads/2026/oth26.zip",
+      "origin": "Federal Election Commission",
+      "relevantGates": [
+        "verified_committee_financial_transfers"
+      ],
+      "stage": "original_OTH_schema_retrieved_and_official_bulk_zip_endpoint_confirmed",
+      "coverage": "Federal committee-to-committee itemized transaction file; contains transfers, contributions and other transaction types; not solely transfer money and not state/local transactions",
+      "next": "Pilot one bounded original OTH cycle ZIP; parse pipe-delimited data and official header; distinguish direction and transaction type, handle amendments and memo, normalize committee IDs and reconcile to filing/report IDs; preserve SHA256, cutoff date and publication limitation"
+    },
+    {
       "id": "fec-disbursement-bulk",
       "url": "https://www.fec.gov/campaign-finance-data/operating-expenditures-file-description/",
       "origin": "Federal Election Commission",
@@ -79,37 +90,26 @@
       "next": "Collect matching filing records and distinguish vendors, refunds, contributions and true transfers"
     },
     {
-      "id": "fec-bulk-entry",
-      "url": "https://www.fec.gov/data/browse-data/?tab=bulk-data",
-      "origin": "Federal Election Commission",
+      "id": "nj-2024-bergen-presidential-municipal",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president-bergen.pdf",
+      "origin": "New Jersey Division of Elections",
       "relevantGates": [
-        "verified_committee_financial_transfers"
+        "state_certified_election_canvasses"
       ],
-      "stage": "official_portal_retrieved",
-      "coverage": "Federal records only",
-      "next": "Determine official free current-cycle zip links and report formats for bounded original-record validation"
+      "stage": "official_2024_county_presidential_results_pdf_read_and_two_candidate_totals_cross_checked",
+      "coverage": "Bergen County municipal and county totals for 2024 U.S. presidential general election. Two candidate county totals reviewed; not all candidates, NJ contests or states.",
+      "next": "Reconcile all presidential candidates and other contests, counties, years, legal certification status, and source file hash before national progress claims"
     },
     {
-      "id": "va-campaign-archives",
-      "url": "https://apps.elections.virginia.gov/SBE_CSV/CF/",
-      "origin": "Virginia Department of Elections",
+      "id": "nj-2024-general-presidential-official-list",
+      "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president.pdf",
+      "origin": "New Jersey Division of Elections",
       "relevantGates": [
-        "state_campaign_finance"
+        "state_certified_election_canvasses"
       ],
-      "stage": "official_download_directory_retrieved",
-      "coverage": "Year/month archive subdirectories from 1999; public archive listing exists; file contents not yet downloaded",
-      "next": "Pilot one dated CSV folder, validate field definitions, cycle completeness and amendments; keep raw file hash"
-    },
-    {
-      "id": "vt-campaign-archives",
-      "url": "https://campaignfinance.vermont.gov/public/cf/downloads",
-      "origin": "Vermont Secretary of State",
-      "relevantGates": [
-        "state_campaign_finance"
-      ],
-      "stage": "official_transaction_csv_portal_retrieved",
-      "coverage": "Contribution/loan and expenditure per-filing-year export links from 2014–2025 on inspected page; 2026 not confirmed",
-      "next": "Retrieve one CSV with documented source timestamp, schema, row counts and duplicate/amendment controls"
+      "stage": "official_2024_statewide_presidential_county_tallies_pdf_read_and_bergen_subset_cross_checked",
+      "coverage": "Official statewide 2024 presidential candidate-by-county report dated December 5, 2024. Bergen figures for two candidates matched county report; not exhaustive 21-county or all-office reconciliation.",
+      "next": "Check all counties/candidates and additional certified election types, provenance checksums and legal finality"
     },
     {
       "id": "nj-campaign-finance",
@@ -145,15 +145,26 @@
       "next": "Pilot dated bill votes, member/chamber/session joins, and redistricting subject adjudication"
     },
     {
-      "id": "wa-leg-rollcalls",
-      "url": "https://app.leg.wa.gov/bi/RollCallsOnABill/RollCall?biennium=2025-26&billNumber=2618&initiative=False",
-      "origin": "Washington State Legislature",
+      "id": "njt-2026-adjusted-fares",
+      "url": "https://www.njtransit.com/proposedfares/",
+      "origin": "NJ TRANSIT",
       "relevantGates": [
-        "official_state_rollcalls"
+        "transport__price"
       ],
-      "stage": "official_rollcall_page_retrieved",
-      "coverage": "One example bill reference is illustrative; no claim of statewide completeness",
-      "next": "Extend existing WA pilot to tagged redistricting cases, not general non-map bills"
+      "stage": "official_effective_date_reference_read",
+      "coverage": "NJ TRANSIT adjusted tariff index effective July 1 2026; schedules broken down by train, bus, light rail. An index is not a journey-specific price.",
+      "next": "Verify travel route, fare zones, operator, eligibility and ticket class for individual trip comparisons"
+    },
+    {
+      "id": "njt-2026-northern-interstate",
+      "url": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/Fares/Northern%20Interstate.pdf",
+      "origin": "NJ TRANSIT",
+      "relevantGates": [
+        "transport__price"
+      ],
+      "stage": "official_fare_table_pdf_read_sample_zone_two_adult_one_way",
+      "coverage": "Northern Interstate bus tariff table. Adult one-way zone 2 = $4.20 under 2026 schedule; a zone table alone cannot price a specific origin/destination or transit alternative.",
+      "next": "Join fare table to official stop pair, zone mapping, 2026 fare-effective date and service class before showing route-specific price"
     },
     {
       "id": "recap-archive",
@@ -165,6 +176,39 @@
       "stage": "public_coverage_documentation_retrieved",
       "coverage": "Incomplete/crowd-sourced federal docket mirror, not authoritative nationwide case lifecycle or state judiciary",
       "next": "For bounded docket cohort, attach originating court case number/filing history and independently verify court orders/dispositions"
+    },
+    {
+      "id": "va-campaign-archives",
+      "url": "https://apps.elections.virginia.gov/SBE_CSV/CF/",
+      "origin": "Virginia Department of Elections",
+      "relevantGates": [
+        "state_campaign_finance"
+      ],
+      "stage": "official_download_directory_retrieved",
+      "coverage": "Year/month archive subdirectories from 1999; public archive listing exists; file contents not yet downloaded",
+      "next": "Pilot one dated CSV folder, validate field definitions, cycle completeness and amendments; keep raw file hash"
+    },
+    {
+      "id": "vt-campaign-archives",
+      "url": "https://campaignfinance.vermont.gov/public/cf/downloads",
+      "origin": "Vermont Secretary of State",
+      "relevantGates": [
+        "state_campaign_finance"
+      ],
+      "stage": "official_transaction_csv_portal_retrieved",
+      "coverage": "Contribution/loan and expenditure per-filing-year export links from 2014–2025 on inspected page; 2026 not confirmed",
+      "next": "Retrieve one CSV with documented source timestamp, schema, row counts and duplicate/amendment controls"
+    },
+    {
+      "id": "wa-leg-rollcalls",
+      "url": "https://app.leg.wa.gov/bi/RollCallsOnABill/RollCall?biennium=2025-26&billNumber=2618&initiative=False",
+      "origin": "Washington State Legislature",
+      "relevantGates": [
+        "official_state_rollcalls"
+      ],
+      "stage": "official_rollcall_page_retrieved",
+      "coverage": "One example bill reference is illustrative; no claim of statewide completeness",
+      "next": "Extend existing WA pilot to tagged redistricting cases, not general non-map bills"
     }
   ],
   "localGaps": [
@@ -594,7 +638,11 @@
       "priority": "high",
       "proposedWorkflow": "Parallel/Firecrawl for official data → Data validation for units, geography, time and price definition",
       "executionState": "not_closed",
-      "closedOn": null
+      "closedOn": null,
+      "boundedEvidenceCaseIds": [
+        "njt-northern-interstate-2026-two-zone-tariff"
+      ],
+      "verificationNote": "Bounded primary-source or repository QA check exists; the full requiredJoin/nextAction remains incomplete. Do not mark the original gap closed."
     },
     {
       "id": "transport__ownership",
@@ -915,7 +963,11 @@
       "priority": "high",
       "proposedWorkflow": "Official source discovery and original-file reconciliation",
       "executionState": "not_closed",
-      "closedOn": null
+      "closedOn": null,
+      "boundedEvidenceCaseIds": [
+        "nj-2024-bergen-presidential-official-cross-report"
+      ],
+      "verificationNote": "Bounded primary-source or repository QA check exists; the full requiredJoin/nextAction remains incomplete. Do not mark the original gap closed."
     },
     {
       "id": "state_law_rollcalls",
@@ -1103,7 +1155,11 @@
       "priority": "high",
       "proposedWorkflow": "Official source discovery and original-file reconciliation",
       "executionState": "not_closed",
-      "closedOn": null
+      "closedOn": null,
+      "boundedEvidenceCaseIds": [
+        "sitewide-static-route-audit-2026-11-12"
+      ],
+      "verificationNote": "Bounded primary-source or repository QA check exists; the full requiredJoin/nextAction remains incomplete. Do not mark the original gap closed."
     }
   ],
   "nationalGates": [
@@ -1127,7 +1183,11 @@
         "nj-election-archive"
       ],
       "executionState": "not_closed",
-      "closedOn": null
+      "closedOn": null,
+      "boundedEvidenceCaseIds": [
+        "nj-2024-bergen-presidential-official-cross-report"
+      ],
+      "verificationNote": "Bounded primary-source or repository QA check exists; the full requiredJoin/nextAction remains incomplete. Do not mark the original gap closed."
     },
     {
       "id": "state_campaign_finance",
