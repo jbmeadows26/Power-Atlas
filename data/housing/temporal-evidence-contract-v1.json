@@ -1,0 +1,351 @@
+{
+  "schema": "power-atlas.housing-temporal-evidence-contract.v1",
+  "asOf": "2026-11-12",
+  "mode": "reference_first_not_local_archive",
+  "dataStatus": "data_model_and_source_mapping_only_no_property_to_official_influence_chain_accepted",
+  "privacy": "Do not unmask redacted personal details, identify protected residents, store tenant names, or infer unknown beneficial owners from registered agents or shared addresses.",
+  "existingDatasets": [
+    {
+      "path": "data/housing/market-asking-rent-cliffside-park-2026-11.json",
+      "kind": "provider_reported_asking_rent_snapshot",
+      "limits": "Dated municipality-level aggregate; not paid leases, a property-level time series, or redistribution rights for raw listings."
+    },
+    {
+      "path": "data/housing/bedroom-rents/NJ.json",
+      "kind": "federal_program_bedroom_rents",
+      "limits": "Government program benchmarks, not observed local market rental transactions."
+    },
+    {
+      "path": "data/corporate-ownership/verified-relationships-v1.json",
+      "kind": "national_and_industry_source_attributed_relationships",
+      "limits": "Existing public entity relationships are not proof of local parcel ownership or household impacts."
+    }
+  ],
+  "entityKeyStrategy": {
+    "parcel": "state_code + county_fips + municipality + official_local_block_lot_or_parcel_id + official_version; address is not the stable key",
+    "legalEntity": "jurisdiction + registration_number when published; preserve original names and dated aliases",
+    "campaignCommittee": "FEC committee ID or state filing authority ID and election jurisdiction",
+    "electedOfficial": "source official actor ID, office tenure, district-boundary version and vote date",
+    "legalDecision": "jurisdiction + issuing authority + docket/bill/ordinance/permit ID + version/effective date",
+    "temporalSemantics": "Effective time (real-world interval) is stored separately from observed/retrieved/review time (when we learned it). NULL effective_to means unknown, never verified still active."
+  },
+  "relationshipEvidenceLevels": [
+    {
+      "status": "source_link_identified",
+      "display": "Where to look",
+      "publishAsProven": false
+    },
+    {
+      "status": "candidate_match",
+      "display": "Possible connection",
+      "publishAsProven": false
+    },
+    {
+      "status": "original_record_checked",
+      "display": "Documented in an original record",
+      "publishAsProven": true
+    },
+    {
+      "status": "cross_source_reconciled",
+      "display": "Independently reconciled",
+      "publishAsProven": true
+    },
+    {
+      "status": "disputed",
+      "display": "Evidence conflicts",
+      "publishAsProven": false
+    },
+    {
+      "status": "unknown",
+      "display": "Not established",
+      "publishAsProven": false
+    }
+  ],
+  "highRiskGuards": [
+    "A shared postal address or registered agent is an administrative association, not equity ownership or control.",
+    "Never derive a beneficial owner solely from a recursive company-name similarity chain.",
+    "FinCEN BOI access is not an open ownership API; as of August 2026 domestic reporting was exempt.",
+    "Record personal executive donations as personal, not as employer corporate treasury spending.",
+    "Separate PAC contributions, direct candidate contributions, independent expenditures, lobbying expenditures and in-kind support.",
+    "A lobbying report naming multiple topics does not allocate the full reported spend to any one bill.",
+    "An FTC/DOJ review that ends without a challenge is not an affirmative FTC approval.",
+    "Track local zoning board or municipal council decisions separately from state legislative roll calls.",
+    "A housing listing asking rent is not a signed lease rent; eviction filing is not an eviction executed.",
+    "Do not assume neighboring jurisdictions form a valid causal control without parallel-trends, spillover and composition checks.",
+    "Do not automatically equate ZIP with municipality, tax parcel, school or election district.",
+    "Retain official source link, item identifier, release/effective time, retrieval/review times and source reuse status.",
+    "Tax lists, property-tax bills, collector receipts, PILOT service charges, tax-abatement awards and municipal budget receipts are not interchangeable.",
+    "A tax rate change does not prove any household's actual bill or tenant rent changed.",
+    "Owner of record, taxpayer, remitter, escrow servicer, property manager and beneficial owner may be different legal persons.",
+    "An approved PILOT is a government policy instrument, not automatically corruption or net revenue loss."
+  ],
+  "sourceReferences": [
+    {
+      "id": "nj-tax-parcel-query",
+      "name": "NJ Treasury Property Tax Transparency",
+      "authority": "New Jersey Treasury",
+      "url": "https://nj.gov/transparency/property/",
+      "role": [
+        "parcel_key",
+        "dated_tax_list"
+      ],
+      "access": "public_search",
+      "caveat": "Annual January assessor list may miss subsequent transfers; presence of owner info on some tools does not override privacy restrictions."
+    },
+    {
+      "id": "nj-gis-parcel-map",
+      "name": "NJGIN Parcels",
+      "authority": "NJ Office of GIS",
+      "url": "https://www.nj.gov/njgin/edata/parcels/",
+      "role": [
+        "parcel_key",
+        "geographic_geometry"
+      ],
+      "access": "public_query",
+      "caveat": "Public owner names are redacted under Daniel's Law, and geometry is not a legal survey or ownership determination."
+    },
+    {
+      "id": "nj-housing-inspections",
+      "name": "NJ DCA Housing Inspection Portal",
+      "authority": "NJ Department of Community Affairs",
+      "url": "https://serviceportal.dca.nj.gov/",
+      "role": [
+        "registered_multiple_dwelling",
+        "housing_inspection"
+      ],
+      "access": "public_portal_limited",
+      "caveat": "Lookups apply to covered properties, not a complete census of beneficial ownership."
+    },
+    {
+      "id": "nj-business-records",
+      "name": "NJ Business Records",
+      "authority": "NJ Treasury Division of Revenue",
+      "url": "https://www.nj.gov/treasury/revenue/",
+      "role": [
+        "legal_entity_identity",
+        "registration"
+      ],
+      "access": "public_lookup_some_records_fee",
+      "caveat": "Business name browsing is free; copies/certification may require fees. Registered agents are not beneficial owners."
+    },
+    {
+      "id": "nj-legislature-votes",
+      "name": "NJ Legislature Voting Records",
+      "authority": "New Jersey Legislature",
+      "url": "https://www.njleg.state.nj.us/voting-records",
+      "role": [
+        "legislation",
+        "legislator_rollcall"
+      ],
+      "access": "public_lookup",
+      "caveat": "A roll call applies only to the relevant official bill, member, chamber, session and vote version; municipal zoning requires separate local records."
+    },
+    {
+      "id": "nj-elec-disclosures",
+      "name": "NJ ELEC Campaign Finance Search",
+      "authority": "New Jersey Election Law Enforcement Commission",
+      "url": "https://www.elec.nj.gov/publicinformation/searchdatabase.htm",
+      "role": [
+        "state_political_transactions"
+      ],
+      "access": "public_search",
+      "caveat": "Must reconcile candidate/committee IDs, amendments, payers and report periods."
+    },
+    {
+      "id": "fec-legal-categories",
+      "name": "FEC Candidate Contributions Legal Categories",
+      "authority": "Federal Election Commission",
+      "url": "https://www.fec.gov/help-candidates-and-committees/candidate-taking-receipts/who-can-and-cant-contribute/",
+      "role": [
+        "federal_transaction_rules"
+      ],
+      "access": "public_reference",
+      "caveat": "Corporate treasury contributions to federal candidates are prohibited; corporate PACs and independent expenditures are legally distinct."
+    },
+    {
+      "id": "ftc-merger-review",
+      "name": "FTC Merger Review Guidance",
+      "authority": "Federal Trade Commission",
+      "url": "https://www.ftc.gov/news-events/topics/competition-enforcement/merger-review",
+      "role": [
+        "antitrust_decisions"
+      ],
+      "access": "public_reference",
+      "caveat": "No FTC challenge does not equal an affirmative approval; not all transactions are reportable."
+    },
+    {
+      "id": "fincen-boi-limits",
+      "name": "FinCEN BOI Rule and Access Limits",
+      "authority": "Financial Crimes Enforcement Network",
+      "url": "https://www.fincen.gov/boi",
+      "role": [
+        "beneficial_ownership_access_limits"
+      ],
+      "access": "public_regulation_not_public_boi_database",
+      "caveat": "August 2026 final rule exempts U.S. companies and U.S. persons from BOI reporting; BOI is not a free lookup resource."
+    },
+    {
+      "id": "zillow-api-license-review",
+      "name": "Zillow Group API Terms of Use",
+      "authority": "Zillow Group",
+      "url": "https://www.zillowgroup.com/developers/terms/",
+      "role": [
+        "rent_api_license_review"
+      ],
+      "access": "terms_review_not_data_access",
+      "caveat": "API access is for approved licensees and the published terms restrict retention and bulk distribution; do not presume scraping rights."
+    },
+    {
+      "id": "nj-tax-general-rates",
+      "name": "NJ Local Property Tax Statistical Rates",
+      "authority": "New Jersey Division of Taxation",
+      "url": "https://www.nj.gov/treasury/taxation/lpt/statdata.shtml",
+      "role": [
+        "municipal_tax_rate",
+        "tax_year",
+        "tax_bill_interpretation"
+      ],
+      "access": "official_public_reference",
+      "caveat": "General tax rates calculate tax bills from assessed value; effective tax rates are comparison measures only. Neither is a receipted payment."
+    },
+    {
+      "id": "nj-dca-property-tax-tables",
+      "name": "NJ DCA Property Tax Tables",
+      "authority": "New Jersey Department of Community Affairs",
+      "url": "https://www.nj.gov/dca/dlgs/resources/Property_Tax_info.shtml",
+      "role": [
+        "municipal_tax_tables",
+        "multi_year_government_fiscal_trends"
+      ],
+      "access": "official_public_reference",
+      "caveat": "Annual tables are government/municipal aggregates; check whether a figure is actual, estimate or classification before comparing."
+    },
+    {
+      "id": "nj-pilot-abatement-toolkit",
+      "name": "NJ DCA Municipal Tax Abatement Toolkit",
+      "authority": "New Jersey Department of Community Affairs",
+      "url": "https://www.nj.gov/dca/dlgs/taxabatementkit.shtml",
+      "role": [
+        "pilot_agreement",
+        "abatement_program",
+        "pilot_database_viewer"
+      ],
+      "access": "official_public_reference",
+      "caveat": "State provides a PILOT Database and Viewer; a database entry or aggregate does not prove a particular parcel agreement or realized government benefit."
+    },
+    {
+      "id": "nj-cliffside-2024-tax-rate-official",
+      "name": "2024 NJ Official General Tax Rates",
+      "authority": "New Jersey Division of Taxation",
+      "url": "https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2024taxrates.pdf",
+      "role": [
+        "official_municipal_tax_rate_2024"
+      ],
+      "access": "original_official_pdf_checked",
+      "caveat": "Bergen County PDF page 2 shows Cliffside Park general rate 2.756 and effective rate 1.966 per $100; neither proves a bill was paid."
+    },
+    {
+      "id": "nj-cliffside-2025-tax-rate-official",
+      "name": "2025 NJ Official General Tax Rates",
+      "authority": "New Jersey Division of Taxation",
+      "url": "https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf",
+      "role": [
+        "official_municipal_tax_rate_2025"
+      ],
+      "access": "original_official_pdf_checked",
+      "caveat": "Bergen County PDF page 2 shows Cliffside Park general rate 2.836 and effective rate 1.920 per $100; neither proves a bill was paid."
+    }
+  ],
+  "stageGates": [
+    {
+      "order": 1,
+      "id": "property",
+      "target": "parcel_source_verified",
+      "needed": "Official parcel ID with correct geography and dated tax/assessment vintage; never infer ownership from a street address alone."
+    },
+    {
+      "order": 2,
+      "id": "ownership",
+      "target": "legal_title_and_control_checked",
+      "needed": "Owner on legal source plus separate dated company-control documentation; show unverified intermediate links."
+    },
+    {
+      "order": 3,
+      "id": "money",
+      "target": "political_payment_filing_verified",
+      "needed": "Exact filing amount, payer legal capacity, recipient committee, jurisdiction and dates."
+    },
+    {
+      "order": 4,
+      "id": "decision",
+      "target": "official_action_or_vote_verified",
+      "needed": "Specific municipal ordinance/zoning decision or state bill, issuing body, recorded vote and effective date."
+    },
+    {
+      "order": 5,
+      "id": "rent",
+      "target": "comparable_outcome_observations",
+      "needed": "Actual asking rent vs executed lease carefully separated, consistent units and coverage counts; review source reuse permissions."
+    },
+    {
+      "order": 6,
+      "id": "impact",
+      "target": "causal_design_reviewed",
+      "needed": "Valid comparison and measured uncertainty; descriptive connections alone never become a causal finding."
+    },
+    {
+      "order": 7,
+      "id": "property_tax_and_receipts",
+      "target": "parcel_tax_levy_payment_and_exemptions_reconciled",
+      "needed": "Official parcel assessment, tax-year rate, final tax bill, collector posted receipt and any PILOT agreement tied to exact parcel; never infer actual payment or tenant rent from rates."
+    }
+  ],
+  "directlyRelatedOpenGaps": [
+    "housing__price",
+    "housing__ownership",
+    "housing__decisions",
+    "housing__outcomes",
+    "corp_registry",
+    "local_outlets",
+    "state_local_money",
+    "federal_itemized_finance",
+    "state_law_rollcalls",
+    "regional_company_price_series",
+    "household_causal_design",
+    "sources_licensing",
+    "legal_map_geometry",
+    "public-services__price",
+    "public-services__decisions",
+    "public-services__outcomes"
+  ],
+  "status": "schema_design_ready_pilot_finding_not_established",
+  "taxReceipts": {
+    "purpose": "Distinguish assessed value, lawful tax charge, actual tax collector receipts, PILOT/abatement benefits and municipal cash receipts.",
+    "schemaPath": "schema/0003_housing_tax_receipts.sql",
+    "semantics": [
+      {
+        "key": "assessment",
+        "meaning": "Official assessor taxable value for a year; not deed/title or current market value."
+      },
+      {
+        "key": "bill",
+        "meaning": "Lawful charge/instalment including adjustments, not evidence of collection."
+      },
+      {
+        "key": "receipt",
+        "meaning": "Collector's actual posted payment/credit/refund, not the owner's identity or profit."
+      },
+      {
+        "key": "incentive",
+        "meaning": "PILOT and abatement agreement, its legal terms and actual service-charge receipts; a subsidy estimate requires a valid counterfactual."
+      },
+      {
+        "key": "municipal_revenue",
+        "meaning": "Budget vs actual receipts, segregating municipal, county and school portions."
+      }
+    ],
+    "sampleCase": "data/housing/official-tax-rate-cliffside-park-2024-2025.json",
+    "privacy": "No private payer names, bank details, escrow details, taxpayer account identifiers, or redacted protected-person information.",
+    "status": "official_2024_2025_tax_rates_checked_other_receipts_and_incentive_links_unverified"
+  }
+}

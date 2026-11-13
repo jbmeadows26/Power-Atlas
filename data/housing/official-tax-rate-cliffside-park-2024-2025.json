@@ -1,0 +1,111 @@
+{
+  "schema": "power-atlas.housing.official-municipal-tax-rates.v1",
+  "asOf": "2026-11-12",
+  "investigation": "Cliffside Park New Jersey public property-tax rate comparison",
+  "unit": "dollars per $100 of assessed value",
+  "jurisdiction": {
+    "state": "NJ",
+    "county": "Bergen",
+    "municipality": "Cliffside Park Borough",
+    "geographicGrain": "municipality"
+  },
+  "observations": [
+    {
+      "taxYear": 2024,
+      "generalTaxRatePer100": 2.756,
+      "effectiveTaxRatePer100": 1.966,
+      "source": {
+        "authority": "New Jersey Division of Taxation",
+        "url": "https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2024taxrates.pdf",
+        "documentTitle": "2024 General Tax Rates",
+        "pdfPageNumber": 2,
+        "sourceRow": "CLIFFSIDE PARK BORO",
+        "documentSha256": null,
+        "reviewStatus": "official_source_page_checked"
+      }
+    },
+    {
+      "taxYear": 2025,
+      "generalTaxRatePer100": 2.836,
+      "effectiveTaxRatePer100": 1.92,
+      "source": {
+        "authority": "New Jersey Division of Taxation",
+        "url": "https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf",
+        "documentTitle": "2025 General Tax Rates",
+        "pdfPageNumber": 2,
+        "sourceRow": "CLIFFSIDE PARK BORO",
+        "documentSha256": null,
+        "reviewStatus": "official_source_page_checked"
+      }
+    }
+  ],
+  "comparison": {
+    "fromYear": 2024,
+    "toYear": 2025,
+    "generalRateChangePer100": 0.08,
+    "relativeGeneralRateChangePercent": 2.90275762,
+    "effectiveRateChangePer100": -0.046,
+    "interpretation": "The general rate increased by $0.080 per $100 of assessed value; the effective statistical rate fell by $0.046 per $100. Neither metric alone establishes changes to an individual parcel's tax bill."
+  },
+  "nextMissingLinks": [
+    {
+      "stage": "parcel",
+      "status": "not_verified",
+      "needed": "Dated and legally public block/lot or property identifier with tax assessment; no individual resident names"
+    },
+    {
+      "stage": "bill",
+      "status": "not_verified",
+      "needed": "Parcel-specific legally assessed bill, adjustments and appeal information"
+    },
+    {
+      "stage": "receipt",
+      "status": "not_verified",
+      "needed": "Tax collector's posted payments and credits, with payer/escrow PII redacted"
+    },
+    {
+      "stage": "exemption",
+      "status": "not_verified",
+      "needed": "Project-specific PILOT or tax-abatement agreement and annual service charge, if applicable"
+    },
+    {
+      "stage": "municipal_budget",
+      "status": "not_verified",
+      "needed": "Municipal audited cash receipts vs budget estimate, school and county allocation"
+    },
+    {
+      "stage": "government_decision",
+      "status": "not_verified",
+      "needed": "Official adopted ordinance, minutes, vote or tax decision and its effective date"
+    },
+    {
+      "stage": "ownership",
+      "status": "not_verified",
+      "needed": "Verified property titleholder and separately documented company-control relationship"
+    },
+    {
+      "stage": "political_finance",
+      "status": "not_verified",
+      "needed": "Exact campaign or lobbying filing matched to legal filer and decision period"
+    },
+    {
+      "stage": "rent_impact",
+      "status": "not_verified",
+      "needed": "Comparable lease or asking-rent observations plus admissible counterfactual"
+    }
+  ],
+  "safeguards": [
+    "General property-tax rate, effective statistical rate, assessed value, tax bill, payment and municipal cash collection are distinct.",
+    "A rate change does not imply a household tax bill rose by the same percentage; assessed values and adjustments may change.",
+    "No property, person, beneficial owner, political donation, PILOT beneficiary, corruption or rent effect has been inferred from these municipal rates.",
+    "The source files were inspected through public official pages, not archived. Original-file SHA-256 not captured; citation links preserve the page and table row.",
+    "This is a bounded original government observation, not closure of any of the 64 outstanding full research gates."
+  ],
+  "gapIds": [
+    "public-services__price",
+    "housing__decisions",
+    "housing__outcomes",
+    "household_causal_design"
+  ],
+  "fullGapClosureAllowed": false
+}
