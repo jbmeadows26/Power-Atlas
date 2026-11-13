@@ -60,6 +60,20 @@ class AIFinancingStoryTests(unittest.TestCase):
         self.assertEqual(4, len(re.findall(r'data-oversight="(?:bis|cabinet|hardware|court)"', self.story)))
         self.assertIn('getElementById("oversightSources").replaceChildren(', self.story)
 
+    def test_interactive_documentary_primary_journey(self):
+        for token in ('id="evidence-stage"', 'data-investigation="chips"',
+                      'data-investigation="oversight"', 'data-investigation="money"',
+                      'data-discovery="0"', 'data-discovery="3"',
+                      'id="investigationNext"', 'id="investigationPrevious"',
+                      'id="deepResearch" hidden', 'aria-controls="deepResearch"',
+                      'class="investigate-rail"', '50,000-processor discrepancy',
+                      'Not a confirmed smuggling tally', 'q("investigationSources").replaceChildren'):
+            self.assertIn(token.lower(), self.story.lower())
+        self.assertEqual(3, len(re.findall(r'data-investigation="(?:chips|oversight|money)"', self.story)))
+        self.assertEqual(4, len(re.findall(r'data-discovery="[0-3]"', self.story)))
+        self.assertIn("openArchive(true)", self.story)
+        self.assertIn('href="#evidence-stage"', self.story)
+
     def test_sources_and_links(self):
         self.assertIn('href="economic-fragility.html"', self.story)
         self.assertIn('href="banking-power.html"', self.story)
