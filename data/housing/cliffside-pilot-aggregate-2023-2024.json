@@ -41,6 +41,70 @@
       "url": "https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2019/Regular-Meeting-Minutes-June-24-2019.pdf",
       "locator": "Minutes printed pp. 2–5: Resolution 2019-158, roll call, project chronology, PILOT agreement and amended agreements",
       "review": "official_minutes_text_and_pdf_page_inspected"
+    },
+    {
+      "id": "cliffside-council-2017-07-11",
+      "authority": "Borough of Cliffside Park Mayor and Council",
+      "title": "Caucus Meeting Minutes July 11, 2017, Resolution 2017-154",
+      "url": "https://webgen1files.revize.com/boroughcspnj/agendas%20and%20minutes/2017/Caucus-Meeting-Minutes-July-11-2017.pdf",
+      "locator": "Printed pages 2–4 (PDF pages 2–4), Resolution 2017-154, redeveloper financing and conditional payment terms",
+      "review": "original_record_text_checked_source_locator_not_archived"
+    },
+    {
+      "id": "sec-cgcmt-2019-gc41-the-centre",
+      "authority": "U.S. Securities and Exchange Commission (issuer-provided securitization filing)",
+      "title": "CGCMT 2019-GC41, filing Annex A and intercreditor mortgage-loan exhibit",
+      "url": "https://www.sec.gov/Archives/edgar/data/1783287/000153949719001205/n1708_x2-anxa1.htm",
+      "locator": "Loan control number 27, The Centre, 314 units; original loan and 7/6/2024 maturity; borrower and loan economics",
+      "review": "SEC EDGAR source text inspected with row-level locator, not verified as a title instrument"
+    },
+    {
+      "id": "sec-cgcmt-2019-gc41-exh4-18",
+      "authority": "U.S. Securities and Exchange Commission (filed noteholder agreement exhibit)",
+      "title": "The Centre loan agreement exhibit 4.18",
+      "url": "https://www.sec.gov/Archives/edgar/data/1783287/000153949719001377/exh4-18thecentre.htm",
+      "locator": "Exhibit A Mortgage Loan Schedule, agreement June 28 2019, Cliffside Urban Renewal Company LLC borrower, $130m principal, maturity July 6 2024",
+      "review": "SEC exhibit source text inspected, not a current loan payoff statement"
+    },
+    {
+      "id": "realdeal-hyperion-sale-2025",
+      "authority": "The Real Deal, secondary reporting",
+      "title": "Hyperion JV buys luxury NJ apartment complex for $165M",
+      "url": "https://therealdeal.com/new-york/tristate/2025/10/24/hyperion-jv-buys-cliffside-parks-centre-for-165m/",
+      "locator": "October 24 2025 article, sale price $165m, reported HyperionMFP / Benenson venture, no cited recorded deed number",
+      "review": "secondary_source_read_original_deed_not_verified"
+    },
+    {
+      "id": "bergen-deed-2026-residential-lot104",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 2026000586, Block 2803 Lot 1.04",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354",
+      "locator": "Instrument 2026000586; DEED; recorded 2026-01-05 14:29:44; Book 5693, Page 1691; Lot 1.04",
+      "review": "public_clerk_verified_index_metadata_only_scanned_instrument_unreadable"
+    },
+    {
+      "id": "bergen-deed-2019-commercial-lot103",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 19-071078, Block 2803 Lot 1.03",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9367974",
+      "locator": "Instrument 19-071078; DEED1MIL; recorded 2019-10-23; Book 3383, Page 1484; Lot 1.03",
+      "review": "public_clerk_verified_index_metadata_only_scanned_instrument_unreadable"
+    },
+    {
+      "id": "bergen-2019-condominium-association-index",
+      "authority": "Bergen County Clerk, recorded land-document index",
+      "title": "Index of Instrument 19-048778.01, Blocks 2803 Lots 1.03 and 1.04",
+      "url": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9327820",
+      "locator": "Instrument 19-048778.01; recorded 2019-07-29; Book 3306, Page 1102; type code 2 not interpreted",
+      "review": "metadata_only_no_instrument_image"
+    },
+    {
+      "id": "nj-dca-pilot-database-2026",
+      "authority": "NJ Department of Community Affairs (DLGS)",
+      "title": "PILOT Database and Viewer, Raw Data from User Friendly Budgets",
+      "url": "https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx",
+      "locator": "Raw Data from User Friendly Budgets, row 59, Municode 0206, Cliffside Park borough, Town Center",
+      "review": "original_workbook_row_inspected_browser_session_not_captured_local"
     }
   ],
   "observations": [
@@ -191,5 +255,173 @@
       "The borough's initial redevelopment-area lot description and later condo lot designations differ by chronology; require deed/plat validation before GIS joins."
     ],
     "nextEvidence": "Executed 2019 amended financial agreements, title transfers/master deed and current annual service charge schedules, with original municipal source locations"
-  }
+  },
+  "financingCase2017": {
+    "id": "towne-centre-2017-resolution-154",
+    "date": "2017-07-11",
+    "sourceId": "cliffside-council-2017-07-11",
+    "resolution": "2017-154",
+    "subject": "Towne Centre redevelopment financing and conditional municipal obligations",
+    "findings": [
+      {
+        "measure": "municipal_2011_bond_original_principal",
+        "amountUSD": 12005000,
+        "year": 2011,
+        "kind": "historical_bond_principal"
+      },
+      {
+        "measure": "redeveloper_total_outstanding_obligations_if_paid_by_2017_07_21",
+        "amountUSD": 14429453,
+        "kind": "conditional_resolution_payment_required"
+      },
+      {
+        "measure": "redeveloper_total_outstanding_obligations_if_paid_after_2017_07_21",
+        "amountUSD": 14529453,
+        "kind": "conditional_resolution_payment_required"
+      },
+      {
+        "measure": "bond_final_payment_deadline_before_approved_amendment",
+        "date": "2038-02-01",
+        "kind": "prior_due_date"
+      },
+      {
+        "measure": "bond_final_payment_deadline_if_amendment_effective",
+        "date": "2021-12-31",
+        "kind": "conditional_revised_due_date"
+      }
+    ],
+    "scope": "Council resolution approved negotiating and executing an Omnibus Agreement and amended ground lease; contingent on developer execution and additional conditions",
+    "explicitUnknowns": [
+      "Actual payment receipt of either conditional amount not verified",
+      "Bond redemption/defeasance satisfaction document not verified",
+      "Executed Omnibus Agreement and amended ground lease not verified",
+      "Contractual 15% membership-interest settlement language not evidence of actual equity transfer or current beneficial ownership",
+      "No debt-term-to-2023 PILOT-cash attribution is possible from these minutes"
+    ],
+    "nextSources": [
+      "Municipal Treasurer dated payment receipts and ledger",
+      "Borough bond official statement, redemption notices, sinking fund statements or defeasance confirmation",
+      "Executed Omnibus Agreement and amended ground lease",
+      "Executed amended and restated 2019 financial agreements",
+      "Recorded deed chain for Block 2803 Lots 1.01, 1.03, 1.04"
+    ]
+  },
+  "financingCase2019": {
+    "sourceIds": [
+      "sec-cgcmt-2019-gc41-the-centre",
+      "sec-cgcmt-2019-gc41-exh4-18"
+    ],
+    "date": "2019-06-28",
+    "borrower": "Cliffside Urban Renewal Company LLC",
+    "originator": "Citi Real Estate Funding Inc.",
+    "loanOriginalPrincipalUSD": 130000000,
+    "statedMaturityDate": "2024-07-06",
+    "property": "The Centre",
+    "reportedCollateralUnits": 314,
+    "sourceClassification": "filed_securitization_original_loan_terms",
+    "notes": [
+      "This is not the $12.005m municipal bond from 2011.",
+      "Historical borrower does not prove current legal title or beneficial control.",
+      "Stated maturity does not by itself prove a missed payment or remaining loan balance after the date.",
+      "The SEC issuer-provided information is subject to filing terms and updates."
+    ]
+  },
+  "saleLead2025": {
+    "sourceId": "realdeal-hyperion-sale-2025",
+    "reportedDate": "2025-10-24",
+    "reportedTransactionAmountUSD": 165000000,
+    "reportedBuyerDescription": "Joint venture involving HyperionMFP Partners and Benenson Capital Partners",
+    "reportedSellerDescription": "Arilex Realty (as described by news reporting)",
+    "evidenceState": "credible_secondary_reporting_unreconciled_recorded_deed",
+    "notes": [
+      "A reported sale is not a verified Bergen County title instrument.",
+      "Reported price is not a PILOT tax benefit or a measured investment profit.",
+      "Need recorded deed, instrument identifier, party names, exact parcel map and transfer date.",
+      "Do not equate media-described sponsor with registered property owner or beneficial controller."
+    ]
+  },
+  "recordedTransferIndex": [
+    {
+      "parcel": "Block 2803 Lot 1.04",
+      "instrument": "2026000586",
+      "recordedDate": "2026-01-05",
+      "book": 5693,
+      "page": 1691,
+      "typeCode": "DEED",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "DDL Urban Renewal Company LLC",
+      "sourceId": "bergen-deed-2026-residential-lot104",
+      "confidence": "recorded_index_verified_instrument_not_read"
+    },
+    {
+      "parcel": "Block 2803 Lot 1.03",
+      "instrument": "19-071078",
+      "recordedDate": "2019-10-23",
+      "book": 3383,
+      "page": 1484,
+      "typeCode": "DEED1MIL",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "Shairco Urban Renewal LLC",
+      "sourceId": "bergen-deed-2019-commercial-lot103",
+      "confidence": "recorded_index_verified_instrument_not_read"
+    },
+    {
+      "parcel": "Block 2803 Lots 1.03 and 1.04",
+      "instrument": "19-048778.01",
+      "recordedDate": "2019-07-29",
+      "book": 3306,
+      "page": 1102,
+      "typeCode": "2",
+      "grantor": "Cliffside Urban Renewal Company LLC",
+      "grantee": "Cliffside Park Towne Centre Condominium Association Incorporated",
+      "sourceId": "bergen-2019-condominium-association-index",
+      "confidence": "index_type_not_interpreted"
+    }
+  ],
+  "dcaPilotRecord": {
+    "sourceId": "nj-dca-pilot-database-2026",
+    "municipalCode": "0206",
+    "municipality": "Cliffside Park borough",
+    "project": "Town Center",
+    "type": "Other",
+    "agreementStart": "2014-01-01",
+    "agreementEnd": "2044-01-01",
+    "pilotBillingUSD": 1131162,
+    "assessedValueUSD": 84654400,
+    "taxesIfBilledAtPriorYearRateUSD": 2400798.784,
+    "latestSubmissionYear": 2026,
+    "scope": "statewide workbook reporting by municipality, project-level row, not original executed agreement",
+    "unreconciled": [
+      "The state workbook reports agreement start 2014, while 2019 council minutes cite an April 13 2010 long-term exemption agreement.",
+      "The workbook billing of $1,131,162 is not necessarily same as 2023 long-term PILOT cash $1,131,862.",
+      "The workbook project name alone does not establish exactly which condominium lot or present legal titleholder is represented.",
+      "The workbook tax counterfactual is a reported column; not a verified parcel-specific tax loss or avoided tax calculation."
+    ]
+  },
+  "crossSourceConflicts": [
+    {
+      "topic": "agreement_start_date",
+      "sourceA": "2019 council minutes: original long-term exemption agreement dated 2010-04-13",
+      "sourceB": "NJ DCA workbook: agreement start 2014-01-01",
+      "status": "needs_signed_agreement_vintage_explanation"
+    },
+    {
+      "topic": "2019_commercial_entity_name",
+      "sourceA": "Council resolution: Shairco Urban Renewal Company LLC",
+      "sourceB": "County index: Shairco Urban Renewal LLC",
+      "status": "different_legal_strings_no_unverified_identity_equivalence"
+    },
+    {
+      "topic": "2025_sale_vs_2026_deed",
+      "sourceA": "October 2025 media-reported venture purchase",
+      "sourceB": "2026-01-05 county deed index naming DDL Urban Renewal Company LLC as grantee",
+      "status": "date_entity_reconciliation_pending_recorded_instrument_and_company_filings"
+    },
+    {
+      "topic": "PILOT_billed_vs_cash",
+      "sourceA": "DCA project row: PILOT Billing $1,131,162 (reported workbook)",
+      "sourceB": "2023 borough LTTE cash received $1,131,862",
+      "status": "different measures and periods; cannot reconcile by subtracting or assuming typo"
+    }
+  ]
 }

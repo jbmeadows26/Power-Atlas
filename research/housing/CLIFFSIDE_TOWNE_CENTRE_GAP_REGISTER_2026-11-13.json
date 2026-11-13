@@ -1,0 +1,241 @@
+{
+  "schema": "power-atlas.housing.cliffside-gap-audit.v1",
+  "asOf": "2026-11-13",
+  "case": "Towne Centre / Anderson Avenue municipal PILOT and redevelopment",
+  "status": "partial_original_record_chain_only",
+  "closureRule": "A portal link, search result, resolution, or incomplete chain does not close a record-verified gap. Never infer wrongdoing or causal effects.",
+  "verified": [
+    {
+      "stage": "official_municipal_rates",
+      "status": "bounded_verified",
+      "source": "data/housing/official-tax-rate-cliffside-park-2024-2025.json",
+      "scope": "Municipal 2024 and 2025 rates"
+    },
+    {
+      "stage": "program_cash_totals",
+      "status": "bounded_verified",
+      "source": "data/housing/cliffside-pilot-aggregate-2023-2024.json",
+      "scope": "2023/2024 borough-wide LTTE and NJHMFA receipts, not property-specific"
+    },
+    {
+      "stage": "2017_finance_authorization",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2017-07-11",
+      "scope": "Resolution 2017-154 conditional sums/bond timeline, not proof of payment or discharge"
+    },
+    {
+      "stage": "2019_public_decision",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2019-06-24",
+      "scope": "Resolution 2019-158 authorized conditional amendments and described residential/commercial lots"
+    },
+    {
+      "stage": "2019_historical_owners_in_resolution",
+      "status": "bounded_verified",
+      "sourceId": "cliffside-council-2019-06-24",
+      "scope": "Named LLCs approved as new owners, not a recorded transfer or current title"
+    },
+    {
+      "stage": "2019_commercial_lot_deed_metadata",
+      "status": "bounded_verified_index",
+      "source": "bergen-deed-2019-commercial-lot103",
+      "scope": "Instrument 19-071078 grants index name Shairco Urban Renewal LLC for Lot 1.03, not a scanned verified deed copy"
+    },
+    {
+      "stage": "2026_residential_lot_deed_metadata",
+      "status": "bounded_verified_index",
+      "source": "bergen-deed-2026-residential-lot104",
+      "scope": "Instrument 2026000586 recorded Jan 5 2026 lists DDL Urban Renewal Company LLC as grantee of Lot 1.04"
+    },
+    {
+      "stage": "NJ_DCA_Town_Center_project_pilot_row",
+      "status": "bounded_verified_workbook",
+      "source": "nj-dca-pilot-database-2026",
+      "scope": "DCA Municode 0206 row 59, source-reported start/end, billing and assessed value; not executed agreement or collected cash"
+    },
+    {
+      "stage": "SEC_2019_Centre_mortgage",
+      "status": "bounded_verified_sec_filing",
+      "source": "sec-cgcmt-2019-gc41-exh4-18",
+      "scope": "2019 borrower Cliffside Urban Renewal LLC and origination loan $130m, July 6 2024 stated maturity"
+    },
+    {
+      "stage": "2025_reported_sale",
+      "status": "secondary_reporting_only",
+      "source": "realdeal-hyperion-sale-2025",
+      "scope": "Reported $165m venture acquisition; not a recorder-confirmed legal-title and beneficial-control chain"
+    }
+  ],
+  "unresolved": [
+    {
+      "id": "executed_2010_2019_pilot_agreements",
+      "recordNeeded": "Signed 2010 financial agreement and all 2019 amended/restated agreements with appendices, annual-service-charge schedules, amendments and effective dates",
+      "owner": "Cliffside Park municipal clerk",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Identify execution date, named legal parties, parcel list, method, term and schedule from the actual executed agreement",
+      "status": "record_required"
+    },
+    {
+      "id": "deeds_current_title",
+      "recordNeeded": "Scanned contents of recorded 2019 and 2026 deeds; full title chain through as-of date, condo amendments and legally public current ownership. County Clerk metadata locators now known: 19-071078 (2019 lot 1.03) and 2026000586 (2026 lot 1.04).",
+      "owner": "Bergen County Clerk",
+      "sourcePortal": "https://bclrs.co.bergen.nj.us/browserview/",
+      "closure": "Inspect full recorded deed images and underlying legal descriptions for 2019/2026 instruments; reconcile conflicting legal entity strings and 2025 reported sale; chain through current date",
+      "status": "indexed_deeds_found_scans_unread",
+      "observed": [
+        "2019 commercial transfer: instrument 19-071078, Book 3383/Page 1484",
+        "2026 residential transfer: instrument 2026000586, Book 5693/Page 1691",
+        "2019 condo association indexed document 19-048778.01, type not interpreted"
+      ]
+    },
+    {
+      "id": "current_legal_entity_control",
+      "recordNeeded": "Contemporaneous NJ entity status plus formation/amendment/manager filings for specifically identified LLCs; 2026 recorded grantee DDL Urban Renewal Company LLC, 2019 recorded Shairco Urban Renewal LLC; compare NJ corporate identifiers without conflating names.",
+      "owner": "NJ Department of Treasury Division of Revenue",
+      "sourcePortal": "https://www.njportal.com/DOR/businessrecords/Default.aspx",
+      "closure": "Confirm NJ Secretary of State legal-entity ID, exact company name and changes, management/control and effective dates independently; registered agent not sufficient",
+      "status": "historic_and_2026_grantee_names_found_beneficial_control_unverified",
+      "observed": [
+        "Bergen Jan 5 2026 grant to DDL Urban Renewal Company LLC, commercial 2019 grant to Shairco Urban Renewal LLC"
+      ]
+    },
+    {
+      "id": "parcel_tax_assessment_bill",
+      "recordNeeded": "Assessor tax list, parcel-specific assessment, annual tax bill, exemption classification and appeal history for linked tax years",
+      "owner": "Borough tax assessor / county tax board",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Valid dated parcel ID and official assessment/bill link; do not substitute borough tax rate",
+      "status": "record_required"
+    },
+    {
+      "id": "parcel_pilot_cash_2023_2025",
+      "recordNeeded": "Year-by-year property/project PILOT assessment schedules, billed amounts, receipts, reconciliations, county remittance for the Towne Centre lots",
+      "owner": "Borough CFO / tax collector",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Project-specific PILOT billed-versus-collected, dated reconciliation with audit totals",
+      "status": "record_required"
+    },
+    {
+      "id": "2017_obligations_paid_bond_defeased",
+      "recordNeeded": "Executed Omnibus Agreement, payment/receipt ledger supporting 2017 obligations, bond trustee notices and defeasance/satisfaction records",
+      "owner": "Borough CFO, bond trustee, clerk",
+      "sourcePortal": "https://www.cliffsideparknj.gov/",
+      "closure": "Dated bank/treasury confirmations and documented bond discharge; initial approval insufficient",
+      "status": "record_required"
+    },
+    {
+      "id": "political_finance",
+      "recordNeeded": "NJ ELEC filings for identified legal-entity donors, committees, dated transactions in 2006–2026 and local pay-to-play forms",
+      "owner": "NJ Election Law Enforcement Commission",
+      "sourcePortal": "https://www.njelecefilesearch.com/SearchContributionByContributor",
+      "closure": "Exact filer/contributor identity, recipient, legal capacity, contribution date, and independent verification of any relation to decision",
+      "status": "search_not_reconciled"
+    },
+    {
+      "id": "rent_impact",
+      "recordNeeded": "Anonymized bedroom-specific asking rents and signed leases, dates, units, comparables, vacancy and housing supply controls",
+      "owner": "Public and appropriately licensed housing evidence sources",
+      "sourcePortal": "https://www.huduser.gov/portal/datasets/fmr/smallarea/index.html",
+      "closure": "Correct market-versus-HUD definitions; causal evaluation requires credible counterfactual and uncertainty",
+      "status": "not_estimated"
+    },
+    {
+      "id": "nj_dca_pilot_rows",
+      "recordNeeded": "Reconcile Town Center row 59, reported FY2026 PILOT billing $1,131,162, with signed project agreement and same-period collector receipts; verify date inconsistencies.",
+      "owner": "NJ Department of Community Affairs",
+      "sourcePortal": "https://www.nj.gov/dca/dlgs/taxabatementkit.shtml",
+      "closure": "Reconcile row to 2010 financial agreement, 2014 start, actual parcel and 2023/2024 cash receipts; do not assume numbers are interchangeable",
+      "status": "official_project_row_found_not_legal_reconciled",
+      "observed": [
+        "Town Center row 59 (2026 submission) reports agreement start 2014-01-01, end 2044-01-01, PILOT Billing $1,131,162, assessed value $84,654,400"
+      ]
+    }
+  ],
+  "requestPreparation": {
+    "type": "draft_records_scope_only_not_sent",
+    "purpose": "Request existing public records, not the creation of a new explanation; privacy-redact personal tenant and protected identifiers",
+    "requestedCategories": [
+      "Executed 2010 and 2019 Towne Centre financial agreements and all approved annexes",
+      "2017 omnibus/ground lease agreement and any bond defeasance or satisfaction evidence",
+      "2017–2025 Town Centre annual PILOT billing, collections, county share and adjustments",
+      "Master deed/condo parcel map crosswalk and legally public title instruments, preserving protected data",
+      "2019 authorization public roll call and subsequent implementation records"
+    ]
+  },
+  "prohibitions": [
+    "Do not call search portal hits verified deeds",
+    "Do not equate a registered agent or historic approval with present beneficial ownership",
+    "Do not interpret no matching donation as no political spending occurred",
+    "Do not sum 2017 proposed obligations with 2023/24 cash receipts",
+    "Do not treat a PILOT abatement as a measured household rent effect"
+  ],
+  "newOriginalRecordFindings": {
+    "sourceReviewDate": "2026-11-13",
+    "countyClerkSearch": {
+      "source": "https://bclrs.co.bergen.nj.us/browserview/",
+      "status": "metadata_inspected_scanned_document_unavailable",
+      "transactions": [
+        {
+          "instrument": "19-071078",
+          "documentId": "9367974",
+          "recordedOn": "2019-10-23",
+          "block": "2803",
+          "lot": "1.03",
+          "typeCode": "DEED1MIL",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "SHAIRCO URBAN RENEWAL LLC",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9367974"
+        },
+        {
+          "instrument": "2026000586",
+          "documentId": "11306354",
+          "recordedOn": "2026-01-05",
+          "block": "2803",
+          "lot": "1.04",
+          "typeCode": "DEED",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "DDL URBAN RENEWAL COMPANY LLC",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354"
+        },
+        {
+          "instrument": "19-048778.01",
+          "documentId": "9327820",
+          "recordedOn": "2019-07-29",
+          "block": "2803",
+          "lot": "1.03 & 1.04",
+          "typeCode": "2",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "CLIFFSIDE PARK TOWNE CENTRE CONDOMINIUM ASSOCIATION INCORPORATED",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9327820"
+        }
+      ],
+      "unresolvedNameMatch": "2019 municipal minutes name Shairco Urban Renewal Company LLC, but 2019 deed metadata names Shairco Urban Renewal LLC; distinct until independent official corporate identifier verifies equivalence."
+    },
+    "statePilotDataset": {
+      "sourceUrl": "https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx",
+      "sheet": "Raw Data from User Friendly Budgets",
+      "row": 59,
+      "municipalCode": "0206",
+      "project": "Town Center",
+      "reportedType": "Other",
+      "agreementStart": "2014-01-01",
+      "agreementEnd": "2044-01-01",
+      "pilotBilling": 1131162,
+      "assessedValue": 84654400,
+      "taxesIfBilledAtPreviousYearRate": 2400798.784,
+      "latestUfbSubmissionYear": 2026,
+      "unknowns": [
+        "Workbook agreement start differs from the 2010 agreement date cited in council minutes; relationship and dates require original agreement check",
+        "PILOT billing not verified as cash collected or as parcel-specific receipt",
+        "PILOT billing amount and the 2023 net municipal receipts have similar magnitudes but cannot be equated without a year/source reconciliation",
+        "No tax-benefit estimate or causal impact from simply subtracting figures"
+      ]
+    }
+  },
+  "crossSourceDiscrepancies": [
+    "2019 borough resolution Shairco Urban Renewal Company LLC versus 2019 county index Shairco Urban Renewal LLC — same entity not established.",
+    "2019 borough minutes cite 2010-04-13 financial agreement; DCA 2026 workbook row says PILOT Agreement Start 2014-01-01.",
+    "DCA PILOT Billing $1,131,162 is not 2023 LTTE borough cash $1,131,862; do not infer typo or a reconciliation.",
+    "2025 media reports Hyperion/Benenson venture sale while Jan 2026 county index reports grantor Cliffside Urban Renewal Company LLC to grantee DDL Urban Renewal Company LLC — legal relationship unverified."
+  ]
+}
