@@ -30,7 +30,7 @@ jobs:
           from pathlib import Path
           import re
           text = Path("platform/unified/cliffside-housing.html").read_text()
-          scripts = re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', text, re.S | re.I)
+          scripts = [s for s in re.findall(r'<script(?:\s[^>]*)?>(.*?)</script>', text, re.S | re.I) if s.strip()]
           assert len(scripts) == 1, f'Expected exactly one inline script: {len(scripts)}'
           Path('/tmp/cliffside-story.js').write_text(scripts[0])
           PY
