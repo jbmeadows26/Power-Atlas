@@ -1,0 +1,90 @@
+{
+  "schema": "power-atlas.institutional-decay.evidence.v1",
+  "asOf": "2026-11-13",
+  "publicationStatus": "source_attributed_official_audit_not_causal",
+  "scope": "United States federal AI acquisition oversight, selected four-agency GAO review",
+  "dataUse": "Factual extracts and original summaries from US GAO-authored federal report only; no third-party graphics or bulk reproduced text. Verify separately copyrighted elements before reuse.",
+  "causality": "The selected sample and policy deficiencies do not establish misconduct, failed procurements, financial losses, or changes in public trust.",
+  "sources": [
+    {
+      "id": "gao-26-107859",
+      "url": "https://www.gao.gov/products/gao-26-107859",
+      "publisher": "US Government Accountability Office",
+      "published": "2026-04-13",
+      "sourceType": "official_independent_audit",
+      "permission": "US federal government-authored factual findings; third-party content excluded"
+    }
+  ],
+  "observations": [
+    {
+      "id": "us-gao-ai-acquisition-agencies-reviewed-2026",
+      "dimension": "oversight_scope",
+      "geography": "United States",
+      "period": "GAO report published 2026-04-13",
+      "value": 4,
+      "unit": "agency_count",
+      "measure": "Federal agencies selected for AI acquisition review",
+      "population": "DOD, DHS, GSA and VA; purposively selected, not representative of all federal agencies",
+      "source": "https://www.gao.gov/products/gao-26-107859",
+      "evidenceStatus": "official_audit",
+      "claimType": "descriptive_observation",
+      "note": "Do not generalize sample prevalence."
+    },
+    {
+      "id": "us-gao-ai-acquisitions-reviewed-2026",
+      "dimension": "oversight_scope",
+      "geography": "United States",
+      "period": "Acquisitions reviewed through FY2025; report 2026-04-13",
+      "value": 13,
+      "unit": "acquisition_count",
+      "measure": "AI acquisitions examined in depth",
+      "population": "Selected AI acquisitions at DOD, DHS, GSA and VA",
+      "source": "https://www.gao.gov/products/gao-26-107859",
+      "evidenceStatus": "official_audit",
+      "claimType": "descriptive_observation",
+      "note": "Not a count of failed procurements."
+    },
+    {
+      "id": "us-gao-ai-lessons-policy-gap-agencies-2026",
+      "dimension": "accountability_implementation",
+      "geography": "United States",
+      "period": "GAO report 2026-04-13",
+      "value": 4,
+      "unit": "agency_count",
+      "measure": "Reviewed agencies whose officials reported policies did not require systematic collection of AI acquisition lessons learned",
+      "population": "Four selected federal agencies (DOD, DHS, GSA, VA)",
+      "source": "https://www.gao.gov/products/gao-26-107859",
+      "evidenceStatus": "official_audit",
+      "claimType": "descriptive_observation",
+      "note": "Agency policy gap; not proof of misconduct or bad outcomes."
+    },
+    {
+      "id": "us-gao-ai-lessons-recommendations-2026",
+      "dimension": "oversight_recommendations",
+      "geography": "United States",
+      "period": "2026-04-13",
+      "value": 4,
+      "unit": "recommendation_count",
+      "measure": "GAO recommendations to establish systematic AI acquisition lessons-learned processes",
+      "population": "One recommendation each to DOD, DHS, GSA and VA",
+      "source": "https://www.gao.gov/products/gao-26-107859",
+      "evidenceStatus": "official_audit",
+      "claimType": "descriptive_observation",
+      "note": "All four agencies concurred at publication; concurrence is not implementation."
+    }
+  ],
+  "events": [
+    {
+      "id": "us-gao-ai-acquisition-oversight-2026-04-13",
+      "geography": "United States",
+      "eventDate": "2026-04-13",
+      "eventType": "official_audit_publication",
+      "subject": "GAO review of federal AI acquisitions",
+      "finding": "Four selected agencies lacked policies requiring systematic collection of lessons learned from AI acquisitions.",
+      "disposition": "GAO issued four recommendations; all four agencies concurred at report publication. Do not equate concurrence with closure.",
+      "legalStatus": "independent_audit_not_adjudicated_misconduct",
+      "source": "https://www.gao.gov/products/gao-26-107859",
+      "causalLinkToTrust": "not_established"
+    }
+  ]
+}
