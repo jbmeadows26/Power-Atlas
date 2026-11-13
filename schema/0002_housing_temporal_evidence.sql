@@ -150,6 +150,7 @@ CREATE TABLE IF NOT EXISTS atlas_housing.financial_event (
      'lobbying_report_total','in_kind_support','other_disclosed_payment')),
   payer_capacity TEXT NOT NULL CHECK(payer_capacity IN
     ('individual_personal','corporate_treasury','political_committee','organization','unknown')),
+  election_level TEXT CHECK(election_level IN ('federal','state','local','other','not_applicable')),
   amount_usd NUMERIC(18,2) CHECK(amount_usd IS NULL OR amount_usd >= 0),
   event_date DATE,
   filing_date DATE,
@@ -160,7 +161,11 @@ CREATE TABLE IF NOT EXISTS atlas_housing.financial_event (
   evidence_status TEXT NOT NULL DEFAULT 'reported_not_reconciled'
     CHECK(evidence_status IN ('reported_not_reconciled','filing_reconciled','disputed')),
   CHECK(payer_node_id <> recipient_node_id),
-  CHECK(event_kind <> 'candidate_contribution' OR payer_capacity <> 'corporate_treasury')
+  -- Federal candidate committee contributions from corporate treasury are
+  -- prohibited; state/local law must be evaluated per jurisdiction.
+  CHECK(NOT (event_kind = 'candidate_contribution'
+             AND payer_capacity = 'corporate_treasury'
+             AND election_level = 'federal'))
 );
 
 CREATE TABLE IF NOT EXISTS atlas_housing.lobbying_reference (
