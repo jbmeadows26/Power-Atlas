@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Cliffside Park: The Tax Rate That Tells Two Stories | Power Atlas</title>
+<meta name="description" content="A source-linked, interactive investigation of Cliffside Park's 2024–2025 property tax rates—and the housing decisions and ownership questions still awaiting evidence.">
+<link rel="stylesheet" href="global-navigation.css">
+<link rel="stylesheet" href="atlas-visual-system.css">
+<style>
+:root{color-scheme:light;--ink:#17333e;--deep:#0a2632;--mint:#b4ead2;--yellow:#f4d78c;--paper:#f6f8f4;--line:#d7e1dc;--muted:#60747b;--verified:#1c7165}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif}a{color:#0e625e}button{font:inherit;cursor:pointer}button:focus-visible,a:focus-visible{outline:3px solid #c87b28;outline-offset:3px}.wrap{width:min(1120px,calc(100% - 36px));margin-inline:auto}
+.hero{background:radial-gradient(circle at 90% 8%,#295e63 0,transparent 36%),#0b2733;color:white;padding:45px 0 48px;position:relative;overflow:hidden}.hero:after{content:"";position:absolute;right:-4%;bottom:-110px;width:46%;height:320px;opacity:.24;background:repeating-linear-gradient(90deg,transparent 0 38px,#93c4b5 39px 41px,transparent 42px 72px);clip-path:polygon(0 75%,20% 40%,37% 65%,48% 25%,65% 46%,78% 5%,100% 32%,100% 100%,0 100%);pointer-events:none}.crumb{display:flex;gap:12px;flex-wrap:wrap;align-items:center;font-size:.8rem;margin-bottom:40px}.crumb a{color:#a9e7d6;text-decoration:none}.kicker{font-size:.74rem;text-transform:uppercase;letter-spacing:.16em;color:#a7e5d5;font-weight:850}.hero h1{font-size:clamp(2.5rem,7.8vw,6.2rem);line-height:1.04;letter-spacing:-.065em;margin:15px 0 22px;max-width:860px}.hero h1 em{font-style:normal;color:var(--yellow)}.lede{font-size:clamp(1rem,2.4vw,1.27rem);line-height:1.55;color:#cee3df;max-width:700px}.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:27px}.primary,.outline{display:inline-flex;align-items:center;gap:9px;border-radius:30px;padding:12px 19px;text-decoration:none;font-weight:800;font-size:.9rem}.primary{background:var(--mint);color:#0d3530}.outline{border:1px solid #73948e;color:#f8fffb}.hero .eyeline{position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:16px;margin-top:32px;font-size:.79rem;color:#c1d8d5}.dot{width:7px;height:7px;border-radius:50%;display:inline-block;background:#a1d9bf;margin-right:6px}
+section{scroll-margin-top:105px}.chapter{padding-block:54px}.ey{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:#1d7469;font-weight:850}.chapter h2{font-size:clamp(2rem,4.6vw,3.3rem);line-height:1.08;letter-spacing:-.05em;margin:10px 0 17px;max-width:820px}.intro{font-size:1rem;line-height:1.65;color:#526870;max-width:750px}
+.control-line{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:26px 0 17px}.switch{border:1px solid #aac8bf;border-radius:30px;padding:10px 16px;background:#fff;color:#234b4b;font-weight:800}.switch[aria-pressed=true]{background:#1b675f;color:#fff;border-color:#1b675f}.switch:hover{border-color:#1b675f}.comparison{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:14px}.rate-card{background:white;border:1px solid var(--line);border-radius:22px;padding:26px;box-shadow:0 8px 30px #163b3710}.rate-card.current{background:#eaf4ed;border-color:#9ecfb7}.rate-card small{display:block;color:#466e69;font-weight:800;letter-spacing:.09em;text-transform:uppercase}.rate-card strong{display:block;font-size:clamp(2.7rem,7vw,5.2rem);letter-spacing:-.075em;font-variant-numeric:tabular-nums;line-height:1.2;margin:10px 0}.rate-card .caption{color:#486b66;font-size:.86rem;line-height:1.5}.bar-track{height:17px;border-radius:25px;background:#e0e9e2;overflow:hidden;margin-top:20px}.bar-fill{height:100%;width:0;background:#86cbb1;border-radius:25px;transition:width .45s}.current .bar-fill{background:#165e59}.difference{margin-top:17px;border-radius:14px;background:#e4eee9;padding:17px 20px;display:flex;gap:15px;flex-wrap:wrap;align-items:center}.difference b{font-size:1.28rem;color:#135f58}.difference span{font-size:.88rem;color:#41665e}.footnote{font-size:.79rem;line-height:1.6;color:#556f70;margin-top:17px}.footnote a{font-weight:750}
+.explain{background:#e6f1ed;padding:44px 0}.explainer-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}.explainer-tile{background:white;border:1px solid #ccddd5;border-radius:18px;padding:21px}.explainer-tile b{display:block;margin:0 0 10px}.explainer-tile p{margin:0;line-height:1.6;font-size:.92rem;color:#4c6765}.explainer-tile span{display:block;font-size:1.8rem;margin-bottom:14px}.stop{background:#103b40;color:#d6f0e5;border-radius:15px;padding:18px 20px;line-height:1.56;font-size:.94rem}.stop strong{color:#f5d58a}
+.trail{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:30px}.trail button{min-height:150px;border:1px solid #d5dfd9;background:white;text-align:left;border-radius:17px;padding:20px;display:flex;flex-direction:column;gap:12px;transition:transform .17s,border-color .17s}.trail button:hover{transform:translateY(-2px);border-color:#3e8f7e}.trail button[aria-pressed=true]{border:2px solid #147565;padding:19px;background:#ecf7ef}.trail b{font-size:1.05rem}.trail small{line-height:1.4;color:#5d7473}.state{align-self:start;font-size:.72rem;font-weight:800;letter-spacing:.025em;padding:5px 9px;border-radius:18px;background:#fff0cf;color:#7b5d16}.state.ok{background:#dcefe3;color:#176b58}.trail .num{color:#8aa29b;font-size:.8rem;font-weight:900}.trail button .hint{color:#19776b;font-size:.78rem;font-weight:850;margin-top:auto}
+.inspector{background:#0a2d37;border-radius:21px;padding:28px;color:white;margin-top:17px;min-height:240px;display:flex;flex-direction:column;gap:10px}.inspector small{letter-spacing:.14em;text-transform:uppercase;font-weight:850;color:#a0ddc6}.inspector h3{font-size:clamp(1.4rem,3vw,2rem);margin:2px 0}.inspector p{color:#c7ded8;line-height:1.6;margin:0;max-width:850px}.inspector .source-link{align-self:start;color:#e7d495;font-weight:800;margin-top:10px}.inspector .tip{margin-top:auto;color:#9dc1bd;font-size:.8rem}
+.record-box{border:1px solid #cbded7;border-radius:18px;background:#fff;padding:25px}.record-top{display:flex;gap:14px;justify-content:space-between;flex-wrap:wrap;align-items:center}.live-status{font-size:.8rem;font-weight:800;color:#355e62;background:#edf4f1;border-radius:30px;padding:9px 12px}.live-rows{display:grid;gap:12px;margin-top:18px}.live-row{padding:18px;background:#f1f7f4;border-left:4px solid #267c70;border-radius:8px}.live-row a{font-size:.84rem}.live-row p{line-height:1.5}.live-empty{color:#50716d;line-height:1.7;margin:15px 0}.live-row small{display:block;color:#4d6a63}.sources{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:22px}.source-card{display:block;text-decoration:none;background:#fff;border:1px solid #d5e3da;border-radius:15px;padding:21px}.source-card:hover{border-color:#267a6e}.source-card strong{display:block;color:#174940;margin-bottom:8px}.source-card span{color:#5a706d;font-size:.82rem;line-height:1.5}.source-card .arrow{float:right;font-size:1.3rem;color:#34766a}
+.action{background:#0a2934;color:white;padding:48px 0}.action h2{color:white}.action p{color:#c4ded9;max-width:750px;line-height:1.6}.action-links{display:flex;flex-wrap:wrap;gap:12px;margin-top:24px}.action-links a{padding:12px 16px;border-radius:35px;text-decoration:none;font-weight:800;background:#e2f5e8;color:#165248}.action-links a:last-child{background:transparent;color:#dbf3e8;border:1px solid #6a9891}.footer{padding:27px 0 95px;color:#607377;font-size:.84rem}.footer a{margin-right:18px}
+@media(max-width:720px){.chapter{padding-block:35px}.hero{padding:29px 0 42px}.crumb{margin-bottom:28px}.comparison,.explainer-grid,.sources{grid-template-columns:1fr}.trail{grid-template-columns:repeat(2,minmax(0,1fr))}.trail button{padding:15px;min-height:155px}.trail button[aria-pressed=true]{padding:14px}.inspector{padding:22px}.rate-card{padding:22px}}
+@media(max-width:410px){.trail{grid-template-columns:1fr}.trail button{min-height:115px}.rate-card strong{font-size:3.3rem}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="hero" id="top"><div class="wrap">
+<div class="crumb"><a href="my-life.html">← My life</a><span> / </span><a href="why-costs-more.html">Visual stories</a><span> / Cliffside Park</span></div>
+<div class="kicker">Power Atlas / The local evidence trail</div>
+<h1>One town.<br>Two tax rates.<br><em>Nine unanswered links.</em></h1>
+<p class="lede">Cliffside Park, New Jersey. The numbers are real. The relationships behind local housing costs deserve proof—not guesswork. Tap your way through the evidence.</p>
+<div class="hero-actions"><a class="primary" href="#the-numbers">Explore the numbers ↓</a><a class="outline" href="#trace">Follow the evidence trail ↗</a></div>
+<div class="eyeline"><span><span class="dot"></span>Official NJ source tables</span><span>2024–2025 comparison</span><span>Evidence-first investigation</span></div>
+</div></header>
+<main>
+<section class="chapter story-hero" id="the-numbers"><div class="wrap">
+<div class="ey">01 / Two different measures</div>
+<h2>One went up.<br>The other went down.</h2>
+<p class="intro">Switch between the general tax rate and the effective statistical rate. Every bar uses the same scale within that comparison. These figures are <strong>dollars per $100</strong> in different valuation contexts—not dollar bills for specific homes.</p>
+<div class="control-line" role="group" aria-label="Choose property tax rate measure">
+<button type="button" class="switch" data-rate="general" aria-pressed="true">General tax rate</button>
+<button type="button" class="switch" data-rate="effective" aria-pressed="false">Effective statistical rate</button>
+</div>
+<div class="comparison" aria-live="polite">
+<div class="rate-card"><small>2024</small><strong id="r2024">2.756%</strong><div class="caption" id="c2024">Per $100 of taxable assessed value</div><div class="bar-track" aria-hidden="true"><div class="bar-fill" id="b2024"></div></div></div>
+<div class="rate-card current"><small>2025</small><strong id="r2025">2.836%</strong><div class="caption" id="c2025">Per $100 of taxable assessed value</div><div class="bar-track" aria-hidden="true"><div class="bar-fill" id="b2025"></div></div></div>
+</div>
+<div class="difference"><b id="delta">+0.080</b><span id="delta-explain">dollars per $100 assessed, a 2.90% relative increase in the general rate</span></div>
+<div class="footnote" id="rate-note">General rate applies to taxable assessed value for standard property tax calculation; parcel assessments, exemptions and adjustments also matter. <a href="https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf" target="_blank" rel="noopener noreferrer">Read the official 2025 table, Bergen County, PDF page 2 ↗</a></div>
+</div></section>
+<section class="explain" id="why"><div class="wrap">
+<div class="ey">02 / What the rates mean</div><h2>Same town. Different denominator.</h2>
+<div class="explainer-grid">
+<div class="explainer-tile"><span aria-hidden="true">▥</span><b>General rate</b><p>Expressed per $100 of taxable <strong>assessed value</strong>. This helps calculate a standard property-tax levy, subject to parcel-specific rules and adjustments.</p></div>
+<div class="explainer-tile"><span aria-hidden="true">◎</span><b>Effective statistical rate</b><p>Expressed as an aggregate indicator relative to <strong>market-value estimates</strong>. It is not a second rate to apply to the same assessed value.</p></div>
+</div>
+<div class="stop"><strong>Don't make this leap:</strong> A higher general rate does not prove every household's tax bill rose 2.90%. A lower effective rate does not mean anyone received a tax break. And neither rate tells us who owns a building, whether it has a PILOT, or who donated to a politician.</div>
+</div></section>
+<section class="chapter" id="trace"><div class="wrap">
+<div class="ey">03 / Follow the evidence</div><h2>What would it take to tell the whole story?</h2>
+<p class="intro">Choose a link in the chain. <strong>Green means a bounded official observation.</strong> Amber means no publishable link has been verified. An open question is not evidence of wrongdoing.</p>
+<div class="trail" id="trail" role="group" aria-label="Explore links in the Cliffside Park housing investigation">
+<button type="button" data-stage="0" aria-pressed="true"><span class="num">01 / SOURCE</span><span class="state ok">Official record checked</span><b>Municipal rates</b><small>2024 and 2025 NJ tax tables</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="1" aria-pressed="false"><span class="num">02 / PARCEL</span><span class="state">Unresolved</span><b>Property assessment</b><small>Which block, lot and assessment?</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="2" aria-pressed="false"><span class="num">03 / TAX BILL</span><span class="state">Unresolved</span><b>Bill and payments</b><small>Billed isn't necessarily collected</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="3" aria-pressed="false"><span class="num">04 / INCENTIVE</span><span class="state">Unresolved</span><b>PILOT or abatement</b><small>Agreement and actual remittances</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="4" aria-pressed="false"><span class="num">05 / MUNICIPALITY</span><span class="state">Unresolved</span><b>Government receipts</b><small>Annual cash and budget records</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="5" aria-pressed="false"><span class="num">06 / DECISION</span><span class="state">Unresolved</span><b>Who voted?</b><small>Ordinance, minutes and dates</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="6" aria-pressed="false"><span class="num">07 / OWNERSHIP</span><span class="state">Unresolved</span><b>Who controls it?</b><small>Titleholder isn't always controller</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="7" aria-pressed="false"><span class="num">08 / POLITICAL MONEY</span><span class="state">Unresolved</span><b>Who funded whom?</b><small>Verified filings, identity and dates</small><span class="hint">Explore ↗</span></button>
+<button type="button" data-stage="8" aria-pressed="false"><span class="num">09 / OUTCOME</span><span class="state">Unresolved</span><b>What changed for renters?</b><small>Comparable rents and other causes</small><span class="hint">Explore ↗</span></button>
+</div>
+<div class="inspector" id="inspector" aria-live="polite" aria-atomic="true">
+<small id="detail-status">Official record checked · narrow scope</small><h3 id="detail-title">The starting point is real.</h3>
+<p id="detail-text">The New Jersey Division of Taxation lists Cliffside Park's 2024 and 2025 general and effective tax rates. This is a municipality-wide observation, not evidence about a specific property.</p>
+<a id="detail-link" class="source-link" href="https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf" target="_blank" rel="noopener noreferrer">Open NJ primary source ↗</a>
+<div class="tip" id="detail-tip">Source locator: 2025 General Tax Rates, PDF p. 2, CLIFFSIDE PARK BORO row.</div>
+</div>
+</div></section>
+<section class="chapter" id="verified"><div class="wrap">
+<div class="ey">04 / Live publication ledger</div><h2>Only reviewed findings cross this line.</h2>
+<p class="intro">This panel reads directly from the production evidence gate. Drafts, disputed assertions and unsupported research records must not appear here.</p>
+<div class="record-box">
+<div class="record-top"><strong>Published housing assertions</strong><span class="live-status" id="live-status" role="status">Checking reviewed evidence…</span></div>
+<div id="live-rows" class="live-rows" aria-live="polite"><p class="live-empty">Checking publication view…</p></div>
+</div>
+<details style="margin-top:18px"><summary style="cursor:pointer;font-weight:800;color:#216d5f">How is this evidence screened?</summary><p class="intro">A reviewed original source, exact locator, publication approval, valid target record and permitted reference use are required. Active disputes exclude an assertion from the verified view. If the API fails, we show unavailable—not a fabricated result. The municipal tax-rate comparison above is independently published from source-linked official government tables, not from unapproved database rows.</p></details>
+<div class="sources">
+<a class="source-card" href="https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2024taxrates.pdf" target="_blank" rel="noopener noreferrer"><span class="arrow" aria-hidden="true">↗</span><strong>2024 official tax-rate table</strong><span>NJ Division of Taxation · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO</span></a>
+<a class="source-card" href="https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf" target="_blank" rel="noopener noreferrer"><span class="arrow" aria-hidden="true">↗</span><strong>2025 official tax-rate table</strong><span>NJ Division of Taxation · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO</span></a>
+</div>
+<p class="footnote">Tax-rate dataset last reviewed November 12, 2026. No document capture hash was retained; original public URLs and exact row locations are provided. Other investigation stages await record-level verification. This page does not claim that a PILOT, donation, improper act or rent effect has been found.</p>
+</div></section>
+<section class="action"><div class="wrap">
+<div class="ey" style="color:#9be4c9">05 / Take the next step</div><h2>Ask for the records.<br>Not a verdict.</h2>
+<p>Official agreements, adopted minutes, assessment and receipt records can turn open questions into documented findings. Use the civic-action guide to prepare a concise, nonpartisan request; the email tester does not send messages.</p>
+<div class="action-links"><a href="take-action.html">Explore civic action ↗</a><a href="contact-tester.html">Test a message ↗</a></div>
+</div></section>
+</main>
+<footer class="footer"><div class="wrap"><a href="my-life.html">My life</a><a href="why-costs-more.html">All visual stories</a><a href="source-audit.html">Source audit</a><span>Power Atlas · Documented, estimated and unknown are not interchangeable.</span></div></footer>
+<script src="pa-zip-persistence.js"></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script>
+<script>
+(function(){
+"use strict";
+const figures={general:{a:2.756,b:2.836,d:0.080,desc:"dollars per $100 of taxable assessed value · 2.90% relative increase",unit:"Per $100 of taxable assessed value",note:"The general rate is used for a standard tax levy against assessed value; changes in assessed value and adjustments can change an individual bill."},effective:{a:1.966,b:1.920,d:-0.046,desc:"dollars per $100 of estimated market value · 2.34% relative decrease",unit:"Aggregate indicator relative to market value",note:"The effective statistical rate is not substituted for the general rate in calculating an individual property's standard tax bill."}};
+function updateRate(kind){
+const row=figures[kind];if(!row)return;
+document.querySelectorAll("[data-rate]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.rate===kind)));
+document.getElementById("r2024").textContent=row.a.toFixed(3)+"%";
+document.getElementById("r2025").textContent=row.b.toFixed(3)+"%";
+document.getElementById("c2024").textContent=row.unit;document.getElementById("c2025").textContent=row.unit;
+document.getElementById("b2024").style.width=(row.a/3.4*100).toFixed(2)+"%";
+document.getElementById("b2025").style.width=(row.b/3.4*100).toFixed(2)+"%";
+document.getElementById("delta").textContent=(row.d>0?"+":"")+row.d.toFixed(3);
+document.getElementById("delta-explain").textContent=row.desc;
+document.getElementById("rate-note").firstChild.textContent=row.note+" ";
+}
+document.querySelectorAll("[data-rate]").forEach(b=>b.addEventListener("click",()=>updateRate(b.dataset.rate)));updateRate("general");
+const stages=[
+["Official record checked · municipality","The starting point is real.","The New Jersey Division of Taxation publishes 2024 and 2025 Cliffside Park general and effective tax rates. This proves only the reported municipality-wide rates.","https://www.nj.gov/treasury/taxation/pdf/lpt/gtr/2025taxrates.pdf","Open official 2025 source ↗","Exact locator: 2025 General Tax Rates · Bergen County · PDF page 2 · CLIFFSIDE PARK BORO."],
+["Unresolved · parcel","Which property and assessment?","We need a dated, legally public block-and-lot assessment tied to an exact tax year. The municipal rate cannot reveal the assessed value of an individual property.",null,null,"Personal tenant details and protected address records must not be exposed."],
+["Unresolved · tax collection","What was billed—and what was paid?","A tax assessment, issued bill, posted payment, credit, appeal and refund are separate records. Reconciliation requires a redacted, source-checked collector ledger.",null,null,"Do not treat amounts billed as municipal cash received."],
+["Unresolved · incentive","Is there a documented PILOT agreement?","We have not verified a specific property's payment-in-lieu-of-taxes agreement or abatement. The existence of general and effective municipal rates does not establish one.",null,null,"Needed: named project, executed agreement, ordinance, annual charge and payment evidence."],
+["Unresolved · revenue","What entered the borough budget?","Budget estimates and cash receipts are not the same. A meaningful comparison needs audited municipal receipts, school and county allocation, and the dates funds were received.",null,null,"Needed: official local budget, audit and collection reconciliation."],
+["Unresolved · public decision","Who approved which decision?","No specific ordinance, council vote, board action or decision-maker has been joined to this tax-rate finding. A signed agreement does not identify every voter or motive.",null,null,"Needed: adopted ordinance, minutes, roll call and effective dates."],
+["Unresolved · ownership","Who legally owns or controls the property?","A deeded titleholder, registered agent, manager, equity investor and beneficial controller can be different parties. Name or mailing-address matches alone are not proof of control.",null,null,"Needed: title and corporate filings matched to stable identifiers and time."],
+["Unresolved · political finance","Were any relevant political payments disclosed?","No donor-to-project-to-decision connection has been verified here. Personal contributions, PAC expenditures, corporate activity and lobbying disclosures cannot be collapsed into one financial flow.",null,null,"Needed: exact filing, legal entity match, date, recipient and decision timeline."],
+["Unresolved · household outcome","Did any of this change rent?","A price effect requires dated comparable rents and a credible alternative explanation or counterfactual. No specific increase, decrease or corruption-related rent effect is established by the municipal rates.",null,null,"Needed: bedroom-level asking and signed-lease series, supply factors, comparable neighborhoods and uncertainty."]
+];
+const trail=document.getElementById("trail");
+trail.addEventListener("click",e=>{
+const button=e.target.closest("button[data-stage]");if(!button)return;let i=Number(button.dataset.stage);if(!Number.isInteger(i)||!stages[i])return;
+trail.querySelectorAll("button[data-stage]").forEach(b=>b.setAttribute("aria-pressed",String(b===button)));
+const s=stages[i];document.getElementById("detail-status").textContent=s[0];document.getElementById("detail-title").textContent=s[1];document.getElementById("detail-text").textContent=s[2];document.getElementById("detail-tip").textContent=s[5];
+const link=document.getElementById("detail-link");if(s[3]){link.hidden=false;link.href=s[3];link.textContent=s[4]}else{link.hidden=true;link.removeAttribute("href");link.textContent=""}
+});
+const rows=document.getElementById("live-rows"),state=document.getElementById("live-status");
+const safeUrl=s=>{try{const u=new URL(s);return u.protocol==="https:"?u.href:null}catch(_){return null}};
+fetch("api/housing-evidence",{credentials:"omit",headers:{"Accept":"application/json"},cache:"no-store"})
+.then(r=>{if(!r.ok)throw Error("not available");return r.json()})
+.then(data=>{
+if(!data||data.status!=="approved_only"||!Array.isArray(data.evidence))throw Error("invalid response");
+rows.replaceChildren();state.textContent=data.evidence.length+" published findings";
+if(!data.evidence.length){const p=document.createElement("p");p.className="live-empty";p.textContent="No parcel-specific or political-finance assertions are approved for publication yet. The documentary above only presents the source-checked municipal tax-rate comparison.";rows.append(p);return;}
+data.evidence.slice(0,50).forEach(item=>{
+if(!item||!item.assertion_id||!item.assertion_text||!["verified_in_reviewed_scope","manual_change_caution"].includes(item.display_evidence_state))return;
+const card=document.createElement("div");card.className="live-row";const title=document.createElement("strong");title.textContent=item.assertion_text;card.append(title);
+const sub=document.createElement("small");sub.textContent=(item.authority||"Reviewed source")+" · "+(item.exact_locator||"Source locator unavailable")+(item.display_evidence_state==="manual_change_caution"?" · Source-change caution":"");card.append(sub);
+const uri=safeUrl(item.source_url);if(uri){const a=document.createElement("a");a.href=uri;a.rel="noopener noreferrer";a.target="_blank";a.textContent="Inspect original source ↗";card.append(a)}
+rows.append(card);
+});
+}).catch(()=>{state.textContent="Live ledger unavailable";rows.replaceChildren();const p=document.createElement("p");p.className="live-empty";p.textContent="Publication database unavailable. No unapproved or cached research claims will be shown.";rows.append(p)});
+})();
+</script>
+</body></html>
