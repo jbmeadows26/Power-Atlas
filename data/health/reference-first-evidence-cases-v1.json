@@ -1,0 +1,173 @@
+{
+  "schema": "power-atlas.bounded-evidence-checks.v1",
+  "reviewedLocalDate": "2026-11-12",
+  "timeZone": "America/New_York",
+  "publicationPolicy": "Precise, bounded verification only. Original files were visually reviewed via the official public source; no raw file checksum was captured. These cases NEVER by themselves close the 55 local gaps or nine national blockers.",
+  "reviewedCaseCount": 3,
+  "cases": [
+    {
+      "id": "nj-2024-bergen-presidential-official-cross-report",
+      "area": "elections",
+      "verificationStage": "bounded_official_cross_report_agreement",
+      "relatedLocalGapIds": [
+        "certified_elections"
+      ],
+      "relatedNationalGateIds": [
+        "state_certified_election_canvasses"
+      ],
+      "scope": {
+        "jurisdiction": "New Jersey",
+        "county": "Bergen",
+        "office": "President of the United States",
+        "electionDate": "2024-11-05",
+        "reportDate": "2024-12-05",
+        "candidatesChecked": 2,
+        "allCandidatesReviewed": false,
+        "allNJCountiesReviewed": false,
+        "allElectionYearsReviewed": false
+      },
+      "sourceDocuments": [
+        {
+          "role": "county_municipality_tally",
+          "authority": "New Jersey Division of Elections",
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president-bergen.pdf",
+          "pdfPage": 2,
+          "sha256": null
+        },
+        {
+          "role": "state_official_candidate_county_tally",
+          "authority": "New Jersey Division of Elections",
+          "url": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president.pdf",
+          "pdfPages": [
+            1,
+            2
+          ],
+          "sha256": null
+        }
+      ],
+      "checks": [
+        {
+          "candidate": "Kamala D. Harris",
+          "countyReportVotes": 232660,
+          "stateCandidateReportBergenVotes": 232660,
+          "agrees": true
+        },
+        {
+          "candidate": "Donald J. Trump",
+          "countyReportVotes": 217096,
+          "stateCandidateReportBergenVotes": 217096,
+          "agrees": true
+        }
+      ],
+      "method": "Manually inspected official county PDF page 2 and statewide official-list PDF pages 1–2, matching candidate, office, election year, county and vote totals between two independently formatted reports of the same issuing authority.",
+      "boundedConclusion": "For these two candidate/county totals, the two New Jersey Division of Elections reports agree. This is a cross-report numerical reconciliation, not an independently certified nationwide dataset.",
+      "limits": [
+        "Two publications of the same issuing authority are not independent organizations.",
+        "Full all-candidate and 21-county summation, signed canvass/certification status, later corrections, original-file hashes and other contests have not been independently checked.",
+        "No electoral inference, candidate ranking or causal political-finance connection is established."
+      ],
+      "originalGapClosureAllowed": false
+    },
+    {
+      "id": "njt-northern-interstate-2026-two-zone-tariff",
+      "area": "transportation",
+      "verificationStage": "bounded_official_tariff_observation",
+      "relatedLocalGapIds": [
+        "transport__price"
+      ],
+      "relatedNationalGateIds": [],
+      "scope": {
+        "operator": "NJ TRANSIT",
+        "service": "Northern Interstate bus",
+        "fareClass": "Adult one way",
+        "zones": 2,
+        "pricingEffectiveDate": "2026-07-01",
+        "originStop": null,
+        "destinationStop": null
+      },
+      "sourceDocuments": [
+        {
+          "role": "official_effective_date",
+          "authority": "NJ TRANSIT",
+          "url": "https://www.njtransit.com/proposedfares/",
+          "sourceSection": "Adjusted Fares (Effective July 1, 2026)",
+          "sha256": null
+        },
+        {
+          "role": "official_fare_matrix",
+          "authority": "NJ TRANSIT",
+          "url": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/Fares/Northern%20Interstate.pdf",
+          "pdfPage": 1,
+          "sha256": null
+        }
+      ],
+      "checks": [
+        {
+          "metric": "adult_one_way_northern_interstate_2_zone",
+          "value": 4.2,
+          "currency": "USD",
+          "pricingUnit": "per adult one-way trip",
+          "sourceTableRow": 2
+        }
+      ],
+      "method": "Read operator's dated fare-index page and linked official Northern Interstate tariff PDF, then cross-reference two-zone row and adult one-way column.",
+      "boundedConclusion": "NJ TRANSIT's 2026 adjusted fare materials identify $4.20 for adult one-way travel in the two-zone Northern Interstate fare category.",
+      "limits": [
+        "Without official origin-to-destination zone mapping, a published fare category does not establish the price of any particular journey.",
+        "No historical price-change calculation, toll comparison, service frequency or household cost attribution established.",
+        "Original PDF SHA256 and any superseding tariff revision were not recorded."
+      ],
+      "originalGapClosureAllowed": false
+    },
+    {
+      "id": "sitewide-static-route-audit-2026-11-12",
+      "area": "site_operations",
+      "verificationStage": "bounded_static_site_audit_report",
+      "relatedLocalGapIds": [
+        "frontend_broken_links"
+      ],
+      "relatedNationalGateIds": [],
+      "scope": {
+        "repository": "jbmeadows26/Power-Atlas",
+        "auditGeneratedUTC": "2026-11-12T23:00:24.501918+00:00",
+        "siteFiles": 46,
+        "jsonDataFiles": 333
+      },
+      "sourceDocuments": [
+        {
+          "role": "repository_scan",
+          "authority": "Power Atlas sitewide audit",
+          "url": "https://github.com/jbmeadows26/Power-Atlas/blob/main/data/health/sitewide-audit-v1.json",
+          "sourceField": "summary",
+          "sha256": null
+        }
+      ],
+      "checks": [
+        {
+          "metric": "staticReferencesInspected",
+          "count": 1150
+        },
+        {
+          "metric": "unresolvedStaticLinkIssues",
+          "count": 0
+        },
+        {
+          "metric": "unresolvedLiteralDataPointers",
+          "count": 0
+        },
+        {
+          "metric": "missingBugReportScripts",
+          "count": 0
+        }
+      ],
+      "method": "Read latest repository sitewide audit report; only the referenced 46 HTML files and 333 JSON files were in the audited snapshot.",
+      "boundedConclusion": "The reported sitewide static scan found zero unresolved static references in the inspected repository snapshot.",
+      "limits": [
+        "A static scan does not prove that third-party websites, live API requests, dynamic browser interactions or public Vercel routes always work.",
+        "Audit results come from project CI, not a second independent internet/browser test.",
+        "The full frontend reliability gap remains open."
+      ],
+      "originalGapClosureAllowed": false
+    }
+  ]
+}

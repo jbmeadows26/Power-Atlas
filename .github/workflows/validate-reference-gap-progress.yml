@@ -1,0 +1,40 @@
+name: Validate bounded original-evidence gap progress
+on:
+  pull_request:
+    paths:
+      - 'research/assessments/ORIGINAL_SOURCE_GAP_EXECUTION_2026-11-12.json'
+      - 'data/health/sitewide-missing-sources-v1.json'
+      - 'data/health/completion-gates.json'
+      - 'data/health/reference-first-evidence-cases-v1.json'
+      - 'data/health/reference-gap-progress-v1.json'
+      - 'platform/unified/data/source-reference-index-v1.json'
+      - 'platform/unified/source-audit.html'
+      - 'platform/unified/quick-reference.js'
+      - 'platform/unified/verified-evidence-cases.js'
+      - 'scripts/build_reference_gap_progress.py'
+      - 'tests/test_reference_gap_progress.py'
+      - '.github/workflows/validate-reference-gap-progress.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'data/health/reference-first-evidence-cases-v1.json'
+      - 'data/health/reference-gap-progress-v1.json'
+      - 'scripts/build_reference_gap_progress.py'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  evidence-acceptance:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python scripts/build_reference_gap_progress.py --check
+      - run: python scripts/reference_sources.py --check
+      - run: python -m unittest discover -s tests -p 'test_reference_gap_progress.py' -v
+      - run: python -m unittest discover -s tests -p 'test_reference_sources.py' -v
+      - run: node --check platform/unified/verified-evidence-cases.js
+      - run: node --check platform/unified/quick-reference.js

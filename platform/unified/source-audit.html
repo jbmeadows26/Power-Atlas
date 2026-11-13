@@ -53,6 +53,12 @@
 <main class="wrapper">
 <div class="stats" aria-label="Source audit totals"><div class="tile"><b id="pageCount">—</b><span>Pages inspected</span></div><div class="tile"><b id="datasetCount">—</b><span>Structured JSON datasets checked</span></div><div class="tile"><b id="gapCount">—</b><span>Identified unresolved data joins</span></div><div class="tile"><b id="sourceCount">—</b><span>Original public source candidates</span></div></div>
 <div class="incomplete"><strong>Read the evidence level.</strong> A named data portal does not mean its records have been downloaded, legally licensed, reconciled or shown to cause local price changes. Where records are unavailable, we show a gap—not a fabricated statistic or a verdict about an individual or organization.</div>
+<section class="panel" id="verifiedEvidence" aria-labelledby="verifiedEvidenceHeading">
+  <span class="overline">Evidence actually checked · narrow scope</span>
+  <h2 id="verifiedEvidenceHeading">What we have verified so far</h2>
+  <p id="verifiedEvidenceSummary" class="compact" aria-live="polite">Loading independently attributed evidence progress…</p>
+  <div class="gaplist" id="verifiedEvidenceCards"><p class="compact">Checking source-linked case records…</p></div>
+</section>
 <section class="panel" id="quick-reference" aria-labelledby="quick-reference-title">
 <div class="quick-lead"><div class="quick-intro"><span class="overline">Use now · no local hardware required</span><h2 id="quick-reference-title">Open the original source</h2><p>Find public records directly instead of storing entire databases. Use the official link first; the source register shows what is covered and what still needs verification.</p></div><span class="quick-indicator">Quick reference mode</span></div>
 <div class="quick-controls">
@@ -123,4 +129,4 @@ $("search").addEventListener("input",draw);
  else $("auditFacts").innerHTML='<p class="compact">The latest scanned audit is temporarily unavailable; source catalogue is separate from runtime verification.</p>';
  draw();
 })();
-</script><script src="quick-reference.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>
+</script><script src="quick-reference.js" defer></script><script src="verified-evidence-cases.js" defer></script><script src="bug-report.js" defer></script><script src="atlas-visual-system.js" defer></script></body></html>

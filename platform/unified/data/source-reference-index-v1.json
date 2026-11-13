@@ -5,7 +5,7 @@
   "activeMode": "reference",
   "activeModeMeans": "Official-source pointers only. The index does not fetch, cache, import, verify record contents, or close an evidence gap.",
   "futureMode": "hybrid_reference_cache_selective_archive_after_local_hardware_and_backup_gates",
-  "referencedSourceCount": 11,
+  "referencedSourceCount": 15,
   "integrityPolicy": {
     "noImplicitGapClosure": true,
     "noAutomaticRecordDownload": true,
@@ -78,6 +78,36 @@
       "archivalEligibility": "requires_license_and_validation_review"
     },
     {
+      "id": "nj-2024-bergen-presidential-municipal",
+      "publisher": "New Jersey Division of Elections",
+      "authority": "official",
+      "officialReferenceURL": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president-bergen.pdf",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_certified_election_canvasses"
+      ],
+      "coverageCaveat": "Bergen County municipal and county totals for 2024 U.S. presidential general election. Two candidate county totals reviewed; not all candidates, NJ contests or states.",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "nj-2024-general-presidential-official-list",
+      "publisher": "New Jersey Division of Elections",
+      "authority": "official",
+      "officialReferenceURL": "https://www.nj.gov/state/elections/assets/pdf/election-results/2024/2024-official-general-results-president.pdf",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "state_certified_election_canvasses"
+      ],
+      "coverageCaveat": "Official statewide 2024 presidential candidate-by-county report dated December 5, 2024. Bergen figures for two candidates matched county report; not exhaustive 21-county or all-office reconciliation.",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
       "id": "nj-campaign-finance",
       "publisher": "New Jersey Election Law Enforcement Commission",
       "authority": "official",
@@ -118,6 +148,36 @@
         "official_state_rollcalls"
       ],
       "coverageCaveat": "Official vote search page; bulk member-vote API/exports not yet established",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "njt-2026-adjusted-fares",
+      "publisher": "NJ TRANSIT",
+      "authority": "official",
+      "officialReferenceURL": "https://www.njtransit.com/proposedfares/",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "transport__price"
+      ],
+      "coverageCaveat": "NJ TRANSIT adjusted tariff index effective July 1 2026; schedules broken down by train, bus, light rail. An index is not a journey-specific price.",
+      "interimAccess": "direct_source_reference",
+      "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
+      "archivalEligibility": "requires_license_and_validation_review"
+    },
+    {
+      "id": "njt-2026-northern-interstate",
+      "publisher": "NJ TRANSIT",
+      "authority": "official",
+      "officialReferenceURL": "https://content.njtransit.com/sites/default/files/marketing/website/pdf/Fares/Northern%20Interstate.pdf",
+      "archiveCandidateURL": null,
+      "verifiedReferenceDate": "2026-11-12",
+      "linkedGateIDs": [
+        "transport__price"
+      ],
+      "coverageCaveat": "Northern Interstate bus tariff table. Adult one-way zone 2 = $4.20 under 2026 schedule; a zone table alone cannot price a specific origin/destination or transit alternative.",
       "interimAccess": "direct_source_reference",
       "retrievalStatus": "source_entry_point_identified_not_evidence_ingested",
       "archivalEligibility": "requires_license_and_validation_review"
