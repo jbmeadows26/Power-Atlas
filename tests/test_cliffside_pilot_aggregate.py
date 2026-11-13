@@ -11,7 +11,7 @@ HTML=(ROOT/"platform/unified/cliffside-housing.html").read_text()
 class CliffsidePilotEvidenceTests(unittest.TestCase):
     def test_source_locators_and_annual_totals(self):
         sources={s["id"] for s in D["sources"]}
-        self.assertEqual(len(sources),2)
+        self.assertEqual(len(sources),3)
         for s in D["sources"]:
             self.assertTrue(s["url"].startswith("https://"))
             self.assertTrue(s["locator"])
@@ -34,7 +34,7 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         self.assertEqual(abated,{2023:1040175,2024:1144482})
         self.assertIn("not a household tax bill",HTML)
         self.assertIn("No agreement holder, property, vote or donor is identified",HTML)
-        self.assertIn("read-only",str(D).lower()) if False else None
+        self.assertEqual(D["andersonAveAudit2023"]["grossReportedUSD"]-D["andersonAveAudit2023"]["allocatedToCountyUSD"], D["andersonAveAudit2023"]["netMunicipalReportedUSD"])
         self.assertIn("independent editorial approval",str(D).lower())
 
     def test_interactive_years_sourced_in_ui(self):
