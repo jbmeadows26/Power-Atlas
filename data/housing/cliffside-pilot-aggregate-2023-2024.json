@@ -25,6 +25,14 @@
       "url": "https://webgen1files.revize.com/boroughcspnj/Cliffside%20Park-2024%20AFS.pdf",
       "locator": "Sheet 20, Schedule of Miscellaneous Revenues Not Anticipated, 'CP Housing Authority - In Lieu of'; Sheet 21 Current Taxes 2024 Levy",
       "review": "source_text_inspected_no_capture_hash"
+    },
+    {
+      "id": "cliffside-2023-audit-original",
+      "authority": "Borough of Cliffside Park",
+      "title": "2023 Borough Audit Report",
+      "url": "https://webgen1files.revize.com/boroughcspnj/Borough%20of%20Cliffside%20Park%202023%20Audit%20Report.pdf",
+      "locator": "Exhibit A-2 page 3, PILOT - Anderson Ave: gross 1,237,908, less county 106,046, net 1,131,862",
+      "review": "source_text_inspected_no_capture_hash"
     }
   ],
   "observations": [
@@ -111,14 +119,26 @@
     "The AFS is labeled unaudited; audited notes reproduced in a municipal borrowing disclosure provide context. Retain source distinction.",
     "Per-parcel financial agreements, public votes, and donation matches remain separately unresolved.",
     "No person-level data or protected addresses are stored.",
-    "These aggregate observations are research inputs; live publication-gate assertions require independent editorial approval."
+    "These aggregate observations are research inputs; live publication-gate assertions require independent editorial approval.",
+    "The 2023 original borough audit names an Anderson Avenue PILOT revenue line, with gross and county allocation. This does not identify the underlying project agreement or titleholder."
   ],
   "nextRecords": [
+    "State DCA PILOT Database and Viewer workbook: https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx — file download unavailable in this session; project rows not yet inspected",
     "Execution copies of specific PILOT financial agreements and authorizing ordinances",
     "Block-and-lot / assessment identification for named projects, subject to Daniel's Law safeguards",
     "Municipal 2023/2024 PILOT receipt schedule by agreement, redacted appropriately",
     "Board or council adoption records and minutes with exact vote and effective date",
     "Dated business ownership filings and legally relevant finance disclosures",
     "Bedroom-specific asking and lease rent observations before any price-effects analysis"
-  ]
+  ],
+  "andersonAveAudit2023": {
+    "year": 2023,
+    "sourceId": "cliffside-2023-audit-original",
+    "programAccountLabel": "PILOT - Anderson Ave",
+    "grossReportedUSD": 1237908,
+    "allocatedToCountyUSD": 106046,
+    "netMunicipalReportedUSD": 1131862,
+    "calculation": "1,237,908 - 106,046 = 1,131,862",
+    "limits": "Official audit revenue-account label only. Not an executed PILOT agreement, unique block/lot, legal holder, owner, or donor identity."
+  }
 }
