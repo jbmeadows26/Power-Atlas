@@ -1,0 +1,65 @@
+name: Validate housing production publication firewall
+on:
+  pull_request:
+    paths:
+      - 'schema/000[2-5]_housing*.sql'
+      - 'platform/unified/api/housing-evidence.js'
+      - 'platform/unified/package.json'
+      - 'tests/housing_api_contract.cjs'
+      - 'tests/sql/housing_publication_gate_smoke.sql'
+      - '.github/workflows/validate-housing-production.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  housing-production:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: neondb
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: test_only
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d neondb"
+          --health-interval 10s --health-timeout 5s --health-retries 5
+    env:
+      PGHOST: localhost
+      PGPORT: '5432'
+      PGUSER: postgres
+      PGDATABASE: neondb
+      PGPASSWORD: test_only
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: '22'
+      - name: Apply migrations and synthetic publication test
+        run: |
+          set -euo pipefail
+          for file in schema/0002_housing_temporal_evidence.sql schema/0003_housing_tax_receipts.sql schema/0004_housing_publication_gate.sql schema/0005_housing_reader_firewall.sql; do
+            psql -X -v ON_ERROR_STOP=1 -f "$file"
+          done
+          psql -X -v ON_ERROR_STOP=1 -f tests/sql/housing_publication_gate_smoke.sql
+      - name: Verify role cannot read research or bypass views
+        run: |
+          psql -X -v ON_ERROR_STOP=1 -Atc "
+            DO \$\$
+            BEGIN
+              IF NOT has_table_privilege('atlas_housing_reader','atlas_housing.public_evidence','SELECT')
+                 OR has_table_privilege('atlas_housing_reader','atlas_housing.source_assertion','SELECT')
+                 OR has_table_privilege('atlas_housing_reader','atlas_housing.public_verified_relations','SELECT')
+                 OR has_table_privilege('atlas_housing_reader','atlas_housing.public_disputed_evidence','SELECT')
+              THEN
+                RAISE EXCEPTION 'Housing public role privilege violation';
+              END IF;
+            END \$\$;
+          "
+      - name: Test public API fail-closed contract
+        run: node tests/housing_api_contract.cjs
