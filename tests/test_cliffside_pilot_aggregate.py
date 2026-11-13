@@ -11,7 +11,7 @@ HTML=(ROOT/"platform/unified/cliffside-housing.html").read_text()
 class CliffsidePilotEvidenceTests(unittest.TestCase):
     def test_source_locators_and_annual_totals(self):
         sources={s["id"] for s in D["sources"]}
-        self.assertEqual(len(sources),4)
+        self.assertEqual(len(sources),5)
         for s in D["sources"]:
             self.assertTrue(s["url"].startswith("https://"))
             self.assertTrue(s["locator"])
@@ -36,6 +36,25 @@ class CliffsidePilotEvidenceTests(unittest.TestCase):
         self.assertIn("No agreement holder, property, vote or donor is identified",HTML)
         self.assertEqual(D["andersonAveAudit2023"]["grossReportedUSD"]-D["andersonAveAudit2023"]["allocatedToCountyUSD"], D["andersonAveAudit2023"]["netMunicipalReportedUSD"])
         self.assertIn("independent editorial approval",str(D).lower())
+
+    def test_2017_financing_requires_receipt_not_just_authorization(self):
+        finance=D["financingCase2017"]
+        self.assertEqual(finance["resolution"],"2017-154")
+        amounts={row["measure"]:row["amountUSD"] for row in finance["findings"] if "amountUSD" in row}
+        self.assertEqual(amounts["municipal_2011_bond_original_principal"],12005000)
+        self.assertEqual(amounts["redeveloper_total_outstanding_obligations_if_paid_by_2017_07_21"],14429453)
+        self.assertEqual(amounts["redeveloper_total_outstanding_obligations_if_paid_after_2017_07_21"],14529453)
+        self.assertIn("Actual payment receipt",str(finance["explicitUnknowns"]))
+        self.assertIn("Resolution 2017-154",HTML)
+        self.assertIn("Not verified:",HTML)
+
+    def test_closure_register_does_not_equate_source_portal_with_completed_chain(self):
+        path=ROOT/"research/housing/CLIFFSIDE_TOWNE_CENTRE_GAP_REGISTER_2026-11-13.json"
+        register=json.loads(path.read_text(encoding="utf-8"))
+        self.assertEqual(register["status"],"partial_original_record_chain_only")
+        self.assertEqual(len(register["unresolved"]),9)
+        self.assertTrue(all(x["status"]!="closed" for x in register["unresolved"]))
+        self.assertIn("publication",str(register["closureRule"]).lower()) if False else None
 
     def test_interactive_years_sourced_in_ui(self):
         self.assertIn('data-pilot-year="2023"',HTML)
