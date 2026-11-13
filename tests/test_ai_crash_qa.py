@@ -86,6 +86,16 @@ class AICrashStoryQATests(unittest.TestCase):
         self.assertEqual(3,len(re.findall(r'data-bet-node="[0-2]"',self.html)))
         self.assertIn('id="household-exposure"', (ROOT / "economic-fragility.html").read_text(encoding="utf-8"))
 
+    def test_six_macro_pressure_explorer(self):
+        for term in ('id="macro-pressure"', 'data-macro="energy"', 'data-macro="stagflation"',
+                     'data-macro="fed"', 'data-macro="ai"', 'data-macro="tariffs"',
+                     'data-macro="debt"', 'id="macroHeadline"', 'id="macroCollision"',
+                     '3.1%', '4.1%', 'February 2027', 'December 2027',
+                     'https://www.newyorkfed.org/research/staff_reports/sr1201'):
+            self.assertIn(term.lower(),self.html.lower())
+        self.assertEqual(6,len(re.findall(r'data-macro="(?:energy|stagflation|fed|ai|tariffs|debt)"',self.html)))
+        self.assertIn('id="macro-context"',(ROOT / "economic-fragility.html").read_text(encoding="utf-8"))
+
     def test_evidence_protects_readers_from_false_predictions(self):
         for phrase in ("$300B", "$650B", "$1.4T", "not a forecast",
                        "not probabilities", "not investment advice",
