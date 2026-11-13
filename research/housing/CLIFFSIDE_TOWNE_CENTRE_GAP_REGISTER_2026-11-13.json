@@ -47,19 +47,19 @@
     },
     {
       "id": "deeds_current_title",
-      "recordNeeded": "Recorded deeds, master deed/condominium mapping and any subsequent transfers for Block 2803, Lots 1.01/1.03/1.04 (with temporal land-map changes)",
+      "recordNeeded": "Scanned contents of recorded 2019 and 2026 deeds; full title chain through as-of date, condo amendments and legally public current ownership. County Clerk metadata locators now known: 19-071078 (2019 lot 1.03) and 2026000586 (2026 lot 1.04).",
       "owner": "Bergen County Clerk",
       "sourcePortal": "https://bclrs.co.bergen.nj.us/browserview/",
-      "closure": "Recorded instrument numbers and dates plus legally public titleholder at specified as-of date; screen Daniel's Law and restrict private-person data",
-      "status": "record_required"
+      "closure": "Confirm instrument pages, chain and no later transfers; metadata alone not full chain.",
+      "status": "partial_metadata_verified"
     },
     {
       "id": "current_legal_entity_control",
-      "recordNeeded": "Contemporaneous NJ entity status plus formation/amendment/manager filings for specifically identified LLCs",
+      "recordNeeded": "Contemporaneous NJ entity status plus formation/amendment/manager filings for specifically identified LLCs; 2026 recorded grantee DDL Urban Renewal Company LLC, 2019 recorded Shairco Urban Renewal LLC; compare NJ corporate identifiers without conflating names.",
       "owner": "NJ Department of Treasury Division of Revenue",
       "sourcePortal": "https://www.njportal.com/DOR/businessrecords/Default.aspx",
       "closure": "Legal identifiers and official filing with date; registered agent does not establish beneficial ownership",
-      "status": "record_required"
+      "status": "historical_record_names_identified_control_unverified"
     },
     {
       "id": "parcel_tax_assessment_bill",
@@ -103,11 +103,11 @@
     },
     {
       "id": "nj_dca_pilot_rows",
-      "recordNeeded": "Actual contents of statewide NJ DCA PILOT Database and Viewer spreadsheet, if populated with individual project rows",
+      "recordNeeded": "Reconcile Town Center row 59, reported FY2026 PILOT billing $1,131,162, with signed project agreement and same-period collector receipts; verify date inconsistencies.",
       "owner": "NJ Department of Community Affairs",
       "sourcePortal": "https://www.nj.gov/dca/dlgs/taxabatementkit.shtml",
-      "closure": "Read dataset metadata and exact Cliffside Park rows; workbook availability alone does not prove a row exists",
-      "status": "download_unverified"
+      "closure": "DCA project row identified, full closure requires verified original agreement and payment ledger.",
+      "status": "project_row_checked_billing_only"
     }
   ],
   "requestPreparation": {
@@ -127,5 +127,68 @@
     "Do not interpret no matching donation as no political spending occurred",
     "Do not sum 2017 proposed obligations with 2023/24 cash receipts",
     "Do not treat a PILOT abatement as a measured household rent effect"
-  ]
+  ],
+  "newOriginalRecordFindings": {
+    "sourceReviewDate": "2026-11-13",
+    "countyClerkSearch": {
+      "source": "https://bclrs.co.bergen.nj.us/browserview/",
+      "status": "metadata_inspected_scanned_document_unavailable",
+      "transactions": [
+        {
+          "instrument": "19-071078",
+          "documentId": "9367974",
+          "recordedOn": "2019-10-23",
+          "block": "2803",
+          "lot": "1.03",
+          "typeCode": "DEED1MIL",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "SHAIRCO URBAN RENEWAL LLC",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9367974"
+        },
+        {
+          "instrument": "2026000586",
+          "documentId": "11306354",
+          "recordedOn": "2026-01-05",
+          "block": "2803",
+          "lot": "1.04",
+          "typeCode": "DEED",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "DDL URBAN RENEWAL COMPANY LLC",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=11306354"
+        },
+        {
+          "instrument": "19-048778.01",
+          "documentId": "9327820",
+          "recordedOn": "2019-07-29",
+          "block": "2803",
+          "lot": "1.03 & 1.04",
+          "typeCode": "2",
+          "grantor": "CLIFFSIDE URBAN RENEWAL COMPANY LLC",
+          "grantee": "CLIFFSIDE PARK TOWNE CENTRE CONDOMINIUM ASSOCIATION INCORPORATED",
+          "sourceUrl": "https://bclrs.co.bergen.nj.us/browserview/viewer.aspx?docID=9327820"
+        }
+      ],
+      "unresolvedNameMatch": "2019 municipal minutes name Shairco Urban Renewal Company LLC, but 2019 deed metadata names Shairco Urban Renewal LLC; distinct until independent official corporate identifier verifies equivalence."
+    },
+    "statePilotDataset": {
+      "sourceUrl": "https://www.nj.gov/dca/dlgs/programs/mc_budget_docs/PILOT%20Database%20and%20Viewer.xlsx",
+      "sheet": "Raw Data from User Friendly Budgets",
+      "row": 59,
+      "municipalCode": "0206",
+      "project": "Town Center",
+      "reportedType": "Other",
+      "agreementStart": "2014-01-01",
+      "agreementEnd": "2044-01-01",
+      "pilotBilling": 1131162,
+      "assessedValue": 84654400,
+      "taxesIfBilledAtPreviousYearRate": 2400798.784,
+      "latestUfbSubmissionYear": 2026,
+      "unknowns": [
+        "Workbook agreement start differs from the 2010 agreement date cited in council minutes; relationship and dates require original agreement check",
+        "PILOT billing not verified as cash collected or as parcel-specific receipt",
+        "PILOT billing amount and the 2023 net municipal receipts have similar magnitudes but cannot be equated without a year/source reconciliation",
+        "No tax-benefit estimate or causal impact from simply subtracting figures"
+      ]
+    }
+  }
 }
