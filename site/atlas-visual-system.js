@@ -301,3 +301,13 @@ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",
  const script=document.createElement("script");script.src="pa-zip-persistence.js";
  script.defer=true;script.dataset.paZipLoader="1";document.head.appendChild(script);
 })();
+
+/* Dashboard is the canonical return destination from deeper interactive stories. */
+(()=>{"use strict";
+ const updateHome=()=>{
+  const brand=document.querySelector("#pa-global-header .pa-global-brand");
+  if(brand){brand.href="dashboard.html";brand.setAttribute("aria-label","Power Atlas dashboard");}
+ };
+ if(document.readyState==="loading")document.addEventListener("DOMContentLoaded",updateHome,{once:true});
+ else updateHome();
+})();
