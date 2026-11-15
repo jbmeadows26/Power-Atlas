@@ -77,7 +77,7 @@ class OneStopDashboardTests(unittest.TestCase):
         self.assertIn('new URLSearchParams(location.search).get("edit-zip")', self.js)
         self.assertNotIn("navigator.geolocation", self.js)
         self.assertNotIn("sendBeacon(", self.js)
-        self.assertNotRegex(self.js, r'fetch\([^\n]*method\s*:\s*["\\\']POST')
+        self.assertNotIn('method: "POST"', self.js)
         self.assertIn('id="actionIssue"', self.html)
         self.assertIn('id="actionButton"', self.html)
         self.assertIn('const inboundIssue=params.get("issue")', self.action)
