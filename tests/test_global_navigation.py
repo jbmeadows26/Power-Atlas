@@ -71,7 +71,7 @@ class GlobalNavigationTests(unittest.TestCase):
         self.assertIn('href="take-action.html#find"', dashboard)
         self.assertIn("research", archive.lower())
         self.assertIn("authenticity", archive.lower())
-        self.assertIn('href="consumer-practices.html"', dashboard)
+        self.assertIn('href:"consumer-practices.html"', (UI / "dashboard.js").read_text(encoding="utf-8"))
 
     def test_responsive_shared_navigation_and_accessibility(self):
         css = (UI / "global-navigation.css").read_text(encoding="utf-8")
