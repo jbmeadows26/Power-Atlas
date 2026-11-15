@@ -79,6 +79,7 @@ function initZip() {
   window.addEventListener("poweratlas:zip-preference",render);
   window.addEventListener("storage",render);
   render();
+  if(new URLSearchParams(location.search).get("edit-zip")==="1")control.click();
 }
 function renderSpending(data) {
   const root = $("spendingBars");
@@ -148,10 +149,16 @@ const topics = [
   {title:"Money at scale",desc:"Make billions and trillions understandable.",href:"money-scale.html",cat:"power",icon:"∞"}
 ];
 function initTopics() {
-  const grid = $("topicGrid");
+  const grid = $("topicGrid"), toggle = $("toggleTopics");
+  let expanded = false, activeFilter = "all";
   function render(filter) {
+    activeFilter=filter;
+    const matching = topics.filter(t => filter === "all" || t.cat === filter);
+    const visible = filter === "all" && !expanded ? matching.slice(0,8) : matching;
+    toggle.hidden = filter !== "all" || matching.length <= 8;
+    toggle.textContent = expanded ? "Show featured topics" : "Show all " + topics.length + " topics";
     grid.replaceChildren();
-    topics.filter(t => filter === "all" || t.cat === filter).forEach(t => {
+    visible.forEach(t => {
       const a=el("a","topic-card");a.href=t.href;
       const icon=el("span","topic-icon",t.icon);icon.setAttribute("aria-hidden","true");
       a.append(icon,el("h3",null,t.title),el("p",null,t.desc),el("span","topic-more","Explore ↗"));
@@ -159,9 +166,11 @@ function initTopics() {
     });
   }
   document.querySelectorAll(".topic-filter").forEach(button => button.addEventListener("click",() => {
+    expanded=false;
     document.querySelectorAll(".topic-filter").forEach(b=>{const active=b===button;b.classList.toggle("is-active",active);b.setAttribute("aria-pressed",String(active));});
     render(button.dataset.filter);
   }));
+  toggle.addEventListener("click",()=>{expanded=!expanded;render(activeFilter);});
   render("all");
 }
 let cases = [], showingAll = false, caseAsOf = "";
