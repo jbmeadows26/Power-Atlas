@@ -133,6 +133,8 @@ const topics = [
   {title:"Political funding",desc:"Dark money and campaign influence.",href:"dark-money.html",cat:"power",icon:"$"},
   {title:"Donor intelligence",desc:"Follow contribution records and donor networks.",href:"donor-intelligence.html",cat:"power",icon:"◎"},
   {title:"Money trails",desc:"Political and financial flows, with source checks.",href:"financial-flows.html",cat:"power",icon:"⇢"},
+  {title:"Campaign money sources",desc:"Original records, source checks and evidence limits.",href:"money-sources.html",cat:"power",icon:"◷"},
+  {title:"Federal election money",desc:"Campaign trends and donor data across cycles.",href:"election-money.html",cat:"power",icon:"▧"},
   {title:"Business influence",desc:"Public contracts, campaign networks and evidence limits.",href:"business-influence.html",cat:"power",icon:"◉"},
   {title:"Contracting & donor candidates",desc:"Source-backed leads—not proven favoritism.",href:"business-candidates.html",cat:"power",icon:"▤"},
   {title:"Banking & bailouts",desc:"Crashes, rescues and institutional accountability.",href:"banking-power.html",cat:"power",icon:"▣"},
