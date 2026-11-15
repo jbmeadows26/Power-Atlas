@@ -7,7 +7,7 @@ BASE = Path(__file__).resolve().parents[1]
 DATA = BASE / "site/data/economic-fragility/2027-v1.json"
 PAGE = BASE / "site/economic-fragility.html"
 RESEARCH = BASE / "site/index.html"
-UNIFIED = BASE / "platform/unified/index.html"
+UNIFIED = BASE / "platform/unified/dashboard.js"
 EVERYDAY = BASE / "platform/unified/my-life.html"
 
 class EconomicFragilityPublicationTests(unittest.TestCase):
@@ -47,7 +47,7 @@ class EconomicFragilityPublicationTests(unittest.TestCase):
     def test_navigation_staged_in_everyday_and_research_entrypoints(self):
         self.assertIn('href="economic-fragility.html"', self.research)
         url="economic-fragility.html"
-        self.assertIn('href="'+url+'"', self.unified)
+        self.assertIn('href:"'+url+'"', self.unified)
         self.assertIn('href="'+url+'"', self.everyday)
         self.assertTrue((BASE / "platform/unified/economic-fragility.html").is_file())
 
