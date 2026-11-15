@@ -24,6 +24,10 @@ class VisualSystemTests(unittest.TestCase):
             pages = sorted(directory.glob("*.html"))
             self.assertGreaterEqual(len(pages), 7)
             for page in pages:
+                if directory==DIRS[0] and page.name in ("index.html","dashboard.html"):
+                    # Canonical redirect and independent, approved dashboard shell.
+                    self.assertIn("dashboard.html" if page.name=="index.html" else "dashboard.js", page.read_text(encoding="utf-8"))
+                    continue
                 if page.name == "consumer-practices.html":
                     # Consumer Watch is the source design system; keep its own approved styling.
                     continue
