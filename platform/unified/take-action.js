@@ -313,6 +313,13 @@ $("copy-brief").addEventListener("click",()=>copyValue(makeBrief(),$("copy-brief
 const savedZIP=rememberedZIP();
 if(savedZIP&&!$("zip").value)$("zip").value=savedZIP;
 // Legacy inbound links remain accepted, but the ZIP is not added to outbound links.
-const incoming=new URLSearchParams(location.search).get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
+const params=new URLSearchParams(location.search);
+const incoming=params.get("zip");if(incoming&&/^\d{5}$/.test(incoming))$("zip").value=incoming;
+// Dashboard issue links preselect a topic without sending or submitting.
+const inboundIssue=params.get("issue");
+if(inboundIssue&&Object.prototype.hasOwnProperty.call(issueData,inboundIssue)){
+ const topicButton=document.querySelector('#issue-options button[data-issue="'+inboundIssue+'"]');
+ if(topicButton)topicButton.click();
+}
 buildMessage();
 })();
