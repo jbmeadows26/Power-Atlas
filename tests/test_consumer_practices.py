@@ -89,7 +89,10 @@ class ConsumerPracticesTests(unittest.TestCase):
         for directory in (UNIFIED, SITE):
             for name in ("consumer-practices.html", "telecom-promotions.html", "service-accountability.html", "index.html"):
                 self.assertTrue((directory / name).is_file(), name)
-            self.assertIn('href="consumer-practices.html"', (directory / "index.html").read_text(encoding="utf-8"))
+            if directory == UNIFIED:
+                self.assertIn('href:"consumer-practices.html"', (directory / "dashboard.js").read_text(encoding="utf-8"))
+            else:
+                self.assertIn('href="consumer-practices.html"', (directory / "index.html").read_text(encoding="utf-8"))
             self.assertIn('href="consumer-practices.html"', (directory / "telecom-promotions.html").read_text(encoding="utf-8"))
         life = (UNIFIED / "my-life.html").read_text(encoding="utf-8")
         self.assertIn('href="consumer-practices.html"', life)
