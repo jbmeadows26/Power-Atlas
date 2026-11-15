@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 DATA=ROOT/"data/business-influence/additional-candidates-v1.json"
 PAGE=ROOT/"platform/unified/business-candidates.html"
-HOME=ROOT/"platform/unified/index.html"
+HOME=ROOT/"platform/unified/dashboard.js"
 PARENT=ROOT/"platform/unified/business-influence.html"
 
 
