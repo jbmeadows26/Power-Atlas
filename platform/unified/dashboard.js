@@ -133,6 +133,7 @@ const topics = [
   {title:"Political funding",desc:"Dark money and campaign influence.",href:"dark-money.html",cat:"power",icon:"$"},
   {title:"Donor intelligence",desc:"Follow contribution records and donor networks.",href:"donor-intelligence.html",cat:"power",icon:"◎"},
   {title:"Money trails",desc:"Political and financial flows, with source checks.",href:"financial-flows.html",cat:"power",icon:"⇢"},
+  {title:"Business influence",desc:"Public contracts, campaign networks and evidence limits.",href:"business-influence.html",cat:"power",icon:"◉"},
   {title:"Banking & bailouts",desc:"Crashes, rescues and institutional accountability.",href:"banking-power.html",cat:"power",icon:"▣"},
   {title:"Corporate consumer practices",desc:"Hidden costs, promotion rules and fine print.",href:"consumer-practices.html",cat:"costs",icon:"◐"},
   {title:"Telecom promotions",desc:"Phone-plan upgrade pricing and offers.",href:"telecom-promotions.html",cat:"costs",icon:"▱"},
