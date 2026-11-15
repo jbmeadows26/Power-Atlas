@@ -1,0 +1,78 @@
+{
+  "schema": "power-atlas.campaign-gun-safety-discovery.v1",
+  "asOf": "2026-11-12",
+  "status": "provisional_unadjudicated_source_discovery",
+  "cohort": "US-2024",
+  "source": {
+    "publisher": "Democratic National Committee",
+    "title": "2024 Democratic Party Platform",
+    "url": "https://democrats.org/where-we-stand/party-platform/",
+    "locator": "Chapter Five, Gun Safety, printed page 41",
+    "sourceType": "pre-election_party_platform",
+    "publicationYear": 2024,
+    "rights": "Only short paraphrases recorded; source PDF not redistributed; verify text reuse and any third-party rights",
+    "contentHash": null
+  },
+  "candidateCommitments": [
+    {
+      "id": "US2024-DNC-GUN-UNIVERSAL-CHECKS",
+      "maker": "Democratic Party",
+      "commitment": "Establish universal firearm background checks",
+      "status": "candidate_not_adjudicated"
+    },
+    {
+      "id": "US2024-DNC-GUN-ASSAULT-WEAPONS",
+      "maker": "Democratic Party",
+      "commitment": "Reinstate federal assault-weapons and high-capacity-magazine bans",
+      "status": "candidate_not_adjudicated"
+    },
+    {
+      "id": "US2024-DNC-GUN-SAFE-STORAGE",
+      "maker": "Democratic Party",
+      "commitment": "Require safe firearm storage",
+      "status": "candidate_not_adjudicated"
+    },
+    {
+      "id": "US2024-DNC-GUN-RED-FLAG",
+      "maker": "Democratic Party",
+      "commitment": "Pass a national red-flag law",
+      "status": "candidate_not_adjudicated"
+    }
+  ],
+  "officialPreElectionBaseline": {
+    "title": "Bipartisan Safer Communities Act",
+    "enactedOn": "2022-06-25",
+    "url": "https://www.govinfo.gov/app/details/BILLS-117s2938enr",
+    "locator": "Enrolled S.2938; section 12001 enhanced checks for under-21 purchasers",
+    "interpretation": "Enacted before the 2024 campaign; NOT post-election fulfillment of 2024 commitments; enhanced checks for younger purchasers are not universal background checks"
+  },
+  "denominator": {
+    "frozen": false,
+    "eligiblePopulationCount": null,
+    "provisionalCandidateCount": 4,
+    "includeInScoredDenominator": false,
+    "duplicateAuditRequired": true,
+    "scopeNote": "Four discovery candidates, not a complete 2024 platform inventory; check prior ledger and platform release date before cohort admission"
+  },
+  "implementation": {
+    "postElectionEventsVerified": 0,
+    "expenditureObservationsVerified": 0,
+    "fulfillmentCode": null
+  },
+  "review": {
+    "independentHumanCodersCompleted": 0,
+    "required": 2,
+    "sourceAndLicenseAuditPending": true
+  },
+  "uncertainty": [
+    "Party platform commitments are not interchangeable with candidate commitments",
+    "2024 election outcome and institutional control must be coded separately before governing-party analysis",
+    "No claim about whether these policies were later enacted or why"
+  ],
+  "competingExplanations": [
+    "Legislative coalition and chamber control",
+    "Judicial constraints",
+    "Differences between executive and congressional authority"
+  ],
+  "publicationGate": "Discovery only; no public fulfillment statistics or causal attribution"
+}
