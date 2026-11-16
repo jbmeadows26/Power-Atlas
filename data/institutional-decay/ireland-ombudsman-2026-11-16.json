@@ -1,0 +1,141 @@
+{
+  "dataset": "institutional-decay-ireland-ombudsman-2025",
+  "created": "2026-11-16",
+  "scope": "Independent additive research-only evidence; no redistricting or production UX changes.",
+  "observations": [
+    {
+      "id": "ie-omb-complaints-received-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Public-service complaints received",
+      "value": 5297,
+      "unit": "count",
+      "population": "Complaints submitted to Office of Ombudsman in calendar 2025",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Complaint count, not unique complainants, substantiated cases or population-adjusted rate."
+    },
+    {
+      "id": "ie-omb-complaints-investigated-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints investigated",
+      "value": 4996,
+      "unit": "count",
+      "population": "Complaints investigated by Office of Ombudsman during 2025",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Annual workflow count; not necessarily the same cohort as complaints received."
+    },
+    {
+      "id": "ie-omb-local-authority-complaints-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints concerning local authorities",
+      "value": 1793,
+      "unit": "count",
+      "population": "Local-authority complaints recorded in 2025",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Category count, not a rate per resident or service user."
+    },
+    {
+      "id": "ie-omb-government-department-complaints-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints concerning government departments and offices",
+      "value": 1502,
+      "unit": "count",
+      "population": "Department and office complaints recorded in 2025",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Different administrative category from local authorities."
+    },
+    {
+      "id": "ie-omb-social-protection-complaints-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints concerning Department of Social Protection",
+      "value": 686,
+      "unit": "count",
+      "population": "Subset of government department and office complaints",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Nested subset of 1,502; do not add to parent."
+    },
+    {
+      "id": "ie-omb-health-complaints-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints concerning health-sector public bodies",
+      "value": 861,
+      "unit": "count",
+      "population": "Health-sector complaints recorded in 2025",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Includes 720 HSE and 110 Tusla complaints; subsets not additive to total."
+    },
+    {
+      "id": "ie-omb-hse-complaints-2025",
+      "geography": "Ireland",
+      "period": "2025",
+      "measure": "Complaints concerning Health Service Executive",
+      "value": 720,
+      "unit": "count",
+      "population": "Subset of health-sector complaints",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "evidenceStatus": "official_ombudsman_administrative_record",
+      "claimType": "descriptive_observation",
+      "note": "Nested subset of 861; no inference about service failure prevalence."
+    }
+  ],
+  "events": [
+    {
+      "id": "ie-omb-annual-report-2025-release",
+      "geography": "Ireland",
+      "eventDate": "2026-07-07",
+      "eventType": "official_oversight_publication",
+      "subject": "Office of the Ombudsman",
+      "finding": "Published 2025 administrative complaints counts, including 5,297 received and 4,996 investigated.",
+      "disposition": "Public reporting; complaint volumes alone do not establish misconduct.",
+      "legalStatus": "administrative_statistics_not_adjudication",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "causalLinkToTrust": "not_established"
+    },
+    {
+      "id": "ie-omb-hap-followup-2025",
+      "geography": "Ireland",
+      "eventDate": "2026-07-07",
+      "eventType": "official_oversight_followup",
+      "subject": "Housing Assistance Payment scheme",
+      "finding": "Ombudsman reported some progress on recommendations issued in 2025 and ongoing engagement with the responsible department.",
+      "disposition": "Implementation incomplete or unverified; no closure or sanction inferred.",
+      "legalStatus": "ombudsman_recommendation_followup_not_criminal_finding",
+      "source": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "causalLinkToTrust": "not_established"
+    }
+  ],
+  "sourceCatalog": [
+    {
+      "id": "ie_ombudsman_annual_2025",
+      "url": "https://www.ombudsman.ie/en/news/9d6a5-ombudsman-receives-highest-number-of-public-service-complaints-in-over-30-years/",
+      "published": "2026-07-07",
+      "kind": "official_ombudsman_annual_report_announcement",
+      "access": "public_free",
+      "reuse": "Office of Ombudsman PSI terms: attribution and accurate nonmisleading reuse; factual original summaries only",
+      "permissionUrl": "https://www.ombudsman.ie/en/collection/24f96-re-use-of-public-sector-information-psi/"
+    }
+  ],
+  "methodology": {
+    "denominators": "Annual complaint counts, not population-adjusted complaint rates; categories may overlap or nest; investigated and received are not a matched cohort.",
+    "evidenceDistinctions": "Official administrative reporting and follow-up, not adjudicated findings, criminal guilt, causal trust estimates or survey perceptions.",
+    "license": "Source credited, original summaries only; no third-party graphics, personal data or wholesale reproduction.",
+    "crossCountry": "Do not compare raw complaint totals without jurisdiction and service exposure harmonization."
+  }
+}
