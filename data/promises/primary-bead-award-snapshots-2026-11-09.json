@@ -1,0 +1,74 @@
+{
+  "schema": "power-atlas.campaign-bead-award-snapshot-discovery.v1",
+  "asOf": "2026-11-09",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "independentHumanReviewCount": 0,
+  "sourceScopeComplete": false,
+  "relatedPledge": "2020 Democratic broadband infrastructure commitment; cross-ledger linkage pending",
+  "officialProgram": {
+    "url": "https://www.ntia.gov/funding-programs/high-speed-internet-programs",
+    "locator": "Infrastructure Investment and Jobs Act > BEAD",
+    "appropriatedProgramTotalUsd": 42450000000,
+    "classification": "program_appropriation_not_outlay"
+  },
+  "awardSnapshots": [
+    {
+      "state": "Kentucky",
+      "fain": "2120B114",
+      "awardStartDate": "2022-11-15",
+      "obligatedUsdDisplay": 1086172537,
+      "outlayedUsdDisplay": 0,
+      "sourceUrl": "https://www.usaspending.gov/award/ASST_NON_2120B114_013",
+      "sourceLocator": "Grant Summary > Award Amounts > Overall Spending",
+      "measure": "award_page_current_display_not_time_series",
+      "snapshotObservedDate": "2026-11-09",
+      "caution": "Display snapshot, not transaction-level dated outlays; displayed zero cannot establish no historical expenditure or statewide BEAD spending. No summation into election-cycle fiscal observations."
+    },
+    {
+      "state": "Florida",
+      "fain": "1220B417",
+      "awardStartDate": "2022-12-01",
+      "obligatedUsdDisplay": 1169947392.99,
+      "outlayedUsdDisplay": 0,
+      "sourceUrl": "https://www.usaspending.gov/award/ASST_NON_1220B417_013",
+      "sourceLocator": "Grant Summary > Award Amounts > Overall Spending",
+      "measure": "award_page_current_display_not_time_series",
+      "snapshotObservedDate": "2026-11-09",
+      "caution": "Display snapshot, not transaction-level dated outlays; displayed zero cannot establish no historical expenditure or statewide BEAD spending. No summation into election-cycle fiscal observations."
+    },
+    {
+      "state": "Arkansas",
+      "fain": "0420B100",
+      "awardStartDate": "2022-12-01",
+      "obligatedUsdDisplay": 1024303993.75,
+      "outlayedUsdDisplay": 0,
+      "sourceUrl": "https://www.usaspending.gov/award/ASST_NON_0420B100_013",
+      "sourceLocator": "Grant Summary > Award Amounts > Overall Spending",
+      "measure": "award_page_current_display_not_time_series",
+      "snapshotObservedDate": "2026-11-09",
+      "caution": "Display snapshot, not transaction-level dated outlays; displayed zero cannot establish no historical expenditure or statewide BEAD spending. No summation into election-cycle fiscal observations."
+    }
+  ],
+  "additionalOfficialMilestone": {
+    "date": "2023-12-15",
+    "jurisdiction": "Louisiana",
+    "event": "NTIA approval of initial BEAD proposal enabling request for access to funds",
+    "url": "https://www.ntia.gov/press-release/2023/biden-harris-administration-approves-louisiana-s-internet-all-initial-proposal",
+    "classification": "administrative_milestone_not_payment"
+  },
+  "limitations": [
+    "No new campaign pledge; existing pledge must be deduplicated against main ledgers and PR #45.",
+    "Award starts are not dates of obligations or payments.",
+    "Snapshot amounts may be revised and are not an election-quarter panel.",
+    "Award-level zero outlay display is not proof of no expenditure in other awards or accounts.",
+    "Congressional appropriations, federal obligations, federal outlays, state subawards, and built infrastructure are distinct.",
+    "Competing explanations include grant review, state procurement, permitting, program redesign and reporting lags; none is attributed causally.",
+    "No independent reviewers; no fulfillment determination."
+  ],
+  "rights": "Official public agency data; preserve source URLs and attribution; do not reproduce copyrighted campaign text; confirm downstream API terms before bulk redistribution.",
+  "nextValidation": "Retrieve dated transaction and fiscal account outlay series from free USAspending downloads/API; reconcile against Treasury account and NTIA records before quarterly modeling."
+}
