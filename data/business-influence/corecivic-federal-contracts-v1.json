@@ -1,0 +1,2537 @@
+{
+  "schema": "power-atlas.corecivic-federal-contracts.v1",
+  "generatedUtc": "2026-11-16T22:51:16+00:00",
+  "source": "https://api.usaspending.gov/api/v2/search/spending_by_transaction/",
+  "documentation": "https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/search/spending_by_transaction.md",
+  "matching": "exact_legal_UEI_only_historical_federal_prime_contract_actions",
+  "yearDefinition": "Federal fiscal year October 1–September 30 by contract action date",
+  "limitations": [
+    "Parent UEI not a consolidated corporate-group or all affiliates total",
+    "Net obligations include negative contract modifications, not outlays, corporate revenue or profit",
+    "Reporting may be delayed or later amended",
+    "No FEC political donation or lobbying expenditure linked to an individual contract decision",
+    "No comparable control-group or business benefit causal inference"
+  ],
+  "entity": {
+    "id": "corecivic",
+    "name": "CoreCivic, Inc.",
+    "uei": "HJGMJN1JKL46",
+    "identitySource": "https://www.usaspending.gov/recipient/b7ab6cd4-f511-cfe7-c92f-b20d45921e9c-P/all",
+    "identityMeaning": "Exact registered parent-recipient UEI, not verified corporate family/affiliate aggregation",
+    "politicalEvidenceSource": "https://ir.corecivic.com/static-files/a9909e7f-91e2-4171-ad85-9fd73f933920",
+    "fecCommitteeId": "C00366468",
+    "years": [
+      {
+        "fiscalYear": 2018,
+        "startDate": "2017-10-01",
+        "endDate": "2018-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 283924943.28,
+        "grossPositiveObligationsUsd": 295981529.39,
+        "deobligationsUsd": -12056586.11,
+        "transactionCount": 151,
+        "distinctPrimeAwards": 23,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 10,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 35142155.18,
+            "reportedActions": 16,
+            "lastActionDate": "2018-09-25",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "HSCEDM17F00058",
+            "awardNaturalId": "CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012",
+            "netObligationsUsd": 33962307.76,
+            "reportedActions": 12,
+            "lastActionDate": "2018-07-30",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 33937797.0,
+            "reportedActions": 18,
+            "lastActionDate": "2018-07-27",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 33374122.06,
+            "reportedActions": 15,
+            "lastActionDate": "2018-09-13",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "DJBPCCTNP10093A",
+            "awardNaturalId": "CONT_AWD_DJBPCCTNP10093A_1540_DJB1PC016_1540",
+            "netObligationsUsd": 31551336.46,
+            "reportedActions": 1,
+            "lastActionDate": "2017-12-20",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJBPCCTNP10093A_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "70CDCR18FR0000080",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012",
+            "netObligationsUsd": 27988646.21,
+            "reportedActions": 5,
+            "lastActionDate": "2018-09-18",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012"
+          },
+          {
+            "awardId": "70CDCR18FR0000065",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000065_7012_HSCEDM09D00007_7012",
+            "netObligationsUsd": 19774978.06,
+            "reportedActions": 4,
+            "lastActionDate": "2018-09-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000065_7012_HSCEDM09D00007_7012"
+          },
+          {
+            "awardId": "HSCEDM17J00020",
+            "awardNaturalId": "CONT_AWD_HSCEDM17J00020_7012_HSCEDM09D00007_7012",
+            "netObligationsUsd": 18567146.35,
+            "reportedActions": 8,
+            "lastActionDate": "2018-09-21",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_HSCEDM17J00020_7012_HSCEDM09D00007_7012"
+          },
+          {
+            "awardId": "HSCEDM17F00062",
+            "awardNaturalId": "CONT_AWD_HSCEDM17F00062_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 16743912.56,
+            "reportedActions": 7,
+            "lastActionDate": "2018-08-21",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_HSCEDM17F00062_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "70CDCR18FR0000058",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000058_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 10961511.4,
+            "reportedActions": 3,
+            "lastActionDate": "2018-09-21",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000058_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "70CDCR18FR0000017",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000017_7012_HSCEDM17D00001_7012",
+            "netObligationsUsd": 8419535.61,
+            "reportedActions": 8,
+            "lastActionDate": "2018-09-29",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000017_7012_HSCEDM17D00001_7012"
+          },
+          {
+            "awardId": "DJBPCCTNP10093",
+            "awardNaturalId": "CONT_AWD_DJBPCCTNP10093_1540_DJB1PC016_1540",
+            "netObligationsUsd": 6198719.57,
+            "reportedActions": 1,
+            "lastActionDate": "2017-12-19",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJBPCCTNP10093_1540_DJB1PC016_1540"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 143081275.96
+          },
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 140843667.32
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "DJBPCCTNP10093A",
+            "awardNaturalId": "CONT_AWD_DJBPCCTNP10093A_1540_DJB1PC016_1540",
+            "modification": "0",
+            "actionDate": "2017-12-20",
+            "amountUsd": 31551336.46,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJBPCCTNP10093A_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "modification": "P00131",
+            "actionDate": "2018-06-01",
+            "amountUsd": 24894340.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "modification": "P00125",
+            "actionDate": "2018-05-02",
+            "amountUsd": 20370302.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00091",
+            "actionDate": "2018-05-22",
+            "amountUsd": 13120083.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR18FR0000080",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012",
+            "modification": "0",
+            "actionDate": "2018-06-26",
+            "amountUsd": 13069932.65,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "HSCEDM17F00058",
+            "awardNaturalId": "CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012",
+            "modification": "P00012",
+            "actionDate": "2018-05-07",
+            "amountUsd": 8316152.08,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "HSCEDM17F00058",
+            "awardNaturalId": "CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012",
+            "modification": "P00010",
+            "actionDate": "2018-02-22",
+            "amountUsd": 7163643.22,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_HSCEDM17F00058_7012_HSODT5C0003_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR18FR0000058",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000058_7012_DJJODT9C0001_1501",
+            "modification": "0",
+            "actionDate": "2018-05-25",
+            "amountUsd": 7036580.1,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000058_7012_DJJODT9C0001_1501",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2019,
+        "startDate": "2018-10-01",
+        "endDate": "2019-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 364688520.27,
+        "grossPositiveObligationsUsd": 391048907.3,
+        "deobligationsUsd": -26360387.03,
+        "transactionCount": 150,
+        "distinctPrimeAwards": 35,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 11,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 130908276.98,
+            "reportedActions": 16,
+            "lastActionDate": "2019-09-30",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 34154325.18,
+            "reportedActions": 12,
+            "lastActionDate": "2019-09-13",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "15BPCC19FUNP10096",
+            "awardNaturalId": "CONT_AWD_15BPCC19FUNP10096_1540_DJB1PC016_1540",
+            "netObligationsUsd": 31832629.09,
+            "reportedActions": 10,
+            "lastActionDate": "2019-09-12",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC19FUNP10096_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "70CDCR19FR0000042",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000042_7012_HSODT5C0003_7012",
+            "netObligationsUsd": 29951432.02,
+            "reportedActions": 2,
+            "lastActionDate": "2019-09-23",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000042_7012_HSODT5C0003_7012"
+          },
+          {
+            "awardId": "70CDCR18FR0000080",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012",
+            "netObligationsUsd": 27836366.65,
+            "reportedActions": 9,
+            "lastActionDate": "2019-08-19",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000080_7012_HSODT5C0003_7012"
+          },
+          {
+            "awardId": "70CDCR19FR0000026",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012",
+            "netObligationsUsd": 27045529.65,
+            "reportedActions": 4,
+            "lastActionDate": "2019-09-20",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 25673758.66,
+            "reportedActions": 14,
+            "lastActionDate": "2019-08-23",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR19FR0000013",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000013_7012_70CDCR19D00000003_7012",
+            "netObligationsUsd": 16432167.68,
+            "reportedActions": 5,
+            "lastActionDate": "2019-09-12",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000013_7012_70CDCR19D00000003_7012"
+          },
+          {
+            "awardId": "70CDCR18FR0000065",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000065_7012_HSCEDM09D00007_7012",
+            "netObligationsUsd": 14160843.72,
+            "reportedActions": 6,
+            "lastActionDate": "2019-09-13",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000065_7012_HSCEDM09D00007_7012"
+          },
+          {
+            "awardId": "70CDCR18FR0000017",
+            "awardNaturalId": "CONT_AWD_70CDCR18FR0000017_7012_HSCEDM17D00001_7012",
+            "netObligationsUsd": 6389386.26,
+            "reportedActions": 5,
+            "lastActionDate": "2019-06-11",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR18FR0000017_7012_HSCEDM17D00001_7012"
+          },
+          {
+            "awardId": "15BPCC19FUNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC19FUNP10093_1540_DJB1PC016_1540",
+            "netObligationsUsd": 6264496.04,
+            "reportedActions": 1,
+            "lastActionDate": "2019-02-06",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC19FUNP10093_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "70CDCR19FR0000053",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000053_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 6259660.33,
+            "reportedActions": 2,
+            "lastActionDate": "2019-09-23",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000053_7012_DJJODT9C0001_1501"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 233066320.78
+          },
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 131622199.49
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "modification": "P00148",
+            "actionDate": "2019-07-26",
+            "amountUsd": 105648126.04,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC19FUNP10096",
+            "awardNaturalId": "CONT_AWD_15BPCC19FUNP10096_1540_DJB1PC016_1540",
+            "modification": "0",
+            "actionDate": "2019-02-06",
+            "amountUsd": 32210811.26,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC19FUNP10096_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "modification": "P00151",
+            "actionDate": "2019-09-13",
+            "amountUsd": 20154759.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR19FR0000026",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012",
+            "modification": "P00002",
+            "actionDate": "2019-05-29",
+            "amountUsd": 20045193.13,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR19FR0000042",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000042_7012_HSODT5C0003_7012",
+            "modification": "0",
+            "actionDate": "2019-05-17",
+            "amountUsd": 19673866.08,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000042_7012_HSODT5C0003_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "modification": "P00137",
+            "actionDate": "2019-03-29",
+            "amountUsd": 19083042.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00102",
+            "actionDate": "2019-03-31",
+            "amountUsd": 17364658.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00103",
+            "actionDate": "2019-04-18",
+            "amountUsd": -11855576.84,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2020,
+        "startDate": "2019-10-01",
+        "endDate": "2020-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 215244883.57,
+        "grossPositiveObligationsUsd": 326708215.98,
+        "deobligationsUsd": -111463332.41,
+        "transactionCount": 112,
+        "distinctPrimeAwards": 31,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 18,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR20FR0000012",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 52565903.37,
+            "reportedActions": 5,
+            "lastActionDate": "2020-08-05",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "15BPCC20FVNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC20FVNP10093_1540_DJB1PC016_1540",
+            "netObligationsUsd": 39113444.45,
+            "reportedActions": 7,
+            "lastActionDate": "2020-09-17",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC20FVNP10093_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 31974140.25,
+            "reportedActions": 12,
+            "lastActionDate": "2020-09-18",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 26598943.82,
+            "reportedActions": 15,
+            "lastActionDate": "2020-09-29",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "15M40020FA3500009",
+            "awardNaturalId": "CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 23400558.0,
+            "reportedActions": 9,
+            "lastActionDate": "2020-09-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "DJB1PC010",
+            "awardNaturalId": "CONT_AWD_DJB1PC010_1540_-NONE-_-NONE-",
+            "netObligationsUsd": -17928035.89,
+            "reportedActions": 1,
+            "lastActionDate": "2020-07-09",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJB1PC010_1540_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR20FR0000019",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000019_7012_70CDCR19D00000005_7012",
+            "netObligationsUsd": 16015699.01,
+            "reportedActions": 2,
+            "lastActionDate": "2020-05-07",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000019_7012_70CDCR19D00000005_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000059",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 15516038.1,
+            "reportedActions": 2,
+            "lastActionDate": "2020-09-21",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "DJJODT5C0003",
+            "awardNaturalId": "CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-",
+            "netObligationsUsd": -13325746.56,
+            "reportedActions": 8,
+            "lastActionDate": "2020-06-12",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT5C0003_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR19FR0000026",
+            "awardNaturalId": "CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012",
+            "netObligationsUsd": 12075424.64,
+            "reportedActions": 6,
+            "lastActionDate": "2020-08-19",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR19FR0000026_7012_70CDCR19D00000005_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000014",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000014_7012_70CDCR19D00000003_7012",
+            "netObligationsUsd": 9448806.63,
+            "reportedActions": 5,
+            "lastActionDate": "2020-09-02",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000014_7012_70CDCR19D00000003_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000051_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 5633931.75,
+            "reportedActions": 3,
+            "lastActionDate": "2020-08-25",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000051_7012_70CDCR20D00000013_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 119317835.2
+          },
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 95927048.37
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "15BPCC20FUNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC20FUNP10093_1540_DJB1PC016_1540",
+            "modification": "0",
+            "actionDate": "2019-10-20",
+            "amountUsd": 43376444.66,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC20FUNP10093_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC20FUNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC20FUNP10093_1540_DJB1PC016_1540",
+            "modification": "P00001",
+            "actionDate": "2019-11-21",
+            "amountUsd": -43376444.66,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC20FUNP10093_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC20FVNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC20FVNP10093_1540_DJB1PC016_1540",
+            "modification": "0",
+            "actionDate": "2019-11-21",
+            "amountUsd": 43376444.66,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC20FVNP10093_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "modification": "P00150",
+            "actionDate": "2020-02-18",
+            "amountUsd": 29427319.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40020FA3500009",
+            "awardNaturalId": "CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012",
+            "modification": "P00004",
+            "actionDate": "2020-03-12",
+            "amountUsd": 26802908.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00116",
+            "actionDate": "2020-02-05",
+            "amountUsd": 20771097.33,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR20FR0000012",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2020-06-03",
+            "amountUsd": 18112446.15,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJB1PC010",
+            "awardNaturalId": "CONT_AWD_DJB1PC010_1540_-NONE-_-NONE-",
+            "modification": "153",
+            "actionDate": "2020-07-09",
+            "amountUsd": -17928035.89,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJB1PC010_1540_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2021,
+        "startDate": "2020-10-01",
+        "endDate": "2021-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 272458002.98,
+        "grossPositiveObligationsUsd": 305765851.23,
+        "deobligationsUsd": -33307848.25,
+        "transactionCount": 126,
+        "distinctPrimeAwards": 34,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 18,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR21FR0000010",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 54395557.43,
+            "reportedActions": 8,
+            "lastActionDate": "2021-09-23",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "15BPCC21FWNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC21FWNP10093_1540_DJB1PC016_1540",
+            "netObligationsUsd": 41053334.73,
+            "reportedActions": 8,
+            "lastActionDate": "2021-08-06",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC21FWNP10093_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "70CDCR20FR0000059",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 37046463.29,
+            "reportedActions": 7,
+            "lastActionDate": "2021-09-15",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 32063352.35,
+            "reportedActions": 16,
+            "lastActionDate": "2021-09-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 29665007.88,
+            "reportedActions": 12,
+            "lastActionDate": "2021-09-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "15M40021FA3500007",
+            "awardNaturalId": "CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 22636519.0,
+            "reportedActions": 9,
+            "lastActionDate": "2021-09-10",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000051_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 22362535.18,
+            "reportedActions": 7,
+            "lastActionDate": "2021-08-30",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000051_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR21FR0000055",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000055_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 6413554.72,
+            "reportedActions": 3,
+            "lastActionDate": "2021-09-15",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000055_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "70CDCR21FR0000048",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000048_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 5052426.0,
+            "reportedActions": 3,
+            "lastActionDate": "2021-09-20",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000048_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000012",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 4611600.16,
+            "reportedActions": 3,
+            "lastActionDate": "2021-04-13",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000012_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR20FR0000033",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000033_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 3657120.62,
+            "reportedActions": 5,
+            "lastActionDate": "2021-07-01",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000033_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "15M40020FA3500009",
+            "awardNaturalId": "CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 3151121.38,
+            "reportedActions": 3,
+            "lastActionDate": "2021-06-23",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40020FA3500009_1544_70CDCR20D00000007_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 140420616.39
+          },
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 132037386.59
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "15BPCC21FWNP10093",
+            "awardNaturalId": "CONT_AWD_15BPCC21FWNP10093_1540_DJB1PC016_1540",
+            "modification": "P00003",
+            "actionDate": "2020-12-23",
+            "amountUsd": 33457202.33,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC21FWNP10093_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "modification": "P00161",
+            "actionDate": "2021-02-04",
+            "amountUsd": 25587627.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00127",
+            "actionDate": "2021-02-04",
+            "amountUsd": 22989688.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR21FR0000010",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2021-04-20",
+            "amountUsd": 21357277.51,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40021FA3500007",
+            "awardNaturalId": "CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012",
+            "modification": "P00001",
+            "actionDate": "2021-03-04",
+            "amountUsd": 18779856.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR20FR0000059",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "modification": "P00006",
+            "actionDate": "2021-04-28",
+            "amountUsd": 13307100.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR20FR0000059",
+            "awardNaturalId": "CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "modification": "P00005",
+            "actionDate": "2021-03-02",
+            "amountUsd": 10834637.52,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR20FR0000059_7012_70CDCR20D00000014_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR21FR0000010",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "modification": "0",
+            "actionDate": "2020-11-18",
+            "amountUsd": 10291540.38,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2022,
+        "startDate": "2021-10-01",
+        "endDate": "2022-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 288326686.77,
+        "grossPositiveObligationsUsd": 294936708.6,
+        "deobligationsUsd": -6610021.83,
+        "transactionCount": 116,
+        "distinctPrimeAwards": 20,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 1,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR22FR0000008",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 59223262.65,
+            "reportedActions": 9,
+            "lastActionDate": "2022-09-15",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "15BPCC22F00000014",
+            "awardNaturalId": "CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "netObligationsUsd": 39748089.39,
+            "reportedActions": 9,
+            "lastActionDate": "2022-09-09",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "15M40022FA3500014",
+            "awardNaturalId": "CONT_AWD_15M40022FA3500014_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 34907362.09,
+            "reportedActions": 11,
+            "lastActionDate": "2022-09-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40022FA3500014_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR21FR0000055",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000055_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 32548853.74,
+            "reportedActions": 14,
+            "lastActionDate": "2022-09-08",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000055_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 26900387.31,
+            "reportedActions": 15,
+            "lastActionDate": "2022-07-26",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR21FR0000048",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000048_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 16985210.05,
+            "reportedActions": 7,
+            "lastActionDate": "2022-08-22",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000048_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "15BRRC22F00000237",
+            "awardNaturalId": "CONT_AWD_15BRRC22F00000237_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": 14638769.65,
+            "reportedActions": 3,
+            "lastActionDate": "2022-08-24",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC22F00000237_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 13687365.31,
+            "reportedActions": 8,
+            "lastActionDate": "2022-07-07",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR21FR0000010",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 13077172.16,
+            "reportedActions": 4,
+            "lastActionDate": "2022-02-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000010_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR21FR0000038",
+            "awardNaturalId": "CONT_AWD_70CDCR21FR0000038_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 7722356.65,
+            "reportedActions": 12,
+            "lastActionDate": "2022-09-13",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR21FR0000038_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "15M40021FA3500007",
+            "awardNaturalId": "CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 7046883.32,
+            "reportedActions": 6,
+            "lastActionDate": "2022-08-01",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40021FA3500007_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR22FR0000046",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 6531900.0,
+            "reportedActions": 1,
+            "lastActionDate": "2022-08-17",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 148487131.54
+          },
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 139839555.23
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "15M40022FA3500014",
+            "awardNaturalId": "CONT_AWD_15M40022FA3500014_1544_70CDCR20D00000007_7012",
+            "modification": "P00006",
+            "actionDate": "2022-04-29",
+            "amountUsd": 16523112.18,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40022FA3500014_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00146",
+            "actionDate": "2022-04-29",
+            "amountUsd": 16263842.27,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR22FR0000008",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "modification": "P00005",
+            "actionDate": "2022-05-16",
+            "amountUsd": 11997299.71,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC22F00000014",
+            "awardNaturalId": "CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "modification": "P00008",
+            "actionDate": "2022-09-09",
+            "amountUsd": 10360860.71,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC22F00000014",
+            "awardNaturalId": "CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "modification": "0",
+            "actionDate": "2022-03-11",
+            "amountUsd": 9992049.61,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BPCC22F00000014",
+            "awardNaturalId": "CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "modification": "P00002",
+            "actionDate": "2022-04-27",
+            "amountUsd": 9704982.6,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC22F00000014_1540_DJB1PC016_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR22FR0000008",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "modification": "P00008",
+            "actionDate": "2022-09-15",
+            "amountUsd": 8714850.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT7C0002",
+            "awardNaturalId": "CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "modification": "P00176",
+            "actionDate": "2021-12-28",
+            "amountUsd": 8131763.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0002_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2023,
+        "startDate": "2022-10-01",
+        "endDate": "2023-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 252645474.68,
+        "grossPositiveObligationsUsd": 267067353.92,
+        "deobligationsUsd": -14421879.24,
+        "transactionCount": 103,
+        "distinctPrimeAwards": 32,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 0,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 70333737.51,
+            "reportedActions": 9,
+            "lastActionDate": "2023-09-30",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 38050692.85,
+            "reportedActions": 15,
+            "lastActionDate": "2023-09-21",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR22FR0000046",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 33409339.96,
+            "reportedActions": 8,
+            "lastActionDate": "2023-09-29",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "15M40023FA3500004",
+            "awardNaturalId": "CONT_AWD_15M40023FA3500004_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 30083634.0,
+            "reportedActions": 7,
+            "lastActionDate": "2023-09-01",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40023FA3500004_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR22FR0000033",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000033_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 18910245.0,
+            "reportedActions": 5,
+            "lastActionDate": "2023-07-25",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000033_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR22FR0000008",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 14695984.97,
+            "reportedActions": 5,
+            "lastActionDate": "2023-05-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR23FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000051_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 11144470.0,
+            "reportedActions": 3,
+            "lastActionDate": "2023-09-19",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000051_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "15BRRC23F00000053",
+            "awardNaturalId": "CONT_AWD_15BRRC23F00000053_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": 9187105.45,
+            "reportedActions": 4,
+            "lastActionDate": "2023-09-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC23F00000053_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "70CDCR23FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000030_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 7090900.0,
+            "reportedActions": 3,
+            "lastActionDate": "2023-09-14",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000030_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "15BPCC23F00000006",
+            "awardNaturalId": "CONT_AWD_15BPCC23F00000006_1540_DJB1PC016_1540",
+            "netObligationsUsd": 6090828.72,
+            "reportedActions": 2,
+            "lastActionDate": "2022-12-30",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BPCC23F00000006_1540_DJB1PC016_1540"
+          },
+          {
+            "awardId": "15BRRC23F00000122",
+            "awardNaturalId": "CONT_AWD_15BRRC23F00000122_1540_15BRRC22D00000334_1540",
+            "netObligationsUsd": 5147795.9,
+            "reportedActions": 5,
+            "lastActionDate": "2023-09-21",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC23F00000122_1540_15BRRC22D00000334_1540"
+          },
+          {
+            "awardId": "15BRRC23F00000149",
+            "awardNaturalId": "CONT_AWD_15BRRC23F00000149_1540_15BRRC20D00000247_1540",
+            "netObligationsUsd": 4135840.1,
+            "reportedActions": 4,
+            "lastActionDate": "2023-09-21",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC23F00000149_1540_15BRRC20D00000247_1540"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 159578133.11
+          },
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 93067341.57
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "15M40023FA3500004",
+            "awardNaturalId": "CONT_AWD_15M40023FA3500004_1544_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2023-03-14",
+            "amountUsd": 22171923.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40023FA3500004_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00157",
+            "actionDate": "2023-03-07",
+            "amountUsd": 21912309.16,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2023-04-20",
+            "amountUsd": 19657567.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "modification": "P00001",
+            "actionDate": "2023-01-27",
+            "amountUsd": 18157468.33,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR22FR0000046",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "modification": "P00005",
+            "actionDate": "2023-04-28",
+            "amountUsd": 12042770.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR22FR0000008",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "modification": "P00009",
+            "actionDate": "2022-10-31",
+            "amountUsd": 10604252.97,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000008_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR22FR0000046",
+            "awardNaturalId": "CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "modification": "P00003",
+            "actionDate": "2023-02-08",
+            "amountUsd": 9925300.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR22FR0000046_7012_70CDCR20D00000014_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "modification": "P00006",
+            "actionDate": "2023-08-22",
+            "amountUsd": 8971217.47,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2024,
+        "startDate": "2023-10-01",
+        "endDate": "2024-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 270751125.89,
+        "grossPositiveObligationsUsd": 277298552.69,
+        "deobligationsUsd": -6547426.8,
+        "transactionCount": 118,
+        "distinctPrimeAwards": 32,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 0,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 84080932.57,
+            "reportedActions": 12,
+            "lastActionDate": "2024-09-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 40314526.69,
+            "reportedActions": 13,
+            "lastActionDate": "2024-09-30",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR23FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000051_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 32199182.72,
+            "reportedActions": 16,
+            "lastActionDate": "2024-09-27",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000051_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "15M40024FA3500003",
+            "awardNaturalId": "CONT_AWD_15M40024FA3500003_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 23916078.64,
+            "reportedActions": 7,
+            "lastActionDate": "2024-09-18",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40024FA3500003_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR23FR0000041",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000041_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 19362184.0,
+            "reportedActions": 8,
+            "lastActionDate": "2024-07-02",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000041_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 17603321.81,
+            "reportedActions": 3,
+            "lastActionDate": "2024-03-06",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "15BRRC24F00000036",
+            "awardNaturalId": "CONT_AWD_15BRRC24F00000036_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": 14885306.76,
+            "reportedActions": 8,
+            "lastActionDate": "2024-08-09",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC24F00000036_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "70CDCR23FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000030_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 9833274.76,
+            "reportedActions": 8,
+            "lastActionDate": "2024-08-15",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000030_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "70CDCR24FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000051_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 7147100.0,
+            "reportedActions": 1,
+            "lastActionDate": "2024-08-13",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000051_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "70CDCR24FR0000037",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000037_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 5799300.0,
+            "reportedActions": 2,
+            "lastActionDate": "2024-07-15",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000037_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "15BRRC24F00000161",
+            "awardNaturalId": "CONT_AWD_15BRRC24F00000161_1540_15BRRC22D00000334_1540",
+            "netObligationsUsd": 4632400.0,
+            "reportedActions": 3,
+            "lastActionDate": "2024-08-20",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC24F00000161_1540_15BRRC22D00000334_1540"
+          },
+          {
+            "awardId": "70CDCR24FR0000039",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000039_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 4159900.0,
+            "reportedActions": 2,
+            "lastActionDate": "2024-09-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000039_7012_70CDCR20D00000013_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 179444877.48
+          },
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 91306248.41
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "P00007",
+            "actionDate": "2024-07-15",
+            "amountUsd": 24634070.32,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00173",
+            "actionDate": "2024-04-29",
+            "amountUsd": 21777971.99,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40024FA3500003",
+            "awardNaturalId": "CONT_AWD_15M40024FA3500003_1544_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2024-04-25",
+            "amountUsd": 14047302.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40024FA3500003_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR23FR0000015",
+            "awardNaturalId": "CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "modification": "P00009",
+            "actionDate": "2023-10-25",
+            "amountUsd": 13635984.17,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR23FR0000015_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "P00002",
+            "actionDate": "2024-02-28",
+            "amountUsd": 11804323.19,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "0",
+            "actionDate": "2023-12-19",
+            "amountUsd": 8622677.04,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "P00005",
+            "actionDate": "2024-05-03",
+            "amountUsd": 8467169.98,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "P00004",
+            "actionDate": "2024-04-25",
+            "amountUsd": 8467169.42,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2025,
+        "startDate": "2024-10-01",
+        "endDate": "2025-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 395871571.26,
+        "grossPositiveObligationsUsd": 408470349.17,
+        "deobligationsUsd": -12598777.91,
+        "transactionCount": 119,
+        "distinctPrimeAwards": 37,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 0,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR25FR0000011",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 104967045.29,
+            "reportedActions": 5,
+            "lastActionDate": "2025-09-29",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR24FR0000051",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000051_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 45747633.0,
+            "reportedActions": 9,
+            "lastActionDate": "2025-09-29",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000051_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "netObligationsUsd": 35652682.25,
+            "reportedActions": 2,
+            "lastActionDate": "2025-09-30",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 34812557.33,
+            "reportedActions": 13,
+            "lastActionDate": "2025-09-18",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "15M40025FA3500001",
+            "awardNaturalId": "CONT_AWD_15M40025FA3500001_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 30729084.98,
+            "reportedActions": 7,
+            "lastActionDate": "2025-09-19",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40025FA3500001_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR24FR0000039",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000039_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 20239665.33,
+            "reportedActions": 8,
+            "lastActionDate": "2025-07-02",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000039_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 19615939.11,
+            "reportedActions": 5,
+            "lastActionDate": "2025-03-21",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000123",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "netObligationsUsd": 15582600.0,
+            "reportedActions": 1,
+            "lastActionDate": "2025-09-26",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000039",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000039_7012_70CDCR25D00000010_7012",
+            "netObligationsUsd": 13500000.0,
+            "reportedActions": 3,
+            "lastActionDate": "2025-08-12",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000039_7012_70CDCR25D00000010_7012"
+          },
+          {
+            "awardId": "70CDCR24FR0000037",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000037_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 13460221.0,
+            "reportedActions": 8,
+            "lastActionDate": "2025-09-02",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000037_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "15BRRC25F00000060",
+            "awardNaturalId": "CONT_AWD_15BRRC25F00000060_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": 13408303.36,
+            "reportedActions": 6,
+            "lastActionDate": "2025-08-05",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC25F00000060_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "70CDCR25FR0000095",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 11348200.0,
+            "reportedActions": 2,
+            "lastActionDate": "2025-09-25",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 305768541.63
+          },
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 90103029.63
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "70CDCR25FR0000011",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "modification": "P00001",
+            "actionDate": "2025-03-04",
+            "amountUsd": 37106348.53,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000011",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2025-07-07",
+            "amountUsd": 33985189.14,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR24FR0000007",
+            "awardNaturalId": "CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "modification": "P00012",
+            "actionDate": "2024-10-30",
+            "amountUsd": 22485329.52,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR24FR0000007_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "modification": "P00001",
+            "actionDate": "2025-09-30",
+            "amountUsd": 22426186.85,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00185",
+            "actionDate": "2025-05-30",
+            "amountUsd": 20879008.4,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000011",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "modification": "P00004",
+            "actionDate": "2025-09-29",
+            "amountUsd": 19707649.29,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000011_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000123",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "modification": "0",
+            "actionDate": "2025-09-26",
+            "amountUsd": 15582600.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40025FA3500001",
+            "awardNaturalId": "CONT_AWD_15M40025FA3500001_1544_70CDCR20D00000007_7012",
+            "modification": "P00005",
+            "actionDate": "2025-06-04",
+            "amountUsd": 14150749.12,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40025FA3500001_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2026,
+        "startDate": "2025-10-01",
+        "endDate": "2026-09-30",
+        "partialFiscalYear": false,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 454667724.44,
+        "grossPositiveObligationsUsd": 463084460.2,
+        "deobligationsUsd": -8416735.76,
+        "transactionCount": 126,
+        "distinctPrimeAwards": 47,
+        "sourcePagesRead": 2,
+        "otherRecipientUEIRowsExcluded": 0,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "70CDCR26FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "netObligationsUsd": 84654774.95,
+            "reportedActions": 7,
+            "lastActionDate": "2026-09-10",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "netObligationsUsd": 76484493.12,
+            "reportedActions": 3,
+            "lastActionDate": "2026-08-04",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000095",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012",
+            "netObligationsUsd": 38675799.86,
+            "reportedActions": 6,
+            "lastActionDate": "2026-08-11",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000123",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "netObligationsUsd": 32063974.12,
+            "reportedActions": 4,
+            "lastActionDate": "2026-08-31",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012"
+          },
+          {
+            "awardId": "15M40026FA3500008",
+            "awardNaturalId": "CONT_AWD_15M40026FA3500008_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 30425004.51,
+            "reportedActions": 6,
+            "lastActionDate": "2026-09-17",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40026FA3500008_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "70CDCR25FR0000041",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000041_7012_DJJODT9C0001_1501",
+            "netObligationsUsd": 19485100.0,
+            "reportedActions": 4,
+            "lastActionDate": "2026-07-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000041_7012_DJJODT9C0001_1501"
+          },
+          {
+            "awardId": "70CDCR25FR0000090",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000090_7012_70CDCR20D00000013_7012",
+            "netObligationsUsd": 18778160.0,
+            "reportedActions": 4,
+            "lastActionDate": "2026-07-27",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000090_7012_70CDCR20D00000013_7012"
+          },
+          {
+            "awardId": "70CDCR26FR0000110",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000110_7012_70CDCR26D00000050_7012",
+            "netObligationsUsd": 18564210.0,
+            "reportedActions": 2,
+            "lastActionDate": "2026-09-18",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000110_7012_70CDCR26D00000050_7012"
+          },
+          {
+            "awardId": "15BRRC26F00000039",
+            "awardNaturalId": "CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": 14802727.23,
+            "reportedActions": 9,
+            "lastActionDate": "2026-07-08",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "70CDCR26FR0000058",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000058_7012_70CDCR26D00000029_7012",
+            "netObligationsUsd": 14085950.0,
+            "reportedActions": 3,
+            "lastActionDate": "2026-08-05",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000058_7012_70CDCR26D00000029_7012"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 12612329.45,
+            "reportedActions": 11,
+            "lastActionDate": "2026-09-21",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "70CDCR26FR0000118",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000118_7012_70CDCR25D00000010_7012",
+            "netObligationsUsd": 12284933.33,
+            "reportedActions": 1,
+            "lastActionDate": "2026-08-24",
+            "awardingAgency": "Department of Homeland Security",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000118_7012_70CDCR25D00000010_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Homeland Security",
+            "amountUsd": 368891958.16
+          },
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 85775766.28
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "modification": "P00003",
+            "actionDate": "2026-07-06",
+            "amountUsd": 37736761.71,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR26FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "modification": "0",
+            "actionDate": "2026-01-23",
+            "amountUsd": 22222206.95,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "modification": "P00002",
+            "actionDate": "2026-03-06",
+            "amountUsd": 21330700.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR26FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "modification": "P00004",
+            "actionDate": "2026-07-30",
+            "amountUsd": 20498674.88,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000123",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "modification": "P00003",
+            "actionDate": "2026-05-29",
+            "amountUsd": 19467738.12,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000123_7012_70CDCR25D00000008_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR26FR0000030",
+            "awardNaturalId": "CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "modification": "P00003",
+            "actionDate": "2026-06-26",
+            "amountUsd": 18879323.43,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000030_7012_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000095",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012",
+            "modification": "P00005",
+            "actionDate": "2026-06-15",
+            "amountUsd": 18237200.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000095_7012_70CDCR20D00000014_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "70CDCR25FR0000122",
+            "awardNaturalId": "CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "modification": "P00004",
+            "actionDate": "2026-08-04",
+            "amountUsd": 17417031.41,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Homeland Security",
+            "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000122_7012_70CDCR25D00000010_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      },
+      {
+        "fiscalYear": 2027,
+        "startDate": "2026-10-01",
+        "endDate": "2026-11-16",
+        "partialFiscalYear": true,
+        "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
+        "netObligationsUsd": 24830029.21,
+        "grossPositiveObligationsUsd": 25660636.41,
+        "deobligationsUsd": -830607.2,
+        "transactionCount": 8,
+        "distinctPrimeAwards": 7,
+        "sourcePagesRead": 1,
+        "otherRecipientUEIRowsExcluded": 0,
+        "topAwardsByAbsoluteNetChange": [
+          {
+            "awardId": "15BRRC27F00000022",
+            "awardNaturalId": "CONT_AWD_15BRRC27F00000022_1540_15BRRC27D00000014_1540",
+            "netObligationsUsd": 16023998.64,
+            "reportedActions": 1,
+            "lastActionDate": "2026-11-05",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC27F00000022_1540_15BRRC27D00000014_1540"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "netObligationsUsd": 5265383.13,
+            "reportedActions": 2,
+            "lastActionDate": "2026-11-05",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-"
+          },
+          {
+            "awardId": "15M40027FA3500001",
+            "awardNaturalId": "CONT_AWD_15M40027FA3500001_1544_70CDCR20D00000007_7012",
+            "netObligationsUsd": 3442188.34,
+            "reportedActions": 1,
+            "lastActionDate": "2026-10-29",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40027FA3500001_1544_70CDCR20D00000007_7012"
+          },
+          {
+            "awardId": "15BRRC27F00000017",
+            "awardNaturalId": "CONT_AWD_15BRRC27F00000017_1540_15BRRC22D00000334_1540",
+            "netObligationsUsd": 929066.3,
+            "reportedActions": 1,
+            "lastActionDate": "2026-10-22",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC27F00000017_1540_15BRRC22D00000334_1540"
+          },
+          {
+            "awardId": "15BRRC26F00000039",
+            "awardNaturalId": "CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540",
+            "netObligationsUsd": -810195.2,
+            "reportedActions": 1,
+            "lastActionDate": "2026-11-05",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540"
+          },
+          {
+            "awardId": "15BRRC26F00000342",
+            "awardNaturalId": "CONT_AWD_15BRRC26F00000342_1540_15BRRC26D00000070_1540",
+            "netObligationsUsd": -20412.0,
+            "reportedActions": 1,
+            "lastActionDate": "2026-11-05",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC26F00000342_1540_15BRRC26D00000070_1540"
+          },
+          {
+            "awardId": "15M40026FA3500014",
+            "awardNaturalId": "CONT_AWD_15M40026FA3500014_1544_70CDCR25D00000010_7012",
+            "netObligationsUsd": 0.0,
+            "reportedActions": 1,
+            "lastActionDate": "2026-10-15",
+            "awardingAgency": "Department of Justice",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40026FA3500014_1544_70CDCR25D00000010_7012"
+          }
+        ],
+        "agenciesByNetObligationsUsd": [
+          {
+            "agency": "Department of Justice",
+            "amountUsd": 24830029.21
+          }
+        ],
+        "sampleActionsByMagnitude": [
+          {
+            "awardId": "15BRRC27F00000022",
+            "awardNaturalId": "CONT_AWD_15BRRC27F00000022_1540_15BRRC27D00000014_1540",
+            "modification": "0",
+            "actionDate": "2026-11-05",
+            "amountUsd": 16023998.64,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC27F00000022_1540_15BRRC27D00000014_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00202",
+            "actionDate": "2026-10-26",
+            "amountUsd": 5265383.13,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40027FA3500001",
+            "awardNaturalId": "CONT_AWD_15M40027FA3500001_1544_70CDCR20D00000007_7012",
+            "modification": "0",
+            "actionDate": "2026-10-29",
+            "amountUsd": 3442188.34,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40027FA3500001_1544_70CDCR20D00000007_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BRRC27F00000017",
+            "awardNaturalId": "CONT_AWD_15BRRC27F00000017_1540_15BRRC22D00000334_1540",
+            "modification": "0",
+            "actionDate": "2026-10-22",
+            "amountUsd": 929066.3,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC27F00000017_1540_15BRRC22D00000334_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BRRC26F00000039",
+            "awardNaturalId": "CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540",
+            "modification": "P00009",
+            "actionDate": "2026-11-05",
+            "amountUsd": -810195.2,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC26F00000039_1540_15BRRC21D00000282_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15BRRC26F00000342",
+            "awardNaturalId": "CONT_AWD_15BRRC26F00000342_1540_15BRRC26D00000070_1540",
+            "modification": "P00001",
+            "actionDate": "2026-11-05",
+            "amountUsd": -20412.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "Federal Prison System / Bureau of Prisons",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15BRRC26F00000342_1540_15BRRC26D00000070_1540",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "15M40026FA3500014",
+            "awardNaturalId": "CONT_AWD_15M40026FA3500014_1544_70CDCR25D00000010_7012",
+            "modification": "P00004",
+            "actionDate": "2026-10-15",
+            "amountUsd": 0.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DELIVERY ORDER",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_15M40026FA3500014_1544_70CDCR25D00000010_7012",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          },
+          {
+            "awardId": "DJJODT8C0001",
+            "awardNaturalId": "CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "modification": "P00203",
+            "actionDate": "2026-11-05",
+            "amountUsd": 0.0,
+            "recipientUEI": "HJGMJN1JKL46",
+            "recipientName": "CORECIVIC, INC.",
+            "awardingAgency": "Department of Justice",
+            "awardingSubAgency": "U.S. Marshals Service",
+            "awardType": "DEFINITIVE CONTRACT",
+            "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0001_1501_-NONE-_-NONE-",
+            "evidenceType": "Treasury_reported_prime_contract_transaction",
+            "reviewStatus": "official_api_not_individually_adjudicated"
+          }
+        ]
+      }
+    ]
+  }
+}
