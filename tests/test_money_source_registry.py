@@ -86,7 +86,7 @@ class MoneySourceRegistryTests(unittest.TestCase):
     def test_source_hub_linked_from_federal_money_dashboard(self):
         source_page = (ROOT / "platform" / "unified" / "money-sources.html").read_text(encoding="utf-8")
         funding_page = (ROOT / "platform" / "unified" / "election-money.html").read_text(encoding="utf-8")
-        home = (ROOT / "platform" / "unified" / "index.html").read_text(encoding="utf-8")
+        home = (ROOT / "platform" / "unified" / "dashboard.js").read_text(encoding="utf-8")
         self.assertIn("source-registry-v1.json", source_page)
         self.assertIn("verified-record-previews-v1.json", source_page)
         self.assertIn("money-sources.html", funding_page)

@@ -7,7 +7,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 DATA_PATH = ROOT / "data/money-influence/brennan-top40-midterms-2014-2026.json"
 FRONTEND_PATH = ROOT / "platform/unified/donor-intelligence.html"
-INDEX_PATH = ROOT / "platform/unified/index.html"
+INDEX_PATH = ROOT / "platform/unified/dashboard.js"
 
 
 class BrennanTop40DataTests(unittest.TestCase):

@@ -38,7 +38,7 @@
     badge.setAttribute("data-pa-zip-control","true");
     badge.href=location.hostname.startsWith("power-atlas-unified")||
       ["localhost","127.0.0.1"].includes(location.hostname)
-      ?"my-life.html#where":"https://power-atlas-unified.vercel.app/my-life.html#where";
+      ?"dashboard.html?edit-zip=1#overview":"https://power-atlas-unified.vercel.app/dashboard.html?edit-zip=1#overview";
     const brand=inner.querySelector(".pa-global-brand");
     if(brand)brand.insertAdjacentElement("afterend",badge);else inner.append(badge);
   }

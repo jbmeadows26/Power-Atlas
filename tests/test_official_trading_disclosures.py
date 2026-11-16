@@ -61,7 +61,8 @@ class OfficialTradingTests(unittest.TestCase):
                       "official-trading-data-v1.json", "data-period=\"2025\"", "data-period=\"2026\"",
                       "sourceList", "bug-report.js"):
             self.assertIn(token, self.page)
-        for path in ("platform/unified/index.html", "platform/unified/donor-intelligence.html", "platform/unified/my-life.html"):
+        self.assertIn('href:"public-trading.html"', (ROOT / "platform/unified/dashboard.js").read_text(encoding="utf-8"))
+        for path in ("platform/unified/donor-intelligence.html", "platform/unified/my-life.html"):
             self.assertIn('href="public-trading.html"', (ROOT / path).read_text(encoding="utf-8"))
         self.assertNotIn("proved insider trading", self.page.lower())
 

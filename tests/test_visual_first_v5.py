@@ -7,7 +7,7 @@ import unittest
 
 ROOT=Path(__file__).resolve().parents[1]
 SITES=(ROOT/"platform"/"unified", ROOT/"site")
-REQUIRED_UNIFIED=("index.html","my-life.html","corporate-ownership.html","consumer-practices.html","class-actions.html","dark-money.html","market-power.html","money-scale.html","reform-lab.html","cost-gap.html")
+REQUIRED_UNIFIED=("my-life.html","corporate-ownership.html","consumer-practices.html","class-actions.html","dark-money.html","market-power.html","money-scale.html","reform-lab.html","cost-gap.html")
 REQUIRED_RESEARCH=("index.html","consumer-practices.html","market-power.html","service-accountability.html","economic-fragility.html")
 
 class VisualFirstReviewTests(unittest.TestCase):

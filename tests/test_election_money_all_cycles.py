@@ -7,7 +7,7 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 MONEY = ROOT / "data" / "money-influence"
 HTML = ROOT / "platform" / "unified" / "election-money.html"
-HOME = ROOT / "platform" / "unified" / "index.html"
+HOME = ROOT / "platform" / "unified" / "dashboard.js"
 
 
 def load(name):

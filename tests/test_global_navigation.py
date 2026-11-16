@@ -5,7 +5,7 @@ import unittest
 
 UI = Path(__file__).resolve().parents[1] / "platform" / "unified"
 PAGES = (
-    "index.html", "my-life.html", "compare.html", "dark-money.html",
+    "my-life.html", "compare.html", "dark-money.html",
     "reform-lab.html", "business-candidates.html", "donor-intelligence.html",
     "money-sources.html", "election-2026.html", "business-influence.html",
     "election-money.html", "navatek.html", "investigations.html",
@@ -58,15 +58,20 @@ class GlobalNavigationTests(unittest.TestCase):
         self.assertIn("savedHomeZIP", life)
         self.assertIn('id="clearSavedZIP"', life)
 
-    def test_research_archive_is_collapsed_not_lost(self):
+    def test_dashboard_is_the_canonical_home_and_research_remains_accessible(self):
         home = (UI / "index.html").read_text(encoding="utf-8")
-        self.assertIn('class="pa-research-drawer"', home)
-        self.assertIn("Browse all research sections", home)
-        for key in ("redistricting", "authenticity", "promises", "decay", "research", "sources"):
-            self.assertIn('data-page="' + key + '"', home)
-        self.assertIn("function page(id)", home)
-        self.assertIn('href="consumer-practices.html"', home)
-        self.assertIn('data-pa-nav="research" aria-current="page"', home)
+        dashboard = (UI / "dashboard.html").read_text(encoding="utf-8")
+        archive = (UI / "research-archive.html").read_text(encoding="utf-8")
+        self.assertIn('location.replace("dashboard.html"', home)
+        self.assertIn('href="dashboard.html"', home)
+        for anchor in ('id="costs"', 'id="investigations"', 'id="topics"',
+                       'id="sources"', 'id="action"'):
+            self.assertIn(anchor, dashboard)
+        self.assertIn('href="research-archive.html"', dashboard)
+        self.assertIn('href="take-action.html#find"', dashboard)
+        self.assertIn("research", archive.lower())
+        self.assertIn("authenticity", archive.lower())
+        self.assertIn('href:"consumer-practices.html"', (UI / "dashboard.js").read_text(encoding="utf-8"))
 
     def test_responsive_shared_navigation_and_accessibility(self):
         css = (UI / "global-navigation.css").read_text(encoding="utf-8")

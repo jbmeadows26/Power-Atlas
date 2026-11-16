@@ -13,18 +13,18 @@ DATA = ROOT / "data"
 
 
 class ProductAcceptanceTests(unittest.TestCase):
-    def test_public_root_starts_at_zip_first_journey(self):
+    def test_public_root_starts_at_unified_dashboard(self):
         html = (SITE / "index.html").read_text(encoding="utf-8")
-        self.assertIn("data-pa-root-entry", html)
-        self.assertIn('window.location.pathname === "/"', html)
-        self.assertIn('window.location.replace("my-life.html"', html)
+        dash = (SITE / "dashboard.html").read_text(encoding="utf-8")
+        self.assertIn('location.replace("dashboard.html"', html)
+        self.assertIn('id="dashboardZip"', dash)
+        self.assertIn('id="action"', dash)
         self.assertTrue((SITE / "my-life.html").exists())
-        # Explicit /index.html remains available for the full research archive.
-        self.assertIn("Research Intelligence", html)
+        self.assertTrue((SITE / "research-archive.html").exists())
 
     def test_canonical_design_is_loaded_for_critical_modules(self):
         pages = (
-            "index.html", "my-life.html", "take-action.html",
+            "my-life.html", "take-action.html",
             "consumer-practices.html", "dark-money.html",
             "market-power.html", "business-influence.html",
             "corporate-ownership.html", "wealth-advantage.html",
@@ -177,6 +177,9 @@ class ProductAcceptanceTests(unittest.TestCase):
         self.assertGreaterEqual(len(pages), 27, "A research route was dropped")
         for page in pages:
             with self.subTest(page=page.name):
+                if page.name in ("index.html","dashboard.html"):
+                    self.assertIn("dashboard.html" if page.name=="index.html" else "dashboard.js", page.read_text(encoding="utf-8"))
+                    continue
                 self.assertIn("atlas-visual-system.js", page.read_text(encoding="utf-8"),
                     "A public route bypasses the V6 design loader")
         css = (SITE / "visual-story-v6.css").read_text(encoding="utf-8")

@@ -11,7 +11,7 @@ PAGE = ROOT / "platform/unified/cost-gap.html"
 JS = ROOT / "platform/unified/cost-gap.js"
 CSS = ROOT / "platform/unified/cost-gap.css"
 LIFE = ROOT / "platform/unified/my-life.html"
-INDEX = ROOT / "platform/unified/index.html"
+DASHBOARD = ROOT / "platform/unified/dashboard.js"
 RESEARCH = ROOT / "site/index.html"
 
 class CostGapTests(unittest.TestCase):
@@ -23,10 +23,10 @@ class CostGapTests(unittest.TestCase):
 
     def test_navigation_integration(self):
         self.assertIn('href="cost-gap.html"', LIFE.read_text(encoding="utf-8"))
-        self.assertIn('href="cost-gap.html"', INDEX.read_text(encoding="utf-8"))
+        self.assertIn('href:"cost-gap.html"', DASHBOARD.read_text(encoding="utf-8"))
         self.assertIn("power-atlas-unified.vercel.app/cost-gap.html", RESEARCH.read_text(encoding="utf-8"))
         self.assertIn("cost-gap.css", LIFE.read_text(encoding="utf-8"))
-        self.assertIn("cost-gap.css", INDEX.read_text(encoding="utf-8"))
+        self.assertIn("cost-gap.css", PAGE.read_text(encoding="utf-8"))
 
     def test_controls_and_accessibility(self):
         for token in ['id="cg-form"', 'id="cg-zip-a"', 'id="cg-zip-b"', 'id="cg-view"', 'aria-live="polite"',
