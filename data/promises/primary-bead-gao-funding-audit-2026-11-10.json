@@ -1,0 +1,99 @@
+{
+  "schema": "power-atlas.campaign-primary-bead-gao-audit.v1",
+  "asOf": "2026-11-10",
+  "status": "unadjudicated_additive_primary_evidence",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "independentHumanReviewCount": 0,
+  "sourceScopeComplete": false,
+  "pledgeLink": "US 2020 Democratic platform broadband infrastructure candidate; match to existing ledger by canonical ID before any scoring",
+  "newPledgeCount": 0,
+  "primarySources": [
+    {
+      "id": "GAO-26-108434",
+      "url": "https://files.gao.gov/reports/GAO-26-108434/index.html",
+      "publisher": "US Government Accountability Office",
+      "locator": "Appendix III: NTIA's Infrastructure Investment and Jobs Act Funding Status",
+      "rights": "US federal government report; link and short factual paraphrase; review embedded third-party material separately",
+      "publicationDate": "2026 (exact date requires source header verification)"
+    },
+    {
+      "id": "GAO-26-107725",
+      "url": "https://files.gao.gov/reports/GAO-26-107725/index.html",
+      "publisher": "US Government Accountability Office",
+      "publicationDate": "2026-08-31",
+      "locator": "Selected Programs Have Begun Distributing Funding for Broadband Deployment; BEAD milestones and sustainability",
+      "rights": "US federal government report; link and short factual paraphrase; review embedded third-party material separately"
+    }
+  ],
+  "fiscalObservations": [
+    {
+      "id": "NTIA-IIJA-2025-06-30-OBLIGATED",
+      "sourceId": "GAO-26-108434",
+      "asOf": "2025-06-30",
+      "value": 45100000000,
+      "unit": "USD_approximate",
+      "measure": "NTIA_all_IIJA_programs_obligated_cumulative",
+      "scope": "all NTIA IIJA programs; NOT BEAD-only",
+      "locator": "Appendix III, NTIA IIJA Appropriations, Obligations, and Disbursements"
+    },
+    {
+      "id": "NTIA-IIJA-2025-06-30-DISBURSED",
+      "sourceId": "GAO-26-108434",
+      "asOf": "2025-06-30",
+      "value": 1100000000,
+      "unit": "USD_approximate",
+      "measure": "NTIA_all_IIJA_programs_disbursed_cumulative",
+      "scope": "all NTIA IIJA programs; NOT BEAD-only",
+      "locator": "Appendix III, same section"
+    },
+    {
+      "id": "NTIA-IIJA-2025-06-30-APPROPRIATED",
+      "sourceId": "GAO-26-108434",
+      "asOf": "2025-06-30",
+      "value": 47700000000,
+      "unit": "USD_approximate",
+      "measure": "NTIA_IIJA_appropriations_FY2022_to_FY2025",
+      "scope": "all NTIA IIJA programs; NOT BEAD-only",
+      "locator": "Appendix III opening paragraph"
+    }
+  ],
+  "implementationMilestones": [
+    {
+      "id": "BEAD-FIRST-SUBRECIPIENT-FUNDING-2026-02",
+      "sourceId": "GAO-26-107725",
+      "date": "2026-02",
+      "datePrecision": "month",
+      "kind": "first_subrecipient_funding",
+      "fact": "GAO reports first BEAD subrecipients received deployment funding in February 2026.",
+      "notProofOf": "all BEAD funds disbursed or completed buildout"
+    },
+    {
+      "id": "BEAD-2025-06-RESTRUCTURING",
+      "sourceId": "GAO-26-108434",
+      "date": "2025-06",
+      "datePrecision": "month",
+      "kind": "policy_restructuring",
+      "fact": "NTIA issued restructuring notice requiring revised plans; GAO says most BEAD awards had not entered project implementation by June 30, 2025.",
+      "notProofOf": "sole cause of implementation delays"
+    }
+  ],
+  "comparability": "The $45.1B obligation and $1.1B disbursement figures cover all NTIA IIJA programs, not BEAD specifically. They are cumulative as-of observations, not quarterly expenditure flows; do not aggregate with BEAD state award snapshots or infer election-quarter spending.",
+  "competingExplanations": [
+    "Program design and planning timelines",
+    "State-level implementation capacity",
+    "2025 federal restructuring",
+    "Contracting and construction lead times"
+  ],
+  "uncertainty": [
+    "GAO figures rounded and subject to revisions",
+    "Disbursement to recipient is not completed infrastructure or final household coverage",
+    "No causal election-timing attribution",
+    "Need program-specific BEAD transaction-level outlays and comparable quarterly accounts"
+  ],
+  "independentReviewRequired": true,
+  "licenseAuditRequired": true,
+  "publicationGate": "Research discovery only; no pledge outcome or causal estimate; independently reconcile source and duplicate IDs."
+}
