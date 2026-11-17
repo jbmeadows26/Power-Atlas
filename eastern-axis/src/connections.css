@@ -1,0 +1,31 @@
+.cx-root{padding:25px 32px 50px;color:#deeee8}
+.cx-eyebrow{display:flex;align-items:center;gap:8px;font:10px 'DM Mono',monospace;color:#9bdac7;letter-spacing:.12em}
+.cx-root h1{font:800 clamp(27px,3.7vw,43px) 'Manrope',sans-serif;letter-spacing:-.065em;margin:10px 0}
+.cx-root h2{font:800 19px 'Manrope',sans-serif;letter-spacing:-.03em;margin:0}
+.cx-sub{font-size:13px;line-height:1.7;color:#a1b5bb;max-width:900px;margin-bottom:22px}.cx-sub strong{color:#c7ded7}
+.cx-center{border:1px solid #497b72;background:#133a40;border-radius:8px;display:flex;align-items:center;gap:15px;padding:18px 22px;max-width:780px;margin:15px auto 23px;position:relative}
+.cx-center:after{content:'';position:absolute;width:1px;height:24px;background:#72ad9d;bottom:-24px;left:50%}
+.cx-center>svg{color:#8fe4c7}.cx-center small{font:10px 'DM Mono',monospace;color:#8dc4b6}.cx-center h2{font-size:25px;margin:4px 0}.cx-center span{font-size:11px;color:#a7c2ba}
+.cx-branch-tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:9px;margin-bottom:16px}
+.cx-branch-tabs button{border:1px solid #33535c;background:#152c38;color:#a8c5c6;border-radius:6px;padding:17px 11px;display:flex;align-items:center;flex-direction:column;text-align:center;gap:7px;cursor:pointer;min-width:0}
+.cx-branch-tabs button.active{background:#25574f;border-color:#80b49e;color:#f3fef9}.cx-branch-tabs strong{font-size:11px}.cx-branch-tabs small{font-size:10px;color:#97b2b1}
+.cx-branch{border:1px solid #325460;background:#0e212b;border-radius:8px;padding:19px}
+.cx-branch-title{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:17px;border-bottom:1px solid #2a4652;margin-bottom:12px}
+.cx-branch-title p{font-size:11px;color:#83a6aa;margin:6px 0 0}.cx-branch-title span{font:10px 'DM Mono',monospace;color:#89d9c2}
+.cx-record{border-bottom:1px solid #2e4b52;padding:14px 4px;display:flex;flex-direction:column;align-items:flex-start;gap:8px}.cx-record:last-child{border:0}
+.cx-record h3{font-size:14px;margin:0}.cx-record small{font:10px 'DM Mono',monospace;color:#a1d4c3}
+.cx-record p{font-size:12px;line-height:1.7;color:#a9bdc1;margin:0;max-width:850px}.cx-record span{font-size:10px;color:#d7c6a2}
+.cx-record a{font-size:11px;color:#96e2c7;text-decoration:none;display:flex;align-items:center;gap:5px}.cx-record .cx-figure{font:800 27px 'Manrope',sans-serif;color:#e6f4ec}
+.cx-empty{padding:16px;color:#90aeb6;font-size:12px;line-height:1.6}
+.cx-guardrail{display:flex;gap:12px;align-items:flex-start;background:#16353a;border-left:3px solid #86c7b2;padding:15px 18px;margin-top:18px}
+.cx-guardrail strong{font-size:12px}.cx-guardrail p{font-size:11px;color:#9dbbbb;line-height:1.7;margin:6px 0}
+.cx-region-heading{display:flex;gap:16px;align-items:center;justify-content:space-between;border:1px solid #32545b;background:#142b37;padding:18px;border-radius:6px;margin-bottom:15px}
+.cx-region-heading p{font-size:11px;line-height:1.6;color:#94b3b8;margin:7px 0 0}
+.cx-region-heading select{min-width:175px;border:1px solid #487b7f;background:#1c3942;color:#e0f0e9;padding:10px}
+.cx-country-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.cx-country{border:1px solid #345a60;background:#15303a;color:#def0eb;display:flex;align-items:flex-start;text-align:left;flex-direction:column;gap:8px;padding:14px;border-radius:5px;cursor:pointer}
+.cx-country:hover{border-color:#8ad0b8}.cx-country strong{font-size:12px}.cx-country span{font-size:10px;color:#8aaeb4}
+.cx-country small{font-size:10px;color:#9bdfce;display:flex;gap:5px;align-items:center}.cx-foot{font-size:11px;color:#86a5ab}
+@media(max-width:1100px){.cx-country-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:750px){.cx-root{padding:19px 14px 38px}.cx-branch-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.cx-country-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cx-center{margin-top:17px}.cx-region-heading{flex-direction:column;align-items:stretch}.cx-region-heading select{width:100%}}
+@media(max-width:390px){.cx-country-grid{grid-template-columns:1fr}}
