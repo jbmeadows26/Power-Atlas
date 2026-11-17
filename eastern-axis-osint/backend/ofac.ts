@@ -1,4 +1,4 @@
-import { db } from './runtime';
+import { db } from './runtime.js';
 
 export const OFAC_EXPORT = 'https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV';
 type OFACHealth = {

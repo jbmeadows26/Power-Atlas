@@ -1,4 +1,4 @@
-import { db } from './runtime';
+import { db } from './runtime.js';
 
 /*
  * Country-system observations from the World Bank's official free Indicators API.

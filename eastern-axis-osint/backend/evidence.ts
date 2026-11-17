@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { db, storage } from './runtime';
+import { db, storage } from './runtime.js';
 
 type RunStatus = 'ok' | 'failed';
 type Capture = {

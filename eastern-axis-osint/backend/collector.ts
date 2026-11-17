@@ -1,6 +1,6 @@
-import { db } from './runtime';
-import { readOFACMetadata, syncOFAC } from './ofac';
-import { recordCollectionAttempt, recordHttpDigest } from './evidence';
+import { db } from './runtime.js';
+import { readOFACMetadata, syncOFAC } from './ofac.js';
+import { recordCollectionAttempt, recordHttpDigest } from './evidence.js';
 
 export type FeedId = 'doj' | 'fara' | 'cisa' | 'ofac';
 type FeedState = {

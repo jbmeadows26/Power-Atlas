@@ -1,5 +1,5 @@
-import { ai, db } from './runtime';
-import { readDefenseIntelligence } from './defenseIntel';
+import { ai, db } from './runtime.js';
+import { readDefenseIntelligence } from './defenseIntel.js';
 
 /**
  * Free-first metadata monitoring: official public feeds, one bounded page each.

@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { db } from './runtime';
+import { db } from './runtime.js';
 
 const SOURCE = 'https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv';
 const CATALOG = 'https://catalog.ourworldindata.org/energy/owid_energy/';

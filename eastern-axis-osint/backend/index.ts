@@ -1,13 +1,13 @@
-import { router, json, error, db } from './runtime';
-import { readIntelligenceDesk, runCollectorCron } from './collector';
-import { readEvidenceWorkbench } from './evidence';
-import { readWorldSignals } from './worldSignals';
-import { readAlliedSanctions, syncUK, syncCanada } from './internationalCoverage';
-import { readEnergy, syncEnergy } from './energySupply';
-import { ARCHIVE_ENTITIES, readFactbook, ARCHIVE_BASELINE, ARCHIVE_REVISION } from './factbook';
-import { readGlobalSystems } from './globalSystems';
-import { readDefenseIntelligence } from './defenseIntel';
-import { checkOfficialReportChanges, readOfficialReportChanges, compareAlliedReports, analyzeSourceChanges } from './militaryMonitor';
+import { router, json, error, db } from './runtime.js';
+import { readIntelligenceDesk, runCollectorCron } from './collector.js';
+import { readEvidenceWorkbench } from './evidence.js';
+import { readWorldSignals } from './worldSignals.js';
+import { readAlliedSanctions, syncUK, syncCanada } from './internationalCoverage.js';
+import { readEnergy, syncEnergy } from './energySupply.js';
+import { ARCHIVE_ENTITIES, readFactbook, ARCHIVE_BASELINE, ARCHIVE_REVISION } from './factbook.js';
+import { readGlobalSystems } from './globalSystems.js';
+import { readDefenseIntelligence } from './defenseIntel.js';
+import { checkOfficialReportChanges, readOfficialReportChanges, compareAlliedReports, analyzeSourceChanges } from './militaryMonitor.js';
 
 export const scheduledMilitaryReportMonitor = checkOfficialReportChanges;
 
