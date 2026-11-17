@@ -41,7 +41,7 @@ const DEFENSE = new Set('AU JP KR PH TH'.split(' '));
 const MNNA = new Set(
   'AR AU BH BR CO EG IL JP JO KE KW MA NZ PK PH QA KR TH TN TW'.split(' ')
 );
-const REGION_GROUPS: Record<string, string> = {
+const REGION_GROUPS: Record<string, string[]> = {
   Europe: [
     'AD',
     'AL',
