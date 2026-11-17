@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { ArrowUpRight, Bolt, Database, Factory, Fuel, Globe2, RefreshCcw, ShieldCheck } from 'lucide-react';
 import './internationalPanels.css';
 

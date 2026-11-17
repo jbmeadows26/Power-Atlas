@@ -1,5 +1,5 @@
 import { useEffect,useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { AlertCircle, ArrowUpRight, BookOpenCheck, Building2, Clock3, Database, FileCheck, Network, ShieldCheck } from 'lucide-react';
 import './internationalPanels.css';
 

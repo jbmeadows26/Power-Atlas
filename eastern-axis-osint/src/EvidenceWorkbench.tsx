@@ -1,5 +1,5 @@
 import {useEffect, useMemo, useState} from 'react';
-import {api} from '@appdeploy/client';
+import {api} from './apiClient';
 import {Activity, AlertTriangle, ArrowUpRight, Database, FileCheck2, Fingerprint, Globe2, Network, RefreshCcw, ShieldCheck} from 'lucide-react';
 import './evidence.css';
 import VerificationChecklist from './VerificationChecklist';

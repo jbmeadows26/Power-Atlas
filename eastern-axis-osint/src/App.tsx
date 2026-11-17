@@ -6,7 +6,7 @@ import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
 import DefenseIntel from './DefenseIntel';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import {
   Activity,
   ArrowDownRight,

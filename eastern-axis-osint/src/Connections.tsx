@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { Activity, ArrowUpRight, BookOpen, Database, FileSearch, Globe2, Layers3, Network, ShieldCheck } from 'lucide-react';
 import './connections.css';
 import AlliedSanctions from './AlliedSanctions';

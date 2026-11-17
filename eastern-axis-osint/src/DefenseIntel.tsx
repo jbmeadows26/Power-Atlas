@@ -1,5 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
-import {api} from '@appdeploy/client';
+import {api} from './apiClient';
 import {Activity,Anchor,BookOpen,ExternalLink,Globe2,Layers3,Search,Shield,ShieldCheck} from 'lucide-react';
 import './defense.css';
 import IntelInsights from './IntelInsights';

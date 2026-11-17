@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { Activity, AlertCircle, ArrowUpRight, CheckCircle2, ChevronDown, Clock3, Database, ExternalLink, FileSearch, Filter, LoaderCircle, Radio, RefreshCcw, Search, ShieldCheck } from 'lucide-react';
 import './intake.css';
 

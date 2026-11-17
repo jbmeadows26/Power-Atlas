@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { ArrowRight, BookOpen, ChevronDown, Database, ExternalLink, Globe2, Search, TrendingUp } from 'lucide-react';
 import './factbook.css';
 
@@ -99,6 +99,9 @@ export default function Factbook({
   function selectCountry(item: Country) {
     setSelected(item.code); setExpanded({ background: true });
     onCountryChange(item.iso || 'all');
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 760px)').matches) {
+      window.requestAnimationFrame(() => document.getElementById('factbook-country-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
   }
   function toggleComparison(code: string) {
     setComparison(null);
@@ -154,7 +157,7 @@ export default function Factbook({
         <p className="fb-note">Includes territories, disputed areas, oceans and the world.
           Inclusion does not imply recognition of sovereignty.</p>
       </aside>
-      <div className="fb-main">
+      <div className="fb-main" id="factbook-country-detail">
         <section className="fb-panel">
           <div className="fb-country">
             <div><small>WORLD FACTBOOK / {selected}</small>

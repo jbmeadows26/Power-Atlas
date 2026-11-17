@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './apiClient';
 import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, Link2, RefreshCcw, ShieldCheck } from 'lucide-react';
 import './globalSystems.css';
 import EnergySupply from './EnergySupply';
