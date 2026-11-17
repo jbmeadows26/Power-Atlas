@@ -1,4 +1,4 @@
-import { db } from '@appdeploy/sdk';
+import { db } from './runtime-sdk';
 
 export const OFAC_EXPORT = 'https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/SDN.CSV';
 type OFACHealth = {

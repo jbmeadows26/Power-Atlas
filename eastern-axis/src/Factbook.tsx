@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '@appdeploy/client';
 import { ArrowRight, BookOpen, ChevronDown, Database, ExternalLink, Globe2, Search, TrendingUp } from 'lucide-react';
 import './factbook.css';
@@ -50,6 +50,7 @@ export default function Factbook({
 }: {
   activeCountry: string; onCountryChange: (value: string) => void;
 }) {
+  const detailsRef = useRef<HTMLDivElement>(null);
   const [catalog, setCatalog] = useState<Country[]>([]);
   const [catalogError, setCatalogError] = useState('');
   const [selected, setSelected] = useState(activeCountry === 'all' ? 'RU' : activeCountry);
@@ -99,6 +100,11 @@ export default function Factbook({
   function selectCountry(item: Country) {
     setSelected(item.code); setExpanded({ background: true });
     onCountryChange(item.iso || 'all');
+    // On narrow screens, the dossier sits below the long country directory.
+    // Scroll to the actual result so selection is never a visually inert tap.
+    if (window.matchMedia('(max-width: 900px)').matches) {
+      window.requestAnimationFrame(() => detailsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+    }
   }
   function toggleComparison(code: string) {
     setComparison(null);
@@ -154,7 +160,7 @@ export default function Factbook({
         <p className="fb-note">Includes territories, disputed areas, oceans and the world.
           Inclusion does not imply recognition of sovereignty.</p>
       </aside>
-      <div className="fb-main">
+      <div className="fb-main" ref={detailsRef}>
         <section className="fb-panel">
           <div className="fb-country">
             <div><small>WORLD FACTBOOK / {selected}</small>
