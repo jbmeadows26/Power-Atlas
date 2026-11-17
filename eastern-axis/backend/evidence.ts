@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { db, storage } from '@appdeploy/sdk';
+import { db, storage } from './runtime-sdk';
 
 type RunStatus = 'ok' | 'failed';
 type Capture = {

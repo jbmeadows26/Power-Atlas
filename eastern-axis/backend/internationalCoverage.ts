@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { db } from '@appdeploy/sdk';
+import { db } from './runtime-sdk';
 
 const UK_URL = 'https://sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.csv';
 const CA_URL = 'https://www.international.gc.ca/world-monde/assets/office_docs/international_relations-relations_internationales/sanctions/sema-lmes.xml';

@@ -1,4 +1,4 @@
-import { db } from '@appdeploy/sdk';
+import { db } from './runtime-sdk';
 import { readOFACMetadata, syncOFAC } from './ofac';
 import { recordCollectionAttempt, recordHttpDigest } from './evidence';
 
