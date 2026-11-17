@@ -8,5 +8,43 @@
       "source": "/api/:path*",
       "destination": "/api/index?ea_route=:path*"
     }
+  ],
+  "crons": [
+    {
+      "path": "/api/cron/doj",
+      "schedule": "15 10 * * *"
+    },
+    {
+      "path": "/api/cron/fara",
+      "schedule": "25 10 * * *"
+    },
+    {
+      "path": "/api/cron/cisa",
+      "schedule": "35 10 * * *"
+    },
+    {
+      "path": "/api/cron/ofac",
+      "schedule": "50 10 * * *"
+    },
+    {
+      "path": "/api/cron/military",
+      "schedule": "5 11 * * *"
+    },
+    {
+      "path": "/api/cron/uk",
+      "schedule": "20 11 * * *"
+    },
+    {
+      "path": "/api/cron/canada",
+      "schedule": "30 11 * * *"
+    },
+    {
+      "path": "/api/cron/energy",
+      "schedule": "40 11 * * *"
+    },
+    {
+      "path": "/api/cron/worldbank",
+      "schedule": "0 12 * * *"
+    }
   ]
 }

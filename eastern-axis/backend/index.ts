@@ -946,6 +946,30 @@ async function countryBrief(code: string) {
 }
 
 export const handler = router({
+  'GET /api/cron/:job': [
+    async ({ params, headers }) => {
+      const secret = process.env.CRON_SECRET;
+      if (!secret || headers?.authorization !== 'Bearer ' + secret) return error('Unauthorized', 401);
+      const job = params.job;
+      if (['doj', 'fara', 'cisa', 'ofac'].includes(job)) {
+        await runCollectorCron({ payload: { sourceId: job } });
+      } else if (job === 'uk') {
+        await syncUK();
+      } else if (job === 'canada') {
+        await syncCanada();
+      } else if (job === 'energy') {
+        await syncEnergy();
+      } else if (job === 'military') {
+        await checkOfficialReportChanges();
+      } else if (job === 'worldbank') {
+        await dailyEconomicSync();
+      } else {
+        return error('Unknown collection job', 404);
+      }
+      return json({ job, invoked: true, checkedAt: new Date().toISOString(),
+        note: 'Invocation is not proof of collection success. Verify the saved source health and observations.' });
+    },
+  ],
   'GET /api/_healthcheck': [
     async () => json({ message: 'Success', service: 'Eastern Axis' }),
   ],

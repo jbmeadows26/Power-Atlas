@@ -1,7 +1,7 @@
 import { neon } from '@neondatabase/serverless';
 
-type Scope = { params: Record<string,string>; query: Record<string,string>; body: any };
-type RequestScope = { method: string; path: string; query?: Record<string,string>; body?: any };
+type Scope = { params: Record<string,string>; query: Record<string,string>; body: any; headers: Record<string,string|undefined> };
+type RequestScope = { method: string; path: string; query?: Record<string,string>; body?: any; headers?: Record<string,string|undefined> };
 type Route = (ctx: Scope) => Promise<Response> | Response;
 const asJson = (data: unknown, status: number) => new Response(JSON.stringify(data), {
   status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }
@@ -28,7 +28,7 @@ export function router(routes: Record<string, Route[]>) {
       if (!match) continue;
       const params: Record<string,string> = {};
       route.names.forEach((name, index) => { params[name] = decodeURIComponent(match[index + 1]); });
-      const context: Scope = { params, query: request.query || {}, body: request.body };
+      const context: Scope = { params, query: request.query || {}, body: request.body, headers: request.headers || {} };
       try {
         let response: Response = error('Endpoint handler returned no response', 500);
         for (const handler of route.handlers) response = await handler(context);
