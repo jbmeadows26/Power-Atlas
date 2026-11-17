@@ -1,4 +1,4 @@
-import { router, json, error, db } from '@appdeploy/sdk';
+import { router, json, error, db } from './runtime';
 import { readIntelligenceDesk, runCollectorCron } from './collector';
 import { readEvidenceWorkbench } from './evidence';
 import { readWorldSignals } from './worldSignals';

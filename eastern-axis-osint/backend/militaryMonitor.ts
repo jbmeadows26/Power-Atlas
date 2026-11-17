@@ -1,4 +1,4 @@
-import { ai, db } from '@appdeploy/sdk';
+import { ai, db } from './runtime';
 import { readDefenseIntelligence } from './defenseIntel';
 
 /**
