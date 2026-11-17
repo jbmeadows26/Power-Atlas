@@ -29,16 +29,17 @@ export const db={
   },
   tx:{
     async add(bucket:string,items:any[]):Promise<Array<Doc|null>> {
-      await ready();const result:Array<Doc|null>=[];
+      if(!items.length)return [];
+      await ready();
       const docs=items.map(normalized);
-      if(!docs.length)return [];
-      for(let start=0;start<docs.length;start+=100){
-        const batch=docs.slice(start,start+100);
-        const rows=await client().query('INSERT INTO ea_osint_documents(collection,id,document) SELECT $1,record->>\'id\',record FROM jsonb_array_elements($2::jsonb) AS record ON CONFLICT DO NOTHING RETURNING id',[bucket,JSON.stringify(batch)]) as Array<{id:string}>;
-        const accepted=new Set(rows.map(row=>row.id));
-        result.push(...batch.map(doc=>accepted.has(doc.id)?doc:null));
-      }
-      return result;
+      // Batch insertion preserves first observed source records and avoids
+      // one Neon round trip per DOJ disclosure.
+      const rows=await client().query(
+        'INSERT INTO ea_osint_documents(collection,id,document) SELECT $1, x.id, x.doc FROM jsonb_to_recordset($2::jsonb) AS x(id text,doc jsonb) ON CONFLICT DO NOTHING RETURNING id',
+        [bucket,JSON.stringify(docs.map(doc=>({id:doc.id,doc})))]
+      ) as Array<{id:string}>;
+      const saved=new Set(rows.map(row=>row.id));
+      return docs.map(doc=>saved.has(doc.id)?doc:null);
     },
     async update(bucket:string,items:any[]):Promise<Doc[]> {
       await ready();const result:Doc[]=[];
