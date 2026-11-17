@@ -1,4 +1,4 @@
-import FARA_SNAPSHOT from './faraSnapshot.json';
+import FARA_SNAPSHOT from './faraSnapshot.json' with { type: 'json' };
 import { db } from './runtime.js';
 import { readOFACMetadata, syncOFAC } from './ofac.js';
 import { recordCollectionAttempt, recordHttpDigest } from './evidence.js';
