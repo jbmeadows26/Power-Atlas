@@ -1,0 +1,56 @@
+[
+  {
+    "name": "intake-doj",
+    "cron": "15 10 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledSourceIntake",
+    "payload": {
+      "sourceId": "doj"
+    }
+  },
+  {
+    "name": "intake-fara",
+    "cron": "25 10 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledSourceIntake",
+    "payload": {
+      "sourceId": "fara"
+    }
+  },
+  {
+    "name": "intake-cisa",
+    "cron": "35 10 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledSourceIntake",
+    "payload": {
+      "sourceId": "cisa"
+    }
+  },
+  {
+    "name": "intake-ofac",
+    "cron": "50 10 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledSourceIntake",
+    "payload": {
+      "sourceId": "ofac"
+    }
+  },
+  {
+    "name": "military-report-monitor",
+    "cron": "5 11 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledMilitaryReportMonitor",
+    "payload": {
+      "source": "official-publications"
+    }
+  },
+  {
+    "name": "allied-energy-intake",
+    "cron": "20 */6 * * *",
+    "timezone": "UTC",
+    "handler": "scheduledGlobalSources",
+    "payload": {
+      "mode": "rotate"
+    }
+  }
+]
