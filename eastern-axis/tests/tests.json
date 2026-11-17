@@ -1,0 +1,112 @@
+[
+  {
+    "name": "Country investigations and legal cross-source context",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "command center",
+      "alliance map",
+      "legacy DOJ cases",
+      "country selector",
+      "Connections",
+      "/api/allied-sanctions/:code"
+    ],
+    "description": "Verifies country and case navigation preserves legal statuses while showing official allied designation sources.",
+    "steps": [
+      "Open Command center",
+      "Confirm blue treaty allies and red selected adversaries on map legend",
+      "Select Russia in country selector and open Connections",
+      "Find case status descriptions and UK/Canadian official sanctions status cards",
+      "Check UK pending state remains clearly unknown until scheduled file has been collected",
+      "Inspect Canadian legal-regime counts, source link and original-file hash when available"
+    ],
+    "expected": "Eight curated DOJ cases remain source-linked; Canada and UK are distinct source categories, with legal regime counts never presented as nationality or guilt."
+  },
+  {
+    "name": "Physical energy observed production and date handling",
+    "viewport": "desktop",
+    "covers": [
+      "Global systems",
+      "/api/energy-supply/:code",
+      "OWID energy dataset",
+      "source-year provenance",
+      "physical production metric disclosures"
+    ],
+    "description": "Live physical production and electricity values use the new OWID energy data with source years, never invented trade links.",
+    "steps": [
+      "Open Global systems and choose Russia",
+      "Scroll to Physical energy",
+      "Find Oil production and Gas production in TWh with an observation year, or a clear official-source unavailable message",
+      "Inspect electricity generation, net imports, and stated difference between domestic production and consumption",
+      "Open OWID source catalog link"
+    ],
+    "expected": "Country-specific annual physical energy records are reported with years and units; no claim of verified ownership, exports by destination or government sponsorship."
+  },
+  {
+    "name": "Source coverage truthfulness and evidence workflow",
+    "viewport": "mobile",
+    "covers": [
+      "Coverage audit",
+      "Verification lab",
+      "source freshness",
+      "no inferred ownership graph",
+      "case outcome limitations"
+    ],
+    "description": "Keeps the 39 capabilities transparent, evidence references unreviewed and court outcomes unverified.",
+    "steps": [
+      "Open Coverage audit on mobile and inspect International sanctions and ownership status",
+      "Open Connections and choose China",
+      "Read UK/Canada sanctions source status and missing or partial data warnings",
+      "Read case-outcome verification states and linked DOJ originals",
+      "Open Verification lab and inspect unreviewed provenance and missing immutable-object-lock warning"
+    ],
+    "expected": "The UI does not imply missing legal designations are zero or that unreviewed source links establish ownership or a verdict."
+  },
+  {
+    "name": "Global/regional collection and mobile navigation",
+    "viewport": "mobile",
+    "covers": [
+      "persistent country filter",
+      "regional intelligence",
+      "UK and Canada sanctions source health",
+      "World Factbook"
+    ],
+    "description": "Checks global and country views without losing navigation or source identity.",
+    "steps": [
+      "Choose Global / regional in the header",
+      "Open Connections and inspect sources in global scope",
+      "Switch to South Korea and reopen Connections",
+      "Open World Factbook and then Global systems",
+      "Confirm country scope persists and physical energy data is either valid with an observation year or unavailable without fabricated figures"
+    ],
+    "expected": "Country selection follows the user; global sanctions totals and country legal-regime counts are labelled differently."
+  },
+  {
+    "name": "International API failure remains explicit",
+    "viewport": "desktop",
+    "covers": [
+      "/api/allied-sanctions/:code",
+      "/api/energy-supply/:code",
+      "failed-source disclosure",
+      "source not assumed healthy"
+    ],
+    "description": "An upstream API error cannot be silently presented as an absent sanctioned party or zero fuel production.",
+    "qa_faults": [
+      {
+        "method": "GET",
+        "path": "/api/allied-sanctions/RU",
+        "status": 503,
+        "body_json": {
+          "error": "simulated_source_failure"
+        }
+      }
+    ],
+    "steps": [
+      "Select Russia and open Connections with simulated allied sanctions failure",
+      "Inspect the visible official-source unavailable notice",
+      "Verify the DOJ curated case references remain independent",
+      "Navigate to Global systems and verify physical energy observations remain separate"
+    ],
+    "expected": "An unavailable sanctions API is clearly reported, while unrelated source-backed case or energy evidence remains usable."
+  }
+]
