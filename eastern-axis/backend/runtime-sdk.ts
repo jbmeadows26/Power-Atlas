@@ -110,6 +110,6 @@ export const storage = { async write(items: unknown[]): Promise<boolean[]> {
   return items.map(() => false);
 } };
 // AI synthesis deliberately unavailable until an independent, reviewed provider is configured.
-export const ai = { async generate(_input: unknown): Promise<never> {
+export const ai = { async generate(_input: unknown): Promise<{ text: string }> {
   throw new Error('AI analysis provider is not configured; no generated analysis is returned');
 } };
