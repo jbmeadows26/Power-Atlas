@@ -34,6 +34,8 @@ export default function IntakeDesk({countryCode='all'}:{countryCode?:string}) {
   const [search,setSearch]=useState('');
   const [recordLimit,setRecordLimit]=useState(45);
   const [chosen,setChosen]=useState<Intake|null>(null);
+  // Prevent a previously selected disclosure from appearing under a different country filter.
+  useEffect(()=>{setChosen(null);},[countryCode,source,search]);
   const refresh=()=>{
     setLoading(true);setError('');
     api.get('/api/intelligence').then(response=>{setData(response.data as Intelligence);setChosen(null);}).catch(()=>setError('Collector status could not be read. Previous source data has not been altered.')).finally(()=>setLoading(false));
