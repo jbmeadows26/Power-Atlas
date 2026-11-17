@@ -195,8 +195,9 @@ export async function syncFeed(sourceId: FeedId) {
     };
     const [saved] = await db.tx.update('intel_source_health', [{id:sourceId,record:state}]);
     if (!saved) throw new Error('Source health status write not confirmed');
-    if(sourceId==='fara'&&'sourceUrls' in feed){
-      await db.tx.update('intel_fara_snapshots',[{id:'latest',record:{id:'latest',checkedAt:attemptedAt,method:feed.method,sourceUrls:feed.sourceUrls,sourceHashes:feed.sourceHashes,activeRegistrants:feed.registrants,matchedSamplePrincipals:feed.matchedPrincipals,reviewState:'source-index-unreviewed'}}]);
+    if(sourceId==='fara'){
+      const report=feed as Awaited<ReturnType<typeof readFARAOfficial>>;
+      await db.tx.update('intel_fara_snapshots',[{id:'latest',record:{id:'latest',checkedAt:attemptedAt,method:report.method,sourceUrls:report.sourceUrls,sourceHashes:report.sourceHashes,activeRegistrants:report.registrants,matchedSamplePrincipals:report.matchedPrincipals,reviewState:'source-index-unreviewed'}}]);
     }
     await recordCollectionAttempt({sourceId,attemptedAt,finishedAt:new Date().toISOString(),status:'ok',
       examined:feed.examined,matched:feed.rows.length,inserted,zeroMatches:feed.rows.length===0,

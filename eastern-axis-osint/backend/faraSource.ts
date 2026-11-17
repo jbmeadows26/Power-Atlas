@@ -5,7 +5,6 @@
  */
 import { createHash } from 'node:crypto';
 import { inflateRawSync } from 'node:zlib';
-import { db } from './runtime.js';
 import type { IntakeRecord } from './collector.js';
 
 const ROOT='https://efile.fara.gov';
