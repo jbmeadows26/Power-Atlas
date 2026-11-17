@@ -12,7 +12,8 @@ export default async function handler(req:any,res:any) {
   const a = Buffer.from(actual);
   const b = Buffer.from('Bearer '+secret);
   if (a.length !== b.length || !timingSafeEqual(a,b)) return res.status(401).json({error:'Unauthorized'});
-  const sources = ['doj','fara','cisa','ofac'];
+  // FARA updates via a separate daily DOJ snapshot workflow; avoid 429 from serverless egress.
+  const sources = ['doj','cisa','ofac'];
   const tasks = [
     ...sources.map(sourceId=>({name:sourceId,work:()=>runCollectorCron({payload:{sourceId}})})),
     {name:'military',work:()=>checkOfficialReportChanges()},

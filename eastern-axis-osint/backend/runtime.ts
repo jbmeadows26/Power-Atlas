@@ -30,7 +30,14 @@ export const db={
   tx:{
     async add(bucket:string,items:any[]):Promise<Array<Doc|null>> {
       await ready();const result:Array<Doc|null>=[];
-      for(const item of items){const doc=normalized(item);const rows=await client().query('INSERT INTO ea_osint_documents(collection,id,document) VALUES($1,$2,$3::jsonb) ON CONFLICT DO NOTHING RETURNING id',[bucket,doc.id,JSON.stringify(doc)]);result.push((rows as unknown[]).length?doc:null);}
+      const docs=items.map(normalized);
+      if(!docs.length)return [];
+      for(let start=0;start<docs.length;start+=100){
+        const batch=docs.slice(start,start+100);
+        const rows=await client().query('INSERT INTO ea_osint_documents(collection,id,document) SELECT $1,record->>\'id\',record FROM jsonb_array_elements($2::jsonb) AS record ON CONFLICT DO NOTHING RETURNING id',[bucket,JSON.stringify(batch)]) as Array<{id:string}>;
+        const accepted=new Set(rows.map(row=>row.id));
+        result.push(...batch.map(doc=>accepted.has(doc.id)?doc:null));
+      }
       return result;
     },
     async update(bucket:string,items:any[]):Promise<Doc[]> {

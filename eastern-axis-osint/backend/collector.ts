@@ -1,3 +1,4 @@
+import FARA_SNAPSHOT from './faraSnapshot.json';
 import { db } from './runtime.js';
 import { readOFACMetadata, syncOFAC } from './ofac.js';
 import { recordCollectionAttempt, recordHttpDigest } from './evidence.js';
@@ -170,14 +171,39 @@ export async function readIntelligenceDesk() {
   const states = stateRead.status==='fulfilled'?stateRead.value:SOURCE_IDS.map(()=>null);
   const entries = recordRead.status==='fulfilled'?recordRead.value:{items:[] as IntakeRecord[]};
   const ofac = ofacRead.status==='fulfilled'?ofacRead.value:null;
-  const records = entries.items
-    .filter(r=>SOURCE_IDS.includes(r.sourceId) && r.reviewState==='unreviewed')
-    .sort((a,b)=>((b.date || '').localeCompare(a.date || '') || (b.collectedAt || '').localeCompare(a.collectedAt || '')))
-    .slice(0, 60);
+  // Verified DOJ snapshot is a separate, source-dated public register; it survives
+  // HTTP 429s in serverless egress. It contains NO foreign-principal country joins.
+  const snapshot = FARA_SNAPSHOT as unknown as {
+    source: string; retrievedAt: string|null; originalSha256: string|null;
+    total: number; rows: Array<{n:number;s:string;d:string}>;
+  };
+  const snapshotRows = Array.isArray(snapshot.rows) ? snapshot.rows : [];
+  const snapshotRecords: IntakeRecord[] = snapshotRows.map(item=>({
+    id:'fara-'+item.n,sourceId:'fara',sourceRecordId:String(item.n),
+    title:clean(item.s),date:isoDate(item.d),
+    summary:'Official FARA active-registrant index, not an allegation of misconduct. Country and foreign-principal relationships have not yet been verified.',
+    sourceUrl:'https://efile.fara.gov/api/v1/RegDocs/json/'+item.n,
+    recordType:'FARA active registrant (dated DOJ snapshot)',reviewState:'unreviewed',
+    evidenceTier:'original-source-index',collectedAt:snapshot.retrievedAt||''
+  }));
+  const allRecords = new Map(entries.items.filter(r=>SOURCE_IDS.includes(r.sourceId) && r.reviewState==='unreviewed').map(r=>[r.id,r]));
+  for(const record of snapshotRecords)if(!allRecords.has(record.id))allRecords.set(record.id,record);
+  // A fair per-source window stops newer CISA records from crowding out FARA.
+  const records = SOURCE_IDS.flatMap(sourceId=>[...allRecords.values()]
+    .filter(r=>r.sourceId===sourceId)
+    .sort((a,b)=>((b.date||'').localeCompare(a.date||'')||(b.collectedAt||'').localeCompare(a.collectedAt||'')))
+    .slice(0,sourceId==='fara'?600:30));
   return {
     sources:FEEDS.map(s=>({...s,health:states[SOURCE_IDS.indexOf(s.id)] || null})),
     ofac, records, sampled:records.length,
-    resultsNote:'This is a bounded recent intake sample, not a complete database search or a count of global incidents.',
+    faraSnapshot:{
+      sourceUrl:snapshot.source, retrievedAt:snapshot.retrievedAt,
+      total:snapshot.total, indexed: snapshotRows.length,
+      contentSha256:snapshot.originalSha256,
+      status:snapshotRows.length?'official-source-snapshot':'awaiting-verified-snapshot',
+      warning:'Unlinked country: the active registrant table does not identify each foreign-principal country. Source dates and foreign principals must be checked separately. This snapshot may lag the live register.'
+    },
+    resultsNote:'Recent DOJ/CISA intake samples and a separately dated FARA active-registrant snapshot. This is not a count of wrongdoing or all FARA filings.',
     reviewPolicy:'Records are automatically imported source references. None are published as validated accusations; no government or person is assigned responsibility from a name or headline.'
   };
 }

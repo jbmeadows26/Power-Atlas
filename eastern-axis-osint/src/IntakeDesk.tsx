@@ -20,7 +20,8 @@ type Intake = {
   countryMention?:string; countryRule?:string;
   recordType:string; reviewState:string; evidenceTier:string; collectedAt:string;
 };
-type Intelligence = { sources:Feed[]; records:Intake[]; sampled:number; resultsNote:string; reviewPolicy:string };
+type FaraSnapshot = {sourceUrl:string;retrievedAt:string|null;total:number;indexed:number;contentSha256:string|null;status:string;warning:string};
+type Intelligence = { sources:Feed[]; records:Intake[]; sampled:number; resultsNote:string; reviewPolicy:string; faraSnapshot?:FaraSnapshot };
 const SOURCE_NAMES:Record<string,string> = {doj:'DOJ',fara:'FARA',cisa:'CISA',ofac:'OFAC'};
 const d=(value?:string)=>value?new Date(value.length===10?value+'T12:00:00Z':value).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):'Not yet';
 export default function IntakeDesk({countryCode='all'}:{countryCode?:string}) {
@@ -29,13 +30,15 @@ export default function IntakeDesk({countryCode='all'}:{countryCode?:string}) {
   const [loading,setLoading]=useState(true);
   const [source,setSource]=useState('all');
   const [search,setSearch]=useState('');
+  const [recordLimit,setRecordLimit]=useState(45);
   const [chosen,setChosen]=useState<Intake|null>(null);
   const refresh=()=>{
     setLoading(true);setError('');
     api.get('/api/intelligence').then(response=>{setData(response.data as Intelligence);setChosen(null);}).catch(()=>setError('Collector status could not be read. Previous source data has not been altered.')).finally(()=>setLoading(false));
   };
   useEffect(refresh,[]);
-  const visible=useMemo(()=>((data?.records||[]).filter(record=>(countryCode==='all'||record.countryMention===countryCode) && (source==='all'||record.sourceId===source) && (record.title+' '+record.sourceRecordId+' '+record.summary).toLowerCase().includes(search.toLowerCase()))),[data,source,search,countryCode]);
+  const visible=useMemo(()=>((data?.records||[]).filter(record=>(countryCode==='all'||record.countryMention===countryCode||(source==='fara'&&record.sourceId==='fara')) && (source==='all'||record.sourceId===source) && (record.title+' '+record.sourceRecordId+' '+record.summary).toLowerCase().includes(search.toLowerCase()))),[data,source,search,countryCode]);
+  const displayed=visible.slice(0,recordLimit);
   const ok=data?.sources.filter(s=>s.health?.status==='ok').length||0;
   const fail=data?.sources.filter(s=>s.health?.status==='error').length||0;
   const never=data?.sources.filter(s=>!s.health).length||0;
@@ -46,6 +49,19 @@ export default function IntakeDesk({countryCode='all'}:{countryCode?:string}) {
     {loading&&!data?<div className="intake-loading"><LoaderCircle size={21} className="spinning"/> Reading collection status…</div>:null}
     {error?<div className="intake-warning"><AlertCircle size={17}/>{error}<button onClick={refresh}>Retry</button></div>:null}
     {data&&<>
+      <div className="intake-disclosure" style={{alignItems:'flex-start',gap:16,flexWrap:'wrap'}}>
+        <Database size={22}/><div style={{flex:'1 1 240px'}}>
+          <strong>FARA public disclosure register</strong>
+          <p>{data.faraSnapshot?.indexed
+            ? data.faraSnapshot.indexed.toLocaleString()+' DOJ active registrants in a source-dated snapshot (published index '+(data.faraSnapshot.retrievedAt?.slice(0,10)||'date not recorded')+').'
+            : 'No verified source snapshot is available yet. The last live collector status is shown below.'}
+            {' '}The total refers to registrations, not findings of misconduct. A registrant is not assigned to a country until its foreign-principal filing is verified.</p>
+          <a href="https://efile.fara.gov/api/v1/Registrants/json/Active" target="_blank" rel="noopener noreferrer">Official DOJ active register <ExternalLink size={13}/></a>
+        </div>
+        <button type="button" className="intake-refresh" onClick={()=>{setSource('fara');setSearch('');setRecordLimit(45);setChosen(null);}}>
+          Explore FARA registrations
+        </button>
+      </div>
       <div className="intake-summary">
         <div className="intake-stat"><span>HEALTHY CONNECTORS</span><strong>{ok} <small>/ {data.sources.length}</small></strong><p>Last check completed successfully</p></div>
         <div className="intake-stat"><span>NEEDS ATTENTION</span><strong>{fail}</strong><p>Failures shown individually below</p></div>
@@ -62,9 +78,9 @@ export default function IntakeDesk({countryCode='all'}:{countryCode?:string}) {
         <a href={s.documentation} target="_blank" rel="noopener noreferrer">Documentation <ExternalLink size={13}/></a>
       </article>)}</div>
       <div className="intake-h2"><div><div className="eyebrow smaller">SOURCE REFERENCES / UNREVIEWED</div><h2>Research intake</h2></div><span>{data.sampled} RECORDS SHOWN · NOT A GLOBAL TOTAL</span></div>
-      <div className="intake-toolbar"><div className="intake-search"><Search size={17}/><input aria-label="Search imported source records" value={search} onChange={e=>setSearch(e.target.value)} placeholder="Search titles, CVEs or registration numbers…"/></div><div className="intake-filter"><Filter size={15}/><select aria-label="Filter imported source" value={source} onChange={e=>{setSource(e.target.value);setChosen(null);}}><option value="all">All sources</option>{data.sources.map(s=><option value={s.id} key={s.id}>{s.name}</option>)}</select><ChevronDown size={14}/></div></div>
-      {countryCode!=='all'&&<p className="intake-disclosure">Country scope {countryCode}: only explicitly tagged source references are displayed. Untagged OFAC, FARA and CISA records remain accessible in Global; collector health is always global.</p>}
-      <div className="intake-list-layout"><div className="intake-records">{visible.length===0?<div className="intake-empty"><Database size={21}/><h3>No matching intake records yet</h3><p>{data.sources.some(s=>!s.health)?'The first scheduled collection has not completed for every source.':'Try another source or keyword. A successful collection with no matches is not proof of inactivity.'}</p></div>:visible.map(r=><button key={r.id} className={'intake-record '+(chosen?.id===r.id?'active':'')} onClick={()=>setChosen(r)}><div className="intake-record-meta"><span>{SOURCE_NAMES[r.sourceId]} · {r.recordType}</span><span>{d(r.date)}</span></div><h3>{r.title}</h3><div className="intake-record-foot"><span><span className="intake-amber-dot"/> AWAITING HUMAN REVIEW</span><span>DETAILS <ArrowUpRight size={14}/></span></div></button>)}</div><aside className="intake-detail">{chosen?<><span className="eyebrow smaller">RAW SOURCE INDEX · UNREVIEWED</span><h3>{chosen.title}</h3><div className="intake-detail-line"><span>AGENCY</span><strong>{SOURCE_NAMES[chosen.sourceId]}</strong></div><div className="intake-detail-line"><span>RECORD ID</span><strong>{chosen.sourceRecordId}</strong></div><div className="intake-detail-line"><span>RECORD DATE</span><strong>{d(chosen.date)}</strong></div><div className="intake-detail-line"><span>COLLECTED</span><strong>{d(chosen.collectedAt)}</strong></div><div className="intake-detail-line"><span>REVIEW STATE</span><strong>Unreviewed</strong></div>{chosen.countryMention&&<div className="intake-detail-line"><span>HEADLINE MENTIONS</span><strong>{chosen.countryMention} · not attribution</strong></div>}<p className="intake-description">{chosen.summary}</p><div className="intake-review-caveat"><ShieldCheck size={18}/><p>Original-source identity is recorded; the factual allegations and subsequent legal outcomes have not been independently adjudicated by this platform.</p></div><a href={chosen.sourceUrl} target="_blank" rel="noopener noreferrer" className="intake-record-link">Open public source <ExternalLink size={14}/></a></>:<div className="intake-select"><FileSearch size={29}/><h3>Inspect a record</h3><p>Select a source reference to review its collection date, original evidence link and publication status.</p></div>}</aside></div>
+      <div className="intake-toolbar"><div className="intake-search"><Search size={17}/><input aria-label="Search imported source records" value={search} onChange={e=>{setSearch(e.target.value);setRecordLimit(45);}} placeholder="Search titles, CVEs or registration numbers…"/></div><div className="intake-filter"><Filter size={15}/><select aria-label="Filter imported source" value={source} onChange={e=>{setSource(e.target.value);setChosen(null);setRecordLimit(45);}}><option value="all">All sources</option>{data.sources.map(s=><option value={s.id} key={s.id}>{s.name}</option>)}</select><ChevronDown size={14}/></div></div>
+      {countryCode!=='all'&&<p className="intake-disclosure">Country scope {countryCode}: only explicitly tagged source references are displayed. Untagged records are not automatically assigned to this country. Selecting FARA shows its GLOBAL index for research, not a country-specific attribution; collector health is always global.</p>}
+      <div className="intake-list-layout"><div className="intake-records">{visible.length===0?<div className="intake-empty"><Database size={21}/><h3>No matching intake records yet</h3><p>{data.sources.some(s=>!s.health)?'The first scheduled collection has not completed for every source.':'Try another source or keyword. A successful collection with no matches is not proof of inactivity.'}</p></div>:displayed.map(r=><button key={r.id} className={'intake-record '+(chosen?.id===r.id?'active':'')} onClick={()=>setChosen(r)}><div className="intake-record-meta"><span>{SOURCE_NAMES[r.sourceId]} · {r.recordType}</span><span>{d(r.date)}</span></div><h3>{r.title}</h3><div className="intake-record-foot"><span><span className="intake-amber-dot"/> AWAITING HUMAN REVIEW</span><span>DETAILS <ArrowUpRight size={14}/></span></div></button>)}{visible.length>displayed.length&&<button type="button" className="intake-refresh" onClick={()=>setRecordLimit(n=>n+45)}>Show more records ({visible.length-displayed.length} remaining)</button>}</div><aside className="intake-detail">{chosen?<><span className="eyebrow smaller">RAW SOURCE INDEX · UNREVIEWED</span><h3>{chosen.title}</h3><div className="intake-detail-line"><span>AGENCY</span><strong>{SOURCE_NAMES[chosen.sourceId]}</strong></div><div className="intake-detail-line"><span>RECORD ID</span><strong>{chosen.sourceRecordId}</strong></div><div className="intake-detail-line"><span>RECORD DATE</span><strong>{d(chosen.date)}</strong></div><div className="intake-detail-line"><span>COLLECTED</span><strong>{d(chosen.collectedAt)}</strong></div><div className="intake-detail-line"><span>REVIEW STATE</span><strong>Unreviewed</strong></div>{chosen.countryMention&&<div className="intake-detail-line"><span>HEADLINE MENTIONS</span><strong>{chosen.countryMention} · not attribution</strong></div>}<p className="intake-description">{chosen.summary}</p><div className="intake-review-caveat"><ShieldCheck size={18}/><p>Original-source identity is recorded; the factual allegations and subsequent legal outcomes have not been independently adjudicated by this platform.</p></div><a href={chosen.sourceUrl} target="_blank" rel="noopener noreferrer" className="intake-record-link">Open public source <ExternalLink size={14}/></a></>:<div className="intake-select"><FileSearch size={29}/><h3>Inspect a record</h3><p>Select a source reference to review its collection date, original evidence link and publication status.</p></div>}</aside></div>
       <div className="intake-footnote"><Activity size={15}/><span>{data.resultsNote} Source checks execute on the published schedule; refreshing this screen only re-reads stored results.</span></div>
     </>}
   </div>;
