@@ -1,7 +1,10 @@
-# Eastern Axis migration
+# Eastern Axis migration status
 
-Source snapshot: application version `1794894949348` (November 17, 2026). All 43 original source files are preserved unchanged in this directory; this document is additional.
-
-This is a preservation snapshot, not yet a production-ready Vercel port. The React frontend imports `@appdeploy/client`. The backend imports `@appdeploy/sdk` and uses its router and database abstractions. Migrating requires replacing these dependencies with standalone Vercel API functions and equivalent durable storage; creating only a static frontend would leave the intelligence, country and Factbook APIs broken.
-
-Do not use AppDeploy for new builds or deployments. Previous backend schedule definitions are preserved in `cron.json`. Verify evidence provenance, incomplete data warnings, and mobile navigation before production promotion.
+- Original 43 source files preserved from version 1794894949348.
+- Vercel builds the React/Vite client and serves it through a Git-linked project.
+- Local same-origin HTTP client replaces @appdeploy/client.
+- Local Node API handler and Postgres-backed collection store replace @appdeploy/sdk; database is a dedicated table named eastern_axis_v2_records using EA_DATABASE_URL.
+- AI-generated summaries remain explicitly unavailable unless separately integrated; no false AI analysis is produced.
+- WARC object-lock storage is not migrated; evidence archival is explicitly marked unavailable rather than invented.
+- Database source states and original scheduled ingestion are **not** automatically transferred. Existing cron.json is a record of the previous schedule, not a Vercel cron configuration.
+- This migration is not production complete until API routes, country navigation, source collection, source provenance and security have been checked against the old version.
