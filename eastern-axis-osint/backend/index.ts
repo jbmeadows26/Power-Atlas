@@ -945,6 +945,12 @@ export const handler = router({
   'GET /api/_healthcheck': [
     async () => json({ message: 'Success', service: 'Eastern Axis' }),
   ],
+  'GET /api/health': [
+    async () => json({ message: 'Success', service: 'Eastern Axis' }),
+  ],
+  'GET /api/healthcheck': [
+    async () => json({ message: 'Success', service: 'Eastern Axis' }),
+  ],
   'GET /api/allied-sanctions/:code': [
     async ({ params }) => {
       try {
