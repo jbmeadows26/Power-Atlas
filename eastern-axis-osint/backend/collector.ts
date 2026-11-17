@@ -1,4 +1,5 @@
 import { db } from './runtime.js';
+import { readFARAOfficial } from './faraSource.js';
 import { readOFACMetadata, syncOFAC } from './ofac.js';
 import { recordCollectionAttempt, recordHttpDigest } from './evidence.js';
 
@@ -12,6 +13,7 @@ type FeedState = {
   examined: number;
   inserted: number;
   duplicates: number;
+  method?: string;
 };
 export type IntakeRecord = {
   id: string;
@@ -27,6 +29,9 @@ export type IntakeRecord = {
   reviewState: 'unreviewed';
   evidenceTier: 'original-source-index';
   collectedAt: string;
+  countryCodes?: string[];
+  foreignPrincipals?: Array<{name:string;country:string;countryCode?:string;source:string}>;
+  faraMethod?: string;
 };
 const FEEDS: { id: FeedId; name: string; agency: string; documentation: string; category: string; caveat: string }[] = [
   {id:'ofac',name:'Treasury OFAC SDN Register',agency:'U.S. Treasury / OFAC',
@@ -39,7 +44,7 @@ const FEEDS: { id: FeedId; name: string; agency: string; documentation: string; 
     caveat: 'A DOJ release can contain allegations, settlements or convictions. A headline is not evidence of final liability.'
   },
   {
-    id: 'fara', name: 'FARA Active Registrants', agency: 'U.S. Department of Justice',
+    id: 'fara', name: 'FARA Disclosures · DOJ Registrants & Foreign Principals', agency: 'U.S. Department of Justice',
     documentation: 'https://efile.fara.gov/ords/fara/f?p=API:ENDPOINTS',
     category: 'Foreign-agent disclosures',
     caveat: 'FARA registration is a legal disclosure, NOT evidence of crime or hostile foreign activity.'
@@ -116,28 +121,6 @@ async function readDOJ(): Promise<{ rows: IntakeRecord[]; examined: number }> {
   }
   return { rows:rows.slice(0, 20), examined:items.length };
 }
-type FARARow = { Registration_Number?: number | string; Name?: string; Registration_Date?: string };
-async function readFARA(): Promise<{ rows: IntakeRecord[]; examined: number }> {
-  const body = await jsonGet('https://efile.fara.gov/api/v1/Registrants/json/Active', 10000) as { REGISTRANTS_ACTIVE?: { ROW?: FARARow[] | FARARow } };
-  const raw = body.REGISTRANTS_ACTIVE?.ROW;
-  const items = Array.isArray(raw) ? raw : raw ? [raw] : [];
-  if (!items.length) throw new Error('Invalid or empty FARA active-register schema');
-  const collectedAt = new Date().toISOString();
-  const rows: IntakeRecord[] = items
-    .filter(item=>/^\d{1,8}$/.test(String(item.Registration_Number || '')) && clean(item.Name).length>0)
-    .sort((a,b)=>Number(b.Registration_Number)-Number(a.Registration_Number))
-    .slice(0,18)
-    .map(item=>({
-      id:'fara-' + String(item.Registration_Number),
-      sourceId:'fara' as const, sourceRecordId:String(item.Registration_Number),
-      title:clean(item.Name), date:isoDate(item.Registration_Date),
-      summary:'Active foreign-agent registration as listed by DOJ FARA. Registration is a disclosure requirement; it does not imply misconduct. Foreign principal, country and filings must be checked separately.',
-      sourceUrl:'https://efile.fara.gov/api/v1/Registrants/json/Active',
-      recordType:'FARA active registration', reviewState:'unreviewed' as const,
-      evidenceTier:'original-source-index' as const, collectedAt
-    }));
-  return {rows,examined:items.length};
-}
 type KEVItem = { cveID?:string; vendorProject?:string; product?:string; vulnerabilityName?:string; shortDescription?:string; dateAdded?:string };
 async function readCISA(): Promise<{rows:IntakeRecord[];examined:number}> {
   // CISA-managed GitHub mirror avoids the primary website's occasional anti-bot rejection.
@@ -170,10 +153,14 @@ export async function readIntelligenceDesk() {
   const states = stateRead.status==='fulfilled'?stateRead.value:SOURCE_IDS.map(()=>null);
   const entries = recordRead.status==='fulfilled'?recordRead.value:{items:[] as IntakeRecord[]};
   const ofac = ofacRead.status==='fulfilled'?ofacRead.value:null;
-  const records = entries.items
+  const sorted = entries.items
     .filter(r=>SOURCE_IDS.includes(r.sourceId) && r.reviewState==='unreviewed')
-    .sort((a,b)=>((b.date || '').localeCompare(a.date || '') || (b.collectedAt || '').localeCompare(a.collectedAt || '')))
-    .slice(0, 60);
+    .sort((a,b)=>((b.date || '').localeCompare(a.date || '') || (b.collectedAt || '').localeCompare(a.collectedAt || '')));
+  // A source-balanced queue ensures FARA remains discoverable across dates.
+  const fara = sorted.filter(r=>r.sourceId==='fara').slice(0,35);
+  const pinned = new Set(fara.map(r=>r.id));
+  const records = [...fara,...sorted.filter(r=>!pinned.has(r.id)).slice(0,85)]
+    .sort((a,b)=>(b.date || '').localeCompare(a.date || ''));
   return {
     sources:FEEDS.map(s=>({...s,health:states[SOURCE_IDS.indexOf(s.id)] || null})),
     ofac, records, sampled:records.length,
@@ -196,17 +183,21 @@ export async function syncFeed(sourceId: FeedId) {
       return outcome;
     }
     [previous] = await db.get<FeedState>('intel_source_health', [sourceId], {consistent:true});
-    const feed = sourceId==='doj' ? await readDOJ() : sourceId==='fara' ? await readFARA() : await readCISA();
+    const feed = sourceId==='doj' ? await readDOJ() : sourceId==='fara' ? await readFARAOfficial() : await readCISA();
     if (feed.rows.length === 0 && sourceId !== 'doj') throw new Error('No valid source rows after normalization');    // Stable chosen IDs guarantee duplicate prevention across daily runs.
     // Only a small change-detection window is processed; never scan historical tables.
     const added = feed.rows.length ? await db.tx.add('intel_records', feed.rows) : [];
     const inserted = added.filter(Boolean).length;
     const state: FeedState = {
       sourceId, status:'ok', lastAttemptAt:attemptedAt, lastSuccessAt:attemptedAt,
-      examined:feed.examined, inserted, duplicates:feed.rows.length-inserted
+      examined:feed.examined, inserted, duplicates:feed.rows.length-inserted,
+      ...(sourceId==='fara'&&'method' in feed?{method:String(feed.method)}:{})
     };
     const [saved] = await db.tx.update('intel_source_health', [{id:sourceId,record:state}]);
     if (!saved) throw new Error('Source health status write not confirmed');
+    if(sourceId==='fara'&&'sourceUrls' in feed){
+      await db.tx.update('intel_fara_snapshots',[{id:'latest',record:{id:'latest',checkedAt:attemptedAt,method:feed.method,sourceUrls:feed.sourceUrls,sourceHashes:feed.sourceHashes,activeRegistrants:feed.registrants,matchedSamplePrincipals:feed.matchedPrincipals,reviewState:'source-index-unreviewed'}}]);
+    }
     await recordCollectionAttempt({sourceId,attemptedAt,finishedAt:new Date().toISOString(),status:'ok',
       examined:feed.examined,matched:feed.rows.length,inserted,zeroMatches:feed.rows.length===0,
       collectionScope:'bounded-scheduled-official-public'});
