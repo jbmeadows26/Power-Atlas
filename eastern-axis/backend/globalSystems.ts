@@ -1,4 +1,4 @@
-import { db } from '@appdeploy/sdk';
+import { db } from './runtime-sdk';
 
 /*
  * Country-system observations from the World Bank's official free Indicators API.
