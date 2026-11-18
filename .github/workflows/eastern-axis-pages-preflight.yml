@@ -68,8 +68,14 @@ jobs:
             eastern-axis/neon-function.zip
           retention-days: 7
       - name: Stage temporary backend transfer only after all checks pass
-        if: github.event_name == 'push' && github.ref == 'refs/heads/migration/eastern-axis-pages-ready-20261118'
+        if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
         run: |
+          git fetch origin "${{ github.head_ref }}"
+          git checkout -B neon-release-stage FETCH_HEAD
+          if [ "$(git rev-parse HEAD)" != "${{ github.event.pull_request.head.sha }}" ]; then
+            echo 'PR branch moved during the build; refusing to stage a stale artifact.'
+            exit 0
+          fi
           mkdir -p .neon-transfer
           rm -f .neon-transfer/part-*
           base64 -w0 eastern-axis/neon-function.zip | fold -w 16000 | split -d -a 3 - .neon-transfer/part-
@@ -78,5 +84,5 @@ jobs:
           git add -A .neon-transfer
           if ! git diff --cached --quiet; then
             git commit -m 'chore(temporary): stage verified Neon release bundle for migration'
-            git push origin HEAD:migration/eastern-axis-pages-ready-20261118
+            git push origin HEAD:"${{ github.head_ref }}"
           fi
