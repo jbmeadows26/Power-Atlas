@@ -99,35 +99,80 @@ def opencti():
   return adapter("opencti","ok","OpenCTI GraphQL authenticated; reports not ingested before review.")
  except Exception as e:return adapter("opencti","error",type(e).__name__+": API/authentication failure.")
 async def openosint():
+ """Keyless OpenOSINT on our own Pages hostname; non-official GDELT is lead-only."""
  domain=os.getenv("EA_OPENOSINT_DOMAIN","").strip().lower()
  if not domain:return adapter("openosint")
- if not re.fullmatch("[a-z0-9.-]{4,190}",domain) or "." not in domain:return adapter("openosint","error","Invalid scoped domain")
+ if not re.fullmatch(r"[a-z0-9.-]{4,190}",domain) or "." not in domain:return adapter("openosint","error","Invalid scoped domain")
  try:
   from mcp import ClientSession,StdioServerParameters
   from mcp.client.stdio import stdio_client
-  async with stdio_client(StdioServerParameters(command="uvx",args=["--from","openosint","openosint-mcp"])) as (read,write):
+  async with stdio_client(StdioServerParameters(command="uvx",args=["--from","openosint==2.23.0","openosint-mcp"])) as (read,write):
    async with ClientSession(read,write) as session:
     await session.initialize()
     capabilities=await session.list_tools()
-    if not any(t.name=="search_dns" for t in capabilities.tools):raise RuntimeError("Passive DNS tool missing")
+    names={item.name for item in capabilities.tools}
+    if "search_dns" not in names:raise RuntimeError("Passive DNS tool missing")
     answer=await session.call_tool("search_dns",{"domain":domain})
     if answer.isError:raise RuntimeError("Passive DNS lookup failed")
-  return adapter("openosint","ok","Passive public-domain DNS investigation completed; raw findings withheld for review.")
+    # GDELT reports are third-party leads. Never publish unverified GDELT claims
+    # into our official-source digest or label them government intelligence.
+    gdelt="not offered"
+    if "search_gdelt_geo" in names:
+     try:
+      discovery=await session.call_tool("search_gdelt_geo",{"query":"sanctions OR missile OR cyber","timespan":60,"maxpoints":20})
+      if not discovery.isError:
+       texts=[getattr(item,"text","") for item in discovery.content]
+       if not any("[service_unavailable]" in t for t in texts):
+        gdelt="completed (lead-only; not published)"
+       else:gdelt="unavailable"
+      else:gdelt="unavailable"
+     except Exception:gdelt="unavailable"
+  return adapter("openosint","ok","Passive DNS check completed on configured Pages hostname; global GDELT: "+gdelt+". No allegations published.")
  except Exception as e:return adapter("openosint","error",type(e).__name__+": MCP lookup failed.")
 async def draft(query,folder):
+ """Research output is retained only as an unreviewed Actions artifact."""
  folder.mkdir(parents=True,exist_ok=True)
  prompt=short(query,450)+"\nUse original attributable sources, uncertainties and competing hypotheses. UNREVIEWED."
  notes=[]
- if os.getenv("OPENAI_API_KEY") and os.getenv("TAVILY_API_KEY"):
+ outcomes={}
+ local=os.getenv("EA_FREE_LLM_LOCAL")=="true"
+ paid=bool(os.getenv("OPENAI_API_KEY") and os.getenv("TAVILY_API_KEY"))
+ if local or paid:
   try:
+   if local:
+    # Ollama's OpenAI-compatible endpoint is bound to the runner loopback only.
+    # A placeholder key cannot be used with OpenAI or any billable service.
+    os.environ["OPENAI_API_KEY"]="ollama-loopback-only"
+    os.environ["OPENAI_API_BASE"]="http://127.0.0.1:11434/v1"
+    os.environ["OLLAMA_BASE_URL"]="http://127.0.0.1:11434/"
+    os.environ["RETRIEVER"]="duckduckgo"
+    os.environ["FAST_LLM"]="ollama:qwen2.5:1.5b"
+    os.environ["SMART_LLM"]="ollama:qwen2.5:1.5b"
+    os.environ["STRATEGIC_LLM"]="ollama:qwen2.5:1.5b"
+    os.environ["EMBEDDING"]="ollama:nomic-embed-text"
+    os.environ["MAX_ITERATIONS"]="1"
+    os.environ["MAX_SEARCH_RESULTS_PER_QUERY"]="3"
+    os.environ["TOTAL_WORDS"]="300"
+    os.environ["FAST_TOKEN_LIMIT"]="500"
+    os.environ["SMART_TOKEN_LIMIT"]="900"
+    os.environ["STRATEGIC_TOKEN_LIMIT"]="600"
+    os.environ["CONTEXT_FILTER"]="keyword"
    from gpt_researcher import GPTResearcher
    agent=GPTResearcher(query=prompt,report_type="research_report")
    await agent.conduct_research()
    report=await agent.write_report()
+   sources=agent.get_research_sources()
+   if not isinstance(report,str) or len(report.strip())<100:
+    raise ValueError("No substantive report generated")
    (folder/"GPT-Researcher-UNREVIEWED.md").write_text(str(report),encoding="utf-8")
-   notes.append("GPT Researcher: draft created")
-  except Exception as e:notes.append("GPT Researcher failed: "+type(e).__name__)
- else:notes.append("GPT Researcher: credentials not configured")
+   (folder/"GPT-Researcher-sources-UNREVIEWED.json").write_text(json.dumps(sources,indent=2,default=str),encoding="utf-8")
+   if not sources:raise ValueError("Generated draft has no attributable research sources")
+   notes.append("GPT Researcher: draft with source list generated; human review still required")
+   outcomes["gpt-researcher"]=adapter("gpt-researcher","ok","Research completed in ephemeral "+("local Ollama CPU" if local else "configured model")+" session. Unreviewed report is not publicly indexed.")
+  except Exception as e:
+   notes.append("GPT Researcher failed: "+type(e).__name__)
+   outcomes["gpt-researcher"]=adapter("gpt-researcher","error",type(e).__name__+"; model/search run failed or lacked source provenance.")
+ else:notes.append("GPT Researcher: neither local Ollama runner nor credentials selected")
  if all(os.getenv(k) for k in ("EA_LDR_URL","EA_LDR_USERNAME","EA_LDR_PASSWORD")):
   try:
    from local_deep_research.api.client import LDRClient
@@ -135,10 +180,14 @@ async def draft(query,folder):
     if not client.login(os.environ["EA_LDR_USERNAME"],os.environ["EA_LDR_PASSWORD"]):raise RuntimeError("Authentication failed")
     result=await asyncio.to_thread(client.quick_research,prompt,timeout=180)
    (folder/"Local-Deep-Research-UNREVIEWED.json").write_text(json.dumps(result,indent=2),encoding="utf-8")
-   notes.append("Local Deep Research: draft created")
-  except Exception as e:notes.append("Local Deep Research failed: "+type(e).__name__)
- else:notes.append("Local Deep Research: authenticated model server not configured")
+   notes.append("Local Deep Research: draft generated")
+   outcomes["local-deep-research"]=adapter("local-deep-research","ok","Authenticated research run completed; model output withheld for review.")
+  except Exception as e:
+   notes.append("Local Deep Research failed: "+type(e).__name__)
+   outcomes["local-deep-research"]=adapter("local-deep-research","error",type(e).__name__+"; authenticated research unsuccessful.")
+ else:notes.append("Local Deep Research: persistent authenticated model server not configured")
  (folder/"README.txt").write_text("\n".join(notes)+"\nDO NOT PUBLISH UNREVIEWED AI CLAIMS.\n",encoding="utf-8")
+ return outcomes
 async def run(args):
  snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable"},"method":"Attributable public-source metadata and topic indexing only; AI drafts require human review.","connectors":[],"records":[],"analysis":None}
  try:
@@ -162,10 +211,12 @@ async def run(args):
    print("Secondary DOJ/FARA/CISA intake unavailable:",type(e).__name__)
   snapshot["analysis"]=build_analysis(snapshot["records"],use_model=not args.no_semantic)
  snapshot["connectors"]=[
-  adapter("gpt-researcher","not-run" if args.research and os.getenv("OPENAI_API_KEY") else "not-configured"),
+  adapter("gpt-researcher","not-run" if args.research or os.getenv("EA_FREE_LLM_LOCAL")=="true" else "not-configured", "Free local Ollama runner available on manual dispatch; not a permanent model service." if os.getenv("EA_FREE_LLM_LOCAL")=="true" else None),
   adapter("local-deep-research","not-run" if args.research and os.getenv("EA_LDR_URL") else "not-configured"),
   await openosint(),openaleph(),opencti()]
- if args.research:await draft(args.query,Path(args.drafts))
+ if args.research:
+  checks=await draft(args.query,Path(args.drafts))
+  snapshot["connectors"]=[checks.get(c["id"],c) for c in snapshot["connectors"]]
  out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
  out.write_text(json.dumps(snapshot,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
  print("Source health:",snapshot["sourceStatus"],"Records:",len(snapshot["records"]))
