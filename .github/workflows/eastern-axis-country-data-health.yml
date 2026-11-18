@@ -25,9 +25,9 @@ jobs:
       - name: Check official OWID schema and source isolation
         run: node --experimental-strip-types --test eastern-axis/tests/socialSources.test.mjs
       - name: Build primary country dashboards
-        run: cd eastern-axis && npm ci --no-audit --no-fund && npm run build
+        run: cd eastern-axis && npm install --no-audit --no-fund && npm run build
       - name: Build OSINT country dashboards
-        run: cd eastern-axis-osint && npm ci --no-audit --no-fund && npm run build
+        run: cd eastern-axis-osint && npm install --no-audit --no-fund && npm run build
   live-data-integrity:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04
