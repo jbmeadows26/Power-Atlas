@@ -38,6 +38,19 @@ jobs:
         run: python3 -m unittest discover -s eastern-axis/tests -p 'test_*resilien*.py' -v
       - name: Compile collector before probing
         run: python3 -m py_compile eastern-axis/scripts/monitor_systemic_resilience.py eastern-axis/scripts/resilience_external.py
+      - name: Live public-source smoke test on pull requests
+        if: github.event_name == 'pull_request'
+        run: |
+          python3 eastern-axis/scripts/monitor_systemic_resilience.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=json.loads(Path('eastern-axis/public/telemetry/resilience.json').read_text())
+          print('Public independent source statuses:')
+          for o in p.get('observations', []):
+              print(o.get('id'),o.get('status'),o.get('detail','')[:100],
+                    o.get('frequencyHz',''),o.get('exchange',''),o.get('httpStatus',''))
+          PY
       - name: Load prior samples for trend history
         if: github.event_name != 'pull_request'
         run: |
