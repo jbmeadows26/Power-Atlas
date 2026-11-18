@@ -128,7 +128,7 @@ def region_probe(host, provider):
     base={"id":"globalping-"+provider,"category":"regional_http","provider":provider,
           "title":host + " external HTTP reachability", "source":"Globalping community probes",
           "sourceUrl":"https://globalping.io/","checkedAt":now(),
-          "scope":"Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+          "scope":"Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
           "status":"unavailable","regions":[]}
     try:
         job=json_http("https://api.globalping.io/v1/measurements",
@@ -157,7 +157,7 @@ def region_probe(host, provider):
                 "latencyMs":timing.get("total") if isinstance(timing,dict) else None,
                 "state":state, "probeStatus":rstatus})
         if base["regions"]:
-            base["status"]="warning" if sum(r["state"]=="failure" for r in base["regions"])>=2 else "observed"
+            base["status"]="warning" if sum(r["state"]=="failure" for r in base["regions"])>=max(2,(len(base["regions"])+1)//2) else "observed"
             base["failedRegions"]=sum(r["state"]=="failure" for r in base["regions"])
         else: base["detail"]="No probe results returned"
     except Exception as exc:
@@ -269,7 +269,7 @@ def correlate(observations):
         incidents.append({"id":"multi-provider-http", "severity":"watch",
             "title":"Multi-provider regional HTTP failures",
             "evidenceIds":[by_provider[k]["id"] for k in sources],
-            "explanation":"Two independent provider endpoints each returned server errors in at least two sampled regions. Investigate shared dependencies, but root cause and malicious intent are unknown.",
+            "explanation":"Two independent provider endpoints each returned server errors in at least half of sampled regions, with a minimum of two affected regions per provider. Investigate shared dependencies, but root cause and malicious intent are unknown.",
             "confidence":"screening-only"})
     return incidents
 
