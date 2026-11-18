@@ -8,7 +8,7 @@ type Mode = 'systems' | 'risk' | 'coverage';
 type Case = { id: string; code: string; title: string; date: string; topic: string; status: string; source: string; agency: string };
 type Indicator = {
   code: string; label: string; category: string; unit: string; meaning: string;
-  value: number | null; year: string | null; observationStatus: string | null; sourceUrl: string;
+  value: number | null; year: string | null; observationStatus: string | null; sourceUrl: string; sourceName?: string;
 };
 type GlobalData = {
   code: string; checkedAt: string; status: string; covered: number; requested: number;
@@ -20,7 +20,7 @@ const groups = [
   { label: 'Energy & resources', text: 'Exposure to energy and resource systems. National totals do not identify beneficiaries or ownership.' },
   { label: 'Trade & finance', text: 'Cross-border dependence and investment context, not proof of illicit flows.' },
   { label: 'Economy', text: 'Economic conditions that can magnify disruptions and affect households.' },
-  { label: 'People & climate', text: 'Civilian conditions and environmental indicators. Years can differ.' },
+  { label: 'People & climate', text: 'Population, inequality and emissions. Source definitions and reporting years may differ; WID pre-tax Gini is not survey Gini.' },
 ];
 
 type Gap = { area: string; label: string; status: 'live' | 'partial' | 'reference' | 'not connected'; detail: string };
@@ -41,7 +41,7 @@ const gaps: Gap[] = [
   { area: 'Defense & risk', label: 'Proxies, arms transfers and defense procurement', status: 'reference', detail: 'SIPRI and agency links; no normalized actor-to-transfer analysis' },
   { area: 'Defense & risk', label: 'Nuclear, cyber and space capabilities', status: 'reference', detail: 'Selected public assessments; no comprehensive historical time series' },
   { area: 'Defense & risk', label: 'Predictive global flashpoints', status: 'not connected', detail: 'Evidence-led pressure indicators available; a validated forecasting model is not' },
-  { area: 'Economy & power', label: 'World Bank social, energy and economy indicators', status: 'live', detail: 'Twelve indicator series on demand, with source years and missingness disclosed' },
+  { area: 'Economy & power', label: 'World Bank social, energy and economy indicators', status: 'partial', detail: 'Twelve source-dated series; incomplete World Bank group responses now retried by indicator and explicitly labeled OWID/GCB/PIP/WID fallbacks for inequality and CO₂. Country-level completeness must be audited.' },
   { area: 'Economy & power', label: 'Oil, gas and power generation flows', status: 'partial', detail: 'OWID 2026 physical oil/gas/coal production and electricity data are ingested for 220 countries; bilateral trade flows, pipelines and freight links remain absent.' },
   { area: 'Economy & power', label: 'Critical mineral extraction, processing and ownership', status: 'not connected', detail: 'No validated mine, processor or beneficial-owner records' },
   { area: 'Economy & power', label: 'Trade flows and logistics chokepoints', status: 'partial', detail: 'PortWatch short-window vessel traffic is now displayed in Supply chain; UN Comtrade U.S.-reported partner/commodity import comparisons are available on demand; full trade matrix and freight-price history remain unavailable' },
@@ -137,16 +137,18 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
       const GroupIcon = icons[group.label] || Globe2;
       const items = observed.filter(indicator => indicator.category === group.label);
       return <section className="gs-group" key={group.label}>
-        <div className="gs-group-top"><GroupIcon size={19}/><div><h2>{group.label}</h2><p>{group.text}</p></div></div>
+        <div className="gs-group-top"><GroupIcon size={19}/><div><h2>{group.label} <span className="gs-group-count">{items.filter(item=>item.value!==null).length}/{items.length} available</span></h2><p>{group.text}</p></div></div>
         <div className="gs-metric-grid">{items.map(item => <article className="gs-metric" key={item.code}>
-          <div className="gs-metric-head"><strong>{item.label}</strong><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'View World Bank source for '+item.label}><ArrowUpRight size={15}/></a></div>
-          <div className="gs-value">{item.value === null ? 'Unavailable' : number(item.value, item.unit)}</div>
-          <small>{item.year ? 'Reported ' + item.year + (Number(item.year) < 2021 ? ' · historic' : '') : 'No dated observation'}</small>
+          <div className="gs-metric-head"><strong>{item.label}</strong><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'View original source for '+item.label}><ArrowUpRight size={15}/></a></div>
+          <div className="gs-value">{item.value === null ? 'Not reported' : number(item.value, item.unit)}</div>
+          <small>{item.year ? 'Reported ' + item.year + (Number(item.year) < 2021 ? ' · historic' : '') : 'No verified observation'}</small>
+          {item.value!==null&&item.sourceName&&<div className="gs-metric-source"><span>Alternate measure / source</span><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">{item.sourceName} <ArrowUpRight size={11}/></a></div>}
           {item.value !== null && item.unit === 'percent' && <div className="gs-meter"><span style={{width:Math.max(0,Math.min(100,item.value))+'%'}}/></div>}
           <p>{item.meaning}</p>
         </article>)}</div>
       </section>;
     })}</div>}
+    {mode === 'systems' && <div className="gs-source-alternatives"><strong>Additional original datasets</strong><span>Values in these sources have different survey populations, measures or reporting years; they are not interchangeable without source labels.</span><div><a href="https://pip.worldbank.org/" target="_blank" rel="noopener noreferrer">World Bank PIP</a><a href="https://wid.world/" target="_blank" rel="noopener noreferrer">World Inequality Database</a><a href="https://www.wider.unu.edu/database/world-income-inequality-database-wiid" target="_blank" rel="noopener noreferrer">UNU-WIDER WIID</a><a href="https://www.oecd.org/en/data/datasets/income-and-wealth-distribution-database.html" target="_blank" rel="noopener noreferrer">OECD Income & Wealth Distribution</a><a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank" rel="noopener noreferrer">OWID CO₂</a><a href="https://edgar.jrc.ec.europa.eu/" target="_blank" rel="noopener noreferrer">EU EDGAR</a></div></div>}
     {mode === 'systems' && <EnergySupply code={code==='WLD'?'all':code} />}
     {mode === 'risk' && <div className="gs-signal-grid">{signalDefinitions.map(signal => {
       const observation = observed.find(item => item.code === signal.code);
