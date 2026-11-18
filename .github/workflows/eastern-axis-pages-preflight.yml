@@ -1,0 +1,69 @@
+name: Eastern Axis | GitHub Pages migration preflight
+on:
+  push:
+    branches:
+      - 'migration/eastern-axis-pages-ready-20261118'
+    paths:
+      - 'eastern-axis/**'
+      - '.github/workflows/eastern-axis-pages-preflight.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/**'
+      - '.github/workflows/eastern-axis-pages-preflight.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-validate:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Validate bounded official-source parsers
+        run: |
+          node --experimental-strip-types --test eastern-axis/tests/supplyContext.test.mjs
+          node --experimental-strip-types --test eastern-axis/tests/socialSources.test.mjs
+      - name: Install unified Eastern Axis frontend and backend
+        working-directory: eastern-axis
+        run: npm install --no-audit --no-fund
+      - name: Compile GitHub Pages at repository subpath
+        working-directory: eastern-axis
+        env:
+          VITE_EA_TARGET: github-pages
+        run: |
+          export VITE_EA_API_ORIGIN="$(tr -d '\r\n' < public-api-origin.txt)"
+          case "$VITE_EA_API_ORIGIN" in
+            https://*.neon.tech) ;;
+            *) echo 'Missing verified public Neon API origin' >&2; exit 1 ;;
+          esac
+          npx vite build --base ./
+          test -s dist/index.html
+          grep -q './assets/' dist/index.html
+      - name: Compile independently hosted Neon API bundle
+        working-directory: eastern-axis
+        run: |
+          node scripts/build-neon.mjs
+          test -s neon-release/index.mjs
+          (cd neon-release && zip -q ../neon-function.zip index.mjs)
+          test -s neon-function.zip
+      - name: Install free Chromium regression runner
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ea-mobile-qa" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/ea-mobile-qa/node_modules/.bin/playwright" install chromium
+      - name: Verify 320px, 390px and desktop navigation
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-mobile-qa/node_modules/playwright
+        run: node eastern-axis/tests/mobile_navigation_smoke.cjs
+      - name: Upload inspectable Pages build and Neon bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-pages-migration-preflight
+          path: |
+            eastern-axis/dist/
+            eastern-axis/neon-function.zip
+          retention-days: 7
