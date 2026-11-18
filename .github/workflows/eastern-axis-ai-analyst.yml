@@ -33,7 +33,7 @@ on:
 permissions:
   contents: write
 concurrency:
-  group: ea-source-first-analyst
+  group: ea-source-first-analyst-${{ github.ref }}
   cancel-in-progress: false
 jobs:
   snapshot:
