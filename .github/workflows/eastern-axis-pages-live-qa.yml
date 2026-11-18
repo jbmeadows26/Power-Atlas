@@ -7,6 +7,10 @@ on:
       - '.github/workflows/eastern-axis-pages-live-qa.yml'
       - 'eastern-axis/scripts/neon_api_audit.py'
       - 'eastern-axis/scripts/pages_browser_qa.cjs'
+  pull_request:
+    paths:
+      - 'eastern-axis/**'
+      - '.github/workflows/eastern-axis-pages-live-qa.yml'
   workflow_dispatch:
 permissions:
   contents: read
