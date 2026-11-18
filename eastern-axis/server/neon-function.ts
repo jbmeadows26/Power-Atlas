@@ -1,4 +1,4 @@
-import { handler as application } from '../backend/index';
+import { handler as application, invokeScheduledJob } from '../backend/index';
 
 /**
  * Public cross-origin adapter for Neon Functions.
@@ -35,6 +35,37 @@ export default {
       return Response.json({ error: 'Method not allowed' }, { status: 405, headers: cors });
     }
     const url = new URL(request.url);
+    // Neon removes any client-supplied X-Neon-* headers at the edge.
+    // Only a real Neon Function Trigger may enter this private scheduler route.
+    if (url.pathname.startsWith('/_neon/cron/')) {
+      const job = url.pathname.slice('/_neon/cron/'.length);
+      const allowed = ['doj','fara','cisa','ofac','uk','canada','energy','military','worldbank'];
+      if (!allowed.includes(job)) return Response.json({error:'Not found'},{status:404,headers:cors});
+      if (request.method !== 'POST') return Response.json({error:'Method not allowed'},{status:405,headers:cors});
+      const attestedId = request.headers.get('x-neon-trigger-invocation-id');
+      if (!attestedId) return Response.json({error:'Unauthorized'},{status:401,headers:cors});
+      let payload: any;
+      try { payload = await request.json(); }
+      catch { return Response.json({error:'Invalid scheduled payload'},{status:400,headers:cors}); }
+      if (payload?.version !== 1 || payload?.invocation_id !== attestedId ||
+          payload?.trigger?.type !== 'schedule' || payload?.trigger?.name !== 'ea-collect-' + job ||
+          !Number.isFinite(Date.parse(payload?.data?.scheduled_at || ''))) {
+        return Response.json({error:'Invalid scheduled trigger'},{status:403,headers:cors});
+      }
+      if (!process.env.EA_DATABASE_URL && process.env.DATABASE_URL) {
+        process.env.EA_DATABASE_URL = process.env.DATABASE_URL;
+      }
+      try {
+        await invokeScheduledJob(job);
+        console.log('Neon scheduled collection completed',job,payload.invocation_id);
+        return Response.json({ok:true,job,invocationId:payload.invocation_id,
+          note:'Check persisted source health; invocation is not evidence that every upstream feed succeeded.'},
+          {status:200,headers:cors});
+      } catch (error) {
+        console.error('Neon collection trigger failed',job,payload.invocation_id,error);
+        return Response.json({error:'Scheduled collection failed',job},{status:503,headers:{...cors,'Retry-After':'120'}});
+      }
+    }
     if (!url.pathname.startsWith('/api/')) {
       return Response.json({ error: 'Not found' }, { status: 404, headers: cors });
     }
