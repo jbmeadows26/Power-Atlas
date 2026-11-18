@@ -1,41 +1,111 @@
-name: Publish Power Atlas research site to GitHub Pages
+name: Publish Power Atlas + Eastern Axis to GitHub Pages
 on:
-  # GitHub Pages repository Settings > Pages > Source: GitHub Actions must
-  # be enabled by an authorized repo admin before publishing.
-  # Do not auto-trigger failing builds or attempt Pages enablement with GITHUB_TOKEN.
+  push:
+    branches: [main]
+    paths:
+      - 'site/**'
+      - 'eastern-axis/src/**'
+      - 'eastern-axis/public-api-origin.txt'
+      - 'eastern-axis/scripts/pages_browser_qa.cjs'
+      - 'eastern-axis/scripts/neon_api_audit.py'
+      - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
+
 permissions:
   contents: read
   pages: write
   id-token: write
+
 concurrency:
   group: power-atlas-gh-pages
   cancel-in-progress: false
+
 jobs:
   build:
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-      - name: Verify no frontend build or paid dependency needed
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Preserve the existing Power Atlas site
         run: |
-          test -f site/index.html
+          test -s site/index.html
           test ! -f site/.env
-          echo "Static source: site/index.html"
-      - name: Configure public Pages site
+      - name: Validate the independent public Neon API before publishing
+        run: |
+          test -s eastern-axis/public-api-origin.txt
+          python3 eastern-axis/scripts/neon_api_audit.py
+      - name: Install and build Eastern Axis for its Pages subpath
+        working-directory: eastern-axis
+        env:
+          VITE_EA_TARGET: github-pages
+        run: |
+          export VITE_EA_API_ORIGIN="$(tr -d '\r\n' < public-api-origin.txt)"
+          case "$VITE_EA_API_ORIGIN" in
+            https://*.neon.tech) ;;
+            *) echo 'Refusing to publish without a verified independent HTTPS API.' >&2; exit 1 ;;
+          esac
+          npm install --no-audit --no-fund
+          npx vite build --base ./
+          test -s dist/index.html
+          grep -q './assets/' dist/index.html
+          if grep -R -E 'postgres(ql)?://' dist; then
+            echo 'Unexpected database credential-like URI in frontend output' >&2
+            exit 1
+          fi
+      - name: Install browser regression tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/ea-pages-check/node_modules/.bin/playwright" install chromium
+      - name: Verify mobile touch navigation at 320px and 390px, plus desktop
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+        run: node eastern-axis/tests/mobile_navigation_smoke.cjs
+      - name: Start the compiled Pages candidate
+        working-directory: eastern-axis
+        run: |
+          npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/ea-pages-deploy-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          cat /tmp/ea-pages-deploy-preview.log; exit 1
+      - name: Verify real intelligence content and country context on desktop/mobile
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+        run: |
+          mkdir -p audit-output
+          node eastern-axis/scripts/pages_browser_qa.cjs
+      - name: Keep test screenshots and API evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-pages-release-qa
+          path: audit-output/
+          if-no-files-found: warn
+          retention-days: 14
+      - name: Publish the verified Eastern Axis app without replacing Power Atlas
+        run: |
+          mkdir -p site/eastern-axis
+          cp -R eastern-axis/dist/. site/eastern-axis/
+          test -s site/index.html
+          test -s site/eastern-axis/index.html
+          test -d site/eastern-axis/assets
+          test ! -f site/eastern-axis/.env
+          echo 'Power Atlas remains the root; Eastern Axis is at /Power-Atlas/eastern-axis/.'
+      - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
-      - name: Upload static site artifact
+      - name: Upload one Pages artifact containing both sites
         uses: actions/upload-pages-artifact@v3
         with:
           path: ./site
   deploy:
     needs: build
-    runs-on: ubuntu-latest
-    timeout-minutes: 5
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Publish mobile research site
+      - name: Publish Power Atlas and Eastern Axis to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
