@@ -57,15 +57,24 @@ let signalCache: {until:number;value:unknown}|null=null;
 export async function readWorldSignals() {
   if(signalCache&&Date.now()<signalCache.until)return signalCache.value;
   const [usgsResult,nasaResult]=await Promise.allSettled([readUSGS(),readNASA()]);
-  if(usgsResult.status==='rejected'&&nasaResult.status==='rejected')throw new Error('Both environmental public feeds unavailable');
   const usgs=usgsResult.status==='fulfilled'?usgsResult.value:null;
   const nasa=nasaResult.status==='fulfilled'?nasaResult.value:null;
+  // A failed NASA service must never turn a healthy USGS response into an
+  // apparent USGS outage, nor should missing events be represented as zero.
+  const sourceError=(result:PromiseSettledResult<unknown>,fallback:string)=>{
+    if(result.status==='fulfilled')return null;
+    const reason=result.reason;
+    return reason instanceof Error ? reason.message.slice(0,150) : fallback;
+  };
   const value={
-    status:usgs&&nasa?'ok':'partial',source:'USGS / NASA EONET',
-    count:usgs?.count||0,events:usgs?.events||[],
+    status:usgs&&nasa?'ok':usgs||nasa?'partial':'unavailable',
+    source:'USGS / NASA EONET',
+    count:usgs?.count??0,events:usgs?.events||[],
     checkedAt:new Date().toISOString(),generatedAt:usgs?.generatedAt||'',
     naturalEvents:nasa?.events||[],nasaCheckedAt:nasa?.checkedAt||null,
     usgsStatus:usgs?'ok':'unavailable',nasaStatus:nasa?'ok':'unavailable',
+    usgsError:sourceError(usgsResult,'USGS source request failed'),
+    nasaError:sourceError(nasaResult,'NASA EONET events request failed'),
     caveat:'USGS epicenters and NASA EONET natural-event locations are publisher-reported coordinates. EONET is an aggregator. These are not independently geolocated, and natural hazards do not establish conflict or foreign-state action.'
   };
   signalCache={until:Date.now()+180000,value};

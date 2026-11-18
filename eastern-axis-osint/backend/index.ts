@@ -1015,7 +1015,7 @@ export const handler = router({
   'GET /api/world-signals': [
     async () => {
       try { return json(await readWorldSignals()); }
-      catch(err) { console.error('USGS feed unavailable',err); return error('USGS feed unavailable',503); }
+      catch(err) { console.error('Environmental signals service failed',err); return error('Environmental signals service unavailable',503); }
     }
   ],
   'GET /api/evidence-workbench': [
