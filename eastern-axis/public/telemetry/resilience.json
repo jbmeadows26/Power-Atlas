@@ -25,6 +25,24 @@
       "title": "Regional internet traffic anomalies"
     },
     {
+      "id": "grid_frequency_public",
+      "source": "Elexon BMRS (GB only)",
+      "status": "sampled",
+      "title": "Great Britain live grid frequency"
+    },
+    {
+      "id": "ixp_directory",
+      "source": "PeeringDB (registry, not congestion)",
+      "status": "sampled",
+      "title": "Published internet exchange registry"
+    },
+    {
+      "id": "pki_crl_public",
+      "source": "Google Trust Services (HEAD only)",
+      "status": "sampled",
+      "title": "Public CA CRL endpoint transport"
+    },
+    {
       "id": "transactions",
       "source": "Authorized synthetic tenant",
       "status": "requires operator access",
@@ -103,13 +121,32 @@
       "title": "Threat-actor claims / underground corroboration"
     }
   ],
-  "checkedAt": "2026-11-18T20:20:17.109200Z",
+  "checkedAt": "2026-11-18T21:31:59.814315Z",
   "history": [
     {
       "alerts": 0,
       "checkedAt": "2026-11-18T20:20:17.109200Z",
       "errors": 0,
       "observed": 8
+    },
+    {
+      "alerts": 0,
+      "checkedAt": "2026-11-18T21:31:59.814315Z",
+      "errors": 0,
+      "observed": 13,
+      "samples": {
+        "cloudflare-edge.dnsMs": 11.6,
+        "cloudflare-edge.handshakeMs": 25.0,
+        "github-web.dnsMs": 22.2,
+        "github-web.handshakeMs": 62.6,
+        "google-identity.dnsMs": 5.3,
+        "google-identity.handshakeMs": 25.7,
+        "microsoft-identity.dnsMs": 5.8,
+        "microsoft-identity.handshakeMs": 83.1,
+        "ripe-cloudflare.bgpUpdateCount": 1.0,
+        "ripe-google.bgpUpdateCount": 1.0
+      },
+      "screenings": 0
     }
   ],
   "incidents": [],
@@ -120,15 +157,18 @@
     "RIPE RPKI examples assess only sampled prefixes; they do not measure global RPKI invalid-route rates or IXP congestion.",
     "Unauthorised internal telemetry, deep-web channels and submarine DAS data are never claimed as ingested.",
     "Radar traffic anomalies, if connected, are third-party observations rather than proof of attack.",
+    "GB grid-frequency readings and PeeringDB exchange registration are geographically limited; neither is a worldwide power or IXP congestion monitor.",
+    "Google Trust Services CRL HEAD latency is transport only, not proof of OCSP/CRL validity or revocation query volume.",
+    "Submarine cable fault and DAS raw telemetry are not publicly obtainable; no global private cable alert feed is claimed.",
     "Missing telemetry stays unknown; this dashboard never treats absence of reports as system health."
   ],
   "observations": [
     {
       "category": "dns_tls",
-      "certDaysRemaining": 66.1,
-      "checkedAt": "2026-11-18T20:20:09.993471Z",
-      "dnsMs": 73.4,
-      "handshakeMs": 30.5,
+      "certDaysRemaining": 67.1,
+      "checkedAt": "2026-11-18T21:31:44.713903Z",
+      "dnsMs": 5.8,
+      "handshakeMs": 83.1,
       "id": "microsoft-identity",
       "provider": "microsoft",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -140,9 +180,9 @@
     {
       "category": "dns_tls",
       "certDaysRemaining": 68.5,
-      "checkedAt": "2026-11-18T20:20:10.104145Z",
-      "dnsMs": 2.7,
-      "handshakeMs": 21.5,
+      "checkedAt": "2026-11-18T21:31:44.823735Z",
+      "dnsMs": 5.3,
+      "handshakeMs": 25.7,
       "id": "google-identity",
       "provider": "google",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -154,9 +194,9 @@
     {
       "category": "dns_tls",
       "certDaysRemaining": 87.9,
-      "checkedAt": "2026-11-18T20:20:10.128747Z",
-      "dnsMs": 1.2,
-      "handshakeMs": 20.5,
+      "checkedAt": "2026-11-18T21:31:44.855418Z",
+      "dnsMs": 11.6,
+      "handshakeMs": 25.0,
       "id": "cloudflare-edge",
       "provider": "cloudflare",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -167,10 +207,10 @@
     },
     {
       "category": "dns_tls",
-      "certDaysRemaining": 70.2,
-      "checkedAt": "2026-11-18T20:20:10.150774Z",
-      "dnsMs": 1.1,
-      "handshakeMs": 19.5,
+      "certDaysRemaining": 70.1,
+      "checkedAt": "2026-11-18T21:31:44.892486Z",
+      "dnsMs": 22.2,
+      "handshakeMs": 62.6,
       "id": "github-web",
       "provider": "github",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -181,7 +221,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-18T20:20:10.171630Z",
+      "checkedAt": "2026-11-18T21:31:44.977999Z",
       "failedRegions": 0,
       "id": "globalping-microsoft",
       "provider": "microsoft",
@@ -190,7 +230,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 200,
-          "latencyMs": 196,
+          "latencyMs": 62,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -198,7 +238,7 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 200,
-          "latencyMs": 109,
+          "latencyMs": 167,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -206,12 +246,36 @@
           "asn": 59253,
           "country": "SG",
           "httpStatus": 200,
-          "latencyMs": 295,
+          "latencyMs": 278,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "BR",
+          "httpStatus": 200,
+          "latencyMs": 150,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 329325,
+          "country": "ZA",
+          "httpStatus": 200,
+          "latencyMs": 1732,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "AU",
+          "httpStatus": 200,
+          "latencyMs": 95,
           "probeStatus": "finished",
           "state": "reachable"
         }
       ],
-      "scope": "Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+      "scope": "Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
       "source": "Globalping community probes",
       "sourceUrl": "https://globalping.io/",
       "status": "observed",
@@ -219,7 +283,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-18T20:20:12.954496Z",
+      "checkedAt": "2026-11-18T21:31:49.293079Z",
       "failedRegions": 0,
       "id": "globalping-google",
       "provider": "google",
@@ -228,7 +292,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 302,
-          "latencyMs": 115,
+          "latencyMs": 99,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -236,7 +300,7 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 302,
-          "latencyMs": 59,
+          "latencyMs": 60,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -244,22 +308,170 @@
           "asn": 59253,
           "country": "SG",
           "httpStatus": 302,
-          "latencyMs": 22,
+          "latencyMs": 21,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "BR",
+          "httpStatus": 302,
+          "latencyMs": 351,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 136907,
+          "country": "ZA",
+          "httpStatus": 302,
+          "latencyMs": 525,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "AU",
+          "httpStatus": 302,
+          "latencyMs": 299,
           "probeStatus": "finished",
           "state": "reachable"
         }
       ],
-      "scope": "Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+      "scope": "Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
       "source": "Globalping community probes",
       "sourceUrl": "https://globalping.io/",
       "status": "observed",
       "title": "accounts.google.com external HTTP reachability"
     },
     {
+      "category": "regional_http",
+      "checkedAt": "2026-11-18T21:31:51.683015Z",
+      "failedRegions": 0,
+      "id": "globalping-cloudflare",
+      "provider": "cloudflare",
+      "regions": [
+        {
+          "asn": 36352,
+          "country": "US",
+          "httpStatus": 200,
+          "latencyMs": 330,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 24940,
+          "country": "DE",
+          "httpStatus": 200,
+          "latencyMs": 103,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 59253,
+          "country": "SG",
+          "httpStatus": 200,
+          "latencyMs": 271,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "BR",
+          "httpStatus": 200,
+          "latencyMs": 179,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "ZA",
+          "httpStatus": 200,
+          "latencyMs": 288,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "AU",
+          "httpStatus": 200,
+          "latencyMs": 258,
+          "probeStatus": "finished",
+          "state": "reachable"
+        }
+      ],
+      "scope": "Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
+      "source": "Globalping community probes",
+      "sourceUrl": "https://globalping.io/",
+      "status": "observed",
+      "title": "www.cloudflare.com external HTTP reachability"
+    },
+    {
+      "category": "regional_http",
+      "checkedAt": "2026-11-18T21:31:54.351767Z",
+      "failedRegions": 0,
+      "id": "globalping-github",
+      "provider": "github",
+      "regions": [
+        {
+          "asn": 36352,
+          "country": "US",
+          "httpStatus": 200,
+          "latencyMs": 95,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 24940,
+          "country": "DE",
+          "httpStatus": 200,
+          "latencyMs": 30,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 59253,
+          "country": "SG",
+          "httpStatus": 200,
+          "latencyMs": 18,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "BR",
+          "httpStatus": 200,
+          "latencyMs": 21,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "ZA",
+          "httpStatus": 200,
+          "latencyMs": 20,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 31898,
+          "country": "AU",
+          "httpStatus": 200,
+          "latencyMs": 18,
+          "probeStatus": "finished",
+          "state": "reachable"
+        }
+      ],
+      "scope": "Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
+      "source": "Globalping community probes",
+      "sourceUrl": "https://globalping.io/",
+      "status": "observed",
+      "title": "github.com external HTTP reachability"
+    },
+    {
       "bgpUpdateCount": 1,
       "bgpWindowHours": 1,
       "category": "bgp_rpki",
-      "checkedAt": "2026-11-18T20:20:15.717761Z",
+      "checkedAt": "2026-11-18T21:31:57.211590Z",
       "expectedOrigin": "AS13335",
       "id": "ripe-cloudflare",
       "prefix": "1.1.1.0/24",
@@ -275,7 +487,7 @@
       "bgpUpdateCount": 1,
       "bgpWindowHours": 1,
       "category": "bgp_rpki",
-      "checkedAt": "2026-11-18T20:20:16.395658Z",
+      "checkedAt": "2026-11-18T21:31:58.218298Z",
       "expectedOrigin": "AS15169",
       "id": "ripe-google",
       "prefix": "8.8.8.0/24",
@@ -289,7 +501,7 @@
     },
     {
       "category": "traffic",
-      "checkedAt": "2026-11-18T20:20:17.109131Z",
+      "checkedAt": "2026-11-18T21:31:58.986383Z",
       "id": "radar-traffic",
       "provider": "cloudflare",
       "scope": "Radar observational coverage, not global exhaustive coverage",
@@ -297,10 +509,56 @@
       "sourceUrl": "https://radar.cloudflare.com/",
       "status": "not_configured",
       "title": "Cloudflare Radar latest traffic anomalies"
+    },
+    {
+      "category": "grid_frequency",
+      "checkedAt": "2026-11-18T21:31:58.986413Z",
+      "deviationHz": 0.117,
+      "expectedHz": 50.0,
+      "frequencyHz": 50.117,
+      "id": "elexon-gb-frequency",
+      "provider": "elexon",
+      "sampleAgeSeconds": 134,
+      "sampleCount": 72,
+      "scope": "Great Britain only. Frequency is not UPS availability, load shedding or worldwide grid state.",
+      "source": "Elexon BMRS / National Energy System Operator",
+      "sourceTime": "2026-11-18T21:29:45Z",
+      "sourceUrl": "https://bmrs.elexon.co.uk/rolling-system-frequency",
+      "status": "observed",
+      "title": "Great Britain transmission grid frequency",
+      "unit": "Hz"
+    },
+    {
+      "category": "ixp_directory",
+      "checkedAt": "2026-11-18T21:31:59.439842Z",
+      "exchange": "AMS-IX",
+      "exchangeId": 26,
+      "id": "peeringdb-amsix",
+      "provider": "peeringdb",
+      "scope": "Exchange registry metadata; no live congestion, capacity utilization, packet loss, or outage determination.",
+      "source": "PeeringDB",
+      "sourceUrl": "https://www.peeringdb.com/ix/26",
+      "status": "observed",
+      "title": "AMS-IX published exchange directory"
+    },
+    {
+      "category": "pki_transport",
+      "checkedAt": "2026-11-18T21:31:59.686392Z",
+      "httpStatus": 200,
+      "id": "gts-crl-transport",
+      "latencyMs": 127.8,
+      "provider": "google-trust-services",
+      "requestMethod": "HEAD",
+      "scope": "HTTP HEAD to a pinned official root CRL distribution point. No OCSP query, signature validation, revocation decision, or CA request-volume monitoring.",
+      "source": "Google Trust Services",
+      "sourceUrl": "https://pki.goog/",
+      "status": "observed",
+      "title": "Google Trust Services CRL transport"
     }
   ],
-  "sampledCount": 8,
+  "sampledCount": 13,
   "schemaVersion": 1,
+  "screeningSignals": [],
   "status": "sampled-no-correlated-alert",
   "summary": "No corroborated anomaly among sampled indicators"
 }
