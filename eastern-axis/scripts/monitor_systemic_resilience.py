@@ -18,6 +18,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from resilience_external import collect_extra
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "public" / "telemetry" / "resilience.json"
 UTC = dt.timezone.utc
@@ -54,6 +56,9 @@ CAPABILITIES = [
     ("dns_tls", "DNS, TLS handshake and certificate expiry", "Independent GitHub runner", "public"),
     ("bgp_rpki", "Sampled BGP and RPKI", "RIPE RIS / RIPEstat", "public"),
     ("traffic", "Regional internet traffic anomalies", "Cloudflare Radar API", "optional-token"),
+    ("grid_frequency_public", "Great Britain live grid frequency", "Elexon BMRS (GB only)", "public"),
+    ("ixp_directory", "Published internet exchange registry", "PeeringDB (registry, not congestion)", "public"),
+    ("pki_crl_public", "Public CA CRL endpoint transport", "Google Trust Services (HEAD only)", "public"),
     ("transactions", "Authenticated client-side MAPI/EAS, mail and calendar", "Authorized synthetic tenant", "operator"),
     ("dependencies", "Nth-party hosting and identity dependency graph", "Verified ownership / vendor contracts", "operator"),
     ("aiops", "Autonomous remediation loops and circuit breakers", "Authorized controller logs", "operator"),
@@ -275,7 +280,10 @@ def build_snapshot(observations, previous=None, when=None):
     used_caps={"regional_http":any(o.get("category")=="regional_http" and o.get("status") in ("observed","warning") for o in observations),
         "dns_tls":any(o.get("category")=="dns_tls" and o.get("status") in ("observed","warning") for o in observations),
         "bgp_rpki":any(o.get("category")=="bgp_rpki" and o.get("status") in ("observed","warning") for o in observations),
-        "traffic":any(o.get("category")=="traffic" and o.get("status")=="observed" for o in observations)}
+        "traffic":any(o.get("category")=="traffic" and o.get("status")=="observed" for o in observations),
+        "grid_frequency_public":any(o.get("category")=="grid_frequency" and o.get("status") in ("observed","warning") for o in observations),
+        "ixp_directory":any(o.get("category")=="ixp_directory" and o.get("status")=="observed" for o in observations),
+        "pki_crl_public":any(o.get("category")=="pki_transport" and o.get("status")=="observed" for o in observations)}
     used_caps.update({METRIC_TO_CAP[o["metric"]]:True for o in observations if o.get("metric") in METRIC_TO_CAP})
     caps=[{"id":i,"title":name,"source":source,
         "status":"sampled" if used_caps.get(i) else ("not configured" if kind=="optional-token" else
@@ -299,6 +307,9 @@ def build_snapshot(observations, previous=None, when=None):
            "RIPE RPKI examples assess only sampled prefixes; they do not measure global RPKI invalid-route rates or IXP congestion.",
            "Unauthorised internal telemetry, deep-web channels and submarine DAS data are never claimed as ingested.",
            "Radar traffic anomalies, if connected, are third-party observations rather than proof of attack.",
+           "GB grid-frequency readings and PeeringDB exchange registration are geographically limited; neither is a worldwide power or IXP congestion monitor.",
+           "Google Trust Services CRL HEAD latency is transport only, not proof of OCSP/CRL validity or revocation query volume.",
+           "Submarine cable fault and DAS raw telemetry are not publicly obtainable; no global private cable alert feed is claimed.",
            "Missing telemetry stays unknown; this dashboard never treats absence of reports as system health."
        ]}
 
@@ -308,10 +319,12 @@ def main():
     observations=[]
     for probe_id,host,title in PROBES:
         observations.append(tls_probe(probe_id,host,title))
-    for provider,host in (("microsoft","login.microsoftonline.com"),("google","accounts.google.com")):
+    for provider,host in (("microsoft","login.microsoftonline.com"),("google","accounts.google.com"),
+        ("cloudflare","www.cloudflare.com"),("github","github.com")):
         observations.append(region_probe(host,provider))
     for label,prefix,origin in ROUTES: observations.append(route_probe(label,prefix,origin))
     observations.append(radar_probe())
+    observations.extend(collect_extra(json_http))
     observations.extend(private_operator_metrics())
     payload=build_snapshot(observations,previous)
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
