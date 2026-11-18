@@ -19,8 +19,8 @@ GPS_SOURCE = "https://gpsinterference.com/"
 GPS_SCOPES = (
     ("world", "global", "Worldwide"),
     ("united-states", "US", "United States"),
-    ("taiwan", "TW", "Taiwan"),
-    ("iran", "IR", "Iran"),
+    ("taiwan-strait", "regional:taiwan-strait", "Taiwan Strait"),
+    ("persian-gulf", "regional:persian-gulf", "Persian Gulf"),
     ("baltic-sea", "regional:baltic-sea", "Baltic Sea"),
     ("strait-of-hormuz", "regional:strait-of-hormuz", "Strait of Hormuz"),
     ("eastern-mediterranean", "regional:eastern-mediterranean", "Eastern Mediterranean"),
