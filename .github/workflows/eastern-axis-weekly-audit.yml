@@ -10,6 +10,7 @@ on:
       - '.github/workflows/eastern-axis-weekly-audit.yml'
       - 'eastern-axis-osint/scripts/weekly_connection_audit.py'
       - 'eastern-axis-osint/scripts/weekly_browser_smoke.cjs'
+      - 'eastern-axis/scripts/audit_resilience_snapshot.py'
 
 permissions:
   contents: read
@@ -32,6 +33,10 @@ jobs:
         id: connections
         continue-on-error: true
         run: python3 eastern-axis-osint/scripts/weekly_connection_audit.py
+      - name: Verify resilience collector freshness and public source families
+        id: telemetry
+        continue-on-error: true
+        run: python3 eastern-axis/scripts/audit_resilience_snapshot.py
       - name: Install browser audit dependencies
         id: browser-setup
         continue-on-error: true
@@ -60,7 +65,7 @@ jobs:
           retention-days: 45
           if-no-files-found: warn
       - name: Open or update regression issue on audit failure
-        if: steps.connections.outcome != 'success' || steps.browser.outcome == 'failure' || steps.browser-setup.outcome != 'success'
+        if: steps.connections.outcome != 'success' || steps.telemetry.outcome != 'success' || steps.browser.outcome == 'failure' || steps.browser-setup.outcome != 'success'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -74,7 +79,7 @@ jobs:
             gh issue create --title "$title" --body "Weekly public connection or browser QA failed or was not completed. Review the report and exact source findings: $run_url. A network probe failure is not automatically an upstream outage."
           fi
       - name: Resolve previous audit failure after a clean run
-        if: steps.connections.outcome == 'success' && steps.browser.outcome == 'success' && steps.browser-setup.outcome == 'success'
+        if: steps.connections.outcome == 'success' && steps.telemetry.outcome == 'success' && steps.browser.outcome == 'success' && steps.browser-setup.outcome == 'success'
         continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -89,6 +94,7 @@ jobs:
         if: always()
         run: |
           if [ "${{ steps.connections.outcome }}" != "success" ] ||
+             [ "${{ steps.telemetry.outcome }}" != "success" ] ||
              [ "${{ steps.browser-setup.outcome }}" != "success" ] ||
              [ "${{ steps.browser.outcome }}" != "success" ]; then
             echo 'Weekly audit identified a failure or could not complete all tests. See report artifacts.' >&2
