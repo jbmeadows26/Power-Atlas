@@ -4,6 +4,7 @@ on:
     branches: [main]
     paths:
       - 'eastern-axis/scripts/monitor_systemic_resilience.py'
+      - 'eastern-axis/scripts/resilience_external.py'
       - '.github/workflows/eastern-axis-resilience.yml'
   schedule:
     - cron: '11,41 * * * *'
@@ -11,6 +12,7 @@ on:
   pull_request:
     paths:
       - 'eastern-axis/scripts/monitor_systemic_resilience.py'
+      - 'eastern-axis/scripts/resilience_external.py'
       - 'eastern-axis/tests/test_monitor_systemic_resilience.py'
       - '.github/workflows/eastern-axis-resilience.yml'
 
@@ -33,9 +35,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Run bounded offline correlation tests
-        run: python3 -m unittest discover -s eastern-axis/tests -p test_monitor_systemic_resilience.py -v
+        run: python3 -m unittest discover -s eastern-axis/tests -p 'test_*resilien*.py' -v
       - name: Compile collector before probing
-        run: python3 -m py_compile eastern-axis/scripts/monitor_systemic_resilience.py
+        run: python3 -m py_compile eastern-axis/scripts/monitor_systemic_resilience.py eastern-axis/scripts/resilience_external.py
       - name: Load prior samples for trend history
         if: github.event_name != 'pull_request'
         run: |
