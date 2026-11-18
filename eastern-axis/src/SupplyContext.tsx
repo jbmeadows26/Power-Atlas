@@ -59,7 +59,7 @@ export default function SupplyContext({countryCode,countryName}:{countryCode:str
    </section>
    <section className="scx-panel" aria-label="UN Comtrade bilateral imports">
      <header><span className="sc-eyebrow"><Database size={14}/> 04 / VERIFIED COUNTRY DEPENDENCIES</span><a href="https://comtradeplus.un.org/en/api-docs" target="_blank" rel="noopener noreferrer">UN COMTRADE / API <ArrowUpRight size={13}/></a></header>
-     <h2>What does the U.S. import from {countryCode==='all'?'other countries?':countryName||countryCode+'?'}</h2>
+     <h2>What does the U.S. import from {countryCode==='all'?'other countries?':(countryName||countryCode)+'?'}</h2>
      <p>Compare historical U.S.-reported imports from the selected country with the same commodity's U.S. imports from all partners. The global country selector controls this comparison.</p>
      <div className="scx-groups" aria-label="Select merchandise group">{groups.map(([hs,label])=><button key={hs} type="button" className={commodity===hs?'selected':''} onClick={()=>setCommodity(hs)}>{label}</button>)}</div>
      {countryCode==='all'?<div className="scx-note">Choose a country in the header to inspect a verified bilateral merchandise comparison. No assumed partner is selected.</div>:
