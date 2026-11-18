@@ -89,6 +89,29 @@ for route, keys in ROUTES:
                     report["problems"].append(f"{route}: undated or unsourced {indicator.get('code')}")
     print(f"{route}: HTTP {item['code']} keys={item['keys'][:8]}",flush=True)
     report["routes"].append(item)
+# Negative security checks: public Pages traffic must not trigger ingestion.
+for route, method, claimed_origin, expected in (
+    ("/api/cron/doj", "GET", ORIGIN, 401),
+    ("/_neon/cron/doj", "POST", ORIGIN, 401),
+    ("/api/_healthcheck", "GET", "https://untrusted.invalid", 403),
+    ("/api/does-not-exist", "GET", ORIGIN, 404),
+):
+    request=urllib.request.Request(API+route,method=method,
+        headers={"Accept":"application/json","Origin":claimed_origin,"Content-Type":"application/json"},
+        data=b"{}" if method=="POST" else None)
+    try:
+        with urllib.request.urlopen(request,timeout=20) as response:
+            status=response.status
+    except urllib.error.HTTPError as exc:
+        status=exc.code
+    except Exception as exc:
+        report["problems"].append(f"{route}: security check transport failed: {type(exc).__name__}")
+        continue
+    report["routes"].append({"route":route,"method":method,"httpStatus":status,"expected":expected,"securityCheck":True})
+    print(f"{route} ({method}): HTTP {status}, expected {expected}",flush=True)
+    if status!=expected:
+        report["problems"].append(f"{route} ({method}): expected {expected}, got {status}")
+
 os.makedirs("audit-output",exist_ok=True)
 Path("audit-output/eastern-axis-neon-api.json").write_text(json.dumps(report,indent=2)+"\n",encoding="utf-8")
 if report["problems"]:
