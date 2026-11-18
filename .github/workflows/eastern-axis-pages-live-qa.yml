@@ -51,7 +51,7 @@ jobs:
           "$RUNNER_TEMP/ea-pages-browser/node_modules/.bin/playwright" install chromium
       - name: Test live API navigation and country persistence at 390px and desktop
         env:
-          PLAYWRIGHT_MODULE: \${{ runner.temp }}/ea-pages-browser/node_modules/playwright
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-browser/node_modules/playwright
         run: |
           mkdir -p audit-output
           node eastern-axis/scripts/pages_browser_qa.cjs
