@@ -7,7 +7,7 @@ on:
       research:
         type: boolean
         default: false
-        description: 'Manually run configured AI models into private, unreviewed artifacts'
+        description: 'Manually run configured AI models into unreviewed public-source artifacts'
       query:
         type: string
         required: false
@@ -64,7 +64,7 @@ jobs:
           args=(--output eastern-axis/public/analysis/manifest.json --drafts agent-drafts)
           if [ "$RUN_RESEARCH" = true ]; then args+=(--research --query "$QUESTION"); fi
           python eastern-axis/scripts/agent_pipeline.py "${args[@]}"
-      - name: Keep AI drafts as review-only private artifacts
+      - name: Retain public-source-only AI drafts for review
         if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.research }}
         uses: actions/upload-artifact@v4
         with:
