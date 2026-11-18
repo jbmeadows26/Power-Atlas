@@ -200,7 +200,7 @@ export async function readOfficialReportChanges() {
     feeds:FEEDS.map((f,i) => ({id:f.id,name:f.name,url:f.url,health:health[i] || null})),
     records,
     mode:'Official public-feed document metadata, not battlefield observation',    explanation:'Initial imports are baselines, not alerts. New and revised documents are unreviewed. Country mentions are headline matches only; capability changes are not established by metadata.',
-    nextScan:'Scheduled daily at 11:05 UTC'
+    nextScan:'Scheduled daily around 10:00 UTC (Vercel Hobby per-hour precision)'
   };
 }
 const limitedCountry = (code: unknown) =>
