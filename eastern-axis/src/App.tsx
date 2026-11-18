@@ -355,7 +355,7 @@ function App() {
 
   return (
     <div className="shell">
-      <aside className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
+      <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
           <span className="brand-mark">
             <Globe2 size={21} />
@@ -367,6 +367,7 @@ function App() {
             <small>OPEN-SOURCE INTELLIGENCE</small>
           </div>
         </div>
+        <button type="button" className="sidebar-close" onClick={() => setMobileMenu(false)} aria-label="Close navigation"><X size={20} /></button>
         <div className="sidebar-rule" />
         <div className="nav-label">EXPLORE INTELLIGENCE</div>
         <nav aria-label="Main navigation">
@@ -390,7 +391,9 @@ function App() {
             return (
               <button
                 key={s}
+                type="button"
                 className={'nav-item ' + (view === s ? 'active' : '')}
+                aria-current={view === s ? 'page' : undefined}
                 onClick={() => switchView(s)}
               >
                 {icons[i]}
@@ -427,8 +430,11 @@ function App() {
           <div className="top-left">
             <button
               className="menu-btn"
+              type="button"
               onClick={() => setMobileMenu(v => !v)}
-              aria-label="Open navigation"
+              aria-label={mobileMenu ? 'Close navigation' : 'Open navigation'}
+              aria-controls="ea-primary-navigation"
+              aria-expanded={mobileMenu}
             >
               <Menu size={21} />
             </button>
@@ -446,6 +452,28 @@ function App() {
           </div>
         </header>
         <main className="content">
+          {overview && view === 'Overview' && (
+            <section className="mobile-brief" aria-labelledby="ea-mobile-brief-title">
+              <div className="mobile-brief-heading">
+                <span className="mobile-brief-kicker"><span className="live-dot" /> INTELLIGENCE BRIEFING</span>
+                <span className="mobile-brief-label">PUBLIC SOURCES</span>
+              </div>
+              <h1 id="ea-mobile-brief-title">The world, <em>at a glance.</em></h1>
+              <p>
+                {countryScope === 'all'
+                  ? 'Explore global risks, country records and the evidence behind each signal.'
+                  : 'Focused on ' + (countries.find(c => c.code === countryScope)?.name || countryScope) + '. Your selection follows you across the dashboard.'}
+              </p>
+              <div className="mobile-brief-metrics">
+                <div><strong>{countryScope === 'all' ? cases.length : cases.filter(c => c.code === countryScope).length}</strong><span>Curated cases</span></div>
+                <div><strong>{sources.length}</strong><span>Source listings</span></div>
+              </div>
+              <div className="mobile-brief-actions" aria-label="Quick navigation">
+                <button type="button" onClick={() => switchView('Risk watch')}><ShieldAlert size={17} /> Risk watch <ArrowRight size={16} /></button>
+                <button type="button" onClick={() => switchView('Supply chain')}><Layers3 size={17} /> Supply chain <ArrowRight size={16} /></button>
+              </div>
+            </section>
+          )}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -1058,6 +1086,23 @@ function App() {
           <span>PUBLIC EVIDENCE · NO UNSOURCED THREAT RANKINGS</span>
         </footer>
       </div>
+      <nav className="mobile-bottom-nav" aria-label="Mobile primary navigation">
+        <button type="button" className={view === 'Overview' ? 'selected' : ''} aria-current={view === 'Overview' ? 'page' : undefined} onClick={() => switchView('Overview')}>
+          <Activity size={20} strokeWidth={2} /><span>Home</span>
+        </button>
+        <button type="button" className={view === 'Countries' || view === 'World Factbook' ? 'selected' : ''} aria-current={view === 'Countries' || view === 'World Factbook' ? 'page' : undefined} onClick={() => switchView('Countries')}>
+          <Globe2 size={20} strokeWidth={2} /><span>Countries</span>
+        </button>
+        <button type="button" className={view === 'Risk watch' ? 'selected' : ''} aria-current={view === 'Risk watch' ? 'page' : undefined} onClick={() => switchView('Risk watch')}>
+          <ShieldAlert size={20} strokeWidth={2} /><span>Risks</span>
+        </button>
+        <button type="button" className={view === 'Connections' ? 'selected' : ''} aria-current={view === 'Connections' ? 'page' : undefined} onClick={() => switchView('Connections')}>
+          <Network size={20} strokeWidth={2} /><span>Networks</span>
+        </button>
+        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Risk watch','Connections'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
+          <Menu size={20} strokeWidth={2} /><span>More</span>
+        </button>
+      </nav>
     </div>
   );
 }
