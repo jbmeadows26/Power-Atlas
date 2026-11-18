@@ -14,6 +14,7 @@ type Observation = {
 type Snapshot = {
   schemaVersion:number; checkedAt:string; status:string; summary:string; sampledCount:number;
   incidents:Array<{id:string;severity:string;title:string;explanation:string;evidenceIds:string[];confidence:string}>;
+  screeningSignals?:Array<{id:string;title:string;kind:string;detail:string;evidenceIds:string[];observed?:number;baselineMedian?:number}>;
   observations:Observation[]; capabilities:Array<{id:string;title:string;source:string;status:string}>;
   limitations:string[]; history:Array<{checkedAt:string;observed:number;alerts:number;errors:number}>;
 };
@@ -72,13 +73,19 @@ export default function ResilienceWatch(){
     {snapshot && <>
       <div className={'rw-overall '+(snapshot.status==='watch'?'rw-alert':'')}>
         <div className="rw-overall-main">{snapshot.status==='watch'?<ShieldAlert size={22}/>:<Clock3 size={22}/>}<div>
-          <strong>{stale?'STALE SNAPSHOT':snapshot.status==='watch'?'CORRELATED WATCH':snapshot.status==='unavailable'?'DATA UNAVAILABLE':'NO CORRELATED ALERT IN SAMPLE'}</strong>
+          <strong>{stale?'STALE SNAPSHOT':snapshot.status==='watch'?'CORRELATED WATCH':snapshot.status==='screening'?'SCREENING SIGNALS — UNCONFIRMED':snapshot.status==='unavailable'?'DATA UNAVAILABLE':'NO CORRELATED ALERT IN SAMPLE'}</strong>
           <p>{snapshot.summary}. {stale?'The latest published snapshot is over two hours old; do not use it to infer present conditions.':''}</p>
         </div></div><span>{date(snapshot.checkedAt)} · {age(snapshot.checkedAt)}</span>
       </div>
-      <div className="rw-metrics"><div><span>Sampled checks</span><strong>{snapshot.sampledCount}</strong><small>Observed in last collector run</small></div>
+      <div className="rw-metrics"><div><span>Source observations</span><strong>{snapshot.sampledCount}</strong><small>Scope-specific checks, not services certified healthy</small></div>
         <div><span>Correlated watches</span><strong>{snapshot.incidents.length}</strong><small>Screening signals, not attributed events</small></div>
         <div><span>Connected capabilities</span><strong>{supported} / {snapshot.capabilities.length}</strong><small>{notConnected} not sampled or require access</small></div></div>
+      {(snapshot.screeningSignals?.length||0)>0 && <div className="rw-incident-list" aria-label="Unconfirmed screening signals">
+        {snapshot.screeningSignals?.map(s=><article className="rw-incident" key={s.id}>
+          <div><AlertTriangle size={17}/><strong>{s.title}</strong><span>REVIEW</span></div>
+          <p>{s.detail}</p><small>{typeof s.observed==='number'?'Observed '+s.observed+' · baseline '+s.baselineMedian+' · ':''}Evidence: {s.evidenceIds.join(' · ')} · not corroborated</small>
+        </article>)}
+      </div>}
       {snapshot.incidents.length>0 && <div className="rw-incident-list" aria-label="Correlated alerts">
         {snapshot.incidents.map(x=><div className="rw-incident" key={x.id}><div><AlertTriangle size={18}/><strong>{x.title}</strong><span>{x.severity.toUpperCase()}</span></div>
         <p>{x.explanation}</p><small>Evidence: {x.evidenceIds.join(' · ')} · confidence: {x.confidence}</small></div>)}</div>}
