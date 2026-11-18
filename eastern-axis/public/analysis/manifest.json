@@ -1,39 +1,464 @@
 {
   "schemaVersion": 1,
-  "generatedAt": null,
-  "sourceStatus": "not-run",
-  "method": "Only original-source publication metadata is displayed. Model assessments require independent review.",
+  "generatedAt": "2026-11-18T19:57:56Z",
+  "sourceStatus": "ok",
+  "method": "Attributable original-source metadata only; model drafts require human review.",
   "connectors": [
     {
       "id": "gpt-researcher",
       "name": "GPT Researcher",
-      "status": "not-run",
-      "detail": "Awaiting first scheduled source and adapter check."
+      "status": "not-configured",
+      "detail": "Research drafts require review; no automated model publication."
     },
     {
       "id": "local-deep-research",
       "name": "Local Deep Research",
-      "status": "not-run",
-      "detail": "Awaiting first scheduled source and adapter check."
+      "status": "not-configured",
+      "detail": "Authenticated LDR server and model required."
     },
     {
       "id": "openosint",
       "name": "OpenOSINT",
-      "status": "not-run",
-      "detail": "Awaiting first scheduled source and adapter check."
+      "status": "not-configured",
+      "detail": "Read-only passive MCP domain queries."
     },
     {
       "id": "openaleph",
       "name": "OpenAleph",
-      "status": "not-run",
-      "detail": "Awaiting first scheduled source and adapter check."
+      "status": "not-configured",
+      "detail": "Read-only investigative entity search."
     },
     {
       "id": "opencti",
       "name": "OpenCTI",
-      "status": "not-run",
-      "detail": "Awaiting first scheduled source and adapter check."
+      "status": "not-configured",
+      "detail": "Read-only cyber-intelligence GraphQL API."
     }
   ],
-  "records": []
+  "records": [
+    {
+      "id": "uk-mod-525b99f4c4c13327",
+      "title": "Official Statistics: MOD statistics pre-release access list",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/statistics/defence-statistics-pre-release-access-list",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-18T11:56:47.276Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "uk-mod-6aba64ef91283e48",
+      "title": "Accredited official statistics: UK armed forces biannual diversity statistics: October 2026",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/statistics/announcements/uk-armed-forces-biannual-diversity-statistics-october-2026",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-18T11:56:47.276Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "un-security-496d9207ea6160ee",
+      "title": "Winter rains deepen Gaza crisis amid restricted access and aid cuts",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168821",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.303Z",
+      "countries": [
+        "IL",
+        "PS"
+      ],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "un-security-4b6d952de8615dc8",
+      "title": "Haiti: ‘Atrocious abuses’ continue as UN warns anti-gang operations must priortise civilian protection",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168823",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.303Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "un-security-406d83dce36155e9",
+      "title": "Ukraine: Civilian casualties in 2026 already far exceed previous years’ tolls",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168828",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.303Z",
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "uk-mod-ea3f766b440a115c",
+      "title": "Guidance: MAA course dates information",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/maa-course-date-information",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.261Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "uk-mod-1e730e4652456e89",
+      "title": "Guidance: Sanctuary magazine",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/sanctuary",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.261Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "uk-mod-9bbc9dee5b4bf6e4",
+      "title": "More than 1,000 air defence missiles for Ukraine as UK delivers £240 million in winter support",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/more-than-1000-air-defence-missiles-for-ukraine-as-uk-delivers-240-million-in-winter-support",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:38:00.261Z",
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "us-defense-b54636980867a96b",
+      "title": "Naval Research Lab Completes First INSPYRE Field Campaign",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4650233/naval-research-lab-completes-first-inspyre-field-campaign",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T05:37:59.354Z",
+      "countries": [],
+      "changeType": "new-publication"
+    },
+    {
+      "id": "un-security-6b3d25b299acbb3f",
+      "title": "World News in Brief: Korea tensions mount, UN demands answers over staff death in Yemen, Guterres in Spain, Nepal alert ahead of COP31",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168750",
+      "date": "2026-11-05",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "YE"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-643adc1628a54d97",
+      "title": "Security Council LIVE: Strikes on Ukraine’s power grid, as peace talks loom",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168761",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "RU",
+        "UA"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-6d3aea411fa53f6c",
+      "title": "World News in Brief: El Niño’s $11 trillion price tag, Mozambique and Yemen updates",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168768",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "YE"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-603897332ca7927a",
+      "title": "Sudan war: First ‘suicide’ drone attacks, now long-range strikes are the norm",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168771",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "SD"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-63389bec29a78dc1",
+      "title": "Security Council LIVE: South Sudan’s first elections loom amid rising violence",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168774",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "SD"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-755b4a8417b67bf5",
+      "title": "Six killed in Israeli airstrike on Gaza’s Nasser Hospital",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168796",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "IL",
+        "PS"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-3871f4725b668fff",
+      "title": "Security Council LIVE: Fragile Gulf calm tested as threats to Hormuz shipping mount",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168804",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [
+        "IL",
+        "IR"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-ba74ffaff163aa8a",
+      "title": "Guterres calls for a legally binding instrument for ‘killer robots'",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168810",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-b674f963ed63a43e",
+      "title": "Syria: Progress ‘real’ but fragile, as remnants of war wreck young lives",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168814",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "un-security-c2750c47e9639df2",
+      "title": "Lebanon leading the way in mental health support",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168818",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-4281bc6e94175279",
+      "title": "Ministry of Defence Police: misconduct hearings",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/guidance/ministry-of-defence-police-misconduct-hearings",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-b4c88808c86ef1eb",
+      "title": "UK growth and security boosted as Royal Navy agrees export deal for new mine-hunting motherships",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/uk-growth-and-security-boosted-as-royal-navy-agrees-export-deal-for-new-mine-hunting-motherships",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-068ca08103f69003",
+      "title": "Ukraine’s drone pioneers bring battle-tested tech and high-skilled jobs to Britain",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/ukraines-drone-pioneers-bring-battle-tested-tech-and-high-skilled-jobs-to-britain",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [
+        "UA"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-d64db74f66fabf1b",
+      "title": "The Defence Inquests Unit",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/guidance/the-defence-inquests-unit",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-338603bef9cb301e",
+      "title": "Royal Navy submariners welcomed home after deterrent patrol keeping UK safe",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/royal-navy-submariners-welcomed-home-after-deterrent-patrol-keeping-uk-safe",
+      "date": "2026-11-15",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-baed156483b14134",
+      "title": "Transparency data: Military court centres court listings",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/military-court-centres-court-listings",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-6332cd75e06066b4",
+      "title": "Transparency data: Military Court Service sentencing remarks 2026",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/military-court-service-sentencing-remarks-2026",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-944e67228299fb09",
+      "title": "Official Statistics: UK armed forces and UK civilian operational casualty and fatality statistics: data up to 30 September 2026",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/statistics/announcements/uk-armed-forces-and-uk-civilian-operational-casualty-and-fatality-statistics-data-up-to-30-september-2026",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-bcb5c64f51f08ada",
+      "title": "UK and Japan strengthen defence ties with major exercise",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/uk-and-japan-strengthen-defence-ties-with-major-exercise--2",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [
+        "JP"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "uk-mod-1be70f7d61c24243",
+      "title": "Army buys hundreds more drones and electronic warfare kit in £25 million boost to strengthen Britain’s defences on NATO’s eastern flank",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/army-buys-hundreds-more-drones-and-electronic-warfare-kit-in-25-million-boost-to-strengthen-britains-defences-on-natos-eastern-flank",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-fec9941b62c14155",
+      "title": "Hegseth Mandates Military Education Reform",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4645001/hegseth-mandates-military-education-reform",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-0dd75dccc00ebeb4",
+      "title": "Navy Command Builds on Training Partnership During South Korean Visit",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4645097/navy-command-builds-on-training-partnership-during-south-korean-visit",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [
+        "KR"
+      ],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-71caeafd5ed9b5b2",
+      "title": "Hegseth, Polish Counterpart Announce Intent to Boost Military Cooperation",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4646088/hegseth-polish-counterpart-announce-intent-to-boost-military-cooperation",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-5697603f370304b5",
+      "title": "USS Nimitz Trains New, Returning Naval Aviators",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4646092/uss-nimitz-trains-new-returning-naval-aviators",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-eccf74167f6f065f",
+      "title": "Army, Allies Prepare for Long-Range Air Assault in Hawaii",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4647175/army-allies-prepare-for-long-range-air-assault-in-hawaii",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-0ceef2cae9102ef9",
+      "title": "War Department Expands Childcare Assistance",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4647456/war-department-expands-childcare-assistance",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-97f7a9313986003a",
+      "title": "Naval Academy Honors Marine Aviators With Harrier Display",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4648058/naval-academy-honors-marine-aviators-with-harrier-display",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-eebf37d5ad338996",
+      "title": "Task Force Senior Advisor Promises Service Members Clean, Comfortable Housing",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4648538/task-force-senior-advisor-promises-service-members-clean-comfortable-housing",
+      "date": "2026-11-14",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-9e04e6391e720a96",
+      "title": "Army Infantry Division Validates Deep Strike Capabilities",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4649039/army-infantry-division-validates-deep-strike-capabilities",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [],
+      "changeType": "baseline"
+    },
+    {
+      "id": "us-defense-44cd16649035ec63",
+      "title": "Kadena Air Base Receives First Permanently Assigned F-15EX Eagle II Aircraft",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4649054/kadena-air-base-receives-first-permanently-assigned-f-15ex-eagle-ii-aircraft",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:56:47.157Z",
+      "countries": [
+        "JP"
+      ],
+      "changeType": "baseline"
+    }
+  ]
 }
