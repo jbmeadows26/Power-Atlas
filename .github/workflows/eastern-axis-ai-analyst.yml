@@ -73,7 +73,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 7
       - name: Commit original-source metadata only
-        if: ${{ success() && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch') }}
+        if: ${{ success() && github.ref == 'refs/heads/main' && (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'push') }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
