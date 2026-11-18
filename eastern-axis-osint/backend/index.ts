@@ -581,7 +581,7 @@ const SOURCES = [
     category: "Trade",
     mode: "Linked discovery · not ingested",
     cost: "Free public access · usage limits",
-    url: "https://comtradeapi.un.org/",
+    url: "https://comtradeplus.un.org/en/",
     description: "International trade flows and cross-border economic relationships. Not yet calculated or joined to cases.",
   },
   {
