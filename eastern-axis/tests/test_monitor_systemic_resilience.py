@@ -1,11 +1,13 @@
 """Offline regression tests: never report an outage without corroboration."""
 import importlib.util
 import os
+import sys
 from pathlib import Path
 import unittest
 from unittest.mock import patch
 
 PATH=Path(__file__).resolve().parents[1]/"scripts"/"monitor_systemic_resilience.py"
+sys.path.insert(0,str(PATH.parent))
 spec=importlib.util.spec_from_file_location("resilience_monitor",PATH)
 monitor=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(monitor)
@@ -49,6 +51,27 @@ class ResilienceIntegrityTest(unittest.TestCase):
         selected={c["id"]:c["status"] for c in snapshot["capabilities"]}
         self.assertEqual("sampled",selected["cables"])
         self.assertEqual("requires operator access",selected["aiops"])
+    def test_rolling_spike_requires_six_real_baselines(self):
+        obs=[{"id":"ripe-cloudflare","category":"bgp_rpki","status":"observed","bgpUpdateCount":1000}]
+        history=[{"samples":{"ripe-cloudflare.bgpUpdateCount":2}} for _ in range(5)]
+        self.assertEqual([],monitor.screen_trends(obs,{"history":history}))
+        history.append({"samples":{"ripe-cloudflare.bgpUpdateCount":2}})
+        screens=monitor.screen_trends(obs,{"history":history})
+        self.assertEqual(1,len(screens))
+        self.assertEqual("deviation-from-rolling-baseline",screens[0]["kind"])
+        self.assertIn("screening",screens[0]["detail"])
+    def test_rolling_spike_is_not_automatic_global_attack(self):
+        obs=[{"id":"ripe-cloudflare","category":"bgp_rpki","status":"observed","bgpUpdateCount":1000}]
+        previous={"history":[{"samples":{"ripe-cloudflare.bgpUpdateCount":2}} for _ in range(6)]}
+        snap=monitor.build_snapshot(obs,previous,when="2026-11-18T21:00:00Z")
+        self.assertEqual("screening",snap["status"])
+        self.assertEqual([],snap["incidents"])
+        self.assertEqual(1,len(snap["screeningSignals"]))
+    def test_pki_crl_403_not_correlated_outage(self):
+        obs=[{"id":"gts-crl-transport","category":"pki_transport","status":"unavailable"}]
+        snap=monitor.build_snapshot(obs,when="2026-11-18T21:00:00Z")
+        self.assertEqual("unavailable",snap["status"])
+        self.assertEqual([],snap["screeningSignals"])
     def test_history_bounded(self):
         hist=[{"checkedAt":str(i)} for i in range(500)]
         snapshot=monitor.build_snapshot([],{"history":hist},when="2026-11-18T20:00:00Z")

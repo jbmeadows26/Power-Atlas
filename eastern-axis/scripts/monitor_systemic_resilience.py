@@ -18,6 +18,8 @@ import urllib.error
 import urllib.parse
 import urllib.request
 
+from resilience_external import collect_extra
+
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / "public" / "telemetry" / "resilience.json"
 UTC = dt.timezone.utc
@@ -32,7 +34,7 @@ ROUTES = [
     ("cloudflare", "1.1.1.0/24", "AS13335"),
     ("google", "8.8.8.0/24", "AS15169"),
 ]
-REGIONS = ("US", "DE", "SG")
+REGIONS = ("US", "DE", "SG", "BR", "ZA", "AU")
 METRICS = {
     "automation_remediations_per_hour": ("AIOps policy churn", "automation", "events/hour"),
     "metadata_propagation_ms": ("Cross-region metadata lag", "control-plane", "ms"),
@@ -54,6 +56,9 @@ CAPABILITIES = [
     ("dns_tls", "DNS, TLS handshake and certificate expiry", "Independent GitHub runner", "public"),
     ("bgp_rpki", "Sampled BGP and RPKI", "RIPE RIS / RIPEstat", "public"),
     ("traffic", "Regional internet traffic anomalies", "Cloudflare Radar API", "optional-token"),
+    ("grid_frequency_public", "Great Britain live grid frequency", "Elexon BMRS (GB only)", "public"),
+    ("ixp_directory", "Published internet exchange registry", "PeeringDB (registry, not congestion)", "public"),
+    ("pki_crl_public", "Public CA CRL endpoint transport", "Google Trust Services (HEAD only)", "public"),
     ("transactions", "Authenticated client-side MAPI/EAS, mail and calendar", "Authorized synthetic tenant", "operator"),
     ("dependencies", "Nth-party hosting and identity dependency graph", "Verified ownership / vendor contracts", "operator"),
     ("aiops", "Autonomous remediation loops and circuit breakers", "Authorized controller logs", "operator"),
@@ -123,7 +128,7 @@ def region_probe(host, provider):
     base={"id":"globalping-"+provider,"category":"regional_http","provider":provider,
           "title":host + " external HTTP reachability", "source":"Globalping community probes",
           "sourceUrl":"https://globalping.io/","checkedAt":now(),
-          "scope":"Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+          "scope":"Unauthenticated HEAD from US, DE, SG, BR, ZA and AU; not login / MAPI / EAS success",
           "status":"unavailable","regions":[]}
     try:
         job=json_http("https://api.globalping.io/v1/measurements",
@@ -152,7 +157,7 @@ def region_probe(host, provider):
                 "latencyMs":timing.get("total") if isinstance(timing,dict) else None,
                 "state":state, "probeStatus":rstatus})
         if base["regions"]:
-            base["status"]="warning" if sum(r["state"]=="failure" for r in base["regions"])>=2 else "observed"
+            base["status"]="warning" if sum(r["state"]=="failure" for r in base["regions"])>=max(2,(len(base["regions"])+1)//2) else "observed"
             base["failedRegions"]=sum(r["state"]=="failure" for r in base["regions"])
         else: base["detail"]="No probe results returned"
     except Exception as exc:
@@ -264,33 +269,85 @@ def correlate(observations):
         incidents.append({"id":"multi-provider-http", "severity":"watch",
             "title":"Multi-provider regional HTTP failures",
             "evidenceIds":[by_provider[k]["id"] for k in sources],
-            "explanation":"Two independent provider endpoints each returned server errors in at least two sampled regions. Investigate shared dependencies, but root cause and malicious intent are unknown.",
+            "explanation":"Two independent provider endpoints each returned server errors in at least half of sampled regions, with a minimum of two affected regions per provider. Investigate shared dependencies, but root cause and malicious intent are unknown.",
             "confidence":"screening-only"})
     return incidents
+
+def numeric_screening_samples(observations):
+    """Bounded, aggregate trend fields; retain no endpoint or user-level logs."""
+    result={}
+    for item in observations:
+        if not isinstance(item,dict):continue
+        key=item.get("id","")
+        if not isinstance(key,str) or not key or len(key)>90:continue
+        for metric in ("dnsMs","handshakeMs","bgpUpdateCount"):
+            value=item.get(metric)
+            if isinstance(value,(int,float)) and not isinstance(value,bool) and 0<=value<1e7:
+                result[key+"."+metric]=round(float(value),2)
+    return result
+
+def screen_trends(observations,previous):
+    """Candidate signals only: no malicious attribution or automatic remediation."""
+    history=[entry for entry in previous.get("history",[]) if isinstance(entry,dict)][-24:]
+    by_id={item.get("id"):item for item in observations if isinstance(item,dict)}
+    screens=[]
+    for item in observations:
+        if not isinstance(item,dict):continue
+        if item.get("status")=="warning" and item.get("category") in ("grid_frequency","automation","control-plane","capacity","deployment","tracing","pki","routing"):
+            screens.append({"id":"screen-"+item["id"],"evidenceIds":[item["id"]],"kind":"source-threshold",
+                "title":item.get("title","Source-specific threshold exceeded"),
+                "detail":"Observed local/operator threshold. Requires independent contextual confirmation; no root cause inferred."})
+        if item.get("category")=="bgp_rpki" and str(item.get("rpkiState","")).startswith("invalid"):
+            screens.append({"id":"rpki-"+item["id"],"evidenceIds":[item["id"]],"kind":"routing-integrity",
+                "title":"Sampled RPKI route-origin validation is invalid",
+                "detail":"A sampled prefix failed validation. Not an internet-wide invalid-route rate."})
+        if item.get("status") not in ("observed","warning"):continue
+        if item.get("category") not in ("dns_tls","bgp_rpki"):continue
+        for key,minimum,ratio in (("dnsMs",700,4),("handshakeMs",700,4),("bgpUpdateCount",25,4)):
+            value=item.get(key)
+            if isinstance(value,bool) or not isinstance(value,(int,float)):continue
+            history_key=str(item.get("id"))+"."+key
+            baseline=[h.get("samples",{}).get(history_key) for h in history if isinstance(h.get("samples"),dict)]
+            baseline=[float(v) for v in baseline if isinstance(v,(int,float)) and not isinstance(v,bool) and 0<=v<1e7]
+            if len(baseline)<6:continue
+            median=statistics.median(baseline)
+            if value<minimum or value<ratio*max(1,median):continue
+            screens.append({"id":"spike-"+str(item["id"])+"-"+key,"evidenceIds":[item["id"]],
+                "kind":"deviation-from-rolling-baseline","title":item.get("title","Signal")+" — "+key+" spike",
+                "observed":round(value,2),"baselineMedian":round(median,2),
+                "detail":"Large change against at least six previously sampled windows; screening only, not incident confirmation."})
+    return screens
 
 def build_snapshot(observations, previous=None, when=None):
     previous=previous if isinstance(previous,dict) else {}
     history=[i for i in previous.get("history",[]) if isinstance(i,dict)][-47:]
     incidents=correlate(observations)
+    screenings=screen_trends(observations,previous)
     used_caps={"regional_http":any(o.get("category")=="regional_http" and o.get("status") in ("observed","warning") for o in observations),
         "dns_tls":any(o.get("category")=="dns_tls" and o.get("status") in ("observed","warning") for o in observations),
         "bgp_rpki":any(o.get("category")=="bgp_rpki" and o.get("status") in ("observed","warning") for o in observations),
-        "traffic":any(o.get("category")=="traffic" and o.get("status")=="observed" for o in observations)}
+        "traffic":any(o.get("category")=="traffic" and o.get("status")=="observed" for o in observations),
+        "grid_frequency_public":any(o.get("category")=="grid_frequency" and o.get("status") in ("observed","warning") for o in observations),
+        "ixp_directory":any(o.get("category")=="ixp_directory" and o.get("status")=="observed" for o in observations),
+        "pki_crl_public":any(o.get("category")=="pki_transport" and o.get("status")=="observed" for o in observations)}
     used_caps.update({METRIC_TO_CAP[o["metric"]]:True for o in observations if o.get("metric") in METRIC_TO_CAP})
     caps=[{"id":i,"title":name,"source":source,
         "status":"sampled" if used_caps.get(i) else ("not configured" if kind=="optional-token" else
         "requires operator access" if kind=="operator" else "analyst review" if kind=="analyst" else "unavailable")}
         for i,name,source,kind in CAPABILITIES]
     observed=sum(o.get("status") in ("observed","warning") for o in observations)
-    status="watch" if incidents else ("sampled-no-correlated-alert" if observed else "unavailable")
+    status="watch" if incidents else ("screening" if screenings else "sampled-no-correlated-alert" if observed else "unavailable")
     date=when or now()
     history.append({"checkedAt":date,"observed":observed,"alerts":len(incidents),
+                    "screenings":len(screenings),
+                    "samples":numeric_screening_samples(observations),
                     "errors":sum(o.get("status")=="error" for o in observations)})
     return {"schemaVersion":1,"checkedAt":date,"status":status,
        "summary":"No corroborated anomaly among sampled indicators" if status=="sampled-no-correlated-alert" else
        "Correlated anomaly in sampled endpoints; root cause unverified" if status=="watch" else
+       "One or more screening thresholds crossed; incident not corroborated" if status=="screening" else
        "Independent monitoring data unavailable",
-       "sampledCount":observed,"incidents":incidents,"observations":observations,
+       "sampledCount":observed,"incidents":incidents,"screeningSignals":screenings,"observations":observations,
        "capabilities":caps,"history":history[-48:],
        "limitations":[
            "Not a continuous global sensor network: GitHub Actions schedules may be delayed or paused.",
@@ -299,6 +356,9 @@ def build_snapshot(observations, previous=None, when=None):
            "RIPE RPKI examples assess only sampled prefixes; they do not measure global RPKI invalid-route rates or IXP congestion.",
            "Unauthorised internal telemetry, deep-web channels and submarine DAS data are never claimed as ingested.",
            "Radar traffic anomalies, if connected, are third-party observations rather than proof of attack.",
+           "GB grid-frequency readings and PeeringDB exchange registration are geographically limited; neither is a worldwide power or IXP congestion monitor.",
+           "Google Trust Services CRL HEAD latency is transport only, not proof of OCSP/CRL validity or revocation query volume.",
+           "Submarine cable fault and DAS raw telemetry are not publicly obtainable; no global private cable alert feed is claimed.",
            "Missing telemetry stays unknown; this dashboard never treats absence of reports as system health."
        ]}
 
@@ -308,10 +368,12 @@ def main():
     observations=[]
     for probe_id,host,title in PROBES:
         observations.append(tls_probe(probe_id,host,title))
-    for provider,host in (("microsoft","login.microsoftonline.com"),("google","accounts.google.com")):
+    for provider,host in (("microsoft","login.microsoftonline.com"),("google","accounts.google.com"),
+        ("cloudflare","www.cloudflare.com"),("github","github.com")):
         observations.append(region_probe(host,provider))
     for label,prefix,origin in ROUTES: observations.append(route_probe(label,prefix,origin))
     observations.append(radar_probe())
+    observations.extend(collect_extra(json_http))
     observations.extend(private_operator_metrics())
     payload=build_snapshot(observations,previous)
     OUTPUT.parent.mkdir(parents=True,exist_ok=True)
