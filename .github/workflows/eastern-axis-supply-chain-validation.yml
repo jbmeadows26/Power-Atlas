@@ -1,0 +1,31 @@
+name: Eastern Axis supply-chain source validation
+on:
+  pull_request:
+    paths:
+      - "eastern-axis/**"
+      - "eastern-axis-osint/**"
+      - ".github/workflows/eastern-axis-supply-chain-validation.yml"
+  workflow_dispatch:
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Validate official-source parsing safeguards
+        run: node --experimental-strip-types --test eastern-axis/tests/supplyContext.test.mjs
+      - name: Install unified dependencies
+        working-directory: eastern-axis
+        run: npm install --no-audit --no-fund
+      - name: Compile unified dashboard
+        working-directory: eastern-axis
+        run: npm run build
+      - name: Install OSINT dependencies
+        working-directory: eastern-axis-osint
+        run: npm install --no-audit --no-fund
+      - name: Compile OSINT dashboard
+        working-directory: eastern-axis-osint
+        run: npm run build
