@@ -92,7 +92,7 @@ export async function readSupplyChain(code:string) {
     {name:'IMF PortWatch · daily AIS-derived transit estimates',url:PORTWATCH_HOME,mode:'live request'},
     {name:'Federal Reserve Bank of New York · GSCPI',url:'https://www.newyorkfed.org/research/policy/gscpi',mode:'linked monthly context; not ingested'},
     {name:'World Bank · LPI 2.0',url:'https://lpi.worldbank.org/en/home',mode:'linked logistics benchmark; not ingested'},
-    {name:'UN Comtrade',url:'https://comtradeapi.un.org/public/v1/preview/C/A/HS',mode:'trade registry reference; partner shipment joins not ingested'},
+    {name:'UN Comtrade',url:'https://comtradeplus.un.org/',mode:'trade registry reference; partner shipment joins not ingested'},
     {name:'UN Trade and Development · maritime transport',url:'https://unctad.org/topic/transport-and-trade-logistics',mode:'context and route analysis'}
   ];
   try{
