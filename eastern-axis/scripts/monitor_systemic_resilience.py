@@ -232,12 +232,22 @@ def private_operator_metrics():
                 if not 0<=age<=3600:continue
             except (ValueError,AttributeError,TypeError):continue
             name,kind,unit=METRICS[k]
+            baseline=item.get("baseline")
+            if isinstance(baseline,bool) or not isinstance(baseline,(int,float)) or baseline<=0 or baseline>1e12:
+                baseline=None
+            spike=(baseline is not None and value>=3*baseline and
+                   k in {"automation_remediations_per_hour","metadata_propagation_ms",
+                         "post_deploy_check_failures","trace_error_rate_pct",
+                         "ocsp_p95_ms","crl_p95_ms"})
+            capacity=(k in {"quota_utilization_pct","cdn_ruleset_utilization_pct",
+                            "ixp_utilization_pct"} and value>=90)
             result.append({"id":"operator-"+k,"title":name,"category":kind,
                 "source":"Authorized operator aggregate","sourceUrl":None,
                 "checkedAt":when,"metric":k,"unit":unit,"value":value,
+                "baseline":baseline,
                 "scope":str(item.get("scope","Unspecified authorized scope"))[:100],
-                "status":"observed","provider":"operator",
-                "note":"Not a public-global measurement. Authorized aggregate, not independently verified."})
+                "status":"warning" if spike or capacity else "observed","provider":"operator",
+                "note":"Alert-only. Pause/rollback actions require separate operator approval; not a public-global measurement."})
         return result
     except (ValueError,TypeError):return []
 
