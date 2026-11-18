@@ -1,5 +1,10 @@
 name: Eastern Axis | independent resilience telemetry
 on:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/monitor_systemic_resilience.py'
+      - '.github/workflows/eastern-axis-resilience.yml'
   schedule:
     - cron: '11,41 * * * *'
   workflow_dispatch:
