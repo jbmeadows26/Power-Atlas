@@ -50,7 +50,7 @@ const origin = process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173';
     assert.match(await afterReload.innerText(),/China/);
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Overview'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
     await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
