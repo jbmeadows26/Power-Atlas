@@ -10,6 +10,7 @@ from pathlib import Path
 import re
 from urllib.parse import urlparse, urlencode
 from urllib.request import Request, urlopen
+from analyst_briefs import build_analysis
 
 ROOT=Path(__file__).resolve().parents[1]
 TOOLS={
@@ -46,11 +47,36 @@ def digest(doc):
   mentions=record.get("countryMentions")
   mentions=sorted({v for v in mentions if isinstance(v,str) and re.fullmatch("[A-Z]{2}",v)}) if isinstance(mentions,list) else []
   result.append({"id":short(record.get("id"),100) or hashlib.sha256(url.encode()).hexdigest()[:24],
+    "sourceId":"official-source-monitor",
     "title":title,"publisher":short(record.get("publisher"),70) or "Unknown publisher",
     "url":url,"date":short(record.get("published"),40),"detectedAt":short(record.get("changedAt"),40),
     "countries":mentions,"changeType":record.get("changeType") if record.get("changeType") in ("baseline","new-publication","source-revised") else "baseline"})
   if len(result)>=80:break
  return result
+
+def government_intake(doc):
+ """Reuse vetted public DOJ/FARA/CISA ingestion; expose metadata only."""
+ if not isinstance(doc,dict) or not isinstance(doc.get("records"),list):
+  raise ValueError("Invalid public intelligence feed")
+ out=[]
+ names={"doj":"U.S. Department of Justice","fara":"DOJ Foreign Agents Registration Act",
+        "cisa":"U.S. CISA","ofac":"U.S. Treasury OFAC"}
+ for row in doc["records"][:250]:
+  if not isinstance(row,dict):continue
+  kind=str(row.get("sourceId") or "").lower()
+  if kind not in names:continue
+  try:url=https(row.get("sourceUrl"))
+  except ValueError:continue
+  title=short(row.get("title"),160)
+  if not title:continue
+  country=row.get("countryMention")
+  country=[country] if isinstance(country,str) and re.fullmatch("[A-Z]{2}",country) else []
+  rid=short(row.get("id"),100) or hashlib.sha256((kind+url).encode()).hexdigest()[:24]
+  out.append({"id":"intake-"+rid,"sourceId":kind,"title":title,"publisher":names[kind],
+              "url":url,"date":short(row.get("date"),40),
+              "detectedAt":short(row.get("collectedAt"),40),"countries":country,"changeType":"baseline"})
+ return out
+
 def adapter(key,status="not-configured",detail=None):
  name,description=TOOLS[key]
  obj={"id":key,"name":name,"status":status,"detail":short(detail or description)}
@@ -114,13 +140,27 @@ async def draft(query,folder):
  else:notes.append("Local Deep Research: authenticated model server not configured")
  (folder/"README.txt").write_text("\n".join(notes)+"\nDO NOT PUBLISH UNREVIEWED AI CLAIMS.\n",encoding="utf-8")
 async def run(args):
- snapshot={"schemaVersion":1,"generatedAt":timestamp(),"sourceStatus":"error","method":"Attributable original-source metadata only; model drafts require human review.","connectors":[],"records":[]}
+ snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable"},"method":"Attributable public-source metadata and topic indexing only; AI drafts require human review.","connectors":[],"records":[],"analysis":None}
  try:
   origin=https((ROOT/"public-api-origin.txt").read_text())
   if not urlparse(origin).hostname.endswith(".neon.tech"):raise ValueError("Verified Neon endpoint required")
   snapshot["records"]=digest(fetch(origin+"/api/source-monitor"))
   snapshot["sourceStatus"]="ok"
+  snapshot["sourceHealth"]["officialPublications"]="ok"
  except Exception as e:print("Official source monitor unavailable: "+type(e).__name__)
+ if snapshot["sourceStatus"]=="ok":
+  try:
+   extra=government_intake(fetch(origin+"/api/intelligence"))
+   existing={(r["url"],r["title"].lower()) for r in snapshot["records"]}
+   for row in extra:
+    key=(row["url"],row["title"].lower())
+    if key not in existing:
+     snapshot["records"].append(row);existing.add(key)
+   snapshot["sourceHealth"]["governmentIntake"]="ok"
+  except Exception as e:
+   snapshot["sourceHealth"]["governmentIntake"]="unavailable"
+   print("Secondary DOJ/FARA/CISA intake unavailable:",type(e).__name__)
+  snapshot["analysis"]=build_analysis(snapshot["records"],use_model=not args.no_semantic)
  snapshot["connectors"]=[
   adapter("gpt-researcher","not-run" if args.research and os.getenv("OPENAI_API_KEY") else "not-configured"),
   adapter("local-deep-research","not-run" if args.research and os.getenv("EA_LDR_URL") else "not-configured"),
@@ -135,6 +175,7 @@ def main():
  p=argparse.ArgumentParser()
  p.add_argument("--output",default=str(ROOT/"public/analysis/manifest.json"))
  p.add_argument("--research",action="store_true")
+ p.add_argument("--no-semantic",action="store_true",help="Use only deterministic source/topic indexing")
  p.add_argument("--query",default="Assess new official defense and cyber publications, including conflicting explanations")
  p.add_argument("--drafts",default="agent-drafts")
  asyncio.run(run(p.parse_args()))
