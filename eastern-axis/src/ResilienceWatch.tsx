@@ -7,7 +7,7 @@ type Observation = {
   source:string; sourceUrl?:string|null; status:string; scope:string;
   dnsMs?:number; handshakeMs?:number; certDaysRemaining?:number;
   prefix?:string; expectedOrigin?:string; rpkiState?:string; regions?:Array<{country:string;httpStatus:number|null;state:string;latencyMs?:number|null}>;
-  failedRegions?:number; detail?:string; metric?:string; value?:number; unit?:string;
+  failedRegions?:number; detail?:string; metric?:string; value?:number; unit?:string; baseline?:number|null; note?:string; bgpUpdateCount?:number; bgpWindowHours?:number;
 };
 type Snapshot = {
   schemaVersion:number; checkedAt:string; status:string; summary:string; sampledCount:number;
@@ -89,10 +89,12 @@ export default function ResilienceWatch(){
           {o.handshakeMs!==undefined && <span>TLS handshake <b>{o.handshakeMs} ms</b></span>}
           {o.certDaysRemaining!==undefined && <span>Certificate expiry <b>{o.certDaysRemaining} days</b></span>}
           {o.rpkiState && <span>RPKI origin <b>{o.rpkiState}</b></span>}
-          {o.metric && o.value!==undefined && <span>Operator metric <b>{o.value} {o.unit||''}</b></span>}
+          {typeof o.bgpUpdateCount==='number' && <span>Sampled BGP updates <b>{o.bgpUpdateCount} / {o.bgpWindowHours||1}h</b></span>}
+          {o.metric && o.value!==undefined && <span>Operator metric <b>{o.value} {o.unit||''}{typeof o.baseline==='number'?' · baseline '+o.baseline:''}</b></span>}
           {o.regions?.map((r,i)=><span key={r.country+i}>{r.country||'Unknown region'} <b>{r.httpStatus??'No HTTP status'} · {r.state}{typeof r.latencyMs==='number'?' · '+r.latencyMs+'ms':''}</b></span>)}
         </div>
         {o.detail && <p className="rw-detail-error">{o.detail}</p>}
+        {o.note && <p className="rw-scope">{o.note}</p>}
         <p className="rw-scope">{o.scope}</p>
         <div className="rw-source">{o.sourceUrl?<a href={o.sourceUrl} target="_blank" rel="noopener noreferrer">{o.source}<ExternalLink size={12}/></a>:<span>{o.source}</span>}<span>{age(o.checkedAt)}</span></div>
       </article>)}</div>
