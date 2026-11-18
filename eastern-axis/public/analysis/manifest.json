@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-18T20:16:51Z",
+  "generatedAt": "2026-11-18T21:51:46Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
@@ -11,8 +11,8 @@
     {
       "id": "gpt-researcher",
       "name": "GPT Researcher",
-      "status": "not-configured",
-      "detail": "Research drafts require review; no automated model publication."
+      "status": "on-demand",
+      "detail": "Free Ollama CPU research is available through a manual GitHub Actions run; not an always-on service."
     },
     {
       "id": "local-deep-research",
@@ -23,8 +23,9 @@
     {
       "id": "openosint",
       "name": "OpenOSINT",
-      "status": "not-configured",
-      "detail": "Read-only passive MCP domain queries."
+      "status": "ok",
+      "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
+      "checkedAt": "2026-11-18T21:51:51Z"
     },
     {
       "id": "openaleph",
