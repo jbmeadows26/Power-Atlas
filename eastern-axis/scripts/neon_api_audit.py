@@ -21,7 +21,11 @@ ROUTES = [
   ("/api/supply-macro", ()),
   ("/api/supply-trade/RU/27", ()),
   ("/api/supply-chain/RU", ()),
-  ("/api/global-systems/RU", ()),
+  ("/api/global-systems/RU", ("indicators","covered","requested")),
+  ("/api/global-systems/WLD", ("indicators","covered","requested")),
+  ("/api/global-systems/US", ("indicators","covered","requested")),
+  ("/api/global-systems/CN", ("indicators","covered","requested")),
+  ("/api/global-systems/IR", ("indicators","covered","requested")),
   ("/api/defense-intel", ()),
   ("/api/source-monitor", ()),
   ("/api/evidence-workbench", ()),
@@ -64,6 +68,25 @@ for route, keys in ROUTES:
     for key in keys:
         if key not in item["keys"]:
             report["problems"].append(f"{route}: missing {key}")
+    # Country completeness is a release gate; 200 OK with 1/12 is still broken.
+    minima={"WLD":10,"US":10,"CN":8,"IR":7}
+    if route.startswith("/api/global-systems/") and isinstance(payload,dict):
+        country=route.rsplit("/",1)[-1]
+        indicators=payload.get("indicators")
+        if not isinstance(indicators,list) or len(indicators)!=12:
+            report["problems"].append(f"{route}: expected 12 defined indicators")
+        else:
+            supported=sum(1 for indicator in indicators
+                if isinstance(indicator,dict) and isinstance(indicator.get("value"),(int,float)))
+            item["supportedIndicators"]=supported
+            item["totalIndicators"]=len(indicators)
+            if country in minima and supported<minima[country]:
+                report["problems"].append(f"{route}: only {supported}/12 observed (minimum {minima[country]})")
+            for indicator in indicators:
+                if not isinstance(indicator,dict): continue
+                value=indicator.get("value")
+                if value is not None and (not indicator.get("year") or not indicator.get("sourceUrl")):
+                    report["problems"].append(f"{route}: undated or unsourced {indicator.get('code')}")
     print(f"{route}: HTTP {item['code']} keys={item['keys'][:8]}",flush=True)
     report["routes"].append(item)
 os.makedirs("audit-output",exist_ok=True)
