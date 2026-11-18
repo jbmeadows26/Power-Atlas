@@ -23,11 +23,14 @@ jobs:
         run: |
           test -f site/index.html
           test ! -f site/.env
+      - name: Read verified public Neon API origin
+        run: |
+          test -s eastern-axis/public-api-origin.txt
+          echo "VITE_EA_API_ORIGIN=$(cat eastern-axis/public-api-origin.txt)" >> "$GITHUB_ENV"
       - name: Build Eastern Axis at a safe subpath
         working-directory: eastern-axis
         env:
           VITE_EA_TARGET: github-pages
-          VITE_EA_API_ORIGIN: ${{ vars.EA_API_ORIGIN }}
         run: |
           if [ -z "$VITE_EA_API_ORIGIN" ]; then
             echo 'EA_API_ORIGIN is missing: refusing to publish a broken Eastern Axis frontend.' >&2
