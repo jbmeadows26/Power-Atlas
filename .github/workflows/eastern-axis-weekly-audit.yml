@@ -9,7 +9,7 @@ on:
     paths:
       - '.github/workflows/eastern-axis-weekly-audit.yml'
       - 'eastern-axis-osint/scripts/weekly_connection_audit.py'
-      - 'eastern-axis-osint/scripts/weekly_browser_smoke.cjs'
+      - 'eastern-axis/scripts/pages_browser_qa.cjs'
       - 'eastern-axis/scripts/audit_resilience_snapshot.py'
 
 permissions:
@@ -25,11 +25,19 @@ jobs:
     runs-on: ubuntu-24.04  # fixed runner supported by Playwright 1.56.x
     timeout-minutes: 25
     env:
-      EASTERN_AXIS_URL: https://eastern-axis-osint-unified.vercel.app
+      EA_BROWSER_ORIGIN: https://jbmeadows26.github.io/Power-Atlas/eastern-axis
       AUDIT_OUTPUT_DIR: audit-output
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - name: Check every public API, data freshness, official sources and links
+      - name: Use configured public Neon API instead of legacy Vercel
+        run: |
+          base="$(tr -d '\r\n' < eastern-axis/public-api-origin.txt)"
+          case "$base" in
+            https://*.neon.tech) ;;
+            *) echo "Missing independently deployed public Neon API" >&2; exit 1 ;;
+          esac
+          echo "EASTERN_AXIS_URL=$base" >> "$GITHUB_ENV"
+      - name: Check live API, freshness, official sources and links
         id: connections
         continue-on-error: true
         run: python3 eastern-axis-osint/scripts/weekly_connection_audit.py
@@ -43,13 +51,13 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/eastern-axis-audit" --no-save playwright@1.56.1
           "$RUNNER_TEMP/eastern-axis-audit/node_modules/.bin/playwright" install chromium
-      - name: Test all sections and country scope on desktop/mobile
+      - name: Test published Pages navigation and assurance at 320px, 390px, desktop
         id: browser
         if: steps.browser-setup.outcome == 'success'
         continue-on-error: true
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/eastern-axis-audit/node_modules/playwright
-        run: node eastern-axis-osint/scripts/weekly_browser_smoke.cjs
+        run: node eastern-axis/scripts/pages_browser_qa.cjs
       - name: Record browser setup failure
         if: steps.browser-setup.outcome != 'success'
         run: |
