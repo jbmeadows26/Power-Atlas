@@ -5,6 +5,7 @@ import { readWorldSignals } from './worldSignals';
 import { readAlliedSanctions, syncUK, syncCanada } from './internationalCoverage';
 import { readEnergy, syncEnergy } from './energySupply';
 import { readSupplyChain } from './supplyChain';
+import {readSupplyMacro,readTradeDependency} from './supplyContext';
 import { ARCHIVE_ENTITIES, readFactbook, ARCHIVE_BASELINE, ARCHIVE_REVISION } from './factbook';
 import { readGlobalSystems } from './globalSystems';
 import { readDefenseIntelligence } from './defenseIntel';
@@ -997,6 +998,17 @@ export const handler = router({
         return error('Physical energy source unavailable', 503);
       }
     }
+  ],
+  'GET /api/supply-macro': [
+    async () => json(await readSupplyMacro()),
+  ],
+  'GET /api/supply-trade/:code/:hs': [
+    async ({params}) => {
+      const code=params.code.toUpperCase(),hs=params.hs.toUpperCase();
+      if(!ISO.includes(code))return error('Unknown country code',404);
+      const result=await readTradeDependency(code,hs);
+      return result?json(result):error('Invalid commodity group',400);
+    },
   ],
   'GET /api/supply-chain/:code': [
     async ({ params }) => {
