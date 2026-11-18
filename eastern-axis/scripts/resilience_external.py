@@ -55,7 +55,7 @@ def grid_from_payload(payload, checked_at):
     result=dict(base,frequencyHz=round(frequency,4),deviationHz=round(frequency-50.0,4),
         sourceTime=at.isoformat().replace("+00:00","Z"),
         sampleCount=len(good),sampleAgeSeconds=round(age),
-        "status":"observed")
+        status="observed")
     # Delayed, future or stale reports must never masquerade as current grid health.
     if age < -60 or age > 900:
         result["status"]="stale"
