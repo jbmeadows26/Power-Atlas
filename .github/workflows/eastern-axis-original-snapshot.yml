@@ -4,6 +4,7 @@ on:
     branches:
       - 'migration/eastern-axis-pages-free'
     paths:
+      - '.github/workflows/eastern-axis-original-snapshot.yml'
       - 'eastern-axis-migration/fetch-site.py'
       - 'eastern-axis-migration/static-manifest.json'
   workflow_dispatch:
