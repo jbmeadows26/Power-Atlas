@@ -1,0 +1,106 @@
+name: Scheduled research integrity and gap checks
+
+# Mechanical monitoring only: source adjudication and new investigative
+# research still require a human or a separately authorized research agent.
+on:
+  schedule:
+    - cron: '19 10 * * *'
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/scheduled-research-integrity.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: atlas-research-integrity
+  cancel-in-progress: false
+
+jobs:
+  campaign-promises:
+    name: Campaign pledge provenance and completeness guardrails
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source-linked bounded pledge evidence
+        run: |
+          python scripts/validate_promises.py
+          python scripts/validate_promises.py data/promises/us-2020-source-verified-expansion.json
+          python -m scripts.build_promises --check
+          python -m unittest discover -s tests -p 'test_promises*.py' -v
+
+  political-authenticity:
+    name: Congressional source and representation research guardrails
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify primary-source-linked biography cohort
+        run: |
+          python scripts/validate_authenticity_official_biographies.py --check
+          python -m unittest discover -s tests -p 'test_authenticity_official_biographies.py' -v
+      - name: Check evidence age-comparison logic, missingness and source limits
+        run: python -m unittest discover -s tests -p 'test_political_authenticity*.py' -v
+
+  institutional-decay:
+    name: Institutional decay documented case research guardrails
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate observed cases and integrity-to-trust comparability
+        run: python -m unittest discover -s tests -p 'test_institutional_decay_*.py' -v
+
+  source-gap-audit:
+    name: Power Atlas source-gaps without data publication or redeploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check evidence register and source index
+        run: |
+          python scripts/build_reference_gap_progress.py --check
+          python scripts/reference_sources.py --check
+          python -m unittest discover -s tests -p 'test_reference_gap_progress.py' -v
+          python -m unittest discover -s tests -p 'test_reference_sources.py' -v
+      - name: Recalculate static sitewide source and coverage audit
+        run: python scripts/audit_power_atlas_site.py
+      - name: Write bounded-coverage results to run summary
+        if: always()
+        run: |
+          python - <<'PY' >> "$GITHUB_STEP_SUMMARY"
+          import json
+          from pathlib import Path
+          print('### Power Atlas research and source-gap checks')
+          print('Validation is not independent factual adjudication or a nationwide coverage claim.\n')
+          p=Path('data/health/sitewide-audit-v1.json')
+          if p.exists():
+              d=json.loads(p.read_text())
+              s=d.get('summary',{})
+              for key in ('unresolvedOriginalSourceGaps','blockingExistingResearchGates','queuedIngestionTasks','stalePageTwoQueueEntries','boundedKeywordPageTasksReconciled'):
+                  print(f'- {key}: {s.get(key, "unavailable")}')
+              print(f'- Structural errors: {len(d.get("structuralErrors",[]))}')
+          else:
+              print('- Site audit did not produce a report; inspect earlier steps.')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: source-gap-audit
+          path: data/health/sitewide-audit-v1.json
+          if-no-files-found: warn
+          retention-days: 7
