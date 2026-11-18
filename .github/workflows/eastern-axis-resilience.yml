@@ -31,6 +31,11 @@ jobs:
         run: python3 -m unittest discover -s eastern-axis/tests -p test_monitor_systemic_resilience.py -v
       - name: Compile collector before probing
         run: python3 -m py_compile eastern-axis/scripts/monitor_systemic_resilience.py
+      - name: Load prior samples for trend history
+        if: github.event_name != 'pull_request'
+        run: |
+          git fetch origin refs/heads/telemetry/eastern-axis-live:refs/remotes/origin/telemetry/eastern-axis-live
+          git show origin/telemetry/eastern-axis-live:eastern-axis/public/telemetry/resilience.json > eastern-axis/public/telemetry/resilience.json
       - name: Independently sample public endpoints and routing
         if: github.event_name != 'pull_request'
         env:
