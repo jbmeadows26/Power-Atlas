@@ -12,22 +12,24 @@ import urllib.parse
 import urllib.request
 from collections import Counter
 
-BASE=os.environ.get("EASTERN_AXIS_URL","https://eastern-axis-osint-unified.vercel.app").rstrip("/")
+BASE=(os.environ.get("EASTERN_AXIS_URL") or pathlib.Path("eastern-axis/public-api-origin.txt").read_text(encoding="utf-8").strip()).rstrip("/")
+PAGES="https://jbmeadows26.github.io/Power-Atlas/eastern-axis/"
+if not BASE.startswith("https://") or not BASE.endswith(".neon.tech"):
+    raise ValueError("Weekly audit requires the configured public Neon API, not the legacy Vercel frontend")
 OUT=pathlib.Path(os.environ.get("AUDIT_OUTPUT_DIR","audit-output"))
 OUT.mkdir(parents=True,exist_ok=True)
 NOW=dt.datetime.now(dt.timezone.utc)
 CHECKS=[]
 DOC={}
 ROUTES=[
-"/api/_healthcheck","/api/health","/api/healthcheck","/api/overview",
-"/api/brief/RU","/api/brief/FR","/api/factbook/countries",
-"/api/factbook/RU","/api/factbook/FR","/api/factbook/compare?codes=RU,FR,CN",
+"/api/_healthcheck","/api/overview",
+"/api/brief/RU","/api/factbook/countries","/api/factbook/RU",
+"/api/factbook/compare?codes=RU,CN",
 "/api/global-systems/RU","/api/global-systems/WLD",
-"/api/energy-supply/RU","/api/energy-supply/ALL",
-"/api/allied-sanctions/RU","/api/allied-sanctions/ALL",
+"/api/energy-supply/RU","/api/allied-sanctions/RU",
 "/api/defense-intel","/api/source-monitor","/api/evidence-workbench",
-"/api/intelligence","/api/world-signals","/api/supply-chain/ALL",
-"/api/supply-chain/RU","/api/supply-chain/IR","/api/fields/gdp"
+"/api/intelligence","/api/world-signals","/api/supply-chain/RU",
+"/api/supply-macro"
 ]
 SOURCES={
 "UK FCDO":"https://sanctionslist.fcdo.gov.uk/docs/UK-Sanctions-List.csv",
@@ -51,6 +53,8 @@ def get(url,method="GET",limit=5000000,timeout=20):
     headers={"User-Agent":"EasternAxis-Weekly-Audit/1.0 (GitHub Actions; public data research)",
              "Accept":"application/json, text/csv, application/xml, */*",
              "Accept-Encoding":"identity"}
+    if url.startswith(BASE+"/api/") or url.startswith(BASE+"/_neon/"):
+        headers["Origin"]="https://jbmeadows26.github.io"
     request=urllib.request.Request(url,headers=headers,method=method)
     try:
         with urllib.request.urlopen(request,timeout=timeout) as r:
@@ -205,12 +209,12 @@ def probe_upstream(pair):
 
 def main():
     try:
-        code,body,_=get(BASE,limit=30000)
+        code,body,_=get(PAGES,limit=30000)
         add("UI","Dashboard root","PASS" if code==200 and b"<html" in body.lower() else "FAIL",
-            "HTTP "+str(code)+"; interactive checks are separate",BASE)
-    except Exception as e:add("UI","Dashboard root","FAIL",type(e).__name__,BASE)
+            "HTTP "+str(code)+"; interactive checks are separate",PAGES)
+    except Exception as e:add("UI","Dashboard root","FAIL",type(e).__name__,PAGES)
     with cf.ThreadPoolExecutor(max_workers=6) as pool:list(pool.map(request_api,ROUTES))
-    for route,expected in (("/api/cron",401),("/api/brief/ZZ",404)):
+    for route,expected in (("/api/cron/doj",401),("/api/does-not-exist",404)):
         try:
             code,_,_=get(BASE+route,limit=2000)
             add("Security",route,"PASS" if code==expected else "FAIL",
@@ -231,7 +235,8 @@ def main():
         indent=2,ensure_ascii=False)+"\n")
     lines=["# Eastern Axis weekly connections audit","",
         "**Checked:** "+NOW.strftime("%Y-%m-%d %H:%M UTC")+"  ",
-        "**Production:** "+BASE+"  ",
+        "**Public site:** "+PAGES+"  ",
+        "**API origin:** "+BASE+"  ",
         "**Summary:** "+str(counts["PASS"])+" PASS · "+str(counts["WARN"])+" WARN · "+str(counts["FAIL"])+" FAIL","",
         "A successful HTTP response is not proof of fresh data. Reference-only source URLs are not ingested feeds. "
         "403/429 may indicate bot protection. Protected ingestion crons are never triggered in this read-only audit.","",
