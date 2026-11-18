@@ -439,7 +439,7 @@ function App() {
               <Menu size={21} />
             </button>
             <div className="breadcrumb">
-              INTELLIGENCE DESK <ChevronRight size={13} />{' '}
+              <span className="breadcrumb-prefix">INTELLIGENCE DESK</span> <ChevronRight size={13} />{' '}
               <strong>{view === 'Overview' ? 'COMMAND CENTER' : view.toUpperCase()}</strong>
             </div>
           </div>
