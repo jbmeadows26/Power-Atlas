@@ -8,7 +8,7 @@ on:
   workflow_dispatch:
 jobs:
   validate:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04 # Playwright 1.56 supports Ubuntu 24.04; latest currently resolves to unsupported 26.04
     timeout-minutes: 18
     steps:
       - uses: actions/checkout@v4
@@ -23,6 +23,14 @@ jobs:
       - name: Compile unified dashboard
         working-directory: eastern-axis
         run: npm run build
+      - name: Install mobile browser test tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ea-mobile-test" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/ea-mobile-test/node_modules/.bin/playwright" install chromium
+      - name: Verify 320px, 390px, and desktop navigation with local test fixtures
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-mobile-test/node_modules/playwright
+        run: node eastern-axis/tests/mobile_navigation_smoke.cjs
       - name: Install OSINT dependencies
         working-directory: eastern-axis-osint
         run: npm install --no-audit --no-fund
