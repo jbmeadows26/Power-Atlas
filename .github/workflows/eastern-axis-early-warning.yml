@@ -1,0 +1,79 @@
+name: Eastern Axis physical early warning
+on:
+  schedule:
+    - cron: '41 11 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/collect_early_warning.py'
+      - 'eastern-axis/tests/test_early_warning.py'
+      - 'eastern-axis/src/PhysicalEarlyWarning.tsx'
+      - 'eastern-axis/src/earlyWarningCatalog.ts'
+      - '.github/workflows/eastern-axis-early-warning.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/collect_early_warning.py'
+      - 'eastern-axis/tests/test_early_warning.py'
+      - 'eastern-axis/src/PhysicalEarlyWarning.tsx'
+      - 'eastern-axis/src/earlyWarningCatalog.ts'
+      - 'eastern-axis/src/App.tsx'
+      - 'eastern-axis/src/physicalEarlyWarning.css'
+      - '.github/workflows/eastern-axis-early-warning.yml'
+permissions:
+  contents: write
+concurrency:
+  group: eastern-axis-physical-warning
+  cancel-in-progress: false
+jobs:
+  validate:
+    name: Source parser and dashboard build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install XLSX source parser
+        run: python -m pip install --disable-pip-version-check openpyxl==3.1.5
+      - name: Validate source date, baseline and risk-label safeguards
+        run: python -m unittest discover -s eastern-axis/tests -p test_early_warning.py -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build the unified dashboard
+        working-directory: eastern-axis
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+  collect:
+    needs: validate
+    if: ${{ github.event_name != 'pull_request' && github.ref == 'refs/heads/main' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install bounded official-source parser
+        run: python -m pip install --disable-pip-version-check openpyxl==3.1.5
+      - name: Collect authenticated-by-source public observations
+        run: python eastern-axis/scripts/collect_early_warning.py --strict
+      - name: Commit the source-dated snapshot on main only
+        run: |
+          git add eastern-axis/public/analysis/physical-early-warning.json
+          if git diff --cached --quiet; then
+            echo "No changes to the verified public snapshot."
+          else
+            git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "data(eastern-axis): refresh attributable physical warning source snapshot [skip ci]"
+            git push origin HEAD:main
+          fi

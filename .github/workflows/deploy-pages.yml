@@ -14,7 +14,7 @@ on:
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
   workflow_run:
-    workflows: ['Eastern Axis intelligence analyst']
+    workflows: ['Eastern Axis intelligence analyst', 'Eastern Axis physical early warning']
     types: [completed]
     branches: [main]
 
