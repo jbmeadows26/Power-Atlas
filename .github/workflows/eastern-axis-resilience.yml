@@ -42,10 +42,16 @@ jobs:
         run: |
           git config user.name "Eastern Axis telemetry bot"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp eastern-axis/public/telemetry/resilience.json "${RUNNER_TEMP}/ea-resilience-current.json"
+          git restore eastern-axis/public/telemetry/resilience.json
+          git fetch origin refs/heads/telemetry/eastern-axis-live
+          git switch --detach FETCH_HEAD
+          mkdir -p eastern-axis/public/telemetry
+          cp "${RUNNER_TEMP}/ea-resilience-current.json" eastern-axis/public/telemetry/resilience.json
           git add eastern-axis/public/telemetry/resilience.json
           if git diff --cached --quiet; then
             echo "No changes in telemetry snapshot"
           else
             git commit -m "data(eastern-axis): refresh independent resilience snapshot [skip ci]"
-            git push origin HEAD:main
+            git push origin HEAD:refs/heads/telemetry/eastern-axis-live
           fi
