@@ -35,7 +35,7 @@ function fedDate(input:string):string|null{
  return date.toISOString().slice(0,10);
 }
 let fedCache:{until:number;value:ReturnType<typeof parseFed>}|null=null;
-function parseFed(csv:string){
+export function parseFed(csv:string){
  const lines=csv.replace(/^\uFEFF/,'').split(/\r?\n/).filter(Boolean);
  if(lines.length<100)throw new Error('GSCPI dataset unexpectedly short');
  const head=quoteSplit(lines[0]);
@@ -115,7 +115,7 @@ async function reporterDirectory(){
 type TradeRow={refYear?:number;period?:string|number;reporterCode?:number;partnerCode?:number;
   partner2Code?:number;flowCode?:string;cmdCode?:string;primaryValue?:number;customsCode?:string;
   motCode?:number;classificationSearchCode?:string;isAggregate?:boolean};
-function selectValue(rows:TradeRow[],partnerCode:number,hs:string,year:number):number|null{
+export function selectValue(rows:TradeRow[],partnerCode:number,hs:string,year:number):number|null{
  const filtered=rows.filter(r=>r.reporterCode===842 && r.partnerCode===partnerCode &&
    r.flowCode==='M' && String(r.cmdCode).toUpperCase()===hs &&
    Number(r.refYear||r.period)===year && (r.partner2Code===0||r.partner2Code==null) &&
