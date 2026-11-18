@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;700&display=swap');
+:root{color-scheme:dark;--gp-bg:#071723;--gp-panel:#102f3d;--gp-border:#375866;--gp-text:#e9f5f6;--gp-muted:#aec9d1;--gp-teal:#96eedb;--gp-gold:#f8d09c}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 84% 0,#124253 0,transparent 47%),var(--gp-bg);color:var(--gp-text);font:14px/1.6 'DM Sans',system-ui,sans-serif}
+button,input,select{font:inherit}button{cursor:pointer}a{color:var(--gp-teal)}a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gp-gold);outline-offset:3px}
+.gp-app{padding:21px clamp(16px,2.9vw,42px) 55px;max-width:1520px;margin:0 auto;min-width:0}
+.gp-hero{padding:18px 0 27px;border-bottom:1px solid var(--gp-border)}.gp-kicker{font-size:10px;letter-spacing:.15em;color:var(--gp-teal);font-weight:800;text-transform:uppercase}
+.gp-hero-cols{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(255px,.72fr);gap:28px;align-items:center}.gp-hero h1{font:700 clamp(41px,5vw,72px)/1.04 'Space Grotesk',sans-serif;letter-spacing:-.055em;margin:16px 0}
+.gp-hero h1 em{color:var(--gp-teal);font-style:normal}.gp-hero-cols>div>p{max-width:685px;color:var(--gp-muted);font-size:14px;line-height:1.7}
+.gp-actions{display:flex;flex-wrap:wrap;gap:10px 17px;margin-top:22px}.gp-actions a{text-decoration:none;padding:8px 0;font-size:12px;font-weight:700;border-bottom:1px solid #4b897c}
+.gp-manifesto,.gp-panel,.gp-stat,.gp-card,.gp-graph,.gp-bench,.gp-dossier{border:1px solid var(--gp-border);background:var(--gp-panel);border-radius:13px}
+.gp-manifesto{padding:20px}.gp-manifesto strong{display:block;font:700 22px/1.3 'Space Grotesk',sans-serif;margin:11px 0}.gp-manifesto p{color:var(--gp-muted);font-size:12px}
+#gp-selection{font-size:11px;color:#d8ffed;background:#14483f;border-radius:8px;border:1px solid #367a71;padding:9px 11px;margin-top:17px}
+.gp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:11px;margin:19px 0 31px}.gp-stat{padding:15px;min-width:0}.gp-stat small{display:block;font-size:10px;letter-spacing:.05em;color:#a4c4cb;text-transform:uppercase}
+.gp-stat b{font:700 31px 'Space Grotesk',sans-serif;display:block;margin:6px 0}.gp-stat em{font-style:normal;font-size:11px;color:#a6c2cb}
+.gp-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(236px,285px);gap:20px;min-width:0}.gp-main{min-width:0}.gp-section-head h2{font:700 28px 'Space Grotesk',sans-serif;margin:6px 0}.gp-section-head p{font-size:12px;color:var(--gp-muted)}
+.gp-tabs{display:flex;gap:7px;overflow-x:auto;scrollbar-width:thin;max-width:100%;padding:7px 0 15px;border-bottom:1px solid var(--gp-border)}
+.gp-tab{white-space:nowrap;min-height:46px;border:1px solid #456c75;border-radius:9px;padding:8px 13px;background:#163441;color:#c5dce2}.gp-tab.active,.gp-tab[aria-pressed=true]{background:#176355;border-color:#9de6d1;color:#fff;font-weight:700}
+.gp-aside .gp-panel{padding:17px;margin-bottom:11px}.gp-aside h3{font:700 20px 'Space Grotesk',sans-serif;margin:9px 0}.gp-aside p{font-size:12px;line-height:1.75;color:var(--gp-muted)}.gp-aside a{display:block;text-decoration:none;font-size:12px;margin:12px 0}.gp-steps{list-style:none;counter-reset:steps;margin:17px 0;padding:0;display:grid;gap:7px}.gp-steps li{padding:9px 10px;border-left:2px solid #6abca9;background:#184150;font-size:12px;counter-increment:steps}.gp-steps li:before{content:counter(steps,decimal-leading-zero) "  / ";color:var(--gp-teal);font-weight:700}
+.gp-subhead{display:flex;gap:8px;justify-content:space-between;align-items:end;flex-wrap:wrap;margin:20px 0 13px}.gp-subhead h3{font:700 22px 'Space Grotesk',sans-serif;margin:0}.gp-subhead small{color:#90b9c2}
+.gp-lead{font-size:13px;color:var(--gp-muted)}.gp-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}
+.gp-card{padding:16px;min-width:0;overflow-wrap:anywhere}.gp-card h3{font:700 17px/1.35 'Space Grotesk',sans-serif;margin:10px 0}.gp-card p{font-size:12px;color:#b8d0d6;margin:10px 0}.gp-tag{display:inline-block;color:#b9f2e6;font-size:10px;font-weight:700;padding:3px 9px;border-radius:18px;background:#164f49;border:1px solid #3b7b70;max-width:100%}
+.gp-tag.warn{background:#3c332e;border-color:#92724f;color:#ffe0b4}.gp-card .gp-metric{font:700 27px 'Space Grotesk',sans-serif;color:#f4fffd;margin-top:8px}.gp-card .gp-desc{font-size:10px;color:#a7c8d0}
+.gp-card details{border-top:1px solid #315563;margin-top:15px;padding-top:8px}.gp-card summary{min-height:44px;cursor:pointer;color:var(--gp-teal);font-size:12px;font-weight:700;padding:9px 0}.gp-card details p b{color:#e5f7f0}
+.gp-card details a{display:block;margin-top:12px;font-weight:700;font-size:12px}
+.gp-controls{display:flex;gap:9px;flex-wrap:wrap;margin:16px 0}.gp-controls :is(input,select){border-radius:9px;background:#133441;border:1px solid #436e79;color:#e9f9f8;min-height:44px;padding:9px 12px}.gp-controls input{flex:1;min-width:190px}.gp-controls select{max-width:235px}
+.gp-graph,.gp-bench,.gp-dossier{padding:19px;margin:13px 0}.gp-row{display:grid;grid-template-columns:minmax(110px,1.2fr) minmax(95px,2.1fr) 53px;gap:12px;align-items:center;margin:13px 0;color:#ccdde2;font-size:12px}.gp-row strong{text-align:right;font:700 13px 'Space Grotesk',sans-serif}.gp-track{height:12px;border-radius:16px;background:#294653;overflow:hidden}.gp-track i{display:block;height:100%;background:linear-gradient(90deg,#317d80,#99e6c9);border-radius:13px}
+.gp-graph .gp-note{font-size:11px;color:var(--gp-muted);line-height:1.7;margin-top:15px}
+.gp-bench-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}.gp-bench h3{font:700 17px 'Space Grotesk',sans-serif;margin:6px 0}.gp-bench p,.gp-dossier p{color:#bad1d5;font-size:12px}
+.gp-source-list{display:grid;gap:8px}.gp-source{display:block;text-decoration:none;border:1px solid #3c6470;background:#102f40;padding:13px;border-radius:9px;overflow-wrap:anywhere}.gp-source b{display:block;font-size:12px}.gp-source small{display:block;color:#abccd2;font-size:11px;line-height:1.6;margin-top:5px}
+.gp-alert{padding:16px;border:1px dashed #8e6d4e;border-radius:10px;background:#3a302a;color:#ffe0b6;font-size:12px;margin:18px 0}.gp-meta{font-size:11px;color:#a7c5cc}.gp-footer{border-top:1px solid #325568;color:#93b7c0;font-size:11px;padding-top:17px;margin:32px 0}
+.gp-link{color:var(--gp-teal);font-size:12px;text-decoration:none;font-weight:700}.gp-empty{font-size:12px;color:#b7ccd3;padding:15px;background:#14323f;border-radius:9px}
+@media(max-width:1100px){.gp-layout{grid-template-columns:minmax(0,1fr)}.gp-aside{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.gp-hero-cols{grid-template-columns:1fr}.gp-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:690px){.gp-app{max-width:100vw;overflow-x:clip;padding:16px 14px 40px}.gp-hero h1{font-size:42px}.gp-grid,.gp-bench-grid,.gp-aside{grid-template-columns:1fr}.gp-controls input,.gp-controls select{width:100%;max-width:none;min-width:0}.gp-row{grid-template-columns:110px 1fr 45px;gap:7px}.gp-tabs{margin-right:-13px}}
+
+/* World Bank figures and interpretive briefs remain on Eastern Axis */
+.gp-wdi-brief{padding:18px 20px;margin:12px 0 16px;background:linear-gradient(120deg,#174a46,#11323f);border:1px solid #4b857b;border-left:4px solid #8eeed5;border-radius:12px}
+.gp-wdi-brief h4{font:700 21px/1.27 'Space Grotesk',sans-serif;margin:10px 0;color:#f0fffa}
+.gp-wdi-brief p{font-size:13px;color:#d6eee9;line-height:1.75;margin:10px 0}
+.gp-wdi-brief small{font-size:11px;color:#b6d8d3}
+.gp-wdi-grid .gp-card{padding:18px}
+.gp-wdi-grid .gp-card .gp-metric{font-size:37px;line-height:1.2;margin:10px 0 6px}
+.gp-wdi-grid .gp-card .gp-desc{font-size:11px;color:#a9dbcf}
+.gp-wdi-grid .gp-card p{line-height:1.75}
+.gp-wdi-source{margin-top:13px;border-top:1px solid #3f6870}
+.gp-wdi-source summary{min-height:44px;padding:10px 0;color:#a2f2da;font-size:12px;font-weight:700;cursor:pointer}
+.gp-wdi-source p{font-size:11px;color:#bdd3d8}
+.gp-wdi-source a{display:inline-block;min-height:44px;padding:12px 0;font-size:12px}
+@media(max-width:880px){.gp-wdi-grid{grid-template-columns:1fr}}
