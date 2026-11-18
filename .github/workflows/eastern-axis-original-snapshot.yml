@@ -1,0 +1,46 @@
+name: Eastern Axis | Capture original public dashboard source
+on:
+  push:
+    branches:
+      - 'migration/eastern-axis-pages-free'
+    paths:
+      - 'eastern-axis-migration/fetch-site.py'
+      - 'eastern-axis-migration/static-manifest.json'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  capture:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Capture the 53 canonical public static files from the owned Vercel deployment
+        run: python3 eastern-axis-migration/fetch-site.py
+      - name: Ensure essential sections and asset types are represented
+        run: |
+          test -s eastern-axis-static/index.html
+          test -s eastern-axis-static/assets/main.js
+          test -s eastern-axis-static/assets/main.css
+          test -s eastern-axis-static/resources/index.html
+          test -s eastern-axis-static/risk/index.html
+          test -s eastern-axis-static/data/risk-register.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path('eastern-axis-static/_source-manifest.json').read_text())
+          assert len(d['files']) == 53, len(d['files'])
+          assert all(x['sha256'] for x in d['files'])
+          print('Verified exact public source file capture and SHA-256 provenance.')
+          PY
+      - name: Commit source snapshot to staging branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add eastern-axis-static
+          if ! git diff --cached --quiet; then
+            git commit -m 'chore(eastern-axis): capture original Vercel dashboard static source'
+            git push origin HEAD:migration/eastern-axis-pages-free
+          fi
