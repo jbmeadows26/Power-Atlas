@@ -8,6 +8,8 @@ type Observation = {
   dnsMs?:number; handshakeMs?:number; certDaysRemaining?:number;
   prefix?:string; expectedOrigin?:string; rpkiState?:string; regions?:Array<{country:string;httpStatus:number|null;state:string;latencyMs?:number|null}>;
   failedRegions?:number; detail?:string; metric?:string; value?:number; unit?:string; baseline?:number|null; note?:string; bgpUpdateCount?:number; bgpWindowHours?:number;
+  frequencyHz?:number; deviationHz?:number; sourceTime?:string; sampleAgeSeconds?:number; sampleCount?:number; expectedHz?:number;
+  exchange?:string; exchangeId?:number; latencyMs?:number; requestMethod?:string; httpStatus?:number;
 };
 type Snapshot = {
   schemaVersion:number; checkedAt:string; status:string; summary:string; sampledCount:number;
@@ -19,6 +21,7 @@ const RAW_SNAPSHOT = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/
 const categories:Record<string,string> = {
   regional_http:'Independent regional HTTP',dns_tls:'TLS, DNS and certificate health',
   bgp_rpki:'Routing integrity',traffic:'Independent traffic reports',
+  grid_frequency:'Official GB power-grid telemetry',ixp_directory:'Public IXP directory (not congestion)',pki_transport:'Certificate-authority CRL transport',
   automation:'Autonomous remediation', 'control-plane':'Cloud control-plane synchronization',
   deployment:'Deployments and validation', capacity:'Hard limits and capacity',
   routing:'IXP and transport',physical:'Grid, UPS, fiber and DAS',
@@ -64,13 +67,13 @@ export default function ResilienceWatch(){
       <h1>Early signs of cascading failure</h1>
       <p>Sample the internet from outside shared vendor control planes. Cross-check network, identity, routing and physical constraints—without equating service disruption with a cyberattack.</p>
     </div><button type="button" className="rw-refresh" onClick={()=>setRevision(v=>v+1)} disabled={loading}><RefreshCcw size={15}/> Refresh snapshot</button></div>
-    {loading && !snapshot && <p className="rw-notice"><Activity size={17}/> Retrieving latest signed-in-free monitoring snapshot…</p>}
+    {loading && !snapshot && <p className="rw-notice"><Activity size={17}/> Retrieving most recent public monitoring snapshot…</p>}
     {error && <p role="status" className="rw-notice rw-warning"><AlertTriangle size={17}/> {error}. No artificial normal status has been substituted.</p>}
     {snapshot && <>
       <div className={'rw-overall '+(snapshot.status==='watch'?'rw-alert':'')}>
-        <div className="rw-overall-main">{snapshot.status==='watch'?<ShieldAlert size={22}/>:<ShieldCheck size={22}/>}<div>
+        <div className="rw-overall-main">{snapshot.status==='watch'?<ShieldAlert size={22}/>:<Clock3 size={22}/>}<div>
           <strong>{stale?'STALE SNAPSHOT':snapshot.status==='watch'?'CORRELATED WATCH':snapshot.status==='unavailable'?'DATA UNAVAILABLE':'NO CORRELATED ALERT IN SAMPLE'}</strong>
-          <p>{snapshot.summary}. {stale?'Last successful snapshot is over two hours old; do not use it to infer present conditions.':''}</p>
+          <p>{snapshot.summary}. {stale?'The latest published snapshot is over two hours old; do not use it to infer present conditions.':''}</p>
         </div></div><span>{date(snapshot.checkedAt)} · {age(snapshot.checkedAt)}</span>
       </div>
       <div className="rw-metrics"><div><span>Sampled checks</span><strong>{snapshot.sampledCount}</strong><small>Observed in last collector run</small></div>
@@ -83,12 +86,20 @@ export default function ResilienceWatch(){
         {groups.map(g=><option value={g} key={g}>{categories[g]||g}</option>)}</select></label></div>
       <div className="rw-probes">{observations.map(o=><article className="rw-probe" key={o.id}>
         <div className="rw-probe-top"><div><span className="rw-category">{categories[o.category]||o.category}</span><h3>{o.title}</h3></div>
-          <span className={'rw-pill '+(o.status==='observed'?'rw-ok':o.status==='warning'?'rw-warning-pill':'rw-na')}>{o.status==='observed'?'SAMPLED':o.status==='warning'?'FLAGGED':o.status==='not_configured'?'NO TOKEN':o.status.toUpperCase().replaceAll('_',' ')}</span></div>
+          <span className={'rw-pill '+(o.status==='observed'?'rw-ok':o.status==='warning'?'rw-warning-pill':'rw-na')}>{o.status==='observed'?'SAMPLED':o.status==='warning'?'FLAGGED':o.status==='not_configured'?'NO TOKEN':o.status==='stale'?'STALE':o.status.toUpperCase().replaceAll('_',' ')}</span></div>
         <div className="rw-detail-grid">
           {o.dnsMs!==undefined && <span>DNS <b>{o.dnsMs} ms</b></span>}
           {o.handshakeMs!==undefined && <span>TLS handshake <b>{o.handshakeMs} ms</b></span>}
           {o.certDaysRemaining!==undefined && <span>Certificate expiry <b>{o.certDaysRemaining} days</b></span>}
           {o.rpkiState && <span>RPKI origin <b>{o.rpkiState}</b></span>}
+          {typeof o.frequencyHz==='number' && <span>Grid frequency <b>{o.frequencyHz.toFixed(3)} Hz</b></span>}
+          {typeof o.deviationHz==='number' && <span>Deviation from 50 Hz <b>{o.deviationHz.toFixed(3)} Hz</b></span>}
+          {o.sourceTime && <span>Source observed <b>{date(o.sourceTime)}</b></span>}
+          {typeof o.sampleAgeSeconds==='number' && <span>Reading delay <b>{Math.max(0,Math.round(o.sampleAgeSeconds/60))}m</b></span>}
+          {o.exchange && <span>Exchange listing <b>{o.exchange}</b></span>}
+          {o.requestMethod && <span>CRL request <b>{o.requestMethod}</b></span>}
+          {typeof o.httpStatus==='number' && <span>HTTP status <b>{o.httpStatus}</b></span>}
+          {typeof o.latencyMs==='number' && <span>Endpoint latency <b>{o.latencyMs.toFixed(1)} ms</b></span>
           {typeof o.bgpUpdateCount==='number' && <span>Sampled BGP updates <b>{o.bgpUpdateCount} / {o.bgpWindowHours||1}h</b></span>}
           {o.metric && o.value!==undefined && <span>Operator metric <b>{o.value} {o.unit||''}{typeof o.baseline==='number'?' · baseline '+o.baseline:''}</b></span>}
           {o.regions?.map((r,i)=><span key={r.country+i}>{r.country||'Unknown region'} <b>{r.httpStatus??'No HTTP status'} · {r.state}{typeof r.latencyMs==='number'?' · '+r.latencyMs+'ms':''}</b></span>)}
