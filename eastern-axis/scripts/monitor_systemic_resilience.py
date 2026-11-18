@@ -34,7 +34,7 @@ ROUTES = [
     ("cloudflare", "1.1.1.0/24", "AS13335"),
     ("google", "8.8.8.0/24", "AS15169"),
 ]
-REGIONS = ("US", "DE", "SG")
+REGIONS = ("US", "DE", "SG", "BR", "ZA", "AU")
 METRICS = {
     "automation_remediations_per_hour": ("AIOps policy churn", "automation", "events/hour"),
     "metadata_propagation_ms": ("Cross-region metadata lag", "control-plane", "ms"),
