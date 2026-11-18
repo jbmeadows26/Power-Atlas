@@ -27,7 +27,7 @@ const origin = 'http://127.0.0.1:4173';
     page.on('pageerror',e=>errors.push(viewport.width+': '+e.message));
     await connect(page);
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
-    await page.locator('#ea-country-scope option[value="RU"]').waitFor({timeout:20000});
+    await page.locator('#ea-country-scope option[value="RU"]').waitFor({state:'attached',timeout:20000});
     assert.equal(await page.locator('#ea-country-scope').count(),1);
     await page.locator('#ea-country-scope').selectOption('RU');
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'RU');
@@ -37,7 +37,7 @@ const origin = 'http://127.0.0.1:4173';
       assert.equal(await page.locator('#ea-country-scope').inputValue(),'RU',target+' lost selected scope');
     }
     await page.reload({waitUntil:'domcontentloaded'});
-    await page.locator('#ea-country-scope option[value="RU"]').waitFor({timeout:20000});
+    await page.locator('#ea-country-scope option[value="RU"]').waitFor({state:'attached',timeout:20000});
     assert.equal(await page.locator('#ea-country-scope').inputValue(),'RU','scope not persistent after reload');
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
     console.log('Browser QA passed',viewport.width,'country persistence and three tabs');
