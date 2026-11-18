@@ -1,8 +1,12 @@
 {
-  "schemaVersion": 1,
-  "generatedAt": "2026-11-18T19:57:56Z",
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-18T20:16:51Z",
   "sourceStatus": "ok",
-  "method": "Attributable original-source metadata only; model drafts require human review.",
+  "sourceHealth": {
+    "officialPublications": "ok",
+    "governmentIntake": "ok"
+  },
+  "method": "Attributable public-source metadata and topic indexing only; AI drafts require human review.",
   "connectors": [
     {
       "id": "gpt-researcher",
@@ -38,26 +42,35 @@
   "records": [
     {
       "id": "uk-mod-525b99f4c4c13327",
+      "sourceId": "official-source-monitor",
       "title": "Official Statistics: MOD statistics pre-release access list",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/statistics/defence-statistics-pre-release-access-list",
       "date": "2026-11-18",
       "detectedAt": "2026-11-18T11:56:47.276Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "uk-mod-6aba64ef91283e48",
+      "sourceId": "official-source-monitor",
       "title": "Accredited official statistics: UK armed forces biannual diversity statistics: October 2026",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/statistics/announcements/uk-armed-forces-biannual-diversity-statistics-october-2026",
       "date": "2026-11-18",
       "detectedAt": "2026-11-18T11:56:47.276Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "un-security-496d9207ea6160ee",
+      "sourceId": "official-source-monitor",
       "title": "Winter rains deepen Gaza crisis amid restricted access and aid cuts",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168821",
@@ -67,20 +80,28 @@
         "IL",
         "PS"
       ],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "humanitarian"
+      ]
     },
     {
       "id": "un-security-4b6d952de8615dc8",
+      "sourceId": "official-source-monitor",
       "title": "Haiti: ‘Atrocious abuses’ continue as UN warns anti-gang operations must priortise civilian protection",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168823",
       "date": "2026-11-17",
       "detectedAt": "2026-11-18T05:38:00.303Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-406d83dce36155e9",
+      "sourceId": "official-source-monitor",
       "title": "Ukraine: Civilian casualties in 2026 already far exceed previous years’ tolls",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168828",
@@ -90,30 +111,42 @@
         "RU",
         "UA"
       ],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "humanitarian"
+      ]
     },
     {
       "id": "uk-mod-ea3f766b440a115c",
+      "sourceId": "official-source-monitor",
       "title": "Guidance: MAA course dates information",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/publications/maa-course-date-information",
       "date": "2026-11-17",
       "detectedAt": "2026-11-18T05:38:00.261Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "uk-mod-1e730e4652456e89",
+      "sourceId": "official-source-monitor",
       "title": "Guidance: Sanctuary magazine",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/publications/sanctuary",
       "date": "2026-11-17",
       "detectedAt": "2026-11-18T05:38:00.261Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "uk-mod-9bbc9dee5b4bf6e4",
+      "sourceId": "official-source-monitor",
       "title": "More than 1,000 air defence missiles for Ukraine as UK delivers £240 million in winter support",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/more-than-1000-air-defence-missiles-for-ukraine-as-uk-delivers-240-million-in-winter-support",
@@ -123,20 +156,28 @@
         "RU",
         "UA"
       ],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-b54636980867a96b",
+      "sourceId": "official-source-monitor",
       "title": "Naval Research Lab Completes First INSPYRE Field Campaign",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4650233/naval-research-lab-completes-first-inspyre-field-campaign",
       "date": "2026-11-17",
       "detectedAt": "2026-11-18T05:37:59.354Z",
       "countries": [],
-      "changeType": "new-publication"
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "un-security-6b3d25b299acbb3f",
+      "sourceId": "official-source-monitor",
       "title": "World News in Brief: Korea tensions mount, UN demands answers over staff death in Yemen, Guterres in Spain, Nepal alert ahead of COP31",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168750",
@@ -145,10 +186,14 @@
       "countries": [
         "YE"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-643adc1628a54d97",
+      "sourceId": "official-source-monitor",
       "title": "Security Council LIVE: Strikes on Ukraine’s power grid, as peace talks loom",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168761",
@@ -158,10 +203,15 @@
         "RU",
         "UA"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military",
+        "power-energy"
+      ]
     },
     {
       "id": "un-security-6d3aea411fa53f6c",
+      "sourceId": "official-source-monitor",
       "title": "World News in Brief: El Niño’s $11 trillion price tag, Mozambique and Yemen updates",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168768",
@@ -170,10 +220,14 @@
       "countries": [
         "YE"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-603897332ca7927a",
+      "sourceId": "official-source-monitor",
       "title": "Sudan war: First ‘suicide’ drone attacks, now long-range strikes are the norm",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168771",
@@ -182,10 +236,14 @@
       "countries": [
         "SD"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "un-security-63389bec29a78dc1",
+      "sourceId": "official-source-monitor",
       "title": "Security Council LIVE: South Sudan’s first elections loom amid rising violence",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168774",
@@ -194,10 +252,14 @@
       "countries": [
         "SD"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-755b4a8417b67bf5",
+      "sourceId": "official-source-monitor",
       "title": "Six killed in Israeli airstrike on Gaza’s Nasser Hospital",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168796",
@@ -207,10 +269,15 @@
         "IL",
         "PS"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military",
+        "humanitarian"
+      ]
     },
     {
       "id": "un-security-3871f4725b668fff",
+      "sourceId": "official-source-monitor",
       "title": "Security Council LIVE: Fragile Gulf calm tested as threats to Hormuz shipping mount",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168804",
@@ -220,60 +287,84 @@
         "IL",
         "IR"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-ba74ffaff163aa8a",
+      "sourceId": "official-source-monitor",
       "title": "Guterres calls for a legally binding instrument for ‘killer robots'",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168810",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.384Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-b674f963ed63a43e",
+      "sourceId": "official-source-monitor",
       "title": "Syria: Progress ‘real’ but fragile, as remnants of war wreck young lives",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168814",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.384Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "un-security-c2750c47e9639df2",
+      "sourceId": "official-source-monitor",
       "title": "Lebanon leading the way in mental health support",
       "publisher": "UN News: Peace and Security",
       "url": "https://news.un.org/feed/view/en/story/2026/11/1168818",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.384Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "uk-mod-4281bc6e94175279",
+      "sourceId": "official-source-monitor",
       "title": "Ministry of Defence Police: misconduct hearings",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/guidance/ministry-of-defence-police-misconduct-hearings",
       "date": "2026-11-12",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-b4c88808c86ef1eb",
+      "sourceId": "official-source-monitor",
       "title": "UK growth and security boosted as Royal Navy agrees export deal for new mine-hunting motherships",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/uk-growth-and-security-boosted-as-royal-navy-agrees-export-deal-for-new-mine-hunting-motherships",
       "date": "2026-11-12",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "trade-finance"
+      ]
     },
     {
       "id": "uk-mod-068ca08103f69003",
+      "sourceId": "official-source-monitor",
       "title": "Ukraine’s drone pioneers bring battle-tested tech and high-skilled jobs to Britain",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/ukraines-drone-pioneers-bring-battle-tested-tech-and-high-skilled-jobs-to-britain",
@@ -282,60 +373,84 @@
       "countries": [
         "UA"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-d64db74f66fabf1b",
+      "sourceId": "official-source-monitor",
       "title": "The Defence Inquests Unit",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/guidance/the-defence-inquests-unit",
       "date": "2026-11-13",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-338603bef9cb301e",
+      "sourceId": "official-source-monitor",
       "title": "Royal Navy submariners welcomed home after deterrent patrol keeping UK safe",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/royal-navy-submariners-welcomed-home-after-deterrent-patrol-keeping-uk-safe",
       "date": "2026-11-15",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "uk-mod-baed156483b14134",
+      "sourceId": "official-source-monitor",
       "title": "Transparency data: Military court centres court listings",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/publications/military-court-centres-court-listings",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-6332cd75e06066b4",
+      "sourceId": "official-source-monitor",
       "title": "Transparency data: Military Court Service sentencing remarks 2026",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/publications/military-court-service-sentencing-remarks-2026",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-944e67228299fb09",
+      "sourceId": "official-source-monitor",
       "title": "Official Statistics: UK armed forces and UK civilian operational casualty and fatality statistics: data up to 30 September 2026",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/statistics/announcements/uk-armed-forces-and-uk-civilian-operational-casualty-and-fatality-statistics-data-up-to-30-september-2026",
       "date": "2026-11-17",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-bcb5c64f51f08ada",
+      "sourceId": "official-source-monitor",
       "title": "UK and Japan strengthen defence ties with major exercise",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/uk-and-japan-strengthen-defence-ties-with-major-exercise--2",
@@ -344,30 +459,42 @@
       "countries": [
         "JP"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "uk-mod-1be70f7d61c24243",
+      "sourceId": "official-source-monitor",
       "title": "Army buys hundreds more drones and electronic warfare kit in £25 million boost to strengthen Britain’s defences on NATO’s eastern flank",
       "publisher": "UK Ministry of Defence publications",
       "url": "https://www.gov.uk/government/news/army-buys-hundreds-more-drones-and-electronic-warfare-kit-in-25-million-boost-to-strengthen-britains-defences-on-natos-eastern-flank",
       "date": "2026-11-17",
       "detectedAt": "2026-11-17T11:56:47.323Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-fec9941b62c14155",
+      "sourceId": "official-source-monitor",
       "title": "Hegseth Mandates Military Education Reform",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4645001/hegseth-mandates-military-education-reform",
       "date": "2026-11-09",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-0dd75dccc00ebeb4",
+      "sourceId": "official-source-monitor",
       "title": "Navy Command Builds on Training Partnership During South Korean Visit",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4645097/navy-command-builds-on-training-partnership-during-south-korean-visit",
@@ -376,80 +503,112 @@
       "countries": [
         "KR"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "us-defense-71caeafd5ed9b5b2",
+      "sourceId": "official-source-monitor",
       "title": "Hegseth, Polish Counterpart Announce Intent to Boost Military Cooperation",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4646088/hegseth-polish-counterpart-announce-intent-to-boost-military-cooperation",
       "date": "2026-11-10",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-5697603f370304b5",
+      "sourceId": "official-source-monitor",
       "title": "USS Nimitz Trains New, Returning Naval Aviators",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4646092/uss-nimitz-trains-new-returning-naval-aviators",
       "date": "2026-11-10",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-eccf74167f6f065f",
+      "sourceId": "official-source-monitor",
       "title": "Army, Allies Prepare for Long-Range Air Assault in Hawaii",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4647175/army-allies-prepare-for-long-range-air-assault-in-hawaii",
       "date": "2026-11-12",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "us-defense-0ceef2cae9102ef9",
+      "sourceId": "official-source-monitor",
       "title": "War Department Expands Childcare Assistance",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4647456/war-department-expands-childcare-assistance",
       "date": "2026-11-12",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "us-defense-97f7a9313986003a",
+      "sourceId": "official-source-monitor",
       "title": "Naval Academy Honors Marine Aviators With Harrier Display",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4648058/naval-academy-honors-marine-aviators-with-harrier-display",
       "date": "2026-11-13",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-eebf37d5ad338996",
+      "sourceId": "official-source-monitor",
       "title": "Task Force Senior Advisor Promises Service Members Clean, Comfortable Housing",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4648538/task-force-senior-advisor-promises-service-members-clean-comfortable-housing",
       "date": "2026-11-14",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
     },
     {
       "id": "us-defense-9e04e6391e720a96",
+      "sourceId": "official-source-monitor",
       "title": "Army Infantry Division Validates Deep Strike Capabilities",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4649039/army-infantry-division-validates-deep-strike-capabilities",
       "date": "2026-11-16",
       "detectedAt": "2026-11-17T11:56:47.157Z",
       "countries": [],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "military"
+      ]
     },
     {
       "id": "us-defense-44cd16649035ec63",
+      "sourceId": "official-source-monitor",
       "title": "Kadena Air Base Receives First Permanently Assigned F-15EX Eagle II Aircraft",
       "publisher": "U.S. Department of Defense news",
       "url": "https://www.war.gov/News/News-Stories/Article/Article/4649054/kadena-air-base-receives-first-permanently-assigned-f-15ex-eagle-ii-aircraft",
@@ -458,7 +617,1242 @@
       "countries": [
         "JP"
       ],
-      "changeType": "baseline"
+      "changeType": "baseline",
+      "topics": [
+        "aviation"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-115731",
+      "sourceId": "cisa",
+      "title": "Perforce Puppet Enterprise Deserialization of Untrusted Data Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-115731",
+      "date": "2026-11-17",
+      "detectedAt": "2026-11-18T04:48:01.042Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
+      "sourceId": "doj",
+      "title": "Adelphi Technology, LLC and Researchers Pay $312,978 to Settle Claims That Federal Grant Research Was Conducted in Russia",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/usao-wdky/pr/adelphi-technology-llc-and-researchers-pay-312978-settle-claims-federal-grant-research",
+      "date": "2026-11-16",
+      "detectedAt": "2026-11-17T11:07:54.247Z",
+      "countries": [
+        "RU"
+      ],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-fara-7796",
+      "sourceId": "fara",
+      "title": "Horizons Global Solutions",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-18T04:32:14.008Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-114713",
+      "sourceId": "cisa",
+      "title": "UnrealIRCd Improper Neutralization of Delimiters Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-114713",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-123039",
+      "sourceId": "cisa",
+      "title": "Check Point Multiple Products Incorrect Permission Assignment for Critical Resource Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123039",
+      "date": "2026-11-13",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-fara-7795",
+      "sourceId": "fara",
+      "title": "The DUX Group, LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-12",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-111560",
+      "sourceId": "cisa",
+      "title": "Barracuda Networks Multiple Products OS Command Injection Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111560",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-111793",
+      "sourceId": "cisa",
+      "title": "Openwave Messaging Limited Webtop Media Transcoder Incorrect Resource Transfer Between Spheres Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111793",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-116606",
+      "sourceId": "cisa",
+      "title": "Barracuda Networks Email Security Gateway (ESG) Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116606",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-124194",
+      "sourceId": "cisa",
+      "title": "Microsoft Office Outlook Missing User Interaction for Potentially Unsafe Action Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-124194",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-125350",
+      "sourceId": "cisa",
+      "title": "Google Chromium Use-After-Free Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-125350",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-20320",
+      "sourceId": "cisa",
+      "title": "Cisco BroadWorks Improper Restriction of XML External Entity Reference Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-20320",
+      "date": "2026-11-10",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-102895",
+      "sourceId": "cisa",
+      "title": "GPUStack Improper Authentication Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102895",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-116779",
+      "sourceId": "cisa",
+      "title": "SignalWire FreeSwitch Code Injection Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-116779",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-123158",
+      "sourceId": "cisa",
+      "title": "OpenBSD OpenSSH Unexpected Status Code or Return Value Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123158",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-123218",
+      "sourceId": "cisa",
+      "title": "IBM Aspera Faspex Incorrect Authorization Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123218",
+      "date": "2026-11-09",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-fara-7794",
+      "sourceId": "fara",
+      "title": "Enterprise Singapore (Americas - North America)",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-06",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-19868",
+      "sourceId": "cisa",
+      "title": "SonicWall SonicOS SSLVPN Use of Single-factor Authentication Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-19868",
+      "date": "2026-11-06",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-fara-7793",
+      "sourceId": "fara",
+      "title": "Liberty Government Affairs, LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-05",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7792",
+      "sourceId": "fara",
+      "title": "Vernick, Victor",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-04",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2024-27834",
+      "sourceId": "cisa",
+      "title": "Apple Multiple Products Improper Authentication Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-27834",
+      "date": "2026-11-04",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-119977",
+      "sourceId": "cisa",
+      "title": "WordPress WordPress Core Time-of-check Time-of-use (TOCTOU) Race Condition Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-119977",
+      "date": "2026-11-03",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-111357",
+      "sourceId": "cisa",
+      "title": "Ivanti Connect Secure Missing Authentication for Critical Function Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-111357",
+      "date": "2026-10-30",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-118527",
+      "sourceId": "cisa",
+      "title": "Ivanti Connect Secure Generation of Predictable Numbers or Identifiers Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-118527",
+      "date": "2026-10-30",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-fara-7791",
+      "sourceId": "fara",
+      "title": "Javelin Advisors LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-29",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-97229",
+      "sourceId": "cisa",
+      "title": "GitLab Community Edition and Enterprise Edition Integer Overflow or Wraparound Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-97229",
+      "date": "2026-10-29",
+      "detectedAt": "2026-11-15T10:35:23.854Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-fara-7788",
+      "sourceId": "fara",
+      "title": "Olympic Media LLC - DBA Starboard LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-28",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7789",
+      "sourceId": "fara",
+      "title": "Truth and Conciliation Commission",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-28",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7790",
+      "sourceId": "fara",
+      "title": "Shanga, Gilbert",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-28",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7787",
+      "sourceId": "fara",
+      "title": "Bainter, Richard",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-27",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7786",
+      "sourceId": "fara",
+      "title": "SolarisTech Inc.",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-25",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7785",
+      "sourceId": "fara",
+      "title": "Kiel, Margot",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-24",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7784",
+      "sourceId": "fara",
+      "title": "Gulf Hill & Knowlton WLL (Creative Zone Branch)",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-22",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7782",
+      "sourceId": "fara",
+      "title": "CHP USA Representative Office LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-20",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7781",
+      "sourceId": "fara",
+      "title": "Wiss & Partners LLP",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-18",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7779",
+      "sourceId": "fara",
+      "title": "Greentech Minerals Holdings Inc.",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-16",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7778",
+      "sourceId": "fara",
+      "title": "Rubenstein Public Relations, Inc.",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-12",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7776",
+      "sourceId": "fara",
+      "title": "Milton Advisers Ltd",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-07",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-fara-7773",
+      "sourceId": "fara",
+      "title": "Saunders Global Diplomacy LLC",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-10-02",
+      "detectedAt": "2026-11-16T10:25:19.698Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-ofac-11185",
+      "sourceId": "ofac",
+      "title": "RANGEL SILVA, Henry de Jesus",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-11186",
+      "sourceId": "ofac",
+      "title": "CARVAJAL BARRIOS, Hugo Armando",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-12111",
+      "sourceId": "ofac",
+      "title": "IRANIAN MINISTRY OF INTELLIGENCE AND SECURITY",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-12209",
+      "sourceId": "ofac",
+      "title": "OFFICE 39",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-12210",
+      "sourceId": "ofac",
+      "title": "RECONNAISSANCE GENERAL BUREAU",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-12211",
+      "sourceId": "ofac",
+      "title": "KIM, Yong Chol",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-12882",
+      "sourceId": "ofac",
+      "title": "FIGUEROA SALAZAR, Amilcar Jesus",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-173",
+      "sourceId": "ofac",
+      "title": "ANGLO-CARIBBEAN CO., LTD.",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-20290",
+      "sourceId": "ofac",
+      "title": "LLC KOKSOKHIMTRANS",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-21171",
+      "sourceId": "ofac",
+      "title": "PRIGOZHIN, Yevgeniy Viktorovich",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-21324",
+      "sourceId": "ofac",
+      "title": "BELAN, Aleksey Alekseyevich",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-21344",
+      "sourceId": "ofac",
+      "title": "FEDERAL SECURITY SERVICE",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-306",
+      "sourceId": "ofac",
+      "title": "BANCO NACIONAL DE CUBA",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-30822",
+      "sourceId": "ofac",
+      "title": "KVT-RUS",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-36",
+      "sourceId": "ofac",
+      "title": "AEROCARIBBEAN AIRLINES",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-4633",
+      "sourceId": "ofac",
+      "title": "BANK MASKAN",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "trade-finance"
+      ]
+    },
+    {
+      "id": "intake-ofac-4639",
+      "sourceId": "ofac",
+      "title": "BANK KESHAVARZI IRAN",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "trade-finance"
+      ]
+    },
+    {
+      "id": "intake-ofac-9760",
+      "sourceId": "ofac",
+      "title": "LUKASHENKA, Alyaksandr Ryhorovich",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-9761",
+      "sourceId": "ofac",
+      "title": "HALAVANAU, Viktar Hryhoryavich",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-9762",
+      "sourceId": "ofac",
+      "title": "ZIMOUSKY, Aliaksandr Leanidavich",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "intake-ofac-4635",
+      "sourceId": "ofac",
+      "title": "BANK REFAH KARGARAN",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "trade-finance"
+      ]
     }
-  ]
+  ],
+  "analysis": {
+    "method": "Evidence-only title indexing and optional open-weight semantic grouping; NOT all-source threat analysis",
+    "recordsAnalyzed": 99,
+    "countryBriefs": [
+      {
+        "code": "IL",
+        "sourceCount": 3,
+        "publisherCount": 1,
+        "publishers": [
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 1,
+        "topics": [
+          "humanitarian",
+          "military",
+          "other"
+        ],
+        "sourceIds": [
+          "un-security-496d9207ea6160ee",
+          "un-security-755b4a8417b67bf5",
+          "un-security-3871f4725b668fff"
+        ],
+        "statement": "3 indexed public-source records explicitly mention IL. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "IR",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "publishers": [
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "other"
+        ],
+        "sourceIds": [
+          "un-security-3871f4725b668fff"
+        ],
+        "statement": "1 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "JP",
+        "sourceCount": 2,
+        "publisherCount": 2,
+        "publishers": [
+          "U.S. Department of Defense news",
+          "UK Ministry of Defence publications"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "aviation",
+          "military"
+        ],
+        "sourceIds": [
+          "uk-mod-bcb5c64f51f08ada",
+          "us-defense-44cd16649035ec63"
+        ],
+        "statement": "2 indexed public-source records explicitly mention JP. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "KR",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "publishers": [
+          "U.S. Department of Defense news"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "other"
+        ],
+        "sourceIds": [
+          "us-defense-0dd75dccc00ebeb4"
+        ],
+        "statement": "1 indexed public-source records explicitly mention KR. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "PS",
+        "sourceCount": 2,
+        "publisherCount": 1,
+        "publishers": [
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 1,
+        "topics": [
+          "humanitarian",
+          "military"
+        ],
+        "sourceIds": [
+          "un-security-496d9207ea6160ee",
+          "un-security-755b4a8417b67bf5"
+        ],
+        "statement": "2 indexed public-source records explicitly mention PS. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "RU",
+        "sourceCount": 4,
+        "publisherCount": 3,
+        "publishers": [
+          "U.S. Department of Justice",
+          "UK Ministry of Defence publications",
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 2,
+        "topics": [
+          "humanitarian",
+          "military",
+          "other",
+          "power-energy"
+        ],
+        "sourceIds": [
+          "un-security-406d83dce36155e9",
+          "uk-mod-9bbc9dee5b4bf6e4",
+          "un-security-643adc1628a54d97",
+          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85"
+        ],
+        "statement": "4 indexed public-source records explicitly mention RU. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "SD",
+        "sourceCount": 2,
+        "publisherCount": 1,
+        "publishers": [
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "military",
+          "other"
+        ],
+        "sourceIds": [
+          "un-security-603897332ca7927a",
+          "un-security-63389bec29a78dc1"
+        ],
+        "statement": "2 indexed public-source records explicitly mention SD. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "UA",
+        "sourceCount": 4,
+        "publisherCount": 2,
+        "publishers": [
+          "UK Ministry of Defence publications",
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 2,
+        "topics": [
+          "humanitarian",
+          "military",
+          "power-energy"
+        ],
+        "sourceIds": [
+          "un-security-406d83dce36155e9",
+          "uk-mod-9bbc9dee5b4bf6e4",
+          "un-security-643adc1628a54d97",
+          "uk-mod-068ca08103f69003"
+        ],
+        "statement": "4 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "YE",
+        "sourceCount": 2,
+        "publisherCount": 1,
+        "publishers": [
+          "UN News: Peace and Security"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "other"
+        ],
+        "sourceIds": [
+          "un-security-6b3d25b299acbb3f",
+          "un-security-6d3aea411fa53f6c"
+        ],
+        "statement": "2 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
+      }
+    ],
+    "themes": [
+      {
+        "topic": "other",
+        "sourceCount": 35,
+        "publisherCount": 5,
+        "changedCount": 4,
+        "countries": [
+          "IL",
+          "IR",
+          "KR",
+          "RU",
+          "SD",
+          "YE"
+        ],
+        "sourceIds": [
+          "uk-mod-525b99f4c4c13327",
+          "un-security-4b6d952de8615dc8",
+          "uk-mod-ea3f766b440a115c",
+          "uk-mod-1e730e4652456e89",
+          "un-security-6b3d25b299acbb3f",
+          "un-security-6d3aea411fa53f6c",
+          "un-security-63389bec29a78dc1",
+          "un-security-3871f4725b668fff",
+          "un-security-ba74ffaff163aa8a",
+          "un-security-b674f963ed63a43e",
+          "un-security-c2750c47e9639df2",
+          "uk-mod-338603bef9cb301e",
+          "us-defense-0dd75dccc00ebeb4",
+          "us-defense-eccf74167f6f065f",
+          "us-defense-0ceef2cae9102ef9",
+          "us-defense-eebf37d5ad338996",
+          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
+          "intake-ofac-11185",
+          "intake-ofac-11186",
+          "intake-ofac-12111",
+          "intake-ofac-12209",
+          "intake-ofac-12210",
+          "intake-ofac-12211",
+          "intake-ofac-12882"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "military",
+        "sourceCount": 19,
+        "publisherCount": 3,
+        "changedCount": 3,
+        "countries": [
+          "IL",
+          "JP",
+          "PS",
+          "RU",
+          "SD",
+          "UA"
+        ],
+        "sourceIds": [
+          "uk-mod-6aba64ef91283e48",
+          "uk-mod-9bbc9dee5b4bf6e4",
+          "us-defense-b54636980867a96b",
+          "un-security-643adc1628a54d97",
+          "un-security-603897332ca7927a",
+          "un-security-755b4a8417b67bf5",
+          "uk-mod-4281bc6e94175279",
+          "uk-mod-068ca08103f69003",
+          "uk-mod-d64db74f66fabf1b",
+          "uk-mod-baed156483b14134",
+          "uk-mod-6332cd75e06066b4",
+          "uk-mod-944e67228299fb09",
+          "uk-mod-bcb5c64f51f08ada",
+          "uk-mod-1be70f7d61c24243",
+          "us-defense-fec9941b62c14155",
+          "us-defense-71caeafd5ed9b5b2",
+          "us-defense-5697603f370304b5",
+          "us-defense-97f7a9313986003a",
+          "us-defense-9e04e6391e720a96"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "humanitarian",
+        "sourceCount": 3,
+        "publisherCount": 1,
+        "changedCount": 2,
+        "countries": [
+          "IL",
+          "PS",
+          "RU",
+          "UA"
+        ],
+        "sourceIds": [
+          "un-security-496d9207ea6160ee",
+          "un-security-406d83dce36155e9",
+          "un-security-755b4a8417b67bf5"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "cyber",
+        "sourceCount": 19,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [],
+        "sourceIds": [
+          "intake-cisa-CVE-2026-115731",
+          "intake-cisa-CVE-2026-114713",
+          "intake-cisa-CVE-2026-123039",
+          "intake-cisa-CVE-2026-111560",
+          "intake-cisa-CVE-2026-111793",
+          "intake-cisa-CVE-2026-116606",
+          "intake-cisa-CVE-2026-124194",
+          "intake-cisa-CVE-2026-125350",
+          "intake-cisa-CVE-2026-20320",
+          "intake-cisa-CVE-2026-102895",
+          "intake-cisa-CVE-2026-116779",
+          "intake-cisa-CVE-2026-123158",
+          "intake-cisa-CVE-2026-123218",
+          "intake-cisa-CVE-2026-19868",
+          "intake-cisa-CVE-2024-27834",
+          "intake-cisa-CVE-2026-119977",
+          "intake-cisa-CVE-2026-111357",
+          "intake-cisa-CVE-2026-118527",
+          "intake-cisa-CVE-2026-97229"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "foreign-influence",
+        "sourceCount": 19,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [],
+        "sourceIds": [
+          "intake-fara-7796",
+          "intake-fara-7795",
+          "intake-fara-7794",
+          "intake-fara-7793",
+          "intake-fara-7792",
+          "intake-fara-7791",
+          "intake-fara-7788",
+          "intake-fara-7789",
+          "intake-fara-7790",
+          "intake-fara-7787",
+          "intake-fara-7786",
+          "intake-fara-7785",
+          "intake-fara-7784",
+          "intake-fara-7782",
+          "intake-fara-7781",
+          "intake-fara-7779",
+          "intake-fara-7778",
+          "intake-fara-7776",
+          "intake-fara-7773"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "trade-finance",
+        "sourceCount": 4,
+        "publisherCount": 2,
+        "changedCount": 0,
+        "countries": [],
+        "sourceIds": [
+          "uk-mod-b4c88808c86ef1eb",
+          "intake-ofac-4633",
+          "intake-ofac-4639",
+          "intake-ofac-4635"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "aviation",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [
+          "JP"
+        ],
+        "sourceIds": [
+          "us-defense-44cd16649035ec63"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "power-energy",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [
+          "RU",
+          "UA"
+        ],
+        "sourceIds": [
+          "un-security-643adc1628a54d97"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      }
+    ],
+    "relatedReports": [],
+    "semantic": {
+      "status": "available",
+      "method": "Open-weight MiniLM title embeddings; threshold 0.78; cross-publisher only",
+      "model": "sentence-transformers/all-MiniLM-L6-v2"
+    },
+    "quality": {
+      "sourceTitlesWithoutDates": 21,
+      "titlesOlderThan30Days": 5,
+      "publisherCount": 7,
+      "countryTaggedCount": 15
+    },
+    "limitations": [
+      "No full-document validation or human-source intelligence",
+      "Source mentions do not establish military activity, guilt, intent, or causal connections",
+      "Multiple sources covering one event are not necessarily independent",
+      "Missing records and old dates are not evidence of low risk"
+    ]
+  }
 }
