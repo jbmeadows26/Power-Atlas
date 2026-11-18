@@ -1,0 +1,23 @@
+.oa-root{color:#e3eeeb;margin:0 0 30px;border:1px solid #31545b;background:#0c232b;border-radius:12px;padding:23px;max-width:100%;min-width:0}
+.oa-root *{box-sizing:border-box}
+.oa-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+.oa-kicker{display:flex;align-items:center;gap:7px;color:#81d9ba;font:10px 'DM Mono',monospace;letter-spacing:.1em}
+.oa-heading h2{font:800 clamp(22px,3vw,31px) 'Manrope',sans-serif;letter-spacing:-.04em;margin:8px 0}
+.oa-heading p{font-size:12px;line-height:1.7;max-width:780px;color:#adbec2;margin:0}
+.oa-heading button{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid #4b796a;background:#1b443e;border-radius:7px;color:#e5fff4;padding:10px 13px;white-space:nowrap;font-size:12px}
+.oa-heading button:disabled{opacity:.6;cursor:wait}
+.oa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.oa-card{border:1px solid #3b5961;background:#102d35;border-radius:9px;padding:15px;min-width:0;display:flex;flex-direction:column;gap:12px}
+.oa-card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.oa-card-head>span:first-child{font:700 13px 'Manrope',sans-serif}
+.oa-indicator{display:inline-flex;align-items:center;gap:6px;font:11px 'DM Mono',monospace;color:#c6d4d4}
+.oa-ok .oa-indicator{color:#8ee2c4}.oa-warning .oa-indicator,.oa-stale .oa-indicator{color:#f1c483}.oa-unknown .oa-indicator{color:#c8d0d4}
+.oa-card p{font-size:12px;line-height:1.65;color:#b9cbd0;margin:0;overflow-wrap:anywhere}
+.oa-foot{display:flex;align-items:end;justify-content:space-between;gap:10px;margin-top:auto}
+.oa-foot small{font-size:10px;line-height:1.5;color:#90aeb5;min-width:0;overflow-wrap:anywhere}
+.oa-foot small span{display:block}
+.oa-foot a,.oa-links a{display:inline-flex;align-items:center;gap:6px;color:#9aead4;font-size:11px;white-space:nowrap;text-decoration:none}
+.oa-disclosure{margin-top:16px;border-left:3px solid #d4b076;background:#302f2a;padding:12px;color:#e0d4bb;font-size:11px;line-height:1.65}
+.oa-links{display:flex;flex-wrap:wrap;gap:12px 20px;margin-top:16px}
+@media(max-width:700px){.oa-root{padding:15px}.oa-grid{grid-template-columns:1fr}.oa-heading{flex-direction:column}.oa-heading button{align-self:stretch}.oa-card-head{gap:8px}.oa-foot{flex-wrap:wrap}}
+@media(max-width:350px){.oa-root{padding:12px}.oa-card{padding:12px}}
