@@ -38,7 +38,7 @@ export default function CountryPicker({ countries, value, onChange }: {
       <button type="button" id="ea-country-scope" className="ea-picker-trigger"
         aria-label="Choose country intelligence scope" aria-expanded={open} aria-haspopup="listbox"
         onClick={() => { setOpen(v => !v); setQuery(''); setActiveIndex(0); }}>
-        <span>{current?.name || 'Global / regional'}</span><ChevronDown size={17} aria-hidden="true" />
+        <span>{current?.name || (value === 'all' ? 'Global / regional' : value)}</span><ChevronDown size={17} aria-hidden="true" />
       </button>
       {open && (
         <div className="ea-picker-panel">
