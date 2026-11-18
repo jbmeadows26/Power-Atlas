@@ -171,10 +171,22 @@ def route_probe(label, prefix, origin):
         if obj.get("status")!="ok" and obj.get("data_call_status")!="supported":
             raise ValueError("RIPE data call not successful")
         value=(obj.get("data") or {}).get("status")
-        if isinstance(value,str) and value.lower() in ("valid","invalid","unknown","not-found","not found"):
+        if isinstance(value,str) and value.lower() in ("valid","invalid_asn","invalid_length","unknown"):
             base["rpkiState"]=value.lower()
-            base["status"]="warning" if value.lower()=="invalid" else "observed"
+            base["status"]="warning" if value.lower().startswith("invalid") else "observed"
         else: raise ValueError("Unexpected RPKI status")
+        try:
+            activity_url="https://stat.ripe.net/data/bgp-update-activity/data.json?"+urllib.parse.urlencode(
+                {"resource":prefix,"num_hours":1,"max_samples":12,"sourceapp":"eastern-axis"})
+            activity=json_http(activity_url,timeout=9)
+            records=(activity.get("data") or {}).get("updates",[])
+            if isinstance(records,list):
+                # Counts reflect observations at RIPE route collectors, not internet-wide events.
+                base["bgpUpdateCount"]=sum(int(sample.get("announcements") or 0)+int(sample.get("withdrawals") or 0)
+                    for sample in records if isinstance(sample,dict))
+                base["bgpWindowHours"]=1
+        except Exception:
+            base["bgpActivityStatus"]="unavailable"
     except Exception as exc:
         base["detail"]=type(exc).__name__+": "+str(exc)[:120]
     return base
