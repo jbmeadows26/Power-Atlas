@@ -29,3 +29,4 @@ export default function AgentDesk({countryCode}:{countryCode:string}){
   {state&&records.length===0&&<p className="ea-agent-empty">No validated records for this selection. This is not an all-clear.</p>}
   <footer><ShieldCheck size={16}/>{state?.method||'Awaiting an independently checked source digest.'} Model output remains a review-only workflow artifact.</footer>
  </section>;
+}
