@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Activity,ArrowRight,ArrowUpRight,Database,Globe2,RefreshCcw,Ship,ShieldAlert,Zap} from 'lucide-react';
 import './supplyChain.css';
+import SupplyContext from './SupplyContext';
 import {api} from './apiClient';
 
 type Corridor={
@@ -21,9 +22,9 @@ const PATHWAYS=[
 ];
 const COVERAGE=[
   {title:'Maritime chokepoints',state:'Daily AIS estimate',detail:'Vessel transit volumes and short-window comparisons; route attribution not inferred'},
-  {title:'Global manufacturing pressure',state:'Monthly reference',detail:'New York Fed GSCPI linked, not yet ingested as observations'},
+  {title:'Global manufacturing pressure',state:'Monthly observed',detail:'New York Fed revision-vintage GSCPI loaded on demand, with date and index units'},
   {title:'International logistics',state:'Benchmark reference',detail:'World Bank LPI 2.0 linked; shipment-level country measures not yet normalized'},
-  {title:'Country-to-country commodity trade',state:'Not connected',detail:'UN Comtrade partner/commodity exposure matrices require separate ingestion'},
+  {title:'Country-to-country commodity trade',state:'Partial',detail:'Bounded U.S. import partner and HS commodity comparisons loaded on demand; full bilateral trade matrices remain out of scope'},
   {title:'Air, rail, road & port delay',state:'Not connected',detail:'No verified unified multimodal freight latency feed'},
   {title:'Sanctions, cyber & weather attribution',state:'Not connected',detail:'Events need independently sourced evidence before being linked to traffic changes'}
 ];
@@ -73,7 +74,8 @@ export default function SupplyChain({countryCode,countryName}:{countryCode:strin
     <div className="sc-section-header sc-after"><div><span className="sc-eyebrow"><Zap size={15}/> 02 / CONSEQUENCE EXPLORER</span><h2>How a local disruption becomes a global problem</h2><p>Transparent pathways for investigation, not forecasts or claims that these events are presently occurring.</p></div></div>
     <div className="sc-path-tabs">{PATHWAYS.map(p=><button key={p.id} type="button" onClick={()=>setPathway(p.id)} className={pathway===p.id?'selected':''}>{p.label}</button>)}</div>
     <div className="sc-chain"><div className="sc-chain-header"><strong>{selected.label}</strong><span>{selected.scope}</span></div><div className="sc-steps">{selected.steps.map((step,i)=><div className="sc-step" key={step}><span>{String(i+1).padStart(2,'0')}</span><p>{step}</p>{i<selected.steps.length-1&&<ArrowRight size={17}/>}</div>)}</div><a href={selected.source} target="_blank" rel="noopener noreferrer">Research and methodology <ArrowUpRight size={13}/></a></div>
-    <div className="sc-section-header sc-after"><div><span className="sc-eyebrow"><Database size={15}/> 03 / SOURCE TRANSPARENCY</span><h2>What is connected—and what isn't</h2></div></div>
+    <SupplyContext countryCode={countryCode} countryName={countryName}/>
+    <div className="sc-section-header sc-after"><div><span className="sc-eyebrow"><Database size={15}/> 05 / SOURCE TRANSPARENCY</span><h2>What is connected—and what isn't</h2></div></div>
     <div className="sc-coverage">{COVERAGE.map(c=><div key={c.title}><span>{c.state}</span><strong>{c.title}</strong><p>{c.detail}</p></div>)}</div>
     {data&&<div className="sc-method"><strong>Method and limitations</strong><p>{data.method}</p><p>{data.sourceCoverage}</p>{data.limitations.map((x,i)=><p key={i}>{x}</p>)}</div>}
     <div className="sc-source-list">{(data?.sources||[
