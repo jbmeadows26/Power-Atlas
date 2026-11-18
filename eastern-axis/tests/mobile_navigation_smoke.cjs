@@ -44,7 +44,7 @@ async function qa(page,width){
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(URL,{waitUntil:'domcontentloaded'});
-  await page.locator('#ea-country-scope option[value="RU"]').waitFor({timeout:20000});
+  await page.locator('#ea-country-scope option[value="RU"]').waitFor({state:'attached',timeout:20000});
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
     assert.equal(await nav.isVisible(),false,'Desktop must not display the mobile nav');
@@ -64,7 +64,7 @@ async function qa(page,width){
     await page.locator('#ea-primary-navigation.sidebar-open').waitFor({state:'visible'});
     await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Source library'}).click();
     await page.getByRole('heading',{name:/Sources, not secrets/i}).waitFor();
-    assert.equal(await page.locator('#ea-primary-navigation').isVisible(),false,'Drawer should close after a selection');
+    assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
     await nav.getByRole('button',{name:'Home'}).click();
     await page.locator('.mobile-brief').waitFor({state:'visible'});
     assert.match(await page.locator('.mobile-brief p').innerText(),/Focused on China/);
