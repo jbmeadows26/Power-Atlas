@@ -21,7 +21,7 @@ concurrency:
 
 jobs:
   audit:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # fixed runner supported by Playwright 1.56.x
     timeout-minutes: 25
     env:
       EASTERN_AXIS_URL: https://eastern-axis-osint-unified.vercel.app
