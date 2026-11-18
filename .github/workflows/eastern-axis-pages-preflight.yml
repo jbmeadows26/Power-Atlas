@@ -57,7 +57,7 @@ jobs:
           "$RUNNER_TEMP/ea-mobile-qa/node_modules/.bin/playwright" install chromium
       - name: Verify 320px, 390px and desktop navigation
         env:
-          PLAYWRIGHT_MODULE: \${{ runner.temp }}/ea-mobile-qa/node_modules/playwright
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-mobile-qa/node_modules/playwright
         run: node eastern-axis/tests/mobile_navigation_smoke.cjs
       - name: Upload inspectable Pages build and Neon bundle
         uses: actions/upload-artifact@v4
