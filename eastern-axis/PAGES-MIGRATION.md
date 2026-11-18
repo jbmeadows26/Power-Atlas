@@ -1,32 +1,28 @@
-# Eastern Axis — GitHub Pages + Neon free-tier migration
+# Eastern Axis — GitHub Pages migration release record
 
-## Current stage
-This is a **staged** migration, not a claim of production cutover. The current Vercel dashboard remains unchanged until the Pages front end and Neon-backed API pass live tests. No Raspberry Pis or paid services are required.
+## Architecture
+- **Frontend:** GitHub Pages repository `jbmeadows26/Power-Atlas`, path `/Power-Atlas/eastern-axis/`. The existing Power Atlas site at the Pages root is preserved.
+- **UI:** the current React/Vite Eastern Axis unified application, including the mobile navigation merged in PR #155 and country/social-indicator improvements merged in PR #156. The same country selector persists across major sections.
+- **API:** the public Neon Function `eapublicapi` on the existing `Eastern Axis Intelligence` Neon project. The public, nonsecret HTTPS endpoint is recorded in `public-api-origin.txt`. Pages has no server-side execution and **does not** serve `/api`.
+- **Database:** existing Neon PostgreSQL, isolated `eastern_axis_v2_records` table. The database and private credentials are never placed in public Pages assets or client-side `VITE_*` configuration.
+- **Scheduled collection:** nine existing Neon Function schedules cover DOJ, FARA, CISA, OFAC, UK, Canada, energy, military reports, and World Bank snapshots. GitHub Actions handles source/connection/browser audits; these are not substitutes for real-time global monitoring.
 
-## Reused source
-- Existing React/Vite Eastern Axis interface: `eastern-axis/src`.
-- Existing API contracts and intake logic: `eastern-axis/backend`.
-- Existing connected Neon database: Eastern Axis Intelligence, with the `eastern_axis_v2_records` collection table.
-- Existing source collection Actions: FARA and weekly source audit.
-- Existing Power Atlas GitHub Pages publishing job: `.github/workflows/deploy-pages.yml`.
+## Verified gates (November 18, 2026 UTC)
+- Current backend recompiled from the migration branch based on GitHub `main` after #156; Neon Function deployment **3** completed.
+- Official source parser tests, Pages Vite build, and independent Neon backend compile passed in GitHub Actions.
+- Fixture-backed mobile navigation passed **320px and 390px**, plus desktop.
+- Live Neon audit returned expected JSON/CORS contracts for **21 routes**, including source summaries, sanctions, the Factbook, aviation/environmental signals, supply chain, evidence workbench, and country systems. Minimum observed indicator completeness for WLD, US, CN and IR passed; each nonmissing observation was checked for date/source.
+- Independent browser QA passed at **1360px and 390px** against the live Neon API, including country selection across tabs and persistence after reload.
+- An HTTP-200 response is not evidence that every upstream public feed is current. Data limitations and source dates must stay visible.
 
-## Pages build
-The release builds the Eastern Axis Vite app using `--base ./`, which supports the subpath `/Power-Atlas/eastern-axis/` without changing the Power Atlas home page. When a custom Pages domain is configured, relative assets still resolve.
+## GitHub Pages release gate
+The existing `.github/workflows/deploy-pages.yml` now packages **both** websites into one Pages artifact and is configured to trigger on qualifying GitHub `main` pushes or manual dispatch. Before publishing it rechecks the live API, builds Pages-relative assets, reruns fixture mobile QA and real-API desktop/mobile navigation, and confirms that the Power Atlas root page remains intact.
 
-The frontend calls the Neon Function HTTPS origin recorded in the **public, nonsecret** `eastern-axis/public-api-origin.txt`. The URL is public; database credentials are never shared with Pages. The function must pass live smoke tests before Pages can publish; it intentionally refuses a silent fallback to Vercel. Do not put database passwords, API keys, or private reports in `VITE_*` variables or the Pages artifact.
+**This document is not proof the Pages deployment succeeded.** Verify the GitHub Actions Pages deployment status and the actual Pages URL before describing the migrated frontend as live. GitHub repository Settings → Pages must use **GitHub Actions** as its publishing source; if that admin setting is missing, the deploy job will fail rather than publish an unverified page.
 
-## Neon backend
-`server/neon-function.ts` adapts the existing route handler to Neon's Fetch API and CORS for the Pages origin. `scripts/build-neon.mjs` compiles the existing backend to a standalone `index.mjs` bundle suitable for ZIP deployment through Neon Functions. Neon supplies `DATABASE_URL` internally. The existing driver expects `EA_DATABASE_URL`; the adapter sets that only **inside the server runtime**. Never publish the connection string.
-
-Before cutover, validate every relevant GET/POST route: overview, intelligence, world signals, factbook, World Bank country brief, evidence, sanctions, supply chain, monitoring and collection health; validate cron auth (401 without secret); verify snapshot freshness and correct FARA/USGS behavior. A compiled bundle is not proof that the function is live.
-
-## Monitoring and ingestion
-Existing free GitHub Actions source collectors remain in place. Existing weekly audit must be retargeted after switching domains. Add an independent alert schedule only after official feed quality, rate limits, and source freshness are validated. GitHub Actions schedules are best-effort, not continuous real-time monitoring; show last checked timestamps and failures in the UI.
-
-## Safety gates
-1. GitHub Actions migration CI builds Pages and Neon artifacts successfully.
-2. Deploy Neon Function and verify live database access, CORS and route contract.
-3. Validate `eastern-axis/public-api-origin.txt` and the live Neon Function smoke tests.
-4. Confirm Pages is configured to deploy with GitHub Actions, then manually run the existing Pages workflow.
-5. Run desktop/mobile, country persistence, navigation and data provenance QA before redirecting any existing public URL or disabling Vercel.
-6. Keep charges at $0: do not enable paid Neon/Cloudflare features or purchase hosting.
+## Boundaries and rollback
+- Preserve the existing Vercel production aliases until GitHub Pages is confirmed publicly reachable and navigable. No AppDeploy workflow or paid hosting upgrade is involved.
+- GitHub Pages is a static origin; ongoing operational API and database work remains on Neon, not on the GitHub Pages server.
+- AI-generated military comparison is intentionally unavailable until a separately reviewed provider exists. Immutable WARC custody and comprehensive global live feed coverage are not claimed.
+- The `migration/eastern-axis-pages-free` branch retains a separately captured historical 53-file resource-dashboard snapshot as an archival reference, not the active merged dashboard.
+- Existing Power Atlas content is not removed; rollback of the Pages release can be made by reverting the publishing workflow and rerunning the previous static-only Pages action.
