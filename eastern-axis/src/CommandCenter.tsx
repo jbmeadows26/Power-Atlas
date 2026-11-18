@@ -5,7 +5,7 @@ import { geoNaturalEarth1, geoGraticule10, geoPath } from 'd3-geo';
 import { Activity, ArrowRight, ArrowUpRight, BadgeAlert, BookOpen, CheckCircle2, ChevronDown, CircleAlert, Clock3, Database, ExternalLink, Eye, Filter, Globe2, Layers3, LockKeyhole, Map, Minus, Network, Plus, Radio, RefreshCcw, Search, Shield, ShieldCheck, SlidersHorizontal, X } from 'lucide-react';
 import './command.css';
 
-type Country = {code:string;name:string;region:string;scope:string;relationship:string;isTreatyAlly:boolean;isMNNA:boolean;caseCount:number};
+type Country = {code:string;name:string;region:string;scope:string;relationship:string;securityNote?:string;usRelationship?:string;securitySources?:{label:string;url:string}[];isTreatyAlly:boolean;isMNNA:boolean;caseCount:number};
 type CaseFile = {id:string;code:string;date:string;title:string;topic:string;status:string;level:string;summary:string;impact:string;source:string;agency:string};
 type Source = {id:string;name:string;category:string;mode:string;cost:string;url:string;description:string};
 type Overview = {countries:Country[];cases:CaseFile[];sources:Source[];snapshot:null|{updatedAt:string;coveredCountries:number}};
@@ -205,7 +205,10 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
         {country?<div className="cc-country-detail">
           <div className="cc-focus-head"><CountryFlag code={country.code}/><div><h2>{country.name}</h2><small>{country.region.toUpperCase()} · {country.code}</small></div></div>
           <div className="cc-country-tags"><span className={country.isTreatyAlly?'ally':'other'}>{country.isTreatyAlly?'PRIMARY TREATY ALLY':'RESEARCH SCOPE'}</span>{country.isMNNA&&<span>MNNA</span>}</div>
-          <div className="cc-data-line"><span>SECURITY RELATIONSHIP</span><strong>{country.relationship}</strong></div>
+          <div className="cc-data-line"><span>DEFENSE TREATIES &amp; SECURITY TIES</span><strong>{country.relationship}</strong></div>
+          {country.securityNote&&<p className="cc-security-note">{country.securityNote}</p>}
+          {country.usRelationship&&<p className="cc-security-note"><b>U.S. relationship:</b> {country.usRelationship}</p>}
+          {!!country.securitySources?.length&&<div className="cc-security-sources">{country.securitySources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>)}</div>}
           <div className="cc-data-line"><span>CURATED DOJ FILES</span><strong>{cases.length}</strong></div>
           <div className="cc-data-line"><span>OFAC PROGRAM TAGS</span><strong>{ofac?programCount(country.code).toLocaleString():'Not checked'}</strong></div>
           {ofac&&programCount(country.code)>0&&<p className="cc-program-disclaimer">Program labels may reference this country; they do not locate listed persons or establish government conduct.</p>}

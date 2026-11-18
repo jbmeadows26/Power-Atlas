@@ -46,7 +46,7 @@ async function qa(page,width){
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
-  await page.locator('#ea-country-scope option[value="RU"]').waitFor({state:'attached',timeout:20000});
+  await page.getByRole('button',{name:'Choose country intelligence scope'}).waitFor({state:'visible',timeout:20000});
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
     assert.equal(await nav.isVisible(),false,'Desktop must not display the mobile nav');
@@ -55,14 +55,16 @@ async function qa(page,width){
     assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
     assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Networks','More']);
     await page.locator('.mobile-brief').waitFor({state:'visible'});
-    await page.locator('#ea-country-scope').selectOption('CN');
+    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+    await page.getByRole('combobox',{name:'Search country or code'}).fill('china');
+    await page.getByRole('option',{name:/China/}).click();
     await nav.getByRole('button',{name:'Countries'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
-    assert.equal(await page.locator('#ea-country-scope').inputValue(),'CN','Country selection must persist between tabs');
+    assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
     await nav.getByRole('button',{name:'Risks'}).click();
     await page.getByRole('heading',{name:/Pressure points/i}).waitFor();
-    assert.equal(await page.locator('#ea-country-scope').inputValue(),'CN');
+    assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
     await nav.getByRole('button',{name:'More'}).click();
     await page.locator('#ea-primary-navigation.sidebar-open').waitFor({state:'visible'});
     await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Source library'}).click();
@@ -73,7 +75,7 @@ async function qa(page,width){
     assert.match(await page.locator('.mobile-brief p').innerText(),/Focused on China/);
     await page.reload({waitUntil:'domcontentloaded'});
     await page.locator('.mobile-brief').waitFor({state:'visible'});
-    assert.equal(await page.locator('#ea-country-scope').inputValue(),'CN','Country selection survives reload');
+    assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
     await page.locator('.cc-map-actions button').first().waitFor({state:'visible'});
   }
   const geometry=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:window.innerWidth}));
