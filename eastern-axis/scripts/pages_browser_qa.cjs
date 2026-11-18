@@ -2,7 +2,7 @@ const {chromium, request: createRequest} = require(process.env.PLAYWRIGHT_MODULE
 const fs = require('node:fs');
 const assert = require('node:assert/strict');
 const api = fs.readFileSync('eastern-axis/public-api-origin.txt','utf8').trim().replace(/\/$/,'');
-const origin = process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173';
+const origin = (process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173').replace(/\\/$/, '');
 (async()=>{
   const browser=await chromium.launch({headless:true});
   const req=await createRequest.newContext({extraHTTPHeaders:{Origin:'https://jbmeadows26.github.io'}});
@@ -54,8 +54,17 @@ const origin = process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173';
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
     await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
+    const resilience=page.getByRole('region',{name:'Independent systemic resilience monitoring'});
+    await resilience.waitFor({state:'visible',timeout:15000});
+    await resilience.getByRole('heading',{name:'Early signs of cascading failure'}).waitFor({state:'visible',timeout:15000});
+    await resilience.getByText('Source observations',{exact:true}).waitFor({state:'visible',timeout:25000});
+    assert.match(await scope.innerText(),/China/,'Risk watch lost selected country scope');
+    const dims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
+    assert.ok(dims.scroll <= dims.width+2,'Risk watch overflow at '+viewport.width+'px: '+JSON.stringify(dims));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
-    console.log('Browser QA passed',viewport.width,'country picker search, treaty facts, persistence, three tabs');
+    console.log('Browser QA passed',viewport.width,'country picker, treaty facts, persistence, Risk watch live telemetry and responsive layout');
     await context.close();
   }
   await browser.close();
