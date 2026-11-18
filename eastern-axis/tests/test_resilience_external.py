@@ -42,7 +42,7 @@ class PublicFeedFixtures(unittest.TestCase):
         obj=e.ixp_from_payload({"data":[{"id":123,"name":"AMS-IX","country":"NL"}]},NOW)
         self.assertEqual("observed",obj["status"])
         self.assertEqual("ixp_directory",obj["category"])
-        self.assertIn("not",obj["scope"])
+        self.assertIn("no live congestion",obj["scope"])
         self.assertNotIn("utilizationPct",obj)
     def test_ixp_missing_record_not_assumed_offline(self):
         obj=e.ixp_from_payload({"data":[]},NOW)
