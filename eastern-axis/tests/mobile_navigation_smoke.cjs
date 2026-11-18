@@ -56,6 +56,7 @@ async function qa(page,width){
     await page.locator('#ea-country-scope').selectOption('CN');
     await nav.getByRole('button',{name:'Countries'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
+    assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.equal(await page.locator('#ea-country-scope').inputValue(),'CN','Country selection must persist between tabs');
     await nav.getByRole('button',{name:'Risks'}).click();
     await page.getByRole('heading',{name:/Pressure points/i}).waitFor();
