@@ -1,119 +1,306 @@
 {
-  "schemaVersion": 1,
-  "checkedAt": "",
-  "status": "unavailable",
-  "summary": "Collector has not yet published its first independently sampled snapshot",
-  "sampledCount": 0,
-  "incidents": [],
-  "observations": [],
   "capabilities": [
     {
       "id": "regional_http",
-      "title": "Regional unauthenticated HTTP probes",
       "source": "Globalping community probes",
-      "status": "unavailable"
+      "status": "sampled",
+      "title": "Regional unauthenticated HTTP probes"
     },
     {
       "id": "dns_tls",
-      "title": "DNS, TLS handshake and certificate expiry",
-      "source": "GitHub Actions runner",
-      "status": "unavailable"
+      "source": "Independent GitHub runner",
+      "status": "sampled",
+      "title": "DNS, TLS handshake and certificate expiry"
     },
     {
       "id": "bgp_rpki",
-      "title": "Sampled BGP and RPKI",
       "source": "RIPE RIS / RIPEstat",
-      "status": "unavailable"
+      "status": "sampled",
+      "title": "Sampled BGP and RPKI"
     },
     {
       "id": "traffic",
-      "title": "Regional traffic anomalies",
       "source": "Cloudflare Radar API",
-      "status": "not configured"
+      "status": "not configured",
+      "title": "Regional internet traffic anomalies"
     },
     {
       "id": "transactions",
-      "title": "Authenticated client-side mail and calendar",
       "source": "Authorized synthetic tenant",
-      "status": "requires operator access"
+      "status": "requires operator access",
+      "title": "Authenticated client-side MAPI/EAS, mail and calendar"
     },
     {
       "id": "dependencies",
-      "title": "Nth-party service dependency graph",
-      "source": "Verified vendor documentation",
-      "status": "requires operator access"
+      "source": "Verified ownership / vendor contracts",
+      "status": "requires operator access",
+      "title": "Nth-party hosting and identity dependency graph"
     },
     {
       "id": "aiops",
-      "title": "Autonomous remediation rate",
-      "source": "Authorized AIOps logs",
-      "status": "requires operator access"
+      "source": "Authorized controller logs",
+      "status": "requires operator access",
+      "title": "Autonomous remediation loops and circuit breakers"
     },
     {
       "id": "power",
-      "title": "Grid, UPS and transfer telemetry",
-      "source": "Grid / facility operators",
-      "status": "requires operator access"
+      "source": "Regional grid / facility telemetry",
+      "status": "requires operator access",
+      "title": "Grid frequency, UPS and transfer telemetry"
     },
     {
       "id": "cables",
-      "title": "Submarine cable faults and DAS",
-      "source": "Cable operators and advisories",
-      "status": "requires operator access"
+      "source": "Cable-operator feeds / verified advisories",
+      "status": "requires operator access",
+      "title": "Submarine faults, DAS acoustic strain and fiber telemetry"
     },
     {
       "id": "ixp",
-      "title": "IXP congestion and multi-homed validation",
-      "source": "IXP / router operators",
-      "status": "requires operator access"
+      "source": "IXP / router operator data",
+      "status": "requires operator access",
+      "title": "IXP congestion and multi-homed validation"
     },
     {
       "id": "melt",
-      "title": "MELT distributed traces",
-      "source": "Authorized OpenTelemetry",
-      "status": "requires operator access"
+      "source": "Authorized OpenTelemetry exporters",
+      "status": "requires operator access",
+      "title": "Cross-region distributed traces and exception sequences"
     },
     {
       "id": "deploy",
-      "title": "Deployment velocity",
       "source": "Authorized CI/CD logs",
-      "status": "requires operator access"
+      "status": "requires operator access",
+      "title": "Deployment velocity and post-deployment checks"
     },
     {
       "id": "state",
-      "title": "Cross-region metadata propagation",
-      "source": "Cloud control-plane operator",
-      "status": "requires operator access"
+      "source": "Authorized regional state checks",
+      "status": "requires operator access",
+      "title": "Control-plane metadata race and propagation lag"
     },
     {
       "id": "quotas",
-      "title": "API quota and CDN ruleset limits",
-      "source": "Provider utilization reports",
-      "status": "requires operator access"
+      "source": "Authorized provider quotas",
+      "status": "requires operator access",
+      "title": "API limits and CDN ruleset size"
     },
     {
       "id": "endpoint",
-      "title": "Out-of-band EDR buffers",
       "source": "Authorized endpoint agents",
-      "status": "requires operator access"
+      "status": "requires operator access",
+      "title": "Out-of-band endpoint security event buffering"
     },
     {
       "id": "pki",
-      "title": "OCSP / CRL latency and request volume",
-      "source": "PKI operator telemetry",
-      "status": "requires operator access"
+      "source": "PKI operators / approved monitors",
+      "status": "requires operator access",
+      "title": "OCSP / CRL latency and revocation storm volume"
     },
     {
       "id": "threat",
-      "title": "Underground claims and verification",
-      "source": "Lawful analyst review",
-      "status": "analyst review"
+      "source": "Lawfully obtained verified intelligence",
+      "status": "analyst review",
+      "title": "Threat-actor claims / underground corroboration"
     }
   ],
-  "history": [],
+  "checkedAt": "2026-11-18T20:20:17.109200Z",
+  "history": [
+    {
+      "alerts": 0,
+      "checkedAt": "2026-11-18T20:20:17.109200Z",
+      "errors": 0,
+      "observed": 8
+    }
+  ],
+  "incidents": [],
   "limitations": [
-    "No telemetry has been sampled yet; no healthy or failed state can be inferred.",
-    "Requires GitHub Actions scheduled run on the default branch.",
-    "Private telemetry remains disconnected until expressly authorized."
-  ]
+    "Not a continuous global sensor network: GitHub Actions schedules may be delayed or paused.",
+    "Public HTTP HEAD probes are not authenticated transactions; an HTTP response does not prove login, mail or meeting success.",
+    "One runner and a small set of community probes do not independently verify all regions or physical infrastructure.",
+    "RIPE RPKI examples assess only sampled prefixes; they do not measure global RPKI invalid-route rates or IXP congestion.",
+    "Unauthorised internal telemetry, deep-web channels and submarine DAS data are never claimed as ingested.",
+    "Radar traffic anomalies, if connected, are third-party observations rather than proof of attack.",
+    "Missing telemetry stays unknown; this dashboard never treats absence of reports as system health."
+  ],
+  "observations": [
+    {
+      "category": "dns_tls",
+      "certDaysRemaining": 66.1,
+      "checkedAt": "2026-11-18T20:20:09.993471Z",
+      "dnsMs": 73.4,
+      "handshakeMs": 30.5,
+      "id": "microsoft-identity",
+      "provider": "microsoft",
+      "scope": "one GitHub-hosted runner, not worldwide",
+      "source": "Independent GitHub Actions runner",
+      "sourceUrl": "https://docs.github.com/en/actions",
+      "status": "observed",
+      "title": "Microsoft Entra public entry"
+    },
+    {
+      "category": "dns_tls",
+      "certDaysRemaining": 68.5,
+      "checkedAt": "2026-11-18T20:20:10.104145Z",
+      "dnsMs": 2.7,
+      "handshakeMs": 21.5,
+      "id": "google-identity",
+      "provider": "google",
+      "scope": "one GitHub-hosted runner, not worldwide",
+      "source": "Independent GitHub Actions runner",
+      "sourceUrl": "https://docs.github.com/en/actions",
+      "status": "observed",
+      "title": "Google account public entry"
+    },
+    {
+      "category": "dns_tls",
+      "certDaysRemaining": 87.9,
+      "checkedAt": "2026-11-18T20:20:10.128747Z",
+      "dnsMs": 1.2,
+      "handshakeMs": 20.5,
+      "id": "cloudflare-edge",
+      "provider": "cloudflare",
+      "scope": "one GitHub-hosted runner, not worldwide",
+      "source": "Independent GitHub Actions runner",
+      "sourceUrl": "https://docs.github.com/en/actions",
+      "status": "observed",
+      "title": "Cloudflare public edge"
+    },
+    {
+      "category": "dns_tls",
+      "certDaysRemaining": 70.2,
+      "checkedAt": "2026-11-18T20:20:10.150774Z",
+      "dnsMs": 1.1,
+      "handshakeMs": 19.5,
+      "id": "github-web",
+      "provider": "github",
+      "scope": "one GitHub-hosted runner, not worldwide",
+      "source": "Independent GitHub Actions runner",
+      "sourceUrl": "https://docs.github.com/en/actions",
+      "status": "observed",
+      "title": "GitHub public web"
+    },
+    {
+      "category": "regional_http",
+      "checkedAt": "2026-11-18T20:20:10.171630Z",
+      "failedRegions": 0,
+      "id": "globalping-microsoft",
+      "provider": "microsoft",
+      "regions": [
+        {
+          "asn": 36352,
+          "country": "US",
+          "httpStatus": 200,
+          "latencyMs": 196,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 24940,
+          "country": "DE",
+          "httpStatus": 200,
+          "latencyMs": 109,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 59253,
+          "country": "SG",
+          "httpStatus": 200,
+          "latencyMs": 295,
+          "probeStatus": "finished",
+          "state": "reachable"
+        }
+      ],
+      "scope": "Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+      "source": "Globalping community probes",
+      "sourceUrl": "https://globalping.io/",
+      "status": "observed",
+      "title": "login.microsoftonline.com external HTTP reachability"
+    },
+    {
+      "category": "regional_http",
+      "checkedAt": "2026-11-18T20:20:12.954496Z",
+      "failedRegions": 0,
+      "id": "globalping-google",
+      "provider": "google",
+      "regions": [
+        {
+          "asn": 36352,
+          "country": "US",
+          "httpStatus": 302,
+          "latencyMs": 115,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 24940,
+          "country": "DE",
+          "httpStatus": 302,
+          "latencyMs": 59,
+          "probeStatus": "finished",
+          "state": "reachable"
+        },
+        {
+          "asn": 59253,
+          "country": "SG",
+          "httpStatus": 302,
+          "latencyMs": 22,
+          "probeStatus": "finished",
+          "state": "reachable"
+        }
+      ],
+      "scope": "Unauthenticated HEAD across US, DE and SG; not login / MAPI / EAS success",
+      "source": "Globalping community probes",
+      "sourceUrl": "https://globalping.io/",
+      "status": "observed",
+      "title": "accounts.google.com external HTTP reachability"
+    },
+    {
+      "bgpUpdateCount": 1,
+      "bgpWindowHours": 1,
+      "category": "bgp_rpki",
+      "checkedAt": "2026-11-18T20:20:15.717761Z",
+      "expectedOrigin": "AS13335",
+      "id": "ripe-cloudflare",
+      "prefix": "1.1.1.0/24",
+      "provider": "cloudflare",
+      "rpkiState": "valid",
+      "scope": "One selected IP prefix; not global IXP utilization",
+      "source": "RIPE RIS / RIPEstat",
+      "sourceUrl": "https://stat.ripe.net/",
+      "status": "observed",
+      "title": "cloudflare BGP/RPKI sample"
+    },
+    {
+      "bgpUpdateCount": 1,
+      "bgpWindowHours": 1,
+      "category": "bgp_rpki",
+      "checkedAt": "2026-11-18T20:20:16.395658Z",
+      "expectedOrigin": "AS15169",
+      "id": "ripe-google",
+      "prefix": "8.8.8.0/24",
+      "provider": "google",
+      "rpkiState": "valid",
+      "scope": "One selected IP prefix; not global IXP utilization",
+      "source": "RIPE RIS / RIPEstat",
+      "sourceUrl": "https://stat.ripe.net/",
+      "status": "observed",
+      "title": "google BGP/RPKI sample"
+    },
+    {
+      "category": "traffic",
+      "checkedAt": "2026-11-18T20:20:17.109131Z",
+      "id": "radar-traffic",
+      "provider": "cloudflare",
+      "scope": "Radar observational coverage, not global exhaustive coverage",
+      "source": "Cloudflare Radar",
+      "sourceUrl": "https://radar.cloudflare.com/",
+      "status": "not_configured",
+      "title": "Cloudflare Radar latest traffic anomalies"
+    }
+  ],
+  "sampledCount": 8,
+  "schemaVersion": 1,
+  "status": "sampled-no-correlated-alert",
+  "summary": "No corroborated anomaly among sampled indicators"
 }
