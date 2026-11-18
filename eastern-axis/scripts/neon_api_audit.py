@@ -19,7 +19,7 @@ ROUTES = [
   ("/api/allied-sanctions/RU", ()),
   ("/api/energy-supply/RU", ()),
   ("/api/supply-macro", ()),
-  ("/api/supply-trade/RU/2709", ()),
+  ("/api/supply-trade/RU/27", ()),
   ("/api/supply-chain/RU", ()),
   ("/api/global-systems/RU", ()),
   ("/api/defense-intel", ()),
