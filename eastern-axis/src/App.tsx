@@ -1,5 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
+import CountryPicker from './CountryPicker';
+import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import SupplyChain from './SupplyChain';
 import Connections from './Connections';
@@ -46,6 +48,9 @@ type Country = {
   region: string;
   scope: string;
   relationship: string;
+  securityNote?: string;
+  usRelationship?: string;
+  securitySources?: { label: string; url: string }[];
   isTreatyAlly: boolean;
   isMNNA: boolean;
   caseCount: number;
@@ -276,7 +281,7 @@ function App() {
     setLoadError('');
     api
       .get('/api/overview')
-      .then(r => setOverview(r.data as Overview))
+      .then(r => { const data = r.data as Overview; setOverview({ ...data, countries: data.countries.map(withSecurityContext) }); })
       .catch(() => setLoadError('The catalog could not be loaded. Try again.'));
   };
   useEffect(reload, []);
@@ -444,7 +449,7 @@ function App() {
             </div>
           </div>
           <div className="header-right">
-            <div className="ea-context"><label htmlFor="ea-country-scope">COUNTRY CONTEXT</label><select id="ea-country-scope" aria-label="Choose country intelligence scope" value={countryScope} onChange={e=>setCountryScope(e.target.value)}><option value="all">Global / regional</option>{(overview?.countries||[]).filter(c=>c.scope==='state-or-observer').map(c=><option key={c.code} value={c.code}>{c.name}</option>)}</select></div>
+            <CountryPicker countries={mainStates} value={countryScope} onChange={setCountryScope} />
             <span className="header-meta">
               <span className="live-dot" /> UNCLASSIFIED / PUBLIC DATA
             </span>
@@ -643,8 +648,11 @@ function App() {
                       </p>
                       <div className="brief-line" />
                       <div className="brief-relationship">
-                        <span>U.S. SECURITY RELATIONSHIP</span>
+                        <span>DEFENSE TREATIES &amp; SECURITY TIES</span>
                         <strong>{country.relationship}</strong>
+                         {country.securityNote && <small>{country.securityNote}</small>}
+                         {country.usRelationship && <small><b>U.S. relationship:</b> {country.usRelationship}</small>}
+                         {!!country.securitySources?.length && <div className="ea-treaty-sources">{country.securitySources.map(source => <Anchor key={source.url} href={source.url}>{source.label}</Anchor>)}</div>}
                         {country.isMNNA && (
                           <small>
                             Major non-NATO ally designation is not itself a
