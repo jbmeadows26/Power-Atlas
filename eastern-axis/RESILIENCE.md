@@ -7,7 +7,7 @@ It is not an incident attribution engine or an autonomous remediation controller
 
 - **Public active probes**: TLS handshake, local DNS, certificate days-to-expiry; Globalping independent network probes of Microsoft and Google public login entry points; RIPEstat RPKI + 1-hour BGP updates for two sampled prefixes.
 - **Additional no-key feeds:** Elexon BMRS near-real-time Great Britain transmission frequency (actual source timestamp and 15-minute freshness gate), PeeringDB AMS-IX registry metadata (not congestion), Google Trust Services root CRL endpoint HEAD transport (not OCSP validity or operator traffic volume).
-- **Cross-region augmentation:** global probes now sample Microsoft, Google, Cloudflare, and GitHub public endpoints from US, Germany and Singapore; the user-facing caution that public reachability is not authenticated transaction success remains.
+- **Cross-region augmentation:** global probes now sample Microsoft, Google, Cloudflare, and GitHub public endpoints from the US, Germany, Singapore, Brazil, South Africa and Australia; the user-facing caution that public reachability is not authenticated transaction success remains.
 - **Rolling screening rules:** after **six** prior observations, flag sufficiently large sampled DNS/TLS/BGP deviations as *screening only*; independently show official GB frequency bound crossings and operator thresholds without calling them correlated incidents.
 - **Optional free token**: Cloudflare Radar traffic anomalies (GitHub Actions repository secret `CLOUDFLARE_API_TOKEN`; minimum permitted Radar Read token).
 - **Authorized internal metrics**: optional `RESILIENCE_METRICS_JSON` Actions secret; publish **only aggregate metrics**, never raw EDR events, traces, credentials, hostnames or user identities.
