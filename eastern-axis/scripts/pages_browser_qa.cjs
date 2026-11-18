@@ -63,6 +63,16 @@ const origin = (process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173').replac
     assert.match(await scope.innerText(),/China/,'Risk watch lost selected country scope');
     const dims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(dims.scroll <= dims.width+2,'Risk watch overflow at '+viewport.width+'px: '+JSON.stringify(dims));
+    // Assurance runs are assessed separately from the build: unknown is not healthy.
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Coverage audit'}).click();
+    const assurance=page.getByRole('region',{name:'Operational assurance checks'});
+    await assurance.waitFor({state:'visible',timeout:15000});
+    assert.equal(await assurance.locator('.oa-card').count(),4,'Expected four independent operational assurance checks');
+    await assurance.getByText('Live production browser QA',{exact:true}).waitFor({state:'visible'});
+    await assurance.getByText('Not independently connected:',{exact:false}).waitFor({state:'visible'});
+    const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
+    assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
     console.log('Browser QA passed',viewport.width,'country picker, treaty facts, persistence, Risk watch live telemetry and responsive layout');
     await context.close();
