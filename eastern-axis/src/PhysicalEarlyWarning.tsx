@@ -73,7 +73,28 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
   const global = countryCode==='all';
   const scope=global?'Worldwide':countryName||countryCode;
   const relevant=global||domain.geos.length===0||domain.geos.includes(countryCode);
-  const metrics=snapshot.metrics.filter(m=>global||m.group==='global'||m.group===countryCode); // Country specificity is shown per observation; global benchmarks remain global.
+  // These regional corridors are shown only as neighboring geography. A regional
+  // reading is never asserted to be a national measurement or an attribution.
+  const neighboringRegions:Record<string,string[]> = {
+    IR:['regional:persian-gulf','regional:strait-of-hormuz'],
+    OM:['regional:persian-gulf','regional:strait-of-hormuz'],
+    AE:['regional:persian-gulf','regional:strait-of-hormuz'],
+    TW:['regional:taiwan-strait','regional:east-asia'],
+    CN:['regional:taiwan-strait','regional:east-asia'],
+    JP:['regional:east-asia'],
+    KR:['regional:east-asia'],
+    EG:['regional:eastern-mediterranean'],
+    IL:['regional:eastern-mediterranean'],
+    TR:['regional:eastern-mediterranean'],
+    EE:['regional:baltic-sea'],
+    LV:['regional:baltic-sea'],
+    LT:['regional:baltic-sea'],
+    FI:['regional:baltic-sea'],
+    SE:['regional:baltic-sea'],
+    PL:['regional:baltic-sea']
+  };
+  const regionalContext=neighboringRegions[countryCode]||[];
+  const metrics=snapshot.metrics.filter(m=>global||m.group==='global'||m.group===countryCode||regionalContext.includes(m.group));
   const observedAge=snapshot.checkedAt?Math.floor((Date.now()-new Date(snapshot.checkedAt).getTime())/86400000):null;
   const fresh=observedAge!==null&&observedAge>=0&&observedAge<=4;
   const signalScreen=(m:Metric)=>m.compareMode==='basis-points'
@@ -112,10 +133,11 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
     </div>
     <div className="pew-source-readings">
       <div className="pew-section-title"><span><Database size={16}/> VERIFIED INPUTS & INFRASTRUCTURE PROXIES</span><h2>Observed signals, not predictions</h2><p>Source-specific monthly prices, daily U.S. funding, and regional aircraft-reported GNSS quality. The latter is not a confirmed jamming rate and cannot establish PTP or datacenter failure.</p></div>
+      {!global&&metrics.some(m=>m.group.startsWith('regional:'))&&<p className="pew-region-note">Neighboring-region GNSS readings are **regional context only**. They are not measurements within {scope}, evidence of a country's involvement, or confirmation of terrestrial infrastructure failure.</p>}
       <div className="pew-scenario-nav" aria-label="Filter source measurements">{sourceFilters.map(filter=><button key={filter.id} type="button" className={measurementFilter===filter.id?'active':''} aria-pressed={measurementFilter===filter.id} onClick={()=>setMeasurementFilter(filter.id)}>{filter.name}</button>)}</div>
       {visibleMetrics.length===0?<p className="pew-empty">No validated observations match this filter and country context. Existing PortWatch and Comtrade panels remain under Supply chain.</p>:
       <div className="pew-price-grid">{visibleMetrics.map(m=><article key={m.id}>
-        <span>{m.source} · {m.group==='global'?'GLOBAL BENCHMARK':m.group}</span><strong>{m.label}</strong>
+        <span>{m.source} · {m.group==='global'?'GLOBAL BENCHMARK':m.group.startsWith('regional:')?'REGIONAL CONTEXT: '+m.group.slice('regional:'.length).replaceAll('-',' ').toUpperCase():m.group}</span><strong>{m.label}</strong>
         <div className="pew-price"><b>{format(m.value)}</b> <small>{m.unit}</small></div>
         <div className={'pew-change '+(signalScreen(m)?'pew-screen':'')}>
           {m.compareMode==='basis-points'?((m.changeBps??0)>0?'+':'')+format(m.changeBps??0)+' bps':
