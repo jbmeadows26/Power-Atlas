@@ -106,7 +106,7 @@ async def openosint():
  try:
   from mcp import ClientSession,StdioServerParameters
   from mcp.client.stdio import stdio_client
-  async with stdio_client(StdioServerParameters(command="uvx",args=["--from","openosint==2.23.0","openosint-mcp"])) as (read,write):
+  async with stdio_client(StdioServerParameters(command="openosint-mcp",args=[])) as (read,write):
    async with ClientSession(read,write) as session:
     await session.initialize()
     capabilities=await session.list_tools()
