@@ -5,6 +5,11 @@ on:
     # Mondays 14:17 UTC: 9:17 AM EST / 10:17 AM EDT
     - cron: '17 14 * * 1'
   workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/workflows/eastern-axis-weekly-audit.yml'
+      - 'eastern-axis-osint/scripts/weekly_connection_audit.py'
+      - 'eastern-axis/scripts/pages_browser_qa.cjs'
   push:
     paths:
       - '.github/workflows/eastern-axis-weekly-audit.yml'
@@ -21,7 +26,17 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  preflight:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Compile audit scripts without calling remote APIs
+        run: |
+          python3 -m py_compile eastern-axis-osint/scripts/weekly_connection_audit.py eastern-axis/scripts/audit_resilience_snapshot.py
+          node --check eastern-axis/scripts/pages_browser_qa.cjs
   audit:
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-24.04  # fixed runner supported by Playwright 1.56.x
     timeout-minutes: 25
     env:
