@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "",
+  "status": "unavailable",
+  "summary": "Collector has not yet published its first independently sampled snapshot",
+  "sampledCount": 0,
+  "incidents": [],
+  "observations": [],
+  "capabilities": [
+    {
+      "id": "regional_http",
+      "title": "Regional unauthenticated HTTP probes",
+      "source": "Globalping community probes",
+      "status": "unavailable"
+    },
+    {
+      "id": "dns_tls",
+      "title": "DNS, TLS handshake and certificate expiry",
+      "source": "GitHub Actions runner",
+      "status": "unavailable"
+    },
+    {
+      "id": "bgp_rpki",
+      "title": "Sampled BGP and RPKI",
+      "source": "RIPE RIS / RIPEstat",
+      "status": "unavailable"
+    },
+    {
+      "id": "traffic",
+      "title": "Regional traffic anomalies",
+      "source": "Cloudflare Radar API",
+      "status": "not configured"
+    },
+    {
+      "id": "transactions",
+      "title": "Authenticated client-side mail and calendar",
+      "source": "Authorized synthetic tenant",
+      "status": "requires operator access"
+    },
+    {
+      "id": "dependencies",
+      "title": "Nth-party service dependency graph",
+      "source": "Verified vendor documentation",
+      "status": "requires operator access"
+    },
+    {
+      "id": "aiops",
+      "title": "Autonomous remediation rate",
+      "source": "Authorized AIOps logs",
+      "status": "requires operator access"
+    },
+    {
+      "id": "power",
+      "title": "Grid, UPS and transfer telemetry",
+      "source": "Grid / facility operators",
+      "status": "requires operator access"
+    },
+    {
+      "id": "cables",
+      "title": "Submarine cable faults and DAS",
+      "source": "Cable operators and advisories",
+      "status": "requires operator access"
+    },
+    {
+      "id": "ixp",
+      "title": "IXP congestion and multi-homed validation",
+      "source": "IXP / router operators",
+      "status": "requires operator access"
+    },
+    {
+      "id": "melt",
+      "title": "MELT distributed traces",
+      "source": "Authorized OpenTelemetry",
+      "status": "requires operator access"
+    },
+    {
+      "id": "deploy",
+      "title": "Deployment velocity",
+      "source": "Authorized CI/CD logs",
+      "status": "requires operator access"
+    },
+    {
+      "id": "state",
+      "title": "Cross-region metadata propagation",
+      "source": "Cloud control-plane operator",
+      "status": "requires operator access"
+    },
+    {
+      "id": "quotas",
+      "title": "API quota and CDN ruleset limits",
+      "source": "Provider utilization reports",
+      "status": "requires operator access"
+    },
+    {
+      "id": "endpoint",
+      "title": "Out-of-band EDR buffers",
+      "source": "Authorized endpoint agents",
+      "status": "requires operator access"
+    },
+    {
+      "id": "pki",
+      "title": "OCSP / CRL latency and request volume",
+      "source": "PKI operator telemetry",
+      "status": "requires operator access"
+    },
+    {
+      "id": "threat",
+      "title": "Underground claims and verification",
+      "source": "Lawful analyst review",
+      "status": "analyst review"
+    }
+  ],
+  "history": [],
+  "limitations": [
+    "No telemetry has been sampled yet; no healthy or failed state can be inferred.",
+    "Requires GitHub Actions scheduled run on the default branch.",
+    "Private telemetry remains disconnected until expressly authorized."
+  ]
+}
