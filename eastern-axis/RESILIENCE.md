@@ -54,7 +54,7 @@ Permitted metric names in `METRICS` of `scripts/monitor_systemic_resilience.py`.
 ## Source trust and alerting
 
 - A successful unauthenticated HTTP HEAD means **reachability only**. HTTP 401/403/405 does not indicate successful authentication. A single failed region or unavailable probe is **not** a global outage.
-- A correlated public watch requires at least two **distinct provider endpoints**, each with HTTP 5xx in at least two regions (US, DE, SG) in one measurement round. Independent source corroboration and human investigation are still required.
+- A correlated public watch requires at least two **distinct provider endpoints**, each with HTTP 5xx in at least two regions (US, DE, SG, BR, ZA, AU) in one measurement round. Independent source corroboration and human investigation are still required.
 - RPKI `invalid_asn` and `invalid_length` are warning states on **sampled prefixes**; the cause remains unverified.
 - BGP updates are from RIPE route collectors in a sampled hour, not all internet announcements.
 - Sampling frequencies are **not** an official uptime SLO. A stale grid reading (over 15 minutes or more than one minute in the future) is a missing observation; crossing the GB statutory 49.5–50.5 Hz band is a preliminary review signal.
