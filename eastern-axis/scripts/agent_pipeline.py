@@ -106,7 +106,7 @@ async def openosint():
  try:
   from mcp import ClientSession,StdioServerParameters
   from mcp.client.stdio import stdio_client
-  async with stdio_client(StdioServerParameters(command="uvx",args=["--from","openosint==2.23.0","openosint-mcp"])) as (read,write):
+  async with stdio_client(StdioServerParameters(command="openosint-mcp",args=[])) as (read,write):
    async with ClientSession(read,write) as session:
     await session.initialize()
     capabilities=await session.list_tools()
@@ -211,7 +211,7 @@ async def run(args):
    print("Secondary DOJ/FARA/CISA intake unavailable:",type(e).__name__)
   snapshot["analysis"]=build_analysis(snapshot["records"],use_model=not args.no_semantic)
  snapshot["connectors"]=[
-  adapter("gpt-researcher","not-run" if args.research or os.getenv("EA_FREE_LLM_LOCAL")=="true" else "not-configured", "Free local Ollama runner available on manual dispatch; not a permanent model service." if os.getenv("EA_FREE_LLM_LOCAL")=="true" else None),
+  adapter("gpt-researcher","not-run" if args.research else "on-demand","Free Ollama CPU research is available through a manual GitHub Actions run; not an always-on service."),
   adapter("local-deep-research","not-run" if args.research and os.getenv("EA_LDR_URL") else "not-configured"),
   await openosint(),openaleph(),opencti()]
  if args.research:
