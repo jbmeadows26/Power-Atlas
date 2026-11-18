@@ -4,6 +4,7 @@ on:
     - cron: '37 13 * * 2'
   push:
     branches:
+      - main
       - 'migration/eastern-axis-pages-ready-20261118'
     paths:
       - '.github/workflows/eastern-axis-pages-live-qa.yml'
@@ -14,11 +15,6 @@ on:
       - 'eastern-axis/**'
       - '.github/workflows/eastern-axis-pages-live-qa.yml'
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths:
-      - 'eastern-axis/scripts/pages_browser_qa.cjs'
-      - '.github/workflows/eastern-axis-pages-live-qa.yml'
 permissions:
   contents: read
 jobs:
