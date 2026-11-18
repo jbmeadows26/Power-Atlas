@@ -4,6 +4,7 @@ import { readEvidenceWorkbench } from './evidence';
 import { readWorldSignals } from './worldSignals';
 import { readAlliedSanctions, syncUK, syncCanada } from './internationalCoverage';
 import { readEnergy, syncEnergy } from './energySupply';
+import { readSupplyChain } from './supplyChain';
 import { ARCHIVE_ENTITIES, readFactbook, ARCHIVE_BASELINE, ARCHIVE_REVISION } from './factbook';
 import { readGlobalSystems } from './globalSystems';
 import { readDefenseIntelligence } from './defenseIntel';
@@ -996,6 +997,14 @@ export const handler = router({
         return error('Physical energy source unavailable', 503);
       }
     }
+  ],
+  'GET /api/supply-chain/:code': [
+    async ({ params }) => {
+      const code = params.code.toUpperCase() === 'ALL' ? 'all' : params.code.toUpperCase();
+      if (code !== 'all' && !ISO.includes(code)) return error('Unknown country code', 404);
+      const response = await readSupplyChain(code);
+      return response ? json(response) : error('Invalid country code', 400);
+    },
   ],
   'GET /api/global-systems/:code': [
     async ({ params }) => {
