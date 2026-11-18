@@ -1491,6 +1491,12 @@ select:focus-visible {
     transform: translateX(-110%);
     width: 245px;
     transition: transform 0.2s;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+  .sidebar nav, .sidebar-bottom {
+    flex-shrink: 0;
   }
   .sidebar.sidebar-open {
     transform: translateX(0);

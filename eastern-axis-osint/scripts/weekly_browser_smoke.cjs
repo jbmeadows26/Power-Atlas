@@ -32,7 +32,8 @@ async function run(){
             if(await open.isVisible())await open.click();
           }
           const button=page.locator('nav[aria-label="Main navigation"] button.nav-item').filter({hasText:section}).first();
-          await button.click({timeout:12000});
+          try{await button.click({timeout:12000});}
+          catch(error){throw Error('Cannot open '+section+' on '+name+': '+String(error).slice(0,160));}
           const active=await page.locator('nav[aria-label="Main navigation"] button.nav-item.active').innerText();
           if(!active.toLowerCase().includes(section.toLowerCase()))
             throw Error('Section '+section+' failed to activate; active='+active);
