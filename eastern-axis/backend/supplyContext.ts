@@ -40,9 +40,18 @@ function parseFed(csv:string){
  if(lines.length<100)throw new Error('GSCPI dataset unexpectedly short');
  const head=quoteSplit(lines[0]);
  if(head[0]!=='Date'||head.length<3)throw new Error('GSCPI vintage header changed');
- const vintageCandidates=head.map((label,index)=>({label,index})).filter(x=>/^[A-Za-z]{3}-\d{2}$/.test(x.label));
+ const vintageCandidates=head.map((label,index)=>{
+   if(/^[A-Za-z]{3}-\d{2}$/.test(label))return {index,label};
+   if(/^\d{5}$/.test(label)){
+     const day=Number(label);
+     const d=new Date(Date.UTC(1899,11,30)+day*86400000);
+     if(day>39000&&day<70000&&!Number.isNaN(d.getTime()))
+       return {index,label:d.toLocaleDateString('en-US',{month:'short',year:'2-digit',timeZone:'UTC'})};
+   }
+   return null;
+ }).filter((x):x is {index:number;label:string}=>x!==null);
  const selected=vintageCandidates[vintageCandidates.length-1];
- if(!selected)throw new Error('GSCPI latest vintage label unrecognized: '+head.slice(-3).map(x=>x.slice(0,20)).join('/'));
+ if(!selected)throw new Error('GSCPI vintage header has no recognized release date');
  const vintage=selected.label;
  const observations:{date:string;value:number}[]=[];
  for(const row of lines.slice(1)){
