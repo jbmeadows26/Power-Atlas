@@ -7,6 +7,7 @@ import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
 import DefenseIntel from './DefenseIntel';
+import AgentDesk from './AgentDesk';
 import { api } from '@appdeploy/client';
 import {
   Activity,
@@ -101,6 +102,7 @@ const sections = [
   'Global systems',
   'Supply chain',
   'Risk watch',
+  'AI analyst',
   'Coverage audit',
   'Connections',
   'Defense intelligence',
@@ -379,6 +381,7 @@ function App() {
               <Layers3 size={17} />,
               <Activity size={17} />,
               <ShieldAlert size={17} />,
+              <Sparkles size={17} />,
               <Database size={17} />,
               <Network size={17} />,
               <Shield size={17} />,
@@ -497,6 +500,7 @@ function App() {
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
           {overview && view === 'Risk watch' && <GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
+          {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} />}
                     {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
