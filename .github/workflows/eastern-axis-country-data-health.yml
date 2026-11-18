@@ -1,0 +1,41 @@
+name: Eastern Axis country data completeness audit
+on:
+  schedule:
+    - cron: "17 10 * * *"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - "eastern-axis/backend/globalSystems.ts"
+      - "eastern-axis/backend/socialSources.ts"
+      - "eastern-axis-osint/backend/globalSystems.ts"
+      - "eastern-axis-osint/backend/socialSources.ts"
+      - "eastern-axis/tests/socialSources.test.mjs"
+      - ".github/workflows/eastern-axis-country-data-health.yml"
+permissions:
+  contents: read
+jobs:
+  parser-and-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check official OWID schema and source isolation
+        run: node --experimental-strip-types --test eastern-axis/tests/socialSources.test.mjs
+      - name: Build primary country dashboards
+        run: cd eastern-axis && npm ci --no-audit --no-fund && npm run build
+      - name: Build OSINT country dashboards
+        run: cd eastern-axis-osint && npm ci --no-audit --no-fund && npm run build
+  live-data-integrity:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Fail if country cards silently lose data
+        run: node eastern-axis/tests/liveSystemHealth.mjs
