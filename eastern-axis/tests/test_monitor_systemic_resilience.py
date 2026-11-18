@@ -1,11 +1,13 @@
 """Offline regression tests: never report an outage without corroboration."""
 import importlib.util
 import os
+import sys
 from pathlib import Path
 import unittest
 from unittest.mock import patch
 
 PATH=Path(__file__).resolve().parents[1]/"scripts"/"monitor_systemic_resilience.py"
+sys.path.insert(0,str(PATH.parent))
 spec=importlib.util.spec_from_file_location("resilience_monitor",PATH)
 monitor=importlib.util.module_from_spec(spec)
 spec.loader.exec_module(monitor)
