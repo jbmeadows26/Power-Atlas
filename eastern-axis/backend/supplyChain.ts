@@ -90,9 +90,9 @@ export async function readSupplyChain(code:string) {
   const matches=MONITORS.filter(m=>code==='all'||m.countries.includes(code));
   const sources=[
     {name:'IMF PortWatch · daily AIS-derived transit estimates',url:PORTWATCH_HOME,mode:'live request'},
-    {name:'Federal Reserve Bank of New York · GSCPI',url:'https://www.newyorkfed.org/research/policy/gscpi',mode:'linked monthly context; not ingested'},
+    {name:'Federal Reserve Bank of New York · GSCPI',url:'https://www.newyorkfed.org/research/policy/gscpi',mode:'monthly official observations available via Supply Chain context endpoint'},
     {name:'World Bank · LPI 2.0',url:'https://lpi.worldbank.org/en/home',mode:'linked logistics benchmark; not ingested'},
-    {name:'UN Comtrade',url:'https://comtradeplus.un.org/',mode:'trade registry reference; partner shipment joins not ingested'},
+    {name:'UN Comtrade',url:'https://comtradeplus.un.org/',mode:'U.S. annual import partner/HS comparison on demand; no live shipment joins'},
     {name:'UN Trade and Development · maritime transport',url:'https://unctad.org/topic/transport-and-trade-logistics',mode:'context and route analysis'}
   ];
   try{
