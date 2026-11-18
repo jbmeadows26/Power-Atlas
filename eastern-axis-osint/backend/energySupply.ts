@@ -117,17 +117,18 @@ export async function readEnergy(code:string,countryName?:string) {
   const country=saved?.byCountry[name]||null;
   return {
     code, checkedAt:saved?.checkedAt||null,
-    status:!saved?'unavailable':country?'reported':'no-country-match',
+    status:!saved?'unavailable':country?'reported':code==='all'?'global-coverage':'no-country-match',
     sourceName:'Our World in Data / Energy Institute / Ember / EIA',
     sourceUrl:CATALOG,downloadUrl:SOURCE,
     sourceHash:saved?.fileSha256||null,
     countryCount:saved?.countryCount||null,parsedRows:saved?.parsedRows||null,warmup,
-    location:country?.name||countryName||code,
+    location:country?.name||(code==='all'?'Worldwide coverage':countryName||code),
     indicators:cols.map(c=>({
       ...c,value:country?.fields[c.key]?.value??null,
       year:country?.fields[c.key]?.year??null
     })),
     warning:!saved?'Energy data is not available; the upstream download or validation failed.'
+      :code==='all'&&!country?'This international data snapshot covers individual countries. No publisher-verified World aggregate was available; country totals must not be summed into an invented world measurement. Select a country to view annual observations. The revised OWID energy methodology differs from its discontinued legacy dataset.'
       :'Annual energy observations may be published in different years by source and country. The new OWID total-energy-supply methodology is NOT directly comparable to its discontinued legacy dataset.',
     interpretation:'Physical production figures are not verified ownership, exports by destination, supply-chain control or proof of political influence.'
   };

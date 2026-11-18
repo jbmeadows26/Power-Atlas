@@ -130,6 +130,7 @@ async function fetchFeed(feed: FeedConfig) {
   return parsed;
 }
 export async function checkOfficialReportChanges() {
+  let failed = 0;
   for (const feed of FEEDS) {
     const now = new Date().toISOString();
     let health: FeedHealth;
@@ -180,10 +181,11 @@ export async function checkOfficialReportChanges() {
         examined:0,changed:0,baselined:0
       };
     }
+    if (health.status === 'error') failed++;
     const [saved] = await db.tx.update('mil_watch_health', [{id:feed.id,record:health}]);
-    if (!saved) console.error('Could not store official feed state', feed.id);
+    if (!saved) { failed++; console.error('Could not store official feed state', feed.id); }
   }
-  return {statusCode:200};
+  return {statusCode:failed?207:200,failed,checked:FEEDS.length};
 }
 export async function readOfficialReportChanges() {
   const [health, stored] = await Promise.all([
@@ -198,7 +200,7 @@ export async function readOfficialReportChanges() {
     feeds:FEEDS.map((f,i) => ({id:f.id,name:f.name,url:f.url,health:health[i] || null})),
     records,
     mode:'Official public-feed document metadata, not battlefield observation',    explanation:'Initial imports are baselines, not alerts. New and revised documents are unreviewed. Country mentions are headline matches only; capability changes are not established by metadata.',
-    nextScan:'Scheduled daily at 11:05 UTC'
+    nextScan:'Scheduled daily around 10:00 UTC (Vercel Hobby per-hour precision)'
   };
 }
 const limitedCountry = (code: unknown) =>

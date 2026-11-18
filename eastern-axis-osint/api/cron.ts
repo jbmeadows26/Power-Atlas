@@ -1,7 +1,7 @@
 import { timingSafeEqual } from 'node:crypto';
 import { runCollectorCron } from '../backend/collector.js';
 import { checkOfficialReportChanges } from '../backend/militaryMonitor.js';
-import { scheduledGlobalSources } from '../backend/index.js';
+import { scheduledGlobalSources, refreshEconomicSnapshot } from '../backend/index.js';
 
 export const config = { maxDuration: 60 };
 
@@ -17,10 +17,22 @@ export default async function handler(req:any,res:any) {
   const tasks = [
     ...sources.map(sourceId=>({name:sourceId,work:()=>runCollectorCron({payload:{sourceId}})})),
     {name:'military',work:()=>checkOfficialReportChanges()},
-    {name:'global',work:()=>scheduledGlobalSources({scheduledTime:new Date().toISOString()})}
+    {name:'international',work:()=>scheduledGlobalSources({scheduledTime:new Date().toISOString()})},
+    {name:'worldbank-snapshot',work:()=>refreshEconomicSnapshot()}
   ];
   const results=await Promise.allSettled(tasks.map(task=>task.work()));
-  const details=results.map((result,i)=>({name:tasks[i].name,status:result.status,reason:result.status==='rejected'?'source sync failed':undefined}));
-  console.info('Daily Eastern Axis source ingestion summary',details);
-  return res.status(200).json({service:'Eastern Axis',jobs:details});
+  const details=results.map((result,i)=>{
+    if(result.status==='rejected')return {name:tasks[i].name,status:'failed',reason:'source sync failed'};
+    const value=result.value as {status?:string;statusCode?:number;checks?:Array<{name:string;status:string}>};
+    const bad=!!(value.status==='failed'||value.status==='error'||value.status==='partial'||
+      (typeof value.statusCode==='number'&&value.statusCode>=207)||
+      value.checks?.some(c=>c.status!=='ok'));
+    return {name:tasks[i].name,status:bad?'degraded':'ok',
+      ...(value.checks?{checks:value.checks}:{}),
+      ...(bad?{reason:'See source-specific health for details'}:{})};
+  });
+  const status=details.every(x=>x.status==='ok')?'ok':'partial';
+  if(status==='partial')console.warn('Daily Eastern Axis source sync had failures',details);
+  else console.info('Daily Eastern Axis source ingestion complete',details);
+  return res.status(200).json({service:'Eastern Axis',status,jobs:details});
 }

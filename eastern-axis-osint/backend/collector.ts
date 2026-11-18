@@ -244,6 +244,6 @@ export async function runCollectorCron(event: { payload?: { sourceId?: string } 
     console.error('Ignored unknown collector source', sourceId);
     return { statusCode:200 };
   }
-  await syncFeed(sourceId as FeedId);
-  return { statusCode:200 };
+  const result=await syncFeed(sourceId as FeedId);
+  return { statusCode:result.status==='error'?207:200,sourceId,status:result.status };
 }

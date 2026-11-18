@@ -14,14 +14,23 @@ export const scheduledMilitaryReportMonitor = checkOfficialReportChanges;
 
 export const scheduledSourceIntake = runCollectorCron;
 
-// Keep the existing five collection schedules. One additional rotating source
-// slot checks UK FCDO, Canadian sanctions and OWID energy every ~18 hours each.
-export async function scheduledGlobalSources(event:{scheduledTime?:string}) {
-  const stamp = Date.parse(event.scheduledTime || new Date().toISOString());
-  const slot = Math.floor(stamp / (6 * 3600 * 1000)) % 3;
-  const result = slot === 0 ? await syncUK() : slot === 1 ? await syncCanada() : await syncEnergy();
-  console.info('Scheduled international source intake', result.source, result.status);
-  return { statusCode: 200 };
+// One daily Vercel cron invokes all three source updates. Rotation at a
+// daily frequency previously delayed each source by three days.
+export async function scheduledGlobalSources(_event:{scheduledTime?:string}) {
+  const jobs = [
+    {name:'uk-fcdo',run:syncUK},
+    {name:'canada-sanctions',run:syncCanada},
+    {name:'owid-energy',run:syncEnergy}
+  ];
+  const results = await Promise.allSettled(jobs.map(job=>job.run()));
+  const checks = results.map((result,i)=>{
+    if(result.status==='rejected')return {name:jobs[i].name,status:'failed',reason:'source request or persistence failed'};
+    const value = result.value as {status:string;reason?:string;error?:string};
+    return {name:jobs[i].name,status:value.status==='ok'?'ok':'failed',
+      ...(value.status!=='ok'?{reason:String(value.reason||value.error||'unknown source failure').slice(0,160)}:{})};
+  });
+  console.info('Scheduled international source intake',checks);
+  return {statusCode:checks.some(c=>c.status!=='ok')?207:200,status:checks.every(c=>c.status==='ok')?'ok':'partial',checks};
 }
 
 const ISO =

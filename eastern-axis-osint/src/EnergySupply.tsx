@@ -35,7 +35,11 @@ export default function EnergySupply({code}:{code:string}) {
     </div>
     <button className="ip-reload" onClick={()=>setRevision(x=>x+1)} disabled={loading}><RefreshCcw size={14}/> Refresh</button>
    </div>
-   {(loading||error||data?.status!=='reported')&&<div className="ip-note">{loading?'Retrieving country energy observations…':error||data?.warning||'No matching source observations.'}</div>}
+   {(loading||error||(data?.status!=='reported'&&data?.status!=='global-coverage'))&&<div className="ip-note">{loading?'Retrieving country energy observations…':error||data?.warning||'No matching source observations.'}</div>}
+   {data?.status==='global-coverage'&&<>
+     <div className="ip-summarybar"><Globe2 size={16}/><strong>Worldwide source coverage</strong><span>{data.countryCount} countries indexed · {data.parsedRows?.toLocaleString('en-US')} historical source rows · Retrieved {data.checkedAt?.slice(0,10)}</span></div>
+     <p className="ip-method"><ShieldCheck size={17}/> {data.warning} {data.interpretation}</p>
+   </>}
    {data?.status==='reported'&&<>
      <div className="ip-summarybar"><Globe2 size={16}/><strong>{data.location}</strong><span>{data.countryCount} countries indexed · Collected {data.checkedAt?.slice(0,10)} · Latest year differs by metric</span></div>
      <div className="ip-energy-groups">{groups.map(group=>{
