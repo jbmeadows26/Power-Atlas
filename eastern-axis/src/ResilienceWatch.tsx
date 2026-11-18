@@ -15,7 +15,7 @@ type Snapshot = {
   observations:Observation[]; capabilities:Array<{id:string;title:string;source:string;status:string}>;
   limitations:string[]; history:Array<{checkedAt:string;observed:number;alerts:number;errors:number}>;
 };
-const RAW_SNAPSHOT = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/eastern-axis/public/telemetry/resilience.json';
+const RAW_SNAPSHOT = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json';
 const categories:Record<string,string> = {
   regional_http:'Independent regional HTTP',dns_tls:'TLS, DNS and certificate health',
   bgp_rpki:'Routing integrity',traffic:'Independent traffic reports',
