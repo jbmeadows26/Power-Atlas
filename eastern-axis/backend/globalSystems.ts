@@ -1,4 +1,5 @@
 import { db } from './runtime-sdk';
+import { readSocialSupplements } from './socialSources';
 
 /*
  * Country-system observations from the World Bank's official free Indicators API.
@@ -40,6 +41,7 @@ type Observation = SystemIndicator & {
   year: string | null;
   observationStatus: string | null;
   sourceUrl: string;
+  sourceName?: string;
 };
 
 type SavedObservation = {
@@ -65,6 +67,46 @@ function overlaySaved(target: Observation[], saved: SavedSystem | null) {
     current.observationStatus = prev.observationStatus;
   }
 }
+/**
+ * Reconcile alternate-source data only where the WDI value was missing.
+ * WID measures PRE-TAX income Gini, not World Bank survey income/consumption Gini.
+ * Do not silently mix them or construct a fictional World survey Gini.
+ */
+async function applySocialSupplements(indicators:Observation[], code:string) {
+  const extra=await readSocialSupplements(code);
+  const gini=indicators.find(item=>item.code==='SI.POV.GINI');
+  const carbon=indicators.find(item=>item.code==='EN.ATM.CO2E.PC');
+  if(gini&&gini.value===null) {
+    const survey=extra.giniWB;
+    const pretax=extra.giniWID;
+    if(survey) {
+      gini.value=Math.round(survey.value*10000)/100;
+      gini.year=survey.year;
+      gini.sourceUrl=survey.sourceUrl;
+      gini.sourceName=survey.sourceName;
+      gini.observationStatus='alternative-source:world-bank-pip';
+      gini.meaning=survey.meaning+' Gini displayed on 0–100 scale.';
+    } else if(pretax) {
+      gini.value=Math.round(pretax.value*10000)/100;
+      gini.year=pretax.year;
+      gini.sourceUrl=pretax.sourceUrl;
+      gini.sourceName=pretax.sourceName;
+      gini.observationStatus='alternative-measure:pretax-income-gini';
+      gini.label='Pre-tax income inequality (WID Gini)';
+      gini.meaning=pretax.meaning+' Gini displayed on 0–100 scale; do not compare this with World Bank survey Gini.';
+    }
+  }
+  if(carbon&&carbon.value===null&&extra.co2) {
+    carbon.value=extra.co2.value;
+    carbon.year=extra.co2.year;
+    carbon.sourceUrl=extra.co2.sourceUrl;
+    carbon.sourceName=extra.co2.sourceName;
+    carbon.observationStatus='alternative-source:global-carbon-budget';
+    carbon.meaning=extra.co2.meaning;
+  }
+  return extra.warnings;
+}
+
 function validCode(raw: unknown): string | null {
   const code = typeof raw === 'string' ? raw.toUpperCase() : '';
   return /^[A-Z]{2}$/.test(code) || code === 'WLD' ? code : null;
@@ -91,12 +133,15 @@ export async function readGlobalSystems(raw: unknown) {
   const cachedAge = cached ? Date.now() - Date.parse(cached.fetchedAt) : Infinity;
   if (cached && cachedCount >= 7 && cachedAge >= 0 && cachedAge < 8 * 60 * 1000) {
     overlaySaved(indicators, cached);
+    const alternativeWarnings=await applySocialSupplements(indicators,code);
+    const filled=indicators.filter(item=>item.value!==null).length;
     return {
-      code, checkedAt: cached.fetchedAt, status: cachedCount === systemIndicators.length ? 'complete' : 'partial',
-      covered: cachedCount, requested: indicators.length, indicators,
-      source: 'World Bank World Development Indicators (source 2)', sourceUrl: 'https://data.worldbank.org/',
-      method: 'Saved official observations, identified by source year. No interpolation, projections or causal attribution.',
-      warning: 'Cached official observations last retrieved ' + cached.fetchedAt + '; no new upstream check was needed.',
+      code, checkedAt: cached.fetchedAt, status: filled === systemIndicators.length ? 'complete' : 'partial',
+      covered: filled, requested: indicators.length, indicators,
+      source: 'World Bank WDI, with separately identified OWID/PIP/WID and GCB supplements',
+      sourceUrl: 'https://data.worldbank.org/',
+      method: 'Original observation years and source definitions preserved. Alternative-source indicators are explicitly identified; World Gini is not a World Bank survey aggregate.',
+      warning: 'WDI cached observations retrieved ' + cached.fetchedAt + '; recheck for fresh values. '+alternativeWarnings.join(' '),
     };
   }
   // The World Bank multi-indicator mrnev endpoint can time out even when
@@ -141,9 +186,9 @@ export async function readGlobalSystems(raw: unknown) {
   }
   // Any failed chunk gets an independent small request per indicator. Failed
   // groups must not silently erase economic observations from healthy groups.
-  const missingCodes = outcomes.flatMap((result, index) =>
-    result.status === 'rejected' ? codeGroups[index] : []
-  );
+  // Critically, also retry missing INDICATORS inside successful-but-partial groups.
+  // Previously this only retried groups that rejected, leaving valid countries 1/12.
+  const missingCodes = indicators.filter(item=>item.value===null).map(item=>item.code);
   if (missingCodes.length) {
     const individually = await Promise.allSettled(missingCodes.map(async indicator => {
       const url = 'https://api.worldbank.org/v2/country/' + code +
@@ -206,16 +251,18 @@ export async function readGlobalSystems(raw: unknown) {
         : reported < indicators.length
           ? 'Some series have no reported observation in the requested historical period.'
           : null;
+  const supplementWarnings=await applySocialSupplements(indicators,code);
+  const totalFilled=indicators.filter(item=>item.value!==null).length;
   return {
     code,
     checkedAt: new Date().toISOString(),
-    status: sourceStatus === 'unavailable' ? 'unavailable' : reported === indicators.length ? 'complete' : 'partial',
-    covered: reported,
+    status: totalFilled===0 ? 'unavailable' : totalFilled === indicators.length ? 'complete' : 'partial',
+    covered: totalFilled,
     requested: indicators.length,
     indicators,
-    source: 'World Bank World Development Indicators (source 2)',
+    source: 'World Bank WDI; source-labeled OWID/PIP/WID and GCB supplements where WDI is unavailable',
     sourceUrl: 'https://data.worldbank.org/',
-    method: 'Most recent non-null reported observation for each indicator, not necessarily the same year. No interpolation, projections or causal attribution.',
-    warning: warning || (reported < indicators.length ? 'Some indicators have no reported observation in this source.' : null),
+    method: 'Latest published non-null observations by distinct source and year; no interpolation or causal inference. Pre-tax WID Gini differs from household survey Gini.',
+    warning: (warning || '') + (supplementWarnings.length ? ' '+supplementWarnings.join(' ') : '') + (totalFilled<indicators.length?' Some indicators still lack a verifiable value.':''),
   };
 }
