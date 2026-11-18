@@ -44,3 +44,10 @@
 .ea-agent-records{margin-top:11px}
 @media(max-width:930px){.ea-agent-split{grid-template-columns:1fr}.ea-agent-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:640px){.ea-agent-countries,.ea-agent-topic-grid,.ea-agent-pairs,.ea-agent-stats{grid-template-columns:1fr}.ea-agent-filters{flex-direction:column}.ea-agent-filters label:first-child{min-width:0}.ea-agent-filters select{max-width:none}.ea-agent-integrity{font-size:10px}}
+
+
+.ea-agent-quality{display:flex;align-items:center;gap:9px 17px;flex-wrap:wrap;border:1px solid #756753;background:#2a3436;padding:12px 14px;margin:10px 0 16px;color:#e6d2b4;font-size:11px;line-height:1.5}
+.ea-agent-quality>strong{color:#f3d7aa;font-size:12px}
+.ea-agent-quality>span{border-left:1px solid #8a7562;padding-left:12px}
+.ea-agent-quality>p{flex-basis:100%;margin:0;color:#c4c4bd;font-size:10px}
+@media(max-width:640px){.ea-agent-quality{flex-direction:column;align-items:flex-start}.ea-agent-quality>span{border-left:0;padding-left:0}}

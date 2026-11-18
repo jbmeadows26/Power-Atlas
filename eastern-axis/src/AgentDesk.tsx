@@ -27,7 +27,19 @@ export default function AgentDesk({countryCode}:{countryCode:string}){
  useEffect(()=>{setTopic('all');setQuery('')},[countryCode]);
  const countryRecords=useMemo(()=>(state?.records||[]).filter(r=>countryCode==='all'||r.countries.includes(countryCode)),[state,countryCode]);
  const sourceIndex=useMemo(()=>new Map((state?.records||[]).map(r=>[r.id,r])),[state]);
- const themes=useMemo(()=>(state?.analysis?.themes||[]).filter(t=>countryCode==='all'||t.countries.includes(countryCode)),[state,countryCode]);
+ const themes=useMemo(() => {
+  const byTopic=new Map<string,Evidence[]>();
+  for(const item of countryRecords)for(const label of item.topics||[]){
+    const list=byTopic.get(label)||[];list.push(item);byTopic.set(label,list);
+  }
+  return Array.from(byTopic,([name,items]):Theme=>({
+    topic:name,sourceCount:items.length,publisherCount:new Set(items.map(i=>i.publisher)).size,
+    changedCount:items.filter(i=>i.changeType!=='baseline').length,
+    countries:Array.from(new Set(items.flatMap(i=>i.countries))).sort(),
+    sourceIds:items.map(i=>i.id),
+    note:'Source-title classification only; no confirmation of underlying events.'
+  })).sort((a,b)=>b.changedCount-a.changedCount||b.sourceCount-a.sourceCount||a.topic.localeCompare(b.topic));
+ },[countryRecords]);
  const records=useMemo(()=>countryRecords.filter(r=>(showBaseline||r.changeType!=='baseline')&&(topic==='all'||r.topics?.includes(topic))&&(!query||(r.title+' '+r.publisher+' '+r.sourceId).toLowerCase().includes(query.toLowerCase()))).slice(0,80),[countryRecords,showBaseline,topic,query]);
  const selectedBrief=state?.analysis?.countryBriefs.find(b=>b.code===countryCode);
  const currentPairs=state?.analysis?.relatedReports.filter(pair=>countryCode==='all'||pair.sourceIds.some(id=>sourceIndex.get(id)?.countries.includes(countryCode)))||[];
@@ -42,6 +54,13 @@ export default function AgentDesk({countryCode}:{countryCode:string}){
    <span><small>Indexed at (UTC)</small><b className="ea-agent-stat-date">{fmt(state?.generatedAt)}</b></span>
   </div>
   {state&&<div className="ea-agent-integrity"><CheckCircle2 size={15}/><span>Official publications: <strong>{state.sourceHealth?.officialPublications||state.sourceStatus}</strong> · DOJ / FARA / CISA intake: <strong>{state.sourceHealth?.governmentIntake||'not assessed'}</strong> · Open-weight similarity: <strong>{state.analysis?.semantic.status||'not assessed'}</strong></span></div>}
+  {state?.analysis?.quality&&<div className="ea-agent-quality" role="status">
+    <strong>Index coverage and limitations</strong>
+    <span>{state.analysis.quality.countryTaggedCount} / {state.analysis.recordsAnalyzed} records have an explicit country tag</span>
+    <span>{state.analysis.quality.sourceTitlesWithoutDates} missing source publication dates</span>
+    <span>{state.analysis.quality.titlesOlderThan30Days} source dates older than 30 days</span>
+    <p>These are collection completeness indicators—not threat scores. Empty country coverage and undated records cannot support an all-clear.</p>
+  </div>}
   <div className="ea-agent-split">
    <section className="ea-agent-focus"><h2>{countryCode==='all'?'Global source coverage':'Country evidence coverage · '+countryCode}</h2>
     {countryCode!=='all'&&selectedBrief&&<><p className="ea-agent-note">{selectedBrief.statement}</p><div className="ea-agent-statline">Distinct publishers: <strong>{selectedBrief.publisherCount}</strong> · New or revised: <strong>{selectedBrief.changedCount}</strong></div><div className="ea-agent-tags">{selectedBrief.topics.map(t=><span key={t}>{topicNames[t]||t}</span>)}</div></>}
