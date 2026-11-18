@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
 import GlobalSystems from './GlobalSystems';
+import SupplyChain from './SupplyChain';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
@@ -98,6 +99,7 @@ const sections = [
   'Countries',
   'World Factbook',
   'Global systems',
+  'Supply chain',
   'Risk watch',
   'Coverage audit',
   'Connections',
@@ -374,6 +376,7 @@ function App() {
               <Globe2 size={17} />,
               <BookOpen size={17} />,
               <Layers3 size={17} />,
+              <Activity size={17} />,
               <ShieldAlert size={17} />,
               <Database size={17} />,
               <Network size={17} />,
@@ -464,6 +467,7 @@ function App() {
               openMethod={()=>switchView('Methodology')} />
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
+          {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
           {overview && view === 'Risk watch' && <GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Coverage audit' && <GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} />}
                     {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}
