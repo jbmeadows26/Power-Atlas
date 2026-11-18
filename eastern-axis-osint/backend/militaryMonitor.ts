@@ -130,6 +130,7 @@ async function fetchFeed(feed: FeedConfig) {
   return parsed;
 }
 export async function checkOfficialReportChanges() {
+  let failed = 0;
   for (const feed of FEEDS) {
     const now = new Date().toISOString();
     let health: FeedHealth;
@@ -180,10 +181,11 @@ export async function checkOfficialReportChanges() {
         examined:0,changed:0,baselined:0
       };
     }
+    if (health.status === 'error') failed++;
     const [saved] = await db.tx.update('mil_watch_health', [{id:feed.id,record:health}]);
-    if (!saved) console.error('Could not store official feed state', feed.id);
+    if (!saved) { failed++; console.error('Could not store official feed state', feed.id); }
   }
-  return {statusCode:200};
+  return {statusCode:failed?207:200,failed,checked:FEEDS.length};
 }
 export async function readOfficialReportChanges() {
   const [health, stored] = await Promise.all([

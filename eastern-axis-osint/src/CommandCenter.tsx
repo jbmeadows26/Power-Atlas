@@ -65,8 +65,9 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [layer,setLayer]=useState<Layer>('all');
   const [region,setRegion]=useState('GL');
   const [zoom,setZoom]=useState(1);
-  const [selected,setSelected]=useState(activeCountry&&activeCountry!=='all'?activeCountry:'RU');
-  useEffect(()=>{if(activeCountry&&activeCountry!=='all')setSelected(activeCountry);},[activeCountry]);
+  // The Command Center must obey the persistent global/country selector.
+  const [selected,setSelected]=useState(activeCountry&&activeCountry!=='all'?activeCountry:'all');
+  useEffect(()=>{setSelected(activeCountry&&activeCountry!=='all'?activeCountry:'all');},[activeCountry]);
   const [search,setSearch]=useState('');
   const [queryFocus,setQueryFocus]=useState(false);
   const [showLayerLegend,setShowLayerLegend]=useState(true);
