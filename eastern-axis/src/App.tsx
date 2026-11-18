@@ -5,6 +5,7 @@ import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import ResilienceWatch from './ResilienceWatch';
 import SupplyChain from './SupplyChain';
+import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
@@ -107,6 +108,7 @@ const sections = [
   'World Factbook',
   'Global systems',
   'Supply chain',
+  'Early warning',
   'Risk watch',
   'AI analyst',
   'Coverage audit',
@@ -386,6 +388,7 @@ function App() {
               <BookOpen size={17} />,
               <Layers3 size={17} />,
               <Activity size={17} />,
+              <Activity size={17} />,
               <ShieldAlert size={17} />,
               <Sparkles size={17} />,
               <Database size={17} />,
@@ -480,6 +483,7 @@ function App() {
               <div className="mobile-brief-actions" aria-label="Quick navigation">
                 <button type="button" onClick={() => switchView('Risk watch')}><ShieldAlert size={17} /> Risk watch <ArrowRight size={16} /></button>
                 <button type="button" onClick={() => switchView('Supply chain')}><Layers3 size={17} /> Supply chain <ArrowRight size={16} /></button>
+                <button type="button" onClick={() => switchView('Early warning')}><Activity size={17} /> Early warning <ArrowRight size={16} /></button>
               </div>
             </section>
           )}
@@ -505,6 +509,7 @@ function App() {
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
+          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} onOpenSupplyChain={()=>switchView('Supply chain')} />}
           {overview && view === 'Risk watch' && <><ResilienceWatch/><GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} /></>}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} />}
