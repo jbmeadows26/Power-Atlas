@@ -3,6 +3,7 @@ import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
+import ResilienceWatch from './ResilienceWatch';
 import SupplyChain from './SupplyChain';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
@@ -504,7 +505,7 @@ function App() {
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Risk watch' && <GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
+          {overview && view === 'Risk watch' && <><ResilienceWatch/><GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} /></>}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} />}
                     {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}

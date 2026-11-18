@@ -1,0 +1,67 @@
+name: Eastern Axis | independent resilience telemetry
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/monitor_systemic_resilience.py'
+      - '.github/workflows/eastern-axis-resilience.yml'
+  schedule:
+    - cron: '11,41 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/monitor_systemic_resilience.py'
+      - 'eastern-axis/tests/test_monitor_systemic_resilience.py'
+      - '.github/workflows/eastern-axis-resilience.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eastern-axis-resilience-snapshot
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run bounded offline correlation tests
+        run: python3 -m unittest discover -s eastern-axis/tests -p test_monitor_systemic_resilience.py -v
+      - name: Compile collector before probing
+        run: python3 -m py_compile eastern-axis/scripts/monitor_systemic_resilience.py
+      - name: Load prior samples for trend history
+        if: github.event_name != 'pull_request'
+        run: |
+          git fetch origin refs/heads/telemetry/eastern-axis-live:refs/remotes/origin/telemetry/eastern-axis-live
+          git show origin/telemetry/eastern-axis-live:eastern-axis/public/telemetry/resilience.json > eastern-axis/public/telemetry/resilience.json
+      - name: Independently sample public endpoints and routing
+        if: github.event_name != 'pull_request'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          RESILIENCE_METRICS_JSON: ${{ secrets.RESILIENCE_METRICS_JSON }}
+        run: python3 eastern-axis/scripts/monitor_systemic_resilience.py
+      - name: Commit bounded public snapshot with freshness and attribution
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git config user.name "Eastern Axis telemetry bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          cp eastern-axis/public/telemetry/resilience.json "${RUNNER_TEMP}/ea-resilience-current.json"
+          git restore eastern-axis/public/telemetry/resilience.json
+          git fetch origin refs/heads/telemetry/eastern-axis-live
+          git switch --detach FETCH_HEAD
+          mkdir -p eastern-axis/public/telemetry
+          cp "${RUNNER_TEMP}/ea-resilience-current.json" eastern-axis/public/telemetry/resilience.json
+          git add eastern-axis/public/telemetry/resilience.json
+          if git diff --cached --quiet; then
+            echo "No changes in telemetry snapshot"
+          else
+            git commit -m "data(eastern-axis): refresh independent resilience snapshot [skip ci]"
+            git push origin HEAD:refs/heads/telemetry/eastern-axis-live
+          fi
