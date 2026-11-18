@@ -7,7 +7,7 @@ const assert=require('node:assert/strict');
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 
 const ROOT=resolve(__dirname,'..');
-const URL='http://127.0.0.1:4173/';
+const BASE_URL='http://127.0.0.1:4173/';
 const overview={
   countries:[
     {code:'RU',name:'Russia',region:'Europe',scope:'state-or-observer',relationship:'Outside primary U.S. alliances',isTreatyAlly:false,isMNNA:false,caseCount:1},
@@ -23,7 +23,7 @@ const globalData={
 };
 async function waitForServer(){
   for(let attempt=0;attempt<80;attempt++){
-    try{const response=await fetch(URL);if(response.ok)return;}
+    try{const response=await fetch(BASE_URL);if(response.ok)return;}
     catch(_){}
     await delay(300);
   }
@@ -43,7 +43,7 @@ async function qa(page,width){
   await page.route('https://cdn.jsdelivr.net/**',route=>route.abort());
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
-  await page.goto(URL,{waitUntil:'domcontentloaded'});
+  await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
   await page.locator('#ea-country-scope option[value="RU"]').waitFor({state:'attached',timeout:20000});
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
