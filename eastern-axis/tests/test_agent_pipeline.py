@@ -1,5 +1,8 @@
+import asyncio
 import importlib.util
 import pathlib
+import tempfile
+import types
 import sys
 import unittest
 from unittest.mock import patch
@@ -65,5 +68,35 @@ class AnalystTests(unittest.TestCase):
   result=build_analysis(rows,use_model=False)
   self.assertEqual(result["relatedReports"],[])
   self.assertEqual(result["quality"]["sourceTitlesWithoutDates"],1)
+
+
+ def test_keyless_local_research_drafts_not_in_public_manifest(self):
+  class MockResearcher:
+   def __init__(self,query,report_type): self.query=query
+   async def conduct_research(self): pass
+   async def write_report(self): return "This is an unreviewed draft with original-source links. "+("Traceable source context. "*10)
+   def get_research_sources(self): return [{"url":"https://www.cisa.gov/news-events/alerts"}]
+  fake=types.ModuleType("gpt_researcher")
+  fake.GPTResearcher=MockResearcher
+  with tempfile.TemporaryDirectory() as tmp:
+   with patch.dict("os.environ",{"EA_FREE_LLM_LOCAL":"true","OPENAI_API_KEY":"","TAVILY_API_KEY":""}):
+    with patch.dict("sys.modules",{"gpt_researcher":fake}):
+     result=asyncio.run(m.draft("Research source publications",pathlib.Path(tmp)))
+    self.assertEqual(result["gpt-researcher"]["status"],"ok")
+    self.assertTrue((pathlib.Path(tmp)/"GPT-Researcher-UNREVIEWED.md").exists())
+    self.assertFalse((pathlib.Path(tmp)/"manifest.json").exists())
+ def test_missing_attribution_prevents_research_success(self):
+  class Unsourced:
+   def __init__(self,query,report_type):pass
+   async def conduct_research(self):pass
+   async def write_report(self):return "An unsourced draft "*30
+   def get_research_sources(self):return []
+  fake=types.ModuleType("gpt_researcher")
+  fake.GPTResearcher=Unsourced
+  with tempfile.TemporaryDirectory() as tmp:
+   with patch.dict("os.environ",{"EA_FREE_LLM_LOCAL":"true","OPENAI_API_KEY":"","TAVILY_API_KEY":""}):
+    with patch.dict("sys.modules",{"gpt_researcher":fake}):
+     result=asyncio.run(m.draft("Test report provenance",pathlib.Path(tmp)))
+    self.assertEqual(result["gpt-researcher"]["status"],"error")
 
 if __name__=="__main__":unittest.main()
