@@ -40,14 +40,16 @@ function parseFed(csv:string){
  if(lines.length<100)throw new Error('GSCPI dataset unexpectedly short');
  const head=quoteSplit(lines[0]);
  if(head[0]!=='Date'||head.length<3)throw new Error('GSCPI vintage header changed');
- const vintage=head[head.length-1];
- if(!/^[A-Za-z]{3}-\d\d$/.test(vintage))throw new Error('GSCPI latest vintage label unrecognized');
+ const vintageCandidates=head.map((label,index)=>({label,index})).filter(x=>/^[A-Za-z]{3}-\d{2}$/.test(x.label));
+ const selected=vintageCandidates[vintageCandidates.length-1];
+ if(!selected)throw new Error('GSCPI latest vintage label unrecognized: '+head.slice(-3).map(x=>x.slice(0,20)).join('/'));
+ const vintage=selected.label;
  const observations:{date:string;value:number}[]=[];
  for(const row of lines.slice(1)){
    const cells=quoteSplit(row);
    const date=fedDate(cells[0]||'');
-   const value=Number(cells[head.length-1]);
-   if(!date||!cells[head.length-1]?.trim()||!Number.isFinite(value)||value < -15 || value>15)continue;
+   const value=Number(cells[selected.index]);
+   if(!date||!cells[selected.index]?.trim()||!Number.isFinite(value)||value < -15 || value>15)continue;
    observations.push({date,value:Math.round(value*1000)/1000});
  }
  observations.sort((a,b)=>a.date.localeCompare(b.date));
