@@ -73,6 +73,18 @@ jobs:
           else
             gh issue create --title "$title" --body "Weekly public connection or browser QA failed or was not completed. Review the report and exact source findings: $run_url. A network probe failure is not automatically an upstream outage."
           fi
+      - name: Resolve previous audit failure after a clean run
+        if: steps.connections.outcome == 'success' && steps.browser.outcome == 'success' && steps.browser-setup.outcome == 'success'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title='Eastern Axis weekly connection audit failure'
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number' 2>/dev/null || true)"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "The full public-source and desktop/mobile audit now passes. Details and any remaining non-blocking warnings: https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+            gh issue close "$existing" --reason completed
+          fi
       - name: Enforce pass/fail result
         if: always()
         run: |
