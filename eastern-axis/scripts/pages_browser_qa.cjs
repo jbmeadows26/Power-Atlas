@@ -42,6 +42,7 @@ const origin = process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173';
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.getByRole('button',{name:'Choose country intelligence scope'});
     await afterReload.waitFor({state:'visible',timeout:20000});
+    await page.getByRole('button',{name:'Choose country intelligence scope'}).getByText('Russia').waitFor({state:'visible',timeout:20000});
     assert.match(await afterReload.innerText(),/Russia/,'scope not persistent after reload');
     await afterReload.click();
     const combo = page.getByRole('combobox',{name:'Search country or code'});
