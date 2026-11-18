@@ -27,6 +27,6 @@ export default function AgentDesk({countryCode}:{countryCode:string}){
   <p className="ea-agent-note">Publication metadata only. Country mentions do not prove attribution, wrongdoing, military activity, or a change in risk.</p>
   <div className="ea-agent-records">{records.map(r=><a key={r.id} href={r.url} target="_blank" rel="noopener noreferrer"><small>{r.publisher} · {r.changeType.replaceAll('-',' ')} · Published {fmt(r.date)}</small><strong>{r.title}</strong><span>Indexed {fmt(r.detectedAt)} <ArrowUpRight size={13}/></span></a>)}</div>
   {state&&records.length===0&&<p className="ea-agent-empty">No validated records for this selection. This is not an all-clear.</p>}
-  <footer><ShieldCheck size={16}/>{state?.method||'Awaiting an independently checked source digest.'} Model output remains a review-only workflow artifact.</footer>
+  <footer><ShieldCheck size={16}/>{state?.method||'Awaiting an independently checked source digest.'} Model output is unreviewed and remains in workflow artifacts, not published on the dashboard.</footer>
  </section>;
 }
