@@ -133,7 +133,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
     </div>
     <div className="pew-source-readings">
       <div className="pew-section-title"><span><Database size={16}/> VERIFIED INPUTS & INFRASTRUCTURE PROXIES</span><h2>Observed signals, not predictions</h2><p>Source-specific monthly prices, daily U.S. funding, and regional aircraft-reported GNSS quality. The latter is not a confirmed jamming rate and cannot establish PTP or datacenter failure.</p></div>
-      {!global&&metrics.some(m=>m.group.startsWith('regional:'))&&<p className="pew-region-note">Neighboring-region GNSS readings are **regional context only**. They are not measurements within {scope}, evidence of a country's involvement, or confirmation of terrestrial infrastructure failure.</p>}
+      {!global&&metrics.some(m=>m.group.startsWith('regional:'))&&<p className="pew-region-note">Neighboring-region GNSS readings are <strong>regional context only</strong>. They are not measurements within {scope}, evidence of a country's involvement, or confirmation of terrestrial infrastructure failure.</p>}
       <div className="pew-scenario-nav" aria-label="Filter source measurements">{sourceFilters.map(filter=><button key={filter.id} type="button" className={measurementFilter===filter.id?'active':''} aria-pressed={measurementFilter===filter.id} onClick={()=>setMeasurementFilter(filter.id)}>{filter.name}</button>)}</div>
       {visibleMetrics.length===0?<p className="pew-empty">No validated observations match this filter and country context. Existing PortWatch and Comtrade panels remain under Supply chain.</p>:
       <div className="pew-price-grid">{visibleMetrics.map(m=><article key={m.id}>
