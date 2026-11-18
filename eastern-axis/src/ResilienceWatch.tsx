@@ -106,7 +106,7 @@ export default function ResilienceWatch(){
           {o.exchange && <span>Exchange listing <b>{o.exchange}</b></span>}
           {o.requestMethod && <span>CRL request <b>{o.requestMethod}</b></span>}
           {typeof o.httpStatus==='number' && <span>HTTP status <b>{o.httpStatus}</b></span>}
-          {typeof o.latencyMs==='number' && <span>Endpoint latency <b>{o.latencyMs.toFixed(1)} ms</b></span>
+          {typeof o.latencyMs==='number' && <span>Endpoint latency <b>{o.latencyMs.toFixed(1)} ms</b></span>}
           {typeof o.bgpUpdateCount==='number' && <span>Sampled BGP updates <b>{o.bgpUpdateCount} / {o.bgpWindowHours||1}h</b></span>}
           {o.metric && o.value!==undefined && <span>Operator metric <b>{o.value} {o.unit||''}{typeof o.baseline==='number'?' · baseline '+o.baseline:''}</b></span>}
           {o.regions?.map((r,i)=><span key={r.country+i}>{r.country||'Unknown region'} <b>{r.httpStatus??'No HTTP status'} · {r.state}{typeof r.latencyMs==='number'?' · '+r.latencyMs+'ms':''}</b></span>)}
