@@ -1,0 +1,65 @@
+name: Eastern Axis | Pages live API and mobile QA
+on:
+  push:
+    branches:
+      - 'migration/eastern-axis-pages-ready-20261118'
+    paths:
+      - '.github/workflows/eastern-axis-pages-live-qa.yml'
+      - 'eastern-axis/scripts/neon_api_audit.py'
+      - 'eastern-axis/scripts/pages_browser_qa.cjs'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  live-api:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 14
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify real Neon backend and every primary route
+        run: python3 eastern-axis/scripts/neon_api_audit.py
+      - name: Retain detailed API evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-pages-live-api-qa
+          path: audit-output/
+          if-no-files-found: warn
+          retention-days: 14
+  browser:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build migration candidate for Pages
+        working-directory: eastern-axis
+        env:
+          VITE_EA_TARGET: github-pages
+        run: |
+          export VITE_EA_API_ORIGIN="$(tr -d '\r\n' < public-api-origin.txt)"
+          npm install --no-audit --no-fund
+          npx vite build --base ./
+          npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/ea-pages-preview.log 2>&1 &
+          for i in $(seq 1 25); do curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          cat /tmp/ea-pages-preview.log; exit 1
+      - name: Install Playwright on supported free runner
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ea-pages-browser" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/ea-pages-browser/node_modules/.bin/playwright" install chromium
+      - name: Test live API navigation and country persistence at 390px and desktop
+        env:
+          PLAYWRIGHT_MODULE: \${{ runner.temp }}/ea-pages-browser/node_modules/playwright
+        run: |
+          mkdir -p audit-output
+          node eastern-axis/scripts/pages_browser_qa.cjs
+      - name: Save browser QA screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-pages-desktop-mobile-qa
+          path: audit-output/
+          if-no-files-found: warn
+          retention-days: 14
