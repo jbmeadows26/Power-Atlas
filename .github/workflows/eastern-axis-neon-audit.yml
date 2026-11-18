@@ -1,0 +1,46 @@
+name: Eastern Axis | Full Neon API audit
+on:
+  push:
+    branches:
+      - 'migration/eastern-axis-pages-free'
+    paths:
+      - '.github/workflows/eastern-axis-neon-audit.yml'
+      - 'eastern-axis/scripts/neon_api_audit.py'
+  schedule:
+    - cron: '11 15 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: read
+  issues: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit public API route contracts and upstream availability
+        id: audit
+        continue-on-error: true
+        run: python3 eastern-axis/scripts/neon_api_audit.py
+      - name: Upload route evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-neon-route-audit
+          path: audit-output/
+          retention-days: 30
+          if-no-files-found: warn
+      - name: Open/refresh the failure tracker without guessing a root cause
+        if: github.ref == 'refs/heads/main' && steps.audit.outcome != 'success'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          title="Eastern Axis Neon API audit failure"
+          existing="$(gh issue list --state open --search "$title in:title" --json number --jq '.[0].number' 2>/dev/null || true)"
+          link="https://github.com/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID"
+          if [ -n "$existing" ]; then gh issue comment "$existing" --body "Audit found a failing API contract or source: $link";
+          else gh issue create --title "$title" --body "Neon API audit failed. See exact route statuses in the workflow artifact: $link"; fi
+      - name: Enforce audit
+        if: always()
+        run: |
+          test "${{ steps.audit.outcome }}" = success

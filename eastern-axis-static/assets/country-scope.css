@@ -1,0 +1,62 @@
+
+/* Dashboard-wide country filter; original global modules are hidden only while a country is explicitly selected. */
+.ea-only-screenreader{position:absolute!important;clip:rect(0 0 0 0);width:1px;height:1px;overflow:hidden;white-space:nowrap}
+.ea-country-scope{position:relative;display:flex;flex-shrink:0;max-width:100%;color:#e6f7f6;font:12px system-ui,-apple-system,"Segoe UI",sans-serif;z-index:1190}
+#ea-country-trigger{display:flex;align-items:center;justify-content:space-between;gap:8px;background:#11463f;color:#c7fff1;border:1px solid #4a978a;border-radius:10px;min-height:42px;min-width:172px;max-width:235px;padding:9px 11px;font:700 12px system-ui,sans-serif;cursor:pointer}
+#ea-country-trigger>span:nth-child(2){overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#ea-country-trigger:focus-visible,#ea-country-menu button:focus-visible,#ea-country-menu input:focus-visible{outline:2px solid #f3d28f;outline-offset:2px}
+#ea-country-menu{position:absolute;top:calc(100% + 6px);right:0;width:min(350px,92vw);max-height:min(450px,72vh);overflow:hidden;background:#0c2936;border:1px solid #477a81;border-radius:13px;box-shadow:0 24px 45px #0009;padding:12px;z-index:2100}
+#ea-country-menu[hidden]{display:none!important}#ea-country-menu label{display:block;color:#9bd7c9;font-weight:700;margin:0 0 6px}
+#ea-country-search{width:100%;min-height:44px;box-sizing:border-box;background:#071e2a;color:#f3ffff;border:1px solid #598188;border-radius:9px;padding:10px;font:inherit}
+#ea-country-list{overflow-y:auto;max-height:277px;margin-top:8px}
+.ea-country-option{width:100%;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:left;color:#e0f4f5!important;background:transparent!important;border:0!important;border-bottom:1px solid #264954!important;border-radius:4px!important;padding:11px 8px!important;min-height:44px;cursor:pointer;font:inherit}
+.ea-country-option[data-active=true],.ea-country-option[aria-selected=true]{background:#21534d!important}
+.ea-country-option small{color:#a5c6c8;font-size:10px;white-space:nowrap}#ea-country-menu p{font-size:11px;color:#aac7ce;line-height:1.4;margin:9px 0 0}
+.ea-scope-banner{display:flex;gap:10px;flex-wrap:wrap;align-items:center;padding:9px 18px;background:#0e303c;border-bottom:1px solid #365b67;color:#b8d6dd;line-height:1.45;font:12px system-ui,sans-serif}
+.ea-scope-indicator{border-radius:999px;background:#16584d;border:1px solid #3b897a;color:#cbf9ec;font-size:11px;font-weight:800;letter-spacing:.07em;padding:5px 11px;white-space:normal}
+.ea-scope-description{flex:1;min-width:180px}
+body.ea-main .topbar{position:sticky;top:0;z-index:1000}
+body.ea-country-filtered.ea-main .view[data-page]:not([data-page=map]) > :not(.ea-scope-panel){display:none!important}
+body.ea-country-filtered.ea-sub main.ea-scope-main > :not(.ea-scope-panel){display:none!important}
+.ea-scope-panel[hidden]{display:none!important}
+.ea-scope-panel{font:14px/1.6 system-ui,-apple-system,Segoe UI,sans-serif;color:#e5f4f6;padding:22px clamp(14px,2vw,30px);background:#0c2735;border:1px solid #315965;border-radius:15px;margin:12px auto;max-width:1120px;box-sizing:border-box;min-width:0}
+.ea-scope-kicker{font-weight:800;font-size:11px;letter-spacing:.12em;color:#91e9da}
+.ea-scope-panel h2{font-size:clamp(26px,3.5vw,40px);line-height:1.2;letter-spacing:-.025em;margin:8px 0 12px}
+.ea-scope-panel h2 span{color:#a5c8cf;font-weight:450}
+.ea-scope-summary{max-width:730px;color:#c4dce0}
+.ea-scope-count{display:inline-block;border:1px solid #426e78;border-radius:8px;color:#aeebdf;padding:8px 13px;font-weight:700;margin:10px 0}
+.ea-scope-caveat{color:#d6caa7;background:#252c30;border-left:3px solid #d1a667;padding:11px 13px;border-radius:4px}
+.ea-scope-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(320px,100%),1fr));gap:13px;margin-top:18px}
+.ea-country-record{background:#102f3c;border:1px solid #3b6770;border-radius:12px;padding:16px;min-width:0;overflow-wrap:anywhere}
+.ea-country-record h3{font-size:18px;line-height:1.35;margin:12px 0;color:#f1fffc}
+.ea-country-record p{color:#c2d9df;font-size:13px}
+.ea-country-record a,.ea-scope-actions a{color:#a5f6dc;text-underline-offset:3px}
+.ea-country-record details{margin-top:12px;border-top:1px solid #35545b;padding-top:9px}
+.ea-country-record summary{color:#9ff1da;cursor:pointer;min-height:40px;padding:8px 0;font-weight:700}
+.ea-country-evidence{padding:10px;background:#0b2532;border:1px solid #335a64;border-radius:8px;margin:8px 0}
+.ea-country-evidence small{display:block;color:#b1cbd0;font-size:11px;margin-top:4px}
+.ea-country-caveat{border-top:1px solid #2f555e;padding-top:9px;font-size:11px!important;color:#b9c7cb!important}
+.ea-country-tags{display:flex;flex-wrap:wrap;gap:7px}
+.ea-country-tags span{border:1px solid #497c7a;border-radius:16px;padding:3px 9px;font-size:10px;color:#b7efdf}
+.ea-scope-empty{background:#102d39;border:1px dashed #47707b;padding:17px;margin:17px 0;border-radius:11px}
+.ea-scope-empty p{color:#bdd4da}
+.ea-scope-actions{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin:17px 0 0}
+.ea-country-reset{border:1px solid #609f95;background:#20594e;color:#fff;border-radius:9px;padding:11px 14px;min-height:44px;cursor:pointer;font:inherit}
+.ea-map-scope{color:#a5e9d6;font-size:12px;background:#0e3440;padding:11px 13px;border-left:3px solid #51b79d;border-radius:6px}
+body.ea-sub #ea-appbar{display:flex;position:sticky;top:0;min-height:58px;justify-content:space-between;align-items:center;gap:8px;padding:5px 12px;background:#081c28;border-bottom:1px solid #335765;z-index:1004;color:#e5f7f2}
+body.ea-sub #ea-appbar>a{font:700 12px system-ui,sans-serif;color:#d2fdf0;text-decoration:none}
+body.ea-sub #ea-appbar>button{display:none}
+@media(max-width:900px){
+ body.ea-sub #ea-appbar{position:fixed;top:0;left:0;right:0;min-height:58px}
+ body.ea-sub #ea-appbar>button{display:block}
+ body.ea-main .topbar{position:static}
+ #ea-country-trigger{min-width:112px;max-width:155px;padding:8px 7px;font-size:11px}
+ #ea-country-menu{position:fixed;top:60px;left:3vw;right:3vw;width:94vw;max-width:420px}
+ #ea-appbar>a{max-width:125px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+ #ea-appbar{gap:5px!important;padding:5px 7px!important}
+ #ea-appbar>button{min-width:75px!important}
+ .ea-scope-banner{padding:9px 12px}
+ .ea-scope-panel{margin:12px 10px;padding:17px 13px}
+ .ea-scope-panel h2{font-size:27px}
+}
+@media(max-width:370px){#ea-country-trigger{min-width:92px;max-width:123px}#ea-appbar>a{max-width:94px}}

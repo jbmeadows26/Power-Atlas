@@ -1,0 +1,415 @@
+{
+  "schemaVersion": "1.0",
+  "updated": "2026-11-16",
+  "sourceMethod": "Official U.S. and allied documents; curated summaries distinguish allegations from assessments",
+  "curated": {
+    "russian-cyber": {
+      "title": "Russian state-linked cyber operations",
+      "status": "Documented government assessments; dated cases",
+      "scope": "Russia / U.S. / allied critical infrastructure",
+      "summary": "Published U.S. and allied records describe GRU-linked cyber operations targeting Ukrainian systems, defense contractors and global networks. These records support concrete historical findings and a 2026 disruption, not an assertion that any particular organization is currently compromised.",
+      "why": "Cyber operations can intersect with military conflict, stolen defense technology, infrastructure resilience and information security. Separate Unit 29155 activity from GRU Unit 26165/APT28 and separate law-enforcement charges from intelligence assessments.",
+      "uncertainty": "No verified live attack count, victims or forecast is supplied here. Criminal charges remain allegations unless an independently verified judicial outcome is linked.",
+      "evidence": [
+        {
+          "title": "Russian GRU Unit 29155 targeted critical infrastructure",
+          "agency": "CISA · FBI · NSA · allied partners",
+          "published": "2024-09-05",
+          "classification": "Joint cybersecurity attribution / advisory",
+          "finding": "U.S. and allied agencies assess that GRU Unit 29155 ran espionage, sabotage and destructive cyber operations. The advisory describes the WhisperGate campaign against Ukrainian organizations and activity involving global infrastructure.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-09/aa24-249a-russian-military-cyber-actors-target-us-and-global-critical-infrastructure.pdf"
+        },
+        {
+          "title": "Russian state-sponsored targeting of cleared defense contractors",
+          "agency": "CISA · FBI · NSA",
+          "published": "2022-02-16",
+          "classification": "Joint cybersecurity advisory",
+          "finding": "U.S. agencies reported regular targeting of defense contractors from January 2020 to February 2022, seeking sensitive defense-related information and technology. The date range is historical.",
+          "url": "https://www.cisa.gov/sites/default/files/publications/AA22-047A%20Russian%20State-Sponsored%20Cyber%20Actors%20Target%20CDC%20Networks.pdf"
+        },
+        {
+          "title": "GRU Unit 26165 / APT28 router hijacking disruption",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2026-04-07",
+          "classification": "Court-authorized disruption announced",
+          "finding": "DOJ reported a U.S. operation addressing compromised small-office and home routers used for DNS hijacking and intelligence collection. This involves GRU Unit 26165/APT28, which is distinct from Unit 29155.",
+          "url": "https://www.justice.gov/usao-edpa/pr/justice-department-conducts-court-authorized-disruption-dns-hijacking-network"
+        },
+        {
+          "title": "GRU Unit 29155 cyber case — indictment announcement",
+          "agency": "U.S. Department of Justice",
+          "published": "2024-09-05",
+          "classification": "Criminal charges — allegations, not convictions",
+          "finding": "DOJ unsealed charges against five Russian GRU officers and one civilian in connection with alleged WhisperGate-related activity and targeting of countries supporting Ukraine.",
+          "url": "https://www.justice.gov/archives/opa/pr/five-russian-gru-officers-and-one-civilian-charged-conspiring-hack-ukrainian-government"
+        }
+      ]
+    },
+    "china-cyber": {
+      "title": "PRC-linked cyber investigations and critical infrastructure warnings",
+      "status": "Officially published charges and advisories",
+      "scope": "China / U.S. and global networks",
+      "summary": "DOJ's 2025 release describes charged hacker-for-hire operations involving i-Soon and individuals connected with PRC agencies. Separately, CISA and partners described Volt Typhoon's potential infrastructure disruption risk.",
+      "why": "The published materials document distinct espionage, data theft and critical-infrastructure concerns. They do not establish that every company or national of the PRC is implicated.",
+      "uncertainty": "DOJ defendants are accused, not presumed guilty. Volt Typhoon is a distinct campaign; do not combine actor attributions.",
+      "evidence": [
+        {
+          "title": "PRC hacker-for-hire allegations involving i-Soon and officials",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2025-03-05",
+          "classification": "Charges and indictments — allegations, not convictions",
+          "finding": "DOJ announced charges against 12 PRC nationals, including public-security officers and individuals connected to i-Soon and APT27, alleging global intrusions and targeting of critics, organizations and government entities.",
+          "url": "https://www.justice.gov/opa/pr/justice-department-charges-12-chinese-contract-hackers-and-law-enforcement-officers-global"
+        },
+        {
+          "title": "PRC Volt Typhoon critical infrastructure risk briefing",
+          "agency": "CISA · NSA · FBI",
+          "published": "2024-03",
+          "classification": "Official fact sheet / joint attribution",
+          "finding": "U.S. agencies warned that PRC state-sponsored actors had pre-positioned in critical infrastructure networks, posing potential disruption risk in future geopolitical crises. This is a separate actor and case from the DOJ i-Soon allegations.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-03/Fact-Sheet-PRC-State-Sponsored-Cyber-Activity-Actions-for-Critical-Infrastructure-Leaders-508c_0.pdf"
+        }
+      ]
+    },
+    "defense|Cyber operations": {
+      "title": "Cyber operations — official intelligence assessment",
+      "status": "Cross-source analytical brief",
+      "scope": "State-linked cyber / defense and infrastructure",
+      "summary": "Public U.S. government and allied assessments identify documented cyber campaigns associated with Russian military intelligence and PRC-linked actors. The dashboard previously linked only to CISA's homepage, which could not substantiate any specific case.",
+      "why": "The evidence indicates why cyber intrusions matter for defense, industrial supply chains and critical infrastructure. Each campaign must retain its own attribution and publication date.",
+      "uncertainty": "The specific records below concern different actor groups, countries and reporting periods. This is not a current global cyber incident feed.",
+      "evidence": [
+        {
+          "title": "Russian GRU Unit 29155 targeted critical infrastructure",
+          "agency": "CISA · FBI · NSA · allied partners",
+          "published": "2024-09-05",
+          "classification": "Joint cybersecurity attribution / advisory",
+          "finding": "U.S. and allied agencies assess that GRU Unit 29155 ran espionage, sabotage and destructive cyber operations. The advisory describes the WhisperGate campaign against Ukrainian organizations and activity involving global infrastructure.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-09/aa24-249a-russian-military-cyber-actors-target-us-and-global-critical-infrastructure.pdf"
+        },
+        {
+          "title": "Russian state-sponsored targeting of cleared defense contractors",
+          "agency": "CISA · FBI · NSA",
+          "published": "2022-02-16",
+          "classification": "Joint cybersecurity advisory",
+          "finding": "U.S. agencies reported regular targeting of defense contractors from January 2020 to February 2022, seeking sensitive defense-related information and technology. The date range is historical.",
+          "url": "https://www.cisa.gov/sites/default/files/publications/AA22-047A%20Russian%20State-Sponsored%20Cyber%20Actors%20Target%20CDC%20Networks.pdf"
+        },
+        {
+          "title": "GRU Unit 26165 / APT28 router hijacking disruption",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2026-04-07",
+          "classification": "Court-authorized disruption announced",
+          "finding": "DOJ reported a U.S. operation addressing compromised small-office and home routers used for DNS hijacking and intelligence collection. This involves GRU Unit 26165/APT28, which is distinct from Unit 29155.",
+          "url": "https://www.justice.gov/usao-edpa/pr/justice-department-conducts-court-authorized-disruption-dns-hijacking-network"
+        },
+        {
+          "title": "PRC hacker-for-hire allegations involving i-Soon and officials",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2025-03-05",
+          "classification": "Charges and indictments — allegations, not convictions",
+          "finding": "DOJ announced charges against 12 PRC nationals, including public-security officers and individuals connected to i-Soon and APT27, alleging global intrusions and targeting of critics, organizations and government entities.",
+          "url": "https://www.justice.gov/opa/pr/justice-department-charges-12-chinese-contract-hackers-and-law-enforcement-officers-global"
+        },
+        {
+          "title": "PRC Volt Typhoon critical infrastructure risk briefing",
+          "agency": "CISA · NSA · FBI",
+          "published": "2024-03",
+          "classification": "Official fact sheet / joint attribution",
+          "finding": "U.S. agencies warned that PRC state-sponsored actors had pre-positioned in critical infrastructure networks, posing potential disruption risk in future geopolitical crises. This is a separate actor and case from the DOJ i-Soon allegations.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-03/Fact-Sheet-PRC-State-Sponsored-Cyber-Activity-Actions-for-Critical-Infrastructure-Leaders-508c_0.pdf"
+        }
+      ]
+    },
+    "assets|Space & cyber": {
+      "title": "Strategic space and cyber capability — evidence review",
+      "status": "Topic briefing; partial source coverage",
+      "scope": "Strategic capabilities, not asset locations",
+      "summary": "The linked CISA source supplies cybersecurity assessments, not a comprehensive inventory of military satellites or current unit locations. Joint advisories document state-linked digital threats, while broader space capability analysis needs separate defense and space-agency reports.",
+      "why": "Cyber access to defense contractors and critical infrastructure can affect communications, logistics and resilience; it does not itself quantify space-force capabilities.",
+      "uncertainty": "No validated country-by-country force inventories or live military asset locations are claimed here.",
+      "evidence": [
+        {
+          "title": "Russian state-sponsored targeting of cleared defense contractors",
+          "agency": "CISA · FBI · NSA",
+          "published": "2022-02-16",
+          "classification": "Joint cybersecurity advisory",
+          "finding": "U.S. agencies reported regular targeting of defense contractors from January 2020 to February 2022, seeking sensitive defense-related information and technology. The date range is historical.",
+          "url": "https://www.cisa.gov/sites/default/files/publications/AA22-047A%20Russian%20State-Sponsored%20Cyber%20Actors%20Target%20CDC%20Networks.pdf"
+        },
+        {
+          "title": "GRU Unit 26165 / APT28 router hijacking disruption",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2026-04-07",
+          "classification": "Court-authorized disruption announced",
+          "finding": "DOJ reported a U.S. operation addressing compromised small-office and home routers used for DNS hijacking and intelligence collection. This involves GRU Unit 26165/APT28, which is distinct from Unit 29155.",
+          "url": "https://www.justice.gov/usao-edpa/pr/justice-department-conducts-court-authorized-disruption-dns-hijacking-network"
+        },
+        {
+          "title": "PRC Volt Typhoon critical infrastructure risk briefing",
+          "agency": "CISA · NSA · FBI",
+          "published": "2024-03",
+          "classification": "Official fact sheet / joint attribution",
+          "finding": "U.S. agencies warned that PRC state-sponsored actors had pre-positioned in critical infrastructure networks, posing potential disruption risk in future geopolitical crises. This is a separate actor and case from the DOJ i-Soon allegations.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-03/Fact-Sheet-PRC-State-Sponsored-Cyber-Activity-Actions-for-Critical-Infrastructure-Leaders-508c_0.pdf"
+        }
+      ]
+    },
+    "sources|CISA advisories": {
+      "title": "CISA cyber threat advisories — analyzed examples",
+      "status": "Official source catalog with verified examples",
+      "scope": "U.S. cybersecurity warnings",
+      "summary": "CISA issues joint advisories and technical assessments covering known exploited vulnerabilities, state-sponsored activity, malware and infrastructure defense. The agency homepage is a catalog, not evidence for a single threat.",
+      "why": "The records below are dated examples that can be connected to specific dossiers; vulnerabilities alone do not attribute attacks to a foreign government.",
+      "uncertainty": "No comprehensive feed of all CISA publications is represented by this curated panel.",
+      "evidence": [
+        {
+          "title": "Russian GRU Unit 29155 targeted critical infrastructure",
+          "agency": "CISA · FBI · NSA · allied partners",
+          "published": "2024-09-05",
+          "classification": "Joint cybersecurity attribution / advisory",
+          "finding": "U.S. and allied agencies assess that GRU Unit 29155 ran espionage, sabotage and destructive cyber operations. The advisory describes the WhisperGate campaign against Ukrainian organizations and activity involving global infrastructure.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-09/aa24-249a-russian-military-cyber-actors-target-us-and-global-critical-infrastructure.pdf"
+        },
+        {
+          "title": "Russian state-sponsored targeting of cleared defense contractors",
+          "agency": "CISA · FBI · NSA",
+          "published": "2022-02-16",
+          "classification": "Joint cybersecurity advisory",
+          "finding": "U.S. agencies reported regular targeting of defense contractors from January 2020 to February 2022, seeking sensitive defense-related information and technology. The date range is historical.",
+          "url": "https://www.cisa.gov/sites/default/files/publications/AA22-047A%20Russian%20State-Sponsored%20Cyber%20Actors%20Target%20CDC%20Networks.pdf"
+        },
+        {
+          "title": "PRC Volt Typhoon critical infrastructure risk briefing",
+          "agency": "CISA · NSA · FBI",
+          "published": "2024-03",
+          "classification": "Official fact sheet / joint attribution",
+          "finding": "U.S. agencies warned that PRC state-sponsored actors had pre-positioned in critical infrastructure networks, posing potential disruption risk in future geopolitical crises. This is a separate actor and case from the DOJ i-Soon allegations.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-03/Fact-Sheet-PRC-State-Sponsored-Cyber-Activity-Actions-for-Critical-Infrastructure-Leaders-508c_0.pdf"
+        }
+      ]
+    },
+    "cases|Chinese contract hackers & officials": {
+      "title": "DOJ case review — Chinese contract hackers and officials",
+      "status": "Indictment / charges; unresolved here",
+      "scope": "2025 U.S. Justice Department announcement",
+      "summary": "The Justice Department announced March 5, 2025 charges against 12 Chinese nationals in multiple computer-intrusion matters, including alleged involvement by i-Soon employees and government officers.",
+      "why": "The cases illustrate alleged relationships between contractors, state agencies and private-sector hacking services; the published release links to separate indictments.",
+      "uncertainty": "The release is not proof that every defendant was convicted. Court dispositions must be checked independently.",
+      "evidence": [
+        {
+          "title": "PRC hacker-for-hire allegations involving i-Soon and officials",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2025-03-05",
+          "classification": "Charges and indictments — allegations, not convictions",
+          "finding": "DOJ announced charges against 12 PRC nationals, including public-security officers and individuals connected to i-Soon and APT27, alleging global intrusions and targeting of critics, organizations and government entities.",
+          "url": "https://www.justice.gov/opa/pr/justice-department-charges-12-chinese-contract-hackers-and-law-enforcement-officers-global"
+        }
+      ]
+    },
+    "cases|Cyber influence investigations": {
+      "title": "Cyber investigations — document-level examples",
+      "status": "Selected published cases; not exhaustive",
+      "scope": "Government-linked cyber proceedings",
+      "summary": "DOJ's National Security Division publishes different matters involving espionage, cyber intrusions and foreign influence. A division homepage is a source directory, not a case finding.",
+      "why": "Country or agency attribution should be traced to an individual indictment or official advisory.",
+      "uncertainty": "No comprehensive live DOJ case list is inferred.",
+      "evidence": [
+        {
+          "title": "GRU Unit 29155 cyber case — indictment announcement",
+          "agency": "U.S. Department of Justice",
+          "published": "2024-09-05",
+          "classification": "Criminal charges — allegations, not convictions",
+          "finding": "DOJ unsealed charges against five Russian GRU officers and one civilian in connection with alleged WhisperGate-related activity and targeting of countries supporting Ukraine.",
+          "url": "https://www.justice.gov/archives/opa/pr/five-russian-gru-officers-and-one-civilian-charged-conspiring-hack-ukrainian-government"
+        },
+        {
+          "title": "PRC hacker-for-hire allegations involving i-Soon and officials",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2025-03-05",
+          "classification": "Charges and indictments — allegations, not convictions",
+          "finding": "DOJ announced charges against 12 PRC nationals, including public-security officers and individuals connected to i-Soon and APT27, alleging global intrusions and targeting of critics, organizations and government entities.",
+          "url": "https://www.justice.gov/opa/pr/justice-department-charges-12-chinese-contract-hackers-and-law-enforcement-officers-global"
+        }
+      ]
+    },
+    "defense|Russia–Ukraine": {
+      "title": "Russia–Ukraine: strategic and cyber dimensions",
+      "status": "Historical primary-source evidence",
+      "scope": "War, cyber operations and defense consequences",
+      "summary": "Official records describe destructive malware targeting Ukrainian government networks in the run-up to the 2022 invasion, as well as subsequent cyber targeting of countries supporting Ukraine. These sources describe the cyber dimension, not the complete battlefield picture.",
+      "why": "Digital disruption can affect civilian systems and critical infrastructure and intersect with energy security and allied support.",
+      "uncertainty": "These sources do not establish current operational positions or the full status of the conflict on the present date.",
+      "evidence": [
+        {
+          "title": "Russian GRU Unit 29155 targeted critical infrastructure",
+          "agency": "CISA · FBI · NSA · allied partners",
+          "published": "2024-09-05",
+          "classification": "Joint cybersecurity attribution / advisory",
+          "finding": "U.S. and allied agencies assess that GRU Unit 29155 ran espionage, sabotage and destructive cyber operations. The advisory describes the WhisperGate campaign against Ukrainian organizations and activity involving global infrastructure.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-09/aa24-249a-russian-military-cyber-actors-target-us-and-global-critical-infrastructure.pdf"
+        },
+        {
+          "title": "GRU Unit 29155 cyber case — indictment announcement",
+          "agency": "U.S. Department of Justice",
+          "published": "2024-09-05",
+          "classification": "Criminal charges — allegations, not convictions",
+          "finding": "DOJ unsealed charges against five Russian GRU officers and one civilian in connection with alleged WhisperGate-related activity and targeting of countries supporting Ukraine.",
+          "url": "https://www.justice.gov/archives/opa/pr/five-russian-gru-officers-and-one-civilian-charged-conspiring-hack-ukrainian-government"
+        }
+      ]
+    },
+    "map|Russia": {
+      "title": "Russia — document-based cyber evidence",
+      "status": "Dated reports; broader country analysis remains incomplete",
+      "scope": "Russia government-linked cyber operations",
+      "summary": "The Russia country dossier currently links to broad defense source pages. Specific U.S. and allied public records document GRU-related cyber activity and U.S. enforcement measures, each with distinct periods and evidentiary status.",
+      "why": "This links state-security and cyber findings to the country dossier without making blanket assumptions about Russian people or businesses.",
+      "uncertainty": "Other Russian geopolitical, military and economic topics require their own specific evidence records.",
+      "evidence": [
+        {
+          "title": "Russian GRU Unit 29155 targeted critical infrastructure",
+          "agency": "CISA · FBI · NSA · allied partners",
+          "published": "2024-09-05",
+          "classification": "Joint cybersecurity attribution / advisory",
+          "finding": "U.S. and allied agencies assess that GRU Unit 29155 ran espionage, sabotage and destructive cyber operations. The advisory describes the WhisperGate campaign against Ukrainian organizations and activity involving global infrastructure.",
+          "url": "https://www.cisa.gov/sites/default/files/2024-09/aa24-249a-russian-military-cyber-actors-target-us-and-global-critical-infrastructure.pdf"
+        },
+        {
+          "title": "Russian state-sponsored targeting of cleared defense contractors",
+          "agency": "CISA · FBI · NSA",
+          "published": "2022-02-16",
+          "classification": "Joint cybersecurity advisory",
+          "finding": "U.S. agencies reported regular targeting of defense contractors from January 2020 to February 2022, seeking sensitive defense-related information and technology. The date range is historical.",
+          "url": "https://www.cisa.gov/sites/default/files/publications/AA22-047A%20Russian%20State-Sponsored%20Cyber%20Actors%20Target%20CDC%20Networks.pdf"
+        },
+        {
+          "title": "GRU Unit 26165 / APT28 router hijacking disruption",
+          "agency": "U.S. Department of Justice · FBI",
+          "published": "2026-04-07",
+          "classification": "Court-authorized disruption announced",
+          "finding": "DOJ reported a U.S. operation addressing compromised small-office and home routers used for DNS hijacking and intelligence collection. This involves GRU Unit 26165/APT28, which is distinct from Unit 29155.",
+          "url": "https://www.justice.gov/usao-edpa/pr/justice-department-conducts-court-authorized-disruption-dns-hijacking-network"
+        },
+        {
+          "title": "GRU Unit 29155 cyber case — indictment announcement",
+          "agency": "U.S. Department of Justice",
+          "published": "2024-09-05",
+          "classification": "Criminal charges — allegations, not convictions",
+          "finding": "DOJ unsealed charges against five Russian GRU officers and one civilian in connection with alleged WhisperGate-related activity and targeting of countries supporting Ukraine.",
+          "url": "https://www.justice.gov/archives/opa/pr/five-russian-gru-officers-and-one-civilian-charged-conspiring-hack-ukrainian-government"
+        }
+      ]
+    }
+  },
+  "providers": [
+    {
+      "match": "cisa.gov",
+      "label": "CISA",
+      "scope": "Cybersecurity advisories, exploited vulnerabilities and critical infrastructure guidance.",
+      "limits": "A catalog or vulnerability listing alone does not establish attacker attribution; use the individual advisory and its date."
+    },
+    {
+      "match": "justice.gov",
+      "label": "U.S. Department of Justice",
+      "scope": "Criminal charges, court records, public enforcement and national security cases.",
+      "limits": "A charge or indictment is an allegation; verify outcomes in court records."
+    },
+    {
+      "match": "fara.gov",
+      "label": "Foreign Agents Registration Act (DOJ)",
+      "scope": "Foreign-agent registrations, disclosures and related public filings.",
+      "limits": "Registration is a legal disclosure, not proof of illicit foreign influence."
+    },
+    {
+      "match": "ofac.treasury.gov",
+      "label": "U.S. Treasury OFAC",
+      "scope": "Sanctions programs, designation notices and consolidated list metadata.",
+      "limits": "A designation is a legal sanctions status, not independent proof of every alleged activity."
+    },
+    {
+      "match": "sanctionssearch.ofac.treas.gov",
+      "label": "OFAC Sanctions Search",
+      "scope": "Searchable U.S. sanctions list records and aliases.",
+      "limits": "This search page is not a permanent individual-record permalink; check identifiers and update dates."
+    },
+    {
+      "match": "defense.gov",
+      "label": "U.S. Defense Department",
+      "scope": "Official military news, published strategic assessments and policy statements.",
+      "limits": "General news pages do not establish a specific military operation or a current asset position."
+    },
+    {
+      "match": "war.gov",
+      "label": "U.S. defense news portal",
+      "scope": "Public defense reporting; confirm document title and date before treating as evidence.",
+      "limits": "A publisher's homepage alone does not support a country-specific operational claim."
+    },
+    {
+      "match": "centcom.mil",
+      "label": "U.S. Central Command",
+      "scope": "Dated U.S. Central Command statements and public operational context.",
+      "limits": "Press-release indexes are not real-time tracking and may omit other perspectives."
+    },
+    {
+      "match": "nato.int",
+      "label": "NATO",
+      "scope": "Alliance treaties, policy, public decisions and official statements.",
+      "limits": "Alliance membership does not imply involvement in an individual event."
+    },
+    {
+      "match": "state.gov",
+      "label": "U.S. State Department",
+      "scope": "Diplomatic releases, country information, treaty and sanctions policy.",
+      "limits": "A departmental homepage is not a case-specific finding."
+    },
+    {
+      "match": "dsca.mil",
+      "label": "Defense Security Cooperation Agency",
+      "scope": "Public arms-transfer and security-cooperation notices.",
+      "limits": "A notification of a proposed sale is not evidence that equipment was delivered."
+    },
+    {
+      "match": "worldbank.org",
+      "label": "World Bank",
+      "scope": "Country economic indicators and statistical series.",
+      "limits": "Data vintages differ, and economic membership does not imply a unified political or military posture."
+    },
+    {
+      "match": "eia.gov",
+      "label": "U.S. Energy Information Administration",
+      "scope": "Energy production, transit chokepoints, outlooks and country data.",
+      "limits": "Observed dependence is not proof of intentional interference or a forecast of conflict."
+    },
+    {
+      "match": "usgs.gov",
+      "label": "U.S. Geological Survey",
+      "scope": "Mineral supply, geology and earthquakes.",
+      "limits": "Earthquake events are natural hazards, not evidence of military conflict."
+    },
+    {
+      "match": "attack.mitre.org",
+      "label": "MITRE ATT&CK",
+      "scope": "Technical classification of adversary tactics and published threat-group reports.",
+      "limits": "A technique match alone is not proof of an actor's identity."
+    },
+    {
+      "match": "osintframework.com",
+      "label": "OSINT Framework",
+      "scope": "Directories of investigative resources and tools.",
+      "limits": "Directory inclusion does not verify a tool's results or licensing."
+    },
+    {
+      "match": "appdeploy.ai",
+      "label": "Eastern Axis upstream intelligence collector",
+      "scope": "Previously deployed bounded source-collection service.",
+      "limits": "Original collector may contain sampled or historic records; cross-check original primary sources."
+    },
+    {
+      "match": "nvd.nist.gov",
+      "label": "National Vulnerability Database",
+      "scope": "CVE references and vulnerability descriptions.",
+      "limits": "An NVD entry alone does not establish exploitation, victim identity or foreign-government attribution."
+    }
+  ]
+}

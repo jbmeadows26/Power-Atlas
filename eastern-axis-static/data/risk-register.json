@@ -1,0 +1,267 @@
+{
+  "schema_version": "1.0",
+  "register": "qualitative_risks",
+  "curated_as_of": "2026-11-15",
+  "basis": "official and allied sources; metadata links to original publications",
+  "records": [
+    {
+      "id": "climate",
+      "name": "Climate disruption & extreme weather",
+      "category": "Climate",
+      "scope": "Humanity",
+      "status": "Documented global trend",
+      "horizon": "Present → multi-decade",
+      "impact": 5,
+      "pressure": 4,
+      "exposure": 5,
+      "spillover": 5,
+      "confidence": "High for long-term direction",
+      "summary": "WMO reports the past four years among the warmest on record. Increasing heat, storms and water stress interact with health, food systems, displacement and infrastructure.",
+      "triggers": "Extreme heat, drought and flood exposure; El Niño conditions; failures of adaptation.",
+      "sources": [
+        {
+          "name": "WMO 2026 update",
+          "url": "https://wmo.int/news/media-centre/state-of-climate-2026-gives-new-meaning-phrase-charts"
+        },
+        {
+          "name": "IPCC AR6",
+          "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/"
+        }
+      ]
+    },
+    {
+      "id": "nuclear",
+      "name": "Nuclear escalation and strategic miscalculation",
+      "category": "Security",
+      "scope": "Humanity",
+      "status": "High-consequence scenario",
+      "horizon": "Near-term to long-term",
+      "impact": 5,
+      "pressure": 2,
+      "exposure": 5,
+      "spillover": 5,
+      "confidence": "Low on near-term probability",
+      "summary": "A nuclear exchange would produce exceptional humanitarian consequences. The risk view does not assign a numerical probability or imply an imminent exchange.",
+      "triggers": "Loss of crisis communication, mistaken warning, direct nuclear-armed power confrontation.",
+      "sources": [
+        {
+          "name": "SIPRI military spending",
+          "url": "https://www.sipri.org/databases/milex"
+        },
+        {
+          "name": "NSA historical Cuban crisis",
+          "url": "https://www.nsa.gov/Helpful-Links/NSA-FOIA/Declassification-Transparency-Initiatives/Historical-Releases/Cuban-Missile-Crisis/"
+        }
+      ]
+    },
+    {
+      "id": "conflict",
+      "name": "Major armed conflicts and civilian displacement",
+      "category": "Conflict",
+      "scope": "Current",
+      "status": "Documented conflict burden",
+      "horizon": "Now → 24 months",
+      "impact": 5,
+      "pressure": 4,
+      "exposure": 4,
+      "spillover": 4,
+      "confidence": "High for historical burden; future uncertain",
+      "summary": "ACLED records widespread political violence. Humanitarian and cross-border spillovers differ by region; individual reports have their own event dates.",
+      "triggers": "Escalation, regional intervention, growing civilian harm and loss of essential services.",
+      "sources": [
+        {
+          "name": "ACLED conflict methodology",
+          "url": "https://acleddata.com/general-guide/about-conflict-index"
+        },
+        {
+          "name": "ACLED 2026 watchlist",
+          "url": "https://acleddata.com/conflict-index-2026-watchlist"
+        }
+      ]
+    },
+    {
+      "id": "foodwater",
+      "name": "Food and water insecurity",
+      "category": "Humanitarian",
+      "scope": "Current",
+      "status": "Documented humanitarian concern",
+      "horizon": "Now → 36 months",
+      "impact": 4,
+      "pressure": 4,
+      "exposure": 5,
+      "spillover": 4,
+      "confidence": "Medium–high; varies by region",
+      "summary": "FAO–WFP identify severe hunger hotspots. Conflict, drought, inflation and transport disruption may combine to deepen shortages.",
+      "triggers": "Crop failures, blocked trade, drought, loss of aid and growing displacement.",
+      "sources": [
+        {
+          "name": "FAO–WFP hunger hotspots",
+          "url": "https://www.wfp.org/publications/hunger-hotspots-fao-wfp-early-warnings-acute-food-insecurity-june-november-2026"
+        },
+        {
+          "name": "IPCC adaptation risks",
+          "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/"
+        }
+      ]
+    },
+    {
+      "id": "epidemics",
+      "name": "Pandemic and biological risk",
+      "category": "Health",
+      "scope": "Humanity",
+      "status": "Persistent structural risk",
+      "horizon": "Uncertain",
+      "impact": 5,
+      "pressure": 2,
+      "exposure": 5,
+      "spillover": 4,
+      "confidence": "Low for timing; high for potential impact",
+      "summary": "Outbreak emergence is not predictable to a date. WHO reports active emergencies and provides surveillance; this is a general preparedness risk, not a claim of imminent pandemic.",
+      "triggers": "Disease spread, healthcare disruption, inadequate surveillance or response.",
+      "sources": [
+        {
+          "name": "WHO health emergencies",
+          "url": "https://www.who.int/emergencies/situations/"
+        }
+      ]
+    },
+    {
+      "id": "energy",
+      "name": "Energy chokepoint disruption",
+      "category": "Resources",
+      "scope": "Flashpoint",
+      "status": "Conditional scenario",
+      "horizon": "Next 12–36 months",
+      "impact": 4,
+      "pressure": 3,
+      "exposure": 4,
+      "spillover": 5,
+      "confidence": "High for dependency; timing unknown",
+      "summary": "EIA documents large oil and gas volumes moving through narrow maritime routes. Disruption can cascade into energy prices, fertilizer costs and food trade.",
+      "triggers": "Shipping interruption, escalating regional fighting, damaged ports and insurance shocks.",
+      "sources": [
+        {
+          "name": "EIA chokepoint analysis",
+          "url": "https://www.eia.gov/international/analysis/special-topics/World_Oil_Transit_Chokepoints"
+        }
+      ]
+    },
+    {
+      "id": "cyber",
+      "name": "Critical infrastructure cyber disruption",
+      "category": "Cyber",
+      "scope": "Flashpoint",
+      "status": "Ongoing vulnerability exposure",
+      "horizon": "Now → 24 months",
+      "impact": 4,
+      "pressure": 3,
+      "exposure": 4,
+      "spillover": 4,
+      "confidence": "Medium; precise threat attribution varies",
+      "summary": "CISA’s known exploited vulnerability catalog identifies exploitation, not necessarily a foreign government. Power, water and health system disruptions could cross sectors.",
+      "triggers": "Coordinated attacks, exploited vulnerabilities and failure of critical backups.",
+      "sources": [
+        {
+          "name": "CISA KEV",
+          "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+        }
+      ]
+    },
+    {
+      "id": "finance",
+      "name": "Global financial and trade contagion",
+      "category": "Economy",
+      "scope": "Flashpoint",
+      "status": "Systemic exposure scenario",
+      "horizon": "Next 12–36 months",
+      "impact": 4,
+      "pressure": 3,
+      "exposure": 5,
+      "spillover": 4,
+      "confidence": "Medium; no crash forecast",
+      "summary": "Energy price shocks, supply chain bottlenecks and fiscal constraints can transmit across countries. No recession or crash date is asserted here.",
+      "triggers": "Sudden credit tightening, trade blockade, major commodity price shock.",
+      "sources": [
+        {
+          "name": "World Bank indicators",
+          "url": "https://data.worldbank.org/"
+        },
+        {
+          "name": "EIA trade and energy",
+          "url": "https://www.eia.gov/"
+        }
+      ]
+    },
+    {
+      "id": "environment",
+      "name": "Biodiversity and ecosystem degradation",
+      "category": "Climate",
+      "scope": "Humanity",
+      "status": "Long-duration documented risk",
+      "horizon": "Multi-decade",
+      "impact": 5,
+      "pressure": 4,
+      "exposure": 5,
+      "spillover": 4,
+      "confidence": "High for long-term threat",
+      "summary": "IPCC identifies interacting risks to ecosystems, food, health and livelihoods, including possible irreversible impacts as warming increases.",
+      "triggers": "Ecosystem loss, climate stress, habitat fragmentation and poor adaptation.",
+      "sources": [
+        {
+          "name": "IPCC synthesis",
+          "url": "https://www.ipcc.ch/report/ar6/syr/summary-for-policymakers/"
+        }
+      ]
+    },
+    {
+      "id": "disinformation",
+      "name": "Disinformation, repression and institutional decay",
+      "category": "Governance",
+      "scope": "Current",
+      "status": "Documented phenomena; contextual attribution needed",
+      "horizon": "Now → 36 months",
+      "impact": 4,
+      "pressure": 4,
+      "exposure": 4,
+      "spillover": 4,
+      "confidence": "Variable across institutions and countries",
+      "summary": "DOJ and historic declassified archives document examples of covert influence and espionage. A historical case is not proof a similar operation is active now.",
+      "triggers": "Undisclosed influence networks, erosion of accountability, contested information.",
+      "sources": [
+        {
+          "name": "DOJ NSD",
+          "url": "https://www.justice.gov/nsd"
+        },
+        {
+          "name": "FRUS historical documents",
+          "url": "https://history.state.gov/historicaldocuments"
+        }
+      ]
+    },
+    {
+      "id": "ai",
+      "name": "AI misuse and information-system dependence",
+      "category": "Technology",
+      "scope": "Humanity",
+      "status": "Emerging scenario",
+      "horizon": "Now → multi-decade",
+      "impact": 4,
+      "pressure": 3,
+      "exposure": 5,
+      "spillover": 4,
+      "confidence": "Low–medium; scenario uncertainty",
+      "summary": "Potential misuse and failures in increasingly automated systems could magnify cybersecurity, disinformation and infrastructure risks. This exploratory scenario is not a quantified existential forecast.",
+      "triggers": "Security failures, scaled misuse, unsafe deployment and concentration of critical dependencies.",
+      "sources": [
+        {
+          "name": "CISA security advisories",
+          "url": "https://www.cisa.gov/"
+        },
+        {
+          "name": "NIST AI RMF",
+          "url": "https://www.nist.gov/itl/ai-risk-management-framework"
+        }
+      ]
+    }
+  ]
+}

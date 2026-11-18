@@ -1,0 +1,64 @@
+name: Eastern Axis | Neon live API smoke
+on:
+  push:
+    branches:
+      - 'migration/eastern-axis-pages-free'
+    paths:
+      - '.github/workflows/eastern-axis-neon-smoke.yml'
+      - 'eastern-axis/public-api-origin.txt'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check real Neon Function routes, CORS, database and auth
+        env:
+          API_BASE_FILE: eastern-axis/public-api-origin.txt
+        run: |
+          python3 - <<'PY'
+          import json, os, urllib.error, urllib.request
+          base = open(os.environ['API_BASE_FILE'],encoding='utf-8').read().strip().rstrip('/')
+          assert base.startswith('https://') and base.endswith('.neon.tech')
+          origin = 'https://jbmeadows26.github.io'
+          failures=[]
+          def check(route, expected=200, origin_value=origin, requirements=()):
+              request = urllib.request.Request(base + route, headers={'Accept':'application/json','Origin':origin_value})
+              try:
+                  with urllib.request.urlopen(request,timeout=25) as resp:
+                      status=resp.status
+                      headers=resp.headers
+                      raw=resp.read(2500000)
+              except urllib.error.HTTPError as err:
+                  status=err.code; headers=err.headers; raw=err.read(20000)
+              except Exception as exc:
+                  failures.append(f'{route}: transport failure {type(exc).__name__}: {str(exc)[:160]}')
+                  print(f'{route}: TRANSPORT FAILURE')
+                  return
+              try: body=json.loads(raw)
+              except Exception:
+                  body={}; failures.append(f'{route}: non-JSON HTTP response')
+              print(f'{route}: HTTP {status}; keys={list(body)[:10] if isinstance(body,dict) else "non-dict"}')
+              if status!=expected: failures.append(f'{route}: expected {expected}, got {status}; error={str(body)[:180]}')
+              if origin_value==origin and headers.get('Access-Control-Allow-Origin')!=origin:
+                  failures.append(f'{route}: allowed Pages origin missing/mismatched CORS')
+              for key in requirements:
+                  if not isinstance(body,dict) or key not in body: failures.append(f'{route}: missing {key}')
+              return body
+          check('/api/_healthcheck',requirements=('message','service'))
+          check('/api/overview',requirements=('countries','cases','sources'))
+          check('/api/intelligence',requirements=('records','sources'))
+          check('/api/factbook/countries',requirements=('countries','baseline'))
+          check('/api/world-signals',requirements=('status','events'))
+          check('/api/cron/doj',expected=401,requirements=('error',))
+          check('/api/does-not-exist',expected=404,requirements=('error',))
+          check('/api/_healthcheck',expected=403,origin_value='https://attacker.example',requirements=('error',))
+          if failures:
+              print('FAILURES:')
+              for failure in failures: print(' -',failure)
+              raise SystemExit(1)
+          print('Live Neon API smoke passed')
+          PY

@@ -1,0 +1,263 @@
+{
+  "schema_version": "1.0.0",
+  "updated_at": "2026-11-16",
+  "project": "Eastern Axis",
+  "scope": "Public-source intelligence only; no covert intelligence operations",
+  "governance": {
+    "mission": "Produce transparent, lawfully collected public-source intelligence that answers specific decision questions and shows uncertainty, impact and primary-source evidence.",
+    "legal_boundary": "Never intercept private communications, bypass authorization, solicit secrets or publish nonpublic operational locations or sensitive personal data. Use official declassified documents and legally released reports as documentary evidence, not as a capability to collect classified material.",
+    "source_policies": [
+      "Prefer official U.S. and allied primary sources; record issuer, URL, exact document identity, publication date, event date and retrieval date",
+      "Public reporting from non-allied entities may be considered as claims requiring independent corroboration, not accepted as trusted evidence",
+      "Record license, usage rights, redactions and publication safety",
+      "Track contradictions and disconfirming evidence; never assume a designation or charge equals proven culpability",
+      "Minimize PII, protect interview participants and remove sensitive live military movement details"
+    ]
+  },
+  "collection_disciplines": [
+    {
+      "code": "OSINT",
+      "mode": "DIRECT_PUBLIC",
+      "sources": [
+        "Public government archives and FOIA releases",
+        "DOJ court filings and cases",
+        "CISA/FBI advisories",
+        "Academic and commercial licensed/public datasets",
+        "Reputable journalism"
+      ],
+      "control": "Document-level citation, status, independent verification"
+    },
+    {
+      "code": "HUMINT",
+      "mode": "OVERT_REPORTED_ONLY",
+      "sources": [
+        "Consensual published interviews",
+        "Official statements",
+        "Public testimony",
+        "Declassified human-source reports"
+      ],
+      "control": "Consent, protection of identities, transcript verification; no clandestine source solicitation"
+    },
+    {
+      "code": "SIGINT",
+      "mode": "RELEASED_REPORTS_ONLY",
+      "sources": [
+        "Officially declassified SIGINT-related assessments",
+        "Published communications regulator reports",
+        "Lawfully public spectrum datasets"
+      ],
+      "control": "No interception, decryption of unauthorized traffic or collection of nonpublic messages"
+    },
+    {
+      "code": "GEOINT_IMINT",
+      "mode": "PUBLIC_SPATIAL",
+      "sources": [
+        "NASA/NOAA/USGS public imagery",
+        "Copernicus public imagery subject to terms",
+        "Historical public satellite imagery and public maritime aggregates"
+      ],
+      "control": "Validate acquisition date, ground sample distance and geolocation; restrict sensitive tactical precision"
+    },
+    {
+      "code": "MASINT",
+      "mode": "PUBLIC_MEASUREMENTS",
+      "sources": [
+        "USGS seismic observations",
+        "NOAA environmental and satellite observations",
+        "IAEA public monitoring and verification releases"
+      ],
+      "control": "Record instrumentation, units, detection limits, calibration and confidence"
+    },
+    {
+      "code": "FININT",
+      "mode": "PUBLIC_FINANCIAL",
+      "sources": [
+        "OFAC and sanctions lists",
+        "SEC filings",
+        "FARA filings",
+        "USASpending and foreign aid",
+        "World Bank/IMF trade data"
+      ],
+      "control": "Separate transactions from allegations and identities; corroborate beneficial ownership and account for sanctions history"
+    }
+  ],
+  "priority_intelligence_requirements": [
+    {
+      "id": "PIR-001",
+      "question": "Which documented foreign state-linked cyber campaigns threaten U.S. and allied critical infrastructure, and what changed?",
+      "priority": "P1",
+      "refresh": "daily",
+      "disciplines": [
+        "OSINT",
+        "SIGINT"
+      ],
+      "decision": "Issue a dated evidence-backed alert or mark no material change"
+    },
+    {
+      "id": "PIR-002",
+      "question": "Which sanctioned networks and publicly documented financial flows enable foreign influence, evasion or proxy activity?",
+      "priority": "P1",
+      "refresh": "daily",
+      "disciplines": [
+        "OSINT",
+        "FININT"
+      ],
+      "decision": "Update network relationship with source and legal status"
+    },
+    {
+      "id": "PIR-003",
+      "question": "Which publicly documented conflicts or military operations create civilian, humanitarian or regional escalation risks?",
+      "priority": "P1",
+      "refresh": "daily",
+      "disciplines": [
+        "OSINT",
+        "GEOINT_IMINT",
+        "HUMINT"
+      ],
+      "decision": "Publish strategic-level developments, not tactical position tracking"
+    },
+    {
+      "id": "PIR-004",
+      "question": "Where do major energy, minerals, shipping and supply-chain dependencies create geopolitical leverage or disruption risk?",
+      "priority": "P2",
+      "refresh": "weekly",
+      "disciplines": [
+        "OSINT",
+        "FININT",
+        "GEOINT_IMINT",
+        "MASINT"
+      ],
+      "decision": "Update comparative public impact and critical chokepoints"
+    },
+    {
+      "id": "PIR-005",
+      "question": "Which declassified intelligence findings materially corroborate or contradict current public claims?",
+      "priority": "P2",
+      "refresh": "weekly",
+      "disciplines": [
+        "OSINT",
+        "HUMINT",
+        "SIGINT"
+      ],
+      "decision": "Attach dated documents, historical context and limitations"
+    },
+    {
+      "id": "PIR-006",
+      "question": "Which cross-domain hazards pose the largest evidence-supported risks to public safety and humanity?",
+      "priority": "P1",
+      "refresh": "weekly",
+      "disciplines": [
+        "OSINT",
+        "GEOINT_IMINT",
+        "MASINT",
+        "FININT"
+      ],
+      "decision": "Update risk register with scenario, timeframe and uncertainty"
+    }
+  ],
+  "evaluation": {
+    "source_reliability": {
+      "A": "Consistently reliable primary source",
+      "B": "Generally reliable",
+      "C": "Mixed or uncertain track record",
+      "D": "Often unreliable",
+      "E": "Known unreliable in the relevant context",
+      "F": "Insufficient evidence to assess"
+    },
+    "information_credibility": {
+      "1": "Independent documentary confirmation",
+      "2": "Likely true with strong corroboration",
+      "3": "Plausible but partial corroboration",
+      "4": "Questionable or contradictory",
+      "5": "Implausible or contradicted",
+      "6": "Cannot yet be judged"
+    },
+    "required_fields": [
+      "record_id",
+      "pir_id",
+      "discipline",
+      "publisher",
+      "source_title",
+      "document_url",
+      "document_identifier",
+      "date_published",
+      "date_event",
+      "date_retrieved",
+      "access_and_license",
+      "source_reliability",
+      "information_credibility",
+      "reviewer",
+      "evidence_status",
+      "corroboration_group",
+      "confidence",
+      "known_limitations",
+      "contradictions"
+    ],
+    "confidence": "Analyst confidence (high/moderate/low) is distinct from source reliability and measured likelihood; do not invent numeric threat probabilities.",
+    "independence": "Two articles quoting one official report are one originating evidence chain, not two independent corroborations."
+  },
+  "pipeline": [
+    {
+      "stage": 1,
+      "name": "Planning and direction",
+      "gate": "Approved PIR, question, decision use and deadline"
+    },
+    {
+      "stage": 2,
+      "name": "Collection",
+      "gate": "Lawful source access, identifiable record, publisher and timestamp"
+    },
+    {
+      "stage": 3,
+      "name": "Processing and exploitation",
+      "gate": "Parsed, translated, entity-resolved, deduplicated and immutable source reference"
+    },
+    {
+      "stage": 4,
+      "name": "Analysis and production",
+      "gate": "Corroboration checked, alternatives considered, grades and uncertainty attached"
+    },
+    {
+      "stage": 5,
+      "name": "Dissemination",
+      "gate": "Evidence brief in app; verified claim dates, source link and limits visible"
+    },
+    {
+      "stage": 6,
+      "name": "Feedback and evaluation",
+      "gate": "User/reviewer feedback logged; contradictions and gaps can reopen PIR"
+    }
+  ],
+  "publication_rules": {
+    "disallow": [
+      "Unverified claims labeled as fact",
+      "Political/nationality guilt by association",
+      "Live tactical tracking of units or individual people",
+      "Raw PII or non-consensual HUMINT reporting",
+      "Undocumented numeric war/humanity risk probabilities",
+      "Generic source homepage as claim-level evidence"
+    ],
+    "labels": [
+      "documented finding",
+      "official assessment",
+      "allegation or charge",
+      "publicly reported claim",
+      "analyst inference",
+      "unknown or unverified"
+    ],
+    "freshness": "Show publication, event and last-checked dates separately; flag stale evidence.",
+    "fallback": "If no verified document-level record is available, show Research lead — analysis pending; never imply confirmation."
+  },
+  "evaluation_metrics": [
+    "PIR coverage",
+    "Document-level evidence coverage",
+    "Independent corroboration rate",
+    "Evidence freshness by source",
+    "Source grading completion",
+    "Unresolved contradictions",
+    "Time from collection to publication",
+    "Links and evidence brief click integrity",
+    "Feedback resolution time",
+    "Accessible mobile and keyboard navigation"
+  ]
+}
