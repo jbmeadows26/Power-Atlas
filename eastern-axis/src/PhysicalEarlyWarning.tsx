@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import { Activity, ArrowRight, ArrowUpRight, AlertTriangle, Database, GitBranch, Globe2, Search, ShieldCheck, Ship } from 'lucide-react';
 import { earlyDomains, scenarios, type Coverage } from './earlyWarningCatalog';
+import { isValidObservedPeriod } from './earlyWarningDates';
 import './physicalEarlyWarning.css';
 
 type Metric = {
@@ -34,7 +35,7 @@ function isMetric(x:unknown):x is Metric {
     && typeof m.unit==='string' && typeof m.group==='string' && Number.isFinite(m.value)
     && Number.isFinite(m.previous) && Number.isFinite(m.changePct) && Math.abs(m.changePct)<100000);
 }
-const isSafeDate=(value:string)=>/^\d{4}-(?:0[1-9]|1[0-2])$/.test(value);
+const isSafeDate=isValidObservedPeriod;
 export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain}:
   {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void}) {
   const [category,setCategory]=useState('maritime');

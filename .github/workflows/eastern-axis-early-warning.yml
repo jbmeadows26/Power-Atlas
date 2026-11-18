@@ -9,6 +9,8 @@ on:
       - 'eastern-axis/scripts/collect_early_warning.py'
       - 'eastern-axis/tests/test_early_warning.py'
       - 'eastern-axis/src/PhysicalEarlyWarning.tsx'
+      - 'eastern-axis/src/earlyWarningDates.ts'
+      - 'eastern-axis/tests/earlyWarningDates.test.mjs'
       - 'eastern-axis/src/earlyWarningCatalog.ts'
       - '.github/workflows/eastern-axis-early-warning.yml'
   pull_request:
@@ -42,6 +44,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Validate monthly and daily published observation dates
+        run: node --experimental-strip-types --test eastern-axis/tests/earlyWarningDates.test.mjs
       - name: Build the unified dashboard
         working-directory: eastern-axis
         run: |
