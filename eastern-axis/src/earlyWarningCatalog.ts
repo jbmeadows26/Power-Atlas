@@ -97,7 +97,7 @@ export const earlyDomains: EarlyDomain[] = [
     geos:[],
     indicators:[
       {label:'GNSS jamming & spoofing reports',evidence:'Geolocated aviation occurrence reports; compare with ADS-B quality anomalies and affected airspace',source:'EASA / EUROCONTROL',url:'https://www.easa.europa.eu/en/domains/air-operations/global-navigation-satellite-system-outages-and-alterations',coverage:'public-source',cadence:'Event / periodic'},
-      {label:'Flight-derived GNSS quality anomalies',evidence:'ADS-B position-integrity anomaly clusters; noisy proxies that cannot prove intent or attribution',source:'GPSJam open aviation estimates',url:'https://gpsjam.org/',coverage:'public-source',cadence:'Daily'},
+      {label:'Flight-derived GNSS quality anomalies',evidence:'ADS-B position-integrity anomaly clusters; noisy proxies that cannot prove intent or attribution',source:'GPSInterference.com (ADS-B derived; credit required)',url:'https://gpsinterference.com/docs',coverage:'measured',cadence:'Daily'},
       {label:'PTP and holdover oscillator drift',evidence:'Authenticated device clock offset, holdover status, sync error and redundancy paths',source:'Authorized operator telemetry',url:'https://www.nist.gov/pml/time-and-frequency-division',coverage:'restricted',cadence:'Seconds / minutes'},
       {label:'GNSS service advisories',evidence:'Official system notices and documented interference/disruption reports',source:'US GPS.gov',url:'https://www.gps.gov/support/user/',coverage:'public-source',cadence:'Event'}
     ]},
@@ -105,8 +105,8 @@ export const earlyDomains: EarlyDomain[] = [
     explanation:'A financing stress screen combines rates, transaction volumes, central-bank operations and peer benchmarks; no single rate change proves mistrust or an imminent freeze.',
     geos:['US','GB','DE','FR','NL','JP','CH','CA'],
     indicators:[
-      {label:'Secured overnight funding rate (SOFR)',evidence:'Daily observed transaction-based secured funding rate and publication date',source:'New York Fed',url:'https://www.newyorkfed.org/markets/reference-rates/sofr',coverage:'public-source',cadence:'Business daily'},
-      {label:'Overnight repo volume and rate distribution',evidence:'Daily secured borrowing volume, rate percentile dispersion and comparable prior observations',source:'New York Fed Markets API',url:'https://markets.newyorkfed.org/static/docs/markets-api.html',coverage:'public-source',cadence:'Business daily'},
+      {label:'Secured overnight funding rate (SOFR)',evidence:'Daily observed transaction-based secured funding rate and publication date',source:'New York Fed',url:'https://www.newyorkfed.org/markets/reference-rates/sofr',coverage:'measured',cadence:'Business daily'},
+      {label:'Overnight repo volume and rate distribution',evidence:'Daily secured borrowing volume, rate percentile dispersion and comparable prior observations',source:'New York Fed Markets API',url:'https://markets.newyorkfed.org/static/docs/markets-api.html',coverage:'measured',cadence:'Business daily'},
       {label:'Liquidity facilities & standing repo operations',evidence:'Fed operations and publicly reported usage; support action alone does not establish counterparty mistrust',source:'New York Fed / Federal Reserve',url:'https://www.newyorkfed.org/markets/desk-operations',coverage:'public-source',cadence:'Daily / weekly'},
       {label:'International money market comparison',evidence:'Local overnight indices, central bank facilities and funding-market structural differences',source:'ECB euro short-term rate',url:'https://www.ecb.europa.eu/stats/financial_markets_and_interest_rates/euro_short-term_rate/html/index.en.html',coverage:'public-source',cadence:'Business daily'}
     ]},

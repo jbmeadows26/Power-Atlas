@@ -9,6 +9,7 @@ from pathlib import Path
 from openpyxl import Workbook
 
 SOURCE=Path(__file__).resolve().parents[1]/"scripts"/"collect_early_warning.py"
+sys.path.insert(0, str(SOURCE.parent))
 spec=importlib.util.spec_from_file_location("early_warning",SOURCE)
 mod=importlib.util.module_from_spec(spec)
 sys.modules["early_warning"]=mod

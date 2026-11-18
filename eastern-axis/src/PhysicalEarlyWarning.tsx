@@ -5,7 +5,7 @@ import { isValidObservedPeriod } from './earlyWarningDates';
 import './physicalEarlyWarning.css';
 
 type Metric = {
-  interval?: 'daily' | 'monthly'; compareMode?: 'percent' | 'basis-points'; changeBps?: number | null;
+  interval?: 'daily' | 'monthly'; compareMode?: 'percent' | 'basis-points' | 'percentage-points'; changeBps?: number | null; changePp?: number | null; sampleSize?: number;
   id: string; label: string; value: number; unit: string; period: string;
   previous: number; previousPeriod: string; changePct: number;
   source: string; sourceUrl: string; group: string;
@@ -40,6 +40,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
   {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void}) {
   const [category,setCategory]=useState('maritime');
   const [search,setSearch]=useState('');
+  const [measurementFilter,setMeasurementFilter]=useState('all');
   const [scenario,setScenario]=useState('shipping');
   const [snapshot,setSnapshot]=useState<Snapshot>(EMPTY);
   const [loadError,setLoadError]=useState('');
@@ -72,21 +73,56 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
   const global = countryCode==='all';
   const scope=global?'Worldwide':countryName||countryCode;
   const relevant=global||domain.geos.length===0||domain.geos.includes(countryCode);
-  const metrics=snapshot.metrics.filter(m=>global||m.group==='global'||m.group===countryCode); // Country specificity is shown per observation; global benchmarks remain global.
+  // These regional corridors are shown only as neighboring geography. A regional
+  // reading is never asserted to be a national measurement or an attribution.
+  const neighboringRegions:Record<string,string[]> = {
+    IR:['regional:persian-gulf','regional:strait-of-hormuz'],
+    OM:['regional:persian-gulf','regional:strait-of-hormuz'],
+    AE:['regional:persian-gulf','regional:strait-of-hormuz'],
+    TW:['regional:taiwan-strait','regional:east-asia'],
+    CN:['regional:taiwan-strait','regional:east-asia'],
+    JP:['regional:east-asia'],
+    KR:['regional:east-asia'],
+    EG:['regional:eastern-mediterranean'],
+    IL:['regional:eastern-mediterranean'],
+    TR:['regional:eastern-mediterranean'],
+    EE:['regional:baltic-sea'],
+    LV:['regional:baltic-sea'],
+    LT:['regional:baltic-sea'],
+    FI:['regional:baltic-sea'],
+    SE:['regional:baltic-sea'],
+    PL:['regional:baltic-sea']
+  };
+  const regionalContext=neighboringRegions[countryCode]||[];
+  const metrics=snapshot.metrics.filter(m=>global||m.group==='global'||m.group===countryCode||regionalContext.includes(m.group));
   const observedAge=snapshot.checkedAt?Math.floor((Date.now()-new Date(snapshot.checkedAt).getTime())/86400000):null;
   const fresh=observedAge!==null&&observedAge>=0&&observedAge<=4;
-  const signals=metrics.filter(m=>m.compareMode==='basis-points'?Math.abs(m.changeBps??0)>=20:Math.abs(m.changePct)>=10);
+  const signalScreen=(m:Metric)=>m.compareMode==='basis-points'
+    ? Math.abs(m.changeBps??0)>=20
+    : m.compareMode==='percentage-points'
+    ? Math.abs(m.changePp??0)>=5 : Math.abs(m.changePct)>=10;
+  const signals=metrics.filter(signalScreen);
+  const metricClass=(m:Metric)=>m.id.startsWith('sofr-')?'funding':
+    m.id.startsWith('gps-')?'gnss':m.id.startsWith('fao-')?'food':'commodities';
+  const sourceFilters=[
+    {id:'all',name:'All measurements'},
+    {id:'funding',name:'Overnight funding'},
+    {id:'commodities',name:'Industrial inputs'},
+    {id:'food',name:'Food prices'},
+    {id:'gnss',name:'GNSS accuracy'}
+  ];
+  const visibleMetrics=metrics.filter(m=>measurementFilter==='all'||metricClass(m)===measurementFilter);
   const checked=snapshot.sources.filter(s=>s.status==='ok').length;
   return <section className="pew-root" aria-label="Global physical and economic early-warning intelligence">
     <div className="pew-eyebrow"><Activity size={15}/> INTELLIGENCE / GLOBAL SYSTEMIC EARLY WARNING</div>
     <div className="pew-heading">
-      <div><h1>Before systems <em>break.</em></h1><p>Watch stress in the physical economy before it reaches critical infrastructure, factories and households. Eleven collections, sourced observations, and explicitly hypothetical cascade models.</p></div>
+      <div><h1>Before systems <em>break.</em></h1><p>Watch stress in the physical economy before it reaches critical infrastructure, factories and households. Fourteen risk domains, attributable public observations, and explicitly hypothetical cascade models.</p></div>
       {onOpenSupplyChain&&<button type="button" onClick={onOpenSupplyChain}>Existing freight data <ArrowRight size={15}/></button>}
     </div>
     <div className="pew-summary">
       <div><span>INTELLIGENCE DOMAINS</span><strong>{earlyDomains.length}</strong><small>Cross-sector coverage registry</small></div>
-      <div><span>VALIDATED MARKET OBSERVATIONS</span><strong>{metrics.length}</strong><small>Official monthly source and comparison</small></div>
-      <div><span>CHANGE SCREENS</span><strong>{signals.length}</strong><small>Price/volume ≥10% or SOFR ≥20 bps; not crisis forecasts</small></div>
+      <div><span>VALIDATED MARKET OBSERVATIONS</span><strong>{metrics.length}</strong><small>Source-dated daily and monthly readings</small></div>
+      <div><span>CHANGE SCREENS</span><strong>{signals.length}</strong><small>Price/volume ≥10%, SOFR ≥20 bps, GNSS ≥5 pp — review only</small></div>
       <div><span>LAST COLLECTION</span><strong className="pew-date">{readableDate(snapshot.checkedAt)}</strong><small>{fresh?'Recent check':observedAge===null?'No source check':'Stale or unverified — not live'}</small></div>
     </div>
     <div className={'pew-health '+(!fresh?'pew-health-warn':'')}>
@@ -96,16 +132,26 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
       <button onClick={()=>setRecheck(x=>x+1)} type="button">Reload snapshot</button>
     </div>
     <div className="pew-source-readings">
-      <div className="pew-section-title"><span><Database size={16}/> OBSERVED PRICES & FUNDING</span><h2>Inputs moving ahead of the disruption</h2><p>World Bank monthly commodity prices and New York Fed daily secured overnight funding are measured on their own reporting calendars. Variations are review leads, not proof of shortages, credit freezes, or future unrest.</p></div>
-      {metrics.length===0?<p className="pew-empty">No validated market observations are available in the published snapshot. Existing PortWatch, Fed and Comtrade panels remain under Supply chain.</p>:
-      <div className="pew-price-grid">{metrics.map(m=><article key={m.id}>
-        <span>{m.source} · {m.group==='global'?'GLOBAL BENCHMARK':m.group}</span><strong>{m.label}</strong>
+      <div className="pew-section-title"><span><Database size={16}/> VERIFIED INPUTS & INFRASTRUCTURE PROXIES</span><h2>Observed signals, not predictions</h2><p>Source-specific monthly prices, daily U.S. funding, and regional aircraft-reported GNSS quality. The latter is not a confirmed jamming rate and cannot establish PTP or datacenter failure.</p></div>
+      {!global&&metrics.some(m=>m.group.startsWith('regional:'))&&<p className="pew-region-note">Neighboring-region GNSS readings are <strong>regional context only</strong>. They are not measurements within {scope}, evidence of a country's involvement, or confirmation of terrestrial infrastructure failure.</p>}
+      <div className="pew-scenario-nav" aria-label="Filter source measurements">{sourceFilters.map(filter=><button key={filter.id} type="button" className={measurementFilter===filter.id?'active':''} aria-pressed={measurementFilter===filter.id} onClick={()=>setMeasurementFilter(filter.id)}>{filter.name}</button>)}</div>
+      {visibleMetrics.length===0?<p className="pew-empty">No validated observations match this filter and country context. Existing PortWatch and Comtrade panels remain under Supply chain.</p>:
+      <div className="pew-price-grid">{visibleMetrics.map(m=><article key={m.id}>
+        <span>{m.source} · {m.group==='global'?'GLOBAL BENCHMARK':m.group.startsWith('regional:')?'REGIONAL CONTEXT: '+m.group.slice('regional:'.length).replaceAll('-',' ').toUpperCase():m.group}</span><strong>{m.label}</strong>
         <div className="pew-price"><b>{format(m.value)}</b> <small>{m.unit}</small></div>
-        <div className={'pew-change '+((m.compareMode==='basis-points'?Math.abs(m.changeBps??0)>=20:Math.abs(m.changePct)>=10)?'pew-screen':'')}>{m.compareMode==='basis-points'?((m.changeBps??0)>0?'+':'')+format(m.changeBps??0)+' bps':(m.changePct>0?'+':'')+format(m.changePct)+'%'} vs prior {m.interval==='daily'?'business-day':'monthly'} observation</div>
-        <small>{m.period} vs {m.previousPeriod} · {m.interval==='daily'?'daily':'monthly'} data</small>
+        <div className={'pew-change '+(signalScreen(m)?'pew-screen':'')}>
+          {m.compareMode==='basis-points'?((m.changeBps??0)>0?'+':'')+format(m.changeBps??0)+' bps':
+          m.compareMode==='percentage-points'?((m.changePp??0)>0?'+':'')+format(m.changePp??0)+' percentage points':
+          (m.changePct>0?'+':'')+format(m.changePct)+'%'} vs previous observation{signalScreen(m)?' · REVIEW SIGNAL':''}</div>
+        <small>{m.period} vs {m.previousPeriod} · {m.interval==='daily'?'daily':'monthly'} observation{m.sampleSize?' · '+m.sampleSize.toLocaleString('en-US')+' sampled hexagons':''}</small>
+        <small>{m.id.startsWith('gps-')?'Geographic proxy only; aviation sampling changes can shift the percentage. No attribution or navigation claim.':m.id.startsWith('fao-')?'Global wholesale commodity index, not local food inflation.':''}</small>
         <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">Original data <ArrowUpRight size={13}/></a>
       </article>)}</div>}
     </div>
+    <details className="pew-source-health"><summary>Source collection and missing-data audit · {checked}/{snapshot.sources.length} checks passed</summary>
+      <p>Success means a schema-validated reading, not full geographic coverage. Failures remain visible; no zeros are substituted.</p>
+      <div>{snapshot.sources.map(src=><div key={src.id}><strong>{src.id}</strong><span className={src.status==='ok'?'pew-check-ok':'pew-check-bad'}>{src.status.toUpperCase()}</span><small>{src.detail} · {readableDate(src.checkedAt)}</small></div>)}</div>
+    </details>
     <div className="pew-section-title pew-offset"><span><ShieldCheck size={16}/> OSS SECURITY PRACTICES</span><h2>Foundational package hygiene</h2><p>OpenSSF checks on a small named sample of critical open-source projects. Scores are published security-practice measurements, not compromise probabilities or accusations against maintainers.</p></div>
     {snapshot.oss.length>0?<div className="pew-price-grid">{snapshot.oss.map(o=><article key={o.repository}>
       <span>OpenSSF Scorecard · {o.published}</span><strong>{o.repository}</strong>

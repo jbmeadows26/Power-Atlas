@@ -63,3 +63,17 @@
 @media(max-width:1100px){.pew-price-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:760px){.pew-root{padding:16px 13px 44px}.pew-heading{align-items:start;flex-direction:column;margin-bottom:17px}.pew-heading button{width:100%}.pew-summary{grid-template-columns:repeat(2,minmax(0,1fr))}.pew-summary>div{padding:12px}.pew-summary strong{font-size:23px}.pew-health{align-items:start;flex-wrap:wrap}.pew-health button{width:100%}.pew-domains{display:block}.pew-domain-nav{flex-direction:row;overflow-x:auto;max-height:none;padding-bottom:8px;margin-bottom:10px;scroll-snap-type:x mandatory}.pew-domain-nav button{min-width:184px;max-width:210px;scroll-snap-align:start;flex:none}.pew-domain-body{padding:14px}.pew-indicators{grid-template-columns:1fr}.pew-price-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pew-price-grid article{padding:12px}.pew-price b{font-size:20px}.pew-nodes{flex-direction:column;overflow:visible}.pew-node{flex:auto;min-height:78px;flex-direction:row;align-items:center;justify-content:flex-start}.pew-node>svg{right:50%;top:auto;bottom:-12px;transform:rotate(90deg)}}
 @media(max-width:360px){.pew-price-grid{grid-template-columns:1fr}}
+
+.pew-source-health{margin:18px 0 4px;padding:14px;background:#122b35;border:1px solid #33535a;border-radius:7px;color:#a7cac4;font-size:12px}
+.pew-source-health summary{cursor:pointer;color:#bcebdc;font-weight:700;line-height:1.6}
+.pew-source-health p{color:#a6bdc0;font-size:11px;line-height:1.7}
+.pew-source-health>div{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.pew-source-health>div>div{display:flex;flex-direction:column;gap:6px;background:#172e36;border:1px solid #31535c;padding:10px;border-radius:5px;overflow-wrap:anywhere}
+.pew-source-health strong{font:11px 'DM Mono',monospace;color:#e2eee9}
+.pew-source-health span{font:10px 'DM Mono',monospace}
+.pew-source-health .pew-check-ok{color:#97dfca}
+.pew-source-health .pew-check-bad{color:#e6b482}
+.pew-source-health small{color:#9fb6b8;font-size:10px;line-height:1.6}
+@media(max-width:760px){.pew-source-health>div{grid-template-columns:1fr}}
+
+.pew-region-note{border-left:3px solid #caa269;background:#342e28;color:#e0d2ba;border-radius:4px;padding:12px 14px;font-size:11px;line-height:1.7;margin:4px 0 15px}

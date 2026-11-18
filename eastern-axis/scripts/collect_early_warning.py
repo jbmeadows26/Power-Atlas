@@ -12,6 +12,8 @@ import re
 import sys
 import urllib.request
 
+from early_warning_sources import FAO_CSV_URL, GPS_BASE, GPS_SCOPES, read_fao_csv, read_gps_series
+
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "public" / "analysis" / "physical-early-warning.json"
 SOFR_URL = "https://markets.newyorkfed.org/api/rates/secured/sofr/last/10.json"
@@ -29,6 +31,15 @@ CATALOG = (
     ("potash", ("potassium chloride",), "Potash fertilizer", "$/mt"),
     ("copper", ("copper",), "Copper", "$/mt"),
     ("coal", ("coal (australia)", "coal (australian)"), "Australian coal", "$/mt"),
+    ("wheat", ("wheat, u.s. h.r.w.", "wheat, us hrw", "wheat, u.s. hrw", "wheat"), "US hard red winter wheat", "$/mt"),
+    ("maize", ("maize", "maize (corn)"), "Maize / corn", "$/mt"),
+    ("rice", ("rice, thai 5%", "rice, thai 5% broken", "rice, thailand 5%", "rice, thailand (5%)"), "Thai rice 5%", "$/mt"),
+    ("palm-oil", ("palm oil",), "Palm oil", "$/mt"),
+    ("soybeans", ("soybeans",), "Soybeans", "$/mt"),
+    ("aluminum", ("aluminum", "aluminium"), "Aluminum", "$/mt"),
+    ("nickel", ("nickel",), "Nickel", "$/mt"),
+    ("iron-ore", ("iron ore",), "Iron ore", "$/dmtu"),
+    ("dap", ("dap", "di-ammonium phosphate"), "DAP fertilizer", "$/mt"),
 )
 def now() -> str:
     return datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
@@ -221,14 +232,16 @@ def collect(output: Path, strict: bool = False) -> dict:
                 "GNSS aviation anomalies cannot establish PTP drift or enterprise database failure.",
                 "OpenSSF Scorecard describes software security practices; it cannot identify hostile or compromised maintainers.",
                 "Commercial war-risk premiums, supplier OTIF, transformer private backlogs and calibrated cascade probabilities are not ingested.",
-                "Price spikes alone do not establish future crop failure, bank panic, political instability, or causality."
+                "Price spikes alone do not establish future crop failure, bank panic, political instability, or causality.",
+                "GPSInterference.com: flight-derived GPS accuracy estimates are ODbL-sourced proxies, not proven jamming or device clock drift.",
+                "FAO food indices are international commodity indicators, not retail food prices or guaranteed crop forecasts.",
             ]}
     def record(id: str, action):
         try:
             result = action()
             if not result:
                 raise ValueError("No validated source observations")
-            if id == "sofr" or id == "pink-sheet":
+            if id in ("sofr", "pink-sheet", "fao-food") or id.startswith("gps:"):
                 data["metrics"].extend(result)
                 detail = f"{len(result)} measurements; source period {max(r['period'] for r in result)}"
             else:
@@ -239,6 +252,10 @@ def collect(output: Path, strict: bool = False) -> dict:
             data["sources"].append({"id":id,"status":"error","detail":type(exc).__name__+": unable to validate upstream data","checkedAt":now()})
     record("sofr",lambda:read_sofr(get(SOFR_URL)))
     record("pink-sheet",lambda:read_pink_sheet(get(PINK_SHEET_URL, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")))
+    record("fao-food", lambda: read_fao_csv(get(FAO_CSV_URL, "text/csv")))
+    for slug, group, label in GPS_SCOPES:
+        record("gps:"+slug, lambda slug=slug, group=group, label=label:
+               read_gps_series(get(GPS_BASE + slug), slug, group, label))
     for repo in OSS_REPOS:
         record("scorecard:"+repo, lambda repo=repo:parse_scorecard(
             get(SCORECARD_URL.format(repo=repo)),repo,prior.get(repo)))
