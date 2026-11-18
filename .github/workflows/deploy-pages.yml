@@ -66,12 +66,13 @@ jobs:
       - name: Start the compiled Pages candidate
         working-directory: eastern-axis
         run: |
-          npx vite preview --host 127.0.0.1 --port 4173 --strictPort > /tmp/ea-pages-deploy-preview.log 2>&1 &
-          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4173/ >/dev/null && exit 0; sleep 1; done
+          npx vite preview --host 127.0.0.1 --port 4174 --strictPort > /tmp/ea-pages-deploy-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4174/ >/dev/null && exit 0; sleep 1; done
           cat /tmp/ea-pages-deploy-preview.log; exit 1
       - name: Verify real intelligence content and country context on desktop/mobile
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+          EA_BROWSER_ORIGIN: http://127.0.0.1:4174
         run: |
           mkdir -p audit-output
           node eastern-axis/scripts/pages_browser_qa.cjs
