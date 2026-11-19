@@ -10,11 +10,13 @@ on:
       - '.github/workflows/eastern-axis-weekly-audit.yml'
       - 'eastern-axis-osint/scripts/weekly_connection_audit.py'
       - 'eastern-axis/scripts/pages_browser_qa.cjs'
+      - 'eastern-axis/src/securityTreaties.ts'
   push:
     paths:
       - '.github/workflows/eastern-axis-weekly-audit.yml'
       - 'eastern-axis-osint/scripts/weekly_connection_audit.py'
       - 'eastern-axis/scripts/pages_browser_qa.cjs'
+      - 'eastern-axis/src/securityTreaties.ts'
       - 'eastern-axis/scripts/audit_resilience_snapshot.py'
 
 permissions:
