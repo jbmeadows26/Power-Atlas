@@ -43,10 +43,22 @@ const sourceShort:Record<string,string>={doj:'DOJ',fara:'FARA',cisa:'CISA',ofac:
 // User-requested policy visualization, NOT a statutory hostile-country designation.
 // Keep a transparent, narrow set rather than labeling every non-ally an enemy.
 const strategicAdversaries = new Set(['RU', 'CN', 'IR', 'KP']);
+// External hazard pointers must be official event URLs. Unverifiable targets
+// remain informative map dots, never misleading clickable links.
+function officialEventUrl(value:string,kind:'usgs'|'nasa'):string|null {
+  try {
+    const url=new URL(value);
+    if(url.protocol!=='https:' || url.username || url.password) return null;
+    if(kind==='usgs') return url.hostname==='earthquake.usgs.gov'
+      && url.pathname.startsWith('/earthquakes/eventpage/') ? url.href : null;
+    return url.hostname==='eonet.gsfc.nasa.gov'
+      && url.pathname.startsWith('/api/v3/events/') ? url.href : null;
+  } catch {return null;}
+}
 const fmt=(n:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n);
 const day=(d?:string)=>d ? new Date(d.length===10?d+'T12:00:00Z':d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'Not confirmed';
 const similar=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
-const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivari anrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP'};
+const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivarianrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP'};
 const topologyURL='https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 const width=1120, height=560;
 const base=geoNaturalEarth1().scale(188).translate([width/2,height/2+12]);
@@ -62,7 +74,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [intelligenceError,setIntelligenceError]=useState(false);
   const [mapShapes,setMapShapes]=useState<Shape[]>([]);
   const [mapError,setMapError]=useState(false);
-  const [layer,setLayer]=useState<Layer>('all');
+  const [layer,setLayer]=useState<Layer>('cases');
   const [region,setRegion]=useState('GL');
   const [zoom,setZoom]=useState(1);
   const [selected,setSelected]=useState(activeCountry&&activeCountry!=='all'?activeCountry:'RU');
@@ -136,15 +148,15 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
         <div className="cc-map-nav"><div className="cc-map-title"><span className="cc-map-signal"><Radio size={15}/></span><div><strong>Geospatial intelligence</strong><small>RESEARCH ANCHORS · NOT INCIDENT LOCATIONS</small></div></div><div className="cc-map-actions"><button onClick={()=>{setRegion('GL');setZoom(1);}} title="Reset global map"><Globe2 size={16}/></button><button onClick={()=>setZoom(z=>Math.max(.75,z-.25))} title="Zoom out" aria-label="Zoom out"><Minus size={15}/></button><span>{Math.round(scale*100)}%</span><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} title="Zoom in" aria-label="Zoom in"><Plus size={15}/></button></div></div>
         <div className="cc-region-tabs">{regions.map(r=><button key={r.code} className={region===r.code?'active':''} onClick={()=>{setRegion(r.code);setZoom(1);}}>{r.label}</button>)}</div>
         <div className="cc-layer-bar"><div><Layers3 size={14}/><strong>DATA LAYERS</strong></div>{([
-          ['all','All mapped signals'],
-          ['cases','DOJ case files'],
-          ['ofac','OFAC programs'],
-          ['seismic','USGS quakes'],
-          ['natural','NASA hazards']
+          ['all','Case + OFAC anchors'],
+          ['cases','Curated cases'],
+          ['ofac','OFAC program tags'],
+          ['seismic','USGS earthquakes'],
+          ['natural','NASA natural hazards']
         ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>setLayer(value)}>{label}</button>)}</div>
         <div className="cc-map-viewport">
           <div className="cc-map-background-grid" aria-hidden="true"/>
-          <svg className="cc-world-svg" viewBox={'0 0 '+width+' '+height} role="img" aria-label="Interactive world map of country reference anchors linked to published case files and OFAC program codes">
+          <svg className="cc-world-svg" viewBox={'0 0 '+width+' '+height} role="group" aria-label="Interactive country reference map; choose a data layer to inspect cases, OFAC program tags, or separately sourced natural hazards">
             <defs><pattern id="cc-map-dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".7" fill="#3c7380" opacity=".18"/></pattern><linearGradient id="cc-land-shade" x1="0" y1="0" x2="1" y2="1"><stop stopColor="#123644"/><stop offset="1" stopColor="#10252f"/></linearGradient></defs>
             <rect width={width} height={height} fill="url(#cc-map-dots)"/>
             <g transform={'translate('+tx+' '+ty+') scale('+scale+')'}>
@@ -154,49 +166,60 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                 const selectedShape=code===selected;
                 const d=projector(shape as never);
                 if(!d)return null;
-                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && overview.countries.find(c=>c.code===code)?.isTreatyAlly?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+' '+(selectedShape?'selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={()=>{if(code)selectCountry(code);}} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{shape.properties?.name||'Jurisdiction'}{code?' · Open country reference':''}</title></path>;
-              }):<g opacity=".63" fill="#14414b" stroke="#34646d" strokeWidth="2"><path d="M150 143 224 99 301 101 347 161 315 212 342 253 300 288 285 356 253 350 218 286 202 239 144 210Z"/><path d="M323 279 377 302 409 343 394 413 366 479 323 426 313 370Z"/><path d="M488 147 560 112 634 119 698 90 786 117 898 116 1000 149 984 207 920 225 868 281 802 270 763 218 700 227 656 203 618 222 583 190 530 206Z"/><path d="M549 258 603 275 633 313 621 380 570 428 538 382 514 311Z"/><path d="M874 396 967 381 1000 416 953 453 890 440Z"/></g>}
+                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && (code==='US'||overview.countries.find(c=>c.code===code)?.isTreatyAlly)?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+' '+(selectedShape?'selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={()=>{if(code)selectCountry(code);}} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{shape.properties?.name||'Jurisdiction'}{code?' · Select country context (not an incident marker)':''}</title></path>;
+              }):null}
               {markers.map(a=>{
                 const point=base([a.lon,a.lat]);
                 if(!point)return null;
                 const isSelected=selected===a.code;
                 const hasCases=a.count>0&&(layer!=='ofac');
-                const number=layer==='ofac'?a.programs:a.count;
+                const number=hasCases?a.count:a.programs;
                 const bubbleScale=1/Math.max(.7,scale);
                 return <g key={a.code} className={'cc-map-marker '+(isSelected?'selected':'')} transform={'translate('+point[0]+' '+point[1]+') scale('+bubbleScale+')'} onClick={()=>selectCountry(a.code)} role="button" tabIndex={0} onKeyDown={e=>{if(e.key==='Enter'){selectCountry(a.code);}}}>
                   <circle className="cc-marker-pulse" r={isSelected?31:22}/>
                   <circle className={'cc-marker-core '+(hasCases?'case':'sanction')} r={isSelected?13:10}/>
                   <circle className="cc-marker-hole" r="3.2"/>
                   <text x="16" y="-13" className="cc-map-marker-label">{a.code}</text>
-                  {number>0&&<text x="16" y="2" className="cc-map-marker-count">{hasCases?a.count+' CASE'+(a.count===1?'':'S'):fmt(a.programs)+' TAGS'}</text>}
+                  {number>0&&<text x="16" y="2" className="cc-map-marker-count">{hasCases?a.count+' CASE'+(a.count===1?'':'S'):fmt(a.programs)+' OFAC ENTRIES'}</text>}
                   <title>{a.name} · {a.count} curated DOJ cases · {a.programs} OFAC program-coded entries (not entity location)</title>
                 </g>;
               })}
-              {(layer==='all'||layer==='seismic')&&(!activeCountry||activeCountry==='all')&&(worldSignals?.events||[]).map(event=>{
+              {layer==='seismic'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.events||[]).map(event=>{
                 const point=base([event.longitude,event.latitude]);
                 if(!point)return null;
-                return <a key={event.id} href={event.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'USGS report: '+event.title}>
-                  <circle cx={point[0]} cy={point[1]} r={Math.max(3.4,event.magnitude*.96)/Math.max(.9,scale)} stroke="#f6dbb3" strokeWidth={1/scale} fill="#dba16b" fillOpacity=".85">
-                    <title>{event.title} · {day(event.date)} · USGS source</title>
-                  </circle>
-                </a>;
+                const href=officialEventUrl(event.sourceUrl,'usgs');
+                const icon=<circle cx={point[0]} cy={point[1]} r={Math.max(3.4,event.magnitude*.96)/Math.max(.9,scale)} stroke="#f6dbb3" strokeWidth={1/scale} fill="#dba16b" fillOpacity=".85">
+                  <title>{event.title} · {day(event.date)} · {href?'Official USGS event report':'Source link not verified'}</title>
+                </circle>;
+                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official USGS event report: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
               })}
-              {(layer==='all'||layer==='natural')&&(!activeCountry||activeCountry==='all')&&(worldSignals?.naturalEvents||[]).map(event=>{
+              {layer==='natural'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.naturalEvents||[]).map(event=>{
                 const point=base([event.longitude,event.latitude]);
                 if(!point)return null;
-                return <a key={event.id} href={event.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'NASA EONET source: '+event.title}>
-                  <circle cx={point[0]} cy={point[1]} r={5/Math.max(.9,scale)} stroke="#f4c87a" strokeWidth={1/scale} fill="#83dfbd" fillOpacity=".9"><title>{event.title} · {event.eventType} · {day(event.date)} · NASA EONET</title></circle>
-                </a>;
+                const href=officialEventUrl(event.sourceUrl,'nasa');
+                const icon=<circle cx={point[0]} cy={point[1]} r={5/Math.max(.9,scale)} stroke="#7be0cf" strokeWidth={1/scale} fill="#5db6e2" fillOpacity=".9">
+                  <title>{event.title} · {event.eventType} · {day(event.date)} · {href?'NASA EONET source':'Source link not verified'}</title>
+                </circle>;
+                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official NASA EONET source: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
               })}
             </g>
           </svg>
           {mapError&&<span className="cc-map-unavailable"><CircleAlert size={15}/> Boundary tiles unavailable · reference anchors remain available</span>}
           <div className="cc-compass"><span>N</span><span className="cc-compass-arrow">↑</span><small>MAP / 110M</small></div>
-          <div className="cc-map-overlay-label">EASTERN AXIS / GEOSPATIAL VIEW <span>MAP BASE: OPEN TOPOGRAPHY</span></div>
+          <div className="cc-map-overlay-label">EASTERN AXIS / GEOSPATIAL VIEW <span>BOUNDARIES: WORLD-ATLAS 110M</span></div>
         </div>
-        <div className="cc-map-footer"><div><span className="cc-dot-ally"/> Blue: U.S. treaty allies <span className="cc-dot-adversary"/> Red: RU, CN, IR, KP (strategic-adversary context) <span className="cc-dot-neutral"/> Gray: other / not classified <span className="cc-dot-mint"/> DOJ-sourced jurisdiction marker <span className="cc-dot-gold"/> OFAC sanctions-program reference <span className="cc-dot-gold"/> USGS earthquake epicenter · NASA EONET natural event</div><button onClick={()=>setShowLayerLegend(v=>!v)}><Shield size={13}/> Legend & caveats <ChevronDown size={13}/></button></div>
+        <div className="cc-map-footer">
+          <div className="cc-legend-countries" aria-label="Country-area legend"><strong>COUNTRY STATUS</strong><span><i className="cc-dot-ally"/> U.S. + indexed treaty allies</span><span><i className="cc-dot-adversary"/> Four U.S. strategic focus states</span><span><i className="cc-dot-neutral"/> Other / unclassified</span></div>
+          <div className="cc-legend-signals" aria-label="Current data-layer legend"><strong>VISIBLE MAP POINTS</strong>
+            {(layer==='cases'||layer==='all')&&<span><i className="cc-dot-mint"/> Curated case → country context</span>}
+            {(layer==='ofac'||layer==='all')&&<span><i className="cc-dot-gold"/> OFAC program entries → country context, NOT locations</span>}
+            {layer==='seismic'&&<span><i className="cc-dot-quake"/> USGS reported earthquake epicenter</span>}
+            {layer==='natural'&&<span><i className="cc-dot-nasa"/> NASA EONET source-reported event</span>}
+          </div>
+          <button type="button" aria-expanded={showLayerLegend} onClick={()=>setShowLayerLegend(v=>!v)}><Shield size={13}/> Legend & caveats <ChevronDown size={13}/></button>
+        </div>
         {layer==='natural'&&<div className="cc-legend-notice"><Activity size={16}/><span>{activeCountry&&activeCountry!=='all'?'Country filter active: global natural events are hidden. Choose Global / regional in the header to see NASA data.':signalError?'Environmental feed unavailable; no events have been invented.':worldSignals?.nasaStatus==='unavailable'?'NASA EONET is unavailable. USGS data may remain available.':!worldSignals?'Checking NASA EONET source status…':(worldSignals.naturalEvents?.length||0)===0?'NASA EONET returned no eligible point events in the bounded window. Polygon-only events are excluded.':'NASA EONET: '+(worldSignals.naturalEvents?.length||0)+' source-reported point events in this sampled window.'}</span></div>}
-        {showLayerLegend&&<div className="cc-legend-notice"><ShieldCheck size={16}/><span>Blue marks U.S. treaty allies; red highlights Russia, China, Iran and North Korea for focused policy research; gray means neither grouping, not a security verdict. These categories are analytical choices, not universal legal designations. Markers are anchored to national capitals for navigation, <strong>not where an incident occurred.</strong> OFAC program tags do not establish listed-party locations or state direction. USGS epicenters and NASA EONET natural events use publisher-reported coordinates, not independent AI geolocation; neither implies foreign-government actions. Global hazards are hidden under a country-only filter to prevent false attribution.</span></div>}
+        {showLayerLegend&&<div className="cc-legend-notice"><ShieldCheck size={16}/><span>Blue marks the U.S. and countries indexed as U.S. treaty allies; red highlights Russia, China, Iran and North Korea for U.S. strategic-focus research; gray means neither category or incomplete treaty coverage, not a security verdict. These categories are analytical choices, not universal legal designations. Case and OFAC markers are anchored to national capitals for navigation, <strong>not where an incident occurred.</strong> OFAC program tags do not establish listed-party locations or state direction. USGS epicenters and NASA EONET natural events use publisher-reported coordinates, not independent AI geolocation; neither implies foreign-government actions. Earthquakes and NASA natural events appear only in their respective layers, and are hidden under country-only filters to avoid implying geopolitical causation.</span></div>}
       </section>
       <aside className="cc-brief-panel">
         <div className="cc-aside-head"><span><Eye size={14}/> COUNTRY CONTEXT</span><span className="cc-aside-live">SOURCE-BACKED</span></div>
