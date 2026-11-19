@@ -134,7 +134,6 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
     return()=>{active=false;};
   },[refreshToken]);
   useEffect(()=>{const t=setInterval(()=>setNow(new Date()),60000);return()=>clearInterval(t);},[]);
-  const allCountries=overview.countries.filter(c=>c.scope==='state-or-observer');
   const country=overview.countries.find(c=>c.code===selected);
   const cases=overview.cases.filter(c=>c.code===selected);
   const checks=intel?.sources||[];
