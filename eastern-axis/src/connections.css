@@ -29,3 +29,16 @@
 @media(max-width:1100px){.cx-country-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:750px){.cx-root{padding:19px 14px 38px}.cx-branch-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.cx-country-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.cx-center{margin-top:17px}.cx-region-heading{flex-direction:column;align-items:stretch}.cx-region-heading select{width:100%}}
 @media(max-width:390px){.cx-country-grid{grid-template-columns:1fr}}
+
+/* All-source discovery: filter jurisdictions without obscuring worldwide allied evidence. */
+.cx-directory-filters{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.cx-directory-filters input{min-width:185px;flex:1 1 185px;border:1px solid #487b7f;background:#1c3942;color:#e0f0e9;padding:10px;border-radius:3px}
+.cx-directory-filters input::placeholder{color:#93b4b6}
+.cx-global-evidence{border:1px solid #325460;border-radius:8px;padding:20px;background:#0e212b;margin-top:22px}
+.cx-global-evidence h2{margin-bottom:8px}
+.cx-global-evidence .cx-sub{margin-bottom:12px}
+.cx-source-heading{font-size:13px;margin:20px 0 10px}
+.cx-source-links{display:flex;flex-wrap:wrap;gap:9px}
+.cx-source-links a{border:1px solid #396269;color:#9de1cf;text-decoration:none;padding:9px 11px;border-radius:4px;font-size:11px;display:inline-flex;gap:5px;align-items:center}
+.cx-source-links a:hover{border-color:#8ad0b8}
+@media(max-width:750px){.cx-directory-filters{flex-direction:column;align-items:stretch}.cx-directory-filters input{width:100%;min-width:0;flex:auto}.cx-global-evidence{padding:15px}}
