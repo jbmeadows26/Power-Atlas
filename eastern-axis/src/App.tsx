@@ -490,6 +490,17 @@ function App() {
             </button>)}
         </nav>
         <main className="content">
+          {overview && view !== 'Overview' && <section className="ea-module-context" aria-label="Current country intelligence workspace">
+            <div><span>EA / COUNTRY-AWARE INTELLIGENCE</span>
+              <strong>{countryScope==='all'?'Worldwide':countries.find(c=>c.code===countryScope)?.name||countryScope} / {view}</strong>
+              <small>Original-source evidence · archived figures labeled · worldwide signals never assigned to a country without source attribution</small>
+            </div>
+            <div className="ea-module-actions">
+              {view!=='Countries'&&<button type="button" onClick={()=>switchView('Countries')}><Globe2 size={14}/> Country dossier</button>}
+              {view!=='Collection desk'&&<button type="button" onClick={()=>switchView('Collection desk')}><Database size={14}/> Feed health</button>}
+              <button type="button" onClick={()=>switchView('Overview')}><Activity size={14}/> Command</button>
+            </div>
+          </section>}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -723,6 +734,7 @@ function App() {
                         Data timestamps describe the reporting year, not
                         necessarily today. No missing values are estimated.
                       </div>
+                      <div id="ea-country-factbook"><CountryFactbook key={country.code} code={country.code} countryName={country.name} /></div>
                       <div className="brief-line" />
                       <div className="brief-section-title">
                         CASE FILES <small>{country.caseCount} CURATED</small>
@@ -755,7 +767,6 @@ function App() {
                       )}
                       <button type="button" onClick={() => document.getElementById('ea-country-factbook')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:15,margin:'15px 0',background:'#174139',border:'1px solid #4f907f',color:'#b6f4da',borderRadius:8,fontWeight:700}}>View all World Factbook fields below <ArrowRight size={17}/></button>
                       <DefenseIntel key={country.code} code={country.code} countryName={country.name} />
-                      <div id="ea-country-factbook"><CountryFactbook key={country.code} code={country.code} countryName={country.name} /></div>
                       <div className="brief-links">
                         <Anchor
                           href={
