@@ -2,6 +2,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { api } from '@appdeploy/client';
 import { Activity, ArrowRight, ArrowUpRight, Clock3, Database, ExternalLink, RefreshCcw, ShieldAlert } from 'lucide-react';
 import './decision-board.css';
+import SignalPulse from './SignalPulse';
+import CountryFactbook from './CountryFactbook';
 
 type Country = { code: string; name: string; region: string; scope: string; isTreatyAlly: boolean; caseCount: number };
 type CaseFile = { id: string; code: string; date: string; title: string; topic: string; status: string };
@@ -148,6 +150,7 @@ export default function DecisionBoard({
       <MetricCard label="OFAC SDN ENTRIES" value={intel?.ofac ? number(intel.ofac.records) : '—'} detail={intel?.ofac ? 'Global SDN export · ' + dateOnly(intel.ofac.checkedAt) : 'Not validated / unavailable'} />
       <MetricCard label="GLOBAL HAZARD OBSERVATIONS" value={worldSignals ? number((worldSignals.events?.length || 0) + (worldSignals.naturalEvents?.length || 0)) : '—'} detail={signalError ? 'Source check failed · not zero events' : 'Sampled USGS + NASA · worldwide, separate from conflicts'} warn={signalError}/>
     </div>
+    <SignalPulse intel={intel} error={intelligenceError} activeCountry={code}/>
     <div className="db-two-up">
       <section className="db-panel" aria-label="Country evidence cards">
         <div className="db-panel-head"><div><span>COUNTRY-LEVEL INTELLIGENCE</span><h2>{selected ? 'Selected country dossier' : 'Country comparison'}</h2></div><span>{cards.length} shown</span></div>
@@ -195,6 +198,7 @@ export default function DecisionBoard({
       {brief?.warning && <p className="db-caveat">{brief.warning}</p>}
       <p className="db-caveat">Different indicators may use different reference years; data are not forecasts or surveillance measurements. <a href="https://data.worldbank.org/" target="_blank" rel="noopener noreferrer">World Bank original source <ExternalLink size={11}/></a></p>
     </section>}
+    {code !== 'all' && selected && <CountryFactbook key={code} code={code} countryName={selected.name} />}
     <div className="db-bottom-strip">
       <div><Database size={14}/><strong>COLLECTION INTEGRITY</strong>
         <span>{intelligenceError ? 'Intelligence API unavailable.' : failing.length ? failing.map(item => item.name).join(', ') + ' require investigation.' : staleCheck ? 'Latest check is older than 48 hours; verify ingestion schedule.' : intel ? 'No failures in returned checks; unmonitored sources are not implied healthy.' : 'Waiting for source checks.'}</span>
