@@ -208,6 +208,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       const mainText=await page.locator('.content').innerText();
       assert.ok(mainText.length>90,sectionName+' rendered an empty content panel');
       const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
+      if(layout.document>layout.viewport+2){
+        const overflowing=await page.evaluate(()=>Array.from(document.querySelectorAll('main .content *'))
+          .map(el=>({tag:el.tagName,className:typeof el.className==='string'?el.className.slice(0,90):'',text:(el.textContent||'').trim().slice(0,40),right:Math.round(el.getBoundingClientRect().right)}))
+          .filter(el=>el.right>innerWidth+2).sort((a,b)=>b.right-a.right).slice(0,15));
+        console.error('Overflow offenders',sectionName,viewport.width,JSON.stringify(overflowing));
+      }
       assert.ok(layout.document<=layout.viewport+2,sectionName+' overflows '+viewport.width+'px: '+JSON.stringify(layout));
       if(viewport.width===390){
         const slug=sectionName.toLowerCase().replace(/[^a-z0-9]+/g,'-');
