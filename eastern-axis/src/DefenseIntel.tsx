@@ -3,6 +3,7 @@ import {api} from '@appdeploy/client';
 import {Activity,Anchor,BookOpen,ExternalLink,Globe2,Layers3,Search,Shield,ShieldCheck} from 'lucide-react';
 import './defense.css';
 import IntelInsights from './IntelInsights';
+import CountryDefenseSnapshot from './CountryDefenseSnapshot';
 type Assessment={id:string;title:string;agency:string;government:string;group:string;published:string;countries:string[];topic:string;finding:string;kind:string;url:string};
 type Operation={id:string;title:string;theater:string;published:string;kind:string;summary:string;roles:{code:string;role:string}[];publisher:string;url:string;state:string};
 type Asset={id:string;code:string;category:string;name:string;quantity:string;unit:string;published:string;publisher:string;url:string;basis:string;detail:string};
@@ -33,7 +34,8 @@ export default function DefenseIntel({code,countryName,mode='country'}:Props){
    {!data&&!problem&&<div className="di-message">Loading public-source records…</div>}
    {data&&<>
      {global&&<div className="di-search"><Search size={16}/><input aria-label="Search defense intelligence" placeholder="Search countries, operations, military assets, reports…" value={term} onChange={e=>setTerm(e.target.value)}/></div>}
-     <div className="di-tabs" aria-label="Defense intelligence sections">{first.slice(global?0:1,global?5:4).map(label=><button key={label} className={focus===label?'selected':''} onClick={()=>setFocus(label)}>{label}</button>)}</div>
+     {!global&&code&&<CountryDefenseSnapshot code={code} name={countryName||code} data={data} unavailable={problem} onSelect={category=>setFocus(category==='reports'?'Allied assessments':category==='operations'?'Military operations':'Military assets')}/>}
+     <div className="di-tabs" aria-label="Defense intelligence sections">{first.slice(0,global?5:4).map(label=><button key={label} className={focus===label?'selected':''} onClick={()=>setFocus(label)}>{label}</button>)}</div>
      {tab('Military operations')&&<section className="di-section"><div className="di-sectionhead"><h3><Activity size={16}/> Military operations</h3><small>{operations.length} sourced record{operations.length===1?'':'s'}</small></div>
      <p className="di-sectionnote">Combat, deployments and support are distinct. Latest cited reporting dates are shown; “ongoing” is as of the source, never verified to the minute.</p>
      {operations.length?<div className="di-items">{operations.map(o=><article className="di-item" key={o.id}><div className="di-item-top"><span className="di-tag">{o.kind}</span><time>{date(o.published)}</time></div><strong>{o.title}</strong><div className="di-location"><Globe2 size={13}/>{o.theater}</div><p>{o.summary}</p><div className="di-status">{o.state}</div>{o.roles.filter(r=>!code||r.code===code).map(r=><div className="di-role" key={r.code}>{r.code}: {r.role}</div>)}<a href={o.url} target="_blank" rel="noopener noreferrer">Original: {o.publisher} <ExternalLink size={12}/></a></article>)}</div>:<div className="di-empty">No country-specific operation has been reviewed in this starter library. This does not establish an absence of military activity.</div>}
