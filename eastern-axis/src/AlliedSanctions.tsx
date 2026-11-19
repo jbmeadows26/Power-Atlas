@@ -42,7 +42,7 @@ export default function AlliedSanctions({code,cases}:{code:string;cases:Case[]})
         <span className={source.status==='snapshot'?'ip-state-active':'ip-state-pending'}>{source.status==='snapshot'?'SOURCE SNAPSHOT':'NOT YET VERIFIED'}</span>
        </div>
        <div className="ip-sanction-stats"><div><strong>{source.listedUniqueDesignations?.toLocaleString()||'—'}</strong><span>Distinct listed entries in source</span></div>
-         <div><strong>{source.status==='snapshot'&&code!=='all'?source.regimeRecordCount.toLocaleString():'—'}</strong><span>Records under selected legal regime</span></div></div>
+         <div><strong>{source.status==='snapshot'&&code!=='all'&&typeof source.regimeRecordCount==='number'?source.regimeRecordCount.toLocaleString():'—'}</strong><span>Records under selected legal regime</span></div></div>
        <div className="ip-sanction-meta"><span>Checked {source.checkedAt?.slice(0,10)||'Not collected'}</span><span>Source date {source.publicationDate||'Refer to official page'}</span></div>
        <button className="ip-expand" onClick={()=>setOpen(old=>old===source.id?'none':source.id as 'uk'|'canada')} aria-expanded={open===source.id}>{open===source.id?'Hide':'Explore'} source detail</button>
        {open===source.id&&<div className="ip-source-content">
