@@ -43,6 +43,30 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
+    // Test the public map's evidence layers and legend before narrowing country scope.
+    const mapPanel=page.locator('.cc-map-panel');
+    await mapPanel.waitFor({state:'visible',timeout:18000});
+    await mapPanel.getByLabel('Country-area legend').getByText('U.S. + indexed treaty allies').waitFor({state:'visible'});
+    await mapPanel.getByLabel('Current data-layer legend').getByText('Curated case', {exact:false}).waitFor({state:'visible'});
+    await page.locator('svg.cc-world-svg .cc-country-shape').first().waitFor({state:'attached',timeout:20000});
+    const usClass=await page.locator('svg.cc-world-svg .cc-country-shape').evaluateAll(els=>{
+      const shape=els.find(el=>el.querySelector('title')?.textContent?.startsWith('United States of America'));
+      return shape?.getAttribute('class')||'';
+    });
+    assert.match(usClass,/country-ally/,'U.S. should appear in the blue U.S./treaty-ally area key');
+    assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'Default curated-case layer must not embed unrelated hazard source links');
+    await mapPanel.getByRole('button',{name:'OFAC program tags'}).click();
+    await mapPanel.getByLabel('Current data-layer legend').getByText('OFAC program entries',{exact:false}).waitFor({state:'visible'});
+    assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'OFAC layer contains unexpected hazard hyperlinks');
+    await mapPanel.getByRole('button',{name:'USGS earthquakes'}).click();
+    for(const href of await page.locator('svg.cc-world-svg a').evaluateAll(links=>links.map(el=>el.getAttribute('href')))){
+      assert.match(href||'',/^https:\/\/earthquake\.usgs\.gov\/earthquakes\/eventpage\//,'Nonofficial USGS map link');
+    }
+    await mapPanel.getByRole('button',{name:'NASA natural hazards'}).click();
+    for(const href of await page.locator('svg.cc-world-svg a').evaluateAll(links=>links.map(el=>el.getAttribute('href')))){
+      assert.match(href||'',/^https:\/\/eonet\.gsfc\.nasa\.gov\/api\/v3\/events\//,'Nonofficial NASA map link');
+    }
+    await mapPanel.getByRole('button',{name:'Curated cases'}).click();
     await scope.click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('russ');
     await page.getByRole('option',{name:/Russia/}).click();
@@ -67,6 +91,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
     await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
+    await page.locator('.cc-security-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
