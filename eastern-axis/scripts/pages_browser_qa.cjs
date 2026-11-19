@@ -43,6 +43,17 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
+    // The opening dashboard must expose evidence, not merely decorative charts.
+    const decisionBoard=page.getByRole('region',{name:'Decision intelligence dashboard'});
+    await decisionBoard.waitFor({state:'visible',timeout:20000});
+    assert.equal(await decisionBoard.locator('.db-stat').count(),6,
+      'Missing headline source-backed decision metrics');
+    await decisionBoard.getByText('SUCCESSFUL SOURCE CHECKS',{exact:true}).waitFor({state:'visible'});
+    await decisionBoard.getByText('COUNTRY-LEVEL INTELLIGENCE',{exact:true}).waitFor({state:'visible'});
+    await decisionBoard.getByRole('button',{name:'Refresh feeds'}).waitFor({state:'visible'});
+    const decisionWidth=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
+    assert.ok(decisionWidth.scroll<=decisionWidth.width+2,
+      'Decision dashboard overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
     // Test the public map's evidence layers and legend before narrowing country scope.
     const mapPanel=page.locator('.cc-map-panel');
     await mapPanel.waitFor({state:'visible',timeout:18000});
