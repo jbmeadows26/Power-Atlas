@@ -30,7 +30,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const apiFailures=[];
     if (production) {
       page.on('requestfailed',request=>{
-        if(request.url().startsWith(api+'/api/'))apiFailures.push(request.url()+': '+request.failure()?.errorText);
+        // Navigating between 16 modules intentionally unmounts React effects.
+        // Chromium aborts their in-flight GETs; this is not an upstream outage.
+        // Continue to fail on every HTTP 4xx/5xx and non-aborted network error.
+        const reason=request.failure()?.errorText||'unknown network error';
+        if(request.url().startsWith(api+'/api/') && reason!=='net::ERR_ABORTED')
+          apiFailures.push(request.url()+': '+reason);
       });
       page.on('response',response=>{
         if(response.url().startsWith(api+'/api/') && response.status()>=400)
