@@ -89,7 +89,7 @@ export default function ResilienceWatch(){
             <span>{new Date(entry.checkedAt).toLocaleDateString('en-US',{month:'numeric',day:'numeric',timeZone:'UTC'})}</span>
           </div>;
         })}</div>
-        <div className="rw-history-legend"><span><i/> Source observations</span><span><b/> Probe errors</span><span><em/> Correlated indicators</span></div>
+        <div className="rw-history-legend"><span><i/> Samples</span><span><b/> Probe errors</span><span><em/> Correlated indicators</span></div>
       </div>}
       {(snapshot.screeningSignals?.length||0)>0 && <div className="rw-incident-list" aria-label="Unconfirmed screening signals">
         {snapshot.screeningSignals?.map(s=><article className="rw-incident" key={s.id}>
