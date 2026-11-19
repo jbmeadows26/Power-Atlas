@@ -61,7 +61,7 @@ function MetricMove({m}:{m:Metric}){
   </div>;
 }
 export default function DecisionRadar({countryCode,countryName,onNavigate}:{
-  countryCode:string;countryName?:string;onNavigate:(target:Workspace)=>void;
+  countryCode:string;countryName?:string;onNavigate:(target:Workspace,focus?:'funding'|'commodities'|'gnss')=>void;
 }){
  const [physical,setPhysical]=useState<Physical|null>(null),[supply,setSupply]=useState<Supply|null>(null);
  const [defense,setDefense]=useState<Defense|null>(null),[resilience,setResilience]=useState<Resilience|null>(null);
@@ -70,7 +70,7 @@ export default function DecisionRadar({countryCode,countryName,onNavigate}:{
  const [now,setNow]=useState(()=>Date.now());
  useEffect(()=>{const t=window.setInterval(()=>setNow(Date.now()),60000);return()=>window.clearInterval(t);},[]);
  useEffect(()=>{
-   let alive=true;setLoading(true);setFailed([]);
+   let alive=true;setLoading(true);setFailed([]);setPhysical(null);setSupply(null);setDefense(null);setResilience(null);
    const requests=[
      fetch(import.meta.env.BASE_URL+'analysis/physical-early-warning.json?t='+Date.now(),{cache:'no-store'})
        .then(async r=>{if(!r.ok)throw Error('Physical measurements unavailable');return r.json() as Promise<Physical>;})
@@ -102,13 +102,13 @@ export default function DecisionRadar({countryCode,countryName,onNavigate}:{
  const resilienceAge=ago(resilience?.checkedAt,now);
  const resilienceStale=resilience!==null&&(resilienceAge===null||resilienceAge>2*3600000);
  const latestScreen=gnss.filter(screen).length;
- const screened=metrics.filter(screen).length+(corridor?.percentChange!==undefined&&corridor.percentChange!==null&&corridor.percentChange<=-20?1:0);
+ const screened=(stalePhysical?0:metrics.filter(screen).length)+(!tradeStale&&corridor?.percentChange!==undefined&&corridor.percentChange!==null&&corridor.percentChange<=-20?1:0);
  const gapCount=failed.length+(stalePhysical?1:0)+(tradeStale?1:0)+(resilienceStale?1:0);
  const lanes:Lane[]=[
-  {key:'finance',title:'Finance',hint:'Funding + market transmission',workspace:'Early warning',screens:finance.filter(screen).length,detail:'SOFR / NY Fed · context, not a trading recommendation',status:!physical?'gap':stalePhysical?'stale':finance.some(screen)?'review':'observed'},
-  {key:'trade',title:'Trade & essential goods',hint:'Shipping + fuel + food',workspace:'Supply chain',screens:commodities.filter(screen).length+(corridor?.percentChange!==null&&corridor?.percentChange!==undefined&&corridor.percentChange<=-20?1:0),detail:'IMF PortWatch + World Bank + FAO',status:!physical&&!supply?'gap':stalePhysical&&tradeStale?'stale':commodities.some(screen)||(corridor?.percentChange??0)<=-20&&!!corridor?'review':tradeStale?'stale':'observed'},
-  {key:'infrastructure',title:'Infrastructure & survival',hint:'GNSS + networks + grid proxies',workspace:'Risk watch',screens:latestScreen+(resilience?.screeningSignals?.length||0),detail:'Aviation sample + independent probes; no infrastructure attack attribution',status:!physical&&!resilience?'gap':resilienceStale?'stale':latestScreen>0||(resilience?.screeningSignals?.length||0)>0||(resilience?.incidents?.length||0)>0?'review':'observed'},
-  {key:'security',title:'Military & intelligence',hint:'Documented operations + reporting',workspace:'Defense intelligence',screens:0,detail:'Dated public reports; no live combat or operational warning feed',status:!defense?'gap':'reference'}
+  {key:'finance',title:'Finance',hint:'Funding + market transmission',workspace:'Early warning',screens:finance.filter(screen).length,detail:'Exposure check: funding costs, refinancing, liquidity',status:!physical?'gap':stalePhysical?'stale':finance.some(screen)?'review':'observed'},
+  {key:'trade',title:'Trade & essential goods',hint:'Shipping + fuel + food',workspace:'Supply chain',screens:commodities.filter(screen).length+(corridor?.percentChange!==null&&corridor?.percentChange!==undefined&&corridor.percentChange<=-20?1:0),detail:'Exposure check: routes, fuel, food, industrial inputs',status:!physical&&!supply?'gap':stalePhysical&&tradeStale?'stale':commodities.some(screen)||(corridor?.percentChange??0)<=-20&&!!corridor?'review':tradeStale?'stale':'observed'},
+  {key:'infrastructure',title:'Infrastructure & survival',hint:'GNSS + networks + grid proxies',workspace:'Risk watch',screens:latestScreen+(resilience?.screeningSignals?.length||0),detail:'Exposure check: navigation, communications, grid',status:!physical&&!resilience?'gap':resilienceStale?'stale':latestScreen>0||(resilience?.screeningSignals?.length||0)>0||(resilience?.incidents?.length||0)>0?'review':'observed'},
+  {key:'security',title:'Military & intelligence',hint:'Documented operations + reporting',workspace:'Defense intelligence',screens:0,detail:'Check official current advisories before security decisions',status:!defense?'gap':'reference'}
  ];
  const sorted=[...lanes].sort((a,b)=>({review:0,stale:1,gap:2,observed:3,reference:4}[a.status])-({review:0,stale:1,gap:2,observed:3,reference:4}[b.status]));
  const shown=sorted.filter(l=>mode==='all'||(mode==='screens'?l.status==='review':l.status==='gap'||l.status==='stale'));
@@ -122,7 +122,7 @@ export default function DecisionRadar({countryCode,countryName,onNavigate}:{
    <div className="dr-briefing">
      <div><span>MEASURED CHANGE SCREENS</span><strong>{physical||supply?screened:'—'}</strong><small>Movement thresholds; not confirmed threats</small></div>
      <div><span>FRESHNESS / ACCESS GAPS</span><strong>{loading?'…':gapCount}</strong><small>Missing feeds + stale collections</small></div>
-     <div><span>VISIBLE SOURCE FAMILIES</span><strong>{sourcesAvailable}/4</strong><small>Finance · trade · defense · resilience</small></div>
+     <div><span>FETCHED SOURCE FAMILIES</span><strong>{sourcesAvailable}/4</strong><small>Finance · trade · defense · resilience</small></div>
      <div><span>MEASUREMENT AS OF</span><strong className="dr-asof">{day(physical?.checkedAt)}</strong><small>Dates on each comparison below</small></div>
    </div>
    <div className="dr-toolbar"><div><button type="button" className={mode==='all'?'active':''} aria-pressed={mode==='all'} onClick={()=>setMode('all')}>All domains</button><button type="button" className={mode==='screens'?'active':''} aria-pressed={mode==='screens'} onClick={()=>setMode('screens')}>Review triggers</button><button type="button" className={mode==='gaps'?'active':''} aria-pressed={mode==='gaps'} onClick={()=>setMode('gaps')}>Blind spots</button></div><span>Sorted by review need · not a probability ranking</span></div>
@@ -147,7 +147,7 @@ export default function DecisionRadar({countryCode,countryName,onNavigate}:{
         {!gnss.length&&!resilience&&<p className="dr-empty">No in-scope GNSS measurements or probe feed.</p>}
       </div>}
       {l.key==='security'&&<div className="dr-report-list">{operations.map(o=><div key={o.id}><strong>{o.title}</strong><span>{day(o.published)} · {o.publisher} · historical reporting</span><a href={https(o.url)||'#'} target="_blank" rel="noopener noreferrer">Original report <ArrowUpRight size={11}/></a></div>)}{!operations.length&&<p className="dr-empty">No country-tagged military operation report in the reviewed index; activity not determined.</p>}</div>}
-      <footer><span>{l.status==='review'?l.screens+' deviation screen(s) to verify':l.detail}</span><button type="button" onClick={()=>onNavigate(l.workspace)}>Analyze <ArrowRight size={13}/></button></footer>
+      <footer><span>{l.status==='review'?l.screens+' deviation screen(s) to verify':l.detail}</span><button type="button" onClick={()=>onNavigate(l.workspace,l.key==='finance'?'funding':undefined)}>Analyze <ArrowRight size={13}/></button></footer>
     </article>)}
     {shown.length===0&&<p className="dr-empty">No domains match this filter in the current source snapshot. This is not an all-clear.</p>}
    </div>
