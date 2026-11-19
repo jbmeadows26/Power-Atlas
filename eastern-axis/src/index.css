@@ -1721,6 +1721,21 @@ select:focus-visible {
 }
 
 
+/* All 16 sections must remain reachable in the sidebar at ordinary desktop heights. */
+.sidebar{
+  overflow-y:auto;
+  overflow-x:hidden;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:#47736a #0b171f;
+}
+.sidebar nav{flex:0 0 auto}
+.sidebar .brand,.sidebar .sidebar-rule,.sidebar .nav-label{flex-shrink:0}
+.sidebar-bottom{flex-shrink:0;padding-top:15px}
+@media(max-width:980px){
+  .sidebar{height:100dvh;max-height:100dvh;-webkit-overflow-scrolling:touch}
+}
+
 /* Eastern Axis: mobile-first navigation and calmer, touch-friendly intelligence cards.
    Desktop research workspaces retain their established layout. */
 .mobile-bottom-nav,.mobile-brief,.sidebar-close{display:none}
