@@ -19,6 +19,8 @@ type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
 type Shape={id:string|number;properties?:{name?:string};geometry:unknown};
 type Anchor={code:string;name:string;lon:number;lat:number};
+type MapEvent={id:string;title:string;longitude:number;latitude:number;date:string;sourceUrl:string;kind:'usgs'|'nasa';magnitude?:number;eventType?:string};
+type MapCluster={id:string;longitude:number;latitude:number;events:MapEvent[]};
 const anchors:Anchor[]=[
   {code:'RU',name:'Russia',lon:37.62,lat:55.75},
   {code:'CN',name:'China',lon:116.4,lat:39.9},
@@ -58,10 +60,28 @@ function officialEventUrl(value:string,kind:'usgs'|'nasa'):string|null {
 const fmt=(n:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n);
 const day=(d?:string)=>d ? new Date(d.length===10?d+'T12:00:00Z':d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'Not confirmed';
 const similar=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
-const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivarianrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP'};
+const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivarianrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP','macedonia':'MK','ssudan':'SS','demrepcongo':'CD','dominicanrep':'DO','eqguinea':'GQ','centralafricanrep':'CF','solomonis':'SB','bosniaandherz':'BA'};
 const topologyURL='https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 const width=1120, height=560;
 const base=geoNaturalEarth1().scale(188).translate([width/2,height/2+12]);
+// One discoverable pin per proximity cluster. Never allow overlapping SVG links
+// to send the user to a different earthquake than the title they selected.
+function clusterMapEvents(events:MapEvent[],scale:number):MapCluster[] {
+  const clusters:MapCluster[]=[];
+  const threshold=22/Math.max(0.7,scale);
+  for(const event of events){
+    if(!Number.isFinite(event.longitude)||!Number.isFinite(event.latitude)
+       || Math.abs(event.latitude)>90 || Math.abs(event.longitude)>180)continue;
+    const p=base([event.longitude,event.latitude]);if(!p)continue;
+    const existing=clusters.find(c=>{
+      const q=base([c.longitude,c.latitude]);
+      return q!==null&&Math.hypot(p[0]-q[0],p[1]-q[1])<threshold;
+    });
+    if(existing)existing.events.push(event);
+    else clusters.push({id:event.kind+':'+event.id,longitude:event.longitude,latitude:event.latitude,events:[event]});
+  }
+  return clusters;
+}
 const projector=geoPath(base);
 const graticule=projector(geoGraticule10());
 function CountryFlag({code}:{code:string}){return <span className="cc-flag">{code.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)))}</span>;}
@@ -75,6 +95,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [mapShapes,setMapShapes]=useState<Shape[]>([]);
   const [mapError,setMapError]=useState(false);
   const [layer,setLayer]=useState<Layer>('cases');
+  const [selectedMapCluster,setSelectedMapCluster]=useState<string|null>(null);
   const [region,setRegion]=useState('GL');
   const [zoom,setZoom]=useState(1);
   const [selected,setSelected]=useState(activeCountry&&activeCountry!=='all'?activeCountry:'RU');
@@ -123,11 +144,21 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const findCode=(name?:string)=>{
     if(!name)return null;
     const key=similar(name);
-    if(aliases[key])return aliases[key];
+    if(aliases[key] && overview.countries.some(c=>c.code===aliases[key]))return aliases[key];
     return overview.countries.find(c=>similar(c.name)===key)?.code || null;
   };
   const focused=regions.find(r=>r.code===region)||regions[0];
   const scale=zoom*focused.scale;
+  const mapEvents:MapEvent[]=(!activeCountry||activeCountry==='all')
+    ? layer==='seismic'?(worldSignals?.events||[]).map(e=>({...e,kind:'usgs' as const}))
+    :layer==='natural'?(worldSignals?.naturalEvents||[]).map(e=>({...e,kind:'nasa' as const}))
+    :[] : [];
+  const eventClusters=clusterMapEvents(mapEvents,scale);
+  const selectedEventCluster=eventClusters.find(c=>c.id===selectedMapCluster);
+  const focusEvent=(id:string)=>{
+    const cluster=eventClusters.find(c=>c.events.some(e=>e.id===id));
+    if(cluster)setSelectedMapCluster(cluster.id);
+  };
   // Layer zoom centers by translating the map's geographic center to the screen.
   const focusCenter=base(focused.center as unknown as [number,number])||[width/2,height/2];
   const tx=(width/2)-(focusCenter[0]*scale);
@@ -152,7 +183,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
           ['ofac','OFAC program entries'],
           ['seismic','USGS earthquakes'],
           ['natural','NASA natural hazards']
-        ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>setLayer(value)}>{label}</button>)}</div>
+        ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>{setLayer(value);setSelectedMapCluster(null);}}>{label}</button>)}</div>
         <div className="cc-map-viewport">
           <div className="cc-map-background-grid" aria-hidden="true"/>
           <svg className="cc-world-svg" viewBox={'0 0 '+width+' '+height} role="group" aria-label="Interactive country reference map; choose a data layer to inspect cases, OFAC program tags, or separately sourced natural hazards">
@@ -165,7 +196,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                 const selectedShape=code===selected;
                 const d=projector(shape as never);
                 if(!d)return null;
-                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && (code==='US'||overview.countries.find(c=>c.code===code)?.isTreatyAlly)?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+' '+(selectedShape?'selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={()=>{if(code)selectCountry(code);}} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{shape.properties?.name||'Jurisdiction'}{code?' · Select country context (not an incident marker)':''}</title></path>;
+                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && (code==='US'||overview.countries.find(c=>c.code===code)?.isTreatyAlly)?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+(code?' selectable':'')+(selectedShape?' selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={code?()=>selectCountry(code):undefined} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{overview.countries.find(c=>c.code===code)?.name||shape.properties?.name||'Jurisdiction'}{code?' · Select country context (not an incident marker)':' · No linked country record in this catalog'}</title></path>;
               }):null}
               {markers.map(a=>{
                 const point=base([a.lon,a.lat]);
@@ -183,42 +214,54 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                   <title>{a.name} · {a.count} curated DOJ cases · {a.programs} OFAC program-coded entries (not entity location)</title>
                 </g>;
               })}
-              {layer==='seismic'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.events||[]).map(event=>{
-                const point=base([event.longitude,event.latitude]);
-                if(!point)return null;
-                const href=officialEventUrl(event.sourceUrl,'usgs');
-                const icon=<circle cx={point[0]} cy={point[1]} r={Math.max(3.4,event.magnitude*.96)/Math.max(.9,scale)} stroke="#f6dbb3" strokeWidth={1/scale} fill="#dba16b" fillOpacity=".85">
-                  <title>{event.title} · {day(event.date)} · {href?'Official USGS event report':'Source link not verified'}</title>
-                </circle>;
-                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official USGS event report: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
-              })}
-              {layer==='natural'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.naturalEvents||[]).map(event=>{
-                const point=base([event.longitude,event.latitude]);
-                if(!point)return null;
-                const href=officialEventUrl(event.sourceUrl,'nasa');
-                const icon=<circle cx={point[0]} cy={point[1]} r={5/Math.max(.9,scale)} stroke="#7be0cf" strokeWidth={1/scale} fill="#5db6e2" fillOpacity=".9">
-                  <title>{event.title} · {event.eventType} · {day(event.date)} · {href?'NASA EONET source':'Source link not verified'}</title>
-                </circle>;
-                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official NASA EONET source: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
+              {eventClusters.map(cluster=>{
+                const point=base([cluster.longitude,cluster.latitude]);if(!point)return null;
+                const isQuake=layer==='seismic',size=cluster.events.length;
+                const r=(size>1?11:isQuake?Math.max(5,(cluster.events[0].magnitude||4)*.96):6)/Math.max(.9,scale);
+                return <g key={cluster.id} className={'cc-hazard-marker '+(selectedMapCluster===cluster.id?'selected':'')}
+                  role="button" tabIndex={0} aria-label={size+' nearby '+(isQuake?'earthquake':'NASA')+' event'+(size===1?'':'s')+'; select exact sources'}
+                  onClick={()=>setSelectedMapCluster(cluster.id)}
+                  onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setSelectedMapCluster(cluster.id);}}}>
+                  <circle cx={point[0]} cy={point[1]} r={r} stroke={isQuake?'#ffe4b4':'#9ce6f6'} strokeWidth={1.2/scale} fill={isQuake?'#dba16b':'#5db6e2'} fillOpacity=".92"/>
+                  {size>1&&<text x={point[0]} y={point[1]+3.2/scale} textAnchor="middle" fontSize={9/scale} fontWeight="800" fill="#091923">{size}</text>}
+                  <title>{size===1?cluster.events[0].title:size+' neighboring source events — select to see each exact record'}</title>
+                </g>;
               })}
             </g>
           </svg>
-          {mapError&&<span className="cc-map-unavailable"><CircleAlert size={15}/> Boundary tiles unavailable · reference anchors remain available</span>}
+          {mapError&&<span className="cc-map-unavailable"><CircleAlert size={15}/> World boundaries unavailable · markers remain approximate research anchors</span>}
           <div className="cc-compass"><span>N</span><span className="cc-compass-arrow">↑</span><small>MAP / 110M</small></div>
           <div className="cc-map-overlay-label">EASTERN AXIS / GEOSPATIAL VIEW <span>BOUNDARIES: WORLD-ATLAS 110M</span></div>
         </div>
+        {(layer==='seismic'||layer==='natural')&&<div className="cc-map-event-panel" aria-label="Map event sources">
+          <div className="cc-map-event-head"><strong>{layer==='seismic'?'USGS earthquakes':'NASA EONET natural events'} · {mapEvents.length} observations / {eventClusters.length} map pins</strong><small>Markers select records; external sources open only from exact event details.</small></div>
+          {selectedEventCluster&&<div className="cc-map-event-selected" aria-label="Selected map events">
+            <div className="cc-map-selected-top"><strong>{selectedEventCluster.events.length===1?'Selected event':selectedEventCluster.events.length+' nearby events — choose the exact source'}</strong><button type="button" onClick={()=>setSelectedMapCluster(null)}>Clear selection</button></div>
+            {selectedEventCluster.events.map(event=>{
+              const href=officialEventUrl(event.sourceUrl,event.kind);
+              return <article key={event.kind+event.id} className="cc-map-source-record">
+                <div><strong>{event.title}</strong><small>{day(event.date)}{typeof event.magnitude==='number'?' · M '+event.magnitude.toFixed(1):event.eventType?' · '+event.eventType:''}</small></div>
+                {href?<a href={href} target="_blank" rel="noopener noreferrer">{event.kind==='usgs'?'View exact USGS report':'NASA source (raw JSON)'} <ExternalLink size={13}/></a>:<span>Source link unavailable</span>}
+              </article>;
+            })}
+          </div>}
+          <details className="cc-map-event-list"><summary>Browse all {mapEvents.length} event records</summary>
+            <div className="cc-map-event-rows">{mapEvents.map(event=><button type="button" key={event.kind+event.id} onClick={()=>focusEvent(event.id)}><strong>{event.title}</strong><small>{day(event.date)} · Select its map group</small></button>)}</div>
+          </details>
+          {mapEvents.length===0&&<p className="cc-map-event-empty">{activeCountry&&activeCountry!=='all'?'Select Worldwide to see global hazard observations.':signalError?'Environmental feed unavailable. No events inferred.':'No eligible point observations in the latest source sample.'}</p>}
+        </div>}
         <div className="cc-map-footer">
           <div className="cc-legend-countries" aria-label="Country-area legend"><strong>COUNTRY STATUS</strong><span><i className="cc-dot-ally"/> U.S. + indexed treaty allies</span><span><i className="cc-dot-adversary"/> Four U.S. strategic focus states</span><span><i className="cc-dot-neutral"/> Other / unclassified</span></div>
           <div className="cc-legend-signals" aria-label="Current data-layer legend"><strong>VISIBLE MAP POINTS</strong>
             {layer==='cases'&&<span><i className="cc-dot-mint"/> Curated case → country context</span>}
             {layer==='ofac'&&<span><i className="cc-dot-gold"/> OFAC program entries → country context, NOT locations</span>}
-            {layer==='seismic'&&<span><i className="cc-dot-quake"/> USGS reported earthquake epicenter</span>}
-            {layer==='natural'&&<span><i className="cc-dot-nasa"/> NASA EONET source-reported event</span>}
+            {layer==='seismic'&&<span><i className="cc-dot-quake"/> USGS earthquake point / cluster (number = nearby records)</span>}
+            {layer==='natural'&&<span><i className="cc-dot-nasa"/> NASA natural event point / cluster (number = nearby records)</span>}
           </div>
           <button type="button" aria-expanded={showLayerLegend} onClick={()=>setShowLayerLegend(v=>!v)}><Shield size={13}/> Legend & caveats <ChevronDown size={13}/></button>
         </div>
         {layer==='natural'&&<div className="cc-legend-notice"><Activity size={16}/><span>{activeCountry&&activeCountry!=='all'?'Country filter active: global natural events are hidden. Choose Global / regional in the header to see NASA data.':signalError?'Environmental feed unavailable; no events have been invented.':worldSignals?.nasaStatus==='unavailable'?'NASA EONET is unavailable. USGS data may remain available.':!worldSignals?'Checking NASA EONET source status…':(worldSignals.naturalEvents?.length||0)===0?'NASA EONET returned no eligible point events in the bounded window. Polygon-only events are excluded.':'NASA EONET: '+(worldSignals.naturalEvents?.length||0)+' source-reported point events in this sampled window.'}</span></div>}
-        {showLayerLegend&&<div className="cc-legend-notice"><ShieldCheck size={16}/><span>Blue marks the U.S. and countries indexed as U.S. treaty allies; red highlights Russia, China, Iran and North Korea for U.S. strategic-focus research; gray means neither category or incomplete treaty coverage, not a security verdict. These categories are analytical choices, not universal legal designations. Case and OFAC markers are anchored to national capitals for navigation, <strong>not where an incident occurred.</strong> OFAC program tags do not establish listed-party locations or state direction. USGS epicenters and NASA EONET natural events use publisher-reported coordinates, not independent AI geolocation; neither implies foreign-government actions. Earthquakes and NASA natural events appear only in their respective layers, and are hidden under country-only filters to avoid implying geopolitical causation.</span></div>}
+        {showLayerLegend&&<div className="cc-legend-notice"><ShieldCheck size={16}/><span>Blue marks the U.S. and countries indexed as U.S. treaty allies; red highlights Russia, China, Iran and North Korea for U.S. strategic-focus research; gray means neither category or incomplete treaty coverage, not a security verdict. These categories are analytical choices, not universal legal designations. Case and OFAC markers are anchored to national capitals for navigation, <strong>not where an incident occurred.</strong> OFAC program tags do not establish listed-party locations or state direction. USGS epicenters and NASA EONET natural events use publisher-reported coordinates, not independent AI geolocation; neither implies foreign-government actions. Earthquakes and NASA natural events appear only in their respective layers, and are hidden under country-only filters to avoid implying geopolitical causation. Numbered circles group nearby records; select a circle and then the exact source link below, never assume an overlapping dot identifies one event.</span></div>}
       </section>
       <aside className="cc-brief-panel">
         <div className="cc-aside-head"><span><Eye size={14}/> COUNTRY CONTEXT</span><span className="cc-aside-live">SOURCE-BACKED</span></div>
