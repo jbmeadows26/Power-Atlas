@@ -55,7 +55,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     });
     assert.match(usClass,/country-ally/,'U.S. should appear in the blue U.S./treaty-ally area key');
     assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'Default curated-case layer must not embed unrelated hazard source links');
-    await mapPanel.getByRole('button',{name:'OFAC program tags'}).click();
+    await mapPanel.getByRole('button',{name:'OFAC program entries'}).click();
     await mapPanel.getByLabel('Current data-layer legend').getByText('OFAC program entries',{exact:false}).waitFor({state:'visible'});
     assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'OFAC layer contains unexpected hazard hyperlinks');
     await mapPanel.getByRole('button',{name:'USGS earthquakes'}).click();
