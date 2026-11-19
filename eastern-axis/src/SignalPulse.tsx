@@ -31,6 +31,7 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
   const [newSinceVisit, setNewSinceVisit] = useState<number | null>(null);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
   const initialized = useRef(false);
+  const seenIds = useRef<string[] | null>(null);
   useEffect(() => { const interval = window.setInterval(() => setNow(Date.now()), 60000); return () => window.clearInterval(interval); },[]);
   const records = intel?.records || [];
   const recordIds = useMemo(() => JSON.stringify(records.map(record => record.id).filter(Boolean).sort()),[intel]);
@@ -47,7 +48,12 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
         setNewSinceVisit(previous === null ? null : ids.filter(id => !new Set(previous).has(id)).length);
         setIsFirstVisit(previous === null);
         initialized.current = true;
+      } else if (seenIds.current) {
+        const seen = new Set(seenIds.current);
+        setNewSinceVisit(ids.filter(id => !seen.has(id)).length);
+        setIsFirstVisit(false);
       }
+      seenIds.current = ids;
       window.localStorage.setItem(key, JSON.stringify(ids.slice(0,500)));
     } catch { setNewSinceVisit(null); setIsFirstVisit(true); }
   },[intel,recordIds]);
@@ -68,7 +74,7 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
   const errors = feeds.filter(feed => feed.health?.status === 'error');
   const unknown = feeds.filter(feed => !feed.health?.status);
   const stale = feeds.filter(feed => feed.health?.status === 'ok'
-    && (!feed.health.lastSuccessAt || (Number.isFinite(Date.parse(feed.health.lastSuccessAt)) && now-Date.parse(feed.health.lastSuccessAt)>48*3600000)));
+    && (!feed.health.lastSuccessAt || !Number.isFinite(Date.parse(feed.health.lastSuccessAt)) || now-Date.parse(feed.health.lastSuccessAt)>48*3600000));
   const needsReview = errors.length+unknown.length+stale.length;
   const recent = [...records].filter(record=>Number.isFinite(Date.parse(record.date)))
     .sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).slice(0,6);
@@ -109,7 +115,7 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
         <div className="sp-panel-title"><span>FEED FRESHNESS / SOURCE-BY-SOURCE</span><small>{feeds.length} reported</small></div>
         <div className="sp-health">
           {feeds.map(feed => {
-            const condition=feed.health?.status === 'error'?'failed':!feed.health?.status?'unverified':!feed.health.lastSuccessAt||now-Date.parse(feed.health.lastSuccessAt)>48*3600000?'stale':'checked';
+            const condition=feed.health?.status === 'error'?'failed':!feed.health?.status?'unverified':!feed.health.lastSuccessAt||!Number.isFinite(Date.parse(feed.health.lastSuccessAt))||now-Date.parse(feed.health.lastSuccessAt)>48*3600000?'stale':'checked';
             return <div className="sp-feed" key={feed.id}>
               <span><i className={'sp-dot '+condition}/>{feed.name || label(feed.id)}</span>
               <strong>{condition.toUpperCase()}</strong>
