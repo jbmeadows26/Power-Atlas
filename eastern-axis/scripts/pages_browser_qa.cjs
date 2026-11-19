@@ -92,6 +92,22 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
+    // Regression: selecting a zero-DOJ country formerly blanked React when the
+    // allied sanctions snapshot retained a null regimeRecordCount from Worldwide.
+    if(viewport.width<600) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Networks'}).click();
+    else await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Connections'}).click();
+    await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
+    for(const testCountry of ['Canada','Antigua & Barbuda']){
+      await page.locator('.cx-country').filter({hasText:new RegExp('^'+testCountry.replace('&','\\&'))}).first().click();
+      await page.locator('.cx-center h2').getByText(testCountry,{exact:true}).waitFor({state:'visible',timeout:15000});
+      await page.locator('.cx-allied-item').first().waitFor({state:'visible',timeout:15000});
+      assert.equal(await page.locator('#root').isVisible(),true,testCountry+' blanked the React root');
+      const links=await page.locator('.cx-allied-item').count();
+      assert.ok(links>=5,testCountry+' lost allied publisher links: '+links);
+      await scope.click();
+      await page.getByRole('option',{name:/Worldwide/}).click();
+      await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
+    }
     await scope.click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('russ');
     await page.getByRole('option',{name:/Russia/}).click();
