@@ -214,30 +214,42 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                   <title>{a.name} · {a.count} curated DOJ cases · {a.programs} OFAC program-coded entries (not entity location)</title>
                 </g>;
               })}
-              {layer==='seismic'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.events||[]).map(event=>{
-                const point=base([event.longitude,event.latitude]);
-                if(!point)return null;
-                const href=officialEventUrl(event.sourceUrl,'usgs');
-                const icon=<circle cx={point[0]} cy={point[1]} r={Math.max(3.4,event.magnitude*.96)/Math.max(.9,scale)} stroke="#f6dbb3" strokeWidth={1/scale} fill="#dba16b" fillOpacity=".85">
-                  <title>{event.title} · {day(event.date)} · {href?'Official USGS event report':'Source link not verified'}</title>
-                </circle>;
-                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official USGS event report: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
-              })}
-              {layer==='natural'&&(!activeCountry||activeCountry==='all')&&(worldSignals?.naturalEvents||[]).map(event=>{
-                const point=base([event.longitude,event.latitude]);
-                if(!point)return null;
-                const href=officialEventUrl(event.sourceUrl,'nasa');
-                const icon=<circle cx={point[0]} cy={point[1]} r={5/Math.max(.9,scale)} stroke="#7be0cf" strokeWidth={1/scale} fill="#5db6e2" fillOpacity=".9">
-                  <title>{event.title} · {event.eventType} · {day(event.date)} · {href?'NASA EONET source':'Source link not verified'}</title>
-                </circle>;
-                return href?<a key={event.id} href={href} target="_blank" rel="noopener noreferrer" aria-label={'Official NASA EONET source: '+event.title}>{icon}</a>:<g key={event.id}>{icon}</g>;
+              {eventClusters.map(cluster=>{
+                const point=base([cluster.longitude,cluster.latitude]);if(!point)return null;
+                const isQuake=layer==='seismic',size=cluster.events.length;
+                const r=(size>1?11:isQuake?Math.max(5,(cluster.events[0].magnitude||4)*.96):6)/Math.max(.9,scale);
+                return <g key={cluster.id} className={'cc-hazard-marker '+(selectedMapCluster===cluster.id?'selected':'')}
+                  role="button" tabIndex={0} aria-label={size+' nearby '+(isQuake?'earthquake':'NASA')+' event'+(size===1?'':'s')+'; select exact sources'}
+                  onClick={()=>setSelectedMapCluster(cluster.id)}
+                  onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setSelectedMapCluster(cluster.id);}}}>
+                  <circle cx={point[0]} cy={point[1]} r={r} stroke={isQuake?'#ffe4b4':'#9ce6f6'} strokeWidth={1.2/scale} fill={isQuake?'#dba16b':'#5db6e2'} fillOpacity=".92"/>
+                  {size>1&&<text x={point[0]} y={point[1]+3.2/scale} textAnchor="middle" fontSize={9/scale} fontWeight="800" fill="#091923">{size}</text>}
+                  <title>{size===1?cluster.events[0].title:size+' neighboring source events — select to see each exact record'}</title>
+                </g>;
               })}
             </g>
           </svg>
-          {mapError&&<span className="cc-map-unavailable"><CircleAlert size={15}/> Boundary tiles unavailable · reference anchors remain available</span>}
+          {mapError&&<span className="cc-map-unavailable"><CircleAlert size={15}/> World boundaries unavailable · markers remain approximate research anchors</span>}
           <div className="cc-compass"><span>N</span><span className="cc-compass-arrow">↑</span><small>MAP / 110M</small></div>
           <div className="cc-map-overlay-label">EASTERN AXIS / GEOSPATIAL VIEW <span>BOUNDARIES: WORLD-ATLAS 110M</span></div>
         </div>
+        {(layer==='seismic'||layer==='natural')&&<div className="cc-map-event-panel" aria-label="Map event sources">
+          <div className="cc-map-event-head"><strong>{layer==='seismic'?'USGS earthquakes':'NASA EONET natural events'} · {mapEvents.length} observations / {eventClusters.length} map pins</strong><small>Markers select records; external sources open only from exact event details.</small></div>
+          {selectedEventCluster&&<div className="cc-map-event-selected" aria-label="Selected map events">
+            <div className="cc-map-selected-top"><strong>{selectedEventCluster.events.length===1?'Selected event':selectedEventCluster.events.length+' nearby events — choose the exact source'}</strong><button type="button" onClick={()=>setSelectedMapCluster(null)}>Clear selection</button></div>
+            {selectedEventCluster.events.map(event=>{
+              const href=officialEventUrl(event.sourceUrl,event.kind);
+              return <article key={event.kind+event.id} className="cc-map-source-record">
+                <div><strong>{event.title}</strong><small>{day(event.date)}{typeof event.magnitude==='number'?' · M '+event.magnitude.toFixed(1):event.eventType?' · '+event.eventType:''}</small></div>
+                {href?<a href={href} target="_blank" rel="noopener noreferrer">{event.kind==='usgs'?'View exact USGS report':'NASA source (raw JSON)'} <ExternalLink size={13}/></a>:<span>Source link unavailable</span>}
+              </article>;
+            })}
+          </div>}
+          <details className="cc-map-event-list"><summary>Browse all {mapEvents.length} event records</summary>
+            <div className="cc-map-event-rows">{mapEvents.map(event=><button type="button" key={event.kind+event.id} onClick={()=>focusEvent(event.id)}><strong>{event.title}</strong><small>{day(event.date)} · Select its map group</small></button>)}</div>
+          </details>
+          {mapEvents.length===0&&<p className="cc-map-event-empty">{activeCountry&&activeCountry!=='all'?'Select Worldwide to see global hazard observations.':signalError?'Environmental feed unavailable. No events inferred.':'No eligible point observations in the latest source sample.'}</p>}
+        </div>}
         <div className="cc-map-footer">
           <div className="cc-legend-countries" aria-label="Country-area legend"><strong>COUNTRY STATUS</strong><span><i className="cc-dot-ally"/> U.S. + indexed treaty allies</span><span><i className="cc-dot-adversary"/> Four U.S. strategic focus states</span><span><i className="cc-dot-neutral"/> Other / unclassified</span></div>
           <div className="cc-legend-signals" aria-label="Current data-layer legend"><strong>VISIBLE MAP POINTS</strong>
