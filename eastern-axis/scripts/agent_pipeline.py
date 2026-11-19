@@ -77,6 +77,45 @@ def government_intake(doc):
               "detectedAt":short(row.get("collectedAt"),40),"countries":country,"changeType":"baseline"})
  return out
 
+# Only the source publisher's own group is used; a listing does not establish country attribution.
+ALLIED_GROUPS = {"United States", "Five Eyes", "EU / NATO", "Indo-Pacific allies"}
+
+def allied_assessments(doc):
+ """Include every currently curated, source-linked allied assessment; no inferred country matches.
+
+ The linked source portals are returned separately, because an agency directory is not
+ an individual intelligence report and must never inflate analysis counts.
+ """
+ if not isinstance(doc, dict) or not isinstance(doc.get("assessments"), list) or not isinstance(doc.get("sources"), list):
+  raise ValueError("Invalid allied government source schema")
+ reports=[]
+ for row in doc["assessments"][:120]:
+  if not isinstance(row,dict) or row.get("group") not in ALLIED_GROUPS:continue
+  try:url=https(row.get("url"))
+  except ValueError:continue
+  title=short(row.get("title"),160)
+  agency=short(row.get("agency"),100)
+  if not title or not agency:continue
+  codes=row.get("countries",[])
+  if not isinstance(codes,list):continue
+  countries=sorted({c for c in codes if isinstance(c,str) and re.fullmatch(r"[A-Z]{2}",c)})
+  rid=short(row.get("id"),100) or hashlib.sha256(url.encode()).hexdigest()[:24]
+  reports.append({"id":"allied-"+rid,"sourceId":"allied-assessment","title":title,
+       "publisher":agency,"url":url,"date":short(row.get("published"),40),
+       "detectedAt":"","countries":countries,"changeType":"baseline",
+       "sourceGroup":row["group"],"evidenceTier":"curated-government-excerpt-not-full-text"})
+ portals=[]
+ for row in doc["sources"][:120]:
+  if not isinstance(row,dict) or row.get("group") not in ALLIED_GROUPS:continue
+  try:url=https(row.get("url"))
+  except ValueError:continue
+  name=short(row.get("name"),130)
+  if not name:continue
+  portals.append({"name":name,"group":row["group"],
+                  "description":short(row.get("what"),200),"url":url,
+                  "mode":"linked-official-source-not-ingested-evidence"})
+ return reports, portals
+
 def adapter(key,status="not-configured",detail=None):
  name,description=TOOLS[key]
  obj={"id":key,"name":name,"status":status,"detail":short(detail or description)}
@@ -189,7 +228,7 @@ async def draft(query,folder):
  (folder/"README.txt").write_text("\n".join(notes)+"\nDO NOT PUBLISH UNREVIEWED AI CLAIMS.\n",encoding="utf-8")
  return outcomes
 async def run(args):
- snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable"},"method":"Attributable public-source metadata and topic indexing only; AI drafts require human review.","connectors":[],"records":[],"analysis":None}
+ snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable","alliedAssessments":"unavailable"},"alliedSources":[],"method":"Attributable public-source metadata and topic indexing only; AI drafts require human review.","connectors":[],"records":[],"analysis":None}
  try:
   origin=https((ROOT/"public-api-origin.txt").read_text())
   if not urlparse(origin).hostname.endswith(".neon.tech"):raise ValueError("Verified Neon endpoint required")
@@ -209,6 +248,18 @@ async def run(args):
   except Exception as e:
    snapshot["sourceHealth"]["governmentIntake"]="unavailable"
    print("Secondary DOJ/FARA/CISA intake unavailable:",type(e).__name__)
+  try:
+   official, portals=allied_assessments(fetch(origin+"/api/defense-intel"))
+   existing={(r["url"],r["title"].lower()) for r in snapshot["records"]}
+   for row in official:
+    key=(row["url"],row["title"].lower())
+    if key not in existing:
+     snapshot["records"].append(row);existing.add(key)
+   snapshot["alliedSources"]=portals
+   snapshot["sourceHealth"]["alliedAssessments"]="ok"
+  except Exception as e:
+   snapshot["sourceHealth"]["alliedAssessments"]="unavailable"
+   print("Curated allied assessment index unavailable:",type(e).__name__)
   snapshot["analysis"]=build_analysis(snapshot["records"],use_model=not args.no_semantic)
  snapshot["connectors"]=[
   adapter("gpt-researcher","not-run" if args.research else "on-demand","Free Ollama CPU research is available through a manual GitHub Actions run; not an always-on service."),
