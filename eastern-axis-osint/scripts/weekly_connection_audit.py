@@ -188,7 +188,7 @@ def map_treaty_references():
     """
     path=pathlib.Path("eastern-axis/src/securityTreaties.ts")
     raw=path.read_text(encoding="utf-8")
-    urls=sorted(set(re.findall(r"https://[^\\s'\\\"]+",raw)))
+    urls=sorted(set(re.findall(r"""https://[^\s'"<>]+""",raw)))
     if len(urls)<8:
         add("Audit","Map treaty link inventory","FAIL",
             "Expected at least 8 explicitly sourced map treaty reference URLs",str(path))
