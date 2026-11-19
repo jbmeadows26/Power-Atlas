@@ -13,7 +13,7 @@ const entries: Check[] = [
   {id:'early', title:'Early-warning collection', status:'pending', detail:'Checking published source-level results', href:REPO+'/actions/workflows/eastern-axis-early-warning.yml', scope:'Published source snapshot'},
   {id:'resilience', title:'Resilience telemetry', status:'pending', detail:'Checking independent observations', href:LIVE, scope:'Public sampled telemetry'},
   {id:'release', title:'GitHub Pages release', status:'pending', detail:'Checking latest main-branch release', href:REPO+'/actions/workflows/deploy-pages.yml', scope:'Build and publication, not uptime'},
-  {id:'browser', title:'Live production browser QA', status:'pending', detail:'Checking most recent scheduled run', href:REPO+'/actions/workflows/eastern-axis-pages-live-qa.yml', scope:'Scheduled live checks, not PR previews'},
+  {id:'browser', title:'Live production browser QA', status:'pending', detail:'Checking latest real production browser run', href:REPO+'/actions/workflows/eastern-axis-pages-live-qa.yml', scope:'Deployed-site QA (deployment / schedule / manual), never PR previews'},
 ];
 
 function object(value:unknown):value is Json {
@@ -76,10 +76,17 @@ function checkResilience(data:Json):Check {
 function checkWorkflow(data:Json, kind:'release'|'browser'):Check {
   const base=entries[kind==='release'?2:3];
   if (!Array.isArray(data.workflow_runs)) throw new Error('Unexpected GitHub Actions schema');
-  const matching=data.workflow_runs.filter(object);
+  // Only count trusted main-branch runs whose workflow tests deployed Pages.
+  // Pull requests and push-triggered candidate builds do not certify production.
+  const matching=data.workflow_runs.filter(object).filter(run=>
+    kind==='release' || (
+      run.head_branch==='main' &&
+      (run.event==='workflow_run'||run.event==='schedule'||run.event==='workflow_dispatch')
+    )
+  );
   const run=matching[0];
   if (!run) return {...base,status:'unknown',detail:kind==='browser'
-    ?'No completed scheduled production browser QA is publicly recorded yet.'
+    ?'No deployment-triggered, scheduled, or manually run production browser QA is publicly recorded yet.'
     :'No main-branch release run was returned.'};
   const at=typeof run.updated_at==='string'?run.updated_at:undefined;
   const freshness=ageState(at,kind==='browser'?9*24:30*24);
@@ -87,7 +94,7 @@ function checkWorkflow(data:Json, kind:'release'|'browser'):Check {
   const success=run.conclusion==='success';
   const status:Health=pending?'pending':!success?'warning':
     freshness==='stale'?'stale':freshness==='unknown'?'unknown':'ok';
-  const details=kind==='browser'?'Scheduled checks of the published site':'Main-branch build and deployment';
+  const details=kind==='browser'?'Deployed-site browser checks (event: '+String(run.event||'unknown')+')':'Main-branch build and deployment';
   return {...base,status,at,href:typeof run.html_url==='string'&&run.html_url.startsWith('https://github.com/')?run.html_url:base.href,
     detail:details+': '+(pending?'still running':success?'workflow succeeded':'workflow failed or was cancelled')+
     '. '+(freshness==='stale'?'Last run exceeds the review window.':'A successful run does not guarantee current service or feed health.')};
@@ -114,7 +121,7 @@ export default function OperationalAssurance(){
       json(String(import.meta.env.BASE_URL||'/')+'analysis/physical-early-warning.json',controller.signal).then(checkEarly),
       json(LIVE+'?checked='+Date.now(),controller.signal).then(checkResilience),
       json(API+'deploy-pages.yml/runs?branch=main&per_page=1',controller.signal).then(d=>checkWorkflow(d,'release')),
-      json(API+'eastern-axis-pages-live-qa.yml/runs?branch=main&event=schedule&per_page=1',controller.signal).then(d=>checkWorkflow(d,'browser')),
+      json(API+'eastern-axis-pages-live-qa.yml/runs?branch=main&per_page=20',controller.signal).then(d=>checkWorkflow(d,'browser')),
     ];
     Promise.allSettled(tasks).then(results=>{
       if(!active)return;
