@@ -155,3 +155,18 @@
 .cc-live-caveat{margin:14px 0 0;border-top:1px solid #314b50;padding-top:13px;color:#86a1a8;font-size:10px;line-height:1.55}
 @media(max-width:950px){.cc-live-events{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:450px){.cc-live-panel{padding:13px}.cc-live-panel .cc-panel-head>a{font-size:9px}}
+/* Map key: separate territory categories from the currently selected evidence layer. */
+.cc-map-footer{display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:18px;row-gap:8px;align-items:start}
+.cc-map-footer .cc-legend-countries,.cc-map-footer .cc-legend-signals{grid-column:1;display:flex;align-items:center;gap:9px 13px;flex-wrap:wrap;font-size:10px;color:#b7cbd0}
+.cc-map-footer .cc-legend-countries strong,.cc-map-footer .cc-legend-signals strong{font:10px 'DM Mono',monospace;letter-spacing:.07em;color:#8fdac5;margin-right:3px}
+.cc-map-footer .cc-legend-countries span,.cc-map-footer .cc-legend-signals span{display:inline-flex;align-items:center;gap:5px}
+.cc-map-footer .cc-legend-countries i,.cc-map-footer .cc-legend-signals i{display:inline-block;flex-shrink:0}
+.cc-map-footer .cc-legend-signals{grid-row:2}
+.cc-map-footer>button{grid-column:2;grid-row:1/span 2;justify-self:end;align-self:start;white-space:nowrap}
+.cc-dot-quake,.cc-dot-nasa{display:inline-block;width:9px;height:9px;border-radius:50%;background:#dba16b}
+.cc-dot-nasa{background:#5db6e2}
+@media(max-width:670px){
+  .cc-map-footer{grid-template-columns:minmax(0,1fr);gap:10px}
+  .cc-map-footer .cc-legend-countries,.cc-map-footer .cc-legend-signals{grid-column:1;gap:8px 10px}
+  .cc-map-footer>button{grid-column:1;grid-row:3;justify-self:start}
+}
