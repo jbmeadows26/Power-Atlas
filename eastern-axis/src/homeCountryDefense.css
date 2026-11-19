@@ -1,0 +1,40 @@
+.hcd-root{margin:16px 0 20px;border:1px solid #427a6e;background:linear-gradient(145deg,#153b38,#10242c 72%);padding:19px;color:#e0f1e9;border-radius:14px;min-width:0}
+.hcd-heading{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+.hcd-kicker{display:flex;align-items:center;gap:7px;color:#a4eed2;font:10px 'DM Mono',monospace;letter-spacing:.08em}
+.hcd-heading h2{font:800 clamp(19px,3.3vw,28px) 'Manrope',sans-serif;letter-spacing:-.035em;line-height:1.25;margin:7px 0}
+.hcd-heading p{max-width:810px;line-height:1.55;color:#b6cdc6;font-size:12px;margin:0 0 11px}
+.hcd-heading p strong{color:#def7e8}
+.hcd-library,.hcd-more,.hcd-open{display:inline-flex;align-items:center;justify-content:space-between;gap:9px;color:#c5fbe3;background:#235447;border:1px solid #5d9a84;padding:10px 12px;border-radius:10px;font-size:11px;font-weight:750;cursor:pointer}
+.hcd-library{white-space:nowrap}
+.hcd-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:10px 0 13px}
+.hcd-summary>div{display:flex;align-items:center;gap:9px;border:1px solid #406b62;background:#132f32;padding:11px;border-radius:10px;min-width:0}
+.hcd-summary svg{color:#99e5c6;flex-shrink:0}
+.hcd-summary strong{font:800 25px 'Manrope',sans-serif;color:#f7f1d2}
+.hcd-summary span{font-size:11px;color:#b5d8cb;line-height:1.3}
+.hcd-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.hcd-country{border:1px solid #44635e;background:#172f34;padding:13px;min-width:0;display:flex;flex-direction:column;gap:10px;border-radius:10px}
+.hcd-country-head{display:flex;align-items:center;gap:9px}
+.hcd-flag{font-size:24px;flex-shrink:0}
+.hcd-country-head>div{display:flex;flex-direction:column;min-width:0;flex:1}
+.hcd-country-label{font-size:15px;font-weight:800}
+.hcd-country-head small{font-size:10px;color:#9fc6bd;margin-top:2px}
+.hcd-country-head button{background:#23483f;color:#d8f5e7;border:1px solid #527c6f;padding:7px;display:flex;align-items:center;gap:4px;border-radius:8px;font-size:10px;cursor:pointer}
+.hcd-count-row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}
+.hcd-count-row span{display:flex;flex-direction:column;align-items:flex-start;gap:3px;background:#10262b;border:1px solid #2c524e;border-radius:7px;padding:9px 7px;color:#adc8bf;font-size:9px;line-height:1.2}
+.hcd-count-row strong{font:800 21px 'Manrope',sans-serif;color:#eaf4da}
+.hcd-highlights{display:flex;flex-direction:column;gap:0;flex:1}
+.hcd-highlights>a{display:flex;align-items:flex-start;gap:8px;border-top:1px solid #34514e;padding:9px 0;color:#9adcc6;text-decoration:none;min-width:0}
+.hcd-highlights>a>svg{flex-shrink:0;margin-top:1px}
+.hcd-highlights>a>span{display:flex;flex-direction:column;gap:3px;flex:1;min-width:0}
+.hcd-highlights strong{font-size:11px;color:#ecf6f0;line-height:1.4;overflow-wrap:anywhere}
+.hcd-highlights small{font-size:10px;color:#a7bfba;line-height:1.4}
+.hcd-open{width:100%;background:#25584d;min-height:42px}
+.hcd-more{margin:12px 0 0}
+.hcd-warning,.hcd-disclaimer{font-size:11px;color:#acd0c6;line-height:1.55}
+.hcd-warning{padding:10px 12px;border:1px dashed #658776}
+.hcd-disclaimer{margin:12px 0 0}
+.hcd-root .cds-root{margin:8px 0;border-color:#3c655c;background:#102a2f}
+.hcd-root button:focus-visible,.hcd-root a:focus-visible{outline:3px solid #bdf9dc;outline-offset:2px}
+@media(max-width:980px){.hcd-heading{flex-direction:column}.hcd-library{margin-bottom:4px}}
+@media(max-width:670px){.hcd-root{border-radius:0;margin:0 0 14px;padding:15px 12px;border-left:0;border-right:0}.hcd-summary{gap:5px}.hcd-summary>div{padding:9px 6px;flex-wrap:wrap;gap:5px}.hcd-summary strong{font-size:20px}.hcd-summary span{font-size:9px}.hcd-grid{grid-template-columns:1fr;gap:9px}.hcd-country{padding:12px}.hcd-heading h2{font-size:24px}.hcd-heading p{font-size:11px}.hcd-country-head button{min-height:36px}.hcd-library,.hcd-more{min-height:42px}}
+@media(max-width:340px){.hcd-kicker{font-size:9px}.hcd-summary>div{flex-direction:column;align-items:flex-start}.hcd-count-row span{font-size:8px}}

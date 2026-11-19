@@ -10,6 +10,7 @@ import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
+import HomeCountryDefense from './HomeCountryDefense';
 import Factbook from './Factbook';
 import CountryFactbook from './CountryFactbook';
 import DefenseIntel from './DefenseIntel';
@@ -466,6 +467,7 @@ function App() {
           </div>
         </header>
         <main className="content">
+          {overview && view === 'Overview' && <HomeCountryDefense countries={overview.countries} code={countryScope} onCountryOpen={openCountry} onCountryFocus={setCountryScope} onOpenLibrary={()=>switchView('Defense intelligence')} />}
           {overview && view === 'Overview' && (
             <section className="mobile-brief" aria-labelledby="ea-mobile-brief-title">
               <div className="mobile-brief-heading">
