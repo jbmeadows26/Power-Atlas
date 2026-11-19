@@ -74,7 +74,9 @@
 .ea-control-room .page-heading{margin:12px 0 17px}.ea-control-room .page-heading h1{font:800 clamp(24px,3.2vw,36px) 'Manrope',sans-serif;letter-spacing:-.045em}
 .ea-control-room .page-heading p{color:#94acb7;font-size:11px;line-height:1.5}
 .ea-control-room .eyebrow{font-size:9px;color:#b3df92}
-.ea-control-room .country-layout{grid-template-columns:minmax(270px,1fr) minmax(300px,1.35fr);gap:12px}
+.ea-control-room .country-layout{grid-template-columns:minmax(0,1.55fr) minmax(250px,.72fr);gap:12px;align-items:start}
+.ea-control-room .country-layout .country-brief{order:1;min-width:0}
+.ea-control-room .country-layout .country-directory{order:2;min-width:0}
 .ea-control-room .country-directory,.ea-control-room .country-brief,.ea-control-room .panel,.ea-control-room .metric-card,.ea-control-room .focus-card,.ea-control-room .source-card,.ea-control-room .method-card,.ea-control-room .method-hero,.ea-control-room .evidence-panel,.ea-control-room .case-card{border-radius:4px;background-color:#10232c;border-color:#35505b}
 .ea-control-room .country-row{border-radius:3px}
 .ea-control-room .country-brief{scroll-margin-top:140px}
