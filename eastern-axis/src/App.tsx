@@ -11,6 +11,7 @@ import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
+import CountryFactbook from './CountryFactbook';
 import DefenseIntel from './DefenseIntel';
 import AgentDesk from './AgentDesk';
 import { api } from '@appdeploy/client';
@@ -751,8 +752,9 @@ function App() {
                           evidence of no activity.
                         </div>
                       )}
-                      <button type="button" onClick={() => { setCountryScope(country.code); switchView('World Factbook'); }} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:15,margin:'15px 0',background:'#174139',border:'1px solid #4f907f',color:'#b6f4da',borderRadius:8,fontWeight:700}}>Explore historical World Factbook <ArrowRight size={17}/></button>
+                      <button type="button" onClick={() => document.getElementById('ea-country-factbook')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:15,margin:'15px 0',background:'#174139',border:'1px solid #4f907f',color:'#b6f4da',borderRadius:8,fontWeight:700}}>View all World Factbook fields below <ArrowRight size={17}/></button>
                       <DefenseIntel key={country.code} code={country.code} countryName={country.name} />
+                      <div id="ea-country-factbook"><CountryFactbook key={country.code} code={country.code} countryName={country.name} /></div>
                       <div className="brief-links">
                         <Anchor
                           href={
