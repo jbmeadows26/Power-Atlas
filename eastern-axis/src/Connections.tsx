@@ -40,6 +40,7 @@ export default function Connections({code,countries,cases,onSelect}:Props){
  const [systemsError,setSystemsError]=useState(false);
  const [active,setActive]=useState<Branch>('cases');
  const [region,setRegion]=useState('All regions');
+ const [query,setQuery]=useState('');
  const selected=countries.find(c=>c.code===code);
  useEffect(()=>{
    let valid=true;
@@ -64,16 +65,25 @@ export default function Connections({code,countries,cases,onSelect}:Props){
  const economics=(systems?.indicators||[]).filter(i=>selectedMetrics.has(i.code));
  const counts:{[key in Branch]:number}={cases:relatedCases.length,intake:leads.length,reports:assessments.length,sources:alliedSources.length,operations:operations.length,assets:assets.length,economic:economics.filter(i=>i.value!==null).length};
  const regions=['All regions', ...Array.from(new Set(countries.map(c=>c.region))).sort()];
- const countriesByRegion=countries.filter(c=>region==='All regions'||c.region===region)
+ const countriesByRegion=countries.filter(c=>(region==='All regions'||c.region===region) && (c.name.toLowerCase().includes(query.toLowerCase())||c.code.toLowerCase().includes(query.toLowerCase())))
    .sort((a,b)=>(cases.filter(x=>x.code===b.code).length-cases.filter(x=>x.code===a.code).length)||a.name.localeCompare(b.name));
  return <section className="cx-root">
   <div className="cx-eyebrow"><Network size={15}/> CROSS-DOMAIN INTELLIGENCE / COUNTRY-INDEXED</div>
   <h1>Follow the documented connections.</h1>
   <p className="cx-sub">All relevant public U.S. and allied evidence stays in scope for every country: legal records, Five Eyes reporting, NATO and EU assessments, regional defense assessments, sanctions and source-indexed leads. Show original sources and their limits. <strong>Zero curated cases never means zero evidence.</strong> A shared country index does not establish a relationship or government attribution.</p>
   {code==='all'||!selected?<div className="cx-directory">
-   <div className="cx-region-heading"><div><h2>Choose a country or region</h2><p>Country-specific records are examined separately. Regional grouping is for discovery, not an assertion that neighbors share responsibility.</p></div><select aria-label="Filter countries by region" value={region} onChange={e=>setRegion(e.target.value)}>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select></div>
+   <div className="cx-region-heading"><div><h2>Choose a country or region</h2><p>Country-specific records are examined separately. Regional grouping is for discovery, not an assertion that neighbors share responsibility.</p></div><div className="cx-directory-filters"><input type="search" aria-label="Find country or ISO code" placeholder="Search country or code…" value={query} onChange={e=>setQuery(e.target.value)}/><select aria-label="Filter countries by region" value={region} onChange={e=>setRegion(e.target.value)}>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select></div></div>
    <div className="cx-country-grid">{countriesByRegion.slice(0,45).map(c=><button key={c.code} onClick={()=>onSelect(c.code)} className="cx-country"><strong>{c.name}</strong><span>{c.region} · {focus.has(c.code)?'Strategic focus':c.isTreatyAlly?'Treaty ally':'Regional research'}</span><small>Explore allied evidence &amp; sources <ArrowUpRight size={12}/></small></button>)}</div>
-   {countriesByRegion.length>45&&<p className="cx-foot">Showing the first 45 jurisdictions in this region. Use the persistent country selector above to open any other jurisdiction.</p>}
+   {countriesByRegion.length>45&&<p className="cx-foot">Showing 45 of {countriesByRegion.length} matching jurisdictions. Search by country or ISO code, or use the persistent selector to reach every country.</p>}
+   {countriesByRegion.length===0&&<p className="cx-empty">No matching countries. Try another name or region.</p>}
+   <section className="cx-global-evidence" aria-label="Worldwide allied intelligence sources">
+    <h2>Worldwide U.S. and allied evidence</h2>
+    <p className="cx-sub">These are all currently curated country-tagged allied assessments, even when a country's DOJ case index is empty. Each link opens an original report. The source library is broader than the curated report sample; unindexed reporting is not an absence of evidence.</p>
+    {(defense?.assessments||[]).map(r=><article className="cx-record" key={r.id}><small>{r.published} · {r.agency} · {r.countries.length?r.countries.join(', '):'Regional context — not country-tagged'}</small><h3>{r.title}</h3><p>{r.finding}</p><a href={r.url} target="_blank" rel="noopener noreferrer">Original allied assessment <ArrowUpRight size={13}/></a></article>)}
+    <h3 className="cx-source-heading">Official allied source network</h3>
+    <div className="cx-source-links">{alliedSources.map(r=><a key={r.id} href={r.url} target="_blank" rel="noopener noreferrer">{r.name} <ArrowUpRight size={12}/></a>)}</div>
+    {defenseError&&<p className="cx-empty">Allied source catalog could not be loaded. Coverage is unknown, not zero.</p>}
+   </section>
   </div>:<>
    <div className="cx-center"><Globe2 size={24}/><div><small>ALL-SOURCE COUNTRY INDEX</small><h2>{selected.name}</h2><span>{selected.region} · {selected.relationship}</span></div></div>
    <p className="cx-sub">Every country remains connected to the complete allied source network, whether or not its curated DOJ index has entries. Country-tagged records and worldwide discovery portals are shown separately so unreviewed mentions cannot be mistaken for verified government activity.</p>
