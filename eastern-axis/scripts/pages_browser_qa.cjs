@@ -3,6 +3,8 @@ const fs = require('node:fs');
 const assert = require('node:assert/strict');
 const api = fs.readFileSync('eastern-axis/public-api-origin.txt','utf8').trim().replace(/\/$/,'');
 const origin = (process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173').replace(/\/$/, '');
+const production = origin === 'https://jbmeadows26.github.io/Power-Atlas/eastern-axis';
+if (origin.startsWith('https://') && !production) throw Error('Unexpected production QA origin: '+origin);
 (async()=>{
   const browser=await chromium.launch({headless:true});
   const req=await createRequest.newContext({extraHTTPHeaders:{Origin:'https://jbmeadows26.github.io'}});
@@ -25,7 +27,19 @@ const origin = (process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173').replac
     const context=await browser.newContext({viewport});
     const page=await context.newPage();
     page.on('pageerror',e=>errors.push(viewport.width+': '+e.message));
-    await connect(page);
+    const apiFailures=[];
+    if (production) {
+      page.on('requestfailed',request=>{
+        if(request.url().startsWith(api+'/api/'))apiFailures.push(request.url()+': '+request.failure()?.errorText);
+      });
+      page.on('response',response=>{
+        if(response.url().startsWith(api+'/api/') && response.status()>=400)
+          apiFailures.push(response.url()+': HTTP '+response.status());
+      });
+    } else {
+      // Candidate-only proxy. Production MUST use the browser's real CORS/network path.
+      await connect(page);
+    }
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
@@ -73,8 +87,9 @@ const origin = (process.env.EA_BROWSER_ORIGIN || 'http://127.0.0.1:4173').replac
     await assurance.getByText('Not independently connected:',{exact:false}).waitFor({state:'visible'});
     const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
+    if(production) assert.equal(apiFailures.length,0,'Real browser-to-Neon API failures: '+apiFailures.join('; '));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
-    console.log('Browser QA passed',viewport.width,'country picker, treaty facts, persistence, Risk watch live telemetry and responsive layout');
+    console.log('Browser QA passed',viewport.width,production?'published Pages with direct Neon browser requests':'candidate build', 'country scope, treaty facts, resilience telemetry, assurance and responsive layout');
     await context.close();
   }
   await browser.close();

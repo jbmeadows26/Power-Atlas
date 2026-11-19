@@ -15,10 +15,23 @@ on:
       - 'eastern-axis/**'
       - '.github/workflows/eastern-axis-pages-live-qa.yml'
   workflow_dispatch:
+  workflow_run:
+    workflows: ['Publish Power Atlas + Eastern Axis to GitHub Pages']
+    types: [completed]
+    branches: [main]
 permissions:
   contents: read
 jobs:
+  deployment-gate:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Refuse to certify failed upstream publication
+        if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion != 'success'
+        run: |
+          echo 'Upstream Pages release failed; live QA cannot be certified' >&2
+          exit 1
   live-api:
+    needs: deployment-gate
     runs-on: ubuntu-24.04
     timeout-minutes: 14
     steps:
@@ -34,6 +47,7 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
   browser:
+    needs: deployment-gate
     runs-on: ubuntu-24.04
     timeout-minutes: 25
     steps:
@@ -42,6 +56,7 @@ jobs:
         with:
           node-version: '24'
       - name: Build migration candidate for Pages
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
         working-directory: eastern-axis
         env:
           VITE_EA_TARGET: github-pages
@@ -56,10 +71,10 @@ jobs:
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-browser" --no-save playwright@1.56.1
           "$RUNNER_TEMP/ea-pages-browser/node_modules/.bin/playwright" install chromium
-      - name: Test country persistence and resilience UI at 320px, 390px and desktop
+      - name: Test actual Pages production on schedule, deployment or manual run; candidate on PR
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-browser/node_modules/playwright
-          EA_BROWSER_ORIGIN: ${{ github.event_name == 'schedule' && 'https://jbmeadows26.github.io/Power-Atlas/eastern-axis' || 'http://127.0.0.1:4173' }}
+          EA_BROWSER_ORIGIN: ${{ (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' || github.event_name == 'workflow_run') && 'https://jbmeadows26.github.io/Power-Atlas/eastern-axis' || 'http://127.0.0.1:4173' }}
         run: |
           mkdir -p audit-output
           node eastern-axis/scripts/pages_browser_qa.cjs
