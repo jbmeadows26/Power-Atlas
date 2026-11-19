@@ -4,6 +4,7 @@ import { feature } from 'topojson-client';
 import { geoNaturalEarth1, geoGraticule10, geoPath } from 'd3-geo';
 import { Activity, ArrowRight, ArrowUpRight, BadgeAlert, BookOpen, CheckCircle2, ChevronDown, CircleAlert, Clock3, Database, ExternalLink, Eye, Filter, Globe2, Layers3, LockKeyhole, Map, Minus, Network, Plus, Radio, RefreshCcw, Search, Shield, ShieldCheck, SlidersHorizontal, X } from 'lucide-react';
 import './command.css';
+import DecisionBoard from './DecisionBoard';
 
 type Country = {code:string;name:string;region:string;scope:string;relationship:string;securityNote?:string;usRelationship?:string;securitySources?:{label:string;url:string}[];isTreatyAlly:boolean;isMNNA:boolean;caseCount:number};
 type CaseFile = {id:string;code:string;date:string;title:string;topic:string;status:string;level:string;summary:string;impact:string;source:string;agency:string};
@@ -105,6 +106,10 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [showLayerLegend,setShowLayerLegend]=useState(true);
   const [expandedSource,setExpandedSource]=useState(false);
   const [now,setNow]=useState(new Date());
+  const [refreshToken,setRefreshToken]=useState(0);
+  const [lastRequestedAt,setLastRequestedAt]=useState<string|null>(null);
+  useEffect(()=>{const timer=window.setInterval(()=>setRefreshToken(value=>value+1),5*60*1000);return()=>window.clearInterval(timer);},[]);
+  useEffect(()=>{setLastRequestedAt(new Date().toISOString());},[refreshToken]);
   useEffect(()=>{
     let active=true;
     fetch(topologyURL).then(r=>{if(!r.ok)throw new Error('Map unavailable');return r.json();})
@@ -121,20 +126,18 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
       .then(r=>{if(active){setIntel(r.data as Intel);setIntelligenceError(false);}})
       .catch(()=>{if(active)setIntelligenceError(true);});
     return()=>{active=false;};
-  },[]);
+  },[refreshToken]);
   useEffect(()=>{
     let active=true;
     api.get('/api/world-signals').then(r=>{if(active){setWorldSignals(r.data as WorldSignals);setSignalError(false);}})
       .catch(()=>{if(active)setSignalError(true);});
     return()=>{active=false;};
-  },[]);
+  },[refreshToken]);
   useEffect(()=>{const t=setInterval(()=>setNow(new Date()),60000);return()=>clearInterval(t);},[]);
   const allCountries=overview.countries.filter(c=>c.scope==='state-or-observer');
   const country=overview.countries.find(c=>c.code===selected);
   const cases=overview.cases.filter(c=>c.code===selected);
-  const nonAllied=allCountries.filter(c=>!c.isTreatyAlly).length;
   const checks=intel?.sources||[];
-  const checked=checks.filter(s=>s.health?.status==='ok').length;
   const ofac=intel?.ofac;
   const alerts=overview.cases.filter(c=>!activeCountry||activeCountry==='all'||c.code===activeCountry).sort((a,b)=>b.date.localeCompare(a.date));
   const searchResults=search.trim()?overview.countries.filter(c=>c.name.toLowerCase().includes(search.trim().toLowerCase()) || c.code.toLowerCase()===search.trim().toLowerCase()).slice(0,8):[];
@@ -167,13 +170,10 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const hoverCountry=(name?:string)=>{const code=findCode(name);if(code)selectCountry(code);};
   return <div className="command-center">
     <div className="cc-topline"><div className="cc-topline-main"><span className="cc-signal-beacon"/><span>GLOBAL INTELLIGENCE / RESEARCH WORKSPACE</span><strong>ORIGINAL-SOURCE FIRST</strong></div><span>{now.toLocaleString('en-US',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',hour12:false})} UTC · {day(now.toISOString())}</span></div>
-    <div className="cc-heading-row"><div className="cc-heading"><div className="cc-mini-label"><Globe2 size={13}/> SITUATIONAL AWARENESS / 01</div><h1>THE <span>WORLD</span> IN CONTEXT.</h1><p>Map the relationships. Inspect the evidence. Separate what is known from what is still under review.</p></div><div className="cc-top-actions"><button onClick={openDesk}><Activity size={15}/> Collection health <span className="cc-online-count">{checked}/{checks.length||4}</span></button><button onClick={openSources}><Database size={15}/> Sources</button></div></div>
-    <div className="cc-metrics">
-      <div><span>RESEARCH JURISDICTIONS</span><strong>{nonAllied}</strong><small>Not listed primary treaty allies · not assumed hostile</small></div>
-      <div><span>CURATED CASE FILES</span><strong>{overview.cases.length}</strong><small>DOJ examples, not real-time incident count</small></div>
-      <div><span>OFAC SDN LISTED ENTRIES</span><strong>{ofac?fmt(ofac.records):'—'}</strong><small>{ofac?'Official export checked '+day(ofac.checkedAt):'Awaiting validated first import'}</small></div>
-      <div><span>SOURCE CONNECTORS</span><strong>{checked}<small> / 4</small></strong><small>Successful most recent checks · not all global feeds</small></div>
-    </div>
+    <DecisionBoard countries={overview.countries} cases={overview.cases} intel={intel} worldSignals={worldSignals}
+      intelligenceError={intelligenceError} signalError={signalError} activeCountry={activeCountry}
+      onCountrySelected={onCountrySelected} openCases={openCases} openDesk={openDesk} openSources={openSources}
+      refresh={()=>setRefreshToken(value=>value+1)} lastRequestedAt={lastRequestedAt} />
     <div className="cc-main-grid">
       <section className="cc-map-panel">
         <div className="cc-map-nav"><div className="cc-map-title"><span className="cc-map-signal"><Radio size={15}/></span><div><strong>Geospatial intelligence</strong><small>RESEARCH ANCHORS · NOT INCIDENT LOCATIONS</small></div></div><div className="cc-map-actions"><button onClick={()=>{setRegion('GL');setZoom(1);}} title="Reset global map"><Globe2 size={16}/></button><button onClick={()=>setZoom(z=>Math.max(.75,z-.25))} title="Zoom out" aria-label="Zoom out"><Minus size={15}/></button><span>{Math.round(scale*100)}%</span><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} title="Zoom in" aria-label="Zoom in"><Plus size={15}/></button></div></div>
