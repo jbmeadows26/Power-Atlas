@@ -5,6 +5,7 @@ import datetime as dt
 import json
 import os
 import pathlib
+import re
 import sys
 import time
 import urllib.error
@@ -179,6 +180,26 @@ def inspect_data():
             add("Data","Immutable evidence","WARN","No verified immutable archive count",
                 BASE+"/api/evidence-workbench")
 
+def map_treaty_references():
+    """Check actual URLs rendered in country-map security evidence panels.
+
+    This intentionally scans static constants and per-country source links, not
+    arbitrary user-supplied URLs or sites mentioned in case descriptions.
+    """
+    path=pathlib.Path("eastern-axis/src/securityTreaties.ts")
+    raw=path.read_text(encoding="utf-8")
+    urls=sorted(set(re.findall(r"https://[^\\s'\\\"]+",raw)))
+    if len(urls)<8:
+        add("Audit","Map treaty link inventory","FAIL",
+            "Expected at least 8 explicitly sourced map treaty reference URLs",str(path))
+    for url in urls:
+        source=urllib.parse.urlparse(url)
+        if source.scheme!="https" or not source.hostname:
+            add("Link","Map treaty source","FAIL","Malformed mapped security source",url)
+            continue
+        label="Map treaty source "+source.hostname+source.path
+        yield {"id":label,"url":url,"mode":"reference-only"}
+
 def probe_link(item):
     name=item.get("id") or item.get("name") or "unknown"
     url=item.get("url") or ""
@@ -224,6 +245,7 @@ def main():
     sources=(DOC.get("/api/overview") or {}).get("sources",[])
     with cf.ThreadPoolExecutor(max_workers=8) as pool:
         futures=[pool.submit(probe_link,x) for x in sources if isinstance(x,dict)]
+        futures += [pool.submit(probe_link,x) for x in map_treaty_references()]
         futures += [pool.submit(probe_upstream,x) for x in SOURCES.items()]
         for f in cf.as_completed(futures):
             try:add(*f.result())
