@@ -147,7 +147,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:target}).click();
       assert.match(await scope.innerText(),/Russia/,target+' lost selected scope');
-      await operations.getByText('Russia',{exact:true}).first().waitFor({state:'visible'});
+      assert.equal(await page.locator('.ea-ops').count(),0,'Shared stats strip returned on '+target);
     }
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.getByRole('button',{name:'Choose country intelligence scope'});
