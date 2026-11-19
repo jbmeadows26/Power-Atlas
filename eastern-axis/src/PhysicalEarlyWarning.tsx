@@ -40,7 +40,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
   {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void;initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss'}) {
   const [category,setCategory]=useState('maritime');
   const [search,setSearch]=useState('');
-  const [measurementFilter,setMeasurementFilter]=useState(initialMeasurementFilter);
+  const [measurementFilter,setMeasurementFilter]=useState<string>(initialMeasurementFilter);
   useEffect(()=>setMeasurementFilter(initialMeasurementFilter),[initialMeasurementFilter]);
   const [scenario,setScenario]=useState('shipping');
   const [snapshot,setSnapshot]=useState<Snapshot>(EMPTY);
