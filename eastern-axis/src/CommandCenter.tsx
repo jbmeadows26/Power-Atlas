@@ -14,7 +14,7 @@ type Intake = {id:string;sourceId:string;title:string;date:string;countryMention
 type OFACMeta = {checkedAt:string;records:number;sampleSize:number;programCounts:Record<string,number>;dataset:string;scope:string};
 type Intel={sources:{id:string;name:string;health:Health|null;documentation:string}[];records:Intake[];ofac?:OFACMeta|null;sampled:number;resultsNote:string};
 type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void};
-type Layer='cases'|'ofac'|'seismic'|'natural'|'all';
+type Layer='cases'|'ofac'|'seismic'|'natural';
 type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:number;date:string;source:string;sourceUrl:string};
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
 type Shape={id:string|number;properties?:{name?:string};geometry:unknown};
@@ -119,7 +119,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const searchResults=search.trim()?overview.countries.filter(c=>c.name.toLowerCase().includes(search.trim().toLowerCase()) || c.code.toLowerCase()===search.trim().toLowerCase()).slice(0,8):[];
   const programCount=(code:string)=>Object.entries(ofac?.programCounts||{}).filter(([p])=>program[code]?.test(p)).reduce((a,[,n])=>a+n,0);
   const markers=anchors.map(a=>({...a,count:overview.cases.filter(c=>c.code===a.code).length,programs:programCount(a.code)}))
-    .filter(a=>(!activeCountry||activeCountry==='all'||a.code===activeCountry)&&((layer==='cases'&&a.count>0)||(layer==='ofac'&&a.programs>0)||(layer==='all'&&(a.count>0||a.programs>0))));
+    .filter(a=>(!activeCountry||activeCountry==='all'||a.code===activeCountry)&&((layer==='cases'&&a.count>0)||(layer==='ofac'&&a.programs>0)));
   const findCode=(name?:string)=>{
     if(!name)return null;
     const key=similar(name);
@@ -148,9 +148,8 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
         <div className="cc-map-nav"><div className="cc-map-title"><span className="cc-map-signal"><Radio size={15}/></span><div><strong>Geospatial intelligence</strong><small>RESEARCH ANCHORS · NOT INCIDENT LOCATIONS</small></div></div><div className="cc-map-actions"><button onClick={()=>{setRegion('GL');setZoom(1);}} title="Reset global map"><Globe2 size={16}/></button><button onClick={()=>setZoom(z=>Math.max(.75,z-.25))} title="Zoom out" aria-label="Zoom out"><Minus size={15}/></button><span>{Math.round(scale*100)}%</span><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} title="Zoom in" aria-label="Zoom in"><Plus size={15}/></button></div></div>
         <div className="cc-region-tabs">{regions.map(r=><button key={r.code} className={region===r.code?'active':''} onClick={()=>{setRegion(r.code);setZoom(1);}}>{r.label}</button>)}</div>
         <div className="cc-layer-bar"><div><Layers3 size={14}/><strong>DATA LAYERS</strong></div>{([
-          ['all','Case + OFAC anchors'],
           ['cases','Curated cases'],
-          ['ofac','OFAC program tags'],
+          ['ofac','OFAC program entries'],
           ['seismic','USGS earthquakes'],
           ['natural','NASA natural hazards']
         ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>setLayer(value)}>{label}</button>)}</div>
@@ -211,8 +210,8 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
         <div className="cc-map-footer">
           <div className="cc-legend-countries" aria-label="Country-area legend"><strong>COUNTRY STATUS</strong><span><i className="cc-dot-ally"/> U.S. + indexed treaty allies</span><span><i className="cc-dot-adversary"/> Four U.S. strategic focus states</span><span><i className="cc-dot-neutral"/> Other / unclassified</span></div>
           <div className="cc-legend-signals" aria-label="Current data-layer legend"><strong>VISIBLE MAP POINTS</strong>
-            {(layer==='cases'||layer==='all')&&<span><i className="cc-dot-mint"/> Curated case → country context</span>}
-            {(layer==='ofac'||layer==='all')&&<span><i className="cc-dot-gold"/> OFAC program entries → country context, NOT locations</span>}
+            {layer==='cases'&&<span><i className="cc-dot-mint"/> Curated case → country context</span>}
+            {layer==='ofac'&&<span><i className="cc-dot-gold"/> OFAC program entries → country context, NOT locations</span>}
             {layer==='seismic'&&<span><i className="cc-dot-quake"/> USGS reported earthquake epicenter</span>}
             {layer==='natural'&&<span><i className="cc-dot-nasa"/> NASA EONET source-reported event</span>}
           </div>
