@@ -504,7 +504,7 @@ function App() {
               openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
               openDesk={()=>switchView('Collection desk')}
               openSources={()=>switchView('Source library')}
-              openMethod={()=>switchView('Methodology')} />
+              openMethod={()=>switchView('Methodology')} onNavigate={switchView} />
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
