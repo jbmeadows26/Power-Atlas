@@ -58,9 +58,10 @@ async function qa(page,width){
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
   await page.getByRole('button',{name:'Choose country intelligence scope'}).waitFor({state:'visible',timeout:20000});
-  const ops=page.getByRole('region',{name:'Persistent global intelligence data bar'});
-  await ops.waitFor({state:'visible'});
-  assert.equal(await ops.locator('.ea-ops-metric').count(),6,'Every module should display six source-aware headline measures');
+  assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
+  const radar=page.getByRole('region',{name:'Decision radar by domain'});
+  await radar.waitFor({state:'visible'});
+  assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).waitFor({state:'visible'});
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
@@ -69,7 +70,8 @@ async function qa(page,width){
   }else{
     assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
     assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Networks','More']);
-    await ops.getByText('SOURCE HEALTH',{exact:true}).waitFor({state:'visible'});
+    await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
+    await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
     // Regression: zero-DOJ country with null allied-sanctions counts must never blank the app.
     await nav.getByRole('button',{name:'Networks'}).click();
     await page.locator('.cx-country').filter({hasText:'Antigua & Barbuda'}).click();
@@ -113,10 +115,10 @@ async function qa(page,width){
     await page.getByRole('heading',{name:/Sources, not secrets/i}).waitFor();
     assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
     await nav.getByRole('button',{name:'Home'}).click();
-    await page.locator('.ea-ops-country').getByText('China').waitFor({state:'visible'});
+    await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
-    await page.locator('.ea-ops-country').getByText('China').waitFor({state:'visible'});
+    await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
     await page.locator('.cc-map-actions button').first().waitFor({state:'visible'});
   }
