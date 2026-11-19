@@ -100,5 +100,26 @@ jobs:
             git -c user.name="github-actions[bot]" \
               -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
               commit -m "data(eastern-axis): refresh attributable physical warning source snapshot [skip ci]"
-            git push origin HEAD:main
+            # Another unrelated merged PR or source collector may advance main.
+            # Retry a normal fast-forward after rebasing; never force-push or
+            # overwrite a newer verified snapshot if the file conflicts.
+            published=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                published=true
+                break
+              fi
+              echo "Main moved before publishing; reconciling attempt $attempt/3"
+              git fetch origin main
+              if ! git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" rebase origin/main; then
+                git rebase --abort || true
+                echo "Snapshot conflict: keeping the newer remote record; manual source review required." >&2
+                exit 1
+              fi
+              sleep $((attempt * 3))
+            done
+            if [ "$published" != true ]; then
+              echo "Could not safely publish source snapshot after three fast-forward retries." >&2
+              exit 1
+            fi
           fi
