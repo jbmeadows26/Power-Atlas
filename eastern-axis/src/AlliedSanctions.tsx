@@ -7,8 +7,8 @@ type Firm = { identifier:string;name:string;kind:string;regime:string;reportedPa
 type Source = {
  id:string;name:string;sourceUrl:string;status:string;lastAttemptAt:string|null;checkedAt:string|null;
  publicationDate:string|null;contentSha256:string|null;listedUniqueDesignations:number|null;
- parsedSourceRows:number|null;regimeRecordCount:number;samples:Firm[];
- regimes:Array<{name:string;count:number}>;warning:string;
+ parsedSourceRows:number|null;regimeRecordCount:number|null;samples:Firm[]|null;
+ regimes:Array<{name:string;count:number}>|null;warning:string;
 };
 type Data = { scope:string;sources:Source[];checkedAt:string;policy:string;graphPolicy:string };
 type Case = { id:string;date:string;title:string;status:string;source:string;agency:string };
@@ -34,7 +34,7 @@ export default function AlliedSanctions({code,cases}:{code:string;cases:Case[]})
   </div>
   {loading&&<div className="ip-note"><Clock3 size={15}/> Checking allied source snapshots…</div>}
   {error&&<div className="ip-note"><AlertCircle size={15}/>{error}</div>}
-  {data&&<>
+  {data && data.scope===code && Array.isArray(data.sources) && <>
     <div className="ip-legal"><ShieldCheck size={19}/><p>{data.policy}</p></div>
     <div className="ip-sanctions-grid">{data.sources.map(source=><article className="ip-sanction-source" key={source.id}>
        <div className="ip-sanction-head">
@@ -42,16 +42,16 @@ export default function AlliedSanctions({code,cases}:{code:string;cases:Case[]})
         <span className={source.status==='snapshot'?'ip-state-active':'ip-state-pending'}>{source.status==='snapshot'?'SOURCE SNAPSHOT':'NOT YET VERIFIED'}</span>
        </div>
        <div className="ip-sanction-stats"><div><strong>{source.listedUniqueDesignations?.toLocaleString()||'—'}</strong><span>Distinct listed entries in source</span></div>
-         <div><strong>{source.status==='snapshot'&&code!=='all'?source.regimeRecordCount.toLocaleString():'—'}</strong><span>Records under selected legal regime</span></div></div>
+         <div><strong>{source.status==='snapshot'&&code!=='all'&&typeof source.regimeRecordCount==='number'?source.regimeRecordCount.toLocaleString():'—'}</strong><span>Records under selected legal regime</span></div></div>
        <div className="ip-sanction-meta"><span>Checked {source.checkedAt?.slice(0,10)||'Not collected'}</span><span>Source date {source.publicationDate||'Refer to official page'}</span></div>
        <button className="ip-expand" onClick={()=>setOpen(old=>old===source.id?'none':source.id as 'uk'|'canada')} aria-expanded={open===source.id}>{open===source.id?'Hide':'Explore'} source detail</button>
        {open===source.id&&<div className="ip-source-content">
-         {!source.checkedAt&&<p>Not yet ingested. The large UK file is checked on the scheduled source rotation. Absence of a snapshot means *unknown*, not no sanctions.</p>}
-         {source.samples.length>0&&<>
+         {!source.checkedAt&&<p>Not yet ingested. The large UK file is checked on the scheduled source rotation. Absence of a snapshot means unknown, not no sanctions.</p>}
+         {(source.samples||[]).length>0&&<>
            <p>Selected source-listed organizational examples (not ownership findings):</p>
-           {source.samples.map(s=><div className="ip-firm" key={s.identifier}><Building2 size={15}/><div><strong>{s.name}</strong><small>{s.kind} · ID {s.identifier}</small>{s.reportedParent&&<p>Publisher field “Parent company”: {s.reportedParent} — not independently verified.</p>}</div></div>)}
+           {(source.samples||[]).map(s=><div className="ip-firm" key={s.identifier}><Building2 size={15}/><div><strong>{s.name}</strong><small>{s.kind} · ID {s.identifier}</small>{s.reportedParent&&<p>Publisher field “Parent company”: {s.reportedParent} — not independently verified.</p>}</div></div>)}
          </>}
-         {code==='all'&&source.regimes.map(regime=><div key={regime.name} className="ip-regime"><span>{regime.name}</span><strong>{regime.count}</strong></div>)}
+         {code==='all'&&(source.regimes||[]).map(regime=><div key={regime.name} className="ip-regime"><span>{regime.name}</span><strong>{regime.count}</strong></div>)}
          <p>{source.warning}</p>
          <small>{source.contentSha256?'SHA-256 of downloaded source: '+source.contentSha256:'No verified file hash yet'}</small>
        </div>}
