@@ -10,10 +10,8 @@ import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
-import HomeCountryDefense from './HomeCountryDefense';
 import Factbook from './Factbook';
 import CountryFactbook from './CountryFactbook';
-import OperationsBar from './OperationsBar';
 import './control-room.css';
 import DefenseIntel from './DefenseIntel';
 import AgentDesk from './AgentDesk';
@@ -470,8 +468,6 @@ function App() {
             <span className="asof">SOURCE-DATED DATA</span>
           </div>
         </header>
-        {overview && <OperationsBar countryCode={countryScope} countries={countries}
-          cases={cases} sourceDirectoryCount={sources.length} onNavigate={switchView} />}
         <nav className="ea-workspace-tabs" aria-label="Primary intelligence workspaces">
           {([
             ['Overview','Command',Activity],
@@ -490,18 +486,6 @@ function App() {
             </button>)}
         </nav>
         <main className="content">
-          {overview && view !== 'Overview' && <section className="ea-module-context" aria-label="Current country intelligence workspace">
-            <div><span>EA / COUNTRY-AWARE INTELLIGENCE</span>
-              <strong>{countryScope==='all'?'Worldwide':countries.find(c=>c.code===countryScope)?.name||countryScope} / {view}</strong>
-              <small>Original-source evidence · archived figures labeled · worldwide signals never assigned to a country without source attribution</small>
-            </div>
-            <div className="ea-module-actions">
-              {view!=='Countries'&&<button type="button" onClick={()=>switchView('Countries')}><Globe2 size={14}/> Country dossier</button>}
-              {view!=='Collection desk'&&<button type="button" onClick={()=>switchView('Collection desk')}><Database size={14}/> Feed health</button>}
-              <button type="button" onClick={()=>switchView('Overview')}><Activity size={14}/> Command</button>
-            </div>
-          </section>}
-          {overview && view === 'Overview' && <HomeCountryDefense countries={overview.countries} code={countryScope} onCountryOpen={openCountry} onCountryFocus={setCountryScope} onOpenLibrary={()=>switchView('Defense intelligence')} />}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
