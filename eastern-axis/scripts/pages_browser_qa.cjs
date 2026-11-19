@@ -92,6 +92,28 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
+    // Catch zero-DOJ country crashes and missing all-allied publisher links.
+    // Prior to the Nov 19 fix, selecting Canada or Antigua & Barbuda blanked
+    // the root when a worldwide sanctions snapshot contained null regimeRecordCount.
+    if(viewport.width<600){
+      await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Networks'}).click();
+    }else{
+      await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Connections'}).click();
+    }
+    await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
+    for(const testCountry of ['Canada','Antigua & Barbuda']){
+      const card=page.locator('.cx-country-grid button.cx-country').filter({has:page.getByText(testCountry,{exact:true})});
+      await card.click();
+      await page.locator('.cx-center h2').getByText(testCountry,{exact:true}).waitFor({state:'visible',timeout:15000});
+      assert.equal(await page.locator('#root').isVisible(),true,testCountry+' blanked the React root');
+      await page.getByRole('button',{name:/U.S. \+ allied source network/}).click();
+      await page.locator('.cx-branch a[href^="https://"]').first().waitFor({state:'visible',timeout:15000});
+      assert.ok((await page.locator('.cx-branch a[href^="https://"]').count())>=5,
+        testCountry+' should expose multiple U.S. and allied government source references');
+      await scope.click();
+      await page.getByRole('option',{name:/Worldwide/}).click();
+      await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
+    }
     await scope.click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('russ');
     await page.getByRole('option',{name:/Russia/}).click();
