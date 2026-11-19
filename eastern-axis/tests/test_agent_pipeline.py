@@ -49,6 +49,32 @@ class AnalystTests(unittest.TestCase):
   self.assertEqual(rows[0]["countries"],["RU"])
   self.assertEqual(rows[0]["changeType"],"baseline")
   self.assertNotIn("summary",rows[0])
+ def test_allied_government_assessments_indexed_with_original_sources(self):
+  reports,portals=m.allied_assessments({"assessments":[
+   {"id":"ca-test","title":"Canadian public intelligence report","group":"Five Eyes",
+    "agency":"Canadian Security Intelligence Service","published":"2026-11-17",
+    "url":"https://www.canada.ca/en/security-intelligence-service/corporate/publications.html",
+    "countries":["CN","RU","INVALID"],"finding":"Unverified interpretation must not be published."},
+   {"id":"au-context","title":"Regional cyber report","group":"Five Eyes","agency":"Australian Signals Directorate",
+    "published":"2026-11","url":"https://www.cyber.gov.au/","countries":[]},
+   {"id":"research","title":"Non-allied publisher","group":"Research","agency":"External research",
+    "url":"https://example.org","countries":["CN"]},
+   {"id":"insecure","title":"Insecure example","group":"Five Eyes","agency":"Example",
+    "url":"http://example.org","countries":["CN"]}],
+   "sources":[
+    {"name":"NZ NCSC","group":"Five Eyes","url":"https://www.ncsc.govt.nz/","what":"Public cyber advisories"},
+    {"name":"Research website","group":"Research","url":"https://example.org/"},
+    {"name":"Bad link","group":"Five Eyes","url":"http://example.org/"}]})
+  self.assertEqual(len(reports),2)
+  self.assertEqual(reports[0]["countries"],["CN","RU"])
+  self.assertEqual(reports[1]["countries"],[])
+  self.assertEqual(reports[0]["sourceId"],"allied-assessment")
+  self.assertEqual(reports[0]["changeType"],"baseline")
+  self.assertNotIn("finding",str(reports))
+  self.assertEqual(len(portals),1)
+  self.assertEqual(portals[0]["mode"],"linked-official-source-not-ingested-evidence")
+ def test_allied_schema_fails_closed(self):
+  with self.assertRaises(ValueError):m.allied_assessments({"assessments":"incorrect","sources":[]})
  def test_publisher_coverage_is_not_threat_score(self):
   from analyst_briefs import build_analysis, tags
   rows=[
