@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import { withSecurityContext } from './securityTreaties';
@@ -13,6 +13,8 @@ import CommandCenter from './CommandCenter';
 import HomeCountryDefense from './HomeCountryDefense';
 import Factbook from './Factbook';
 import CountryFactbook from './CountryFactbook';
+import OperationsBar from './OperationsBar';
+import './control-room.css';
 import DefenseIntel from './DefenseIntel';
 import AgentDesk from './AgentDesk';
 import { api } from '@appdeploy/client';
@@ -367,7 +369,7 @@ function App() {
   };
 
   return (
-    <div className="shell">
+    <div className="shell ea-control-room">
       <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
           <span className="brand-mark">
@@ -404,8 +406,9 @@ function App() {
               <BookOpen size={17} />,
             ];
             return (
+              <Fragment key={s}>
+              {(i === 0 || i === 1 || i === 3 || i === 11) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
               <button
-                key={s}
                 type="button"
                 className={'nav-item ' + (view === s ? 'active' : '')}
                 aria-current={view === s ? 'page' : undefined}
@@ -417,6 +420,7 @@ function App() {
                   <small>{cases.length}</small>
                 ) : null}
               </button>
+              </Fragment>
             );
           })}
         </nav>
@@ -454,7 +458,7 @@ function App() {
               <Menu size={21} />
             </button>
             <div className="breadcrumb">
-              <span className="breadcrumb-prefix">INTELLIGENCE DESK</span> <ChevronRight size={13} />{' '}
+              <span className="breadcrumb-prefix">INTELLIGENCE CONTROL ROOM</span> <ChevronRight size={13} />{' '}
               <strong>{view === 'Overview' ? 'COMMAND CENTER' : view.toUpperCase()}</strong>
             </div>
           </div>
@@ -466,31 +470,38 @@ function App() {
             <span className="asof">SOURCE-DATED DATA</span>
           </div>
         </header>
+        {overview && <OperationsBar countryCode={countryScope} countries={countries}
+          cases={cases} sourceDirectoryCount={sources.length} onNavigate={switchView} />}
+        <nav className="ea-workspace-tabs" aria-label="Primary intelligence workspaces">
+          {([
+            ['Overview','Command',Activity],
+            ['Countries','Countries',Globe2],
+            ['Risk watch','Risk watch',ShieldAlert],
+            ['Early warning','Early warning',Radio],
+            ['Global systems','Systems',Layers3],
+            ['Defense intelligence','Defense',Shield],
+            ['Connections','Networks',Network],
+            ['AI analyst','AI analyst',Sparkles],
+            ['Investigations','Cases',FileSearch],
+          ] as const).map(([section,label,Icon])=>
+            <button key={section} type="button" className={view===section?'active':''}
+              aria-current={view===section?'page':undefined} onClick={()=>switchView(section)}>
+              <Icon size={15}/><span>{label}</span>
+            </button>)}
+        </nav>
         <main className="content">
+          {overview && view !== 'Overview' && <section className="ea-module-context" aria-label="Current country intelligence workspace">
+            <div><span>EA / COUNTRY-AWARE INTELLIGENCE</span>
+              <strong>{countryScope==='all'?'Worldwide':countries.find(c=>c.code===countryScope)?.name||countryScope} / {view}</strong>
+              <small>Original-source evidence · archived figures labeled · worldwide signals never assigned to a country without source attribution</small>
+            </div>
+            <div className="ea-module-actions">
+              {view!=='Countries'&&<button type="button" onClick={()=>switchView('Countries')}><Globe2 size={14}/> Country dossier</button>}
+              {view!=='Collection desk'&&<button type="button" onClick={()=>switchView('Collection desk')}><Database size={14}/> Feed health</button>}
+              <button type="button" onClick={()=>switchView('Overview')}><Activity size={14}/> Command</button>
+            </div>
+          </section>}
           {overview && view === 'Overview' && <HomeCountryDefense countries={overview.countries} code={countryScope} onCountryOpen={openCountry} onCountryFocus={setCountryScope} onOpenLibrary={()=>switchView('Defense intelligence')} />}
-          {overview && view === 'Overview' && (
-            <section className="mobile-brief" aria-labelledby="ea-mobile-brief-title">
-              <div className="mobile-brief-heading">
-                <span className="mobile-brief-kicker"><span className="live-dot" /> INTELLIGENCE BRIEFING</span>
-                <span className="mobile-brief-label">PUBLIC SOURCES</span>
-              </div>
-              <h1 id="ea-mobile-brief-title">The world, <em>at a glance.</em></h1>
-              <p>
-                {countryScope === 'all'
-                  ? 'Explore global risks, country records and the evidence behind each signal.'
-                  : 'Focused on ' + (countries.find(c => c.code === countryScope)?.name || countryScope) + '. Your selection follows you across the dashboard.'}
-              </p>
-              <div className="mobile-brief-metrics">
-                <div><strong>{countryScope === 'all' ? cases.length : cases.filter(c => c.code === countryScope).length}</strong><span>Curated cases</span></div>
-                <div><strong>{sources.length}</strong><span>Source listings</span></div>
-              </div>
-              <div className="mobile-brief-actions" aria-label="Quick navigation">
-                <button type="button" onClick={() => switchView('Risk watch')}><ShieldAlert size={17} /> Risk watch <ArrowRight size={16} /></button>
-                <button type="button" onClick={() => switchView('Supply chain')}><Layers3 size={17} /> Supply chain <ArrowRight size={16} /></button>
-                <button type="button" onClick={() => switchView('Early warning')}><Activity size={17} /> Early warning <ArrowRight size={16} /></button>
-              </div>
-            </section>
-          )}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -724,6 +735,7 @@ function App() {
                         Data timestamps describe the reporting year, not
                         necessarily today. No missing values are estimated.
                       </div>
+                      <div id="ea-country-factbook"><CountryFactbook key={country.code} code={country.code} countryName={country.name} /></div>
                       <div className="brief-line" />
                       <div className="brief-section-title">
                         CASE FILES <small>{country.caseCount} CURATED</small>
@@ -756,7 +768,6 @@ function App() {
                       )}
                       <button type="button" onClick={() => document.getElementById('ea-country-factbook')?.scrollIntoView({ behavior: 'smooth', block: 'start' })} style={{width:'100%',display:'flex',alignItems:'center',justifyContent:'space-between',padding:15,margin:'15px 0',background:'#174139',border:'1px solid #4f907f',color:'#b6f4da',borderRadius:8,fontWeight:700}}>View all World Factbook fields below <ArrowRight size={17}/></button>
                       <DefenseIntel key={country.code} code={country.code} countryName={country.name} />
-                      <div id="ea-country-factbook"><CountryFactbook key={country.code} code={country.code} countryName={country.name} /></div>
                       <div className="brief-links">
                         <Anchor
                           href={

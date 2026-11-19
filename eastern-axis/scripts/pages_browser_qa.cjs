@@ -43,6 +43,14 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
+    // Every module inherits the same country-aware data-first application shell.
+    const operations=page.getByRole('region',{name:'Persistent global intelligence data bar'});
+    await operations.waitFor({state:'visible',timeout:20000});
+    assert.equal(await operations.locator('.ea-ops-metric').count(),6,'Global statistics strip is missing');
+    const workspace=page.getByRole('navigation',{name:'Primary intelligence workspaces'});
+    await workspace.waitFor({state:'visible'});
+    assert.ok((await workspace.locator('button').count())>=8,'New workspace navigation missing');
+    if(viewport.width<600) assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Obsolete mobile hero still hides the metrics');
     // The opening dashboard must expose evidence, not merely decorative charts.
     const decisionBoard=page.getByRole('region',{name:'Decision intelligence dashboard'});
     await decisionBoard.waitFor({state:'visible',timeout:20000});
@@ -151,6 +159,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:target}).click();
       assert.match(await scope.innerText(),/Russia/,target+' lost selected scope');
+      await operations.getByText('Russia',{exact:true}).first().waitFor({state:'visible'});
     }
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.getByRole('button',{name:'Choose country intelligence scope'});
