@@ -39,7 +39,7 @@ async function qa(page,width){
     else if(path.startsWith('/api/brief/'))data={code:path.split('/').at(-1),updatedAt:'',mode:'unavailable',metrics:{}};
     else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture-only test',ofac:null};
     else if(path==='/api/world-signals')data={status:'unavailable',count:0,events:[],naturalEvents:[]};
-    else if(path==='/api/defense-intel')data={reviewedAsOf:'',mode:'fixture',assessments:[],operations:[],assets:[],sources:[
+    else if(path==='/api/defense-intel')data={reviewedAsOf:'2026-11-15',mode:'fixture',assessments:[{id:'russian-assessment',title:'Fixture allied assessment',agency:'Canadian source',government:'Canada',countries:['RU'],published:'2026-08',url:'https://www.canada.ca/'}],operations:[{id:'russian-operations',title:'Fixture operation',roles:[{code:'RU',role:'Participant'}],published:'2026-09',url:'https://www.un.org/'}],assets:[{id:'russian-asset',code:'RU',name:'Fixture aircraft estimate',quantity:'100 (test)',published:'2026',url:'https://www.mod.go.jp/'}],sources:[
       {id:'canada',name:'Canadian CSIS',group:'Five Eyes',what:'Public reports',url:'https://www.canada.ca/'},
       {id:'nato',name:'NATO',group:'EU / NATO',what:'Alliance analysis',url:'https://www.nato.int/'},
       {id:'japan',name:'Japan Ministry of Defense',group:'Indo-Pacific allies',what:'Defense references',url:'https://www.mod.go.jp/'}
@@ -73,6 +73,22 @@ async function qa(page,width){
     await page.locator('.ip-sanction-source').first().waitFor();
     await page.locator('.cx-branch-tabs button').filter({hasText:'U.S. + allied source network'}).click();
     await page.getByText('Canadian CSIS').waitFor();
+    // Each country carries its own sourced defense dossier, independent of DOJ case counts.
+    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+    await page.getByRole('option',{name:/Worldwide/}).click();
+    const russiaCard=page.locator('.cx-country').filter({hasText:'Russia'});
+    await russiaCard.getByText('1 allied reports').waitFor();
+    await russiaCard.getByText('1 operations').waitFor();
+    await russiaCard.getByText('1 asset entries').waitFor();
+    await russiaCard.click();
+    const dossier=page.locator('.cx-root .cds-root');
+    await dossier.getByText('Russia: military & allied intelligence').waitFor();
+    await dossier.getByText('Fixture allied assessment').waitFor();
+    await dossier.getByText('Fixture operation').waitFor();
+    await dossier.getByText('100 (test) Fixture aircraft estimate').waitFor();
+    assert.equal(await dossier.locator('.cds-references a').count(),3,'Every indexed defense domain must link its original source');
+    await dossier.getByRole('button',{name:/Military operations/}).click();
+    await page.locator('.cx-branch-title h2').getByText('Reported conflict context').waitFor();
     assert.equal((await page.locator('#root').innerText()).length>100,true,'Zero-case country blanked the page');
     assert.deepEqual(pageErrors,[],'Country selection caused a React render error');
     await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
