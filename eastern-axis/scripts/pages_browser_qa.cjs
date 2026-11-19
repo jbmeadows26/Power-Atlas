@@ -50,7 +50,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await mapPanel.getByLabel('Current data-layer legend').getByText('Curated case', {exact:false}).waitFor({state:'visible'});
     await page.locator('svg.cc-world-svg .cc-country-shape').first().waitFor({state:'attached',timeout:20000});
     const usClass=await page.locator('svg.cc-world-svg .cc-country-shape').evaluateAll(els=>{
-      const shape=els.find(el=>el.querySelector('title')?.textContent?.startsWith('United States of America'));
+      const shape=els.find(el=>el.querySelector('title')?.textContent?.startsWith('United States'));
       return shape?.getAttribute('class')||'';
     });
     assert.match(usClass,/country-ally/,'U.S. should appear in the blue U.S./treaty-ally area key');
