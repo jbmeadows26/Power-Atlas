@@ -90,7 +90,6 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       for(const href of await mapPanel.locator('.cc-map-event-selected a').evaluateAll(nodes=>nodes.map(el=>el.getAttribute('href')))){
         assert.match(href||'',/^https:\/\/eonet\.gsfc\.nasa\.gov\/api\/v3\/events\//,'Nonofficial NASA selected source');
       }
-      await mapPanel.getByText('NASA source (raw JSON)').first().waitFor({state:'visible',timeout:10000}).catch(()=>{});
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
     await scope.click();
