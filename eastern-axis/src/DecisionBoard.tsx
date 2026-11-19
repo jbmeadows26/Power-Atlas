@@ -3,7 +3,7 @@ import { api } from '@appdeploy/client';
 import { Activity, ArrowRight, ArrowUpRight, Clock3, Database, ExternalLink, RefreshCcw, ShieldAlert } from 'lucide-react';
 import './decision-board.css';
 
-type Country = { code: string; name: string; region: string; isTreatyAlly: boolean; caseCount: number };
+type Country = { code: string; name: string; region: string; scope: string; isTreatyAlly: boolean; caseCount: number };
 type CaseFile = { id: string; code: string; date: string; title: string; topic: string; status: string };
 type SourceHealth = { status: 'ok' | 'error'; lastAttemptAt: string; lastSuccessAt?: string; lastError?: string };
 type Intel = {
@@ -35,7 +35,7 @@ type Props = {
   refresh: () => void;
   lastRequestedAt: string | null;
 };
-const focusCodes = ['RU', 'CN', 'IR', 'KP', 'BY', 'VE', 'CU'];
+const focusCodes = ['RU', 'CN', 'IR', 'KP', 'BY', 'VE', 'CU', 'KZ', 'KG', 'TJ'];
 const ofacLabels: Record<string, RegExp> = {
   RU: /^RUSSIA/i, CN: /^CHINA/i, IR: /^IRAN|^IFSR/i,
   KP: /^DPRK|^NKOREA/i, BY: /^BELARUS/i, VE: /^VENEZUELA/i, CU: /^CUBA/i,
@@ -98,11 +98,14 @@ export default function DecisionBoard({
     const reported = Date.parse(item.date);
     return Number.isFinite(reported) && reported <= now && reported >= now - 30 * 86400000;
   });
-  const ordered = countries.filter(item => !item.isTreatyAlly)
-    .sort((a, b) => (cases.filter(c => c.code === b.code).length - cases.filter(c => c.code === a.code).length)
-      || (focusCodes.indexOf(a.code) === -1 ? 99 : focusCodes.indexOf(a.code))
-       - (focusCodes.indexOf(b.code) === -1 ? 99 : focusCodes.indexOf(b.code)))
-    .slice(0, 9);
+  // Compare states only; keep the explicitly tracked countries visible even if
+  // this small starter library has no case file for them. Never label missing cases as safety.
+  const eligible = countries.filter(item => item.scope === 'state-or-observer' && !item.isTreatyAlly);
+  const prioritized = focusCodes.flatMap(focus => eligible.filter(item => item.code === focus));
+  const remaining = eligible.filter(item => !focusCodes.includes(item.code))
+    .sort((a, b) => cases.filter(c => c.code === b.code).length - cases.filter(c => c.code === a.code).length
+      || a.name.localeCompare(b.name));
+  const ordered = [...prioritized, ...remaining].slice(0, 10);
   const cards = code === 'all' ? ordered : selected ? [selected] : [];
   const checks = intel?.sources || [];
   const healthy = checks.filter(item => item.health?.status === 'ok');
