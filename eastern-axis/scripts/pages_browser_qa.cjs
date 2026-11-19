@@ -54,6 +54,23 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const decisionWidth=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(decisionWidth.scroll<=decisionWidth.width+2,
       'Decision dashboard overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
+    // The first-screen country module must expose military and allied evidence,
+    // not just the DOJ-only country comparison further down the page.
+    const homeDefense=page.getByRole('region',{name:'Country-specific defense intelligence on Home'});
+    await homeDefense.waitFor({state:'visible',timeout:20000});
+    await homeDefense.getByRole('heading',{name:'Defense intelligence by country'}).waitFor({state:'visible'});
+    await homeDefense.getByText('Military asset entries').first().waitFor({state:'visible'});
+    const cardWithSource=homeDefense.locator('.hcd-country a[href^="https://"]').first();
+    await cardWithSource.waitFor({state:'visible',timeout:20000});
+    assert.ok((await homeDefense.locator('.hcd-country').count())>0,
+      'No source-linked national intelligence card on the Home dashboard');
+    // Country-selected Home must show the same national dossier as the other tabs.
+    await homeDefense.getByRole('button',{name:'Focus dashboard on Russia'}).click();
+    await homeDefense.getByRole('heading',{name:'Russia: military & allied intelligence'}).waitFor({state:'visible'});
+    assert.ok((await homeDefense.locator('.cds-references a[href^="https://"]').count())>0,
+      'Country Home is missing original allied/military evidence links');
+    await homeDefense.getByRole('button',{name:/Return to worldwide/}).click();
+    await homeDefense.getByRole('heading',{name:'Defense intelligence by country'}).waitFor({state:'visible'});
     // Test the public map's evidence layers and legend before narrowing country scope.
     const mapPanel=page.locator('.cc-map-panel');
     await mapPanel.waitFor({state:'visible',timeout:18000});
@@ -170,6 +187,36 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await assurance.getByText('Not independently connected:',{exact:false}).waitFor({state:'visible'});
     const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
+    // Navigation-wide release gate: inspect all 16 sections on every viewport,
+    // retaining the active country selector and catching empty routes or overflow.
+    const allSections=[
+      'Command center','Countries','World Factbook','Global systems','Supply chain',
+      'Early warning','Risk watch','AI analyst','Coverage audit','Connections',
+      'Defense intelligence','Investigations','Collection desk','Verification lab',
+      'Source library','Methodology'
+    ];
+    const inspected=[];
+    for(const sectionName of allSections){
+      if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+      const navItem=page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:sectionName});
+      await navItem.click();
+      const active=page.locator('nav[aria-label="Main navigation"] .nav-item.active').first();
+      assert.ok((await active.innerText()).includes(sectionName),'Wrong active tab after selecting '+sectionName);
+      const countryLabel=await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText();
+      assert.match(countryLabel,/China/,sectionName+' lost country scope');
+      await page.waitForTimeout(120);
+      const mainText=await page.locator('.content').innerText();
+      assert.ok(mainText.length>90,sectionName+' rendered an empty content panel');
+      const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
+      assert.ok(layout.document<=layout.viewport+2,sectionName+' overflows '+viewport.width+'px: '+JSON.stringify(layout));
+      if(viewport.width===390){
+        const slug=sectionName.toLowerCase().replace(/[^a-z0-9]+/g,'-');
+        await page.screenshot({path:'audit-output/eastern-axis-tab-'+slug+'-390.png'});
+      }
+      inspected.push(sectionName);
+    }
+    assert.equal(inspected.length,16,'Not every navigation section was inspected');
+    console.log('ALL TABS QA',viewport.width,inspected.join(' | '));
     if(production) assert.equal(apiFailures.length,0,'Real browser-to-Neon API failures: '+apiFailures.join('; '));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
     console.log('Browser QA passed',viewport.width,production?'published Pages with direct Neon browser requests':'candidate build', 'country scope, treaty facts, resilience telemetry, assurance and responsive layout');
