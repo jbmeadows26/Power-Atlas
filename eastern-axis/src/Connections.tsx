@@ -3,6 +3,7 @@ import { api } from '@appdeploy/client';
 import { Activity, ArrowUpRight, BookOpen, Database, FileSearch, Globe2, Layers3, Network, ShieldCheck } from 'lucide-react';
 import './connections.css';
 import AlliedSanctions from './AlliedSanctions';
+import CountryDefenseSnapshot, { defenseCounts } from './CountryDefenseSnapshot';
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
 type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string };
@@ -66,14 +67,14 @@ export default function Connections({code,countries,cases,onSelect}:Props){
  const counts:{[key in Branch]:number}={cases:relatedCases.length,intake:leads.length,reports:assessments.length,sources:alliedSources.length,operations:operations.length,assets:assets.length,economic:economics.filter(i=>i.value!==null).length};
  const regions=['All regions', ...Array.from(new Set(countries.map(c=>c.region))).sort()];
  const countriesByRegion=countries.filter(c=>(region==='All regions'||c.region===region) && (c.name.toLowerCase().includes(query.toLowerCase())||c.code.toLowerCase().includes(query.toLowerCase())))
-   .sort((a,b)=>(cases.filter(x=>x.code===b.code).length-cases.filter(x=>x.code===a.code).length)||a.name.localeCompare(b.name));
+   .sort((a,b)=>{const score=(c:Country)=>{const n=defenseCounts(defense,c.code);return cases.filter(x=>x.code===c.code).length+n.assessments+n.operations+n.assets;};return score(b)-score(a)||a.name.localeCompare(b.name);});
  return <section className="cx-root">
   <div className="cx-eyebrow"><Network size={15}/> CROSS-DOMAIN INTELLIGENCE / COUNTRY-INDEXED</div>
   <h1>Follow the documented connections.</h1>
   <p className="cx-sub">All relevant public U.S. and allied evidence stays in scope for every country: legal records, Five Eyes reporting, NATO and EU assessments, regional defense assessments, sanctions and source-indexed leads. Show original sources and their limits. <strong>Zero curated cases never means zero evidence.</strong> A shared country index does not establish a relationship or government attribution.</p>
   {code==='all'||!selected?<div className="cx-directory">
    <div className="cx-region-heading"><div><h2>Choose a country or region</h2><p>Country-specific records are examined separately. Regional grouping is for discovery, not an assertion that neighbors share responsibility.</p></div><div className="cx-directory-filters"><input type="search" aria-label="Find country or ISO code" placeholder="Search country or code…" value={query} onChange={e=>setQuery(e.target.value)}/><select aria-label="Filter countries by region" value={region} onChange={e=>setRegion(e.target.value)}>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select></div></div>
-   <div className="cx-country-grid">{countriesByRegion.slice(0,45).map(c=><button key={c.code} onClick={()=>onSelect(c.code)} className="cx-country"><strong>{c.name}</strong><span>{c.region} · {focus.has(c.code)?'Strategic focus':c.isTreatyAlly?'Treaty ally':'Regional research'}</span><small>Explore allied evidence &amp; sources <ArrowUpRight size={12}/></small></button>)}</div>
+   <div className="cx-country-grid">{countriesByRegion.slice(0,45).map(c=><button key={c.code} onClick={()=>onSelect(c.code)} className="cx-country"><strong>{c.name}</strong><span>{c.region} · {focus.has(c.code)?'Strategic focus':c.isTreatyAlly?'Treaty ally':'Regional research'}</span><div className="cx-country-evidence">{defense?(()=>{const n=defenseCounts(defense,c.code);return <><span>{n.assessments?`${n.assessments} allied reports`:'Reports not indexed'}</span><span>{n.operations?`${n.operations} operations`:'Operations not indexed'}</span><span>{n.assets?`${n.assets} asset entries`:'Assets not indexed'}</span></>;})():<span>{defenseError?'Source unavailable':'Loading defense records…'}</span>}</div><small>Open country intelligence card <ArrowUpRight size={12}/></small></button>)}</div>
    {countriesByRegion.length>45&&<p className="cx-foot">Showing 45 of {countriesByRegion.length} matching jurisdictions. Search by country or ISO code, or use the persistent selector to reach every country.</p>}
    {countriesByRegion.length===0&&<p className="cx-empty">No matching countries. Try another name or region.</p>}
    <section className="cx-global-evidence" aria-label="Worldwide allied intelligence sources">
@@ -87,6 +88,7 @@ export default function Connections({code,countries,cases,onSelect}:Props){
   </div>:<>
    <div className="cx-center"><Globe2 size={24}/><div><small>ALL-SOURCE COUNTRY INDEX</small><h2>{selected.name}</h2><span>{selected.region} · {selected.relationship}</span></div></div>
    <p className="cx-sub">Every country remains connected to the complete allied source network, whether or not its curated DOJ index has entries. Country-tagged records and worldwide discovery portals are shown separately so unreviewed mentions cannot be mistaken for verified government activity.</p>
+   <CountryDefenseSnapshot code={code} name={selected.name} data={defense} unavailable={defenseError} onSelect={setActive}/>
    <div className="cx-branch-tabs" role="group" aria-label="Connection categories">{modules.map(m=>{
      const Icon=m.icon;
      return <button type="button" key={m.id} onClick={()=>setActive(m.id)} className={active===m.id?'active':''}>
