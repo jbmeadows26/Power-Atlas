@@ -145,7 +145,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
           (m.changePct>0?'+':'')+format(m.changePct)+'%'} vs previous observation{signalScreen(m)?' · REVIEW SIGNAL':''}</div>
         <small>{m.period} vs {m.previousPeriod} · {m.interval==='daily'?'daily':'monthly'} observation{m.sampleSize?' · '+m.sampleSize.toLocaleString('en-US')+' sampled hexagons':''}</small>
         <small>{m.id.startsWith('gps-')?'Geographic proxy only; aviation sampling changes can shift the percentage. No attribution or navigation claim.':m.id.startsWith('fao-')?'Global wholesale commodity index, not local food inflation.':''}</small>
-        <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">Original data <ArrowUpRight size={13}/></a>
+        <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">Source reference / methodology <ArrowUpRight size={13}/></a>
       </article>)}</div>}
     </div>
     <details className="pew-source-health"><summary>Source collection and missing-data audit · {checked}/{snapshot.sources.length} checks passed</summary>
