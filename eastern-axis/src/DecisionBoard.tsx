@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '@appdeploy/client';
-import { Activity, ArrowRight, ArrowUpRight, Clock3, Database, ExternalLink, Globe2, RefreshCcw, ShieldAlert } from 'lucide-react';
+import { Activity, ArrowRight, ArrowUpRight, Clock3, Database, ExternalLink, RefreshCcw, ShieldAlert } from 'lucide-react';
 import './decision-board.css';
 
 type Country = { code: string; name: string; region: string; isTreatyAlly: boolean; caseCount: number };
@@ -48,10 +48,6 @@ const time = (v?: string) => {
 const dateOnly = (v?: string) => {
   if (!v || !Number.isFinite(Date.parse(v))) return 'Undated';
   return new Date(v).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
-};
-const validUrl = (value?: string) => {
-  try { const url = new URL(value || ''); return url.protocol === 'https:' && !url.username && !url.password ? url.href : null; }
-  catch { return null; }
 };
 const flag = (code: string) => /^[A-Z]{2}$/.test(code) ? code.replace(/./g, c => String.fromCodePoint(127397 + c.charCodeAt(0))) : '🌐';
 const ageText = (value?: string) => {
@@ -121,7 +117,7 @@ export default function DecisionBoard({
     .sort().reverse()[0];
   const countryMax = Math.max(1, ...cards.map(item => cases.filter(c => c.code === item.code).length));
   const topicMax = Math.max(1, ...byTopic.map(([, value]) => value));
-  const showMetrics = code !== 'all' && brief?.metrics;
+  const showMetrics = code !== 'all' ? brief?.metrics : undefined;
 
   return <section className="db-root" aria-label="Decision intelligence dashboard">
     <div className="db-head">
