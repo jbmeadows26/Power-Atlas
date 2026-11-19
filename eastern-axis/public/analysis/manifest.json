@@ -1,11 +1,84 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-18T21:51:46Z",
+  "generatedAt": "2026-11-19T05:40:02Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
-    "governmentIntake": "ok"
+    "governmentIntake": "ok",
+    "alliedAssessments": "ok"
   },
+  "alliedSources": [
+    {
+      "name": "U.S. ODNI — 2026 Annual Threat Assessment",
+      "group": "United States",
+      "description": "Strategic and military government analysis",
+      "url": "https://www.intelligence.gov/annual-threat-assessment",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "DOJ National Security Division",
+      "group": "United States",
+      "description": "Investigations / procedural status",
+      "url": "https://www.justice.gov/nsd",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "Treasury OFAC",
+      "group": "United States",
+      "description": "Official sanctions lists / programs",
+      "url": "https://ofac.treasury.gov/sanctions-list-service",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "UK NCSC",
+      "group": "Five Eyes",
+      "description": "UK cyber threat assessments",
+      "url": "https://www.ncsc.gov.uk",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "Canadian CSIS",
+      "group": "Five Eyes",
+      "description": "Foreign espionage and interference",
+      "url": "https://www.canada.ca/en/security-intelligence-service/corporate/publications.html",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "Australian ASD / ACSC",
+      "group": "Five Eyes",
+      "description": "Public cyber assessments",
+      "url": "https://www.cyber.gov.au/publication/annual-cyber-threat-report-2025-26",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "New Zealand NCSC",
+      "group": "Five Eyes",
+      "description": "National cyber threat reporting",
+      "url": "https://www.ncsc.govt.nz",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "NATO",
+      "group": "EU / NATO",
+      "description": "Strategic security and hybrid operations",
+      "url": "https://www.nato.int/en/what-we-do/deterrence-and-defence/countering-hybrid-threats",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "EU External Action Service",
+      "group": "EU / NATO",
+      "description": "Foreign information operations and attribution",
+      "url": "https://www.eeas.europa.eu/eeas/4th-eeas-annual-report-foreign-information-manipulation-and-interference-threats_en",
+      "mode": "linked-official-source-not-ingested-evidence"
+    },
+    {
+      "name": "Japan Ministry of Defense",
+      "group": "Indo-Pacific allies",
+      "description": "Regional military equipment and doctrine estimates",
+      "url": "https://www.mod.go.jp/en/publ/w_paper",
+      "mode": "linked-official-source-not-ingested-evidence"
+    }
+  ],
   "method": "Attributable public-source metadata and topic indexing only; AI drafts require human review.",
   "connectors": [
     {
@@ -25,7 +98,7 @@
       "name": "OpenOSINT",
       "status": "ok",
       "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
-      "checkedAt": "2026-11-18T21:51:51Z"
+      "checkedAt": "2026-11-19T05:40:06Z"
     },
     {
       "id": "openaleph",
@@ -41,6 +114,106 @@
     }
   ],
   "records": [
+    {
+      "id": "un-security-4e6fd87de55f1a78",
+      "sourceId": "official-source-monitor",
+      "title": "Dozens more children killed in Yemen amid escalating hostilities",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168830",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.579Z",
+      "countries": [
+        "YE"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "uk-mod-0c76dd5456364051",
+      "sourceId": "official-source-monitor",
+      "title": "Guidance: Military low flying: air weapons ranges activity",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/military-low-flying-air-weapons-ranges-activity",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.536Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ]
+    },
+    {
+      "id": "uk-mod-0bb2af2044754173",
+      "sourceId": "official-source-monitor",
+      "title": "Leaving the armed forces",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/guidance/leaving-the-armed-forces",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.536Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ]
+    },
+    {
+      "id": "uk-mod-6743446d4ccdd478",
+      "sourceId": "official-source-monitor",
+      "title": "Regulation: Manual of Airworthiness Maintenance – Documentation (MAM-D)",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/manual-of-airworthiness-maintenance-documentation-mam-d",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.536Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "uk-mod-942dd0fb679cd2bb",
+      "sourceId": "official-source-monitor",
+      "title": "Regulation: Notice of authorised amendments (NAA) 2026 documents",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/notice-of-authorised-amendments-naa-2026-documents",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.536Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "uk-mod-bf5e234a65a7d987",
+      "sourceId": "official-source-monitor",
+      "title": "Regulation: Notice of authorised amendments (NAA) reference table",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/notice-of-authorised-amendments-naa-reference-table",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.536Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "us-defense-0ed80b0f09673acd",
+      "sourceId": "official-source-monitor",
+      "title": "National Guard Airlift Wing Begins Operation Deep Freeze Support",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4652259/national-guard-airlift-wing-begins-operation-deep-freeze-support",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T05:36:45.429Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ]
+    },
     {
       "id": "uk-mod-525b99f4c4c13327",
       "sourceId": "official-source-monitor",
@@ -621,6 +794,96 @@
       "changeType": "baseline",
       "topics": [
         "aviation"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-90436",
+      "sourceId": "cisa",
+      "title": "Apache Axis Unsafe Reflection Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-90436",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:45:35.071Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-90817",
+      "sourceId": "cisa",
+      "title": "Vanderbilt University Research Electronic Data Capture (REDCap) Code Injection Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-90817",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:45:35.071Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2026-40217",
+      "sourceId": "cisa",
+      "title": "BerriAI LiteLLM Unprotected Alternate Channel Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-40217",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:45:35.071Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-cisa-CVE-2024-10441",
+      "sourceId": "cisa",
+      "title": "Synology DiskStation Manager (DSM) Improper Encoding or Escaping of Output Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2024-10441",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:45:35.071Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ]
+    },
+    {
+      "id": "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
+      "sourceId": "doj",
+      "title": "Russian National Indicted for Acting as a Foreign Agent of Russia to Target Silicon Valley Technology and Defense Company",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/usao-ndca/pr/russian-national-indicted-acting-foreign-agent-russia-target-silicon-valley-technology",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:26:44.868Z",
+      "countries": [
+        "RU"
+      ],
+      "changeType": "baseline",
+      "topics": [
+        "military",
+        "foreign-influence"
+      ]
+    },
+    {
+      "id": "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
+      "sourceId": "doj",
+      "title": "Russian National Indicted for Acting as a Foreign Agent of Russia to Target Silicon Valley Technology and Defense Company",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/opa/pr/russian-national-indicted-acting-foreign-agent-russia-target-silicon-valley-technology-and",
+      "date": "2026-11-18",
+      "detectedAt": "2026-11-19T04:26:44.868Z",
+      "countries": [
+        "RU"
+      ],
+      "changeType": "baseline",
+      "topics": [
+        "military",
+        "foreign-influence"
       ]
     },
     {
@@ -1242,20 +1505,6 @@
       ]
     },
     {
-      "id": "intake-ofac-12211",
-      "sourceId": "ofac",
-      "title": "KIM, Yong Chol",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
       "id": "intake-ofac-12882",
       "sourceId": "ofac",
       "title": "FIGUEROA SALAZAR, Amilcar Jesus",
@@ -1396,80 +1645,153 @@
       ]
     },
     {
-      "id": "intake-ofac-4639",
-      "sourceId": "ofac",
-      "title": "BANK KESHAVARZI IRAN",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
+      "id": "allied-odni-2026",
+      "sourceId": "allied-assessment",
+      "title": "2026 Annual Threat Assessment",
+      "publisher": "Office of the Director of National Intelligence",
+      "url": "https://archive.dni.gov/index.php/newsroom/press-releases/press-releases-2026/4142-pr-03-26",
+      "date": "2026-03-18",
+      "detectedAt": "",
+      "countries": [
+        "CN",
+        "IR",
+        "KP",
+        "PK",
+        "RU"
+      ],
       "changeType": "baseline",
-      "topics": [
-        "trade-finance"
-      ]
-    },
-    {
-      "id": "intake-ofac-9760",
-      "sourceId": "ofac",
-      "title": "LUKASHENKA, Alyaksandr Ryhorovich",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
+      "sourceGroup": "United States",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
       ]
     },
     {
-      "id": "intake-ofac-9761",
-      "sourceId": "ofac",
-      "title": "HALAVANAU, Viktar Hryhoryavich",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
+      "id": "allied-csis-2025",
+      "sourceId": "allied-assessment",
+      "title": "CSIS Public Report 2025",
+      "publisher": "Canadian Security Intelligence Service",
+      "url": "https://www.canada.ca/en/security-intelligence-service/corporate/publications/csis-public-report-2025/operations-and-analysis.html",
+      "date": "2026-04",
+      "detectedAt": "",
+      "countries": [
+        "CN",
+        "IN",
+        "IR",
+        "PK",
+        "RU"
+      ],
       "changeType": "baseline",
+      "sourceGroup": "Five Eyes",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
       ]
     },
     {
-      "id": "intake-ofac-9762",
-      "sourceId": "ofac",
-      "title": "ZIMOUSKY, Aliaksandr Leanidavich",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
+      "id": "allied-nato-hybrid",
+      "sourceId": "allied-assessment",
+      "title": "NATO hybrid threats assessment",
+      "publisher": "NATO",
+      "url": "https://www.nato.int/en/what-we-do/deterrence-and-defence/countering-hybrid-threats",
+      "date": "2026-02",
+      "detectedAt": "",
+      "countries": [
+        "CN",
+        "RU"
+      ],
       "changeType": "baseline",
+      "sourceGroup": "EU / NATO",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
       ]
     },
     {
-      "id": "intake-ofac-4635",
-      "sourceId": "ofac",
-      "title": "BANK REFAH KARGARAN",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "id": "allied-eeas-fimi-2026",
+      "sourceId": "allied-assessment",
+      "title": "Fourth EEAS FIMI Threat Report",
+      "publisher": "European External Action Service",
+      "url": "https://www.eeas.europa.eu/eeas/4th-eeas-annual-report-foreign-information-manipulation-and-interference-threats_en",
+      "date": "2026-03-12",
+      "detectedAt": "",
+      "countries": [
+        "CN",
+        "RU"
+      ],
+      "changeType": "baseline",
+      "sourceGroup": "EU / NATO",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
+      "topics": [
+        "other"
+      ]
+    },
+    {
+      "id": "allied-aus-asd-2026",
+      "sourceId": "allied-assessment",
+      "title": "Annual Cyber Threat Report 2025–26",
+      "publisher": "Australian Signals Directorate / ACSC",
+      "url": "https://www.cyber.gov.au/publication/annual-cyber-threat-report-2025-26",
+      "date": "2026-10-26",
+      "detectedAt": "",
       "countries": [],
       "changeType": "baseline",
+      "sourceGroup": "Five Eyes",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
-        "trade-finance"
+        "cyber"
+      ]
+    },
+    {
+      "id": "allied-japan-defense-2026",
+      "sourceId": "allied-assessment",
+      "title": "Defense of Japan 2026",
+      "publisher": "Ministry of Defense",
+      "url": "https://www.mod.go.jp/en/publ/w_paper",
+      "date": "2026",
+      "detectedAt": "",
+      "countries": [
+        "CN",
+        "KP",
+        "RU"
+      ],
+      "changeType": "baseline",
+      "sourceGroup": "Indo-Pacific allies",
+      "evidenceTier": "curated-government-excerpt-not-full-text",
+      "topics": [
+        "military"
       ]
     }
   ],
   "analysis": {
     "method": "Evidence-only title indexing and optional open-weight semantic grouping; NOT all-source threat analysis",
-    "recordsAnalyzed": 99,
+    "recordsAnalyzed": 112,
     "countryBriefs": [
+      {
+        "code": "CN",
+        "sourceCount": 5,
+        "publisherCount": 5,
+        "publishers": [
+          "Canadian Security Intelligence Service",
+          "European External Action Service",
+          "Ministry of Defense",
+          "NATO",
+          "Office of the Director of National Intelligence"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "military",
+          "other"
+        ],
+        "sourceIds": [
+          "allied-odni-2026",
+          "allied-csis-2025",
+          "allied-nato-hybrid",
+          "allied-eeas-fimi-2026",
+          "allied-japan-defense-2026"
+        ],
+        "statement": "5 indexed public-source records explicitly mention CN. This is coverage, not a threat or attribution score."
+      },
       {
         "code": "IL",
         "sourceCount": 3,
@@ -1491,10 +1813,28 @@
         "statement": "3 indexed public-source records explicitly mention IL. This is coverage, not a threat or attribution score."
       },
       {
-        "code": "IR",
+        "code": "IN",
         "sourceCount": 1,
         "publisherCount": 1,
         "publishers": [
+          "Canadian Security Intelligence Service"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "other"
+        ],
+        "sourceIds": [
+          "allied-csis-2025"
+        ],
+        "statement": "1 indexed public-source records explicitly mention IN. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "IR",
+        "sourceCount": 3,
+        "publisherCount": 3,
+        "publishers": [
+          "Canadian Security Intelligence Service",
+          "Office of the Director of National Intelligence",
           "UN News: Peace and Security"
         ],
         "changedCount": 0,
@@ -1502,9 +1842,11 @@
           "other"
         ],
         "sourceIds": [
-          "un-security-3871f4725b668fff"
+          "un-security-3871f4725b668fff",
+          "allied-odni-2026",
+          "allied-csis-2025"
         ],
-        "statement": "1 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
+        "statement": "3 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
       },
       {
         "code": "JP",
@@ -1526,6 +1868,25 @@
         "statement": "2 indexed public-source records explicitly mention JP. This is coverage, not a threat or attribution score."
       },
       {
+        "code": "KP",
+        "sourceCount": 2,
+        "publisherCount": 2,
+        "publishers": [
+          "Ministry of Defense",
+          "Office of the Director of National Intelligence"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "military",
+          "other"
+        ],
+        "sourceIds": [
+          "allied-odni-2026",
+          "allied-japan-defense-2026"
+        ],
+        "statement": "2 indexed public-source records explicitly mention KP. This is coverage, not a threat or attribution score."
+      },
+      {
         "code": "KR",
         "sourceCount": 1,
         "publisherCount": 1,
@@ -1540,6 +1901,24 @@
           "us-defense-0dd75dccc00ebeb4"
         ],
         "statement": "1 indexed public-source records explicitly mention KR. This is coverage, not a threat or attribution score."
+      },
+      {
+        "code": "PK",
+        "sourceCount": 2,
+        "publisherCount": 2,
+        "publishers": [
+          "Canadian Security Intelligence Service",
+          "Office of the Director of National Intelligence"
+        ],
+        "changedCount": 0,
+        "topics": [
+          "other"
+        ],
+        "sourceIds": [
+          "allied-odni-2026",
+          "allied-csis-2025"
+        ],
+        "statement": "2 indexed public-source records explicitly mention PK. This is coverage, not a threat or attribution score."
       },
       {
         "code": "PS",
@@ -1561,15 +1940,21 @@
       },
       {
         "code": "RU",
-        "sourceCount": 4,
-        "publisherCount": 3,
+        "sourceCount": 11,
+        "publisherCount": 8,
         "publishers": [
+          "Canadian Security Intelligence Service",
+          "European External Action Service",
+          "Ministry of Defense",
+          "NATO",
+          "Office of the Director of National Intelligence",
           "U.S. Department of Justice",
           "UK Ministry of Defence publications",
           "UN News: Peace and Security"
         ],
         "changedCount": 2,
         "topics": [
+          "foreign-influence",
           "humanitarian",
           "military",
           "other",
@@ -1579,9 +1964,16 @@
           "un-security-406d83dce36155e9",
           "uk-mod-9bbc9dee5b4bf6e4",
           "un-security-643adc1628a54d97",
-          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85"
+          "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
+          "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
+          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
+          "allied-odni-2026",
+          "allied-csis-2025",
+          "allied-nato-hybrid",
+          "allied-eeas-fimi-2026",
+          "allied-japan-defense-2026"
         ],
-        "statement": "4 indexed public-source records explicitly mention RU. This is coverage, not a threat or attribution score."
+        "statement": "11 indexed public-source records explicitly mention RU. This is coverage, not a threat or attribution score."
       },
       {
         "code": "SD",
@@ -1625,37 +2017,47 @@
       },
       {
         "code": "YE",
-        "sourceCount": 2,
+        "sourceCount": 3,
         "publisherCount": 1,
         "publishers": [
           "UN News: Peace and Security"
         ],
-        "changedCount": 0,
+        "changedCount": 1,
         "topics": [
           "other"
         ],
         "sourceIds": [
+          "un-security-4e6fd87de55f1a78",
           "un-security-6b3d25b299acbb3f",
           "un-security-6d3aea411fa53f6c"
         ],
-        "statement": "2 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
+        "statement": "3 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
       }
     ],
     "themes": [
       {
         "topic": "other",
-        "sourceCount": 35,
-        "publisherCount": 5,
-        "changedCount": 4,
+        "sourceCount": 40,
+        "publisherCount": 9,
+        "changedCount": 9,
         "countries": [
+          "CN",
           "IL",
+          "IN",
           "IR",
+          "KP",
           "KR",
+          "PK",
           "RU",
           "SD",
           "YE"
         ],
         "sourceIds": [
+          "un-security-4e6fd87de55f1a78",
+          "uk-mod-6743446d4ccdd478",
+          "uk-mod-942dd0fb679cd2bb",
+          "uk-mod-bf5e234a65a7d987",
+          "us-defense-0ed80b0f09673acd",
           "uk-mod-525b99f4c4c13327",
           "un-security-4b6d952de8615dc8",
           "uk-mod-ea3f766b440a115c",
@@ -1674,29 +2076,28 @@
           "us-defense-eebf37d5ad338996",
           "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
           "intake-ofac-11185",
-          "intake-ofac-11186",
-          "intake-ofac-12111",
-          "intake-ofac-12209",
-          "intake-ofac-12210",
-          "intake-ofac-12211",
-          "intake-ofac-12882"
+          "intake-ofac-11186"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "military",
-        "sourceCount": 19,
-        "publisherCount": 3,
-        "changedCount": 3,
+        "sourceCount": 24,
+        "publisherCount": 5,
+        "changedCount": 5,
         "countries": [
+          "CN",
           "IL",
           "JP",
+          "KP",
           "PS",
           "RU",
           "SD",
           "UA"
         ],
         "sourceIds": [
+          "uk-mod-0c76dd5456364051",
+          "uk-mod-0bb2af2044754173",
           "uk-mod-6aba64ef91283e48",
           "uk-mod-9bbc9dee5b4bf6e4",
           "us-defense-b54636980867a96b",
@@ -1715,7 +2116,10 @@
           "us-defense-71caeafd5ed9b5b2",
           "us-defense-5697603f370304b5",
           "us-defense-97f7a9313986003a",
-          "us-defense-9e04e6391e720a96"
+          "us-defense-9e04e6391e720a96",
+          "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
+          "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
+          "allied-japan-defense-2026"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -1739,11 +2143,15 @@
       },
       {
         "topic": "cyber",
-        "sourceCount": 19,
-        "publisherCount": 1,
+        "sourceCount": 24,
+        "publisherCount": 2,
         "changedCount": 0,
         "countries": [],
         "sourceIds": [
+          "intake-cisa-CVE-2026-90436",
+          "intake-cisa-CVE-2026-90817",
+          "intake-cisa-CVE-2026-40217",
+          "intake-cisa-CVE-2024-10441",
           "intake-cisa-CVE-2026-115731",
           "intake-cisa-CVE-2026-114713",
           "intake-cisa-CVE-2026-123039",
@@ -1762,17 +2170,22 @@
           "intake-cisa-CVE-2026-119977",
           "intake-cisa-CVE-2026-111357",
           "intake-cisa-CVE-2026-118527",
-          "intake-cisa-CVE-2026-97229"
+          "intake-cisa-CVE-2026-97229",
+          "allied-aus-asd-2026"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "foreign-influence",
-        "sourceCount": 19,
-        "publisherCount": 1,
+        "sourceCount": 21,
+        "publisherCount": 2,
         "changedCount": 0,
-        "countries": [],
+        "countries": [
+          "RU"
+        ],
         "sourceIds": [
+          "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
+          "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "intake-fara-7796",
           "intake-fara-7795",
           "intake-fara-7794",
@@ -1797,15 +2210,13 @@
       },
       {
         "topic": "trade-finance",
-        "sourceCount": 4,
+        "sourceCount": 2,
         "publisherCount": 2,
         "changedCount": 0,
         "countries": [],
         "sourceIds": [
           "uk-mod-b4c88808c86ef1eb",
-          "intake-ofac-4633",
-          "intake-ofac-4639",
-          "intake-ofac-4635"
+          "intake-ofac-4633"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -1844,10 +2255,10 @@
       "model": "sentence-transformers/all-MiniLM-L6-v2"
     },
     "quality": {
-      "sourceTitlesWithoutDates": 21,
-      "titlesOlderThan30Days": 5,
-      "publisherCount": 7,
-      "countryTaggedCount": 15
+      "sourceTitlesWithoutDates": 18,
+      "titlesOlderThan30Days": 7,
+      "publisherCount": 13,
+      "countryTaggedCount": 23
     },
     "limitations": [
       "No full-document validation or human-source intelligence",
