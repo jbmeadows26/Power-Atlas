@@ -224,7 +224,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                   onKeyDown={e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();setSelectedMapCluster(cluster.id);}}}>
                   <circle cx={point[0]} cy={point[1]} r={r} stroke={isQuake?'#ffe4b4':'#9ce6f6'} strokeWidth={1.2/scale} fill={isQuake?'#dba16b':'#5db6e2'} fillOpacity=".92"/>
                   {size>1&&<text x={point[0]} y={point[1]+3.2/scale} textAnchor="middle" fontSize={9/scale} fontWeight="800" fill="#091923">{size}</text>}
-                  <title>{size===1?cluster.events[0].title:size+' neighboring source events — select to see each exact record'}</title>
+                  <title>{size===1?cluster.events[0].title:'Nearby source events — select to inspect exact records'}</title>
                 </g>;
               })}
             </g>
