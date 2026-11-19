@@ -125,7 +125,7 @@ export default function Factbook({
     <header className="fb-hero">
       <div className="fb-kicker"><Globe2 size={15}/> GLOBAL REFERENCE / HISTORICAL + CURRENT</div>
       <h1>The world, <em>explained.</em></h1>
-      <p>Browse the final CIA World Factbook archive, then explore source-dated World Bank measurements and related intelligence.</p>
+      <p>Browse the final CIA World Factbook archive, then explore source-dated World Bank measurements and related intelligence. Archive entities include territories, oceans and geographic areas; this total differs from the Countries directory of current research jurisdictions.</p>
       <div className="fb-cues">
         <span><BookOpen size={13}/> January 2026 archive</span>
         <span><TrendingUp size={13}/> Updated indicators</span>

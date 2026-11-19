@@ -104,7 +104,7 @@ def build_analysis(records: list[dict], *, use_model: bool = True) -> dict:
             "changedCount": sum(r.get("changeType") != "baseline" for r in rows),
             "topics": sorted({t for r in rows for t in r["topics"]}),
             "sourceIds": [r["id"] for r in rows[:20]],
-            "statement": f"{len(rows)} indexed public-source records explicitly mention {code}. This is coverage, not a threat or attribution score."
+            "statement": f"{len(rows)} indexed public-source {'record' if len(rows)==1 else 'records'} explicitly {'mentions' if len(rows)==1 else 'mention'} {code}. This is coverage, not a threat or attribution score."
         })
     themes = []
     for topic, rows in sorted(topics.items()):

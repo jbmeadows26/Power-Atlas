@@ -544,7 +544,7 @@ function App() {
                   </h1>
                   <p>
                     Explore the global directory, then open a country to examine
-                    verified case files and World Bank indicators.
+                    original-source evidence and World Bank indicators. This directory defaults to nonallied states and observers; the historical World Factbook also includes territories and geographic profiles, so totals differ.
                   </p>
                 </div>
                 <Badge kind="green">
@@ -1121,16 +1121,16 @@ function App() {
         </footer>
       </div>
       <nav className="mobile-bottom-nav" aria-label="Mobile primary navigation">
-        <button type="button" className={view === 'Overview' ? 'selected' : ''} aria-current={view === 'Overview' ? 'page' : undefined} onClick={() => switchView('Overview')}>
+        <button type="button" className={!mobileMenu && view === 'Overview' ? 'selected' : ''} aria-current={view === 'Overview' ? 'page' : undefined} onClick={() => switchView('Overview')}>
           <Activity size={20} strokeWidth={2} /><span>Home</span>
         </button>
-        <button type="button" className={view === 'Countries' || view === 'World Factbook' ? 'selected' : ''} aria-current={view === 'Countries' || view === 'World Factbook' ? 'page' : undefined} onClick={() => switchView('Countries')}>
+        <button type="button" className={!mobileMenu && (view === 'Countries' || view === 'World Factbook') ? 'selected' : ''} aria-current={view === 'Countries' || view === 'World Factbook' ? 'page' : undefined} onClick={() => switchView('Countries')}>
           <Globe2 size={20} strokeWidth={2} /><span>Countries</span>
         </button>
-        <button type="button" className={view === 'Risk watch' ? 'selected' : ''} aria-current={view === 'Risk watch' ? 'page' : undefined} onClick={() => switchView('Risk watch')}>
+        <button type="button" className={!mobileMenu && view === 'Risk watch' ? 'selected' : ''} aria-current={view === 'Risk watch' ? 'page' : undefined} onClick={() => switchView('Risk watch')}>
           <ShieldAlert size={20} strokeWidth={2} /><span>Risks</span>
         </button>
-        <button type="button" className={view === 'Connections' ? 'selected' : ''} aria-current={view === 'Connections' ? 'page' : undefined} onClick={() => switchView('Connections')}>
+        <button type="button" className={!mobileMenu && view === 'Connections' ? 'selected' : ''} aria-current={view === 'Connections' ? 'page' : undefined} onClick={() => switchView('Connections')}>
           <Network size={20} strokeWidth={2} /><span>Networks</span>
         </button>
         <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Risk watch','Connections'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>

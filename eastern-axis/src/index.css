@@ -1952,3 +1952,26 @@ select:focus-visible {
   .ea-picker-trigger{font-size:14px;padding:9px 12px}
   .ea-picker-tip{display:none}
 }
+
+
+/* Ultra-narrow country layout: a one-column grid must not inherit its
+   min-content width from long country names or defense report cards. */
+@media(max-width:380px){
+  .content,.country-layout,.country-directory,.country-brief{min-width:0;max-width:100%}
+  .country-layout{grid-template-columns:minmax(0,1fr)}
+  .country-brief{position:static;padding:12px;overflow-wrap:anywhere}
+  .country-directory{overflow:hidden}
+  .country-directory .filters{padding:11px;min-width:0}
+  .country-directory .region-holder,.country-directory .search-holder{min-width:0;width:100%}
+  .country-directory .region-holder select{width:100%;min-width:0}
+  .country-directory .table-top,.country-directory .country-row{
+    grid-template-columns:minmax(0,1fr) 43px 31px;
+    padding-left:8px;padding-right:8px;gap:4px
+  }
+  .country-name{min-width:0;overflow:hidden}
+  .country-name>span:last-child{min-width:0}
+  .country-name strong,.country-name small{overflow-wrap:anywhere}
+  .country-brief .country-factbook,.country-brief .defense-intel{min-width:0;max-width:100%}
+  .country-brief a,.country-brief p,.country-brief strong{overflow-wrap:anywhere}
+  .region-text{font-size:9px;overflow-wrap:anywhere}
+}

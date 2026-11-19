@@ -34,7 +34,7 @@ export default function EvidenceWorkbench({countryCode}:Props){
      <div><span>SOURCE REFERENCES</span><strong>{data.metrics.indexedReferences}</strong><small>Bounded read, not a full corpus</small></div>
      <div><span>ANALYST-REVIEWED</span><strong>{data.metrics.reviewedReferences}</strong><small>Do not equate a source with verification</small></div>
      <div><span>WARC CAPTURES / HASHES</span><strong>{data.metrics.warcRecords||0} / {data.metrics.responseFingerprints}</strong><small>Managed storage; no write-once guarantee</small></div>
-     <div><span>NEGATIVE / FAILED RUNS</span><strong>{data.metrics.zeroMatchChecks} / {data.metrics.failedChecks}</strong><small>No-match checks / collection failures</small></div>
+     <div><span>COLLECTION OUTCOMES</span><strong>{data.metrics.zeroMatchChecks} no-match · {data.metrics.failedChecks} failed</strong><small>Independent counts; not a success rate or fraction</small></div>
     </div>
     <div className="ea-lab-scopes"><Globe2 size={16}/><span>{focused?'Country scope: '+countryCode+' — only explicitly tagged references appear. Untagged leads remain in Global.':'Global scope — includes untagged references.'}</span><span>Source and collection health remain global.</span></div>
     <div className="ea-lab-tabs" role="group" aria-label="Verification views">
