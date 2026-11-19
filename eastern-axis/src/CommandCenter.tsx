@@ -19,6 +19,8 @@ type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
 type Shape={id:string|number;properties?:{name?:string};geometry:unknown};
 type Anchor={code:string;name:string;lon:number;lat:number};
+type MapEvent={id:string;title:string;longitude:number;latitude:number;date:string;sourceUrl:string;kind:'usgs'|'nasa';magnitude?:number;eventType?:string};
+type MapCluster={id:string;longitude:number;latitude:number;events:MapEvent[]};
 const anchors:Anchor[]=[
   {code:'RU',name:'Russia',lon:37.62,lat:55.75},
   {code:'CN',name:'China',lon:116.4,lat:39.9},
@@ -58,10 +60,28 @@ function officialEventUrl(value:string,kind:'usgs'|'nasa'):string|null {
 const fmt=(n:number)=>new Intl.NumberFormat('en-US',{notation:'compact',maximumFractionDigits:1}).format(n);
 const day=(d?:string)=>d ? new Date(d.length===10?d+'T12:00:00Z':d).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}) : 'Not confirmed';
 const similar=(s:string)=>s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z]/g,'');
-const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivarianrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP'};
+const aliases:Record<string,string>={'russianfederation':'RU','iranislamicrepublicof':'IR','koreademocraticpeoplesrepublicof':'KP','korearepublicof':'KR','unitedstatesofamerica':'US','bolivarianrepublicofvenezuela':'VE','democraticpeoplesrepublicofkorea':'KP','republicofkorea':'KR','viet nam':'VN','syria':'SY','taiwan':'TW','cotedivoire':'CI','democraticrepublicofthecongo':'CD','congo':'CG','tanzania':'TZ','unitedkingdom':'GB','turkey':'TR','czechrepublic':'CZ','laos':'LA','myanmar':'MM','vietnam':'VN','northkorea':'KP','macedonia':'MK','ssudan':'SS','demrepcongo':'CD','dominicanrep':'DO','eqguinea':'GQ','centralafricanrep':'CF','solomonis':'SB','bosniaandherz':'BA'};
 const topologyURL='https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json';
 const width=1120, height=560;
 const base=geoNaturalEarth1().scale(188).translate([width/2,height/2+12]);
+// One discoverable pin per proximity cluster. Never allow overlapping SVG links
+// to send the user to a different earthquake than the title they selected.
+function clusterMapEvents(events:MapEvent[],scale:number):MapCluster[] {
+  const clusters:MapCluster[]=[];
+  const threshold=15/Math.max(0.7,scale);
+  for(const event of events){
+    if(!Number.isFinite(event.longitude)||!Number.isFinite(event.latitude)
+       || Math.abs(event.latitude)>90 || Math.abs(event.longitude)>180)continue;
+    const p=base([event.longitude,event.latitude]);if(!p)continue;
+    const existing=clusters.find(c=>{
+      const q=base([c.longitude,c.latitude]);
+      return q!==null&&Math.hypot(p[0]-q[0],p[1]-q[1])<threshold;
+    });
+    if(existing)existing.events.push(event);
+    else clusters.push({id:event.kind+':'+event.id,longitude:event.longitude,latitude:event.latitude,events:[event]});
+  }
+  return clusters;
+}
 const projector=geoPath(base);
 const graticule=projector(geoGraticule10());
 function CountryFlag({code}:{code:string}){return <span className="cc-flag">{code.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)))}</span>;}
@@ -75,6 +95,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [mapShapes,setMapShapes]=useState<Shape[]>([]);
   const [mapError,setMapError]=useState(false);
   const [layer,setLayer]=useState<Layer>('cases');
+  const [selectedMapCluster,setSelectedMapCluster]=useState<string|null>(null);
   const [region,setRegion]=useState('GL');
   const [zoom,setZoom]=useState(1);
   const [selected,setSelected]=useState(activeCountry&&activeCountry!=='all'?activeCountry:'RU');
@@ -123,11 +144,21 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const findCode=(name?:string)=>{
     if(!name)return null;
     const key=similar(name);
-    if(aliases[key])return aliases[key];
+    if(aliases[key] && overview.countries.some(c=>c.code===aliases[key]))return aliases[key];
     return overview.countries.find(c=>similar(c.name)===key)?.code || null;
   };
   const focused=regions.find(r=>r.code===region)||regions[0];
   const scale=zoom*focused.scale;
+  const mapEvents:MapEvent[]=(!activeCountry||activeCountry==='all')
+    ? layer==='seismic'?(worldSignals?.events||[]).map(e=>({...e,kind:'usgs' as const}))
+    :layer==='natural'?(worldSignals?.naturalEvents||[]).map(e=>({...e,kind:'nasa' as const}))
+    :[] : [];
+  const eventClusters=clusterMapEvents(mapEvents,scale);
+  const selectedEventCluster=eventClusters.find(c=>c.id===selectedMapCluster);
+  const focusEvent=(id:string)=>{
+    const cluster=eventClusters.find(c=>c.events.some(e=>e.id===id));
+    if(cluster)setSelectedMapCluster(cluster.id);
+  };
   // Layer zoom centers by translating the map's geographic center to the screen.
   const focusCenter=base(focused.center as unknown as [number,number])||[width/2,height/2];
   const tx=(width/2)-(focusCenter[0]*scale);
@@ -152,7 +183,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
           ['ofac','OFAC program entries'],
           ['seismic','USGS earthquakes'],
           ['natural','NASA natural hazards']
-        ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>setLayer(value)}>{label}</button>)}</div>
+        ] as const).map(([value,label])=><button key={value} className={layer===value?'current':''} onClick={()=>{setLayer(value);setSelectedMapCluster(null);}}>{label}</button>)}</div>
         <div className="cc-map-viewport">
           <div className="cc-map-background-grid" aria-hidden="true"/>
           <svg className="cc-world-svg" viewBox={'0 0 '+width+' '+height} role="group" aria-label="Interactive country reference map; choose a data layer to inspect cases, OFAC program tags, or separately sourced natural hazards">
@@ -165,7 +196,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
                 const selectedShape=code===selected;
                 const d=projector(shape as never);
                 if(!d)return null;
-                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && (code==='US'||overview.countries.find(c=>c.code===code)?.isTreatyAlly)?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+' '+(selectedShape?'selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={()=>{if(code)selectCountry(code);}} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{shape.properties?.name||'Jurisdiction'}{code?' · Select country context (not an incident marker)':''}</title></path>;
+                return <path key={String(shape.id)+'-'+i} d={d} className={'cc-country-shape '+(code && (code==='US'||overview.countries.find(c=>c.code===code)?.isTreatyAlly)?'country-ally':code && strategicAdversaries.has(code)?'country-adversary':'country-neutral')+(code?' selectable':'')+(selectedShape?' selected':'')} strokeWidth={selectedShape?1.45:.7} onClick={code?()=>selectCountry(code):undefined} role={code?'button':undefined} tabIndex={code?0:undefined} onKeyDown={e=>{if(code&&(e.key==='Enter'||e.key===' ')){e.preventDefault();selectCountry(code);}}}><title>{overview.countries.find(c=>c.code===code)?.name||shape.properties?.name||'Jurisdiction'}{code?' · Select country context (not an incident marker)':' · No linked country record in this catalog'}</title></path>;
               }):null}
               {markers.map(a=>{
                 const point=base([a.lon,a.lat]);
