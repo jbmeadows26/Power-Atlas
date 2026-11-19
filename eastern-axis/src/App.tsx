@@ -269,6 +269,7 @@ function MiniGlobe() {
 }
 function App() {
   const [view, setView] = useState<Section>('Overview');
+  const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
   const [search, setSearch] = useState('');
@@ -360,6 +361,7 @@ function App() {
     setView('Countries');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
     setView(next);
     setMobileMenu(false);
@@ -504,11 +506,11 @@ function App() {
               openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
               openDesk={()=>switchView('Collection desk')}
               openSources={()=>switchView('Source library')}
-              openMethod={()=>switchView('Methodology')} onNavigate={switchView} />
+              openMethod={()=>switchView('Methodology')} onNavigate={navigateFromSignal} />
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} onOpenSupplyChain={()=>switchView('Supply chain')} />}
+          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />}
           {overview && view === 'Risk watch' && <><ResilienceWatch/><GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} /></>}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
