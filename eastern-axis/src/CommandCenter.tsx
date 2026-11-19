@@ -4,7 +4,7 @@ import { feature } from 'topojson-client';
 import { geoNaturalEarth1, geoGraticule10, geoPath } from 'd3-geo';
 import { Activity, ArrowRight, ArrowUpRight, BadgeAlert, BookOpen, CheckCircle2, ChevronDown, CircleAlert, Clock3, Database, ExternalLink, Eye, Filter, Globe2, Layers3, LockKeyhole, Map, Minus, Network, Plus, Radio, RefreshCcw, Search, Shield, ShieldCheck, SlidersHorizontal, X } from 'lucide-react';
 import './command.css';
-import DecisionBoard from './DecisionBoard';
+import DecisionRadar from './DecisionRadar';
 
 type Country = {code:string;name:string;region:string;scope:string;relationship:string;securityNote?:string;usRelationship?:string;securitySources?:{label:string;url:string}[];isTreatyAlly:boolean;isMNNA:boolean;caseCount:number};
 type CaseFile = {id:string;code:string;date:string;title:string;topic:string;status:string;level:string;summary:string;impact:string;source:string;agency:string};
@@ -14,7 +14,7 @@ type Health={sourceId:string;status:'ok'|'error';lastAttemptAt:string;lastSucces
 type Intake = {id:string;sourceId:string;title:string;date:string;countryMention?:string;summary:string;sourceUrl:string;recordType:string;sanctionsPrograms?:string[]};
 type OFACMeta = {checkedAt:string;records:number;sampleSize:number;programCounts:Record<string,number>;dataset:string;scope:string};
 type Intel={sources:{id:string;name:string;health:Health|null;documentation:string}[];records:Intake[];ofac?:OFACMeta|null;sampled:number;resultsNote:string};
-type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void};
+type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void;onNavigate:(target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries')=>void};
 type Layer='cases'|'ofac'|'seismic'|'natural';
 type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:number;date:string;source:string;sourceUrl:string};
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
@@ -88,7 +88,7 @@ const graticule=projector(geoGraticule10());
 function CountryFlag({code}:{code:string}){return <span className="cc-flag">{code.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)))}</span>;}
 function MiniState({state}:{state:Health|null|undefined}){return <span className={'cc-state '+(state?.status||'pending')}><span className="cc-status-dot"/>{state?.status==='ok'?'CHECKED':state?.status==='error'?'FAILED':'PENDING'}</span>;}
 function link(href:string,label:string){return <a href={href} target="_blank" rel="noopener noreferrer">{label}<ExternalLink size={12}/></a>;}
-export default function CommandCenter({overview,openCountry,openCases,openDesk,openSources,openMethod,activeCountry,onCountrySelected}:Props){
+export default function CommandCenter({overview,openCountry,openCases,openDesk,openSources,openMethod,activeCountry,onCountrySelected,onNavigate}:Props){
   const [intel,setIntel]=useState<Intel|null>(null);
   const [worldSignals,setWorldSignals]=useState<WorldSignals|null>(null);
   const [signalError,setSignalError]=useState(false);
@@ -169,10 +169,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const hoverCountry=(name?:string)=>{const code=findCode(name);if(code)selectCountry(code);};
   return <div className="command-center">
     <div className="cc-topline"><div className="cc-topline-main"><span className="cc-signal-beacon"/><span>GLOBAL INTELLIGENCE / RESEARCH WORKSPACE</span><strong>ORIGINAL-SOURCE FIRST</strong></div><span>{now.toLocaleString('en-US',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',hour12:false})} UTC · {day(now.toISOString())}</span></div>
-    <DecisionBoard countries={overview.countries} cases={overview.cases} intel={intel} worldSignals={worldSignals}
-      intelligenceError={intelligenceError} signalError={signalError} activeCountry={activeCountry}
-      onCountrySelected={onCountrySelected} openCases={openCases} openDesk={openDesk} openSources={openSources}
-      refresh={()=>setRefreshToken(value=>value+1)} lastRequestedAt={lastRequestedAt} />
+    <DecisionRadar countryCode={activeCountry||'all'} countryName={overview.countries.find(c=>c.code===activeCountry)?.name} onNavigate={onNavigate}/>
     <div className="cc-main-grid">
       <section className="cc-map-panel">
         <div className="cc-map-nav"><div className="cc-map-title"><span className="cc-map-signal"><Radio size={15}/></span><div><strong>Geospatial intelligence</strong><small>RESEARCH ANCHORS · NOT INCIDENT LOCATIONS</small></div></div><div className="cc-map-actions"><button onClick={()=>{setRegion('GL');setZoom(1);}} title="Reset global map"><Globe2 size={16}/></button><button onClick={()=>setZoom(z=>Math.max(.75,z-.25))} title="Zoom out" aria-label="Zoom out"><Minus size={15}/></button><span>{Math.round(scale*100)}%</span><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} title="Zoom in" aria-label="Zoom in"><Plus size={15}/></button></div></div>
