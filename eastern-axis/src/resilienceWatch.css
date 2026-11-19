@@ -12,3 +12,19 @@
 .rw-method{margin:20px 0 0;border:1px solid #334d53;border-radius:7px;padding:15px;color:#aec4c9;font-size:12px;line-height:1.6}.rw-method summary{cursor:pointer;color:#bce7dc;font-weight:600}.rw-method li{margin:6px 0}
 @media(max-width:800px){.rw-root{padding:14px;border-radius:10px}.rw-header{flex-direction:column}.rw-overall{align-items:start;flex-direction:column}.rw-probes,.rw-capabilities{grid-template-columns:minmax(0,1fr)}.rw-toolbar{align-items:start;flex-direction:column}.rw-toolbar label{width:100%;justify-content:space-between}.rw-toolbar select{flex:1}.rw-refresh{margin:0 0 5px}.rw-metrics{gap:7px}.rw-metrics>div{padding:10px}.rw-metrics strong{font-size:20px}.rw-metrics small{font-size:9px}.rw-capability{align-items:start;flex-wrap:wrap}}
 @media(max-width:400px){.rw-metrics{grid-template-columns:1fr}.rw-capability>span{margin-left:24px}}
+
+.rw-history{border:1px solid #345460;background:#102630;padding:13px 15px;margin:13px 0;min-width:0}
+.rw-history-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;flex-wrap:wrap}
+.rw-history-head strong{font-size:13px;color:#e8f3ea}
+.rw-history-head span{font-size:10px;color:#93b1b7}
+.rw-history-chart{display:flex;gap:5px;align-items:flex-end;min-height:100px;width:100%}
+.rw-history-group{flex:1;min-width:0;display:flex;flex-direction:column;gap:5px;align-items:center}
+.rw-history-group>div{height:80px;width:100%;display:flex;align-items:flex-end;justify-content:center;gap:2px;border-bottom:1px solid #456069}
+.rw-history-group i,.rw-history-group b,.rw-history-group em{width:22%;max-width:15px;display:block;min-height:2px}
+.rw-history-group i{background:#84b9b6}.rw-history-group b{background:#dfad74}.rw-history-group em{background:#e47c76}
+.rw-history-group>span{font:8px 'DM Mono',monospace;color:#9eb9bc}
+.rw-history-legend{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.rw-history-legend span{display:flex;align-items:center;gap:5px;color:#a5c0bf;font-size:10px}
+.rw-history-legend i,.rw-history-legend b,.rw-history-legend em{display:block;width:10px;height:8px;background:#84b9b6}
+.rw-history-legend b{background:#dfad74}.rw-history-legend em{background:#e47c76}
+@media(max-width:600px){.rw-history{padding:10px}.rw-history-chart{gap:2px}.rw-history-group>span{font-size:7px}}

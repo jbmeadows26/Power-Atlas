@@ -10,10 +10,8 @@ import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import Connections from './Connections';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
-import HomeCountryDefense from './HomeCountryDefense';
 import Factbook from './Factbook';
 import CountryFactbook from './CountryFactbook';
-import OperationsBar from './OperationsBar';
 import './control-room.css';
 import DefenseIntel from './DefenseIntel';
 import AgentDesk from './AgentDesk';
@@ -271,6 +269,7 @@ function MiniGlobe() {
 }
 function App() {
   const [view, setView] = useState<Section>('Overview');
+  const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
   const [search, setSearch] = useState('');
@@ -362,6 +361,7 @@ function App() {
     setView('Countries');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
     setView(next);
     setMobileMenu(false);
@@ -470,8 +470,6 @@ function App() {
             <span className="asof">SOURCE-DATED DATA</span>
           </div>
         </header>
-        {overview && <OperationsBar countryCode={countryScope} countries={countries}
-          cases={cases} sourceDirectoryCount={sources.length} onNavigate={switchView} />}
         <nav className="ea-workspace-tabs" aria-label="Primary intelligence workspaces">
           {([
             ['Overview','Command',Activity],
@@ -490,18 +488,6 @@ function App() {
             </button>)}
         </nav>
         <main className="content">
-          {overview && view !== 'Overview' && <section className="ea-module-context" aria-label="Current country intelligence workspace">
-            <div><span>EA / COUNTRY-AWARE INTELLIGENCE</span>
-              <strong>{countryScope==='all'?'Worldwide':countries.find(c=>c.code===countryScope)?.name||countryScope} / {view}</strong>
-              <small>Original-source evidence · archived figures labeled · worldwide signals never assigned to a country without source attribution</small>
-            </div>
-            <div className="ea-module-actions">
-              {view!=='Countries'&&<button type="button" onClick={()=>switchView('Countries')}><Globe2 size={14}/> Country dossier</button>}
-              {view!=='Collection desk'&&<button type="button" onClick={()=>switchView('Collection desk')}><Database size={14}/> Feed health</button>}
-              <button type="button" onClick={()=>switchView('Overview')}><Activity size={14}/> Command</button>
-            </div>
-          </section>}
-          {overview && view === 'Overview' && <HomeCountryDefense countries={overview.countries} code={countryScope} onCountryOpen={openCountry} onCountryFocus={setCountryScope} onOpenLibrary={()=>switchView('Defense intelligence')} />}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -520,11 +506,11 @@ function App() {
               openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
               openDesk={()=>switchView('Collection desk')}
               openSources={()=>switchView('Source library')}
-              openMethod={()=>switchView('Methodology')} />
+              openMethod={()=>switchView('Methodology')} onNavigate={navigateFromSignal} />
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} onOpenSupplyChain={()=>switchView('Supply chain')} />}
+          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />}
           {overview && view === 'Risk watch' && <><ResilienceWatch/><GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} /></>}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}

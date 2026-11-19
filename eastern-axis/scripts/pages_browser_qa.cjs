@@ -43,42 +43,38 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
-    // Every module inherits the same country-aware data-first application shell.
-    const operations=page.getByRole('region',{name:'Persistent global intelligence data bar'});
-    await operations.waitFor({state:'visible',timeout:20000});
-    assert.equal(await operations.locator('.ea-ops-metric').count(),6,'Global statistics strip is missing');
+    // Core release invariant: no global stat ribbon repeated on every page.
+    assert.equal(await page.locator('.ea-ops').count(),0,'Repeated monitoring stats should not render anywhere');
+    assert.equal(await page.locator('.ea-module-context').count(),0,'Generic duplicate page context should be removed');
     const workspace=page.getByRole('navigation',{name:'Primary intelligence workspaces'});
     await workspace.waitFor({state:'visible'});
-    assert.ok((await workspace.locator('button').count())>=8,'New workspace navigation missing');
-    if(viewport.width<600) assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Obsolete mobile hero still hides the metrics');
-    // The opening dashboard must expose evidence, not merely decorative charts.
-    const decisionBoard=page.getByRole('region',{name:'Decision intelligence dashboard'});
-    await decisionBoard.waitFor({state:'visible',timeout:20000});
-    assert.equal(await decisionBoard.locator('.db-stat').count(),6,
-      'Missing headline source-backed decision metrics');
-    await decisionBoard.getByText('SUCCESSFUL SOURCE CHECKS',{exact:true}).waitFor({state:'visible'});
-    await decisionBoard.getByText('COUNTRY-LEVEL INTELLIGENCE',{exact:true}).waitFor({state:'visible'});
-    await decisionBoard.getByRole('button',{name:'Refresh feeds'}).waitFor({state:'visible'});
-    const decisionWidth=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
+    assert.ok((await workspace.locator('button').count())>=8,'Workspace navigation missing');
+    const radar=page.getByRole('region',{name:'Decision radar by domain'});
+    await radar.waitFor({state:'visible',timeout:20000});
+    assert.equal(await radar.locator('.dr-lane').count(),4,'Home must show four distinct decision domains');
+    for(const domain of ['Finance','Trade & essential goods','Infrastructure & survival','Military & intelligence'])
+      await radar.getByRole('heading',{name:domain}).waitFor({state:'visible'});
+    await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:20000});
+    assert.ok(await radar.locator('.dr-move-foot a[href^="https://"]').count()>0,
+      'Data comparisons must link to original sources');
+    await radar.getByRole('button',{name:'Review triggers'}).click();
+    assert.ok((await radar.locator('.dr-lane').count())<=4,'Review filter not applied');
+    await radar.getByRole('button',{name:'Blind spots'}).click();
+    await radar.getByRole('button',{name:'All domains'}).click();
+    assert.equal(await radar.locator('.dr-lane').count(),4,'All domains filter did not restore all cards');
+    const decisionWidth=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(decisionWidth.scroll<=decisionWidth.width+2,
-      'Decision dashboard overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
-    // The first-screen country module must expose military and allied evidence,
-    // not just the DOJ-only country comparison further down the page.
-    const homeDefense=page.getByRole('region',{name:'Country-specific defense intelligence on Home'});
-    await homeDefense.waitFor({state:'visible',timeout:20000});
-    await homeDefense.getByRole('heading',{name:'Defense intelligence by country'}).waitFor({state:'visible'});
-    await homeDefense.getByText('Military asset entries').first().waitFor({state:'visible'});
-    const cardWithSource=homeDefense.locator('.hcd-country a[href^="https://"]').first();
-    await cardWithSource.waitFor({state:'visible',timeout:20000});
-    assert.ok((await homeDefense.locator('.hcd-country').count())>0,
-      'No source-linked national intelligence card on the Home dashboard');
-    // Country-selected Home must show the same national dossier as the other tabs.
-    await homeDefense.getByRole('button',{name:'Focus dashboard on Russia'}).click();
-    await homeDefense.getByRole('heading',{name:'Russia: military & allied intelligence'}).waitFor({state:'visible'});
-    assert.ok((await homeDefense.locator('.cds-references a[href^="https://"]').count())>0,
-      'Country Home is missing original allied/military evidence links');
-    await homeDefense.getByRole('button',{name:/Return to worldwide/}).click();
-    await homeDefense.getByRole('heading',{name:'Defense intelligence by country'}).waitFor({state:'visible'});
+      'Home radar overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
+    // Country scope retains independent benchmarks, never presents global reports as country events.
+    await radar.getByRole('button',{name:'Analyze'}).first().waitFor({state:'visible'});
+    // A decision drilldown must land in the right measured domain, not an unrelated list.
+    await radar.locator('.dr-finance footer button').click();
+    const fundingTab=page.getByRole('button',{name:'Overnight funding'});
+    await fundingTab.waitFor({state:'visible',timeout:15000});
+    assert.equal(await fundingTab.getAttribute('aria-pressed'),'true','Finance card did not select funding comparisons');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
+    await radar.waitFor({state:'visible',timeout:15000});
     // Test the public map's evidence layers and legend before narrowing country scope.
     const mapPanel=page.locator('.cc-map-panel');
     await mapPanel.waitFor({state:'visible',timeout:18000});
@@ -159,7 +155,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:target}).click();
       assert.match(await scope.innerText(),/Russia/,target+' lost selected scope');
-      await operations.getByText('Russia',{exact:true}).first().waitFor({state:'visible'});
+      assert.equal(await page.locator('.ea-ops').count(),0,'Shared stats strip returned on '+target);
     }
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.getByRole('button',{name:'Choose country intelligence scope'});
@@ -214,6 +210,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       const countryLabel=await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText();
       assert.match(countryLabel,/China/,sectionName+' lost country scope');
       await page.waitForTimeout(120);
+      assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
+      assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
+      assert.equal(await page.locator('.dr-root').count(),sectionName==='Command center'?1:0,sectionName+' displays Home-specific metrics on a specialist tab');
       const mainText=await page.locator('.content').innerText();
       assert.ok(mainText.length>90,sectionName+' rendered an empty content panel');
       const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));

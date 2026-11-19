@@ -36,11 +36,12 @@ function isMetric(x:unknown):x is Metric {
     && Number.isFinite(m.previous) && Number.isFinite(m.changePct) && Math.abs(m.changePct)<100000);
 }
 const isSafeDate=isValidObservedPeriod;
-export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain}:
-  {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void}) {
+export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain,initialMeasurementFilter='all'}:
+  {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void;initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss'}) {
   const [category,setCategory]=useState('maritime');
   const [search,setSearch]=useState('');
-  const [measurementFilter,setMeasurementFilter]=useState('all');
+  const [measurementFilter,setMeasurementFilter]=useState<string>(initialMeasurementFilter);
+  useEffect(()=>setMeasurementFilter(initialMeasurementFilter),[initialMeasurementFilter]);
   const [scenario,setScenario]=useState('shipping');
   const [snapshot,setSnapshot]=useState<Snapshot>(EMPTY);
   const [loadError,setLoadError]=useState('');
@@ -143,6 +144,11 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
           {m.compareMode==='basis-points'?((m.changeBps??0)>0?'+':'')+format(m.changeBps??0)+' bps':
           m.compareMode==='percentage-points'?((m.changePp??0)>0?'+':'')+format(m.changePp??0)+' percentage points':
           (m.changePct>0?'+':'')+format(m.changePct)+'%'} vs previous observation{signalScreen(m)?' · REVIEW SIGNAL':''}</div>
+        <div className="pew-delta-chart" role="img" aria-label={m.previousPeriod+': '+format(m.previous)+'; '+m.period+': '+format(m.value)+' '+m.unit}>
+          {([{label:m.previousPeriod,value:m.previous},{label:m.period,value:m.value}] as const).map((point,i)=><div key={point.label+i}>
+            <span>{point.label}</span><div><i className={i===1?'latest':''} style={{width:Math.max(2,Math.min(100,100*Math.abs(point.value)/Math.max(1,Math.abs(m.previous),Math.abs(m.value))))+'%'}}/></div><b>{format(point.value)}</b>
+          </div>)}
+        </div>
         <small>{m.period} vs {m.previousPeriod} · {m.interval==='daily'?'daily':'monthly'} observation{m.sampleSize?' · '+m.sampleSize.toLocaleString('en-US')+' sampled hexagons':''}</small>
         <small>{m.id.startsWith('gps-')?'Geographic proxy only; aviation sampling changes can shift the percentage. No attribution or navigation claim.':m.id.startsWith('fao-')?'Global wholesale commodity index, not local food inflation.':''}</small>
         <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">Source reference / methodology <ArrowUpRight size={13}/></a>

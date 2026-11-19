@@ -80,6 +80,17 @@ export default function ResilienceWatch(){
       <div className="rw-metrics"><div><span>Source observations</span><strong>{snapshot.sampledCount}</strong><small>Scope-specific checks, not services certified healthy</small></div>
         <div><span>Correlated watches</span><strong>{snapshot.incidents.length}</strong><small>Screening signals, not attributed events</small></div>
         <div><span>Connected capabilities</span><strong>{supported} / {snapshot.capabilities.length}</strong><small>{notConnected} not sampled or require access</small></div></div>
+      {Array.isArray(snapshot.history)&&snapshot.history.length>1&&<div className="rw-history" aria-label="Independent probe history by publication snapshot">
+        <div className="rw-history-head"><strong>Probe health over time</strong><span>Source snapshots, not a global service-outage timeline</span></div>
+        <div className="rw-history-chart">{snapshot.history.slice(-12).map((entry,i)=>{
+          const ceiling=Math.max(1,...snapshot.history!.slice(-12).flatMap(h=>[h.observed,h.errors,h.alerts]));
+          return <div className="rw-history-group" key={entry.checkedAt+i} title={date(entry.checkedAt)+' · '+entry.observed+' observed · '+entry.errors+' errors · '+entry.alerts+' alerts'}>
+            <div><i style={{height:Math.max(2,100*Math.max(0,entry.observed)/ceiling)+'%'}}/><b style={{height:Math.max(2,100*Math.max(0,entry.errors)/ceiling)+'%'}}/><em style={{height:Math.max(2,100*Math.max(0,entry.alerts)/ceiling)+'%'}}/></div>
+            <span>{new Date(entry.checkedAt).toLocaleDateString('en-US',{month:'numeric',day:'numeric',timeZone:'UTC'})}</span>
+          </div>;
+        })}</div>
+        <div className="rw-history-legend"><span><i/> Samples</span><span><b/> Probe errors</span><span><em/> Correlated indicators</span></div>
+      </div>}
       {(snapshot.screeningSignals?.length||0)>0 && <div className="rw-incident-list" aria-label="Unconfirmed screening signals">
         {snapshot.screeningSignals?.map(s=><article className="rw-incident" key={s.id}>
           <div><AlertTriangle size={17}/><strong>{s.title}</strong><span>REVIEW</span></div>

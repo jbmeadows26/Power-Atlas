@@ -77,3 +77,13 @@
 @media(max-width:760px){.pew-source-health>div{grid-template-columns:1fr}}
 
 .pew-region-note{border-left:3px solid #caa269;background:#342e28;color:#e0d2ba;border-radius:4px;padding:12px 14px;font-size:11px;line-height:1.7;margin:4px 0 15px}
+
+/* Exact two-observation comparison, never an invented multi-month sparkline. */
+.pew-delta-chart{display:grid;gap:5px;margin:7px 0 8px}
+.pew-delta-chart>div{display:grid;grid-template-columns:58px minmax(0,1fr) 52px;gap:5px;align-items:center}
+.pew-delta-chart>div>span,.pew-delta-chart b{font:9px 'DM Mono',monospace;color:#a1bcc1}
+.pew-delta-chart>div>div{height:8px;background:#253f49;overflow:hidden}
+.pew-delta-chart i{height:100%;display:block;background:#648e99}
+.pew-delta-chart i.latest{background:#c4e889}
+.pew-delta-chart b{text-align:right;color:#e8f4e9}
+@media(max-width:760px){.pew-heading p{font-size:11px;line-height:1.5}.pew-delta-chart>div{grid-template-columns:49px minmax(0,1fr) 39px;gap:4px}.pew-delta-chart>div>span,.pew-delta-chart b{font-size:8px}}
