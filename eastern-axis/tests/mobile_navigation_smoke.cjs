@@ -37,7 +37,8 @@ async function qa(page,width){
     else if(path.startsWith('/api/brief/'))data={code:path.split('/').at(-1),updatedAt:'',mode:'unavailable',metrics:{}};
     else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture-only test',ofac:null};
     else if(path==='/api/world-signals')data={status:'unavailable',count:0,events:[],naturalEvents:[]};
-    else if(path==='/api/defense-intel')data={reviewedAsOf:'',mode:'fixture',assessments:[],operations:[],assets:[],sources:[],caveats:[]};
+    else if(path==='/api/defense-intel')data={reviewedAsOf:'',mode:'fixture',assessments:[],operations:[],assets:[],sources:[{id:'ca',name:'Canadian CSIS',group:'Five Eyes',what:'Official threat reports',url:'https://www.canada.ca/en/security-intelligence-service/corporate/publications.html'}],caveats:[]};
+    else if(path.startsWith('/api/allied-sanctions/'))data={scope:path.split('/').at(-1),checkedAt:'2026-11-19',policy:'Fixture only',graphPolicy:'Fixture only',sources:[{id:'canada',name:'Canadian sanctions',sourceUrl:'https://www.international.gc.ca/',status:'snapshot',lastAttemptAt:null,checkedAt:'2026-11-19',publicationDate:null,contentSha256:null,listedUniqueDesignations:20,parsedSourceRows:20,regimeRecordCount:null,samples:[],regimes:[],warning:'Fixture intentionally has a null count'}]};
     else if(path==='/api/source-monitor')data={feeds:[],records:[],mode:'fixture',explanation:'Test-only data',nextScan:''};
     else if(path.startsWith('/api/global-systems/'))data=globalData;
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
@@ -62,6 +63,12 @@ async function qa(page,width){
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
+    // Country-specific source summaries must not crash when a valid snapshot has a null regime count.
+    await nav.getByRole('button',{name:'Networks'}).click();
+    await page.locator('.cx-center').getByText('China').waitFor({state:'visible'});
+    await page.locator('.ip-sanction-stats').getByText('—').waitFor({state:'visible'});
+    assert.equal(await page.locator('#root').isVisible(),true,'Null sanctions count blanked the app');
+    assert.equal(await page.locator('.cx-allied-item[href*="canada.ca"]').count(),1,'Allied original-source gateway missing');
     await nav.getByRole('button',{name:'Risks'}).click();
     await page.getByRole('heading',{name:/Pressure points/i}).waitFor();
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
