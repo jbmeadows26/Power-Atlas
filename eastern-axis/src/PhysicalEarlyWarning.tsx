@@ -36,11 +36,12 @@ function isMetric(x:unknown):x is Metric {
     && Number.isFinite(m.previous) && Number.isFinite(m.changePct) && Math.abs(m.changePct)<100000);
 }
 const isSafeDate=isValidObservedPeriod;
-export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain}:
-  {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void}) {
+export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain,initialMeasurementFilter='all'}:
+  {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void;initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss'}) {
   const [category,setCategory]=useState('maritime');
   const [search,setSearch]=useState('');
-  const [measurementFilter,setMeasurementFilter]=useState('all');
+  const [measurementFilter,setMeasurementFilter]=useState(initialMeasurementFilter);
+  useEffect(()=>setMeasurementFilter(initialMeasurementFilter),[initialMeasurementFilter]);
   const [scenario,setScenario]=useState('shipping');
   const [snapshot,setSnapshot]=useState<Snapshot>(EMPTY);
   const [loadError,setLoadError]=useState('');
