@@ -14,7 +14,7 @@ type Health={sourceId:string;status:'ok'|'error';lastAttemptAt:string;lastSucces
 type Intake = {id:string;sourceId:string;title:string;date:string;countryMention?:string;summary:string;sourceUrl:string;recordType:string;sanctionsPrograms?:string[]};
 type OFACMeta = {checkedAt:string;records:number;sampleSize:number;programCounts:Record<string,number>;dataset:string;scope:string};
 type Intel={sources:{id:string;name:string;health:Health|null;documentation:string}[];records:Intake[];ofac?:OFACMeta|null;sampled:number;resultsNote:string};
-type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void;onNavigate:(target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries')=>void};
+type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void;onNavigate:(target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries',focus?:'funding'|'commodities'|'gnss')=>void};
 type Layer='cases'|'ofac'|'seismic'|'natural';
 type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:number;date:string;source:string;sourceUrl:string};
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
