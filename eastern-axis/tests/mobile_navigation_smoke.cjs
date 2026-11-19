@@ -12,6 +12,8 @@ const overview={
   countries:[
     {code:'RU',name:'Russia',region:'Europe',scope:'state-or-observer',relationship:'Outside primary U.S. alliances',isTreatyAlly:false,isMNNA:false,caseCount:1},
     {code:'CN',name:'China',region:'Asia',scope:'state-or-observer',relationship:'Outside primary U.S. alliances',isTreatyAlly:false,isMNNA:false,caseCount:0},
+    {code:'CA',name:'Canada',region:'Americas',scope:'state-or-observer',relationship:'NATO treaty ally',isTreatyAlly:true,isMNNA:false,caseCount:0},
+    {code:'AG',name:'Antigua & Barbuda',region:'Americas',scope:'state-or-observer',relationship:'Regional research',isTreatyAlly:false,isMNNA:false,caseCount:0},
   ],
   cases:[{id:'test-case',code:'RU',date:'2026-10-01',title:'Fixture case (not published)',topic:'Cyber',status:'Allegation',level:'Official release',summary:'Test data',impact:'Test impact',source:'https://www.justice.gov/',agency:'DOJ'}],
   sources:[{id:'doj',name:'DOJ',category:'Government',mode:'Scheduled intake',cost:'Free',url:'https://www.justice.gov/',description:'Official source'}],
@@ -37,7 +39,16 @@ async function qa(page,width){
     else if(path.startsWith('/api/brief/'))data={code:path.split('/').at(-1),updatedAt:'',mode:'unavailable',metrics:{}};
     else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture-only test',ofac:null};
     else if(path==='/api/world-signals')data={status:'unavailable',count:0,events:[],naturalEvents:[]};
-    else if(path==='/api/defense-intel')data={reviewedAsOf:'',mode:'fixture',assessments:[],operations:[],assets:[],sources:[],caveats:[]};
+    else if(path==='/api/defense-intel')data={reviewedAsOf:'',mode:'fixture',assessments:[],operations:[],assets:[],sources:[
+      {id:'canada',name:'Canadian CSIS',group:'Five Eyes',what:'Public reports',url:'https://www.canada.ca/'},
+      {id:'nato',name:'NATO',group:'EU / NATO',what:'Alliance analysis',url:'https://www.nato.int/'},
+      {id:'japan',name:'Japan Ministry of Defense',group:'Indo-Pacific allies',what:'Defense references',url:'https://www.mod.go.jp/'}
+    ],caveats:[]};
+    else if(path.startsWith('/api/allied-sanctions/'))data={scope:path.split('/').at(-1),checkedAt:'',policy:'Fixture only',graphPolicy:'Fixture only',sources:[
+      {id:'uk',name:'UK Sanctions List',sourceUrl:'https://www.gov.uk/',status:'snapshot',checkedAt:'',publicationDate:null,listedUniqueDesignations:100,regimeRecordCount:null,samples:[],regimes:[],warning:'Fixture'},
+      {id:'canada',name:'Canada Sanctions List',sourceUrl:'https://www.canada.ca/',status:'snapshot',checkedAt:'',publicationDate:null,listedUniqueDesignations:100,regimeRecordCount:null,samples:[],regimes:[],warning:'Fixture'}
+    ]};
+    else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture only',reviewPolicy:'Fixture only'};
     else if(path==='/api/source-monitor')data={feeds:[],records:[],mode:'fixture',explanation:'Test-only data',nextScan:''};
     else if(path.startsWith('/api/global-systems/'))data=globalData;
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
@@ -55,6 +66,17 @@ async function qa(page,width){
     assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
     assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Networks','More']);
     await page.locator('.mobile-brief').waitFor({state:'visible'});
+    // Regression: zero-DOJ country with null allied-sanctions counts must never blank the app.
+    await nav.getByRole('button',{name:'Networks'}).click();
+    await page.locator('.cx-country').filter({hasText:'Antigua & Barbuda'}).click();
+    await page.locator('.cx-center h2').getByText('Antigua & Barbuda').waitFor();
+    await page.locator('.ip-sanction-source').first().waitFor();
+    await page.locator('.cx-branch-tabs button').filter({hasText:'U.S. + allied source network'}).click();
+    await page.getByText('Canadian CSIS').waitFor();
+    assert.equal((await page.locator('#root').innerText()).length>100,true,'Zero-case country blanked the page');
+    assert.deepEqual(pageErrors,[],'Country selection caused a React render error');
+    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+    await page.getByRole('option',{name:/Worldwide/}).click();
     await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('china');
     await page.getByRole('option',{name:/China/}).click();
