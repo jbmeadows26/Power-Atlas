@@ -6,6 +6,10 @@ type Health = { status?: 'ok' | 'error'; lastAttemptAt?: string; lastSuccessAt?:
 type Feed = { id: string; name: string; health: Health | null };
 type RecordItem = { id: string; sourceId: string; title: string; date: string; sourceUrl: string; countryMention?: string };
 type Intel = { sources: Feed[]; records: RecordItem[] };
+type AlliedEvidence = { id: string; sourceId?: string; countries?: string[]; title: string; date: string; url: string; publisher: string; sourceGroup?: string };
+type AlliedPortal = { name: string; group: string; url: string; mode: string };
+type AnalystManifest = { schemaVersion: number; generatedAt?: string | null; sourceHealth?: Record<string,string>; records: AlliedEvidence[]; alliedSources?: AlliedPortal[] };
+
 const label = (id: string) => ({doj:'DOJ',fara:'FARA',cisa:'CISA',ofac:'OFAC'} as Record<string,string>)[id] || id.replace(/[-_]/g,' ');
 const url = (input: string) => {
   try { const u = new URL(input); return u.protocol === 'https:' && !u.username && !u.password ? u.href : null; }
@@ -30,6 +34,21 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
   const [now, setNow] = useState(() => Date.now());
   const [newSinceVisit, setNewSinceVisit] = useState<number | null>(null);
   const [isFirstVisit, setIsFirstVisit] = useState(true);
+  const [analyst, setAnalyst] = useState<AnalystManifest | null>(null);
+  const [analystError, setAnalystError] = useState(false);
+  const [analystRefresh, setAnalystRefresh] = useState(0);
+  useEffect(() => { const timer=window.setInterval(()=>setAnalystRefresh(v=>v+1),5*60*1000); return ()=>window.clearInterval(timer); },[]);
+  useEffect(() => {
+    let active = true;
+    fetch(import.meta.env.BASE_URL + 'analysis/manifest.json?t=' + Date.now(), {cache:'no-store'})
+      .then(async response => { if (!response.ok) throw Error('Analyst index missing'); return response.json(); })
+      .then((value: AnalystManifest) => {
+        if (![1,2].includes(value.schemaVersion) || !Array.isArray(value.records) || !Array.isArray(value.alliedSources)) throw Error('Invalid source snapshot');
+        if (active) { setAnalyst(value); setAnalystError(false); }
+      })
+      .catch(() => { if (active) { setAnalyst(null); setAnalystError(true); } });
+    return () => { active = false; };
+  }, [analystRefresh]);
   const initialized = useRef(false);
   const seenIds = useRef<string[] | null>(null);
   useEffect(() => { const interval = window.setInterval(() => setNow(Date.now()), 60000); return () => window.clearInterval(interval); },[]);
@@ -76,6 +95,10 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
   const stale = feeds.filter(feed => feed.health?.status === 'ok'
     && (!feed.health.lastSuccessAt || !Number.isFinite(Date.parse(feed.health.lastSuccessAt)) || now-Date.parse(feed.health.lastSuccessAt)>48*3600000));
   const needsReview = errors.length+unknown.length+stale.length;
+  const assessments = (analyst?.records || []).filter(record=>record.sourceId==='allied-assessment');
+  const countryAssessments = assessments.filter(record=>!activeCountry||activeCountry==='all'||record.countries?.includes(activeCountry));
+  const alliedStatus = analyst?.sourceHealth?.alliedAssessments || 'not assessed';
+  const portals = analyst?.alliedSources || [];
   const recent = [...records].filter(record=>Number.isFinite(Date.parse(record.date)))
     .sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).slice(0,6);
   return <section className="sp-root" aria-label="Source-dated collection signal pulse">
@@ -142,6 +165,33 @@ export default function SignalPulse({ intel, error, activeCountry }: Props) {
         <p className="sp-note">{isFirstVisit?'A browser baseline is being saved; later visits can identify newly seen IDs.':'Newly seen means new to this browser snapshot, not a newly occurring event.'} {records.filter(record=>!url(record.sourceUrl)).length} sample records lack usable HTTPS source links.</p>
       </section>
     </div>
+    <section className="sp-allied" aria-label="U.S. and allied government assessment coverage">
+      <div className="sp-allied-head"><div><span>U.S. + ALLIED OFFICIAL ASSESSMENTS</span>
+        <strong>{analystError ? 'Index unavailable' : analyst ? countryAssessments.length + ' indexed assessments in scope' : 'Checking assessment index…'}</strong>
+        <small>Country tags reflect source indexing, not governmental responsibility or total national activity</small></div>
+        <div><b>{analystError ? 'UNAVAILABLE' : alliedStatus.toUpperCase()}</b><small>Allied collector health</small>
+          <small>Manifest: {dateTime(analyst?.generatedAt || undefined)}</small></div></div>
+      {analystError && <p className="sp-error">Allied assessment snapshot unavailable. It must not be counted as zero.</p>}
+      {analyst && <>
+        <div className="sp-allied-kpis">
+          <span><b>{assessments.length}</b> global indexed assessments</span>
+          <span><b>{portals.length}</b> official source portals (references only)</span>
+          <span><b>{countryAssessments.length}</b> indexed records {activeCountry && activeCountry !== 'all' ? 'explicitly tagged '+activeCountry : 'worldwide'}</span>
+        </div>
+        <div className="sp-allied-reports">
+          {countryAssessments.slice(0,5).map(item=>{
+            const href=url(item.url);
+            return <article key={item.id}><span>{item.publisher} · {dateTime(item.date)} · {item.sourceGroup || 'Allied government'}</span>
+              {href ? <a href={href} target="_blank" rel="noopener noreferrer">{item.title}<ExternalLink size={12}/></a> : <strong>{item.title} · original link unavailable</strong>}
+            </article>;
+          })}
+          {countryAssessments.length===0&&<p className="sp-note">No explicitly country-tagged assessment in this bounded index. This does not establish that no allied government has published relevant information.</p>}
+        </div>
+        <details className="sp-allied-portals"><summary>Inspect all {portals.length} official allied source portals (discovery links, not ingested documents)</summary>
+          <div>{portals.map((item,index)=>{const href=url(item.url);return href?<a href={href} target="_blank" rel="noopener noreferrer" key={item.name+index}>{item.name} · {item.group}<ExternalLink size={11}/></a>:<span key={item.name+index}>{item.name} · link missing</span>;})}</div>
+        </details>
+      </>}
+    </section>
     <footer className="sp-foot"><ShieldCheck size={14}/> Triage source faults first. A source mention, sanction-program count, or new record does not establish threat severity, causation, or government responsibility.</footer>
   </section>;
 }
