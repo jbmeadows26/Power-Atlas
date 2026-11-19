@@ -68,7 +68,7 @@ const base=geoNaturalEarth1().scale(188).translate([width/2,height/2+12]);
 // to send the user to a different earthquake than the title they selected.
 function clusterMapEvents(events:MapEvent[],scale:number):MapCluster[] {
   const clusters:MapCluster[]=[];
-  const threshold=15/Math.max(0.7,scale);
+  const threshold=22/Math.max(0.7,scale);
   for(const event of events){
     if(!Number.isFinite(event.longitude)||!Number.isFinite(event.latitude)
        || Math.abs(event.latitude)>90 || Math.abs(event.longitude)>180)continue;
