@@ -65,7 +65,7 @@ async function qa(page,width){
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
     // Country-specific source summaries must not crash when a valid snapshot has a null regime count.
     await nav.getByRole('button',{name:'Networks'}).click();
-    await page.locator('.cx-center').getByText('China').waitFor({state:'visible'});
+    await page.locator('.cx-center h2').getByText('China',{exact:true}).waitFor({state:'visible'});
     await page.locator('.ip-sanction-stats').getByText('—').waitFor({state:'visible'});
     assert.equal(await page.locator('#root').isVisible(),true,'Null sanctions count blanked the app');
     assert.equal(await page.locator('.cx-allied-item[href*="canada.ca"]').count(),1,'Allied original-source gateway missing');
