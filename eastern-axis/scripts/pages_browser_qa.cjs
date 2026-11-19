@@ -67,6 +67,14 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       'Home radar overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
     // Country scope retains independent benchmarks, never presents global reports as country events.
     await radar.getByRole('button',{name:'Analyze'}).first().waitFor({state:'visible'});
+    // A decision drilldown must land in the right measured domain, not an unrelated list.
+    await radar.locator('.dr-finance footer button').click();
+    const fundingTab=page.getByRole('button',{name:'Overnight funding'});
+    await fundingTab.waitFor({state:'visible',timeout:15000});
+    assert.equal(await fundingTab.getAttribute('aria-pressed'),'true','Finance card did not select funding comparisons');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
+    await radar.waitFor({state:'visible',timeout:15000});
     // Test the public map's evidence layers and legend before narrowing country scope.
     const mapPanel=page.locator('.cc-map-panel');
     await mapPanel.waitFor({state:'visible',timeout:18000});
