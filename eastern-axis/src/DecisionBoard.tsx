@@ -115,6 +115,7 @@ export default function DecisionBoard({
   };
   const newestCheck = checks.map(item => item.health?.lastAttemptAt).filter((v): v is string => !!v)
     .sort().reverse()[0];
+  const staleCheck = Boolean(newestCheck && Number.isFinite(Date.parse(newestCheck)) && now - Date.parse(newestCheck) > 48 * 3600000);
   const countryMax = Math.max(1, ...cards.map(item => cases.filter(c => c.code === item.code).length));
   const topicMax = Math.max(1, ...byTopic.map(([, value]) => value));
   const showMetrics = code !== 'all' ? brief?.metrics : undefined;
@@ -131,7 +132,7 @@ export default function DecisionBoard({
       </div>
     </div>
     <div className="db-statusline">
-      <span><span className={'db-led' + (failing.length || intelligenceError ? ' db-led-warn' : '')}/> {intelligenceError ? 'INTAKE UNAVAILABLE' : failing.length ? failing.length + ' FAILED SOURCE CHECKS' : !intel ? 'AWAITING INTAKE' : 'INTAKE STATUS RECEIVED'}</span>
+      <span><span className={'db-led' + (failing.length || intelligenceError || staleCheck ? ' db-led-warn' : '')}/> {intelligenceError ? 'INTAKE UNAVAILABLE' : failing.length ? failing.length + ' FAILED SOURCE CHECKS' : staleCheck ? 'SOURCE CHECK STALE (>48H)' : !intel ? 'AWAITING INTAKE' : 'INTAKE STATUS RECEIVED'}</span>
       <span>Source check: {time(newestCheck)}</span>
       <span>Signal snapshot: {time(worldSignals?.generatedAt)}</span>
       <span>{lastRequestedAt ? 'Last dashboard request: ' + time(lastRequestedAt) : 'Loading data'}</span>
@@ -139,7 +140,7 @@ export default function DecisionBoard({
     <div className="db-stat-grid">
       <MetricCard label="CURATED CASE RECORDS" value={number(scopedCases.length)} detail={code === 'all' ? 'All countries · selected evidence library' : code + ' · country-scoped cases'} />
       <MetricCard label="DATED CASES / 30 DAYS" value={number(recentCases.length)} detail="Cases by record date · not a real-time incident count" />
-      <MetricCard label="SUCCESSFUL SOURCE CHECKS" value={intel ? healthy.length + ' / ' + checks.length : '—'} detail={intel ? failing.length + ' failed · ' + pending.length + ' unchecked · ' + ageText(newestCheck) : 'Waiting for health data'} warn={failing.length > 0 || intelligenceError}/>
+      <MetricCard label="SUCCESSFUL SOURCE CHECKS" value={intel ? healthy.length + ' / ' + checks.length : '—'} detail={intel ? failing.length + ' failed · ' + pending.length + ' unchecked · ' + ageText(newestCheck) : 'Waiting for health data'} warn={failing.length > 0 || intelligenceError || staleCheck}/>
       <MetricCard label="INTAKE RECORDS IN SAMPLE" value={intel ? number(intel.records.length) : '—'} detail="Visible sample · does not imply complete ingestion" />
       <MetricCard label="OFAC SDN ENTRIES" value={intel?.ofac ? number(intel.ofac.records) : '—'} detail={intel?.ofac ? 'Global SDN export · ' + dateOnly(intel.ofac.checkedAt) : 'Not validated / unavailable'} />
       <MetricCard label="GLOBAL HAZARD OBSERVATIONS" value={worldSignals ? number((worldSignals.events?.length || 0) + (worldSignals.naturalEvents?.length || 0)) : '—'} detail={signalError ? 'Source check failed · not zero events' : 'Sampled USGS + NASA · worldwide, separate from conflicts'} warn={signalError}/>
@@ -193,7 +194,7 @@ export default function DecisionBoard({
     </section>}
     <div className="db-bottom-strip">
       <div><Database size={14}/><strong>COLLECTION INTEGRITY</strong>
-        <span>{intelligenceError ? 'Intelligence API unavailable.' : failing.length ? failing.map(item => item.name).join(', ') + ' require investigation.' : intel ? 'No failures in returned checks; unmonitored sources are not implied healthy.' : 'Waiting for source checks.'}</span>
+        <span>{intelligenceError ? 'Intelligence API unavailable.' : failing.length ? failing.map(item => item.name).join(', ') + ' require investigation.' : staleCheck ? 'Latest check is older than 48 hours; verify ingestion schedule.' : intel ? 'No failures in returned checks; unmonitored sources are not implied healthy.' : 'Waiting for source checks.'}</span>
       </div>
       <div><button type="button" onClick={openDesk}>Inspect feeds <ArrowRight size={13}/></button><button type="button" onClick={openSources}>Source library <ExternalLink size={13}/></button></div>
     </div>
