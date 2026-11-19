@@ -1,0 +1,89 @@
+/* Eastern Axis Control Room v4 — shared visual system for EVERY application route.
+   Built above existing specialist components: all routes, source links and original data stay intact. */
+.ea-control-room{--cr-bg:#070f15;--cr-panel:#10212a;--cr-line:#28424e;--cr-neon:#d4fb79;--cr-ink:#edf7ef;--cr-muted:#97aeb8;--cr-amber:#edbe79;background:var(--cr-bg);color:var(--cr-ink);min-height:100vh;font-family:'DM Sans',sans-serif}
+.ea-control-room .main{min-width:0;overflow:visible;background:repeating-linear-gradient(0deg,#16283111 0px,#16283111 1px,transparent 1px,transparent 34px),var(--cr-bg)}
+.ea-control-room .sidebar{flex:0 0 211px;width:211px;background:linear-gradient(180deg,#0c1a23,#08131b 85%);border-right:1px solid #2c4550;padding:20px 10px 15px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#355561 transparent;z-index:22}
+.ea-control-room .brand{padding:4px 9px 12px;gap:10px}
+.ea-control-room .brand-mark{background:#d4fb79;color:#0a1a19;border:0;width:35px;height:35px;border-radius:4px;box-shadow:0 0 17px #d4fb7933}
+.ea-control-room .brand strong{font:800 15px 'Manrope',sans-serif;letter-spacing:.015em;color:#f2f7eb}
+.ea-control-room .brand em{color:#d5fa7d}
+.ea-control-room .brand small{color:#90a6ae;font-size:8px;letter-spacing:.08em;margin-top:4px}
+.ea-control-room .sidebar-rule{height:1px;border:0;background:#2b444e;margin:10px 8px 13px}
+.ea-control-room .nav-label{display:none}
+.ea-control-room .sidebar nav{gap:1px;display:flex;flex-direction:column}
+.ea-control-room .ea-nav-group{font:700 9px 'DM Mono',monospace;letter-spacing:.12em;color:#71909a;padding:18px 11px 8px;border-top:1px solid #213942;margin-top:8px}
+.ea-control-room .sidebar nav .ea-nav-group:first-child{border:0;margin-top:0}
+.ea-control-room .nav-item{width:100%;padding:10px 10px;min-height:36px;gap:9px;border:1px solid transparent;border-radius:4px;color:#aebfc3;font-size:11px;font-weight:600;letter-spacing:.01em}
+.ea-control-room .nav-item svg{width:15px;height:15px;color:#7c9aa0}
+.ea-control-room .nav-item:hover{background:#192d36;color:#f4f6ee;border-color:#32505b}
+.ea-control-room .nav-item.active{background:#d5fa7d;color:#0a201a;border-color:#b8e45e;box-shadow:none;font-weight:800}
+.ea-control-room .nav-item.active svg{color:#16372a}
+.ea-control-room .nav-item.active:before{display:none}
+.ea-control-room .nav-item small{color:inherit}
+.ea-control-room .sidebar-bottom{padding:12px 10px 0;margin-top:22px;border-top:1px solid #28424c}
+.ea-control-room .sidebar-bottom p{font-size:10px;line-height:1.5;color:#77949c}.ea-control-room .sidebar-foot{font-size:8px}
+.ea-control-room .topbar{height:62px;position:sticky;top:0;z-index:24;background:#0b1b24ee;border-bottom:1px solid #35525d;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);padding:0 21px;gap:10px}
+.ea-control-room .breadcrumb{color:#9cb6b3;font:10px 'DM Mono',monospace;letter-spacing:.055em}
+.ea-control-room .breadcrumb strong{color:#e3f2e7;font-weight:800}
+.ea-control-room .header-meta{font-size:9px;color:#b0c0bb}.ea-control-room .asof{font-size:9px;color:#a9c576;padding-left:12px}
+.ea-control-room .header-right{gap:12px}
+.ea-control-room .ea-context{max-width:370px}
+.ea-control-room .ea-workspace-tabs{display:flex;min-height:48px;background:#0b1a22;border-bottom:1px solid #2b4451;padding:0 16px;gap:3px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#354e57 transparent;align-items:stretch}
+.ea-control-room .ea-workspace-tabs button{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;color:#98aeb9;border:0;border-bottom:2px solid transparent;padding:0 12px;background:transparent;font:700 11px 'DM Sans',sans-serif;white-space:nowrap}
+.ea-control-room .ea-workspace-tabs button:hover{color:#e8f7e4;background:#1a333d}
+.ea-control-room .ea-workspace-tabs button.active{border-bottom-color:#d2f778;color:#d3f47e;background:#1a302d}
+.ea-control-room .content{padding:23px 24px 28px;max-width:none;min-width:0}
+.ea-control-room .content:has(.command-center){padding:0 0 26px}
+.ea-control-room .command-center{padding:19px 22px 33px;background:transparent;max-width:none}
+.ea-control-room .cc-topline{padding-bottom:8px;color:#93acb3}
+.ea-control-room .db-root{margin:0 0 18px}
+.ea-control-room .db-head{padding:5px 1px 11px;gap:10px}
+.ea-control-room .db-kicker{color:#d1f77f}
+.ea-control-room .db-head h1{font:800 clamp(22px,2.8vw,32px) 'Manrope',sans-serif;letter-spacing:-.04em;margin:6px 0 4px}
+.ea-control-room .db-head h1 em{color:#d5f581}
+.ea-control-room .db-head p{font-size:11px;color:#94aab5;max-width:780px}
+.ea-control-room .db-statusline{background:#122732;border-color:#31505c;margin-bottom:10px}
+.ea-control-room .db-stat-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:6px}
+.ea-control-room .db-stat{min-height:97px;border:1px solid #345360;border-top:2px solid #a8c36e;background:linear-gradient(155deg,#19333d,#11242e);padding:12px 10px;gap:6px}
+.ea-control-room .db-stat strong{font-size:clamp(19px,1.8vw,27px);color:#eaf4e5}
+.ea-control-room .db-stat span{color:#b0c2c1}.ea-control-room .db-stat small{color:#8da7af}
+.ea-control-room .db-stat.db-warn{border-top-color:#f3ad64}
+.ea-control-room .db-panel{background:#0f222b;border:1px solid #34515c}
+.ea-control-room .db-country{border-radius:3px;background:#162d37}
+.ea-control-room .db-country.is-active{border-color:#d5f580;background:#294638}
+.ea-control-room .db-bar span{background:#c2e576}
+.ea-control-room .sp-root{background:#10232d;border:1px solid #34525e;padding:13px}
+.ea-control-room .sp-panel{background:#152d36;border:1px solid #30505c}
+.ea-control-room .sp-head h2{font-size:16px}
+.ea-control-room .sp-bars .sp-bar-track span{background:#c1e578}
+.ea-control-room .sp-meter i{background:#bad57b}
+.ea-control-room .cc-map-panel,.ea-control-room .cc-brief-panel,.ea-control-room .cc-stream-panel,.ea-control-room .cc-connect-panel,.ea-control-room .cc-live-panel{background:#0f232d;border:1px solid #34515d;border-radius:4px}
+.ea-control-room .cc-main-grid{grid-template-columns:minmax(0,1.35fr) minmax(250px,.5fr)}
+.ea-control-room .cc-map-viewport{height:clamp(260px,28vw,405px);min-height:260px}
+.ea-control-room .cc-region-tabs button.active{color:#d2f481;border-bottom-color:#d2f481}
+.ea-control-room .cc-layer-bar button.current{border-color:#b2e17e;background:#294532;color:#ddf9b0}
+.ea-control-room .cc-all-tools,.ea-control-room .cc-country-open{border-radius:3px}
+.ea-control-room .ea-module-context{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:12px 16px;margin-bottom:16px;background:linear-gradient(90deg,#203a37,#142932 80%);border:1px solid #3b6462;border-left:4px solid #d3f574}
+.ea-control-room .ea-module-context div{display:flex;flex-direction:column;gap:4px}
+.ea-control-room .ea-module-context span{font:9px 'DM Mono',monospace;letter-spacing:.09em;color:#c0e48b}
+.ea-control-room .ea-module-context strong{font:800 17px 'Manrope',sans-serif;color:#e6f6e8}
+.ea-control-room .ea-module-context small{font-size:10px;color:#9cb9b9}
+.ea-control-room .ea-module-actions{display:flex;gap:7px;flex-wrap:wrap}
+.ea-control-room .ea-module-actions button{min-height:32px;display:flex;align-items:center;gap:7px;padding:7px 10px;background:#173b3c;color:#d1efb0;border:1px solid #46645d;border-radius:3px;font-size:10px;font-weight:700}
+.ea-control-room .ea-module-actions button:hover{background:#2c4d41}
+.ea-control-room .page-heading{margin:12px 0 17px}.ea-control-room .page-heading h1{font:800 clamp(24px,3.2vw,36px) 'Manrope',sans-serif;letter-spacing:-.045em}
+.ea-control-room .page-heading p{color:#94acb7;font-size:11px;line-height:1.5}
+.ea-control-room .eyebrow{font-size:9px;color:#b3df92}
+.ea-control-room .country-layout{grid-template-columns:minmax(0,1.55fr) minmax(250px,.72fr);gap:12px;align-items:start}
+.ea-control-room .country-layout .country-brief{order:1;min-width:0}
+.ea-control-room .country-layout .country-directory{order:2;min-width:0}
+.ea-control-room .country-directory,.ea-control-room .country-brief,.ea-control-room .panel,.ea-control-room .metric-card,.ea-control-room .focus-card,.ea-control-room .source-card,.ea-control-room .method-card,.ea-control-room .method-hero,.ea-control-room .evidence-panel,.ea-control-room .case-card{border-radius:4px;background-color:#10232c;border-color:#35505b}
+.ea-control-room .country-row{border-radius:3px}
+.ea-control-room .country-brief{scroll-margin-top:140px}
+.ea-control-room .country-factbook{background:#11242d;border-color:#355762}
+.ea-control-room .fb-hero,.ea-control-room .fb-directory,.ea-control-room .fb-panel{border-radius:4px}
+.ea-control-room .footer{background:#091720;border-top:1px solid #27434b}
+@media(max-width:1440px){.ea-control-room .db-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:1220px){.ea-control-room .content{padding:19px 17px 24px}.ea-control-room .command-center{padding:15px 17px 24px}.ea-control-room .sidebar{flex-basis:192px;width:192px}.ea-control-room .cc-main-grid{grid-template-columns:minmax(0,1fr) 270px}}
+@media(max-width:980px){.ea-control-room .sidebar{position:fixed;top:0;left:0;width:min(84vw,310px);z-index:32;padding:20px 15px 100px}.ea-control-room .sidebar .nav-item{min-height:42px;font-size:12px;border-radius:4px}.ea-control-room .sidebar .brand{padding-right:37px}.ea-control-room .sidebar-close{border-radius:4px}.ea-control-room .topbar{min-height:61px;height:auto;padding:9px 12px;z-index:24}.ea-control-room .ea-workspace-tabs{min-height:44px;padding:0 7px}.ea-control-room .ea-workspace-tabs button{font-size:10px;padding:0 10px}.ea-control-room .content{padding:14px 12px 20px}.ea-control-room .command-center{padding:13px 12px 24px}.ea-control-room .country-layout{grid-template-columns:1fr}.ea-control-room .cc-main-grid{grid-template-columns:1fr}.ea-control-room .mobile-bottom-nav{background:#0c2029f5;border:1px solid #54716c;border-radius:8px;box-shadow:0 8px 23px #01080bcc}.ea-control-room .mobile-bottom-nav button{border-radius:5px}.ea-control-room .mobile-bottom-nav button.selected{background:#d5f878;color:#11251d;box-shadow:none}.ea-control-room .menu-btn{background:#21373b;border:1px solid #46635f;border-radius:4px}}
+@media(max-width:670px){.ea-control-room .mobile-brief{display:none!important}.ea-control-room .content:has(.command-center){padding:0 0 20px}.ea-control-room .command-center{padding:10px 9px 23px}.ea-control-room .db-head{padding:4px 4px 8px}.ea-control-room .db-head h1{font-size:24px}.ea-control-room .db-head p{font-size:10px}.ea-control-room .db-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.ea-control-room .db-stat{min-height:91px;padding:9px}.ea-control-room .db-stat strong{font-size:23px}.ea-control-room .cc-map-viewport{min-height:240px;height:260px}.ea-control-room .ea-module-context{padding:11px;margin-bottom:13px}.ea-control-room .ea-module-actions{width:100%}.ea-control-room .ea-module-actions button{flex:1;justify-content:center}.ea-control-room .country-directory,.ea-control-room .country-brief,.ea-control-room .panel,.ea-control-room .source-card,.ea-control-room .case-card{border-radius:4px}.ea-control-room .footer{padding-bottom:10px}.ea-control-room .mobile-bottom-nav{left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));bottom:calc(7px + env(safe-area-inset-bottom))}}
