@@ -58,13 +58,39 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await mapPanel.getByRole('button',{name:'OFAC program entries'}).click();
     await mapPanel.getByLabel('Current data-layer legend').getByText('OFAC program entries',{exact:false}).waitFor({state:'visible'});
     assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'OFAC layer contains unexpected hazard hyperlinks');
+    // Prevent tiny/offscreen mobile layer tabs and ambiguous overlapping event hyperlinks.
+    for(const label of ['Curated cases','OFAC program entries','USGS earthquakes','NASA natural hazards']){
+      const button=mapPanel.getByRole('button',{name:label});
+      const bounds=await button.boundingBox();
+      assert.ok(bounds && bounds.x>=-1 && bounds.x+bounds.width<=viewport.width+1,
+        'Map layer clipped or inaccessible on '+viewport.width+'px: '+label+' '+JSON.stringify(bounds));
+    }
+    const skippedShapes=await page.locator('svg.cc-world-svg .cc-country-shape:not(.selectable)').evaluateAll(nodes=>
+      nodes.map(el=>({role:el.getAttribute('role'),tab:el.getAttribute('tabindex'),cursor:getComputedStyle(el).cursor}))
+    );
+    assert.ok(skippedShapes.every(x=>x.role===null&&x.tab===null&&x.cursor==='default'),
+      'Map has pointer-looking geography without a country dossier');
     await mapPanel.getByRole('button',{name:'USGS earthquakes'}).click();
-    for(const href of await page.locator('svg.cc-world-svg a').evaluateAll(links=>links.map(el=>el.getAttribute('href')))){
-      assert.match(href||'',/^https:\/\/earthquake\.usgs\.gov\/earthquakes\/eventpage\//,'Nonofficial USGS map link');
+    assert.equal(await page.locator('svg.cc-world-svg a').count(),0,
+      'Map dots must select event details, never directly open an overlapping link');
+    const quakes=mapPanel.locator('svg.cc-world-svg .cc-hazard-marker');
+    if(await quakes.count()){
+      await quakes.first().click();
+      await mapPanel.locator('.cc-map-event-selected').waitFor({state:'visible',timeout:10000});
+      for(const href of await mapPanel.locator('.cc-map-event-selected a').evaluateAll(nodes=>nodes.map(el=>el.getAttribute('href')))){
+        assert.match(href||'',/^https:\/\/earthquake\.usgs\.gov\/earthquakes\/eventpage\//,'Nonofficial USGS selected source');
+      }
     }
     await mapPanel.getByRole('button',{name:'NASA natural hazards'}).click();
-    for(const href of await page.locator('svg.cc-world-svg a').evaluateAll(links=>links.map(el=>el.getAttribute('href')))){
-      assert.match(href||'',/^https:\/\/eonet\.gsfc\.nasa\.gov\/api\/v3\/events\//,'Nonofficial NASA map link');
+    assert.equal(await page.locator('svg.cc-world-svg a').count(),0,'NASA markers must not jump directly to raw JSON');
+    const nasa=mapPanel.locator('svg.cc-world-svg .cc-hazard-marker');
+    if(await nasa.count()){
+      await nasa.first().click();
+      await mapPanel.locator('.cc-map-event-selected').waitFor({state:'visible',timeout:10000});
+      for(const href of await mapPanel.locator('.cc-map-event-selected a').evaluateAll(nodes=>nodes.map(el=>el.getAttribute('href')))){
+        assert.match(href||'',/^https:\/\/eonet\.gsfc\.nasa\.gov\/api\/v3\/events\//,'Nonofficial NASA selected source');
+      }
+      await mapPanel.getByText('NASA source (raw JSON)').first().waitFor({state:'visible',timeout:10000}).catch(()=>{});
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
     await scope.click();
