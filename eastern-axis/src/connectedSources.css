@@ -1,0 +1,27 @@
+.cs-root{background:#102630;border:1px solid #34565b;margin:14px 0 18px;padding:15px;color:#e4f1eb}
+.cs-root header{display:flex;justify-content:space-between;align-items:flex-start;gap:9px}
+.cs-root header>div>span{font:10px 'DM Mono',monospace;color:#9cdec6;display:flex;align-items:center;gap:6px}
+.cs-root h2{font:800 19px 'Manrope',sans-serif;letter-spacing:-.04em;margin:6px 0}
+.cs-root p{font-size:10px;color:#a6bdc1;margin:0}
+.cs-root header button{display:flex;gap:6px;align-items:center;color:#bbebd4;background:#214b40;border:1px solid #487968;padding:9px;font-size:10px}
+.cs-headline{display:flex;align-items:center;gap:14px;padding:12px 0}
+.cs-headline>strong{font:800 31px 'Manrope',sans-serif;color:#e6f5dc}
+.cs-headline>div{display:flex;flex-direction:column;gap:3px}
+.cs-headline span{font-size:11px;color:#c5d9d2}.cs-headline small{font-size:10px;color:#96b3b4}
+.cs-feed-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
+.cs-feed{background:#17313a;border:1px solid #36555b;display:flex;flex-direction:column;gap:8px;padding:11px;min-width:0}
+.cs-feed>div:first-child{display:flex;justify-content:space-between;align-items:center;gap:4px}
+.cs-feed b{font-size:13px}
+.cs-feed>div>span{font:9px 'DM Mono',monospace;color:#dcb27e}.cs-feed>div>span.recent{color:#a4e9b6}
+.cs-time{font-size:9px;color:#95b9b9}
+.cs-meter{height:5px;background:#324b50;overflow:hidden}
+.cs-meter i{height:100%;display:block;background:#a4db9b}
+.cs-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:11px}
+.cs-footer span{font-size:10px;color:#9db8b5}
+.cs-footer button{display:flex;align-items:center;gap:7px;color:#b9e5ce;background:#1c4138;border:1px solid #456e5f;padding:9px 11px;font-size:10px}
+.cs-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding-top:11px}
+.cs-details>div{border:1px solid #385861;padding:12px;display:flex;flex-direction:column;gap:5px;min-width:0}
+.cs-details strong{font-size:12px}.cs-details small{font-size:10px;color:#9db4b5;overflow-wrap:anywhere}
+.cs-details a{font-size:10px;color:#9ddcbd;display:flex;align-items:center;gap:4px}
+@media(max-width:780px){.cs-feed-grid,.cs-details{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:390px){.cs-root{padding:10px}.cs-feed{padding:8px}.cs-feed>div:first-child{flex-direction:column;align-items:flex-start}.cs-footer{flex-direction:column;align-items:flex-start}}

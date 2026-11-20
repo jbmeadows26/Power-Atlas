@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@appdeploy/client';
-import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, Link2, RefreshCcw, ShieldCheck } from 'lucide-react';
+import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, RefreshCcw, ShieldCheck } from 'lucide-react';
 import './globalSystems.css';
 import EnergySupply from './EnergySupply';
 
@@ -84,13 +84,14 @@ const number = (x: number, unit: string) => {
   if (unit === 'people') return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(x);
   return x.toLocaleString('en-US', { maximumFractionDigits: 1 }) + '%';
 };
-export default function GlobalSystems({ mode, countryCode, cases, countryName }: Props) {
+export default function GlobalSystems({ mode, countryCode, countryName }: Props) {
   const code = countryCode === 'all' ? 'WLD' : countryCode;
   const [data, setData] = useState<GlobalData | null>(null);
   const [pending, setPending] = useState(false);
   const [failure, setFailure] = useState(false);
   const [retry, setRetry] = useState(0);
   const [filter, setFilter] = useState('All');
+  const [showCoverageDetails,setShowCoverageDetails]=useState(false);
   useEffect(() => {
     if (mode === 'coverage') return;
     let active = true;
@@ -104,7 +105,6 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
     return () => { active = false; };
   }, [code, mode, retry]);
 
-  const matchingCases = useMemo(() => cases.filter(c => countryCode === 'all' || c.code === countryCode).slice(0, 8), [cases, countryCode]);
   const target = countryCode === 'all' ? 'World aggregate' : (countryName || countryCode);
 
   if (mode === 'coverage') {
@@ -114,10 +114,13 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
       <h1>What we know. What we lack.</h1>
       <p className="gs-lead">A global implementation inventory—not a claim of worldwide coverage and not filtered by the selected country. Source links and manually curated references are separate from machine-readable data integrations.</p>
       <div className="gs-summary"><div><strong>{gaps.length}</strong><span>Tracked capabilities</span></div><div><strong>{gaps.filter(g=>g.status==='live').length}</strong><span>Implemented on-demand</span></div><div><strong>{gaps.filter(g=>g.status!=='live').length}</strong><span>Still partial or absent</span></div></div>
+      <div className="gs-coverage-evidence"><div><strong>Individual coverage and integration status</strong><span>All tracked source gaps and methodology, available on request.</span></div><button type="button" aria-expanded={showCoverageDetails} onClick={()=>setShowCoverageDetails(v=>!v)}>{showCoverageDetails?'Hide technical records':'View technical records'} <ArrowUpRight size={13}/></button></div>
+      {showCoverageDetails&&<>
       <div className="gs-filterbar" aria-label="Coverage area">
         {['All', ...Array.from(new Set(gaps.map(g => g.area)))].map(label => <button type="button" className={label === filter ? 'active' : ''} onClick={() => setFilter(label)} key={label}>{label}</button>)}
       </div>
       <div className="gs-gap-list">{shown.map(g => <div className="gs-gap" key={g.label}><div><strong>{g.label}</strong><p>{g.detail}</p></div><span className={'gs-status gs-'+g.status.replace(' ','-')}>{g.status}</span></div>)}</div>
+      </>}
       <p className="gs-foot">Status is based on implemented source code and the current public app. It is not a guarantee that any external feed is available at this moment. Historical case outcomes require separate follow-up research.</p>
     </section>;
   }
@@ -164,10 +167,6 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
       </article>;
     })}</div>}
     {mode === 'risk' && <div className="gs-interpretation"><ShieldCheck size={21}/><div><strong>What this screening cannot establish</strong><p>There is no validated escalation probability, event forecast, individual culpability, or proven causal link between one indicator and a military event. A higher trade share can reflect economic integration, not necessarily fragility. Compare dates and multiple independent sources before reaching a conclusion.</p></div></div>}
-    <section className="gs-case-panel">
-      <div className="gs-group-top"><Link2 size={18}/><div><h2>Documented investigation context</h2><p>Country tags join official case records to this profile for discovery, not to claim that economic indicators caused those events.</p></div></div>
-      {matchingCases.length ? <div className="gs-case-list">{matchingCases.map(item => <article key={item.id}><small>{item.code} · {item.date} · {item.topic}</small><strong>{item.title}</strong><span>{item.status}</span><a href={item.source} target="_blank" rel="noopener noreferrer">DOJ original <ArrowUpRight size={13}/></a></article>)}</div> : <div className="gs-empty">No curated DOJ investigation for this country. This is a library coverage gap, not a security conclusion.</div>}
-    </section>
     <p className="gs-foot"><CheckCircle2 size={15}/> {data?.method || 'All observations require an official source response.'} World aggregates are not country averages and do not establish bilateral transactions. <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/1886674-new-features-and-enhancements-in-the-v2-api" target="_blank" rel="noopener noreferrer">Methodology <ArrowUpRight size={12}/></a></p>
   </section>;
 }

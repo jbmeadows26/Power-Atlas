@@ -80,7 +80,23 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
     await radar.waitFor({state:'visible',timeout:15000});
-    // Test the public map's evidence layers and legend before narrowing country scope.
+    // Home contains only the decision radar; geospatial layers belong to Countries.
+    assert.equal(await page.locator('.cc-map-panel').count(),0,'Home still contains the geospatial map');
+    assert.equal(await page.locator('.cc-stream-panel,.cc-connect-panel,.cc-live-panel').count(),0,'Home still repeats investigation/source/earthquake lists');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
+    const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
+    await risk.waitFor({state:'visible',timeout:20000});
+    assert.equal(await risk.locator('.rdb-chart').count(),4,'Risk needs four compact visual panels');
+    assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Risks shows raw evidence before user requests it');
+    await risk.getByRole('button',{name:'View source data'}).click();
+    await risk.locator('.rw-probes').waitFor({state:'visible',timeout:20000});
+    await risk.getByRole('button',{name:'Hide details'}).click();
+    assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Risk evidence did not collapse');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
+    await page.getByRole('button',{name:'Open map'}).click();
+    // Test source-linked map layers only inside Countries.
     const mapPanel=page.locator('.cc-map-panel');
     await mapPanel.waitFor({state:'visible',timeout:18000});
     await mapPanel.getByLabel('Country-area legend').getByText('U.S. + indexed treaty allies').waitFor({state:'visible'});
@@ -174,16 +190,17 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.match(await afterReload.innerText(),/China/);
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
     await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
-    await page.locator('.cc-security-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
+    await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
-    const resilience=page.getByRole('region',{name:'Independent systemic resilience monitoring'});
-    await resilience.waitFor({state:'visible',timeout:15000});
-    await resilience.getByRole('heading',{name:'Early signs of cascading failure'}).waitFor({state:'visible',timeout:15000});
-    await resilience.getByText('Source observations',{exact:true}).waitFor({state:'visible',timeout:25000});
+    const scopedRisk=page.getByRole('region',{name:'Risk summary visual dashboard'});
+    await scopedRisk.waitFor({state:'visible',timeout:15000});
+    await scopedRisk.getByRole('heading',{name:'Risk signals, at a glance.'}).waitFor({state:'visible'});
+    assert.equal(await scopedRisk.locator('.rdb-chart').count(),4,'Country Risks must remain charts-first');
+    assert.equal(await page.locator('.rw-probes,.gs-signal').count(),0,'Country Risks should not show raw observations by default');
     assert.match(await scope.innerText(),/China/,'Risk watch lost selected country scope');
     const dims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(dims.scroll <= dims.width+2,'Risk watch overflow at '+viewport.width+'px: '+JSON.stringify(dims));
@@ -195,6 +212,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await assurance.locator('.oa-card').count(),4,'Expected four independent operational assurance checks');
     await assurance.getByText('Live production browser QA',{exact:true}).waitFor({state:'visible'});
     await assurance.getByText('Not independently connected:',{exact:false}).waitFor({state:'visible'});
+    const health=page.getByRole('region',{name:'Connected sources and collector freshness'});
+    await health.waitFor({state:'visible'});
+    assert.equal(await health.locator('.cs-feed').count(),4,'Source health must be kept on Coverage rather than Home');
+    await health.getByRole('button',{name:'View collector records'}).click();
+    await health.locator('.cs-details').waitFor({state:'visible'});
+    await health.getByRole('button',{name:'Hide collector records'}).click();
     const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
     // Navigation-wide release gate: inspect all 16 sections on every viewport,

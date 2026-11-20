@@ -3,7 +3,8 @@ import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
-import ResilienceWatch from './ResilienceWatch';
+import RiskDecisionBoard from './RiskDecisionBoard';
+import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
 import SupplyChain from './SupplyChain';
 import PhysicalEarlyWarning from './PhysicalEarlyWarning';
@@ -270,6 +271,7 @@ function MiniGlobe() {
 function App() {
   const [view, setView] = useState<Section>('Overview');
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
+  const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
   const [search, setSearch] = useState('');
@@ -355,6 +357,7 @@ function App() {
     'All',
     ...Array.from(new Set(sources.map(s => s.category))),
   ];
+  const openGeospatial=()=>{setGeospatialOpen(true);switchView('Countries');};
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
@@ -511,9 +514,9 @@ function App() {
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
           {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />}
-          {overview && view === 'Risk watch' && <><ResilienceWatch/><GlobalSystems mode="risk" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} /></>}
+          {overview && view === 'Risk watch' && <RiskDecisionBoard countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} onCountryMap={openGeospatial} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
-          {overview && view === 'Coverage audit' && <><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
+          {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
                     {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
@@ -537,6 +540,11 @@ function App() {
                   {filtered.length} jurisdictions shown
                 </Badge>
               </div>
+              <div className="ea-geospatial-toggle"><div><strong>Geospatial country intelligence</strong><span>Explore geopolitical layers, global hazards and sourced map locations</span></div><button type="button" aria-expanded={geospatialOpen} aria-controls="ea-geospatial-map" onClick={()=>setGeospatialOpen(v=>!v)}>{geospatialOpen?'Hide map':'Open map'} <ChevronDown size={15}/></button></div>
+              {geospatialOpen&&<div id="ea-geospatial-map" className="ea-country-geospatial"><CommandCenter mode="geospatial" overview={overview} openCountry={openCountry} activeCountry={countryScope} onCountrySelected={setCountryScope}
+                openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
+                openDesk={()=>switchView('Collection desk')} openSources={()=>switchView('Source library')}
+                openMethod={()=>switchView('Methodology')} onNavigate={navigateFromSignal} /></div>}
               <div className="country-layout">
                 <div className="country-directory">
                   <div className="filters">

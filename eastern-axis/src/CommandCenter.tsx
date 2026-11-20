@@ -14,7 +14,7 @@ type Health={sourceId:string;status:'ok'|'error';lastAttemptAt:string;lastSucces
 type Intake = {id:string;sourceId:string;title:string;date:string;countryMention?:string;summary:string;sourceUrl:string;recordType:string;sanctionsPrograms?:string[]};
 type OFACMeta = {checkedAt:string;records:number;sampleSize:number;programCounts:Record<string,number>;dataset:string;scope:string};
 type Intel={sources:{id:string;name:string;health:Health|null;documentation:string}[];records:Intake[];ofac?:OFACMeta|null;sampled:number;resultsNote:string};
-type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void;onNavigate:(target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries',focus?:'funding'|'commodities'|'gnss')=>void};
+type Props={overview:Overview;openCountry:(code:string)=>void;openCases:(id?:string)=>void;openDesk:()=>void;openSources:()=>void;openMethod:()=>void;activeCountry?:string;onCountrySelected?:(code:string)=>void;onNavigate:(target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries',focus?:'funding'|'commodities'|'gnss')=>void;mode?:'home'|'geospatial'};
 type Layer='cases'|'ofac'|'seismic'|'natural';
 type Seismic={id:string;title:string;longitude:number;latitude:number;magnitude:number;date:string;source:string;sourceUrl:string};
 type WorldSignals={status:string;count:number;generatedAt:string;checkedAt:string;events:Seismic[];naturalEvents?:Array<{id:string;title:string;eventType:string;longitude:number;latitude:number;date:string;source:string;sourceUrl:string}>;nasaStatus?:string;usgsStatus?:string};
@@ -88,7 +88,7 @@ const graticule=projector(geoGraticule10());
 function CountryFlag({code}:{code:string}){return <span className="cc-flag">{code.replace(/./g,c=>String.fromCodePoint(127397+c.charCodeAt(0)))}</span>;}
 function MiniState({state}:{state:Health|null|undefined}){return <span className={'cc-state '+(state?.status||'pending')}><span className="cc-status-dot"/>{state?.status==='ok'?'CHECKED':state?.status==='error'?'FAILED':'PENDING'}</span>;}
 function link(href:string,label:string){return <a href={href} target="_blank" rel="noopener noreferrer">{label}<ExternalLink size={12}/></a>;}
-export default function CommandCenter({overview,openCountry,openCases,openDesk,openSources,openMethod,activeCountry,onCountrySelected,onNavigate}:Props){
+export default function CommandCenter({overview,openCountry,openCases,openDesk,openSources,openMethod,activeCountry,onCountrySelected,onNavigate,mode='home'}:Props){
   const [intel,setIntel]=useState<Intel|null>(null);
   const [worldSignals,setWorldSignals]=useState<WorldSignals|null>(null);
   const [signalError,setSignalError]=useState(false);
@@ -109,8 +109,9 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const [refreshToken,setRefreshToken]=useState(0);
   const [lastRequestedAt,setLastRequestedAt]=useState<string|null>(null);
   useEffect(()=>{const timer=window.setInterval(()=>setRefreshToken(value=>value+1),5*60*1000);return()=>window.clearInterval(timer);},[]);
-  useEffect(()=>{setLastRequestedAt(new Date().toISOString());},[refreshToken]);
+  useEffect(()=>{setLastRequestedAt(new Date().toISOString());},[refreshToken,mode]);
   useEffect(()=>{
+    if(mode!=='geospatial')return;
     let active=true;
     fetch(topologyURL).then(r=>{if(!r.ok)throw new Error('Map unavailable');return r.json();})
       .then(topology=>{
@@ -121,18 +122,20 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
     return ()=>{active=false;};
   },[]);
   useEffect(()=>{
+    if(mode!=='geospatial')return;
     let active=true;
     api.get('/api/intelligence')
       .then(r=>{if(active){setIntel(r.data as Intel);setIntelligenceError(false);}})
       .catch(()=>{if(active)setIntelligenceError(true);});
     return()=>{active=false;};
-  },[refreshToken]);
+  },[refreshToken,mode]);
   useEffect(()=>{
+    if(mode!=='geospatial')return;
     let active=true;
     api.get('/api/world-signals').then(r=>{if(active){setWorldSignals(r.data as WorldSignals);setSignalError(false);}})
       .catch(()=>{if(active)setSignalError(true);});
     return()=>{active=false;};
-  },[refreshToken]);
+  },[refreshToken,mode]);
   useEffect(()=>{const t=setInterval(()=>setNow(new Date()),60000);return()=>clearInterval(t);},[]);
   const country=overview.countries.find(c=>c.code===selected);
   const cases=overview.cases.filter(c=>c.code===selected);
@@ -167,10 +170,11 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const ty=(height/2)-(focusCenter[1]*scale);
   const selectCountry=(code:string)=>{setSelected(code);onCountrySelected?.(code);setSearch('');setQueryFocus(false);};
   const hoverCountry=(name?:string)=>{const code=findCode(name);if(code)selectCountry(code);};
-  return <div className="command-center">
-    <div className="cc-topline"><div className="cc-topline-main"><span className="cc-signal-beacon"/><span>GLOBAL INTELLIGENCE / RESEARCH WORKSPACE</span><strong>ORIGINAL-SOURCE FIRST</strong></div><span>{now.toLocaleString('en-US',{timeZone:'UTC',hour:'2-digit',minute:'2-digit',hour12:false})} UTC · {day(now.toISOString())}</span></div>
-    <DecisionRadar countryCode={activeCountry||'all'} countryName={overview.countries.find(c=>c.code===activeCountry)?.name} onNavigate={onNavigate}/>
-    <div className="cc-main-grid">
+  return <div className={"command-center "+(mode==='geospatial'?'cc-geospatial-only':'cc-home-only')}>
+    {mode==='home'&&<DecisionRadar countryCode={activeCountry||'all'} countryName={overview.countries.find(c=>c.code===activeCountry)?.name} onNavigate={onNavigate}/>}
+    {mode==='geospatial'&&<>
+      <div className="cc-geospatial-heading"><span>COUNTRY INTELLIGENCE / GEOSPATIAL</span><strong>Explore locations and documented country records</strong></div>
+    <div className="cc-main-grid cc-map-only">
       <section className="cc-map-panel">
         <div className="cc-map-nav"><div className="cc-map-title"><span className="cc-map-signal"><Radio size={15}/></span><div><strong>Geospatial intelligence</strong><small>RESEARCH ANCHORS · NOT INCIDENT LOCATIONS</small></div></div><div className="cc-map-actions"><button onClick={()=>{setRegion('GL');setZoom(1);}} title="Reset global map"><Globe2 size={16}/></button><button onClick={()=>setZoom(z=>Math.max(.75,z-.25))} title="Zoom out" aria-label="Zoom out"><Minus size={15}/></button><span>{Math.round(scale*100)}%</span><button onClick={()=>setZoom(z=>Math.min(3,z+.25))} title="Zoom in" aria-label="Zoom in"><Plus size={15}/></button></div></div>
         <div className="cc-region-tabs">{regions.map(r=><button key={r.code} className={region===r.code?'active':''} onClick={()=>{setRegion(r.code);setZoom(1);}}>{r.label}</button>)}</div>
@@ -259,40 +263,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
         {layer==='natural'&&<div className="cc-legend-notice"><Activity size={16}/><span>{activeCountry&&activeCountry!=='all'?'Country filter active: global natural events are hidden. Choose Global / regional in the header to see NASA data.':signalError?'Environmental feed unavailable; no events have been invented.':worldSignals?.nasaStatus==='unavailable'?'NASA EONET is unavailable. USGS data may remain available.':!worldSignals?'Checking NASA EONET source status…':(worldSignals.naturalEvents?.length||0)===0?'NASA EONET returned no eligible point events in the bounded window. Polygon-only events are excluded.':'NASA EONET: '+(worldSignals.naturalEvents?.length||0)+' source-reported point events in this sampled window.'}</span></div>}
         {showLayerLegend&&<div className="cc-legend-notice"><ShieldCheck size={16}/><span>Blue marks the U.S. and countries indexed as U.S. treaty allies; red highlights Russia, China, Iran and North Korea for U.S. strategic-focus research; gray means neither category or incomplete treaty coverage, not a security verdict. These categories are analytical choices, not universal legal designations. Case and OFAC markers are anchored to national capitals for navigation, <strong>not where an incident occurred.</strong> OFAC program tags do not establish listed-party locations or state direction. USGS epicenters and NASA EONET natural events use publisher-reported coordinates, not independent AI geolocation; neither implies foreign-government actions. Earthquakes and NASA natural events appear only in their respective layers, and are hidden under country-only filters to avoid implying geopolitical causation. Numbered circles group nearby records; select a circle and then the exact source link below, never assume an overlapping dot identifies one event.</span></div>}
       </section>
-      <aside className="cc-brief-panel">
-        <div className="cc-aside-head"><span><Eye size={14}/> COUNTRY CONTEXT</span><span className="cc-aside-live">SOURCE-BACKED</span></div>
-        <div className="cc-country-search"><Search size={16}/><input aria-label="Search any country" placeholder="Find a country…" value={search} onFocus={()=>setQueryFocus(true)} onBlur={()=>setTimeout(()=>setQueryFocus(false),120)} onChange={e=>setSearch(e.target.value)}/>{search&&<button aria-label="Clear search" onClick={()=>setSearch('')}><X size={14}/></button>}</div>
-        {searchResults.length>0&&queryFocus&&<div className="cc-search-results">{searchResults.map(c=><button key={c.code} onMouseDown={e=>e.preventDefault()} onClick={()=>selectCountry(c.code)}><CountryFlag code={c.code}/><span>{c.name}</span><small>{c.code}</small></button>)}</div>}
-        {country?<div className="cc-country-detail">
-          <div className="cc-focus-head"><CountryFlag code={country.code}/><div><h2>{country.name}</h2><small>{country.region.toUpperCase()} · {country.code}</small></div></div>
-          <div className="cc-country-tags"><span className={country.isTreatyAlly?'ally':'other'}>{country.isTreatyAlly?'PRIMARY TREATY ALLY':'RESEARCH SCOPE'}</span>{country.isMNNA&&<span>MNNA</span>}</div>
-          <div className="cc-data-line"><span>DEFENSE TREATIES &amp; SECURITY TIES</span><strong>{country.relationship}</strong></div>
-          {country.securityNote&&<p className="cc-security-note">{country.securityNote}</p>}
-          {country.usRelationship&&<p className="cc-security-note"><b>U.S. relationship:</b> {country.usRelationship}</p>}
-          {!!country.securitySources?.length&&<div className="cc-security-sources">{country.securitySources.map(source=><a key={source.url} href={source.url} target="_blank" rel="noopener noreferrer">{source.label} ↗</a>)}</div>}
-          <div className="cc-data-line"><span>CURATED DOJ FILES</span><strong>{cases.length}</strong></div>
-          <div className="cc-data-line"><span>OFAC PROGRAM TAGS</span><strong>{ofac?programCount(country.code).toLocaleString():'Not checked'}</strong></div>
-          {ofac&&programCount(country.code)>0&&<p className="cc-program-disclaimer">Program labels may reference this country; they do not locate listed persons or establish government conduct.</p>}
-          <div className="cc-aside-section-title">EVIDENCE IN VIEW</div>
-          {cases.length?cases.slice(0,3).map(c=><button key={c.id} className="cc-brief-case" onClick={()=>openCases(c.id)}><small>{day(c.date)} · DOJ RECORD</small><strong>{c.title}</strong><span>{c.status} <ArrowUpRight size={13}/></span></button>):<div className="cc-empty-case">No curated case in this starter library. This does not indicate absence of activity.</div>}
-          <button className="cc-country-open" onClick={()=>openCountry(country.code)}>Open full country dossier <ArrowRight size={15}/></button>
-        </div>:<div className="cc-empty-case">Select a country to inspect its source-backed dossier.</div>}
-        <div className="cc-aside-disclaimer"><LockKeyhole size={14}/><p>Evidence states: official listing, alleged conduct, adjudicated outcome and analytical inference remain separate.</p></div>
-      </aside>
     </div>
-    <div className="cc-bottom-grid">
-      <section className="cc-stream-panel"><div className="cc-panel-head"><div><span className="cc-mini-label"><Radio size={13}/> PRIMARY SOURCES / CASE ACTIVITY</span><h2>Investigation wires</h2></div><button onClick={()=>openCases()}>VIEW ALL <ArrowUpRight size={14}/></button></div><div className="cc-wires">{alerts.slice(0,4).map(c=><button key={c.id} onClick={()=>openCases(c.id)}><span className="cc-wire-country">{c.code}</span><div><strong>{c.title}</strong><small>{c.topic} · {c.status}</small></div><span className="cc-wire-date">{day(c.date)}</span><ArrowUpRight size={14}/></button>)}</div><div className="cc-panel-foot">Curated archival case examples. Dates are published-record dates, not a continuous real-time alert stream.</div></section>
-      <section className="cc-connect-panel"><div className="cc-panel-head"><div><span className="cc-mini-label"><Network size={13}/> DATA NETWORK / SOURCE TELEMETRY</span><h2>Connected intelligence</h2></div><button onClick={openDesk}>HEALTH <ArrowUpRight size={14}/></button></div>{intelligenceError&&<div className="cc-warning-inline"><CircleAlert size={14}/> Intake status unavailable · no sources assumed healthy</div>}<div className="cc-connectors">{['doj','ofac','fara','cisa'].map(id=>{
-        const feed=checks.find(f=>f.id===id);
-        return <div key={id} className="cc-connector"><span className="cc-connector-icon">{sourceShort[id]}</span><div><strong>{id==='doj'?'Justice Department':id==='fara'?'FARA disclosures':id==='ofac'?'Treasury sanctions':'Cyber advisories'}</strong><small>{feed?.health?.lastSuccessAt?'Last successful '+day(feed.health.lastSuccessAt):'No successful run recorded'}</small></div><MiniState state={feed?.health}/></div>;
-      })}</div><button className="cc-all-tools" onClick={()=>setExpandedSource(v=>!v)}><Layers3 size={15}/> {expandedSource?'Hide':'Explore'} research tools & references <ChevronDown size={15}/></button>{expandedSource&&<div className="cc-external-tools">{overview.sources.map(s=><a key={s.id} href={s.url} target="_blank" rel="noopener noreferrer"><div><strong>{s.name}</strong><small>{s.mode}</small></div><ExternalLink size={13}/></a>)}</div>}</section>
-    </div>
-
-    <section className="cc-live-panel">
-      <div className="cc-panel-head"><div><span className="cc-mini-label"><Activity size={13}/> LIVE ENVIRONMENTAL DATA / GEOLOCATED</span><h2>Earth signals</h2></div><a href="https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php" target="_blank" rel="noopener noreferrer">USGS M4.5+ / 24H <ExternalLink size={13}/></a></div>
-      {signalError?<p className="cc-live-error"><CircleAlert size={15}/> USGS feed unavailable. No data substituted.</p>:worldSignals?<><p className="cc-live-updated"><CheckCircle2 size={14}/> Source feed generated {day(worldSignals.generatedAt)} · {worldSignals.count} reported M4.5+ earthquakes</p><div className="cc-live-events">{worldSignals.events.slice(0,8).map(e=><a key={e.id} href={e.sourceUrl} target="_blank" rel="noopener noreferrer"><span>M {e.magnitude.toFixed(1)}</span><strong>{e.title}</strong><small>{day(e.date)}</small><ExternalLink size={12}/></a>)}</div></>:<p className="cc-live-updated">Requesting USGS public data…</p>}
-      <p className="cc-live-caveat">These are observed earthquake locations, not espionage, conflict or foreign influence. The USGS layer can be isolated from investigation and sanctions-program references.</p>
-    </section>
-    <div className="cc-final-strip"><div><ShieldCheck size={17}/><strong>INTELLIGENCE ISN'T A VERDICT.</strong><span>Nonallied ≠ adversarial. A sanctions list ≠ criminal judgment. Media reports ≠ corroboration.</span></div><button onClick={openMethod}>EVIDENCE RULES <ArrowRight size={13}/></button></div>
+    </>}
   </div>;
 }
