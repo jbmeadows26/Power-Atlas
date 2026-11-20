@@ -177,8 +177,9 @@ export default function FinancialMarkets(){
       </div>
       <div className="fm-source-rows">{ORDER.map(item=>{
         const source=data?.sources.find(s=>s.id===item.id);
+        const metric=byId.get(item.id);
         return <a key={item.id} href={'https://fred.stlouisfed.org/series/'+item.id} target="_blank" rel="noopener noreferrer">
-          <span>{item.label}</span><small>{source?.status||'not collected'} · {byId.get(item.id)?.period?dateText(byId.get(item.id)?.period):'no observation'}</small><ExternalLink size={12}/>
+          <span>{item.label}</span><small>{source?.status||'not collected'} · {metric?.period?dateText(metric.period):'no observation'}</small><ExternalLink size={12}/>
         </a>;
       })}</div>
       <a className="fm-technical-data" href={SNAPSHOT} target="_blank" rel="noopener noreferrer">Developer option: raw JSON data file <ExternalLink size={12}/></a>
