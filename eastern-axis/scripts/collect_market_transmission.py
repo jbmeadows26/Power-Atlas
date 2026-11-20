@@ -32,7 +32,12 @@ HOUSEHOLD_SERIES = (
     ("DRTSCILM", "C&I bank lending standards", "Credit", "quarterly", "net % tightening", "Federal Reserve Board"),
     ("BAMLC0A0CM", "Investment-grade credit spread", "Credit", "daily", "percentage points", "ICE Data Indices, LLC"),
 )
-TICKERS = ("ANT", "NVDA", "MSFT", "GOOGL", "META", "AMZN", "ORCL", "AMD", "AVGO", "CRWV")
+TICKERS = ("ANT", "NVDA", "MSFT", "GOOGL", "META", "AMZN", "ORCL", "AMD", "AVGO", "CRWV", "ARCC", "OBDC", "BXSL", "GBDC")
+BDC_TICKERS = {"ARCC", "OBDC", "BXSL", "GBDC"}
+# Official CIKs confirmed against issuer SEC filings; only a fallback when
+# the public ticker lookup is unavailable (per-filer submissions still probed).
+VERIFIED_CIKS = {"ANT": 2130357, "NVDA": 1045810, "ARCC": 1287750,
+                 "OBDC": 1655888, "BXSL": 1736035, "GBDC": 1476765}
 ITEMS = {
     "1.03": ("Bankruptcy or receivership", "filing-review"),
     "2.04": ("Debt acceleration / obligation trigger", "filing-review"),
@@ -230,20 +235,23 @@ def collect_sec(now: dt.datetime, fetch=http_text, sleep=time.sleep):
         sources.append({"id": "sec:tickers", "status": "ok", "detail": str(len(companies)) + " mapped watchlist symbols",
                         "sourceUrl": SEC_CIK_MAP_URL, "checkedAt": checked})
     except (OSError, UnicodeError, ValueError, TypeError) as err:
-        companies = {}
+        companies = {ticker: {"ticker": ticker, "cik": cik, "name": ticker, "cikSource": "SEC-filed CIK cross-reference"}
+                     for ticker, cik in VERIFIED_CIKS.items()}
         sources.append({"id": "sec:tickers", "status": "error", "detail": str(err)[:180],
                         "sourceUrl": SEC_CIK_MAP_URL, "checkedAt": checked})
     for ticker in TICKERS:
         company = companies.get(ticker)
         if not company:
-            issuers.append({"ticker": ticker, "status": "unavailable", "name": ticker,
+            issuers.append({"ticker": ticker, "sector": "Listed private-credit BDC" if ticker in BDC_TICKERS else "AI ecosystem",
+                            "status": "unavailable", "name": ticker,
                             "cik": None, "latestReport": None, "balanceSheet": None})
             sources.append({"id": "sec:" + ticker, "status": "error", "detail": "CIK mapping unavailable",
                             "checkedAt": checked, "sourceUrl": SEC_CIK_MAP_URL})
             continue
         sleep(0.14)  # Always remain comfortably below SEC 10 requests/second.
         url = f"{EDGAR_BASE}/submissions/CIK{company['cik']:010d}.json"
-        entry = {**company, "status": "unavailable", "sourceUrl": url,
+        entry = {**company, "sector": "Listed private-credit BDC" if ticker in BDC_TICKERS else "AI ecosystem",
+                 "status": "unavailable", "sourceUrl": url,
                  "latestReport": None, "balanceSheet": None}
         try:
             filing_payload = json.loads(fetch(url))
@@ -310,7 +318,7 @@ def collect(now: dt.datetime | None = None, fred_fetch=http_text, sec_fetch=http
         "schemaVersion": 1, "checkedAt": utc_stamp(now),
         "status": "ok" if good_fred == len(HOUSEHOLD_SERIES) and good_sec == len(TICKERS) else
                   "partial" if (good_fred or good_sec) else "unavailable",
-        "scope": "US household/lending indicators and sampled US-listed AI ecosystem issuers",
+        "scope": "US household/lending indicators, AI issuers and publicly listed private-credit BDCs",
         "householdMetrics": fred, "issuers": issuers,
         "filings": filings[:90],
         "signals": derive_alerts(fred, filings, now.date()),
@@ -323,7 +331,7 @@ def collect(now: dt.datetime | None = None, fred_fetch=http_text, sec_fetch=http
         "coverage": {
             "creditDefaults": "Public SEC 8-K event metadata for watchlist issuers only; not private-credit loan-level defaults, guarantees or realized lender losses.",
             "households": "Published US aggregate indicators only; neither individual portfolio returns nor AI-specific causal household harm.",
-            "issuers": "CIK-mapped public filings and selected US-GAAP balance-sheet facts; no issuer equity prices without a licensed feed.",
+            "issuers": "Public AI issuers and four listed business-development-company lenders. CIK-mapped public filings and selected US-GAAP balance-sheet facts; not direct underlying loan performance or issuer stock prices.",
         },
         "limitations": [
             "Freshness is evaluated against the ORIGINAL observation period; quarterly time-series observation dates are quarter starts, not publication timestamps.",
