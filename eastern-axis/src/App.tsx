@@ -1,6 +1,7 @@
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
+import BugReportDialog from './BugReportDialog';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import RiskDecisionBoard from './RiskDecisionBoard';
@@ -23,6 +24,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   BookOpen,
+  Bug,
   CheckCircle2,
   ChevronDown,
   ChevronLeft,
@@ -287,6 +289,7 @@ function App() {
   const [caseSelected, setCaseSelected] = useState<string | null>(null);
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [bugReportOpen, setBugReportOpen] = useState(false);
 
   const reload = () => {
     setLoadError('');
@@ -388,6 +391,15 @@ function App() {
         <button type="button" className="sidebar-close" onClick={() => setMobileMenu(false)} aria-label="Close navigation"><X size={20} /></button>
         <div className="sidebar-rule" />
         <div className="nav-label">EXPLORE INTELLIGENCE</div>
+        <div className="ea-menu-support">
+          <button type="button" className="ea-report-bug"
+            aria-haspopup="dialog" aria-expanded={bugReportOpen}
+            onClick={() => { setMobileMenu(false); setBugReportOpen(true); }}>
+            <Bug size={17} />
+            <span>Report a bug</span>
+            <small>No login</small>
+          </button>
+        </div>
         <nav aria-label="Main navigation">
           {sections.map((s, i) => {
             const icons = [
@@ -1114,6 +1126,8 @@ function App() {
           <span>PUBLIC EVIDENCE · NO UNSOURCED THREAT RANKINGS</span>
         </footer>
       </div>
+      <BugReportDialog open={bugReportOpen} onClose={() => setBugReportOpen(false)}
+        section={view === 'Overview' ? 'Command center' : view} />
       <nav className="mobile-bottom-nav" aria-label="Mobile primary navigation">
         <button type="button" className={!mobileMenu && view === 'Overview' ? 'selected' : ''} aria-current={view === 'Overview' ? 'page' : undefined} onClick={() => switchView('Overview')}>
           <Activity size={20} strokeWidth={2} /><span>Home</span>

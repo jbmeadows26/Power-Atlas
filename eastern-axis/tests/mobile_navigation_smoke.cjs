@@ -54,6 +54,8 @@ async function qa(page,width){
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
   });
   await page.route('https://cdn.jsdelivr.net/**',route=>route.abort());
+  // No external form submission during QA. Test the integration, not a fake receipt.
+  await page.route('https://tally.so/**',route=>route.fulfill({status:200,contentType:'text/html',body:'<!DOCTYPE html><title>QA form placeholder</title>'}));
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
@@ -63,6 +65,20 @@ async function qa(page,width){
   await radar.waitFor({state:'visible'});
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).waitFor({state:'visible'});
+  if(width<=980) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  const report=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
+  await report.waitFor({state:'visible'});
+  await report.click();
+  const bug=page.getByRole('dialog',{name:'Report a bug'});
+  await bug.waitFor({state:'visible'});
+  const embedded=await bug.locator('iframe[title="Anonymous Eastern Axis bug report"]').getAttribute('src');
+  assert.match(embedded||'',/^https:\/\/tally\.so\/embed\/LDKRaj\?/,'Bug form must be anonymous hosted form, not GitHub Issues');
+  assert.match(embedded||'',/section=Command\+center/,'Bug report should identify active section');
+  assert.equal((embedded||'').includes('github.com'),false,'Bug reporter must not require GitHub membership');
+  assert.match(await bug.getByRole('link',{name:/Open form separately/i}).getAttribute('href'),/^https:\/\/tally\.so\/r\/LDKRaj\?/);
+  await bug.getByRole('button',{name:'Close bug report'}).click();
+  await bug.waitFor({state:'detached'});
+
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
     assert.equal(await nav.isVisible(),false,'Desktop must not display the mobile nav');
