@@ -2,6 +2,7 @@ import { Fragment, useEffect, useMemo, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import BugReportDialog from './BugReportDialog';
+import IntelCardDetails from './IntelCardDetails';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import RiskDecisionBoard from './RiskDecisionBoard';
@@ -1126,6 +1127,7 @@ function App() {
           <span>PUBLIC EVIDENCE · NO UNSOURCED THREAT RANKINGS</span>
         </footer>
       </div>
+      <IntelCardDetails />
       <BugReportDialog open={bugReportOpen} onClose={() => setBugReportOpen(false)}
         section={view === 'Overview' ? 'Command center' : view} />
       <nav className="mobile-bottom-nav" aria-label="Mobile primary navigation">
