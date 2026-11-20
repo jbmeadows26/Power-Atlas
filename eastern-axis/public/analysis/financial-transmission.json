@@ -1,19 +1,970 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "",
-  "status": "not-collected",
-  "scope": "US household/lending aggregates and sampled US-listed AI ecosystem issuers",
-  "householdMetrics": [],
-  "issuers": [],
+  "checkedAt": "2026-11-20T23:47:21Z",
+  "status": "partial",
+  "scope": "US household/lending indicators, AI issuers and publicly listed private-credit BDCs",
+  "householdMetrics": [
+    {
+      "id": "DRCCLACBS",
+      "label": "Credit-card loan delinquency",
+      "domain": "Households",
+      "cadence": "quarterly",
+      "unit": "% loans",
+      "value": 2.85,
+      "period": "2026-04-01",
+      "previous": 2.91,
+      "previousPeriod": "2026-01-01",
+      "changePoints": -0.06,
+      "status": "ok",
+      "periodAgeDays": 233,
+      "source": "FRED / Federal Reserve Board",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRCCLACBS",
+      "history": [
+        {
+          "date": "2024-04-01",
+          "value": 3.22
+        },
+        {
+          "date": "2024-07-01",
+          "value": 3.2
+        },
+        {
+          "date": "2024-10-01",
+          "value": 3.08
+        },
+        {
+          "date": "2025-01-01",
+          "value": 3.05
+        },
+        {
+          "date": "2025-04-01",
+          "value": 3.04
+        },
+        {
+          "date": "2025-07-01",
+          "value": 2.99
+        },
+        {
+          "date": "2025-10-01",
+          "value": 2.95
+        },
+        {
+          "date": "2026-01-01",
+          "value": 2.91
+        },
+        {
+          "date": "2026-04-01",
+          "value": 2.85
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "TDSP",
+      "label": "Household debt-service burden",
+      "domain": "Households",
+      "cadence": "quarterly",
+      "unit": "% disposable income",
+      "value": 11.11144,
+      "period": "2026-04-01",
+      "previous": 11.15893,
+      "previousPeriod": "2026-01-01",
+      "changePoints": -0.04749,
+      "status": "ok",
+      "periodAgeDays": 233,
+      "source": "FRED / Federal Reserve Board",
+      "sourceUrl": "https://fred.stlouisfed.org/series/TDSP",
+      "history": [
+        {
+          "date": "2024-04-01",
+          "value": 11.01936
+        },
+        {
+          "date": "2024-07-01",
+          "value": 11.13876
+        },
+        {
+          "date": "2024-10-01",
+          "value": 11.12249
+        },
+        {
+          "date": "2025-01-01",
+          "value": 11.10539
+        },
+        {
+          "date": "2025-04-01",
+          "value": 11.12425
+        },
+        {
+          "date": "2025-07-01",
+          "value": 11.22946
+        },
+        {
+          "date": "2025-10-01",
+          "value": 11.32276
+        },
+        {
+          "date": "2026-01-01",
+          "value": 11.15893
+        },
+        {
+          "date": "2026-04-01",
+          "value": 11.11144
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "PSAVERT",
+      "label": "Personal saving rate",
+      "domain": "Households",
+      "cadence": "monthly",
+      "unit": "% disposable income",
+      "value": 3.8,
+      "period": "2026-09-01",
+      "previous": 4.0,
+      "previousPeriod": "2026-08-01",
+      "changePoints": -0.2,
+      "status": "ok",
+      "periodAgeDays": 80,
+      "source": "FRED / Bureau of Economic Analysis",
+      "sourceUrl": "https://fred.stlouisfed.org/series/PSAVERT",
+      "history": [
+        {
+          "date": "2025-06-01",
+          "value": 5.5
+        },
+        {
+          "date": "2025-07-01",
+          "value": 5.3
+        },
+        {
+          "date": "2025-08-01",
+          "value": 5.2
+        },
+        {
+          "date": "2025-09-01",
+          "value": 5.1
+        },
+        {
+          "date": "2025-10-01",
+          "value": 4.9
+        },
+        {
+          "date": "2025-11-01",
+          "value": 4.9
+        },
+        {
+          "date": "2025-12-01",
+          "value": 5.0
+        },
+        {
+          "date": "2026-01-01",
+          "value": 5.6
+        },
+        {
+          "date": "2026-02-01",
+          "value": 5.3
+        },
+        {
+          "date": "2026-03-01",
+          "value": 5.1
+        },
+        {
+          "date": "2026-04-01",
+          "value": 4.4
+        },
+        {
+          "date": "2026-05-01",
+          "value": 4.4
+        },
+        {
+          "date": "2026-06-01",
+          "value": 4.4
+        },
+        {
+          "date": "2026-07-01",
+          "value": 4.5
+        },
+        {
+          "date": "2026-08-01",
+          "value": 4.0
+        },
+        {
+          "date": "2026-09-01",
+          "value": 3.8
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "UNRATE",
+      "label": "Unemployment rate",
+      "domain": "Labor",
+      "cadence": "monthly",
+      "unit": "% labor force",
+      "value": 4.1,
+      "period": "2026-10-01",
+      "previous": 4.2,
+      "previousPeriod": "2026-09-01",
+      "changePoints": -0.1,
+      "status": "ok",
+      "periodAgeDays": 50,
+      "source": "FRED / Bureau of Labor Statistics",
+      "sourceUrl": "https://fred.stlouisfed.org/series/UNRATE",
+      "history": [
+        {
+          "date": "2025-06-01",
+          "value": 4.1
+        },
+        {
+          "date": "2025-07-01",
+          "value": 4.3
+        },
+        {
+          "date": "2025-08-01",
+          "value": 4.3
+        },
+        {
+          "date": "2025-09-01",
+          "value": 4.4
+        },
+        {
+          "date": "2025-11-01",
+          "value": 4.5
+        },
+        {
+          "date": "2025-12-01",
+          "value": 4.4
+        },
+        {
+          "date": "2026-01-01",
+          "value": 4.3
+        },
+        {
+          "date": "2026-02-01",
+          "value": 4.4
+        },
+        {
+          "date": "2026-03-01",
+          "value": 4.3
+        },
+        {
+          "date": "2026-04-01",
+          "value": 4.3
+        },
+        {
+          "date": "2026-05-01",
+          "value": 4.3
+        },
+        {
+          "date": "2026-06-01",
+          "value": 4.2
+        },
+        {
+          "date": "2026-07-01",
+          "value": 4.1
+        },
+        {
+          "date": "2026-08-01",
+          "value": 4.1
+        },
+        {
+          "date": "2026-09-01",
+          "value": 4.2
+        },
+        {
+          "date": "2026-10-01",
+          "value": 4.1
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "ICSA",
+      "label": "Initial jobless claims",
+      "domain": "Labor",
+      "cadence": "weekly",
+      "unit": "persons",
+      "value": 203000.0,
+      "period": "2026-11-14",
+      "previous": 202000.0,
+      "previousPeriod": "2026-11-07",
+      "changePoints": 1000.0,
+      "status": "ok",
+      "periodAgeDays": 6,
+      "source": "FRED / US Department of Labor",
+      "sourceUrl": "https://fred.stlouisfed.org/series/ICSA",
+      "history": [
+        {
+          "date": "2026-08-01",
+          "value": 200000.0
+        },
+        {
+          "date": "2026-08-08",
+          "value": 212000.0
+        },
+        {
+          "date": "2026-08-15",
+          "value": 207000.0
+        },
+        {
+          "date": "2026-08-22",
+          "value": 204000.0
+        },
+        {
+          "date": "2026-08-29",
+          "value": 207000.0
+        },
+        {
+          "date": "2026-09-05",
+          "value": 207000.0
+        },
+        {
+          "date": "2026-09-12",
+          "value": 198000.0
+        },
+        {
+          "date": "2026-09-19",
+          "value": 198000.0
+        },
+        {
+          "date": "2026-09-26",
+          "value": 199000.0
+        },
+        {
+          "date": "2026-10-03",
+          "value": 198000.0
+        },
+        {
+          "date": "2026-10-10",
+          "value": 200000.0
+        },
+        {
+          "date": "2026-10-17",
+          "value": 195000.0
+        },
+        {
+          "date": "2026-10-24",
+          "value": 195000.0
+        },
+        {
+          "date": "2026-10-31",
+          "value": 191000.0
+        },
+        {
+          "date": "2026-11-07",
+          "value": 202000.0
+        },
+        {
+          "date": "2026-11-14",
+          "value": 203000.0
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "DRTSCILM",
+      "label": "C&I bank lending standards",
+      "domain": "Credit",
+      "cadence": "quarterly",
+      "unit": "net % tightening",
+      "value": 1.7,
+      "period": "2026-10-01",
+      "previous": 0.0,
+      "previousPeriod": "2026-07-01",
+      "changePoints": 1.7,
+      "status": "ok",
+      "periodAgeDays": 50,
+      "source": "FRED / Federal Reserve Board",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRTSCILM",
+      "history": [
+        {
+          "date": "2024-04-01",
+          "value": 15.6
+        },
+        {
+          "date": "2024-07-01",
+          "value": 7.9
+        },
+        {
+          "date": "2024-10-01",
+          "value": 0.0
+        },
+        {
+          "date": "2025-01-01",
+          "value": 6.2
+        },
+        {
+          "date": "2025-04-01",
+          "value": 18.5
+        },
+        {
+          "date": "2025-07-01",
+          "value": 9.5
+        },
+        {
+          "date": "2025-10-01",
+          "value": 6.5
+        },
+        {
+          "date": "2026-01-01",
+          "value": 5.3
+        },
+        {
+          "date": "2026-04-01",
+          "value": 8.1
+        },
+        {
+          "date": "2026-07-01",
+          "value": 0.0
+        },
+        {
+          "date": "2026-10-01",
+          "value": 1.7
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "BAMLC0A0CM",
+      "label": "Investment-grade credit spread",
+      "domain": "Credit",
+      "cadence": "daily",
+      "unit": "percentage points",
+      "value": 0.94,
+      "period": "2026-11-19",
+      "previous": 0.93,
+      "previousPeriod": "2026-11-18",
+      "changePoints": 0.01,
+      "status": "ok",
+      "periodAgeDays": 1,
+      "source": "FRED / ICE Data Indices, LLC",
+      "sourceUrl": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
+      "history": [
+        {
+          "date": "2026-10-29",
+          "value": 0.89
+        },
+        {
+          "date": "2026-10-30",
+          "value": 0.94
+        },
+        {
+          "date": "2026-11-02",
+          "value": 0.94
+        },
+        {
+          "date": "2026-11-03",
+          "value": 0.93
+        },
+        {
+          "date": "2026-11-04",
+          "value": 0.91
+        },
+        {
+          "date": "2026-11-05",
+          "value": 0.93
+        },
+        {
+          "date": "2026-11-06",
+          "value": 0.93
+        },
+        {
+          "date": "2026-11-09",
+          "value": 0.91
+        },
+        {
+          "date": "2026-11-10",
+          "value": 0.9
+        },
+        {
+          "date": "2026-11-11",
+          "value": 0.9
+        },
+        {
+          "date": "2026-11-12",
+          "value": 0.89
+        },
+        {
+          "date": "2026-11-13",
+          "value": 0.89
+        },
+        {
+          "date": "2026-11-16",
+          "value": 0.9
+        },
+        {
+          "date": "2026-11-17",
+          "value": 0.92
+        },
+        {
+          "date": "2026-11-18",
+          "value": 0.93
+        },
+        {
+          "date": "2026-11-19",
+          "value": 0.94
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "DRBLACBS",
+      "label": "Bank business-loan delinquency",
+      "domain": "Credit",
+      "cadence": "quarterly",
+      "unit": "% loans",
+      "value": 1.27,
+      "period": "2026-04-01",
+      "previous": 1.33,
+      "previousPeriod": "2026-01-01",
+      "changePoints": -0.06,
+      "status": "ok",
+      "periodAgeDays": 233,
+      "source": "FRED / Federal Reserve Board",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRBLACBS",
+      "history": [
+        {
+          "date": "2024-04-01",
+          "value": 1.15
+        },
+        {
+          "date": "2024-07-01",
+          "value": 1.18
+        },
+        {
+          "date": "2024-10-01",
+          "value": 1.27
+        },
+        {
+          "date": "2025-01-01",
+          "value": 1.28
+        },
+        {
+          "date": "2025-04-01",
+          "value": 1.29
+        },
+        {
+          "date": "2025-07-01",
+          "value": 1.33
+        },
+        {
+          "date": "2025-10-01",
+          "value": 1.34
+        },
+        {
+          "date": "2026-01-01",
+          "value": 1.33
+        },
+        {
+          "date": "2026-04-01",
+          "value": 1.27
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "QBPLNTLNNCUR",
+      "label": "FDIC noncurrent loan rate",
+      "domain": "Credit",
+      "cadence": "quarterly",
+      "unit": "% loans",
+      "value": 0.93035,
+      "period": "2026-04-01",
+      "previous": 0.98108,
+      "previousPeriod": "2026-01-01",
+      "changePoints": -0.05073,
+      "status": "ok",
+      "periodAgeDays": 233,
+      "source": "FRED / Federal Deposit Insurance Corporation",
+      "sourceUrl": "https://fred.stlouisfed.org/series/QBPLNTLNNCUR",
+      "history": [
+        {
+          "date": "2024-04-01",
+          "value": 0.90525
+        },
+        {
+          "date": "2024-07-01",
+          "value": 0.95482
+        },
+        {
+          "date": "2024-10-01",
+          "value": 0.98459
+        },
+        {
+          "date": "2025-01-01",
+          "value": 0.98477
+        },
+        {
+          "date": "2025-04-01",
+          "value": 0.95815
+        },
+        {
+          "date": "2025-07-01",
+          "value": 0.95257
+        },
+        {
+          "date": "2025-10-01",
+          "value": 0.96406
+        },
+        {
+          "date": "2026-01-01",
+          "value": 0.98108
+        },
+        {
+          "date": "2026-04-01",
+          "value": 0.93035
+        }
+      ],
+      "checkedAt": "2026-11-20T23:47:21Z"
+    }
+  ],
+  "issuers": [
+    {
+      "ticker": "ANT",
+      "cik": 2130357,
+      "name": "Anthropic, PBC",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0002130357.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "NVDA",
+      "cik": 1045810,
+      "name": "NVIDIA Corporation",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001045810.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "MSFT",
+      "cik": 789019,
+      "name": "Microsoft Corporation",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "GOOGL",
+      "cik": 1652044,
+      "name": "Alphabet Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001652044.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "META",
+      "cik": 1326801,
+      "name": "Meta Platforms Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001326801.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "AMZN",
+      "cik": 1018724,
+      "name": "Amazon.com Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001018724.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "ORCL",
+      "cik": 1341439,
+      "name": "Oracle Corporation",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001341439.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "AMD",
+      "cik": 2488,
+      "name": "Advanced Micro Devices Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0000002488.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "AVGO",
+      "cik": 1730168,
+      "name": "Broadcom Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001730168.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "CRWV",
+      "cik": 1769628,
+      "name": "CoreWeave Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "AI ecosystem",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001769628.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "ARCC",
+      "cik": 1287750,
+      "name": "Ares Capital Corporation",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "Listed private-credit BDC",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001287750.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "OBDC",
+      "cik": 1655888,
+      "name": "Blue Owl Capital Corporation",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "Listed private-credit BDC",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001655888.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "BXSL",
+      "cik": 1736035,
+      "name": "Blackstone Secured Lending Fund",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "Listed private-credit BDC",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001736035.json",
+      "latestReport": null,
+      "balanceSheet": null
+    },
+    {
+      "ticker": "GBDC",
+      "cik": 1476765,
+      "name": "Golub Capital BDC Inc.",
+      "cikSource": "SEC-filed CIK cross-reference",
+      "sector": "Listed private-credit BDC",
+      "status": "unavailable",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001476765.json",
+      "latestReport": null,
+      "balanceSheet": null
+    }
+  ],
   "filings": [],
   "signals": [],
-  "sources": [],
+  "sources": [
+    {
+      "id": "fred:DRCCLACBS",
+      "status": "ok",
+      "detail": "Last observation period 2026-04-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRCCLACBS",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:TDSP",
+      "status": "ok",
+      "detail": "Last observation period 2026-04-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/TDSP",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:PSAVERT",
+      "status": "ok",
+      "detail": "Last observation period 2026-09-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/PSAVERT",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:UNRATE",
+      "status": "ok",
+      "detail": "Last observation period 2026-10-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/UNRATE",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:ICSA",
+      "status": "ok",
+      "detail": "Last observation period 2026-11-14",
+      "sourceUrl": "https://fred.stlouisfed.org/series/ICSA",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:DRTSCILM",
+      "status": "ok",
+      "detail": "Last observation period 2026-10-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRTSCILM",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:BAMLC0A0CM",
+      "status": "ok",
+      "detail": "Last observation period 2026-11-19",
+      "sourceUrl": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:DRBLACBS",
+      "status": "ok",
+      "detail": "Last observation period 2026-04-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/DRBLACBS",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "fred:QBPLNTLNNCUR",
+      "status": "ok",
+      "detail": "Last observation period 2026-04-01",
+      "sourceUrl": "https://fred.stlouisfed.org/series/QBPLNTLNNCUR",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:tickers",
+      "status": "error",
+      "detail": "HTTP Error 403: Forbidden",
+      "sourceUrl": "https://www.sec.gov/files/company_tickers.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:ANT",
+      "status": "error",
+      "detail": "HTTP 403 from SEC submissions API; collector paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0002130357.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:NVDA",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001045810.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:MSFT",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0000789019.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:GOOGL",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001652044.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:META",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001326801.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:AMZN",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001018724.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:ORCL",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001341439.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:AMD",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0000002488.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:AVGO",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001730168.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:CRWV",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001769628.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:ARCC",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001287750.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:OBDC",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001655888.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:BXSL",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001736035.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    },
+    {
+      "id": "sec:GBDC",
+      "status": "error",
+      "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
+      "sourceUrl": "https://data.sec.gov/submissions/CIK0001476765.json",
+      "checkedAt": "2026-11-20T23:47:21Z"
+    }
+  ],
   "intradayQuotes": {
     "status": "not-connected",
     "coverage": [],
-    "reason": "No licensed public-display/redistribution quote provider configured."
+    "reason": "No verified public-redistribution market-data license and authorized API feed are configured. Intraday share prices are not fabricated or scraped.",
+    "requirements": "An approved data vendor API, secure GitHub Actions credential and written public-display/redistribution entitlement."
+  },
+  "coverage": {
+    "creditDefaults": "Public SEC 8-K event metadata for watchlist issuers only; not private-credit loan-level defaults, guarantees or realized lender losses.",
+    "households": "Published US aggregate indicators only; neither individual portfolio returns nor AI-specific causal household harm.",
+    "issuers": "Public AI issuers and four listed business-development-company lenders. CIK-mapped public filings and selected US-GAAP balance-sheet facts; not direct underlying loan performance or issuer stock prices."
   },
   "limitations": [
-    "Initial empty state. No zero values are inferred from missing measurements."
+    "Freshness is evaluated against the ORIGINAL observation period; quarterly time-series observation dates are quarter starts, not publication timestamps.",
+    "This monitor does not read private credit agreements or infer that an event-coded 8-K is a default.",
+    "SEC watchlist is intentionally bounded; absent filings are not proof of no defaults elsewhere.",
+    "If SEC blocks this runner (HTTP 403/429), stop repeat requests and report all remaining issuers as unavailable.",
+    "Government rates and filings measure broad conditions or company disclosures, not impacts caused by an AI selloff.",
+    "Unlicensed exchange quotes and individual household data remain explicitly unconnected."
   ]
 }
