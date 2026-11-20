@@ -14,6 +14,7 @@ import json
 import math
 import re
 import time
+import urllib.error
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -251,6 +252,7 @@ def collect_sec(now: dt.datetime, fetch=http_text, sleep=time.sleep):
                      for ticker, cik in VERIFIED_CIKS.items()}
         sources.append({"id": "sec:tickers", "status": "error", "detail": str(err)[:180],
                         "sourceUrl": SEC_CIK_MAP_URL, "checkedAt": checked})
+    sec_blocked = None
     for ticker in TICKERS:
         company = companies.get(ticker)
         if not company:
@@ -265,6 +267,12 @@ def collect_sec(now: dt.datetime, fetch=http_text, sleep=time.sleep):
         entry = {**company, "sector": "Listed private-credit BDC" if ticker in BDC_TICKERS else "AI ecosystem",
                  "status": "unavailable", "sourceUrl": url,
                  "latestReport": None, "balanceSheet": None}
+        if sec_blocked:
+            sources.append({"id": "sec:" + ticker, "status": "error",
+                            "detail": sec_blocked + "; further SEC requests paused",
+                            "sourceUrl": url, "checkedAt": checked})
+            issuers.append(entry)
+            continue
         try:
             filing_payload = json.loads(fetch(url))
             found, latest_report = parse_sec_filings(filing_payload, company, today)
@@ -272,6 +280,10 @@ def collect_sec(now: dt.datetime, fetch=http_text, sleep=time.sleep):
             entry["status"] = "ok"
             records.extend(found)
             status, detail = "ok", "Recent SEC filings indexed"
+        except urllib.error.HTTPError as err:
+            status, detail = "error", f"HTTP {err.code} from SEC submissions API" + ("; collector paused" if err.code in (403, 429) else "")
+            if err.code in (403, 429):
+                sec_blocked = "SEC rate/access restriction HTTP " + str(err.code)
         except (OSError, UnicodeError, ValueError, TypeError, KeyError) as err:
             status, detail = "error", str(err)[:160]
         sources.append({"id": "sec:" + ticker, "status": status, "detail": detail,
@@ -356,6 +368,7 @@ def collect(now: dt.datetime | None = None, fred_fetch=http_text, sec_fetch=http
             "Freshness is evaluated against the ORIGINAL observation period; quarterly time-series observation dates are quarter starts, not publication timestamps.",
             "This monitor does not read private credit agreements or infer that an event-coded 8-K is a default.",
             "SEC watchlist is intentionally bounded; absent filings are not proof of no defaults elsewhere.",
+            "If SEC blocks this runner (HTTP 403/429), stop repeat requests and report all remaining issuers as unavailable.",
             "Government rates and filings measure broad conditions or company disclosures, not impacts caused by an AI selloff.",
             "Unlicensed exchange quotes and individual household data remain explicitly unconnected.",
         ],
