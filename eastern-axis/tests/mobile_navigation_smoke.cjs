@@ -63,6 +63,28 @@ async function qa(page,width){
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   const radar=page.getByRole('region',{name:'Decision radar by domain'});
   await radar.waitFor({state:'visible'});
+  // Every individual reading opens an accessible, source-aware detail window.
+  await radar.locator('.dr-move').first().waitFor({state:'visible',timeout:20000});
+  const firstReading=await radar.locator('.dr-move-top strong').first().innerText();
+  await radar.locator('.dr-move').first().locator('.dr-pair').click();
+  let detail=page.getByRole('dialog',{name:firstReading});
+  await detail.waitFor({state:'visible'});
+  assert.ok(await detail.locator('.ea-detail-comparison').count()>=2,'Metric drilldown must retain both original observations');
+  assert.ok(await detail.locator('.ea-detail-evidence a').count()>0,'Metric drilldown must link its exact source');
+  await detail.getByRole('button',{name:'Close evidence detail'}).click();
+  await detail.waitFor({state:'detached'});
+  // Keyboard users get the same single-item popup, with Escape to return.
+  await radar.locator('.dr-move').first().focus();
+  await page.keyboard.press('Enter');
+  detail=page.getByRole('dialog',{name:firstReading});
+  await detail.waitFor({state:'visible'});
+  await page.keyboard.press('Escape');
+  await detail.waitFor({state:'detached'});
+  await radar.locator('.dr-snapshot').first().click();
+  detail=page.getByRole('dialog',{name:/Probe snapshot|screening\/correlated indicators/i});
+  await detail.waitFor({state:'visible'});
+  assert.ok(await detail.locator('.ea-detail-evidence a').count()>=1,'Probe source must not inherit a GNSS link');
+  await detail.getByRole('button',{name:'Close evidence detail'}).click();
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).waitFor({state:'visible'});
   if(width<=980) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
@@ -140,6 +162,13 @@ async function qa(page,width){
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible'});
     assert.equal(await risk.locator('.rdb-chart').count(),4,'Risks should lead with four compact charts');
+    await risk.locator('.rdb-headlines > div').first().click();
+    const riskDetail=page.getByRole('dialog',{name:/INFRASTRUCTURE WATCHES/i});
+    await riskDetail.waitFor({state:'visible'});
+    await riskDetail.getByRole('button',{name:'Close evidence detail'}).click();
+    await risk.locator('.rdb-pressure-row').first().click();
+    await page.getByRole('dialog',{name:/Inflation/i}).waitFor({state:'visible'});
+    await page.getByRole('button',{name:'Close evidence detail'}).click();
     assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Raw risk data should start collapsed');
     await risk.getByRole('button',{name:'View source data'}).click();
     await risk.locator('.rw-probes').waitFor({state:'visible'});
