@@ -22,6 +22,7 @@ const fmt = (v:number,places=2)=>new Intl.NumberFormat('en-US',{maximumFractionD
 const dateText=(date?:string|null)=>date&&Number.isFinite(Date.parse(date))?
  new Date(date.length===10?date+'T00:00:00Z':date).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}):'Unknown';
 const moneyFact=(fact:Fact|null)=>fact?compactUSD(fact.valueUSD):'—';
+const changeText=(m:Metric)=>m.changePoints===null?'—':(m.changePoints>0?'+':'')+(m.unit==='persons'?fmt(m.changePoints,0)+' people':m.unit==='percentage points'?fmt(m.changePoints*100,0)+' bps':fmt(m.changePoints)+' pp');
 function Line({metric}:{metric:Metric}){
  const pts=(metric.history||[]).filter(v=>Number.isFinite(v.value)).slice(-16);
  if(pts.length<2)return <span className="ft-no-history">Not enough history</span>;
@@ -85,7 +86,7 @@ export default function FinancialTransmission(){
      <div className="ft-tile-heading">{m?.label||id}<ArrowUpRight size={13}/></div>
      <strong>{m?fmt(m.value):'—'} <small>{m?.unit||''}</small></strong>
      <div className="ft-chart">{m?<Line metric={m}/>:<span className="ft-no-history">No valid data</span>}</div>
-     <div className="ft-tile-bottom"><span>{m?dateText(m.period)+' · '+m.cadence:'Unobserved'}</span><b>{m&&m.changePoints!==null?(m.changePoints>0?'+':'')+fmt(m.changePoints)+' pp':'—'}</b></div>
+     <div className="ft-tile-bottom"><span>{m?dateText(m.period)+' · '+m.cadence:'Unobserved'}</span><b>{m?changeText(m):'—'}</b></div>
     </button>;
    })}
   </div>
@@ -147,7 +148,7 @@ export default function FinancialTransmission(){
        <Line metric={selected.metric}/>
        <dl><div><dt>Observation period</dt><dd>{dateText(selected.metric.period)} · {selected.metric.cadence}</dd></div>
          <div><dt>Previous period</dt><dd>{dateText(selected.metric.previousPeriod)}</dd></div>
-         <div><dt>Period-to-period change</dt><dd>{selected.metric.changePoints===null?'Unavailable':fmt(selected.metric.changePoints)+' percentage points'}</dd></div>
+         <div><dt>Period-to-period change</dt><dd>{selected.metric.changePoints===null?'Unavailable':changeText(selected.metric)}</dd></div>
          <div><dt>Underlying producer</dt><dd>{selected.metric.source}</dd></div>
          <div><dt>Source freshness</dt><dd>{selected.metric.status} · period {selected.metric.periodAgeDays} days before collection</dd></div></dl>
        <a href={selected.metric.sourceUrl} target="_blank" rel="noopener noreferrer">Original FRED data <ExternalLink size={13}/></a>
