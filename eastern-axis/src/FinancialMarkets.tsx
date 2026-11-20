@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Activity, ArrowUpRight, ChevronDown, Clock3, ExternalLink, TrendingDown, X } from 'lucide-react';
+import FinancialTransmission from './FinancialTransmission';
 import './financialMarkets.css';
 
 type Point = { date: string; value: number };
@@ -160,6 +161,7 @@ export default function FinancialMarkets(){
       </div>
       <p>Credit spread widening, loan defaults, guarantees, bank losses and household impact are separate tests. <strong>Equity losses alone cannot establish credit contagion.</strong></p>
     </div>
+    <FinancialTransmission/>
     <div className="fm-dossier-toggle"><div><strong>AI financing & market transmission</strong><small>Nov 2026 source-backed event dossier · news claims are not market measurements</small></div>
       <button type="button" aria-expanded={dossiersOpen} onClick={()=>setDossiersOpen(v=>!v)}>{dossiersOpen?'Hide evidence':'Explore 3 events'} <ChevronDown size={15}/></button></div>
     {dossiersOpen&&<div className="fm-dossiers">{DOSSIERS.map(d=><button type="button" key={d.id} onClick={()=>setSelected({kind:'dossier',dossier:d})}><small>{d.date}</small><strong>{d.title}</strong><span>View source-backed summary <ArrowUpRight size={12}/></span></button>)}</div>}

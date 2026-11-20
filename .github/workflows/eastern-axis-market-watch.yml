@@ -7,6 +7,10 @@ on:
     branches: [main]
     paths:
       - 'eastern-axis/scripts/collect_financial_markets.py'
+      - 'eastern-axis/scripts/collect_market_transmission.py'
+      - 'eastern-axis/tests/test_market_transmission.py'
+      - 'eastern-axis/src/FinancialTransmission.tsx'
+      - 'eastern-axis/src/financialTransmission.css'
       - 'eastern-axis/tests/test_financial_markets.py'
       - 'eastern-axis/src/FinancialMarkets.tsx'
       - 'eastern-axis/src/financialMarkets.css'
@@ -14,6 +18,10 @@ on:
   pull_request:
     paths:
       - 'eastern-axis/scripts/collect_financial_markets.py'
+      - 'eastern-axis/scripts/collect_market_transmission.py'
+      - 'eastern-axis/tests/test_market_transmission.py'
+      - 'eastern-axis/src/FinancialTransmission.tsx'
+      - 'eastern-axis/src/financialTransmission.css'
       - 'eastern-axis/tests/test_financial_markets.py'
       - 'eastern-axis/src/FinancialMarkets.tsx'
       - 'eastern-axis/src/financialMarkets.css'
@@ -24,7 +32,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: eastern-axis-market-watch
+  group: eastern-axis-market-watch-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -38,7 +46,9 @@ jobs:
         with:
           python-version: '3.12'
       - name: Verify stale/missing data and separate credit/equity classification
-        run: python -m unittest discover -s eastern-axis/tests -p test_financial_markets.py -v
+        run: |
+          python -m unittest discover -s eastern-axis/tests -p test_financial_markets.py -v
+          python -m unittest discover -s eastern-axis/tests -p test_market_transmission.py -v
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -51,11 +61,17 @@ jobs:
         if: github.event_name == 'pull_request'
         run: |
           python eastern-axis/scripts/collect_financial_markets.py --strict --output "$RUNNER_TEMP/financial-market-probe.json"
-          python - "$RUNNER_TEMP/financial-market-probe.json" <<'PY'
+          python eastern-axis/scripts/collect_market_transmission.py --strict --output "$RUNNER_TEMP/financial-transmission-probe.json"
+          python - "$RUNNER_TEMP/financial-market-probe.json" "$RUNNER_TEMP/financial-transmission-probe.json" <<'PY'
           import json,sys
           snapshot=json.load(open(sys.argv[1],encoding='utf-8'))
           print("Market source check:",snapshot["status"])
           for source in snapshot["sources"]:
+              print(source["id"],source["status"],source["detail"])
+          transmission=json.load(open(sys.argv[2],encoding="utf-8"))
+          print("Financial transmission status:",transmission["status"])
+          print("SEC issuers connected:",sum(i["status"]=="ok" for i in transmission["issuers"]))
+          for source in transmission["sources"]:
               print(source["id"],source["status"],source["detail"])
           PY
 
@@ -76,9 +92,11 @@ jobs:
           python-version: '3.12'
       - name: Collect FRED-published observations with explicit source dates
         run: python eastern-axis/scripts/collect_financial_markets.py --strict
-      - name: Publish verified snapshot and trigger GitHub Pages update
+      - name: Collect published household credit data and SEC evidence
+        run: python eastern-axis/scripts/collect_market_transmission.py --strict
+      - name: Publish verified snapshots and trigger GitHub Pages update
         run: |
-          git add eastern-axis/public/analysis/financial-markets.json
+          git add eastern-axis/public/analysis/financial-markets.json eastern-axis/public/analysis/financial-transmission.json
           if git diff --cached --quiet; then
             echo "No market observation changes."
           else
