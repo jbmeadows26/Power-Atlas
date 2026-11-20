@@ -91,6 +91,7 @@ export default function GlobalSystems({ mode, countryCode, countryName }: Props)
   const [failure, setFailure] = useState(false);
   const [retry, setRetry] = useState(0);
   const [filter, setFilter] = useState('All');
+  const [showCoverageDetails,setShowCoverageDetails]=useState(false);
   useEffect(() => {
     if (mode === 'coverage') return;
     let active = true;
@@ -113,10 +114,13 @@ export default function GlobalSystems({ mode, countryCode, countryName }: Props)
       <h1>What we know. What we lack.</h1>
       <p className="gs-lead">A global implementation inventory—not a claim of worldwide coverage and not filtered by the selected country. Source links and manually curated references are separate from machine-readable data integrations.</p>
       <div className="gs-summary"><div><strong>{gaps.length}</strong><span>Tracked capabilities</span></div><div><strong>{gaps.filter(g=>g.status==='live').length}</strong><span>Implemented on-demand</span></div><div><strong>{gaps.filter(g=>g.status!=='live').length}</strong><span>Still partial or absent</span></div></div>
+      <div className="gs-coverage-evidence"><div><strong>Individual coverage and integration status</strong><span>All tracked source gaps and methodology, available on request.</span></div><button type="button" aria-expanded={showCoverageDetails} onClick={()=>setShowCoverageDetails(v=>!v)}>{showCoverageDetails?'Hide technical records':'View technical records'} <ArrowUpRight size={13}/></button></div>
+      {showCoverageDetails&&<>
       <div className="gs-filterbar" aria-label="Coverage area">
         {['All', ...Array.from(new Set(gaps.map(g => g.area)))].map(label => <button type="button" className={label === filter ? 'active' : ''} onClick={() => setFilter(label)} key={label}>{label}</button>)}
       </div>
       <div className="gs-gap-list">{shown.map(g => <div className="gs-gap" key={g.label}><div><strong>{g.label}</strong><p>{g.detail}</p></div><span className={'gs-status gs-'+g.status.replace(' ','-')}>{g.status}</span></div>)}</div>
+      </>}
       <p className="gs-foot">Status is based on implemented source code and the current public app. It is not a guarantee that any external feed is available at this moment. Historical case outcomes require separate follow-up research.</p>
     </section>;
   }
