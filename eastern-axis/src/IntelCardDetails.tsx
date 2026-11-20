@@ -13,13 +13,13 @@ import './intelCardDetails.css';
  * Existing buttons, country selectors, navigation and source links keep their actions.
  */
 const itemSelectors = [
-  '.dr-move', '.dr-snapshot', '.dr-report-list > div', '.dr-briefing > div',
-  '.rdb-headlines > div', '.rdb-pressure-row', '.rdb-quake-lines > div',
+  '.dr-move', '.dr-snapshot', '.dr-report-list > div', '.dr-briefing > div', '.dr-lane',
+  '.rdb-chart', '.rdb-headlines > div', '.rdb-pressure-row', '.rdb-quake-lines > div',
   '.rdb-duo > div', '.rdb-history > div',
   '.db-stat', '.db-topic', '.db-latest > *', '.db-fact-grid > *',
   '.cx-record',
   '.gs-metric', '.gs-signal', '.gs-gap', '.gs-summary > *',
-  '.pew-price', '.pew-node', '.pew-domains > article', '.pew-summary > *',
+  '.pew-price', '.pew-node', '.pew-domain', '.pew-indicators > *', '.pew-summary > *',
   '.rw-metrics > *', '.rw-incident', '.rw-probe', '.rw-capability',
   '.sc-kpis > *', '.sc-corridor', '.sc-step', '.sc-coverage > *',
   '.di-item', '.di-asset', '.di-sources > *',
@@ -91,9 +91,11 @@ function capture(el:HTMLElement):Detail {
   if(selectedLinks.length===0 && sourceHost && sourceHost!==el)
     selectedLinks.push(...sourceHost.querySelectorAll<HTMLAnchorElement>('a[href]'));
   const sourceMap=new Map(selectedLinks.map(getLink).filter((x):x is {title:string;url:string}=>!!x).map(x=>[x.url,x]));
-  if(el.matches('.dr-snapshot'))
+  if(el.matches('.dr-snapshot') || el.matches('.rdb-duo > div') && /infrastructure capabilities/i.test(el.innerText)){
+    if(el.matches('.rdb-duo > div'))sourceMap.clear(); // NASA is not the probe source.
     sourceMap.set('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json',
       {title:'Independent resilience probe snapshot',url:'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json'});
+  }
   const links=[...sourceMap.values()].slice(0,12);
   const points=[...el.querySelectorAll<HTMLElement>('.dr-pair > div')].map(row=>{
     const display=getText(row.querySelector('b'));
