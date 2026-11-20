@@ -72,3 +72,8 @@
 .ft-modal button:focus-visible,.ft-root button:focus-visible,.ft-root a:focus-visible{outline:2px solid #d1f4ac;outline-offset:2px}
 @media(max-width:930px){.ft-top{grid-template-columns:repeat(2,minmax(0,1fr))}.ft-panels{grid-template-columns:1fr}.ft-issuers{grid-template-columns:1fr}}
 @media(max-width:500px){.ft-top{gap:5px}.ft-tile{padding:7px}.ft-tile>strong{font-size:19px}.ft-panel{padding:8px}.ft-issuers>button{grid-template-columns:41px minmax(0,1fr) 13px}.ft-issuers>button small{grid-column:2}.ft-issuers>button svg{grid-column:3;grid-row:1}.ft-submetrics{gap:4px}.ft-submetrics button{padding:5px}.ft-submetrics strong{font-size:15px}.ft-panel-heading{flex-direction:column;gap:0}.ft-modal{padding:11px}}
+
+.ft-issuer-filter{grid-column:1/-1;display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:8px;border:1px solid #46625d;background:#173035}
+.ft-issuer-filter label{font-size:10px;color:#c3dad0}
+.ft-issuer-filter select{appearance:auto;border:1px solid #658c76;background:#264b45;color:#eaf1de;padding:7px 10px;font-size:10px;border-radius:4px}
+.ft-issuer-filter select:focus-visible{outline:2px solid #d1f4ac;outline-offset:2px}
