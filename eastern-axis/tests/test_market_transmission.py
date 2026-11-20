@@ -99,6 +99,14 @@ class FinancialTransmissionTests(unittest.TestCase):
         self.assertEqual([s["evidenceIds"] for s in alerts if s["id"] == "sec-disclosure-review"],
                          [["ABC:recent"]])
 
+    def test_business_loan_delinquency_is_a_bank_proxy_not_private_loan_default(self):
+        metrics = [{"id": "DRBLACBS", "status": "ok", "changePoints": 0.32}]
+        alerts = collector.derive_alerts(metrics, [], TODAY)
+        self.assertEqual([s["id"] for s in alerts], ["business-delinquency"])
+        self.assertIn("not loan-by-loan", alerts[0]["claim"])
+        metrics[0]["status"] = "stale"
+        self.assertEqual(collector.derive_alerts(metrics, [], TODAY), [])
+
     def test_stale_data_never_creates_watch(self):
         data = [{"id": "DRCCLACBS", "status": "stale", "changePoints": 25}]
         self.assertEqual(collector.derive_alerts(data, [], TODAY), [])
