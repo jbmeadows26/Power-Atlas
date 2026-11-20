@@ -124,11 +124,14 @@ export default function IntelCardDetails(){
         if(el.closest('.ea-detail-backdrop') || el.closest('[hidden]'))return;
         if(el.matches(SKIP) || el.getAttribute('data-ea-details')==='off')return;
         if(!el.hasAttribute('tabindex'))el.tabIndex=0;
-        if(!el.hasAttribute('role'))el.setAttribute('role','button');
+        // Keep nested publisher links and Analyze buttons accessible to assistive tech:
+        // a role=button wrapper would flatten their semantics.
+        const containsControl=!!el.querySelector(SKIP);
+        if(!el.hasAttribute('role'))el.setAttribute('role',containsControl?'group':'button');
         el.setAttribute('data-ea-drillable','');
         if(!el.hasAttribute('aria-label')){
           const title=getText(el.querySelector('h2,h3,strong,.metric-top,small'))||normal(el.innerText.split('\n')[0]);
-          el.setAttribute('aria-label','Explore '+title.slice(0,120));
+          el.setAttribute('aria-label','Explore '+title.slice(0,120)+(containsControl?'; press Enter for details':''));
         }
       });
     };
