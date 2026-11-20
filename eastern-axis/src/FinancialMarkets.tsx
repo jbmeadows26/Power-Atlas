@@ -82,7 +82,7 @@ export default function FinancialMarkets(){
   const [data,setData]=useState<Snapshot|null>(null);
   const [error,setError]=useState('');
   const [revision,setRevision]=useState(0);
-  const [selected,setSelected]=useState<{kind:'metric';metric:Metric}|{kind:'dossier';dossier:Dossier}|null>(null);
+  const [selected,setSelected]=useState<{kind:'metric';metric:Metric}|{kind:'dossier';dossier:Dossier}|{kind:'unavailable';item:{id:string;label:string;group:string};source?:Source}|null>(null);
   const [dossiersOpen,setDossiersOpen]=useState(false);
   useEffect(()=>{
     let alive=true;
@@ -142,7 +142,7 @@ export default function FinancialMarkets(){
             ?(points>0?'+':'')+fmt(points,2)+' pts / 5 obs'
             :metric && delta!==null && delta!==undefined
               ?(delta>0?'+':'')+fmt(delta)+'% / 5 obs':'—';
-        return <button key={item.id} type="button" className={'fm-metric '+(!fresh?'fm-metric-missing':'')} onClick={()=>metric?setSelected({kind:'metric',metric}):setDossiersOpen(true)} aria-label={item.label+' details and source'}>
+        return <button key={item.id} type="button" className={'fm-metric '+(!fresh?'fm-metric-missing':'')} onClick={()=>metric?setSelected({kind:'metric',metric}):setSelected({kind:'unavailable',item,source:data?.sources.find(s=>s.id===item.id)})} aria-label={item.label+' details and source'}>
           <div className="fm-metric-top"><span>{item.label}</span><small>{metric?metric.status==='stale'?'STALE':item.group:'UNAVAILABLE'}</small></div>
           <div className="fm-big">{metric?fmt(metric.value,metric.unit==='index'?1:2):'—'} <small>{metric?.unit==='percentage points'?'pp':metric?.unit==='index'?'':' '}</small></div>
           <div className={'fm-spark '+(delta!==null&&delta!==undefined&&delta<0?'negative':'')}>{metric?<Sparkline points={metric.history} label={item.label}/>:<span className="fm-no-trend">Awaiting observations</span>}</div>
@@ -165,8 +165,8 @@ export default function FinancialMarkets(){
     {dossiersOpen&&<div className="fm-dossiers">{DOSSIERS.map(d=><button type="button" key={d.id} onClick={()=>setSelected({kind:'dossier',dossier:d})}><small>{d.date}</small><strong>{d.title}</strong><span>View source-backed summary <ArrowUpRight size={12}/></span></button>)}</div>}
     <div className="fm-footer"><Clock3 size={12}/> Check every 6h; most prices and spreads publish once per business day. <a href={SNAPSHOT} target="_blank" rel="noopener noreferrer">Full snapshot & source status <ExternalLink size={12}/></a></div>
     {selected&&<div className="fm-dialog-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)setSelected(null);}}>
-      <section className="fm-dialog" role="dialog" aria-modal="true" aria-label={selected.kind==='metric'?selected.metric.label:selected.dossier.title}>
-        <header><h3>{selected.kind==='metric'?selected.metric.label:selected.dossier.title}</h3><button type="button" onClick={()=>setSelected(null)} aria-label="Close evidence panel"><X size={19}/></button></header>
+      <section className="fm-dialog" role="dialog" aria-modal="true" aria-label={selected.kind==='metric'?selected.metric.label:selected.kind==='dossier'?selected.dossier.title:selected.item.label}>
+        <header><h3>{selected.kind==='metric'?selected.metric.label:selected.kind==='dossier'?selected.dossier.title:selected.item.label}</h3><button type="button" onClick={()=>setSelected(null)} aria-label="Close evidence panel"><X size={19}/></button></header>
         {selected.kind==='metric'?<>
           <div className="fm-dialog-stat"><strong>{fmt(selected.metric.value)} {selected.metric.unit}</strong><span>Observed {dateText(selected.metric.period)} · {selected.metric.status} · {selected.metric.cadence}</span></div>
           <Sparkline points={selected.metric.history} label={selected.metric.label}/>
@@ -176,10 +176,15 @@ export default function FinancialMarkets(){
             <div><dt>Original provider</dt><dd>{selected.metric.provider} (via FRED)</dd></div></dl>
           <a href={selected.metric.sourceUrl} target="_blank" rel="noopener noreferrer">Open original indexed series <ExternalLink size={13}/></a>
           <p>End-of-day/last-published observations only. These screens do not measure loan defaults, bank losses, or private-credit positions.</p>
-        </>:<>
+        </>:selected.kind==='dossier'?<>
           <p><strong>{selected.dossier.date}</strong> · reported development</p>
           <p>{selected.dossier.finding}</p><p>{selected.dossier.interpretation}</p>
           <div className="fm-dialog-links">{selected.dossier.sources.map(link=><a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer">{link.label} <ExternalLink size={13}/></a>)}</div>
+        </>:<>
+          <p><strong>{selected.item.label}</strong> has no current validated observation in the published dataset.</p>
+          <p>Source check: {selected.source?.status||'not collected'} · {selected.source?.detail||'Collector has not reported an observation yet.'}</p>
+          <p>Missing evidence is not a healthy reading or a zero-value observation.</p>
+          <a href={'https://fred.stlouisfed.org/series/'+selected.item.id} target="_blank" rel="noopener noreferrer">Inspect original series <ExternalLink size={13}/></a>
         </>}
       </section>
     </div>}
