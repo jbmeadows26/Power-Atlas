@@ -21,7 +21,7 @@ from pathlib import Path
 UTC = dt.timezone.utc
 HERE = Path(__file__).resolve().parents[1]
 DEFAULT_OUTPUT = HERE / "public/analysis/financial-transmission.json"
-USER_AGENT = "EasternAxisPublicIntelligence/1.0 (https://github.com/jbmeadows26/Power-Atlas; OSINT-public-research)"
+USER_AGENT = "EasternAxisOpenIntelligence/1.0 eastern-axis-data@agentmail.to (https://github.com/jbmeadows26/Power-Atlas)"
 HOUSEHOLD_SERIES = (
     # series, label, domain, cadence, unit, primary data producer
     ("DRCCLACBS", "Credit-card loan delinquency", "Households", "quarterly", "% loans", "Federal Reserve Board"),
