@@ -1,6 +1,6 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { api } from '@appdeploy/client';
-import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, Link2, RefreshCcw, ShieldCheck } from 'lucide-react';
+import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, RefreshCcw, ShieldCheck } from 'lucide-react';
 import './globalSystems.css';
 import EnergySupply from './EnergySupply';
 
@@ -84,7 +84,7 @@ const number = (x: number, unit: string) => {
   if (unit === 'people') return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(x);
   return x.toLocaleString('en-US', { maximumFractionDigits: 1 }) + '%';
 };
-export default function GlobalSystems({ mode, countryCode, cases, countryName }: Props) {
+export default function GlobalSystems({ mode, countryCode, countryName }: Props) {
   const code = countryCode === 'all' ? 'WLD' : countryCode;
   const [data, setData] = useState<GlobalData | null>(null);
   const [pending, setPending] = useState(false);
@@ -104,7 +104,6 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
     return () => { active = false; };
   }, [code, mode, retry]);
 
-  const matchingCases = useMemo(() => cases.filter(c => countryCode === 'all' || c.code === countryCode).slice(0, 8), [cases, countryCode]);
   const target = countryCode === 'all' ? 'World aggregate' : (countryName || countryCode);
 
   if (mode === 'coverage') {
@@ -164,10 +163,6 @@ export default function GlobalSystems({ mode, countryCode, cases, countryName }:
       </article>;
     })}</div>}
     {mode === 'risk' && <div className="gs-interpretation"><ShieldCheck size={21}/><div><strong>What this screening cannot establish</strong><p>There is no validated escalation probability, event forecast, individual culpability, or proven causal link between one indicator and a military event. A higher trade share can reflect economic integration, not necessarily fragility. Compare dates and multiple independent sources before reaching a conclusion.</p></div></div>}
-    <section className="gs-case-panel">
-      <div className="gs-group-top"><Link2 size={18}/><div><h2>Documented investigation context</h2><p>Country tags join official case records to this profile for discovery, not to claim that economic indicators caused those events.</p></div></div>
-      {matchingCases.length ? <div className="gs-case-list">{matchingCases.map(item => <article key={item.id}><small>{item.code} · {item.date} · {item.topic}</small><strong>{item.title}</strong><span>{item.status}</span><a href={item.source} target="_blank" rel="noopener noreferrer">DOJ original <ArrowUpRight size={13}/></a></article>)}</div> : <div className="gs-empty">No curated DOJ investigation for this country. This is a library coverage gap, not a security conclusion.</div>}
-    </section>
     <p className="gs-foot"><CheckCircle2 size={15}/> {data?.method || 'All observations require an official source response.'} World aggregates are not country averages and do not establish bilateral transactions. <a href="https://datahelpdesk.worldbank.org/knowledgebase/articles/1886674-new-features-and-enhancements-in-the-v2-api" target="_blank" rel="noopener noreferrer">Methodology <ArrowUpRight size={12}/></a></p>
   </section>;
 }
