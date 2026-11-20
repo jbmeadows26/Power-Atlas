@@ -77,7 +77,7 @@ export default function FinancialTransmission(){
    <span>{data?'Checked '+dateText(data.checkedAt):'No observations'}</span>
    <span>Issuers <strong>{data?issuerOk+'/'+data.issuers.length:'—'}</strong></span>
    <span>SEC review items <strong>{data&&issuerOk>0?recordedFilings.length:'Unknown'}</strong></span>
-   <a className="ft-snapshot-link" href={PATH} target="_blank" rel="noopener noreferrer">Transmission data <ExternalLink size={11}/></a>
+
   </div>
   {(error||sourceProblem)&&<p className="ft-caution" role="status">{error||('Some source results are missing or stale; unavailable is not an all-clear.'+(secBlock?' SEC issuer access: '+secBlock.detail+'.':''))}</p>}
   <div className="ft-top">
@@ -138,7 +138,12 @@ export default function FinancialTransmission(){
       <p><strong>Intraday quotes:</strong> {data?.intradayQuotes?.reason||'No licensed price feed is configured.'}</p>
       <p><strong>Private credit:</strong> SEC event metadata and public spread metrics do not reveal private loan tapes, undisclosed defaults or lender losses.</p>
       <p><strong>Household exposure:</strong> Aggregate delinquency, unemployment and borrowing indicators do not establish household losses caused by an AI selloff.</p>
-      <p>Raw source state: <a href={PATH} target="_blank" rel="noopener noreferrer">Source-dated JSON <ExternalLink size={13}/></a></p>
+      <div className="ft-readable-sources">
+        <strong>Connected sources: {data?.householdMetrics.filter(m=>m.status==='ok').length??0}/9 financial indicators</strong>
+        <span>Issuer filings: {issuerOk}/{data?.issuers.length??14} connected{secBlock?' · '+secBlock.detail:''}</span>
+        {(data?.householdMetrics||[]).map(m=><a key={m.id} href={m.sourceUrl} target="_blank" rel="noopener noreferrer">{m.label} · observed {dateText(m.period)} <ExternalLink size={12}/></a>)}
+      </div>
+      <p><a href={PATH} target="_blank" rel="noopener noreferrer">Raw JSON dataset (technical / developers) <ExternalLink size={13}/></a></p>
     </div>}
   </div>
   {selected&&<div className="ft-modal-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)setSelected(null);}}>

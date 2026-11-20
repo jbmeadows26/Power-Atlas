@@ -85,6 +85,7 @@ export default function FinancialMarkets(){
   const [revision,setRevision]=useState(0);
   const [selected,setSelected]=useState<{kind:'metric';metric:Metric}|{kind:'dossier';dossier:Dossier}|{kind:'unavailable';item:{id:string;label:string;group:string};source?:Source}|null>(null);
   const [dossiersOpen,setDossiersOpen]=useState(false);
+  const [sourcesOpen,setSourcesOpen]=useState(false);
   useEffect(()=>{
     let alive=true;
     setError('');
@@ -165,7 +166,24 @@ export default function FinancialMarkets(){
     <div className="fm-dossier-toggle"><div><strong>AI financing & market transmission</strong><small>Nov 2026 source-backed event dossier · news claims are not market measurements</small></div>
       <button type="button" aria-expanded={dossiersOpen} onClick={()=>setDossiersOpen(v=>!v)}>{dossiersOpen?'Hide evidence':'Explore 3 events'} <ChevronDown size={15}/></button></div>
     {dossiersOpen&&<div className="fm-dossiers">{DOSSIERS.map(d=><button type="button" key={d.id} onClick={()=>setSelected({kind:'dossier',dossier:d})}><small>{d.date}</small><strong>{d.title}</strong><span>View source-backed summary <ArrowUpRight size={12}/></span></button>)}</div>}
-    <div className="fm-footer"><Clock3 size={12}/> Check every 6h; most prices and spreads publish once per business day. <a href={SNAPSHOT} target="_blank" rel="noopener noreferrer">Full snapshot & source status <ExternalLink size={12}/></a></div>
+    <div className="fm-footer"><Clock3 size={12}/> Check every 6h; most prices and spreads publish once per business day.
+      <button type="button" className="fm-source-toggle" aria-expanded={sourcesOpen} onClick={()=>setSourcesOpen(value=>!value)}>
+        {sourcesOpen?'Hide original sources':'See original sources'} <ChevronDown size={13}/>
+      </button>
+    </div>
+    {sourcesOpen&&<div className="fm-source-panel" aria-label="Financial market sources">
+      <div className="fm-source-panel-heading"><strong>Market data coverage</strong>
+        <span>{data?.sources.filter(s=>s.status==='ok').length??0}/{ORDER.length} connected · {data?('Checked '+dateText(data.checkedAt)):'Awaiting collection'}</span>
+      </div>
+      <div className="fm-source-rows">{ORDER.map(item=>{
+        const source=data?.sources.find(s=>s.id===item.id);
+        const metric=byId.get(item.id);
+        return <a key={item.id} href={'https://fred.stlouisfed.org/series/'+item.id} target="_blank" rel="noopener noreferrer">
+          <span>{item.label}</span><small>{source?.status||'not collected'} · {metric?.period?dateText(metric.period):'no observation'}</small><ExternalLink size={12}/>
+        </a>;
+      })}</div>
+      <a className="fm-technical-data" href={SNAPSHOT} target="_blank" rel="noopener noreferrer">Developer option: raw JSON data file <ExternalLink size={12}/></a>
+    </div>}
     {selected&&<div className="fm-dialog-backdrop" onMouseDown={event=>{if(event.target===event.currentTarget)setSelected(null);}}>
       <section className="fm-dialog" role="dialog" aria-modal="true" aria-label={selected.kind==='metric'?selected.metric.label:selected.kind==='dossier'?selected.dossier.title:selected.item.label}>
         <header><h3>{selected.kind==='metric'?selected.metric.label:selected.kind==='dossier'?selected.dossier.title:selected.item.label}</h3><button type="button" onClick={()=>setSelected(null)} aria-label="Close evidence panel"><X size={19}/></button></header>
