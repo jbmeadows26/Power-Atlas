@@ -48,6 +48,20 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
+    // Report a bug lives in the existing menu and never redirects visitors to GitHub.
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    const bugTrigger=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/});
+    await bugTrigger.waitFor({state:'visible'});
+    await bugTrigger.click();
+    const bugDialog=page.getByRole('dialog',{name:'Report a bug'});
+    await bugDialog.waitFor({state:'visible'});
+    const formSrc=await bugDialog.locator('iframe').getAttribute('src');
+    assert.match(formSrc||'',/^https:\/\/tally\.so\/embed\/LDKRaj\?/);
+    assert.match(formSrc||'',/section=Command\+center/);
+    assert.equal((formSrc||'').includes('github.com'),false,'No GitHub login allowed for bug reports');
+    await bugDialog.getByRole('button',{name:'Close bug report'}).click();
+    await bugDialog.waitFor({state:'detached'});
+    assert.equal(await page.locator('.ea-bug-dialog').count(),0,'Bug dialog failed to close');
     // Core release invariant: no global stat ribbon repeated on every page.
     assert.equal(await page.locator('.ea-ops').count(),0,'Repeated monitoring stats should not render anywhere');
     assert.equal(await page.locator('.ea-module-context').count(),0,'Generic duplicate page context should be removed');
