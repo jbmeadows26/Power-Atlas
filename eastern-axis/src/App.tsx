@@ -128,6 +128,16 @@ const sections = [
   'Methodology',
 ] as const;
 type Section = (typeof sections)[number];
+
+const sectionSlug = (section: Section): string => section.toLowerCase().replace(/\s+/g, '-');
+function sectionFromHash(hash: string): Section | null {
+  const raw = hash.replace(/^#/, '').toLowerCase();
+  let slug = raw;
+  try { slug = decodeURIComponent(raw); } catch { return null; }
+  if (['risks', 'risk', 'financial-risk-watch', 'financial-markets'].includes(slug)) return 'Risk watch';
+  return sections.find(section => sectionSlug(section) === slug) || null;
+}
+
 const focusCodes = ['RU', 'CN', 'IR', 'KP'];
 const fmt = (n: number) =>
   new Intl.NumberFormat('en-US', {
@@ -272,7 +282,7 @@ function MiniGlobe() {
   );
 }
 function App() {
-  const [view, setView] = useState<Section>('Overview');
+  const [view, setView] = useState<Section>(() => sectionFromHash(window.location.hash) || 'Overview');
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -291,6 +301,19 @@ function App() {
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
   const [bugReportOpen, setBugReportOpen] = useState(false);
+  useEffect(() => {
+    const onHashChange = () => {
+      const requested = sectionFromHash(window.location.hash);
+      if (requested) {
+        setView(requested);
+        setMobileMenu(false);
+        window.scrollTo({ top: 0, behavior: 'instant' });
+      }
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
 
   const reload = () => {
     setLoadError('');
@@ -365,13 +388,14 @@ function App() {
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
-    setView('Countries');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchView('Countries');
   };
   const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
     setView(next);
     setMobileMenu(false);
+    const targetHash = '#' + sectionSlug(next);
+    if (window.location.hash !== targetHash) window.history.pushState(null, '', targetHash);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
