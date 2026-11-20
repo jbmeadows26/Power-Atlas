@@ -111,6 +111,12 @@ export default function FinancialTransmission(){
        <strong>{data&&issuerOk>0?recordedFilings.length:'—'}</strong><span>item 1.03 / 2.04 disclosures in sampled 120-day window</span>
        <strong>{issuerOk||'—'}</strong><span>issuers with SEC index access</span>
      </div>
+     <div className="ft-submetrics ft-credit-proxies">{['DRBLACBS','QBPLNTLNNCUR'].map(id=>{
+       const m=metrics.get(id);
+       return <button type="button" key={id} onClick={()=>m?setSelected({kind:'metric',metric:m}):openMissing(id,id,data?.sources.find(s=>s.id==='fred:'+id)?.detail||'Unavailable','https://fred.stlouisfed.org/series/'+id)}>
+         <span>{m?.label||id}</span><strong>{m?fmt(m.value):'—'}</strong><small>{m?dateText(m.period)+' · '+m.unit:'Missing'}</small>
+       </button>;
+     })}</div>
      <button className="ft-more" type="button" aria-expanded={showIssuers} onClick={()=>setShowIssuers(v=>!v)}>{showIssuers?'Hide issuer evidence':'Open issuer evidence'} <ChevronDown size={15}/></button>
    </div>
   </div>
