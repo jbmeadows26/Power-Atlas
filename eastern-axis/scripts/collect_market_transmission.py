@@ -38,8 +38,18 @@ TICKERS = ("ANT", "NVDA", "MSFT", "GOOGL", "META", "AMZN", "ORCL", "AMD", "AVGO"
 BDC_TICKERS = {"ARCC", "OBDC", "BXSL", "GBDC"}
 # Official CIKs confirmed against issuer SEC filings; only a fallback when
 # the public ticker lookup is unavailable (per-filer submissions still probed).
-VERIFIED_CIKS = {"ANT": 2130357, "NVDA": 1045810, "ARCC": 1287750,
-                 "OBDC": 1655888, "BXSL": 1736035, "GBDC": 1476765}
+VERIFIED_CIKS = {"ANT": 2130357, "NVDA": 1045810, "MSFT": 789019,
+                 "GOOGL": 1652044, "META": 1326801, "AMZN": 1018724,
+                 "ORCL": 1341439, "AMD": 2488, "AVGO": 1730168,
+                 "CRWV": 1769628, "ARCC": 1287750, "OBDC": 1655888,
+                 "BXSL": 1736035, "GBDC": 1476765}
+VERIFIED_NAMES = {"ANT": "Anthropic, PBC", "NVDA": "NVIDIA Corporation",
+                  "MSFT": "Microsoft Corporation", "GOOGL": "Alphabet Inc.",
+                  "META": "Meta Platforms Inc.", "AMZN": "Amazon.com Inc.",
+                  "ORCL": "Oracle Corporation", "AMD": "Advanced Micro Devices Inc.",
+                  "AVGO": "Broadcom Inc.", "CRWV": "CoreWeave Inc.",
+                  "ARCC": "Ares Capital Corporation", "OBDC": "Blue Owl Capital Corporation",
+                  "BXSL": "Blackstone Secured Lending Fund", "GBDC": "Golub Capital BDC Inc."}
 ITEMS = {
     "1.03": ("Bankruptcy or receivership", "filing-review"),
     "2.04": ("Debt acceleration / obligation trigger", "filing-review"),
@@ -237,7 +247,7 @@ def collect_sec(now: dt.datetime, fetch=http_text, sleep=time.sleep):
         sources.append({"id": "sec:tickers", "status": "ok", "detail": str(len(companies)) + " mapped watchlist symbols",
                         "sourceUrl": SEC_CIK_MAP_URL, "checkedAt": checked})
     except (OSError, UnicodeError, ValueError, TypeError) as err:
-        companies = {ticker: {"ticker": ticker, "cik": cik, "name": ticker, "cikSource": "SEC-filed CIK cross-reference"}
+        companies = {ticker: {"ticker": ticker, "cik": cik, "name": VERIFIED_NAMES[ticker], "cikSource": "SEC-filed CIK cross-reference"}
                      for ticker, cik in VERIFIED_CIKS.items()}
         sources.append({"id": "sec:tickers", "status": "error", "detail": str(err)[:180],
                         "sourceUrl": SEC_CIK_MAP_URL, "checkedAt": checked})
