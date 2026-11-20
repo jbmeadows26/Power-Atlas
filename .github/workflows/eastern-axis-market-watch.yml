@@ -84,7 +84,7 @@ jobs:
           else
             git -c user.name="github-actions[bot]" \
               -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
-              commit -m "data(eastern-axis): refresh financial market pressure [skip ci]"
+              commit -m "data(eastern-axis): refresh financial market pressure"
             published=false
             for attempt in 1 2 3; do
               if git push origin HEAD:main; then
