@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
 import {api} from '@appdeploy/client';
 import {Activity,ArrowRight,ArrowUpRight,ChevronDown,Globe2,RadioTower,RefreshCcw,ShieldAlert,TriangleAlert,Waves} from 'lucide-react';
+import FinancialMarkets from './FinancialMarkets';
 import ResilienceWatch from './ResilienceWatch';
 import GlobalSystems from './GlobalSystems';
 import './riskDecisionBoard.css';
@@ -61,6 +62,7 @@ export default function RiskDecisionBoard({countryCode,countryName,cases,onCount
        <p>{countryCode==='all'?'Global research view':'Selected country: '+(countryName||countryCode)} · Live observations and historical vulnerabilities are separated. A screen is not an emergency forecast.</p>
      </div><button type="button" className="rdb-refresh" onClick={()=>setRevision(n=>n+1)} disabled={loading}><RefreshCcw size={15}/> Refresh</button>
    </header>
+   <FinancialMarkets/>
    <div className="rdb-headlines">
       <div><span>INFRASTRUCTURE WATCHES</span><strong>{probes?probes.incidents.length:'—'}</strong><small>{stale?'Snapshot stale or missing':riskNote}</small></div>
       <div><span>MACRO SCREENS</span><strong>{economic?breached.length+' / '+reported.length:'—'}</strong><small>Thresholds · annual observations</small></div>
