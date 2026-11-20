@@ -62,11 +62,16 @@ jobs:
         run: |
           python eastern-axis/scripts/collect_financial_markets.py --strict --output "$RUNNER_TEMP/financial-market-probe.json"
           python eastern-axis/scripts/collect_market_transmission.py --strict --output "$RUNNER_TEMP/financial-transmission-probe.json"
-          python - "$RUNNER_TEMP/financial-market-probe.json" <<'PY'
+          python - "$RUNNER_TEMP/financial-market-probe.json" "$RUNNER_TEMP/financial-transmission-probe.json" <<'PY'
           import json,sys
           snapshot=json.load(open(sys.argv[1],encoding='utf-8'))
           print("Market source check:",snapshot["status"])
           for source in snapshot["sources"]:
+              print(source["id"],source["status"],source["detail"])
+          transmission=json.load(open(sys.argv[2],encoding="utf-8"))
+          print("Financial transmission status:",transmission["status"])
+          print("SEC issuers connected:",sum(i["status"]=="ok" for i in transmission["issuers"]))
+          for source in transmission["sources"]:
               print(source["id"],source["status"],source["detail"])
           PY
 
