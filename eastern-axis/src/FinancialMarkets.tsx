@@ -124,7 +124,7 @@ export default function FinancialMarkets(){
     </div>
     <div className="fm-status-strip" aria-live="polite">
       <span className={collectionStale||!data?'fm-status-missing':riskSummary?'fm-status-watch':'fm-status-fresh'}>
-        {collectionStale?'STALE COLLECTION':!data?'NOT YET CONNECTED':riskSummary?'CROSS-MARKET SCREEN':'SOURCE CHECKED'}
+        {collectionStale?'STALE COLLECTION':!data?'NOT YET CONNECTED':riskSummary?'CROSS-MARKET SCREEN':data.status==='partial'?'PARTIAL SOURCE COVERAGE':'SOURCE CHECKED'}
       </span>
       <span>{data?('Checked '+dateText(data.checkedAt)+' · '+data.metrics.filter(m=>m.status==='ok').length+'/'+ORDER.length+' current'):'No verified market snapshot available'}</span>
       <span>Equities: <strong>{!data||collectionStale?'unknown':equitySignal?'watch':'no threshold breach in available data'}</strong></span>
@@ -135,11 +135,18 @@ export default function FinancialMarkets(){
       {ORDER.map(item=>{
         const metric=byId.get(item.id),fresh=metric?.status==='ok'&&!collectionStale;
         const delta=metric?.change5Pct;
+        const points=metric?.change5Points;
+        const movement=metric && points!==null && points!==undefined && (item.id==='BAMLH0A0HYM2'||item.id==='T10Y2Y')
+          ?(points>0?'+':'')+fmt(points*100,0)+' bps / 5 obs'
+          :metric && points!==null && points!==undefined && item.id==='STLFSI4'
+            ?(points>0?'+':'')+fmt(points,2)+' pts / 5 obs'
+            :metric && delta!==null && delta!==undefined
+              ?(delta>0?'+':'')+fmt(delta)+'% / 5 obs':'—';
         return <button key={item.id} type="button" className={'fm-metric '+(!fresh?'fm-metric-missing':'')} onClick={()=>metric?setSelected({kind:'metric',metric}):setDossiersOpen(true)} aria-label={item.label+' details and source'}>
           <div className="fm-metric-top"><span>{item.label}</span><small>{metric?metric.status==='stale'?'STALE':item.group:'UNAVAILABLE'}</small></div>
           <div className="fm-big">{metric?fmt(metric.value,metric.unit==='index'?1:2):'—'} <small>{metric?.unit==='percentage points'?'pp':metric?.unit==='index'?'':' '}</small></div>
           <div className={'fm-spark '+(delta!==null&&delta!==undefined&&delta<0?'negative':'')}>{metric?<Sparkline points={metric.history} label={item.label}/>:<span className="fm-no-trend">Awaiting observations</span>}</div>
-          <div className="fm-metric-bottom"><span>{metric?'Observed '+dateText(metric.period):'Data pending'}</span><strong>{metric&&delta!==null&&delta!==undefined?(delta>0?'+':'')+fmt(delta)+'% / 5 obs':'—'}</strong></div>
+          <div className="fm-metric-bottom"><span>{metric?'Observed '+dateText(metric.period):'Data pending'}</span><strong>{movement}</strong></div>
           <div className="fm-open">Open evidence <ArrowUpRight size={12}/></div>
         </button>;
       })}
