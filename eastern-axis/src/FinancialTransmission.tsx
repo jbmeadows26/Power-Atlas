@@ -64,6 +64,7 @@ export default function FinancialTransmission(){
  const stale=!data||!Number.isFinite(ageMs)||ageMs>12*3600000;
  const recordedFilings=(data?.filings||[]).filter(f=>f.classification==='filing-review');
  const sourceProblem=(data?.status==='partial'||data?.status==='unavailable'||stale);
+ const secBlock=data?.sources.find(s=>s.id==='sec:tickers'&&s.status==='error');
  const openMissing=(id:string,title:string,detail:string,sourceUrl?:string)=>setSelected({kind:'unavailable',id,title,detail,sourceUrl});
  return <section className="ft-root" aria-label="Credit and household financial transmission">
   <div className="ft-header">
@@ -76,8 +77,9 @@ export default function FinancialTransmission(){
    <span>{data?'Checked '+dateText(data.checkedAt):'No observations'}</span>
    <span>Issuers <strong>{data?issuerOk+'/'+data.issuers.length:'—'}</strong></span>
    <span>SEC review items <strong>{data&&issuerOk>0?recordedFilings.length:'Unknown'}</strong></span>
+   <a className="ft-snapshot-link" href={PATH} target="_blank" rel="noopener noreferrer">Transmission data <ExternalLink size={11}/></a>
   </div>
-  {(error||sourceProblem)&&<p className="ft-caution" role="status">{error||'Some source results are missing or stale; unavailable is not an all-clear.'}</p>}
+  {(error||sourceProblem)&&<p className="ft-caution" role="status">{error||('Some source results are missing or stale; unavailable is not an all-clear.'+(secBlock?' SEC issuer access: '+secBlock.detail+'.':''))}</p>}
   <div className="ft-top">
    {TOP.map(id=>{
     const m=metrics.get(id);
