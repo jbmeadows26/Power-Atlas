@@ -4,6 +4,7 @@ import CountryPicker from './CountryPicker';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import RiskDecisionBoard from './RiskDecisionBoard';
+import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
 import SupplyChain from './SupplyChain';
 import PhysicalEarlyWarning from './PhysicalEarlyWarning';
@@ -515,7 +516,7 @@ function App() {
           {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />}
           {overview && view === 'Risk watch' && <RiskDecisionBoard countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} onCountryMap={openGeospatial} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
-          {overview && view === 'Coverage audit' && <><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
+          {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
                     {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
