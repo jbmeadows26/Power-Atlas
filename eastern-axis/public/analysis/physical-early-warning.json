@@ -1,36 +1,36 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-20T05:01:58Z",
+  "checkedAt": "2026-11-20T19:15:46Z",
   "status": "ok",
   "metrics": [
     {
       "id": "sofr-rate",
       "label": "US secured overnight financing rate",
-      "value": 3.9,
-      "previous": 3.92,
-      "period": "2026-11-18",
-      "previousPeriod": "2026-11-17",
+      "value": 3.91,
+      "previous": 3.9,
+      "period": "2026-11-19",
+      "previousPeriod": "2026-11-18",
       "interval": "daily",
       "unit": "% annualized",
       "group": "US",
       "compareMode": "basis-points",
-      "changePct": -0.51,
-      "changeBps": -2.0,
+      "changePct": 0.256,
+      "changeBps": 1.0,
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr"
     },
     {
       "id": "sofr-volume",
       "label": "SOFR overnight repo transaction volume",
-      "value": 3134.0,
-      "previous": 3173.0,
-      "period": "2026-11-18",
-      "previousPeriod": "2026-11-17",
+      "value": 3161.0,
+      "previous": 3134.0,
+      "period": "2026-11-19",
+      "previousPeriod": "2026-11-18",
       "interval": "daily",
       "unit": "US$ billions",
       "group": "US",
       "compareMode": "percent",
-      "changePct": -1.229,
+      "changePct": 0.862,
       "changeBps": null,
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr"
@@ -456,10 +456,10 @@
     {
       "repository": "curl/curl",
       "score": 9.1,
-      "published": "2026-11-19",
+      "published": "2026-11-20",
       "previousScore": 9.1,
-      "previousCheckedAt": "2026-11-19T21:50:50Z",
-      "checkedAt": "2026-11-20T05:02:01Z",
+      "previousCheckedAt": "2026-11-20T05:02:01Z",
+      "checkedAt": "2026-11-20T19:15:49Z",
       "codeReview": 0,
       "signedReleases": 10,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/curl/curl",
@@ -470,8 +470,8 @@
       "score": 6.3,
       "published": "2026-11-09",
       "previousScore": 6.3,
-      "previousCheckedAt": "2026-11-19T21:50:50Z",
-      "checkedAt": "2026-11-20T05:02:01Z",
+      "previousCheckedAt": "2026-11-20T05:02:01Z",
+      "checkedAt": "2026-11-20T19:15:49Z",
       "codeReview": 0,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/openssl/openssl",
@@ -482,8 +482,8 @@
       "score": 7.5,
       "published": "2026-11-16",
       "previousScore": 7.5,
-      "previousCheckedAt": "2026-11-19T21:50:50Z",
-      "checkedAt": "2026-11-20T05:02:01Z",
+      "previousCheckedAt": "2026-11-20T05:02:01Z",
+      "checkedAt": "2026-11-20T19:15:49Z",
       "codeReview": 1,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/libexpat/libexpat",
@@ -494,86 +494,86 @@
     {
       "id": "sofr",
       "status": "ok",
-      "detail": "2 measurements; source period 2026-11-18",
-      "checkedAt": "2026-11-20T05:01:58Z"
+      "detail": "2 measurements; source period 2026-11-19",
+      "checkedAt": "2026-11-20T19:15:46Z"
     },
     {
       "id": "pink-sheet",
       "status": "ok",
       "detail": "11 measurements; source period 2026-10",
-      "checkedAt": "2026-11-20T05:01:59Z"
+      "checkedAt": "2026-11-20T19:15:46Z"
     },
     {
       "id": "fao-food",
       "status": "ok",
       "detail": "6 measurements; source period 2026-10",
-      "checkedAt": "2026-11-20T05:01:59Z"
+      "checkedAt": "2026-11-20T19:15:47Z"
     },
     {
       "id": "gps:world",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:01:59Z"
+      "checkedAt": "2026-11-20T19:15:47Z"
     },
     {
       "id": "gps:united-states",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:01:59Z"
+      "checkedAt": "2026-11-20T19:15:47Z"
     },
     {
       "id": "gps:taiwan-strait",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:00Z"
+      "checkedAt": "2026-11-20T19:15:47Z"
     },
     {
       "id": "gps:persian-gulf",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:00Z"
+      "checkedAt": "2026-11-20T19:15:48Z"
     },
     {
       "id": "gps:baltic-sea",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:00Z"
+      "checkedAt": "2026-11-20T19:15:48Z"
     },
     {
       "id": "gps:strait-of-hormuz",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:00Z"
+      "checkedAt": "2026-11-20T19:15:48Z"
     },
     {
       "id": "gps:eastern-mediterranean",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:01Z"
+      "checkedAt": "2026-11-20T19:15:48Z"
     },
     {
       "id": "gps:east-asia",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-20T05:02:01Z"
+      "checkedAt": "2026-11-20T19:15:49Z"
     },
     {
       "id": "scorecard:curl/curl",
       "status": "ok",
-      "detail": "Published Scorecard 2026-11-19; current score 9.1/10",
-      "checkedAt": "2026-11-20T05:02:01Z"
+      "detail": "Published Scorecard 2026-11-20; current score 9.1/10",
+      "checkedAt": "2026-11-20T19:15:49Z"
     },
     {
       "id": "scorecard:openssl/openssl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-09; current score 6.3/10",
-      "checkedAt": "2026-11-20T05:02:01Z"
+      "checkedAt": "2026-11-20T19:15:49Z"
     },
     {
       "id": "scorecard:libexpat/libexpat",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-16; current score 7.5/10",
-      "checkedAt": "2026-11-20T05:02:01Z"
+      "checkedAt": "2026-11-20T19:15:49Z"
     }
   ],
   "limitations": [
