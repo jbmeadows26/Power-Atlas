@@ -53,6 +53,16 @@ async function qa(page,width){
     else if(path.startsWith('/api/global-systems/'))data=globalData;
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
   });
+  // Independent resilience telemetry is fixture-backed: CI must not depend
+  // on a live external collector to verify the drilldown behavior.
+  await page.route('**/eastern-axis/public/telemetry/resilience.json*',route=>route.fulfill({
+    status:200,contentType:'application/json',body:JSON.stringify({
+      schemaVersion:1,checkedAt:'2026-11-20T05:00:00Z',status:'ok',
+      sampledCount:3,incidents:[],screeningSignals:[],
+      capabilities:[{id:'gnss',status:'sampled'}],
+      history:[{checkedAt:'2026-11-20T05:00:00Z',observed:3,alerts:0,errors:0}]
+    })
+  }));
   await page.route('https://cdn.jsdelivr.net/**',route=>route.abort());
   // No external form submission during QA. Test the integration, not a fake receipt.
   await page.route('https://tally.so/**',route=>route.fulfill({status:200,contentType:'text/html',body:'<!DOCTYPE html><title>QA form placeholder</title>'}));
