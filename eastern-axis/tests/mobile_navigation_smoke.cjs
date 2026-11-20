@@ -58,8 +58,12 @@ async function qa(page,width){
   await page.route('**/eastern-axis/public/telemetry/resilience.json*',route=>route.fulfill({
     status:200,contentType:'application/json',body:JSON.stringify({
       schemaVersion:1,checkedAt:'2026-11-20T05:00:00Z',status:'ok',
-      sampledCount:3,incidents:[],screeningSignals:[],
-      capabilities:[{id:'gnss',status:'sampled'}],
+      summary:'Fixture-only probe sample',sampledCount:3,incidents:[],screeningSignals:[],
+      observations:[{id:'fixture-probe',title:'Fixture endpoint health',category:'regional_http',
+        checkedAt:'2026-11-20T05:00:00Z',source:'Test-only observation',
+        status:'observed',scope:'Fixture: no external services sampled'}],
+      capabilities:[{id:'gnss',title:'Fixture GNSS source',source:'Test harness',status:'sampled'}],
+      limitations:['Fixtures are not operational evidence'],
       history:[{checkedAt:'2026-11-20T05:00:00Z',observed:3,alerts:0,errors:0}]
     })
   }));
