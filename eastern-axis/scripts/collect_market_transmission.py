@@ -31,6 +31,8 @@ HOUSEHOLD_SERIES = (
     ("ICSA", "Initial jobless claims", "Labor", "weekly", "persons", "US Department of Labor"),
     ("DRTSCILM", "C&I bank lending standards", "Credit", "quarterly", "net % tightening", "Federal Reserve Board"),
     ("BAMLC0A0CM", "Investment-grade credit spread", "Credit", "daily", "percentage points", "ICE Data Indices, LLC"),
+    ("DRBLACBS", "Bank business-loan delinquency", "Credit", "quarterly", "% loans", "Federal Reserve Board"),
+    ("QBPLNTLNNCUR", "FDIC noncurrent loan rate", "Credit", "quarterly", "% loans", "Federal Deposit Insurance Corporation"),
 )
 TICKERS = ("ANT", "NVDA", "MSFT", "GOOGL", "META", "AMZN", "ORCL", "AMD", "AVGO", "CRWV", "ARCC", "OBDC", "BXSL", "GBDC")
 BDC_TICKERS = {"ARCC", "OBDC", "BXSL", "GBDC"}
@@ -296,6 +298,13 @@ def derive_alerts(fred: list[dict], filings: list[dict], today: dt.date) -> list
                        "rule": ">=0.3 percentage points between quarterly reported periods",
                        "evidenceIds": ["DRCCLACBS"],
                        "claim": "Observed broad bank-loan distress proxy; not attributed to AI equity prices."})
+    biz = by_id.get("DRBLACBS")
+    if biz is not None and biz["changePoints"] is not None and biz["changePoints"] >= 0.3:
+        alerts.append({"id": "business-delinquency", "domain": "Credit", "level": "watch",
+                       "title": "Business-loan delinquency deterioration",
+                       "rule": ">=0.30 percentage points between published quarterly observations",
+                       "evidenceIds": ["DRBLACBS"],
+                       "claim": "Bank business-loan aggregate, not loan-by-loan private-credit defaults."})
     stress = [f for f in filings if f["item"] in ("1.03", "2.04")
               and (today - dt.date.fromisoformat(f["filed"])).days <= 30]
     if stress:
