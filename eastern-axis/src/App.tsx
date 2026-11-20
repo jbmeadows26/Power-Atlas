@@ -128,6 +128,13 @@ const sections = [
   'Methodology',
 ] as const;
 type Section = (typeof sections)[number];
+const sectionSlug = (section: Section) => section.toLowerCase().replace(/\s+/g, '-');
+const sectionFromHash = (): Section => {
+  if (typeof window === 'undefined') return 'Overview';
+  const fragment = window.location.hash.slice(1).toLowerCase();
+  if (fragment === 'risks' || fragment === 'risk') return 'Risk watch';
+  return sections.find((section) => sectionSlug(section) === fragment) || 'Overview';
+};
 const focusCodes = ['RU', 'CN', 'IR', 'KP'];
 const fmt = (n: number) =>
   new Intl.NumberFormat('en-US', {
@@ -272,7 +279,7 @@ function MiniGlobe() {
   );
 }
 function App() {
-  const [view, setView] = useState<Section>('Overview');
+  const [view, setView] = useState<Section>(sectionFromHash);
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -291,6 +298,15 @@ function App() {
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
   const [bugReportOpen, setBugReportOpen] = useState(false);
+
+  useEffect(() => {
+    const followHash = () => {
+      setView(sectionFromHash());
+      setMobileMenu(false);
+    };
+    window.addEventListener('hashchange', followHash);
+    return () => window.removeEventListener('hashchange', followHash);
+  }, []);
 
   const reload = () => {
     setLoadError('');
@@ -365,13 +381,14 @@ function App() {
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
-    setView('Countries');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    switchView('Countries');
   };
   const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
     setView(next);
     setMobileMenu(false);
+    const slug = sectionSlug(next);
+    if (window.location.hash !== '#' + slug) window.history.pushState(null, '', '#' + slug);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
