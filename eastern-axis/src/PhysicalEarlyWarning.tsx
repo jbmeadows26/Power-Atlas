@@ -40,6 +40,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
   {countryCode:string;countryName?:string;onOpenSupplyChain?:()=>void;initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss'}) {
   const [category,setCategory]=useState('maritime');
   const [search,setSearch]=useState('');
+  const [evidenceOpen,setEvidenceOpen]=useState(false);
   const [measurementFilter,setMeasurementFilter]=useState<string>(initialMeasurementFilter);
   useEffect(()=>setMeasurementFilter(initialMeasurementFilter),[initialMeasurementFilter]);
   const [scenario,setScenario]=useState('shipping');
@@ -107,24 +108,25 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
     m.id.startsWith('gps-')?'gnss':m.id.startsWith('fao-')?'food':'commodities';
   const sourceFilters=[
     {id:'all',name:'All measurements'},
+     {id:'review',name:'Review changes'},
     {id:'funding',name:'Overnight funding'},
     {id:'commodities',name:'Industrial inputs'},
     {id:'food',name:'Food prices'},
     {id:'gnss',name:'GNSS accuracy'}
   ];
-  const visibleMetrics=metrics.filter(m=>measurementFilter==='all'||metricClass(m)===measurementFilter);
+  const visibleMetrics=metrics.filter(m=>measurementFilter==='all'||(measurementFilter==='review'?signalScreen(m):metricClass(m)===measurementFilter));
   const checked=snapshot.sources.filter(s=>s.status==='ok').length;
   return <section className="pew-root" aria-label="Global physical and economic early-warning intelligence">
     <div className="pew-eyebrow"><Activity size={15}/> INTELLIGENCE / GLOBAL SYSTEMIC EARLY WARNING</div>
     <div className="pew-heading">
-      <div><h1>Before systems <em>break.</em></h1><p>Watch stress in the physical economy before it reaches critical infrastructure, factories and households. Fourteen risk domains, attributable public observations, and explicitly hypothetical cascade models.</p></div>
+      <div><h1>Early warning <em>signals.</em></h1><p>Measured changes first. Compare source-dated readings; investigate unusual movement before deciding what it means.</p></div>
       {onOpenSupplyChain&&<button type="button" onClick={onOpenSupplyChain}>Existing freight data <ArrowRight size={15}/></button>}
     </div>
     <div className="pew-summary">
-      <div><span>INTELLIGENCE DOMAINS</span><strong>{earlyDomains.length}</strong><small>Cross-sector coverage registry</small></div>
-      <div><span>VALIDATED MARKET OBSERVATIONS</span><strong>{metrics.length}</strong><small>Source-dated daily and monthly readings</small></div>
-      <div><span>CHANGE SCREENS</span><strong>{signals.length}</strong><small>Price/volume ≥10%, SOFR ≥20 bps, GNSS ≥5 pp — review only</small></div>
-      <div><span>LAST COLLECTION</span><strong className="pew-date">{readableDate(snapshot.checkedAt)}</strong><small>{fresh?'Recent check':observedAge===null?'No source check':'Stale or unverified — not live'}</small></div>
+      <div><span>MEASURED SERIES</span><strong>{metrics.length}</strong><small>With published comparison</small></div>
+      <div><span>REVIEW SCREENS</span><strong>{signals.length}</strong><small>Rule-based movement, not incidents</small></div>
+      <div><span>COLLECTOR CHECKS</span><strong>{snapshot.sources.length?checked+'/'+snapshot.sources.length:'—'}</strong><small>Not a global-coverage score</small></div>
+      <div><span>LAST CHECK</span><strong className="pew-date">{readableDate(snapshot.checkedAt)}</strong><small>{fresh?'Recent source check':observedAge===null?'Not checked':'STALE — historical only'}</small></div>
     </div>
     <div className={'pew-health '+(!fresh?'pew-health-warn':'')}>
       {fresh?<ShieldCheck size={17}/>:<AlertTriangle size={17}/>}
@@ -133,10 +135,10 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
       <button onClick={()=>setRecheck(x=>x+1)} type="button">Reload snapshot</button>
     </div>
     <div className="pew-source-readings">
-      <div className="pew-section-title"><span><Database size={16}/> VERIFIED INPUTS & INFRASTRUCTURE PROXIES</span><h2>Observed signals, not predictions</h2><p>Source-specific monthly prices, daily U.S. funding, and regional aircraft-reported GNSS quality. The latter is not a confirmed jamming rate and cannot establish PTP or datacenter failure.</p></div>
+      <div className="pew-section-title"><span><Database size={16}/> MEASURED CHANGE / SOURCE DATED</span><h2>What changed?</h2><p>Funding, commodity and GNSS observations with their own geographic coverage. Regional aviation samples do not establish interference or a country's role.</p></div>
       {!global&&metrics.some(m=>m.group.startsWith('regional:'))&&<p className="pew-region-note">Neighboring-region GNSS readings are <strong>regional context only</strong>. They are not measurements within {scope}, evidence of a country's involvement, or confirmation of terrestrial infrastructure failure.</p>}
       <div className="pew-scenario-nav" aria-label="Filter source measurements">{sourceFilters.map(filter=><button key={filter.id} type="button" className={measurementFilter===filter.id?'active':''} aria-pressed={measurementFilter===filter.id} onClick={()=>setMeasurementFilter(filter.id)}>{filter.name}</button>)}</div>
-      {visibleMetrics.length===0?<p className="pew-empty">No validated observations match this filter and country context. Existing PortWatch and Comtrade panels remain under Supply chain.</p>:
+      {visibleMetrics.length===0?<p className="pew-empty">No measured changes match this filter. Missing measurements are not an all-clear; shipping and trade measurements live under Supply chain.</p>:
       <div className="pew-price-grid">{visibleMetrics.map(m=><article key={m.id}>
         <span>{m.source} · {m.group==='global'?'GLOBAL BENCHMARK':m.group.startsWith('regional:')?'REGIONAL CONTEXT: '+m.group.slice('regional:'.length).replaceAll('-',' ').toUpperCase():m.group}</span><strong>{m.label}</strong>
         <div className="pew-price"><b>{format(m.value)}</b> <small>{m.unit}</small></div>
@@ -154,6 +156,13 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
         <a href={m.sourceUrl} target="_blank" rel="noopener noreferrer">Source reference / methodology <ArrowUpRight size={13}/></a>
       </article>)}</div>}
     </div>
+    <div className="pew-evidence-gate">
+      <div><strong>Detailed evidence & monitoring gaps</strong><span>{earlyDomains.length} research domains · source planning, OSS checks and hypothetical scenarios</span></div>
+      <button type="button" aria-expanded={evidenceOpen} aria-controls="pew-evidence-detail" onClick={()=>setEvidenceOpen(v=>!v)}>
+        {evidenceOpen?'Hide source data':'View source data'} <ArrowRight size={14}/>
+      </button>
+    </div>
+    {evidenceOpen&&<div className="pew-evidence-detail" id="pew-evidence-detail">
     <details className="pew-source-health"><summary>Source collection and missing-data audit · {checked}/{snapshot.sources.length} checks passed</summary>
       <p>Success means a schema-validated reading, not full geographic coverage. Failures remain visible; no zeros are substituted.</p>
       <div>{snapshot.sources.map(src=><div key={src.id}><strong>{src.id}</strong><span className={src.status==='ok'?'pew-check-ok':'pew-check-bad'}>{src.status.toUpperCase()}</span><small>{src.detail} · {readableDate(src.checkedAt)}</small></div>)}</div>
@@ -189,5 +198,6 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
     <div className="pew-scenario-nav">{scenarios.map(s=><button type="button" className={s.id===scenario?'active':''} key={s.id} onClick={()=>setScenario(s.id)}>{s.label}</button>)}</div>
     <div className="pew-nodes">{activeScenario.nodes.map((node,i)=><div key={node} className="pew-node"><span>{String(i+1).padStart(2,'0')}</span><strong>{node}</strong>{i<activeScenario.nodes.length-1&&<ArrowRight size={17}/>}</div>)}</div>
     <div className="pew-caveat"><Ship size={17}/><p><strong>How to use this:</strong> correlate independent changes with date-matched baselines, affected geography and verified dependency links. An increased input price or expiring labor contract is not sufficient evidence to issue a red alert. The source registry has no numeric contagion probabilities until a measured network is established. Anomalous maintenance patterns alone must not be attributed to a malicious developer.</p></div>
+    </div>}
   </section>;
 }
