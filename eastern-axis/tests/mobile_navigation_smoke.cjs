@@ -107,7 +107,7 @@ async function qa(page,width){
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
     await nav.getByRole('button',{name:'Risks'}).click();
-    await page.getByRole('heading',{name:/Pressure points/i}).waitFor();
+    await page.getByRole('region',{name:'Risk summary visual dashboard'}).getByRole('heading',{name:/Risk signals, at a glance/i}).waitFor();
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
     await nav.getByRole('button',{name:'More'}).click();
     await page.locator('#ea-primary-navigation.sidebar-open').waitFor({state:'visible'});
