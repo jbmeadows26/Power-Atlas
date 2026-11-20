@@ -120,6 +120,16 @@ async function qa(page,width){
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
+    await nav.getByRole('button',{name:'Risks'}).click();
+    const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
+    await risk.waitFor({state:'visible'});
+    assert.equal(await risk.locator('.rdb-chart').count(),4,'Risks should lead with four compact charts');
+    assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Raw risk data should start collapsed');
+    await risk.getByRole('button',{name:'View source data'}).click();
+    await risk.locator('.rw-probes').waitFor({state:'visible'});
+    await risk.getByRole('button',{name:'Hide details'}).click();
+    await nav.getByRole('button',{name:'Countries'}).click();
+    await page.getByRole('button',{name:'Open map'}).click();
     await page.locator('.cc-map-actions button').first().waitFor({state:'visible'});
   }
   const geometry=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:window.innerWidth}));
