@@ -4,6 +4,7 @@ import importlib.util
 import pathlib
 import sys
 import unittest
+import urllib.error
 
 SCRIPT = pathlib.Path(__file__).resolve().parents[1] / "scripts" / "collect_market_transmission.py"
 spec = importlib.util.spec_from_file_location("collect_market_transmission", SCRIPT)
@@ -98,6 +99,23 @@ class FinancialTransmissionTests(unittest.TestCase):
                          {"ig-spread-widening", "card-delinquency", "sec-disclosure-review"})
         self.assertEqual([s["evidenceIds"] for s in alerts if s["id"] == "sec-disclosure-review"],
                          [["ABC:recent"]])
+
+    def test_sec_access_403_circuits_after_first_index_request(self):
+        seen = []
+        def blocked(url, accept="application/json"):
+            seen.append(url)
+            if url.endswith("company_tickers.json"):
+                raise urllib.error.HTTPError(url, 403, "Forbidden", {}, None)
+            raise urllib.error.HTTPError(url, 403, "Forbidden", {}, None)
+        issuers, filings, sources = collector.collect_sec(
+            dt.datetime(2026, 11, 20, tzinfo=dt.timezone.utc),
+            fetch=blocked, sleep=lambda _: None
+        )
+        self.assertEqual(len(seen), 2)
+        self.assertEqual(len(issuers), len(collector.TICKERS))
+        self.assertEqual(len(filings), 0)
+        self.assertTrue(all(i["status"] == "unavailable" for i in issuers))
+        self.assertTrue(any("further SEC requests paused" in s["detail"] for s in sources))
 
     def test_business_loan_delinquency_is_a_bank_proxy_not_private_loan_default(self):
         metrics = [{"id": "DRBLACBS", "status": "ok", "changePoints": 0.32}]
