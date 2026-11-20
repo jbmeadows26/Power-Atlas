@@ -305,7 +305,11 @@ function App() {
       setMobileMenu(false);
     };
     window.addEventListener('hashchange', followHash);
-    return () => window.removeEventListener('hashchange', followHash);
+    window.addEventListener('popstate', followHash);
+    return () => {
+      window.removeEventListener('hashchange', followHash);
+      window.removeEventListener('popstate', followHash);
+    };
   }, []);
 
   const reload = () => {
