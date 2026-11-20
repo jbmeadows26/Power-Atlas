@@ -32,7 +32,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: eastern-axis-market-watch
+  group: eastern-axis-market-watch-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
