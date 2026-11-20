@@ -5,7 +5,7 @@ import './financialTransmission.css';
 type HistoricalPoint = {date:string;value:number};
 type Metric = {id:string;label:string;domain:string;cadence:string;unit:string;value:number;period:string;previous:number|null;previousPeriod:string|null;changePoints:number|null;status:string;periodAgeDays:number;history:HistoricalPoint[];source:string;sourceUrl:string};
 type Fact = {valueUSD:number;periodEnd:string;filed:string;form:string;taxonomyTag:string;sourceUrl:string|null};
-type Issuer = {ticker:string;name:string;cik:number|null;status:string;sourceUrl?:string;latestReport:{form:string;filed:string;url:string}|null;balanceSheet:{cash:Fact|null;longTermDebt:Fact|null;note:string}|null};
+type Issuer = {ticker:string;name:string;sector?:string;cik:number|null;status:string;sourceUrl?:string;latestReport:{form:string;filed:string;url:string}|null;balanceSheet:{cash:Fact|null;longTermDebt:Fact|null;note:string}|null};
 type Filing = {id:string;ticker:string;company:string;filed:string;item:string;title:string;classification:string;sourceUrl:string;note:string};
 type Signal = {id:string;domain:string;level:string;title:string;rule:string;evidenceIds:string[];claim:string};
 type Source = {id:string;status:string;detail:string;sourceUrl:string;checkedAt:string};
@@ -38,6 +38,7 @@ export default function FinancialTransmission(){
  const [revision,setRevision]=useState(0);
  const [showAll,setShowAll]=useState(false);
  const [showIssuers,setShowIssuers]=useState(false);
+ const [issuerGroup,setIssuerGroup]=useState('AI ecosystem');
  const [selected,setSelected]=useState<Selection|null>(null);
  useEffect(()=>{
   let alive=true;setError('');
@@ -105,7 +106,7 @@ export default function FinancialTransmission(){
     })}</div>
    </div>
    <div className="ft-panel">
-     <div className="ft-panel-heading"><h4>AI issuer filing surveillance</h4><span>SEC EDGAR · sampled watchlist</span></div>
+     <div className="ft-panel-heading"><h4>AI & private-credit filings</h4><span>SEC EDGAR · sampled issuers</span></div>
      <div className="ft-issuer-summary">
        <strong>{data&&issuerOk>0?recordedFilings.length:'—'}</strong><span>item 1.03 / 2.04 disclosures in sampled 120-day window</span>
        <strong>{issuerOk||'—'}</strong><span>issuers with SEC index access</span>
@@ -114,12 +115,13 @@ export default function FinancialTransmission(){
    </div>
   </div>
   {showIssuers&&<div className="ft-issuers">
-    {(data?.issuers||[]).map(issuer=><button type="button" key={issuer.ticker} onClick={()=>setSelected({kind:'issuer',issuer,filings:(data?.filings||[]).filter(f=>f.ticker===issuer.ticker)})}>
+    <div className="ft-issuer-filter"><label htmlFor="ft-sector">Issuer group</label><select id="ft-sector" value={issuerGroup} onChange={event=>setIssuerGroup(event.target.value)}><option value="AI ecosystem">AI ecosystem</option><option value="Listed private-credit BDC">Listed private-credit lenders</option></select></div>
+    {(data?.issuers||[]).filter(issuer=>(issuer.sector||"AI ecosystem")===issuerGroup).map(issuer=><button type="button" key={issuer.ticker} onClick={()=>setSelected({kind:'issuer',issuer,filings:(data?.filings||[]).filter(f=>f.ticker===issuer.ticker)})}>
       <b>{issuer.ticker}</b><span>{issuer.name}</span>
       <small>{issuer.status==='ok'?(issuer.latestReport?.form||'SEC index')+' · '+dateText(issuer.latestReport?.filed):'SOURCE UNAVAILABLE'}</small><ArrowUpRight size={13}/>
     </button>)}
     {!data&&<p>No verified issuer index</p>}
-    {recordedFilings.length>0&&<div className="ft-filings"><h4>Filings requiring inspection</h4>{recordedFilings.slice(0,16).map(f=><button type="button" key={f.id} onClick={()=>setSelected({kind:'filing',filing:f})}><b>{f.ticker}</b><span>{f.item}: {f.title}</span><small>{dateText(f.filed)}</small></button>)}</div>}
+    {recordedFilings.filter(f=>data?.issuers.find(i=>i.ticker===f.ticker)?.sector===issuerGroup).length>0&&<div className="ft-filings"><h4>Filings requiring inspection</h4>{recordedFilings.filter(f=>data?.issuers.find(i=>i.ticker===f.ticker)?.sector===issuerGroup).slice(0,16).map(f=><button type="button" key={f.id} onClick={()=>setSelected({kind:'filing',filing:f})}><b>{f.ticker}</b><span>{f.item}: {f.title}</span><small>{dateText(f.filed)}</small></button>)}</div>}
   </div>}
   <div className="ft-auxiliary"><button type="button" aria-expanded={showAll} onClick={()=>setShowAll(v=>!v)}>
     {showAll?'Hide data-access gaps':'Source coverage & intraday limitations'} <ChevronDown size={14}/></button>
