@@ -1,0 +1,106 @@
+name: Eastern Axis market contagion watch
+on:
+  schedule:
+    - cron: '17 1,7,13,19 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/collect_financial_markets.py'
+      - 'eastern-axis/tests/test_financial_markets.py'
+      - 'eastern-axis/src/FinancialMarkets.tsx'
+      - 'eastern-axis/src/financialMarkets.css'
+      - '.github/workflows/eastern-axis-market-watch.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/collect_financial_markets.py'
+      - 'eastern-axis/tests/test_financial_markets.py'
+      - 'eastern-axis/src/FinancialMarkets.tsx'
+      - 'eastern-axis/src/financialMarkets.css'
+      - 'eastern-axis/src/RiskDecisionBoard.tsx'
+      - '.github/workflows/eastern-axis-market-watch.yml'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: eastern-axis-market-watch
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    name: Test market risk screening and dashboard build
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify stale/missing data and separate credit/equity classification
+        run: python -m unittest discover -s eastern-axis/tests -p test_financial_markets.py -v
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build mobile and desktop dashboard
+        working-directory: eastern-axis
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Check public FRED market data on proposed changes (do not publish)
+        if: github.event_name == 'pull_request'
+        run: |
+          python eastern-axis/scripts/collect_financial_markets.py --strict --output "$RUNNER_TEMP/financial-market-probe.json"
+          python - "$RUNNER_TEMP/financial-market-probe.json" <<'PY'
+          import json,sys
+          snapshot=json.load(open(sys.argv[1],encoding='utf-8'))
+          print("Market source check:",snapshot["status"])
+          for source in snapshot["sources"]:
+              print(source["id"],source["status"],source["detail"])
+          PY
+
+  publish:
+    needs: validate
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Collect FRED-published observations with explicit source dates
+        run: python eastern-axis/scripts/collect_financial_markets.py --strict
+      - name: Publish verified snapshot and trigger GitHub Pages update
+        run: |
+          git add eastern-axis/public/analysis/financial-markets.json
+          if git diff --cached --quiet; then
+            echo "No market observation changes."
+          else
+            git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit -m "data(eastern-axis): refresh financial market pressure [skip ci]"
+            published=false
+            for attempt in 1 2 3; do
+              if git push origin HEAD:main; then
+                published=true
+                break
+              fi
+              git fetch origin main
+              if ! git -c user.name="github-actions[bot]" -c user.email="41898282+github-actions[bot]@users.noreply.github.com" rebase origin/main; then
+                git rebase --abort || true
+                echo "Concurrent edit to market observations: manual review required" >&2
+                exit 1
+              fi
+              sleep $((attempt * 3))
+            done
+            if [ "$published" != true ]; then
+              echo "Could not safely publish snapshot" >&2
+              exit 1
+            fi
+          fi
