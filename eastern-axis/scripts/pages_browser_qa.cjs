@@ -241,6 +241,22 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
       assert.equal(await page.locator('.dr-root').count(),sectionName==='Command center'?1:0,sectionName+' displays Home-specific metrics on a specialist tab');
+      if(sectionName==='Early warning'){
+        const early=page.getByRole('region',{name:'Global physical and economic early-warning intelligence'});
+        await early.getByRole('heading',{name:'Early warning signals.'}).waitFor({state:'visible'});
+        assert.equal(await early.locator('.pew-domain-nav,.pew-indicators,.pew-nodes,.pew-source-health').count(),0,
+          'Source-registry cards must not consume the Early Warning screen by default');
+        assert.equal(await early.locator('.pew-summary>div').count(),4,'Missing four primary warning metrics');
+        await early.getByRole('button',{name:'Review changes'}).click();
+        await early.getByRole('button',{name:'All measurements'}).click();
+        const gate=early.getByRole('button',{name:'View source data'});
+        assert.equal(await gate.getAttribute('aria-expanded'),'false','Evidence is open by default');
+        await gate.click();
+        await early.locator('.pew-domain-nav').waitFor({state:'visible'});
+        await early.locator('.pew-indicators article').first().waitFor({state:'visible'});
+        await early.getByRole('button',{name:'Hide source data'}).click();
+        assert.equal(await early.locator('.pew-indicators').count(),0,'Source data failed to collapse');
+      }
       const mainText=await page.locator('.content').innerText();
       assert.ok(mainText.length>90,sectionName+' rendered an empty content panel');
       const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
