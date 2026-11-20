@@ -191,6 +191,18 @@ async function qa(page,width){
     await page.getByRole('button',{name:'Open map'}).click();
     await page.locator('.cc-map-actions button').first().waitFor({state:'visible'});
   }
+  // Public URLs must land in the actual workspace they promise, including on reload.
+  await page.goto(BASE_URL+'#risk-watch',{waitUntil:'domcontentloaded'});
+  await page.getByRole('region',{name:'Risk summary visual dashboard'}).getByRole('heading',{name:/Risk signals, at a glance/i}).waitFor({state:'visible'});
+  assert.equal(new URL(page.url()).hash,'#risk-watch','Deep link lost intended section');
+  await page.reload({waitUntil:'domcontentloaded'});
+  await page.getByRole('region',{name:'Risk summary visual dashboard'}).waitFor({state:'visible'});
+  if(width<=980) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Home'}).click();
+  else await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).getByRole('button',{name:'Command'}).click();
+  assert.equal(new URL(page.url()).hash,'#overview','Navigation must update the shareable URL');
+  await page.goBack({waitUntil:'domcontentloaded'});
+  await page.getByRole('region',{name:'Risk summary visual dashboard'}).waitFor({state:'visible'});
+  assert.equal(new URL(page.url()).hash,'#risk-watch','Browser back must restore Risk Watch');
   const geometry=await page.evaluate(()=>({page:document.documentElement.scrollWidth,viewport:window.innerWidth}));
   assert.ok(geometry.page<=geometry.viewport+2,'Unexpected horizontal scrolling: '+JSON.stringify(geometry));
   assert.deepEqual(pageErrors,[],'Uncaught browser errors');
