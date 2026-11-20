@@ -196,10 +196,11 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
-    const resilience=page.getByRole('region',{name:'Independent systemic resilience monitoring'});
-    await resilience.waitFor({state:'visible',timeout:15000});
-    await resilience.getByRole('heading',{name:'Early signs of cascading failure'}).waitFor({state:'visible',timeout:15000});
-    await resilience.getByText('Source observations',{exact:true}).waitFor({state:'visible',timeout:25000});
+    const scopedRisk=page.getByRole('region',{name:'Risk summary visual dashboard'});
+    await scopedRisk.waitFor({state:'visible',timeout:15000});
+    await scopedRisk.getByRole('heading',{name:'Risk signals, at a glance.'}).waitFor({state:'visible'});
+    assert.equal(await scopedRisk.locator('.rdb-chart').count(),4,'Country Risks must remain charts-first');
+    assert.equal(await page.locator('.rw-probes,.gs-signal').count(),0,'Country Risks should not show raw observations by default');
     assert.match(await scope.innerText(),/China/,'Risk watch lost selected country scope');
     const dims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(dims.scroll <= dims.width+2,'Risk watch overflow at '+viewport.width+'px: '+JSON.stringify(dims));
@@ -211,6 +212,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await assurance.locator('.oa-card').count(),4,'Expected four independent operational assurance checks');
     await assurance.getByText('Live production browser QA',{exact:true}).waitFor({state:'visible'});
     await assurance.getByText('Not independently connected:',{exact:false}).waitFor({state:'visible'});
+    const health=page.getByRole('region',{name:'Connected sources and collector freshness'});
+    await health.waitFor({state:'visible'});
+    assert.equal(await health.locator('.cs-feed').count(),4,'Source health must be kept on Coverage rather than Home');
+    await health.getByRole('button',{name:'View collector records'}).click();
+    await health.locator('.cs-details').waitFor({state:'visible'});
+    await health.getByRole('button',{name:'Hide collector records'}).click();
     const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
     // Navigation-wide release gate: inspect all 16 sections on every viewport,
