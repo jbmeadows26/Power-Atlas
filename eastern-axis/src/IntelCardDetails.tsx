@@ -76,15 +76,25 @@ function contextFor(el:HTMLElement) {
   return 'This window preserves the selected record and any original source links shown with it. Evidence date, geographic scope and data coverage must be checked before treating a screen as a confirmed event.';
 }
 function capture(el:HTMLElement):Detail {
-  const heading=el.querySelector('h2,h3,.dr-move-top strong,.rdb-pressure-row strong,.dr-snapshot strong,.cx-record h3,.gs-metric-head strong,.sp-record strong,.fb-chart-row strong,.metric-top,small,strong');
+  const summaryRow=el.matches('.dr-briefing > div,.rdb-headlines > div,.db-stat,.rdb-duo > div,.metric-card,.intake-stat');
+  const heading=el.querySelector(summaryRow
+    ? '.metric-top,span,h2,h3,small,strong'
+    : 'h2,h3,.dr-move-top strong,.rdb-pressure-row strong,.dr-snapshot strong,.cx-record h3,.gs-metric-head strong,.sp-record strong,.fb-chart-row strong,.metric-top,small,strong');
   const label=getText(heading) || normal(el.innerText.split('\n').find(Boolean)) || 'Selected evidence';
   const workspace=WORKSPACE.find(([selector])=>el.closest(selector))?.[1]||'Eastern Axis intelligence';
   const detailLines=(el.innerText||'').split('\n').map(normal).filter(Boolean);
   const lines=[...new Set(detailLines)].filter(s=>s!==label).slice(0,24);
-  const sourceHost=el.closest('.rdb-chart,.dr-lane,.gs-group,.cx-branch,.rw-root,.sc-root') || el;
+  // Only inherit a source from the nearest single-purpose chart, never an
+  // unrelated sibling record in a broad domain lane or country panel.
+  const sourceHost=el.closest('.rdb-chart');
   const selectedLinks=[...el.querySelectorAll<HTMLAnchorElement>('a[href]')];
-  if(selectedLinks.length===0 && sourceHost!==el)selectedLinks.push(...sourceHost.querySelectorAll<HTMLAnchorElement>('a[href]'));
-  const links=[...new Map(selectedLinks.map(getLink).filter((x):x is {title:string;url:string}=>!!x).map(x=>[x.url,x])).values()].slice(0,12);
+  if(selectedLinks.length===0 && sourceHost && sourceHost!==el)
+    selectedLinks.push(...sourceHost.querySelectorAll<HTMLAnchorElement>('a[href]'));
+  const sourceMap=new Map(selectedLinks.map(getLink).filter((x):x is {title:string;url:string}=>!!x).map(x=>[x.url,x]));
+  if(el.matches('.dr-snapshot'))
+    sourceMap.set('https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json',
+      {title:'Independent resilience probe snapshot',url:'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json'});
+  const links=[...sourceMap.values()].slice(0,12);
   const points=[...el.querySelectorAll<HTMLElement>('.dr-pair > div')].map(row=>{
     const display=getText(row.querySelector('b'));
     return {label:getText(row.querySelector('small')),value:Number(display.replace(/,/g,'')),display};
