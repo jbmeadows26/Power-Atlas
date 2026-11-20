@@ -36,3 +36,30 @@ Not observed yet: individual issuer equity prices (ANT, NVDA, semiconductors), o
 ## QA
 
 Run \`python -m unittest discover -s eastern-axis/tests -p test_financial_markets.py -v\` then \`npm run build\` from \`eastern-axis/\`. Pull-request CI exercises an actual FRED download without publishing. Main-branch schedule requires at least 3 fresh series to avoid overwriting the last working snapshot with a mostly empty file, but does not hide missing series. After publishing, check the action logs, original observation periods and the deployed Pages asset before calling it live.
+
+## Expansion — household and issuer financial transmission (November 20, 2026)
+
+- Risk Watch now contains **one integrated view**: six US market benchmarks at the top; four source-dated household/credit cards; three supporting labor/savings readings; optional issuer filing drilldown. No duplicate financial dashboard elsewhere.
+- Collector: `eastern-axis/scripts/collect_market_transmission.py`, source JSON `eastern-axis/public/analysis/financial-transmission.json`.
+- FRED via Fed/BLS/BEA/ICE: `DRCCLACBS` (quarterly credit card delinquencies), `TDSP` (quarterly household debt-service burden), `PSAVERT` (monthly saving rate), `UNRATE` (monthly unemployment), `ICSA` (weekly jobless claims), `DRTSCILM` (quarterly commercial/industrial loan standards), and `BAMLC0A0CM` (daily investment-grade spreads). Original time-series observation dates are shown **even when collection happened today**.
+- SEC public EDGAR `company_tickers.json`, `submissions/CIK*.json` and US-GAAP `companyfacts/CIK*.json`: tracked issuer list `ANT, NVDA, MSFT, GOOGL, META, AMZN, ORCL, AMD, AVGO, CRWV`. SEC maps tickers to CIKs; no inferred company mapping on lookup failure. Structured balance-sheet cash/debt facts disclose filing date and XBRL tag.
+- Item 8-K `1.03` (bankruptcy/receivership) and `2.04` (events changing debt obligations) are **review queues** and link directly to SEC primary filings. Item `2.03` (new obligations) is financing context **not proof of failure**. Zero matching events only means no item-coded matches in the 120-day sampled issuer index; it does not prove no defaults across private credit.
+- No record is treated as a confirmed private credit loss or counterparty guarantee payment without source documents and validation.
+- Scheduled GitHub Actions uses Python standard library, bounded HTTP source reads and fail-closed status, and publishes both financial JSON snapshots via GitHub Pages. Missing sources show as unavailable; partial results remain visibly partial.
+- Independent warning screens require a source-dated threshold breach: IG credit spread increase >=25 bps between published observations, credit-card delinquencies +0.30 percentage points quarter-on-quarter, or a recent SEC item 1.03/2.04 requiring human filing review.
+- A market drawdown and household aggregate deterioration in nearby periods are **not proof of causation** from AI financing or securities losses.
+
+### Incomplete by access/licensing, not silently marked done
+
+- Intraday ticker quotes, 1-minute charts, option order flow and extended-hours prices require an exchange-authorized data provider and public-display/redistribution entitlement; free personal-use API keys do not automatically grant this. The public UI explicitly says `not-connected` until authorized. Never commit keys, scrape protected feeds or present old quotes as live.
+- Private-credit loan tapes, borrower covenants, guarantee calls, realized lender impairment and undisclosed debt defaults are generally not public; this is a bounded public filing/credit-spread **proxy**, not complete loan surveillance.
+- Household pension/retirement account losses, individual withdrawals and causal employment effects require representative sourced data and cannot be determined from FRED aggregates.
+- Source freshness must be checked separately for each cadence; quarterly observation dates are the start of the quarter and cannot be interpreted as date of release.
+
+### Evidence and validation
+
+- US SEC public API docs: https://www.sec.gov/search-filings/edgar-application-programming-interfaces
+- SEC 8-K item meanings: https://www.investor.gov/introduction-investing/general-resources/news-alerts/alerts-bulletins/investor-bulletins/how-read-8
+- NY Fed Household Debt and Credit (Q3 2026): https://www.newyorkfed.org/newsevents/news/research/2026/20261110
+- Federal Reserve TDSP series: https://fred.stlouisfed.org/series/TDSP
+- Frontend build + collectors: `.github/workflows/eastern-axis-market-watch.yml`; tests `test_financial_markets.py` and `test_market_transmission.py`. Verify CI and public JSON after merge; do not assume GitHub Actions success implies that the SEC connection is live.
