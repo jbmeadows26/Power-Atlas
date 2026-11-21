@@ -6,7 +6,7 @@ import AlliedSanctions from './AlliedSanctions';
 import CountryDefenseSnapshot, { defenseCounts } from './CountryDefenseSnapshot';
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
-type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string };
+type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string; agency:string };
 type Assessment = { id:string; countries:string[]; title:string; agency:string; finding:string; published:string; url:string };
 type Operation = { id:string; roles:{code:string;role:string}[]; title:string; state:string; summary:string; published:string; url:string };
 type Asset = { id:string; code:string; name:string; quantity:string; published:string; detail:string; url:string };
