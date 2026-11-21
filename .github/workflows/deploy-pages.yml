@@ -46,6 +46,8 @@ jobs:
         run: |
           test -s eastern-axis/public-api-origin.txt
           python3 eastern-axis/scripts/neon_api_audit.py
+      - name: Fail closed on unsupported published analyst promotions
+        run: python3 -m unittest discover -s eastern-axis/tests -p 'test_signal_analyst.py' -v
       - name: Install and build Eastern Axis for its Pages subpath
         working-directory: eastern-axis
         env:

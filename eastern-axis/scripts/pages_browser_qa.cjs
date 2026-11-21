@@ -71,6 +71,29 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.locator('.dr-root').count(),0,
       'Raw movement screens must not appear on Command without analyst escalation');
     assert.ok(await command.locator('.sr-head').count()>0,'Command analyst report header missing');
+    // A visually safe UI must not conceal a still-unsafe underlying JSON
+    // artifact. Reject any release that publishes advisory-only promotions.
+    const triageResponse=await page.request.get(origin+'/analysis/early-warning-triage.json',{
+      headers:{'Cache-Control':'no-cache','Pragma':'no-cache'},timeout:20000});
+    assert.equal(triageResponse.status(),200,'Published analyst triage JSON is not available');
+    const triage=await triageResponse.json();
+    assert.ok(triage&&Array.isArray(triage.alerts)&&Array.isArray(triage.reviews),
+      'Published analyst triage JSON lacks verified review records');
+    assert.equal(triage.summary.elevated,triage.alerts.length,
+      'Published triage summary disagrees with alerts array');
+    assert.equal(triage.summary.monitoring,triage.reviews.length-triage.alerts.length,
+      'Published triage monitoring count disagrees with record total');
+    const byId=new Map(triage.reviews.map(r=>[r.id,r]));
+    for(const finding of triage.alerts){
+      assert.equal(finding.kind,'metric',
+        'Official local weather warnings must not be published as Command alerts');
+      const sourceRow=byId.get(finding.id);
+      assert.ok(sourceRow&&sourceRow.status==='elevated'&&sourceRow.modelReviewed&&
+        sourceRow.anomalous&&sourceRow.corroborated&&sourceRow.fresh,
+        'Published Command alert lacks full independent evidence gate');
+    }
+    assert.equal(triage.reviews.filter(r=>r.status==='elevated'&&r.kind!=='metric').length,0,
+      'Underlying JSON still contains an incorrectly elevated advisory');
     // A NOAA severe warning alone is never a verified strategic anomaly.
     // Compare the actual displayed cards and count, not just React mounting.
     await command.locator('.sr-stats strong').first().waitFor({state:'visible',timeout:20000});
