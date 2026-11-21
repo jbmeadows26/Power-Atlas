@@ -81,7 +81,8 @@ async function qa(page,width){
   await command.waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
   if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
-  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Economic intelligence'}).click();
+  await page.locator('.ei-tabs').getByRole('button',{name:'Markets & early warning'}).click();
   const analyst=page.getByRole('region',{name:'AI analyst signal review'});
   await analyst.waitFor({state:'visible'});
   await analyst.locator('.sr-cover-row').first().waitFor({state:'visible',timeout:15000});
@@ -134,7 +135,7 @@ async function qa(page,width){
   await bug.waitFor({state:'visible'});
   const embedded=await bug.locator('iframe[title="Anonymous Eastern Axis bug report"]').getAttribute('src');
   assert.match(embedded||'',/^https:\/\/tally\.so\/embed\/LDKRaj\?/,'Bug form must be anonymous hosted form, not GitHub Issues');
-  assert.match(embedded||'',/section=Early\+warning/,'Bug report should identify active section');
+  assert.match(embedded||'',/section=Economic\+intelligence/,'Bug report should identify active consolidated section');
   assert.equal((embedded||'').includes('github.com'),false,'Bug reporter must not require GitHub membership');
   assert.match(await bug.getByRole('link',{name:/Open form separately/i}).getAttribute('href'),/^https:\/\/tally\.so\/r\/LDKRaj\?/);
   await bug.getByRole('button',{name:'Close bug report'}).click();
@@ -169,7 +170,8 @@ async function qa(page,width){
   assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/Worldwide/);
   // Restore the prior workspace before continuing the existing radar/navigation QA.
   if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
-  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Economic intelligence'}).click();
+  await page.locator('.ei-tabs').getByRole('button',{name:'Markets & early warning'}).click();
   await page.locator('.pew-context-radar').locator('summary').click();
   await page.getByRole('region',{name:'Decision radar by domain'}).waitFor({state:'visible'});
 
@@ -179,7 +181,7 @@ async function qa(page,width){
     assert.equal(await page.locator('.sidebar').isVisible(),true,'Desktop keeps its full sidebar');
   }else{
     assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
-    assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Systems','More']);
+    assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Economy','More']);
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
     // Networks is a Countries subview, not its own global navigation route.
@@ -212,13 +214,15 @@ async function qa(page,width){
     assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/China/,'Nested Networks lost China country scope');
     await countriesViews.getByRole('button',{name:'Country intelligence'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
-    await nav.getByRole('button',{name:'Systems'}).click();
+    await nav.getByRole('button',{name:'Economy'}).click();
+    await page.locator('.ei-tabs').getByRole('button',{name:'Economy & energy'}).click();
     await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
     await page.getByRole('heading',{name:'The systems behind global power.'}).waitFor({state:'visible'});
     await nav.getByRole('button',{name:'Countries'}).click();
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
-    await nav.getByRole('button',{name:'Risks'}).click();
+    await nav.getByRole('button',{name:'Economy'}).click();
+    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
     await page.getByRole('region',{name:'Risk summary visual dashboard'}).getByRole('heading',{name:/Risk signals, at a glance/i}).waitFor();
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
     await nav.getByRole('button',{name:'More'}).click();
@@ -239,7 +243,8 @@ async function qa(page,width){
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
-    await nav.getByRole('button',{name:'Risks'}).click();
+    await nav.getByRole('button',{name:'Economy'}).click();
+    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible'});
     assert.equal(await risk.locator('.rdb-chart').count(),4,'Risks should lead with four compact charts');
