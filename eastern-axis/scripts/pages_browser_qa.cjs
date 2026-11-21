@@ -159,27 +159,24 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
-    // Catch zero-DOJ country crashes and missing all-allied publisher links.
-    // Prior to the Nov 19 fix, selecting Canada or Antigua & Barbuda blanked
-    // the root when a worldwide sanctions snapshot contained null regimeRecordCount.
+    // Networks is an interactive relation graph. Source inventories remain in Source Library.
     if(viewport.width<600){
       await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Networks'}).click();
     }else{
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Connections'}).click();
     }
-    await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
-    for(const testCountry of ['Canada','Antigua & Barbuda']){
-      const card=page.locator('.cx-country-grid button.cx-country').filter({has:page.getByText(testCountry,{exact:true})});
-      await card.click();
-      await page.locator('.cx-center h2').getByText(testCountry,{exact:true}).waitFor({state:'visible',timeout:15000});
-      assert.equal(await page.locator('#root').isVisible(),true,testCountry+' blanked the React root');
-      await page.getByRole('button',{name:/U.S. \+ allied source network/}).click();
-      await page.locator('.cx-branch a[href^="https://"]').first().waitFor({state:'visible',timeout:15000});
-      assert.ok((await page.locator('.cx-branch a[href^="https://"]').count())>=5,
-        testCountry+' should expose multiple U.S. and allied government source references');
+    const network=page.getByRole('region',{name:'Sourced relationship networks'});
+    await network.waitFor({state:'visible',timeout:15000});
+    await network.locator('.nx-graph').waitFor({state:'visible'});
+    assert.ok(await network.locator('.nx-connection').count()>=2,'Global network spotlight should show sourced ties');
+    assert.equal(await network.locator('.ip-sanction-source').count(),0,'Sanctions inventories must not replace Networks');
+    assert.match(await network.locator('.nx-source').getAttribute('href'),/^https:\/\//,'Network evidence must link to original publisher');
+    for(const countryName of ['Canada','Antigua & Barbuda']){
       await scope.click();
-      await page.getByRole('option',{name:/Worldwide/}).click();
-      await page.locator('.cx-directory').waitFor({state:'visible',timeout:15000});
+      await page.getByRole('combobox',{name:'Search country or code'}).fill(countryName);
+      await page.getByRole('option',{name:new RegExp(countryName.replace(/[.*+?^$\{\}()|[\]\\]/g,'\\$&'))}).click();
+      await network.locator('.nx-empty').waitFor({state:'visible',timeout:15000});
+      assert.equal(await page.locator('#root').isVisible(),true,countryName+' blanked the React root');
     }
     await scope.click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('russ');
@@ -255,6 +252,11 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
       assert.equal(await page.locator('.dr-root').count(),sectionName==='Command center'?1:0,sectionName+' displays Home-specific metrics on a specialist tab');
+      if(sectionName==='Connections'){
+        const network=page.getByRole('region',{name:'Sourced relationship networks'});
+        await network.waitFor({state:'visible'});
+        assert.equal(await network.locator('.ip-sanction-source').count(),0,'Networks regressed to sanctions source inventory');
+      }
       if(sectionName==='AI analyst'){
         const analyst=page.locator('.ea-agent');
         await analyst.locator('.ea-agent-stats b').first().waitFor({state:'visible',timeout:15000});
