@@ -130,9 +130,10 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
             {label}{key==='queue'?' ('+pending.length+')':key==='weather'?' ('+advisories.length+')':''}
           </button>)}
       </div>}
-      {mode==='command'&&elevated.length===0&&<div className="sr-empty sr-compact-empty">
-        <ShieldCheck size={21}/><div><strong>0 corroborated anomalies passed the Command gate</strong><p>This is not a zero-risk assessment. {pending.length>0?pending.length+' reviews are incomplete. ':''}See measured movements and original advisories in Early Warning.</p></div>
-        {onOpenEarly&&<button type="button" onClick={onOpenEarly}>Inspect signals <ArrowRight size={14}/></button>}
+      {mode==='command'&&onOpenEarly&&<div className="sr-inspect-action">
+        <button type="button" onClick={onOpenEarly} aria-label="Inspect monitored signals in Early Warning">
+          Inspect signals <ArrowRight size={14}/>
+        </button>
       </div>}
       {mode==='early'&&<div className="sr-list-caption">
         <strong>{filter==='signals'?'Largest measured movements':filter==='queue'?'Unreviewed candidates':filter==='weather'?'Official weather advisories':filter==='sources'?'New source records':'All monitored records'}</strong>
