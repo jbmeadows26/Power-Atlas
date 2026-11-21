@@ -1,17 +1,17 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T08:57:55Z",
+  "generatedAt": "2026-11-21T09:04:23Z",
   "sourceCheckedAt": "2026-11-21T08:54:29Z",
   "model": {
-    "status": "unavailable",
-    "name": null,
+    "status": "available",
+    "name": "qwen2.5:1.5b",
     "role": "advisory reasoning; deterministic evidence rules veto unsupported promotion"
   },
   "policy": "Command accepts fresh severe/extreme official advisories or statistically exceptional same-scope market movements corroborated by a separate publisher and reviewed by AI. Other outliers remain monitored.",
   "summary": {
     "observed": 57,
     "screened": 11,
-    "reviewed": 0,
+    "reviewed": 11,
     "monitoring": 57,
     "elevated": 0,
     "historyReady": 27
@@ -713,9 +713,9 @@
       "corroborated": false,
       "direction": -1,
       "status": "monitor",
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The record shows a slight median change in GPS accuracy of 0.15% over 38 samples, with a robust Z-score of -2.02, indicating a moderate anomaly. While this is not severe, it warrants ongoing monitoring due to the potential for future changes.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -841,9 +841,9 @@
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The record shows a regional anomaly with a robust Z score of 1.24, but the sample size is small (38) and the median change is only 0.25. There is no corroboration from a different publisher with the same scope and direction. The evidence is not strong enough to warrant an official advisory.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -1531,9 +1531,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a freeze warning for an area with a moderate chance of severe weather, but there is no corroborating evidence or historical data to support a robust Z score. The source is NOAA, which is a reliable weather service, but the warning is not considered severe or extreme based on the provided information.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d35fe0da814a4fe2e5ec7cbc8665bf9fe1dd680d.001.2"
       ],
@@ -1561,9 +1561,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a freeze warning for Central Douglas County, with no historical data or robust Z score provided. There is no corroboration from a different publisher. The source is NOAA, which is a reliable source, but the evidence is insufficient to warrant an official advisory.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0cf6a879d72e730b97e826f9d73ac2d806ecc6f7.001.1"
       ],
@@ -1591,9 +1591,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a special marine warning with a severe level, but there is no evidence of historical anomalies or corroboration from a different publisher. The source is NOAA, which is a reliable source, but the lack of historical data and corroboration makes it a cautious decision to monitor.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2598522953f168f222e8b8c40b6370fb504f8661.001.1"
       ],
@@ -1621,9 +1621,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a freeze warning for Southeast Gila County, USA, with an official NOAA alert but no historical robust Z value or corroborating evidence. The source is reliable, but the lack of historical data and robust Z value indicates a low confidence in the severity and potential for future incidents.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.1"
       ],
@@ -1651,9 +1651,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a freeze warning for Southeast Gila County, USA, issued by NOAA on November 20, 2026, at 23:52 UTC. There is no historical data or robust Z score provided, and the observation is not corroborated by another source. The evidence is based on the official warning, which is not considered severe or extreme. Therefore, the decision is to monitor the situation.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.2"
       ],
@@ -1681,9 +1681,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a freeze warning for Joshua Tree NP West, with no historical data or robust Z score provided. There is no corroboration from a different publisher. The source is NOAA, which is a reliable source, but the evidence is insufficient to elevate the alert to Severe/Extreme.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.002.1"
       ],
@@ -1711,9 +1711,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The warning is for a coastal flood in Flagler and Eastern Putnam, with no historical data or robust Z-score provided. There is no corroboration from a different publisher. The source is NOAA, which is a reliable source, but the evidence is insufficient to warrant an official advisory.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.003.1"
       ],
@@ -1741,9 +1741,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a coastal flood warning with a severe level, but there is no evidence of corroboration from a different publisher with the same scope and direction.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.001.2"
       ],
@@ -1771,9 +1771,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "Awaiting AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The observation is a coastal flood warning with a severe level, but there is no evidence of historical robust anomalies or corroboration from a different publisher with the same scope and direction.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.002.1"
       ],
