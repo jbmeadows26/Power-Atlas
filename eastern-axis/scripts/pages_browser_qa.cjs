@@ -229,8 +229,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     }else{
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
     }
-    const countryViews=page.getByRole('group',{name:'Country intelligence views'});
-    await countryViews.getByRole('button',{name:'Networks'}).click();
+    assert.equal(await page.getByRole('group',{name:'Country intelligence views'}).count(),0,
+      'Country and network routes must be consolidated into one view');
+    await page.getByRole('button',{name:'Explore relationships'}).click();
     const network=page.getByRole('region',{name:'Sourced relationship networks'});
     await network.waitFor({state:'visible',timeout:15000});
     await network.locator('.nx-graph').waitFor({state:'visible'});
@@ -266,9 +267,11 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await page.locator('.sc-root').waitFor({state:'visible'});
       }
       if(target==='Countries'){
-        await countryViews.getByRole('button',{name:'Networks'}).click();
+        if(await page.getByRole('button',{name:'Explore relationships'}).count()){
+          await page.getByRole('button',{name:'Explore relationships'}).click();
+        }
         await network.locator('.nx-graph').waitFor({state:'visible',timeout:15000});
-        assert.match(await scope.innerText(),/Russia/,'Networks nested in Countries lost scope');
+        assert.match(await scope.innerText(),/Russia/,'Integrated network analysis lost country scope');
       }
     }
     await page.reload({waitUntil:'domcontentloaded'});
@@ -284,8 +287,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
-    // Country dossier is selected explicitly after visiting the nested Networks view.
-    await page.getByRole('group',{name:'Country intelligence views'}).getByRole('button',{name:'Country intelligence'}).click();
+    // The country brief is permanently visible; networks are an inline evidence expansion.
+    assert.equal(await page.locator('.ea-country-subnav').count(),0,
+      'Legacy competing country/network selector has returned');
     await page.locator('.country-brief .brief-relationship').waitFor({state:'visible',timeout:15000});
     const countryPanelWidth=await page.locator('.country-brief').evaluate(el=>el.getBoundingClientRect().width);
     assert.ok(countryPanelWidth >= Math.min(260,viewport.width-70),'Country dossier collapsed at '+viewport.width+'px: '+countryPanelWidth);
@@ -340,13 +344,15 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
       assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not display cross-domain radar by default');
       if(sectionName==='Countries'){
-        const countryViews=page.getByRole('group',{name:'Country intelligence views'});
-        await countryViews.getByRole('button',{name:'Networks'}).click();
+        assert.equal(await page.locator('.ea-country-subnav').count(),0,
+          'Country / Networks sub-navigation must not return');
+        await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
+        await page.getByRole('button',{name:'Explore relationships'}).click();
         const network=page.getByRole('region',{name:'Sourced relationship networks'});
         await network.waitFor({state:'visible'});
         assert.equal(await network.locator('.ip-sanction-source').count(),0,'Networks regressed to sanctions source inventory');
-        await countryViews.getByRole('button',{name:'Country intelligence'}).click();
-        await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
+        await page.getByRole('button',{name:'Hide relationships'}).click();
+        assert.equal(await network.count(),0,'Collapsing networks should restore the country dossier without duplicate views');
       }
       if(sectionName==='AI analyst'){
         const analyst=page.locator('.ea-agent');
