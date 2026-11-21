@@ -1,0 +1,832 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-21T08:54:46Z",
+  "sourceCheckedAt": "2026-11-20T19:15:46Z",
+  "model": {
+    "status": "available",
+    "name": "qwen2.5:1.5b",
+    "role": "advisory reasoning; deterministic evidence rules veto unsupported promotion"
+  },
+  "policy": "Command accepts fresh severe/extreme official advisories or statistically exceptional same-scope market movements corroborated by a separate publisher and reviewed by AI. Other outliers remain monitored.",
+  "summary": {
+    "observed": 27,
+    "screened": 1,
+    "reviewed": 1,
+    "monitoring": 27,
+    "elevated": 0,
+    "historyReady": 0
+  },
+  "reviews": [
+    {
+      "id": "sofr-rate",
+      "kind": "metric",
+      "title": "US secured overnight financing rate",
+      "group": "US",
+      "source": "Federal Reserve Bank of New York",
+      "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+      "observedAt": "2026-11-19",
+      "changePct": 0.256,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.newyorkfed.org/markets/reference-rates/sofr"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "sofr-volume",
+      "kind": "metric",
+      "title": "SOFR overnight repo transaction volume",
+      "group": "US",
+      "source": "Federal Reserve Bank of New York",
+      "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
+      "observedAt": "2026-11-19",
+      "changePct": 0.862,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.newyorkfed.org/markets/reference-rates/sofr"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-brent",
+      "kind": "metric",
+      "title": "Brent crude oil",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": 7.021,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-urea",
+      "kind": "metric",
+      "title": "Urea fertilizer",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": 3.067,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-copper",
+      "kind": "metric",
+      "title": "Copper",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": 0.235,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-wheat",
+      "kind": "metric",
+      "title": "US hard red winter wheat",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -8.646,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "grain-prices",
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-maize",
+      "kind": "metric",
+      "title": "Maize / corn",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -5.467,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "grain-prices",
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-rice",
+      "kind": "metric",
+      "title": "Thai rice 5%",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": 1.452,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "grain-prices",
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-palm-oil",
+      "kind": "metric",
+      "title": "Palm oil",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -5.085,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "oilseed-prices",
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-soybeans",
+      "kind": "metric",
+      "title": "Soybeans",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -1.718,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "oilseed-prices",
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-aluminum",
+      "kind": "metric",
+      "title": "Aluminum",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -6.762,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-nickel",
+      "kind": "metric",
+      "title": "Nickel",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": -5.44,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "worldbank-dap",
+      "kind": "metric",
+      "title": "DAP fertilizer",
+      "group": "global",
+      "source": "World Bank Pink Sheet",
+      "sourceUrl": "https://www.worldbank.org/en/research/commodity-markets",
+      "observedAt": "2026-10",
+      "changePct": 0.312,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.worldbank.org/en/research/commodity-markets"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-food",
+      "kind": "metric",
+      "title": "FAO Food Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": -1.254,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-meat",
+      "kind": "metric",
+      "title": "FAO Meat Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": -1.259,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-dairy",
+      "kind": "metric",
+      "title": "FAO Dairy Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": -1.092,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-cereals",
+      "kind": "metric",
+      "title": "FAO Cereal Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": -4.497,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "grain-prices",
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-oils",
+      "kind": "metric",
+      "title": "FAO Vegetable Oils Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": 0.302,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": "oilseed-prices",
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "fao-sugar",
+      "kind": "metric",
+      "title": "FAO Sugar Price Index",
+      "group": "global",
+      "source": "FAO (Food and Agriculture Organization of the United Nations)",
+      "sourceUrl": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+      "observedAt": "2026-10",
+      "changePct": 6.684,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.fao.org/worldfoodsituation/foodpricesindex"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-world",
+      "kind": "metric",
+      "title": "Worldwide aviation GNSS quality anomaly",
+      "group": "global",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": 0.0,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-united-states",
+      "kind": "metric",
+      "title": "United States aviation GNSS quality anomaly",
+      "group": "US",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": -12.941,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-taiwan-strait",
+      "kind": "metric",
+      "title": "Taiwan Strait aviation GNSS quality anomaly",
+      "group": "regional:taiwan-strait",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": 22.269,
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Analyst proposal withheld: independent verification gate not met. The GPS accuracy anomaly in the Taiwan Strait is a significant event that has not been confirmed as a jamming or spoofing. The lack of official confirmation and robust statistical evidence (robust Z score of null) suggests it is an independ",
+      "confidence": "high",
+      "modelReviewed": true,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-persian-gulf",
+      "kind": "metric",
+      "title": "Persian Gulf aviation GNSS quality anomaly",
+      "group": "regional:persian-gulf",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": -0.378,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-baltic-sea",
+      "kind": "metric",
+      "title": "Baltic Sea aviation GNSS quality anomaly",
+      "group": "regional:baltic-sea",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": 1.859,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": 1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-strait-of-hormuz",
+      "kind": "metric",
+      "title": "Strait of Hormuz aviation GNSS quality anomaly",
+      "group": "regional:strait-of-hormuz",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": -4.778,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-eastern-mediterranean",
+      "kind": "metric",
+      "title": "Eastern Mediterranean aviation GNSS quality anomaly",
+      "group": "regional:eastern-mediterranean",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": -6.548,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "gps-accuracy-east-asia",
+      "kind": "metric",
+      "title": "East Asia aviation GNSS quality anomaly",
+      "group": "regional:east-asia",
+      "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
+      "sourceUrl": "https://gpsinterference.com/",
+      "observedAt": "2026-11-19",
+      "changePct": -4.198,
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "insufficient",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "sector": null,
+      "corroborated": false,
+      "direction": -1,
+      "status": "monitor",
+      "reason": "Movement below review threshold",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://gpsinterference.com/"
+      ],
+      "gate": "historical-anomaly-needs-independent-corroboration"
+    }
+  ],
+  "alerts": []
+}
