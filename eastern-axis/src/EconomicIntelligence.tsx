@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity, ArrowRight, BarChart3, BrainCircuit, Database, Globe2, Landmark, Layers3, Radio, RefreshCcw, ShieldAlert, Ship } from 'lucide-react';
+import { Activity, ArrowRight, BarChart3, BrainCircuit, Database, Globe2, Landmark, Layers3, PackageSearch, Radio, RefreshCcw, ShieldAlert, Ship } from 'lucide-react';
 import { api } from '@appdeploy/client';
 import GlobalSystems from './GlobalSystems';
 import SupplyChain from './SupplyChain';
@@ -7,10 +7,11 @@ import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import RiskDecisionBoard from './RiskDecisionBoard';
 import FinancialMarkets from './FinancialMarkets';
 import DecisionRadar from './DecisionRadar';
+import ShortageForecasts from './ShortageForecasts';
 import './economicIntelligence.css';
 
 type Case = { id:string; code:string; title:string; date:string; topic:string; status:string; source:string; agency:string };
-export type EconomicFocus = 'overview' | 'systems' | 'supply' | 'signals' | 'risk';
+export type EconomicFocus = 'overview' | 'systems' | 'supply' | 'shortages' | 'signals' | 'risk';
 type Indicator = {code:string;value:number|null;year:string|null;label:string};
 type Systems = {status:string;checkedAt:string;covered:number;requested:number;indicators:Indicator[];warning?:string|null};
 type Corridor = {id:string;name:string;percentChange:number|null;recentDays:number;baselineDays:number};
@@ -21,7 +22,8 @@ type EarlyMetric = {id:string;group:string;changePct:number;changeBps?:number|nu
 type Early = {checkedAt:string|null;status:string;metrics:EarlyMetric[];sources:unknown[]};
 type Triage = {generatedAt:string;summary:{observed:number;screened:number;reviewed:number;monitoring:number;elevated:number;historyReady:number};model:{status:string};reviews:unknown[]};
 type Probe = {schemaVersion:number;checkedAt:string;status:string;incidents:unknown[];sampledCount?:number;history:unknown[]};
-type Picture = {systems?:Systems;supply?:Supply;markets?:Markets;early?:Early;triage?:Triage;probe?:Probe};
+type Shortages = {schemaVersion:number;generatedAt:string;summary:{products:number;crossSourceWatch:number;inputCostWatch:number;transitWatch:number;dataGaps:number;commandEligible:number}};
+type Picture = {systems?:Systems;supply?:Supply;shortages?:Shortages;markets?:Markets;early?:Early;triage?:Triage;probe?:Probe};
 type Props = {
   countryCode:string;countryName?:string;cases:Case[];
   onCountryMap:()=>void;onDefense:()=>void;initialFocus?:EconomicFocus;
@@ -71,6 +73,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     const requests=[
       api.get('/api/global-systems/'+encodeURIComponent(countryCode==='all'?'WLD':countryCode)).then(r=>r.data),
       api.get('/api/supply-chain/'+encodeURIComponent(countryCode)).then(r=>r.data),
+      json(base+'analysis/product-shortage-outlook.json'),
       json(base+'analysis/financial-markets.json'),
       json(base+'analysis/physical-early-warning.json'),
       json(base+'analysis/early-warning-triage.json'),
@@ -79,10 +82,11 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     Promise.allSettled(requests).then(results=>{
       if(!active)return;
       const pick=(i:number):any=>results[i].status==='fulfilled'?(results[i] as PromiseFulfilledResult<unknown>).value:undefined;
-      const sys=pick(0),sup=pick(1),mar=pick(2),ear=pick(3),tri=pick(4),pro=pick(5);
+      const sys=pick(0),sup=pick(1),short=pick(2),mar=pick(3),ear=pick(4),tri=pick(5),pro=pick(6);
       setPicture({
         systems:sys&&Array.isArray(sys.indicators)?sys:undefined,
         supply:sup&&Array.isArray(sup.corridors)?sup:undefined,
+        shortages:short?.schemaVersion===1&&short.summary&&typeof short.summary.products==='number'?short:undefined,
         markets:mar?.schemaVersion===1&&Array.isArray(mar.metrics)?mar:undefined,
         early:ear?.schemaVersion===1&&Array.isArray(ear.metrics)?ear:undefined,
         triage:tri?.schemaVersion===1&&Array.isArray(tri.reviews)&&tri.summary?tri:undefined,
@@ -92,7 +96,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     });
     return()=>{active=false;};
   },[countryCode,refresh]);
-  const {systems,supply,markets,early,triage,probe}=picture;
+  const {systems,supply,shortages,markets,early,triage,probe}=picture;
   const scope=countryCode==='all'?'Worldwide':countryName||countryCode;
   const observed=systems?.indicators.filter(x=>typeof x.value==='number')||[];
   const inflation=systems?.indicators.find(x=>x.code==='FP.CPI.TOTL.ZG');
@@ -112,6 +116,9 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     {key:'supply' as const,title:'Supply chains',description:'Shipping corridors, trade chokepoints and downstream dependencies.',Icon:Ship,
       number:supply?corridors.length+' / '+supply.corridors.length:'—',measure:'comparable corridors',status:sourceStatus(supply?.sourceStatus,supply?.checkedAt,12),
       detail:falling?'Largest decline: '+falling.name+' ('+fmt(falling.percentChange!)+'%)':'No comparable transit decline'},
+    {key:'shortages' as const,title:'Product shortages',description:'Predictive input-pressure scenarios, route changes, missing inventory evidence.',Icon:PackageSearch,
+      number:shortages?shortages.summary.crossSourceWatch:'—',measure:'cross-source watch scenarios',status:sourceStatus(shortages?'ok':'unavailable',shortages?.generatedAt,3),
+      detail:shortages?shortages.summary.products+' product groups · '+shortages.summary.inputCostWatch+' input cost watches':'Forecast model data unavailable'},
     {key:'signals' as const,title:'Markets & early warning',description:'Market movements, screened anomalies and AI analyst triage.',Icon:Activity,
       number:triage?triage.summary.screened:'—',measure:'global review candidates',status:sourceStatus(early?.status,early?.checkedAt,4),
       detail:triage?'AI reviewed '+triage.summary.reviewed+' · elevated '+(reviewFresh?triage.summary.elevated:'unverified')+' globally':'AI triage report unavailable'},
@@ -123,7 +130,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     <header className="ei-heading">
       <div><div className="ei-kicker"><Layers3 size={14}/> SYSTEM INTELLIGENCE / ECONOMIC INTELLIGENCE</div>
         <h1>Economic <em>intelligence.</em></h1>
-        <p>One picture of economic pressure, trade dependencies, market movements and systemic risk. Source measurements are not forecasts or verified threat conclusions.</p>
+        <p>One picture of economic pressure, product shortage scenarios, trade dependencies, market movements and systemic risk. Observations and uncalibrated forecasts are clearly labeled.</p>
       </div>
       <div className="ei-heading-right"><span>GEOGRAPHIC CONTEXT</span><strong>{scope}</strong>
         <small>Global benchmarks remain labeled; geographic context is not attribution.</small>
@@ -133,25 +140,27 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     <div className="ei-pulse" aria-label="Source-dated intelligence pulse">
       <div><span>MACRO INDICATORS</span><strong>{systems?observed.length:'—'}<small>{systems?' / '+systems.indicators.length:''}</small></strong><small>{systems?'World Bank and disclosed alternatives':'Feed unavailable'}</small></div>
       <div><span>TRADE COMPARISONS</span><strong>{supply?corridors.length:'—'}</strong><small>IMF PortWatch · 7d vs 7d</small></div>
+      <div><span>PRODUCT SHORTAGE WATCH</span><strong>{shortages?shortages.summary.crossSourceWatch:'—'}</strong><small>{shortages?shortages.summary.products+' categories screened':'Forecast feed unavailable'}</small></div>
       <div><span>MARKET SERIES</span><strong>{markets?marketRows.length:'—'}</strong><small>US / global financial benchmarks</small></div>
       <div><span>CHANGE SCREENS</span><strong>{early?alerts.length:'—'}</strong><small>{countryCode==='all'?'All tracked regions':'Country + global benchmark'} · not alerts</small></div>
       <div><span>AI REVIEWED</span><strong>{triage?triage.summary.reviewed:'—'}<small>{triage?' / '+triage.summary.screened:''}</small></strong><small>Worldwide review candidates · {date(triage?.generatedAt)}</small></div>
     </div>
     {loading&&<div className="ei-source-note"><Radio size={15}/> Checking independently dated data sources. Missing readings stay unavailable.</div>}
-    {!loading&&(!systems||!supply||!markets||!early||!triage||!probe)&&<div className="ei-source-note ei-source-limited"><Database size={15}/> Partial source coverage: {[
-      !systems&&'macro',!supply&&'shipping',!markets&&'markets',!early&&'measurements',!triage&&'AI review',!probe&&'infrastructure'
+    {!loading&&(!systems||!supply||!shortages||!markets||!early||!triage||!probe)&&<div className="ei-source-note ei-source-limited"><Database size={15}/> Partial source coverage: {[
+      !systems&&'macro',!supply&&'shipping',!shortages&&'shortage outlook',!markets&&'markets',!early&&'measurements',!triage&&'AI review',!probe&&'infrastructure'
     ].filter(Boolean).join(', ')} unavailable. No missing measurements have been replaced with zero.</div>}
     <nav className="ei-tabs" aria-label="Economic intelligence views">
       {([
         ['overview','At a glance',BarChart3],
         ['systems','Economy & energy',Globe2],
         ['supply','Supply chains',Ship],
+        ['shortages','Product shortages',PackageSearch],
         ['signals','Markets & early warning',Activity],
         ['risk','Systemic risk',ShieldAlert],
       ] as const).map(([key,label,Icon])=><button type="button" key={key} onClick={()=>setFocus(key)} className={focus===key?'active':''} aria-current={focus===key?'page':undefined}><Icon size={16}/>{label}</button>)}
     </nav>
     {focus==='overview'&&<>
-      <div className="ei-overview-intro"><div><strong>Four connected intelligence domains</strong><span>Compact coverage first. Select a domain for its complete charts, source links and filters.</span></div><span>SOURCE COVERAGE ≠ THREAT LEVEL</span></div>
+      <div className="ei-overview-intro"><div><strong>Five connected intelligence domains</strong><span>Compact coverage first. Select a domain for its complete charts, source links and filters.</span></div><span>SOURCE COVERAGE ≠ THREAT LEVEL</span></div>
       <div className="ei-grid">{lanes.map(l=><button key={l.key} type="button" className="ei-domain" onClick={()=>setFocus(l.key)}>
         <div className="ei-domain-top"><span><l.Icon size={20}/></span><small>{l.status}</small></div>
         <h2>{l.title}</h2><p>{l.description}</p>
@@ -159,6 +168,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
         <div className="ei-domain-detail">{loading?'Fetching observations…':l.detail}</div>
         {l.key==='systems'&&coverage(systems?observed.length:undefined,systems?.indicators.length,'Indicators reported')}
         {l.key==='supply'&&coverage(supply?corridors.length:undefined,supply?.corridors.length,'Corridors comparable')}
+        {l.key==='shortages'&&coverage(shortages?shortages.summary.products-shortages.summary.dataGaps:undefined,shortages?.summary.products,'Product groups with priced or route inputs')}
         {l.key==='signals'&&coverage(triage?.summary.reviewed,triage?.summary.screened,'Candidates AI reviewed')}
         {l.key==='risk'&&<div className="ei-coverage"><div><span>Latest global telemetry</span><strong>{date(probe?.checkedAt)}</strong></div><div className="ei-status-line">{probeFresh?'Recent probe check':'Stale or unavailable · no all-clear implied'}</div></div>}
         <div className="ei-open">Explore full intelligence <ArrowRight size={15}/></div>
@@ -169,6 +179,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
       <div className="ei-workspace-head"><button type="button" onClick={()=>setFocus('overview')}>← Overview</button><span>{scope} · {lanes.find(l=>l.key===focus)?.title}</span></div>
       {focus==='systems'&&<GlobalSystems mode="systems" countryCode={countryCode} countryName={countryName} cases={cases}/>}
       {focus==='supply'&&<SupplyChain countryCode={countryCode} countryName={countryName}/>}
+      {focus==='shortages'&&<ShortageForecasts countryCode={countryCode} countryName={countryName}/>}
       {focus==='signals'&&<>
         <div className="ei-subtabs" role="group" aria-label="Markets and signal investigation">
           <button type="button" className={signalView==='signals'?'active':''} aria-pressed={signalView==='signals'} onClick={()=>setSignalView('signals')}><BrainCircuit size={16}/> Early warning & analyst review</button>
