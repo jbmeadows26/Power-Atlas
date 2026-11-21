@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T17:48:32Z",
-  "sourceCheckedAt": "2026-11-21T17:24:06Z",
+  "generatedAt": "2026-11-21T17:51:39Z",
+  "sourceCheckedAt": "2026-11-21T17:46:31Z",
   "model": {
     "status": "partial",
     "name": null,
@@ -9,10 +9,10 @@
   },
   "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
-    "observed": 57,
-    "screened": 7,
-    "reviewed": 6,
-    "monitoring": 57,
+    "observed": 56,
+    "screened": 8,
+    "reviewed": 7,
+    "monitoring": 56,
     "elevated": 0,
     "historyReady": 27
   },
@@ -1653,6 +1653,36 @@
       "severity": "Observed"
     },
     {
+      "id": "nws-urn-oid-2-49-0-1-840-0-924fb3e8fc8a105606318d77ae886b27f38cb6d8-001-1",
+      "kind": "advisory",
+      "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.924fb3e8fc8a105606318d77ae886b27f38cb6d8.001.1",
+      "observedAt": "2026-11-21T12:44:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.924fb3e8fc8a105606318d77ae886b27f38cb6d8.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
       "id": "nws-urn-oid-2-49-0-1-840-0-867db13b9c5015860a52948c7d3c625026008aa4-001-1",
       "kind": "advisory",
       "title": "Freeze Warning — Southern Gila Foothills/Mimbres Valley; Southwest Desert/Lower Gila River Valley; Lowlands of the Bo",
@@ -1680,66 +1710,6 @@
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-24f4e2aa9032d1a44882d3791ba326ea1d6e5065-001-1",
-      "kind": "event",
-      "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1",
-      "observedAt": "2026-11-21T12:16:00-05:00",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-e5516dbc81c1155128c08ea67b49606bd08937d0-001-1",
-      "kind": "event",
-      "title": "Special Marine Warning — Coastal waters from Englewood to Tarpon Springs FL out 20 NM; Coastal waters from Bonita Beach to En",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e5516dbc81c1155128c08ea67b49606bd08937d0.001.1",
-      "observedAt": "2026-11-21T12:01:00-05:00",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e5516dbc81c1155128c08ea67b49606bd08937d0.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
       "severity": "Severe"
     },
     {
