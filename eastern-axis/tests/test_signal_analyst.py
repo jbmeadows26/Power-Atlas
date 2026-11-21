@@ -161,6 +161,24 @@ class AnalystSafetyTest(unittest.TestCase):
         self.assertEqual(report["summary"]["elevated"],0)
         self.assertEqual(report["summary"]["screened"],0)
 
+    def test_published_snapshot_never_promotes_single_source_advisories(self):
+        artifact=Path(__file__).resolve().parents[1]/"public/analysis/early-warning-triage.json"
+        data=json.loads(artifact.read_text())
+        rows={r["id"]:r for r in data["reviews"]}
+        self.assertEqual(data["summary"]["elevated"],len(data["alerts"]))
+        self.assertEqual(data["summary"]["monitoring"],len(rows)-len(data["alerts"]))
+        for alert_record in data["alerts"]:
+            self.assertIn(alert_record["id"],rows)
+            reviewed=rows[alert_record["id"]]
+            self.assertEqual(alert_record["kind"],"metric",
+                "Official weather advisory severity is not strategic intelligence")
+            self.assertTrue(reviewed["fresh"])
+            self.assertTrue(reviewed["modelReviewed"])
+            self.assertTrue(reviewed["anomalous"])
+            self.assertTrue(reviewed["corroborated"])
+            self.assertEqual(reviewed["status"],"elevated")
+        self.assertFalse(any(r["status"]=="elevated" and r["kind"]!="metric" for r in rows.values()))
+
     def test_non_official_event_cannot_escalate(self):
         event=alert()
         event["officialAlert"]=False

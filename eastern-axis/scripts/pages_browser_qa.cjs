@@ -71,6 +71,18 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.locator('.dr-root').count(),0,
       'Raw movement screens must not appear on Command without analyst escalation');
     assert.ok(await command.locator('.sr-head').count()>0,'Command analyst report header missing');
+    // A NOAA severe warning alone is never a verified strategic anomaly.
+    // Compare the actual displayed cards and count, not just React mounting.
+    await command.locator('.sr-stats strong').first().waitFor({state:'visible',timeout:20000});
+    const promoted=Number((await command.locator('.sr-stats strong').first().innerText()).trim());
+    const commandRows=command.locator('.sr-rows .sr-item');
+    assert.ok(Number.isFinite(promoted),'Command elevated count is not numeric');
+    assert.equal(promoted,await commandRows.count(),'Command alert count differs from visible promoted records');
+    assert.deepEqual(await commandRows.evaluateAll(els=>els
+      .filter(el=>/Special Marine Warning|Coastal Flood Warning/i.test(el.textContent||'')).map(el=>el.textContent)),
+      [],'Local NWS warnings must never appear as strategic Command findings');
+    assert.equal(await commandRows.filter({hasText:'Jupiter Inlet'}).count(),0,
+      'Formerly elevated Jupiter Inlet marine warning still appears in Command');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Early warning'}).click();
     const disclosure=page.locator('.pew-context-radar');
