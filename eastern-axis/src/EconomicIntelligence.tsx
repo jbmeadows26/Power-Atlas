@@ -24,7 +24,7 @@ type Probe = {schemaVersion:number;checkedAt:string;status:string;incidents:unkn
 type Picture = {systems?:Systems;supply?:Supply;markets?:Markets;early?:Early;triage?:Triage;probe?:Probe};
 type Props = {
   countryCode:string;countryName?:string;cases:Case[];
-  onCountryMap:()=>void;initialFocus?:EconomicFocus;
+  onCountryMap:()=>void;onDefense:()=>void;initialFocus?:EconomicFocus;
   initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss';
 };
 const PROBES = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json';
@@ -50,7 +50,7 @@ const sourceStatus=(s?:string,checked?:string|null,maxDays=7)=>{
   if(s==='partial'||s==='stale')return 'PARTIAL / STALE';
   return 'SOURCE-DATED';
 };
-export default function EconomicIntelligence({countryCode,countryName,cases,onCountryMap,initialFocus='overview',initialMeasurementFilter='all'}:Props) {
+export default function EconomicIntelligence({countryCode,countryName,cases,onCountryMap,onDefense,initialFocus='overview',initialMeasurementFilter='all'}:Props) {
   const [focus,setFocus]=useState<EconomicFocus>(initialFocus);
   const [signalView,setSignalView]=useState<'signals'|'markets'>('signals');
   const [picture,setPicture]=useState<Picture>({});
@@ -180,7 +180,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
               else if(target==='Risk watch')setFocus('risk');
               else if(target==='Early warning')setFocus('signals');
               else if(target==='Countries')onCountryMap();
-              else setFocus('risk');
+              else if(target==='Defense intelligence')onDefense();
             }}/>
           </details>
         </>}
