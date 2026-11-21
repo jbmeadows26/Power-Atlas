@@ -1,20 +1,20 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T08:54:46Z",
-  "sourceCheckedAt": "2026-11-20T19:15:46Z",
+  "generatedAt": "2026-11-21T08:57:55Z",
+  "sourceCheckedAt": "2026-11-21T08:54:29Z",
   "model": {
-    "status": "available",
-    "name": "qwen2.5:1.5b",
+    "status": "unavailable",
+    "name": null,
     "role": "advisory reasoning; deterministic evidence rules veto unsupported promotion"
   },
   "policy": "Command accepts fresh severe/extreme official advisories or statistically exceptional same-scope market movements corroborated by a separate publisher and reviewed by AI. Other outliers remain monitored.",
   "summary": {
-    "observed": 27,
-    "screened": 1,
-    "reviewed": 1,
-    "monitoring": 27,
+    "observed": 57,
+    "screened": 11,
+    "reviewed": 0,
+    "monitoring": 57,
     "elevated": 0,
-    "historyReady": 0
+    "historyReady": 27
   },
   "reviews": [
     {
@@ -29,9 +29,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 8,
+        "robustZ": 0.67,
+        "medianChange": -0.5,
+        "medianAbsoluteDeviation": 1.5
       },
       "anomalous": false,
       "needsReview": false,
@@ -59,9 +61,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 8,
+        "robustZ": 1.01,
+        "medianChange": -0.947,
+        "medianAbsoluteDeviation": 1.213
       },
       "anomalous": false,
       "needsReview": false,
@@ -89,9 +93,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": 1.19,
+        "medianChange": -0.753,
+        "medianAbsoluteDeviation": 4.411
       },
       "anomalous": false,
       "needsReview": false,
@@ -119,9 +125,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": 0.31,
+        "medianChange": -0.043,
+        "medianAbsoluteDeviation": 6.667
       },
       "anomalous": false,
       "needsReview": false,
@@ -149,9 +157,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -0.41,
+        "medianChange": 1.799,
+        "medianAbsoluteDeviation": 2.555
       },
       "anomalous": false,
       "needsReview": false,
@@ -179,9 +189,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -2.16,
+        "medianChange": 0.061,
+        "medianAbsoluteDeviation": 2.723
       },
       "anomalous": false,
       "needsReview": false,
@@ -209,9 +221,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.31,
+        "medianChange": 0.72,
+        "medianAbsoluteDeviation": 3.195
       },
       "anomalous": false,
       "needsReview": false,
@@ -239,9 +253,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": 0.44,
+        "medianChange": -1.152,
+        "medianAbsoluteDeviation": 3.972
       },
       "anomalous": false,
       "needsReview": false,
@@ -269,9 +285,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.62,
+        "medianChange": 1.31,
+        "medianAbsoluteDeviation": 2.659
       },
       "anomalous": false,
       "needsReview": false,
@@ -299,9 +317,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -0.43,
+        "medianChange": -0.734,
+        "medianAbsoluteDeviation": 1.543
       },
       "anomalous": false,
       "needsReview": false,
@@ -329,9 +349,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -2.82,
+        "medianChange": 1.546,
+        "medianAbsoluteDeviation": 1.989
       },
       "anomalous": false,
       "needsReview": false,
@@ -359,9 +381,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.52,
+        "medianChange": -0.448,
+        "medianAbsoluteDeviation": 2.222
       },
       "anomalous": false,
       "needsReview": false,
@@ -389,9 +413,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -0.33,
+        "medianChange": 1.735,
+        "medianAbsoluteDeviation": 2.936
       },
       "anomalous": false,
       "needsReview": false,
@@ -419,9 +445,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.38,
+        "medianChange": 0.444,
+        "medianAbsoluteDeviation": 0.829
       },
       "anomalous": false,
       "needsReview": false,
@@ -449,9 +477,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.24,
+        "medianChange": 0.438,
+        "medianAbsoluteDeviation": 0.927
       },
       "anomalous": false,
       "needsReview": false,
@@ -479,9 +509,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -1.01,
+        "medianChange": 0.771,
+        "medianAbsoluteDeviation": 1.247
       },
       "anomalous": false,
       "needsReview": false,
@@ -509,9 +541,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -2.42,
+        "medianChange": 0.319,
+        "medianAbsoluteDeviation": 1.344
       },
       "anomalous": false,
       "needsReview": false,
@@ -539,9 +573,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": -0.23,
+        "medianChange": 1.136,
+        "medianAbsoluteDeviation": 2.399
       },
       "anomalous": false,
       "needsReview": false,
@@ -569,9 +605,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 34,
+        "robustZ": 1.66,
+        "medianChange": -1.91,
+        "medianAbsoluteDeviation": 3.501
       },
       "anomalous": false,
       "needsReview": false,
@@ -594,20 +632,22 @@
       "group": "global",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": 0.0,
+      "observedAt": "2026-11-20",
+      "changePct": 6.731,
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": 1.18,
+        "medianChange": 0.0,
+        "medianAbsoluteDeviation": 0.4
       },
       "anomalous": false,
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -624,20 +664,22 @@
       "group": "US",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": -12.941,
+      "observedAt": "2026-11-20",
+      "changePct": 17.568,
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": 0.85,
+        "medianChange": 0.1,
+        "medianAbsoluteDeviation": 0.95
       },
       "anomalous": false,
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -654,24 +696,26 @@
       "group": "regional:taiwan-strait",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": 22.269,
+      "observedAt": "2026-11-20",
+      "changePct": -47.766,
       "screened": true,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": -2.02,
+        "medianChange": 0.15,
+        "medianAbsoluteDeviation": 4.7
       },
       "anomalous": false,
       "needsReview": true,
       "sector": null,
       "corroborated": false,
-      "direction": 1,
+      "direction": -1,
       "status": "monitor",
-      "reason": "Analyst proposal withheld: independent verification gate not met. The GPS accuracy anomaly in the Taiwan Strait is a significant event that has not been confirmed as a jamming or spoofing. The lack of official confirmation and robust statistical evidence (robust Z score of null) suggests it is an independ",
-      "confidence": "high",
-      "modelReviewed": true,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -684,14 +728,16 @@
       "group": "regional:persian-gulf",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": -0.378,
+      "observedAt": "2026-11-20",
+      "changePct": -1.77,
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": -0.14,
+        "medianChange": 0.3,
+        "medianAbsoluteDeviation": 8.05
       },
       "anomalous": false,
       "needsReview": false,
@@ -714,14 +760,16 @@
       "group": "regional:baltic-sea",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": 1.859,
+      "observedAt": "2026-11-20",
+      "changePct": 2.555,
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": 0.26,
+        "medianChange": -0.1,
+        "medianAbsoluteDeviation": 2.1
       },
       "anomalous": false,
       "needsReview": false,
@@ -749,9 +797,11 @@
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": -0.11,
+        "medianChange": -2.65,
+        "medianAbsoluteDeviation": 10.1
       },
       "anomalous": false,
       "needsReview": false,
@@ -774,22 +824,24 @@
       "group": "regional:eastern-mediterranean",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": -6.548,
-      "screened": false,
+      "observedAt": "2026-11-20",
+      "changePct": 47.771,
+      "screened": true,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": 1.24,
+        "medianChange": 0.25,
+        "medianAbsoluteDeviation": 3.95
       },
       "anomalous": false,
-      "needsReview": false,
+      "needsReview": true,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
-      "reason": "Movement below review threshold",
+      "reason": "Awaiting AI review; not escalated",
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
@@ -804,20 +856,22 @@
       "group": "regional:east-asia",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-19",
-      "changePct": -4.198,
+      "observedAt": "2026-11-20",
+      "changePct": 6.773,
       "screened": false,
       "fresh": true,
       "baseline": {
-        "status": "insufficient",
-        "sampleSize": 0,
-        "robustZ": null
+        "status": "assessable",
+        "sampleSize": 38,
+        "robustZ": 0.6,
+        "medianChange": 0.4,
+        "medianAbsoluteDeviation": 1.45
       },
       "anomalous": false,
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -826,6 +880,906 @@
         "https://gpsinterference.com/"
       ],
       "gate": "historical-anomaly-needs-independent-corroboration"
+    },
+    {
+      "id": "usgs-us6000ucfm",
+      "kind": "event",
+      "title": "M 6.7 - 9 km NE of Carhuamayo, Peru",
+      "group": "global",
+      "source": "USGS Earthquake Hazards Program",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucfm",
+      "observedAt": "2026-11-21T00:09:19Z",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ucfm"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "usgs-ci41364111",
+      "kind": "event",
+      "title": "M 3.9 - 1 km NW of Commerce, CA",
+      "group": "global",
+      "source": "USGS Earthquake Hazards Program",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/ci41364111",
+      "observedAt": "2026-11-20T11:25:35Z",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/ci41364111"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "usgs-nc75468702",
+      "kind": "event",
+      "title": "M 5.0 - 10 km NW of Pinnacles, CA",
+      "group": "global",
+      "source": "USGS Earthquake Hazards Program",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/nc75468702",
+      "observedAt": "2026-11-20T06:49:16Z",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/nc75468702"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "usgs-us7000tyw8",
+      "kind": "event",
+      "title": "M 5.3 - 17 km ESE of Comandău, Romania",
+      "group": "global",
+      "source": "USGS Earthquake Hazards Program",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyw8",
+      "observedAt": "2026-11-18T00:48:56Z",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyw8"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "usgs-us7000tymu",
+      "kind": "event",
+      "title": "M 6.6 - 149 km WSW of Tual, Indonesia",
+      "group": "global",
+      "source": "USGS Earthquake Hazards Program",
+      "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tymu",
+      "observedAt": "2026-11-16T21:11:20Z",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tymu"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-129448",
+      "kind": "event",
+      "title": "Apache Roller — CVE-2026-129448",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-20",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-123890",
+      "kind": "event",
+      "title": "Broadcom VMware vCenter — CVE-2026-123890",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-20",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2025-42884",
+      "kind": "event",
+      "title": "SAP NetWeaver — CVE-2025-42884",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-20",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-76466",
+      "kind": "event",
+      "title": "Cisco Expressway Series — CVE-2026-76466",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-20",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2024-10441",
+      "kind": "event",
+      "title": "Synology DiskStation Manager (DSM) — CVE-2024-10441",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-18",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-40217",
+      "kind": "event",
+      "title": "BerriAI LiteLLM — CVE-2026-40217",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-18",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-90817",
+      "kind": "event",
+      "title": "Vanderbilt University Research Electronic Data Capture (REDCap) — CVE-2026-90817",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-18",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-90436",
+      "kind": "event",
+      "title": "Apache Axis — CVE-2026-90436",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-18",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-115731",
+      "kind": "event",
+      "title": "Perforce Puppet Enterprise — CVE-2026-115731",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-17",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-114713",
+      "kind": "event",
+      "title": "UnrealIRCd UnrealIRCd — CVE-2026-114713",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-13",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-123039",
+      "kind": "event",
+      "title": "Check Point Multiple Products — CVE-2026-123039",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-13",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-124194",
+      "kind": "event",
+      "title": "Microsoft Office — CVE-2026-124194",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-10",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-111793",
+      "kind": "event",
+      "title": "Openwave Messaging Limited Webtop Media Transcoder — CVE-2026-111793",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-10",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-20320",
+      "kind": "event",
+      "title": "Cisco BroadWorks — CVE-2026-20320",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-10",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-111560",
+      "kind": "event",
+      "title": "Barracuda Networks Multiple Products — CVE-2026-111560",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-10",
+      "screened": false,
+      "fresh": false,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "noaa-kp-2026-11-21T03:00",
+      "kind": "event",
+      "title": "Observed planetary geomagnetic Kp 0.33",
+      "group": "global",
+      "source": "NOAA Space Weather Prediction Center",
+      "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
+      "observedAt": "2026-11-21T03:00:00",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.swpc.noaa.gov/products/planetary-k-index"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Observed"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-d35fe0da814a4fe2e5ec7cbc8665bf9fe1dd680d-001-2",
+      "kind": "advisory",
+      "title": "Freeze Warning — Upper San Pedro River Valley including Sierra Vista/Benson; Eastern Cochise County Below 5000 Feet i",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d35fe0da814a4fe2e5ec7cbc8665bf9fe1dd680d.001.2",
+      "observedAt": "2026-11-21T01:42:00-07:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d35fe0da814a4fe2e5ec7cbc8665bf9fe1dd680d.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-0cf6a879d72e730b97e826f9d73ac2d806ecc6f7-001-1",
+      "kind": "advisory",
+      "title": "Freeze Warning — Central Douglas County",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0cf6a879d72e730b97e826f9d73ac2d806ecc6f7.001.1",
+      "observedAt": "2026-11-21T00:15:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0cf6a879d72e730b97e826f9d73ac2d806ecc6f7.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-2598522953f168f222e8b8c40b6370fb504f8661-001-1",
+      "kind": "advisory",
+      "title": "Special Marine Warning — Coastal waters from Bonita Beach to Englewood FL out 20 NM; Waters from Bonita Beach to Englewood FL",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2598522953f168f222e8b8c40b6370fb504f8661.001.1",
+      "observedAt": "2026-11-21T02:45:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2598522953f168f222e8b8c40b6370fb504f8661.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-6cb3d19617e6b1dc3bcbbd1451283aff36f28d64-001-1",
+      "kind": "advisory",
+      "title": "Freeze Warning — Southeast Gila County",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.1",
+      "observedAt": "2026-11-20T23:52:00-07:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-6cb3d19617e6b1dc3bcbbd1451283aff36f28d64-001-2",
+      "kind": "advisory",
+      "title": "Freeze Warning — Southeast Gila County",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.2",
+      "observedAt": "2026-11-20T23:52:00-07:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-6cb3d19617e6b1dc3bcbbd1451283aff36f28d64-002-1",
+      "kind": "advisory",
+      "title": "Freeze Warning — Joshua Tree NP West",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.002.1",
+      "observedAt": "2026-11-20T23:52:00-07:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.6cb3d19617e6b1dc3bcbbd1451283aff36f28d64.002.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-a6fa5086145354d0ed1a90a690364b8badc81719-003-1",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Inland Flagler; Eastern Putnam",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.003.1",
+      "observedAt": "2026-11-21T01:30:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.003.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-a6fa5086145354d0ed1a90a690364b8badc81719-001-2",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Eastern Clay; South Central Duval; Western St. Johns",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.001.2",
+      "observedAt": "2026-11-21T01:30:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-a6fa5086145354d0ed1a90a690364b8badc81719-002-1",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Coastal Flagler",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.002.1",
+      "observedAt": "2026-11-21T01:30:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a6fa5086145354d0ed1a90a690364b8badc81719.002.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
     }
   ],
   "alerts": []
