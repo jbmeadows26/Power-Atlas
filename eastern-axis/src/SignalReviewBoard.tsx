@@ -83,7 +83,7 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
         </>:<>
           <div><small>CONFIRMED ELEVATIONS</small><strong>{elevated.length}</strong><span>Evidence-gated</span></div>
           <div><small>MONITORED ELSEWHERE</small><strong>{reviews.length-elevated.length}</strong><span>Early Warning lane</span></div>
-          <div><small>ANALYST STATUS</small><strong className="sr-word">{snapshot.model.status==='available'?'ONLINE':snapshot.model.status==='not-needed'?'NO QUEUE':'UNAVAILABLE'}</strong><span>{countReviewed} model-reviewed records</span></div>
+          <div><small>ANALYST STATUS</small><strong className="sr-word">{snapshot.model.status==='available'?'ONLINE':snapshot.model.status==='partial'?'PARTIAL':snapshot.model.status==='not-needed'?'NO QUEUE':'UNAVAILABLE'}</strong><span>{countReviewed} model-reviewed records</span></div>
           <div><small>REVIEW DATE</small><strong className="sr-word">{stamp(snapshot.generatedAt)}</strong><span>Published snapshot</span></div>
         </>}
       </div>
@@ -92,6 +92,7 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
         <span>{stale?'The analyst report is stale. Historical elevations are suppressed from current Command alerts.':
           snapshot.model.status==='unavailable'?'AI reasoning unavailable; automated screening continues without promoting unsupported findings.':
           snapshot.model.status==='not-needed'?'No fresh candidates require an AI model call in this snapshot.':
+          snapshot.model.status==='partial'?'Some records received valid AI review; other candidates remain monitored and unreviewed.':
           'The constrained AI analyst ran on review candidates. Its proposed elevations remain subject to source-evidence gates.'}
           <small> Source collection: {stamp(snapshot.sourceCheckedAt)} · Triage: {stamp(snapshot.generatedAt)}</small></span>
       </div>
