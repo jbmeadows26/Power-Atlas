@@ -2033,3 +2033,6 @@ select:focus-visible {
   .investigation-summary { font-size: 11px; }
   #ea-investigation-detail, #ea-investigation-list { scroll-margin-top: 77px; }
 }
+
+/* Four-item mobile navigation after Economic Intelligence consolidation. */
+@media (max-width:980px) {.mobile-bottom-nav{grid-template-columns:repeat(4,minmax(0,1fr))}}
