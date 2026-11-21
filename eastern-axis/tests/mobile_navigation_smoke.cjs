@@ -155,9 +155,8 @@ async function qa(page,width){
     await countriesViews.getByRole('button',{name:'Country intelligence'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     await nav.getByRole('button',{name:'Systems'}).click();
-    await page.getByRole('region',{name:/Global systems/i}).first().waitFor({state:'visible',timeout:15000}).catch(async()=>{
-      assert.ok(await page.locator('.gs-root,.gs-panel,.gs-signal').count()>0,'Systems shortcut did not open Global Systems');
-    });
+    await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
+    await page.getByRole('heading',{name:'The systems behind global power.'}).waitFor({state:'visible'});
     await nav.getByRole('button',{name:'Countries'}).click();
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
