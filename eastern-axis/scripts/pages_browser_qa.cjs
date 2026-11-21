@@ -215,13 +215,10 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
     // Country dossier is selected explicitly after visiting the nested Networks view.
     await page.getByRole('group',{name:'Country intelligence views'}).getByRole('button',{name:'Country intelligence'}).click();
-    console.log('COUNTRY PANEL DIAGNOSTIC',viewport.width,JSON.stringify(await page.evaluate(()=>{
-      const el=document.querySelector('.country-brief .brief-relationship');
-      const parents=[];let n=el;
-      for(let i=0;n&&i<7;i++,n=n.parentElement){const c=getComputedStyle(n);parents.push({tag:n.tagName,cls:n.className,display:c.display,visibility:c.visibility,opacity:c.opacity,width:n.getBoundingClientRect().width,height:n.getBoundingClientRect().height});}
-      return {panels:document.querySelectorAll('.country-brief').length,nav:document.querySelector('.ea-country-subnav')?.textContent,parents};
-    })));
     await page.locator('.country-brief .brief-relationship').waitFor({state:'visible',timeout:15000});
+    const countryPanelWidth=await page.locator('.country-brief').evaluate(el=>el.getBoundingClientRect().width);
+    assert.ok(countryPanelWidth >= Math.min(260,viewport.width-70),'Country dossier collapsed at '+viewport.width+'px: '+countryPanelWidth);
+
     await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
