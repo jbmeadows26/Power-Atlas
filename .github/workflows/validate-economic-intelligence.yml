@@ -1,0 +1,55 @@
+name: Validate Eastern Axis Economic Intelligence
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/src/**'
+      - 'eastern-axis/package.json'
+      - 'eastern-axis/vite.config.ts'
+      - '.github/workflows/validate-economic-intelligence.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/src/**'
+      - 'eastern-axis/package.json'
+      - 'eastern-axis/vite.config.ts'
+      - '.github/workflows/validate-economic-intelligence.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: Compile unified intelligence UI
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    defaults:
+      run:
+        working-directory: eastern-axis
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+      - name: TypeScript check
+        run: npx tsc --noEmit
+      - name: Production bundle
+        run: npm run build
+      - name: Check navigation references and data panels
+        run: |
+          node - <<'NODE'
+          const fs=require('node:fs');
+          const app=fs.readFileSync('src/App.tsx','utf8');
+          const dashboard=fs.readFileSync('src/EconomicIntelligence.tsx','utf8');
+          const required=['GlobalSystems','SupplyChain','PhysicalEarlyWarning','RiskDecisionBoard','FinancialMarkets','DecisionRadar'];
+          for(const name of required)if(!dashboard.includes('<'+name))throw Error('Missing economic drilldown: '+name);
+          if(!app.includes("'Economic intelligence'"))throw Error('Unified navigation missing');
+          for(const label of ["'Global systems',","'Supply chain',","'Early warning',","'Risk watch',"]){
+            if(app.includes(label))throw Error('Legacy sidebar section still registered: '+label);
+          }
+          if(!dashboard.includes('Promise.allSettled'))throw Error('Independent source failure handling missing');
+          console.log('Economic intelligence source modules and consolidated navigation verified');
+          NODE
