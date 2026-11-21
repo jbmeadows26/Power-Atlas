@@ -131,9 +131,13 @@ type Section = (typeof sections)[number];
 const sectionSlug = (section: Section) => section.toLowerCase().replace(/\s+/g, '-');
 const sectionFromHash = (): Section => {
   if (typeof window === 'undefined') return 'Overview';
+  // Read old #section links for compatibility, but prefer fragment-free URLs
+  // in shared links: some in-app browsers mishandle #fragment navigation.
   const fragment = window.location.hash.slice(1).toLowerCase();
-  if (fragment === 'risks' || fragment === 'risk') return 'Risk watch';
-  return sections.find((section) => sectionSlug(section) === fragment) || 'Overview';
+  const query = new URLSearchParams(window.location.search).get('view')?.trim().toLowerCase();
+  const section = fragment || query || '';
+  if (section === 'risks' || section === 'risk') return 'Risk watch';
+  return sections.find((item) => sectionSlug(item) === section) || 'Overview';
 };
 const focusCodes = ['RU', 'CN', 'IR', 'KP'];
 const fmt = (n: number) =>
@@ -392,7 +396,11 @@ function App() {
     setView(next);
     setMobileMenu(false);
     const slug = sectionSlug(next);
-    if (window.location.hash !== '#' + slug) window.history.pushState(null, '', '#' + slug);
+    const url = new URL(window.location.href);
+    url.hash = '';
+    url.searchParams.set('view', slug);
+    if (window.location.search !== url.search || window.location.hash)
+      window.history.pushState(null, '', url.pathname + url.search);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
