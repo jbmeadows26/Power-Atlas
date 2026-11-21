@@ -1,113 +1,161 @@
 import { useEffect, useMemo, useState } from 'react';
 import { api } from '@appdeploy/client';
-import { Activity, ArrowUpRight, BookOpen, Database, FileSearch, Globe2, Layers3, Network, ShieldCheck } from 'lucide-react';
-import './connections.css';
-import AlliedSanctions from './AlliedSanctions';
-import CountryDefenseSnapshot, { defenseCounts } from './CountryDefenseSnapshot';
+import { ArrowUpRight, CircleAlert, ExternalLink, GitBranch, Network, ShieldCheck } from 'lucide-react';
+import './networkExplorer.css';
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
 type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string };
-type Assessment = { id:string; countries:string[]; title:string; agency:string; finding:string; published:string; url:string };
-type Operation = { id:string; roles:{code:string;role:string}[]; title:string; state:string; summary:string; published:string; url:string };
-type Asset = { id:string; code:string; name:string; quantity:string; published:string; detail:string; url:string };
-type OfficialSource = { id:string; name:string; group:string; what:string; url:string };
-type IntakeRecord = { id:string; sourceId:string; title:string; date:string; summary:string; sourceUrl:string; countryMention?:string; countryRule?:string; recordType:string; reviewState:string };
-type Intelligence = { records:IntakeRecord[]; resultsNote:string };
-type Defense = { assessments:Assessment[]; operations:Operation[]; assets:Asset[]; sources:OfficialSource[] };
-type Indicator = { code:string; label:string; value:number|null; year:string|null; unit:string; sourceUrl:string };
-type Systems = { indicators:Indicator[]; status:string };
 type Props = { code:string; countries:Country[]; cases:Case[]; onSelect:(code:string)=>void };
+type Kind = 'Treaty'|'Partnership'|'Organization'|'Operation';
+type Link = { id:string; from:string; to:string; kind:Kind; label:string; detail:string; asOf:string; publisher:string; url:string; caution?:string };
+type Operation = {id:string; title:string; published:string; summary:string; roles:{code:string;role:string}[]; publisher:string;url:string;state:string};
+type Defense = { operations:Operation[] };
 
-const focus = new Set(['RU', 'CN', 'IR', 'KP']);
-const modules = [
-  {id:'cases', title:'Documented legal cases',icon:FileSearch,detail:'Reviewed DOJ announcements and procedural status — one evidence category'},
-  {id:'intake', title:'Country-tagged source leads',icon:Database,detail:'Unreviewed official-source intake; headline mentions are not attribution'},
-  {id:'reports', title:'Allied assessments',icon:BookOpen,detail:'Publicly curated and country-tagged government assessments'},
-  {id:'sources', title:'U.S. + allied source network',icon:Globe2,detail:'Official government source portals, worldwide even where there is no country-tagged report'},
-  {id:'operations', title:'Reported conflict context',icon:Activity,detail:'Dated reports, not real-time tracking'},
-  {id:'assets', title:'Military capability references',icon:Layers3,detail:'Estimates and source-attributed descriptions'},
-  {id:'economic', title:'Economic exposure',icon:Database,detail:'World Bank indicators with reporting years'},
-] as const;
-type Branch = typeof modules[number]['id'];
-const selectedMetrics=new Set(['EG.IMP.CONS.ZS','NY.GDP.TOTL.RT.ZS','NE.TRD.GNFS.ZS','FP.CPI.TOTL.ZG']);
-const num=(n:number)=>n.toLocaleString('en-US',{maximumFractionDigits:1})+'%';
+const refs = {
+ csto:'https://en.odkb-csto.org/25years/',
+ nato:'https://www.nato.int/en/about-us/organization/nato-member-countries',
+ russiaDprk:'https://www.everycrsreport.com/reports/IF12760.html',
+ chinaDprk:'https://www.everycrsreport.com/reports/R49319.html',
+ russiaChina:'https://www.everycrsreport.com/reports/R48977.html',
+ anzus:'https://www.dfat.gov.au/geo/united-states-of-america/united-states-of-america-country-brief',
+ japan:'https://www.mod.go.jp/en/j-us-alliance/joint-declaration/treaty/index.html',
+ korea:'https://2021-2025.state.gov/u-s-security-cooperation-with-korea/',
+ philippines:'https://2021-2025.state.gov/u-s-security-cooperation-with-the-philippines/',
+ thailand:'https://www.everycrsreport.com/reports/R40614.html'
+};
+
+const primary:Link[] = [
+ {id:'ru-kp-treaty',from:'RU',to:'KP',kind:'Treaty',label:'2024 mutual-assistance treaty',asOf:'2024 treaty; CRS reference',publisher:'U.S. Congressional Research Service',url:refs.russiaDprk,detail:'Russia and North Korea concluded a bilateral treaty with a military-assistance commitment. Terms and conditions matter; this is not a prediction of joint military action.'},
+ {id:'cn-kp-treaty',from:'CN',to:'KP',kind:'Treaty',label:'1961 mutual-assistance treaty',asOf:'1961 treaty; CRS reference',publisher:'U.S. Congressional Research Service',url:refs.chinaDprk,detail:'China and North Korea have a distinct mutual-assistance treaty. Its terms must not be conflated with the Russia–North Korea treaty.'},
+ {id:'ru-cn-partnership',from:'RU',to:'CN',kind:'Partnership',label:'Strategic / military partnership',asOf:'CRS 2026 assessment',publisher:'U.S. Congressional Research Service',url:refs.russiaChina,detail:'The relationship involves security and military cooperation, but is not a bilateral mutual-defense alliance.'},
+ {id:'us-au-treaty',from:'US',to:'AU',kind:'Treaty',label:'ANZUS security relationship',asOf:'Official treaty context',publisher:'Australian Department of Foreign Affairs and Trade',url:refs.anzus,detail:'U.S.–Australia defense-treaty relationship; it does not imply identical actions in every conflict.'},
+ {id:'us-jp-treaty',from:'US',to:'JP',kind:'Treaty',label:'U.S.–Japan security treaty',asOf:'Official treaty text',publisher:'Japan Ministry of Defense',url:refs.japan,detail:'Bilateral defense-treaty commitment defined by its published provisions.'},
+ {id:'us-kr-treaty',from:'US',to:'KR',kind:'Treaty',label:'U.S.–South Korea security alliance',asOf:'U.S. State Department source',publisher:'U.S. Department of State',url:refs.korea,detail:'A bilateral defense relationship with the Republic of Korea, distinct from NATO membership.'},
+ {id:'us-ph-treaty',from:'US',to:'PH',kind:'Treaty',label:'U.S.–Philippines mutual defense treaty',asOf:'U.S. State Department source',publisher:'U.S. Department of State',url:refs.philippines,detail:'A bilateral mutual-defense treaty; triggering conditions require reference to the original document.'},
+ {id:'us-th-treaty',from:'US',to:'TH',kind:'Treaty',label:'U.S.–Thailand security arrangements',asOf:'CRS treaty context',publisher:'U.S. Congressional Research Service',url:refs.thailand,detail:'U.S. collective-defense arrangements include Thailand; do not equate these provisions with NATO Article 5.'}
+];
+
+const csto = ['RU','BY','KZ','KG','TJ','AM'];
+const operationMeaning: Record<string,{label:string;detail:string;caution:string}> = {
+ 'ru-ua': {label:'Opposing parties in Russia–Ukraine war',detail:'The same UN conflict briefing describes separate belligerent roles. This edge signifies opposition, not cooperation.',caution:'Dated conflict report; no live troop tracking.'},
+ 'iran-us': {label:'Opposing parties in reported hostilities',detail:'A March 2026 public assessment described U.S.–Iran hostilities. This is a dated confrontation reference, not a statement of present deployments.',caution:'November operational status not independently established.'},
+ 'dprk-support': {label:'Reported North Korean military support',detail:'ODNI described North Korean troops deployed to support Russian operations in 2024. This is historical evidence, not a current force estimate.',caution:'No verified current troop strength or location.'},
+ 'gaza': {label:'Parties and territories in Gaza hostilities',detail:'The UN source describes distinct Israeli military activity and affected Palestinian territories. Hamas and other armed groups are not equivalent to Palestinian authorities.',caution:'Conflict context does not attribute conduct to an entire population.'}
+};
+
+function datedOperations(operations:Operation[]):Link[]{
+ return operations.flatMap(op=>{
+  const meaning=operationMeaning[op.id];
+  const participants=Array.from(new Set((op.roles||[]).map(r=>r.code)));
+  if(!meaning||participants.length!==2||!op.url)return [];
+  return [{id:'operation-'+op.id,from:participants[0],to:participants[1],kind:'Operation' as Kind,
+   label:meaning.label,detail:meaning.detail,asOf:op.published||'Publication date unavailable',
+   publisher:op.publisher||'Dated public-source report',url:op.url,caution:meaning.caution}];
+ });
+}
+function actor(code:string,countries:Country[]):string{
+ if(code==='NATO')return 'NATO';
+ if(code==='CSTO')return 'CSTO';
+ return countries.find(c=>c.code===code)?.name||code;
+}
+const labels:Kind[]=['Treaty','Partnership','Organization','Operation'];
 
 export default function Connections({code,countries,cases,onSelect}:Props){
  const [defense,setDefense]=useState<Defense|null>(null);
- const [systems,setSystems]=useState<Systems|null>(null);
- const [intelligence,setIntelligence]=useState<Intelligence|null>(null);
- const [intelligenceError,setIntelligenceError]=useState(false);
  const [defenseError,setDefenseError]=useState(false);
- const [systemsError,setSystemsError]=useState(false);
- const [active,setActive]=useState<Branch>('cases');
- const [region,setRegion]=useState('All regions');
- const [query,setQuery]=useState('');
- const selected=countries.find(c=>c.code===code);
+ const [kind,setKind]=useState<Kind|'All'>('All');
+ const [picked,setPicked]=useState('');
+ const focus=code==='all'?'RU':code;
  useEffect(()=>{
-   let valid=true;
-   api.get('/api/defense-intel').then(r=>{if(valid){setDefense(r.data as Defense);setDefenseError(false);}}).catch(()=>{if(valid)setDefenseError(true);});
-   api.get('/api/intelligence').then(r=>{if(valid){setIntelligence(r.data as Intelligence);setIntelligenceError(false);}}).catch(()=>{if(valid)setIntelligenceError(true);});
-   return()=>{valid=false;};
+  let active=true;
+  api.get('/api/defense-intel').then(r=>{if(active){setDefense(r.data as Defense);setDefenseError(false);}})
+   .catch(()=>{if(active)setDefenseError(true);});
+  return()=>{active=false;};
  },[]);
- useEffect(()=>{
-   if(code==='all'){setSystems(null);return;}
-   let valid=true;
-   setSystems(null);setSystemsError(false);
-   api.get('/api/global-systems/'+code).then(r=>{if(valid)setSystems(r.data as Systems);}).catch(()=>{if(valid)setSystemsError(true);});
-   return()=>{valid=false;};
- },[code]);
- const relatedCases=useMemo(()=>cases.filter(c=>c.code===code),[cases,code]);
- const assessments=(defense?.assessments||[]).filter(r=>r.countries.includes(code));
- const leads=(intelligence?.records||[]).filter(r=>code!=='all'&&r.countryMention===code);
- const alliedSources=(defense?.sources||[]).filter(r=>['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
- const supportingSources=(defense?.sources||[]).filter(r=>!['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
- const operations=(defense?.operations||[]).filter(r=>r.roles.some(p=>p.code===code));
- const assets=(defense?.assets||[]).filter(r=>r.code===code);
- const economics=(systems?.indicators||[]).filter(i=>selectedMetrics.has(i.code));
- const counts:{[key in Branch]:number}={cases:relatedCases.length,intake:leads.length,reports:assessments.length,sources:alliedSources.length,operations:operations.length,assets:assets.length,economic:economics.filter(i=>i.value!==null).length};
- const regions=['All regions', ...Array.from(new Set(countries.map(c=>c.region))).sort()];
- const countriesByRegion=countries.filter(c=>(region==='All regions'||c.region===region) && (c.name.toLowerCase().includes(query.toLowerCase())||c.code.toLowerCase().includes(query.toLowerCase())))
-   .sort((a,b)=>{const score=(c:Country)=>{const n=defenseCounts(defense,c.code);return cases.filter(x=>x.code===c.code).length+n.assessments+n.operations+n.assets;};return score(b)-score(a)||a.name.localeCompare(b.name);});
- return <section className="cx-root">
-  <div className="cx-eyebrow"><Network size={15}/> CROSS-DOMAIN INTELLIGENCE / COUNTRY-INDEXED</div>
-  <h1>Follow the documented connections.</h1>
-  <p className="cx-sub">All relevant public U.S. and allied evidence stays in scope for every country: legal records, Five Eyes reporting, NATO and EU assessments, regional defense assessments, sanctions and source-indexed leads. Show original sources and their limits. <strong>Zero curated cases never means zero evidence.</strong> A shared country index does not establish a relationship or government attribution.</p>
-  {code==='all'||!selected?<div className="cx-directory">
-   <div className="cx-region-heading"><div><h2>Choose a country or region</h2><p>Country-specific records are examined separately. Regional grouping is for discovery, not an assertion that neighbors share responsibility.</p></div><div className="cx-directory-filters"><input type="search" aria-label="Find country or ISO code" placeholder="Search country or code…" value={query} onChange={e=>setQuery(e.target.value)}/><select aria-label="Filter countries by region" value={region} onChange={e=>setRegion(e.target.value)}>{regions.map(r=><option key={r} value={r}>{r}</option>)}</select></div></div>
-   <div className="cx-country-grid">{countriesByRegion.slice(0,45).map(c=><button key={c.code} onClick={()=>onSelect(c.code)} className="cx-country"><strong>{c.name}</strong><span>{c.region} · {focus.has(c.code)?'Strategic focus':c.isTreatyAlly?'Treaty ally':'Regional research'}</span><div className="cx-country-evidence">{defense?(()=>{const n=defenseCounts(defense,c.code);return <><span>{n.assessments?`${n.assessments} allied reports`:'Reports not indexed'}</span><span>{n.operations?`${n.operations} operations`:'Operations not indexed'}</span><span>{n.assets?`${n.assets} asset entries`:'Assets not indexed'}</span></>;})():<span>{defenseError?'Source unavailable':'Loading defense records…'}</span>}</div><small>Open country intelligence card <ArrowUpRight size={12}/></small></button>)}</div>
-   {countriesByRegion.length>45&&<p className="cx-foot">Showing 45 of {countriesByRegion.length} matching jurisdictions. Search by country or ISO code, or use the persistent selector to reach every country.</p>}
-   {countriesByRegion.length===0&&<p className="cx-empty">No matching countries. Try another name or region.</p>}
-   <section className="cx-global-evidence" aria-label="Worldwide allied intelligence sources">
-    <h2>Worldwide U.S. and allied evidence</h2>
-    <p className="cx-sub">These are all currently curated country-tagged allied assessments, even when a country's DOJ case index is empty. Each link opens an original report. The source library is broader than the curated report sample; unindexed reporting is not an absence of evidence.</p>
-    {(defense?.assessments||[]).map(r=><article className="cx-record" key={r.id}><small>{r.published} · {r.agency} · {r.countries.length?r.countries.join(', '):'Regional context — not country-tagged'}</small><h3>{r.title}</h3><p>{r.finding}</p><a href={r.url} target="_blank" rel="noopener noreferrer">Original allied assessment <ArrowUpRight size={13}/></a></article>)}
-    <h3 className="cx-source-heading">Official allied source network</h3>
-    <div className="cx-source-links">{alliedSources.map(r=><a key={r.id} href={r.url} target="_blank" rel="noopener noreferrer">{r.name} <ArrowUpRight size={12}/></a>)}</div>
-    {defenseError&&<p className="cx-empty">Allied source catalog could not be loaded. Coverage is unknown, not zero.</p>}
-   </section>
-  </div>:<>
-   <div className="cx-center"><Globe2 size={24}/><div><small>ALL-SOURCE COUNTRY INDEX</small><h2>{selected.name}</h2><span>{selected.region} · {selected.relationship}</span></div></div>
-   <p className="cx-sub">Every country remains connected to the complete allied source network, whether or not its curated DOJ index has entries. Country-tagged records and worldwide discovery portals are shown separately so unreviewed mentions cannot be mistaken for verified government activity.</p>
-   <CountryDefenseSnapshot code={code} name={selected.name} data={defense} unavailable={defenseError} onSelect={setActive}/>
-   <div className="cx-branch-tabs" role="group" aria-label="Connection categories">{modules.map(m=>{
-     const Icon=m.icon;
-     return <button type="button" key={m.id} onClick={()=>setActive(m.id)} className={active===m.id?'active':''}>
-      <Icon size={17}/><strong>{m.title}</strong><small>{counts[m.id]} indexed</small>
-     </button>;
-   })}</div>
-   <div className="cx-branch"><div className="cx-branch-title"><div><h2>{modules.find(m=>m.id===active)?.title}</h2><p>{modules.find(m=>m.id===active)?.detail}</p></div><span>{counts[active]} available</span></div>
-     {active==='cases'&&(relatedCases.length?relatedCases.map(x=><article className="cx-record" key={x.id}><small>{x.date} · {x.topic}</small><h3>{x.title}</h3><p>{x.summary}</p><span>{x.status}</span><a href={x.source} target="_blank" rel="noopener noreferrer">DOJ original record <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No curated DOJ case for this country. This is an indexing gap, not proof of no activity.</p>)}
-     {active==='intake'&&(leads.length?leads.map(x=><article className="cx-record" key={x.id}><small>{x.date||'Publication date unavailable'} · {x.sourceId.toUpperCase()} · UNREVIEWED SOURCE REFERENCE</small><h3>{x.title}</h3><p>{x.summary}</p><span>{x.countryRule||'Source headline mentions this country; no attribution established.'}</span><a href={x.sourceUrl} target="_blank" rel="noopener noreferrer">Original source record <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No country-tagged leads in the bounded intake sample. Untagged FARA, OFAC and CISA references remain accessible in the global Collection desk. This is not evidence of no activity.</p>)}
-     {active==='sources'&&<><p className="cx-empty">These are source portals and reference collections available across every country, not claims that their publishers have reported on the selected country. Only assessments with an explicit country tag appear under Allied assessments.</p>{alliedSources.map(x=><article className="cx-record" key={x.id}><small>OFFICIAL SOURCE · {x.group}</small><h3>{x.name}</h3><p>{x.what}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Browse original publisher <ArrowUpRight size={13}/></a></article>)}{supportingSources.length>0&&<><h3>Additional multilateral and research references</h3>{supportingSources.map(x=><article className="cx-record" key={x.id}><small>SUPPORTING SOURCE · {x.group}</small><h3>{x.name}</h3><p>{x.what}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original publisher <ArrowUpRight size={13}/></a></article>)}</>}</>}
-     {active==='reports'&&(assessments.length?assessments.map(x=><article className="cx-record" key={x.id}><small>{x.published} · {x.agency}</small><h3>{x.title}</h3><p>{x.finding}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original assessment <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No curated country-specific allied assessment. Official sources may report elsewhere.</p>)}
-     {active==='operations'&&(operations.length?operations.map(x=><article className="cx-record" key={x.id}><small>{x.published} · DATED PUBLIC REPORT</small><h3>{x.title}</h3><p>{x.summary}</p><span>{x.state}</span><a href={x.url} target="_blank" rel="noopener noreferrer">Original report <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No curated conflict or operation entry. This is not a live battlefield assessment.</p>)}
-     {active==='assets'&&(assets.length?assets.map(x=><article className="cx-record" key={x.id}><small>{x.published} · PUBLIC ASSET ESTIMATE</small><h3>{x.name}</h3><p>{x.quantity} · {x.detail}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original public source <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No sourced asset entry yet; do not infer zero forces or capabilities.</p>)}
-     {active==='economic'&&(economics.length?economics.map(x=><article className="cx-record" key={x.code}><small>{x.year?'REPORTED '+x.year:'NO OBSERVATION'}</small><h3>{x.label}</h3><p className="cx-figure">{typeof x.value==='number'?num(x.value):'Unavailable'}</p><a href={x.sourceUrl} target="_blank" rel="noopener noreferrer">World Bank indicator <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">{systemsError?'World Bank unavailable.': 'No official indicators available in this scope.'} No estimates are substituted.</p>)}
-     {defenseError&&['reports','operations','assets','sources'].includes(active)&&<p className="cx-empty">Allied assessment and source catalog unavailable. Coverage is unknown, not zero; curated cases remain separate.</p>}
-     {intelligenceError&&active==='intake'&&<p className="cx-empty">Official-source intake is unavailable. Country-tagged lead coverage cannot be assessed.</p>}
+ const allLinks=useMemo(()=>{
+  const membership:Link[]=countries.filter(c=>c.relationship.includes('NATO collective-defense')).map(c=>({
+   id:'nato-'+c.code,from:c.code,to:'NATO',kind:'Organization',label:'NATO treaty membership',
+   detail:'NATO membership is a multilateral collective-defense relationship. It is not a claim of identical operational participation.',
+   asOf:'NATO official membership directory',publisher:'NATO',url:refs.nato
+  }));
+  const collective:Link[]=csto.map(code=>({
+   id:'csto-'+code,from:code,to:'CSTO',kind:'Organization',
+   label:code==='AM'?'CSTO membership · participation frozen':'CSTO collective-security membership',
+   detail:code==='AM'?'Armenia has frozen its participation despite formal membership. Membership must not be read as current operational cooperation.':'Formal CSTO membership; it does not prove participation in a specific operation.',
+   asOf:'CSTO official history',publisher:'CSTO',url:refs.csto
+  }));
+  return [...primary,...membership,...collective,...datedOperations(defense?.operations||[])];
+ },[countries,defense]);
+ const forCountry=allLinks.filter(l=>l.from===focus||l.to===focus);
+ const scoped=forCountry.filter(l=>kind==='All'||l.kind===kind).slice(0,12);
+ const chosen=scoped.find(l=>l.id===picked)||scoped[0];
+ const peer=(l:Link)=>l.from===focus?l.to:l.from;
+ const neighbors=new Set(forCountry.map(peer));
+ const svgHeight=Math.max(330,scoped.length*71+65);
+ const centerY=svgHeight/2;
+ const caseCount=cases.filter(c=>c.code===focus).length;
+ return <section className="nx-root" aria-label="Sourced relationship networks">
+  <header className="nx-head">
+   <div><div className="nx-kicker"><Network size={16}/> ALL-SOURCE RELATIONSHIP INTELLIGENCE</div>
+    <h1>Networks<span className="nx-period">.</span></h1>
+    <p>Documented security ties, partnerships and separately reported conflict relationships. Follow the connection, inspect its source, then judge its meaning.</p>
    </div>
-  </>}
-  <AlliedSanctions code={code} cases={code==='all'?cases:relatedCases} />
-  <div className="cx-guardrail"><ShieldCheck size={20}/><div><strong>Relationship confidence is not established by these links</strong><p>These panels join public records on a country field. Allegations, government assessments and estimates retain their separate evidence status. No entity identification, ownership chain, government-direction attribution or causal link is inferred. Source dates and downstream court outcomes require separate verification.</p></div></div>
+   <div className="nx-scope"><span>{code==='all'?'GLOBAL NETWORK SPOTLIGHT':'COUNTRY NETWORK'}</span><strong>{actor(focus,countries)}</strong><small>{code==='all'?'Choose a country above to focus the graph':'Persistent country selector is applied'}</small></div>
+  </header>
+  <div className="nx-metrics" aria-label="Relationship coverage">
+   <div><strong>{forCountry.length}</strong><span>Sourced relationship records</span></div>
+   <div><strong>{neighbors.size}</strong><span>Connected actors / blocs</span></div>
+   <div><strong>{new Set(forCountry.map(l=>l.kind)).size}</strong><span>Relationship categories</span></div>
+   <div><strong>{forCountry.filter(l=>l.kind==='Operation').length}</strong><span>Dated operation links</span></div>
+  </div>
+  <div className="nx-filter" role="group" aria-label="Network relationship filters">
+   {(['All',...labels] as const).map(option=>{
+    const count=option==='All'?forCountry.length:forCountry.filter(l=>l.kind===option).length;
+    return <button key={option} type="button" className={kind===option?'selected':''} aria-pressed={kind===option}
+      onClick={()=>{setKind(option);setPicked('');}}>{option} <span>{count}</span></button>;
+   })}
+  </div>
+  {scoped.length?<div className="nx-graph-shell">
+   <div className="nx-chart-top"><strong><GitBranch size={16}/> Relationship map</strong><span>Select a connection below for source evidence</span></div>
+   <div className="nx-chart-scroll">
+    <svg className="nx-graph" viewBox={'0 0 1000 '+svgHeight} role="img" aria-label={'Sourced relationship map for '+actor(focus,countries)}>
+     <title>{actor(focus,countries)} — documented relationships</title>
+     {scoped.map((l,i)=>{
+      const y=65+i*71;
+      return <g key={l.id} className={'nx-edge nx-type-'+l.kind.toLowerCase()+(chosen?.id===l.id?' current':'')}>
+       <path d={'M 246 '+centerY+' C 490 '+centerY+', 500 '+y+', 738 '+y} fill="none" strokeWidth={chosen?.id===l.id?3.8:2.1}/>
+       <circle cx="738" cy={y} r="5.5"/>
+       <rect x="745" y={y-23} width="235" height="46" rx="11"/>
+       <text x="762" y={y+5} fontSize="18" fontWeight="650">{actor(peer(l),countries).slice(0,21)}</text>
+      </g>;
+     })}
+     <rect className="nx-center-node" x="20" y={centerY-47} width="226" height="94" rx="17"/>
+     <text className="nx-center-name" x="37" y={centerY-5} fontSize="21" fontWeight="800">{actor(focus,countries).slice(0,19)}</text>
+     <text className="nx-center-caption" x="37" y={centerY+22} fontSize="14">Selected country</text>
+    </svg>
+   </div>
+   <div className="nx-legend"><span><i className="nx-dot treaty"/> Treaty</span><span><i className="nx-dot partnership"/> Partnership</span><span><i className="nx-dot organization"/> Organization</span><span><i className="nx-dot operation"/> Dated operation</span></div>
+  </div>:<div className="nx-empty"><CircleAlert size={18}/> No source-backed relationship is indexed for this country and filter. This is a coverage gap—not evidence that no relationships exist.</div>}
+  {scoped.length>0&&<div className="nx-two">
+   <section className="nx-list" aria-label="Documented connection records">
+    <div className="nx-subhead"><h2>Connections</h2><span>{scoped.length} displayed</span></div>
+    {scoped.map(l=><button type="button" key={l.id} className={'nx-connection '+(chosen?.id===l.id?'picked':'')} onClick={()=>setPicked(l.id)}>
+     <span className={'nx-kind nx-type-'+l.kind.toLowerCase()}>{l.kind}</span>
+     <strong>{actor(focus,countries)} <span aria-hidden="true">↔</span> {actor(peer(l),countries)}</strong>
+     <small>{l.label}</small>
+    </button>)}
+   </section>
+   <aside className="nx-detail" aria-live="polite">
+    {chosen&&<><span className={'nx-kind nx-type-'+chosen.kind.toLowerCase()}>{chosen.kind} · SOURCE-LINKED</span>
+     <h2>{chosen.label}</h2><p>{chosen.detail}</p>
+     {chosen.caution&&<p className="nx-caution">{chosen.caution}</p>}
+     <div className="nx-provenance"><span>Published / assessed</span><strong>{chosen.asOf}</strong><span>Original publisher</span><strong>{chosen.publisher}</strong></div>
+     <a className="nx-source" href={chosen.url} target="_blank" rel="noopener noreferrer">Examine original evidence <ExternalLink size={15}/></a>
+     {countries.some(c=>c.code===peer(chosen))&&<button type="button" className="nx-follow" onClick={()=>{onSelect(peer(chosen));setPicked('');setKind('All');}}>Follow {actor(peer(chosen),countries)} network <ArrowUpRight size={15}/></button>}
+    </>}
+   </aside>
+  </div>}
+  {defenseError&&<p className="nx-alert"><CircleAlert size={16}/> The defense-intelligence feed is unavailable; dated operation edges may be missing. Treaty and organizational references remain visible.</p>}
+  <footer className="nx-method"><ShieldCheck size={18}/><p>Edges indicate only the relationship described by their cited source. Opposition, treaty membership, partnership and military support are distinct. No ownership chain, proxy control, culpability or causal relationship is inferred from common country tags. {caseCount} curated DOJ case{caseCount===1?'':'s'} for this country are catalogued separately until entity-level links are verified. Sanctions totals and source portals belong in Source Library, not the relationship graph.</p></footer>
  </section>;
 }
