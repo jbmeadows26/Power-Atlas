@@ -124,30 +124,22 @@ async function qa(page,width){
     assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Networks','More']);
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
-    // Regression: zero-DOJ country with null allied-sanctions counts must never blank the app.
+    // Networks must show sourced relationships, not an always-mounted sanctions inventory.
     await nav.getByRole('button',{name:'Networks'}).click();
-    await page.locator('.cx-country').filter({hasText:'Antigua & Barbuda'}).click();
-    await page.locator('.cx-center h2').getByText('Antigua & Barbuda').waitFor();
-    await page.locator('.ip-sanction-source').first().waitFor();
-    await page.locator('.cx-branch-tabs button').filter({hasText:'U.S. + allied source network'}).click();
-    await page.getByText('Canadian CSIS').waitFor();
-    // Each country carries its own sourced defense dossier, independent of DOJ case counts.
+    const network=page.getByRole('region',{name:'Sourced relationship networks'});
+    await network.waitFor({state:'visible'});
+    await network.locator('.nx-graph').waitFor({state:'visible'});
+    assert.ok(await network.locator('.nx-connection').count()>=2,'Russia spotlight must expose sourced treaty relationships');
+    assert.equal(await page.locator('.ip-sanction-source').count(),0,'Sanctions snapshots must not replace Networks');
+    await network.locator('.nx-connection').first().click();
+    const original=network.getByRole('link',{name:/Examine original evidence/});
+    assert.match(await original.getAttribute('href'),/^https:\/\//,'Relationship needs original evidence link');
+    // Selecting a zero-case, zero-link country must show an explicit coverage gap, not blank the app.
     await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
-    await page.getByRole('option',{name:/Worldwide/}).click();
-    const russiaCard=page.locator('.cx-country').filter({hasText:'Russia'});
-    await russiaCard.getByText('1 allied reports').waitFor();
-    await russiaCard.getByText('1 operations').waitFor();
-    await russiaCard.getByText('1 asset entries').waitFor();
-    await russiaCard.click();
-    const dossier=page.locator('.cx-root .cds-root');
-    await dossier.getByText('Russia: military & allied intelligence').waitFor();
-    await dossier.getByText('Fixture allied assessment').waitFor();
-    await dossier.getByText('Fixture operation').waitFor();
-    await dossier.getByText('100 (test) Fixture aircraft estimate').waitFor();
-    assert.equal(await dossier.locator('.cds-references a').count(),3,'Every indexed defense domain must link its original source');
-    await dossier.getByRole('button',{name:/Military operations/}).click();
-    await page.locator('.cx-branch-title h2').getByText('Reported conflict context').waitFor();
-    assert.equal((await page.locator('#root').innerText()).length>100,true,'Zero-case country blanked the page');
+    await page.getByRole('combobox',{name:'Search country or code'}).fill('Antigua');
+    await page.getByRole('option',{name:/Antigua/}).click();
+    await network.locator('.nx-empty').waitFor({state:'visible'});
+    assert.equal(await page.locator('#root').isVisible(),true,'Unknown network country blanked the root');
     assert.deepEqual(pageErrors,[],'Country selection caused a React render error');
     await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
     await page.getByRole('option',{name:/Worldwide/}).click();
@@ -165,6 +157,13 @@ async function qa(page,width){
     await page.locator('#ea-primary-navigation.sidebar-open').waitFor({state:'visible'});
     await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Source library'}).click();
     await page.getByRole('heading',{name:/Sources, not secrets/i}).waitFor();
+    // The old country dossiers and comparative sanctions snapshots still exist, in Source Library.
+    const sourceInventory=page.locator('.source-index-disclosure');
+    await sourceInventory.locator('summary').click();
+    await sourceInventory.locator('.cx-root').waitFor({state:'visible'});
+    await sourceInventory.locator('.ip-sanction-source').first().waitFor({state:'visible',timeout:15000});
+    assert.equal(await sourceInventory.locator('.ip-sanction-source').count(),2,'UK and Canadian source snapshots must be preserved');
+
     assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
     await nav.getByRole('button',{name:'Home'}).click();
     await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
