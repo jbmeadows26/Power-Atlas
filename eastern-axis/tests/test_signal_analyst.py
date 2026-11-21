@@ -36,7 +36,8 @@ def example_metric():
 def alert():
     return {"id":"nws-123","title":"Severe Flood Warning — county","observedAt":STAMP,
             "group":"US","severity":"Severe","officialAlert":True,
-            "sourceUrl":"https://api.weather.gov/alerts/abc123"}
+            "sourceUrl":"https://api.weather.gov/alerts/abc123",
+            "expiresAt":(TODAY+timedelta(hours=18)).isoformat()}
 
 class AnalystSafetyTest(unittest.TestCase):
     def test_all_source_metrics_screened_no_auto_elevation(self):
@@ -85,6 +86,14 @@ class AnalystSafetyTest(unittest.TestCase):
             report=mod.evaluate(snapshot(metrics=[wheat,cereals]))
         self.assertEqual(report["summary"]["elevated"],2)
         self.assertEqual(report["alerts"][0]["kind"],"metric")
+
+    def test_expired_official_warning_stays_monitored(self):
+        event=alert()
+        event["expiresAt"]=(TODAY-timedelta(hours=1)).isoformat()
+        source={"id":"nws","publisher":"NWS","events":[event]}
+        report=mod.evaluate(snapshot(eventFeeds=[source]))
+        self.assertEqual(report["summary"]["elevated"],0)
+        self.assertEqual(report["summary"]["screened"],0)
 
     def test_non_official_event_cannot_escalate(self):
         event=alert()
