@@ -118,6 +118,22 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Risk evidence did not collapse');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
+    // Regression: selecting the United States must not make the country index empty,
+    // even when the directory's optional allied-state filter is switched off.
+    await scope.click();
+    await page.getByRole('combobox',{name:'Search country or code'}).fill('United States');
+    await page.getByRole('option',{name:/United States/}).click();
+    const usDirectoryRow=page.locator('.country-directory .country-row').filter({hasText:'United States'});
+    await usDirectoryRow.waitFor({state:'visible',timeout:15000});
+    const includeAllies=page.getByRole('checkbox',{name:'Include U.S. primary treaty allies'});
+    await includeAllies.uncheck();
+    await usDirectoryRow.waitFor({state:'visible',timeout:10000});
+    assert.equal(await usDirectoryRow.count(),1,'Selected United States disappeared when allied countries were excluded');
+    await includeAllies.check();
+    await scope.click();
+    await page.getByRole('combobox',{name:'Search country or code'}).fill('Worldwide');
+    await page.getByRole('option',{name:/Worldwide/}).click();
+    await page.waitForFunction(()=>document.querySelectorAll('.country-directory .country-row').length>10,null,{timeout:15000});
     await page.getByRole('button',{name:'Open map'}).click();
     // Test source-linked map layers only inside Countries.
     const mapPanel=page.locator('.cc-map-panel');
