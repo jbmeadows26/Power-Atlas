@@ -97,7 +97,6 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
   const corridors=supply?.corridors.filter(c=>typeof c.percentChange==='number'&&c.recentDays>=5&&c.baselineDays>=5)||[];
   const falling=[...corridors].filter(x=>x.percentChange!<0).sort((a,b)=>a.percentChange!-b.percentChange!)[0];
   const marketRows=markets?.metrics.filter(m=>typeof m.value==='number'&&Number.isFinite(m.value))||[];
-  const vix=marketRows.find(m=>m.id==='VIXCLS');
   const earlyRows=early?.metrics.filter(m=>countryCode==='all'||m.group==='global'||m.group===countryCode)||[];
   const alerts=earlyRows.filter(screens);
   const age=ageDays(probe?.checkedAt);
