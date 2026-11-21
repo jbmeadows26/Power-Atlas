@@ -24,8 +24,8 @@ const threshold=[
   {code:'EG.IMP.CONS.ZS',label:'Energy import exposure',cutoff:50,metric:'%',direction:'above'},
   {code:'NE.TRD.GNFS.ZS',label:'Trade exposure',cutoff:100,metric:'%',direction:'above'}
 ];
-export default function RiskDecisionBoard({countryCode,countryName,cases,onCountryMap}:{
- countryCode:string;countryName?:string;cases:Case[];onCountryMap:()=>void;
+export default function RiskDecisionBoard({countryCode,countryName,cases,onCountryMap,showFinancialMarkets=true}:{
+ countryCode:string;countryName?:string;cases:Case[];onCountryMap:()=>void;showFinancialMarkets?:boolean;
 }){
  const [revision,setRevision]=useState(0);
  const [world,setWorld]=useState<WorldSignals|null>(null),[probes,setProbes]=useState<Resilience|null>(null),[economic,setEconomic]=useState<EconomicData|null>(null);
@@ -62,7 +62,7 @@ export default function RiskDecisionBoard({countryCode,countryName,cases,onCount
        <p>{countryCode==='all'?'Global research view':'Selected country: '+(countryName||countryCode)} · Live observations and historical vulnerabilities are separated. A screen is not an emergency forecast.</p>
      </div><button type="button" className="rdb-refresh" onClick={()=>setRevision(n=>n+1)} disabled={loading}><RefreshCcw size={15}/> Refresh</button>
    </header>
-   <FinancialMarkets/>
+   {showFinancialMarkets&&<FinancialMarkets/>}
    <div className="rdb-headlines">
       <div><span>INFRASTRUCTURE WATCHES</span><strong>{probes?probes.incidents.length:'—'}</strong><small>{stale?'Snapshot stale or missing':riskNote}</small></div>
       <div><span>MACRO SCREENS</span><strong>{economic?breached.length+' / '+reported.length:'—'}</strong><small>Thresholds · annual observations</small></div>
