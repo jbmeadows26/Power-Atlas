@@ -81,6 +81,20 @@ async function qa(page,width){
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
   if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
   await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  const analyst=page.getByRole('region',{name:'AI analyst signal review'});
+  await analyst.waitFor({state:'visible'});
+  const signalView=analyst.getByRole('button',{name:'Market & GNSS'});
+  assert.equal(await signalView.getAttribute('aria-pressed'),'true','Measured movements must lead Early Warning');
+  assert.ok(await analyst.locator('.sr-cover-row').count()===4,'Four independent source-category bars are required');
+  await analyst.getByRole('button',{name:/Weather alerts/}).click();
+  assert.equal(await analyst.locator('.sr-tabs [aria-pressed="true"]').count(),1,'Weather lane must be selected independently');
+  await analyst.getByRole('button',{name:/Unreviewed/}).click();
+  assert.equal(await analyst.locator('.sr-tabs [aria-pressed="true"]').count(),1,'Pending model reviews need a separate queue');
+  await signalView.click();
+  if(width<=980){
+    assert.equal(await analyst.locator('.sr-rows').evaluate(el=>getComputedStyle(el).maxHeight),'none',
+      'Mobile analyst list must not trap scrolling behind the fixed bottom nav');
+  }
   const disclosure=page.locator('.pew-context-radar');
   await disclosure.waitFor({state:'visible'});
   await disclosure.locator('summary').click();
