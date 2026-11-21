@@ -20,8 +20,15 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "types": [
-      "node"
-    ]
+      "node",
+      "vite/client"
+    ],
+    "baseUrl": ".",
+    "paths": {
+      "@appdeploy/client": [
+        "src/lib/api.ts"
+      ]
+    }
   },
   "include": [
     "src"
