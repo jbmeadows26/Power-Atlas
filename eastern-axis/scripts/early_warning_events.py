@@ -11,8 +11,7 @@ from urllib.parse import urlparse
 USGS="https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_week.geojson"
 CISA="https://www.cisa.gov/sites/default/files/feeds/known_exploited_vulnerabilities.json"
 SWPC="https://services.swpc.noaa.gov/products/noaa-planetary-k-index.json"
-NWS=("https://api.weather.gov/alerts/active?severity=extreme",
-     "https://api.weather.gov/alerts/active?severity=severe")
+NWS=("https://api.weather.gov/alerts/active",)
 CISA_PAGE="https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
 SWPC_PAGE="https://www.swpc.noaa.gov/products/planetary-k-index"
 
@@ -115,10 +114,10 @@ def read_nws(raw):
         observed=p.get("effective") or p.get("sent")
         if not day(observed):continue
         expiry=p.get("expires") or p.get("ends")
-        if expiry:
-            try:
-                if datetime.fromisoformat(str(expiry).replace("Z","+00:00"))<=datetime.now(timezone.utc):continue
-            except ValueError:continue
+        if not expiry:continue
+        try:
+            if datetime.fromisoformat(str(expiry).replace("Z","+00:00"))<=datetime.now(timezone.utc):continue
+        except ValueError:continue
         alert_id=safe_url(p.get("@id") or p.get("id") or row.get("id"),"api.weather.gov")
         if not alert_id:continue
         kind=str(p.get("event") or "NWS warning")[:95]
@@ -126,6 +125,7 @@ def read_nws(raw):
         events.append({"id":"nws-"+re.sub(r"[^a-zA-Z0-9-]","-",alert_id.rsplit("/",1)[-1])[:88],
                        "title":kind+" — "+area,"observedAt":observed,"group":"US",
                        "severity":severity,"sourceUrl":alert_id,"officialAlert":True,
+                       "expiresAt":expiry,
                        "note":"Active NWS advisory with local area, expiry and direct official record; not global coverage."})
     return {"id":"nws-severe","publisher":"NOAA National Weather Service",
             "sourceUrl":"https://www.weather.gov/documentation/services-web-alerts",
