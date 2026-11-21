@@ -97,6 +97,8 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await radar.locator('.dr-finance footer button').click();
     const fundingTab=page.getByRole('button',{name:'Overnight funding'});
     await fundingTab.waitFor({state:'visible',timeout:15000});
+    await page.waitForFunction(()=>Array.from(document.querySelectorAll('button')).some(b=>
+      b.textContent.trim()==='Overnight funding'&&b.getAttribute('aria-pressed')==='true'),null,{timeout:15000});
     assert.equal(await fundingTab.getAttribute('aria-pressed'),'true','Finance card did not select funding comparisons');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
