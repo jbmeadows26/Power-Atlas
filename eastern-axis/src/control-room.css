@@ -117,3 +117,16 @@
  .ea-control-room .mobile-bottom-nav button.selected{background:#d5f878;color:#11251d;box-shadow:none}
  .ea-control-room .menu-btn{background:#21373b;border:1px solid #46635f;border-radius:4px}
 }
+
+/* iOS: leave a full navigation-height clearance beneath the final record.
+   Inner analyst lists use document scrolling, not a second trapped scroll area. */
+@media(max-width:980px){
+  html{scroll-padding-bottom:calc(125px + env(safe-area-inset-bottom,0px))}
+  .ea-control-room .content,.ea-control-room .content:has(.command-center){
+    padding-bottom:calc(128px + env(safe-area-inset-bottom,0px))
+  }
+  .ea-control-room .mobile-bottom-nav{background:#0c2029;border-color:#54716c}
+  .ea-control-room .sr-item,.ea-control-room .sr-tabs,.ea-control-room .sr-show-all{
+    scroll-margin-bottom:calc(126px + env(safe-area-inset-bottom,0px))
+  }
+}
