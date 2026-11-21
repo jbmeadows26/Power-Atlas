@@ -120,11 +120,11 @@ const sections = [
   'Early warning',
   'Risk watch',
   'AI analyst',
-  'Coverage audit',
   'Defense intelligence',
   'Investigations',
   'Collection desk',
   'Verification lab',
+  'Coverage audit',
   'Source library', 
   'Methodology',
 ] as const;
@@ -416,17 +416,17 @@ function App() {
               <Activity size={17} />,
               <ShieldAlert size={17} />,
               <Sparkles size={17} />,
-              <Database size={17} />,
               <Shield size={17} />,
               <FileSearch size={17} />,
               <Radio size={17} />,
               <FileSearch size={17} />,
               <Database size={17} />,
+              <Database size={17} />,
               <BookOpen size={17} />,
             ];
             return (
               <Fragment key={s}>
-              {(i === 0 || i === 1 || i === 3 || i === 10) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
+              {(i === 0 || i === 1 || i === 3 || i === 9) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
               <button
                 type="button"
                 className={'nav-item ' + (view === s ? 'active' : '')}
