@@ -50,6 +50,7 @@ async function qa(page,width){
     ]};
     else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture only',reviewPolicy:'Fixture only'};
     else if(path==='/api/source-monitor')data={feeds:[],records:[],mode:'fixture',explanation:'Test-only data',nextScan:''};
+    else if(path.startsWith('/api/energy-supply/'))data={code:path.split('/').at(-1),status:'unavailable',indicators:[],warning:'Fixture: no observations',location:'Test-only',countryCount:0,checkedAt:null};
     else if(path.startsWith('/api/global-systems/'))data=globalData;
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
   });
