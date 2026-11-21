@@ -83,6 +83,7 @@ async function qa(page,width){
   await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
   const analyst=page.getByRole('region',{name:'AI analyst signal review'});
   await analyst.waitFor({state:'visible'});
+  await analyst.locator('.sr-cover-row').first().waitFor({state:'visible',timeout:15000});
   const signalView=analyst.getByRole('button',{name:'Market & GNSS'});
   assert.equal(await signalView.getAttribute('aria-pressed'),'true','Measured movements must lead Early Warning');
   assert.ok(await analyst.locator('.sr-cover-row').count()===4,'Four independent source-category bars are required');
