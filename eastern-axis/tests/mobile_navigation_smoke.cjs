@@ -76,6 +76,14 @@ async function qa(page,width){
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
   await page.getByRole('button',{name:'Choose country intelligence scope'}).waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
+  const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
+  await command.waitFor({state:'visible',timeout:20000});
+  assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
+  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  const disclosure=page.locator('.pew-context-radar');
+  await disclosure.waitFor({state:'visible'});
+  await disclosure.locator('summary').click();
   const radar=page.getByRole('region',{name:'Decision radar by domain'});
   await radar.waitFor({state:'visible'});
   // Every individual reading opens an accessible, source-aware detail window.
@@ -110,7 +118,7 @@ async function qa(page,width){
   await bug.waitFor({state:'visible'});
   const embedded=await bug.locator('iframe[title="Anonymous Eastern Axis bug report"]').getAttribute('src');
   assert.match(embedded||'',/^https:\/\/tally\.so\/embed\/LDKRaj\?/,'Bug form must be anonymous hosted form, not GitHub Issues');
-  assert.match(embedded||'',/section=Command\+center/,'Bug report should identify active section');
+  assert.match(embedded||'',/section=Early\+warning/,'Bug report should identify active section');
   assert.equal((embedded||'').includes('github.com'),false,'Bug reporter must not require GitHub membership');
   assert.match(await bug.getByRole('link',{name:/Open form separately/i}).getAttribute('href'),/^https:\/\/tally\.so\/r\/LDKRaj\?/);
   await bug.getByRole('button',{name:'Close bug report'}).click();
@@ -177,10 +185,10 @@ async function qa(page,width){
 
     assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
     await nav.getByRole('button',{name:'Home'}).click();
-    await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
+    await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
-    await page.getByRole('region',{name:'Decision radar by domain'}).getByText('Country focus: China',{exact:false}).waitFor({state:'visible'});
+    await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
     await nav.getByRole('button',{name:'Risks'}).click();
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});

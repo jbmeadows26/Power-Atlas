@@ -136,6 +136,7 @@ def read_fao_csv(raw: bytes) -> list[dict]:
             "changeBps": None,
             "source": "FAO (Food and Agriculture Organization of the United Nations)",
             "sourceUrl": FAO_SOURCE,
+            "history": [{"period":t,"value":points[t]} for t in sorted(points)[-36:]],
         })
     if len(result) < 4 or not any(m["id"] == "fao-food" for m in result):
         raise ValueError("Insufficient FAO dated nominal observations")
@@ -188,6 +189,7 @@ def read_gps_series(raw: bytes, slug: str, group: str, label: str) -> list[dict]
         "changePp": change_points,
         "changeBps": None,
         "sampleSize": newest[2],
+        "history": [{"period":t,"value":v,"sampleSize":n} for t,v,n,_ in reversed(observations[:40])],
         "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
         "sourceUrl": GPS_SOURCE,
     }]

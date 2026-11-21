@@ -135,3 +135,10 @@
   .pew-price-grid{grid-template-columns:1fr}
   .pew-source-readings .pew-scenario-nav{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
+
+/* Move optional unpromoted cross-domain screens out of Command. */
+.pew-context-radar{margin:0 18px 32px;border:1px solid #3a6464;border-radius:8px;background:#102830;color:#d9eee7}
+.pew-context-radar>summary{padding:14px 18px;cursor:pointer;font:700 12px 'DM Sans',sans-serif;color:#b2e8d7}
+.pew-context-radar[open]{padding-bottom:14px}
+.pew-context-radar .dr-root{margin:0 12px 12px}
+@media(max-width:760px){.pew-context-radar{margin:0 10px 22px}.pew-context-radar>summary{font-size:11px;padding:13px}.pew-context-radar .dr-root{margin:0 8px 8px}}

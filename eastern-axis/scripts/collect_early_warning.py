@@ -13,6 +13,7 @@ import sys
 import urllib.request
 
 from early_warning_sources import FAO_CSV_URL, GPS_BASE, GPS_SCOPES, read_fao_csv, read_gps_series
+from early_warning_events import USGS, CISA, SWPC, NWS, read_usgs, read_kev, read_swpc, read_nws
 
 ROOT = Path(__file__).resolve().parents[1]
 DEST = ROOT / "public" / "analysis" / "physical-early-warning.json"
@@ -21,6 +22,7 @@ SOFR_SOURCE = "https://www.newyorkfed.org/markets/reference-rates/sofr"
 PINK_SHEET_URL = "https://thedocs.worldbank.org/en/doc/74e8be41ceb20fa0da750cda2f6b9e4e-0050012026/related/CMO-Historical-Data-Monthly.xlsx"
 PINK_SHEET_SOURCE = "https://www.worldbank.org/en/research/commodity-markets"
 SCORECARD_URL = "https://api.scorecard.dev/projects/github.com/{repo}"
+CISA_OFFICIAL_MIRROR = "https://raw.githubusercontent.com/cisagov/kev-data/develop/known_exploited_vulnerabilities.json"
 OSS_REPOS = ("curl/curl", "openssl/openssl", "libexpat/libexpat")
 MAX_BYTES = 12_000_000
 CATALOG = (
@@ -46,7 +48,7 @@ def now() -> str:
 
 def get(url: str, accept: str = "application/json") -> bytes:
     req = urllib.request.Request(url, headers={
-        "User-Agent": "EasternAxis-PublicSourceCollector/1.0 (attributable historical observations)",
+        "User-Agent": "EasternAxis/1.0 (https://github.com/jbmeadows26/Power-Atlas; public research)",
         "Accept": accept,
     })
     with urllib.request.urlopen(req, timeout=25) as response:
@@ -113,7 +115,8 @@ def read_sofr(raw: bytes) -> list[dict]:
             "unit": unit, "group": "US", "compareMode": mode,
             "changePct": change(value, before),
             "changeBps": round((value - before) * 100, 2) if mode == "basis-points" else None,
-            "source": "Federal Reserve Bank of New York", "sourceUrl": SOFR_SOURCE
+            "source": "Federal Reserve Bank of New York", "sourceUrl": SOFR_SOURCE,
+            "history": [{"period":point[0],"value":point[ix]} for point in reversed(good[:10])]
         })
     return out
 
@@ -187,7 +190,8 @@ def read_pink_sheet(raw: bytes) -> list[dict]:
                 "interval": "monthly", "unit": unit, "group": "global",
                 "compareMode": "percent", "changePct": change(current, previous),
                 "changeBps": None,
-                "source": "World Bank Pink Sheet", "sourceUrl": PINK_SHEET_SOURCE
+                "source": "World Bank Pink Sheet", "sourceUrl": PINK_SHEET_SOURCE,
+                "history":[{"period":p,"value":v} for p,v in reversed(series[:36])]
             })
         if len(result) < 3:
             raise ValueError("Too few validated recent commodity series")
@@ -226,7 +230,7 @@ def collect(output: Path, strict: bool = False) -> dict:
             prior = {r["repository"]: r for r in previous.get("oss", []) if isinstance(r,dict) and isinstance(r.get("repository"),str)}
         except (OSError, ValueError, TypeError):
             pass
-    data = {"schemaVersion":1,"checkedAt":now(),"status":"unavailable","metrics":[],"oss":[],"sources":[],
+    data = {"schemaVersion":1,"checkedAt":now(),"status":"unavailable","metrics":[],"eventFeeds":[],"oss":[],"sources":[],
             "limitations":[
                 "Public pricing and SOFR values are observations, not forecasts. Scope and date must be displayed.",
                 "GNSS aviation anomalies cannot establish PTP drift or enterprise database failure.",
@@ -250,12 +254,39 @@ def collect(output: Path, strict: bool = False) -> dict:
             data["sources"].append({"id":id,"status":"ok","detail":detail,"checkedAt":now()})
         except Exception as exc:
             data["sources"].append({"id":id,"status":"error","detail":type(exc).__name__+": unable to validate upstream data","checkedAt":now()})
+    def record_events(identifier, action):
+        try:
+            feed=action()
+            if not isinstance(feed,dict) or not isinstance(feed.get("events"),list):
+                raise ValueError("Unvalidated event-feed schema")
+            data["eventFeeds"].append(feed)
+            data["sources"].append({"id":identifier,"status":"ok",
+                "detail":str(len(feed["events"]))+" bounded source-linked event leads; not confirmed threats",
+                "checkedAt":now()})
+        except Exception as exc:
+            data["sources"].append({"id":identifier,"status":"error",
+                "detail":type(exc).__name__+((" HTTP "+str(exc.code)) if hasattr(exc,"code") else "")+": official event feed unavailable",
+                "checkedAt":now()})
     record("sofr",lambda:read_sofr(get(SOFR_URL)))
     record("pink-sheet",lambda:read_pink_sheet(get(PINK_SHEET_URL, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")))
     record("fao-food", lambda: read_fao_csv(get(FAO_CSV_URL, "text/csv")))
     for slug, group, label in GPS_SCOPES:
         record("gps:"+slug, lambda slug=slug, group=group, label=label:
                read_gps_series(get(GPS_BASE + slug), slug, group, label))
+    record_events("usgs-significant", lambda:read_usgs(get(USGS)))
+    def cisa_feed():
+        try:
+            return read_kev(get(CISA))
+        except Exception:
+            # CISA runs the public cisagov/kev-data mirror; use only that official
+            # fallback if their primary website rejects automated downloads.
+            result=read_kev(get(CISA_OFFICIAL_MIRROR))
+            result["retrievedFrom"]=CISA_OFFICIAL_MIRROR
+            return result
+    record_events("cisa-kev", cisa_feed)
+    record_events("noaa-space-weather", lambda:read_swpc(get(SWPC)))
+    for idx,url in enumerate(NWS):
+        record_events("nws-severe-"+str(idx+1),lambda url=url:read_nws(get(url,"application/geo+json")))
     for repo in OSS_REPOS:
         record("scorecard:"+repo, lambda repo=repo:parse_scorecard(
             get(SCORECARD_URL.format(repo=repo)),repo,prior.get(repo)))
