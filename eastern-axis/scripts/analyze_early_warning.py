@@ -136,7 +136,16 @@ def screen(snapshot):
         for ev in item.get("events",[])[:35]:
             if not isinstance(ev,dict) or not isinstance(ev.get("id"),str):continue
             fresh=guard_source({"period":ev.get("observedAt"),"interval":"daily"},checked)
-            official=bool(ev.get("officialAlert") and ev.get("severity") in ("Extreme","Severe") and fresh)
+            # Publisher publication date is not enough: the alert must remain
+            # unexpired at the instant this analyst review is generated.
+            expiry=ev.get("expiresAt")
+            active=False
+            if isinstance(expiry,str):
+                try:
+                    active=datetime.fromisoformat(expiry.replace("Z","+00:00"))>datetime.now(timezone.utc)
+                except (ValueError,TypeError):pass
+            official=bool(ev.get("officialAlert") and ev.get("severity") in ("Extreme","Severe")
+                          and fresh and active)
             result.append({
                 "id":ev["id"],"kind":"advisory" if official else "event",
                 "title":ev.get("title","Official source observation"),"group":ev.get("group","global"),
