@@ -5,12 +5,9 @@ import BugReportDialog from './BugReportDialog';
 import IntelCardDetails from './IntelCardDetails';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
-import RiskDecisionBoard from './RiskDecisionBoard';
 import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
-import SupplyChain from './SupplyChain';
-import PhysicalEarlyWarning from './PhysicalEarlyWarning';
-import DecisionRadar from './DecisionRadar';
+import EconomicIntelligence, { type EconomicFocus } from './EconomicIntelligence';
 import Connections from './Connections';
 import CountrySourceIndex from './CountrySourceIndex';
 import EvidenceWorkbench from './EvidenceWorkbench';
@@ -115,10 +112,7 @@ const sections = [
   'Overview',
   'Countries',
   'World Factbook',
-  'Global systems',
-  'Supply chain',
-  'Early warning',
-  'Risk watch',
+  'Economic intelligence',
   'AI analyst',
   'Defense intelligence',
   'Investigations',
@@ -276,6 +270,7 @@ function App() {
   const [view, setView] = useState<Section>('Overview');
   const [countryMode,setCountryMode] = useState<'intelligence'|'networks'>('intelligence');
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
+  const [economicFocus,setEconomicFocus]=useState<EconomicFocus>('overview');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
@@ -380,9 +375,16 @@ function App() {
     setView('Countries');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
-  const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
+  const navigateFromSignal = (target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries', focus?:'funding'|'commodities'|'gnss')=>{
+    if(target==='Early warning'||target==='Supply chain'||target==='Risk watch'){
+      switchView('Economic intelligence');
+      setEconomicFocus(target==='Early warning'?'signals':target==='Supply chain'?'supply':'risk');
+      if(target==='Early warning')setWarningFocus(focus||'all');
+    }else switchView(target);
+  };
   const switchView = (next: Section) => {
     if(next==='Countries')setCountryMode('intelligence');
+    if(next==='Economic intelligence')setEconomicFocus('overview');
     setView(next);
     setMobileMenu(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -421,9 +423,6 @@ function App() {
               <Globe2 size={17} />,
               <BookOpen size={17} />,
               <Layers3 size={17} />,
-              <Activity size={17} />,
-              <Activity size={17} />,
-              <ShieldAlert size={17} />,
               <Sparkles size={17} />,
               <Shield size={17} />,
               <FileSearch size={17} />,
@@ -435,7 +434,7 @@ function App() {
             ];
             return (
               <Fragment key={s}>
-              {(i === 0 || i === 1 || i === 3 || i === 9) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
+              {(i === 0 || i === 1 || i === 3 || i === 6) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
               <button
                 type="button"
                 className={'nav-item ' + (view === s ? 'active' : '')}
@@ -519,16 +518,10 @@ function App() {
               openSources={()=>switchView('Source library')}
               openMethod={()=>switchView('Methodology')} onNavigate={navigateFromSignal} />
           )}
-          {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
-          {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Early warning' && <>
-            <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />
-            <details className="pew-context-radar">
-              <summary>Cross-domain screening radar · context only, not Command alerts</summary>
-              <DecisionRadar countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} onNavigate={navigateFromSignal}/>
-            </details>
-          </>}
-          {overview && view === 'Risk watch' && <RiskDecisionBoard countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} onCountryMap={openGeospatial} />}
+          {overview && view === 'Economic intelligence' && <EconomicIntelligence
+            countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
+            cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
+            onCountryMap={openGeospatial} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
@@ -1180,13 +1173,10 @@ function App() {
         <button type="button" className={!mobileMenu && (view === 'Countries' || view === 'World Factbook') ? 'selected' : ''} aria-current={view === 'Countries' || view === 'World Factbook' ? 'page' : undefined} onClick={() => switchView('Countries')}>
           <Globe2 size={20} strokeWidth={2} /><span>Countries</span>
         </button>
-        <button type="button" className={!mobileMenu && view === 'Risk watch' ? 'selected' : ''} aria-current={view === 'Risk watch' ? 'page' : undefined} onClick={() => switchView('Risk watch')}>
-          <ShieldAlert size={20} strokeWidth={2} /><span>Risks</span>
+        <button type="button" className={!mobileMenu && view === 'Economic intelligence' ? 'selected' : ''} aria-current={view === 'Economic intelligence' ? 'page' : undefined} onClick={() => switchView('Economic intelligence')}>
+          <Layers3 size={20} strokeWidth={2} /><span>Economy</span>
         </button>
-        <button type="button" className={!mobileMenu && view === 'Global systems' ? 'selected' : ''} aria-current={view === 'Global systems' ? 'page' : undefined} onClick={() => switchView('Global systems')}>
-          <Layers3 size={20} strokeWidth={2} /><span>Systems</span>
-        </button>
-        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Risk watch','Global systems'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
+        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Economic intelligence'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
           <Menu size={20} strokeWidth={2} /><span>More</span>
         </button>
       </nav>
