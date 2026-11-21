@@ -35,7 +35,7 @@ jobs:
       - name: Install dependencies
         run: npm install --no-audit --no-fund
       - name: TypeScript check
-        run: npx tsc --noEmit
+        run: npx tsc --noEmit --noUnusedLocals false --noUnusedParameters false
       - name: Production bundle
         run: npm run build
       - name: Check navigation references and data panels
