@@ -43,7 +43,7 @@
 .ea-agent-link{min-width:0}
 .ea-agent-records{margin-top:11px}
 @media(max-width:930px){.ea-agent-split{grid-template-columns:1fr}.ea-agent-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:640px){.ea-agent-countries,.ea-agent-topic-grid,.ea-agent-pairs,.ea-agent-stats{grid-template-columns:1fr}.ea-agent-filters{flex-direction:column}.ea-agent-filters label:first-child{min-width:0}.ea-agent-filters select{max-width:none}.ea-agent-integrity{font-size:10px}}
+@media(max-width:640px){.ea-agent-countries,.ea-agent-topic-grid,.ea-agent-pairs{grid-template-columns:1fr}.ea-agent-filters{flex-direction:column}.ea-agent-filters label:first-child{min-width:0}.ea-agent-filters select{max-width:none}.ea-agent-integrity{font-size:10px}}
 
 
 .ea-agent-quality{display:flex;align-items:center;gap:9px 17px;flex-wrap:wrap;border:1px solid #756753;background:#2a3436;padding:12px 14px;margin:10px 0 16px;color:#e6d2b4;font-size:11px;line-height:1.5}
@@ -51,3 +51,17 @@
 .ea-agent-quality>span{border-left:1px solid #8a7562;padding-left:12px}
 .ea-agent-quality>p{flex-basis:100%;margin:0;color:#c4c4bd;font-size:10px}
 @media(max-width:640px){.ea-agent-quality{flex-direction:column;align-items:flex-start}.ea-agent-quality>span{border-left:0;padding-left:0}}
+
+/* Keep summary signals visible; source methodology is available on demand. */
+.ea-agent-context{background:#17393e;border-left:3px solid #8bd1c2;padding:11px 13px;margin:9px 0;color:#c6dfd7;font-size:12px;line-height:1.55}
+.ea-agent-context strong{color:#e5fbef}
+.ea-agent-quality{display:block;margin-top:20px;cursor:default}
+.ea-agent-quality summary{cursor:pointer;font-weight:700;line-height:1.6}
+.ea-agent-quality-content{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.ea-agent-quality-content p{flex-basis:100%;margin:0;font-size:11px}
+@media(max-width:640px){
+ .ea-agent-stats{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ea-agent-stats span{padding:10px}
+ .ea-agent-stats span b{font-size:23px}
+ .ea-agent-context{font-size:11px}
+}
