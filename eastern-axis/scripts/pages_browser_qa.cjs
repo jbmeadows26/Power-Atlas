@@ -387,13 +387,20 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       if(sectionName==='Economic intelligence'){
         const dashboard=page.getByRole('region',{name:'Unified economic intelligence'});
         await dashboard.waitFor({state:'visible',timeout:15000});
-        assert.equal(await dashboard.locator('.ei-pulse > div').count(),5,'Five summary KPI cards required');
-        assert.equal(await dashboard.locator('.ei-domain').count(),4,'Four economic domains required');
+        assert.equal(await dashboard.locator('.ei-pulse > div').count(),6,'Six summary KPI cards required');
+        assert.equal(await dashboard.locator('.ei-domain').count(),5,'Five economic domains required');
         const tabs=dashboard.locator('.ei-tabs');
         await tabs.getByRole('button',{name:'Economy & energy'}).click();
         await dashboard.locator('.gs-root').waitFor({state:'visible',timeout:15000});
         await tabs.getByRole('button',{name:'Supply chains'}).click();
         await dashboard.locator('.sc-root').waitFor({state:'visible',timeout:15000});
+        await tabs.getByRole('button',{name:'Product shortages'}).click();
+        const shortage=dashboard.getByRole('region',{name:'Product shortage outlook'});
+        await shortage.waitFor({state:'visible',timeout:15000});
+        await shortage.locator('.sf-item').first().waitFor({state:'visible',timeout:15000});
+        assert.equal(await shortage.locator('.sf-item').count(),14,'Fourteen product shortage screens must load');
+        await shortage.locator('.sf-item-head').first().click();
+        await shortage.locator('.sf-evidence-list a').first().waitFor({state:'visible',timeout:15000});
         await tabs.getByRole('button',{name:'Markets & early warning'}).click();
         const early=dashboard.getByRole('region',{name:'Global physical and economic early-warning intelligence'});
         await early.waitFor({state:'visible',timeout:15000});
