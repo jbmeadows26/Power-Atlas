@@ -11,6 +11,7 @@ import OperationalAssurance from './OperationalAssurance';
 import SupplyChain from './SupplyChain';
 import PhysicalEarlyWarning from './PhysicalEarlyWarning';
 import Connections from './Connections';
+import CountrySourceIndex from './CountrySourceIndex';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
@@ -1021,6 +1022,11 @@ function App() {
                     </article>
                   ))}
               </div>
+              <details className="source-index-disclosure" style={{border:'1px solid #35565c',borderRadius:10,background:'#102a34',margin:'18px 0',overflow:'hidden'}}>
+                <summary style={{cursor:'pointer',padding:'16px 19px',fontWeight:750,color:'#c4e8db'}}>Country-linked source inventory · UK / Canadian sanctions snapshots</summary>
+                <p style={{margin:'0 18px',fontSize:12,color:'#99b9b9',lineHeight:1.6}}>Reference and coverage records are kept here, separate from the Networks relationship graph. Selecting a country filters legal regimes, not the nationality of listed entities.</p>
+                <CountrySourceIndex code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />
+              </details>
               <div className="registry-note">
                 <CircleAlert size={18} />
                 <p>
