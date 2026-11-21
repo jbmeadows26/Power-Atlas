@@ -58,7 +58,7 @@ COUNTRY_TERMS: dict[str, tuple[str, ...]] = {
     "VE": ("Venezuela", "Venezuelan"),
     "CU": ("Cuba", "Cuban"),
     "HT": ("Haiti", "Haitian"),
-    "DO": ("Dominican Republic", "Dominican"),
+    "DO": ("Dominican Republic",),
     "PA": ("Panama", "Panamanian"),
     "NI": ("Nicaragua", "Nicaraguan"),
     "GT": ("Guatemala", "Guatemalan"),
@@ -102,7 +102,7 @@ COUNTRY_TERMS: dict[str, tuple[str, ...]] = {
     "XK": ("Kosovo", "Kosovar"),
     "BY": ("Belarus", "Belarusian"),
     "MD": ("Moldova", "Moldovan"),
-    "GE": ("Republic of Georgia", "Georgian"),
+    "GE": ("Republic of Georgia",),
     "AM": ("Armenia", "Armenian"),
     "AZ": ("Azerbaijan", "Azerbaijani"),
     "KZ": ("Kazakhstan", "Kazakh"),
@@ -123,7 +123,7 @@ COUNTRY_TERMS: dict[str, tuple[str, ...]] = {
     "UG": ("Uganda", "Ugandan"),
     "TZ": ("Tanzania", "Tanzanian"),
     "RW": ("Rwanda", "Rwandan"),
-    "CD": ("Democratic Republic of the Congo", "DR Congo", "DRC", "Congolese"),
+    "CD": ("Democratic Republic of the Congo", "DR Congo", "DRC"),
     "CG": ("Republic of the Congo", "Congo-Brazzaville"),
     "NG": ("Nigeria", "Nigerian"),
     "NE": ("Niger", "Nigerien"),
@@ -165,7 +165,7 @@ PLACE_TERMS: dict[str, tuple[str, ...]] = {
 CASE_SENSITIVE = {"UK", "USA", "U.S.", "U.S", "PRC", "DPRK", "UAE", "DRC"}
 SKIP_SOURCE_IDS = {"fara", "cisa"}
 PATTERNS = [
-    (code, term, basis, re.compile(r"(?<![A-Za-z])" + re.escape(term) + r"(?![A-Za-z])",
+    (code, term, basis, re.compile(r"(?<![A-Za-z])" + (r"(?<!South )" if code == "SD" else "") + re.escape(term) + r"(?![A-Za-z])",
         0 if term in CASE_SENSITIVE else re.IGNORECASE))
     for basis, mapping in (("title-country-name", COUNTRY_TERMS), ("title-place-name", PLACE_TERMS))
     for code, terms in mapping.items() for term in terms
