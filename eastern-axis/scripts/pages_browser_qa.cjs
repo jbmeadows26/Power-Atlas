@@ -213,7 +213,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
-    await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
+    // Country dossier is selected explicitly after visiting the nested Networks view.
+    await page.getByRole('group',{name:'Country intelligence views'}).getByRole('button',{name:'Country intelligence'}).click();
+    await page.locator('.country-brief .brief-relationship').waitFor({state:'visible',timeout:15000});
     await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
