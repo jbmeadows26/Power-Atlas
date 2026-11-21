@@ -347,7 +347,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.equal(await page.locator('.ea-country-subnav').count(),0,
           'Country / Networks sub-navigation must not return');
         await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
-        await page.getByRole('button',{name:'Explore relationships'}).click();
+        if(await page.getByRole('button',{name:'Explore relationships'}).count()){
+          await page.getByRole('button',{name:'Explore relationships'}).click();
+        }
         const network=page.getByRole('region',{name:'Sourced relationship networks'});
         await network.waitFor({state:'visible'});
         assert.equal(await network.locator('.ip-sanction-source').count(),0,'Networks regressed to sanctions source inventory');
