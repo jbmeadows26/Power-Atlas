@@ -1,0 +1,949 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-21T21:05:40Z",
+  "sourceCheckedAt": "2026-11-21T19:45:26Z",
+  "status": "source-dated",
+  "analyst": {
+    "mode": "transparent-rules; no LLM inference",
+    "reviewGate": "A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
+    "probabilityCalibration": "unavailable",
+    "portwatch": "observed"
+  },
+  "summary": {
+    "products": 14,
+    "crossSourceWatch": 1,
+    "inputCostWatch": 1,
+    "transitWatch": 1,
+    "dataGaps": 2,
+    "commandEligible": 0
+  },
+  "forecasts": [
+    {
+      "id": "fuel",
+      "product": "Transport fuels",
+      "category": "Energy",
+      "status": "cross-source-watch",
+      "screenScore": 49,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "0–90 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "If input-price and broad corridor pressure persist, procurement delays could become more likely; product inventory is unverified.",
+      "signal": "1 rising input-pressure series / 1 strained transit corridors",
+      "inputSeriesAvailable": 1,
+      "inputSeriesExpected": 1,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Brent crude oil",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 7.0,
+          "baselinePremiumPct": 48.1,
+          "momentumPct": 20.4
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Hormuz",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -40.7,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "sugar",
+      "product": "Sugar-containing foods",
+      "category": "Food",
+      "status": "input-cost-watch",
+      "screenScore": 34,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Early input or routing pressure warrants monitoring; no product-level shortage is established.",
+      "signal": "1 rising input-pressure series",
+      "inputSeriesAvailable": 1,
+      "inputSeriesExpected": 1,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "FAO Sugar Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": 6.7,
+          "baselinePremiumPct": 32.2,
+          "momentumPct": 22.2
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Panama",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.1,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "fertilizer",
+      "product": "Agricultural fertilizers",
+      "category": "Agriculture",
+      "status": "transit-watch",
+      "screenScore": 15,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Early input or routing pressure warrants monitoring; no product-level shortage is established.",
+      "signal": "1 strained transit corridors",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Urea fertilizer",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 3.1,
+          "baselinePremiumPct": 1.9,
+          "momentumPct": -25.0
+        },
+        {
+          "kind": "input-price",
+          "title": "DAP fertilizer",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 0.3,
+          "baselinePremiumPct": 8.6,
+          "momentumPct": 2.7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Hormuz",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -40.7,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "appliances",
+      "product": "Appliances and metal components",
+      "category": "Consumer goods",
+      "status": "baseline",
+      "screenScore": 17,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 3,
+      "inputSeriesExpected": 3,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Copper",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 0.2,
+          "baselinePremiumPct": 11.8,
+          "momentumPct": 6.6
+        },
+        {
+          "kind": "input-price",
+          "title": "Aluminum",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -6.8,
+          "baselinePremiumPct": -4.5,
+          "momentumPct": -6.5
+        },
+        {
+          "kind": "input-price",
+          "title": "Nickel",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -5.4,
+          "baselinePremiumPct": -8.7,
+          "momentumPct": -8.5
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Panama",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.1,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "batteries",
+      "product": "Battery and energy-storage components",
+      "category": "Industrial",
+      "status": "baseline",
+      "screenScore": 17,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Nickel",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -5.4,
+          "baselinePremiumPct": -8.7,
+          "momentumPct": -8.5
+        },
+        {
+          "kind": "input-price",
+          "title": "Copper",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 0.2,
+          "baselinePremiumPct": 11.8,
+          "momentumPct": 6.6
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "bread",
+      "product": "Wheat-based foods",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 17,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "US hard red winter wheat",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -8.6,
+          "baselinePremiumPct": 13.6,
+          "momentumPct": 10.6
+        },
+        {
+          "kind": "input-price",
+          "title": "FAO Cereal Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": -4.5,
+          "baselinePremiumPct": 6.0,
+          "momentumPct": 5.3
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Bosporus",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 6.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "wiring",
+      "product": "Electrical wiring and equipment",
+      "category": "Industrial",
+      "status": "baseline",
+      "screenScore": 17,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Copper",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 0.2,
+          "baselinePremiumPct": 11.8,
+          "momentumPct": 6.6
+        },
+        {
+          "kind": "input-price",
+          "title": "Aluminum",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -6.8,
+          "baselinePremiumPct": -4.5,
+          "momentumPct": -6.5
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "rice",
+      "product": "Rice-based staples",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 9,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Thai rice 5%",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 1.5,
+          "baselinePremiumPct": 17.4,
+          "momentumPct": 2.9
+        },
+        {
+          "kind": "input-price",
+          "title": "FAO Cereal Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": -4.5,
+          "baselinePremiumPct": 6.0,
+          "momentumPct": 5.3
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "maize",
+      "product": "Corn and animal feed",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 8,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Maize / corn",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -5.5,
+          "baselinePremiumPct": 7.3,
+          "momentumPct": 10.1
+        },
+        {
+          "kind": "input-price",
+          "title": "FAO Cereal Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": -4.5,
+          "baselinePremiumPct": 6.0,
+          "momentumPct": 5.3
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Panama",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.1,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Bosporus",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 6.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "meat",
+      "product": "Meat and animal protein",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 8,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "FAO Meat Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": -1.3,
+          "baselinePremiumPct": -1.6,
+          "momentumPct": -2.5
+        },
+        {
+          "kind": "input-price",
+          "title": "Maize / corn",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -5.5,
+          "baselinePremiumPct": 7.3,
+          "momentumPct": 10.1
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Panama",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.1,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "cooking-oils",
+      "product": "Cooking oils",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 0,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "Palm oil",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": -5.1,
+          "baselinePremiumPct": -1.1,
+          "momentumPct": -0.3
+        },
+        {
+          "kind": "input-price",
+          "title": "FAO Vegetable Oils Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": 0.3,
+          "baselinePremiumPct": 8.2,
+          "momentumPct": 3.8
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "dairy",
+      "product": "Dairy products",
+      "category": "Food",
+      "status": "baseline",
+      "screenScore": 0,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "two-channel",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 1,
+      "inputSeriesExpected": 1,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "input-price",
+          "title": "FAO Dairy Price Index",
+          "publisher": "FAO (Food and Agriculture Organization of the United Nations)",
+          "url": "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "period": "2026-10",
+          "changePct": -1.1,
+          "baselinePremiumPct": -1.5,
+          "momentumPct": 1.0
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Panama",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.1,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "medicines",
+      "product": "Essential medicines",
+      "category": "Healthcare",
+      "status": "data-gap",
+      "screenScore": 0,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "partial",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Insufficient product-specific evidence for a directional shortage assessment.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 0,
+      "inputSeriesExpected": 0,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Suez",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": 3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    },
+    {
+      "id": "semiconductors",
+      "product": "Semiconductors and electronics",
+      "category": "Electronics",
+      "status": "data-gap",
+      "screenScore": 0,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "partial",
+      "modelReviewed": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Insufficient product-specific evidence for a directional shortage assessment.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 0,
+      "inputSeriesExpected": 0,
+      "routeSeriesAvailable": 2,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
+        {
+          "kind": "corridor-transit",
+          "title": "Taiwan",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -3.9,
+          "recentDays": 7,
+          "baselineDays": 7
+        },
+        {
+          "kind": "corridor-transit",
+          "title": "Malacca",
+          "publisher": "IMF PortWatch (AIS-derived)",
+          "url": "https://portwatch.imf.org/",
+          "period": "2026-11-15",
+          "changePct": -2.5,
+          "recentDays": 7,
+          "baselineDays": 7
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Proxy commodity prices are not retail product inventories or confirmed shortages.",
+    "PortWatch counts are aggregate AIS vessel estimates, not product-specific shipments or trade partners.",
+    "Forecast windows are planning scenarios, not dated stockout predictions.",
+    "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
+    "Lack of evidence is not evidence of adequate stock."
+  ]
+}
