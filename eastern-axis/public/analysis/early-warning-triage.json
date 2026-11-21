@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T17:28:04Z",
+  "generatedAt": "2026-11-21T17:31:16Z",
   "sourceCheckedAt": "2026-11-21T17:24:06Z",
   "model": {
     "status": "available",
@@ -12,8 +12,8 @@
     "observed": 57,
     "screened": 9,
     "reviewed": 9,
-    "monitoring": 57,
-    "elevated": 0,
+    "monitoring": 56,
+    "elevated": 1,
     "historyReady": 27
   },
   "reviews": [
@@ -779,7 +779,7 @@
       "corroborated": false,
       "direction": -1,
       "status": "monitor",
-      "reason": "The evidence provided is an ADS-B-derived estimate of GNSS quality anomaly in the Taiwan Strait, with a robust Z-score of -2.02 and a median change of 0.15. While this suggests a potential issue, the limited sample size and the absence of corroboration make the confidence level low. The anomaly is not confirmed as jamming, and there is no official advisory or robust evidence to elevate the alert.",
+      "reason": "The evidence is based on an ADS-B-derived estimate and not confirmed jamming. The anomaly is not robust, with a median change of 0.15 and a median absolute deviation of 4.7. The source is not official, and there is no official alert or confirmation. The evidence is not strong enough to warrant an official advisory.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -919,7 +919,7 @@
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "The evidence provided is an ADS-B-derived estimate of GNSS quality anomaly in the Eastern Mediterranean region, with a robust Z-score of 1.24 and a median change of 0.25. While this suggests a potential issue, the limited sample size and the lack of corroboration make it difficult to confirm the presence of a jamming event. The source is not officially confirmed, and the anomaly is not currently an official advisory. Therefore, the decision is to monitor the situation.",
+      "reason": "The evidence provided is an ADS-B-derived estimate of GNSS quality anomaly in the Eastern Mediterranean region. While the robust Z value is above 3, indicating a significant anomaly, the sample size is relatively small (38) and the median change is only 0.25. Additionally, there is no corroboration from independent sources, and the source is not confirmed as jamming. Therefore, the evidence is not robust enough to warrant an official Severe/Extreme advisory.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1672,7 +1672,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The observation is a freeze warning for a specific area, but there is no evidence of movement or robust Z value, which is not sufficient to elevate the alert. The source is NOAA, which is a reliable source, but the evidence is not robust enough to warrant an official Severe/Extreme advisory.",
+      "reason": "The source is NOAA National Weather Service, which is a reputable source, but the evidence is not robust and the movement is not new. The movement is not currently active and there is no official advisory. The evidence is limited and does not meet the criteria for an elevated warning.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1699,11 +1699,11 @@
       },
       "anomalous": false,
       "needsReview": true,
-      "status": "monitor",
+      "status": "elevated",
       "sector": null,
       "corroborated": false,
-      "reason": "The provided information is a NOAA alert about marine weather conditions, which is not directly related to the request for a monitoring decision. The alert does not contain specific evidence or evidence limitations, so the rationale is not applicable.",
-      "confidence": "low",
+      "reason": "The NOAA National Weather Service has issued a Severe/Extreme advisory for waters from Jupiter Inlet to Deerfield Beach, FL, indicating a robust Z value of 3 or higher. This evidence is from an independent publisher and is not limited to a specific time period. The source is reliable, and the evidence is robust, warranting an elevated alert.",
+      "confidence": "high",
       "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1"
@@ -1732,7 +1732,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The observation is a general coastal warning with no specific evidence of movement or extreme conditions. The source is NOAA, which is generally reliable but not necessarily indicative of a severe event.",
+      "reason": "The NOAA National Weather Service alert is a source-linked evidence, but it lacks robust scientific validation and is not corroborated by other reliable sources. The alert's severity is 'Severe', indicating a high level of concern, but the lack of corroboration and robust evidence suggests a low confidence in the alert's accuracy and reliability.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1762,7 +1762,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The observation is a high wind watch issued by NOAA, which is not an official advisory. The evidence is not robust and lacks corroboration. The source is not an independent publisher, and the evidence is limited to a single observation. The wind conditions are not severe, and the source is not a reliable weather service.",
+      "reason": "The source-linked evidence is limited to a high wind watch issued by NOAA, which does not provide specific information about the movement or direction of the wind. The lack of robust Z value and historical data further limits the confidence in the observation. The evidence is not corroborated by any independent publisher, and the source is not explicitly linked to a known event or movement. Therefore, the decision is to monitor the situation without elevating it to a severe advisory.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1792,7 +1792,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The observation indicates a high wind watch for St. Lawrence Island, but the source is NOAA, which is not an independent publisher. The evidence is not robust and lacks corroboration, making it a low confidence decision to monitor.",
+      "reason": "The source-linked evidence is limited to a high wind watch issued by NOAA, which does not provide specific information about the movement or evidence. The lack of robust Z value and historical data further limits the confidence in the observation. The evidence is not corroborated by an independent publisher, and the source is not explicitly linked to a known event or movement. Therefore, the decision is to monitor the situation without elevating it to a severe advisory.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1822,7 +1822,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The evidence provided is limited to a coastal flood warning issued by NOAA, which does not meet the criteria for an official Severe/Extreme advisory. The source is not an independent publisher, and the evidence is not robust enough to warrant an elevated alert. The warning is not corroborated by other sources and does not provide specific information about the movement or direction of the storm. Therefore, the decision is to monitor the situation.",
+      "reason": "The source is NOAA National Weather Service, which is a reputable source, but the evidence is not robust and the movement is not new. The evidence is limited to a single observation and does not meet the criteria for an official Severe/Extreme advisory. Therefore, it is recommended to monitor the situation.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1852,7 +1852,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source is NOAA National Weather Service, which is a reliable source. However, the evidence provided is limited to a coastal flood warning, and there is no robust Z value or historical data to support the claim of a movement. The evidence is not robust enough to justify an elevated alert.",
+      "reason": "The source-linked evidence is limited to a coastal flood warning issued by NOAA, which does not provide specific information about the movement or robustness of the observed phenomenon. The lack of robust Z value and historical data further reduces the confidence in the validity of the observation. The evidence is not corroborated by any independent publisher, and there is no official advisory or robust movement reported. Therefore, the decision is to monitor the situation.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1863,5 +1863,20 @@
       "severity": "Severe"
     }
   ],
-  "alerts": []
+  "alerts": [
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-24f4e2aa9032d1a44882d3791ba326ea1d6e5065-001-1",
+      "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1",
+      "observedAt": "2026-11-21T12:16:00-05:00",
+      "confidence": "high",
+      "reason": "The NOAA National Weather Service has issued a Severe/Extreme advisory for waters from Jupiter Inlet to Deerfield Beach, FL, indicating a robust Z value of 3 or higher. This evidence is from an independent publisher and is not limited to a specific time period. The source is reliable, and the evidence is robust, warranting an elevated alert.",
+      "kind": "advisory",
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1"
+      ]
+    }
+  ]
 }
