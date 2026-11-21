@@ -53,6 +53,8 @@ const sourceStatus=(s?:string,checked?:string|null,maxDays=7)=>{
 export default function EconomicIntelligence({countryCode,countryName,cases,onCountryMap,onDefense,initialFocus='overview',initialMeasurementFilter='all'}:Props) {
   const [focus,setFocus]=useState<EconomicFocus>(initialFocus);
   const [signalView,setSignalView]=useState<'signals'|'markets'>('signals');
+  const [activeMeasurementFilter,setActiveMeasurementFilter]=useState<'all'|'funding'|'commodities'|'gnss'>(initialMeasurementFilter);
+  useEffect(()=>setActiveMeasurementFilter(initialMeasurementFilter),[initialMeasurementFilter]);
   const [picture,setPicture]=useState<Picture>({});
   const [loading,setLoading]=useState(true);
   const [refresh,setRefresh]=useState(0);
@@ -173,12 +175,12 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
           <button type="button" className={signalView==='markets'?'active':''} aria-pressed={signalView==='markets'} onClick={()=>setSignalView('markets')}><Landmark size={16}/> Financial markets</button>
         </div>
         {signalView==='markets'?<FinancialMarkets/>:<>
-          <PhysicalEarlyWarning countryCode={countryCode} countryName={countryName} initialMeasurementFilter={initialMeasurementFilter} onOpenSupplyChain={()=>setFocus('supply')}/>
+          <PhysicalEarlyWarning countryCode={countryCode} countryName={countryName} initialMeasurementFilter={activeMeasurementFilter} onOpenSupplyChain={()=>setFocus('supply')}/>
           <details className="pew-context-radar"><summary>Cross-domain screening radar · context only, not Command alerts</summary>
-            <DecisionRadar countryCode={countryCode} countryName={countryName} onNavigate={target=>{
+            <DecisionRadar countryCode={countryCode} countryName={countryName} onNavigate={(target,measurementFocus)=>{
               if(target==='Supply chain')setFocus('supply');
               else if(target==='Risk watch')setFocus('risk');
-              else if(target==='Early warning')setFocus('signals');
+              else if(target==='Early warning'){setActiveMeasurementFilter(measurementFocus||'all');setSignalView('signals');setFocus('signals');}
               else if(target==='Countries')onCountryMap();
               else if(target==='Defense intelligence')onDefense();
             }}/>
