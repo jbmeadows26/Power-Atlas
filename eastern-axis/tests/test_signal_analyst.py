@@ -65,12 +65,26 @@ class AnalystSafetyTest(unittest.TestCase):
               "confidence":"low","rationale":"Single reading cannot establish a historical abnormality."})
         response_a=io.BytesIO(json.dumps({"response":good}).encode())
         response_b=io.BytesIO(json.dumps({"response":"not valid JSON"}).encode())
-        with patch.object(mod.urllib.request,"urlopen",side_effect=[response_a,response_b]) as net:
+        with patch.object(mod.urllib.request,"urlopen",side_effect=[response_a,response_b,io.BytesIO(json.dumps({"response":"still malformed"}).encode())]) as net:
             findings,state=mod.model_assess(records,"http://127.0.0.1:11434","qwen2.5:1.5b")
-        self.assertEqual(net.call_count,2)
+        self.assertEqual(net.call_count,3)
         self.assertEqual(state,"partial")
         self.assertEqual(set(findings),{"metric-one"})
         self.assertEqual(findings["metric-one"]["decision"],"monitor")
+
+    def test_retry_recovers_malformed_local_model_response(self):
+        record={"id":"missing","title":"Official source observation","source":"NWS",
+                "group":"US","observedAt":STAMP,"baseline":{"status":"not-applicable","sampleSize":0},
+                "sourceUrl":"https://api.weather.gov/alerts/example"}
+        good={"id":"missing","decision":"monitor","confidence":"low",
+              "rationale":"Source alone does not justify a verified threat elevation."}
+        replies=[io.BytesIO(json.dumps({"response":"not json"}).encode()),
+                 io.BytesIO(json.dumps({"response":json.dumps(good)}).encode())]
+        with patch.object(mod.urllib.request,"urlopen",side_effect=replies) as net:
+            findings,state=mod.model_assess([record],"http://127.0.0.1:11434","qwen2.5:1.5b")
+        self.assertEqual(net.call_count,2)
+        self.assertEqual(state,"available")
+        self.assertEqual(findings["missing"]["decision"],"monitor")
 
     def test_two_valid_model_responses_restore_full_review(self):
         base={"title":"Official source observation","source":"Official publisher","group":"US",
