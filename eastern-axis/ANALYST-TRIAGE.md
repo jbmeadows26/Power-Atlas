@@ -19,13 +19,16 @@ date-stamped GNSS samples, and up to ten SOFR readings, without inventing histor
 More historical coverage is a prerequisite for calling a measurement statistically
 abnormal; incomplete history stays marked as such.
 
-Review-screen candidates are sent to a free, ephemeral GitHub Actions Ollama
-`qwen2.5:1.5b` model. The model receives source-derived evidence, source URLs,
-scope, dates, baseline diagnostics and any confirmed independent source peer.
-It may return monitor/elevate with a concise evidence-bounded rationale.
-Model unavailability, malformed JSON, incomplete assessment or contradictory
-reasoning fail closed: the signal remains monitored and **no artificial escalation
-or AI-reviewed status** is published.
+Review-screen candidates are sent **individually** to a free, ephemeral
+GitHub Actions Ollama `qwen2.5:1.5b` model. Small independent requests prevent
+one malformed or truncated model response from invalidating every other review.
+Each request contains dated source evidence, original URL, geographic scope,
+baseline diagnostics and independently published supporting readings, if any.
+The model returns monitor/elevate and a concise auditable rationale; deterministic
+evidence gates still decide whether any promotion is permitted.
+Failed items remain monitored and explicitly **unreviewed**. Review coverage is
+`available`, `partial`, or `unavailable`; never silently claim 100% model
+coverage.
 
 ### Publication gate
 
