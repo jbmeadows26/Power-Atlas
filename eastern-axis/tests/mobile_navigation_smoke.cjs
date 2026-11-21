@@ -13,9 +13,10 @@ const overview={
     {code:'RU',name:'Russia',region:'Europe',scope:'state-or-observer',relationship:'Outside primary U.S. alliances',isTreatyAlly:false,isMNNA:false,caseCount:1},
     {code:'CN',name:'China',region:'Asia',scope:'state-or-observer',relationship:'Outside primary U.S. alliances',isTreatyAlly:false,isMNNA:false,caseCount:0},
     {code:'CA',name:'Canada',region:'Americas',scope:'state-or-observer',relationship:'NATO treaty ally',isTreatyAlly:true,isMNNA:false,caseCount:0},
+    {code:'US',name:'United States',region:'Americas',scope:'state-or-observer',relationship:'Domestic',isTreatyAlly:false,isMNNA:false,caseCount:0},
     {code:'AG',name:'Antigua & Barbuda',region:'Americas',scope:'state-or-observer',relationship:'Regional research',isTreatyAlly:false,isMNNA:false,caseCount:0},
   ],
-  cases:[{id:'test-case',code:'RU',date:'2026-10-01',title:'Fixture case (not published)',topic:'Cyber',status:'Allegation',level:'Official release',summary:'Test data',impact:'Test impact',source:'https://www.justice.gov/',agency:'DOJ'}],
+  cases:[{id:'test-case',code:'RU',date:'2026-10-01',title:'Fixture case (not published)',topic:'Cyber',status:'Allegation',level:'Official release',summary:'Test data',impact:'US test impact',source:'https://www.justice.gov/',agency:'DOJ'}],
   sources:[{id:'doj',name:'DOJ',category:'Government',mode:'Scheduled intake',cost:'Free',url:'https://www.justice.gov/',description:'Official source'}],
   snapshot:null,classificationAsOf:'2026-10-01',scopeDefinition:'Fixture only',classificationSources:[],
 };
@@ -138,6 +139,39 @@ async function qa(page,width){
   assert.match(await bug.getByRole('link',{name:/Open form separately/i}).getAttribute('href'),/^https:\/\/tally\.so\/r\/LDKRaj\?/);
   await bug.getByRole('button',{name:'Close bug report'}).click();
   await bug.waitFor({state:'detached'});
+
+  // Regression: U.S. is an impacted country in the case record, not its origin code.
+  // This used to show zero cards and an unusable "Select an investigation" panel.
+  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Investigations'}).click();
+  await page.locator('#ea-investigation-list .case-card').first().waitFor({state:'visible'});
+  assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1);
+  assert.match(await page.locator('#ea-investigation-detail').innerText(),/Fixture case/,'A matching case should open by default');
+  await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+  await page.getByRole('combobox',{name:'Search country or code'}).fill('United States');
+  await page.getByRole('option',{name:/United States/}).click();
+  assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'U.S. impact must not be confused with the foreign-case country tag');
+  assert.match(await page.locator('.investigation-summary').innerText(),/U.S. impact view/);
+  await page.locator('#ea-investigation-list .case-card').first().click();
+  assert.match(await page.locator('#ea-investigation-detail .evidence-line').first().innerText(),/COUNTRY/);
+  assert.match(await page.locator('#ea-investigation-detail .evidence-button').getAttribute('href'),/^https:\/\//);
+  if(width<=980){
+    await page.getByRole('button',{name:'Back to investigations'}).click();
+    assert.equal(await page.locator('#ea-investigation-list').isVisible(),true);
+  }
+  await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+  await page.getByRole('combobox',{name:'Search country or code'}).fill('China');
+  await page.getByRole('option',{name:/China/}).click();
+  await page.locator('.case-empty').waitFor({state:'visible'});
+  assert.equal(await page.locator('#ea-investigation-detail:visible').count(),0,'No matching case should not display a ghost detail panel');
+  await page.getByRole('button',{name:'View all investigations'}).click();
+  assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'Reset must restore all cases');
+  assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/Worldwide/);
+  // Restore the prior workspace before continuing the existing radar/navigation QA.
+  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  await page.locator('.pew-context-radar').locator('summary').click();
+  await page.getByRole('region',{name:'Decision radar by domain'}).waitFor({state:'visible'});
 
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){

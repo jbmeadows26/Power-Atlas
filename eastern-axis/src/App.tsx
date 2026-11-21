@@ -351,14 +351,23 @@ function App() {
     [countries, search, region, showTerritories, showAllies, countryScope]
   );
   const country = countries.find(c => c.code === selected);
-  const chosenCase = cases.find(c => c.id === caseSelected);
   const topics = [
     'All investigations',
     ...Array.from(new Set(cases.map(c => c.topic))),
   ];
+  // A case's country code is its foreign-country association, not the
+  // location of the U.S. interests described in its impact field.
   const caseList = cases.filter(
-    c => (caseTopic === 'All investigations' || c.topic === caseTopic) && (countryScope==='all'||c.code===countryScope)
+    c =>
+      (caseTopic === 'All investigations' || c.topic === caseTopic) &&
+      (countryScope === 'all' ||
+        c.code === countryScope ||
+        (countryScope === 'US' && /\b(?:US|U\.S\.)/i.test(c.impact)))
   );
+  // Always open a valid record when the current filter has results.
+  // Selecting a different country/topic must not leave stale case details.
+  const chosenCase =
+    caseList.find(c => c.id === caseSelected) ?? caseList[0] ?? null;
   const sourceCategories = [
     'All',
     ...Array.from(new Set(sources.map(s => s.category))),
@@ -844,16 +853,41 @@ function App() {
                   </button>
                 ))}
               </div>
-              <div className="investigations-layout">
-                <div className="case-rows">
-                  {caseList.map(c => (
+              <div className="investigation-summary" role="status">
+                <strong>{caseList.length} sourced {caseList.length === 1 ? 'investigation' : 'investigations'}</strong>
+                <span>
+                  {countryScope === 'US'
+                    ? 'U.S. impact view · flags show the foreign country associated with each case, not proven government responsibility.'
+                    : 'Country tags describe associations in public records, not proof of state direction.'}
+                </span>
+              </div>
+              <div className={'investigations-layout' + (caseList.length === 0 ? ' investigations-empty' : '')}>
+                <div className="case-rows" id="ea-investigation-list">
+                  {caseList.length === 0 ? (
+                    <div className="case-empty" role="status">
+                      <FileSearch size={25} />
+                      <h3>No sourced investigations match this selection</h3>
+                      <p>The current curated case library has no matching record. This is a coverage gap, not evidence that nothing happened.</p>
+                      <button type="button" className="case-reset" onClick={() => {
+                        setCountryScope('all');
+                        setCaseTopic('All investigations');
+                        setCaseSelected(null);
+                      }}>View all investigations</button>
+                    </div>
+                  ) : caseList.map(c => (
                     <button
                       key={c.id}
                       className={
                         'case-card ' +
-                        (caseSelected === c.id ? 'case-selected' : '')
+                        (chosenCase?.id === c.id ? 'case-selected' : '')
                       }
-                      onClick={() => setCaseSelected(c.id)}
+                      aria-pressed={chosenCase?.id === c.id}
+                      onClick={() => {
+                        setCaseSelected(c.id);
+                        if (window.matchMedia('(max-width: 980px)').matches) {
+                          document.getElementById('ea-investigation-detail')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                      }}
                     >
                       <div className="case-top">
                         <span>
@@ -875,9 +909,12 @@ function App() {
                     </button>
                   ))}
                 </div>
-                <aside className="evidence-panel">
+                <aside id="ea-investigation-detail" className={'evidence-panel' + (!chosenCase ? ' evidence-panel-hidden' : '')}>
                   {chosenCase ? (
                     <>
+                      <button type="button" className="case-back" onClick={() =>
+                        document.getElementById('ea-investigation-list')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                      }>← Back to investigations</button>
                       <div className="eyebrow smaller">
                         ORIGINAL CASE RECORD
                       </div>
