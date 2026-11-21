@@ -8,6 +8,7 @@ type Review={
   observedAt?:string;screened:boolean;fresh:boolean;anomalous:boolean;needsReview:boolean;
   baseline:Baseline;status:string;reason:string;confidence:string;modelReviewed:boolean;
   evidence:string[];officialAlert?:boolean;severity?:string;changePct?:number;
+  compareMode?:'percent'|'basis-points'|'percentage-points';changeBps?:number|null;changePp?:number|null;
 };
 type Triage={schemaVersion:number;generatedAt:string;sourceCheckedAt:string;
   model:{status:string;name:string|null;role:string};policy:string;
@@ -41,6 +42,12 @@ const sourceScope=(s:string)=>s==='global'?'WORLDWIDE CONTEXT':s.startsWith('reg
 const weather=(r:Review)=>r.kind==='advisory'&&/National Weather Service/i.test(r.source);
 const cyber=(r:Review)=>/CISA|cybersecurity/i.test(r.source);
 const magnitude=(r:Review)=>Math.abs(typeof r.baseline?.robustZ==='number'?r.baseline.robustZ:0);
+const signed=(v:number)=>(v>0?'+':'')+v.toFixed(Math.abs(v)<1?2:1);
+function deltaLabel(r:Review){
+  if(r.compareMode==='basis-points'&&typeof r.changeBps==='number')return signed(r.changeBps)+' bp';
+  if(r.compareMode==='percentage-points'&&typeof r.changePp==='number')return signed(r.changePp)+' pp';
+  return signed(r.changePct||0)+(r.compareMode?'%':'% relative');
+}
 export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
   mode:'early'|'command';countryCode:string;onOpenEarly?:()=>void
 }){
@@ -131,7 +138,7 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
       <div className="sr-rows">{displayRows.map(r=><details key={r.id} className={'sr-item '+(r.status==='elevated'?'sr-elevated':'')}>
         <summary><span className="sr-icon">{r.status==='elevated'?<ShieldAlert size={17}/>:r.needsReview?<Eye size={17}/>:<Database size={17}/>}</span>
           <span className="sr-main"><strong>{r.title}</strong><small>{sourceScope(r.group)} · {r.source} · {stamp(r.observedAt||'')}</small></span>
-          {r.kind==='metric'&&typeof r.changePct==='number'?<span className="sr-delta">{r.changePct>0?'+':''}{r.changePct.toFixed(1)}%</span>:
+          {r.kind==='metric'&&typeof r.changePct==='number'?<span className="sr-delta">{deltaLabel(r)}</span>:
           <span className={'sr-pill '+(r.status==='elevated'?'sr-hot':r.modelReviewed?'sr-reviewed':r.needsReview?'sr-review':'')}>{r.status==='elevated'?'ELEVATED':r.modelReviewed?'REVIEWED':r.needsReview?'PENDING':'SOURCE'}</span>}
         </summary>
         <div className="sr-detail">
