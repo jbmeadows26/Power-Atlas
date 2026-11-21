@@ -268,7 +268,7 @@ function MiniGlobe() {
 }
 function App() {
   const [view, setView] = useState<Section>('Overview');
-  const [countryMode,setCountryMode] = useState<'intelligence'|'networks'>('intelligence');
+  const [networkOpen,setNetworkOpen] = useState(false);
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [economicFocus,setEconomicFocus]=useState<EconomicFocus>('overview');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
@@ -371,7 +371,6 @@ function App() {
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
-    setCountryMode('intelligence');
     setView('Countries');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -383,7 +382,6 @@ function App() {
     }else switchView(target);
   };
   const switchView = (next: Section) => {
-    if(next==='Countries')setCountryMode('intelligence');
     if(next==='Economic intelligence')setEconomicFocus('overview');
     setView(next);
     setMobileMenu(false);
@@ -529,15 +527,7 @@ function App() {
           {overview && view === 'World Factbook' && <Factbook activeCountry={countryScope} onCountryChange={setCountryScope} />}
           {overview && view === 'Countries' && (
             <>
-              <div className="ea-country-subnav" role="group" aria-label="Country intelligence views">
-                <button type="button" aria-pressed={countryMode==='intelligence'} className={countryMode==='intelligence'?'active':''} onClick={()=>setCountryMode('intelligence')}>
-                  <Globe2 size={17}/> Country intelligence
-                </button>
-                <button type="button" aria-pressed={countryMode==='networks'} className={countryMode==='networks'?'active':''} onClick={()=>setCountryMode('networks')}>
-                  <Network size={17}/> Networks
-                </button>
-              </div>
-              {countryMode==='networks' ? <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} /> : <>
+
               <div className="eyebrow">
                 <span className="eyebrow-line" /> RESEARCH DATABASE / COUNTRIES
               </div>
@@ -555,6 +545,23 @@ function App() {
                   {filtered.length} jurisdictions shown
                 </Badge>
               </div>
+              <section className="ea-country-network-hub" aria-label="Integrated country relationship intelligence">
+                <div className="ea-country-network-toolbar">
+                  <div className="ea-country-network-heading">
+                    <span className="ea-country-network-icon"><Network size={20} /></span>
+                    <div>
+                      <strong>Relationships &amp; networks</strong>
+                      <span>Explore sourced treaties, security partnerships, international blocs and separately reported operations for {countryScope==='all'?'a global spotlight':(overview.countries.find(c=>c.code===countryScope)?.name||countryScope)}.</span>
+                    </div>
+                  </div>
+                  <button type="button" aria-expanded={networkOpen} aria-controls="ea-country-network-graph" onClick={()=>setNetworkOpen(v=>!v)}>
+                    {networkOpen?'Hide relationships':'Explore relationships'} <ChevronDown size={16} className={networkOpen?'ea-network-chevron-open':''}/>
+                  </button>
+                </div>
+                {networkOpen&&<div id="ea-country-network-graph" className="ea-country-network-graph">
+                  <Connections embedded code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={code=>{setCountryScope(code);setSelected(code);}} />
+                </div>}
+              </section>
               <div className="ea-geospatial-toggle"><div><strong>Geospatial country intelligence</strong><span>Explore geopolitical layers, global hazards and sourced map locations</span></div><button type="button" aria-expanded={geospatialOpen} aria-controls="ea-geospatial-map" onClick={()=>setGeospatialOpen(v=>!v)}>{geospatialOpen?'Hide map':'Open map'} <ChevronDown size={15}/></button></div>
               {geospatialOpen&&<div id="ea-geospatial-map" className="ea-country-geospatial"><CommandCenter mode="geospatial" overview={overview} openCountry={openCountry} activeCountry={countryScope} onCountrySelected={setCountryScope}
                 openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
@@ -800,7 +807,6 @@ function App() {
                   )}
                 </aside>
               </div>
-              </>}
             </>
           )}
           {overview && view === 'Investigations' && (
