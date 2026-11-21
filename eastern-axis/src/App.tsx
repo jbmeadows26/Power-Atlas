@@ -521,7 +521,7 @@ function App() {
           {overview && view === 'Economic intelligence' && <EconomicIntelligence
             countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
             cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
-            onCountryMap={openGeospatial} />}
+            onCountryMap={openGeospatial} onDefense={()=>switchView('Defense intelligence')} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
