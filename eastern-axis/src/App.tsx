@@ -10,6 +10,7 @@ import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
 import SupplyChain from './SupplyChain';
 import PhysicalEarlyWarning from './PhysicalEarlyWarning';
+import DecisionRadar from './DecisionRadar';
 import Connections from './Connections';
 import CountrySourceIndex from './CountrySourceIndex';
 import EvidenceWorkbench from './EvidenceWorkbench';
@@ -511,7 +512,13 @@ function App() {
           )}
           {overview && view === 'Global systems' && <GlobalSystems mode="systems" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} />}
           {overview && view === 'Supply chain' && <SupplyChain countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Early warning' && <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />}
+          {overview && view === 'Early warning' && <>
+            <PhysicalEarlyWarning countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} initialMeasurementFilter={warningFocus} onOpenSupplyChain={()=>switchView('Supply chain')} />
+            <details className="pew-context-radar">
+              <summary>Cross-domain screening radar · context only, not Command alerts</summary>
+              <DecisionRadar countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} onNavigate={navigateFromSignal}/>
+            </details>
+          </>}
           {overview && view === 'Risk watch' && <RiskDecisionBoard countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} onCountryMap={openGeospatial} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}

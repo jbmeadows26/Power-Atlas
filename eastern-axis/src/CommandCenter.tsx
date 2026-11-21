@@ -4,7 +4,7 @@ import { feature } from 'topojson-client';
 import { geoNaturalEarth1, geoGraticule10, geoPath } from 'd3-geo';
 import { Activity, ArrowRight, ArrowUpRight, BadgeAlert, BookOpen, CheckCircle2, ChevronDown, CircleAlert, Clock3, Database, ExternalLink, Eye, Filter, Globe2, Layers3, LockKeyhole, Map, Minus, Network, Plus, Radio, RefreshCcw, Search, Shield, ShieldCheck, SlidersHorizontal, X } from 'lucide-react';
 import './command.css';
-import DecisionRadar from './DecisionRadar';
+import SignalReviewBoard from './SignalReviewBoard';
 
 type Country = {code:string;name:string;region:string;scope:string;relationship:string;securityNote?:string;usRelationship?:string;securitySources?:{label:string;url:string}[];isTreatyAlly:boolean;isMNNA:boolean;caseCount:number};
 type CaseFile = {id:string;code:string;date:string;title:string;topic:string;status:string;level:string;summary:string;impact:string;source:string;agency:string};
@@ -171,7 +171,7 @@ export default function CommandCenter({overview,openCountry,openCases,openDesk,o
   const selectCountry=(code:string)=>{setSelected(code);onCountrySelected?.(code);setSearch('');setQueryFocus(false);};
   const hoverCountry=(name?:string)=>{const code=findCode(name);if(code)selectCountry(code);};
   return <div className={"command-center "+(mode==='geospatial'?'cc-geospatial-only':'cc-home-only')}>
-    {mode==='home'&&<DecisionRadar countryCode={activeCountry||'all'} countryName={overview.countries.find(c=>c.code===activeCountry)?.name} onNavigate={onNavigate}/>}
+    {mode==='home'&&<SignalReviewBoard mode="command" countryCode={activeCountry||'all'} onOpenEarly={()=>onNavigate('Early warning')}/>}
     {mode==='geospatial'&&<>
       <div className="cc-geospatial-heading"><span>COUNTRY INTELLIGENCE / GEOSPATIAL</span><strong>Explore locations and documented country records</strong></div>
     <div className="cc-main-grid cc-map-only">

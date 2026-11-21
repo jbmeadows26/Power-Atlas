@@ -1,0 +1,113 @@
+name: Eastern Axis signal analyst
+on:
+  workflow_run:
+    workflows: ['Eastern Axis physical early warning']
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/analyze_early_warning.py'
+      - 'eastern-axis/scripts/early_warning_events.py'
+      - 'eastern-axis/tests/test_signal_analyst.py'
+      - '.github/workflows/eastern-axis-signal-analyst.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/analyze_early_warning.py'
+      - 'eastern-axis/scripts/early_warning_events.py'
+      - 'eastern-axis/tests/test_signal_analyst.py'
+      - '.github/workflows/eastern-axis-signal-analyst.yml'
+permissions:
+  contents: write
+concurrency:
+  group: eastern-axis-signal-analyst
+  cancel-in-progress: false
+jobs:
+  assess:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.ref }}
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Enforce evidence gates against offline fixtures
+        run: python -m unittest discover -s eastern-axis/tests -p 'test_signal_analyst.py' -v
+      - name: Read current official-source measurement snapshot
+        run: |
+          test -s eastern-axis/public/analysis/physical-early-warning.json
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          d=json.loads(Path("eastern-axis/public/analysis/physical-early-warning.json").read_text())
+          assert d.get("schemaVersion")==1 and isinstance(d.get("sources"),list) and isinstance(d.get("metrics"),list)
+          print("Physical feeds:",len(d["sources"]),"metrics:",len(d["metrics"]),"event feeds:",len(d.get("eventFeeds",[])))
+          PY
+      - name: Determine if any current source events need model review
+        id: screen
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import sys,json
+          from pathlib import Path
+          sys.path.insert(0,"eastern-axis/scripts")
+          from analyze_early_warning import screen
+          d=json.loads(Path("eastern-axis/public/analysis/physical-early-warning.json").read_text())
+          count=sum(r["needsReview"] for r in screen(d))
+          print("count="+str(count))
+          PY
+      - name: Start temporary keyless local analyst model for source-linked candidates
+        if: ${{ github.event_name != 'pull_request' && steps.screen.outputs.count != '0' }}
+        continue-on-error: true
+        run: |
+          docker run --detach --name ea-triage-ollama -e OLLAMA_HOST=0.0.0.0:11434 -e OLLAMA_NUM_PARALLEL=1 --publish 127.0.0.1:11434:11434 ollama/ollama:latest
+          for i in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          docker exec ea-triage-ollama ollama pull qwen2.5:1.5b
+      - name: Publish fail-closed, source-linked analyst decisions
+        env:
+          RUN_MODEL: ${{ github.event_name != 'pull_request' && steps.screen.outputs.count != '0' }}
+        run: |
+          args=(--input eastern-axis/public/analysis/physical-early-warning.json --output eastern-axis/public/analysis/early-warning-triage.json)
+          if [ "$RUN_MODEL" = true ]; then args+=(--model-endpoint http://127.0.0.1:11434); fi
+          python eastern-axis/scripts/analyze_early_warning.py "${args[@]}"
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path("eastern-axis/public/analysis/early-warning-triage.json")
+          d=json.loads(p.read_text())
+          assert len(d["reviews"])==d["summary"]["observed"]
+          assert len(d["alerts"])==d["summary"]["elevated"]
+          ids={r["id"]:r for r in d["reviews"]}
+          assert all(r["status"]=="elevated" and r["id"] in ids and (
+            (r["kind"]=="advisory" and r["sourceUrl"].startswith("https://api.weather.gov/"))
+            or (r["kind"]=="metric" and ids[r["id"]].get("anomalous") and ids[r["id"]].get("corroborated"))
+          ) for r in d["alerts"])
+          print("Published evidence-gated findings:",d["summary"],"model:",d["model"]["status"])
+          PY
+      - name: Commit vetted public triage snapshot
+        if: ${{ success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+        run: |
+          git add eastern-axis/public/analysis/early-warning-triage.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(eastern-axis): publish evidence-gated analyst triage [skip ci]"
+          for i in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Conflicting triage artifact: refusing to overwrite newer review' >&2
+              exit 1
+            fi
+            sleep $((i * 3))
+          done
+          exit 1

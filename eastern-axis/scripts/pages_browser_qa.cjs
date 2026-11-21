@@ -66,35 +66,46 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.locator('.ea-ops').count(),0,'Repeated monitoring stats should not render anywhere');
     assert.equal(await page.locator('.ea-module-context').count(),0,'Generic duplicate page context should be removed');
     assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Horizontal duplicate navigation must be removed');
+    const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
+    await command.waitFor({state:'visible',timeout:20000});
+    assert.equal(await page.locator('.dr-root').count(),0,
+      'Raw movement screens must not appear on Command without analyst escalation');
+    assert.ok(await command.locator('.sr-head').count()>0,'Command analyst report header missing');
+    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
+    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Early warning'}).click();
+    const disclosure=page.locator('.pew-context-radar');
+    await disclosure.waitFor({state:'visible',timeout:20000});
+    assert.equal(await disclosure.getAttribute('open'),null,'Cross-domain screening should be collapsed by default');
+    await disclosure.locator('summary').click();
     const radar=page.getByRole('region',{name:'Decision radar by domain'});
     await radar.waitFor({state:'visible',timeout:20000});
-    assert.equal(await radar.locator('.dr-lane').count(),4,'Home must show four distinct decision domains');
+    assert.equal(await radar.locator('.dr-lane').count(),4,'Early Warning must preserve four cross-domain contexts');
     for(const domain of ['Finance','Trade & essential goods','Infrastructure & survival','Military & intelligence'])
       await radar.getByRole('heading',{name:domain}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:20000});
     assert.ok(await radar.locator('.dr-move-foot a[href^="https://"]').count()>0,
-      'Data comparisons must link to original sources');
+      'Measured comparisons must retain original sources');
     await radar.getByRole('button',{name:'Review triggers'}).click();
     assert.ok((await radar.locator('.dr-lane').count())<=4,'Review filter not applied');
     await radar.getByRole('button',{name:'Blind spots'}).click();
     await radar.getByRole('button',{name:'All domains'}).click();
-    assert.equal(await radar.locator('.dr-lane').count(),4,'All domains filter did not restore all cards');
+    assert.equal(await radar.locator('.dr-lane').count(),4,'All domains filter did not restore cards');
     const decisionWidth=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(decisionWidth.scroll<=decisionWidth.width+2,
-      'Home radar overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
-    // Country scope retains independent benchmarks, never presents global reports as country events.
+      'Early Warning radar overflows viewport '+viewport.width+'px: '+JSON.stringify(decisionWidth));
     await radar.getByRole('button',{name:'Analyze'}).first().waitFor({state:'visible'});
-    // A decision drilldown must land in the right measured domain, not an unrelated list.
     await radar.locator('.dr-finance footer button').click();
     const fundingTab=page.getByRole('button',{name:'Overnight funding'});
     await fundingTab.waitFor({state:'visible',timeout:15000});
+    await page.waitForFunction(()=>Array.from(document.querySelectorAll('button')).some(b=>
+      b.textContent.trim()==='Overnight funding'&&b.getAttribute('aria-pressed')==='true'),null,{timeout:15000});
     assert.equal(await fundingTab.getAttribute('aria-pressed'),'true','Finance card did not select funding comparisons');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
-    await radar.waitFor({state:'visible',timeout:15000});
-    // Home contains only the decision radar; geospatial layers belong to Countries.
-    assert.equal(await page.locator('.cc-map-panel').count(),0,'Home still contains the geospatial map');
-    assert.equal(await page.locator('.cc-stream-panel,.cc-connect-panel,.cc-live-panel').count(),0,'Home still repeats investigation/source/earthquake lists');
+    await command.waitFor({state:'visible',timeout:15000});
+    assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unscreened radar data');
+    assert.equal(await page.locator('.cc-map-panel').count(),0,'Command still contains geospatial map');
+    assert.equal(await page.locator('.cc-stream-panel,.cc-connect-panel,.cc-live-panel').count(),0,'Command repeats source data');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Risk watch'}).click();
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
@@ -267,7 +278,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       await page.waitForTimeout(120);
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
-      assert.equal(await page.locator('.dr-root').count(),sectionName==='Command center'?1:0,sectionName+' displays Home-specific metrics on a specialist tab');
+      assert.equal(await page.locator('.dr-root').count(),sectionName==='Early warning'?1:0,sectionName+' misplaces cross-domain radar outside Early Warning');
       if(sectionName==='Countries'){
         const countryViews=page.getByRole('group',{name:'Country intelligence views'});
         await countryViews.getByRole('button',{name:'Networks'}).click();

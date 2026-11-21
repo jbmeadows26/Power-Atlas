@@ -3,6 +3,7 @@ import { Activity, ArrowRight, ArrowUpRight, AlertTriangle, Database, GitBranch,
 import { earlyDomains, scenarios, type Coverage } from './earlyWarningCatalog';
 import { isValidObservedPeriod } from './earlyWarningDates';
 import './physicalEarlyWarning.css';
+import SignalReviewBoard from './SignalReviewBoard';
 
 type Metric = {
   interval?: 'daily' | 'monthly'; compareMode?: 'percent' | 'basis-points' | 'percentage-points'; changeBps?: number | null; changePp?: number | null; sampleSize?: number;
@@ -122,9 +123,10 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
       <div><h1>Early warning <em>signals.</em></h1><p>Measured changes first. Compare source-dated readings; investigate unusual movement before deciding what it means.</p></div>
       {onOpenSupplyChain&&<button type="button" onClick={onOpenSupplyChain}>Existing freight data <ArrowRight size={15}/></button>}
     </div>
+    <SignalReviewBoard mode="early" countryCode={countryCode}/>
     <div className="pew-summary">
       <div><span>MEASURED SERIES</span><strong>{metrics.length}</strong><small>With published comparison</small></div>
-      <div><span>REVIEW SCREENS</span><strong>{signals.length}</strong><small>Rule-based movement, not incidents</small></div>
+      <div><span>THRESHOLD SCREENS</span><strong>{signals.length}</strong><small>Screened observations, not confirmed risks</small></div>
       <div><span>COLLECTOR CHECKS</span><strong>{snapshot.sources.length?checked+'/'+snapshot.sources.length:'—'}</strong><small>Not a global-coverage score</small></div>
       <div><span>LAST CHECK</span><strong className="pew-date">{readableDate(snapshot.checkedAt)}</strong><small>{fresh?'Recent source check':observedAge===null?'Not checked':'STALE — historical only'}</small></div>
     </div>
