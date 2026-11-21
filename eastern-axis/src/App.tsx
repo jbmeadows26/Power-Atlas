@@ -128,17 +128,6 @@ const sections = [
   'Methodology',
 ] as const;
 type Section = (typeof sections)[number];
-const sectionSlug = (section: Section) => section.toLowerCase().replace(/\s+/g, '-');
-const sectionFromHash = (): Section => {
-  if (typeof window === 'undefined') return 'Overview';
-  // Read old #section links for compatibility, but prefer fragment-free URLs
-  // in shared links: some in-app browsers mishandle #fragment navigation.
-  const fragment = window.location.hash.slice(1).toLowerCase();
-  const query = new URLSearchParams(window.location.search).get('view')?.trim().toLowerCase();
-  const section = fragment || query || '';
-  if (section === 'risks' || section === 'risk') return 'Risk watch';
-  return sections.find((item) => sectionSlug(item) === section) || 'Overview';
-};
 const focusCodes = ['RU', 'CN', 'IR', 'KP'];
 const fmt = (n: number) =>
   new Intl.NumberFormat('en-US', {
@@ -283,7 +272,7 @@ function MiniGlobe() {
   );
 }
 function App() {
-  const [view, setView] = useState<Section>(sectionFromHash);
+  const [view, setView] = useState<Section>('Overview');
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -302,19 +291,6 @@ function App() {
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
   const [bugReportOpen, setBugReportOpen] = useState(false);
-
-  useEffect(() => {
-    const followHash = () => {
-      setView(sectionFromHash());
-      setMobileMenu(false);
-    };
-    window.addEventListener('hashchange', followHash);
-    window.addEventListener('popstate', followHash);
-    return () => {
-      window.removeEventListener('hashchange', followHash);
-      window.removeEventListener('popstate', followHash);
-    };
-  }, []);
 
   const reload = () => {
     setLoadError('');
@@ -389,18 +365,13 @@ function App() {
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
-    switchView('Countries');
+    setView('Countries');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
     setView(next);
     setMobileMenu(false);
-    const slug = sectionSlug(next);
-    const url = new URL(window.location.href);
-    url.hash = '';
-    url.searchParams.set('view', slug);
-    if (window.location.search !== url.search || window.location.hash)
-      window.history.pushState(null, '', url.pathname + url.search);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
