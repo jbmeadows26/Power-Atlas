@@ -1,0 +1,91 @@
+name: Eastern Axis product shortage intelligence
+on:
+  schedule:
+    - cron: '11 */6 * * *'
+  workflow_dispatch:
+  workflow_run:
+    workflows: ['Eastern Axis physical early warning']
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/forecast_product_shortages.py'
+      - 'eastern-axis/tests/test_shortage_forecasts.py'
+      - '.github/workflows/eastern-axis-shortage-analyst.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/forecast_product_shortages.py'
+      - 'eastern-axis/tests/test_shortage_forecasts.py'
+      - 'eastern-axis/src/ShortageForecasts.tsx'
+      - 'eastern-axis/src/shortageForecasts.css'
+      - 'eastern-axis/src/EconomicIntelligence.tsx'
+      - 'eastern-axis/src/economicIntelligence.css'
+      - '.github/workflows/eastern-axis-shortage-analyst.yml'
+permissions:
+  contents: write
+concurrency:
+  group: eastern-axis-shortage-analyst
+  cancel-in-progress: false
+jobs:
+  forecast:
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && 'main' || github.ref }}
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Verify shortage evidence gates
+        run: python -m unittest discover -s eastern-axis/tests -p 'test_shortage_forecasts.py' -v
+      - name: Build source-dated, fail-closed shortage scenarios
+        run: |
+          test -s eastern-axis/public/analysis/physical-early-warning.json
+          python eastern-axis/scripts/forecast_product_shortages.py
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          path=Path('eastern-axis/public/analysis/product-shortage-outlook.json')
+          report=json.loads(path.read_text())
+          assert report['schemaVersion']==1
+          assert len(report['forecasts'])==report['summary']['products']
+          assert report['summary']['commandEligible']==0
+          assert all(not row['confirmedShortage'] and not row['commandEligible'] and
+                     row['confidence']=='limited' and row['scoreType']=='uncalibrated-triage-not-probability'
+                     for row in report['forecasts'])
+          print('Evidence-validated forecast snapshot:',report['summary'])
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify Economic Intelligence frontend compiles
+        working-directory: eastern-axis
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Commit verified scenario snapshot
+        if: ${{ success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
+        run: |
+          git add eastern-axis/public/analysis/product-shortage-outlook.json
+          if git diff --cached --quiet; then
+            echo "No changes to published product forecast snapshot."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(eastern-axis): publish guarded product shortage outlook [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo "Forecast artifact conflict: refusing to overwrite a newer snapshot" >&2
+              exit 1
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
