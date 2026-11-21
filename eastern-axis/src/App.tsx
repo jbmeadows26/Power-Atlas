@@ -120,7 +120,6 @@ const sections = [
   'Risk watch',
   'AI analyst',
   'Coverage audit',
-  'Connections',
   'Defense intelligence',
   'Investigations',
   'Collection desk',
@@ -274,6 +273,7 @@ function MiniGlobe() {
 }
 function App() {
   const [view, setView] = useState<Section>('Overview');
+  const [countryMode,setCountryMode] = useState<'intelligence'|'networks'>('intelligence');
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
@@ -366,11 +366,13 @@ function App() {
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
+    setCountryMode('intelligence');
     setView('Countries');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const navigateFromSignal = (target: Section, focus?:'funding'|'commodities'|'gnss')=>{if(target==='Early warning')setWarningFocus(focus||'all');switchView(target);};
   const switchView = (next: Section) => {
+    if(next==='Countries')setCountryMode('intelligence');
     setView(next);
     setMobileMenu(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -414,7 +416,6 @@ function App() {
               <ShieldAlert size={17} />,
               <Sparkles size={17} />,
               <Database size={17} />,
-              <Network size={17} />,
               <Shield size={17} />,
               <FileSearch size={17} />,
               <Radio size={17} />,
@@ -424,7 +425,7 @@ function App() {
             ];
             return (
               <Fragment key={s}>
-              {(i === 0 || i === 1 || i === 3 || i === 11) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
+              {(i === 0 || i === 1 || i === 3 || i === 10) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
               <button
                 type="button"
                 className={'nav-item ' + (view === s ? 'active' : '')}
@@ -487,23 +488,6 @@ function App() {
             <span className="asof">SOURCE-DATED DATA</span>
           </div>
         </header>
-        <nav className="ea-workspace-tabs" aria-label="Primary intelligence workspaces">
-          {([
-            ['Overview','Command',Activity],
-            ['Countries','Countries',Globe2],
-            ['Risk watch','Risk watch',ShieldAlert],
-            ['Early warning','Early warning',Radio],
-            ['Global systems','Systems',Layers3],
-            ['Defense intelligence','Defense',Shield],
-            ['Connections','Networks',Network],
-            ['AI analyst','AI analyst',Sparkles],
-            ['Investigations','Cases',FileSearch],
-          ] as const).map(([section,label,Icon])=>
-            <button key={section} type="button" className={view===section?'active':''}
-              aria-current={view===section?'page':undefined} onClick={()=>switchView(section)}>
-              <Icon size={15}/><span>{label}</span>
-            </button>)}
-        </nav>
         <main className="content">
           {loadError && (
             <div className="error-panel">
@@ -531,12 +515,20 @@ function App() {
           {overview && view === 'Risk watch' && <RiskDecisionBoard countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases} onCountryMap={openGeospatial} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
-                    {overview && view === 'Connections' && <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
           {overview && view === 'World Factbook' && <Factbook activeCountry={countryScope} onCountryChange={setCountryScope} />}
           {overview && view === 'Countries' && (
             <>
+              <div className="ea-country-subnav" role="group" aria-label="Country intelligence views">
+                <button type="button" aria-pressed={countryMode==='intelligence'} className={countryMode==='intelligence'?'active':''} onClick={()=>setCountryMode('intelligence')}>
+                  <Globe2 size={17}/> Country intelligence
+                </button>
+                <button type="button" aria-pressed={countryMode==='networks'} className={countryMode==='networks'?'active':''} onClick={()=>setCountryMode('networks')}>
+                  <Network size={17}/> Networks
+                </button>
+              </div>
+              {countryMode==='networks' ? <Connections code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} /> : <>
               <div className="eyebrow">
                 <span className="eyebrow-line" /> RESEARCH DATABASE / COUNTRIES
               </div>
@@ -799,6 +791,7 @@ function App() {
                   )}
                 </aside>
               </div>
+              </>}
             </>
           )}
           {overview && view === 'Investigations' && (
@@ -1146,10 +1139,10 @@ function App() {
         <button type="button" className={!mobileMenu && view === 'Risk watch' ? 'selected' : ''} aria-current={view === 'Risk watch' ? 'page' : undefined} onClick={() => switchView('Risk watch')}>
           <ShieldAlert size={20} strokeWidth={2} /><span>Risks</span>
         </button>
-        <button type="button" className={!mobileMenu && view === 'Connections' ? 'selected' : ''} aria-current={view === 'Connections' ? 'page' : undefined} onClick={() => switchView('Connections')}>
-          <Network size={20} strokeWidth={2} /><span>Networks</span>
+        <button type="button" className={!mobileMenu && view === 'Global systems' ? 'selected' : ''} aria-current={view === 'Global systems' ? 'page' : undefined} onClick={() => switchView('Global systems')}>
+          <Layers3 size={20} strokeWidth={2} /><span>Systems</span>
         </button>
-        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Risk watch','Connections'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
+        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Risk watch','Global systems'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
           <Menu size={20} strokeWidth={2} /><span>More</span>
         </button>
       </nav>
