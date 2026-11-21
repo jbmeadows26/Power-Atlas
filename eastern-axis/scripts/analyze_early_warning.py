@@ -162,9 +162,9 @@ def screen(snapshot):
     return result
 
 def model_assess(candidates,endpoint,model):
-    """Review source records one at a time, so a weak model cannot discard
-    every review when one JSON response is truncated or malformed.
-    No answer ever overrides an independent provenance/freshness gate.
+    """Isolate each AI review, retry malformed items once, and fail closed.
+    Successful reviews are never discarded when a different response fails.
+    An AI output is only advice; evaluate() enforces the independent gates.
     """
     if not candidates:return {}, "not-needed"
     if not endpoint:return {}, "unavailable"
@@ -177,40 +177,42 @@ def model_assess(candidates,endpoint,model):
               "corroboration":record.get("corroboration",[]),
               "officialAlert":record.get("officialAlert",False),
               "severity":record.get("severity"),"sourceUrl":record["sourceUrl"]}
-        prompt=("Review exactly ONE source-dated early-warning observation. You are a cautious public-source "
-            "intelligence analyst. Use ONLY this supplied record, no external facts or new sources. "
-            "Assess baseline, geography, severity, possible ordinary variation and source corroboration. "
-            "ELEVATE only for official active Severe/Extreme advisory OR a fresh robust-z >=3 historical "
-            "anomaly independently corroborated by a different publisher with same scope and direction. "
-            "If missing evidence, decide MONITOR. Do not speculate about hostile actors, causes or future incidents. "
-            "Output only ONE JSON object: "
-            '{"id":"record-id","decision":"monitor","confidence":"low","rationale":"Evidence-based sentence."} '
-            "Use the record id verbatim. Keep rationale under 45 words. Record: "
-            +json.dumps(item,ensure_ascii=False))
-        payload=json.dumps({"model":model,"stream":False,"format":"json",
-              "options":{"temperature":0,"num_predict":320},"prompt":prompt}).encode()
-        try:
-            req=urllib.request.Request(endpoint.rstrip("/")+"/api/generate",data=payload,
-                  headers={"Content-Type":"application/json"},method="POST")
-            with urllib.request.urlopen(req,timeout=90) as response:
-                raw=json.load(response)
-            parsed=json.loads(raw.get("response",""))
-            # Accept the legacy one-item findings wrapper, never an
-            # unverified free-text model answer.
-            if isinstance(parsed,dict) and isinstance(parsed.get("findings"),list) and len(parsed["findings"])==1:
-                parsed=parsed["findings"][0]
-            if not isinstance(parsed,dict) or parsed.get("id")!=record["id"]:
-                raise ValueError("Missing or mismatched record identifier")
-            if parsed.get("decision") not in ("monitor","elevate") or parsed.get("confidence") not in ("low","medium","high"):
-                raise ValueError("Invalid model decision or confidence")
-            rationale=parsed.get("rationale")
-            if not isinstance(rationale,str) or not (6<=len(rationale)<=500):
-                raise ValueError("Missing auditable rationale")
-            findings[record["id"]]={"decision":parsed["decision"],
-                      "confidence":parsed["confidence"],"rationale":rationale}
-        except (OSError,ValueError,KeyError,TypeError) as e:
-            # Failed items remain monitored; do not discard valid other reviews.
-            print("Model review rejected for",record["id"],type(e).__name__,flush=True)
+        directions=("Review exactly ONE source-dated early-warning observation. Be conservative. "
+            "Use only this record. ELEVATE only for a currently active official Severe/Extreme "
+            "advisory or fresh robust-z >=3 movement with same-scope, same-direction evidence "
+            "from an independent publisher. Otherwise MONITOR. Never infer hostile causes. ")
+        example=('Return exactly one JSON object containing: '
+            '{"id":"record-id","decision":"monitor","confidence":"low",'
+            '"rationale":"Source-linked evidence and its limitations."}. '
+            'Use the supplied id verbatim; decision=monitor|elevate, confidence=low|medium|high, '
+            'rationale 6-500 characters. Record: ')
+        for attempt in range(2):
+            prompt=(directions if attempt==0 else
+                "RETRY: Your prior reply was invalid JSON. No prose, arrays or Markdown. "
+                "Return just the JSON object. When unsure, MONITOR. ")+example+json.dumps(item,ensure_ascii=False)
+            payload=json.dumps({"model":model,"stream":False,"format":"json",
+                  "options":{"temperature":0,"num_predict":260},"prompt":prompt}).encode()
+            try:
+                req=urllib.request.Request(endpoint.rstrip("/")+"/api/generate",data=payload,
+                      headers={"Content-Type":"application/json"},method="POST")
+                with urllib.request.urlopen(req,timeout=90) as response:
+                    raw=json.load(response)
+                parsed=json.loads(raw.get("response",""))
+                if isinstance(parsed,dict) and isinstance(parsed.get("findings"),list) and len(parsed["findings"])==1:
+                    parsed=parsed["findings"][0]
+                if not isinstance(parsed,dict) or parsed.get("id")!=record["id"]:
+                    raise ValueError("Missing or mismatched record identifier")
+                if parsed.get("decision") not in ("monitor","elevate") or parsed.get("confidence") not in ("low","medium","high"):
+                    raise ValueError("Invalid model decision or confidence")
+                rationale=parsed.get("rationale")
+                if not isinstance(rationale,str) or not (6<=len(rationale)<=500):
+                    raise ValueError("Missing auditable rationale")
+                findings[record["id"]]={"decision":parsed["decision"],
+                          "confidence":parsed["confidence"],"rationale":rationale}
+                break
+            except (OSError,ValueError,KeyError,TypeError) as e:
+                print("Model review rejected for",record["id"],"attempt",attempt+1,
+                      type(e).__name__,flush=True)
     if not findings:return {},"unavailable"
     return findings, ("available" if len(findings)==len(candidates[:30]) else "partial")
 
