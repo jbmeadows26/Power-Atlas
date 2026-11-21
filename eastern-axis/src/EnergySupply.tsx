@@ -26,7 +26,7 @@ export default function EnergySupply({code}:{code:string}) {
    .finally(()=>{if(current)setLoading(false);});
   return()=>{current=false;};
  },[code,revision]);
- const groups=useMemo(()=>Array.from(new Set(data?.indicators.map(item=>item.group)||[])),[data]);
+ const groups=useMemo(()=>Array.from(new Set((data?.indicators||[]).map(item=>item.group))),[data]);
  return <section className="ip-section">
    <div className="ip-section-title">
     <div><span className="ip-kicker"><Factory size={15}/> PHYSICAL ENERGY / OBSERVED ANNUAL DATA</span>
