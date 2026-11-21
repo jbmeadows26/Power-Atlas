@@ -86,7 +86,7 @@ jobs:
           assert len(d["reviews"])==d["summary"]["observed"]
           assert len(d["alerts"])==d["summary"]["elevated"]
           ids={r["id"]:r for r in d["reviews"]}
-          assert all(r["status"]=="elevated" and r["id"] in ids and (
+          assert all(r["id"] in ids and ids[r["id"]]["status"]=="elevated" and (
             (r["kind"]=="advisory" and r["sourceUrl"].startswith("https://api.weather.gov/"))
             or (r["kind"]=="metric" and ids[r["id"]].get("anomalous") and ids[r["id"]].get("corroborated"))
           ) for r in d["alerts"])
