@@ -5,7 +5,7 @@ import './networkExplorer.css';
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
 type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string };
-type Props = { code:string; countries:Country[]; cases:Case[]; onSelect:(code:string)=>void };
+type Props = { code:string; countries:Country[]; cases:Case[]; onSelect:(code:string)=>void; embedded?:boolean };
 type Kind = 'Treaty'|'Partnership'|'Organization'|'Operation';
 type Link = { id:string; from:string; to:string; kind:Kind; label:string; detail:string; asOf:string; publisher:string; url:string; caution?:string };
 type Operation = {id:string; title:string; published:string; summary:string; roles:{code:string;role:string}[]; publisher:string;url:string;state:string};
@@ -60,7 +60,7 @@ function actor(code:string,countries:Country[]):string{
 }
 const labels:Kind[]=['Treaty','Partnership','Organization','Operation'];
 
-export default function Connections({code,countries,cases,onSelect}:Props){
+export default function Connections({code,countries,cases,onSelect,embedded=false}:Props){
  const [defense,setDefense]=useState<Defense|null>(null);
  const [defenseError,setDefenseError]=useState(false);
  const [kind,setKind]=useState<Kind|'All'>('All');
@@ -94,10 +94,10 @@ export default function Connections({code,countries,cases,onSelect}:Props){
  const svgHeight=Math.max(330,scoped.length*71+65);
  const centerY=svgHeight/2;
  const caseCount=cases.filter(c=>c.code===focus).length;
- return <section className="nx-root" aria-label="Sourced relationship networks">
+ return <section className={"nx-root"+(embedded?" nx-embedded":"")} aria-label="Sourced relationship networks">
   <header className="nx-head">
    <div><div className="nx-kicker"><Network size={16}/> ALL-SOURCE RELATIONSHIP INTELLIGENCE</div>
-    <h1>Networks<span className="nx-period">.</span></h1>
+    {embedded?<h2 className="nx-embedded-title">Documented relationship map</h2>:<h1>Networks<span className="nx-period">.</span></h1>}
     <p>Documented security ties, partnerships and separately reported conflict relationships. Follow the connection, inspect its source, then judge its meaning.</p>
    </div>
    <div className="nx-scope"><span>{code==='all'?'GLOBAL NETWORK SPOTLIGHT':'COUNTRY NETWORK'}</span><strong>{actor(focus,countries)}</strong><small>{code==='all'?'Choose a country above to focus the graph':'Persistent country selector is applied'}</small></div>
