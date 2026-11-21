@@ -282,7 +282,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState('All regions');
   const [showTerritories, setShowTerritories] = useState(false);
-  const [showAllies, setShowAllies] = useState(false);
+  const [showAllies, setShowAllies] = useState(true);
   const [selected, setSelected] = useState<string | null>('RU');
   const [countryScope, setCountryScope] = useState<string>(()=>{try{return window.localStorage.getItem('ea.country.scope')||'all';}catch{return 'all';}});
   useEffect(()=>{try{window.localStorage.setItem('ea.country.scope',countryScope);}catch{};if(countryScope!=='all')setSelected(countryScope);},[countryScope]);
@@ -341,8 +341,8 @@ function App() {
     () =>
       countries.filter(
         c =>
-          (showTerritories || c.scope === 'state-or-observer') &&
-          (showAllies || !c.isTreatyAlly) &&
+          (showTerritories || c.scope === 'state-or-observer' || c.code === countryScope) &&
+          (showAllies || !c.isTreatyAlly || c.code === countryScope) &&
           (countryScope === 'all' || c.code === countryScope) &&
           (region === 'All regions' || c.region === region) &&
           (c.name.toLowerCase().includes(search.toLowerCase()) ||
@@ -546,7 +546,7 @@ function App() {
                   </h1>
                   <p>
                     Explore the global directory, then open a country to examine
-                    original-source evidence and World Bank indicators. This directory defaults to nonallied states and observers; the historical World Factbook also includes territories and geographic profiles, so totals differ.
+                    original-source evidence and World Bank indicators. This directory includes countries and treaty allies by default. You can narrow the list; the selected country always remains visible. The historical World Factbook also includes territories and geographic profiles, so totals differ.
                   </p>
                 </div>
                 <Badge kind="green">
