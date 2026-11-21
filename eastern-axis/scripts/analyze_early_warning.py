@@ -105,6 +105,8 @@ def screen(snapshot):
             "id":m["id"],"kind":"metric","title":m.get("label","Untitled measurement"),
             "group":m.get("group","unassigned"),"source":m.get("source",""),"sourceUrl":m.get("sourceUrl",""),
             "observedAt":m.get("period"),"changePct":m.get("changePct"),
+            "compareMode":m.get("compareMode","percent"),"changeBps":m.get("changeBps"),
+            "changePp":m.get("changePp"),
             "screened":bool(trigger),"fresh":fresh,"baseline":history,
             "anomalous":bool(anomaly),"needsReview":bool(trigger and fresh),
             "sector":sector(m["id"]),"corroborated":False,
