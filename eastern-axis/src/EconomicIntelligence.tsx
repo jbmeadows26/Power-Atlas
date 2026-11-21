@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Activity, ArrowRight, BarChart3, BrainCircuit, Database, Globe2, Landmark, Layers3, Radio, RefreshCcw, ShieldAlert, Ship, TrendingDown } from 'lucide-react';
+import { Activity, ArrowRight, BarChart3, BrainCircuit, Database, Globe2, Landmark, Layers3, Radio, RefreshCcw, ShieldAlert, Ship } from 'lucide-react';
 import { api } from '@appdeploy/client';
 import GlobalSystems from './GlobalSystems';
 import SupplyChain from './SupplyChain';
@@ -101,6 +101,8 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
   const earlyRows=early?.metrics.filter(m=>countryCode==='all'||m.group==='global'||m.group===countryCode)||[];
   const alerts=earlyRows.filter(screens);
   const age=ageDays(probe?.checkedAt);
+  const reviewAge=ageDays(triage?.generatedAt);
+  const reviewFresh=reviewAge!==null&&reviewAge<=3;
   const probeFresh=age!==null&&age<=2/24;
   const lanes=[
     {key:'systems' as const,title:'Economy & energy',description:'Growth, inflation, jobs, energy dependency and resource exposure.',Icon:Globe2,
@@ -111,7 +113,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
       detail:falling?'Largest decline: '+falling.name+' ('+fmt(falling.percentChange!)+'%)':'No comparable transit decline'},
     {key:'signals' as const,title:'Markets & early warning',description:'Market movements, screened anomalies and AI analyst triage.',Icon:Activity,
       number:triage?triage.summary.screened:'—',measure:'global review candidates',status:sourceStatus(early?.status,early?.checkedAt,4),
-      detail:triage?'AI reviewed '+triage.summary.reviewed+' · elevated '+(ageDays(triage.generatedAt)!<=3?triage.summary.elevated:'unverified')+' globally':'AI triage report unavailable'},
+      detail:triage?'AI reviewed '+triage.summary.reviewed+' · elevated '+(reviewFresh?triage.summary.elevated:'unverified')+' globally':'AI triage report unavailable'},
     {key:'risk' as const,title:'Systemic risk',description:'Infrastructure reliability, hazards and country pressure screens.',Icon:ShieldAlert,
       number:probe&&probeFresh?probe.incidents.length:'—',measure:'global correlated watches',status:sourceStatus(probe?.status,probe?.checkedAt,2/24),
       detail:probe?'Telemetry checked '+date(probe.checkedAt)+(probeFresh?' · recent':' · stale'):'No probe telemetry verified'}
