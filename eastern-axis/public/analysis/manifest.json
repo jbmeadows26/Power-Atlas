@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-20T15:25:30Z",
+  "generatedAt": "2026-11-21T08:17:16Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
@@ -79,7 +79,7 @@
       "mode": "linked-official-source-not-ingested-evidence"
     }
   ],
-  "method": "Attributable public-source metadata and topic indexing only; AI drafts require human review.",
+  "method": "Source-tagged countries plus independent, inspectable title-derived geographic references; no event attribution. AI drafts require human review.",
   "connectors": [
     {
       "id": "gpt-researcher",
@@ -98,7 +98,7 @@
       "name": "OpenOSINT",
       "status": "ok",
       "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
-      "checkedAt": "2026-11-20T15:25:37Z"
+      "checkedAt": "2026-11-21T08:17:22Z"
     },
     {
       "id": "openaleph",
@@ -115,6 +115,164 @@
   ],
   "records": [
     {
+      "id": "un-security-ba6833bcf170767d",
+      "sourceId": "official-source-monitor",
+      "title": "Peacekeeping: With 500 paternity and child support claims unresolved, UN scales up accountability",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168842",
+      "date": "2026-11-19",
+      "detectedAt": "2026-11-21T05:33:41.828Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "un-security-bb68354ff07074ea",
+      "sourceId": "official-source-monitor",
+      "title": "Battle to control GPS and radio signals raises civilian safety concerns",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168843",
+      "date": "2026-11-19",
+      "detectedAt": "2026-11-21T05:33:41.828Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "aviation"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "un-security-b7682f03ec706e9e",
+      "sourceId": "official-source-monitor",
+      "title": "Shattered playgrounds and freezing classrooms: Inside Ukraine’s deadliest year for children",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168847",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.828Z",
+      "countries": [
+        "UA"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-07fa9c13f7adcde0",
+      "sourceId": "official-source-monitor",
+      "title": "Regulation: Notice of proposed amendments (NPA) reference table",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/notice-of-proposed-amendments-npa-reference-table",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.775Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "uk-mod-bf5875a4ae633785",
+      "sourceId": "official-source-monitor",
+      "title": "Grants up to £45 million boost UK growth as Ministry of Defence funds national munitions production",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/grants-up-to-45-million-boost-uk-growth-as-ministry-of-defence-funds-national-munitions-production",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.775Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-8130602416fae801",
+      "sourceId": "official-source-monitor",
+      "title": "Support for veterans and serving personnel involved in the Patrick Finucane Inquiry",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/guidance/support-for-veterans-and-serving-personnel-involved-in-the-patrick-finucane-inquiry",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.775Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "uk-mod-32f4765727a629f8",
+      "sourceId": "official-source-monitor",
+      "title": "Official Statistics: Mefloquine (Larium) prescribing in the UK armed forces: 12 September 2016 to 30 September 2026",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/statistics/announcements/mefloquine-larium-prescribing-in-the-uk-armed-forces-12-september-2016-to-30-september-2026",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.775Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-262e48d568fe067f",
+      "sourceId": "official-source-monitor",
+      "title": "Guidance: DAO policies",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/dao-policies",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:41.775Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "us-defense-4c570623e6a9e8d6",
+      "sourceId": "official-source-monitor",
+      "title": "Naval Logistics Command Delivers Critical Care Worldwide",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4655965/naval-logistics-command-delivers-critical-care-worldwide",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T05:33:40.950Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": []
+    },
+    {
       "id": "uk-mod-b4f1b7096375b5fc",
       "sourceId": "official-source-monitor",
       "title": "Guidance: Military low flying: RAF operational low flying training timetable",
@@ -126,7 +284,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-c57f94ac6ef619f1",
@@ -140,7 +299,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-2aa30b9d4fc9aaae",
@@ -154,6 +314,14 @@
       "changeType": "new-publication",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -168,7 +336,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "us-defense-f1efa769d3dbce44",
@@ -182,7 +351,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "un-security-4e6fd87de55f1a78",
@@ -198,6 +368,14 @@
       "changeType": "new-publication",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "YE",
+          "basis": "title-country-name",
+          "matchedText": "Yemen",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -212,7 +390,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-0bb2af2044754173",
@@ -226,7 +405,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-6743446d4ccdd478",
@@ -240,7 +420,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-942dd0fb679cd2bb",
@@ -254,7 +435,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-bf5e234a65a7d987",
@@ -268,7 +450,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "us-defense-0ed80b0f09673acd",
@@ -282,7 +465,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-525b99f4c4c13327",
@@ -296,7 +480,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-6aba64ef91283e48",
@@ -310,6 +495,14 @@
       "changeType": "new-publication",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -327,7 +520,8 @@
       "changeType": "new-publication",
       "topics": [
         "humanitarian"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "un-security-4b6d952de8615dc8",
@@ -341,6 +535,14 @@
       "changeType": "new-publication",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "HT",
+          "basis": "title-country-name",
+          "matchedText": "Haiti",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -358,6 +560,14 @@
       "changeType": "new-publication",
       "topics": [
         "humanitarian"
+      ],
+      "inferredCountries": [
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -372,7 +582,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-1e730e4652456e89",
@@ -386,7 +597,8 @@
       "changeType": "new-publication",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-9bbc9dee5b4bf6e4",
@@ -403,6 +615,20 @@
       "changeType": "new-publication",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        },
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -417,7 +643,8 @@
       "changeType": "new-publication",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "un-security-6b3d25b299acbb3f",
@@ -433,6 +660,26 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "ES",
+          "basis": "title-country-name",
+          "matchedText": "Spain",
+          "confidence": "high"
+        },
+        {
+          "code": "NP",
+          "basis": "title-country-name",
+          "matchedText": "Nepal",
+          "confidence": "high"
+        },
+        {
+          "code": "YE",
+          "basis": "title-country-name",
+          "matchedText": "Yemen",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -451,6 +698,14 @@
       "topics": [
         "military",
         "power-energy"
+      ],
+      "inferredCountries": [
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -467,6 +722,20 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "MZ",
+          "basis": "title-country-name",
+          "matchedText": "Mozambique",
+          "confidence": "high"
+        },
+        {
+          "code": "YE",
+          "basis": "title-country-name",
+          "matchedText": "Yemen",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -483,6 +752,14 @@
       "changeType": "baseline",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "SD",
+          "basis": "title-country-name",
+          "matchedText": "Sudan",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -499,6 +776,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "SS",
+          "basis": "title-country-name",
+          "matchedText": "South Sudan",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -517,6 +802,14 @@
       "topics": [
         "military",
         "humanitarian"
+      ],
+      "inferredCountries": [
+        {
+          "code": "IL",
+          "basis": "title-country-name",
+          "matchedText": "Israeli",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -534,7 +827,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "un-security-ba74ffaff163aa8a",
@@ -548,7 +842,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "un-security-b674f963ed63a43e",
@@ -562,6 +857,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "SY",
+          "basis": "title-country-name",
+          "matchedText": "Syria",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -576,6 +879,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "LB",
+          "basis": "title-country-name",
+          "matchedText": "Lebanon",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -590,7 +901,8 @@
       "changeType": "baseline",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-b4c88808c86ef1eb",
@@ -604,6 +916,14 @@
       "changeType": "baseline",
       "topics": [
         "trade-finance"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -620,6 +940,20 @@
       "changeType": "baseline",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "Britain",
+          "confidence": "high"
+        },
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -634,7 +968,8 @@
       "changeType": "baseline",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-338603bef9cb301e",
@@ -648,6 +983,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -662,7 +1005,8 @@
       "changeType": "baseline",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-6332cd75e06066b4",
@@ -676,7 +1020,8 @@
       "changeType": "baseline",
       "topics": [
         "military"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "uk-mod-944e67228299fb09",
@@ -690,136 +1035,98 @@
       "changeType": "baseline",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        }
       ]
     },
     {
-      "id": "uk-mod-bcb5c64f51f08ada",
-      "sourceId": "official-source-monitor",
-      "title": "UK and Japan strengthen defence ties with major exercise",
-      "publisher": "UK Ministry of Defence publications",
-      "url": "https://www.gov.uk/government/news/uk-and-japan-strengthen-defence-ties-with-major-exercise--2",
-      "date": "2026-11-17",
-      "detectedAt": "2026-11-17T11:56:47.323Z",
+      "id": "intake-cisa-CVE-2026-76466",
+      "sourceId": "cisa",
+      "title": "Cisco Expressway Series Use of Hard-coded Credentials Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-76466",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T04:49:53.857Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-cisa-CVE-2025-42884",
+      "sourceId": "cisa",
+      "title": "SAP NetWeaver Improper Neutralization of Special Elements in Data Query Logic Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2025-42884",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T04:49:53.857Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-cisa-CVE-2026-123890",
+      "sourceId": "cisa",
+      "title": "VMWare vCenter Authentication Bypass Using an Alternate Path or Channel Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-123890",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T04:49:53.857Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-cisa-CVE-2026-129448",
+      "sourceId": "cisa",
+      "title": "Apache Roller Deserialization of Untrusted Data Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-129448",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T04:49:53.857Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-doj-4a07fbbd-c53f-4fc4-944b-c39d057d3c79",
+      "sourceId": "doj",
+      "title": "Homeland Security Task Force Investigation Leads to Arrest of Chinese National, 2 Others Charged with Multimillion-Dollar Counterfeit Goods Smuggling from China",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/usao-cdca/pr/homeland-security-task-force-investigation-leads-arrest-chinese-national-2-others",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-21T04:29:57.713Z",
       "countries": [
-        "JP"
+        "CN"
       ],
       "changeType": "baseline",
       "topics": [
-        "military"
-      ]
-    },
-    {
-      "id": "uk-mod-1be70f7d61c24243",
-      "sourceId": "official-source-monitor",
-      "title": "Army buys hundreds more drones and electronic warfare kit in £25 million boost to strengthen Britain’s defences on NATO’s eastern flank",
-      "publisher": "UK Ministry of Defence publications",
-      "url": "https://www.gov.uk/government/news/army-buys-hundreds-more-drones-and-electronic-warfare-kit-in-25-million-boost-to-strengthen-britains-defences-on-natos-eastern-flank",
-      "date": "2026-11-17",
-      "detectedAt": "2026-11-17T11:56:47.323Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ]
-    },
-    {
-      "id": "us-defense-fec9941b62c14155",
-      "sourceId": "official-source-monitor",
-      "title": "Hegseth Mandates Military Education Reform",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4645001/hegseth-mandates-military-education-reform",
-      "date": "2026-11-09",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ]
-    },
-    {
-      "id": "us-defense-0dd75dccc00ebeb4",
-      "sourceId": "official-source-monitor",
-      "title": "Navy Command Builds on Training Partnership During South Korean Visit",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4645097/navy-command-builds-on-training-partnership-during-south-korean-visit",
-      "date": "2026-11-09",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [
-        "KR"
+        "other"
       ],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "us-defense-71caeafd5ed9b5b2",
-      "sourceId": "official-source-monitor",
-      "title": "Hegseth, Polish Counterpart Announce Intent to Boost Military Cooperation",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4646088/hegseth-polish-counterpart-announce-intent-to-boost-military-cooperation",
-      "date": "2026-11-10",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ]
-    },
-    {
-      "id": "us-defense-5697603f370304b5",
-      "sourceId": "official-source-monitor",
-      "title": "USS Nimitz Trains New, Returning Naval Aviators",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4646092/uss-nimitz-trains-new-returning-naval-aviators",
-      "date": "2026-11-10",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ]
-    },
-    {
-      "id": "us-defense-eccf74167f6f065f",
-      "sourceId": "official-source-monitor",
-      "title": "Army, Allies Prepare for Long-Range Air Assault in Hawaii",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4647175/army-allies-prepare-for-long-range-air-assault-in-hawaii",
-      "date": "2026-11-12",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "us-defense-0ceef2cae9102ef9",
-      "sourceId": "official-source-monitor",
-      "title": "War Department Expands Childcare Assistance",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4647456/war-department-expands-childcare-assistance",
-      "date": "2026-11-12",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "us-defense-97f7a9313986003a",
-      "sourceId": "official-source-monitor",
-      "title": "Naval Academy Honors Marine Aviators With Harrier Display",
-      "publisher": "U.S. Department of Defense news",
-      "url": "https://www.war.gov/News/News-Stories/Article/Article/4648058/naval-academy-honors-marine-aviators-with-harrier-display",
-      "date": "2026-11-13",
-      "detectedAt": "2026-11-17T11:56:47.157Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
+      "inferredCountries": [
+        {
+          "code": "CN",
+          "basis": "title-country-name",
+          "matchedText": "China",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -834,7 +1141,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-90817",
@@ -848,7 +1156,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-40217",
@@ -862,7 +1171,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2024-10441",
@@ -876,7 +1186,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
@@ -893,6 +1204,14 @@
       "topics": [
         "military",
         "foreign-influence"
+      ],
+      "inferredCountries": [
+        {
+          "code": "RU",
+          "basis": "title-country-name",
+          "matchedText": "Russia",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -910,6 +1229,14 @@
       "topics": [
         "military",
         "foreign-influence"
+      ],
+      "inferredCountries": [
+        {
+          "code": "RU",
+          "basis": "title-country-name",
+          "matchedText": "Russia",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -924,7 +1251,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
@@ -940,6 +1268,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "RU",
+          "basis": "title-country-name",
+          "matchedText": "Russia",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -954,7 +1290,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-114713",
@@ -968,7 +1305,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-123039",
@@ -982,7 +1320,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7795",
@@ -996,7 +1335,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-111560",
@@ -1010,7 +1350,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-111793",
@@ -1024,7 +1365,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-116606",
@@ -1038,7 +1380,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-124194",
@@ -1052,7 +1395,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-125350",
@@ -1066,7 +1410,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-20320",
@@ -1080,7 +1425,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-102895",
@@ -1094,7 +1440,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-116779",
@@ -1108,7 +1455,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-123158",
@@ -1122,7 +1470,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-123218",
@@ -1136,7 +1485,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7794",
@@ -1150,7 +1500,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-19868",
@@ -1164,7 +1515,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7793",
@@ -1178,7 +1530,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7792",
@@ -1192,7 +1545,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2024-27834",
@@ -1206,7 +1560,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-119977",
@@ -1220,7 +1575,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-111357",
@@ -1234,7 +1590,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-118527",
@@ -1248,7 +1605,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7791",
@@ -1262,7 +1620,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-97229",
@@ -1276,7 +1635,8 @@
       "changeType": "baseline",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7788",
@@ -1290,7 +1650,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7789",
@@ -1304,7 +1665,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7790",
@@ -1318,7 +1680,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7787",
@@ -1332,7 +1695,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7786",
@@ -1346,7 +1710,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7785",
@@ -1360,7 +1725,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7784",
@@ -1374,7 +1740,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7782",
@@ -1388,7 +1755,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7781",
@@ -1402,7 +1770,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7779",
@@ -1416,7 +1785,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7778",
@@ -1430,7 +1800,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7776",
@@ -1444,7 +1815,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-fara-7773",
@@ -1458,7 +1830,8 @@
       "changeType": "baseline",
       "topics": [
         "foreign-influence"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-11185",
@@ -1472,7 +1845,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-11186",
@@ -1486,7 +1860,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-12111",
@@ -1500,6 +1875,14 @@
       "changeType": "baseline",
       "topics": [
         "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "IR",
+          "basis": "title-country-name",
+          "matchedText": "IRANIAN",
+          "confidence": "high"
+        }
       ]
     },
     {
@@ -1514,7 +1897,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-12210",
@@ -1528,7 +1912,23 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-ofac-12211",
+      "sourceId": "ofac",
+      "title": "KIM, Yong Chol",
+      "publisher": "U.S. Treasury OFAC",
+      "url": "https://sanctionssearch.ofac.treas.gov",
+      "date": "",
+      "detectedAt": "2026-11-15T10:50:42.104Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-12882",
@@ -1542,21 +1942,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-173",
-      "sourceId": "ofac",
-      "title": "ANGLO-CARIBBEAN CO., LTD.",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-20290",
@@ -1570,7 +1957,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-21171",
@@ -1584,7 +1972,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-ofac-21324",
@@ -1598,77 +1987,8 @@
       "changeType": "baseline",
       "topics": [
         "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-21344",
-      "sourceId": "ofac",
-      "title": "FEDERAL SECURITY SERVICE",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-306",
-      "sourceId": "ofac",
-      "title": "BANCO NACIONAL DE CUBA",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-30822",
-      "sourceId": "ofac",
-      "title": "KVT-RUS",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-36",
-      "sourceId": "ofac",
-      "title": "AEROCARIBBEAN AIRLINES",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ]
-    },
-    {
-      "id": "intake-ofac-4633",
-      "sourceId": "ofac",
-      "title": "BANK MASKAN",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "trade-finance"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-odni-2026",
@@ -1690,7 +2010,8 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-csis-2025",
@@ -1712,7 +2033,8 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-nato-hybrid",
@@ -1731,7 +2053,8 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-eeas-fimi-2026",
@@ -1750,7 +2073,8 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "other"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-aus-asd-2026",
@@ -1766,7 +2090,8 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "cyber"
-      ]
+      ],
+      "inferredCountries": []
     },
     {
       "id": "allied-japan-defense-2026",
@@ -1786,6 +2111,14 @@
       "evidenceTier": "curated-government-excerpt-not-full-text",
       "topics": [
         "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "JP",
+          "basis": "title-country-name",
+          "matchedText": "Japan",
+          "confidence": "high"
+        }
       ]
     }
   ],
@@ -1795,14 +2128,15 @@
     "countryBriefs": [
       {
         "code": "CN",
-        "sourceCount": 5,
-        "publisherCount": 5,
+        "sourceCount": 6,
+        "publisherCount": 6,
         "publishers": [
           "Canadian Security Intelligence Service",
           "European External Action Service",
           "Ministry of Defense",
           "NATO",
-          "Office of the Director of National Intelligence"
+          "Office of the Director of National Intelligence",
+          "U.S. Department of Justice"
         ],
         "changedCount": 0,
         "topics": [
@@ -1810,13 +2144,14 @@
           "other"
         ],
         "sourceIds": [
+          "intake-doj-4a07fbbd-c53f-4fc4-944b-c39d057d3c79",
           "allied-odni-2026",
           "allied-csis-2025",
           "allied-nato-hybrid",
           "allied-eeas-fimi-2026",
           "allied-japan-defense-2026"
         ],
-        "statement": "5 indexed public-source records explicitly mention CN. This is coverage, not a threat or attribution score."
+        "statement": "6 indexed public-source records explicitly mention CN. This is coverage, not a threat or attribution score."
       },
       {
         "code": "IL",
@@ -1875,22 +2210,6 @@
         "statement": "3 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
       },
       {
-        "code": "JP",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "publishers": [
-          "UK Ministry of Defence publications"
-        ],
-        "changedCount": 0,
-        "topics": [
-          "military"
-        ],
-        "sourceIds": [
-          "uk-mod-bcb5c64f51f08ada"
-        ],
-        "statement": "1 indexed public-source record explicitly mentions JP. This is coverage, not a threat or attribution score."
-      },
-      {
         "code": "KP",
         "sourceCount": 2,
         "publisherCount": 2,
@@ -1908,22 +2227,6 @@
           "allied-japan-defense-2026"
         ],
         "statement": "2 indexed public-source records explicitly mention KP. This is coverage, not a threat or attribution score."
-      },
-      {
-        "code": "KR",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "publishers": [
-          "U.S. Department of Defense news"
-        ],
-        "changedCount": 0,
-        "topics": [
-          "other"
-        ],
-        "sourceIds": [
-          "us-defense-0dd75dccc00ebeb4"
-        ],
-        "statement": "1 indexed public-source record explicitly mentions KR. This is coverage, not a threat or attribution score."
       },
       {
         "code": "PK",
@@ -2018,25 +2321,27 @@
       },
       {
         "code": "UA",
-        "sourceCount": 4,
+        "sourceCount": 5,
         "publisherCount": 2,
         "publishers": [
           "UK Ministry of Defence publications",
           "UN News: Peace and Security"
         ],
-        "changedCount": 2,
+        "changedCount": 3,
         "topics": [
           "humanitarian",
           "military",
+          "other",
           "power-energy"
         ],
         "sourceIds": [
+          "un-security-b7682f03ec706e9e",
           "un-security-406d83dce36155e9",
           "uk-mod-9bbc9dee5b4bf6e4",
           "un-security-643adc1628a54d97",
           "uk-mod-068ca08103f69003"
         ],
-        "statement": "4 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
+        "statement": "5 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
       },
       {
         "code": "YE",
@@ -2057,25 +2362,140 @@
         "statement": "3 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
       }
     ],
+    "inferredCountryBriefs": [
+      {
+        "code": "ES",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-6b3d25b299acbb3f"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "GB",
+        "sourceCount": 9,
+        "publisherCount": 1,
+        "changedCount": 5,
+        "sourceIds": [
+          "uk-mod-bf5875a4ae633785",
+          "uk-mod-32f4765727a629f8",
+          "uk-mod-2aa30b9d4fc9aaae",
+          "uk-mod-6aba64ef91283e48",
+          "uk-mod-9bbc9dee5b4bf6e4",
+          "uk-mod-b4c88808c86ef1eb",
+          "uk-mod-068ca08103f69003",
+          "uk-mod-338603bef9cb301e",
+          "uk-mod-944e67228299fb09"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "HT",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 1,
+        "sourceIds": [
+          "un-security-4b6d952de8615dc8"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "IR",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "intake-ofac-12111"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "JP",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "allied-japan-defense-2026"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "LB",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-c2750c47e9639df2"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "MZ",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-6d3aea411fa53f6c"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "NP",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-6b3d25b299acbb3f"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "SS",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-63389bec29a78dc1"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      },
+      {
+        "code": "SY",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "sourceIds": [
+          "un-security-b674f963ed63a43e"
+        ],
+        "method": "Curated source-title country/place mention, not event attribution"
+      }
+    ],
     "themes": [
       {
         "topic": "other",
-        "sourceCount": 40,
+        "sourceCount": 39,
         "publisherCount": 9,
-        "changedCount": 10,
+        "changedCount": 15,
         "countries": [
           "CN",
           "IL",
           "IN",
           "IR",
           "KP",
-          "KR",
           "PK",
           "RU",
           "SD",
+          "UA",
           "YE"
         ],
         "sourceIds": [
+          "un-security-ba6833bcf170767d",
+          "un-security-b7682f03ec706e9e",
+          "uk-mod-07fa9c13f7adcde0",
+          "uk-mod-8130602416fae801",
+          "uk-mod-262e48d568fe067f",
           "us-defense-f1efa769d3dbce44",
           "un-security-4e6fd87de55f1a78",
           "uk-mod-6743446d4ccdd478",
@@ -2094,24 +2514,18 @@
           "un-security-b674f963ed63a43e",
           "un-security-c2750c47e9639df2",
           "uk-mod-338603bef9cb301e",
-          "us-defense-0dd75dccc00ebeb4",
-          "us-defense-eccf74167f6f065f",
-          "us-defense-0ceef2cae9102ef9",
-          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
-          "intake-ofac-11185",
-          "intake-ofac-11186"
+          "intake-doj-4a07fbbd-c53f-4fc4-944b-c39d057d3c79"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "military",
-        "sourceCount": 27,
+        "sourceCount": 24,
         "publisherCount": 5,
-        "changedCount": 9,
+        "changedCount": 12,
         "countries": [
           "CN",
           "IL",
-          "JP",
           "KP",
           "PS",
           "RU",
@@ -2119,6 +2533,9 @@
           "UA"
         ],
         "sourceIds": [
+          "uk-mod-bf5875a4ae633785",
+          "uk-mod-32f4765727a629f8",
+          "us-defense-4c570623e6a9e8d6",
           "uk-mod-b4f1b7096375b5fc",
           "uk-mod-c57f94ac6ef619f1",
           "uk-mod-2aa30b9d4fc9aaae",
@@ -2137,12 +2554,9 @@
           "uk-mod-baed156483b14134",
           "uk-mod-6332cd75e06066b4",
           "uk-mod-944e67228299fb09",
-          "uk-mod-bcb5c64f51f08ada",
-          "uk-mod-1be70f7d61c24243",
-          "us-defense-fec9941b62c14155",
-          "us-defense-71caeafd5ed9b5b2",
-          "us-defense-5697603f370304b5",
-          "us-defense-97f7a9313986003a"
+          "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
+          "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
+          "allied-japan-defense-2026"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -2165,12 +2579,27 @@
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
+        "topic": "aviation",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 1,
+        "countries": [],
+        "sourceIds": [
+          "un-security-bb68354ff07074ea"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
         "topic": "cyber",
-        "sourceCount": 24,
+        "sourceCount": 28,
         "publisherCount": 2,
         "changedCount": 0,
         "countries": [],
         "sourceIds": [
+          "intake-cisa-CVE-2026-76466",
+          "intake-cisa-CVE-2025-42884",
+          "intake-cisa-CVE-2026-123890",
+          "intake-cisa-CVE-2026-129448",
           "intake-cisa-CVE-2026-90436",
           "intake-cisa-CVE-2026-90817",
           "intake-cisa-CVE-2026-40217",
@@ -2190,11 +2619,7 @@
           "intake-cisa-CVE-2026-123218",
           "intake-cisa-CVE-2026-19868",
           "intake-cisa-CVE-2024-27834",
-          "intake-cisa-CVE-2026-119977",
-          "intake-cisa-CVE-2026-111357",
-          "intake-cisa-CVE-2026-118527",
-          "intake-cisa-CVE-2026-97229",
-          "allied-aus-asd-2026"
+          "intake-cisa-CVE-2026-119977"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -2232,18 +2657,6 @@
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
-        "topic": "trade-finance",
-        "sourceCount": 2,
-        "publisherCount": 2,
-        "changedCount": 0,
-        "countries": [],
-        "sourceIds": [
-          "uk-mod-b4c88808c86ef1eb",
-          "intake-ofac-4633"
-        ],
-        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
-      },
-      {
         "topic": "power-energy",
         "sourceCount": 1,
         "publisherCount": 1,
@@ -2256,6 +2669,17 @@
           "un-security-643adc1628a54d97"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "trade-finance",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [],
+        "sourceIds": [
+          "uk-mod-b4c88808c86ef1eb"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       }
     ],
     "relatedReports": [],
@@ -2265,14 +2689,19 @@
       "model": "sentence-transformers/all-MiniLM-L6-v2"
     },
     "quality": {
-      "sourceTitlesWithoutDates": 18,
+      "sourceTitlesWithoutDates": 13,
       "titlesOlderThan30Days": 8,
       "publisherCount": 13,
-      "countryTaggedCount": 22
+      "countryTaggedCount": 22,
+      "titleAssociatedCount": 27,
+      "inferredOnlyCount": 11,
+      "unassignedCount": 81
     },
     "limitations": [
       "No full-document validation or human-source intelligence",
       "Source mentions do not establish military activity, guilt, intent, or causal connections",
+      "Title-derived country mentions are not event locations, offender nationalities, or confirmed geopolitical attribution",
+      "FARA registrant and CISA vendor/product names are not inferred as event countries",
       "Multiple sources covering one event are not necessarily independent",
       "Missing records and old dates are not evidence of low risk"
     ]
