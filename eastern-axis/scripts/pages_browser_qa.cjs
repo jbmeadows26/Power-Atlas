@@ -174,7 +174,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     for(const countryName of ['Canada','Antigua & Barbuda']){
       await scope.click();
       await page.getByRole('combobox',{name:'Search country or code'}).fill(countryName);
-      await page.getByRole('option',{name:new RegExp(countryName.replace(/[.*+?^$\{\}()|[\]\\]/g,'\\$&'))}).click();
+      await page.getByRole('option',{name:countryName,exact:false}).click();
       await network.locator('.nx-empty').waitFor({state:'visible',timeout:15000});
       assert.equal(await page.locator('#root').isVisible(),true,countryName+' blanked the React root');
     }
