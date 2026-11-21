@@ -65,3 +65,23 @@
 .nx-filter button:focus-visible,.nx-connection:focus-visible,.nx-source:focus-visible,.nx-follow:focus-visible{outline:2px solid #c9f792;outline-offset:3px}
 @media(max-width:750px){.nx-root{padding:18px 12px 42px}.nx-head{flex-direction:column;gap:14px}.nx-scope{width:100%;flex:auto}.nx-metrics{grid-template-columns:repeat(2,minmax(0,1fr))}.nx-metrics div{padding:13px}.nx-chart-top{align-items:flex-start;flex-direction:column}.nx-two{grid-template-columns:1fr}.nx-detail{position:static}.nx-graph{width:760px}.nx-legend{gap:12px}}
 @media(max-width:390px){.nx-metrics span{font-size:10px}.nx-filter{gap:6px}.nx-filter button{padding:8px 10px}.nx-graph{width:670px}.nx-list,.nx-detail{padding:12px}}
+
+/* Countries is one dossier. Relationship evidence expands in place, not a second route. */
+.ea-country-network-hub{margin:0 0 15px;border:1px solid #355c5a;border-radius:12px;background:#112b32;overflow:hidden;min-width:0}
+.ea-country-network-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 19px}
+.ea-country-network-heading{display:flex;align-items:center;gap:13px;min-width:0}
+.ea-country-network-icon{display:grid;place-items:center;flex:0 0 42px;height:42px;border-radius:10px;background:#274d46;color:#b6efca}
+.ea-country-network-heading>div{display:flex;flex-direction:column;gap:5px;min-width:0}
+.ea-country-network-heading strong{font:800 16px 'Manrope',sans-serif;color:#ecf8f2}
+.ea-country-network-heading span{font:11px/1.55 'DM Sans',sans-serif;color:#9dbabc}
+.ea-country-network-toolbar>button{display:flex;align-items:center;justify-content:center;gap:9px;flex-shrink:0;min-height:42px;padding:10px 14px;border:1px solid #77b29a;border-radius:8px;background:#244d42;color:#c8f8dc;font-size:11px;font-weight:800;cursor:pointer}
+.ea-country-network-toolbar>button:hover,.ea-country-network-toolbar>button:focus-visible{border-color:#c3efc6;background:#315b49}
+.ea-country-network-toolbar>button:focus-visible{outline:2px solid #c4f4cd;outline-offset:2px}
+.ea-country-network-toolbar>button svg:last-child{transition:transform .16s}
+.ea-country-network-toolbar>button svg.ea-network-chevron-open{transform:rotate(180deg)}
+.ea-country-network-graph{border-top:1px solid #35534f;background:#0c2029;min-width:0}
+.nx-root.nx-embedded{padding:19px 18px 26px;max-width:none;margin:0}
+.nx-embedded-title{font:800 clamp(18px,2.5vw,24px) 'Manrope',sans-serif;letter-spacing:-.04em;margin:9px 0}
+.nx-embedded .nx-head{margin-bottom:14px}
+.nx-embedded .nx-head p{font-size:11px}
+@media(max-width:700px){.ea-country-network-toolbar{flex-direction:column;align-items:stretch;padding:15px;gap:12px}.ea-country-network-toolbar>button{width:100%;justify-content:space-between}.ea-country-network-heading strong{font-size:15px}.ea-country-network-icon{flex-basis:39px;height:39px}.nx-root.nx-embedded{padding:14px 10px 20px}}
