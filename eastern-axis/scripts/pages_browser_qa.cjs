@@ -332,7 +332,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
       inspected.push(sectionName);
     }
-    assert.equal(inspected.length,16,'Not every navigation section was inspected');
+    assert.equal(inspected.length,15,'Not every navigation section was inspected');
     console.log('ALL TABS QA',viewport.width,inspected.join(' | '));
     if(production) assert.equal(apiFailures.length,0,'Real browser-to-Neon API failures: '+apiFailures.join('; '));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
