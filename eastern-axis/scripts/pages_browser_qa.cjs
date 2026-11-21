@@ -65,9 +65,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     // Core release invariant: no global stat ribbon repeated on every page.
     assert.equal(await page.locator('.ea-ops').count(),0,'Repeated monitoring stats should not render anywhere');
     assert.equal(await page.locator('.ea-module-context').count(),0,'Generic duplicate page context should be removed');
-    const workspace=page.getByRole('navigation',{name:'Primary intelligence workspaces'});
-    await workspace.waitFor({state:'visible'});
-    assert.ok((await workspace.locator('button').count())>=8,'Workspace navigation missing');
+    assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Horizontal duplicate navigation must be removed');
     const radar=page.getByRole('region',{name:'Decision radar by domain'});
     await radar.waitFor({state:'visible',timeout:20000});
     assert.equal(await radar.locator('.dr-lane').count(),4,'Home must show four distinct decision domains');
@@ -159,12 +157,16 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
-    // Networks is an interactive relation graph. Source inventories remain in Source Library.
+    // Networks belongs to Countries. Source inventories remain in Source Library.
     if(viewport.width<600){
-      await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Networks'}).click();
+      const mobile=page.getByRole('navigation',{name:'Mobile primary navigation'});
+      assert.deepEqual(await mobile.locator('button span').allTextContents(),['Home','Countries','Risks','Systems','More']);
+      await mobile.getByRole('button',{name:'Countries'}).click();
     }else{
-      await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Connections'}).click();
+      await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
     }
+    const countryViews=page.getByRole('group',{name:'Country intelligence views'});
+    await countryViews.getByRole('button',{name:'Networks'}).click();
     const network=page.getByRole('region',{name:'Sourced relationship networks'});
     await network.waitFor({state:'visible',timeout:15000});
     await network.locator('.nx-graph').waitFor({state:'visible'});
@@ -187,11 +189,16 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.getByRole('option',{name:/Russia/}).click();
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'RU');
     assert.match(await scope.innerText(),/Russia/);
-    for(const target of ['Global systems','Supply chain','Connections']){
+    for(const target of ['Global systems','Supply chain','Countries']){
       if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
       await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:target}).click();
       assert.match(await scope.innerText(),/Russia/,target+' lost selected scope');
       assert.equal(await page.locator('.ea-ops').count(),0,'Shared stats strip returned on '+target);
+      if(target==='Countries'){
+        await countryViews.getByRole('button',{name:'Networks'}).click();
+        await network.locator('.nx-graph').waitFor({state:'visible',timeout:15000});
+        assert.match(await scope.innerText(),/Russia/,'Networks nested in Countries lost scope');
+      }
     }
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.getByRole('button',{name:'Choose country intelligence scope'});
@@ -206,7 +213,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
     if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
     await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
-    await page.getByText('China–DPRK mutual-assistance treaty (1961)',{exact:false}).first().waitFor({state:'visible',timeout:15000});
+    // Country dossier is selected explicitly after visiting the nested Networks view.
+    await page.getByRole('group',{name:'Country intelligence views'}).getByRole('button',{name:'Country intelligence'}).click();
+    await page.locator('.country-brief .brief-relationship').waitFor({state:'visible',timeout:15000});
+    const countryPanelWidth=await page.locator('.country-brief').evaluate(el=>el.getBoundingClientRect().width);
+    assert.ok(countryPanelWidth >= Math.min(260,viewport.width-70),'Country dossier collapsed at '+viewport.width+'px: '+countryPanelWidth);
+
     await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
@@ -235,11 +247,11 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await health.getByRole('button',{name:'Hide collector records'}).click();
     const assuranceDims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(assuranceDims.scroll<=assuranceDims.width+2,'Assurance panel overflow at '+viewport.width+'px: '+JSON.stringify(assuranceDims));
-    // Navigation-wide release gate: inspect all 16 sections on every viewport,
+    // Navigation-wide release gate: inspect all 15 sections on every viewport,
     // retaining the active country selector and catching empty routes or overflow.
     const allSections=[
       'Command center','Countries','World Factbook','Global systems','Supply chain',
-      'Early warning','Risk watch','AI analyst','Coverage audit','Connections',
+      'Early warning','Risk watch','AI analyst','Coverage audit',
       'Defense intelligence','Investigations','Collection desk','Verification lab',
       'Source library','Methodology'
     ];
@@ -256,10 +268,14 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
       assert.equal(await page.locator('.dr-root').count(),sectionName==='Command center'?1:0,sectionName+' displays Home-specific metrics on a specialist tab');
-      if(sectionName==='Connections'){
+      if(sectionName==='Countries'){
+        const countryViews=page.getByRole('group',{name:'Country intelligence views'});
+        await countryViews.getByRole('button',{name:'Networks'}).click();
         const network=page.getByRole('region',{name:'Sourced relationship networks'});
         await network.waitFor({state:'visible'});
         assert.equal(await network.locator('.ip-sanction-source').count(),0,'Networks regressed to sanctions source inventory');
+        await countryViews.getByRole('button',{name:'Country intelligence'}).click();
+        await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
       }
       if(sectionName==='AI analyst'){
         const analyst=page.locator('.ea-agent');
@@ -321,7 +337,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
       inspected.push(sectionName);
     }
-    assert.equal(inspected.length,16,'Not every navigation section was inspected');
+    assert.equal(inspected.length,15,'Not every navigation section was inspected');
     console.log('ALL TABS QA',viewport.width,inspected.join(' | '));
     if(production) assert.equal(apiFailures.length,0,'Real browser-to-Neon API failures: '+apiFailures.join('; '));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});

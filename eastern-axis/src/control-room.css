@@ -28,10 +28,6 @@
 .ea-control-room .header-meta{font-size:9px;color:#b0c0bb}.ea-control-room .asof{font-size:9px;color:#a9c576;padding-left:12px}
 .ea-control-room .header-right{gap:12px}
 .ea-control-room .ea-context{max-width:370px}
-.ea-control-room .ea-workspace-tabs{display:flex;min-height:48px;background:#0b1a22;border-bottom:1px solid #2b4451;padding:0 16px;gap:3px;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#354e57 transparent;align-items:stretch}
-.ea-control-room .ea-workspace-tabs button{flex:0 0 auto;display:flex;align-items:center;justify-content:center;gap:7px;color:#98aeb9;border:0;border-bottom:2px solid transparent;padding:0 12px;background:transparent;font:700 11px 'DM Sans',sans-serif;white-space:nowrap}
-.ea-control-room .ea-workspace-tabs button:hover{color:#e8f7e4;background:#1a333d}
-.ea-control-room .ea-workspace-tabs button.active{border-bottom-color:#d2f778;color:#d3f47e;background:#1a302d}
 .ea-control-room .content{padding:23px 24px 28px;max-width:none;min-width:0}
 .ea-control-room .content:has(.command-center){padding:0 0 26px}
 .ea-control-room .command-center{padding:19px 22px 33px;background:transparent;max-width:none}
@@ -85,5 +81,39 @@
 .ea-control-room .footer{background:#091720;border-top:1px solid #27434b}
 @media(max-width:1440px){.ea-control-room .db-stat-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media(max-width:1220px){.ea-control-room .content{padding:19px 17px 24px}.ea-control-room .command-center{padding:15px 17px 24px}.ea-control-room .sidebar{flex-basis:192px;width:192px}.ea-control-room .cc-main-grid{grid-template-columns:minmax(0,1fr) 270px}}
-@media(max-width:980px){.ea-control-room .sidebar{position:fixed;top:0;left:0;width:min(84vw,310px);z-index:32;padding:20px 15px 100px}.ea-control-room .sidebar .nav-item{min-height:42px;font-size:12px;border-radius:4px}.ea-control-room .sidebar .brand{padding-right:37px}.ea-control-room .sidebar-close{border-radius:4px}.ea-control-room .topbar{min-height:61px;height:auto;padding:9px 12px;z-index:24}.ea-control-room .ea-workspace-tabs{min-height:44px;padding:0 7px}.ea-control-room .ea-workspace-tabs button{font-size:10px;padding:0 10px}.ea-control-room .content{padding:14px 12px 20px}.ea-control-room .command-center{padding:13px 12px 24px}.ea-control-room .country-layout{grid-template-columns:1fr}.ea-control-room .cc-main-grid{grid-template-columns:1fr}.ea-control-room .mobile-bottom-nav{background:#0c2029f5;border:1px solid #54716c;border-radius:8px;box-shadow:0 8px 23px #01080bcc}.ea-control-room .mobile-bottom-nav button{border-radius:5px}.ea-control-room .mobile-bottom-nav button.selected{background:#d5f878;color:#11251d;box-shadow:none}.ea-control-room .menu-btn{background:#21373b;border:1px solid #46635f;border-radius:4px}}
 @media(max-width:670px){.ea-control-room .mobile-brief{display:none!important}.ea-control-room .content:has(.command-center){padding:0 0 20px}.ea-control-room .command-center{padding:10px 9px 23px}.ea-control-room .db-head{padding:4px 4px 8px}.ea-control-room .db-head h1{font-size:24px}.ea-control-room .db-head p{font-size:10px}.ea-control-room .db-stat-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.ea-control-room .db-stat{min-height:91px;padding:9px}.ea-control-room .db-stat strong{font-size:23px}.ea-control-room .cc-map-viewport{min-height:240px;height:260px}.ea-control-room .ea-module-context{padding:11px;margin-bottom:13px}.ea-control-room .ea-module-actions{width:100%}.ea-control-room .ea-module-actions button{flex:1;justify-content:center}.ea-control-room .country-directory,.ea-control-room .country-brief,.ea-control-room .panel,.ea-control-room .source-card,.ea-control-room .case-card{border-radius:4px}.ea-control-room .footer{padding-bottom:10px}.ea-control-room .mobile-bottom-nav{left:max(8px,env(safe-area-inset-left));right:max(8px,env(safe-area-inset-right));bottom:calc(7px + env(safe-area-inset-bottom))}}
+
+/* Countries owns two focused data views; the redundant global horizontal ribbon is gone. */
+.ea-control-room .ea-country-subnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:0;margin:0 0 15px}
+.ea-control-room .ea-country-subnav button{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:40px;border:1px solid #426163;border-radius:8px;background:#152e37;color:#b8d0ce;padding:10px 17px;font-size:12px;font-weight:750;cursor:pointer}
+.ea-control-room .ea-country-subnav button.active{background:#d2f57e;border-color:#d2f57e;color:#13251e}
+.ea-control-room .ea-country-subnav button:focus-visible{outline:2px solid #d2f57e;outline-offset:3px}
+@media(max-width:600px){.ea-control-room .ea-country-subnav{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px}.ea-control-room .ea-country-subnav button{min-width:0;padding:11px 8px;font-size:11px}}
+
+/* Keep the mobile drawer above its dismiss overlay, including after removing
+   the redundant top workspace ribbon. Dismiss overlay must remain clickable
+   outside the drawer but never intercept controls inside it. */
+@media(max-width:980px){
+ .ea-control-room #ea-primary-navigation.sidebar.sidebar-open{position:fixed;z-index:70!important;transform:translateX(0)}
+ .ea-control-room .menu-overlay{z-index:30}
+}
+
+/* Restored responsive layout rules formerly bundled on the same minified line
+   as the removed workspace ribbon. Do not remove unrelated media rules. */
+@media(max-width:980px){
+ .ea-control-room .sidebar{position:fixed;top:0;left:0;width:min(84vw,310px);z-index:70;padding:20px 15px 100px}
+ .ea-control-room .sidebar .nav-item{min-height:42px;font-size:12px;border-radius:4px}
+ .ea-control-room .sidebar .brand{padding-right:37px}
+ .ea-control-room .sidebar-close{border-radius:4px}
+ .ea-control-room .topbar{min-height:61px;height:auto;padding:9px 12px;z-index:24}
+ .ea-control-room .content{padding:14px 12px 20px}
+ .ea-control-room .command-center{padding:13px 12px 24px}
+ .ea-control-room .country-layout{grid-template-columns:minmax(0,1fr)}
+ .ea-control-room .country-layout>.country-brief,
+ .ea-control-room .country-layout>.country-directory{min-width:0;width:100%}
+ .ea-control-room .cc-main-grid{grid-template-columns:minmax(0,1fr)}
+ .ea-control-room .mobile-bottom-nav{background:#0c2029f5;border:1px solid #54716c;border-radius:8px;box-shadow:0 8px 23px #01080bcc}
+ .ea-control-room .mobile-bottom-nav button{border-radius:5px}
+ .ea-control-room .mobile-bottom-nav button.selected{background:#d5f878;color:#11251d;box-shadow:none}
+ .ea-control-room .menu-btn{background:#21373b;border:1px solid #46635f;border-radius:4px}
+}
