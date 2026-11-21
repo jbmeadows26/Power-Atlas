@@ -47,7 +47,7 @@ COUNTRY_TERMS: dict[str, tuple[str, ...]] = {
     "LK": ("Sri Lanka", "Sri Lankan"),
     "NP": ("Nepal", "Nepalese"),
     "AU": ("Australia", "Australian"),
-    "NZ": ("New Zealand"),
+    "NZ": ("New Zealand",),
     "CA": ("Canada", "Canadian"),
     "MX": ("Mexico", "Mexican"),
     "BR": ("Brazil", "Brazilian"),
@@ -188,7 +188,7 @@ def infer_country_mentions(record: dict) -> list[dict]:
     detected: dict[str, dict] = {}
     for code, term, basis, pattern in PATTERNS:
         for match in pattern.finditer(filtered):
-            hit = title[match.start():match.end()]
+            hit = match.group(0)
             entry = {
                 "code": code,
                 "basis": basis,
