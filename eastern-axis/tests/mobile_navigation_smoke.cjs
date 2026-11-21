@@ -167,6 +167,11 @@ async function qa(page,width){
   await page.getByRole('button',{name:'View all investigations'}).click();
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'Reset must restore all cases');
   assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/Worldwide/);
+  // Restore the prior workspace before continuing the existing radar/navigation QA.
+  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Early warning'}).click();
+  await page.locator('.pew-context-radar').locator('summary').click();
+  await page.getByRole('region',{name:'Decision radar by domain'}).waitFor({state:'visible'});
 
   const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
   if(width>980){
