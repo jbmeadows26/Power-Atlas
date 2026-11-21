@@ -116,7 +116,7 @@ COUNTRY_TERMS: dict[str, tuple[str, ...]] = {
     "DZ": ("Algeria", "Algerian"),
     "MA": ("Morocco", "Moroccan"),
     "SD": ("Sudan", "Sudanese"),
-    "SS": ("South Sudan"),
+    "SS": ("South Sudan",),
     "ET": ("Ethiopia", "Ethiopian"),
     "SO": ("Somalia", "Somali"),
     "KE": ("Kenya", "Kenyan"),
