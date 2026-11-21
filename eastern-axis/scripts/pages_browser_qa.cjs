@@ -175,7 +175,11 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       await scope.click();
       await page.getByRole('combobox',{name:'Search country or code'}).fill(countryName);
       await page.getByRole('option',{name:countryName,exact:false}).click();
-      await network.locator('.nx-empty').waitFor({state:'visible',timeout:15000});
+      if(countryName==='Canada'){
+        await network.locator('.nx-connection').filter({hasText:'NATO'}).first().waitFor({state:'visible',timeout:15000});
+      }else{
+        await network.locator('.nx-empty').waitFor({state:'visible',timeout:15000});
+      }
       assert.equal(await page.locator('#root').isVisible(),true,countryName+' blanked the React root');
     }
     await scope.click();
