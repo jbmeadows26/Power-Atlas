@@ -3,6 +3,7 @@
 from datetime import datetime,timezone,timedelta
 import importlib.util
 import json
+import io
 from pathlib import Path
 import sys
 import unittest
@@ -54,6 +55,34 @@ class AnalystSafetyTest(unittest.TestCase):
             report=mod.evaluate(snapshot(metrics=[m]))
         self.assertEqual(report["summary"]["elevated"],0)
         self.assertIn("withheld",report["reviews"][0]["reason"])
+
+    def test_model_reviews_independent_records_without_queue_wide_discard(self):
+        base={"title":"Source-dated observation","source":"Government agency",
+              "group":"global","observedAt":STAMP,"baseline":{"status":"insufficient","sampleSize":0},
+              "sourceUrl":"https://example.gov/report"}
+        records=[dict(base,id="metric-one"),dict(base,id="metric-two")]
+        good=json.dumps({"id":"metric-one","decision":"monitor",
+              "confidence":"low","rationale":"Single reading cannot establish a historical abnormality."})
+        response_a=io.BytesIO(json.dumps({"response":good}).encode())
+        response_b=io.BytesIO(json.dumps({"response":"not valid JSON"}).encode())
+        with patch.object(mod.urllib.request,"urlopen",side_effect=[response_a,response_b]) as net:
+            findings,state=mod.model_assess(records,"http://127.0.0.1:11434","qwen2.5:1.5b")
+        self.assertEqual(net.call_count,2)
+        self.assertEqual(state,"partial")
+        self.assertEqual(set(findings),{"metric-one"})
+        self.assertEqual(findings["metric-one"]["decision"],"monitor")
+
+    def test_two_valid_model_responses_restore_full_review(self):
+        base={"title":"Official source observation","source":"Official publisher","group":"US",
+              "observedAt":STAMP,"baseline":{"status":"not-applicable","sampleSize":0},
+              "sourceUrl":"https://api.weather.gov/alerts/abc"}
+        rows=[dict(base,id="first"),dict(base,id="second")]
+        replies=[io.BytesIO(json.dumps({"response":json.dumps({"id":r["id"],"decision":"monitor",
+              "confidence":"medium","rationale":"Source only establishes a dated observation."})}).encode()) for r in rows]
+        with patch.object(mod.urllib.request,"urlopen",side_effect=replies):
+            findings,state=mod.model_assess(rows,"http://127.0.0.1:11434","qwen2.5:1.5b")
+        self.assertEqual(state,"available")
+        self.assertEqual(set(findings),{"first","second"})
 
     def test_verifiable_active_direct_official_advisory_can_escalate(self):
         source={"id":"nws-severe","publisher":"NWS","events":[alert()]}
