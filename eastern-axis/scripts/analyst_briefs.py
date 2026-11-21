@@ -11,6 +11,7 @@ import collections
 import datetime as dt
 import math
 import re
+from country_mentions import infer_country_mentions
 
 TOPICS = {
     "cyber": (r"\bcyber\b", r"\bransomware\b", r"\bmalware\b", r"\bhack(?:ing|ers?)?\b",
@@ -69,7 +70,8 @@ def semantic_pairs(records: list[dict], *, use_model: bool = True) -> tuple[list
                 first, second = records[i], records[j]
                 if first["publisher"] == second["publisher"]: continue
                 # Avoid connecting unrelated places based on generic military language.
-                a, b = set(first.get("countries", [])), set(second.get("countries", []))
+                a = set(first.get("countries", [])) | {m["code"] for m in first.get("inferredCountries", [])}
+                b = set(second.get("countries", [])) | {m["code"] for m in second.get("inferredCountries", [])}
                 if a and b and not a.intersection(b): continue
                 shared_topics = (set(tags(first)) & set(tags(second))) - {"other"}
                 if not shared_topics: continue
@@ -89,11 +91,18 @@ def semantic_pairs(records: list[dict], *, use_model: bool = True) -> tuple[list
 def build_analysis(records: list[dict], *, use_model: bool = True) -> dict:
     """Pure evidence aggregation. Only fields taken from the validated source index."""
     countries: dict[str,list[dict]] = collections.defaultdict(list)
+    inferred: dict[str,list[dict]] = collections.defaultdict(list)
     topics: dict[str,list[dict]] = collections.defaultdict(list)
     today = dt.datetime.now(dt.timezone.utc).date()
     for rec in records:
         rec["topics"] = tags(rec)
-        for code in rec.get("countries", []): countries[code].append(rec)
+        # Do not overwrite publisher/source country tags. Title mention metadata
+        # is an independent association that can be inspected and challenged.
+        rec["inferredCountries"] = infer_country_mentions(rec)
+        explicit = set(rec.get("countries", []))
+        for code in explicit: countries[code].append(rec)
+        for match in rec["inferredCountries"]:
+            if match["code"] not in explicit: inferred[match["code"]].append(rec)
         for topic in rec["topics"]: topics[topic].append(rec)
     briefs = []
     for code, rows in sorted(countries.items()):
@@ -105,6 +114,15 @@ def build_analysis(records: list[dict], *, use_model: bool = True) -> dict:
             "topics": sorted({t for r in rows for t in r["topics"]}),
             "sourceIds": [r["id"] for r in rows[:20]],
             "statement": f"{len(rows)} indexed public-source {'record' if len(rows)==1 else 'records'} explicitly {'mentions' if len(rows)==1 else 'mention'} {code}. This is coverage, not a threat or attribution score."
+        })
+    inferred_briefs = []
+    for code, rows in sorted(inferred.items()):
+        inferred_briefs.append({
+            "code": code, "sourceCount": len(rows),
+            "publisherCount": len({r["publisher"] for r in rows}),
+            "changedCount": sum(r.get("changeType") != "baseline" for r in rows),
+            "sourceIds": [r["id"] for r in rows[:24]],
+            "method": "Curated source-title country/place mention, not event attribution",
         })
     themes = []
     for topic, rows in sorted(topics.items()):
@@ -124,14 +142,20 @@ def build_analysis(records: list[dict], *, use_model: bool = True) -> dict:
     related, model = semantic_pairs(records, use_model=use_model)
     return {
         "method": "Evidence-only title indexing and optional open-weight semantic grouping; NOT all-source threat analysis",
-        "recordsAnalyzed": len(records), "countryBriefs": briefs, "themes": themes[:20],
+        "recordsAnalyzed": len(records), "countryBriefs": briefs,
+        "inferredCountryBriefs": inferred_briefs, "themes": themes[:20],
         "relatedReports": related, "semantic": model,
         "quality": {"sourceTitlesWithoutDates": unknown, "titlesOlderThan30Days": age,
                     "publisherCount": len({r["publisher"] for r in records}),
-                    "countryTaggedCount": sum(bool(r.get("countries")) for r in records)},
+                    "countryTaggedCount": sum(bool(r.get("countries")) for r in records),
+                    "titleAssociatedCount": sum(bool(r.get("inferredCountries")) for r in records),
+                    "inferredOnlyCount": sum(not r.get("countries") and bool(r.get("inferredCountries")) for r in records),
+                    "unassignedCount": sum(not r.get("countries") and not r.get("inferredCountries") for r in records)},
         "limitations": [
             "No full-document validation or human-source intelligence",
             "Source mentions do not establish military activity, guilt, intent, or causal connections",
+            "Title-derived country mentions are not event locations, offender nationalities, or confirmed geopolitical attribution",
+            "FARA registrant and CISA vendor/product names are not inferred as event countries",
             "Multiple sources covering one event are not necessarily independent",
             "Missing records and old dates are not evidence of low risk",
         ],

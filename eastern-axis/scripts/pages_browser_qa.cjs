@@ -272,10 +272,17 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await page.getByRole('combobox',{name:'Search country or code'}).fill('United States');
         await page.getByRole('option',{name:/United States/}).click();
         await analyst.locator('.ea-agent-context').waitFor({state:'visible',timeout:15000});
-        await analyst.getByRole('heading',{name:'Worldwide source evidence (unassigned)'}).waitFor({state:'visible'});
-        await analyst.locator('.ea-agent-section').filter({hasText:'Worldwide source evidence (unassigned)'})
-          .locator('.ea-agent-records a').first().waitFor({state:'visible',timeout:15000});
-        assert.match(await analyst.locator('.ea-agent-context').innerText(),/not evidence attributed/);
+        const nInferred=Number(await analyst.locator('.ea-agent-stats b').nth(3).innerText());
+        if(nInferred>0){
+          await analyst.getByRole('heading',{name:'Original-source evidence'}).waitFor({state:'visible'});
+          await analyst.locator('.ea-agent-evidence-inferred').first().waitFor({state:'visible'});
+          const labels=await analyst.locator('.ea-agent-evidence-inferred').allInnerTexts();
+          assert.ok(labels.some(t=>t.includes('US (')),'US title matches must name the country and cited phrase');
+        }else{
+          await analyst.getByRole('heading',{name:'Worldwide source evidence (unassigned)'}).waitFor({state:'visible'});
+          await analyst.locator('.ea-agent-section').filter({hasText:'Worldwide source evidence (unassigned)'})
+            .locator('.ea-agent-records a').first().waitFor({state:'visible',timeout:15000});
+        }
         // Restore the persistent China selection for the remaining navigation checks.
         await scope.click();
         await page.getByRole('combobox',{name:'Search country or code'}).fill('China');

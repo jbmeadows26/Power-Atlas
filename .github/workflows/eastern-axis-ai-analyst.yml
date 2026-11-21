@@ -21,6 +21,7 @@ on:
       - 'eastern-axis/src/AgentDesk.tsx'
       - 'eastern-axis/scripts/agent_pipeline.py'
       - 'eastern-axis/scripts/analyst_briefs.py'
+      - 'eastern-axis/scripts/country_mentions.py'
       - 'eastern-axis/tests/test_agent_pipeline.py'
       - '.github/workflows/eastern-axis-ai-analyst.yml'
   push:
@@ -28,6 +29,7 @@ on:
     paths:
       - 'eastern-axis/scripts/agent_pipeline.py'
       - 'eastern-axis/scripts/analyst_briefs.py'
+      - 'eastern-axis/scripts/country_mentions.py'
       - 'eastern-axis/tests/test_agent_pipeline.py'
       - '.github/workflows/eastern-axis-ai-analyst.yml'
 permissions:

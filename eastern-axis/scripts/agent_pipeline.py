@@ -228,7 +228,7 @@ async def draft(query,folder):
  (folder/"README.txt").write_text("\n".join(notes)+"\nDO NOT PUBLISH UNREVIEWED AI CLAIMS.\n",encoding="utf-8")
  return outcomes
 async def run(args):
- snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable","alliedAssessments":"unavailable"},"alliedSources":[],"method":"Attributable public-source metadata and topic indexing only; AI drafts require human review.","connectors":[],"records":[],"analysis":None}
+ snapshot={"schemaVersion":2,"generatedAt":timestamp(),"sourceStatus":"error","sourceHealth":{"officialPublications":"unavailable","governmentIntake":"unavailable","alliedAssessments":"unavailable"},"alliedSources":[],"method":"Source-tagged countries plus independent, inspectable title-derived geographic references; no event attribution. AI drafts require human review.","connectors":[],"records":[],"analysis":None}
  try:
   origin=https((ROOT/"public-api-origin.txt").read_text())
   if not urlparse(origin).hostname.endswith(".neon.tech"):raise ValueError("Verified Neon endpoint required")
