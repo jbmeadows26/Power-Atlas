@@ -35,10 +35,7 @@ coverage.
 A candidate may be elevated into Command only after the model returns
 `elevate` with medium/high confidence **and** a separately enforced gate passes:
 
-1. An official NWS severe or extreme alert is still valid and fresh, with
-   a direct official link, actual alert status, area and observed timestamp.
-   It is a regional U.S. advisory, never an allegation of sabotage.
-2. Or at least two independently published, source-dated series in a
+1. At least two independently published, source-dated series in a
    comparable sector (currently grain prices or oilseed prices) show
    fresh, same-direction, same-geography anomalies. Each source must have
    sufficient dated historical changes and absolute movement threshold
@@ -46,8 +43,14 @@ A candidate may be elevated into Command only after the model returns
    independent corroboration. This is labeled an **observed systemic
    market anomaly**, not a confirmed incident or forecast.
 
-No other model-only conclusion becomes a Command finding. Geo-proxies
-do not imply hostile actors; software vulnerabilities do not prove a breach.
+Official NWS severe/extreme warnings remain visible in Early Warning with their
+source links, validity and local-safety context. Their publisher severity alone
+does **not** establish an unusual strategic threat or independently corroborated
+anomaly, so they cannot be promoted to Command under the current evidence model.
+This also prevents unsupported model explanations that invent a weather-alert
+robust-z value or separate source corroboration. No other model-only conclusion
+becomes a Command finding. Geo-proxies do not imply hostile actors; software
+vulnerabilities do not prove a breach.
 
 ### Added free source feeds
 
@@ -93,6 +96,7 @@ remain labeled worldwide context under national filters.
 
 `python -m unittest discover -s eastern-axis/tests -p test_signal_analyst.py -v`
 covers dated source rejection, CISA/USGS observational limits, live NOAA
-row schema, NWS advisories, model vetoes, and independent-publisher cases.
+row schema, NWS advisories (including false marine-warning promotions),
+model vetoes, and independent-publisher cases.
 The source workflow also runs its existing price/FAO/GNSS tests, builds
 the React dashboard, and the Pages release exercises touch QA.

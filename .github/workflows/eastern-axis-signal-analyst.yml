@@ -86,10 +86,11 @@ jobs:
           assert len(d["reviews"])==d["summary"]["observed"]
           assert len(d["alerts"])==d["summary"]["elevated"]
           ids={r["id"]:r for r in d["reviews"]}
-          assert all(r["id"] in ids and ids[r["id"]]["status"]=="elevated" and (
-            (r["kind"]=="advisory" and r["sourceUrl"].startswith("https://api.weather.gov/"))
-            or (r["kind"]=="metric" and ids[r["id"]].get("anomalous") and ids[r["id"]].get("corroborated"))
-          ) for r in d["alerts"])
+          assert all(r["id"] in ids and ids[r["id"]]["status"]=="elevated"
+            and r["kind"]=="metric" and ids[r["id"]].get("fresh")
+            and ids[r["id"]].get("modelReviewed")
+            and ids[r["id"]].get("anomalous") and ids[r["id"]].get("corroborated")
+            for r in d["alerts"])
           print("Published evidence-gated findings:",d["summary"],"model:",d["model"]["status"])
           PY
       - name: Commit vetted public triage snapshot

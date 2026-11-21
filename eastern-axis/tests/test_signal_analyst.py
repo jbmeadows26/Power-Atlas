@@ -106,12 +106,27 @@ class AnalystSafetyTest(unittest.TestCase):
         self.assertEqual(state,"available")
         self.assertEqual(set(findings),{"first","second"})
 
-    def test_verifiable_active_direct_official_advisory_can_escalate(self):
+    def test_official_local_severe_advisory_cannot_reach_command(self):
         source={"id":"nws-severe","publisher":"NWS","events":[alert()]}
         with patch.object(mod,"model_assess",return_value=({"nws-123":{"decision":"elevate","confidence":"high","rationale":"Current officially issued severe flood warning with named location"}},"available")):
             report=mod.evaluate(snapshot(eventFeeds=[source]))
-        self.assertEqual(report["summary"]["elevated"],1)
-        self.assertEqual(report["alerts"][0]["sourceUrl"],"https://api.weather.gov/alerts/abc123")
+        self.assertEqual(report["summary"]["elevated"],0)
+        self.assertEqual(report["alerts"],[])
+        self.assertEqual(report["reviews"][0]["status"],"monitor")
+        self.assertEqual(report["reviews"][0]["sourceUrl"],"https://api.weather.gov/alerts/abc123")
+        self.assertIn("Early Warning",report["reviews"][0]["reason"])
+
+    def test_special_marine_warning_cannot_promote_on_fabricated_model_z_score(self):
+        warning=alert()
+        warning["id"]="nws-marine-warning"
+        warning["title"]="Special Marine Warning — Jupiter Inlet to Deerfield Beach FL"
+        with patch.object(mod,"model_assess",return_value=({"nws-marine-warning":{"decision":"elevate","confidence":"high","rationale":"Severe alert with fabricated robust Z >= 3 from independent evidence"}},"available")):
+            report=mod.evaluate(snapshot(eventFeeds=[{"id":"nws","publisher":"NOAA National Weather Service","events":[warning]}]))
+        self.assertEqual(report["summary"]["elevated"],0)
+        self.assertEqual(report["reviews"][0]["status"],"monitor")
+        self.assertEqual(report["reviews"][0]["baseline"]["status"],"not-applicable")
+        self.assertNotIn("robust Z",report["reviews"][0]["reason"])
+        self.assertEqual(report["reviews"][0]["sourceUrl"],warning["sourceUrl"])
 
     def test_cross_publisher_statistical_market_break_can_escalate(self):
         def previous_month(n):

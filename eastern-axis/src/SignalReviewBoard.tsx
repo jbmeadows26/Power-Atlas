@@ -7,7 +7,7 @@ type Review={
   id:string;kind:string;title:string;group:string;source:string;sourceUrl:string;
   observedAt?:string;screened:boolean;fresh:boolean;anomalous:boolean;needsReview:boolean;
   baseline:Baseline;status:string;reason:string;confidence:string;modelReviewed:boolean;
-  evidence:string[];officialAlert?:boolean;severity?:string;changePct?:number;
+  evidence:string[];officialAlert?:boolean;severity?:string;corroborated?:boolean;changePct?:number;
   compareMode?:'percent'|'basis-points'|'percentage-points';changeBps?:number|null;changePp?:number|null;
 };
 type Triage={schemaVersion:number;generatedAt:string;sourceCheckedAt:string;
@@ -66,8 +66,12 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
   },[refresh]);
   const age=snapshot?Date.now()-Date.parse(snapshot.generatedAt):NaN;
   const stale=snapshot!==null&&(!Number.isFinite(age)||age<0||age>72*3600000);
-  const reviews=useMemo(()=>(snapshot?.reviews||[]).filter(r=>scopeMatch(r.group,countryCode)),[snapshot,countryCode]);
-  const elevated=reviews.filter(r=>r.status==='elevated'&&!stale);
+  const reviews=useMemo(()=>(snapshot?.reviews||[]).filter(r=>scopeMatch(r.group,countryCode)).map(r=>
+    r.kind==='advisory'&&r.status==='elevated'?{...r,status:'monitor',
+      reason:'Official local weather safety warning. A prior automated escalation was withdrawn because source severity alone cannot prove an exceptional strategic anomaly. Follow the original NWS link for safety guidance.'}:r),[snapshot,countryCode]);
+  // Fail closed against older published snapshots as well as new analyst runs.
+  const elevated=reviews.filter(r=>!stale&&r.status==='elevated'&&r.kind==='metric'&&
+    r.fresh===true&&r.modelReviewed===true&&r.anomalous===true&&r.corroborated===true);
   const screened=reviews.filter(r=>r.screened);
   const pending=screened.filter(r=>r.needsReview&&!r.modelReviewed);
   const countReviewed=screened.filter(r=>r.modelReviewed).length;
@@ -94,14 +98,14 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
     <header className="sr-head">
       <div><span className="sr-kicker"><BrainCircuit size={15}/> {mode==='command'?'COMMAND / VERIFIED FINDINGS':'EARLY WARNING / SOURCE-BASED MONITORING'}</span>
         <h2>{mode==='command'?'Intelligence pulse':'Signals and source movements'}</h2>
-        <p>{mode==='command'?'Only independently evidence-gated findings are promoted. Other observations remain in Early Warning.':
+        <p>{mode==='command'?'Only independently corroborated exceptional anomalies reach Command. Local official weather warnings remain in Early Warning.':
           'Measured changes come first. Official weather advisories and raw collection leads have separate views.'}</p>
       </div><button type="button" onClick={()=>setRefresh(v=>v+1)} aria-label="Reload analyst snapshot"><Activity size={14}/> Refresh</button>
     </header>
     {!snapshot&&<div className="sr-status sr-unavailable"><TriangleAlert size={17}/> {error||'Loading analyst review…'} · No automatic escalation is claimed.</div>}
     {snapshot&&<>
       <div className="sr-stats">
-        <div><small>{mode==='command'?'EVIDENCE-GATED':'MONITORED SIGNALS'}</small><strong>{mode==='command'?elevated.length:metrics.length}</strong><span>{mode==='command'?'Confirmed alerts':'Measured series · market / GNSS'}</span></div>
+        <div><small>{mode==='command'?'EVIDENCE-GATED':'MONITORED SIGNALS'}</small><strong>{mode==='command'?elevated.length:metrics.length}</strong><span>{mode==='command'?'Corroborated metric anomalies':'Measured series · market / GNSS'}</span></div>
         <div><small>{mode==='command'?'REVIEW CANDIDATES':'REVIEW CANDIDATES'}</small><strong>{screened.length}</strong><span>Require closer examination</span></div>
         <div><small>AWAITING AI</small><strong>{pending.length}</strong><span>{countReviewed}/{screened.length} candidates reviewed</span></div>
         <div><small>{countryCode==='all'?'NON-GLOBAL':'COUNTRY-MATCHED'}</small><strong>{local}</strong><span>{worldwide} worldwide context records</span></div>
@@ -127,7 +131,7 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
           </button>)}
       </div>}
       {mode==='command'&&elevated.length===0&&<div className="sr-empty sr-compact-empty">
-        <ShieldCheck size={21}/><div><strong>0 findings passed the evidence gate</strong><p>This is not a zero-risk assessment. {pending.length>0?pending.length+' reviews are incomplete. ':''}See measured movements and original advisories in Early Warning.</p></div>
+        <ShieldCheck size={21}/><div><strong>0 corroborated anomalies passed the Command gate</strong><p>This is not a zero-risk assessment. {pending.length>0?pending.length+' reviews are incomplete. ':''}See measured movements and original advisories in Early Warning.</p></div>
         {onOpenEarly&&<button type="button" onClick={onOpenEarly}>Inspect signals <ArrowRight size={14}/></button>}
       </div>}
       {mode==='early'&&<div className="sr-list-caption">

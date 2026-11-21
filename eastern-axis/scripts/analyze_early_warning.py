@@ -180,9 +180,12 @@ def model_assess(candidates,endpoint,model):
               "officialAlert":record.get("officialAlert",False),
               "severity":record.get("severity"),"sourceUrl":record["sourceUrl"]}
         directions=("Review exactly ONE source-dated early-warning observation. Be conservative. "
-            "Use only this record. ELEVATE only for a currently active official Severe/Extreme "
-            "advisory or fresh robust-z >=3 movement with same-scope, same-direction evidence "
-            "from an independent publisher. Otherwise MONITOR. Never infer hostile causes. ")
+            "An NWS severe or extreme advisory is an important local safety notice, but "
+            "its severity alone is NOT evidence of an exceptional strategic anomaly. "
+            "MONITOR those notices in Early Warning, even when active and official. "
+            "Never invent a robust-z score or independent corroboration for an advisory. "
+            "ELEVATE only fresh robust-z >=3 metric movements with same-scope, same-direction "
+            "anomalies from a separate publisher. Never infer hostile causes. ")
         example=('Return exactly one JSON object containing: '
             '{"id":"record-id","decision":"monitor","confidence":"low",'
             '"rationale":"Source-linked evidence and its limitations."}. '
@@ -233,23 +236,29 @@ def evaluate(snapshot, model_endpoint="", model="qwen2.5:1.5b",today=None):
         r["modelReviewed"]=True
         r["confidence"]=finding["confidence"]
         r["reason"]=finding["rationale"]
-        # A direct, fresh severe official advisory OR a fresh, statistically
-        # abnormal cross-publisher metric pair may reach Command. Model opinion
-        # without these independent hard gates is always vetoed.
+        # Official weather severity is NOT a strategic anomaly. Only a fresh,
+        # statistically exceptional metric pair from independent publishers
+        # can pass the existing Command gate. Model opinion cannot bypass it.
         eligible=(r["fresh"] and finding["decision"]=="elevate"
-                  and finding["confidence"] in ("medium","high") and (
-                    r.get("officialAlert",False) or
-                    (r.get("kind")=="metric" and r["anomalous"] and r.get("corroborated",False))))
+                  and finding["confidence"] in ("medium","high")
+                  and r.get("kind")=="metric" and r["anomalous"]
+                  and r.get("corroborated",False))
         if eligible:
             r["status"]="elevated"
             alerts.append({key:r[key] for key in ("id","title","group","source","sourceUrl","observedAt","confidence","reason","kind","evidence")})
+        elif r.get("kind")=="advisory":
+            # Do not publish fabricated model rationales about z-scores,
+            # corroboration or strategic significance for single NWS notices.
+            r["reason"]=("Active official local weather safety warning; the source severity "
+                         "does not demonstrate an abnormal systemic or geopolitical event. "
+                         "Monitored in Early Warning. Follow the original NWS link for safety instructions.")
         elif finding["decision"]=="elevate":
             r["reason"]="Analyst proposal withheld: independent verification gate not met. "+r["reason"][:240]
     return {
         "schemaVersion":1,"generatedAt":utcnow(),"sourceCheckedAt":snapshot.get("checkedAt"),
         "model":{"status":model_status,"name":model if model_status=="available" else None,
                  "role":"advisory reasoning; deterministic evidence rules veto unsupported promotion"},
-        "policy":"Command accepts fresh severe/extreme official advisories or statistically exceptional same-scope market movements corroborated by a separate publisher and reviewed by AI. Other outliers remain monitored.",
+        "policy":"Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
         "summary":{"observed":len(rows),"screened":sum(r["screened"] for r in rows),
                    "reviewed":sum(r["modelReviewed"] for r in rows),
                    "monitoring":len(rows)-len(alerts),"elevated":len(alerts),
