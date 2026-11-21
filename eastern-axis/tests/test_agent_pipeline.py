@@ -113,6 +113,8 @@ class AnalystTests(unittest.TestCase):
    ("Enterprise Singapore (Americas)", "fara", []),
    ("Vulnerability report from the United States", "cisa", []),
    ("Unspecified cyber incident", "official-source-monitor", []),
+   ("A new aircraft program with no named place", "official-source-monitor", []),
+   ("Moscow and Taipei hold talks", "official-source-monitor", ["RU","TW"]),
   ]
   for title,source,expected in cases:
    with self.subTest(title=title):
