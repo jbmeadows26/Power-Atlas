@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-21T17:24:06Z",
+  "checkedAt": "2026-11-21T17:46:31Z",
   "status": "ok",
   "metrics": [
     {
@@ -4896,6 +4896,17 @@
       "scope": "U.S. active severe/extreme advisories; bounded first 100 per severity; not complete coverage",
       "events": [
         {
+          "id": "nws-urn-oid-2-49-0-1-840-0-924fb3e8fc8a105606318d77ae886b27f38cb6d8-001-1",
+          "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
+          "observedAt": "2026-11-21T12:44:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.924fb3e8fc8a105606318d77ae886b27f38cb6d8.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-21T13:45:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
           "id": "nws-urn-oid-2-49-0-1-840-0-867db13b9c5015860a52948c7d3c625026008aa4-001-1",
           "title": "Freeze Warning — Southern Gila Foothills/Mimbres Valley; Southwest Desert/Lower Gila River Valley; Lowlands of the Bo",
           "observedAt": "2026-11-21T10:17:00-07:00",
@@ -4904,28 +4915,6 @@
           "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.867db13b9c5015860a52948c7d3c625026008aa4.001.1",
           "officialAlert": true,
           "expiresAt": "2026-11-21T22:15:00-07:00",
-          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
-        },
-        {
-          "id": "nws-urn-oid-2-49-0-1-840-0-24f4e2aa9032d1a44882d3791ba326ea1d6e5065-001-1",
-          "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
-          "observedAt": "2026-11-21T12:16:00-05:00",
-          "group": "US",
-          "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1",
-          "officialAlert": true,
-          "expiresAt": "2026-11-21T12:45:00-05:00",
-          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
-        },
-        {
-          "id": "nws-urn-oid-2-49-0-1-840-0-e5516dbc81c1155128c08ea67b49606bd08937d0-001-1",
-          "title": "Special Marine Warning — Coastal waters from Englewood to Tarpon Springs FL out 20 NM; Coastal waters from Bonita Beach to En",
-          "observedAt": "2026-11-21T12:01:00-05:00",
-          "group": "US",
-          "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e5516dbc81c1155128c08ea67b49606bd08937d0.001.1",
-          "officialAlert": true,
-          "expiresAt": "2026-11-21T12:45:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
@@ -4981,8 +4970,8 @@
       "score": 9.1,
       "published": "2026-11-21",
       "previousScore": 9.1,
-      "previousCheckedAt": "2026-11-21T09:02:23Z",
-      "checkedAt": "2026-11-21T17:24:09Z",
+      "previousCheckedAt": "2026-11-21T17:24:09Z",
+      "checkedAt": "2026-11-21T17:46:35Z",
       "codeReview": 0,
       "signedReleases": 10,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/curl/curl",
@@ -4993,8 +4982,8 @@
       "score": 6.3,
       "published": "2026-11-09",
       "previousScore": 6.3,
-      "previousCheckedAt": "2026-11-21T09:02:23Z",
-      "checkedAt": "2026-11-21T17:24:09Z",
+      "previousCheckedAt": "2026-11-21T17:24:09Z",
+      "checkedAt": "2026-11-21T17:46:35Z",
       "codeReview": 0,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/openssl/openssl",
@@ -5005,8 +4994,8 @@
       "score": 7.5,
       "published": "2026-11-16",
       "previousScore": 7.5,
-      "previousCheckedAt": "2026-11-21T09:02:23Z",
-      "checkedAt": "2026-11-21T17:24:09Z",
+      "previousCheckedAt": "2026-11-21T17:24:09Z",
+      "checkedAt": "2026-11-21T17:46:35Z",
       "codeReview": 1,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/libexpat/libexpat",
@@ -5018,109 +5007,109 @@
       "id": "sofr",
       "status": "ok",
       "detail": "2 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-21T17:24:06Z"
+      "checkedAt": "2026-11-21T17:46:31Z"
     },
     {
       "id": "pink-sheet",
       "status": "ok",
       "detail": "11 measurements; source period 2026-10",
-      "checkedAt": "2026-11-21T17:24:07Z"
+      "checkedAt": "2026-11-21T17:46:32Z"
     },
     {
       "id": "fao-food",
       "status": "ok",
       "detail": "6 measurements; source period 2026-10",
-      "checkedAt": "2026-11-21T17:24:07Z"
+      "checkedAt": "2026-11-21T17:46:32Z"
     },
     {
       "id": "gps:world",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:07Z"
+      "checkedAt": "2026-11-21T17:46:32Z"
     },
     {
       "id": "gps:united-states",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:07Z"
+      "checkedAt": "2026-11-21T17:46:33Z"
     },
     {
       "id": "gps:taiwan-strait",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:07Z"
+      "checkedAt": "2026-11-21T17:46:33Z"
     },
     {
       "id": "gps:persian-gulf",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:08Z"
+      "checkedAt": "2026-11-21T17:46:33Z"
     },
     {
       "id": "gps:baltic-sea",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:08Z"
+      "checkedAt": "2026-11-21T17:46:33Z"
     },
     {
       "id": "gps:strait-of-hormuz",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-21T17:24:08Z"
+      "checkedAt": "2026-11-21T17:46:33Z"
     },
     {
       "id": "gps:eastern-mediterranean",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:08Z"
+      "checkedAt": "2026-11-21T17:46:34Z"
     },
     {
       "id": "gps:east-asia",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:34Z"
     },
     {
       "id": "usgs-significant",
       "status": "ok",
       "detail": "7 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:34Z"
     },
     {
       "id": "cisa-kev",
       "status": "ok",
       "detail": "15 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:34Z"
     },
     {
       "id": "noaa-space-weather",
       "status": "ok",
       "detail": "1 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:34Z"
     },
     {
       "id": "nws-severe-1",
       "status": "ok",
-      "detail": "7 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "detail": "6 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-21T17:46:35Z"
     },
     {
       "id": "scorecard:curl/curl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-21; current score 9.1/10",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:35Z"
     },
     {
       "id": "scorecard:openssl/openssl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-09; current score 6.3/10",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:35Z"
     },
     {
       "id": "scorecard:libexpat/libexpat",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-16; current score 7.5/10",
-      "checkedAt": "2026-11-21T17:24:09Z"
+      "checkedAt": "2026-11-21T17:46:35Z"
     }
   ],
   "limitations": [
