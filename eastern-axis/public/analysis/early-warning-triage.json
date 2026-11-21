@@ -1,19 +1,19 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T17:31:16Z",
+  "generatedAt": "2026-11-21T17:48:32Z",
   "sourceCheckedAt": "2026-11-21T17:24:06Z",
   "model": {
-    "status": "available",
-    "name": "qwen2.5:1.5b",
+    "status": "partial",
+    "name": null,
     "role": "advisory reasoning; deterministic evidence rules veto unsupported promotion"
   },
-  "policy": "Command accepts fresh severe/extreme official advisories or statistically exceptional same-scope market movements corroborated by a separate publisher and reviewed by AI. Other outliers remain monitored.",
+  "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
     "observed": 57,
-    "screened": 9,
-    "reviewed": 9,
-    "monitoring": 56,
-    "elevated": 1,
+    "screened": 7,
+    "reviewed": 6,
+    "monitoring": 57,
+    "elevated": 0,
     "historyReady": 27
   },
   "reviews": [
@@ -779,7 +779,7 @@
       "corroborated": false,
       "direction": -1,
       "status": "monitor",
-      "reason": "The evidence is based on an ADS-B-derived estimate and not confirmed jamming. The anomaly is not robust, with a median change of 0.15 and a median absolute deviation of 4.7. The source is not official, and there is no official alert or confirmation. The evidence is not strong enough to warrant an official advisory.",
+      "reason": "The evidence provided is based on an ADS-B-derived estimate and not confirmed jamming, which suggests a low likelihood of a significant anomaly. The historical data shows a median change of 0.15, indicating a moderate impact, but the robust Z-score of -2.02 suggests a low probability of a systematic issue. The lack of corroboration and the absence of an official alert indicate that further investigation is needed to confirm the anomaly.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -919,7 +919,7 @@
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "The evidence provided is an ADS-B-derived estimate of GNSS quality anomaly in the Eastern Mediterranean region. While the robust Z value is above 3, indicating a significant anomaly, the sample size is relatively small (38) and the median change is only 0.25. Additionally, there is no corroboration from independent sources, and the source is not confirmed as jamming. Therefore, the evidence is not robust enough to warrant an official Severe/Extreme advisory.",
+      "reason": "The GPSInterference.com report is based on ADS-B-derived estimates and not confirmed jamming. The low robust Z score (1.24) and median change (0.25) suggest a moderate anomaly, but the lack of robust corroboration and official alert make it difficult to elevate the issue. The limited sample size and high median absolute deviation indicate the anomaly is not robustly confirmed. Therefore, the anomaly is best monitored for further evidence.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1672,7 +1672,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source is NOAA National Weather Service, which is a reputable source, but the evidence is not robust and the movement is not new. The movement is not currently active and there is no official advisory. The evidence is limited and does not meet the criteria for an elevated warning.",
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1684,13 +1684,13 @@
     },
     {
       "id": "nws-urn-oid-2-49-0-1-840-0-24f4e2aa9032d1a44882d3791ba326ea1d6e5065-001-1",
-      "kind": "advisory",
+      "kind": "event",
       "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
       "group": "US",
       "source": "NOAA National Weather Service",
       "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1",
       "observedAt": "2026-11-21T12:16:00-05:00",
-      "screened": true,
+      "screened": false,
       "fresh": true,
       "baseline": {
         "status": "not-applicable",
@@ -1698,29 +1698,29 @@
         "robustZ": null
       },
       "anomalous": false,
-      "needsReview": true,
-      "status": "elevated",
+      "needsReview": false,
+      "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The NOAA National Weather Service has issued a Severe/Extreme advisory for waters from Jupiter Inlet to Deerfield Beach, FL, indicating a robust Z value of 3 or higher. This evidence is from an independent publisher and is not limited to a specific time period. The source is reliable, and the evidence is robust, warranting an elevated alert.",
-      "confidence": "high",
-      "modelReviewed": true,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1"
       ],
       "gate": "official-advisory-only",
-      "officialAlert": true,
+      "officialAlert": false,
       "severity": "Severe"
     },
     {
       "id": "nws-urn-oid-2-49-0-1-840-0-e5516dbc81c1155128c08ea67b49606bd08937d0-001-1",
-      "kind": "advisory",
+      "kind": "event",
       "title": "Special Marine Warning — Coastal waters from Englewood to Tarpon Springs FL out 20 NM; Coastal waters from Bonita Beach to En",
       "group": "US",
       "source": "NOAA National Weather Service",
       "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e5516dbc81c1155128c08ea67b49606bd08937d0.001.1",
       "observedAt": "2026-11-21T12:01:00-05:00",
-      "screened": true,
+      "screened": false,
       "fresh": true,
       "baseline": {
         "status": "not-applicable",
@@ -1728,18 +1728,18 @@
         "robustZ": null
       },
       "anomalous": false,
-      "needsReview": true,
+      "needsReview": false,
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The NOAA National Weather Service alert is a source-linked evidence, but it lacks robust scientific validation and is not corroborated by other reliable sources. The alert's severity is 'Severe', indicating a high level of concern, but the lack of corroboration and robust evidence suggests a low confidence in the alert's accuracy and reliability.",
-      "confidence": "low",
-      "modelReviewed": true,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e5516dbc81c1155128c08ea67b49606bd08937d0.001.1"
       ],
       "gate": "official-advisory-only",
-      "officialAlert": true,
+      "officialAlert": false,
       "severity": "Severe"
     },
     {
@@ -1762,9 +1762,9 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source-linked evidence is limited to a high wind watch issued by NOAA, which does not provide specific information about the movement or direction of the wind. The lack of robust Z value and historical data further limits the confidence in the observation. The evidence is not corroborated by any independent publisher, and the source is not explicitly linked to a known event or movement. Therefore, the decision is to monitor the situation without elevating it to a severe advisory.",
-      "confidence": "low",
-      "modelReviewed": true,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e26a63ff176a82dd989f54760100520601966fd1.001.1"
       ],
@@ -1792,7 +1792,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source-linked evidence is limited to a high wind watch issued by NOAA, which does not provide specific information about the movement or evidence. The lack of robust Z value and historical data further limits the confidence in the observation. The evidence is not corroborated by an independent publisher, and the source is not explicitly linked to a known event or movement. Therefore, the decision is to monitor the situation without elevating it to a severe advisory.",
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1822,7 +1822,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source is NOAA National Weather Service, which is a reputable source, but the evidence is not robust and the movement is not new. The evidence is limited to a single observation and does not meet the criteria for an official Severe/Extreme advisory. Therefore, it is recommended to monitor the situation.",
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1852,7 +1852,7 @@
       "status": "monitor",
       "sector": null,
       "corroborated": false,
-      "reason": "The source-linked evidence is limited to a coastal flood warning issued by NOAA, which does not provide specific information about the movement or robustness of the observed phenomenon. The lack of robust Z value and historical data further reduces the confidence in the validity of the observation. The evidence is not corroborated by any independent publisher, and there is no official advisory or robust movement reported. Therefore, the decision is to monitor the situation.",
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -1863,20 +1863,5 @@
       "severity": "Severe"
     }
   ],
-  "alerts": [
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-24f4e2aa9032d1a44882d3791ba326ea1d6e5065-001-1",
-      "title": "Special Marine Warning — Waters from Jupiter Inlet to Deerfield Beach FL from 20 to 60 NM; Waters from Deerfield Beach to Oce",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1",
-      "observedAt": "2026-11-21T12:16:00-05:00",
-      "confidence": "high",
-      "reason": "The NOAA National Weather Service has issued a Severe/Extreme advisory for waters from Jupiter Inlet to Deerfield Beach, FL, indicating a robust Z value of 3 or higher. This evidence is from an independent publisher and is not limited to a specific time period. The source is reliable, and the evidence is robust, warranting an elevated alert.",
-      "kind": "advisory",
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.24f4e2aa9032d1a44882d3791ba326ea1d6e5065.001.1"
-      ]
-    }
-  ]
+  "alerts": []
 }
