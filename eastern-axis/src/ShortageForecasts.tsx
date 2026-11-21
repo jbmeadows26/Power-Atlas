@@ -50,7 +50,8 @@ export default function ShortageForecasts({countryCode,countryName}:{countryCode
   const groups=useMemo(()=>['All products',...new Set(report?.forecasts.map(x=>x.category)||[])],[report]);
   const shown=useMemo(()=>report?.forecasts.filter(x=>
     (group==='All products'||x.category===group)&&(status==='All signals'||x.status===status))||[],[report,group,status]);
-  const fresh=report?age(report.generatedAt)!<=3:false;
+  const daysOld=age(report?.generatedAt);
+  const fresh=daysOld!==null&&daysOld<=3;
   const scope=countryCode==='all'?'Worldwide':countryName||countryCode;
   return <section className="sf-root" aria-label="Product shortage outlook">
     <header className="sf-head">
