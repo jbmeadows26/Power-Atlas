@@ -100,7 +100,7 @@ async function qa(page,width){
   assert.ok(await detail.locator('.ea-detail-evidence a').count()>=1,'Probe source must not inherit a GNSS link');
   await detail.getByRole('button',{name:'Close evidence detail'}).click();
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
-  await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).waitFor({state:'visible'});
+  assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Redundant horizontal workspace menu must not mount');
   if(width<=980) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
   const report=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
   await report.waitFor({state:'visible'});
@@ -121,11 +121,13 @@ async function qa(page,width){
     assert.equal(await page.locator('.sidebar').isVisible(),true,'Desktop keeps its full sidebar');
   }else{
     assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
-    assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Networks','More']);
+    assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Risks','Systems','More']);
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
-    // Networks must show sourced relationships, not an always-mounted sanctions inventory.
-    await nav.getByRole('button',{name:'Networks'}).click();
+    // Networks is a Countries subview, not its own global navigation route.
+    await nav.getByRole('button',{name:'Countries'}).click();
+    const countriesViews=page.getByRole('group',{name:'Country intelligence views'});
+    await countriesViews.getByRole('button',{name:'Networks'}).click();
     const network=page.getByRole('region',{name:'Sourced relationship networks'});
     await network.waitFor({state:'visible'});
     await network.locator('.nx-graph').waitFor({state:'visible'});
@@ -148,6 +150,15 @@ async function qa(page,width){
     await page.getByRole('option',{name:/China/}).click();
     await nav.getByRole('button',{name:'Countries'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
+    await countriesViews.getByRole('button',{name:'Networks'}).click();
+    assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/China/,'Nested Networks lost China country scope');
+    await countriesViews.getByRole('button',{name:'Country intelligence'}).click();
+    await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
+    await nav.getByRole('button',{name:'Systems'}).click();
+    await page.getByRole('region',{name:/Global systems/i}).first().waitFor({state:'visible',timeout:15000}).catch(async()=>{
+      assert.ok(await page.locator('.gs-root,.gs-panel,.gs-signal').count()>0,'Systems shortcut did not open Global Systems');
+    });
+    await nav.getByRole('button',{name:'Countries'}).click();
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
     await nav.getByRole('button',{name:'Risks'}).click();
