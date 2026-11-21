@@ -1,0 +1,59 @@
+.ei-root{color:#e5f1ed;min-width:0}
+.ei-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:24px;margin:5px 0 18px}
+.ei-kicker{display:flex;gap:9px;align-items:center;color:#8cdcc2;letter-spacing:.11em;font:700 10px 'DM Mono',monospace}
+.ei-heading h1{font:800 clamp(28px,3.1vw,42px) Manrope,sans-serif;letter-spacing:-.047em;line-height:1.13;margin:13px 0}
+.ei-heading h1 em{color:#97e3c8;font-style:normal}
+.ei-heading p{color:#9bb2b8;font-size:12px;line-height:1.65;max-width:700px;margin:0}
+.ei-heading-right{display:flex;flex-direction:column;gap:6px;min-width:205px;border:1px solid #314d51;border-radius:12px;padding:15px;background:#14282e}
+.ei-heading-right>span{font:700 9px 'DM Mono',monospace;color:#78a8a9;letter-spacing:.09em}
+.ei-heading-right>strong{font-size:16px}
+.ei-heading-right>small{color:#94adb0;font-size:10px;line-height:1.45}
+.ei-heading-right button{align-items:center;justify-content:center;display:flex;gap:7px;border:1px solid #49766b;color:#c6f4e2;background:#1b3b39;border-radius:7px;font-size:11px;padding:9px;margin-top:6px;cursor:pointer}
+.ei-heading-right button:disabled{opacity:.5;cursor:wait}
+.ei-pulse{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.ei-pulse>div{background:#152a31;border:1px solid #324c53;border-radius:11px;padding:15px 13px;min-width:0;display:flex;flex-direction:column;gap:5px}
+.ei-pulse>div>span{color:#8cabad;font:700 9px 'DM Mono',monospace;letter-spacing:.065em;min-height:20px}
+.ei-pulse strong{font:800 clamp(21px,2.6vw,32px) Manrope,sans-serif;letter-spacing:-.045em;line-height:1.2;font-variant-numeric:tabular-nums}
+.ei-pulse strong small{color:#81a9a9;font-size:13px;letter-spacing:0}
+.ei-pulse>div>small{color:#83a5a8;font-size:10px;line-height:1.4}
+.ei-source-note{display:flex;gap:9px;align-items:center;color:#a9c9c1;background:#16332f;border:1px solid #386055;border-radius:8px;padding:10px 13px;font-size:11px;margin-bottom:12px;line-height:1.5}
+.ei-source-limited{color:#e5c798;background:#312b21;border-color:#67543a}
+.ei-tabs{display:flex;align-items:center;gap:5px;overflow-x:auto;scrollbar-width:thin;border-bottom:1px solid #385158;padding:5px 0 10px;margin:14px 0 18px}
+.ei-tabs button{display:flex;align-items:center;gap:8px;flex-shrink:0;padding:12px 13px;color:#93acb1;font-size:11px;background:transparent;border:1px solid transparent;border-radius:8px;cursor:pointer;font-weight:700}
+.ei-tabs button:hover,.ei-tabs button.active{background:#21443c;color:#d8f9e9;border-color:#507969}
+.ei-overview-intro{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:16px 0}
+.ei-overview-intro>div{display:flex;flex-direction:column;gap:4px}
+.ei-overview-intro strong{font:800 17px Manrope,sans-serif}
+.ei-overview-intro span{color:#90aaae;font-size:11px;line-height:1.5}
+.ei-overview-intro>span{font:10px 'DM Mono',monospace;white-space:nowrap}
+.ei-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.ei-domain{display:flex;flex-direction:column;text-align:left;min-width:0;padding:19px 19px 15px;background:#132831;border:1px solid #35545b;border-radius:13px;color:inherit;cursor:pointer;transition:border-color .12s,background .12s}
+.ei-domain:hover,.ei-domain:focus-visible{border-color:#7ebba5;background:#19383a;outline-offset:3px}
+.ei-domain-top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.ei-domain-top>span{display:grid;place-items:center;width:37px;height:37px;border-radius:10px;background:#28443f;color:#a2eacb}
+.ei-domain-top>small{color:#a1c1b9;font:9px 'DM Mono',monospace;letter-spacing:.055em}
+.ei-domain h2{font:800 19px Manrope,sans-serif;letter-spacing:-.03em;margin:12px 0 5px}
+.ei-domain p{color:#91adb1;font-size:11px;line-height:1.5;min-height:34px;margin:0}
+.ei-domain-number{display:flex;gap:12px;align-items:baseline;margin:14px 0 9px}
+.ei-domain-number strong{font:800 26px Manrope,sans-serif;letter-spacing:-.04em;font-variant-numeric:tabular-nums}
+.ei-domain-number span{font-size:10px;color:#a3bdc0}
+.ei-domain-detail{font-size:11px;color:#b1dbd0;min-height:29px;line-height:1.5}
+.ei-coverage{margin:12px 0 0}
+.ei-coverage>div:first-child{display:flex;justify-content:space-between;gap:10px;align-items:center;color:#8babad;font-size:10px;line-height:1.4}
+.ei-coverage strong{color:#d2e9e2;font:700 10px 'DM Mono',monospace}
+.ei-track{background:#2e454c;height:7px;border-radius:20px;margin-top:8px;overflow:hidden}
+.ei-track>i{display:block;height:100%;background:#89dfbc;border-radius:20px}
+.ei-status-line{margin-top:8px;font-size:10px;color:#95cbb7}
+.ei-coverage.unavailable{color:#a8aba6;font-size:10px}
+.ei-open{display:flex;justify-content:space-between;gap:10px;align-items:center;border-top:1px solid #314b4d;margin-top:auto;padding-top:13px;color:#b6f2d7;font-size:11px;font-weight:800}
+.ei-footnote{display:flex;gap:11px;align-items:start;padding:16px 2px;color:#8cabad;font-size:11px;line-height:1.6}
+.ei-footnote svg{color:#8ddcbd;flex-shrink:0}
+.ei-workspace{min-width:0}
+.ei-workspace-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 0 13px;margin:0 0 14px;border-bottom:1px solid #385058;color:#8eb7ad;font-size:11px}
+.ei-workspace-head button{border:1px solid #4e7568;background:#1d3d39;color:#c5f5df;border-radius:7px;padding:9px 13px;cursor:pointer;font-weight:700;font-size:11px}
+.ei-subtabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:17px}
+.ei-subtabs button{display:flex;align-items:center;gap:8px;cursor:pointer;background:#17313a;color:#a4c2c0;border:1px solid #34575a;border-radius:8px;padding:11px 14px;font-size:11px;font-weight:750}
+.ei-subtabs button.active{background:#285048;color:#e6fff2;border-color:#78b49b}
+@media(max-width:1190px){.ei-pulse{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:730px){.ei-heading{flex-direction:column}.ei-heading-right{width:100%;min-width:0}.ei-heading h1{font-size:32px}.ei-pulse{grid-template-columns:repeat(2,minmax(0,1fr))}.ei-grid{grid-template-columns:1fr}.ei-overview-intro{align-items:flex-start;flex-direction:column}.ei-overview-intro>span{white-space:normal}}
+@media(max-width:390px){.ei-pulse{gap:7px}.ei-pulse>div{padding:12px 10px}.ei-pulse strong{font-size:22px}.ei-tabs button{padding:10px;font-size:10px}}
