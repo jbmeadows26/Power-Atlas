@@ -34,7 +34,7 @@ function isMetric(x:unknown):x is Metric {
     && typeof m.previousPeriod==='string' && typeof m.source==='string'
     && typeof m.sourceUrl==='string' && m.sourceUrl.startsWith('https://')
     && typeof m.unit==='string' && typeof m.group==='string' && Number.isFinite(m.value)
-    && Number.isFinite(m.previous) && Number.isFinite(m.changePct) && Math.abs(m.changePct)<100000);
+    && Number.isFinite(m.previous) && typeof m.changePct==='number' && Number.isFinite(m.changePct) && Math.abs(m.changePct)<100000);
 }
 const isSafeDate=isValidObservedPeriod;
 export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupplyChain,initialMeasurementFilter='all'}:
