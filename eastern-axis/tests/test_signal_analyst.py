@@ -49,6 +49,14 @@ class AnalystSafetyTest(unittest.TestCase):
         self.assertEqual(report["model"]["status"],"unavailable")
         self.assertEqual(report["reviews"][0]["status"],"monitor")
 
+    def test_metric_display_preserves_comparison_units(self):
+        m=example_metric()
+        report=mod.evaluate(snapshot(metrics=[m]))
+        row=report["reviews"][0]
+        self.assertEqual(row["compareMode"],"basis-points")
+        self.assertEqual(row["changeBps"],100)
+        self.assertEqual(row["changePct"],33.333)
+
     def test_model_cannot_promote_single_source_outlier(self):
         m=example_metric()
         with patch.object(mod,"model_assess",return_value=({m["id"]:{"decision":"elevate","confidence":"high","rationale":"Highly unusual but no second independent source available"}},"available")):
