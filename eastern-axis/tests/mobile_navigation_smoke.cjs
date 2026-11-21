@@ -184,10 +184,10 @@ async function qa(page,width){
     assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Economy','More']);
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
-    // Networks is a Countries subview, not its own global navigation route.
+    // Country dossier and network evidence share one page; no competing two-way switch.
     await nav.getByRole('button',{name:'Countries'}).click();
-    const countriesViews=page.getByRole('group',{name:'Country intelligence views'});
-    await countriesViews.getByRole('button',{name:'Networks'}).click();
+    assert.equal(await page.locator('.ea-country-subnav').count(),0,'Legacy country/network view switch is still rendered');
+    await page.getByRole('button',{name:'Explore relationships'}).click();
     const network=page.getByRole('region',{name:'Sourced relationship networks'});
     await network.waitFor({state:'visible'});
     await network.locator('.nx-graph').waitFor({state:'visible'});
@@ -210,10 +210,13 @@ async function qa(page,width){
     await page.getByRole('option',{name:/China/}).click();
     await nav.getByRole('button',{name:'Countries'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
-    await countriesViews.getByRole('button',{name:'Networks'}).click();
-    assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/China/,'Nested Networks lost China country scope');
-    await countriesViews.getByRole('button',{name:'Country intelligence'}).click();
+    const networkToggle=page.getByRole('button',{name:'Explore relationships'});
+    if(await networkToggle.count())await networkToggle.click();
+    await page.getByRole('region',{name:'Sourced relationship networks'}).waitFor({state:'visible'});
+    assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/China/,'Integrated relationship network lost country scope');
+    await page.getByRole('button',{name:'Hide relationships'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
+    await page.locator('.country-brief .brief-relationship').waitFor({state:'visible'});
     await nav.getByRole('button',{name:'Economy'}).click();
     await page.locator('.ei-tabs').getByRole('button',{name:'Economy & energy'}).click();
     await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
