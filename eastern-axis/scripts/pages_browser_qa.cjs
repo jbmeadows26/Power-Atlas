@@ -502,8 +502,27 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.ok((await readout.locator('.eai-finding').innerText()).length>35,sectionName+' missing evidence summary');
         assert.ok(await readout.locator('.eai-sources').count()>0,sectionName+' lost provenance');
       }else{
+        // Universal 24-screen mobile hygiene contract, not a single Situation Room smoke test.
+        assert.equal(await page.locator('.ea-handoff-actions:visible').count(),0,
+          sectionName+' has redundant Save/Send-to-mobile controls above the dashboard');
+        assert.equal(await page.locator('.eai-compact:visible').count(),1,
+          sectionName+' must have exactly one collapsed context preview');
+        assert.equal(await page.locator('.eai-readout:visible').count(),0,
+          sectionName+' still has a screen-filling analysis panel by default');
         const brief=page.locator('.eai-compact:visible');
         await brief.waitFor({state:'visible',timeout:16000});
+        const briefGeometry=await brief.evaluate(element=>{
+          const rectangle=element.getBoundingClientRect();
+          return {height:rectangle.height,width:rectangle.width,viewport:window.innerWidth,
+            previewHeight:element.querySelector('.eai-compact-preview')?.getBoundingClientRect().height||0};
+        });
+        assert.ok(briefGeometry.height>50&&briefGeometry.height<180,
+          sectionName+' has an oversized mobile analyst briefing: '+JSON.stringify(briefGeometry));
+        assert.ok(briefGeometry.width<=briefGeometry.viewport,
+          sectionName+' analyst briefing horizontally overflows: '+JSON.stringify(briefGeometry));
+        assert.ok(briefGeometry.previewHeight<55,
+          sectionName+' analysis preview must remain no more than two concise lines');
+
         assert.ok((await brief.locator('.eai-compact-identity strong').innerText()).length>4,sectionName+' missing analyst title');
         assert.ok((await brief.locator('.eai-compact-preview').innerText()).length>25,sectionName+' missing analyst interpretation');
         assert.equal(await brief.locator('.eai-readout').count(),0,sectionName+' must not show a full-length essay above charts');
