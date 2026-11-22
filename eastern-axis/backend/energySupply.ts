@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { db } from './runtime-sdk';
 import { isoAlpha3 } from '../src/lib/countryStatisticalSources';
+import { matchEnergyCountry } from '../src/lib/countryEnergyMatch';
 
 const SOURCE = 'https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv';
 const CATALOG = 'https://catalog.ourworldindata.org/energy/owid_energy/';
@@ -42,13 +43,6 @@ function* csvRows(text: string): Generator<string[]> {
   }
   if(field.length || fields.length){fields.push(field); yield fields;}
 }
-const tidy=(name:string)=>name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-const aliases: Record<string,string> = {
-  RU:'russia', CN:'china', KP:'northkorea', KR:'southkorea', IR:'iran',
-  TW:'taiwan', GB:'unitedkingdom', TR:'turkey', US:'unitedstates',
-  CD:'democraticrepublicofcongo', CZ:'czechia', VA:'vatican',
-  PS:'palestine', MM:'myanmar'
-};
 export async function syncEnergy() {
   const started = new Date().toISOString();
   try {
@@ -116,17 +110,7 @@ export async function readEnergy(code:string,countryName?:string) {
     await syncEnergy();
     [saved]=await db.get<EnergySnapshot>('global_energy_snapshots',['latest'],{consistent:true});
   }
-  const iso3=code==='all'?'OWID_WRL':isoAlpha3(code);
-  const keyed=iso3?saved?.byCountry[iso3]:null;
-  // Old snapshots were keyed by names; retain them temporarily, but accept a
-  // legacy name only when its stored ISO3 agrees with the requested country.
-  const oldName=code==='all'?'world':
-    (aliases[code]||tidy(countryName||new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code));
-  const legacy=saved?.byCountry[oldName];
-  const verifiedLegacy=legacy&&(
-    (code==='all'&&legacy.name==='World')||
-    (iso3!==null&&legacy.iso3===iso3))?legacy:null;
-  const country=keyed||verifiedLegacy||null;
+  const country=matchEnergyCountry(saved?.byCountry,code,countryName);
   return {
     code, checkedAt:saved?.checkedAt||null,
     status:!saved?'unavailable':country?'reported':'no-country-match',
