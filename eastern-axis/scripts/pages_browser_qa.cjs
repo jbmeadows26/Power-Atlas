@@ -56,6 +56,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
     // Report a bug lives in the existing menu and never redirects visitors to GitHub.
+    if(viewport.width<=980)await page.getByRole('button',{name:'Toggle navigation'}).click();
     const bugTrigger=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/});
     await bugTrigger.waitFor({state:'visible'});
     await bugTrigger.click();
