@@ -30,6 +30,8 @@ jobs:
           node --experimental-strip-types --test eastern-axis/tests/socialSources.test.mjs
       - name: Verify all 24 subcategory analyst routes and evidence safeguards
         run: node --experimental-strip-types --test eastern-axis/tests/domainAnalysts.test.mjs
+      - name: Validate canonical country codes and statistical source coverage
+        run: node --experimental-strip-types --test eastern-axis/tests/countryStatisticalSources.test.mjs
       - name: Install unified Eastern Axis frontend and backend
         working-directory: eastern-axis
         run: npm install --no-audit --no-fund
