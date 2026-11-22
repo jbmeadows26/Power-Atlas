@@ -110,7 +110,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    const mentions=documents.filter(d=>Array.isArray(d.inferredCountries)&&d.inferredCountries.some((e:Obj)=>e.code===country));
    b.metrics=[metric('Indexed case files',localCases.length,'Legal case records, not proven state direction'),
               metric('Country-tagged reports',docs.length,'Explicit source country tags'),
-              metric('Historical WDI indicators',reported.length,country==='all'?'Choose a country for World Bank measurements':'Non-null observations')];
+              metric(country==='all'?'World-aggregate WDI indicators':'Historical WDI indicators',reported.length,country==='all'?'Worldwide figures only, not country attribution':'Non-null observations')];
    b.finding=country==='all'?
      cases.length+' case files and '+documents.length+' government/publication records are indexed across the directory.':
      scope+' has '+localCases.length+' indexed legal cases and '+docs.length+' explicitly tagged source publications.'+(mentions.length?' '+mentions.length+' title-derived mentions are indexed separately.':'');
@@ -193,7 +193,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    const inflation=historical.find(x=>x.code==='FP.CPI.TOTL.ZG');
    b.metrics=[{label:'S&P 500 · 5 sessions',value:pct(n(market?.change5Pct)),detail:'US market benchmark, not local-country data'},
               {label:'Reviewed warning signals',value:f(count(reviews,r=>r.modelReviewed===true)),detail:screened+' screened; '+anomalous+' statistical exceptions'},
-              {label:'Country inflation',value:inflation&&n(inflation.value)!==null?pct(n(inflation.value)):'—',detail:inflation?.year?'Reported '+inflation.year:'No comparable country observation'}];
+              {label:country==='all'?'World-aggregate inflation':'Country inflation',value:inflation&&n(inflation.value)!==null?pct(n(inflation.value)):'—',detail:inflation?.year?'Reported '+inflation.year:'No comparable observation'}];
    b.finding=market?
      'The cited U.S. S&P 500 benchmark moved '+pct(n(market.change5Pct))+' over five trading sessions; '+flagged+' screened signals currently meet all promotion gates.':
      'Current benchmark market movement is unavailable; '+screened+' global warning signals have been screened.';
@@ -325,7 +325,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
   'Demographics & biosecurity':['country','country','country']
  };
  const available=(channel:string)=>channel==='cases'||(channel==='country'
-    ? country!=='all'&&Array.isArray(system.indicators)
+    ? Array.isArray(system.indicators)
     : Boolean(o(snapshots[channel]).schemaVersion));
  b.metrics=b.metrics.map((m,index)=>{
    const channel=tileSources[key]?.[index];
