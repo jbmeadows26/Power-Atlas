@@ -102,6 +102,8 @@ async function qa(page,width){
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
   if(width<=980){
+    assert.equal(await page.locator('.ea-handoff-actions:visible').count(),0,
+      'Mobile must not duplicate Save/Share actions above the command dashboard');
     const pulse=page.locator('.sr-root.sr-command');
     await pulse.waitFor({state:'visible',timeout:20000});
     const compact=page.locator('.eai-inline.eai-compact:visible');
@@ -213,7 +215,11 @@ async function qa(page,width){
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   assert.equal(await page.locator('.ea-domain-tabs').count(),1,'Exactly one contextual tabs row');
   assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Redundant horizontal workspace menu must not mount');
-  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Briefcase'}).click();
+  if(width<=980){
+    await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Briefcase'}).click();
+    assert.equal(await page.locator('.ea-ci-brief-actions:visible button').count(),2,
+      'Save and Share must stay accessible in the Briefcase after removing the duplicate row');
+  }
   const report=width<=980?page.getByRole('button',{name:/Report a bug · no login required/i}):
     page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
   await report.waitFor({state:'visible'});
