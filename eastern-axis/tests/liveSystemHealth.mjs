@@ -32,8 +32,13 @@ const properlyLabelledWorldGini=(row)=>{
   const isWid=/(?:\bWID\b|World Inequality Database)/i.test(publisher);
   const isAlternative=status==='alternative-measure:pretax-income-gini';
   if(!isWid&&!isAlternative)return true;
-  return isWid&&isAlternative&&/\bpre[\s-]?tax\b/i.test(String(row.label||''))&&
-    /World Bank survey Gini/i.test(String(row.meaning||''));
+  const labelCorrect=/\bpre[\s-]?tax\b/i.test(String(row.label||''));
+  const methodClear=/World Bank survey Gini/i.test(String(row.meaning||''));
+  if(!(isWid&&isAlternative&&labelCorrect&&methodClear)){
+    console.error('WORLD GINI DISCLOSURE CHECK:',JSON.stringify({label:row.label,sourceName:row.sourceName,
+      observationStatus:row.observationStatus,meaning:row.meaning}));
+  }
+  return isWid&&isAlternative&&labelCorrect&&methodClear;
 };
 if(process.argv.includes('--test-gini')){
   const base={
