@@ -101,10 +101,33 @@ async function qa(page,width){
   assert.equal(await page.locator('.ea-mobile-filter-pills').count(),0,'Command must not show mobile country filter pills');
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
-  const activeCategoryEvidence=page.locator(width<=980?'.eai-inline:visible':'.eai-rail:visible');
-  await activeCategoryEvidence.waitFor({state:'visible',timeout:20000});
-  assert.equal(await activeCategoryEvidence.locator('.eai-kpis').count(),1,'An evidence analyst must render next to every workspace');
-  assert.ok((await activeCategoryEvidence.locator('.eai-finding').innerText()).length>20,'Analyst explanation must not be empty');
+  if(width<=980){
+    const pulse=page.locator('.sr-root.sr-command');
+    await pulse.waitFor({state:'visible',timeout:20000});
+    const compact=page.locator('.eai-inline.eai-compact:visible');
+    await compact.waitFor({state:'visible',timeout:20000});
+    assert.equal(await compact.locator('.eai-readout').count(),0,'Full analyst details must not block the Command pulse on mobile');
+    const geometry=await page.evaluate(()=>{
+      const board=document.querySelector('.sr-root.sr-command')?.getBoundingClientRect();
+      const analysis=document.querySelector('.eai-compact')?.getBoundingClientRect();
+      return {boardBottom:board?.bottom,analysisTop:analysis?.top,analysisHeight:analysis?.height};
+    });
+    assert.ok(Number(geometry.analysisTop)>=Number(geometry.boardBottom)-3,
+      'Intelligence pulse must appear before the compact analyst card: '+JSON.stringify(geometry));
+    assert.ok(Number(geometry.analysisHeight)<180,'Collapsed analyst card must not consume a mobile screen');
+    const expand=compact.getByRole('button',{name:/ANALYST INTERPRETATION/i});
+    assert.equal(await expand.getAttribute('aria-expanded'),'false');
+    await expand.click();
+    assert.equal(await expand.getAttribute('aria-expanded'),'true');
+    await compact.locator('.eai-sources').waitFor({state:'visible',timeout:10000});
+    await expand.click();
+    assert.equal(await expand.getAttribute('aria-expanded'),'false');
+    assert.equal(await compact.locator('.eai-sources').count(),0,'Detailed source links must collapse cleanly');
+  }else{
+    const analyst=page.locator('.eai-readout.eai-rail:visible');
+    await analyst.waitFor({state:'visible',timeout:20000});
+    assert.equal(await analyst.locator('.eai-kpis').count(),1,'The desktop source-backed analyst rail must remain unchanged');
+  }
   assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Legacy duplicate nav must not mount');
   assert.equal(await page.locator('.ea-mobile-primary').count(),1,'One four-action mobile nav in DOM');
   if(width<=980)assert.equal(await page.locator('.ea-mobile-primary:visible button').count(),4,'Mobile nav must show four routes');
