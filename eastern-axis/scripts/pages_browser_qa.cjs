@@ -478,6 +478,13 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await dashboard.locator('.fm-root').waitFor({state:'visible',timeout:15000});
       }
       if(sectionName==='Systemic risk')await page.locator('.rdb-charts').waitFor({state:'visible',timeout:15000});
+      // Every primary subcategory needs its own source-bounded interpretation.
+      // Desktop uses the chart-adjacent rail; mobile keeps the same analysis inline.
+      const readout=page.locator(viewport.width>980?'.eai-readout.eai-rail:visible':'.eai-readout.eai-inline:visible');
+      await readout.waitFor({state:'visible',timeout:16000});
+      assert.ok((await readout.locator('.eai-title').innerText()).length>4,sectionName+' has no named analyst readout');
+      assert.ok((await readout.locator('.eai-finding').innerText()).length>35,sectionName+' has no evidence summary');
+      assert.ok(await readout.locator('.eai-sources').count()>0,sectionName+' omitted source provenance and coverage');
       const mainText=await page.locator('.content').innerText();
       assert.ok(mainText.length>90,sectionName+' rendered empty content');
       const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));

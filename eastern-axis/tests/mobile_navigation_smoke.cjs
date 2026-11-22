@@ -101,6 +101,10 @@ async function qa(page,width){
   assert.equal(await page.locator('.ea-mobile-filter-pills').count(),0,'Command must not show mobile country filter pills');
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
+  const activeCategoryEvidence=page.locator(width<=980?'.eai-inline:visible':'.eai-rail:visible');
+  await activeCategoryEvidence.waitFor({state:'visible',timeout:20000});
+  assert.equal(await activeCategoryEvidence.locator('.eai-kpis').count(),1,'An evidence analyst must render next to every workspace');
+  assert.ok((await activeCategoryEvidence.locator('.eai-finding').innerText()).length>20,'Analyst explanation must not be empty');
   assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Legacy duplicate nav must not mount');
   assert.equal(await page.locator('.ea-mobile-primary').count(),1,'One four-action mobile nav in DOM');
   if(width<=980)assert.equal(await page.locator('.ea-mobile-primary:visible button').count(),4,'Mobile nav must show four routes');
