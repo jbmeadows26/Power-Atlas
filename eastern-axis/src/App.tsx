@@ -5,6 +5,8 @@ import BugReportDialog from './BugReportDialog';
 import IntelCardDetails from './IntelCardDetails';
 import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
+import FinancialTransmission from './FinancialTransmission';
+import ResilienceWatch from './ResilienceWatch';
 import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
 import EconomicIntelligence, { type EconomicFocus } from './EconomicIntelligence';
@@ -108,21 +110,49 @@ type Brief = {
   warning?: string;
   metrics: Record<string, Metric>;
 };
+// All existing workspaces are retained; taxonomy only changes where they are reached.
 const sections = [
-  'Overview',
-  'Countries',
-  'World Factbook',
-  'Economic intelligence',
-  'AI analyst',
-  'Defense intelligence',
-  'Investigations',
-  'Collection desk',
-  'Verification lab',
-  'Coverage audit',
-  'Source library', 
-  'Methodology',
+  'Overview', 'Countries', 'World Factbook', 'Economic intelligence',
+  'AI analyst', 'Defense intelligence', 'Investigations', 'Collection desk',
+  'Verification lab', 'Coverage audit', 'Source library', 'Methodology',
+  'Macro indicators', 'Trade indicators', 'Corporate intelligence',
+  'Energy & resources', 'Demographics & biosecurity', 'Cyber resilience',
 ] as const;
 type Section = (typeof sections)[number];
+type DomainId = 'command'|'geopolitics'|'defense'|'macro'|'trade'|'business'|'energy'|'demographics';
+type DomainTab = { label:string; section:Section; focus?:EconomicFocus };
+const domains: { id:DomainId; title:string; short:string; Icon:typeof Activity; tabs:DomainTab[] }[] = [
+  {id:'command',title:'Command & Situation Room',short:'Command',Icon:Activity,tabs:[
+    {label:'Situation room',section:'Overview'},
+    {label:'AI analyst',section:'AI analyst'},
+    {label:'Collection desk',section:'Collection desk'},
+    {label:'Verification lab',section:'Verification lab'},
+    {label:'Coverage audit',section:'Coverage audit'},
+    {label:'Source library',section:'Source library'},
+    {label:'Methodology',section:'Methodology'}]},
+  {id:'geopolitics',title:'Geopolitics & Intelligence',short:'Geopolitics',Icon:Globe2,tabs:[
+    {label:'Country dossiers',section:'Countries'},
+    {label:'World Factbook',section:'World Factbook'},
+    {label:'Investigations',section:'Investigations'}]},
+  {id:'defense',title:'Defense, Security & Cyber',short:'Defense',Icon:Shield,tabs:[
+    {label:'Defense intelligence',section:'Defense intelligence'},
+    {label:'Cyber resilience',section:'Cyber resilience'}]},
+  {id:'macro',title:'Macroeconomics & Markets',short:'Markets',Icon:Layers3,tabs:[
+    {label:'Economic pulse',section:'Economic intelligence',focus:'overview'},
+    {label:'Growth & labor',section:'Macro indicators'},
+    {label:'Markets & early warning',section:'Economic intelligence',focus:'signals'},
+    {label:'Systemic risk',section:'Economic intelligence',focus:'risk'}]},
+  {id:'trade',title:'Trade & Supply Chains',short:'Trade',Icon:Network,tabs:[
+    {label:'Supply chains',section:'Economic intelligence',focus:'supply'},
+    {label:'Product shortages',section:'Economic intelligence',focus:'shortages'},
+    {label:'Trade baselines',section:'Trade indicators'}]},
+  {id:'business',title:'Business, Corporate & Tech',short:'Business',Icon:Sparkles,tabs:[
+    {label:'Corporate intelligence',section:'Corporate intelligence'}]},
+  {id:'energy',title:'Energy, Resources & Climate',short:'Energy',Icon:Radio,tabs:[
+    {label:'Energy & resources',section:'Energy & resources'}]},
+  {id:'demographics',title:'Demographics & Biosecurity',short:'Demographics',Icon:BookOpen,tabs:[
+    {label:'Population & climate',section:'Demographics & biosecurity'}]},
+];
 const focusCodes = ['RU', 'CN', 'IR', 'KP'];
 const fmt = (n: number) =>
   new Intl.NumberFormat('en-US', {
@@ -268,6 +298,10 @@ function MiniGlobe() {
 }
 function App() {
   const [view, setView] = useState<Section>('Overview');
+  const [domain, setDomain] = useState<DomainId>('command');
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [horizon, setHorizon] = useState('all');
+  const [severity, setSeverity] = useState('all');
   const [networkOpen,setNetworkOpen] = useState(false);
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [economicFocus,setEconomicFocus]=useState<EconomicFocus>('overview');
@@ -372,24 +406,42 @@ function App() {
     setCountryScope(code);
     setSelected(code);
     setView('Countries');
+    setDomain('geopolitics');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const navigateFromSignal = (target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries', focus?:'funding'|'commodities'|'gnss')=>{
     if(target==='Early warning'||target==='Supply chain'||target==='Risk watch'){
       switchView('Economic intelligence');
       setEconomicFocus(target==='Early warning'?'signals':target==='Supply chain'?'supply':'risk');
+      setDomain(target==='Supply chain'?'trade':'macro');
       if(target==='Early warning')setWarningFocus(focus||'all');
     }else switchView(target);
   };
   const switchView = (next: Section) => {
     if(next==='Economic intelligence')setEconomicFocus('overview');
     setView(next);
+    const match=domains.find(d=>d.tabs.some(t=>t.section===next));
+    if(match)setDomain(match.id);
     setMobileMenu(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+  const selectDomainTab = (id:DomainId, tab:DomainTab) => {
+    setDomain(id);
+    if(tab.section==='Economic intelligence')setEconomicFocus(tab.focus||'overview');
+    setView(tab.section);
+    setMobileMenu(false);
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  const activeDomain=domains.find(item=>item.id===domain)!;
+  const activeTab=(tab:DomainTab)=>view===tab.section && (tab.section!=='Economic intelligence'||tab.focus===economicFocus);
+  const onEconomicFocusChange=(next:EconomicFocus)=>{
+    setEconomicFocus(next);
+    if(next==='supply'||next==='shortages')setDomain('trade');
+    else if(['overview','signals','systems','risk'].includes(next))setDomain('macro');
+  };
 
   return (
-    <div className="shell ea-control-room">
+    <div className={"shell ea-control-room" + (sidebarCollapsed ? " ea-sidebar-collapsed" : "")}>
       <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
           <span className="brand-mark">
@@ -404,7 +456,7 @@ function App() {
         </div>
         <button type="button" className="sidebar-close" onClick={() => setMobileMenu(false)} aria-label="Close navigation"><X size={20} /></button>
         <div className="sidebar-rule" />
-        <div className="nav-label">EXPLORE INTELLIGENCE</div>
+        <div className="nav-label">INTELLIGENCE DOMAINS</div>
         <div className="ea-menu-support">
           <button type="button" className="ea-report-bug"
             aria-haspopup="dialog" aria-expanded={bugReportOpen}
@@ -415,39 +467,13 @@ function App() {
           </button>
         </div>
         <nav aria-label="Main navigation">
-          {sections.map((s, i) => {
-            const icons = [
-              <Activity size={17} />,
-              <Globe2 size={17} />,
-              <BookOpen size={17} />,
-              <Layers3 size={17} />,
-              <Sparkles size={17} />,
-              <Shield size={17} />,
-              <FileSearch size={17} />,
-              <Radio size={17} />,
-              <FileSearch size={17} />,
-              <Database size={17} />,
-              <Database size={17} />,
-              <BookOpen size={17} />,
-            ];
-            return (
-              <Fragment key={s}>
-              {(i === 0 || i === 1 || i === 3 || i === 6) && <div className="ea-nav-group">{i === 0 ? 'MONITOR' : i === 1 ? 'COUNTRY DOSSIERS' : i === 3 ? 'SYSTEM INTELLIGENCE' : 'EVIDENCE & OPERATIONS'}</div>}
-              <button
-                type="button"
-                className={'nav-item ' + (view === s ? 'active' : '')}
-                aria-current={view === s ? 'page' : undefined}
-                onClick={() => switchView(s)}
-              >
-                {icons[i]}
-                <span>{s === 'Overview' ? 'Command center' : s}</span>
-                {s === 'Investigations' && cases.length > 0 ? (
-                  <small>{cases.length}</small>
-                ) : null}
-              </button>
-              </Fragment>
-            );
-          })}
+          {domains.map(item=><button key={item.id} type="button"
+            className={'nav-item '+(domain===item.id?'active':'')}
+            aria-current={domain===item.id?'page':undefined}
+            title={item.title}
+            onClick={()=>selectDomainTab(item.id,item.tabs[0])}>
+            <item.Icon size={17}/><span>{item.title}</span>
+          </button>)}
         </nav>
         <div className="sidebar-bottom">
           <span className="tiny-live">
@@ -475,8 +501,8 @@ function App() {
             <button
               className="menu-btn"
               type="button"
-              onClick={() => setMobileMenu(v => !v)}
-              aria-label={mobileMenu ? 'Close navigation' : 'Open navigation'}
+              onClick={() => { if(window.matchMedia('(max-width: 980px)').matches)setMobileMenu(v=>!v); else setSidebarCollapsed(v=>!v); }}
+              aria-label={mobileMenu ? 'Close navigation' : 'Toggle navigation'}
               aria-controls="ea-primary-navigation"
               aria-expanded={mobileMenu}
             >
@@ -484,17 +510,34 @@ function App() {
             </button>
             <div className="breadcrumb">
               <span className="breadcrumb-prefix">INTELLIGENCE CONTROL ROOM</span> <ChevronRight size={13} />{' '}
-              <strong>{view === 'Overview' ? 'COMMAND CENTER' : view.toUpperCase()}</strong>
+              <strong>{activeDomain.title.toUpperCase()}</strong>
             </div>
           </div>
           <div className="header-right">
-            <CountryPicker countries={mainStates} value={countryScope} onChange={setCountryScope} />
-            <span className="header-meta">
-              <span className="live-dot" /> UNCLASSIFIED / PUBLIC DATA
-            </span>
-            <span className="asof">SOURCE-DATED DATA</span>
+            <label className="ea-global-filter ea-region-filter"><span>REGION</span>
+              <select aria-label="Global region filter" value={region} onChange={event=>{const next=event.target.value;setRegion(next);if(countryScope!=='all' && next!=='All regions' && countries.find(c=>c.code===countryScope)?.region!==next)setCountryScope('all');}}>
+                {['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].map(value=><option key={value}>{value}</option>)}
+              </select>
+            </label>
+            <CountryPicker countries={region==='All regions'?mainStates:mainStates.filter(c=>c.region===region)} value={countryScope} onChange={setCountryScope} />
+            <label className="ea-global-filter"><span>TIME</span>
+              <select aria-label="Time horizon filter" value={horizon} onChange={event=>setHorizon(event.target.value)}>
+                <option value="all">All dates</option><option value="24h">24 hours</option><option value="7d">7 days</option><option value="30d">30 days</option>
+              </select>
+            </label>
+            <label className="ea-global-filter"><span>SEVERITY</span>
+              <select aria-label="Alert severity filter" value={severity} onChange={event=>setSeverity(event.target.value)}>
+                <option value="all">All signals</option><option value="elevated">Elevated</option><option value="review">Needs review</option><option value="monitor">Monitored</option>
+              </select>
+            </label>
           </div>
         </header>
+        <nav className="ea-domain-tabs" aria-label={activeDomain.title+' workspace tabs'}>
+          {activeDomain.tabs.map(tab=><button type="button" key={tab.label}
+            className={activeTab(tab)?'active':''} aria-current={activeTab(tab)?'page':undefined}
+            onClick={()=>selectDomainTab(domain,tab)}>{tab.label}</button>)}
+        </nav>
+        <div className="ea-global-filter-note">Filters preserve original records. Time and severity apply to dated analyst signals; structural reference figures retain their published observation dates.</div>
         <main className="content">
           {loadError && (
             <div className="error-panel">
@@ -519,11 +562,18 @@ function App() {
           {overview && view === 'Economic intelligence' && <EconomicIntelligence
             countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
             cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
-            onCountryMap={openGeospatial} onDefense={()=>switchView('Defense intelligence')} />}
+            onCountryMap={openGeospatial} onDefense={()=>switchView('Defense intelligence')}
+            hideNavigation onFocusChange={onEconomicFocusChange} />}
           {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
+          {overview && view === 'Cyber resilience' && <ResilienceWatch/>}
+          {overview && view === 'Macro indicators' && <GlobalSystems mode="systems" groupFilter="Economy" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {overview && view === 'Trade indicators' && <GlobalSystems mode="systems" groupFilter="Trade & finance" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {overview && view === 'Corporate intelligence' && <FinancialTransmission/>}
+          {overview && view === 'Energy & resources' && <GlobalSystems mode="systems" groupFilter="Energy & resources" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {overview && view === 'Demographics & biosecurity' && <GlobalSystems mode="systems" groupFilter="People & climate" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
           {overview && view === 'World Factbook' && <Factbook activeCountry={countryScope} onCountryChange={setCountryScope} />}
           {overview && view === 'Countries' && (
             <>
@@ -579,27 +629,7 @@ function App() {
                         placeholder="Search country or ISO code…"
                       />
                     </div>
-                    <div className="region-holder">
-                      <Filter size={16} />
-                      <select
-                        aria-label="Filter by region"
-                        value={region}
-                        onChange={e => setRegion(e.target.value)}
-                      >
-                        {[
-                          'All regions',
-                          'Africa',
-                          'Americas',
-                          'Asia',
-                          'Europe',
-                          'Oceania',
-                          'Other',
-                        ].map(x => (
-                          <option key={x}>{x}</option>
-                        ))}
-                      </select>
-                      <ChevronDown size={14} />
-                    </div>
+
                   </div>
                   <div className="checks">
                     <label>
@@ -1172,20 +1202,7 @@ function App() {
       <IntelCardDetails />
       <BugReportDialog open={bugReportOpen} onClose={() => setBugReportOpen(false)}
         section={view === 'Overview' ? 'Command center' : view} />
-      <nav className="mobile-bottom-nav" aria-label="Mobile primary navigation">
-        <button type="button" className={!mobileMenu && view === 'Overview' ? 'selected' : ''} aria-current={view === 'Overview' ? 'page' : undefined} onClick={() => switchView('Overview')}>
-          <Activity size={20} strokeWidth={2} /><span>Home</span>
-        </button>
-        <button type="button" className={!mobileMenu && (view === 'Countries' || view === 'World Factbook') ? 'selected' : ''} aria-current={view === 'Countries' || view === 'World Factbook' ? 'page' : undefined} onClick={() => switchView('Countries')}>
-          <Globe2 size={20} strokeWidth={2} /><span>Countries</span>
-        </button>
-        <button type="button" className={!mobileMenu && view === 'Economic intelligence' ? 'selected' : ''} aria-current={view === 'Economic intelligence' ? 'page' : undefined} onClick={() => switchView('Economic intelligence')}>
-          <Layers3 size={20} strokeWidth={2} /><span>Economy</span>
-        </button>
-        <button type="button" className={mobileMenu || !(['Overview','Countries','World Factbook','Economic intelligence'] as Section[]).includes(view) ? 'selected' : ''} aria-expanded={mobileMenu} aria-controls="ea-primary-navigation" onClick={() => setMobileMenu(v => !v)}>
-          <Menu size={20} strokeWidth={2} /><span>More</span>
-        </button>
-      </nav>
+
     </div>
   );
 }
