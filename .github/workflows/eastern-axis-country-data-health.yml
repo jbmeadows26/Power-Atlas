@@ -1,5 +1,10 @@
 name: Eastern Axis country data completeness audit
 on:
+  push:
+    branches: [main]
+    paths:
+      - "eastern-axis/tests/liveSystemHealth.mjs"
+      - ".github/workflows/eastern-axis-country-data-health.yml"
   schedule:
     - cron: "17 10 * * *"
   workflow_dispatch:
@@ -10,6 +15,7 @@ on:
       - "eastern-axis-osint/backend/globalSystems.ts"
       - "eastern-axis-osint/backend/socialSources.ts"
       - "eastern-axis/tests/socialSources.test.mjs"
+      - "eastern-axis/tests/liveSystemHealth.mjs"
       - ".github/workflows/eastern-axis-country-data-health.yml"
 permissions:
   contents: read
@@ -24,12 +30,19 @@ jobs:
           node-version: "22"
       - name: Check official OWID schema and source isolation
         run: node --experimental-strip-types --test eastern-axis/tests/socialSources.test.mjs
+      - name: Fail closed if country health probe uses an archived or untrusted API
+        run: |
+          node eastern-axis/tests/liveSystemHealth.mjs --check-config
+          if EASTERN_AXIS_BASE_URL=https://retired.invalid node eastern-axis/tests/liveSystemHealth.mjs --check-config; then
+            echo "Untrusted API origin was accepted" >&2
+            exit 1
+          fi
       - name: Build primary country dashboards
         run: cd eastern-axis && npm install --no-audit --no-fund && npm run build
       - name: Build OSINT country dashboards
         run: cd eastern-axis-osint && npm install --no-audit --no-fund && npm run build
   live-data-integrity:
-    if: github.event_name != 'pull_request'
+    # Read-only real Neon checks on PR, push, manual and schedule; no false all-clear.
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
