@@ -306,6 +306,10 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.locator('.gc-root').count(),1,'Global conflict analyst must mount exactly once');
     assert.match(await page.locator('#ea-country-scope').textContent(),/Russia/,
       'Conflict analyst lost the selected country scope');
+    await openWorkspace(page,'Defense, Security & Cyber','Military asset changes');
+    await page.getByRole('region',{name:'Military asset change analyst'}).waitFor({state:'visible',timeout:15000});
+    assert.equal(await page.locator('.mac-root').count(),1,'Asset analyst must appear once in Defense');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/Russia/,'Asset analyst lost saved country context');
     await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await openCountryPicker(page);
     const combo = page.getByRole('combobox',{name:'Search country or code'});
@@ -363,6 +367,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       ['Investigations','Geopolitics & Intelligence','Investigations'],
       ['Defense intelligence','Defense, Security & Cyber','Defense intelligence'],
       ['Global conflict watch','Defense, Security & Cyber','Global conflict watch'],
+      ['Military asset changes','Defense, Security & Cyber','Military asset changes'],
       ['Cyber resilience','Defense, Security & Cyber','Cyber resilience'],
       ['Economic pulse','Macroeconomics & Markets','Economic pulse'],
       ['Growth & labor','Macroeconomics & Markets','Growth & labor'],

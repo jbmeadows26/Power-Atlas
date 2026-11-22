@@ -1,0 +1,134 @@
+name: Eastern Axis military asset change analyst
+
+on:
+  schedule:
+    # Military datasets update annually or intermittently; twice-daily
+    # checks ensure a new public release is surfaced after publication.
+    - cron: '19 2,14 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/analyze_military_asset_changes.py'
+      - 'eastern-axis/public/analysis/military-holdings-history.json'
+      - 'eastern-axis/tests/test_military_asset_changes.py'
+      - '.github/workflows/eastern-axis-military-asset-analyst.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/analyze_military_asset_changes.py'
+      - 'eastern-axis/public/analysis/military-holdings-history.json'
+      - 'eastern-axis/tests/test_military_asset_changes.py'
+      - 'eastern-axis/src/MilitaryAssetChanges.tsx'
+      - 'eastern-axis/src/militaryAssetChanges.css'
+      - 'eastern-axis/src/App.tsx'
+      - '.github/workflows/eastern-axis-military-asset-analyst.yml'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: eastern-axis-military-asset-analyst
+  cancel-in-progress: false
+
+jobs:
+  observe-and-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Test historical norms, inventory separation and source verification
+        run: python -m unittest discover -s eastern-axis/tests -p 'test_military_asset_changes.py' -v
+      - name: Retrieve dated country-level SIPRI/WDI arms-transfer and personnel histories
+        run: python eastern-axis/scripts/analyze_military_asset_changes.py
+      - name: Strictly audit the analyst output before AI or publication
+        id: gate
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json
+          from pathlib import Path
+          p=Path('eastern-axis/public/analysis/military-asset-changes.json')
+          d=json.loads(p.read_text())
+          assert d['schemaVersion']==1 and d['category']=='Defense, Security & Cyber'
+          assert d['status']=='ok' and len(d['assessments'])==d['summary']['series']
+          assert d['summary']['countries']>=20 and d['summary']['confirmedInventoryChanges']==0
+          assert d['summary']['existingInventoryReferences']>0
+          assert len({v['id'] for v in d['assessments']})==len(d['assessments'])
+          assert all(v['sourceUrl'].startswith('https://') and v['observationYear']>2000
+                     and v['value']>=0 and v['history'] and
+                     (v['kind']=='equipment-holdings' or v['notInventoryChange'])
+                     for v in d['assessments'])
+          assert all(v['status']!='assessed' and not v['modelReviewed'] for v in d['assessments'])
+          print('count='+str(d['summary']['reviewCandidates']))
+          PY
+      - name: Start free isolated local AI for source-dated exceptional changes
+        if: github.event_name != 'pull_request' && steps.gate.outputs.count != '0'
+        continue-on-error: true
+        run: |
+          docker run --detach --name ea-asset-ollama \
+            -e OLLAMA_HOST=0.0.0.0:11434 -e OLLAMA_NUM_PARALLEL=1 \
+            --publish 127.0.0.1:11434:11434 ollama/ollama:latest
+          for i in $(seq 1 30); do
+            if curl -fsS --max-time 3 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          docker exec ea-asset-ollama ollama pull qwen2.5:1.5b
+      - name: Local AI reviews exceptional annual changes without asserting current force positions
+        if: github.event_name != 'pull_request' && steps.gate.outputs.count != '0'
+        run: |
+          if curl -fsS --max-time 3 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            python eastern-axis/scripts/analyze_military_asset_changes.py \
+              --review-only --model-endpoint http://127.0.0.1:11434
+          else
+            echo 'Model unavailable: anomalous annual values remain queued for review.'
+          fi
+      - name: Verify no transfer volumes masquerade as real inventory
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          x=json.loads(Path('eastern-axis/public/analysis/military-asset-changes.json').read_text())
+          assert x['summary']['series']==len(x['assessments'])
+          assert x['summary']['reviewCandidates']==sum(r['status']=='review' for r in x['assessments'])
+          assert x['summary']['assessedExceptions']==sum(r['status']=='assessed' for r in x['assessments'])
+          assert x['summary']['confirmedInventoryChanges']==sum(
+              r['status']=='assessed' and r['kind']=='equipment-holdings' for r in x['assessments'])
+          assert all(not r['reviewedException'] or
+                     (r['modelReviewed'] and r['anomalous'] and r['status']=='assessed')
+                     for r in x['assessments'])
+          assert all(r['notInventoryChange'] and r['evidenceClass']=='transfers-not-inventory'
+                     for r in x['assessments'] if r['kind']=='arms-transfer-volume')
+          print('Asset change analyst QA:',x['summary'],x['ai'])
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Test complete existing Eastern Axis build with added Defense module
+        working-directory: eastern-axis
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Persist validated annual historical asset-change screen
+        if: success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git add eastern-axis/public/analysis/military-asset-changes.json
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(eastern-axis): source-verified annual military asset change assessment [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Refusing to overwrite a newer published asset assessment' >&2
+              exit 1
+            fi
+            sleep $((attempt*3))
+          done
+          exit 1
