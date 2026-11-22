@@ -435,6 +435,21 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not show screening radar by default');
       else
         assert.equal(await page.locator('.pew-context-radar').getAttribute('open'),null,'Radar must remain collapsed until requested');
+      if(sectionName==='World Factbook'||sectionName==='Source library'){
+        const sources=page.getByRole('region',{name:'Official multilateral country data source coverage'});
+        await sources.waitFor({state:'visible',timeout:15000});
+        assert.equal(await sources.locator('.ms-item').count(),0,
+          sectionName+' must not bury existing charts below an expanded reference index');
+        await sources.getByRole('button',{name:'Explore multilateral data sources'}).click();
+        assert.equal(await sources.locator('.ms-item').count(),10,
+          sectionName+' must expose ten official institutional dataset records');
+        assert.equal(await sources.locator('.ms-reference').count(),5,
+          sectionName+' must distinguish reference-only providers from integrated feeds');
+        assert.equal(await sources.locator('.ms-item a[href^="https://"]').count(),10,
+          sectionName+' lost original publisher URLs');
+        await sources.getByRole('button',{name:'Hide multilateral data sources'}).click();
+        assert.equal(await sources.locator('.ms-item').count(),0,sectionName+' source index did not collapse');
+      }
       if(sectionName==='Countries'){
         assert.equal(await page.locator('.ea-country-subnav').count(),0,'Country / Networks duplicate navigation returned');
         await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
