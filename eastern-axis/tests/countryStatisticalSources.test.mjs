@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {countryStatisticalSources,isoCrosswalkSize,isoAlpha2,isoAlpha3,sourceTotals} from '../src/lib/countryStatisticalSources.ts';
+import {matchEnergyCountry} from '../src/lib/countryEnergyMatch.ts';
 
 test('ISO 3166 alpha-2/alpha-3 crosswalk covers all 249 standard entities without guessing names',()=>{
  assert.equal(isoCrosswalkSize,249);
@@ -44,4 +45,16 @@ test('World Factbook and Coverage Audit integrate the source explorer on demand'
  assert.match(component,/<summary/);
  assert.match(component,/isoAlpha3\(countryCode\)/);
  assert.match(component,/an external publisher link is not proof/i);
+});
+
+test('energy observations are joined by ISO3 even when country names disagree',()=>{
+  const observed={name:'China',iso3:'CHN',fields:{oil:{value:12,year:2025}}};
+  assert.equal(matchEnergyCountry({'CHN':observed},'CN','People\'s Republic of China'),observed);
+  assert.equal(matchEnergyCountry({'CHN':observed},'RU','China'),null);
+  assert.equal(matchEnergyCountry({'china':observed},'CN','China'),observed,'Verified legacy name-keyed records remain readable');
+  assert.equal(matchEnergyCountry({'china':{...observed,iso3:'RUS'}},'CN','China'),null,'Legacy name mismatch may not silently attribute data to China');
+  assert.equal(matchEnergyCountry({'RUS':{...observed,iso3:'CHN'}},'RU','Russia'),null,'New key still needs matching stored source code');
+  assert.equal(matchEnergyCountry({'OWID_WRL':{name:'World',iso3:'OWID_WRL'}},'all')?.name,'World');
+  assert.equal(matchEnergyCountry({'world':{name:'World',iso3:'OWID_WRL'}},'all')?.name,'World');
+  assert.equal(matchEnergyCountry({'kosovo':{name:'Kosovo',iso3:'OWID_KOS'}},'XK','Kosovo'),null,'Disputed/nonstandard ISO3 requires explicit special handling');
 });
