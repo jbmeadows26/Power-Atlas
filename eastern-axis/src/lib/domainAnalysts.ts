@@ -259,7 +259,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    const brent=energy.find(x=>/Brent crude oil/i.test(s(x.label)));
    b.metrics=[metric('Physical-source series',energy.length,'Global signals, not country attribution'),
               metric('Country / world WDI',energyWdi.length,'Historical national or worldwide context'),
-              {label:'Brent crude · global',value:brent&&n(brent.value)!==null?'
+              {label:'Brent crude · global',value:brent&&n(brent.value)!==null?'$'+f(n(brent.value),2)+'/bbl':'—',detail:brent?s(brent.period)+' reported price, not local retail cost':'No current benchmark'}];
    b.finding=energy.length+' energy-relevant monitored physical indicators are indexed; '+energyWdi.length+' reported World Bank energy indicators are in this country scope.';
    b.direction='A change in electricity access, commodity pricing or energy imports cannot be classified as abnormal without a matching historical baseline.';
    b.implication='Distinguish energy production, consumption, dependence, route constraints and retail price effects.';
