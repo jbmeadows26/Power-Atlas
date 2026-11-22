@@ -66,6 +66,8 @@ jobs:
           python3 -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
       - name: Check analyst interpretation coverage and source gating
         run: node --experimental-strip-types --test eastern-axis/tests/domainAnalysts.test.mjs
+      - name: Validate international source provenance and ISO3 country mapping
+        run: node --experimental-strip-types --test eastern-axis/tests/multilateralSources.test.mjs
       - name: Install and build Eastern Axis for its Pages subpath
         working-directory: eastern-axis
         env:
