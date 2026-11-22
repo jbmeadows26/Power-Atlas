@@ -354,7 +354,10 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       await page.waitForTimeout(100);
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
-      assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not show screening radar by default');
+      if(sectionName!=='Markets & early warning')
+        assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not show screening radar by default');
+      else
+        assert.equal(await page.locator('.pew-context-radar').getAttribute('open'),null,'Radar must remain collapsed until requested');
       if(sectionName==='Countries'){
         assert.equal(await page.locator('.ea-country-subnav').count(),0,'Country / Networks duplicate navigation returned');
         await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
