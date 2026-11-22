@@ -90,3 +90,9 @@ test('original snapshot paths remain relative and source-bounded',()=>{
   assert.ok(/^(analysis|telemetry)\/[a-z-]+\.json$/.test(path),path);
  }
 });
+
+test('unloaded feeds never render fake zero-valued insights',()=>{
+ const brief=build('Economic intelligence','signals','all',{});
+ assert.ok(brief.metrics.every(x=>x.value==='—'));
+ assert.match(brief.finding,/Loading source-validated/);
+});
