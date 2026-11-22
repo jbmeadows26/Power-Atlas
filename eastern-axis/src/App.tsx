@@ -24,6 +24,7 @@ import DefenseIntel from './DefenseIntel';
 import GlobalConflictWatch from './GlobalConflictWatch';
 import MilitaryAssetChanges from './MilitaryAssetChanges';
 import AgentDesk from './AgentDesk';
+import AnalystEvidence, {useAnalystEvidence} from './AnalystEvidence';
 import { api } from '@appdeploy/client';
 import {
   Activity,
@@ -427,6 +428,8 @@ function App() {
   // Presentation-only read; the underlying analyst decisions and source records remain untouched.
   const commandWorkspace = domain === 'command';
   const intelligenceFeed=useIntelligenceFeed(commandWorkspace?'all':countryScope,commandWorkspace?'all':horizon,commandWorkspace?'all':severity);
+  const analystReading=useAnalystEvidence({view,focus:economicFocus,country:commandWorkspace?'all':countryScope,
+    countryName:countries.find(c=>c.code===countryScope)?.name,cases});
   const notAllied = mainStates.filter(c => !c.isTreatyAlly);
   const filtered = useMemo(
     () =>
@@ -774,6 +777,7 @@ function App() {
           <div className="ea-original-workspace">
           <div className="ea-handoff-actions"><button type="button" onClick={saveCurrentWorkspace} title="Save filters and workspace in this browser"><Bookmark size={14}/> Save view</button>
             <button type="button" onClick={shareWorkspace} title="Copy or share a link that restores this workspace"><Copy size={14}/> Send to mobile</button></div>
+          {overview&&<AnalystEvidence reading={analystReading} placement="inline"/>}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -1431,7 +1435,7 @@ function App() {
           )}
           </div>
         </main>
-        {overview&&<ContextRail feed={intelligenceFeed} domain={activeDomain.title} country={commandWorkspace?'all':countryScope}
+        {overview&&<ContextRail feed={intelligenceFeed} analysis={analystReading} domain={activeDomain.title} country={commandWorkspace?'all':countryScope}
           onOpenAlerts={()=>{if(window.matchMedia('(max-width: 980px)').matches)setMobilePane('alerts');else selectDomainTab('command',domains[0].tabs[1]);}}/>}
         </div>
         <footer className="footer">
