@@ -13,6 +13,7 @@ on:
       - 'eastern-axis/scripts/pages_browser_qa.cjs'
       - 'eastern-axis/scripts/neon_api_audit.py'
       - 'eastern-axis/scripts/collect_military_inventory.py'
+      - 'eastern-axis/scripts/collect_military_equipment.py'
       - '.github/workflows/deploy-pages.yml'
   workflow_dispatch:
   workflow_run:
@@ -57,6 +58,12 @@ jobs:
           python3 -m unittest discover -s eastern-axis/tests -p 'test_military_inventory.py' -v
       - name: Audit published intelligence snapshots and source provenance
         run: python3 eastern-axis/scripts/audit_published_data.py
+      - name: Validate worldwide military equipment schema and zero handling
+        run: python3 -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
+      - name: Import CC BY 4.0 military equipment with pinned SHA-256 and completeness gates
+        run: |
+          python3 eastern-axis/scripts/collect_military_equipment.py
+          python3 -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
       - name: Install and build Eastern Axis for its Pages subpath
         working-directory: eastern-axis
         env:
