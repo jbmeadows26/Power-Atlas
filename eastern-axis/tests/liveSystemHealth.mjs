@@ -78,7 +78,7 @@ for(const [code,minimum] of cases){
     failed=true;
     console.error('QUALITY GATE: World Gini must disclose that WID is a different measure');
     console.error('WORLD GINI EVIDENCE:',JSON.stringify(data.indicators.filter(i=>i.code==='SI.POV.GINI')
-      .map(i=>({label:i.label,status:i.observationStatus,sourceName:i.sourceName,meaning:i.meaning,year:i.year})));
+      .map(i=>({label:i.label,status:i.observationStatus,sourceName:i.sourceName,meaning:i.meaning,year:i.year}))));
   }
  }catch(e){failed=true;console.error('QUALITY GATE '+code+' error:',String(e));}
 }
