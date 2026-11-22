@@ -3,6 +3,7 @@ import { api } from '@appdeploy/client';
 import { Activity, AlertCircle, ArrowUpRight, BarChart3, CheckCircle2, CircleHelp, Database, Globe2, Layers3, RefreshCcw, ShieldCheck } from 'lucide-react';
 import './globalSystems.css';
 import EnergySupply from './EnergySupply';
+import CountryStatisticalSources from './CountryStatisticalSources';
 
 type Mode = 'systems' | 'risk' | 'coverage';
 type Case = { id: string; code: string; title: string; date: string; topic: string; status: string; source: string; agency: string };
@@ -114,6 +115,7 @@ export default function GlobalSystems({ mode, countryCode, countryName, groupFil
       <h1>What we know. What we lack.</h1>
       <p className="gs-lead">A global implementation inventory—not a claim of worldwide coverage and not filtered by the selected country. Source links and manually curated references are separate from machine-readable data integrations.</p>
       <div className="gs-summary"><div><strong>{gaps.length}</strong><span>Tracked capabilities</span></div><div><strong>{gaps.filter(g=>g.status==='live').length}</strong><span>Implemented on-demand</span></div><div><strong>{gaps.filter(g=>g.status!=='live').length}</strong><span>Still partial or absent</span></div></div>
+      <CountryStatisticalSources context="coverage"/>
       <div className="gs-coverage-evidence"><div><strong>Individual coverage and integration status</strong><span>All tracked source gaps and methodology, available on request.</span></div><button type="button" aria-expanded={showCoverageDetails} onClick={()=>setShowCoverageDetails(v=>!v)}>{showCoverageDetails?'Hide technical records':'View technical records'} <ArrowUpRight size={13}/></button></div>
       {showCoverageDetails&&<>
       <div className="gs-filterbar" aria-label="Coverage area">
