@@ -9,7 +9,7 @@ import {readFileSync} from 'node:fs';
 // not an archived Vercel URL. Explicit overrides must also be validated.
 const configured=process.env.EASTERN_AXIS_BASE_URL?.trim()||
   readFileSync(new URL('../public-api-origin.txt',import.meta.url),'utf8').trim();
-const base=configured.replace(/\\/$/,'');
+const base=configured.replace(/\/$/,'');
 const endpoint=new URL(base);
 if(endpoint.protocol!=='https:'||!endpoint.hostname.endsWith('.neon.tech')||
     endpoint.pathname!=='/'||endpoint.search||endpoint.hash||endpoint.username||endpoint.password){
