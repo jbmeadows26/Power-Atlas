@@ -1,0 +1,142 @@
+{
+  "schemaVersion": 1,
+  "checkedAt": "2026-11-22T02:49:34Z",
+  "status": "source-dated",
+  "metrics": [
+    {
+      "id": "eia-us-gasoline-stocks",
+      "kind": "direct-inventory",
+      "label": "U.S. total motor gasoline stocks",
+      "scope": "United States; wholesale motor gasoline inventories",
+      "productId": "fuel",
+      "unit": "million barrels",
+      "value": 215.949,
+      "previous": 210.757,
+      "yearAgo": 207.391,
+      "changeWeekPct": 2.46,
+      "changeYearPct": 4.13,
+      "period": "2026-11-13",
+      "previousPeriod": "2026-11-06",
+      "yearAgoPeriod": "2025-11-14",
+      "source": "EIA Weekly Petroleum Status Report, Table 5",
+      "sourceUrl": "https://www.eia.gov/petroleum/supply/weekly/",
+      "publicationFrequency": "weekly",
+      "limitation": "Aggregate gasoline stocks cannot establish retail station outages, delivery destinations or imminent stockouts"
+    },
+    {
+      "id": "fred-ISRATIO",
+      "kind": "sector-inventory-ratio",
+      "label": "Total business inventory-to-sales ratio",
+      "scope": "All US industries; contextual only",
+      "unit": "months of sales (ratio)",
+      "value": 1.33,
+      "previous": 1.35,
+      "yearAgo": 1.42,
+      "changeMonthPct": -1.48,
+      "changeYearPct": -6.34,
+      "period": "2026-09-01",
+      "previousPeriod": "2026-08-01",
+      "source": "U.S. Census Bureau via FRED",
+      "sourceUrl": "https://fred.stlouisfed.org/series/ISRATIO",
+      "publicationFrequency": "monthly",
+      "limitation": "Broad inventory-to-sales context is not item-level supply or verified product availability"
+    },
+    {
+      "id": "fred-MNFCTRIRSA",
+      "kind": "sector-inventory-ratio",
+      "label": "Manufacturers inventory-to-sales ratio",
+      "scope": "US manufacturing; contextual only",
+      "unit": "months of sales (ratio)",
+      "value": 1.46,
+      "previous": 1.47,
+      "yearAgo": 1.56,
+      "changeMonthPct": -0.68,
+      "changeYearPct": -6.41,
+      "period": "2026-09-01",
+      "previousPeriod": "2026-08-01",
+      "source": "U.S. Census Bureau via FRED",
+      "sourceUrl": "https://fred.stlouisfed.org/series/MNFCTRIRSA",
+      "publicationFrequency": "monthly",
+      "limitation": "Broad inventory-to-sales context is not item-level supply or verified product availability"
+    },
+    {
+      "id": "fred-RETAILIRSA",
+      "kind": "sector-inventory-ratio",
+      "label": "Retailers inventory-to-sales ratio",
+      "scope": "US retail; contextual only",
+      "unit": "months of sales (ratio)",
+      "value": 1.35,
+      "previous": 1.36,
+      "yearAgo": 1.38,
+      "changeMonthPct": -0.74,
+      "changeYearPct": -2.17,
+      "period": "2026-09-01",
+      "previousPeriod": "2026-08-01",
+      "source": "U.S. Census Bureau via FRED",
+      "sourceUrl": "https://fred.stlouisfed.org/series/RETAILIRSA",
+      "publicationFrequency": "monthly",
+      "limitation": "Broad inventory-to-sales context is not item-level supply or verified product availability"
+    },
+    {
+      "id": "fred-MRTSIR4400AUSS",
+      "kind": "sector-inventory-ratio",
+      "label": "Retail inventory-to-sales ratio excluding motor vehicles",
+      "scope": "US non-auto retail; contextual only",
+      "unit": "months of sales (ratio)",
+      "value": 1.18,
+      "previous": 1.19,
+      "yearAgo": 1.22,
+      "changeMonthPct": -0.84,
+      "changeYearPct": -3.28,
+      "period": "2026-09-01",
+      "previousPeriod": "2026-08-01",
+      "source": "U.S. Census Bureau via FRED",
+      "sourceUrl": "https://fred.stlouisfed.org/series/MRTSIR4400AUSS",
+      "publicationFrequency": "monthly",
+      "limitation": "Broad inventory-to-sales context is not item-level supply or verified product availability"
+    }
+  ],
+  "sources": [
+    {
+      "id": "eia-wpsr-table5",
+      "status": "ok",
+      "period": "2026-11-13",
+      "url": "https://www.eia.gov/petroleum/supply/weekly/"
+    },
+    {
+      "id": "fred-ISRATIO",
+      "status": "ok",
+      "period": "2026-09-01",
+      "url": "https://fred.stlouisfed.org/series/ISRATIO"
+    },
+    {
+      "id": "fred-MNFCTRIRSA",
+      "status": "ok",
+      "period": "2026-09-01",
+      "url": "https://fred.stlouisfed.org/series/MNFCTRIRSA"
+    },
+    {
+      "id": "fred-RETAILIRSA",
+      "status": "ok",
+      "period": "2026-09-01",
+      "url": "https://fred.stlouisfed.org/series/RETAILIRSA"
+    },
+    {
+      "id": "fred-MRTSIR4400AUSS",
+      "status": "ok",
+      "period": "2026-09-01",
+      "url": "https://fred.stlouisfed.org/series/MRTSIR4400AUSS"
+    }
+  ],
+  "coverage": {
+    "verified": 5,
+    "requested": 5,
+    "productSpecificDirectInventory": 1,
+    "sectorContext": 4
+  },
+  "limitations": [
+    "U.S. aggregates cannot be generalized to another country's retail availability.",
+    "Inventory-to-sales ratios have monthly publication lags; high demand can lower ratios even when inventory rises.",
+    "No product-specific food, medicine, semiconductor or local shelf inventory collection is verified."
+  ]
+}

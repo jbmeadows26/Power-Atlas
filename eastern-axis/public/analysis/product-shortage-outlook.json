@@ -1,21 +1,113 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-21T21:05:40Z",
+  "generatedAt": "2026-11-22T02:49:35Z",
   "sourceCheckedAt": "2026-11-21T19:45:26Z",
   "status": "source-dated",
+  "inventoryContext": {
+    "checkedAt": "2026-11-22T02:49:34Z",
+    "directProducts": 1,
+    "sectorRatios": [
+      {
+        "kind": "sector-context",
+        "title": "Total business inventory-to-sales ratio",
+        "publisher": "U.S. Census Bureau via FRED",
+        "url": "https://fred.stlouisfed.org/series/ISRATIO",
+        "period": "2026-09-01",
+        "value": 1.33,
+        "unit": "months of sales (ratio)",
+        "scope": "All US industries; contextual only",
+        "note": "U.S. sector context only; not evidence of product shortages"
+      },
+      {
+        "kind": "sector-context",
+        "title": "Manufacturers inventory-to-sales ratio",
+        "publisher": "U.S. Census Bureau via FRED",
+        "url": "https://fred.stlouisfed.org/series/MNFCTRIRSA",
+        "period": "2026-09-01",
+        "value": 1.46,
+        "unit": "months of sales (ratio)",
+        "scope": "US manufacturing; contextual only",
+        "note": "U.S. sector context only; not evidence of product shortages"
+      },
+      {
+        "kind": "sector-context",
+        "title": "Retailers inventory-to-sales ratio",
+        "publisher": "U.S. Census Bureau via FRED",
+        "url": "https://fred.stlouisfed.org/series/RETAILIRSA",
+        "period": "2026-09-01",
+        "value": 1.35,
+        "unit": "months of sales (ratio)",
+        "scope": "US retail; contextual only",
+        "note": "U.S. sector context only; not evidence of product shortages"
+      },
+      {
+        "kind": "sector-context",
+        "title": "Retail inventory-to-sales ratio excluding motor vehicles",
+        "publisher": "U.S. Census Bureau via FRED",
+        "url": "https://fred.stlouisfed.org/series/MRTSIR4400AUSS",
+        "period": "2026-09-01",
+        "value": 1.18,
+        "unit": "months of sales (ratio)",
+        "scope": "US non-auto retail; contextual only",
+        "note": "U.S. sector context only; not evidence of product shortages"
+      }
+    ],
+    "sources": [
+      {
+        "id": "eia-wpsr-table5",
+        "status": "ok",
+        "period": "2026-11-13",
+        "url": "https://www.eia.gov/petroleum/supply/weekly/"
+      },
+      {
+        "id": "fred-ISRATIO",
+        "status": "ok",
+        "period": "2026-09-01",
+        "url": "https://fred.stlouisfed.org/series/ISRATIO"
+      },
+      {
+        "id": "fred-MNFCTRIRSA",
+        "status": "ok",
+        "period": "2026-09-01",
+        "url": "https://fred.stlouisfed.org/series/MNFCTRIRSA"
+      },
+      {
+        "id": "fred-RETAILIRSA",
+        "status": "ok",
+        "period": "2026-09-01",
+        "url": "https://fred.stlouisfed.org/series/RETAILIRSA"
+      },
+      {
+        "id": "fred-MRTSIR4400AUSS",
+        "status": "ok",
+        "period": "2026-09-01",
+        "url": "https://fred.stlouisfed.org/series/MRTSIR4400AUSS"
+      }
+    ]
+  },
   "analyst": {
-    "mode": "transparent-rules; no LLM inference",
+    "mode": "rule-based full coverage + limited isolated local-model triage",
     "reviewGate": "A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
     "probabilityCalibration": "unavailable",
-    "portwatch": "observed"
+    "portwatch": "observed",
+    "status": "available",
+    "model": "qwen2.5:1.5b",
+    "reviewed": 3,
+    "eligibleForModel": 3,
+    "screened": 14,
+    "errors": [],
+    "note": "No AI rationale is used as standalone evidence or eligibility for Command Center."
   },
   "summary": {
     "products": 14,
     "crossSourceWatch": 1,
     "inputCostWatch": 1,
     "transitWatch": 1,
+    "inventoryWatch": 0,
+    "inventoryFeeds": 5,
     "dataGaps": 2,
-    "commandEligible": 0
+    "commandEligible": 0,
+    "modelReviewed": 3
   },
   "forecasts": [
     {
@@ -29,11 +121,13 @@
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
       "coverage": "two-channel",
-      "modelReviewed": false,
+      "modelReviewed": true,
+      "inventorySeriesAvailable": 1,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
-      "summary": "If input-price and broad corridor pressure persist, procurement delays could become more likely; product inventory is unverified.",
+      "summary": "Independent pressure indicators warrant investigation; producer-to-retailer availability and deliveries remain unverified.",
       "signal": "1 rising input-pressure series / 1 strained transit corridors",
       "inputSeriesAvailable": 1,
       "inputSeriesExpected": 1,
@@ -75,8 +169,30 @@
           "changePct": 3.9,
           "recentDays": 7,
           "baselineDays": 7
+        },
+        {
+          "kind": "direct-inventory",
+          "title": "U.S. total motor gasoline stocks",
+          "publisher": "EIA Weekly Petroleum Status Report, Table 5",
+          "url": "https://www.eia.gov/petroleum/supply/weekly/",
+          "period": "2026-11-13",
+          "changePct": 2.5,
+          "changeYearPct": 4.1,
+          "value": 215.949,
+          "unit": "million barrels",
+          "scope": "United States; wholesale motor gasoline inventories"
         }
-      ]
+      ],
+      "modelAssessment": {
+        "decision": "investigate",
+        "rationale": "The observed price spike and reduced vessel traffic in multiple sources suggest a potential shortage of transport fuels. The cross-source-watch signal and the significant change in inventory levels warrant further investigation to confirm the situation.",
+        "sourceEvidenceIds": [
+          "https://www.worldbank.org/en/research/commodity-markets",
+          "https://portwatch.imf.org/",
+          "https://portwatch.imf.org/",
+          "https://www.eia.gov/petroleum/supply/weekly/"
+        ]
+      }
     },
     {
       "id": "sugar",
@@ -89,7 +205,9 @@
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
       "coverage": "two-channel",
-      "modelReviewed": false,
+      "modelReviewed": true,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -136,7 +254,16 @@
           "recentDays": 7,
           "baselineDays": 7
         }
-      ]
+      ],
+      "modelAssessment": {
+        "decision": "investigate",
+        "rationale": "The input-cost-watch signal and the observed price spikes and reduced vessel traffic suggest a potential shortage in sugar-containing foods. Given the untrusted nature of the source metadata and the lack of a clear inventory stock screen, further investigation is warranted to confirm the situation.",
+        "sourceEvidenceIds": [
+          "https://www.fao.org/worldfoodsituation/foodpricesindex",
+          "https://portwatch.imf.org/",
+          "https://portwatch.imf.org/"
+        ]
+      }
     },
     {
       "id": "fertilizer",
@@ -149,7 +276,9 @@
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
       "coverage": "two-channel",
-      "modelReviewed": false,
+      "modelReviewed": true,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -206,7 +335,17 @@
           "recentDays": 7,
           "baselineDays": 7
         }
-      ]
+      ],
+      "modelAssessment": {
+        "decision": "investigate",
+        "rationale": "The observed price spike and reduced vessel transit times suggest a potential shortage of agricultural fertilizers. Given the significant change in prices and transit times, it is prudent to investigate further to confirm the situation and ensure adequate inventory levels.",
+        "sourceEvidenceIds": [
+          "https://www.worldbank.org/en/research/commodity-markets",
+          "https://www.worldbank.org/en/research/commodity-markets",
+          "https://portwatch.imf.org/",
+          "https://portwatch.imf.org/"
+        ]
+      }
     },
     {
       "id": "appliances",
@@ -220,6 +359,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -300,6 +441,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -370,6 +513,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -440,6 +585,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -510,6 +657,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -580,6 +729,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -650,6 +801,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -720,6 +873,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -790,6 +945,8 @@
       "confidence": "limited",
       "coverage": "two-channel",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -850,6 +1007,8 @@
       "confidence": "limited",
       "coverage": "partial",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -900,6 +1059,8 @@
       "confidence": "limited",
       "coverage": "partial",
       "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
@@ -943,7 +1104,10 @@
     "Proxy commodity prices are not retail product inventories or confirmed shortages.",
     "PortWatch counts are aggregate AIS vessel estimates, not product-specific shipments or trade partners.",
     "Forecast windows are planning scenarios, not dated stockout predictions.",
+    "EIA U.S. gasoline stocks are not retail station stocks or foreign-market inventories.",
+    "Census/FRED inventory ratios are sector context, not product-level corroboration.",
     "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
     "Lack of evidence is not evidence of adequate stock."
-  ]
+  ],
+  "reviewedAt": "2026-11-22T02:50:43Z"
 }
