@@ -66,8 +66,9 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     }
     await page.goto(origin+'/',{waitUntil:'domcontentloaded',timeout:30000});
     const scope = page.locator('#ea-country-scope');
-    await scope.waitFor({state:'attached',timeout:20000});
-    if(viewport.width<=980)await page.getByRole('button',{name:'Edit Country filter'}).waitFor({state:'visible',timeout:20000});
+    await page.locator('.ea-unfiltered-command').waitFor({state:'attached',timeout:20000});
+    assert.equal(await scope.count(),0,'Worldwide command workspaces must not display a country filter');
+    assert.equal(await page.locator('.ea-mobile-filter-pills').count(),0,'No redundant mobile filter chips in Command');
     // Report a bug lives in the existing menu and never redirects visitors to GitHub.
     if(viewport.width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Briefcase'}).click();
     const bugTrigger=viewport.width<=980?page.getByRole('button',{name:/Report a bug · no login required/}):
@@ -373,7 +374,10 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       const activeTab=page.locator('.ea-domain-tabs button.active');
       assert.equal(await activeTab.count(),1,'Exactly one workspace tab must be active for '+sectionName);
       assert.equal((await activeTab.innerText()).trim(),tabName,'Wrong contextual tab for '+sectionName);
-      assert.match(await scope.textContent(),/China/,sectionName+' lost persistent country context');
+      if(domainName==='Command & Situation Room'){
+        assert.equal(await scope.count(),0,sectionName+' incorrectly exposes country filters');
+        assert.equal(await page.locator('.ea-mobile-filter-pills').count(),0,sectionName+' repeats mobile filter pills');
+      }else assert.match(await scope.textContent(),/China/,sectionName+' lost persistent country context');
       await page.waitForTimeout(100);
       assert.equal(await page.locator('.ea-ops').count(),0,sectionName+' repeats global counters');
       assert.equal(await page.locator('.ea-module-context').count(),0,sectionName+' repeats generic context');
@@ -397,25 +401,14 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await analyst.locator('.ea-agent-stats b').first().waitFor({state:'visible',timeout:15000});
         await page.waitForFunction(()=>Number(document.querySelector('.ea-agent-stats b')?.textContent||0)>0,{},{timeout:15000});
         assert.ok(Number(await analyst.locator('.ea-agent-stats b').first().innerText())>0,'AI analyst lost source totals');
-        await openCountryPicker(page);
-        await page.getByRole('combobox',{name:'Search country or code'}).fill('United States');
-        await page.getByRole('option',{name:/United States/}).click();
-    await closeMobileFilters(page);
-        await analyst.locator('.ea-agent-context').waitFor({state:'visible',timeout:15000});
-        const nInferred=Number(await analyst.locator('.ea-agent-stats b').nth(3).innerText());
-        if(nInferred>0){
-          await analyst.getByRole('heading',{name:'Original-source evidence'}).waitFor({state:'visible'});
-          const labels=await analyst.locator('.ea-agent-evidence-inferred').allInnerTexts();
-          assert.ok(labels.some(t=>t.includes('US (')),'Country matching lost cited phrase');
-        }else{
-          await analyst.getByRole('heading',{name:'Worldwide source evidence (unassigned)'}).waitFor({state:'visible'});
-          await analyst.locator('.ea-agent-section').filter({hasText:'Worldwide source evidence (unassigned)'})
-            .locator('.ea-agent-records a').first().waitFor({state:'visible',timeout:15000});
-        }
-        await openCountryPicker(page);
-        await page.getByRole('combobox',{name:'Search country or code'}).fill('China');
-        await page.getByRole('option',{name:/China/}).click();
-    await closeMobileFilters(page);
+        await analyst.getByRole('heading',{name:'Global source coverage'}).waitFor({state:'visible'});
+        assert.equal(await analyst.locator('.ea-agent-context').count(),0,
+          'Worldwide operational analyst must not display country-specific coverage limitations');
+        await analyst.getByRole('heading',{name:'Original-source evidence'}).waitFor({state:'visible'});
+        assert.ok(await analyst.locator('.ea-agent-records a').count()>0,
+          'Global analyst source documents must remain accessible');
+        assert.equal(await page.locator('#ea-country-scope').count(),0,
+          'AI analyst submenu must not expose nonfunctional country filters');
       }
       if(sectionName==='Economic pulse'){
         const dashboard=page.getByRole('region',{name:'Unified economic intelligence'});
