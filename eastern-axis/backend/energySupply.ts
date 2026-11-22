@@ -1,5 +1,7 @@
 import { createHash } from 'node:crypto';
 import { db } from './runtime-sdk';
+import { iso3Of } from '../src/lib/multilateralSources';
+import { matchEnergyCountry } from '../src/lib/countryEnergyMatch';
 
 const SOURCE = 'https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv';
 const CATALOG = 'https://catalog.ourworldindata.org/energy/owid_energy/';
@@ -41,13 +43,6 @@ function* csvRows(text: string): Generator<string[]> {
   }
   if(field.length || fields.length){fields.push(field); yield fields;}
 }
-const tidy=(name:string)=>name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'');
-const aliases: Record<string,string> = {
-  RU:'russia', CN:'china', KP:'northkorea', KR:'southkorea', IR:'iran',
-  TW:'taiwan', GB:'unitedkingdom', TR:'turkey', US:'unitedstates',
-  CD:'democraticrepublicofcongo', CZ:'czechia', VA:'vatican',
-  PS:'palestine', MM:'myanmar'
-};
 export async function syncEnergy() {
   const started = new Date().toISOString();
   try {
@@ -73,9 +68,11 @@ export async function syncEnergy() {
       const iso3 = (row[indexes.iso_code]||'').trim();
       const year = Number(row[indexes.year]);
       if(!name || !Number.isInteger(year) || year<1800 || year>2035)continue;
-      if(!/^[A-Z]{3}$/.test(iso3) && name !== 'World')continue;
-      const key=tidy(name);
-      const country = byCountry[key] || {name,iso3,fields:{}};
+      // Keys are canonical ISO3, never country names or ambiguous aggregate aliases.
+      const standardCode=iso3Of(iso3);
+      const key=name==='World'?'OWID_WRL':standardCode;
+      if(!key)continue;
+      const country = byCountry[key] || {name,iso3:key,fields:{}};
       for(const col of cols) {
         const str=row[indexes[col.key]];
         if(str===undefined || str==='') continue;
@@ -87,7 +84,7 @@ export async function syncEnergy() {
       }
       byCountry[key]=country;
     }
-    const countryCount=Object.keys(byCountry).filter(k=>k!=='world').length;
+    const countryCount=Object.keys(byCountry).filter(k=>k!=='OWID_WRL').length;
     if(parsedRows<10000 || countryCount<160)throw new Error('OWID energy source completeness guard failed');
     const snap:EnergySnapshot={
       id:'latest',checkedAt:started,fileSha256:createHash('sha256').update(raw,'utf8').digest('hex'),
@@ -113,8 +110,7 @@ export async function readEnergy(code:string,countryName?:string) {
     await syncEnergy();
     [saved]=await db.get<EnergySnapshot>('global_energy_snapshots',['latest'],{consistent:true});
   }
-  const name=code==='all'?'World':(aliases[code]||tidy(countryName||new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code));
-  const country=saved?.byCountry[name]||null;
+  const country=matchEnergyCountry(saved?.byCountry,code,countryName);
   return {
     code, checkedAt:saved?.checkedAt||null,
     status:!saved?'unavailable':country?'reported':'no-country-match',
