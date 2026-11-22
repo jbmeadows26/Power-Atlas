@@ -17,6 +17,7 @@ import CountrySourceIndex from './CountrySourceIndex';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
+import MultilateralSourceGuide from './MultilateralSourceGuide';
 import CountryFactbook from './CountryFactbook';
 import './control-room.css';
 import './immersive.css';
@@ -1273,6 +1274,7 @@ function App() {
                 </div>
                 <Badge kind="green">{sources.length} SOURCES</Badge>
               </div>
+              <MultilateralSourceGuide context="library" countryCode={sourceIndexCountry}/>
               <div className="source-summary">
                 <div>
                   <span className="status-dot teal" />
