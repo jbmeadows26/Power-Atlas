@@ -321,6 +321,22 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const countryPanelWidth=await page.locator('.country-brief').evaluate(el=>el.getBoundingClientRect().width);
     assert.ok(countryPanelWidth >= Math.min(260,viewport.width-70),'Country dossier collapsed at '+viewport.width+'px: '+countryPanelWidth);
 
+    // The asset dataset is required: source-attributed military hardware must
+    // render in the country dossier rather than disappear behind the API feed.
+    const equipment=page.locator('.country-brief .di-country-equip');
+    await equipment.waitFor({state:'attached',timeout:25000});
+    const tanks=equipment.locator('.di-equip-metric').filter({hasText:'Main battle tanks'});
+    assert.equal(await tanks.count(),1,'China main battle tanks indicator is missing');
+    assert.match(await tanks.textContent(),/4,800/,'Pinned 2026 China tank estimate not populated');
+    const assetSource=page.locator('.country-brief .di-equipment-health');
+    await assetSource.waitFor({state:'attached',timeout:20000});
+    assert.match(await assetSource.textContent(),/equipment observations/,'Military equipment collection status missing');
+    const categoryPicker=page.locator('.country-brief #di-asset-category');
+    await categoryPicker.selectOption('Land');
+    assert.ok(await page.locator('.country-brief .di-asset').count()>2,'China land asset equipment records missing');
+    assert.equal(await page.locator('.country-brief .di-asset').filter({hasText:' / Naval'}).count(),0,
+      'Country asset category filter includes unrelated naval figures');
+    await categoryPicker.selectOption('All assets');
     await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
     await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
