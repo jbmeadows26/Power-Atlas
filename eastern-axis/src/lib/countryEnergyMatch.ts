@@ -1,4 +1,4 @@
-import {isoAlpha3} from './countryStatisticalSources';
+import {isoAlpha3} from './countryStatisticalSources.ts';
 
 /**
  * Historical OWID snapshots used normalized country *names* as database keys.
