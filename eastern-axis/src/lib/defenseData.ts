@@ -17,6 +17,18 @@ type Supplemental={
 const empty=():DefenseCatalog=>({reviewedAsOf:'',mode:'Partial source library',assessments:[],operations:[],assets:[],sources:[],caveats:[]});
 const dedupe=<T extends {id:string}>(items:T[]):T[]=>Array.from(new Map(items.map(item=>[item.id,item])).values());
 
+/** An HTTP success is not a usable catalog unless its critical collections exist. */
+const validCatalog=(value:unknown):value is DefenseCatalog=>{
+ if(!value||typeof value!=='object')return false;
+ const row=value as Partial<DefenseCatalog>;
+ return Array.isArray(row.assets)&&Array.isArray(row.assessments)&&Array.isArray(row.operations)&&Array.isArray(row.sources);
+};
+const validSupplemental=(value:unknown):value is Supplemental=>{
+ if(!value||typeof value!=='object')return false;
+ const row=value as Partial<Supplemental>;
+ return Array.isArray(row.assets)&&Array.isArray(row.sources);
+};
+
 /** Static source-attributed estimates remain visible when the Neon API is unavailable. */
 export async function loadDefenseCatalog():Promise<{data:DefenseCatalog;apiFailed:boolean;inventoryFailed:boolean}>{
  const settled=await Promise.allSettled([
@@ -24,8 +36,10 @@ export async function loadDefenseCatalog():Promise<{data:DefenseCatalog;apiFaile
    fetch(import.meta.env.BASE_URL+'analysis/military-inventory.json',{cache:'no-store'})
      .then(async res=>{if(!res.ok)throw new Error('Static inventory HTTP '+res.status);return await res.json() as Supplemental;})
  ]);
- const primary=settled[0].status==='fulfilled'?settled[0].value.data:null;
- const secondary=settled[1].status==='fulfilled'?settled[1].value:null;
+ const receivedPrimary=settled[0].status==='fulfilled'?settled[0].value.data:null;
+ const receivedSecondary=settled[1].status==='fulfilled'?settled[1].value:null;
+ const primary=validCatalog(receivedPrimary)?receivedPrimary:null;
+ const secondary=validSupplemental(receivedSecondary)?receivedSecondary:null;
  if(!primary&&!secondary)throw new Error('Neither catalog source is available');
  const source=primary||empty();
  return {data:{

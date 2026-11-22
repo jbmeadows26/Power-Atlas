@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
-import { api } from '@appdeploy/client';
+import { api } from './lib/api';
+import { loadDefenseCatalog, type DefenseCatalog } from './lib/defenseData';
 import { Activity, ArrowUpRight, BookOpen, Database, FileSearch, Globe2, Layers3, Network, ShieldCheck } from 'lucide-react';
 import './connections.css';
 import AlliedSanctions from './AlliedSanctions';
@@ -7,13 +8,9 @@ import CountryDefenseSnapshot, { defenseCounts } from './CountryDefenseSnapshot'
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
 type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string; agency:string };
-type Assessment = { id:string; countries:string[]; title:string; agency:string; finding:string; published:string; url:string };
-type Operation = { id:string; roles:{code:string;role:string}[]; title:string; state:string; summary:string; published:string; url:string };
-type Asset = { id:string; code:string; name:string; quantity:string; published:string; detail:string; url:string };
-type OfficialSource = { id:string; name:string; group:string; what:string; url:string };
 type IntakeRecord = { id:string; sourceId:string; title:string; date:string; summary:string; sourceUrl:string; countryMention?:string; countryRule?:string; recordType:string; reviewState:string };
 type Intelligence = { records:IntakeRecord[]; resultsNote:string };
-type Defense = { assessments:Assessment[]; operations:Operation[]; assets:Asset[]; sources:OfficialSource[] };
+type Defense = DefenseCatalog;
 type Indicator = { code:string; label:string; value:number|null; year:string|null; unit:string; sourceUrl:string };
 type Systems = { indicators:Indicator[]; status:string };
 type Props = { code:string; countries:Country[]; cases:Case[]; onSelect:(code:string)=>void };
@@ -38,6 +35,7 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
  const [intelligence,setIntelligence]=useState<Intelligence|null>(null);
  const [intelligenceError,setIntelligenceError]=useState(false);
  const [defenseError,setDefenseError]=useState(false);
+ const [defensePartial,setDefensePartial]=useState(false);
  const [systemsError,setSystemsError]=useState(false);
  const [active,setActive]=useState<Branch>('cases');
  const [region,setRegion]=useState('All regions');
@@ -45,7 +43,7 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
  const selected=countries.find(c=>c.code===code);
  useEffect(()=>{
    let valid=true;
-   api.get('/api/defense-intel').then(r=>{if(valid){setDefense(r.data as Defense);setDefenseError(false);}}).catch(()=>{if(valid)setDefenseError(true);});
+   loadDefenseCatalog().then(r=>{if(valid){setDefense(r.data);setDefenseError(false);setDefensePartial(r.apiFailed||r.inventoryFailed);}}).catch(()=>{if(valid){setDefense(null);setDefenseError(true);setDefensePartial(false);}});
    api.get('/api/intelligence').then(r=>{if(valid){setIntelligence(r.data as Intelligence);setIntelligenceError(false);}}).catch(()=>{if(valid)setIntelligenceError(true);});
    return()=>{valid=false;};
  },[]);
@@ -61,7 +59,7 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
  const leads=(intelligence?.records||[]).filter(r=>code!=='all'&&r.countryMention===code);
  const alliedSources=(defense?.sources||[]).filter(r=>['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
  const supportingSources=(defense?.sources||[]).filter(r=>!['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
- const operations=(defense?.operations||[]).filter(r=>r.roles.some(p=>p.code===code));
+ const operations=(defense?.operations||[]).filter(r=>r.roles.some((p:{code:string;role:string})=>p.code===code));
  const assets=(defense?.assets||[]).filter(r=>r.code===code);
  const economics=(systems?.indicators||[]).filter(i=>selectedMetrics.has(i.code));
  const counts:{[key in Branch]:number}={cases:relatedCases.length,intake:leads.length,reports:assessments.length,sources:alliedSources.length,operations:operations.length,assets:assets.length,economic:economics.filter(i=>i.value!==null).length};
@@ -84,6 +82,7 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
     <h3 className="cx-source-heading">Official allied source network</h3>
     <div className="cx-source-links">{alliedSources.map(r=><a key={r.id} href={r.url} target="_blank" rel="noopener noreferrer">{r.name} <ArrowUpRight size={12}/></a>)}</div>
     {defenseError&&<p className="cx-empty">Allied source catalog could not be loaded. Coverage is unknown, not zero.</p>}
+    {defensePartial&&<p className="cx-empty">Partial defense coverage: a source channel is unavailable; the verified records shown remain accessible.</p>}
    </section>
   </div>:<>
    <div className="cx-center"><Globe2 size={24}/><div><small>ALL-SOURCE COUNTRY INDEX</small><h2>{selected.name}</h2><span>{selected.region} · {selected.relationship}</span></div></div>
@@ -101,9 +100,10 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
      {active==='sources'&&<><p className="cx-empty">These are source portals and reference collections available across every country, not claims that their publishers have reported on the selected country. Only assessments with an explicit country tag appear under Allied assessments.</p>{alliedSources.map(x=><article className="cx-record" key={x.id}><small>OFFICIAL SOURCE · {x.group}</small><h3>{x.name}</h3><p>{x.what}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Browse original publisher <ArrowUpRight size={13}/></a></article>)}{supportingSources.length>0&&<><h3>Additional multilateral and research references</h3>{supportingSources.map(x=><article className="cx-record" key={x.id}><small>SUPPORTING SOURCE · {x.group}</small><h3>{x.name}</h3><p>{x.what}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original publisher <ArrowUpRight size={13}/></a></article>)}</>}</>}
      {active==='reports'&&(assessments.length?assessments.map(x=><article className="cx-record" key={x.id}><small>{x.published} · {x.agency}</small><h3>{x.title}</h3><p>{x.finding}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original assessment <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No curated country-specific allied assessment. Official sources may report elsewhere.</p>)}
      {active==='operations'&&(operations.length?operations.map(x=><article className="cx-record" key={x.id}><small>{x.published} · DATED PUBLIC REPORT</small><h3>{x.title}</h3><p>{x.summary}</p><span>{x.state}</span><a href={x.url} target="_blank" rel="noopener noreferrer">Original report <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No curated conflict or operation entry. This is not a live battlefield assessment.</p>)}
-     {active==='assets'&&(assets.length?assets.map(x=><article className="cx-record" key={x.id}><small>{x.published} · PUBLIC ASSET ESTIMATE</small><h3>{x.name}</h3><p>{x.quantity} · {x.detail}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original public source <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No sourced asset entry yet; do not infer zero forces or capabilities.</p>)}
+     {active==='assets'&&(assets.length?assets.map(x=><article className="cx-record" key={x.id}><small>{x.published} · {x.quantity==='Not quantified'?'UNQUANTIFIED CAPABILITY REPORT':x.category==='Spending'?'MILITARY SPENDING OBSERVATION':'SOURCE-ATTRIBUTED INVENTORY ESTIMATE'}</small><h3>{x.name}</h3><p>{x.quantity} · {x.detail}</p><a href={x.url} target="_blank" rel="noopener noreferrer">Original public source <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">No sourced asset entry yet; do not infer zero forces or capabilities.</p>)}
      {active==='economic'&&(economics.length?economics.map(x=><article className="cx-record" key={x.code}><small>{x.year?'REPORTED '+x.year:'NO OBSERVATION'}</small><h3>{x.label}</h3><p className="cx-figure">{typeof x.value==='number'?num(x.value):'Unavailable'}</p><a href={x.sourceUrl} target="_blank" rel="noopener noreferrer">World Bank indicator <ArrowUpRight size={13}/></a></article>):<p className="cx-empty">{systemsError?'World Bank unavailable.': 'No official indicators available in this scope.'} No estimates are substituted.</p>)}
      {defenseError&&['reports','operations','assets','sources'].includes(active)&&<p className="cx-empty">Allied assessment and source catalog unavailable. Coverage is unknown, not zero; curated cases remain separate.</p>}
+     {defensePartial&&['reports','operations','assets','sources'].includes(active)&&<p className="cx-empty">Partial defense coverage: one source channel is unavailable. Existing source-attributed records are preserved.</p>}
      {intelligenceError&&active==='intake'&&<p className="cx-empty">Official-source intake is unavailable. Country-tagged lead coverage cannot be assessed.</p>}
    </div>
   </>}

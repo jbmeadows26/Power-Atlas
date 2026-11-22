@@ -3,6 +3,8 @@ import importlib.util
 import json
 from pathlib import Path
 import unittest
+import tempfile
+from unittest import mock
 
 ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location("mil_inventory",ROOT/"scripts"/"collect_military_inventory.py")
@@ -46,5 +48,34 @@ class InventoryTest(unittest.TestCase):
   obj=json.loads((ROOT/"public"/"analysis"/"military-inventory.json").read_text())
   for item in obj["assets"]:
    self.assertNotEqual(item.get("status"),"confirmed-operational")
+
+ def test_reject_incomplete_world_bank_page(self):
+  with self.assertRaisesRegex(ValueError,"Incomplete/paginated"):
+   collector.require_complete_page([{"pages":2,"total":51},[{"value":1}]],"indicator")
+
+ def test_failed_refresh_keeps_previous_observations(self):
+  baseline=json.loads((ROOT/"public"/"analysis"/"military-inventory.json").read_text())
+  old={"id":"wdi-MS-MIL-TOTL-P1-US","code":"US","category":"Personnel",
+       "name":"Armed forces personnel (historical)","quantity":"100","value":100,
+       "unit":"people","published":"2020","publisher":"IISS via World Bank WDI",
+       "url":"https://data.worldbank.org/indicator/MS.MIL.TOTL.P1?locations=US",
+       "basis":"Historic WDI/IISS estimate","detail":"Historical 2020",
+       "status":"historical-active-personnel","estimate":True,"observationYear":2020}
+  baseline["assets"].append(old)
+  with tempfile.TemporaryDirectory() as tmp:
+   target=Path(tmp)/"military-inventory.json"
+   target.write_text(json.dumps(baseline))
+   def fake_fetch(url):
+    if "/country?" in url:
+     return [{"pages":1,"total":1},[{"id":"USA","iso2Code":"US","region":{"id":"NAC"}}]]
+    raise TimeoutError("test upstream outage")
+   with mock.patch.object(collector,"OUT",target),mock.patch.object(collector,"fetch_json",side_effect=fake_fetch):
+    collector.main()
+   result=json.loads(target.read_text())
+   preserved=[item for item in result["assets"] if item["id"]==old["id"]]
+   self.assertEqual(preserved,[old])
+   self.assertEqual(result["collectionHealth"]["worldBank"]["MS.MIL.TOTL.P1"]["state"],"stale")
+   self.assertEqual(result["collectionHealth"]["worldBank"]["MS.MIL.XPND.CD"]["state"],"unavailable")
+   self.assertEqual(len({item["id"] for item in result["assets"]}),len(result["assets"]))
 
 if __name__=="__main__": unittest.main()

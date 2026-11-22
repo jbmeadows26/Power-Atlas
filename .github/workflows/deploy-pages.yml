@@ -55,6 +55,8 @@ jobs:
         run: |
           python3 eastern-axis/scripts/collect_military_inventory.py
           python3 -m unittest discover -s eastern-axis/tests -p 'test_military_inventory.py' -v
+      - name: Audit published intelligence snapshots and source provenance
+        run: python3 eastern-axis/scripts/audit_published_data.py
       - name: Install and build Eastern Axis for its Pages subpath
         working-directory: eastern-axis
         env:

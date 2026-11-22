@@ -70,7 +70,7 @@ export default function HomeCountryDefense({countries,code,onCountryOpen,onCount
        const assessment=c.records.assessments[0];
        return <article className="hcd-country" key={c.code}>
          <div className="hcd-country-head"><span className="hcd-flag" aria-hidden="true">{flag(c.code)}</span><div><span className="hcd-country-label">{c.name}</span><small>{c.code} · {c.count} indexed source records</small></div><button type="button" aria-label={'Focus dashboard on '+c.name} onClick={()=>onCountryFocus(c.code)}>Focus <ArrowRight size={12}/></button></div>
-         <div className="hcd-count-row"><span><strong>{metric(c.records.assessments.length)}</strong> assessments</span><span><strong>{metric(c.records.operations.length)}</strong> operations</span><span><strong>{metric(c.records.assets.length)}</strong> assets</span></div>
+         <div className="hcd-count-row"><span><strong>{metric(c.records.assessments.length)}</strong> assessments</span><span><strong>{metric(c.records.operations.length)}</strong> operations</span><span><strong>{metric(c.records.assets.length)}</strong> asset records</span></div>
          <div className="hcd-highlights">
            {asset&&<a href={asset.url} target="_blank" rel="noopener noreferrer"><Layers3 size={14}/><span><strong>{asset.quantity} · {asset.name}</strong><small>{asset.publisher||'Published estimate'} · {asset.published}</small></span><ArrowUpRight size={13}/></a>}
            {operation&&<a href={operation.url} target="_blank" rel="noopener noreferrer"><Activity size={14}/><span><strong>{operation.title}</strong><small>{operation.published} · country role documented</small></span><ArrowUpRight size={13}/></a>}

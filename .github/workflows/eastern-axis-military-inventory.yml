@@ -1,0 +1,74 @@
+name: Eastern Axis | Verified military inventory refresh
+
+on:
+  schedule:
+    # Historical personnel changes infrequently; weekly is sufficient.
+    - cron: '23 11 * * 1'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/collect_military_inventory.py'
+      - 'eastern-axis/scripts/audit_published_data.py'
+      - 'eastern-axis/tests/test_military_inventory.py'
+      - 'eastern-axis/public/analysis/military-inventory.json'
+      - '.github/workflows/eastern-axis-military-inventory.yml'
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: eastern-axis-military-inventory
+  cancel-in-progress: false
+
+jobs:
+  validate-and-refresh:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Validate source baseline, observation years, and failover retention
+        run: python3 -m unittest discover -s eastern-axis/tests -p 'test_military_inventory.py' -v
+      - name: Validate published analyst dataset schemas and original source links
+        run: python3 eastern-axis/scripts/audit_published_data.py
+      - name: Refresh WDI military personnel and expenditure with provenance
+        if: github.event_name != 'pull_request'
+        run: |
+          python3 eastern-axis/scripts/collect_military_inventory.py
+          python3 eastern-axis/scripts/audit_published_data.py
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          path = Path("eastern-axis/public/analysis/military-inventory.json")
+          data = json.loads(path.read_text())
+          states = data["collectionHealth"]["worldBank"]
+          ok = sum(1 for name in ("MS.MIL.TOTL.P1", "MS.MIL.XPND.CD") if states.get(name, {}).get("state") == "ok")
+          retained = sum(1 for row in data["assets"] if row["id"].startswith("wdi-"))
+          if not ok and not retained:
+              raise SystemExit("No live World Bank indicator and no source-dated last-good observations; refusing an empty refresh")
+          print(f"Verified WDI indicators refreshed: {ok}/2; available source-dated WDI observations: {retained}")
+          PY
+      - name: Persist source-dated inventory rather than discarding it at build end
+        if: github.event_name != 'pull_request'
+        id: persist
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add eastern-axis/public/analysis/military-inventory.json
+          if git diff --cached --quiet; then
+            echo "updated=false" >> "$GITHUB_OUTPUT"
+          else
+            git commit -m "data(eastern-axis): refresh sourced military observations"
+            git push origin HEAD:main
+            echo "updated=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Rebuild GitHub Pages after machine-generated data commit
+        if: github.event_name != 'pull_request' && steps.persist.outputs.updated == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy-pages.yml --ref main
