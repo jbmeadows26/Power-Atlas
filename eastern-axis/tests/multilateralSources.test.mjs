@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {ISO2_TO_ISO3,MULTILATERAL_SOURCES,countrySourceUrl,iso3Of,multilateralCoverage} from '../src/lib/multilateralSources.ts';
+import {matchEnergyCountry} from '../src/lib/countryEnergyMatch.ts';
 
 test('ISO 3166-1 code map is complete, bijective and refuses unassigned aggregations',()=>{
   assert.equal(Object.keys(ISO2_TO_ISO3).length,249);
@@ -50,4 +51,18 @@ test('every source card remains expandable and linked to its official platform',
   assert.match(comp,/countrySourceUrl\(item.id,countryCode\)/);
   assert.match(factbook,/MultilateralSourceGuide context="factbook"/);
   assert.match(shell,/MultilateralSourceGuide context="library"/);
+});
+
+test('OWID energy snapshots use ISO3 matching instead of name-only guesses',()=>{
+ const china={name:'China',iso3:'CHN',fields:{'oil_production_twh':{value:100,year:2025}}};
+ const russia={name:'Russia',iso3:'RUS',fields:{}};
+ assert.equal(matchEnergyCountry({CHN:china},'CN','People\'s Republic of China'),china);
+ assert.equal(matchEnergyCountry({RUS:russia},'RU','Russian Federation'),russia);
+ assert.equal(matchEnergyCountry({CHN:china},'RU','China'),null);
+ assert.equal(matchEnergyCountry({china},'CN','China'),china,'Legacy names accepted only when ISO3 matches');
+ assert.equal(matchEnergyCountry({china:{...china,iso3:'RUS'}},'CN','China'),null,'Legacy name may never override source ISO3');
+ assert.equal(matchEnergyCountry({RUS:{...russia,iso3:'CHN'}},'RU','Russia'),null,'New keys also need matching stored country code');
+ assert.equal(matchEnergyCountry({OWID_WRL:{name:'World',iso3:'OWID_WRL'}},'all')?.name,'World');
+ assert.equal(matchEnergyCountry({world:{name:'World',iso3:'OWID_WRL'}},'all')?.name,'World');
+ assert.equal(matchEnergyCountry({kosovo:{name:'Kosovo',iso3:'OWID_KOS'}},'XK','Kosovo'),null);
 });
