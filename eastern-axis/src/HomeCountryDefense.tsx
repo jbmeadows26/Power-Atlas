@@ -1,5 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
-import {api} from '@appdeploy/client';
+import {loadDefenseCatalog} from './lib/defenseData';
 import {Activity,ArrowRight,ArrowUpRight,BookOpen,Layers3,ShieldCheck} from 'lucide-react';
 import CountryDefenseSnapshot, {defenseForCountry, type CountryDefenseDataset} from './CountryDefenseSnapshot';
 import './homeCountryDefense.css';
@@ -23,8 +23,8 @@ export default function HomeCountryDefense({countries,code,onCountryOpen,onCount
  const [expanded,setExpanded]=useState(false);
  useEffect(()=>{
    let active=true;
-   api.get('/api/defense-intel')
-     .then(r=>{if(active){setData(r.data as Defense);setFailed(false);}})
+   loadDefenseCatalog()
+     .then(r=>{if(active){setData(r.data as Defense);setFailed(r.apiFailed||r.inventoryFailed);}})
      .catch(()=>{if(active){setFailed(true);setData(null);}});
    return()=>{active=false;};
  },[]);
@@ -59,9 +59,9 @@ export default function HomeCountryDefense({countries,code,onCountryOpen,onCount
    <div className="hcd-summary" aria-label="Indexed military intelligence record totals">
      <div><BookOpen size={16}/><strong>{totals?metric(code==='all'?totals.reports:current!.records.assessments.length):'—'}</strong><span>Allied assessments</span></div>
      <div><Activity size={16}/><strong>{totals?metric(code==='all'?totals.operations:current!.records.operations.length):'—'}</strong><span>Military operations</span></div>
-     <div><Layers3 size={16}/><strong>{totals?metric(code==='all'?totals.assets:current!.records.assets.length):'—'}</strong><span>Military asset entries</span></div>
+     <div><Layers3 size={16}/><strong>{totals?metric(code==='all'?totals.assets:current!.records.assets.length):'—'}</strong><span>Military asset observations</span></div>
    </div>
-   {failed&&<p className="hcd-warning" role="status">The defense source feed is unavailable. No counts or country capabilities are inferred.</p>}
+   {failed&&<p className="hcd-warning" role="status">One defense data channel is unavailable. The displayed library may be partial; missing does not mean zero.</p>}
    {!data&&!failed&&<p className="hcd-warning" role="status">Loading source-linked country intelligence…</p>}
    {data&&code==='all'&&<div className="hcd-grid">
      {cards.map(c=>{
