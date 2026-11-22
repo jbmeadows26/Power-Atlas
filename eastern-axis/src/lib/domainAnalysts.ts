@@ -126,12 +126,16 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(view==='Defense intelligence'){
    b=base('Military capability inventory','Defense inventory analyst',scope);
    const quantified=assets.filter(x=>n(x.value)!==null&&s(x.quantity)!=='Not quantified');
-   const spending=assets.filter(x=>x.category==='Spending');
-   const personnel=assets.filter(x=>x.category==='Personnel');
+   const nuclear=assets.find(x=>x.status==='military-stockpile'&&n(x.value)!==null);
+   const example=assets.find(x=>x.category==='Naval'&&n(x.value)!==null)||assets.find(x=>x.category==='Air'&&n(x.value)!==null);
+   const feature=nuclear||example;
    b.metrics=[metric('Sourced observations',assets.length,'Not a count of equipment'),
               metric('Quantified records',quantified.length,'Source-dated estimates'),
-              metric('Personnel / spending',personnel.length+spending.length,'Distinct measures; never add their values')];
-   b.finding=assets.length+' source-attributed observations are indexed'+(country==='all'?' across '+countries(assets)+' countries':' for '+scope)+'. '+quantified.length+' contain quantities or monetary values.';
+              country==='all'?metric('Countries represented',countries(assets),'Observations are not complete inventories'):
+              {label:feature?'Example: '+s(feature.name):'Reported categories',
+               value:feature?s(feature.quantity)||'—':(assets.length?f(new Set(assets.map(x=>x.category)).size):'—'),
+               detail:feature?s(feature.published)+' · '+s(feature.publisher):'Source coverage; not equipment totals'}];
+   b.finding=assets.length+' source-attributed observations are indexed'+(country==='all'?' across '+countries(assets)+' countries':' for '+scope)+'. '+quantified.length+' contain quantities or monetary values.'+(country!=='all'&&nuclear?' '+s(nuclear.quantity)+' warheads is the published military-stockpile estimate, not the deployed total.':'');
    b.direction='These are snapshots, not evidence of inventory growth or decline. Compare identical equipment definitions and observation years.';
    b.implication='No readiness, deployable strength, or procurement rate can be inferred by summing military record counts.';
    b.beneficiaries='An equipment estimate alone cannot identify a military advantage, beneficiary, or conflict outcome.';
@@ -143,13 +147,16 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b=base('Armed-conflict deviation watch','Conflict anomaly analyst',scope);
    const review=zones.filter(z=>z.status==='review'||z.modelReviewed);
    const promoted=zones.filter(z=>z.promoted===true);
+   const comparable=zones.filter(z=>o(z.change).status==='assessable'&&n(o(z.change).robustZ)!==null&&n(o(z.change).changePct)!==null)
+     .sort((x,y)=>Math.abs(n(o(y.change).robustZ)||0)-Math.abs(n(o(x.change).robustZ)||0));
+   const lead=comparable[0];
    b.metrics=[metric('Monitored theaters',zones.length,'UCDP-coded event baseline'),
               metric('Pending verification',review.length,'Not command alerts'),
               metric('Elevated / corroborated',promoted.length,'Only verified exceptions')];
-   b.finding=zones.length+' conflict theaters are indexed; '+review.length+' require review and '+promoted.length+' have passed the escalation criteria.';
-   b.direction=promoted.length===0?'No current exceptional direction has been independently confirmed by this analyst.':'Source-qualified exception reviews are present; inspect each theater before concluding a global trend.';
+   b.finding=zones.length+' conflict theaters are indexed; '+review.length+' require review and '+promoted.length+' have passed the escalation criteria.'+(lead?' Largest screened historical departure: '+s(lead.name)+' '+pct(n(o(lead.change).changePct))+' relative to its source baseline; '+(lead.status==='review'?'awaiting review':'monitored')+'.':'');
+   b.direction=promoted.length===0?'Historical event-count deviations are only candidates; no current exceptional deterioration or improvement has passed the independent gate.':'Source-qualified exception reviews are present; inspect each theater before concluding a global trend.';
    b.implication='Coded-event history describes recorded incidents, not real-time military positions or civilian safety forecasts.';
-   b.beneficiaries='The available country-wide event trends do not identify who gains territory or political advantage.';
+   b.beneficiaries=lead&&s(lead.whoBenefits)?s(lead.whoBenefits):'The available event trends do not establish who gains territory or political advantage.';
    b.watch='Compare like-for-like coded-event windows, reporting delays, verified actor claims and new humanitarian evidence.';
    b.limitation='UCDP candidate records are retrospective, and news mentions are not event verification. No beneficiary is inferred from actor lists.';
    b.asOf=latest(s(conflict.generatedAt),s(o(conflict.measurement).latestCodedEvent));
@@ -211,6 +218,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(['Economic intelligence:supply','Economic intelligence:shortages','Trade indicators'].includes(key)){
    b=base(key==='Economic intelligence:shortages'?'Product shortage forecast audit':key==='Trade indicators'?'Trade dependence & exposure':'Supply chain pressure screen','Supply chain analyst',scope);
    const watch=count(forecasts,x=>x.status==='cross-source-watch');
+   const watchLead=forecasts.find(x=>x.status==='cross-source-watch');
    const confirmed=count(forecasts,x=>x.confirmedShortage===true);
    const eligible=count(forecasts,x=>x.commandEligible===true);
    const trade=historical.find(x=>x.code==='NE.TRD.GNFS.ZS');
@@ -219,11 +227,11 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
               {label:key==='Trade indicators'?'Trade / GDP':'Confirmed shortages',value:key==='Trade indicators'?(trade&&n(trade.value)!==null?pct(n(trade.value)):'—'):f(confirmed),detail:key==='Trade indicators'?'Country WDI reporting period: '+(trade?.year||'missing'):'Do not confuse watches with stockouts'}];
    b.finding=key==='Trade indicators'&&trade&&n(trade.value)!==null?
      scope+' reported trade openness of '+pct(n(trade.value))+' in '+s(trade.year)+'. A high ratio is not a direct measure of dependency on any one country.':
-     forecasts.length+' product groups are screened; '+watch+' have cross-source watches and '+confirmed+' are independently confirmed as shortages.';
+     forecasts.length+' product groups are screened; '+watch+' have cross-source watches and '+confirmed+' are independently confirmed as shortages.'+(watchLead?' Highest-priority watch: '+s(watchLead.product)+'; not a verified retail stockout.':'');
    b.direction='A price increase, transit disruption, or reduced shipment volume alone cannot establish a retail shortage.';
    b.implication='Demand, inventory, delivery and substitution conditions must be verified before making a shortage prediction.';
    b.beneficiaries='Potential importer, supplier or consumer gains/losses are hypotheses until exposures and contract terms are documented.';
-   b.watch='Corroborate product-specific stock levels, order books, shipping origins/destinations and subsequent replenishment.';
+   b.watch=watchLead&&Array.isArray(watchLead.missingEvidence)?'Evidence still needed for '+s(watchLead.product)+': '+watchLead.missingEvidence.filter((v:unknown)=>typeof v==='string').slice(0,3).join('; ')+'.':'Corroborate product-specific stock levels, order books, shipping origins/destinations and subsequent replenishment.';
    b.limitation='Scenario watch scores are not calibrated shortage probabilities. Worldwide shipping signals are not automatically country-specific.';
    b.asOf=latest(s(shortage.generatedAt),s(system.checkedAt));
    b.sources=sources([...forecasts.flatMap(x=>a(x.evidence)),...reported],4);
@@ -248,9 +256,103 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b=base('Energy, resources and physical supply','Energy-security analyst',scope);
    const energy=earlyMetrics.filter(x=>/energy|oil|petrol|gas|electric|power|fuel|coal|crude|commodity/i.test([x.group,x.label,x.id].join(' ')));
    const energyWdi=reported.filter(x=>['EG.ELC.ACCS.ZS','EG.FEC.RNEW.ZS','EG.IMP.CONS.ZS','NY.GDP.TOTL.RT.ZS'].includes(x.code));
-   b.metrics=[metric('Physical-source series',energy.length,'World/global signals, not country attribution'),
-              metric('Country WDI indicators',energyWdi.length,'Source-dated national context'),
-              metric('Source date fields',energy.filter(x=>!!x.period).length,'Availability is not freshness')];
+   const brent=energy.find(x=>/Brent crude oil/i.test(s(x.label)));
+   b.metrics=[metric('Physical-source series',energy.length,'Global signals, not country attribution'),
+              metric('Country / world WDI',energyWdi.length,'Historical national or worldwide context'),
+              {label:'Brent crude · global',value:brent&&n(brent.value)!==null?'
+   b.finding=energy.length+' energy-relevant monitored physical indicators are indexed; '+energyWdi.length+' reported World Bank energy indicators are in this country scope.';
+   b.direction='A change in electricity access, commodity pricing or energy imports cannot be classified as abnormal without a matching historical baseline.';
+   b.implication='Distinguish energy production, consumption, dependence, route constraints and retail price effects.';
+   b.beneficiaries='Producers and importers may face different exposures; beneficiaries are not established without volumes, contracts and costs.';
+   b.watch='Confirm generation capacity, latest energy mix, corridor disruptions and comparable import/export reporting periods.';
+   b.limitation='Cross-country baselines have differing publication years. Aggregate sector metrics cannot be presented as national supply counts.';
+   b.asOf=latest(s(early.checkedAt),s(system.checkedAt));b.sources=sources([...energy,...energyWdi],4);
+   b.coverage=energy.length+' physical series; '+energyWdi.length+' WDI country indicators';b.status=b.sources.length?'monitoring':'coverage-gap';
+ }else if(view==='Demographics & biosecurity'){
+   b=base('Population, emissions and human security','Demographic & climate analyst',scope);
+   const indicators=reported.filter(x=>['SI.POV.GINI','SP.DYN.LE00.IN','EN.ATM.CO2E.PC'].includes(x.code));
+   const life=indicators.find(x=>x.code==='SP.DYN.LE00.IN');
+   const carbon=indicators.find(x=>x.code==='EN.ATM.CO2E.PC');
+   const gini=indicators.find(x=>x.code==='SI.POV.GINI');
+   b.metrics=[{label:'Life expectancy',value:life&&n(life.value)!==null?f(n(life.value),1)+' years':'—',detail:life?.year||'No national observation'},
+              {label:'CO₂ / person',value:carbon&&n(carbon.value)!==null?f(n(carbon.value),2)+' tonnes':'—',detail:carbon?.year||'No national observation'},
+              {label:'Gini index',value:gini&&n(gini.value)!==null?f(n(gini.value),1):'—',detail:gini?.year||'No comparable survey'}];
+   b.finding=indicators.length+' historical population, inequality or climate indicators are reported for this geographic scope.';
+   b.direction='A current population or epidemiological emergency cannot be inferred from historical annual demographic readings.';
+   b.implication='Track survey methodology and observation years; environmental exposure and measured disease events are different datasets.';
+   b.beneficiaries='No beneficiary or causal policy attribution is supported by these aggregate indicators.';
+   b.watch='Verify latest country-year observations and independent, directly sampled public-health or climate event feeds.';
+   b.limitation='No active epidemic or outbreak monitoring is implied by the World Bank demographic series.';
+   b.asOf=s(system.checkedAt)||'Country data unreported';
+   b.sources=sources(indicators,4);b.coverage=indicators.length+' national context indicators';
+   b.status=b.sources.length?'source-dated':'coverage-gap';
+ }else{
+   b=base(view+' · source assessment','Evidence validation analyst',scope);
+   b.limitation='This workspace has not been mapped to an approved evidence stream. Its existing charts and data remain available.';
+ }
+ if(!ANALYST_ROUTE_KEYS.includes(key as (typeof ANALYST_ROUTE_KEYS)[number])){
+   b.status='coverage-gap';b.watch='Map this section to a verified source-backed analyst before publication.';
+ }
+ const needed={
+  'Overview':['triage','source'],'AI analyst':['triage'],'Collection desk':['source'],
+  'Verification lab':['source'],'Coverage audit':['source'],'Source library':['source'],
+  'Methodology':['source'],'Countries':['source'],'World Factbook':['source'],
+  'Investigations':['source'],'Defense intelligence':['inventory'],'Global conflict watch':['conflict'],
+  'Military asset changes':['changes'],'Cyber resilience':['resilience'],
+  'Economic intelligence:overview':['markets','triage'],
+  'Economic intelligence:signals':['markets','triage'],'Economic intelligence:risk':['markets','transmission'],
+  'Economic intelligence:supply':['shortage'],'Economic intelligence:shortages':['shortage'],
+  'Macro indicators':['markets'],'Trade indicators':['shortage'],
+  'Corporate intelligence':['transmission'],'Energy & resources':['early'],
+  'Demographics & biosecurity':['source']
+ } as Record<string,string[]>;
+ const missing=(needed[key]||[]).filter(x=>failures.includes(x)||!o(snapshots[x]).schemaVersion);
+ if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
+  b.limitation+=' Required source channels unavailable: '+missing.join(', ')+'.';
+  if(!b.sources.length)b.status='coverage-gap';}
+ // A missing collection channel must never turn into a displayed numeric zero.
+ // Each tile declares its controlling dataset; still show independently verified tiles.
+ const tileSources:Record<string,string[]>={
+  'Overview':['source','triage','triage'],'AI analyst':['source','triage','triage'],
+  'Collection desk':['source','triage','triage'],'Verification lab':['source','triage','triage'],
+  'Coverage audit':['source','triage','triage'],'Source library':['source','triage','triage'],
+  'Methodology':['source','triage','triage'],
+  'Countries':['cases','source','country'],'World Factbook':['cases','source','country'],
+  'Investigations':['cases','source','country'],'Defense intelligence':['inventory','inventory','inventory'],
+  'Global conflict watch':['conflict','conflict','conflict'],
+  'Military asset changes':['changes','changes','changes'],
+  'Cyber resilience':['resilience','resilience','resilience'],
+  'Economic intelligence:overview':['markets','triage','country'],
+  'Economic intelligence:signals':['markets','triage','country'],
+  'Economic intelligence:risk':['markets','triage','country'],
+  'Macro indicators':['markets','triage','country'],
+  'Economic intelligence:supply':['shortage','shortage','shortage'],
+  'Economic intelligence:shortages':['shortage','shortage','shortage'],
+  'Trade indicators':['shortage','shortage','country'],
+  'Corporate intelligence':['transmission','transmission','transmission'],
+  'Energy & resources':['early','country','early'],
+  'Demographics & biosecurity':['country','country','country']
+ };
+ const available=(channel:string)=>channel==='cases'||(channel==='country'
+    ? Array.isArray(system.indicators)
+    : Boolean(o(snapshots[channel]).schemaVersion));
+ b.metrics=b.metrics.map((m,index)=>{
+   const channel=tileSources[key]?.[index];
+   return channel&&!available(channel)?{...m,value:'—',detail:'No source-verified observation; not zero'}:m;
+ });
+ if(Object.keys(snapshots).length===0){
+   b.status='coverage-gap';
+   b.finding=failures.length?'No validated evidence snapshots are currently available for this view.':
+     'Loading source-validated intelligence observations for this view.';
+   b.direction='No improvement, deterioration, or exceptional deviation can yet be evaluated.';
+   b.sources=[];b.chart=undefined;
+ }
+ if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Corporate intelligence','Cyber resilience'].includes(key)){
+   b.scope+=' · global or U.S. comparator (NOT country-attributed)';
+ }
+ return b;
+}
++f(n(brent.value),2)+'/bbl':'—',detail:brent?s(brent.period)+' reported price, not local retail cost':'No current benchmark'}];
    b.finding=energy.length+' energy-relevant monitored physical indicators are indexed; '+energyWdi.length+' reported World Bank energy indicators are in this country scope.';
    b.direction='A change in electricity access, commodity pricing or energy imports cannot be classified as abnormal without a matching historical baseline.';
    b.implication='Distinguish energy production, consumption, dependence, route constraints and retail price effects.';
