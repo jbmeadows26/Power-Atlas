@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
-import {Activity,ArrowUpRight,Bell,BookOpen,Bookmark,Clock3,ExternalLink,Layers3,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
+import {Activity,Bell,BookOpen,Bookmark,Clock3,ExternalLink,Layers3,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
 import AnalystEvidence from './AnalystEvidence';
+import EvidenceLink from './EvidenceViewer';
 import type {EvidenceBrief} from './lib/domainAnalysts';
 
 export type SignalRecord={
@@ -82,7 +83,7 @@ function SignalEntry({item,stale}:{item:SignalRecord;stale:boolean}){
     <div className="ea-ci-entry-head"><Pill tone={isElevated?'hot':isPending?'caution':'muted'}>{isElevated?'Verified elevated':isPending?'Pending analyst review':'Monitored'}</Pill><time>{dateLabel(item.observedAt)}</time></div>
     <strong>{item.title}</strong>
     <small>{item.group==='global'?'Worldwide context · not country attribution':item.group.startsWith('regional:')?'Regional context · not country attribution':item.group} · {item.source}</small>
-    <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">Original evidence <ArrowUpRight size={12}/></a>
+    <EvidenceLink title={item.title} source={item.source} sourceUrl={item.sourceUrl} observedAt={item.observedAt} group={item.group} status={item.status} reason={item.reason}/>
   </article>;
 }
 export function ContextRail({feed,analysis,domain,country,onOpenAlerts}:{feed:SignalView;analysis:EvidenceBrief;domain:string;country:string;onOpenAlerts:()=>void}){
