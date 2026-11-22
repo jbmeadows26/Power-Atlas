@@ -318,7 +318,8 @@ function App() {
       horizon:(['all','24h','7d','30d'].includes(h||'')?h:'all') as Horizon,
       severity:(['all','elevated','review','monitor'].includes(level||'')?level:'all') as Severity,
       country:(target&&(target==='all'||/^[A-Z]{2}$/.test(target))?target:null),
-      region:(['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].includes(geo||'')?geo:'All regions')||'All regions'};
+      region:(['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].includes(geo||'')?geo:'All regions')||'All regions',
+      pane:(['workspace','domains','alerts','briefcase'].includes(params.get('ea_pane')||'')?params.get('ea_pane'):'workspace') as 'workspace'|'domains'|'alerts'|'briefcase'};
   });
   const [view, setView] = useState<Section>(startup.tab.section);
   const [domain, setDomain] = useState<DomainId>(startup.domain);
@@ -346,7 +347,8 @@ function App() {
   const [caseSelected, setCaseSelected] = useState<string | null>(null);
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
-  const [mobilePane,setMobilePane]=useState<'workspace'|'domains'|'alerts'|'briefcase'>('workspace');
+  const [mobilePane,setMobilePane]=useState<'workspace'|'domains'|'alerts'|'briefcase'>(startup.pane);
+  const navigationInitialized=useRef(false);
   const [mobileFiltersOpen,setMobileFiltersOpen]=useState(false);
   const [quickQuery,setQuickQuery]=useState('');
   const [quickMessage,setQuickMessage]=useState('');
@@ -563,6 +565,57 @@ function App() {
   };
   const activeDomain=domains.find(item=>item.id===domain)!;
   const activeTab=(tab:DomainTab)=>view===tab.section && (tab.section!=='Economic intelligence'||tab.focus===economicFocus);
+  // Browser history is a record of visited views, not just a share-link convenience.
+  // Reflect each domain/submenu/mobile pane transition in the URL so native Back/Forward works.
+  useEffect(()=>{
+    const params=new URLSearchParams(window.location.search);
+    const currentDomain=domains.find(item=>item.id===domain)!;
+    const currentTab=currentDomain.tabs.find(tab=>tab.section===view &&
+      (tab.section!=='Economic intelligence'||tab.focus===economicFocus))||currentDomain.tabs[0];
+    params.set('ea_domain',domain);
+    params.set('ea_tab',currentTab.label);
+    params.set('ea_country',countryScope);
+    params.set('ea_region',region);
+    params.set('ea_time',horizon);
+    params.set('ea_level',severity);
+    params.set('ea_pane',mobilePane);
+    const route=window.location.pathname+'?'+params.toString()+window.location.hash;
+    const liveRoute=window.location.pathname+window.location.search+window.location.hash;
+    const state={...(window.history.state||{}),eaNavigation:true};
+    if(!navigationInitialized.current){
+      navigationInitialized.current=true;
+      window.history.replaceState(state,'',route);
+    }else if(route!==liveRoute){
+      window.history.pushState(state,'',route);
+    }
+  },[domain,view,economicFocus,countryScope,region,horizon,severity,mobilePane]);
+
+  useEffect(()=>{
+    const restore=()=>{
+      const params=new URLSearchParams(window.location.search);
+      const nextDomain=domains.find(item=>item.id===params.get('ea_domain'))||domains[0];
+      const nextTab=nextDomain.tabs.find(tab=>tab.label===params.get('ea_tab'))||nextDomain.tabs[0];
+      const nextCountry=params.get('ea_country');
+      const nextRegion=params.get('ea_region');
+      const nextHorizon=params.get('ea_time');
+      const nextSeverity=params.get('ea_level');
+      const nextPane=params.get('ea_pane');
+      setDomain(nextDomain.id);
+      setView(nextTab.section);
+      setEconomicFocus(nextTab.focus||'overview');
+      if(nextCountry&&(nextCountry==='all'||/^[A-Z]{2}$/.test(nextCountry)))setCountryScope(nextCountry);
+      if(nextRegion&&['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].includes(nextRegion))setRegion(nextRegion);
+      if(nextHorizon&&['all','24h','7d','30d'].includes(nextHorizon))setHorizon(nextHorizon as Horizon);
+      if(nextSeverity&&['all','elevated','review','monitor'].includes(nextSeverity))setSeverity(nextSeverity as Severity);
+      setMobilePane(nextPane&&['workspace','domains','alerts','briefcase'].includes(nextPane)?nextPane as 'workspace'|'domains'|'alerts'|'briefcase':'workspace');
+      setMobileMenu(false);
+      setMobileFiltersOpen(false);
+      setHoveredDomain(null);
+      setQuickMessage('');
+    };
+    window.addEventListener('popstate',restore);
+    return()=>window.removeEventListener('popstate',restore);
+  },[]);
   const onEconomicFocusChange=(next:EconomicFocus)=>{
     setEconomicFocus(next);
     if(next==='supply'||next==='shortages')setDomain('trade');
