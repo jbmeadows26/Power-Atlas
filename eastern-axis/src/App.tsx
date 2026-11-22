@@ -505,15 +505,15 @@ function App() {
   };
   const runCommand=(query:string)=>{
     const q=query.trim();if(!q)return;
-    const countryCommand=q.match(/^\\/?(?:country|c)\\s+([a-z]{2})$/i);
+    const countryCommand=q.match(/^\/?(?:country|c)\s+([a-z]{2})$/i);
     if(countryCommand){
       const match=mainStates.find(c=>c.code.toLowerCase()===countryCommand[1].toLowerCase());
       if(match){openCountry(match.code);setQuickMessage('Opened '+match.name+' country dossier.');}
       else setQuickMessage('No indexed country matches that ISO code.');
       setQuickQuery('');return;
     }
-    if(/^\\/?(?:vessel|imo)\\b/i.test(q)){setQuickMessage('Vessel search requires a verified AIS provider. No vessel position has been inferred.');return;}
-    const clean=q.replace(/^\\//,'').toLowerCase();
+    if(/^\/?(?:vessel|imo)\b/i.test(q)){setQuickMessage('Vessel search requires a verified AIS provider. No vessel position has been inferred.');return;}
+    const clean=q.replace(/^\//,'').toLowerCase();
     const match=domains.flatMap(d=>d.tabs.map(t=>({d,t})))
       .find(({d,t})=>t.label.toLowerCase()===clean||d.title.toLowerCase()===clean||d.short.toLowerCase()===clean);
     if(match){selectDomainTab(match.d.id,match.t);setQuickMessage('Opened '+match.d.title+' / '+match.t.label);}
