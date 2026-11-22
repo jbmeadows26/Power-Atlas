@@ -32,6 +32,13 @@ async function waitForServer(){
   }
   throw Error('Local Vite server did not start');
 }
+async function openWorkspace(page,domain,tab){
+  const sidebar=page.locator('#ea-primary-navigation');
+  if(await page.evaluate(()=>innerWidth<=980) && !await sidebar.evaluate(el=>el.classList.contains('sidebar-open')))
+    await page.getByRole('button',{name:'Toggle navigation'}).click();
+  await sidebar.locator('button.nav-item').filter({hasText:domain}).click();
+  if(tab)await page.locator('.ea-domain-tabs').getByRole('button',{name:tab,exact:true}).click();
+}
 async function qa(page,width){
   await page.route('**/api/**',route=>{
     const path=new URL(route.request().url()).pathname;
@@ -77,12 +84,12 @@ async function qa(page,width){
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
   await page.getByRole('button',{name:'Choose country intelligence scope'}).waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
+  assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
+  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Duplicate mobile navigation must not mount');
   const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
   await command.waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
-  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
-  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Economic intelligence'}).click();
-  await page.locator('.ei-tabs').getByRole('button',{name:'Markets & early warning'}).click();
+  await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
   const analyst=page.getByRole('region',{name:'AI analyst signal review'});
   await analyst.waitFor({state:'visible'});
   await analyst.locator('.sr-cover-row').first().waitFor({state:'visible',timeout:15000});
@@ -126,8 +133,9 @@ async function qa(page,width){
   assert.ok(await detail.locator('.ea-detail-evidence a').count()>=1,'Probe source must not inherit a GNSS link');
   await detail.getByRole('button',{name:'Close evidence detail'}).click();
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
+  assert.equal(await page.locator('.ea-domain-tabs').count(),1,'Exactly one contextual tabs row');
   assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Redundant horizontal workspace menu must not mount');
-  if(width<=980) await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
+  if(width<=980)await page.getByRole('button',{name:'Toggle navigation'}).click();
   const report=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
   await report.waitFor({state:'visible'});
   await report.click();
@@ -143,8 +151,7 @@ async function qa(page,width){
 
   // Regression: U.S. is an impacted country in the case record, not its origin code.
   // This used to show zero cards and an unusable "Select an investigation" panel.
-  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
-  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Investigations'}).click();
+  await openWorkspace(page,'Geopolitics & Intelligence','Investigations');
   await page.locator('#ea-investigation-list .case-card').first().waitFor({state:'visible'});
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1);
   assert.match(await page.locator('#ea-investigation-detail').innerText(),/Fixture case/,'A matching case should open by default');
@@ -169,23 +176,19 @@ async function qa(page,width){
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'Reset must restore all cases');
   assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/Worldwide/);
   // Restore the prior workspace before continuing the existing radar/navigation QA.
-  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'More'}).click();
-  await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Economic intelligence'}).click();
-  await page.locator('.ei-tabs').getByRole('button',{name:'Markets & early warning'}).click();
+  await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
   await page.locator('.pew-context-radar').locator('summary').click();
   await page.getByRole('region',{name:'Decision radar by domain'}).waitFor({state:'visible'});
 
-  const nav=page.getByRole('navigation',{name:'Mobile primary navigation'});
+  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Only one navigation menu');
   if(width>980){
-    assert.equal(await nav.isVisible(),false,'Desktop must not display the mobile nav');
     assert.equal(await page.locator('.sidebar').isVisible(),true,'Desktop keeps its full sidebar');
   }else{
-    assert.equal(await nav.isVisible(),true,'Mobile navigation must be visible');
-    assert.deepEqual(await nav.locator('button span').allTextContents(),['Home','Countries','Economy','More']);
+    assert.equal(await page.getByRole('button',{name:'Toggle navigation'}).isVisible(),true,'Mobile uses one sidebar drawer');
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
     // Country dossier and network evidence share one page; no competing two-way switch.
-    await nav.getByRole('button',{name:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     assert.equal(await page.locator('.ea-country-subnav').count(),0,'Legacy country/network view switch is still rendered');
     await page.getByRole('button',{name:'Explore relationships'}).click();
     const network=page.getByRole('region',{name:'Sourced relationship networks'});
@@ -208,7 +211,7 @@ async function qa(page,width){
     await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
     await page.getByRole('combobox',{name:'Search country or code'}).fill('china');
     await page.getByRole('option',{name:/China/}).click();
-    await nav.getByRole('button',{name:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     const networkToggle=page.getByRole('button',{name:'Explore relationships'});
     if(await networkToggle.count())await networkToggle.click();
@@ -217,20 +220,16 @@ async function qa(page,width){
     await page.getByRole('button',{name:'Hide relationships'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     await page.locator('.country-brief .brief-relationship').waitFor({state:'visible'});
-    await nav.getByRole('button',{name:'Economy'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Economy & energy'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Growth & labor');
     await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
     await page.getByRole('heading',{name:'The systems behind global power.'}).waitFor({state:'visible'});
-    await nav.getByRole('button',{name:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
-    await nav.getByRole('button',{name:'Economy'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     await page.getByRole('region',{name:'Risk summary visual dashboard'}).getByRole('heading',{name:/Risk signals, at a glance/i}).waitFor();
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
-    await nav.getByRole('button',{name:'More'}).click();
-    await page.locator('#ea-primary-navigation.sidebar-open').waitFor({state:'visible'});
-    await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:'Source library'}).click();
+    await openWorkspace(page,'Command & Situation Room','Source library');
     await page.getByRole('heading',{name:/Sources, not secrets/i}).waitFor();
     // The old country dossiers and comparative sanctions snapshots still exist, in Source Library.
     const sourceInventory=page.locator('.source-index-disclosure');
@@ -240,14 +239,13 @@ async function qa(page,width){
     assert.equal(await sourceInventory.locator('.ip-sanction-source').count(),2,'UK and Canadian source snapshots must be preserved');
 
     assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
-    await nav.getByRole('button',{name:'Home'}).click();
+    await openWorkspace(page,'Command & Situation Room','Situation room');
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
-    await nav.getByRole('button',{name:'Economy'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible'});
     assert.equal(await risk.locator('.rdb-chart').count(),4,'Risks should lead with four compact charts');
@@ -262,7 +260,7 @@ async function qa(page,width){
     await risk.getByRole('button',{name:'View source data'}).click();
     await risk.locator('.rw-probes').waitFor({state:'visible'});
     await risk.getByRole('button',{name:'Hide details'}).click();
-    await nav.getByRole('button',{name:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await page.getByRole('button',{name:'Open map'}).click();
     await page.locator('.cc-map-actions button').first().waitFor({state:'visible'});
   }

@@ -130,3 +130,68 @@
     scroll-margin-bottom:calc(126px + env(safe-area-inset-bottom,0px))
   }
 }
+
+
+/* Eight-domain shell. All original intelligence panels and source markup remain intact. */
+.ea-control-room .sidebar{flex-basis:235px;width:235px;transition:flex-basis .18s ease,width .18s ease}
+.ea-control-room .sidebar nav{gap:5px}
+.ea-control-room .sidebar .nav-item{min-height:51px;padding:10px 12px;font-size:12px;line-height:1.3}
+.ea-control-room .sidebar .nav-item svg{flex-shrink:0;width:17px;height:17px}
+.ea-control-room .sidebar .nav-item span{min-width:0}
+.ea-control-room .nav-label{display:block;margin:0 8px 13px}
+.ea-control-room .ea-menu-support{margin:0 2px 10px}
+.ea-control-room .topbar{min-height:66px;height:auto;flex-wrap:wrap;align-items:center;padding:10px 18px;row-gap:9px}
+.ea-control-room .header-right{flex:1;justify-content:flex-end;flex-wrap:wrap;gap:8px;min-width:0}
+.ea-control-room .breadcrumb{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ea-control-room .breadcrumb strong{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ea-control-room .ea-global-filter{display:flex;flex-direction:column;gap:4px;min-width:86px}
+.ea-control-room .ea-global-filter span{font:700 9px 'DM Mono',monospace;letter-spacing:.1em;color:#9ab3b8}
+.ea-control-room .ea-global-filter select{height:34px;width:100%;min-width:84px;max-width:150px;padding:4px 8px;color:#e1f5ef;background:#112a34;border:1px solid #43616a;border-radius:4px;font-size:11px}
+.ea-control-room .ea-domain-tabs{display:flex;align-items:center;gap:5px;min-height:48px;padding:7px 18px;overflow-x:auto;max-width:100%;border-bottom:1px solid #304952;background:#0e222c;scrollbar-width:thin;scrollbar-color:#385962 transparent}
+.ea-control-room .ea-domain-tabs button{flex-shrink:0;min-height:34px;border:1px solid transparent;border-radius:4px;padding:7px 13px;font-size:11px;font-weight:700;color:#9db7bd;background:transparent;white-space:nowrap}
+.ea-control-room .ea-domain-tabs button:hover{border-color:#436269;color:#f1f8ed}
+.ea-control-room .ea-domain-tabs button.active{background:#d5fa7d;color:#0b2018;border-color:#bbdf6c}
+.ea-control-room .ea-global-filter-note{padding:6px 19px 0;color:#8aa7ac;font-size:10px;line-height:1.4}
+.ea-control-room .ea-global-filter-note:empty{display:none}
+.ea-control-room.ea-sidebar-collapsed .sidebar{flex-basis:69px;width:69px;padding-left:7px;padding-right:7px}
+.ea-control-room.ea-sidebar-collapsed .sidebar .brand>div,
+.ea-control-room.ea-sidebar-collapsed .sidebar .nav-item span,
+.ea-control-room.ea-sidebar-collapsed .sidebar .nav-label,
+.ea-control-room.ea-sidebar-collapsed .sidebar .sidebar-bottom,
+.ea-control-room.ea-sidebar-collapsed .sidebar .ea-report-bug span,
+.ea-control-room.ea-sidebar-collapsed .sidebar .ea-report-bug small{display:none}
+.ea-control-room.ea-sidebar-collapsed .sidebar .brand{padding:4px 5px 12px}
+.ea-control-room.ea-sidebar-collapsed .sidebar nav .nav-item{justify-content:center;padding:11px 0}
+.ea-control-room.ea-sidebar-collapsed .sidebar .ea-report-bug{justify-content:center;padding:10px;width:100%;min-width:0}
+@media(max-width:1220px){
+  .ea-control-room .sidebar{flex-basis:218px;width:218px}
+  .ea-control-room .topbar{padding:9px 14px}
+  .ea-control-room .ea-domain-tabs{padding:7px 13px}
+}
+@media(max-width:980px){
+  .ea-control-room .sidebar,.ea-control-room.ea-sidebar-collapsed .sidebar{flex-basis:auto;width:min(84vw,310px);transition:transform .2s ease}
+  .ea-control-room .topbar{position:sticky;top:0;z-index:24;gap:8px}
+  .ea-control-room .header-right{justify-content:flex-start;width:100%;flex:1 1 100%;gap:7px}
+  .ea-control-room .ea-global-filter{min-width:0;flex:1 1 95px}
+  .ea-control-room .ea-global-filter select{max-width:none}
+  .ea-control-room .ea-context{flex:1 1 160px;min-width:130px;max-width:100%}
+  .ea-control-room .ea-domain-tabs{min-height:44px}
+  .ea-control-room .ea-global-filter-note{padding:5px 12px 0}
+  .ea-control-room .content,.ea-control-room .content:has(.command-center){padding-bottom:24px}
+  .ea-control-room.ea-sidebar-collapsed .sidebar .brand>div,
+  .ea-control-room.ea-sidebar-collapsed .sidebar .nav-item span,
+  .ea-control-room.ea-sidebar-collapsed .sidebar .nav-label,
+  .ea-control-room.ea-sidebar-collapsed .sidebar .sidebar-bottom,
+  .ea-control-room.ea-sidebar-collapsed .sidebar .ea-report-bug span,
+  .ea-control-room.ea-sidebar-collapsed .sidebar .ea-report-bug small{display:initial}
+  .ea-control-room.ea-sidebar-collapsed .sidebar nav .nav-item{justify-content:flex-start;padding:10px 12px}
+}
+@media(max-width:600px){
+  .ea-control-room .breadcrumb-prefix,.ea-control-room .breadcrumb svg{display:none}
+  .ea-control-room .header-right{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.6fr)}
+  .ea-control-room .ea-global-filter select{min-width:0;width:100%}
+  .ea-control-room .ea-domain-tabs button{min-height:37px;padding:8px 11px}
+}
+@media(prefers-reduced-motion:reduce){
+  .ea-control-room .sidebar{transition:none}
+}

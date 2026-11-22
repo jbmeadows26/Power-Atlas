@@ -28,6 +28,7 @@ type Props = {
   countryCode:string;countryName?:string;cases:Case[];
   onCountryMap:()=>void;onDefense:()=>void;initialFocus?:EconomicFocus;
   initialMeasurementFilter?:'all'|'funding'|'commodities'|'gnss';
+  hideNavigation?:boolean;onFocusChange?:(focus:EconomicFocus)=>void;
 };
 const PROBES = 'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json';
 const fmt = (n:number)=>new Intl.NumberFormat('en-US',{maximumFractionDigits:1}).format(n);
@@ -52,7 +53,7 @@ const sourceStatus=(s?:string,checked?:string|null,maxDays=7)=>{
   if(s==='partial'||s==='stale')return 'PARTIAL / STALE';
   return 'SOURCE-DATED';
 };
-export default function EconomicIntelligence({countryCode,countryName,cases,onCountryMap,onDefense,initialFocus='overview',initialMeasurementFilter='all'}:Props) {
+export default function EconomicIntelligence({countryCode,countryName,cases,onCountryMap,onDefense,initialFocus='overview',initialMeasurementFilter='all',hideNavigation=false,onFocusChange}:Props) {
   const [focus,setFocus]=useState<EconomicFocus>(initialFocus);
   const [signalView,setSignalView]=useState<'signals'|'markets'>('signals');
   const [activeMeasurementFilter,setActiveMeasurementFilter]=useState<'all'|'funding'|'commodities'|'gnss'>(initialMeasurementFilter);
@@ -61,6 +62,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
   const [loading,setLoading]=useState(true);
   const [refresh,setRefresh]=useState(0);
   useEffect(()=>setFocus(initialFocus),[initialFocus]);
+  useEffect(()=>{onFocusChange?.(focus);},[focus]);
   useEffect(()=>{
     let active=true;
     setLoading(true);setPicture({});
@@ -149,7 +151,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
     {!loading&&(!systems||!supply||!shortages||!markets||!early||!triage||!probe)&&<div className="ei-source-note ei-source-limited"><Database size={15}/> Partial source coverage: {[
       !systems&&'macro',!supply&&'shipping',!shortages&&'shortage outlook',!markets&&'markets',!early&&'measurements',!triage&&'AI review',!probe&&'infrastructure'
     ].filter(Boolean).join(', ')} unavailable. No missing measurements have been replaced with zero.</div>}
-    <nav className="ei-tabs" aria-label="Economic intelligence views">
+    {!hideNavigation && <nav className="ei-tabs" aria-label="Economic intelligence views">
       {([
         ['overview','At a glance',BarChart3],
         ['systems','Economy & energy',Globe2],
@@ -158,7 +160,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
         ['signals','Markets & early warning',Activity],
         ['risk','Systemic risk',ShieldAlert],
       ] as const).map(([key,label,Icon])=><button type="button" key={key} onClick={()=>setFocus(key)} className={focus===key?'active':''} aria-current={focus===key?'page':undefined}><Icon size={16}/>{label}</button>)}
-    </nav>
+    </nav>}
     {focus==='overview'&&<>
       <div className="ei-overview-intro"><div><strong>Five connected intelligence domains</strong><span>Compact coverage first. Select a domain for its complete charts, source links and filters.</span></div><span>SOURCE COVERAGE ≠ THREAT LEVEL</span></div>
       <div className="ei-grid">{lanes.map(l=><button key={l.key} type="button" className="ei-domain" onClick={()=>setFocus(l.key)}>
@@ -176,7 +178,7 @@ export default function EconomicIntelligence({countryCode,countryName,cases,onCo
       <div className="ei-footnote"><BrainCircuit size={16}/><span>Screening sends source anomalies to analyst review. Only fresh, independently corroborated, evidence-qualified findings are eligible for Command Center escalation; ordinary movements remain monitored.</span></div>
     </>}
     {focus!=='overview'&&<div className="ei-workspace">
-      <div className="ei-workspace-head"><button type="button" onClick={()=>setFocus('overview')}>← Overview</button><span>{scope} · {lanes.find(l=>l.key===focus)?.title}</span></div>
+      <div className="ei-workspace-head">{!hideNavigation&&<button type="button" onClick={()=>setFocus('overview')}>← Overview</button>}<span>{scope} · {lanes.find(l=>l.key===focus)?.title}</span></div>
       {focus==='systems'&&<GlobalSystems mode="systems" countryCode={countryCode} countryName={countryName} cases={cases}/>}
       {focus==='supply'&&<SupplyChain countryCode={countryCode} countryName={countryName}/>}
       {focus==='shortages'&&<ShortageForecasts countryCode={countryCode} countryName={countryName}/>}

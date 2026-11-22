@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Activity,ArrowRight,ArrowUpRight,BrainCircuit,Database,Eye,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
 import './signalReviewBoard.css';
+import {useGlobalFilters} from './GlobalFiltersContext';
 
 type Baseline={status:string;sampleSize:number;robustZ:number|null;medianChange?:number};
 type Review={
@@ -51,6 +52,7 @@ function deltaLabel(r:Review){
 export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
   mode:'early'|'command';countryCode:string;onOpenEarly?:()=>void
 }){
+  const {horizon,severity}=useGlobalFilters();
   const [snapshot,setSnapshot]=useState<Triage|null>(null);
   const [error,setError]=useState<string|null>(null);
   const [refresh,setRefresh]=useState(0);
@@ -66,9 +68,21 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
   },[refresh]);
   const age=snapshot?Date.now()-Date.parse(snapshot.generatedAt):NaN;
   const stale=snapshot!==null&&(!Number.isFinite(age)||age<0||age>72*3600000);
-  const reviews=useMemo(()=>(snapshot?.reviews||[]).filter(r=>scopeMatch(r.group,countryCode)).map(r=>
-    r.kind==='advisory'&&r.status==='elevated'?{...r,status:'monitor',
-      reason:'Official local weather safety warning. A prior automated escalation was withdrawn because source severity alone cannot prove an exceptional strategic anomaly. Follow the original NWS link for safety guidance.'}:r),[snapshot,countryCode]);
+  const reviews=useMemo(()=>(snapshot?.reviews||[])
+    .filter(r=>scopeMatch(r.group,countryCode))
+    .map(r=>r.kind==='advisory'&&r.status==='elevated'?{...r,status:'monitor',
+      reason:'Official local weather safety warning. A prior automated escalation was withdrawn because source severity alone cannot prove an exceptional strategic anomaly. Follow the original NWS link for safety guidance.'}:r)
+    .filter(r=>{
+      if(horizon!=='all'){
+        const timestamp=Date.parse(r.observedAt||'');
+        const horizonMs=horizon==='24h'?86400000:horizon==='7d'?604800000:2592000000;
+        if(!Number.isFinite(timestamp)||timestamp>Date.now()+3600000||Date.now()-timestamp>horizonMs)return false;
+      }
+      if(severity==='elevated')return r.status==='elevated';
+      if(severity==='review')return r.needsReview&&!r.modelReviewed;
+      if(severity==='monitor')return r.status!=='elevated'&&!(r.needsReview&&!r.modelReviewed);
+      return true;
+    }),[snapshot,countryCode,horizon,severity]);
   // Fail closed against older published snapshots as well as new analyst runs.
   const elevated=reviews.filter(r=>!stale&&r.status==='elevated'&&r.kind==='metric'&&
     r.fresh===true&&r.modelReviewed===true&&r.anomalous===true&&r.corroborated===true);
