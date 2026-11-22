@@ -14,6 +14,7 @@ import OperationalAssurance from './OperationalAssurance';
 import EconomicIntelligence, { type EconomicFocus } from './EconomicIntelligence';
 import Connections from './Connections';
 import CountrySourceIndex from './CountrySourceIndex';
+import CountryStatisticalSources from './CountryStatisticalSources';
 import EvidenceWorkbench from './EvidenceWorkbench';
 import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
@@ -1332,7 +1333,8 @@ function App() {
                     </article>
                   ))}
               </div>
-              <details className="source-index-disclosure" style={{border:'1px solid #35565c',borderRadius:10,background:'#102a34',margin:'18px 0',overflow:'hidden'}}>
+              <CountryStatisticalSources context="coverage"/>
+               <details className="source-index-disclosure" style={{border:'1px solid #35565c',borderRadius:10,background:'#102a34',margin:'18px 0',overflow:'hidden'}}>
                 <summary style={{cursor:'pointer',padding:'16px 19px',fontWeight:750,color:'#c4e8db'}}>Country-linked source inventory · UK / Canadian sanctions snapshots</summary>
                 <p style={{margin:'0 18px',fontSize:12,color:'#99b9b9',lineHeight:1.6}}>Reference and coverage records are kept here, separate from the Networks relationship graph. Selecting a country filters legal regimes, not the nationality of listed entities.</p>
                 {sourceIndexCountry!=='all'&&<button type="button" className="quiet-btn" onClick={()=>setSourceIndexCountry('all')} style={{margin:'8px 18px'}}>← Browse all countries</button>}
