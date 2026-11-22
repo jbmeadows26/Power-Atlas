@@ -1,5 +1,5 @@
-import {useEffect,useMemo,useState} from 'react';
-import {Activity,ArrowUpRight,BarChart3,BookOpenCheck,Clock3,ShieldCheck,TriangleAlert} from 'lucide-react';
+import {useEffect,useId,useMemo,useState} from 'react';
+import {Activity,ArrowUpRight,BarChart3,BookOpenCheck,ChevronDown,Clock3,ShieldCheck,TriangleAlert} from 'lucide-react';
 import {api} from './lib/api';
 import {buildDomainBrief, SNAPSHOT_PATHS, type BriefInput, type EvidenceBrief} from './lib/domainAnalysts';
 import './analystEvidence.css';
@@ -7,6 +7,19 @@ import './analystEvidence.css';
 type Case={code?:string;topic?:string;source?:string;title?:string};
 type HookArgs={view:string;focus:string;country:string;countryName?:string;horizon?:string;severity?:string;cases:Case[]};
 const keys=Object.entries(SNAPSHOT_PATHS) as Array<[string,string]>;
+/** Keep original source dates intact; only the visible label is human-readable. */
+const readableDate=(value:string|undefined)=>{
+  const original=(value||'').trim();
+  if(/^\d{4}-\d{2}$/.test(original)){
+    const time=Date.parse(original+'-15T12:00:00Z');
+    return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'}):original;
+  }
+  if(/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(original)){
+    const time=Date.parse(original.length===10?original+'T12:00:00Z':original);
+    return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}):original;
+  }
+  return original||'Date not reported';
+};
 const asObject=(value:unknown):Record<string,unknown>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:null;
 
@@ -72,7 +85,7 @@ function Sparkline({chart}:{chart:NonNullable<EvidenceBrief['chart']>}){
     <span>{chart.dates[0]||'Earlier observation'} · {chart.dates.at(-1)||'Latest observation'} · source-dated, not live</span>
   </div>;
 }
-export default function AnalystEvidence({reading,placement='rail'}:{reading:EvidenceBrief;placement?:'rail'|'inline'}){
+export default function AnalystEvidence({reading,placement='rail'}:{reading:EvidenceBrief;placement?:'rail'|'inline'|'details'}){
   const [details,setDetails]=useState(false);
   useEffect(()=>setDetails(false),[reading.title,reading.scope]);
   return <section className={'eai-readout eai-'+placement} aria-label={'Source-backed analyst interpretation: '+reading.title}>
@@ -109,11 +122,36 @@ export default function AnalystEvidence({reading,placement='rail'}:{reading:Evid
       <strong>Evidence limit</strong><p>{reading.limitation}</p>
     </div>}
     <div className="eai-sources">
-      <div><strong>ORIGINAL EVIDENCE</strong><span><Clock3 size={12}/> {reading.asOf}</span></div>
-      {reading.sources.length?reading.sources.slice(0,4).map(link=><a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" title={'Open '+link.title}>
-        {link.title}<ArrowUpRight size={12}/>{link.date&&<small>{link.date}</small>}
+      <div><strong>ORIGINAL EVIDENCE</strong><span title={reading.asOf}><Clock3 size={12}/> {readableDate(reading.asOf)}</span></div>
+      {reading.sources.length?reading.sources.slice(0,4).map(link=><a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" title={'Open '+link.title+(link.date?' · '+link.date:'')}>
+        <span className="eai-source-label">{link.title}{link.date&&<small title={link.date}>{readableDate(link.date)}</small>}</span>
+        <ArrowUpRight size={13}/>
       </a>):<p>No original records available in this scope. Do not interpret missing as zero.</p>}
       <small>{reading.coverage}</small>
+    </div>
+  </section>;
+}
+
+/**
+ * Mobile-first progressive disclosure: do not bury monitoring charts or
+ * duplicate the Command Room's visible signal counters. The original sourced
+ * analysis is preserved in full on demand, and the desktop rail is unchanged.
+ */
+export function AnalystEvidenceCompact({reading}:{reading:EvidenceBrief}){
+  const [open,setOpen]=useState(false);
+  const detailsId=useId();
+  useEffect(()=>setOpen(false),[reading.title,reading.scope]);
+  return <section className="eai-inline eai-compact" aria-label={'Analyst interpretation: '+reading.title}>
+    <button type="button" className="eai-compact-trigger" aria-expanded={open} aria-controls={detailsId}
+      onClick={()=>setOpen(previous=>!previous)}>
+      <span className="eai-compact-identity"><BookOpenCheck size={16}/><span><small>ANALYST INTERPRETATION</small><strong>{reading.title}</strong></span></span>
+      <span className={'eai-state '+reading.status}>{reading.status==='coverage-gap'?'DATA GAP':reading.status==='monitoring'?'MONITORING':'DATED'}</span>
+      <ChevronDown className={open?'eai-compact-chevron open':'eai-compact-chevron'} size={18}/>
+    </button>
+    <p className="eai-compact-preview">{reading.direction}</p>
+    <div className="eai-compact-action">{open?'Detailed evidence is open':'Expand for metrics, sources, beneficiaries and limitations'}</div>
+    <div id={detailsId} className="eai-compact-body" hidden={!open}>
+      {open&&<AnalystEvidence reading={reading} placement="details"/>}
     </div>
   </section>;
 }

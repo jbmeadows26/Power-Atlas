@@ -94,6 +94,21 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     assert.equal(await page.locator('.dr-root').count(),0,
       'Raw movement screens must not appear on Command without analyst escalation');
     assert.ok(await command.locator('.sr-head').count()>0,'Command analyst report header missing');
+    if(viewport.width<=980){
+      const brief=page.locator('.eai-compact:visible');
+      await brief.waitFor({state:'visible',timeout:12000});
+      const positions=await page.evaluate(()=>{
+        const pulse=document.querySelector('.sr-root.sr-command')?.getBoundingClientRect();
+        const brief=document.querySelector('.eai-compact')?.getBoundingClientRect();
+        return {pulseBottom:pulse?.bottom,briefTop:brief?.top,briefHeight:brief?.height};
+      });
+      assert.ok(Number(positions.briefTop)>=Number(positions.pulseBottom)-3,
+        'Situation Room must lead with Intelligence pulse: '+JSON.stringify(positions));
+      assert.ok(Number(positions.briefHeight)<180,
+        'Collapsed analyst briefing is consuming the screen: '+JSON.stringify(positions));
+      assert.equal(await brief.locator('.eai-kpis').count(),0,
+        'Situation Room must not duplicate the pulse statistics in a second visible ribbon');
+    }
     // A visually safe UI must not conceal a still-unsafe underlying JSON
     // artifact. Reject any release that publishes advisory-only promotions.
     const triageResponse=await page.request.get(origin+'/analysis/early-warning-triage.json',{
@@ -478,13 +493,47 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await dashboard.locator('.fm-root').waitFor({state:'visible',timeout:15000});
       }
       if(sectionName==='Systemic risk')await page.locator('.rdb-charts').waitFor({state:'visible',timeout:15000});
-      // Every primary subcategory needs its own source-bounded interpretation.
-      // Desktop uses the chart-adjacent rail; mobile keeps the same analysis inline.
-      const readout=page.locator(viewport.width>980?'.eai-readout.eai-rail:visible':'.eai-readout.eai-inline:visible');
-      await readout.waitFor({state:'visible',timeout:16000});
-      assert.ok((await readout.locator('.eai-title').innerText()).length>4,sectionName+' has no named analyst readout');
-      assert.ok((await readout.locator('.eai-finding').innerText()).length>35,sectionName+' has no evidence summary');
-      assert.ok(await readout.locator('.eai-sources').count()>0,sectionName+' omitted source provenance and coverage');
+      // Every primary submenu preserves its source-backed interpretation.
+      // Desktop keeps the full rail; on mobile full details are disclosed on demand.
+      if(viewport.width>980){
+        const readout=page.locator('.eai-readout.eai-rail:visible');
+        await readout.waitFor({state:'visible',timeout:16000});
+        assert.ok((await readout.locator('.eai-title').innerText()).length>4,sectionName+' missing named analyst');
+        assert.ok((await readout.locator('.eai-finding').innerText()).length>35,sectionName+' missing evidence summary');
+        assert.ok(await readout.locator('.eai-sources').count()>0,sectionName+' lost provenance');
+      }else{
+        // Universal 24-screen mobile hygiene contract, not a single Situation Room smoke test.
+        assert.equal(await page.locator('.ea-handoff-actions:visible').count(),0,
+          sectionName+' has redundant Save/Send-to-mobile controls above the dashboard');
+        assert.equal(await page.locator('.eai-compact:visible').count(),1,
+          sectionName+' must have exactly one collapsed context preview');
+        assert.equal(await page.locator('.eai-readout:visible').count(),0,
+          sectionName+' still has a screen-filling analysis panel by default');
+        const brief=page.locator('.eai-compact:visible');
+        await brief.waitFor({state:'visible',timeout:16000});
+        const briefGeometry=await brief.evaluate(element=>{
+          const rectangle=element.getBoundingClientRect();
+          return {height:rectangle.height,width:rectangle.width,viewport:window.innerWidth,
+            previewHeight:element.querySelector('.eai-compact-preview')?.getBoundingClientRect().height||0};
+        });
+        assert.ok(briefGeometry.height>50&&briefGeometry.height<180,
+          sectionName+' has an oversized mobile analyst briefing: '+JSON.stringify(briefGeometry));
+        assert.ok(briefGeometry.width<=briefGeometry.viewport,
+          sectionName+' analyst briefing horizontally overflows: '+JSON.stringify(briefGeometry));
+        assert.ok(briefGeometry.previewHeight<55,
+          sectionName+' analysis preview must remain no more than two concise lines');
+
+        assert.ok((await brief.locator('.eai-compact-identity strong').innerText()).length>4,sectionName+' missing analyst title');
+        assert.ok((await brief.locator('.eai-compact-preview').innerText()).length>25,sectionName+' missing analyst interpretation');
+        assert.equal(await brief.locator('.eai-readout').count(),0,sectionName+' must not show a full-length essay above charts');
+        const toggle=brief.getByRole('button',{name:/ANALYST INTERPRETATION/i});
+        assert.equal(await toggle.getAttribute('aria-expanded'),'false');
+        await toggle.click();
+        await brief.locator('.eai-sources').waitFor({state:'visible',timeout:10000});
+        assert.ok((await brief.locator('.eai-finding').innerText()).length>35,sectionName+' lost full evidence on expansion');
+        await toggle.click();
+        assert.equal(await brief.locator('.eai-readout').count(),0,sectionName+' details failed to collapse');
+      }
       const mainText=await page.locator('.content').innerText();
       assert.ok(mainText.length>90,sectionName+' rendered empty content');
       const layout=await page.evaluate(()=>({viewport:innerWidth,document:document.documentElement.scrollWidth}));
