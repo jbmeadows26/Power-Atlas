@@ -409,8 +409,8 @@ def assess(events, media_by_theater, checked_at=None):
 
 def model_review(record, endpoint, model="qwen2.5:1.5b"):
     evidence = record["media"]["evidence"]
-    if not evidence or record["media"]["publishers"] < 3:
-        return None
+    # AI may review a UCDP anomaly without same-period media; independent
+    # corroboration still vetoes publication as an assessed exception.
     # Bounded evidence only; a single media article or UCDP aggregate cannot
     # substantiate that a named faction benefits materially from an escalation.
     brief = {"id": record["id"], "theater": record["name"],
