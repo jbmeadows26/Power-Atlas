@@ -24,7 +24,7 @@ import DefenseIntel from './DefenseIntel';
 import GlobalConflictWatch from './GlobalConflictWatch';
 import MilitaryAssetChanges from './MilitaryAssetChanges';
 import AgentDesk from './AgentDesk';
-import AnalystEvidence, {useAnalystEvidence} from './AnalystEvidence';
+import {AnalystEvidenceCompact, useAnalystEvidence} from './AnalystEvidence';
 import { api } from '@appdeploy/client';
 import {
   Activity,
@@ -777,7 +777,7 @@ function App() {
           <div className="ea-original-workspace">
           <div className="ea-handoff-actions"><button type="button" onClick={saveCurrentWorkspace} title="Save filters and workspace in this browser"><Bookmark size={14}/> Save view</button>
             <button type="button" onClick={shareWorkspace} title="Copy or share a link that restores this workspace"><Copy size={14}/> Send to mobile</button></div>
-          {overview&&<AnalystEvidence reading={analystReading} placement="inline"/>}
+          {overview&&view!=='Overview'&&<AnalystEvidenceCompact reading={analystReading}/>}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -792,11 +792,14 @@ function App() {
             </div>
           )}
           {overview && view === 'Overview' && (
+            <>
             <CommandCenter overview={overview} openCountry={openCountry} activeCountry="all"
               openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
               openDesk={()=>switchView('Collection desk')}
               openSources={()=>switchView('Source library')}
               openMethod={()=>switchView('Methodology')} onNavigate={navigateFromSignal} />
+            <AnalystEvidenceCompact reading={analystReading}/>
+            </>
           )}
           {overview && view === 'Economic intelligence' && <EconomicIntelligence
             countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
