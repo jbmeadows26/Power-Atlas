@@ -19,6 +19,39 @@ if(process.argv.includes('--check-config')){
   console.log('Country completeness source: '+base+' (public Neon API)');
   process.exit(0);
 }
+/**
+ * A global World Bank household-survey Gini and the World Inequality
+ * Database's PRE-TAX Gini are not interchangeable measurements.
+ * Validate the alternate-measure status, exact publisher and visible
+ * methodology warning. Match capitalization without relaxing the policy.
+ */
+const properlyLabelledWorldGini=(row)=>{
+  if(!row||row.value===null)return true;
+  const publisher=String(row.sourceName||'');
+  const status=String(row.observationStatus||'');
+  const isWid=/(?:\\bWID\\b|World Inequality Database)/i.test(publisher);
+  const isAlternative=status==='alternative-measure:pretax-income-gini';
+  if(!isWid&&!isAlternative)return true;
+  return isWid&&isAlternative&&/\\bpre[\\s-]?tax\\b/i.test(String(row.label||''))&&
+    /World Bank survey Gini/i.test(String(row.meaning||''));
+};
+if(process.argv.includes('--test-gini')){
+  const base={
+    value:67.69,sourceName:'World Inequality Database · via Our World in Data',
+    observationStatus:'alternative-measure:pretax-income-gini',
+    meaning:'Do not compare this with World Bank survey Gini.'
+  };
+  if(!properlyLabelledWorldGini({...base,label:'Pre-tax income inequality (WID Gini)'})||
+     !properlyLabelledWorldGini({...base,label:'pre-tax Gini'})||
+      properlyLabelledWorldGini({...base,label:'Income inequality (Gini)'})||
+      properlyLabelledWorldGini({...base,label:'Pre-tax Gini',observationStatus:''})||
+     !properlyLabelledWorldGini({value:40,label:'Household survey Gini',
+       sourceName:'World Bank PIP',observationStatus:'alternative-source:world-bank-pip'})){
+    throw Error('World Gini source/measure labelling regression');
+  }
+  console.log('World Gini labels and method separation: PASS');
+  process.exit(0);
+}
 const cases=[['WLD',10],['US',10],['CN',8],['IR',7]];
 let failed=false;
 for(const [code,minimum] of cases){
@@ -36,7 +69,7 @@ for(const [code,minimum] of cases){
   const report={code,available:valid,minimum,sourceLabels:supplemental.map(x=>({id:x.code,name:x.sourceName,year:x.year})),warning:data.warning};
   console.log(JSON.stringify(report));
   if(valid<minimum){failed=true;console.error('QUALITY GATE: '+code+' has '+valid+'/12 with minimum '+minimum);}
-  if(code==='WLD'&&data.indicators.some(i=>i.code==='SI.POV.GINI'&&i.value!==null&&!i.label.includes('pre-tax'))){
+  if(code==='WLD'&&data.indicators.some(i=>i.code==='SI.POV.GINI'&&!properlyLabelledWorldGini(i))){
     failed=true;console.error('QUALITY GATE: World Gini must disclose that WID is a different measure');
   }
  }catch(e){failed=true;console.error('QUALITY GATE '+code+' error:',String(e));}
