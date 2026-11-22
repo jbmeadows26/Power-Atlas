@@ -13,7 +13,11 @@ export function defenseForCountry(data:CountryDefenseDataset|null|undefined,code
   return {
     assessments:data.assessments.filter(a=>a.countries.includes(code)),
     operations:data.operations.filter(o=>o.roles.some(role=>role.code===code)),
-    assets:data.assets.filter(a=>a.code===code),
+    assets:data.assets.filter(a=>a.code===code).sort((a,b)=>{
+      const ranking:Record<string,number>={Land:0,Air:1,Naval:2,Missiles:3,Nuclear:4,Space:5,Personnel:6,Spending:7};
+      const left=ranking[a.category||'']??8,right=ranking[b.category||'']??8;
+      return left-right||b.published.localeCompare(a.published)||a.name.localeCompare(b.name);
+    }),
   };
 }
 
