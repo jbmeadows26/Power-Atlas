@@ -10,11 +10,11 @@ const keys=Object.entries(SNAPSHOT_PATHS) as Array<[string,string]>;
 /** Keep original source dates intact; only the visible label is human-readable. */
 const readableDate=(value:string|undefined)=>{
   const original=(value||'').trim();
-  if(/^\\d{4}-\\d{2}$/.test(original)){
+  if(/^\d{4}-\d{2}$/.test(original)){
     const time=Date.parse(original+'-15T12:00:00Z');
     return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'}):original;
   }
-  if(/^\\d{4}-\\d{2}-\\d{2}(?:T.*)?$/.test(original)){
+  if(/^\d{4}-\d{2}-\d{2}(?:T.*)?$/.test(original)){
     const time=Date.parse(original.length===10?original+'T12:00:00Z':original);
     return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}):original;
   }
