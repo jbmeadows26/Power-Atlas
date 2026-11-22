@@ -59,7 +59,7 @@ export default function CountrySourceIndex({code,countries,cases,onSelect}:Props
  const leads=(intelligence?.records||[]).filter(r=>code!=='all'&&r.countryMention===code);
  const alliedSources=(defense?.sources||[]).filter(r=>['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
  const supportingSources=(defense?.sources||[]).filter(r=>!['United States','Five Eyes','EU / NATO','Indo-Pacific allies'].includes(r.group));
- const operations=(defense?.operations||[]).filter(r=>r.roles.some(p=>p.code===code));
+ const operations=(defense?.operations||[]).filter(r=>r.roles.some((p:{code:string;role:string})=>p.code===code));
  const assets=(defense?.assets||[]).filter(r=>r.code===code);
  const economics=(systems?.indicators||[]).filter(i=>selectedMetrics.has(i.code));
  const counts:{[key in Branch]:number}={cases:relatedCases.length,intake:leads.length,reports:assessments.length,sources:alliedSources.length,operations:operations.length,assets:assets.length,economic:economics.filter(i=>i.value!==null).length};
