@@ -300,6 +300,13 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await afterReload.waitFor({state:'attached',timeout:20000});
     assert.match(await afterReload.textContent(),/Russia/,'Returning to Countries must restore prior selection');
+    // Defense is additive; country context persists and its alert module must mount once.
+    await openWorkspace(page,'Defense, Security & Cyber','Global conflict watch');
+    await page.getByRole('region',{name:'Global conflict and hotspot analyst'}).waitFor({state:'visible',timeout:15000});
+    assert.equal(await page.locator('.gc-root').count(),1,'Global conflict analyst must mount exactly once');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/Russia/,
+      'Conflict analyst lost the selected country scope');
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await openCountryPicker(page);
     const combo = page.getByRole('combobox',{name:'Search country or code'});
     await combo.fill('china');
@@ -355,6 +362,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       ['World Factbook','Geopolitics & Intelligence','World Factbook'],
       ['Investigations','Geopolitics & Intelligence','Investigations'],
       ['Defense intelligence','Defense, Security & Cyber','Defense intelligence'],
+      ['Global conflict watch','Defense, Security & Cyber','Global conflict watch'],
       ['Cyber resilience','Defense, Security & Cyber','Cyber resilience'],
       ['Economic pulse','Macroeconomics & Markets','Economic pulse'],
       ['Growth & labor','Macroeconomics & Markets','Growth & labor'],
@@ -463,7 +471,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await page.screenshot({path:'audit-output/eastern-axis-tab-'+sectionName.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'-390.png'});
       inspected.push(sectionName);
     }
-    assert.equal(inspected.length,22,'Not every domain section was inspected');
+    assert.equal(inspected.length,allSections.length,'Not every domain section was inspected');
     console.log('ALL TABS QA',viewport.width,inspected.join(' | '));
     if(production) assert.equal(apiFailures.length,0,'Real browser-to-Neon API failures: '+apiFailures.join('; '));
     await page.screenshot({path:'audit-output/eastern-axis-'+viewport.width+'.png',fullPage:true});
