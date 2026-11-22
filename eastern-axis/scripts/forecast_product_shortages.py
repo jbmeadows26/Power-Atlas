@@ -19,6 +19,7 @@ from urllib.request import Request, urlopen
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_INPUT = ROOT / "public/analysis/physical-early-warning.json"
 DEFAULT_OUTPUT = ROOT / "public/analysis/product-shortage-outlook.json"
+DEFAULT_INVENTORY = ROOT / "public/analysis/product-inventory-context.json"
 PORTWATCH = "https://services9.arcgis.com/weJ1QsnbMYJlCHdG/arcgis/rest/services/Daily_Chokepoints_Data/FeatureServer/0/query"
 PORTWATCH_HOME = "https://portwatch.imf.org/"
 # Commodity names are input proxies, NOT observations of finished-goods inventories.
@@ -178,7 +179,41 @@ def route_pressure(portwatch: dict, today: date) -> dict:
     return result
 
 
-def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None = None) -> dict:
+def inventory_signals(inventory: dict | None, today: date) -> tuple[dict, list[dict]]:
+    """EIA gasoline is a direct commodity stock; broad Census ratios are context only."""
+    if not isinstance(inventory, dict) or inventory.get("schemaVersion") != 1:
+        return {}, []
+    direct, context = {}, []
+    for item in inventory.get("metrics", []) if isinstance(inventory.get("metrics"), list) else []:
+        if not isinstance(item, dict): continue
+        url = str(item.get("sourceUrl", ""))
+        days = age_days(item.get("period"),today)
+        if days is None or not url.startswith("https://"): continue
+        kind = item.get("kind")
+        if kind=="direct-inventory" and item.get("id")=="eia-us-gasoline-stocks" and days<=16:
+            week=clean_number(item.get("previous"))
+            year=clean_number(item.get("yearAgo"))
+            value=clean_number(item.get("value"))
+            if not value or not week or not year or item.get("productId")!="fuel":continue
+            week_change=round((value/week-1)*100,1)
+            annual_change=round((value/year-1)*100,1)
+            direct["fuel"]={"kind":"direct-inventory","title":item.get("label"),
+              "publisher":item.get("source"),"url":url,"period":item["period"],
+              "changePct":week_change,"changeYearPct":annual_change,
+              "value":value,"unit":item.get("unit"),"scope":item.get("scope"),
+              "stockScreen":week_change<=-3 or annual_change<=-8}
+        elif kind=="sector-inventory-ratio" and days<=115:
+            value=clean_number(item.get("value"))
+            if value is None:continue
+            context.append({"kind":"sector-context","title":item.get("label"),
+              "publisher":item.get("source"),"url":url,"period":item["period"],
+              "value":value,"unit":item.get("unit"),"scope":item.get("scope"),
+              "note":"U.S. sector context only; not evidence of product shortages"})
+    return direct, context
+
+
+def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None = None,
+             inventory: dict | None = None) -> dict:
     now = now or utcnow()
     today = now.date()
     if data.get("schemaVersion") != 1 or not isinstance(data.get("metrics"), list):
@@ -191,18 +226,26 @@ def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None 
         if indicator:
             commodities[str(indicator["id"])] = indicator
     ports = route_pressure(portwatch or {"features":[]}, today)
+    inventory_by_product, sector_context = inventory_signals(inventory, today)
     results = []
     for product_id, title, category, commodities_used, corridors, horizon in PRODUCTS:
         inputs = [commodities[k] for k in commodities_used if k in commodities]
         route_rows = [ports[k] for k in corridors if k in ports]
         rising = [m for m in inputs if m["pressureScore"] >= 18]
         strained = [r for r in route_rows if r["screen"]]
+        stock = inventory_by_product.get(product_id)
+        stock_strain = bool(stock and stock["stockScreen"])
         # Score is transparent triage priority; NOT an estimated shortage probability.
         input_score = max((x["pressureScore"] for x in inputs), default=0)
         transit_score = min(30, len(strained)*15)
-        score = min(100, input_score+transit_score)
-        coverage = "none" if not inputs and not route_rows else "partial" if not inputs or not route_rows else "two-channel"
-        if not inputs:
+        stock_score = 25 if stock_strain else 0
+        score = min(100, input_score+transit_score+stock_score)
+        coverage = "none" if not inputs and not route_rows and not stock else "partial" if not inputs or not route_rows else "two-channel"
+        if stock_strain and (rising or strained):
+            status = "cross-source-watch"
+        elif stock_strain:
+            status = "inventory-watch"
+        elif not inputs:
             status = "data-gap" if not strained else "transit-watch"
         elif rising and strained:
             status = "cross-source-watch"
@@ -220,12 +263,17 @@ def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None 
                         "publisher":x["publisher"],"url":x["url"],"period":x["period"],
                         "changePct":x["changePct"],"recentDays":x["recentDays"],
                         "baselineDays":x["baselineDays"]} for x in route_rows])
+        if stock:
+            evidence.append({k:v for k,v in stock.items() if k!="stockScreen"})
         signal = " / ".join(filter(None, [
             (str(len(rising))+" rising input-pressure series") if rising else "",
-            (str(len(strained))+" strained transit corridors") if strained else ""
+            (str(len(strained))+" strained transit corridors") if strained else "",
+            ("Measured EIA gasoline inventory drawdown") if stock_strain else ""
         ])) or "No verified simultaneous price/transit pressure"
         if status == "cross-source-watch":
-            interpretation = "If input-price and broad corridor pressure persist, procurement delays could become more likely; product inventory is unverified."
+            interpretation = "Independent pressure indicators warrant investigation; producer-to-retailer availability and deliveries remain unverified."
+        elif status == "inventory-watch":
+            interpretation = "A measured U.S. fuel inventory decline warrants monitoring; this does not establish retail pump shortages."
         elif status in ("input-cost-watch", "transit-watch"):
             interpretation = "Early input or routing pressure warrants monitoring; no product-level shortage is established."
         elif status == "baseline":
@@ -236,6 +284,8 @@ def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None 
                         "status":status,"screenScore":score,"scoreType":"uncalibrated-triage-not-probability",
                         "planningWindow":horizon,"horizonType":"planning-scenario-not-predicted-onset",
                         "confidence":"limited","coverage":coverage,"modelReviewed":False,
+                        "inventorySeriesAvailable":int(stock is not None),
+                        "inventoryStockScreen":stock_strain,
                         "countryScope":"global-input-proxy; destination markets unknown",
                         "confirmedShortage":False,"commandEligible":False,
                         "summary":interpretation,"signal":signal,
@@ -246,22 +296,30 @@ def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None 
                                            "Verified shipment origin, cargo and destination",
                                            "Importer-level supply dependence"],
                         "evidence":evidence})
-    rank = {"cross-source-watch":0,"input-cost-watch":1,"transit-watch":2,"baseline":3,"data-gap":4}
+    rank = {"cross-source-watch":0,"inventory-watch":1,"input-cost-watch":2,"transit-watch":3,"baseline":4,"data-gap":5}
     results.sort(key=lambda r:(rank.get(r["status"],5),-r["screenScore"],r["id"]))
     return {"schemaVersion":1,"generatedAt":now.isoformat(timespec="seconds").replace("+00:00","Z"),
             "sourceCheckedAt":data.get("checkedAt"),"status":"partial" if not ports else "source-dated",
-            "analyst":{"mode":"transparent-rules; no LLM inference","reviewGate":"A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
+            "inventoryContext":{"checkedAt":inventory.get("checkedAt") if isinstance(inventory,dict) else None,
+                                "directProducts":len(inventory_by_product),
+                                "sectorRatios":sector_context,
+                                "sources":inventory.get("sources",[]) if isinstance(inventory,dict) else []},
+            "analyst":{"mode":"transparent-rules with optional isolated AI review","reviewGate":"A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
                        "probabilityCalibration":"unavailable","portwatch":(portwatch or {}).get("status","unavailable")},
             "summary":{"products":len(results),
                        "crossSourceWatch":sum(r["status"]=="cross-source-watch" for r in results),
                        "inputCostWatch":sum(r["status"]=="input-cost-watch" for r in results),
                        "transitWatch":sum(r["status"]=="transit-watch" for r in results),
+                       "inventoryWatch":sum(r["inventoryStockScreen"] for r in results),
+                       "inventoryFeeds":len(inventory_by_product)+len(sector_context),
                        "dataGaps":sum(r["status"]=="data-gap" for r in results),
                        "commandEligible":0},
             "forecasts":results,
             "limitations":["Proxy commodity prices are not retail product inventories or confirmed shortages.",
                            "PortWatch counts are aggregate AIS vessel estimates, not product-specific shipments or trade partners.",
                            "Forecast windows are planning scenarios, not dated stockout predictions.",
+                           "EIA U.S. gasoline stocks are not retail station stocks or foreign-market inventories.",
+                           "Census/FRED inventory ratios are sector context, not product-level corroboration.",
                            "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
                            "Lack of evidence is not evidence of adequate stock."]}
 
@@ -271,10 +329,12 @@ def main() -> None:
     p.add_argument("--input",type=Path,default=DEFAULT_INPUT)
     p.add_argument("--output",type=Path,default=DEFAULT_OUTPUT)
     p.add_argument("--portwatch",choices=("fetch","skip"),default="fetch")
+    p.add_argument("--inventory",type=Path,default=DEFAULT_INVENTORY)
     args=p.parse_args()
     measurements=json.loads(args.input.read_text(encoding="utf-8"))
     ports=fetch_portwatch() if args.portwatch=="fetch" else {"status":"not-requested","features":[]}
-    report=forecast(measurements, ports)
+    inventory=json.loads(args.inventory.read_text(encoding="utf-8")) if args.inventory.exists() else None
+    report=forecast(measurements, ports,inventory=inventory)
     args.output.parent.mkdir(parents=True,exist_ok=True)
     args.output.write_text(json.dumps(report,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
     print(json.dumps({"status":report["status"],"summary":report["summary"],
