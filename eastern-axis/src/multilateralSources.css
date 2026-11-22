@@ -1,0 +1,35 @@
+.ea-control-room .ms-guide,.fb-root .ms-guide{background:#102932;border:1px solid #36565c;border-radius:9px;color:#d7e9e3;min-width:0;margin:16px 0;overflow:hidden}
+.ea-control-room .ms-top,.fb-root .ms-top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:15px 16px 10px}
+.ea-control-room .ms-heading,.fb-root .ms-heading{min-width:0;flex:1}
+.ea-control-room .ms-heading>span,.fb-root .ms-heading>span{display:flex;align-items:center;gap:7px;color:#bfe29b;font:750 10px 'DM Mono',monospace;letter-spacing:.05em}
+.ea-control-room .ms-heading>strong,.fb-root .ms-heading>strong{font-size:16px;display:block;margin:7px 0 4px;color:#e6f4e5}
+.ea-control-room .ms-heading>p,.fb-root .ms-heading>p{font-size:12px;line-height:1.5;color:#b3c9c9;margin:0}
+.ea-control-room .ms-heading>small,.fb-root .ms-heading>small{font-size:10px;line-height:1.5;color:#a7bfc2;display:block;margin-top:5px}
+.ea-control-room .ms-toggle,.fb-root .ms-toggle{display:inline-flex;align-items:center;gap:6px;border:1px solid #568079;background:#203f3b;border-radius:6px;padding:10px 11px;color:#d8eed0;cursor:pointer;font-size:11px;font-weight:750;flex-shrink:0}
+.ea-control-room .ms-toggle:hover,.fb-root .ms-toggle:hover{background:#315c4a}
+.ea-control-room .ms-toggle svg,.fb-root .ms-toggle svg{transition:transform .15s ease}
+.ea-control-room .ms-chevron-open,.fb-root .ms-chevron-open{transform:rotate(180deg)}
+.ea-control-room .ms-coverage,.fb-root .ms-coverage{display:flex;flex-wrap:wrap;gap:5px 16px;padding:10px 16px 13px;background:#17333b;border-top:1px solid #37565c}
+.ea-control-room .ms-coverage span,.fb-root .ms-coverage span{display:flex;align-items:center;gap:5px;color:#bbd6d0;font-size:11px}
+.ea-control-room .ms-coverage b,.fb-root .ms-coverage b{color:#e3f4c7}
+.ea-control-room .ms-list,.fb-root .ms-list{border-top:1px solid #37565c;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;padding:10px}
+.ea-control-room .ms-item,.fb-root .ms-item{background:#17343b;border:1px solid #35585b;border-radius:6px;padding:13px;min-width:0;overflow-wrap:anywhere}
+.ea-control-room .ms-line,.fb-root .ms-line{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.ea-control-room .ms-line>strong,.fb-root .ms-line>strong{color:#e5f0ec;font-size:12px;line-height:1.4}
+.ea-control-room .ms-status,.fb-root .ms-status{display:inline-flex;padding:3px 6px;border-radius:4px;font-size:9px;font-weight:750;white-space:nowrap;background:#364a4d;color:#d2e0dc}
+.ea-control-room .ms-connected,.fb-root .ms-connected{background:#285443;color:#c9efd2}
+.ea-control-room .ms-partial,.fb-root .ms-partial{background:#435129;color:#e4eab3}
+.ea-control-room .ms-archive,.fb-root .ms-archive{background:#4d4651;color:#dfd4e7}
+.ea-control-room .ms-item>p,.fb-root .ms-item>p{margin:8px 0 6px;line-height:1.5;font-size:11px;color:#d3e9df}
+.ea-control-room .ms-item>small,.fb-root .ms-item>small{display:block;font-size:10px;color:#a7c9c9;line-height:1.6}
+.ea-control-room .ms-explainer,.fb-root .ms-explainer{margin-top:8px;font-size:10px;line-height:1.6;color:#91b5bb}
+.ea-control-room .ms-source-link,.fb-root .ms-source-link{border-top:1px solid #31545c;padding-top:9px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:7px;margin-top:11px}
+.ea-control-room .ms-source-link span,.fb-root .ms-source-link span{font-size:10px;color:#a0b9bd}
+.ea-control-room .ms-source-link a,.fb-root .ms-source-link a{font-size:10px;font-weight:750;color:#c6edbe;display:inline-flex;align-items:center;gap:5px;text-underline-offset:3px}
+.ea-control-room .ms-limits,.fb-root .ms-limits{grid-column:1/-1;margin:0;padding:8px 6px;font-size:10px;line-height:1.6;color:#9cb6bc}
+@media(max-width:640px){
+ .ea-control-room .ms-top,.fb-root .ms-top{align-items:flex-start;flex-direction:column;gap:10px;padding:12px}
+ .ea-control-room .ms-toggle,.fb-root .ms-toggle{width:100%;justify-content:center}
+ .ea-control-room .ms-coverage,.fb-root .ms-coverage{padding:10px 12px;gap:8px}
+ .ea-control-room .ms-list,.fb-root .ms-list{grid-template-columns:minmax(0,1fr);padding:7px}
+}
