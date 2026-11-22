@@ -8,7 +8,7 @@ type Assessment={id:string;title:string;agency:string;government:string;group:st
 type Operation={id:string;title:string;theater:string;published:string;kind:string;summary:string;roles:{code:string;role:string}[];publisher:string;url:string;state:string};
 type Asset={id:string;code:string;category:string;name:string;quantity:string;unit:string;published:string;publisher:string;url:string;basis:string;detail:string;value?:number;status?:string;estimate?:boolean;observationYear?:number};
 type Source={id:string;name:string;group:string;what:string;url:string};
-type Data={reviewedAsOf:string;mode:string;assessments:Assessment[];operations:Operation[];assets:Asset[];sources:Source[];caveats:string[]};
+type Data={reviewedAsOf:string;mode:string;assessments:Assessment[];operations:Operation[];assets:Asset[];sources:Source[];caveats:string[];inventoryHealth?:{worldBank?:string|Record<string,{state:string;retainedObservations?:number}>}};
 type Props={code?:string;countryName?:string;mode?:'country'|'global'};
 const first=['All','Military operations','Military assets','Allied assessments','Research sources'];
 const date=(s:string)=>s.length>=10?new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):s;
@@ -33,11 +33,16 @@ export default function DefenseIntel({code,countryName,mode='country'}:Props){
  const covered=new Set(counted.map(a=>a.code)).size;
  const shownAssets=global&&!showAllAssets?assets.slice(0,48):assets;
  const dateInfo=data?.reviewedAsOf||'';
+ const worldBankHealth=data?.inventoryHealth?.worldBank;
+ const historicalGaps=typeof worldBankHealth==='string'
+   ? (worldBankHealth==='not-run'?'World Bank historical personnel and expenditure collection has not run for this published snapshot.':null)
+   : worldBankHealth?Object.entries(worldBankHealth).filter(([key,item])=>key.startsWith('MS.MIL.')&&item.state!=='ok').map(([key,item])=>key+' '+(item.state==='stale'?'last-known observations retained':'data unavailable')).join('; '):null;
  const tab=(key:string)=>focus==='All'||focus===key;
  return <div className={'defense-intel '+(global?'di-global':'di-country')}>
    <div className="di-hero"><div className="di-kicker"><ShieldCheck size={15}/> OFFICIAL & ALLIED SOURCES / PUBLIC RECORDS</div><h2>{global?'Defense intelligence & military assets':'Military & allied analysis'}</h2><p>{global?'Explore sourced operations, strategic capabilities and intelligence judgments across countries.':'Source-attributed context for '+(countryName||code)+'. Not a live battlefield picture.'}</p><small>Library reviewed {dateInfo?date(dateInfo):'pending'} · Historical observations, not live operational positions</small></div>
    {problem&&<div className="di-message">The defense source library and independent inventory baseline are unavailable. No values inferred.</div>}
    {partial&&<div className="di-message">Partial source coverage: one data channel did not respond. Existing attributed figures remain visible; missing does not mean zero.</div>}
+   {historicalGaps&&<div className="di-message">Historical World Bank coverage: {historicalGaps}. Dates on source records remain authoritative; no figures have been inferred.</div>}
    {!data&&!problem&&<div className="di-message">Loading public-source records…</div>}
    {data&&<>
      {global&&<div className="di-search"><Search size={16}/><input aria-label="Search defense intelligence" placeholder="Search countries, operations, military assets, reports…" value={term} onChange={e=>setTerm(e.target.value)}/></div>}
