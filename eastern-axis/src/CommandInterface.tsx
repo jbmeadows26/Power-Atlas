@@ -1,5 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Activity,ArrowUpRight,Bell,BookOpen,Bookmark,Clock3,ExternalLink,Layers3,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
+import AnalystEvidence from './AnalystEvidence';
+import type {EvidenceBrief} from './lib/domainAnalysts';
 
 export type SignalRecord={
   id:string;kind:string;title:string;group:string;source:string;sourceUrl:string;observedAt?:string;
@@ -83,9 +85,10 @@ function SignalEntry({item,stale}:{item:SignalRecord;stale:boolean}){
     <a href={item.sourceUrl} target="_blank" rel="noopener noreferrer">Original evidence <ArrowUpRight size={12}/></a>
   </article>;
 }
-export function ContextRail({feed,domain,country,onOpenAlerts}:{feed:SignalView;domain:string;country:string;onOpenAlerts:()=>void}){
+export function ContextRail({feed,analysis,domain,country,onOpenAlerts}:{feed:SignalView;analysis:EvidenceBrief;domain:string;country:string;onOpenAlerts:()=>void}){
   return <aside className="ea-ci-rail" aria-label="Source-backed intelligence context">
     <div className="ea-ci-rail-header"><div><span>CONTEXT / {country==='all'?'WORLDWIDE':country}</span><h2>{domain}</h2></div><button type="button" onClick={onOpenAlerts} title="Inspect complete alert inbox"><Bell size={17}/></button></div>
+    <AnalystEvidence reading={analysis} placement="rail"/>
     <div className="ea-ci-context"><span className="ea-ci-kicker"><ShieldCheck size={14}/> EVIDENCE-GATED STATUS</span>
       <div className="ea-ci-stat-grid">
         <div><strong>{feed.ready?feed.promoted.length:'—'}</strong><span>Verified elevated</span></div>
