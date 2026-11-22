@@ -189,9 +189,9 @@ def make_equipment_entries(rows):
         per_category[category] = per_category.get(category, 0) + 1
     if len(result) < 1600 or len(countries) < 145:
         raise ValueError("Incomplete source collection: " + str(len(result)) + " rows across " + str(len(countries)) + " countries")
-    for required in ("Land", "Air", "Naval", "Personnel", "Missiles"):
-        if per_category.get(required, 0) < 100:
-            raise ValueError("Missing domain " + required)
+    for required, floor in (("Land", 300), ("Air", 400), ("Naval", 180), ("Personnel", 250), ("Missiles", 50)):
+        if per_category.get(required, 0) < floor:
+            raise ValueError("Incomplete domain " + required)
     return result, {"countries": len(countries), "records": len(result), "byCategory": per_category}
 
 def main():
