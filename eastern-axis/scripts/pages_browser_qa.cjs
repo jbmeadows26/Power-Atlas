@@ -450,6 +450,30 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         await sources.getByRole('button',{name:'Hide multilateral data sources'}).click();
         assert.equal(await sources.locator('.ms-item').count(),0,sectionName+' source index did not collapse');
       }
+      if(sectionName==='World Factbook'){
+        // Regression: native Back must restore the selected country profile,
+        // not just update ea_country in the URL while leaving stale contents.
+        const factbook=page.locator('.fb-root');
+        await factbook.locator('.fb-country h2').waitFor({state:'visible',timeout:15000});
+        const initialScope=new URL(page.url()).searchParams.get('ea_country');
+        assert.equal(initialScope,'CN','World Factbook history fixture requires China scope');
+        assert.match(await factbook.locator('.fb-country h2').innerText(),/China/);
+        const russia=factbook.locator('.fb-entries button').filter({hasText:'Russia'}).first();
+        await russia.click();
+        assert.equal(new URL(page.url()).searchParams.get('ea_country'),'RU','Local archive selection lost parent country scope');
+        assert.match(await factbook.locator('.fb-country h2').innerText(),/Russia/);
+        await page.goBack();
+        await page.waitForFunction(()=>new URL(location.href).searchParams.get('ea_country')==='CN');
+        await page.waitForFunction(()=>document.querySelector('.fb-country h2')?.textContent?.includes('China'));
+        assert.match(await factbook.locator('.ms-heading small').innerText(),/CN\s*→\s*CHN/,
+          'Original ISO3 country source context was not restored after browser Back');
+        await page.goForward();
+        await page.waitForFunction(()=>new URL(location.href).searchParams.get('ea_country')==='RU');
+        await page.waitForFunction(()=>document.querySelector('.fb-country h2')?.textContent?.includes('Russia'));
+        await page.goBack();
+        await page.waitForFunction(()=>new URL(location.href).searchParams.get('ea_country')==='CN');
+        await page.waitForFunction(()=>document.querySelector('.fb-country h2')?.textContent?.includes('China'));
+      }
       if(sectionName==='Countries'){
         assert.equal(await page.locator('.ea-country-subnav').count(),0,'Country / Networks duplicate navigation returned');
         await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});

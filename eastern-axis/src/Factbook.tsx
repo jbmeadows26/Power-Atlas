@@ -52,6 +52,9 @@ export default function Factbook({
   activeCountry: string; onCountryChange: (value: string) => void;
 }) {
   const detailsRef = useRef<HTMLDivElement>(null);
+  // Directory selection emits the parent country scope. Ignore that ONE echo,
+  // but always honor later browser Back/Forward or global-country changes.
+  const pendingDirectoryScope = useRef<string | null>(null);
   const [catalog, setCatalog] = useState<Country[]>([]);
   const [catalogError, setCatalogError] = useState('');
   const [selected, setSelected] = useState(activeCountry === 'all' ? 'RU' : activeCountry);
@@ -74,7 +77,12 @@ export default function Factbook({
       .catch(() => setCatalogError('Historical archive directory is currently unavailable.'));
   }, []);
   useEffect(() => {
-    if (activeCountry !== 'all') setSelected(activeCountry);
+    if (pendingDirectoryScope.current === activeCountry) {
+      pendingDirectoryScope.current = null;
+      return;
+    }
+    pendingDirectoryScope.current = null;
+    setSelected(activeCountry === 'all' ? 'RU' : activeCountry);
   }, [activeCountry]);
   useEffect(() => {
     let active = true;
@@ -99,8 +107,12 @@ export default function Factbook({
   ), [catalog, query, region]);
   const current = catalog.find(item => item.code === selected);
   function selectCountry(item: Country) {
+    const nextScope=item.iso || 'all';
+    // Preserve the selected archive-only territory through the parent scope
+    // update, but never let that preservation mask a subsequent popstate.
+    pendingDirectoryScope.current=nextScope!==activeCountry?nextScope:null;
     setSelected(item.code); setExpanded({ background: true });
-    onCountryChange(item.iso || 'all');
+    onCountryChange(nextScope);
     // On narrow screens, the dossier sits below the long country directory.
     // Scroll to the actual result so selection is never a visually inert tap.
     if (window.matchMedia('(max-width: 900px)').matches) {
