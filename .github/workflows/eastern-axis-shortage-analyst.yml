@@ -14,13 +14,13 @@ on:
       - 'eastern-axis/scripts/collect_shortage_inventory.py'
       - 'eastern-axis/scripts/review_shortage_outlook.py'
       - 'eastern-axis/tests/test_shortage_inventory.py'
-      - 'eastern-axis/scripts/collect_shortage_inventory.py'
-      - 'eastern-axis/scripts/review_shortage_outlook.py'
-      - 'eastern-axis/tests/test_shortage_inventory.py'
       - 'eastern-axis/tests/test_shortage_forecasts.py'
       - '.github/workflows/eastern-axis-shortage-analyst.yml'
   pull_request:
     paths:
+      - 'eastern-axis/scripts/collect_shortage_inventory.py'
+      - 'eastern-axis/scripts/review_shortage_outlook.py'
+      - 'eastern-axis/tests/test_shortage_inventory.py'
       - 'eastern-axis/scripts/forecast_product_shortages.py'
       - 'eastern-axis/tests/test_shortage_forecasts.py'
       - 'eastern-axis/src/ShortageForecasts.tsx'
