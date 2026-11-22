@@ -11,10 +11,16 @@ on:
     branches: [main]
     paths:
       - 'eastern-axis/scripts/forecast_product_shortages.py'
+      - 'eastern-axis/scripts/collect_shortage_inventory.py'
+      - 'eastern-axis/scripts/review_shortage_outlook.py'
+      - 'eastern-axis/tests/test_shortage_inventory.py'
       - 'eastern-axis/tests/test_shortage_forecasts.py'
       - '.github/workflows/eastern-axis-shortage-analyst.yml'
   pull_request:
     paths:
+      - 'eastern-axis/scripts/collect_shortage_inventory.py'
+      - 'eastern-axis/scripts/review_shortage_outlook.py'
+      - 'eastern-axis/tests/test_shortage_inventory.py'
       - 'eastern-axis/scripts/forecast_product_shortages.py'
       - 'eastern-axis/tests/test_shortage_forecasts.py'
       - 'eastern-axis/src/ShortageForecasts.tsx'
@@ -31,7 +37,7 @@ jobs:
   forecast:
     if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 48
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,10 +48,15 @@ jobs:
           python-version: '3.12'
       - name: Verify shortage evidence gates
         run: python -m unittest discover -s eastern-axis/tests -p 'test_shortage_forecasts.py' -v
+      - name: Validate newly connected inventory parsers and local analyst gates
+        run: python -m unittest discover -s eastern-axis/tests -p 'test_shortage_inventory.py' -v
+      - name: Pull bounded direct EIA stocks and U.S. Census inventories
+        run: python eastern-axis/scripts/collect_shortage_inventory.py
       - name: Build source-dated, fail-closed shortage scenarios
         run: |
           test -s eastern-axis/public/analysis/physical-early-warning.json
           python eastern-axis/scripts/forecast_product_shortages.py
+
           python - <<'PY'
           import json
           from pathlib import Path
@@ -59,6 +70,48 @@ jobs:
                      for row in report['forecasts'])
           print('Evidence-validated forecast snapshot:',report['summary'])
           PY
+      - name: Check whether any price, stock or route screens qualify for model triage
+        id: triage
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import sys,json
+          sys.path.insert(0,"eastern-axis/scripts")
+          from review_shortage_outlook import candidates
+          from pathlib import Path
+          d=json.loads(Path("eastern-axis/public/analysis/product-shortage-outlook.json").read_text())
+          print("count="+str(len(candidates(d))))
+          PY
+      - name: Start isolated free CPU analyst for source-linked candidates only
+        if: ${{ github.event_name != 'pull_request' && steps.triage.outputs.count != '0' }}
+        continue-on-error: true
+        run: |
+          docker run --detach --name eastern-axis-shortage-ollama \
+            -e OLLAMA_HOST=0.0.0.0:11434 -e OLLAMA_NUM_PARALLEL=1 \
+            --publish 127.0.0.1:11434:11434 ollama/ollama:latest
+          for i in $(seq 1 40); do
+            if curl -fsS http://127.0.0.1:11434/api/tags >/dev/null; then break; fi
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          docker exec eastern-axis-shortage-ollama ollama pull qwen2.5:1.5b
+      - name: AI review candidates without automatic shortage or Command escalation
+        run: |
+          args=()
+          if [ "${{ github.event_name }}" != "pull_request" ] && \
+             curl -fsS --max-time 3 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            args+=(--model-endpoint http://127.0.0.1:11434)
+          fi
+          python eastern-axis/scripts/review_shortage_outlook.py "${args[@]}"
+          python - <<'PY'
+          from pathlib import Path
+          import json
+          d=json.loads(Path('eastern-axis/public/analysis/product-shortage-outlook.json').read_text())
+          assert d['summary']['commandEligible']==0
+          assert d['analyst']['screened']==d['summary']['products']
+          assert all(not x['confirmedShortage'] and not x['commandEligible'] for x in d['forecasts'])
+          assert all(x.get('modelReviewed') == bool(x.get('modelAssessment')) for x in d['forecasts'])
+          print('AI triage (fail-closed):',d['analyst']['status'],d['analyst']['reviewed'])
+          PY
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -70,7 +123,7 @@ jobs:
       - name: Commit verified scenario snapshot
         if: ${{ success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request' }}
         run: |
-          git add eastern-axis/public/analysis/product-shortage-outlook.json
+          git add eastern-axis/public/analysis/product-shortage-outlook.json eastern-axis/public/analysis/product-inventory-context.json
           if git diff --cached --quiet; then
             echo "No changes to published product forecast snapshot."
             exit 0
