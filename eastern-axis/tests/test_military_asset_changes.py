@@ -139,6 +139,10 @@ class MilitaryAssetAnalystTest(unittest.TestCase):
             a.review_with_model(report,"http://127.0.0.1:11434")
         self.assertEqual(report["summary"]["confirmedInventoryChanges"],0)
         self.assertTrue(all(x["notInventoryChange"] for x in report["assessments"]))
+        summary=next(x["analystRationale"] for x in report["assessments"] if x["modelReviewed"])
+        self.assertIn("eight preceding calendar-year observations",summary)
+        self.assertIn("does not establish new operational equipment",summary)
+        self.assertNotIn("intentions",summary)
 
     def test_no_hidden_fabricated_history_in_initial_holdings_file(self):
         doc=json.loads((ROOT/"public/analysis/military-holdings-history.json").read_text())
