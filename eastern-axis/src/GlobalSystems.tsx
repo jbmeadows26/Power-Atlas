@@ -14,7 +14,7 @@ type GlobalData = {
   code: string; checkedAt: string; status: string; covered: number; requested: number;
   indicators: Indicator[]; warning: string | null; source: string; sourceUrl: string; method: string;
 };
-type Props = { mode: Mode; countryCode: string; cases: Case[]; countryName?: string };
+type Props = { mode: Mode; countryCode: string; cases: Case[]; countryName?: string; groupFilter?: string };
 
 const groups = [
   { label: 'Energy & resources', text: 'Exposure to energy and resource systems. National totals do not identify beneficiaries or ownership.' },
@@ -84,7 +84,7 @@ const number = (x: number, unit: string) => {
   if (unit === 'people') return new Intl.NumberFormat('en-US', { notation: 'compact' }).format(x);
   return x.toLocaleString('en-US', { maximumFractionDigits: 1 }) + '%';
 };
-export default function GlobalSystems({ mode, countryCode, countryName }: Props) {
+export default function GlobalSystems({ mode, countryCode, countryName, groupFilter }: Props) {
   const code = countryCode === 'all' ? 'WLD' : countryCode;
   const [data, setData] = useState<GlobalData | null>(null);
   const [pending, setPending] = useState(false);
@@ -136,7 +136,7 @@ export default function GlobalSystems({ mode, countryCode, countryName }: Props)
     {pending && <div className="gs-notice"><Activity size={18}/> Requesting official indicator observations…</div>}
     {(failure || data?.status === 'unavailable') && <div className="gs-notice gs-error"><AlertCircle size={18}/> The World Bank response is unavailable. No figures have been substituted. Retry or inspect the original source.</div>}
     {data?.warning && data.status !== 'unavailable' && <div className="gs-notice"><CircleHelp size={18}/>{data.warning}</div>}
-    {mode === 'systems' && <div className="gs-groups">{groups.map(group => {
+    {mode === 'systems' && <div className="gs-groups">{groups.filter(group=>!groupFilter||group.label===groupFilter).map(group => {
       const GroupIcon = icons[group.label] || Globe2;
       const items = observed.filter(indicator => indicator.category === group.label);
       return <section className="gs-group" key={group.label}>
@@ -152,7 +152,7 @@ export default function GlobalSystems({ mode, countryCode, countryName }: Props)
       </section>;
     })}</div>}
     {mode === 'systems' && <div className="gs-source-alternatives"><strong>Additional original datasets</strong><span>Values in these sources have different survey populations, measures or reporting years; they are not interchangeable without source labels.</span><div><a href="https://pip.worldbank.org/" target="_blank" rel="noopener noreferrer">World Bank PIP</a><a href="https://wid.world/" target="_blank" rel="noopener noreferrer">World Inequality Database</a><a href="https://www.wider.unu.edu/database/world-income-inequality-database-wiid" target="_blank" rel="noopener noreferrer">UNU-WIDER WIID</a><a href="https://www.oecd.org/en/data/datasets/income-and-wealth-distribution-database.html" target="_blank" rel="noopener noreferrer">OECD Income & Wealth Distribution</a><a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank" rel="noopener noreferrer">OWID CO₂</a><a href="https://edgar.jrc.ec.europa.eu/" target="_blank" rel="noopener noreferrer">EU EDGAR</a></div></div>}
-    {mode === 'systems' && <EnergySupply code={code==='WLD'?'all':code} />}
+    {mode === 'systems' && (!groupFilter || groupFilter==='Energy & resources') && <EnergySupply code={code==='WLD'?'all':code} />}
     {mode === 'risk' && <div className="gs-signal-grid">{signalDefinitions.map(signal => {
       const observation = observed.find(item => item.code === signal.code);
       const available = typeof observation?.value === 'number';
