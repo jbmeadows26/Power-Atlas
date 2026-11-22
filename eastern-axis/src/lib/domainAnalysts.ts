@@ -73,9 +73,8 @@ const exposure=(b:EvidenceBrief,rows:Obj[])=>{
 };
 export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  const {view,focus,country,countryName,cases,snapshots,systems,failures}=input;
- const key=view==='Economic intelligence'?'Economic intelligence:'+focus:view;
+ const key=view==='Economic intelligence'?(focus==='systems'?'Macro indicators':'Economic intelligence:'+focus):view;
  const scope=country==='all'?'Worldwide':countryName||country;
- const snapshotsKnown=Object.values(SNAPSHOT_PATHS) as string[];
  const data=(key:string)=>o(snapshots[key]);
  const triage=data('triage'),manifest=data('source'),inventory=data('inventory'),conflict=data('conflict');
  const markets=data('markets'),transmission=data('transmission'),shortage=data('shortage');
@@ -302,9 +301,45 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
   b.limitation+=' Required source channels unavailable: '+missing.join(', ')+'.';
   if(!b.sources.length)b.status='coverage-gap';}
+ // A missing collection channel must never turn into a displayed numeric zero.
+ // Each tile declares its controlling dataset; still show independently verified tiles.
+ const tileSources:Record<string,string[]>={
+  'Overview':['source','triage','triage'],'AI analyst':['source','triage','triage'],
+  'Collection desk':['source','triage','triage'],'Verification lab':['source','triage','triage'],
+  'Coverage audit':['source','triage','triage'],'Source library':['source','triage','triage'],
+  'Methodology':['source','triage','triage'],
+  'Countries':['cases','source','country'],'World Factbook':['cases','source','country'],
+  'Investigations':['cases','source','country'],'Defense intelligence':['inventory','inventory','inventory'],
+  'Global conflict watch':['conflict','conflict','conflict'],
+  'Military asset changes':['changes','changes','changes'],
+  'Cyber resilience':['resilience','resilience','resilience'],
+  'Economic intelligence:overview':['markets','triage','country'],
+  'Economic intelligence:signals':['markets','triage','country'],
+  'Economic intelligence:risk':['markets','triage','country'],
+  'Macro indicators':['markets','triage','country'],
+  'Economic intelligence:supply':['shortage','shortage','shortage'],
+  'Economic intelligence:shortages':['shortage','shortage','shortage'],
+  'Trade indicators':['shortage','shortage','country'],
+  'Corporate intelligence':['transmission','transmission','transmission'],
+  'Energy & resources':['early','country','early'],
+  'Demographics & biosecurity':['country','country','country']
+ };
+ const available=(channel:string)=>channel==='cases'||(channel==='country'
+    ? country!=='all'&&Array.isArray(system.indicators)
+    : Boolean(o(snapshots[channel]).schemaVersion));
+ b.metrics=b.metrics.map((m,index)=>{
+   const channel=tileSources[key]?.[index];
+   return channel&&!available(channel)?{...m,value:'—',detail:'No source-verified observation; not zero'}:m;
+ });
+ if(Object.keys(snapshots).length===0){
+   b.status='coverage-gap';
+   b.finding=failures.length?'No validated evidence snapshots are currently available for this view.':
+     'Loading source-validated intelligence observations for this view.';
+   b.direction='No improvement, deterioration, or exceptional deviation can yet be evaluated.';
+   b.sources=[];b.chart=undefined;
+ }
  if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Corporate intelligence','Cyber resilience'].includes(key)){
    b.scope+=' · global or U.S. comparator (NOT country-attributed)';
  }
- if(!snapshotsKnown.length) b.coverage='No source routes available';
  return b;
 }
