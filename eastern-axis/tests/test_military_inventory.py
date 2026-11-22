@@ -61,6 +61,8 @@ class InventoryTest(unittest.TestCase):
        "url":"https://data.worldbank.org/indicator/MS.MIL.TOTL.P1?locations=US",
        "basis":"Historic WDI/IISS estimate","detail":"Historical 2020",
        "status":"historical-active-personnel","estimate":True,"observationYear":2020}
+  # Running after enrichment must replace the synthetic ID, not duplicate it.
+  baseline["assets"]=[item for item in baseline["assets"] if item["id"]!=old["id"]]
   baseline["assets"].append(old)
   with tempfile.TemporaryDirectory() as tmp:
    target=Path(tmp)/"military-inventory.json"
