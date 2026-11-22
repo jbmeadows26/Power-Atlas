@@ -428,7 +428,7 @@ function App() {
   // Presentation-only read; the underlying analyst decisions and source records remain untouched.
   const commandWorkspace = domain === 'command';
   const intelligenceFeed=useIntelligenceFeed(commandWorkspace?'all':countryScope,commandWorkspace?'all':horizon,commandWorkspace?'all':severity);
-  const analystReading=useAnalystEvidence({view,focus:economicFocus,country:commandWorkspace?'all':countryScope,
+  const analystReading=useAnalystEvidence({view,focus:economicFocus,horizon,severity,country:commandWorkspace?'all':countryScope,
     countryName:countries.find(c=>c.code===countryScope)?.name,cases});
   const notAllied = mainStates.filter(c => !c.isTreatyAlly);
   const filtered = useMemo(
