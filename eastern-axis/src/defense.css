@@ -13,3 +13,15 @@
 .di-show-more:hover{border-color:#80b7dc}
 
 .di-reference-links{display:flex;gap:12px;flex-wrap:wrap;margin:8px 0 14px}.di-reference-links a{display:inline-flex;gap:4px;align-items:center;font-size:12px;text-decoration:underline;color:#a6d9f8}
+
+/* Country hardware coverage: dashboard-first, accessible on narrow screens. */
+.di-equipment-health{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:12px 14px;margin:12px 0 16px;background:rgba(36,84,105,.22);border:1px solid rgba(107,167,197,.28);border-radius:11px;color:#d5e7ef;font-size:12px}
+.di-equipment-health strong{font-size:14px;color:#f4fdff}
+.di-equipment-health a{margin-left:auto;color:#9fd2f2;display:inline-flex;align-items:center;gap:4px;text-decoration:underline}
+.di-country-equip{display:grid;grid-template-columns:repeat(auto-fit,minmax(155px,1fr));gap:9px;margin:14px 0 16px}
+.di-equip-metric{display:flex;flex-direction:column;gap:5px;min-width:0;padding:13px;border:1px solid rgba(139,184,205,.25);background:rgba(35,57,73,.44);border-radius:10px}
+.di-equip-metric small{color:#bfd8e6;font-size:11px}
+.di-equip-metric strong{font-size:25px;font-variant-numeric:tabular-nums;color:#f3fafc}
+.di-equip-metric span{font-size:11px;color:#9bb8ca}
+.di-equip-metric a{font-size:12px;color:#9dcfea;display:inline-flex;align-items:center;gap:3px}
+@media (max-width:600px){.di-country-equip{grid-template-columns:repeat(2,minmax(0,1fr))}.di-equipment-health a{margin-left:0}}
