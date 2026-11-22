@@ -337,6 +337,8 @@ function App() {
   const [showAllies, setShowAllies] = useState(true);
   const [selected, setSelected] = useState<string | null>('RU');
   const [countryScope, setCountryScope] = useState<string>(()=>{if(startup.country)return startup.country;try{return window.localStorage.getItem('ea.country.scope')||'all';}catch{return 'all';}});
+  // The Source Library's country-index drilldown is local; command workspaces remain worldwide.
+  const [sourceIndexCountry, setSourceIndexCountry] = useState('all');
   useEffect(()=>{try{window.localStorage.setItem('ea.country.scope',countryScope);}catch{};if(countryScope!=='all')setSelected(countryScope);},[countryScope]);
   const [brief, setBrief] = useState<Brief | null>(null);
   const [briefLoading, setBriefLoading] = useState(false);
@@ -414,8 +416,10 @@ function App() {
   const cases = overview?.cases || [];
   const sources = overview?.sources || [];
   const mainStates = countries.filter(c => c.scope === 'state-or-observer');
-  // Presentation-only read. Published analyst decisions and source records are untouched.
-  const intelligenceFeed=useIntelligenceFeed(countryScope,horizon,severity);
+  // Operational command workspaces are global. Country filters apply only to geographic research domains.
+  // Presentation-only read; the underlying analyst decisions and source records remain untouched.
+  const commandWorkspace = domain === 'command';
+  const intelligenceFeed=useIntelligenceFeed(commandWorkspace?'all':countryScope,commandWorkspace?'all':horizon,commandWorkspace?'all':severity);
   const notAllied = mainStates.filter(c => !c.isTreatyAlly);
   const filtered = useMemo(
     () =>
@@ -466,7 +470,8 @@ function App() {
   };
   const currentWorkspace=()=>({
     domain,tab:activeDomain.tabs.find(t=>activeTab(t))?.label||activeDomain.tabs[0].label,
-    country:countryScope,region,horizon,severity
+    country:commandWorkspace?'all':countryScope,region:commandWorkspace?'All regions':region,
+    horizon:commandWorkspace?'all':horizon,severity:commandWorkspace?'all':severity
   });
   const workspaceUrl=()=>{
     const w=currentWorkspace();
@@ -552,6 +557,7 @@ function App() {
     setView(tab.section);
     setMobileMenu(false);
     setMobilePane('workspace');
+    setMobileFiltersOpen(false);
     setHoveredDomain(null);
     window.scrollTo({top:0,behavior:'smooth'});
   };
@@ -564,8 +570,8 @@ function App() {
   };
 
   return (
-    <GlobalFiltersContext.Provider value={{horizon,severity}}>
-    <div className={"shell ea-control-room" + (sidebarCollapsed ? " ea-sidebar-collapsed" : "") + (mobilePane!=='workspace'?" ea-mobile-pane-active":"")}>
+    <GlobalFiltersContext.Provider value={{horizon:commandWorkspace?'all':horizon,severity:commandWorkspace?'all':severity}}>
+    <div className={"shell ea-control-room" + (commandWorkspace ? " ea-unfiltered-command" : "") + (sidebarCollapsed ? " ea-sidebar-collapsed" : "") + (mobilePane!=='workspace'?" ea-mobile-pane-active":"")}>
       <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
           <span className="brand-mark">
@@ -654,7 +660,7 @@ function App() {
               onChange={e=>setQuickQuery(e.target.value)}/><kbd>/</kbd>
             <button type="submit" aria-label="Execute intelligence command"><ArrowRight size={15}/></button>
           </form>
-          <div className={'ea-global-filters'+(mobileFiltersOpen?' open':'')}>
+          {!commandWorkspace&&<div className={'ea-global-filters'+(mobileFiltersOpen?' open':'')}>
           <div className="header-right">
             <button type="button" className="ea-close-filters" onClick={()=>setMobileFiltersOpen(false)} aria-label="Close global filters"><X size={18}/> Close filters</button>
             <label className="ea-global-filter ea-region-filter"><span>REGION</span>
@@ -674,23 +680,23 @@ function App() {
               </select>
             </label>
           </div>
-          </div>
+          </div>}
         </header>
-        <div className="ea-mobile-filter-pills" role="group" aria-label="Active intelligence filters">
+        {!commandWorkspace&&<div className="ea-mobile-filter-pills" role="group" aria-label="Active intelligence filters">
           {[
             ['Region',region],['Country',mainStates.find(c=>c.code===countryScope)?.name||'Worldwide'],
             ['Time',horizon==='all'?'All dates':horizon],['Threat',severity==='all'?'All signals':severity]
           ].map(([label,value])=><button key={label} type="button" onClick={()=>setMobileFiltersOpen(true)} aria-label={'Edit '+label+' filter'}>
             <span>{label}</span><strong>{value}</strong><ChevronDown size={12}/></button>)}
-        </div>
-        {mobileFiltersOpen&&<button type="button" className="ea-filter-backdrop" aria-label="Close filter panel" onClick={()=>setMobileFiltersOpen(false)}/>}
+        </div>}
+        {!commandWorkspace&&mobileFiltersOpen&&<button type="button" className="ea-filter-backdrop" aria-label="Close filter panel" onClick={()=>setMobileFiltersOpen(false)}/>}
         {quickMessage&&<div className="ea-command-status" role="status">{quickMessage}<button type="button" onClick={()=>setQuickMessage('')} aria-label="Dismiss command message"><X size={14}/></button></div>}
         <nav className="ea-domain-tabs" aria-label={activeDomain.title+' workspace tabs'}>
           {activeDomain.tabs.map(tab=><button type="button" key={tab.label}
             className={activeTab(tab)?'active':''} aria-current={activeTab(tab)?'page':undefined}
             onClick={()=>selectDomainTab(domain,tab)}>{tab.label}</button>)}
         </nav>
-        <div className="ea-global-filter-note">Filters preserve original records. Time and severity apply to dated analyst signals; structural reference figures retain their published observation dates.</div>
+        {!commandWorkspace&&<div className="ea-global-filter-note">Filters preserve original records. Time and severity apply to dated analyst signals; structural reference figures retain their published observation dates.</div>}
         <div className="ea-workstation-row">
         <main className="content">
           <div className="ea-mobile-panel">
@@ -719,7 +725,7 @@ function App() {
             </div>
           )}
           {overview && view === 'Overview' && (
-            <CommandCenter overview={overview} openCountry={openCountry} activeCountry={countryScope} onCountrySelected={setCountryScope}
+            <CommandCenter overview={overview} openCountry={openCountry} activeCountry="all"
               openCases={id=>{const file=cases.find(c=>c.id===id);if(file)setCountryScope(file.code);setCaseSelected(id||null);switchView('Investigations');}}
               openDesk={()=>switchView('Collection desk')}
               openSources={()=>switchView('Source library')}
@@ -730,9 +736,9 @@ function App() {
             cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
             onCountryMap={openGeospatial} onDefense={()=>switchView('Defense intelligence')}
             hideNavigation onFocusChange={onEconomicFocusChange} />}
-          {overview && view === 'AI analyst' && <AgentDesk countryCode={countryScope} />}
-          {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode={countryScope} cases={cases} /></>}
-          {overview && view === 'Collection desk' && <IntakeDesk countryCode={countryScope} />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode={countryScope} />}
+          {overview && view === 'AI analyst' && <AgentDesk countryCode="all" />}
+          {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode="all" cases={cases} /></>}
+          {overview && view === 'Collection desk' && <IntakeDesk countryCode="all" />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode="all" />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
           {overview && view === 'Cyber resilience' && <ResilienceWatch/>}
           {overview && view === 'Macro indicators' && <GlobalSystems mode="systems" groupFilter="Economy" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
@@ -1257,7 +1263,8 @@ function App() {
               <details className="source-index-disclosure" style={{border:'1px solid #35565c',borderRadius:10,background:'#102a34',margin:'18px 0',overflow:'hidden'}}>
                 <summary style={{cursor:'pointer',padding:'16px 19px',fontWeight:750,color:'#c4e8db'}}>Country-linked source inventory · UK / Canadian sanctions snapshots</summary>
                 <p style={{margin:'0 18px',fontSize:12,color:'#99b9b9',lineHeight:1.6}}>Reference and coverage records are kept here, separate from the Networks relationship graph. Selecting a country filters legal regimes, not the nationality of listed entities.</p>
-                <CountrySourceIndex code={countryScope} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setCountryScope} />
+                {sourceIndexCountry!=='all'&&<button type="button" className="quiet-btn" onClick={()=>setSourceIndexCountry('all')} style={{margin:'8px 18px'}}>← Browse all countries</button>}
+                <CountrySourceIndex code={sourceIndexCountry} countries={overview.countries.filter(c=>c.scope==='state-or-observer')} cases={cases} onSelect={setSourceIndexCountry} />
               </details>
               <div className="registry-note">
                 <CircleAlert size={18} />
@@ -1359,7 +1366,7 @@ function App() {
           )}
           </div>
         </main>
-        {overview&&<ContextRail feed={intelligenceFeed} domain={activeDomain.title} country={countryScope}
+        {overview&&<ContextRail feed={intelligenceFeed} domain={activeDomain.title} country={commandWorkspace?'all':countryScope}
           onOpenAlerts={()=>{if(window.matchMedia('(max-width: 980px)').matches)setMobilePane('alerts');else selectDomainTab('command',domains[0].tabs[1]);}}/>}
         </div>
         <footer className="footer">
