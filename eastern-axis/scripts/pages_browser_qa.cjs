@@ -435,6 +435,20 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not show screening radar by default');
       else
         assert.equal(await page.locator('.pew-context-radar').getAttribute('open'),null,'Radar must remain collapsed until requested');
+      if(sectionName==='World Factbook'||sectionName==='Coverage audit'){
+        // Source inventory is discovery metadata, not nine falsely-claimed live connections.
+        const directory=page.locator('.css-root');
+        await directory.waitFor({state:'visible',timeout:15000});
+        assert.equal(await directory.getAttribute('open'),null,'Source directory must stay collapsed unless requested');
+        await directory.locator('summary').click();
+        assert.equal(await directory.locator('.css-source').count(),9,'Expected nine deduplicated statistical publisher records');
+        assert.ok((await directory.locator('.css-source-links a').count())>=9,'Missing official source/methodology links');
+        assert.match(await directory.innerText(),/REFERENCE ONLY/,'Discovery-only sources must not look ingested');
+        if(sectionName==='World Factbook')
+          assert.match(await directory.innerText(),/ISO 3166-1 alpha-3:/,'Country join key must be visible');
+        await directory.locator('summary').click();
+        assert.equal(await directory.getAttribute('open'),null,'Source directory did not collapse');
+      }
       if(sectionName==='Countries'){
         assert.equal(await page.locator('.ea-country-subnav').count(),0,'Country / Networks duplicate navigation returned');
         await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
