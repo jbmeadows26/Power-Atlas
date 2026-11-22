@@ -72,7 +72,7 @@ function Sparkline({chart}:{chart:NonNullable<EvidenceBrief['chart']>}){
     <span>{chart.dates[0]||'Earlier observation'} · {chart.dates.at(-1)||'Latest observation'} · source-dated, not live</span>
   </div>;
 }
-export default function AnalystEvidence({reading,placement='rail'}:{reading:EvidenceBrief;placement?:'rail'|'inline'}){
+export default function AnalystEvidence({reading,placement='rail'}:{reading:EvidenceBrief;placement?:'rail'|'inline'|'details'}){
   const [details,setDetails]=useState(false);
   useEffect(()=>setDetails(false),[reading.title,reading.scope]);
   return <section className={'eai-readout eai-'+placement} aria-label={'Source-backed analyst interpretation: '+reading.title}>
