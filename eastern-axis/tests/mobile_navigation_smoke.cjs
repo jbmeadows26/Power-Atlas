@@ -135,6 +135,7 @@ async function qa(page,width){
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   assert.equal(await page.locator('.ea-domain-tabs').count(),1,'Exactly one contextual tabs row');
   assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Redundant horizontal workspace menu must not mount');
+  if(width<=980)await page.getByRole('button',{name:'Toggle navigation'}).click();
   const report=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
   await report.waitFor({state:'visible'});
   await report.click();
