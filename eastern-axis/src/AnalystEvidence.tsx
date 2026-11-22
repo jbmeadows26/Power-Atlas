@@ -7,6 +7,19 @@ import './analystEvidence.css';
 type Case={code?:string;topic?:string;source?:string;title?:string};
 type HookArgs={view:string;focus:string;country:string;countryName?:string;horizon?:string;severity?:string;cases:Case[]};
 const keys=Object.entries(SNAPSHOT_PATHS) as Array<[string,string]>;
+/** Keep original source dates intact; only the visible label is human-readable. */
+const readableDate=(value:string|undefined)=>{
+  const original=(value||'').trim();
+  if(/^\\d{4}-\\d{2}$/.test(original)){
+    const time=Date.parse(original+'-15T12:00:00Z');
+    return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',year:'numeric',timeZone:'UTC'}):original;
+  }
+  if(/^\\d{4}-\\d{2}-\\d{2}(?:T.*)?$/.test(original)){
+    const time=Date.parse(original.length===10?original+'T12:00:00Z':original);
+    return Number.isFinite(time)?new Date(time).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}):original;
+  }
+  return original||'Date not reported';
+};
 const asObject=(value:unknown):Record<string,unknown>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:null;
 
@@ -109,9 +122,10 @@ export default function AnalystEvidence({reading,placement='rail'}:{reading:Evid
       <strong>Evidence limit</strong><p>{reading.limitation}</p>
     </div>}
     <div className="eai-sources">
-      <div><strong>ORIGINAL EVIDENCE</strong><span><Clock3 size={12}/> {reading.asOf}</span></div>
-      {reading.sources.length?reading.sources.slice(0,4).map(link=><a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" title={'Open '+link.title}>
-        {link.title}<ArrowUpRight size={12}/>{link.date&&<small>{link.date}</small>}
+      <div><strong>ORIGINAL EVIDENCE</strong><span title={reading.asOf}><Clock3 size={12}/> {readableDate(reading.asOf)}</span></div>
+      {reading.sources.length?reading.sources.slice(0,4).map(link=><a key={link.url} href={link.url} target="_blank" rel="noopener noreferrer" title={'Open '+link.title+(link.date?' · '+link.date:'')}>
+        <span className="eai-source-label">{link.title}{link.date&&<small title={link.date}>{readableDate(link.date)}</small>}</span>
+        <ArrowUpRight size={13}/>
       </a>):<p>No original records available in this scope. Do not interpret missing as zero.</p>}
       <small>{reading.coverage}</small>
     </div>
