@@ -32,11 +32,25 @@ async function waitForServer(){
   }
   throw Error('Local Vite server did not start');
 }
+async function closeMobileFilters(page){
+  if(await page.evaluate(()=>innerWidth<=980)&&await page.locator('.ea-global-filters.open').count())
+    await page.getByRole('button',{name:'Close global filters'}).click();
+}
+async function openCountryPicker(page){
+  if(await page.evaluate(()=>innerWidth<=980)&&!await page.locator('.ea-global-filters.open').count())
+    await page.getByRole('button',{name:'Edit Country filter'}).click();
+  await page.locator('#ea-country-scope').click();
+}
 async function openWorkspace(page,domain,tab){
-  const sidebar=page.locator('#ea-primary-navigation');
-  if(await page.evaluate(()=>innerWidth<=980) && !await sidebar.evaluate(el=>el.classList.contains('sidebar-open')))
-    await page.getByRole('button',{name:'Toggle navigation'}).click();
-  await sidebar.locator('button.nav-item').filter({hasText:domain}).click();
+  await closeMobileFilters(page);
+  if(await page.evaluate(()=>innerWidth<=980)){
+    await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Domains'}).click();
+    const grid=page.getByRole('region',{name:'Eight intelligence domains'});
+    assert.equal(await grid.locator('button').count(),8,'Mobile grid must contain eight domains');
+    await grid.getByRole('button',{name:domain,exact:true}).click();
+  }else{
+    await page.locator('#ea-primary-navigation button.nav-item').filter({hasText:domain}).click();
+  }
   if(tab)await page.locator('.ea-domain-tabs').getByRole('button',{name:tab,exact:true}).click();
 }
 async function qa(page,width){
@@ -82,10 +96,13 @@ async function qa(page,width){
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
-  await page.getByRole('button',{name:'Choose country intelligence scope'}).waitFor({state:'visible',timeout:20000});
+  await page.locator('#ea-country-scope').waitFor({state:'attached',timeout:20000});
+  if(width<=980)await page.getByRole('button',{name:'Edit Country filter'}).waitFor({state:'visible',timeout:10000});
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
-  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Duplicate mobile navigation must not mount');
+  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Legacy duplicate nav must not mount');
+  assert.equal(await page.locator('.ea-mobile-primary').count(),1,'One four-action mobile nav in DOM');
+  if(width<=980)assert.equal(await page.locator('.ea-mobile-primary:visible button').count(),4,'Mobile nav must show four routes');
   const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
   await command.waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
@@ -135,8 +152,9 @@ async function qa(page,width){
   assert.equal(await radar.locator('.dr-lane').count(),4,'First screen should show four decision-domain visualizations');
   assert.equal(await page.locator('.ea-domain-tabs').count(),1,'Exactly one contextual tabs row');
   assert.equal(await page.getByRole('navigation',{name:'Primary intelligence workspaces'}).count(),0,'Redundant horizontal workspace menu must not mount');
-  if(width<=980)await page.getByRole('button',{name:'Toggle navigation'}).click();
-  const report=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
+  if(width<=980)await page.getByRole('navigation',{name:'Mobile primary navigation'}).getByRole('button',{name:'Briefcase'}).click();
+  const report=width<=980?page.getByRole('button',{name:/Report a bug · no login required/i}):
+    page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/i});
   await report.waitFor({state:'visible'});
   await report.click();
   const bug=page.getByRole('dialog',{name:'Report a bug'});
@@ -155,9 +173,10 @@ async function qa(page,width){
   await page.locator('#ea-investigation-list .case-card').first().waitFor({state:'visible'});
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1);
   assert.match(await page.locator('#ea-investigation-detail').innerText(),/Fixture case/,'A matching case should open by default');
-  await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+  await openCountryPicker(page);
   await page.getByRole('combobox',{name:'Search country or code'}).fill('United States');
   await page.getByRole('option',{name:/United States/}).click();
+  await closeMobileFilters(page);
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'U.S. impact must not be confused with the foreign-case country tag');
   assert.match(await page.locator('.investigation-summary').innerText(),/U.S. impact view/);
   await page.locator('#ea-investigation-list .case-card').first().click();
@@ -167,24 +186,25 @@ async function qa(page,width){
     await page.getByRole('button',{name:'Back to investigations'}).click();
     assert.equal(await page.locator('#ea-investigation-list').isVisible(),true);
   }
-  await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+  await openCountryPicker(page);
   await page.getByRole('combobox',{name:'Search country or code'}).fill('China');
   await page.getByRole('option',{name:/China/}).click();
+  await closeMobileFilters(page);
   await page.locator('.case-empty').waitFor({state:'visible'});
   assert.equal(await page.locator('#ea-investigation-detail:visible').count(),0,'No matching case should not display a ghost detail panel');
   await page.getByRole('button',{name:'View all investigations'}).click();
   assert.equal(await page.locator('#ea-investigation-list .case-card').count(),1,'Reset must restore all cases');
-  assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/Worldwide/);
+  assert.match(await page.locator('#ea-country-scope').textContent(),/Worldwide/);
   // Restore the prior workspace before continuing the existing radar/navigation QA.
   await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
   await page.locator('.pew-context-radar').locator('summary').click();
   await page.getByRole('region',{name:'Decision radar by domain'}).waitFor({state:'visible'});
 
-  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Only one navigation menu');
+  assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Legacy duplicate menu must stay absent');
   if(width>980){
     assert.equal(await page.locator('.sidebar').isVisible(),true,'Desktop keeps its full sidebar');
   }else{
-    assert.equal(await page.getByRole('button',{name:'Toggle navigation'}).isVisible(),true,'Mobile uses one sidebar drawer');
+    assert.equal(await page.getByRole('navigation',{name:'Mobile primary navigation'}).isVisible(),true,'Mobile uses the one four-route footer');
     await radar.getByRole('heading',{name:'Finance'}).waitFor({state:'visible'});
     await radar.locator('.dr-pair').first().waitFor({state:'visible',timeout:15000});
     // Country dossier and network evidence share one page; no competing two-way switch.
@@ -200,23 +220,26 @@ async function qa(page,width){
     const original=network.getByRole('link',{name:/Examine original evidence/});
     assert.match(await original.getAttribute('href'),/^https:\/\//,'Relationship needs original evidence link');
     // Selecting a zero-case, zero-link country must show an explicit coverage gap, not blank the app.
-    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+    await openCountryPicker(page);
     await page.getByRole('combobox',{name:'Search country or code'}).fill('Antigua');
     await page.getByRole('option',{name:/Antigua/}).click();
+  await closeMobileFilters(page);
     await network.locator('.nx-empty').waitFor({state:'visible'});
     assert.equal(await page.locator('#root').isVisible(),true,'Unknown network country blanked the root');
     assert.deepEqual(pageErrors,[],'Country selection caused a React render error');
-    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+    await openCountryPicker(page);
     await page.getByRole('option',{name:/Worldwide/}).click();
-    await page.getByRole('button',{name:'Choose country intelligence scope'}).click();
+  await closeMobileFilters(page);
+    await openCountryPicker(page);
     await page.getByRole('combobox',{name:'Search country or code'}).fill('china');
     await page.getByRole('option',{name:/China/}).click();
+  await closeMobileFilters(page);
     await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     const networkToggle=page.getByRole('button',{name:'Explore relationships'});
     if(await networkToggle.count())await networkToggle.click();
     await page.getByRole('region',{name:'Sourced relationship networks'}).waitFor({state:'visible'});
-    assert.match(await page.getByRole('button',{name:'Choose country intelligence scope'}).innerText(),/China/,'Integrated relationship network lost country scope');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Integrated relationship network lost country scope');
     await page.getByRole('button',{name:'Hide relationships'}).click();
     await page.getByRole('heading',{name:/Country intelligence/i}).waitFor();
     await page.locator('.country-brief .brief-relationship').waitFor({state:'visible'});
@@ -225,10 +248,10 @@ async function qa(page,width){
     await page.getByRole('heading',{name:'The systems behind global power.'}).waitFor({state:'visible'});
     await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
-    assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection must persist between tabs');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection must persist between tabs');
     await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     await page.getByRole('region',{name:'Risk summary visual dashboard'}).getByRole('heading',{name:/Risk signals, at a glance/i}).waitFor();
-    assert.match(await page.locator('#ea-country-scope').innerText(),/China/);
+    assert.match(await page.locator('#ea-country-scope').textContent(),/China/);
     await openWorkspace(page,'Command & Situation Room','Source library');
     await page.getByRole('heading',{name:/Sources, not secrets/i}).waitFor();
     // The old country dossiers and comparative sanctions snapshots still exist, in Source Library.
@@ -238,13 +261,13 @@ async function qa(page,width){
     await sourceInventory.locator('.ip-sanction-source').first().waitFor({state:'visible',timeout:15000});
     assert.equal(await sourceInventory.locator('.ip-sanction-source').count(),2,'UK and Canadian source snapshots must be preserved');
 
-    assert.equal(await page.locator('#ea-primary-navigation').evaluate(el=>el.classList.contains('sidebar-open')),false,'Drawer should close after a selection');
+    assert.equal(await page.getByRole('region',{name:'Eight intelligence domains'}).count(),0,'Grid should close after domain choice');
     await openWorkspace(page,'Command & Situation Room','Situation room');
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
-    assert.match(await page.locator('#ea-country-scope').innerText(),/China/,'Country selection survives reload');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection survives reload');
     await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible'});
