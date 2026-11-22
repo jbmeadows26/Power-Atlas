@@ -107,6 +107,39 @@ async function qa(page,width){
   const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
   await command.waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
+  // Browser-history regression: native Back and Forward must traverse actual SPA
+  // submenus instead of sending users out of Eastern Axis.
+  const situationUrl=page.url();
+  await page.locator('.ea-domain-tabs').getByRole('button',{name:'AI analyst',exact:true}).click();
+  await page.locator('.ea-agent').waitFor({state:'visible',timeout:15000});
+  const analystUrl=page.url();
+  assert.notEqual(analystUrl,situationUrl,'AI analyst must create a distinct browser history URL');
+  await page.locator('.ea-domain-tabs').getByRole('button',{name:'Collection desk',exact:true}).click();
+  await page.getByRole('heading',{name:/Collection desk/i}).waitFor({state:'visible',timeout:15000});
+  const collectionUrl=page.url();
+  assert.notEqual(collectionUrl,analystUrl,'Collection desk must create another history entry');
+  await page.goBack();
+  await page.locator('.ea-agent').waitFor({state:'visible'});
+  assert.equal(page.url(),analystUrl,'Native Back must return to AI analyst');
+  await page.goForward();
+  await page.getByRole('heading',{name:/Collection desk/i}).waitFor({state:'visible'});
+  assert.equal(page.url(),collectionUrl,'Native Forward must return to Collection desk');
+  await page.goBack();
+  await page.locator('.ea-agent').waitFor({state:'visible'});
+  await page.goBack();
+  await command.waitFor({state:'visible'});
+  assert.equal(page.url(),situationUrl,'Second Back must return to Situation room');
+  // Switch across major domains using the actual mobile Domains menu or
+  // desktop sidebar. Back should bypass the transient chooser.
+  await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
+  await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
+  const geopoliticsUrl=page.url();
+  await openWorkspace(page,'Defense, Security & Cyber','Defense intelligence');
+  await page.getByRole('heading',{name:/Defense intelligence/i}).waitFor({state:'visible'});
+  assert.notEqual(page.url(),geopoliticsUrl,'Domain navigation must change browser URL');
+  await page.goBack();
+  await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
+  assert.equal(page.url(),geopoliticsUrl,'Back must return to last domain, not the domain picker');
   await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
   const analyst=page.getByRole('region',{name:'AI analyst signal review'});
   await analyst.waitFor({state:'visible'});
