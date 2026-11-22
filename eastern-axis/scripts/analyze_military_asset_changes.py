@@ -99,18 +99,23 @@ def robust_change(history, value, indicator):
     mad=median(abs(n-center) for n in history)
     # TIV is a volume indicator in reported dollar-equivalent units; use a
     # non-trivial floor to avoid explosive z-scores from sparse zero values.
-    floor=60_000_000 if indicator!="MS.MIL.TOTL.P1" else 4_000
+    floor=(max(2.0,0.06*center) if indicator=="HOLDINGS" else
+           4_000 if indicator=="MS.MIL.TOTL.P1" else 60_000_000)
     spread=max(1.4826*mad,0.12*center,floor)
     z=(value-center)/spread
     change=None if center==0 else 100*(value/center-1)
+    direction="within-baseline"
     if center==0:
-        direction="unassessed"  # No reliable percent comparison with zero baseline.
-    elif z>=3 and change>=50 and value>=150_000_000 if indicator!="MS.MIL.TOTL.P1" else z>=3 and change>=25:
-        direction="expanding"
-    elif z<=-3 and change<=-50 and center>=150_000_000 if indicator!="MS.MIL.TOTL.P1" else z<=-3 and change<=-25:
-        direction="contracting"
+        direction="unassessed"  # Zero-only histories cannot establish percent changes.
+    elif indicator=="HOLDINGS":
+        if z>=3 and change>=30 and value>=5:direction="expanding"
+        elif z<=-3 and change<=-30 and center>=5:direction="contracting"
+    elif indicator=="MS.MIL.TOTL.P1":
+        if z>=3 and change>=25:direction="expanding"
+        elif z<=-3 and change<=-25:direction="contracting"
     else:
-        direction="within-baseline"
+        if z>=3 and change>=50 and value>=150_000_000:direction="expanding"
+        elif z<=-3 and change<=-50 and center>=150_000_000:direction="contracting"
     return {"status":"assessable","robustZ":round(z,2),"median":round(center,2),
             "changePct":round(change,1) if change is not None else None,"direction":direction}
 
