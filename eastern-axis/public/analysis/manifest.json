@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-21T14:37:22Z",
+  "generatedAt": "2026-11-22T14:31:55Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
@@ -98,7 +98,7 @@
       "name": "OpenOSINT",
       "status": "ok",
       "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
-      "checkedAt": "2026-11-21T14:37:27Z"
+      "checkedAt": "2026-11-22T14:31:59Z"
     },
     {
       "id": "openaleph",
@@ -114,6 +114,51 @@
     }
   ],
   "records": [
+    {
+      "id": "uk-mod-16892862229e5f57",
+      "sourceId": "official-source-monitor",
+      "title": "Chief of Defence Intelligence speech at Cambridge Intelligence Seminar: 20 November 2026",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/speeches/chief-of-defence-intelligence-speech-at-cambridge-intelligence-seminar-20-november-2026",
+      "date": "2026-11-21",
+      "detectedAt": "2026-11-22T05:32:24.431Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "uk-mod-243265bfddf626ab",
+      "sourceId": "official-source-monitor",
+      "title": "Defence Secretary meets President Zelensky and Minister Khmara in Kyiv as UK deepens industrial support for Ukraine",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/defence-secretary-meets-president-zelensky-and-minister-khmara-in-kyiv-as-uk-deepens-industrial-support-for-ukraine",
+      "date": "2026-11-21",
+      "detectedAt": "2026-11-22T05:32:24.431Z",
+      "countries": [
+        "UA"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        },
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
+      ]
+    },
     {
       "id": "un-security-ba6833bcf170767d",
       "sourceId": "official-source-monitor",
@@ -1007,43 +1052,6 @@
         "military"
       ],
       "inferredCountries": []
-    },
-    {
-      "id": "uk-mod-6332cd75e06066b4",
-      "sourceId": "official-source-monitor",
-      "title": "Transparency data: Military Court Service sentencing remarks 2026",
-      "publisher": "UK Ministry of Defence publications",
-      "url": "https://www.gov.uk/government/publications/military-court-service-sentencing-remarks-2026",
-      "date": "2026-11-16",
-      "detectedAt": "2026-11-17T11:56:47.323Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ],
-      "inferredCountries": []
-    },
-    {
-      "id": "uk-mod-944e67228299fb09",
-      "sourceId": "official-source-monitor",
-      "title": "Official Statistics: UK armed forces and UK civilian operational casualty and fatality statistics: data up to 30 September 2026",
-      "publisher": "UK Ministry of Defence publications",
-      "url": "https://www.gov.uk/government/statistics/announcements/uk-armed-forces-and-uk-civilian-operational-casualty-and-fatality-statistics-data-up-to-30-september-2026",
-      "date": "2026-11-17",
-      "detectedAt": "2026-11-17T11:56:47.323Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ],
-      "inferredCountries": [
-        {
-          "code": "GB",
-          "basis": "title-country-name",
-          "matchedText": "UK",
-          "confidence": "high"
-        }
-      ]
     },
     {
       "id": "intake-cisa-CVE-2026-76466",
@@ -2321,13 +2329,13 @@
       },
       {
         "code": "UA",
-        "sourceCount": 5,
+        "sourceCount": 6,
         "publisherCount": 2,
         "publishers": [
           "UK Ministry of Defence publications",
           "UN News: Peace and Security"
         ],
-        "changedCount": 3,
+        "changedCount": 4,
         "topics": [
           "humanitarian",
           "military",
@@ -2335,13 +2343,14 @@
           "power-energy"
         ],
         "sourceIds": [
+          "uk-mod-243265bfddf626ab",
           "un-security-b7682f03ec706e9e",
           "un-security-406d83dce36155e9",
           "uk-mod-9bbc9dee5b4bf6e4",
           "un-security-643adc1628a54d97",
           "uk-mod-068ca08103f69003"
         ],
-        "statement": "5 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
+        "statement": "6 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
       },
       {
         "code": "YE",
@@ -2377,8 +2386,9 @@
         "code": "GB",
         "sourceCount": 9,
         "publisherCount": 1,
-        "changedCount": 5,
+        "changedCount": 6,
         "sourceIds": [
+          "uk-mod-243265bfddf626ab",
           "uk-mod-bf5875a4ae633785",
           "uk-mod-32f4765727a629f8",
           "uk-mod-2aa30b9d4fc9aaae",
@@ -2386,8 +2396,7 @@
           "uk-mod-9bbc9dee5b4bf6e4",
           "uk-mod-b4c88808c86ef1eb",
           "uk-mod-068ca08103f69003",
-          "uk-mod-338603bef9cb301e",
-          "uk-mod-944e67228299fb09"
+          "uk-mod-338603bef9cb301e"
         ],
         "method": "Curated source-title country/place mention, not event attribution"
       },
@@ -2522,7 +2531,7 @@
         "topic": "military",
         "sourceCount": 24,
         "publisherCount": 5,
-        "changedCount": 12,
+        "changedCount": 14,
         "countries": [
           "CN",
           "IL",
@@ -2533,6 +2542,8 @@
           "UA"
         ],
         "sourceIds": [
+          "uk-mod-16892862229e5f57",
+          "uk-mod-243265bfddf626ab",
           "uk-mod-bf5875a4ae633785",
           "uk-mod-32f4765727a629f8",
           "us-defense-4c570623e6a9e8d6",
@@ -2552,8 +2563,6 @@
           "uk-mod-068ca08103f69003",
           "uk-mod-d64db74f66fabf1b",
           "uk-mod-baed156483b14134",
-          "uk-mod-6332cd75e06066b4",
-          "uk-mod-944e67228299fb09",
           "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
           "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "allied-japan-defense-2026"
@@ -2690,11 +2699,11 @@
     },
     "quality": {
       "sourceTitlesWithoutDates": 13,
-      "titlesOlderThan30Days": 8,
+      "titlesOlderThan30Days": 9,
       "publisherCount": 13,
-      "countryTaggedCount": 22,
+      "countryTaggedCount": 23,
       "titleAssociatedCount": 27,
-      "inferredOnlyCount": 11,
+      "inferredOnlyCount": 10,
       "unassignedCount": 81
     },
     "limitations": [
