@@ -19,6 +19,7 @@ import CommandCenter from './CommandCenter';
 import Factbook from './Factbook';
 import CountryFactbook from './CountryFactbook';
 import './control-room.css';
+import './immersive.css';
 import DefenseIntel from './DefenseIntel';
 import AgentDesk from './AgentDesk';
 import { api } from '@appdeploy/client';
