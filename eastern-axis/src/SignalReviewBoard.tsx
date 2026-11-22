@@ -1,6 +1,7 @@
 import {useEffect,useMemo,useState} from 'react';
-import {Activity,ArrowRight,ArrowUpRight,BrainCircuit,Database,Eye,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
+import {Activity,ArrowRight,BrainCircuit,Database,Eye,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
 import './signalReviewBoard.css';
+import EvidenceLink from './EvidenceViewer';
 import {useGlobalFilters} from './GlobalFiltersContext';
 
 type Baseline={status:string;sampleSize:number;robustZ:number|null;medianChange?:number};
@@ -170,7 +171,7 @@ export default function SignalReviewBoard({mode,countryCode,onOpenEarly}:{
             <span><b>Freshness:</b> {r.fresh?'within source window':'historical or stale'}</span>
             <span><b>Scope:</b> {sourceScope(r.group)}</span>
           </div>
-          <a href={r.sourceUrl} rel="noopener noreferrer" target="_blank">Open original evidence <ArrowUpRight size={14}/></a>
+          <EvidenceLink title={r.title} source={r.source} sourceUrl={r.sourceUrl} observedAt={r.observedAt} group={r.group} status={r.status} reason={r.reason}/>
           <small>Geographic association alone does not imply cause, responsibility or impact.</small>
         </div>
       </details>)}</div>

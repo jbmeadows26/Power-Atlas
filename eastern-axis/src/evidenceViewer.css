@@ -1,0 +1,68 @@
+/* Publisher evidence viewer: mobile-first, independent of alert-card layout. */
+.ea-ev-open{
+  display:inline-flex;align-items:center;gap:6px;max-width:100%;
+  border:0;background:transparent;padding:0;color:#d3f38c;
+  font-family:inherit;font-size:inherit;font-weight:700;letter-spacing:inherit;text-decoration:underline;
+  text-underline-offset:3px;cursor:pointer;text-align:left
+}
+.ea-ev-open:hover{color:#edffbc}
+.ea-ev-open:focus-visible,.ea-ev-close:focus-visible,.ea-ev-actions a:focus-visible,
+.ea-ev-actions button:focus-visible{outline:2px solid #d4f88b;outline-offset:3px}
+.ea-ev-backdrop{
+  position:fixed;inset:0;z-index:11000;background:rgba(2,11,16,.84);
+  display:flex;align-items:center;justify-content:center;
+  padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))
+}
+.ea-ev-modal{
+  box-sizing:border-box;width:min(730px,100%);max-height:min(90dvh,930px);
+  overflow-y:auto;overscroll-behavior:contain;background:#0f2933;
+  border:1px solid #52777b;border-radius:14px;
+  box-shadow:0 24px 85px rgba(0,0,0,.6);
+  color:#dcece7;padding:22px;
+  font-family:'DM Sans',sans-serif;font-size:13px;line-height:1.55
+}
+.ea-ev-modal *{box-sizing:border-box}
+.ea-ev-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
+.ea-ev-head h2{font:800 clamp(20px,3vw,27px) 'Manrope',sans-serif;
+  letter-spacing:-.035em;line-height:1.2;margin:9px 0 4px;overflow-wrap:anywhere}
+.ea-ev-kicker{display:flex;align-items:center;gap:7px;color:#a9e5c9;
+  font:700 10px 'DM Mono',monospace;letter-spacing:.04em}
+.ea-ev-close{display:grid;place-items:center;width:39px;height:39px;flex:none;
+  border:1px solid #53777a;border-radius:9px;background:#1b3d45;
+  color:#ecf8ef;cursor:pointer}
+.ea-ev-subtitle{color:#9bb9be;font-size:12px;margin:8px 0 14px;overflow-wrap:anywhere}
+.ea-ev-tagline{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px}
+.ea-ev-tagline span{font-size:10px;line-height:1.4;border:1px solid #476a6c;
+  border-radius:5px;background:#173c41;padding:5px 8px;color:#d1e6df}
+.ea-ev-tagline .ea-ev-expired{background:#463421;border-color:#97673b;color:#ffe1af}
+.ea-ev-tagline .ea-ev-current{background:#204536;border-color:#488268;color:#bcf5d9}
+.ea-ev-note{border:1px solid #566c6d;border-radius:8px;padding:12px;
+  background:#1c343b;color:#c7dcdb}
+.ea-ev-headline{font-weight:700;font-size:14px}
+.ea-ev-facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:14px 0}
+.ea-ev-field{padding:10px 12px;border-radius:7px;background:#173540;border:1px solid #315560;
+  min-width:0;overflow-wrap:anywhere}
+.ea-ev-field dt{color:#95b5b9;font:700 10px 'DM Mono',monospace;margin-bottom:5px}
+.ea-ev-field dd{margin:0;color:#e0f0e9;font-size:12px}
+.ea-ev-section{padding:13px 0;border-top:1px solid #35535b}
+.ea-ev-section h3{font:800 13px 'Manrope',sans-serif;margin:0 0 8px;color:#e0f2e7}
+.ea-ev-section p{white-space:pre-wrap;overflow-wrap:anywhere;margin:0 0 8px;font-size:12px;line-height:1.7}
+.ea-ev-analyst{margin-top:5px}
+.ea-ev-analyst small{font-size:10px;color:#9bbabd;display:block;line-height:1.6}
+.ea-ev-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:17px}
+.ea-ev-actions a,.ea-ev-actions button{display:inline-flex;gap:8px;align-items:center;
+  justify-content:center;border:1px solid #729d82;background:#224a3c;
+  color:#e4f7e6;padding:11px 14px;border-radius:8px;
+  font:700 12px 'DM Sans',sans-serif;text-decoration:none;cursor:pointer}
+.ea-ev-actions button{border-color:#527579;background:#203942}
+.ea-ev-footnote{display:flex;align-items:flex-start;gap:6px;margin:17px 0 0;
+  color:#94b5b5;font-size:10px;line-height:1.6}
+.ea-ev-footnote svg{flex:none;margin-top:2px}
+@media(max-width:600px){
+  .ea-ev-backdrop{align-items:flex-end;padding:0}
+  .ea-ev-modal{width:100%;max-height:calc(100dvh - env(safe-area-inset-top) - 10px);
+    padding:19px 16px max(20px,env(safe-area-inset-bottom));border-radius:18px 18px 0 0;
+    border-bottom:0}
+  .ea-ev-facts{grid-template-columns:1fr}
+  .ea-ev-actions a,.ea-ev-actions button{width:100%}
+}

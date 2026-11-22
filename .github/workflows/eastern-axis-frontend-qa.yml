@@ -1,0 +1,30 @@
+name: Eastern Axis frontend changes QA
+on:
+  pull_request:
+    paths:
+      - 'eastern-axis/src/**'
+      - 'eastern-axis/index.html'
+      - 'eastern-axis/package.json'
+      - '.github/workflows/eastern-axis-frontend-qa.yml'
+permissions:
+  contents: read
+jobs:
+  vite-build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Build Eastern Axis GitHub Pages candidate
+        working-directory: eastern-axis
+        env:
+          VITE_EA_TARGET: github-pages
+        run: |
+          export VITE_EA_API_ORIGIN="$(tr -d '\r\n' < public-api-origin.txt)"
+          npm install --no-audit --no-fund
+          npx vite build --base ./
+          test -s dist/index.html
+          grep -q './assets/' dist/index.html
+          test -f dist/assets/$(grep -o 'index-[A-Za-z0-9_-]*\.js' dist/index.html | head -1)
