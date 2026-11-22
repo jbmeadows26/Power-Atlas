@@ -22,6 +22,7 @@ import './control-room.css';
 import './immersive.css';
 import DefenseIntel from './DefenseIntel';
 import GlobalConflictWatch from './GlobalConflictWatch';
+import MilitaryAssetChanges from './MilitaryAssetChanges';
 import AgentDesk from './AgentDesk';
 import { api } from '@appdeploy/client';
 import {
@@ -123,7 +124,7 @@ type Brief = {
 // All existing workspaces are retained; taxonomy only changes where they are reached.
 const sections = [
   'Overview', 'Countries', 'World Factbook', 'Economic intelligence',
-  'AI analyst', 'Defense intelligence', 'Global conflict watch', 'Investigations', 'Collection desk',
+  'AI analyst', 'Defense intelligence', 'Global conflict watch', 'Military asset changes', 'Investigations', 'Collection desk',
   'Verification lab', 'Coverage audit', 'Source library', 'Methodology',
   'Macro indicators', 'Trade indicators', 'Corporate intelligence',
   'Energy & resources', 'Demographics & biosecurity', 'Cyber resilience',
@@ -147,6 +148,7 @@ const domains: { id:DomainId; title:string; short:string; Icon:typeof Activity; 
   {id:'defense',title:'Defense, Security & Cyber',short:'Defense',Icon:Shield,tabs:[
     {label:'Defense intelligence',section:'Defense intelligence'},
     {label:'Global conflict watch',section:'Global conflict watch'},
+    {label:'Military asset changes',section:'Military asset changes'},
     {label:'Cyber resilience',section:'Cyber resilience'}]},
   {id:'macro',title:'Macroeconomics & Markets',short:'Markets',Icon:Layers3,tabs:[
     {label:'Economic pulse',section:'Economic intelligence',focus:'overview'},
@@ -802,6 +804,7 @@ function App() {
           {overview && view === 'Collection desk' && <IntakeDesk countryCode="all" />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode="all" />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
           {overview && view === 'Global conflict watch' && <GlobalConflictWatch countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
+          {overview && view === 'Military asset changes' && <MilitaryAssetChanges countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
           {overview && view === 'Cyber resilience' && <ResilienceWatch/>}
           {overview && view === 'Macro indicators' && <GlobalSystems mode="systems" groupFilter="Economy" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
           {overview && view === 'Trade indicators' && <GlobalSystems mode="systems" groupFilter="Trade & finance" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
