@@ -6,9 +6,9 @@ import IntelInsights from './IntelInsights';
 import CountryDefenseSnapshot from './CountryDefenseSnapshot';
 type Assessment={id:string;title:string;agency:string;government:string;group:string;published:string;countries:string[];topic:string;finding:string;kind:string;url:string};
 type Operation={id:string;title:string;theater:string;published:string;kind:string;summary:string;roles:{code:string;role:string}[];publisher:string;url:string;state:string};
-type Asset={id:string;code:string;category:string;name:string;quantity:string;unit:string;published:string;publisher:string;url:string;basis:string;detail:string;value?:number;status?:string;estimate?:boolean;observationYear?:number};
+type Asset={id:string;code:string;countryName?:string;category:string;name:string;metricCode?:string;quantity:string;unit:string;published:string;publisher:string;url:string;basis:string;detail:string;value?:number;status?:string;estimate?:boolean;observationYear?:number;confidence?:string;readiness?:string;sourceDatasetUrl?:string;licence?:string};
 type Source={id:string;name:string;group:string;what:string;url:string};
-type Data={reviewedAsOf:string;mode:string;assessments:Assessment[];operations:Operation[];assets:Asset[];sources:Source[];caveats:string[];inventoryHealth?:{worldBank?:string|Record<string,{state:string;retainedObservations?:number}>}};
+type Data={reviewedAsOf:string;mode:string;assessments:Assessment[];operations:Operation[];assets:Asset[];sources:Source[];caveats:string[];inventoryHealth?:{worldBank?:string|Record<string,{state:string;retainedObservations?:number}>;equipment?:{status:string;release:string;countries:number;records:number;byCategory:Record<string,number>;licence:string;source:string}}};
 type Props={code?:string;countryName?:string;mode?:'country'|'global'};
 const first=['All','Military operations','Military assets','Allied assessments','Research sources'];
 const date=(s:string)=>s.length>=10?new Date(s+'T12:00:00Z').toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}):s;
@@ -16,22 +16,32 @@ export default function DefenseIntel({code,countryName,mode='country'}:Props){
  const [data,setData]=useState<Data|null>(null);
  const [problem,setProblem]=useState(false);
  const [partial,setPartial]=useState(false);
- const [showAllAssets,setShowAllAssets]=useState(false);
+ const [shownAssetCount,setShownAssetCount]=useState(48);
  const [term,setTerm]=useState('');
  const [focus,setFocus]=useState('All');
  const [group,setGroup]=useState('All partners');
  const [category,setCategory]=useState('All assets');
- useEffect(()=>setShowAllAssets(false),[code,category,term]);
+ useEffect(()=>setShownAssetCount(48),[code,category,term]);
  useEffect(()=>{let active=true;loadDefenseCatalog().then(r=>{if(active){setData(r.data as Data);setPartial(r.apiFailed||r.inventoryFailed);setProblem(false);}}).catch(()=>{if(active)setProblem(true);});return()=>{active=false;};},[]);
  const q=term.toLowerCase().trim();
  const assessments=useMemo(()=>(data?.assessments||[]).filter(x=>(!code||x.countries.includes(code))&&(group==='All partners'||x.group===group)&&(!q||[x.title,x.government,x.agency,x.topic,x.finding,x.countries.join(' ')].join(' ').toLowerCase().includes(q))),[data,code,group,q]);
  const operations=useMemo(()=>(data?.operations||[]).filter(x=>(!code||x.roles.some(r=>r.code===code))&&(!q||[x.title,x.theater,x.kind,x.summary,x.roles.map(r=>r.code+' '+r.role).join(' ')].join(' ').toLowerCase().includes(q))),[data,code,q]);
- const assets=useMemo(()=>(data?.assets||[]).filter(x=>(!code||x.code===code)&&(category==='All assets'||category===x.category)&&(!q||[x.code,x.name,x.category,x.detail,x.publisher].join(' ').toLowerCase().includes(q))),[data,code,category,q]);
+ const assets=useMemo(()=>(data?.assets||[]).filter(x=>(!code||x.code===code)&&(category==='All assets'||category===x.category)&&(!q||[x.code,x.countryName||'',x.metricCode||'',x.name,x.category,x.detail,x.publisher].join(' ').toLowerCase().includes(q))),[data,code,category,q]);
  const sources=useMemo(()=>(data?.sources||[]).filter(x=>(group==='All partners'||x.group===group)&&(!q||[x.name,x.group,x.what].join(' ').toLowerCase().includes(q))),[data,group,q]);
  const global=mode==='global';
  const counted=assets.filter(a=>a.quantity!=='Not quantified'&&a.quantity!==''&&(a.value===undefined||Number.isFinite(a.value)));
  const covered=new Set(counted.map(a=>a.code)).size;
- const shownAssets=global&&!showAllAssets?assets.slice(0,48):assets;
+ const shownAssets=global?assets.slice(0,shownAssetCount):assets;
+ const countryKeyMetrics=[
+   {code:'main_battle_tanks',label:'Main battle tanks'},
+   {code:'armored_vehicles',label:'Armored vehicles'},
+   {code:'artillery',label:'Artillery systems'},
+   {code:'fighter_aircraft',label:'Fighter aircraft'},
+   {code:'attack_helicopters',label:'Attack helicopters'},
+   {code:'submarines',label:'Submarines'},
+   {code:'combat_uav',label:'Armed drones'},
+ ];
+ const countryAssetRows=(data?.assets||[]).filter(a=>a.code===code);
  const dateInfo=data?.reviewedAsOf||'';
  const worldBankHealth=data?.inventoryHealth?.worldBank;
  const historicalGaps=typeof worldBankHealth==='string'
@@ -54,15 +64,17 @@ export default function DefenseIntel({code,countryName,mode='country'}:Props){
      </section>}
      {tab('Military assets')&&<section className="di-section"><div className="di-sectionhead"><h3><Layers3 size={16}/> Military asset tracker</h3><small>{assets.length} dated observations · {covered} countries with a figure</small></div><p className="di-sectionnote">Active, stored, deployed, retired and historical figures are distinct. Never add overlapping nuclear categories or present historic personnel as current strength. Missing values mean unindexed, not zero.</p>
        <div className="di-reference-links" aria-label="Additional military inventory research"><a href="https://www.unroca.org/" target="_blank" rel="noopener noreferrer">UNROCA national holdings <ExternalLink size={11}/></a><a href="https://www.globalfirepower.com/countries-listing.php" target="_blank" rel="noopener noreferrer">Global Firepower 2026 <ExternalLink size={11}/></a><a href="https://www.flightglobal.com/defence/" target="_blank" rel="noopener noreferrer">FlightGlobal aircraft directories <ExternalLink size={11}/></a></div>
-       {global&&<div className="di-assetfilter"><label htmlFor="di-asset-category">Asset class</label><select id="di-asset-category" value={category} onChange={e=>setCategory(e.target.value)}>{['All assets','Personnel','Land','Naval','Air','Missiles','Nuclear','Spending'].map(x=><option key={x}>{x}</option>)}</select></div>}
-       {assets.length?<div className="di-assets">{shownAssets.map(a=><article key={a.id} className="di-asset"><div className="di-asset-head"><span>{a.code} / {a.category}</span><small>{date(a.published)}</small></div><strong>{a.quantity}</strong><span className="di-asset-name">{a.name}</span><small>{a.unit} · {a.basis}</small><small className="di-asset-status">{a.status?String(a.status).replaceAll('-',' '):'Source-described capability'} · observation {a.observationYear||a.published}</small><p>{a.detail}</p><a href={a.url} target="_blank" rel="noopener noreferrer">{a.publisher} <ExternalLink size={12}/></a></article>)}</div>:<div className="di-empty">No sourced inventory indexed for this country and class. This does not mean zero capability; consult the linked source directory.</div>}
-       {global&&assets.length>48&&<button className="di-show-more" type="button" onClick={()=>setShowAllAssets(v=>!v)}>{showAllAssets?'Show first 48 observations':'Show all '+assets.length+' observations'}</button>}
+       {data.inventoryHealth?.equipment?.status==='ok'&&<div className="di-equipment-health"><strong>{data.inventoryHealth.equipment.records.toLocaleString()} equipment observations</strong><span> · {data.inventoryHealth.equipment.countries} countries · release {data.inventoryHealth.equipment.release} · editorial estimates, not readiness verified</span><a href={data.inventoryHealth.equipment.source} target="_blank" rel="noopener noreferrer">Pinned source CSV <ExternalLink size={12}/></a></div>}
+       {!global&&code&&<div className="di-country-equip" aria-label={'Key military equipment estimates for '+(countryName||code)}>{countryKeyMetrics.map(item=>{const found=countryAssetRows.find(a=>a.metricCode===item.code);return <div className="di-equip-metric" key={item.code}><small>{item.label}</small><strong>{found?.quantity||'—'}</strong><span>{found?found.observationYear+' · '+(found.confidence||'estimated'):'Not indexed'}</span>{found&&<a target="_blank" rel="noopener noreferrer" href={found.url}>Source <ExternalLink size={11}/></a>}</div>;})}</div>}
+       {<div className="di-assetfilter"><label htmlFor="di-asset-category">Asset class</label><select id="di-asset-category" value={category} onChange={e=>setCategory(e.target.value)}>{['All assets','Personnel','Land','Naval','Air','Missiles','Nuclear','Spending','Space'].map(x=><option key={x}>{x}</option>)}</select></div>}
+       {assets.length?<div className="di-assets">{shownAssets.map(a=><article key={a.id} className="di-asset"><div className="di-asset-head"><span>{a.countryName||a.code} ({a.code}) / {a.category}</span><small>{date(a.published)}</small></div><strong>{a.quantity}</strong><span className="di-asset-name">{a.name}</span><small>{a.unit} · {a.basis}</small><small className="di-asset-status">{a.status?String(a.status).replaceAll('-',' '):'Source-described capability'}{a.confidence?' · '+a.confidence+' confidence':''} · observation {a.observationYear||a.published}{a.readiness?' · readiness not verified':''}</small><p>{a.detail}</p><a href={a.url} target="_blank" rel="noopener noreferrer">{a.publisher} <ExternalLink size={12}/></a></article>)}</div>:<div className="di-empty">No sourced inventory indexed for this country and class. This does not mean zero capability; consult the linked source directory.</div>}
+       {global&&assets.length>shownAssetCount&&<button className="di-show-more" type="button" onClick={()=>setShownAssetCount(n=>Math.min(assets.length,n+48))}>Show 48 more · {shownAssets.length} of {assets.length} displayed</button>}
      </section>}
      {tab('Allied assessments')&&<section className="di-section"><div className="di-sectionhead"><h3><BookOpen size={16}/> Government & allied assessments</h3><small>{assessments.length} entries</small></div>
        {global&&<div className="di-assetfilter"><label htmlFor="di-group">Government group</label><select id="di-group" value={group} onChange={e=>setGroup(e.target.value)}>{['All partners','United States','Five Eyes','EU / NATO','Indo-Pacific allies','Multilateral','Research'].map(x=><option key={x}>{x}</option>)}</select></div>}
        {assessments.length?<div className="di-items">{assessments.map(a=><article className="di-item" key={a.id}><div className="di-item-top"><span className="di-tag">{a.group}</span><time>{date(a.published)}</time></div><strong>{a.title}</strong><small>{a.government} · {a.agency} · {a.kind}</small><p>{a.finding}</p><a href={a.url} target="_blank" rel="noopener noreferrer">Open government report <ExternalLink size={12}/></a></article>)}</div>:<div className="di-empty">No country-specific allied assessment curated here yet. This is a research gap, not evidence of no threat.</div>}
      </section>}
-     {global&&tab('Research sources')&&<section className="di-section"><div className="di-sectionhead"><h3><Anchor size={16}/> Official reporting network</h3><small>{sources.length} sources</small></div><p className="di-sectionnote">Source directory is not proof of automated ingestion. Historical World Bank personnel and spending are collected at build time when available. IISS/Janes and equipment directories require licensing or case-by-case verification. SIPRI transfers are not current holdings.</p><div className="di-sources">{sources.map(s=><a href={s.url} key={s.id} target="_blank" rel="noopener noreferrer"><span><strong>{s.name}</strong><small>{s.group} · {s.what}</small></span><ExternalLink size={13}/></a>)}</div></section>}
+     {global&&tab('Research sources')&&<section className="di-section"><div className="di-sectionhead"><h3><Anchor size={16}/> Official reporting network</h3><small>{sources.length} sources</small></div><p className="di-sectionnote">Source directory is not proof of automated ingestion. Historical World Bank personnel and spending plus pinned, openly licensed DefenseMatrixLab equipment estimates are collected and validated at build time. IISS/Janes and equipment directories require licensing or case-by-case verification. SIPRI transfers are not current holdings.</p><div className="di-sources">{sources.map(s=><a href={s.url} key={s.id} target="_blank" rel="noopener noreferrer"><span><strong>{s.name}</strong><small>{s.group} · {s.what}</small></span><ExternalLink size={13}/></a>)}</div></section>}
      <IntelInsights code={code} countryName={countryName} mode={global?'global':'country'}/>
      {global&&<div className="di-caveats"><Shield size={16}/><span>{data.caveats.join(' ')}</span></div>}
    </>}
