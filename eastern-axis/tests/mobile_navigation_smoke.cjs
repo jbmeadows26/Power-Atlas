@@ -96,8 +96,9 @@ async function qa(page,width){
   const pageErrors=[];
   page.on('pageerror',e=>pageErrors.push(String(e)));
   await page.goto(BASE_URL,{waitUntil:'domcontentloaded'});
-  await page.locator('#ea-country-scope').waitFor({state:'attached',timeout:20000});
-  if(width<=980)await page.getByRole('button',{name:'Edit Country filter'}).waitFor({state:'visible',timeout:10000});
+  await page.locator('.ea-unfiltered-command').waitFor({state:'attached',timeout:20000});
+  assert.equal(await page.locator('#ea-country-scope').count(),0,'Command must not expose a nonfunctional country filter');
+  assert.equal(await page.locator('.ea-mobile-filter-pills').count(),0,'Command must not show mobile country filter pills');
   assert.equal(await page.locator('.ea-ops').count(),0,'Obsolete repeated global statistics should not mount');
   assert.equal(await page.locator('#ea-primary-navigation button.nav-item').count(),8,'Exactly eight primary domains');
   assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Legacy duplicate nav must not mount');
@@ -267,9 +268,10 @@ async function qa(page,width){
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
-    await page.waitForFunction(()=>document.querySelector('#ea-country-scope')?.textContent?.includes('China'),null,{timeout:15000});
-    assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection survives reload');
+    assert.equal(await page.locator('#ea-country-scope').count(),0,'Command filters must remain absent after reload');
+    assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN','Country choice must persist invisibly without filtering global operational views');
     await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
+    assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection must be restored in country-aware research views');
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible'});
     assert.equal(await risk.locator('.rdb-chart').count(),4,'Risks should lead with four compact charts');
