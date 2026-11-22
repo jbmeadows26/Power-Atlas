@@ -96,3 +96,12 @@ test('unloaded feeds never render fake zero-valued insights',()=>{
  assert.ok(brief.metrics.every(x=>x.value==='—'));
  assert.match(brief.finding,/Loading source-validated/);
 });
+
+test('partial source outage is never summarized as zero publications',()=>{
+ const snap=minimal();
+ delete snap.source;
+ const brief=build('Overview','overview','all',snap);
+ assert.equal(brief.metrics[0].value,'—');
+ assert.match(brief.finding,/publication coverage unavailable/i);
+ assert.doesNotMatch(brief.finding,/0 dated public-source records/);
+});
