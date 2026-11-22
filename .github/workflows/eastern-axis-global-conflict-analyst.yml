@@ -1,0 +1,122 @@
+name: Eastern Axis global conflict analyst
+on:
+  schedule:
+    - cron: '41 */6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'eastern-axis/scripts/global_conflict_analyst.py'
+      - 'eastern-axis/tests/test_global_conflict_analyst.py'
+      - 'eastern-axis/src/GlobalConflictWatch.tsx'
+      - 'eastern-axis/src/globalConflictWatch.css'
+      - '.github/workflows/eastern-axis-global-conflict-analyst.yml'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/global_conflict_analyst.py'
+      - 'eastern-axis/tests/test_global_conflict_analyst.py'
+      - 'eastern-axis/src/GlobalConflictWatch.tsx'
+      - 'eastern-axis/src/globalConflictWatch.css'
+      - 'eastern-axis/src/App.tsx'
+      - '.github/workflows/eastern-axis-global-conflict-analyst.yml'
+permissions:
+  contents: write
+concurrency:
+  group: ea-global-conflict-analyst
+  cancel-in-progress: false
+jobs:
+  global-conflict:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 55
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Run offline anomaly and evidence-gate tests
+        run: python -m unittest discover -s eastern-axis/tests -p 'test_global_conflict_analyst.py' -v
+      - name: Collect official dated events and independently indexed media leads
+        run: python eastern-axis/scripts/global_conflict_analyst.py
+      - name: Count cases with exceptional event data and period-matched news
+        id: screen
+        run: |
+          python - <<'PY' >> "$GITHUB_OUTPUT"
+          import json,sys
+          sys.path.insert(0,'eastern-axis/scripts')
+          from global_conflict_analyst import aligned_evidence_period
+          from pathlib import Path
+          x=json.loads(Path('eastern-axis/public/analysis/global-conflict-watch.json').read_text())
+          count=sum(z['status']=='review' and z['media']['publishers']>=3 and aligned_evidence_period(z) for z in x['zones'])
+          print('count='+str(count))
+          PY
+      - name: Start temporary zero-cost CPU analyst for verified candidates only
+        if: github.event_name != 'pull_request' && steps.screen.outputs.count != '0'
+        continue-on-error: true
+        run: |
+          docker run --detach --name ea-conflict-ollama \
+            -e OLLAMA_HOST=0.0.0.0:11434 -e OLLAMA_NUM_PARALLEL=1 \
+            --publish 127.0.0.1:11434:11434 ollama/ollama:latest
+          for i in $(seq 1 35); do
+            curl -fsS --max-time 3 http://127.0.0.1:11434/api/tags >/dev/null && break
+            sleep 2
+          done
+          curl -fsS http://127.0.0.1:11434/api/tags >/dev/null
+          docker exec ea-conflict-ollama ollama pull qwen2.5:1.5b
+      - name: Advisory AI review; fail closed if no local model is available
+        if: github.event_name != 'pull_request' && steps.screen.outputs.count != '0'
+        run: |
+          if curl -fsS --max-time 3 http://127.0.0.1:11434/api/tags >/dev/null 2>&1; then
+            python eastern-axis/scripts/global_conflict_analyst.py \
+              --review-only --model-endpoint http://127.0.0.1:11434
+          else
+            echo 'Local model unavailable; recorded anomalies remain in review, not promoted.'
+          fi
+      - name: Assert country filtering fields and fail-closed outputs
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('eastern-axis/public/analysis/global-conflict-watch.json')
+          d=json.loads(p.read_text())
+          assert d['schemaVersion']==1 and d['category']=='Defense, Security & Cyber'
+          assert len(d['zones'])==d['summary']['hotspots']
+          assert d['analyst']['commandEligible']==0
+          assert all(z['countryCodes'] and z['sourceQuality'] and z['reason'] and z['media']['limitation'] for z in d['zones'])
+          assert all(not z['promoted'] or (z['status']=='assessed' and z['modelReviewed'] and
+                      z['measurementFresh'] and z['change']['status']=='assessable') for z in d['zones'])
+          if d['status']!='ok':
+            assert d['summary']['assessed']==0 and all(not z['promoted'] for z in d['zones'])
+          print('Conflict analyst publication audit:',d['summary'],d['sources'])
+          PY
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify preserved Eastern Axis frontend build
+        working-directory: eastern-axis
+        run: |
+          npm install --no-audit --no-fund
+          npm run build
+      - name: Commit source-attributed snapshot (GitHub Pages deployment picks it up)
+        if: success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        run: |
+          git add eastern-axis/public/analysis/global-conflict-watch.json
+          if git diff --cached --quiet; then
+            echo 'No changes to the published conflict-watch snapshot.'
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "data(eastern-axis): publish guarded global conflict analysis [skip ci]"
+          for attempt in 1 2 3; do
+            if git push origin HEAD:main; then exit 0; fi
+            git fetch origin main
+            if ! git rebase origin/main; then
+              git rebase --abort || true
+              echo 'Snapshot conflict: refusing to overwrite a newer record.' >&2
+              exit 1
+            fi
+            sleep $((attempt * 3))
+          done
+          exit 1
