@@ -43,6 +43,10 @@ jobs:
           python-version: '3.12'
       - name: Test historical norms, inventory separation and source verification
         run: python -m unittest discover -s eastern-axis/tests -p 'test_military_asset_changes.py' -v
+      - name: Stage pinned 2026 military equipment reference coverage
+        run: |
+          python eastern-axis/scripts/collect_military_equipment.py
+          python -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
       - name: Retrieve dated country-level SIPRI/WDI arms-transfer and personnel histories
         run: python eastern-axis/scripts/analyze_military_asset_changes.py
       - name: Strictly audit the analyst output before AI or publication
@@ -124,7 +128,7 @@ jobs:
           for attempt in 1 2 3; do
             if git push origin HEAD:main; then exit 0; fi
             git fetch origin main
-            if ! git rebase origin/main; then
+            if ! git -c rebase.autoStash=true rebase origin/main; then
               git rebase --abort || true
               echo 'Refusing to overwrite a newer published asset assessment' >&2
               exit 1
