@@ -13,7 +13,7 @@ export type EvidenceBrief={
   coverage:string;
 };
 export type BriefInput={
-  view:string;focus:string;country:string;countryName?:string;
+  view:string;focus:string;country:string;countryName?:string;horizon?:string;severity?:string;
   cases:Array<{code?:string;topic?:string;source?:string;title?:string}>;
   snapshots:Record<string,unknown>;systems?:unknown;failures:string[];
 };
@@ -347,98 +347,8 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b.direction='No improvement, deterioration, or exceptional deviation can yet be evaluated.';
    b.sources=[];b.chart=undefined;
  }
- if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Corporate intelligence','Cyber resilience'].includes(key)){
-   b.scope+=' · global or U.S. comparator (NOT country-attributed)';
- }
- return b;
-}
-+f(n(brent.value),2)+'/bbl':'—',detail:brent?s(brent.period)+' reported price, not local retail cost':'No current benchmark'}];
-   b.finding=energy.length+' energy-relevant monitored physical indicators are indexed; '+energyWdi.length+' reported World Bank energy indicators are in this country scope.';
-   b.direction='A change in electricity access, commodity pricing or energy imports cannot be classified as abnormal without a matching historical baseline.';
-   b.implication='Distinguish energy production, consumption, dependence, route constraints and retail price effects.';
-   b.beneficiaries='Producers and importers may face different exposures; beneficiaries are not established without volumes, contracts and costs.';
-   b.watch='Confirm generation capacity, latest energy mix, corridor disruptions and comparable import/export reporting periods.';
-   b.limitation='Cross-country baselines have differing publication years. Aggregate sector metrics cannot be presented as national supply counts.';
-   b.asOf=latest(s(early.checkedAt),s(system.checkedAt));b.sources=sources([...energy,...energyWdi],4);
-   b.coverage=energy.length+' physical series; '+energyWdi.length+' WDI country indicators';b.status=b.sources.length?'monitoring':'coverage-gap';
- }else if(view==='Demographics & biosecurity'){
-   b=base('Population, emissions and human security','Demographic & climate analyst',scope);
-   const indicators=reported.filter(x=>['SI.POV.GINI','SP.DYN.LE00.IN','EN.ATM.CO2E.PC'].includes(x.code));
-   const life=indicators.find(x=>x.code==='SP.DYN.LE00.IN');
-   const carbon=indicators.find(x=>x.code==='EN.ATM.CO2E.PC');
-   const gini=indicators.find(x=>x.code==='SI.POV.GINI');
-   b.metrics=[{label:'Life expectancy',value:life&&n(life.value)!==null?f(n(life.value),1)+' years':'—',detail:life?.year||'No national observation'},
-              {label:'CO₂ / person',value:carbon&&n(carbon.value)!==null?f(n(carbon.value),2)+' tonnes':'—',detail:carbon?.year||'No national observation'},
-              {label:'Gini index',value:gini&&n(gini.value)!==null?f(n(gini.value),1):'—',detail:gini?.year||'No comparable survey'}];
-   b.finding=indicators.length+' historical population, inequality or climate indicators are reported for this geographic scope.';
-   b.direction='A current population or epidemiological emergency cannot be inferred from historical annual demographic readings.';
-   b.implication='Track survey methodology and observation years; environmental exposure and measured disease events are different datasets.';
-   b.beneficiaries='No beneficiary or causal policy attribution is supported by these aggregate indicators.';
-   b.watch='Verify latest country-year observations and independent, directly sampled public-health or climate event feeds.';
-   b.limitation='No active epidemic or outbreak monitoring is implied by the World Bank demographic series.';
-   b.asOf=s(system.checkedAt)||'Country data unreported';
-   b.sources=sources(indicators,4);b.coverage=indicators.length+' national context indicators';
-   b.status=b.sources.length?'source-dated':'coverage-gap';
- }else{
-   b=base(view+' · source assessment','Evidence validation analyst',scope);
-   b.limitation='This workspace has not been mapped to an approved evidence stream. Its existing charts and data remain available.';
- }
- if(!ANALYST_ROUTE_KEYS.includes(key as (typeof ANALYST_ROUTE_KEYS)[number])){
-   b.status='coverage-gap';b.watch='Map this section to a verified source-backed analyst before publication.';
- }
- const needed={
-  'Overview':['triage','source'],'AI analyst':['triage'],'Collection desk':['source'],
-  'Verification lab':['source'],'Coverage audit':['source'],'Source library':['source'],
-  'Methodology':['source'],'Countries':['source'],'World Factbook':['source'],
-  'Investigations':['source'],'Defense intelligence':['inventory'],'Global conflict watch':['conflict'],
-  'Military asset changes':['changes'],'Cyber resilience':['resilience'],
-  'Economic intelligence:overview':['markets','triage'],
-  'Economic intelligence:signals':['markets','triage'],'Economic intelligence:risk':['markets','transmission'],
-  'Economic intelligence:supply':['shortage'],'Economic intelligence:shortages':['shortage'],
-  'Macro indicators':['markets'],'Trade indicators':['shortage'],
-  'Corporate intelligence':['transmission'],'Energy & resources':['early'],
-  'Demographics & biosecurity':['source']
- } as Record<string,string[]>;
- const missing=(needed[key]||[]).filter(x=>failures.includes(x)||!o(snapshots[x]).schemaVersion);
- if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
-  b.limitation+=' Required source channels unavailable: '+missing.join(', ')+'.';
-  if(!b.sources.length)b.status='coverage-gap';}
- // A missing collection channel must never turn into a displayed numeric zero.
- // Each tile declares its controlling dataset; still show independently verified tiles.
- const tileSources:Record<string,string[]>={
-  'Overview':['source','triage','triage'],'AI analyst':['source','triage','triage'],
-  'Collection desk':['source','triage','triage'],'Verification lab':['source','triage','triage'],
-  'Coverage audit':['source','triage','triage'],'Source library':['source','triage','triage'],
-  'Methodology':['source','triage','triage'],
-  'Countries':['cases','source','country'],'World Factbook':['cases','source','country'],
-  'Investigations':['cases','source','country'],'Defense intelligence':['inventory','inventory','inventory'],
-  'Global conflict watch':['conflict','conflict','conflict'],
-  'Military asset changes':['changes','changes','changes'],
-  'Cyber resilience':['resilience','resilience','resilience'],
-  'Economic intelligence:overview':['markets','triage','country'],
-  'Economic intelligence:signals':['markets','triage','country'],
-  'Economic intelligence:risk':['markets','triage','country'],
-  'Macro indicators':['markets','triage','country'],
-  'Economic intelligence:supply':['shortage','shortage','shortage'],
-  'Economic intelligence:shortages':['shortage','shortage','shortage'],
-  'Trade indicators':['shortage','shortage','country'],
-  'Corporate intelligence':['transmission','transmission','transmission'],
-  'Energy & resources':['early','country','early'],
-  'Demographics & biosecurity':['country','country','country']
- };
- const available=(channel:string)=>channel==='cases'||(channel==='country'
-    ? Array.isArray(system.indicators)
-    : Boolean(o(snapshots[channel]).schemaVersion));
- b.metrics=b.metrics.map((m,index)=>{
-   const channel=tileSources[key]?.[index];
-   return channel&&!available(channel)?{...m,value:'—',detail:'No source-verified observation; not zero'}:m;
- });
- if(Object.keys(snapshots).length===0){
-   b.status='coverage-gap';
-   b.finding=failures.length?'No validated evidence snapshots are currently available for this view.':
-     'Loading source-validated intelligence observations for this view.';
-   b.direction='No improvement, deterioration, or exceptional deviation can yet be evaluated.';
-   b.sources=[];b.chart=undefined;
+ if((input.horizon&&input.horizon!=='all')||(input.severity&&input.severity!=='all')){
+   b.limitation+=' Time and threat controls filter the alert inbox; this assessment preserves full, dated source comparisons.';
  }
  if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Corporate intelligence','Cyber resilience'].includes(key)){
    b.scope+=' · global or U.S. comparator (NOT country-attributed)';
