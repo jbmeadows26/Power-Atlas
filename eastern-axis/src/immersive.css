@@ -105,7 +105,9 @@
  .ea-control-room .ea-mobile-primary button{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:3px;position:relative;padding:5px 3px;border:1px solid transparent;border-radius:8px;color:#afc7c8;background:transparent;font-size:10px;font-weight:700}
  .ea-control-room .ea-mobile-primary button[aria-current="page"]{background:#d4f879;color:#172a23}
  .ea-control-room .ea-mobile-primary button>small{position:absolute;right:19%;top:1px;min-width:16px;height:16px;padding:2px 4px;background:#e46551;border-radius:999px;color:#fff;font-size:10px;line-height:12px;text-align:center}
- .ea-control-room .ea-handoff-actions{justify-content:space-between;padding:2px 3px}
+ /* Save and Share already live in the mobile Briefcase.
+    No redundant "Send to mobile" button on the phone's Situation Room. */
+ .ea-control-room .ea-handoff-actions{display:none}
  .ea-control-room.ea-mobile-pane-active .ea-original-workspace{display:none}
  .ea-control-room.ea-mobile-pane-active .ea-mobile-panel{display:block}
  .ea-control-room.ea-mobile-pane-active .ea-domain-tabs{display:none}
