@@ -33,6 +33,7 @@ jobs:
       - name: Fail closed if country health probe uses an archived or untrusted API
         run: |
           node eastern-axis/tests/liveSystemHealth.mjs --check-config
+          node eastern-axis/tests/liveSystemHealth.mjs --test-gini
           if EASTERN_AXIS_BASE_URL=https://retired.invalid node eastern-axis/tests/liveSystemHealth.mjs --check-config; then
             echo "Untrusted API origin was accepted" >&2
             exit 1
