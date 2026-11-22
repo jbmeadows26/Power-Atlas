@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useMemo, useState } from 'react';
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import BugReportDialog from './BugReportDialog';
@@ -7,6 +7,7 @@ import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import FinancialTransmission from './FinancialTransmission';
 import ResilienceWatch from './ResilienceWatch';
+import {ContextRail,MobileAlerts,MobileDomains,MobileBriefcase,useIntelligenceFeed,type SavedWorkspace} from './CommandInterface';
 import {GlobalFiltersContext, type Horizon, type Severity} from './GlobalFiltersContext';
 import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
@@ -39,6 +40,12 @@ import {
   Filter,
   Globe2,
   Layers3,
+  Bell,
+  Bookmark,
+  BriefcaseBusiness,
+  Command,
+  Copy,
+  Grid2X2,
   Link2,
   LoaderCircle,
   MapPin,
@@ -298,23 +305,37 @@ function MiniGlobe() {
   );
 }
 function App() {
-  const [view, setView] = useState<Section>('Overview');
-  const [domain, setDomain] = useState<DomainId>('command');
+  const [startup] = useState(()=>{
+    const params=new URLSearchParams(window.location.search);
+    const match=domains.find(d=>d.id===params.get('ea_domain'))||domains[0];
+    const tab=match.tabs.find(t=>t.label===params.get('ea_tab'))||match.tabs[0];
+    const h=params.get('ea_time');
+    const level=params.get('ea_level');
+    const target=params.get('ea_country');
+    const geo=params.get('ea_region');
+    return {domain:match.id,tab,
+      horizon:(['all','24h','7d','30d'].includes(h||'')?h:'all') as Horizon,
+      severity:(['all','elevated','review','monitor'].includes(level||'')?level:'all') as Severity,
+      country:(target&&(target==='all'||/^[A-Z]{2}$/.test(target))?target:null),
+      region:(['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].includes(geo||'')?geo:'All regions')||'All regions'};
+  });
+  const [view, setView] = useState<Section>(startup.tab.section);
+  const [domain, setDomain] = useState<DomainId>(startup.domain);
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [horizon, setHorizon] = useState<Horizon>('all');
-  const [severity, setSeverity] = useState<Severity>('all');
+  const [horizon, setHorizon] = useState<Horizon>(startup.horizon);
+  const [severity, setSeverity] = useState<Severity>(startup.severity);
   const [networkOpen,setNetworkOpen] = useState(false);
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
-  const [economicFocus,setEconomicFocus]=useState<EconomicFocus>('overview');
+  const [economicFocus,setEconomicFocus]=useState<EconomicFocus>(startup.tab.focus||'overview');
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
   const [search, setSearch] = useState('');
-  const [region, setRegion] = useState('All regions');
+  const [region, setRegion] = useState(startup.region);
   const [showTerritories, setShowTerritories] = useState(false);
   const [showAllies, setShowAllies] = useState(true);
   const [selected, setSelected] = useState<string | null>('RU');
-  const [countryScope, setCountryScope] = useState<string>(()=>{try{return window.localStorage.getItem('ea.country.scope')||'all';}catch{return 'all';}});
+  const [countryScope, setCountryScope] = useState<string>(()=>{if(startup.country)return startup.country;try{return window.localStorage.getItem('ea.country.scope')||'all';}catch{return 'all';}});
   useEffect(()=>{try{window.localStorage.setItem('ea.country.scope',countryScope);}catch{};if(countryScope!=='all')setSelected(countryScope);},[countryScope]);
   const [brief, setBrief] = useState<Brief | null>(null);
   const [briefLoading, setBriefLoading] = useState(false);
@@ -322,7 +343,33 @@ function App() {
   const [caseSelected, setCaseSelected] = useState<string | null>(null);
   const [sourceGroup, setSourceGroup] = useState('All');
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [mobilePane,setMobilePane]=useState<'workspace'|'domains'|'alerts'|'briefcase'>('workspace');
+  const [mobileFiltersOpen,setMobileFiltersOpen]=useState(false);
+  const [quickQuery,setQuickQuery]=useState('');
+  const [quickMessage,setQuickMessage]=useState('');
+  const quickRef=useRef<HTMLInputElement>(null);
+  const [hoveredDomain,setHoveredDomain]=useState<DomainId|null>(null);
+  const [flyoutPosition,setFlyoutPosition]=useState({top:86,left:235});
+  const flyoutTimeout=useRef<number|null>(null);
+  const [savedViews,setSavedViews]=useState<SavedWorkspace[]>(()=>{
+    try{
+      const parsed:unknown=JSON.parse(window.localStorage.getItem('ea.saved.workspaces')||'[]');
+      return Array.isArray(parsed)?parsed.filter(x=>x&&typeof x.id==='string'&&typeof x.title==='string'&&typeof x.domain==='string'&&typeof x.tab==='string').slice(0,20):[];
+    }catch{return [];}
+  });
   const [bugReportOpen, setBugReportOpen] = useState(false);
+  useEffect(()=>{try{window.localStorage.setItem('ea.saved.workspaces',JSON.stringify(savedViews));}catch{}},[savedViews]);
+  useEffect(()=>{
+    const handler=(event:KeyboardEvent)=>{
+      if(event.key==='/'&&!event.ctrlKey&&!event.metaKey&&!event.altKey&&
+        !['INPUT','TEXTAREA','SELECT'].includes((event.target as HTMLElement)?.tagName)){
+        event.preventDefault();quickRef.current?.focus();
+      }
+      if(event.key==='Escape')quickRef.current?.blur();
+    };
+    window.addEventListener('keydown',handler);
+    return()=>window.removeEventListener('keydown',handler);
+  },[]);
 
   const reload = () => {
     setLoadError('');
@@ -366,6 +413,8 @@ function App() {
   const cases = overview?.cases || [];
   const sources = overview?.sources || [];
   const mainStates = countries.filter(c => c.scope === 'state-or-observer');
+  // Presentation-only read. Published analyst decisions and source records are untouched.
+  const intelligenceFeed=useIntelligenceFeed(countryScope,horizon,severity);
   const notAllied = mainStates.filter(c => !c.isTreatyAlly);
   const filtered = useMemo(
     () =>
@@ -403,11 +452,80 @@ function App() {
     ...Array.from(new Set(sources.map(s => s.category))),
   ];
   const openGeospatial=()=>{setGeospatialOpen(true);switchView('Countries');};
+  const closeFlyoutSoon=()=>{
+    if(flyoutTimeout.current!==null)window.clearTimeout(flyoutTimeout.current);
+    flyoutTimeout.current=window.setTimeout(()=>setHoveredDomain(null),180);
+  };
+  const keepFlyout=()=>{if(flyoutTimeout.current!==null)window.clearTimeout(flyoutTimeout.current);};
+  const showFlyout=(id:DomainId,element:HTMLElement)=>{
+    keepFlyout();
+    const rect=element.getBoundingClientRect();
+    setFlyoutPosition({top:Math.max(8,Math.min(rect.top,window.innerHeight-350)),left:rect.right+10});
+    setHoveredDomain(id);
+  };
+  const currentWorkspace=()=>({
+    domain,tab:activeDomain.tabs.find(t=>activeTab(t))?.label||activeDomain.tabs[0].label,
+    country:countryScope,region,horizon,severity
+  });
+  const workspaceUrl=()=>{
+    const w=currentWorkspace();
+    const url=new URL(window.location.href);
+    const params=new URLSearchParams(url.search);
+    params.set('ea_domain',w.domain);params.set('ea_tab',w.tab);
+    params.set('ea_country',w.country);params.set('ea_region',w.region);
+    params.set('ea_time',w.horizon);params.set('ea_level',w.severity);
+    url.search=params.toString();url.hash='';
+    return url.toString();
+  };
+  const saveCurrentWorkspace=()=>{
+    const w=currentWorkspace();
+    const stamp=new Date().toISOString();
+    const item:SavedWorkspace={...w,id:stamp,title:activeDomain.title+' / '+w.tab,savedAt:stamp};
+    setSavedViews(prev=>[item,...prev].slice(0,20));
+    setQuickMessage('Workspace saved in this browser.');
+  };
+  const openSaved=(item:SavedWorkspace)=>{
+    const d=domains.find(x=>x.id===item.domain);
+    const t=d?.tabs.find(x=>x.label===item.tab);
+    if(!d||!t){setQuickMessage('This saved workspace no longer matches a domain.');return;}
+    selectDomainTab(d.id,t);
+    if(item.country==='all'||/^[A-Z]{2}$/.test(item.country))setCountryScope(item.country);
+    if(['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].includes(item.region))setRegion(item.region);
+    if(['all','24h','7d','30d'].includes(item.horizon))setHorizon(item.horizon as Horizon);
+    if(['all','elevated','review','monitor'].includes(item.severity))setSeverity(item.severity as Severity);
+  };
+  const shareWorkspace=async()=>{
+    const url=workspaceUrl();
+    try{
+      if(typeof navigator.share==='function')await navigator.share({title:'Eastern Axis intelligence workspace',url});
+      else if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(url);setQuickMessage('Handoff URL copied. Open it on mobile to restore these filters.');}
+      else setQuickMessage('Handoff URL: '+url);
+    }catch(e){if((e as Error)?.name!=='AbortError')setQuickMessage('Handoff URL: '+url);}
+  };
+  const runCommand=(query:string)=>{
+    const q=query.trim();if(!q)return;
+    const countryCommand=q.match(/^\\/?(?:country|c)\\s+([a-z]{2})$/i);
+    if(countryCommand){
+      const match=mainStates.find(c=>c.code.toLowerCase()===countryCommand[1].toLowerCase());
+      if(match){openCountry(match.code);setQuickMessage('Opened '+match.name+' country dossier.');}
+      else setQuickMessage('No indexed country matches that ISO code.');
+      setQuickQuery('');return;
+    }
+    if(/^\\/?(?:vessel|imo)\\b/i.test(q)){setQuickMessage('Vessel search requires a verified AIS provider. No vessel position has been inferred.');return;}
+    const clean=q.replace(/^\\//,'').toLowerCase();
+    const match=domains.flatMap(d=>d.tabs.map(t=>({d,t})))
+      .find(({d,t})=>t.label.toLowerCase()===clean||d.title.toLowerCase()===clean||d.short.toLowerCase()===clean);
+    if(match){selectDomainTab(match.d.id,match.t);setQuickMessage('Opened '+match.d.title+' / '+match.t.label);}
+    else if(clean==='alerts'){setMobilePane('alerts');setQuickMessage('Open the mobile Alert inbox, or inspect Command analyst signals.');}
+    else setQuickMessage('No indexed command. Try /country CN, /alerts, /supply chains, or /systemic risk.');
+    setQuickQuery('');
+  };
   const openCountry = (code: string) => {
     setCountryScope(code);
     setSelected(code);
     setView('Countries');
     setDomain('geopolitics');
+    setMobilePane('workspace');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const navigateFromSignal = (target:'Early warning'|'Supply chain'|'Risk watch'|'Defense intelligence'|'Countries', focus?:'funding'|'commodities'|'gnss')=>{
@@ -424,6 +542,7 @@ function App() {
     const match=domains.find(d=>d.tabs.some(t=>t.section===next));
     if(match)setDomain(match.id);
     setMobileMenu(false);
+    setMobilePane('workspace');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const selectDomainTab = (id:DomainId, tab:DomainTab) => {
@@ -431,6 +550,8 @@ function App() {
     if(tab.section==='Economic intelligence')setEconomicFocus(tab.focus||'overview');
     setView(tab.section);
     setMobileMenu(false);
+    setMobilePane('workspace');
+    setHoveredDomain(null);
     window.scrollTo({top:0,behavior:'smooth'});
   };
   const activeDomain=domains.find(item=>item.id===domain)!;
@@ -443,7 +564,7 @@ function App() {
 
   return (
     <GlobalFiltersContext.Provider value={{horizon,severity}}>
-    <div className={"shell ea-control-room" + (sidebarCollapsed ? " ea-sidebar-collapsed" : "")}>
+    <div className={"shell ea-control-room" + (sidebarCollapsed ? " ea-sidebar-collapsed" : "") + (mobilePane!=='workspace'?" ea-mobile-pane-active":"")}>
       <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
           <span className="brand-mark">
@@ -469,13 +590,17 @@ function App() {
           </button>
         </div>
         <nav aria-label="Main navigation">
-          {domains.map(item=><button key={item.id} type="button"
-            className={'nav-item '+(domain===item.id?'active':'')}
-            aria-current={domain===item.id?'page':undefined}
-            title={item.title}
-            onClick={()=>selectDomainTab(item.id,item.tabs[0])}>
-            <item.Icon size={17}/><span>{item.title}</span>
-          </button>)}
+          {domains.map(item=><div className="ea-nav-domain" key={item.id}>
+            <button type="button" className={'nav-item '+(domain===item.id?'active':'')}
+              aria-current={domain===item.id?'page':undefined} title={item.title}
+              onMouseEnter={e=>showFlyout(item.id,e.currentTarget)}
+              onFocus={e=>showFlyout(item.id,e.currentTarget)}
+              onMouseLeave={closeFlyoutSoon}
+              onClick={()=>selectDomainTab(item.id,item.tabs[0])}>
+              <item.Icon size={17}/><span>{item.title}</span>
+              {item.id==='command'&&intelligenceFeed.promoted.length>0&&<i className="ea-domain-anomaly" title="Verified elevated signal" aria-label="Verified elevated signal"/>}
+            </button>
+          </div>)}
         </nav>
         <div className="sidebar-bottom">
           <span className="tiny-live">
@@ -490,6 +615,13 @@ function App() {
           <span className="sidebar-foot">EASTERN AXIS / RESEARCH DESK</span>
         </div>
       </aside>
+      {hoveredDomain&&<nav className="ea-domain-flyout" aria-label={domains.find(d=>d.id===hoveredDomain)?.title+' quick tabs'}
+        style={{top:flyoutPosition.top,left:flyoutPosition.left}}
+        onMouseEnter={keepFlyout} onMouseLeave={()=>setHoveredDomain(null)} onKeyDown={e=>{if(e.key==='Escape')setHoveredDomain(null);}}>
+        <strong>{domains.find(d=>d.id===hoveredDomain)?.title}</strong>
+        {domains.find(d=>d.id===hoveredDomain)?.tabs.map(tab=><button type="button" key={tab.label}
+          onClick={()=>selectDomainTab(hoveredDomain,tab)}>{tab.label}<ArrowUpRight size={12}/></button>)}
+      </nav>}
       {mobileMenu && (
         <button
           className="menu-overlay"
@@ -503,7 +635,7 @@ function App() {
             <button
               className="menu-btn"
               type="button"
-              onClick={() => { if(window.matchMedia('(max-width: 980px)').matches)setMobileMenu(v=>!v); else setSidebarCollapsed(v=>!v); }}
+              onClick={() => { if(window.matchMedia('(max-width: 980px)').matches)setMobilePane('domains'); else setSidebarCollapsed(v=>!v); }}
               aria-label={mobileMenu ? 'Close navigation' : 'Toggle navigation'}
               aria-controls="ea-primary-navigation"
               aria-expanded={mobileMenu}
@@ -515,7 +647,15 @@ function App() {
               <strong>{activeDomain.title.toUpperCase()}</strong>
             </div>
           </div>
+          <form className="ea-quick-search" role="search" onSubmit={e=>{e.preventDefault();runCommand(quickQuery);}}>
+            <Command size={15}/><input ref={quickRef} aria-label="Global intelligence command search"
+              placeholder="Search commands · /country CN · /supply chains" value={quickQuery}
+              onChange={e=>setQuickQuery(e.target.value)}/><kbd>/</kbd>
+            <button type="submit" aria-label="Execute intelligence command"><ArrowRight size={15}/></button>
+          </form>
+          <div className={'ea-global-filters'+(mobileFiltersOpen?' open':'')}>
           <div className="header-right">
+            <button type="button" className="ea-close-filters" onClick={()=>setMobileFiltersOpen(false)} aria-label="Close global filters"><X size={18}/> Close filters</button>
             <label className="ea-global-filter ea-region-filter"><span>REGION</span>
               <select aria-label="Global region filter" value={region} onChange={event=>{const next=event.target.value;setRegion(next);if(countryScope!=='all' && next!=='All regions' && countries.find(c=>c.code===countryScope)?.region!==next)setCountryScope('all');}}>
                 {['All regions','Africa','Americas','Asia','Europe','Oceania','Other'].map(value=><option key={value}>{value}</option>)}
@@ -533,14 +673,37 @@ function App() {
               </select>
             </label>
           </div>
+          </div>
         </header>
+        <div className="ea-mobile-filter-pills" role="group" aria-label="Active intelligence filters">
+          {[
+            ['Region',region],['Country',mainStates.find(c=>c.code===countryScope)?.name||'Worldwide'],
+            ['Time',horizon==='all'?'All dates':horizon],['Threat',severity==='all'?'All signals':severity]
+          ].map(([label,value])=><button key={label} type="button" onClick={()=>setMobileFiltersOpen(true)} aria-label={'Edit '+label+' filter'}>
+            <span>{label}</span><strong>{value}</strong><ChevronDown size={12}/></button>)}
+        </div>
+        {mobileFiltersOpen&&<button type="button" className="ea-filter-backdrop" aria-label="Close filter panel" onClick={()=>setMobileFiltersOpen(false)}/>}
+        {quickMessage&&<div className="ea-command-status" role="status">{quickMessage}<button type="button" onClick={()=>setQuickMessage('')} aria-label="Dismiss command message"><X size={14}/></button></div>}
         <nav className="ea-domain-tabs" aria-label={activeDomain.title+' workspace tabs'}>
           {activeDomain.tabs.map(tab=><button type="button" key={tab.label}
             className={activeTab(tab)?'active':''} aria-current={activeTab(tab)?'page':undefined}
             onClick={()=>selectDomainTab(domain,tab)}>{tab.label}</button>)}
         </nav>
         <div className="ea-global-filter-note">Filters preserve original records. Time and severity apply to dated analyst signals; structural reference figures retain their published observation dates.</div>
+        <div className="ea-workstation-row">
         <main className="content">
+          <div className="ea-mobile-panel">
+            {mobilePane==='domains'&&<MobileDomains items={domains.map(d=>({id:d.id,title:d.title,Icon:d.Icon}))}
+              onSelect={id=>{const d=domains.find(x=>x.id===id);if(d)selectDomainTab(d.id,d.tabs[0]);}}/>}
+            {mobilePane==='alerts'&&<MobileAlerts feed={intelligenceFeed}/>}
+            {mobilePane==='briefcase'&&<MobileBriefcase saved={savedViews} onOpen={openSaved}
+              onRemove={id=>setSavedViews(v=>v.filter(x=>x.id!==id))}
+              onSave={saveCurrentWorkspace} onShare={shareWorkspace}/>}
+            {mobilePane==='briefcase'&&<button type="button" className="ea-mobile-report-bug" onClick={()=>setBugReportOpen(true)}><Bug size={15}/> Report a bug · no login required</button>}
+          </div>
+          <div className="ea-original-workspace">
+          <div className="ea-handoff-actions"><button type="button" onClick={saveCurrentWorkspace} title="Save filters and workspace in this browser"><Bookmark size={14}/> Save view</button>
+            <button type="button" onClick={shareWorkspace} title="Copy or share a link that restores this workspace"><Copy size={14}/> Send to mobile</button></div>
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -1193,7 +1356,11 @@ function App() {
               </div>
             </>
           )}
+          </div>
         </main>
+        {overview&&<ContextRail feed={intelligenceFeed} domain={activeDomain.title} country={countryScope}
+          onOpenAlerts={()=>{if(window.matchMedia('(max-width: 980px)').matches)setMobilePane('alerts');else selectDomainTab('command',domains[0].tabs[1]);}}/>}
+        </div>
         <footer className="footer">
           <div>
             <span className="live-dot" /> EASTERN AXIS / OPEN RESEARCH
@@ -1201,6 +1368,16 @@ function App() {
           <span>PUBLIC EVIDENCE · NO UNSOURCED THREAT RANKINGS</span>
         </footer>
       </div>
+      <nav className="ea-mobile-primary" aria-label="Mobile primary navigation">
+        <button type="button" onClick={()=>selectDomainTab('command',domains[0].tabs[0])} aria-current={mobilePane==='workspace'&&domain==='command'?'page':undefined}>
+          <Globe2 size={20}/><span>Home</span></button>
+        <button type="button" onClick={()=>{setMobilePane('domains');setMobileFiltersOpen(false);}} aria-current={mobilePane==='domains'?'page':undefined}>
+          <Grid2X2 size={20}/><span>Domains</span></button>
+        <button type="button" onClick={()=>{setMobilePane('alerts');setMobileFiltersOpen(false);}} aria-current={mobilePane==='alerts'?'page':undefined}>
+          <Bell size={20}/><span>Alerts</span>{intelligenceFeed.promoted.length>0&&<small>{intelligenceFeed.promoted.length}</small>}</button>
+        <button type="button" onClick={()=>{setMobilePane('briefcase');setMobileFiltersOpen(false);}} aria-current={mobilePane==='briefcase'?'page':undefined}>
+          <BriefcaseBusiness size={20}/><span>Briefcase</span></button>
+      </nav>
       <IntelCardDetails />
       <BugReportDialog open={bugReportOpen} onClose={() => setBugReportOpen(false)}
         section={view === 'Overview' ? 'Command center' : view} />
