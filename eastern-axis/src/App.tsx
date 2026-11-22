@@ -7,6 +7,7 @@ import { withSecurityContext } from './securityTreaties';
 import GlobalSystems from './GlobalSystems';
 import FinancialTransmission from './FinancialTransmission';
 import ResilienceWatch from './ResilienceWatch';
+import {GlobalFiltersContext, type Horizon, type Severity} from './GlobalFiltersContext';
 import ConnectedSources from './ConnectedSources';
 import OperationalAssurance from './OperationalAssurance';
 import EconomicIntelligence, { type EconomicFocus } from './EconomicIntelligence';
@@ -300,8 +301,8 @@ function App() {
   const [view, setView] = useState<Section>('Overview');
   const [domain, setDomain] = useState<DomainId>('command');
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const [horizon, setHorizon] = useState('all');
-  const [severity, setSeverity] = useState('all');
+  const [horizon, setHorizon] = useState<Horizon>('all');
+  const [severity, setSeverity] = useState<Severity>('all');
   const [networkOpen,setNetworkOpen] = useState(false);
   const [warningFocus,setWarningFocus]=useState<'all'|'funding'|'commodities'|'gnss'>('all');
   const [economicFocus,setEconomicFocus]=useState<EconomicFocus>('overview');
@@ -441,6 +442,7 @@ function App() {
   };
 
   return (
+    <GlobalFiltersContext.Provider value={{horizon,severity}}>
     <div className={"shell ea-control-room" + (sidebarCollapsed ? " ea-sidebar-collapsed" : "")}>
       <aside id="ea-primary-navigation" className={'sidebar ' + (mobileMenu ? 'sidebar-open' : '')}>
         <div className="brand">
@@ -521,12 +523,12 @@ function App() {
             </label>
             <CountryPicker countries={region==='All regions'?mainStates:mainStates.filter(c=>c.region===region)} value={countryScope} onChange={setCountryScope} />
             <label className="ea-global-filter"><span>TIME</span>
-              <select aria-label="Time horizon filter" value={horizon} onChange={event=>setHorizon(event.target.value)}>
+              <select aria-label="Time horizon filter" value={horizon} onChange={event=>setHorizon(event.target.value as Horizon)}>
                 <option value="all">All dates</option><option value="24h">24 hours</option><option value="7d">7 days</option><option value="30d">30 days</option>
               </select>
             </label>
             <label className="ea-global-filter"><span>SEVERITY</span>
-              <select aria-label="Alert severity filter" value={severity} onChange={event=>setSeverity(event.target.value)}>
+              <select aria-label="Alert severity filter" value={severity} onChange={event=>setSeverity(event.target.value as Severity)}>
                 <option value="all">All signals</option><option value="elevated">Elevated</option><option value="review">Needs review</option><option value="monitor">Monitored</option>
               </select>
             </label>
@@ -1204,6 +1206,7 @@ function App() {
         section={view === 'Overview' ? 'Command center' : view} />
 
     </div>
+    </GlobalFiltersContext.Provider>
   );
 }
 export default App;
