@@ -267,6 +267,7 @@ async function qa(page,width){
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
     await page.reload({waitUntil:'domcontentloaded'});
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
+    await page.waitForFunction(()=>document.querySelector('#ea-country-scope')?.textContent?.includes('China'),null,{timeout:15000});
     assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection survives reload');
     await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
