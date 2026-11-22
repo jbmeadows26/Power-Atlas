@@ -95,6 +95,8 @@
  .ea-control-room .ea-global-filters.open .ea-context>.ea-picker-trigger{width:100%}
  .ea-control-room .ea-global-filters.open .ea-context>label{display:block}
  .ea-control-room .ea-domain-tabs{position:sticky;top:104px;z-index:22;padding:6px 10px;min-height:46px}
+ /* The command submenus have no mobile filter pills. */
+ .ea-control-room.ea-unfiltered-command .ea-domain-tabs{top:54px}
  .ea-control-room .ea-global-filter-note{display:none}
  .ea-control-room .ea-workstation-row{display:block;min-height:0}
  .ea-control-room .ea-workstation-row>.content{width:100%;display:block;min-height:65vh;padding:12px 9px calc(99px + env(safe-area-inset-bottom,0px));overflow:visible}
