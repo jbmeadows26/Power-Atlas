@@ -349,6 +349,7 @@ function App() {
   const [mobileMenu, setMobileMenu] = useState(false);
   const [mobilePane,setMobilePane]=useState<'workspace'|'domains'|'alerts'|'briefcase'>(startup.pane);
   const navigationInitialized=useRef(false);
+  const replaceDomainPickerHistory=useRef(false);
   const [mobileFiltersOpen,setMobileFiltersOpen]=useState(false);
   const [quickQuery,setQuickQuery]=useState('');
   const [quickMessage,setQuickMessage]=useState('');
@@ -554,6 +555,7 @@ function App() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
   const selectDomainTab = (id:DomainId, tab:DomainTab) => {
+    if(mobilePane==='domains')replaceDomainPickerHistory.current=true;
     setDomain(id);
     if(tab.section==='Economic intelligence')setEconomicFocus(tab.focus||'overview');
     setView(tab.section);
@@ -586,8 +588,12 @@ function App() {
       navigationInitialized.current=true;
       window.history.replaceState(state,'',route);
     }else if(route!==liveRoute){
-      window.history.pushState(state,'',route);
+      // A mobile domain chooser is a transient screen. Once a domain is chosen,
+      // replace that chooser entry so Back lands on the previously visited domain.
+      if(replaceDomainPickerHistory.current)window.history.replaceState(state,'',route);
+      else window.history.pushState(state,'',route);
     }
+    replaceDomainPickerHistory.current=false;
   },[domain,view,economicFocus,countryScope,region,horizon,severity,mobilePane]);
 
   useEffect(()=>{
