@@ -55,6 +55,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Produce identical sourced military equipment fixture for candidate browser QA
+        if: github.event_name == 'push' || github.event_name == 'pull_request'
+        run: |
+          python3 -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
+          python3 eastern-axis/scripts/collect_military_equipment.py
+          python3 -m unittest discover -s eastern-axis/tests -p 'test_military_equipment.py' -v
       - name: Build migration candidate for Pages
         if: github.event_name == 'push' || github.event_name == 'pull_request'
         working-directory: eastern-axis
