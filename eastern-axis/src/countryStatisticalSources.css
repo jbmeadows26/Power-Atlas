@@ -1,0 +1,40 @@
+/* Source explorer: progressive disclosure and explicit collection state. */
+.css-root{border:1px solid #355a5d;background:#112a33;color:#e0f0ec;border-radius:9px;margin:14px 0 18px;overflow:hidden;max-width:100%}
+.css-root summary{list-style:none}
+.css-root summary::-webkit-details-marker{display:none}
+.css-trigger{cursor:pointer;display:flex;align-items:center;gap:12px;padding:14px 15px;min-height:65px}
+.css-trigger:hover,.css-trigger:focus-visible{background:#1c3a3b}
+.css-icon{color:#bceca7;flex-shrink:0}
+.css-summary-copy{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.css-summary-copy strong{font-size:13px;line-height:1.35;color:#e6f4de}
+.css-summary-copy small{font-size:10px;line-height:1.4;color:#9fc5c2}
+.css-expand{font-size:10px;color:#bceca7;font-weight:700;white-space:nowrap;flex-shrink:0}
+.css-root[open] .css-expand{font-size:0}
+.css-root[open] .css-expand::after{content:"Hide sources";font-size:10px}
+.css-details{border-top:1px solid #315459;padding:15px}
+.css-guidance{display:flex;gap:9px;align-items:flex-start;background:#1b373d;border:1px solid #3a5b61;border-radius:6px;padding:11px;margin-bottom:12px}
+.css-guidance svg{color:#bceca7;flex:none}
+.css-guidance p{font-size:11px;line-height:1.65;color:#d6e6df;margin:0}
+.css-guidance span{color:#a7c5c6;display:block}
+.css-source-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.css-source{background:#18353c;border:1px solid #355661;border-radius:7px;padding:12px;min-width:0;overflow-wrap:anywhere;display:flex;flex-direction:column;gap:7px}
+.css-source-head{display:flex;gap:7px;flex-wrap:wrap;align-items:flex-start;justify-content:space-between}
+.css-source-head strong{font-size:12px;line-height:1.4;color:#e0f4e6}
+.css-source-head span{font-size:9px;color:#cceca8;border:1px solid #537566;padding:3px 5px;border-radius:4px;white-space:nowrap}
+.css-source p{color:#bcd6d5;font-size:11px;line-height:1.5;margin:0}
+.css-source .css-source-topics{color:#d5ecc6}
+.css-source .css-coverage-note{color:#b5cdcc}
+.css-source-links{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.css-source-links a{font-size:11px;display:inline-flex;align-items:center;gap:4px;text-decoration:underline;text-underline-offset:3px;color:#c9efba}
+.css-source>small{color:#a8c6ca;line-height:1.45;font-size:10px;margin-top:auto}
+.css-foot{display:flex;gap:8px;align-items:flex-start;color:#a9c9ca;font-size:10px;line-height:1.6;margin:12px 0 0}
+.css-foot svg{flex:none;margin-top:2px;color:#bceca7}
+@media(max-width:680px){
+  .css-trigger{padding:11px 10px;gap:9px}
+  .css-summary-copy strong{font-size:12px}
+  .css-summary-copy small{font-size:9px}
+  .css-expand{font-size:9px}
+  .css-details{padding:10px}
+  .css-source-grid{grid-template-columns:1fr}
+  .css-source{padding:11px}
+}
