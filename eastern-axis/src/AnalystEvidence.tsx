@@ -77,7 +77,7 @@ export default function AnalystEvidence({reading,placement='rail'}:{reading:Evid
   return <section className={'eai-readout eai-'+placement} aria-label={'Source-backed analyst interpretation: '+reading.title}>
     <div className="eai-head">
       <span className="eai-eyebrow"><BookOpenCheck size={14}/> ACTIVE CATEGORY ANALYST</span>
-      <h3>{reading.title}</h3>
+      <div className="eai-title">{reading.title}</div>
       <div className="eai-meta"><span className={'eai-state '+reading.status}>{reading.status==='coverage-gap'?'COVERAGE GAP':reading.status==='monitoring'?'MONITORED':'SOURCE-DATED'}</span><span>{reading.scope}</span></div>
     </div>
     <div className="eai-kpis">
