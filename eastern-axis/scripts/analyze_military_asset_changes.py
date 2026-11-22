@@ -266,6 +266,21 @@ def report_from_series(data,holding_doc,inventory_doc,as_of=None,checked_at=None
       ]
     }
 
+def verified_model_summary(row, decision):
+    """Never publish unverified facts, baselines or intent from LLM prose."""
+    baseline=row["baseline"]
+    kind=("SIPRI arms-transfer volume" if row["kind"]=="arms-transfer-volume" else
+          "reported military equipment count" if row["kind"]=="equipment-holdings" else
+          "historical military personnel estimate")
+    value=row["value"]
+    center=baseline.get("median")
+    z=baseline.get("robustZ")
+    return (f"Local AI recommendation: {decision}. "
+            f"The {row['observationYear']} {kind} was {value:,.0f}; "
+            f"the median of the eight preceding calendar-year observations was "
+            f"{center:,.0f} (robust Z {z}). "
+            "This comparison alone does not establish new operational equipment, readiness or intent.")
+
 def review_with_model(report,endpoint,model="qwen2.5:1.5b"):
     """AI can review source-dated candidates but never assert hardware holdings."""
     candidates=[row for row in report["assessments"] if row["status"]=="review"][:25]
@@ -293,7 +308,7 @@ def review_with_model(report,endpoint,model="qwen2.5:1.5b"):
             continue
         row["modelReviewed"]=True
         row["modelDecision"]=output["decision"]
-        row["analystRationale"]=reason
+        row["analystRationale"]=verified_model_summary(row,output["decision"])
         reviewed+=1
         if output["decision"]=="investigate" and row["anomalous"]:
             row["reviewedException"]=True
