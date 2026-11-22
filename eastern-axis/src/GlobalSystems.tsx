@@ -37,7 +37,7 @@ const gaps: Gap[] = [
   { area: 'Intelligence & law', label: 'Declassified intelligence and FOIA', status: 'reference', detail: 'Discovery references only; no archival corpus and no source-document capture' },
   { area: 'Intelligence & law', label: 'Foreign influence and transnational repression', status: 'partial', detail: 'Selected DOJ cases and allied reports; no systematic global case registry' },
   { area: 'Defense & risk', label: 'Documented conflicts and operations', status: 'partial', detail: 'Nine curated contextual records; not a worldwide conflict-event feed' },
-  { area: 'Defense & risk', label: 'Military assets, forces and readiness', status: 'partial', detail: 'Nine public capability/inventory entries; estimates are not real-time' },
+  { area: 'Defense & risk', label: 'Military assets, forces and readiness', status: 'partial', detail: 'Source-dated equipment, personnel and expenditure observations span many countries; historic estimates are not real-time inventories or readiness' },
   { area: 'Defense & risk', label: 'Allied military-report monitoring', status: 'partial', detail: 'Three official metadata feeds; bounded monitoring only' },
   { area: 'Defense & risk', label: 'Proxies, arms transfers and defense procurement', status: 'reference', detail: 'SIPRI and agency links; no normalized actor-to-transfer analysis' },
   { area: 'Defense & risk', label: 'Nuclear, cyber and space capabilities', status: 'reference', detail: 'Selected public assessments; no comprehensive historical time series' },
