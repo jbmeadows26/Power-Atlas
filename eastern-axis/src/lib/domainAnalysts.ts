@@ -58,7 +58,6 @@ const sources=(rows:Obj[],max=4):EvidenceLink[]=>{
 const countries=(rows:Obj[]):number=>new Set(rows.map(r=>s(r.code)).filter(Boolean)).size;
 const count=(rows:Obj[],p:(r:Obj)=>boolean)=>rows.filter(p).length;
 const forCountry=(rows:Obj[],country:string,key='code')=>country==='all'?rows:rows.filter(x=>x[key]===country);
-const human=(v:unknown)=>s(v).replace(/-/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
 const base=(title:string,analyst:string,scope:string):EvidenceBrief=>({
  title,analyst,status:'coverage-gap',scope,asOf:'Not reported',finding:'No verified current reading is available for this view.',
  direction:'Outside-normal change: not established.',implication:'A missing observation cannot establish improvement, deterioration, or absence of activity.',
@@ -83,7 +82,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  const early=data('early'),change=data('changes'),resilience=data('resilience'),system=o(systems);
  const reviews=a(triage.reviews),documents=a(manifest.records),assets=forCountry(a(inventory.assets),country);
  const earlyMetrics=a(early.metrics),marketMetrics=a(markets.metrics),households=a(transmission.householdMetrics);
- const forecasts=a(shortage.forecasts),zones=a(conflict.zones).filter(z=>country==='all'||a(z.countryCodes.map?.((c:unknown)=>({code:c}))).some(x=>x.code===country));
+ const forecasts=a(shortage.forecasts),zones=a(conflict.zones).filter(z=>country==='all'||(Array.isArray(z.countryCodes)&&z.countryCodes.includes(country)));
  const historical=a(system.indicators);
  const reported=historical.filter(x=>n(x.value)!==null);
  const localCases=country==='all'?cases:cases.filter(c=>c.code===country);
