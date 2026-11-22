@@ -34,6 +34,7 @@ jobs:
         run: |
           node eastern-axis/tests/liveSystemHealth.mjs --check-config
           node eastern-axis/tests/liveSystemHealth.mjs --test-gini
+          node eastern-axis/tests/liveSystemHealth.mjs --test-gini
           if EASTERN_AXIS_BASE_URL=https://retired.invalid node eastern-axis/tests/liveSystemHealth.mjs --check-config; then
             echo "Untrusted API origin was accepted" >&2
             exit 1
