@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react';
 import { api } from '@appdeploy/client';
 import { ArrowRight, BookOpen, ChevronDown, Database, ExternalLink, Globe2, Search, TrendingUp } from 'lucide-react';
 import './factbook.css';
+import CountryStatisticalSources from './CountryStatisticalSources';
 
 type Country = {
   code: string; iso: string | null; gec: string; name: string; region: string;
@@ -210,6 +211,7 @@ export default function Factbook({
             <a href="https://data.worldbank.org/" target="_blank" rel="noopener noreferrer">World Bank <ExternalLink size={13}/></a>
           </div>
         </section>
+        <CountryStatisticalSources countryCode={current?.iso} countryName={current?.name}/>
         <section className="fb-panel">
           <div className="fb-heading"><strong>COMPARE COUNTRIES</strong><small>Maximum three</small></div>
           <p className="fb-note">Compare only World Bank observations, never substitute archived estimates.</p>
