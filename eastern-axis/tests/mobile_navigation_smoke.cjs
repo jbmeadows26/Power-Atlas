@@ -136,6 +136,32 @@ async function qa(page,width){
   const command=page.getByRole('region',{name:'Evidence-gated command alerts'});
   await command.waitFor({state:'visible',timeout:20000});
   assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unelevated screening movements');
+  // Evidence must open in the app, not dump NOAA GeoJSON into a new browser tab.
+  if(width<=980)
+    await page.getByRole('navigation',{name:'Mobile primary navigation'})
+      .getByRole('button',{name:'Alerts'}).click();
+  const evidenceRows=page.locator(width<=980?'.ea-ci-mobile-feed .ea-ci-entry':'.ea-ci-rail .ea-ci-entry');
+  await evidenceRows.first().waitFor({state:'attached',timeout:20000});
+  const weatherRows=evidenceRows.filter({hasText:'NOAA National Weather Service'});
+  const evidenceRow=await weatherRows.count()>0?weatherRows.first():evidenceRows.first();
+  const beforeEvidenceUrl=page.url();
+  await evidenceRow.getByRole('button',{name:/^View evidence:/}).click();
+  const evidenceDialog=page.locator('.ea-ev-modal[role="dialog"]');
+  await evidenceDialog.waitFor({state:'visible',timeout:10000});
+  assert.equal(page.url(),beforeEvidenceUrl,'Evidence preview must not navigate to raw publisher JSON');
+  assert.ok(await evidenceDialog.getByRole('heading').count()>0,'Evidence preview needs a readable title');
+  assert.ok(await evidenceDialog.locator('.ea-ev-actions a[href^="https://"]').count()===1,
+    'Raw evidence must remain accessible as an explicit second action');
+  const evidenceBounds=await evidenceDialog.boundingBox();
+  assert.ok(evidenceBounds&&evidenceBounds.width<=width+2,'Evidence dialog overflows the '+width+'px viewport');
+  await evidenceDialog.getByRole('button',{name:'Back to alerts'}).click();
+  await evidenceDialog.waitFor({state:'detached'});
+  assert.equal(page.url(),beforeEvidenceUrl,'Closing evidence must preserve the existing workspace');
+  if(width<=980){
+    await page.getByRole('navigation',{name:'Mobile primary navigation'})
+      .getByRole('button',{name:'Home'}).click();
+    await command.waitFor({state:'visible'});
+  }
   // Browser-history regression: native Back and Forward must traverse actual SPA
   // submenus instead of sending users out of Eastern Axis.
   const situationUrl=page.url();
