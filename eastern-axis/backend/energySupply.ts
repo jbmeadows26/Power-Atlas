@@ -1,5 +1,6 @@
 import { createHash } from 'node:crypto';
 import { db } from './runtime-sdk';
+import { isoAlpha3 } from '../src/lib/countryStatisticalSources';
 
 const SOURCE = 'https://catalog.ourworldindata.org/energy/owid_energy/owid_energy.csv';
 const CATALOG = 'https://catalog.ourworldindata.org/energy/owid_energy/';
@@ -73,9 +74,11 @@ export async function syncEnergy() {
       const iso3 = (row[indexes.iso_code]||'').trim();
       const year = Number(row[indexes.year]);
       if(!name || !Number.isInteger(year) || year<1800 || year>2035)continue;
-      if(!/^[A-Z]{3}$/.test(iso3) && name !== 'World')continue;
-      const key=tidy(name);
-      const country = byCountry[key] || {name,iso3,fields:{}};
+      // Keys are canonical ISO3, never country names or ambiguous aggregate aliases.
+      const standardCode=isoAlpha3(iso3);
+      const key=name==='World'?'OWID_WRL':standardCode;
+      if(!key)continue;
+      const country = byCountry[key] || {name,iso3:key,fields:{}};
       for(const col of cols) {
         const str=row[indexes[col.key]];
         if(str===undefined || str==='') continue;
@@ -87,7 +90,7 @@ export async function syncEnergy() {
       }
       byCountry[key]=country;
     }
-    const countryCount=Object.keys(byCountry).filter(k=>k!=='world').length;
+    const countryCount=Object.keys(byCountry).filter(k=>k!=='OWID_WRL').length;
     if(parsedRows<10000 || countryCount<160)throw new Error('OWID energy source completeness guard failed');
     const snap:EnergySnapshot={
       id:'latest',checkedAt:started,fileSha256:createHash('sha256').update(raw,'utf8').digest('hex'),
@@ -113,8 +116,17 @@ export async function readEnergy(code:string,countryName?:string) {
     await syncEnergy();
     [saved]=await db.get<EnergySnapshot>('global_energy_snapshots',['latest'],{consistent:true});
   }
-  const name=code==='all'?'World':(aliases[code]||tidy(countryName||new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code));
-  const country=saved?.byCountry[name]||null;
+  const iso3=code==='all'?'OWID_WRL':isoAlpha3(code);
+  const keyed=iso3?saved?.byCountry[iso3]:null;
+  // Old snapshots were keyed by names; retain them temporarily, but accept a
+  // legacy name only when its stored ISO3 agrees with the requested country.
+  const oldName=code==='all'?'world':
+    (aliases[code]||tidy(countryName||new Intl.DisplayNames(['en'],{type:'region'}).of(code)||code));
+  const legacy=saved?.byCountry[oldName];
+  const verifiedLegacy=legacy&&(
+    (code==='all'&&legacy.name==='World')||
+    (iso3!==null&&legacy.iso3===iso3))?legacy:null;
+  const country=keyed||verifiedLegacy||null;
   return {
     code, checkedAt:saved?.checkedAt||null,
     status:!saved?'unavailable':country?'reported':'no-country-match',
