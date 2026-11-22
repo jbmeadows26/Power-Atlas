@@ -5,13 +5,13 @@ import {buildDomainBrief, SNAPSHOT_PATHS, type BriefInput, type EvidenceBrief} f
 import './analystEvidence.css';
 
 type Case={code?:string;topic?:string;source?:string;title?:string};
-type HookArgs={view:string;focus:string;country:string;countryName?:string;cases:Case[]};
+type HookArgs={view:string;focus:string;country:string;countryName?:string;horizon?:string;severity?:string;cases:Case[]};
 const keys=Object.entries(SNAPSHOT_PATHS) as Array<[string,string]>;
 const asObject=(value:unknown):Record<string,unknown>|null=>
   value&&typeof value==='object'&&!Array.isArray(value)?value as Record<string,unknown>:null;
 
 /** One memoized view of published snapshots feeds both desktop side rail and mobile inline analysis. */
-export function useAnalystEvidence({view,focus,country,countryName,cases}:HookArgs):EvidenceBrief{
+export function useAnalystEvidence({view,focus,country,countryName,horizon,severity,cases}:HookArgs):EvidenceBrief{
   const [snapshots,setSnapshots]=useState<Record<string,unknown>>({});
   const [failures,setFailures]=useState<string[]>([]);
   const [systems,setSystems]=useState<unknown>(undefined);
@@ -51,8 +51,8 @@ export function useAnalystEvidence({view,focus,country,countryName,cases}:HookAr
     }).catch(()=>{if(live)setSystems(undefined);});
     return()=>{live=false;};
   },[country,tick]);
-  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,cases,snapshots,systems,failures} as BriefInput),
-    [view,focus,country,countryName,cases,snapshots,systems,failures]);
+  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures} as BriefInput),
+    [view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures]);
 }
 
 function Sparkline({chart}:{chart:NonNullable<EvidenceBrief['chart']>}){
@@ -79,6 +79,7 @@ export default function AnalystEvidence({reading,placement='rail'}:{reading:Evid
     <div className="eai-head">
       <span className="eai-eyebrow"><BookOpenCheck size={14}/> ACTIVE CATEGORY ANALYST</span>
       <div className="eai-title">{reading.title}</div>
+      <p className="eai-author">{reading.analyst} · automated, source-bounded assessment</p>
       <div className="eai-meta"><span className={'eai-state '+reading.status}>{reading.status==='coverage-gap'?'COVERAGE GAP':reading.status==='monitoring'?'MONITORED':'SOURCE-DATED'}</span><span>{reading.scope}</span></div>
     </div>
     <div className="eai-kpis">
