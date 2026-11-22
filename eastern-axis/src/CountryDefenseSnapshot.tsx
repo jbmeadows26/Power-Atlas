@@ -5,7 +5,7 @@ import './countryDefenseSnapshot.css';
 export type CountryDefenseDataset = {
   assessments: Array<{id:string;title:string;agency:string;countries:string[];published:string;url:string;government?:string;finding?:string}>;
   operations: Array<{id:string;title:string;roles:Array<{code:string;role:string}>;published:string;url:string;state?:string;publisher?:string}>;
-  assets: Array<{id:string;code:string;name:string;quantity:string;published:string;url:string;publisher?:string;category?:string;detail?:string}>;
+  assets: Array<{id:string;code:string;name:string;quantity:string;published:string;url:string;publisher?:string;category?:string;detail?:string;status?:string;observationYear?:number}>;
 };
 
 export function defenseForCountry(data:CountryDefenseDataset|null|undefined,code:string) {
@@ -36,7 +36,7 @@ export default function CountryDefenseSnapshot({code,name,data,unavailable=false
     {id:'operations' as Branch,title:'Military operations',icon:Activity,count:records.operations.length,
       items:records.operations.slice(0,2).map(o=>({id:o.id,title:o.title,meta:o.published+' · '+(o.roles.find(role=>role.code===code)?.role||'Country-linked context'),url:o.url}))},
     {id:'assets' as Branch,title:'Military capabilities & assets',icon:Layers3,count:records.assets.length,
-      items:records.assets.slice(0,3).map(a=>({id:a.id,title:a.quantity+' '+a.name,meta:(a.publisher||'Attributed public estimate')+' · '+a.published,url:a.url}))},
+      items:records.assets.slice(0,3).map(a=>({id:a.id,title:a.quantity+' '+a.name,meta:(a.publisher||'Attributed public estimate')+' · '+a.published+(a.status?' · '+a.status.replaceAll('-',' '):''),url:a.url}))},
   ];
   return <section className="cds-root" aria-label={name+' country defense intelligence card'}>
     <div className="cds-head">
@@ -57,7 +57,7 @@ export default function CountryDefenseSnapshot({code,name,data,unavailable=false
         </div>
         {data&&group.items.length>0?<div className="cds-references">{group.items.map(item=><a href={item.url} target="_blank" rel="noopener noreferrer" key={item.id} title={'Open original source for '+item.title}>
           <strong>{item.title}</strong><small>{item.meta}</small><span>Original source <ArrowUpRight size={12}/></span>
-        </a>)}</div>:<p className="cds-empty">{loading?'Checking source records…':unavailable?'Source coverage could not be checked.': 'No reviewed country-tagged item in this category. Not evidence of zero activity.'}</p>}
+        </a>)}</div>:<p className="cds-empty">{loading?'Checking source records…':unavailable?'Source coverage could not be checked.': 'No country-specific source value indexed. This does not mean zero equipment or zero activity.'}</p>}
       </article>;
     })}</div>
     <p className="cds-method">Coverage reflects only indexed records and their publication dates. Assessments, reported roles and inventory estimates have different evidentiary status; the links preserve the underlying source for scrutiny.</p>
