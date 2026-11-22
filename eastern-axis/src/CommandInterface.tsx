@@ -1,6 +1,5 @@
 import {useEffect,useMemo,useState} from 'react';
 import {Activity,ArrowUpRight,Bell,BookOpen,Bookmark,Clock3,ExternalLink,Layers3,Radio,ShieldAlert,ShieldCheck,TriangleAlert} from 'lucide-react';
-import './commandInterface.css';
 
 export type SignalRecord={
   id:string;kind:string;title:string;group:string;source:string;sourceUrl:string;observedAt?:string;
