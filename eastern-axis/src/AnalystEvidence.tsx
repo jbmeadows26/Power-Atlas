@@ -1,5 +1,5 @@
-import {useEffect,useMemo,useState} from 'react';
-import {Activity,ArrowUpRight,BarChart3,BookOpenCheck,Clock3,ShieldCheck,TriangleAlert} from 'lucide-react';
+import {useEffect,useId,useMemo,useState} from 'react';
+import {Activity,ArrowUpRight,BarChart3,BookOpenCheck,ChevronDown,Clock3,ShieldCheck,TriangleAlert} from 'lucide-react';
 import {api} from './lib/api';
 import {buildDomainBrief, SNAPSHOT_PATHS, type BriefInput, type EvidenceBrief} from './lib/domainAnalysts';
 import './analystEvidence.css';
@@ -114,6 +114,30 @@ export default function AnalystEvidence({reading,placement='rail'}:{reading:Evid
         {link.title}<ArrowUpRight size={12}/>{link.date&&<small>{link.date}</small>}
       </a>):<p>No original records available in this scope. Do not interpret missing as zero.</p>}
       <small>{reading.coverage}</small>
+    </div>
+  </section>;
+}
+
+/**
+ * Mobile-first progressive disclosure: do not bury monitoring charts or
+ * duplicate the Command Room's visible signal counters. The original sourced
+ * analysis is preserved in full on demand, and the desktop rail is unchanged.
+ */
+export function AnalystEvidenceCompact({reading}:{reading:EvidenceBrief}){
+  const [open,setOpen]=useState(false);
+  const detailsId=useId();
+  useEffect(()=>setOpen(false),[reading.title,reading.scope]);
+  return <section className="eai-inline eai-compact" aria-label={'Analyst interpretation: '+reading.title}>
+    <button type="button" className="eai-compact-trigger" aria-expanded={open} aria-controls={detailsId}
+      onClick={()=>setOpen(previous=>!previous)}>
+      <span className="eai-compact-identity"><BookOpenCheck size={16}/><span><small>ANALYST INTERPRETATION</small><strong>{reading.title}</strong></span></span>
+      <span className={'eai-state '+reading.status}>{reading.status==='coverage-gap'?'DATA GAP':reading.status==='monitoring'?'MONITORING':'DATED'}</span>
+      <ChevronDown className={open?'eai-compact-chevron open':'eai-compact-chevron'} size={18}/>
+    </button>
+    <p className="eai-compact-preview">{reading.direction}</p>
+    <div className="eai-compact-action">{open?'Detailed evidence is open':'Expand for metrics, sources, beneficiaries and limitations'}</div>
+    <div id={detailsId} className="eai-compact-body" hidden={!open}>
+      {open&&<AnalystEvidence reading={reading} placement="details"/>}
     </div>
   </section>;
 }
