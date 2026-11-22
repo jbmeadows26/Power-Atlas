@@ -8,6 +8,13 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
 (async()=>{
   const browser=await chromium.launch({headless:true});
   const req=await createRequest.newContext({extraHTTPHeaders:{Origin:'https://jbmeadows26.github.io'}});
+  async function openWorkspace(page,domain,tab){
+    const nav=page.locator('#ea-primary-navigation');
+    if(await page.evaluate(()=>innerWidth<=980) && !await nav.evaluate(el=>el.classList.contains('sidebar-open')))
+      await page.getByRole('button',{name:'Toggle navigation'}).click();
+    await nav.locator('button.nav-item').filter({hasText:domain}).click();
+    if(tab)await page.locator('.ea-domain-tabs').getByRole('button',{name:tab,exact:true}).click();
+  }
   async function connect(page) {
     await page.route(url=>url.toString().startsWith(api+'/api/'),async route=>{
       const url=route.request().url();
@@ -49,7 +56,6 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const scope = page.getByRole('button',{name:'Choose country intelligence scope'});
     await scope.waitFor({state:'visible',timeout:20000});
     // Report a bug lives in the existing menu and never redirects visitors to GitHub.
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
     const bugTrigger=page.locator('#ea-primary-navigation').getByRole('button',{name:/Report a bug/});
     await bugTrigger.waitFor({state:'visible'});
     await bugTrigger.click();
@@ -106,9 +112,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       [],'Local NWS warnings must never appear as strategic Command findings');
     assert.equal(await commandRows.filter({hasText:'Jupiter Inlet'}).count(),0,
       'Formerly elevated Jupiter Inlet marine warning still appears in Command');
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Economic intelligence'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Markets & early warning'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
     const disclosure=page.locator('.pew-context-radar');
     await disclosure.waitFor({state:'visible',timeout:20000});
     assert.equal(await disclosure.getAttribute('open'),null,'Cross-domain screening should be collapsed by default');
@@ -136,15 +140,12 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.waitForFunction(()=>Array.from(document.querySelectorAll('button')).some(b=>
       b.textContent.trim()==='Overnight funding'&&b.getAttribute('aria-pressed')==='true'),null,{timeout:15000});
     assert.equal(await fundingTab.getAttribute('aria-pressed'),'true','Finance card did not select funding comparisons');
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Command center'}).click();
+    await openWorkspace(page,'Command & Situation Room','Situation room');
     await command.waitFor({state:'visible',timeout:15000});
     assert.equal(await page.locator('.dr-root').count(),0,'Command must not repeat unscreened radar data');
     assert.equal(await page.locator('.cc-map-panel').count(),0,'Command still contains geospatial map');
     assert.equal(await page.locator('.cc-stream-panel,.cc-connect-panel,.cc-live-panel').count(),0,'Command repeats source data');
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Economic intelligence'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     const risk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await risk.waitFor({state:'visible',timeout:20000});
     assert.equal(await risk.locator('.rdb-chart').count(),4,'Risk needs four compact visual panels');
@@ -153,8 +154,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await risk.locator('.rw-probes').waitFor({state:'visible',timeout:20000});
     await risk.getByRole('button',{name:'Hide details'}).click();
     assert.equal(await risk.locator('.rw-probe,.gs-signal').count(),0,'Risk evidence did not collapse');
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     // Regression: selecting the United States must not make the country index empty,
     // even when the directory's optional allied-state filter is switched off.
     await scope.click();
@@ -222,13 +222,8 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     }
     await mapPanel.getByRole('button',{name:'Curated cases'}).click();
     // Networks belongs to Countries. Source inventories remain in Source Library.
-    if(viewport.width<600){
-      const mobile=page.getByRole('navigation',{name:'Mobile primary navigation'});
-      assert.deepEqual(await mobile.locator('button span').allTextContents(),['Home','Countries','Economy','More']);
-      await mobile.getByRole('button',{name:'Countries'}).click();
-    }else{
-      await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
-    }
+    assert.equal(await page.locator('.mobile-bottom-nav').count(),0,'Duplicate mobile navigation must be absent');
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     assert.equal(await page.getByRole('group',{name:'Country intelligence views'}).count(),0,
       'Country and network routes must be consolidated into one view');
     await page.getByRole('button',{name:'Explore relationships'}).click();
@@ -254,22 +249,19 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await page.getByRole('option',{name:/Russia/}).click();
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'RU');
     assert.match(await scope.innerText(),/Russia/);
-    for(const target of ['Economic intelligence','Countries']){
-      if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-      await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:target}).click();
-      assert.match(await scope.innerText(),/Russia/,target+' lost selected scope');
-      assert.equal(await page.locator('.ea-ops').count(),0,'Shared stats strip returned on '+target);
-      if(target==='Economic intelligence'){
-        const tabs=page.locator('.ei-tabs');
-        await tabs.getByRole('button',{name:'Economy & energy'}).click();
-        await page.locator('.gs-root').waitFor({state:'visible'});
-        await tabs.getByRole('button',{name:'Supply chains'}).click();
-        await page.locator('.sc-root').waitFor({state:'visible'});
-      }
-      if(target==='Countries'){
-        if(await page.getByRole('button',{name:'Explore relationships'}).count()){
+    for(const target of [
+      {name:'Growth & labor',domain:'Macroeconomics & Markets',tab:'Growth & labor'},
+      {name:'Supply chains',domain:'Trade & Supply Chains',tab:'Supply chains'},
+      {name:'Countries',domain:'Geopolitics & Intelligence',tab:'Country dossiers'}
+    ]){
+      await openWorkspace(page,target.domain,target.tab);
+      assert.match(await scope.innerText(),/Russia/,target.name+' lost selected scope');
+      assert.equal(await page.locator('.ea-ops').count(),0,'Shared stats strip returned on '+target.name);
+      if(target.name==='Growth & labor')await page.locator('.gs-root').waitFor({state:'visible'});
+      if(target.name==='Supply chains')await page.locator('.sc-root').waitFor({state:'visible'});
+      if(target.name==='Countries'){
+        if(await page.getByRole('button',{name:'Explore relationships'}).count())
           await page.getByRole('button',{name:'Explore relationships'}).click();
-        }
         await network.locator('.nx-graph').waitFor({state:'visible',timeout:15000});
         assert.match(await scope.innerText(),/Russia/,'Integrated network analysis lost country scope');
       }
@@ -285,8 +277,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     await combo.press('Enter');
     assert.match(await afterReload.innerText(),/China/);
     assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'CN');
-    if(viewport.width<600) await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Countries'}).click();
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     // The country brief is permanently visible; networks are an inline evidence expansion.
     assert.equal(await page.locator('.ea-country-subnav').count(),0,
       'Legacy competing country/network selector has returned');
@@ -296,9 +287,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
 
     await page.locator('.ea-treaty-sources a[href="https://www.everycrsreport.com/reports/R49319.html"]').waitFor({state:'visible',timeout:15000});
     assert.equal(await page.getByText('No NATO / listed bilateral alliance').count(),0,'obsolete US-only relationship label persisted');
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Economic intelligence'}).click();
-    await page.locator('.ei-tabs').getByRole('button',{name:'Systemic risk'}).click();
+    await openWorkspace(page,'Macroeconomics & Markets','Systemic risk');
     const scopedRisk=page.getByRole('region',{name:'Risk summary visual dashboard'});
     await scopedRisk.waitFor({state:'visible',timeout:15000});
     await scopedRisk.getByRole('heading',{name:'Risk signals, at a glance.'}).waitFor({state:'visible'});
@@ -308,8 +297,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const dims=await page.evaluate(()=>({width:window.innerWidth,scroll:document.documentElement.scrollWidth}));
     assert.ok(dims.scroll <= dims.width+2,'Risk watch overflow at '+viewport.width+'px: '+JSON.stringify(dims));
     // Assurance runs are assessed separately from the build: unknown is not healthy.
-    if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
-    await page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:'Coverage audit'}).click();
+    await openWorkspace(page,'Command & Situation Room','Coverage audit');
     const assurance=page.getByRole('region',{name:'Operational assurance checks'});
     await assurance.waitFor({state:'visible',timeout:15000});
     assert.equal(await assurance.locator('.oa-card').count(),4,'Expected four independent operational assurance checks');
@@ -332,7 +320,6 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     ];
     const inspected=[];
     for(const sectionName of allSections){
-      if(viewport.width<600)await page.getByRole('button',{name:'Open navigation'}).click();
       const navItem=page.locator('nav[aria-label="Main navigation"] .nav-item').filter({hasText:sectionName});
       await navItem.click();
       const active=page.locator('nav[aria-label="Main navigation"] .nav-item.active').first();
