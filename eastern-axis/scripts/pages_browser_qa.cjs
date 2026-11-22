@@ -291,6 +291,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     const afterReload = page.locator('#ea-country-scope');
     await afterReload.waitFor({state:'attached',timeout:20000});
     await page.locator('#ea-country-scope').waitFor({state:'attached',timeout:20000});
+    await page.waitForFunction(()=>document.querySelector('#ea-country-scope')?.textContent?.includes('Russia'),null,{timeout:15000});
     assert.match(await afterReload.textContent(),/Russia/,'scope not persistent after reload');
     await openCountryPicker(page);
     const combo = page.getByRole('combobox',{name:'Search country or code'});
