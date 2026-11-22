@@ -43,8 +43,9 @@ export function useAnalystEvidence({view,focus,country,countryName,cases}:HookAr
   useEffect(()=>{
     let live=true;
     setSystems(undefined);
-    if(country==='all')return()=>{live=false;};
-    api.get('/api/global-systems/'+encodeURIComponent(country)).then(response=>{
+    // WLD is the World Bank's global aggregate; never substitute a country value.
+    const queryCountry=country==='all'?'WLD':country;
+    api.get('/api/global-systems/'+encodeURIComponent(queryCountry)).then(response=>{
       const value:unknown=response.data;
       if(live&&asObject(value)&&Array.isArray(asObject(value)?.indicators))setSystems(value);
     }).catch(()=>{if(live)setSystems(undefined);});
