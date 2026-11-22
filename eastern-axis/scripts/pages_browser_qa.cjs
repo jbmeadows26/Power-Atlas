@@ -290,10 +290,13 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     }
     await page.reload({waitUntil:'domcontentloaded'});
     const afterReload = page.locator('#ea-country-scope');
+    await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible',timeout:20000});
+    assert.equal(await afterReload.count(),0,'Command country filter must remain hidden after reload');
+    assert.equal(await page.evaluate(()=>localStorage.getItem('ea.country.scope')),'RU',
+      'Country choice must persist even when the command dashboard is worldwide');
+    await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     await afterReload.waitFor({state:'attached',timeout:20000});
-    await page.locator('#ea-country-scope').waitFor({state:'attached',timeout:20000});
-    await page.waitForFunction(()=>document.querySelector('#ea-country-scope')?.textContent?.includes('Russia'),null,{timeout:15000});
-    assert.match(await afterReload.textContent(),/Russia/,'scope not persistent after reload');
+    assert.match(await afterReload.textContent(),/Russia/,'Country selection not restored in country-aware views');
     await openCountryPicker(page);
     const combo = page.getByRole('combobox',{name:'Search country or code'});
     await combo.fill('china');
