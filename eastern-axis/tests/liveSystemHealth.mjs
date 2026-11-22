@@ -75,7 +75,10 @@ for(const [code,minimum] of cases){
   console.log(JSON.stringify(report));
   if(valid<minimum){failed=true;console.error('QUALITY GATE: '+code+' has '+valid+'/12 with minimum '+minimum);}
   if(code==='WLD'&&data.indicators.some(i=>i.code==='SI.POV.GINI'&&!properlyLabelledWorldGini(i))){
-    failed=true;console.error('QUALITY GATE: World Gini must disclose that WID is a different measure');
+    failed=true;
+    console.error('QUALITY GATE: World Gini must disclose that WID is a different measure');
+    console.error('WORLD GINI EVIDENCE:',JSON.stringify(data.indicators.filter(i=>i.code==='SI.POV.GINI')
+      .map(i=>({label:i.label,status:i.observationStatus,sourceName:i.sourceName,meaning:i.meaning,year:i.year})))));
   }
  }catch(e){failed=true;console.error('QUALITY GATE '+code+' error:',String(e));}
 }
