@@ -310,6 +310,18 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
   b.limitation+=' Required source channels unavailable: '+missing.join(', ')+'.';
   if(!b.sources.length)b.status='coverage-gap';}
+ if(missing.includes('source')&&['Overview','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology'].includes(view)){
+  const triageReady=Boolean(triage.schemaVersion);
+  b.finding='Government publication coverage unavailable (not zero). '+
+    (triageReady?count(reviews,r=>r.modelReviewed===true)+' analyst reviews remain source-dated.':'Signal review coverage is also unavailable.');
+ }
+ if(missing.includes('source')&&['Countries','World Factbook','Investigations'].includes(view)){
+  b.finding=localCases.length+' indexed legal cases remain visible; government source-publication coverage is unavailable, not zero.';
+ }
+ if((needed[key]||[]).length>0&&missing.length===(needed[key]||[]).length&&!b.sources.length){
+  b.finding='The required source snapshot for this view is unavailable or has not been published. No measurements have been substituted.';
+  b.direction='Current improvement, deterioration, and exceptional deviation are not assessable from missing evidence.';
+ }
  // A missing collection channel must never turn into a displayed numeric zero.
  // Each tile declares its controlling dataset; still show independently verified tiles.
  const tileSources:Record<string,string[]>={
