@@ -8,10 +8,6 @@ import CountryDefenseSnapshot, { defenseCounts } from './CountryDefenseSnapshot'
 
 type Country = { code:string; name:string; region:string; isTreatyAlly:boolean; relationship:string };
 type Case = { id:string; code:string; date:string; title:string; summary:string; status:string; topic:string; source:string; agency:string };
-type Assessment = { id:string; countries:string[]; title:string; agency:string; finding:string; published:string; url:string };
-type Operation = { id:string; roles:{code:string;role:string}[]; title:string; state:string; summary:string; published:string; url:string };
-type Asset = { id:string; code:string; name:string; quantity:string; published:string; detail:string; url:string };
-type OfficialSource = { id:string; name:string; group:string; what:string; url:string };
 type IntakeRecord = { id:string; sourceId:string; title:string; date:string; summary:string; sourceUrl:string; countryMention?:string; countryRule?:string; recordType:string; reviewState:string };
 type Intelligence = { records:IntakeRecord[]; resultsNote:string };
 type Defense = DefenseCatalog;
