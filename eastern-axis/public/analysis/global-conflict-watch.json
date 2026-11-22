@@ -1,0 +1,1476 @@
+{
+  "schemaVersion": 1,
+  "generatedAt": "2026-11-22T07:08:02Z",
+  "status": "ok",
+  "category": "Defense, Security & Cyber",
+  "analyst": {
+    "name": "Global Conflict & Hotspot Analyst",
+    "model": null,
+    "modelStatus": "reviewed",
+    "reviewed": 1,
+    "gate": "8 dated 28-day baselines + robust anomaly + fresh coded observations + 3 independent news publishers + bounded AI review",
+    "commandEligible": 0,
+    "methodology": "Strategic, delayed, civilian-focused. No verified battlefield positions."
+  },
+  "sources": {
+    "ucdp": {
+      "status": "ok",
+      "rows": 19027,
+      "format": "two official downloadable CSV releases",
+      "version": "26.0.10",
+      "url": "https://ucdp.uu.se/downloads/",
+      "releases": {
+        "jan-sep-2026": {
+          "rows": 16633,
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_01_26_09.csv",
+          "earliest": "2026-01-01",
+          "latest": "2026-09-30"
+        },
+        "oct-2026": {
+          "rows": 2394,
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "earliest": "2026-04-19",
+          "latest": "2026-10-31"
+        }
+      },
+      "earliest": "2026-01-01",
+      "latest": "2026-10-31",
+      "attribution": "UCDP Candidate Events, Hegre et al. (2020), CC BY 4.0",
+      "measurement": "Retrospectively coded candidate events, not current battlefield intelligence"
+    },
+    "rss": {
+      "status": "ok",
+      "feeds": [
+        {
+          "name": "UN News",
+          "status": "ok",
+          "articles": 30,
+          "url": "https://news.un.org/feed/subscribe/en/news/all/rss.xml"
+        },
+        {
+          "name": "BBC World",
+          "status": "ok",
+          "articles": 27,
+          "url": "https://feeds.bbci.co.uk/news/world/rss.xml"
+        },
+        {
+          "name": "Deutsche Welle",
+          "status": "ok",
+          "articles": 12,
+          "url": "https://rss.dw.com/xml/rss-en-world"
+        },
+        {
+          "name": "CBC World",
+          "status": "ok",
+          "articles": 20,
+          "url": "https://www.cbc.ca/webfeed/rss/rss-world"
+        }
+      ],
+      "publishers": 4,
+      "type": "public-editorial-media-context-not-event-verification"
+    },
+    "gdelt": {
+      "status": "disabled-or-unavailable",
+      "targets": 0,
+      "url": "https://blog.gdeltproject.org/gdelt-doc-2-0-api-debuts/",
+      "type": "optional-media-monitoring-only"
+    }
+  },
+  "measurement": {
+    "latestCodedEvent": "2026-10-31",
+    "firstCodedEvent": "2026-01-01",
+    "dataAgeDays": 22,
+    "eventCount": 19027,
+    "eventFresh": true,
+    "worldwideCompleteness": "not asserted"
+  },
+  "summary": {
+    "hotspots": 20,
+    "assessed": 0,
+    "deteriorating": 0,
+    "improving": 0,
+    "awaitingReview": 3,
+    "monitored": 17,
+    "coverageGaps": 0
+  },
+  "zones": [
+    {
+      "id": "ukraine",
+      "name": "Ukraine / Russia",
+      "region": "Europe",
+      "countryCodes": [
+        "UA",
+        "RU"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          270,
+          292,
+          267,
+          348,
+          403,
+          382,
+          264,
+          239
+        ],
+        "recent": 246,
+        "median": 281.0,
+        "robustZ": -0.8,
+        "changePct": -12.5,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 4,
+        "publishers": 3,
+        "evidence": [
+          {
+            "id": "rss-7",
+            "title": "Russian strike on Zelenskyy's hometown in central Ukraine kills 2, wounds 60",
+            "date": "2026-11-21",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/world/russia-ukraine-zelenskyy-hometown-9.7431164?cmp=rss"
+          },
+          {
+            "id": "rss-6",
+            "title": "Shattered playgrounds and freezing classrooms: Inside Ukraine’s deadliest year for children",
+            "date": "2026-11-20",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168847"
+          },
+          {
+            "id": "rss-22",
+            "title": "What we know about the latest Russian missile strikes on Ukraine",
+            "date": "2026-11-20",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/videos/c65y19wy3xl8o?at_medium=RSS&at_campaign=rss"
+          },
+          {
+            "id": "rss-19",
+            "title": "Ukraine: Civilian casualties in 2026 already far exceed previous years’ tolls",
+            "date": "2026-11-17",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168828"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Russia (Soviet Union)",
+        "Government of Ukraine",
+        "IS",
+        "Black Spark"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "gaza",
+      "name": "Israel / Palestinian territories",
+      "region": "Middle East",
+      "countryCodes": [
+        "IL",
+        "PS"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          51,
+          66,
+          66,
+          72,
+          70,
+          81,
+          55,
+          91
+        ],
+        "recent": 100,
+        "median": 68.0,
+        "robustZ": 2.54,
+        "changePct": 47.1,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 5,
+        "publishers": 2,
+        "evidence": [
+          {
+            "id": "rss-3",
+            "title": "Israeli settler violence at unprecedented levels during Palestinian olive harvest",
+            "date": "2026-11-21",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/world/israeli-settler-violence-at-unprecedented-levels-during-palestinian-olive-harvest-9.7426808?cmp=rss"
+          },
+          {
+            "id": "rss-5",
+            "title": "West Bank: Record settler attacks mar olive harvest as UN urges Israel to protect farmers",
+            "date": "2026-11-20",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168849"
+          },
+          {
+            "id": "rss-8",
+            "title": "Israeli strike kills 3 in vehicle distributing aid in Gaza, witnesses say",
+            "date": "2026-11-21",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/world/israel-strike-gaza-aid-vehicle-9.7431224?cmp=rss"
+          },
+          {
+            "id": "rss-17",
+            "title": "9-month-old dies of hypothermia in Gaza as territory heads into winter season",
+            "date": "2026-11-19",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/world/baby-death-hypothermia-gaza-9.7428594?cmp=rss"
+          },
+          {
+            "id": "rss-24",
+            "title": "Winter rains deepen Gaza crisis amid restricted access and aid cuts",
+            "date": "2026-11-17",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168821"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Israel",
+        "Hamas",
+        "PIJ",
+        "Government of Iran",
+        "Government of Israel, Government of United States of America"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "sudan",
+      "name": "Sudan",
+      "region": "Africa",
+      "countryCodes": [
+        "SD"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          46,
+          55,
+          51,
+          66,
+          35,
+          39,
+          40,
+          51
+        ],
+        "recent": 54,
+        "median": 48.5,
+        "robustZ": 0.49,
+        "changePct": 11.3,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "SFA",
+        "Government of Sudan",
+        "Civilians",
+        "Salamat Baggara",
+        "Nuer"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "myanmar",
+      "name": "Myanmar",
+      "region": "Asia",
+      "countryCodes": [
+        "MM"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          49,
+          26,
+          56,
+          37,
+          35,
+          38,
+          48,
+          53
+        ],
+        "recent": 41,
+        "median": 43.0,
+        "robustZ": -0.19,
+        "changePct": -4.7,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-15",
+            "title": "World’s top court finds Myanmar guilty of genocide against Rohingya",
+            "date": "2026-11-19",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168836"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Myanmar (Burma)",
+        "SCEF",
+        "ULA",
+        "CPU",
+        "Civilians"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "congo",
+      "name": "DR Congo",
+      "region": "Africa",
+      "countryCodes": [
+        "CD"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          42,
+          43,
+          65,
+          80,
+          43,
+          59,
+          47,
+          45
+        ],
+        "recent": 65,
+        "median": 46.0,
+        "robustZ": 2.77,
+        "changePct": 41.3,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-20",
+            "title": "World News in Brief: Ebola cases double in DR Congo, chemical exposure starts before birth, Türk concern over EU-Rwanda transfer plan",
+            "date": "2026-11-17",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168827"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of DR Congo (Zaire)",
+        "Civilians",
+        "CRP",
+        "FRN",
+        "VDP"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "yemen",
+      "name": "Yemen / Red Sea",
+      "region": "Middle East",
+      "countryCodes": [
+        "YE"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "review",
+      "direction": "deteriorating",
+      "change": {
+        "status": "assessable",
+        "history": [
+          27,
+          26,
+          31,
+          29,
+          14,
+          74,
+          120,
+          234
+        ],
+        "recent": 226,
+        "median": 30.0,
+        "robustZ": 13.22,
+        "changePct": 653.3,
+        "direction": "deteriorating"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 2,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-1",
+            "title": "‘We escaped with only our lives’: Fighting to give birth in war-torn Yemen",
+            "date": "2026-11-21",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168851"
+          },
+          {
+            "id": "rss-18",
+            "title": "Dozens more children killed in Yemen amid escalating hostilities",
+            "date": "2026-11-18",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168830"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Forces of the Presidential Leadership Council",
+        "Government of Yemen (North Yemen)",
+        "AQAP",
+        "Civilians",
+        "Khawlan Al-Tiyal"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Coded violence outside this theater's 8-window baseline; needs independent review.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "syria",
+      "name": "Syria",
+      "region": "Middle East",
+      "countryCodes": [
+        "SY"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "review",
+      "direction": "deteriorating",
+      "change": {
+        "status": "assessable",
+        "history": [
+          46,
+          41,
+          29,
+          40,
+          53,
+          47,
+          40,
+          12
+        ],
+        "recent": 88,
+        "median": 40.5,
+        "robustZ": 5.34,
+        "changePct": 117.3,
+        "direction": "deteriorating"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-29",
+            "title": "Syria: Progress ‘real’ but fragile, as remnants of war wreck young lives",
+            "date": "2026-11-16",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168814"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "XXX652",
+        "Civilians",
+        "Government of Syria",
+        "SDF",
+        "National Guard"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Coded violence outside this theater's 8-window baseline; needs independent review.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "somalia",
+      "name": "Somalia",
+      "region": "Africa",
+      "countryCodes": [
+        "SO"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          38,
+          26,
+          25,
+          29,
+          33,
+          37,
+          36,
+          20
+        ],
+        "recent": 19,
+        "median": 31.0,
+        "robustZ": -1.47,
+        "changePct": -38.7,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Somalia",
+        "Al-Shabaab",
+        "Civilians",
+        "SFC",
+        "IS"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "sahel",
+      "name": "Central Sahel",
+      "region": "Africa",
+      "countryCodes": [
+        "ML",
+        "BF",
+        "NE"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          93,
+          141,
+          151,
+          114,
+          139,
+          146,
+          102,
+          91
+        ],
+        "recent": 123,
+        "median": 126.5,
+        "robustZ": -0.11,
+        "changePct": -2.8,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "IS",
+        "Government of Niger",
+        "XXX436",
+        "Civilians",
+        "JNIM"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "ethiopia",
+      "name": "Ethiopia",
+      "region": "Africa",
+      "countryCodes": [
+        "ET"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "review",
+      "direction": "deteriorating",
+      "change": {
+        "status": "assessable",
+        "history": [
+          72,
+          107,
+          33,
+          59,
+          77,
+          48,
+          69,
+          119
+        ],
+        "recent": 208,
+        "median": 70.5,
+        "robustZ": 5.46,
+        "changePct": 195.0,
+        "direction": "deteriorating"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": true,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-23",
+            "title": "‘Hunger should not be a concern’: WFP steps in for families in Kenya who fled Ethiopia violence",
+            "date": "2026-11-17",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168822"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "EPFAS",
+        "Government of Ethiopia",
+        "Raya-Zeb",
+        "TPF",
+        "Civilians"
+      ],
+      "whoBenefits": "Analyst hypothesis, unverified: Government of Ethiopia",
+      "globalRisks": "Increased humanitarian crisis, potential for further displacement and conflict escalation",
+      "potentialUpside": "No clear benefits for the broader world from this event as it is not explicitly stated in the article sources.",
+      "reason": "Source dates or corroboration insufficient for publishing a fresh exception. The provided data shows a deteriorating trend in conflict events in Ethiopia, but there is no explicit article source indicating that the Government of Ethiopia benefits ",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "nigeria",
+      "name": "Nigeria",
+      "region": "Africa",
+      "countryCodes": [
+        "NG"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          106,
+          148,
+          154,
+          130,
+          146,
+          108,
+          143,
+          134
+        ],
+        "recent": 127,
+        "median": 138.5,
+        "robustZ": -0.86,
+        "changePct": -8.3,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "XXX475",
+        "Civilians",
+        "Government of Nigeria",
+        "IS",
+        "Fulani"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "afpak",
+      "name": "Afghanistan / Pakistan",
+      "region": "Asia",
+      "countryCodes": [
+        "AF",
+        "PK"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          158,
+          88,
+          88,
+          104,
+          157,
+          174,
+          150,
+          153
+        ],
+        "recent": 175,
+        "median": 151.5,
+        "robustZ": 1.09,
+        "changePct": 15.5,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 2,
+        "publishers": 2,
+        "evidence": [
+          {
+            "id": "rss-9",
+            "title": "Afghanistan restrictions prevent pregnant women from seeking medical help",
+            "date": "2026-11-20",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168844"
+          },
+          {
+            "id": "rss-11",
+            "title": "Is Pakistan backing anti-Taliban groups in Afghanistan?",
+            "date": "2026-11-20",
+            "publisher": "Deutsche Welle",
+            "url": "https://www.dw.com/en/is-pakistan-backing-anti-taliban-groups-in-afghanistan/a-80004814?maca=en-rss-en-world-4025-xml-mrss"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Afghanistan",
+        "Government of Pakistan",
+        "AFF",
+        "NRF",
+        "AUF"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "haiti",
+      "name": "Haiti",
+      "region": "Americas",
+      "countryCodes": [
+        "HT"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          10,
+          7,
+          14,
+          13,
+          7,
+          8,
+          6,
+          8
+        ],
+        "recent": 12,
+        "median": 8.0,
+        "robustZ": 1.33,
+        "changePct": 50.0,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 3,
+        "publishers": 2,
+        "evidence": [
+          {
+            "id": "rss-2",
+            "title": "Homes abandoned, harvests failing: Haiti’s farmers rebuild amid violence, hunger and El Niño",
+            "date": "2026-11-21",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168834"
+          },
+          {
+            "id": "rss-19",
+            "title": "Armed forces in Haiti push to oust gang members from corridor on edge of capital",
+            "date": "2026-11-19",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/world/haiti-gang-corridor-offensive-9.7428700?cmp=rss"
+          },
+          {
+            "id": "rss-22",
+            "title": "Haiti: ‘Atrocious abuses’ continue as UN warns anti-gang operations must priortise civilian protection",
+            "date": "2026-11-17",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168823"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Viv Ansanm",
+        "XXX41",
+        "Government of Haiti",
+        "Civilians",
+        "Kokorat sans ras"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "south-sudan",
+      "name": "South Sudan",
+      "region": "Africa",
+      "countryCodes": [
+        "SS"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          3,
+          4,
+          5,
+          6,
+          4,
+          4,
+          3,
+          1
+        ],
+        "recent": 2,
+        "median": 4.0,
+        "robustZ": -0.89,
+        "changePct": -50.0,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "XXX626",
+        "Government of South Sudan",
+        "SPLM/A - IO",
+        "Civilians",
+        "Manuer Dinka"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "lebanon",
+      "name": "Lebanon",
+      "region": "Middle East",
+      "countryCodes": [
+        "LB"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          106,
+          148,
+          89,
+          93,
+          57,
+          8,
+          14,
+          10
+        ],
+        "recent": 5,
+        "median": 73.0,
+        "robustZ": -1.0,
+        "changePct": -93.2,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-27",
+            "title": "Lebanon leading the way in mental health support",
+            "date": "2026-11-16",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168818"
+          }
+        ],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Israel",
+        "Hezbollah",
+        "Government of Iran",
+        "Government of Israel, Government of United States of America",
+        "XXX660"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "iraq",
+      "name": "Iraq",
+      "region": "Middle East",
+      "countryCodes": [
+        "IQ"
+      ],
+      "kind": "armed-conflict-watch",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          30,
+          16,
+          5,
+          8,
+          4,
+          5,
+          2,
+          3
+        ],
+        "recent": 4,
+        "median": 5.0,
+        "robustZ": -0.27,
+        "changePct": -20.0,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Iraq",
+        "Government of Israel, Government of United States of America",
+        "Government of Iran",
+        "IS",
+        "XXX645"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "taiwan",
+      "name": "Taiwan Strait",
+      "region": "Asia-Pacific",
+      "countryCodes": [
+        "TW",
+        "CN"
+      ],
+      "kind": "strategic-flashpoint",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recent": 0,
+        "median": 0.0,
+        "robustZ": 0.0,
+        "changePct": null,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "south-china-sea",
+      "name": "South China Sea",
+      "region": "Asia-Pacific",
+      "countryCodes": [
+        "PH",
+        "CN",
+        "VN"
+      ],
+      "kind": "strategic-flashpoint",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          4,
+          8,
+          3,
+          6,
+          5,
+          4,
+          1,
+          6
+        ],
+        "recent": 3,
+        "median": 4.5,
+        "robustZ": -0.64,
+        "changePct": -33.3,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [
+        "Government of Philippines",
+        "CPP",
+        "IS",
+        "XXX840",
+        "Civilians"
+      ],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "korea",
+      "name": "Korean Peninsula",
+      "region": "Asia-Pacific",
+      "countryCodes": [
+        "KP",
+        "KR"
+      ],
+      "kind": "strategic-flashpoint",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recent": 0,
+        "median": 0.0,
+        "robustZ": 0.0,
+        "changePct": null,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    },
+    {
+      "id": "caucasus",
+      "name": "South Caucasus",
+      "region": "Europe / Asia",
+      "countryCodes": [
+        "AM",
+        "AZ",
+        "GE"
+      ],
+      "kind": "strategic-flashpoint",
+      "status": "monitor",
+      "direction": "stable",
+      "change": {
+        "status": "assessable",
+        "history": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "recent": 0,
+        "median": 0.0,
+        "robustZ": 0.0,
+        "changePct": null,
+        "direction": "stable"
+      },
+      "observationEnd": "2026-10-31",
+      "measurementFresh": true,
+      "modelReviewed": false,
+      "promoted": false,
+      "sourceQuality": "coded-events",
+      "sourceCount": 1,
+      "media": {
+        "status": "ok",
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
+        "limitation": "Editorial news context, not event or death verification"
+      },
+      "actors": [],
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Monitoring; no independently confirmed current exceptional shift.",
+      "evidence": [
+        {
+          "source": "UCDP Candidate",
+          "url": "https://ucdp.uu.se/downloads/candidateged/GEDEvent_v26_0_10.csv",
+          "observedAt": "2026-10-31",
+          "kind": "event-history"
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Hotspots are monitoring scopes, not a certified list of active wars.",
+    "UCDP candidate events are coded retrospectively. The latest coded event is not a completeness date.",
+    "Country aggregates cannot isolate a border or subnational theater; multinational flashpoints are context-only.",
+    "Changes in coded violence are not proof of territorial advantage, who benefits, or a future outcome.",
+    "Publisher variety and reporting frequency cannot independently verify casualties, coded event counts or severity.",
+    "Unavailable feeds, insufficient baseline and missing AI review cannot create a promoted assessment.",
+    "No automatic Command Center promotion; that requires a separate multi-source operational validation gate."
+  ]
+}
