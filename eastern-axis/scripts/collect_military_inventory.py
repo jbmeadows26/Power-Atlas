@@ -10,7 +10,7 @@ SERIES={
 }
 def fetch_json(url):
  request=urllib.request.Request(url,headers={"User-Agent":"EasternAxisOSINT/1.0","Accept":"application/json"})
- with urllib.request.urlopen(request,timeout=25) as response:
+ with urllib.request.urlopen(request,timeout=40) as response:
   blob=response.read(12_000_001)
  if len(blob)>12_000_000: raise ValueError("Response exceeded size cap")
  return json.loads(blob)
@@ -64,8 +64,16 @@ def main():
  for series in SERIES:
   try:
    if not countries: raise RuntimeError("Country crosswalk unavailable")
-   url="https://api.worldbank.org/v2/country/all/indicator/"+series+"?format=json&date=2015:2026&per_page=5000"
-   records=latest_observations(fetch_json(url),countries,series)
+   base="https://api.worldbank.org/v2/country/all/indicator/"+series+"?format=json&"
+   window="2020:2026" if series=="MS.MIL.XPND.CD" else "2015:2026"
+   url=base+"date="+window+"&per_page=5000"
+   try:
+    response=fetch_json(url)
+   except Exception:
+    if series!="MS.MIL.XPND.CD": raise
+    # Narrow retry reduces WDI response size after a slow full-history request.
+    response=fetch_json(base+"date=2023:2026&per_page=1500")
+   records=latest_observations(response,countries,series)
    if len(records)<25: raise ValueError("Unexpectedly few countries: "+str(len(records)))
    data["assets"].extend(make_entries(series,records))
    health[series]={"state":"ok","countries":len(records)}
