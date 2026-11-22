@@ -23,7 +23,7 @@ type Report = {
 };
 const prettyDate = (s?:string|null) => s && Number.isFinite(Date.parse(s)) ?
   new Date(s).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric',timeZone:'UTC'}):'Not available';
-const statusLabel:Record<Status,string> = {assessed:'Reviewed exception',review:'Needs AI verification',monitor:'Monitoring', 'data-gap':'Evidence gap'};
+const statusLabel:Record<Status,string> = {assessed:'Reviewed exception',review:'Awaiting corroboration',monitor:'Monitoring', 'data-gap':'Evidence gap'};
 const directionLabel:Record<Direction,string> = {deteriorating:'Deteriorating',improving:'Improving',stable:'Within historical variation',unassessed:'Not assessable'};
 const number = (n:number|null) => n===null?'—':new Intl.NumberFormat('en-US').format(n);
 const safeLink = (link:string) => {try{return new URL(link).protocol==='https:';}catch{return false;}};
@@ -85,9 +85,9 @@ export default function GlobalConflictWatch({countryCode='all',countryName}:{cou
     <div className="gc-metrics">
       <div><small>WATCH AREAS</small><strong>{data?selected.length:'—'}</strong><span>{scope}</span></div>
       <div><small>REVIEWED EXCEPTIONS</small><strong>{data?counts.promoted:'—'}</strong><span>Evidence-gated analyst outputs</span></div>
-      <div><small>DETERIORATING</small><strong>{data?counts.worsening:'—'}</strong><span>Reviewed coded-event increase</span></div>
-      <div><small>IMPROVING</small><strong>{data?counts.improving:'—'}</strong><span>Reviewed coded-event decrease</span></div>
-      <div><small>REVIEW QUEUE</small><strong>{data?counts.review:'—'}</strong><span>Outliers awaiting AI verification</span></div>
+      <div><small>DETERIORATING</small><strong>{data?counts.worsening:'—'}</strong><span>Reviewed historical event increase</span></div>
+      <div><small>IMPROVING</small><strong>{data?counts.improving:'—'}</strong><span>Reviewed historical event decrease</span></div>
+      <div><small>REVIEW QUEUE</small><strong>{data?counts.review:'—'}</strong><span>Historical outliers pending corroboration</span></div>
       <div><small>DATA GAPS</small><strong>{data?counts.gaps:'—'}</strong><span>Missing / insufficient measurement</span></div>
     </div>
 
