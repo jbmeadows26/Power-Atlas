@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-23T08:09:45Z",
+  "generatedAt": "2026-11-23T23:47:22Z",
   "sourceCheckedAt": "2026-11-23T08:09:08Z",
-  "status": "source-dated",
+  "status": "partial",
   "inventoryContext": {
-    "checkedAt": "2026-11-23T08:09:44Z",
+    "checkedAt": "2026-11-23T23:47:20Z",
     "directProducts": 1,
     "sectorRatios": [
       {
@@ -89,49 +89,51 @@
     "mode": "rule-based full coverage + limited isolated local-model triage",
     "reviewGate": "A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
     "probabilityCalibration": "unavailable",
-    "portwatch": "observed",
-    "status": "available",
+    "portwatch": "unavailable",
+    "status": "partial",
     "model": "qwen2.5:1.5b",
-    "reviewed": 3,
-    "eligibleForModel": 3,
+    "reviewed": 1,
+    "eligibleForModel": 2,
     "screened": 14,
-    "errors": [],
+    "errors": [
+      "fuel: ValueError"
+    ],
     "note": "No AI rationale is used as standalone evidence or eligibility for Command Center."
   },
   "summary": {
     "products": 14,
-    "crossSourceWatch": 1,
-    "inputCostWatch": 1,
-    "transitWatch": 1,
+    "crossSourceWatch": 0,
+    "inputCostWatch": 2,
+    "transitWatch": 0,
     "inventoryWatch": 0,
     "inventoryFeeds": 5,
     "dataGaps": 2,
     "commandEligible": 0,
-    "modelReviewed": 3
+    "modelReviewed": 1
   },
   "forecasts": [
     {
       "id": "fuel",
       "product": "Transport fuels",
       "category": "Energy",
-      "status": "cross-source-watch",
-      "screenScore": 49,
+      "status": "input-cost-watch",
+      "screenScore": 34,
       "scoreType": "uncalibrated-triage-not-probability",
       "planningWindow": "0–90 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
-      "modelReviewed": true,
+      "coverage": "partial",
+      "modelReviewed": false,
       "inventorySeriesAvailable": 1,
       "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
       "confirmedShortage": false,
       "commandEligible": false,
-      "summary": "Independent pressure indicators warrant investigation; producer-to-retailer availability and deliveries remain unverified.",
-      "signal": "1 rising input-pressure series / 1 strained transit corridors",
+      "summary": "Early input or routing pressure warrants monitoring; no product-level shortage is established.",
+      "signal": "1 rising input-pressure series",
       "inputSeriesAvailable": 1,
       "inputSeriesExpected": 1,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -151,26 +153,6 @@
           "momentumPct": 20.4
         },
         {
-          "kind": "corridor-transit",
-          "title": "Hormuz",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -40.7,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
           "kind": "direct-inventory",
           "title": "U.S. total motor gasoline stocks",
           "publisher": "EIA Weekly Petroleum Status Report, Table 5",
@@ -182,17 +164,7 @@
           "unit": "million barrels",
           "scope": "United States; wholesale motor gasoline inventories"
         }
-      ],
-      "modelAssessment": {
-        "decision": "investigate",
-        "rationale": "The observed price spike and reduced vessel traffic in multiple sources suggest a potential shortage of transport fuels. The cross-source-watch signal and the significant change in inventory levels warrant further investigation to confirm the situation.",
-        "sourceEvidenceIds": [
-          "https://www.worldbank.org/en/research/commodity-markets",
-          "https://portwatch.imf.org/",
-          "https://portwatch.imf.org/",
-          "https://www.eia.gov/petroleum/supply/weekly/"
-        ]
-      }
+      ]
     },
     {
       "id": "sugar",
@@ -204,7 +176,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": true,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -215,7 +187,7 @@
       "signal": "1 rising input-pressure series",
       "inputSeriesAvailable": 1,
       "inputSeriesExpected": 1,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -233,117 +205,13 @@
           "changePct": 6.7,
           "baselinePremiumPct": 32.2,
           "momentumPct": 22.2
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Panama",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.1,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ],
       "modelAssessment": {
         "decision": "investigate",
-        "rationale": "The input-cost-watch signal and the observed price spikes and reduced vessel traffic suggest a potential shortage in sugar-containing foods. Given the untrusted nature of the source metadata and the lack of a clear inventory stock screen, further investigation is warranted to confirm the situation.",
+        "rationale": "The input price of sugar-containing foods has increased by 6.7% in the past year, which could indicate a shortage or significant price pressure. This warrants further investigation into stock levels and potential supply chain issues.",
         "sourceEvidenceIds": [
-          "https://www.fao.org/worldfoodsituation/foodpricesindex",
-          "https://portwatch.imf.org/",
-          "https://portwatch.imf.org/"
-        ]
-      }
-    },
-    {
-      "id": "fertilizer",
-      "product": "Agricultural fertilizers",
-      "category": "Agriculture",
-      "status": "transit-watch",
-      "screenScore": 15,
-      "scoreType": "uncalibrated-triage-not-probability",
-      "planningWindow": "30–180 days",
-      "horizonType": "planning-scenario-not-predicted-onset",
-      "confidence": "limited",
-      "coverage": "two-channel",
-      "modelReviewed": true,
-      "inventorySeriesAvailable": 0,
-      "inventoryStockScreen": false,
-      "countryScope": "global-input-proxy; destination markets unknown",
-      "confirmedShortage": false,
-      "commandEligible": false,
-      "summary": "Early input or routing pressure warrants monitoring; no product-level shortage is established.",
-      "signal": "1 strained transit corridors",
-      "inputSeriesAvailable": 2,
-      "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
-      "routeSeriesExpected": 2,
-      "missingEvidence": [
-        "Product-specific inventory/stockout observations",
-        "Orders, demand and manufacturing capacity",
-        "Verified shipment origin, cargo and destination",
-        "Importer-level supply dependence"
-      ],
-      "evidence": [
-        {
-          "kind": "input-price",
-          "title": "Urea fertilizer",
-          "publisher": "World Bank Pink Sheet",
-          "url": "https://www.worldbank.org/en/research/commodity-markets",
-          "period": "2026-10",
-          "changePct": 3.1,
-          "baselinePremiumPct": 1.9,
-          "momentumPct": -25.0
-        },
-        {
-          "kind": "input-price",
-          "title": "DAP fertilizer",
-          "publisher": "World Bank Pink Sheet",
-          "url": "https://www.worldbank.org/en/research/commodity-markets",
-          "period": "2026-10",
-          "changePct": 0.3,
-          "baselinePremiumPct": 8.6,
-          "momentumPct": 2.7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Hormuz",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -40.7,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        }
-      ],
-      "modelAssessment": {
-        "decision": "investigate",
-        "rationale": "The observed price spike and reduced vessel transit times suggest a potential shortage of agricultural fertilizers. Given the significant change in prices and transit times, it is prudent to investigate further to confirm the situation and ensure adequate inventory levels.",
-        "sourceEvidenceIds": [
-          "https://www.worldbank.org/en/research/commodity-markets",
-          "https://www.worldbank.org/en/research/commodity-markets",
-          "https://portwatch.imf.org/",
-          "https://portwatch.imf.org/"
+          "https://www.fao.org/worldfoodsituation/foodpricesindex"
         ]
       }
     },
@@ -357,7 +225,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -368,7 +236,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 3,
       "inputSeriesExpected": 3,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -406,26 +274,6 @@
           "changePct": -5.4,
           "baselinePremiumPct": -8.7,
           "momentumPct": -8.5
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Panama",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.1,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -439,7 +287,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -450,7 +298,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -478,26 +326,6 @@
           "changePct": 0.2,
           "baselinePremiumPct": 11.8,
           "momentumPct": 6.6
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -511,7 +339,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -522,7 +350,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -550,26 +378,6 @@
           "changePct": -4.5,
           "baselinePremiumPct": 6.0,
           "momentumPct": 5.3
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Bosporus",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 6.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -583,7 +391,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -594,7 +402,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -622,26 +430,6 @@
           "changePct": -6.8,
           "baselinePremiumPct": -4.5,
           "momentumPct": -6.5
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -655,7 +443,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -666,7 +454,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -694,26 +482,6 @@
           "changePct": -4.5,
           "baselinePremiumPct": 6.0,
           "momentumPct": 5.3
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -727,7 +495,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -738,7 +506,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -766,26 +534,6 @@
           "changePct": -4.5,
           "baselinePremiumPct": 6.0,
           "momentumPct": 5.3
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Panama",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.1,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Bosporus",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 6.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -799,7 +547,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -810,7 +558,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -838,26 +586,6 @@
           "changePct": -5.5,
           "baselinePremiumPct": 7.3,
           "momentumPct": 10.1
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Panama",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.1,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -871,7 +599,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -882,7 +610,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 2,
       "inputSeriesExpected": 2,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -910,26 +638,6 @@
           "changePct": 0.3,
           "baselinePremiumPct": 8.2,
           "momentumPct": 3.8
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
         }
       ]
     },
@@ -943,7 +651,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "two-channel",
+      "coverage": "partial",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -954,7 +662,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 1,
       "inputSeriesExpected": 1,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -972,26 +680,58 @@
           "changePct": -1.1,
           "baselinePremiumPct": -1.5,
           "momentumPct": 1.0
-        },
+        }
+      ]
+    },
+    {
+      "id": "fertilizer",
+      "product": "Agricultural fertilizers",
+      "category": "Agriculture",
+      "status": "baseline",
+      "screenScore": 0,
+      "scoreType": "uncalibrated-triage-not-probability",
+      "planningWindow": "30–180 days",
+      "horizonType": "planning-scenario-not-predicted-onset",
+      "confidence": "limited",
+      "coverage": "partial",
+      "modelReviewed": false,
+      "inventorySeriesAvailable": 0,
+      "inventoryStockScreen": false,
+      "countryScope": "global-input-proxy; destination markets unknown",
+      "confirmedShortage": false,
+      "commandEligible": false,
+      "summary": "Available input and transit screens do not establish elevated shortage pressure.",
+      "signal": "No verified simultaneous price/transit pressure",
+      "inputSeriesAvailable": 2,
+      "inputSeriesExpected": 2,
+      "routeSeriesAvailable": 0,
+      "routeSeriesExpected": 2,
+      "missingEvidence": [
+        "Product-specific inventory/stockout observations",
+        "Orders, demand and manufacturing capacity",
+        "Verified shipment origin, cargo and destination",
+        "Importer-level supply dependence"
+      ],
+      "evidence": [
         {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Panama",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
+          "kind": "input-price",
+          "title": "Urea fertilizer",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
           "changePct": 3.1,
-          "recentDays": 7,
-          "baselineDays": 7
+          "baselinePremiumPct": 1.9,
+          "momentumPct": -25.0
+        },
+        {
+          "kind": "input-price",
+          "title": "DAP fertilizer",
+          "publisher": "World Bank Pink Sheet",
+          "url": "https://www.worldbank.org/en/research/commodity-markets",
+          "period": "2026-10",
+          "changePct": 0.3,
+          "baselinePremiumPct": 8.6,
+          "momentumPct": 2.7
         }
       ]
     },
@@ -1005,7 +745,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "partial",
+      "coverage": "none",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -1016,7 +756,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 0,
       "inputSeriesExpected": 0,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -1024,28 +764,7 @@
         "Verified shipment origin, cargo and destination",
         "Importer-level supply dependence"
       ],
-      "evidence": [
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Suez",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": 3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        }
-      ]
+      "evidence": []
     },
     {
       "id": "semiconductors",
@@ -1057,7 +776,7 @@
       "planningWindow": "30–180 days",
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
-      "coverage": "partial",
+      "coverage": "none",
       "modelReviewed": false,
       "inventorySeriesAvailable": 0,
       "inventoryStockScreen": false,
@@ -1068,7 +787,7 @@
       "signal": "No verified simultaneous price/transit pressure",
       "inputSeriesAvailable": 0,
       "inputSeriesExpected": 0,
-      "routeSeriesAvailable": 2,
+      "routeSeriesAvailable": 0,
       "routeSeriesExpected": 2,
       "missingEvidence": [
         "Product-specific inventory/stockout observations",
@@ -1076,28 +795,7 @@
         "Verified shipment origin, cargo and destination",
         "Importer-level supply dependence"
       ],
-      "evidence": [
-        {
-          "kind": "corridor-transit",
-          "title": "Taiwan",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -3.9,
-          "recentDays": 7,
-          "baselineDays": 7
-        },
-        {
-          "kind": "corridor-transit",
-          "title": "Malacca",
-          "publisher": "IMF PortWatch (AIS-derived)",
-          "url": "https://portwatch.imf.org/",
-          "period": "2026-11-15",
-          "changePct": -2.5,
-          "recentDays": 7,
-          "baselineDays": 7
-        }
-      ]
+      "evidence": []
     }
   ],
   "limitations": [
@@ -1109,5 +807,5 @@
     "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
     "Lack of evidence is not evidence of adequate stock."
   ],
-  "reviewedAt": "2026-11-23T08:10:52Z"
+  "reviewedAt": "2026-11-23T23:48:48Z"
 }
