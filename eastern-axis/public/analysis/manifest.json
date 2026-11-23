@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-22T14:31:55Z",
+  "generatedAt": "2026-11-23T18:02:27Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
@@ -98,7 +98,7 @@
       "name": "OpenOSINT",
       "status": "ok",
       "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
-      "checkedAt": "2026-11-22T14:31:59Z"
+      "checkedAt": "2026-11-23T18:02:35Z"
     },
     {
       "id": "openaleph",
@@ -114,6 +114,30 @@
     }
   ],
   "records": [
+    {
+      "id": "un-security-c16a7d58ea6e2ce1",
+      "sourceId": "official-source-monitor",
+      "title": "‘We escaped with only our lives’: Fighting to give birth in war-torn Yemen",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168851",
+      "date": "2026-11-21",
+      "detectedAt": "2026-11-23T05:32:01.633Z",
+      "countries": [
+        "YE"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "YE",
+          "basis": "title-country-name",
+          "matchedText": "Yemen",
+          "confidence": "high"
+        }
+      ]
+    },
     {
       "id": "uk-mod-16892862229e5f57",
       "sourceId": "official-source-monitor",
@@ -1037,21 +1061,6 @@
           "confidence": "high"
         }
       ]
-    },
-    {
-      "id": "uk-mod-baed156483b14134",
-      "sourceId": "official-source-monitor",
-      "title": "Transparency data: Military court centres court listings",
-      "publisher": "UK Ministry of Defence publications",
-      "url": "https://www.gov.uk/government/publications/military-court-centres-court-listings",
-      "date": "2026-11-16",
-      "detectedAt": "2026-11-17T11:56:47.323Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ],
-      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-76466",
@@ -2354,21 +2363,22 @@
       },
       {
         "code": "YE",
-        "sourceCount": 3,
+        "sourceCount": 4,
         "publisherCount": 1,
         "publishers": [
           "UN News: Peace and Security"
         ],
-        "changedCount": 1,
+        "changedCount": 2,
         "topics": [
           "other"
         ],
         "sourceIds": [
+          "un-security-c16a7d58ea6e2ce1",
           "un-security-4e6fd87de55f1a78",
           "un-security-6b3d25b299acbb3f",
           "un-security-6d3aea411fa53f6c"
         ],
-        "statement": "3 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
+        "statement": "4 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
       }
     ],
     "inferredCountryBriefs": [
@@ -2484,9 +2494,9 @@
     "themes": [
       {
         "topic": "other",
-        "sourceCount": 39,
+        "sourceCount": 40,
         "publisherCount": 9,
-        "changedCount": 15,
+        "changedCount": 16,
         "countries": [
           "CN",
           "IL",
@@ -2500,6 +2510,7 @@
           "YE"
         ],
         "sourceIds": [
+          "un-security-c16a7d58ea6e2ce1",
           "un-security-ba6833bcf170767d",
           "un-security-b7682f03ec706e9e",
           "uk-mod-07fa9c13f7adcde0",
@@ -2522,14 +2533,13 @@
           "un-security-ba74ffaff163aa8a",
           "un-security-b674f963ed63a43e",
           "un-security-c2750c47e9639df2",
-          "uk-mod-338603bef9cb301e",
-          "intake-doj-4a07fbbd-c53f-4fc4-944b-c39d057d3c79"
+          "uk-mod-338603bef9cb301e"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "military",
-        "sourceCount": 24,
+        "sourceCount": 23,
         "publisherCount": 5,
         "changedCount": 14,
         "countries": [
@@ -2562,7 +2572,6 @@
           "uk-mod-4281bc6e94175279",
           "uk-mod-068ca08103f69003",
           "uk-mod-d64db74f66fabf1b",
-          "uk-mod-baed156483b14134",
           "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
           "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "allied-japan-defense-2026"
@@ -2701,10 +2710,10 @@
       "sourceTitlesWithoutDates": 13,
       "titlesOlderThan30Days": 9,
       "publisherCount": 13,
-      "countryTaggedCount": 23,
-      "titleAssociatedCount": 27,
+      "countryTaggedCount": 24,
+      "titleAssociatedCount": 28,
       "inferredOnlyCount": 10,
-      "unassignedCount": 81
+      "unassignedCount": 80
     },
     "limitations": [
       "No full-document validation or human-source intelligence",
