@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-24T00:19:01Z",
+  "checkedAt": "2026-11-24T10:23:56Z",
   "status": "ok",
   "metrics": [
     {
@@ -2876,24 +2876,19 @@
     {
       "id": "gps-accuracy-world",
       "label": "Worldwide aviation GNSS quality anomaly",
-      "value": 10.7,
-      "previous": 11.0,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 10.6,
+      "previous": 10.7,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "global",
       "compareMode": "percentage-points",
-      "changePct": -2.727,
-      "changePp": -0.3,
+      "changePct": -0.935,
+      "changePp": -0.1,
       "changeBps": null,
-      "sampleSize": 24134,
+      "sampleSize": 24347,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 10.6,
-          "sampleSize": 24055
-        },
         {
           "period": "2026-10-15",
           "value": 11.2,
@@ -3088,6 +3083,11 @@
           "period": "2026-11-22",
           "value": 10.7,
           "sampleSize": 24134
+        },
+        {
+          "period": "2026-11-23",
+          "value": 10.6,
+          "sampleSize": 24347
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -3096,24 +3096,19 @@
     {
       "id": "gps-accuracy-united-states",
       "label": "United States aviation GNSS quality anomaly",
-      "value": 3.7,
-      "previous": 5.7,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 5.8,
+      "previous": 3.7,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "US",
       "compareMode": "percentage-points",
-      "changePct": -35.088,
-      "changePp": -2.0,
+      "changePct": 56.757,
+      "changePp": 2.1,
       "changeBps": null,
-      "sampleSize": 4418,
+      "sampleSize": 4499,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 6.3,
-          "sampleSize": 4611
-        },
         {
           "period": "2026-10-15",
           "value": 6.9,
@@ -3308,6 +3303,11 @@
           "period": "2026-11-22",
           "value": 3.7,
           "sampleSize": 4418
+        },
+        {
+          "period": "2026-11-23",
+          "value": 5.8,
+          "sampleSize": 4499
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -3316,24 +3316,19 @@
     {
       "id": "gps-accuracy-taiwan-strait",
       "label": "Taiwan Strait aviation GNSS quality anomaly",
-      "value": 22.0,
-      "previous": 7.1,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 32.0,
+      "previous": 22.0,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:taiwan-strait",
       "compareMode": "percentage-points",
-      "changePct": 209.859,
-      "changePp": 14.9,
+      "changePct": 45.455,
+      "changePp": 10.0,
       "changeBps": null,
-      "sampleSize": 82,
+      "sampleSize": 97,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 13.5,
-          "sampleSize": 52
-        },
         {
           "period": "2026-10-15",
           "value": 17.3,
@@ -3528,6 +3523,11 @@
           "period": "2026-11-22",
           "value": 22.0,
           "sampleSize": 82
+        },
+        {
+          "period": "2026-11-23",
+          "value": 32.0,
+          "sampleSize": 97
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -3536,24 +3536,19 @@
     {
       "id": "gps-accuracy-persian-gulf",
       "label": "Persian Gulf aviation GNSS quality anomaly",
-      "value": 77.5,
-      "previous": 62.3,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 58.5,
+      "previous": 77.5,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:persian-gulf",
       "compareMode": "percentage-points",
-      "changePct": 24.398,
-      "changePp": 15.2,
+      "changePct": -24.516,
+      "changePp": -19.0,
       "changeBps": null,
-      "sampleSize": 111,
+      "sampleSize": 118,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 48.1,
-          "sampleSize": 104
-        },
         {
           "period": "2026-10-15",
           "value": 47.5,
@@ -3748,6 +3743,11 @@
           "period": "2026-11-22",
           "value": 77.5,
           "sampleSize": 111
+        },
+        {
+          "period": "2026-11-23",
+          "value": 58.5,
+          "sampleSize": 118
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -3756,24 +3756,19 @@
     {
       "id": "gps-accuracy-baltic-sea",
       "label": "Baltic Sea aviation GNSS quality anomaly",
-      "value": 35.3,
-      "previous": 35.5,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 27.9,
+      "previous": 35.3,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:baltic-sea",
       "compareMode": "percentage-points",
-      "changePct": -0.563,
-      "changePp": -0.2,
+      "changePct": -20.963,
+      "changePp": -7.4,
       "changeBps": null,
-      "sampleSize": 1262,
+      "sampleSize": 1202,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 32.5,
-          "sampleSize": 1343
-        },
         {
           "period": "2026-10-15",
           "value": 33.8,
@@ -3968,6 +3963,11 @@
           "period": "2026-11-22",
           "value": 35.3,
           "sampleSize": 1262
+        },
+        {
+          "period": "2026-11-23",
+          "value": 27.9,
+          "sampleSize": 1202
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -3976,24 +3976,19 @@
     {
       "id": "gps-accuracy-strait-of-hormuz",
       "label": "Strait of Hormuz aviation GNSS quality anomaly",
-      "value": 95.0,
-      "previous": 85.7,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-19",
+      "value": 85.0,
+      "previous": 95.0,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:strait-of-hormuz",
       "compareMode": "percentage-points",
-      "changePct": 10.852,
-      "changePp": 9.3,
+      "changePct": -10.526,
+      "changePp": -10.0,
       "changeBps": null,
       "sampleSize": 20,
       "history": [
-        {
-          "period": "2026-09-03",
-          "value": 81.0,
-          "sampleSize": 21
-        },
         {
           "period": "2026-09-04",
           "value": 80.0,
@@ -4188,6 +4183,11 @@
           "period": "2026-11-22",
           "value": 95.0,
           "sampleSize": 20
+        },
+        {
+          "period": "2026-11-23",
+          "value": 85.0,
+          "sampleSize": 20
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -4196,24 +4196,19 @@
     {
       "id": "gps-accuracy-eastern-mediterranean",
       "label": "Eastern Mediterranean aviation GNSS quality anomaly",
-      "value": 17.5,
-      "previous": 19.2,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 39.5,
+      "previous": 17.5,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:eastern-mediterranean",
       "compareMode": "percentage-points",
-      "changePct": -8.854,
-      "changePp": -1.7,
+      "changePct": 125.714,
+      "changePp": 22.0,
       "changeBps": null,
       "sampleSize": 349,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 33.1,
-          "sampleSize": 293
-        },
         {
           "period": "2026-10-15",
           "value": 48.5,
@@ -4408,6 +4403,11 @@
           "period": "2026-11-22",
           "value": 17.5,
           "sampleSize": 349
+        },
+        {
+          "period": "2026-11-23",
+          "value": 39.5,
+          "sampleSize": 349
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -4416,24 +4416,19 @@
     {
       "id": "gps-accuracy-east-asia",
       "label": "East Asia aviation GNSS quality anomaly",
-      "value": 26.0,
-      "previous": 23.0,
-      "period": "2026-11-22",
-      "previousPeriod": "2026-11-21",
+      "value": 27.4,
+      "previous": 26.0,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-22",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "regional:east-asia",
       "compareMode": "percentage-points",
-      "changePct": 13.043,
-      "changePp": 3.0,
+      "changePct": 5.385,
+      "changePp": 1.4,
       "changeBps": null,
-      "sampleSize": 1002,
+      "sampleSize": 1031,
       "history": [
-        {
-          "period": "2026-10-14",
-          "value": 28.3,
-          "sampleSize": 1052
-        },
         {
           "period": "2026-10-15",
           "value": 30.1,
@@ -4628,6 +4623,11 @@
           "period": "2026-11-22",
           "value": 26.0,
           "sampleSize": 1002
+        },
+        {
+          "period": "2026-11-23",
+          "value": 27.4,
+          "sampleSize": 1031
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -4878,9 +4878,9 @@
       "scope": "Planetary Kp observations; not localized outage evidence",
       "events": [
         {
-          "id": "noaa-kp-2026-11-23T21:00",
-          "title": "Observed planetary geomagnetic Kp 1.0",
-          "observedAt": "2026-11-23T21:00:00",
+          "id": "noaa-kp-2026-11-24T06:00",
+          "title": "Observed planetary geomagnetic Kp 1.67",
+          "observedAt": "2026-11-24T06:00:00",
           "group": "global",
           "severity": "Observed",
           "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
@@ -4896,113 +4896,102 @@
       "scope": "U.S. active severe/extreme advisories; bounded first 100 per severity; not complete coverage",
       "events": [
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-005-2",
-          "title": "Storm Watch — Coastal waters from Parramore Island to Cape Charles Light VA out 20 NM; Coastal Waters from Cape Ch",
-          "observedAt": "2026-11-23T19:08:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-001-2",
+          "title": "Storm Watch — Waters from Oregon Inlet to Cape Hatteras NC from 20 to 60 NM; Waters from Cape Hatteras to Ocracoke",
+          "observedAt": "2026-11-24T04:22:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.005.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.001.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T03:15:00-05:00",
+          "expiresAt": "2026-11-24T16:30:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-004-2",
-          "title": "Storm Watch — Coastal waters from Fenwick Island DE to Chincoteague VA out 20 NM; Coastal waters from Chincoteague",
-          "observedAt": "2026-11-23T19:08:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-008-1",
+          "title": "Storm Watch — Waters from Currituck Beach Light to Oregon Inlet NC from 20 to 60 NM",
+          "observedAt": "2026-11-24T04:22:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.004.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.008.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T03:15:00-05:00",
+          "expiresAt": "2026-11-24T16:30:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-009-1",
-          "title": "Storm Watch — Waters from Parramore Island VA to Cape Charles Light VA from 20 to 60 NM; Waters from Cape Charles ",
-          "observedAt": "2026-11-23T19:08:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-2294f5dca893e321703cee0f5c17f66554bab301-001-1",
+          "title": "Flood Watch — Metro Palm Beach County; Metro Broward County; Metropolitan Miami Dade; Coastal Palm Beach County; C",
+          "observedAt": "2026-11-24T04:16:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.009.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2294f5dca893e321703cee0f5c17f66554bab301.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T03:15:00-05:00",
+          "expiresAt": "2026-11-24T15:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-008-1",
-          "title": "Storm Watch — Waters from Fenwick Island DE to Chintoteague VA from 20 to 60 NM; Waters from Chincoteague VA to Pa",
-          "observedAt": "2026-11-23T19:08:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-d98eee56545923c0be192b6724fc27c07a566c8f-001-1",
+          "title": "Storm Warning — Coastal Waters From Cape Flattery To James Island 10 To 60 Nm; Waters From James Island To Point Gre",
+          "observedAt": "2026-11-24T00:54:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.008.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d98eee56545923c0be192b6724fc27c07a566c8f.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T03:15:00-05:00",
+          "expiresAt": "2026-11-24T09:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-006-2",
-          "title": "Storm Watch — Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cap",
-          "observedAt": "2026-11-23T19:08:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-a4be7fd9d844ec4eb1f80d433a24905e74d2051f-001-2",
+          "title": "Storm Warning — Waters from Florence to Cape Blanco OR from 10 to 60 nm; Waters from Cape Blanco OR to Pt. St. Georg",
+          "observedAt": "2026-11-24T00:46:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.006.2",
-          "officialAlert": true,
-          "expiresAt": "2026-11-24T03:15:00-05:00",
-          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
-        },
-        {
-          "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-002-1",
-          "title": "Coastal Flood Warning — Ventura County Beaches",
-          "observedAt": "2026-11-23T16:04:00-08:00",
-          "group": "US",
-          "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.002.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a4be7fd9d844ec4eb1f80d433a24905e74d2051f.001.2",
           "officialAlert": true,
           "expiresAt": "2026-11-24T14:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-001-1",
-          "title": "Coastal Flood Warning — San Luis Obispo County Beaches; Santa Barbara County Central Coast Beaches",
-          "observedAt": "2026-11-23T16:04:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-002-1",
+          "title": "Coastal Flood Warning — Orange County Coastal",
+          "observedAt": "2026-11-24T00:44:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.002.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T14:00:00-08:00",
+          "expiresAt": "2026-11-24T16:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-bec29d45cae6ee03e927bddf7552c5c47b6785f2-001-2",
-          "title": "Coastal Flood Warning — South Central Oregon Coast; Curry County Coast",
-          "observedAt": "2026-11-23T16:01:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-001-1",
+          "title": "Coastal Flood Warning — San Diego County Coastal Areas",
+          "observedAt": "2026-11-24T00:44:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bec29d45cae6ee03e927bddf7552c5c47b6785f2.001.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T04:30:00-08:00",
+          "expiresAt": "2026-11-24T16:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-004-1",
-          "title": "Storm Warning — Waters from Pt. St. George to Cape Mendocino CA from 10 to 60 nm",
-          "observedAt": "2026-11-23T15:50:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-004-1",
+          "title": "Storm Warning — Waters from Cape Foulweather to Florence OR from 10 to 60 nm",
+          "observedAt": "2026-11-24T00:34:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.004.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.004.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T00:00:00-08:00",
+          "expiresAt": "2026-11-24T17:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-002-2",
-          "title": "Storm Warning — Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm",
-          "observedAt": "2026-11-23T15:50:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-001-1",
+          "title": "Storm Warning — Waters from Cape Shoalwater WA to Cape Falcon OR from 10 to 60 nm; Waters from Cape Falcon to Cape F",
+          "observedAt": "2026-11-24T00:34:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.002.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T00:00:00-08:00",
+          "expiresAt": "2026-11-24T17:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         }
       ]
@@ -5012,10 +5001,10 @@
     {
       "repository": "curl/curl",
       "score": 8.7,
-      "published": "2026-11-23",
-      "previousScore": 9.1,
-      "previousCheckedAt": "2026-11-23T08:09:12Z",
-      "checkedAt": "2026-11-24T00:19:07Z",
+      "published": "2026-11-24",
+      "previousScore": 8.7,
+      "previousCheckedAt": "2026-11-24T00:19:07Z",
+      "checkedAt": "2026-11-24T10:23:59Z",
       "codeReview": 0,
       "signedReleases": 10,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/curl/curl",
@@ -5026,8 +5015,8 @@
       "score": 6.3,
       "published": "2026-11-09",
       "previousScore": 6.3,
-      "previousCheckedAt": "2026-11-23T08:09:12Z",
-      "checkedAt": "2026-11-24T00:19:07Z",
+      "previousCheckedAt": "2026-11-24T00:19:07Z",
+      "checkedAt": "2026-11-24T10:23:59Z",
       "codeReview": 0,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/openssl/openssl",
@@ -5038,8 +5027,8 @@
       "score": 7.5,
       "published": "2026-11-16",
       "previousScore": 7.5,
-      "previousCheckedAt": "2026-11-23T08:09:12Z",
-      "checkedAt": "2026-11-24T00:19:07Z",
+      "previousCheckedAt": "2026-11-24T00:19:07Z",
+      "checkedAt": "2026-11-24T10:23:59Z",
       "codeReview": 1,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/libexpat/libexpat",
@@ -5051,109 +5040,109 @@
       "id": "sofr",
       "status": "ok",
       "detail": "2 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-24T00:19:02Z"
+      "checkedAt": "2026-11-24T10:23:56Z"
     },
     {
       "id": "pink-sheet",
       "status": "ok",
       "detail": "11 measurements; source period 2026-10",
-      "checkedAt": "2026-11-24T00:19:02Z"
+      "checkedAt": "2026-11-24T10:23:57Z"
     },
     {
       "id": "fao-food",
       "status": "ok",
       "detail": "6 measurements; source period 2026-10",
-      "checkedAt": "2026-11-24T00:19:03Z"
+      "checkedAt": "2026-11-24T10:23:57Z"
     },
     {
       "id": "gps:world",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:03Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:57Z"
     },
     {
       "id": "gps:united-states",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:03Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:57Z"
     },
     {
       "id": "gps:taiwan-strait",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:04Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:57Z"
     },
     {
       "id": "gps:persian-gulf",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:04Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "gps:baltic-sea",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:05Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "gps:strait-of-hormuz",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:05Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "gps:eastern-mediterranean",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:06Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "gps:east-asia",
       "status": "ok",
-      "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-24T00:19:06Z"
+      "detail": "1 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "usgs-significant",
       "status": "ok",
       "detail": "7 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T00:19:06Z"
+      "checkedAt": "2026-11-24T10:23:58Z"
     },
     {
       "id": "cisa-kev",
       "status": "ok",
       "detail": "15 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "checkedAt": "2026-11-24T10:23:59Z"
     },
     {
       "id": "noaa-space-weather",
       "status": "ok",
       "detail": "1 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "checkedAt": "2026-11-24T10:23:59Z"
     },
     {
       "id": "nws-severe-1",
       "status": "ok",
-      "detail": "10 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "detail": "9 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-24T10:23:59Z"
     },
     {
       "id": "scorecard:curl/curl",
       "status": "ok",
-      "detail": "Published Scorecard 2026-11-23; current score 8.7/10",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "detail": "Published Scorecard 2026-11-24; current score 8.7/10",
+      "checkedAt": "2026-11-24T10:23:59Z"
     },
     {
       "id": "scorecard:openssl/openssl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-09; current score 6.3/10",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "checkedAt": "2026-11-24T10:23:59Z"
     },
     {
       "id": "scorecard:libexpat/libexpat",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-16; current score 7.5/10",
-      "checkedAt": "2026-11-24T00:19:07Z"
+      "checkedAt": "2026-11-24T10:23:59Z"
     }
   ],
   "limitations": [
