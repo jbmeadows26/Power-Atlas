@@ -1,6 +1,6 @@
 {
   "schema": "power-atlas.business-federal-contract-transactions.v1",
-  "generatedUtc": "2026-11-09T22:36:02+00:00",
+  "generatedUtc": "2026-11-24T00:07:54+00:00",
   "source": "https://api.usaspending.gov/api/v2/search/spending_by_transaction/",
   "documentation": "https://github.com/fedspendingtransparency/usaspending-api/blob/master/usaspending_api/api_contracts/contracts/v2/search/spending_by_transaction.md",
   "yearDefinition": "U.S. federal fiscal year October 1 through September 30, by contract action date",
@@ -2325,17 +2325,35 @@
         {
           "fiscalYear": 2027,
           "startDate": "2026-10-01",
-          "endDate": "2026-11-09",
+          "endDate": "2026-11-24",
           "partialFiscalYear": true,
           "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
-          "netObligationsUsd": 17831083.63,
-          "grossPositiveObligationsUsd": 17831083.63,
+          "netObligationsUsd": 86463270.45,
+          "grossPositiveObligationsUsd": 86463270.45,
           "deobligationsUsd": 0.0,
-          "transactionCount": 6,
-          "distinctPrimeAwards": 5,
+          "transactionCount": 12,
+          "distinctPrimeAwards": 11,
           "sourcePagesRead": 1,
-          "otherRecipientUEIRowsExcluded": 18,
+          "otherRecipientUEIRowsExcluded": 26,
           "topAwardsByAbsoluteNetChange": [
+            {
+              "awardId": "70CDCR26FR0000101",
+              "awardNaturalId": "CONT_AWD_70CDCR26FR0000101_7012_70CDCR26D00000049_7012",
+              "netObligationsUsd": 28423856.0,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-13",
+              "awardingAgency": "Department of Homeland Security",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000101_7012_70CDCR26D00000049_7012"
+            },
+            {
+              "awardId": "70CDCR27FR0000010",
+              "awardNaturalId": "CONT_AWD_70CDCR27FR0000010_7012_70CDCR27D00000002_7012",
+              "netObligationsUsd": 24256301.0,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-13",
+              "awardingAgency": "Department of Homeland Security",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR27FR0000010_7012_70CDCR27D00000002_7012"
+            },
             {
               "awardId": "70CDCR25FR0000111",
               "awardNaturalId": "CONT_AWD_70CDCR25FR0000111_7012_70CDCR22D00000001_7012",
@@ -2346,6 +2364,15 @@
               "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000111_7012_70CDCR22D00000001_7012"
             },
             {
+              "awardId": "70CDCR26FC0000004",
+              "awardNaturalId": "CONT_AWD_70CDCR26FC0000004_7012_70CDCR18A00000007_7012",
+              "netObligationsUsd": 7580200.0,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-19",
+              "awardingAgency": "Department of Homeland Security",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FC0000004_7012_70CDCR18A00000007_7012"
+            },
+            {
               "awardId": "15M40027FA3500007",
               "awardNaturalId": "CONT_AWD_15M40027FA3500007_1544_15M40018DA3500001_1544",
               "netObligationsUsd": 6390083.63,
@@ -2353,6 +2380,33 @@
               "lastActionDate": "2026-10-29",
               "awardingAgency": "Department of Justice",
               "source": "https://www.usaspending.gov/award/CONT_AWD_15M40027FA3500007_1544_15M40018DA3500001_1544"
+            },
+            {
+              "awardId": "DJJODT7C0003",
+              "awardNaturalId": "CONT_AWD_DJJODT7C0003_1501_-NONE-_-NONE-",
+              "netObligationsUsd": 5675442.22,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-13",
+              "awardingAgency": "Department of Justice",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0003_1501_-NONE-_-NONE-"
+            },
+            {
+              "awardId": "70CDCR26FC0000002",
+              "awardNaturalId": "CONT_AWD_70CDCR26FC0000002_7012_HSCEDM14A00001_7012",
+              "netObligationsUsd": 2691700.0,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-06",
+              "awardingAgency": "Department of Homeland Security",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FC0000002_7012_HSCEDM14A00001_7012"
+            },
+            {
+              "awardId": "70CDCR25FC0000007",
+              "awardNaturalId": "CONT_AWD_70CDCR25FC0000007_7012_70CDCR18A00000007_7012",
+              "netObligationsUsd": 4687.6,
+              "reportedActions": 1,
+              "lastActionDate": "2026-11-12",
+              "awardingAgency": "Department of Homeland Security",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FC0000007_7012_70CDCR18A00000007_7012"
             },
             {
               "awardId": "70CDCR25FR0000091",
@@ -2385,14 +2439,44 @@
           "agenciesByNetObligationsUsd": [
             {
               "agency": "Department of Homeland Security",
-              "amountUsd": 11441000.0
+              "amountUsd": 74397744.6
             },
             {
               "agency": "Department of Justice",
-              "amountUsd": 6390083.63
+              "amountUsd": 12065525.85
             }
           ],
           "sampleActionsByMagnitude": [
+            {
+              "awardId": "70CDCR26FR0000101",
+              "awardNaturalId": "CONT_AWD_70CDCR26FR0000101_7012_70CDCR26D00000049_7012",
+              "modification": "P00002",
+              "actionDate": "2026-11-13",
+              "amountUsd": 28423856.0,
+              "recipientUEI": "JMLKZZ1NL2Z6",
+              "recipientName": "THE GEO GROUP, INC.",
+              "awardingAgency": "Department of Homeland Security",
+              "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+              "awardType": "DELIVERY ORDER",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000101_7012_70CDCR26D00000049_7012",
+              "evidenceType": "Treasury_reported_prime_contract_transaction",
+              "reviewStatus": "official_api_not_individually_adjudicated"
+            },
+            {
+              "awardId": "70CDCR27FR0000010",
+              "awardNaturalId": "CONT_AWD_70CDCR27FR0000010_7012_70CDCR27D00000002_7012",
+              "modification": "0",
+              "actionDate": "2026-11-13",
+              "amountUsd": 24256301.0,
+              "recipientUEI": "JMLKZZ1NL2Z6",
+              "recipientName": "THE GEO GROUP, INC.",
+              "awardingAgency": "Department of Homeland Security",
+              "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+              "awardType": "DELIVERY ORDER",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR27FR0000010_7012_70CDCR27D00000002_7012",
+              "evidenceType": "Treasury_reported_prime_contract_transaction",
+              "reviewStatus": "official_api_not_individually_adjudicated"
+            },
             {
               "awardId": "70CDCR25FR0000111",
               "awardNaturalId": "CONT_AWD_70CDCR25FR0000111_7012_70CDCR22D00000001_7012",
@@ -2405,6 +2489,21 @@
               "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
               "awardType": "DELIVERY ORDER",
               "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000111_7012_70CDCR22D00000001_7012",
+              "evidenceType": "Treasury_reported_prime_contract_transaction",
+              "reviewStatus": "official_api_not_individually_adjudicated"
+            },
+            {
+              "awardId": "70CDCR26FC0000004",
+              "awardNaturalId": "CONT_AWD_70CDCR26FC0000004_7012_70CDCR18A00000007_7012",
+              "modification": "P00002",
+              "actionDate": "2026-11-19",
+              "amountUsd": 7580200.0,
+              "recipientUEI": "JMLKZZ1NL2Z6",
+              "recipientName": "THE GEO GROUP, INC.",
+              "awardingAgency": "Department of Homeland Security",
+              "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+              "awardType": "BPA CALL",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FC0000004_7012_70CDCR18A00000007_7012",
               "evidenceType": "Treasury_reported_prime_contract_transaction",
               "reviewStatus": "official_api_not_individually_adjudicated"
             },
@@ -2424,62 +2523,47 @@
               "reviewStatus": "official_api_not_individually_adjudicated"
             },
             {
-              "awardId": "70CDCR25FR0000091",
-              "awardNaturalId": "CONT_AWD_70CDCR25FR0000091_7012_70CDCR20D00000012_7012",
+              "awardId": "DJJODT7C0003",
+              "awardNaturalId": "CONT_AWD_DJJODT7C0003_1501_-NONE-_-NONE-",
+              "modification": "P00223",
+              "actionDate": "2026-11-13",
+              "amountUsd": 5675442.22,
+              "recipientUEI": "JMLKZZ1NL2Z6",
+              "recipientName": "THE GEO GROUP, INC.",
+              "awardingAgency": "Department of Justice",
+              "awardingSubAgency": "U.S. Marshals Service",
+              "awardType": "DEFINITIVE CONTRACT",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT7C0003_1501_-NONE-_-NONE-",
+              "evidenceType": "Treasury_reported_prime_contract_transaction",
+              "reviewStatus": "official_api_not_individually_adjudicated"
+            },
+            {
+              "awardId": "70CDCR26FC0000002",
+              "awardNaturalId": "CONT_AWD_70CDCR26FC0000002_7012_HSCEDM14A00001_7012",
+              "modification": "P00003",
+              "actionDate": "2026-11-06",
+              "amountUsd": 2691700.0,
+              "recipientUEI": "JMLKZZ1NL2Z6",
+              "recipientName": "THE GEO GROUP, INC.",
+              "awardingAgency": "Department of Homeland Security",
+              "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
+              "awardType": "BPA CALL",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FC0000002_7012_HSCEDM14A00001_7012",
+              "evidenceType": "Treasury_reported_prime_contract_transaction",
+              "reviewStatus": "official_api_not_individually_adjudicated"
+            },
+            {
+              "awardId": "70CDCR25FC0000007",
+              "awardNaturalId": "CONT_AWD_70CDCR25FC0000007_7012_70CDCR18A00000007_7012",
               "modification": "P00008",
-              "actionDate": "2026-10-27",
-              "amountUsd": 0.0,
+              "actionDate": "2026-11-12",
+              "amountUsd": 4687.6,
               "recipientUEI": "JMLKZZ1NL2Z6",
               "recipientName": "THE GEO GROUP, INC.",
               "awardingAgency": "Department of Homeland Security",
               "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
-              "awardType": "DELIVERY ORDER",
-              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FR0000091_7012_70CDCR20D00000012_7012",
-              "evidenceType": "Treasury_reported_prime_contract_transaction",
-              "reviewStatus": "official_api_not_individually_adjudicated"
-            },
-            {
-              "awardId": "70CDCR26FR0000107",
-              "awardNaturalId": "CONT_AWD_70CDCR26FR0000107_7012_70CDCR20D00000012_7012",
-              "modification": "P00001",
-              "actionDate": "2026-10-27",
-              "amountUsd": 0.0,
-              "recipientUEI": "JMLKZZ1NL2Z6",
-              "recipientName": "THE GEO GROUP, INC.",
-              "awardingAgency": "Department of Homeland Security",
-              "awardingSubAgency": "U.S. Immigration and Customs Enforcement",
-              "awardType": "DELIVERY ORDER",
-              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR26FR0000107_7012_70CDCR20D00000012_7012",
-              "evidenceType": "Treasury_reported_prime_contract_transaction",
-              "reviewStatus": "official_api_not_individually_adjudicated"
-            },
-            {
-              "awardId": "DJJODT8C0005",
-              "awardNaturalId": "CONT_AWD_DJJODT8C0005_1501_-NONE-_-NONE-",
-              "modification": "P00225",
-              "actionDate": "2026-10-20",
-              "amountUsd": 0.0,
-              "recipientUEI": "JMLKZZ1NL2Z6",
-              "recipientName": "THE GEO GROUP, INC.",
-              "awardingAgency": "Department of Justice",
-              "awardingSubAgency": "U.S. Marshals Service",
-              "awardType": "DEFINITIVE CONTRACT",
-              "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0005_1501_-NONE-_-NONE-",
-              "evidenceType": "Treasury_reported_prime_contract_transaction",
-              "reviewStatus": "official_api_not_individually_adjudicated"
-            },
-            {
-              "awardId": "DJJODT8C0005",
-              "awardNaturalId": "CONT_AWD_DJJODT8C0005_1501_-NONE-_-NONE-",
-              "modification": "P00226",
-              "actionDate": "2026-10-26",
-              "amountUsd": 0.0,
-              "recipientUEI": "JMLKZZ1NL2Z6",
-              "recipientName": "THE GEO GROUP, INC.",
-              "awardingAgency": "Department of Justice",
-              "awardingSubAgency": "U.S. Marshals Service",
-              "awardType": "DEFINITIVE CONTRACT",
-              "source": "https://www.usaspending.gov/award/CONT_AWD_DJJODT8C0005_1501_-NONE-_-NONE-",
+              "awardType": "BPA CALL",
+              "source": "https://www.usaspending.gov/award/CONT_AWD_70CDCR25FC0000007_7012_70CDCR18A00000007_7012",
               "evidenceType": "Treasury_reported_prime_contract_transaction",
               "reviewStatus": "official_api_not_individually_adjudicated"
             }
@@ -4801,7 +4885,7 @@
         {
           "fiscalYear": 2027,
           "startDate": "2026-10-01",
-          "endDate": "2026-11-09",
+          "endDate": "2026-11-24",
           "partialFiscalYear": true,
           "recordCoverage": "complete_uei_search_page_walk_not_a_contract_universe_audit",
           "netObligationsUsd": 0.0,
