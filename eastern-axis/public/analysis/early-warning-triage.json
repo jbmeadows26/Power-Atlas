@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-24T00:24:19Z",
-  "sourceCheckedAt": "2026-11-24T00:19:01Z",
+  "generatedAt": "2026-11-24T10:28:40Z",
+  "sourceCheckedAt": "2026-11-24T10:23:56Z",
   "model": {
     "status": "partial",
     "name": null,
@@ -9,10 +9,10 @@
   },
   "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
-    "observed": 60,
-    "screened": 13,
-    "reviewed": 9,
-    "monitoring": 60,
+    "observed": 59,
+    "screened": 14,
+    "reviewed": 11,
+    "monitoring": 59,
     "elevated": 0,
     "historyReady": 27
   },
@@ -689,19 +689,19 @@
       "group": "global",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": -2.727,
+      "observedAt": "2026-11-23",
+      "changePct": -0.935,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -0.3,
+      "changePp": -0.1,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -0.51,
+        "robustZ": -0.19,
         "medianChange": 0.0,
-        "medianAbsoluteDeviation": 0.4
+        "medianAbsoluteDeviation": 0.35
       },
       "anomalous": false,
       "needsReview": false,
@@ -724,25 +724,25 @@
       "group": "US",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": -35.088,
+      "observedAt": "2026-11-23",
+      "changePct": 56.757,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -2.0,
+      "changePp": 2.1,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -1.75,
-        "medianChange": -0.05,
-        "medianAbsoluteDeviation": 0.75
+        "robustZ": 2.12,
+        "medianChange": -0.1,
+        "medianAbsoluteDeviation": 0.7
       },
       "anomalous": false,
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -759,19 +759,19 @@
       "group": "regional:taiwan-strait",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": 209.859,
+      "observedAt": "2026-11-23",
+      "changePct": 45.455,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 14.9,
+      "changePp": 10.0,
       "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 1.97,
+        "robustZ": 1.15,
         "medianChange": -0.75,
-        "medianAbsoluteDeviation": 5.35
+        "medianAbsoluteDeviation": 6.3
       },
       "anomalous": false,
       "needsReview": true,
@@ -779,9 +779,9 @@
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The GPS accuracy anomaly in the Taiwan Strait is a regional issue with limited evidence and historical data. The robust Z score of 1.15 and median change of -0.75 indicate a moderate anomaly, but the lack of corroboration and official alert suggests it may not be a significant strategic anomaly. Further monitoring is recommended to gather more data and confirm the anomaly's impact.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -794,29 +794,29 @@
       "group": "regional:persian-gulf",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": 24.398,
+      "observedAt": "2026-11-23",
+      "changePct": -24.516,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 15.2,
+      "changePp": -19.0,
       "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 1.25,
-        "medianChange": 0.15,
-        "medianAbsoluteDeviation": 8.15
+        "robustZ": -1.59,
+        "medianChange": 0.65,
+        "medianAbsoluteDeviation": 8.35
       },
       "anomalous": false,
       "needsReview": true,
       "sector": null,
       "corroborated": false,
-      "direction": 1,
+      "direction": -1,
       "status": "monitor",
-      "reason": "The evidence provided is derived from an ADS-B system and is not confirmed as jamming. The anomaly is not corroborated and the sample size is relatively small, indicating a low confidence in the findings.",
-      "confidence": "low",
-      "modelReviewed": true,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -829,29 +829,29 @@
       "group": "regional:baltic-sea",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": -0.563,
+      "observedAt": "2026-11-23",
+      "changePct": -20.963,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -0.2,
-      "screened": false,
+      "changePp": -7.4,
+      "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -0.06,
-        "medianChange": 0.0,
-        "medianAbsoluteDeviation": 2.1
+        "robustZ": -2.4,
+        "medianChange": -0.1,
+        "medianAbsoluteDeviation": 2.05
       },
       "anomalous": false,
-      "needsReview": false,
+      "needsReview": true,
       "sector": null,
       "corroborated": false,
       "direction": -1,
       "status": "monitor",
-      "reason": "Movement below review threshold",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The GPS accuracy anomaly in the Baltic Sea is a regional issue with limited historical data and a moderate robust Z-score (-2.4). The anomaly is not confirmed as jamming, and there is no robust evidence to elevate it to a severe advisory. The anomaly is monitored for potential future developments.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -864,27 +864,27 @@
       "group": "regional:strait-of-hormuz",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": 10.852,
+      "observedAt": "2026-11-23",
+      "changePct": -10.526,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 9.3,
+      "changePp": -10.0,
       "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 0.92,
-        "medianChange": -2.65,
-        "medianAbsoluteDeviation": 8.8
+        "robustZ": -0.5,
+        "medianChange": -2.15,
+        "medianAbsoluteDeviation": 10.6
       },
       "anomalous": false,
       "needsReview": true,
       "sector": null,
       "corroborated": false,
-      "direction": 1,
+      "direction": -1,
       "status": "monitor",
-      "reason": "The evidence provided is based on an ADS-B-derived estimate and not confirmed jamming. The anomaly is not corroborated and the sample size is small, indicating a low confidence in the findings.",
+      "reason": "The evidence provided is based on an ADS-B-derived estimate and not confirmed jamming, which suggests a low confidence level. The anomaly is not corroborated, and the source is not official, leading to a low confidence level.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -899,29 +899,29 @@
       "group": "regional:eastern-mediterranean",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": -8.854,
+      "observedAt": "2026-11-23",
+      "changePct": 125.714,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -1.7,
-      "screened": false,
+      "changePp": 22.0,
+      "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -0.33,
-        "medianChange": 0.25,
-        "medianAbsoluteDeviation": 3.95
+        "robustZ": 3.9,
+        "medianChange": 0.05,
+        "medianAbsoluteDeviation": 3.8
       },
-      "anomalous": false,
-      "needsReview": false,
+      "anomalous": true,
+      "needsReview": true,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
-      "reason": "Movement below review threshold",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The GPS accuracy anomaly in the Eastern Mediterranean region is a regional issue with a robust Z-score of 3.9 and a median change of 0.05. While this is concerning, it does not meet the criteria for an elevated alert. The anomaly is not corroborated and is not an official advisory, making it a low-confidence anomaly. The evidence is limited and does not suggest a significant strategic anomaly.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -934,19 +934,19 @@
       "group": "regional:east-asia",
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
-      "observedAt": "2026-11-22",
-      "changePct": 13.043,
+      "observedAt": "2026-11-23",
+      "changePct": 5.385,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 3.0,
+      "changePp": 1.4,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 1.24,
+        "robustZ": 0.5,
         "medianChange": 0.25,
-        "medianAbsoluteDeviation": 1.5
+        "medianAbsoluteDeviation": 1.55
       },
       "anomalous": false,
       "needsReview": false,
@@ -1623,13 +1623,13 @@
       "severity": "Known exploited vulnerability"
     },
     {
-      "id": "noaa-kp-2026-11-23T21:00",
+      "id": "noaa-kp-2026-11-24T06:00",
       "kind": "event",
-      "title": "Observed planetary geomagnetic Kp 1.0",
+      "title": "Observed planetary geomagnetic Kp 1.67",
       "group": "global",
       "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
-      "observedAt": "2026-11-23T21:00:00",
+      "observedAt": "2026-11-24T06:00:00",
       "screened": false,
       "fresh": true,
       "baseline": {
@@ -1653,13 +1653,13 @@
       "severity": "Observed"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-005-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-001-2",
       "kind": "advisory",
-      "title": "Storm Watch — Coastal waters from Parramore Island to Cape Charles Light VA out 20 NM; Coastal Waters from Cape Ch",
+      "title": "Storm Watch — Waters from Oregon Inlet to Cape Hatteras NC from 20 to 60 NM; Waters from Cape Hatteras to Ocracoke",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.005.2",
-      "observedAt": "2026-11-23T19:08:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.001.2",
+      "observedAt": "2026-11-24T04:22:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1676,20 +1676,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.005.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.001.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-004-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-008-1",
       "kind": "advisory",
-      "title": "Storm Watch — Coastal waters from Fenwick Island DE to Chincoteague VA out 20 NM; Coastal waters from Chincoteague",
+      "title": "Storm Watch — Waters from Currituck Beach Light to Oregon Inlet NC from 20 to 60 NM",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.004.2",
-      "observedAt": "2026-11-23T19:08:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.008.1",
+      "observedAt": "2026-11-24T04:22:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1706,20 +1706,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.004.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.008.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-009-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-2294f5dca893e321703cee0f5c17f66554bab301-001-1",
       "kind": "advisory",
-      "title": "Storm Watch — Waters from Parramore Island VA to Cape Charles Light VA from 20 to 60 NM; Waters from Cape Charles ",
+      "title": "Flood Watch — Metro Palm Beach County; Metro Broward County; Metropolitan Miami Dade; Coastal Palm Beach County; C",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.009.1",
-      "observedAt": "2026-11-23T19:08:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2294f5dca893e321703cee0f5c17f66554bab301.001.1",
+      "observedAt": "2026-11-24T04:16:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1736,20 +1736,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.009.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2294f5dca893e321703cee0f5c17f66554bab301.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-008-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-d98eee56545923c0be192b6724fc27c07a566c8f-001-1",
       "kind": "advisory",
-      "title": "Storm Watch — Waters from Fenwick Island DE to Chintoteague VA from 20 to 60 NM; Waters from Chincoteague VA to Pa",
+      "title": "Storm Warning — Coastal Waters From Cape Flattery To James Island 10 To 60 Nm; Waters From James Island To Point Gre",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.008.1",
-      "observedAt": "2026-11-23T19:08:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d98eee56545923c0be192b6724fc27c07a566c8f.001.1",
+      "observedAt": "2026-11-24T00:54:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1766,20 +1766,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.008.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d98eee56545923c0be192b6724fc27c07a566c8f.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-006-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-a4be7fd9d844ec4eb1f80d433a24905e74d2051f-001-2",
       "kind": "advisory",
-      "title": "Storm Watch — Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cap",
+      "title": "Storm Warning — Waters from Florence to Cape Blanco OR from 10 to 60 nm; Waters from Cape Blanco OR to Pt. St. Georg",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.006.2",
-      "observedAt": "2026-11-23T19:08:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a4be7fd9d844ec4eb1f80d433a24905e74d2051f.001.2",
+      "observedAt": "2026-11-24T00:46:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1796,20 +1796,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.006.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a4be7fd9d844ec4eb1f80d433a24905e74d2051f.001.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-002-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-002-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Ventura County Beaches",
+      "title": "Coastal Flood Warning — Orange County Coastal",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.002.1",
-      "observedAt": "2026-11-23T16:04:00-08:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.002.1",
+      "observedAt": "2026-11-24T00:44:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1826,50 +1826,20 @@
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.002.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.002.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-001-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — San Luis Obispo County Beaches; Santa Barbara County Central Coast Beaches",
+      "title": "Coastal Flood Warning — San Diego County Coastal Areas",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.001.1",
-      "observedAt": "2026-11-23T16:04:00-08:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-bec29d45cae6ee03e927bddf7552c5c47b6785f2-001-2",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — South Central Oregon Coast; Curry County Coast",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bec29d45cae6ee03e927bddf7552c5c47b6785f2.001.2",
-      "observedAt": "2026-11-23T16:01:00-08:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.001.1",
+      "observedAt": "2026-11-24T00:44:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1886,50 +1856,20 @@
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bec29d45cae6ee03e927bddf7552c5c47b6785f2.001.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-004-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-004-1",
       "kind": "advisory",
-      "title": "Storm Warning — Waters from Pt. St. George to Cape Mendocino CA from 10 to 60 nm",
+      "title": "Storm Warning — Waters from Cape Foulweather to Florence OR from 10 to 60 nm",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.004.1",
-      "observedAt": "2026-11-23T15:50:00-08:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.004.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-002-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.002.2",
-      "observedAt": "2026-11-23T15:50:00-08:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.004.1",
+      "observedAt": "2026-11-24T00:34:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1946,7 +1886,37 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.002.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.004.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-001-1",
+      "kind": "advisory",
+      "title": "Storm Warning — Waters from Cape Shoalwater WA to Cape Falcon OR from 10 to 60 nm; Waters from Cape Falcon to Cape F",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.001.1",
+      "observedAt": "2026-11-24T00:34:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
