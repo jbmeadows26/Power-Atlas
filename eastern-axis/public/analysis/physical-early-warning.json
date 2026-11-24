@@ -1,28 +1,24 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-24T10:23:56Z",
+  "checkedAt": "2026-11-24T22:44:30Z",
   "status": "ok",
   "metrics": [
     {
       "id": "sofr-rate",
       "label": "US secured overnight financing rate",
       "value": 3.92,
-      "previous": 3.91,
-      "period": "2026-11-20",
-      "previousPeriod": "2026-11-19",
+      "previous": 3.92,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-20",
       "interval": "daily",
       "unit": "% annualized",
       "group": "US",
       "compareMode": "basis-points",
-      "changePct": 0.256,
-      "changeBps": 1.0,
+      "changePct": 0.0,
+      "changeBps": 0.0,
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
       "history": [
-        {
-          "period": "2026-11-06",
-          "value": 3.89
-        },
         {
           "period": "2026-11-09",
           "value": 3.88
@@ -58,29 +54,29 @@
         {
           "period": "2026-11-20",
           "value": 3.92
+        },
+        {
+          "period": "2026-11-23",
+          "value": 3.92
         }
       ]
     },
     {
       "id": "sofr-volume",
       "label": "SOFR overnight repo transaction volume",
-      "value": 3141.0,
-      "previous": 3161.0,
-      "period": "2026-11-20",
-      "previousPeriod": "2026-11-19",
+      "value": 3173.0,
+      "previous": 3141.0,
+      "period": "2026-11-23",
+      "previousPeriod": "2026-11-20",
       "interval": "daily",
       "unit": "US$ billions",
       "group": "US",
       "compareMode": "percent",
-      "changePct": -0.633,
+      "changePct": 1.019,
       "changeBps": null,
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
       "history": [
-        {
-          "period": "2026-11-06",
-          "value": 3174.0
-        },
         {
           "period": "2026-11-09",
           "value": 3100.0
@@ -116,6 +112,10 @@
         {
           "period": "2026-11-20",
           "value": 3141.0
+        },
+        {
+          "period": "2026-11-23",
+          "value": 3173.0
         }
       ]
     },
@@ -4642,6 +4642,26 @@
       "scope": "Worldwide; significant earthquakes in a rolling seven-day feed",
       "events": [
         {
+          "id": "usgs-aka2026xhgksb",
+          "title": "M 4.2 - 10 km WSW of Point MacKenzie, Alaska",
+          "observedAt": "2026-11-24T16:37:31Z",
+          "group": "global",
+          "severity": "Observed",
+          "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/aka2026xhgksb",
+          "officialAlert": false,
+          "note": "USGS earthquake observation; not evidence of a deliberate act."
+        },
+        {
+          "id": "usgs-us6000ud6h",
+          "title": "M 6.4 - Mauritius - Reunion region",
+          "observedAt": "2026-11-24T11:06:14Z",
+          "group": "global",
+          "severity": "Observed",
+          "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us6000ud6h",
+          "officialAlert": false,
+          "note": "USGS earthquake observation; not evidence of a deliberate act."
+        },
+        {
           "id": "usgs-us6000ucvm",
           "title": "M 6.5 - Vanuatu region",
           "observedAt": "2026-11-23T02:40:58Z",
@@ -4719,6 +4739,36 @@
       "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
       "scope": "Worldwide vulnerability context, not country incident attribution",
       "events": [
+        {
+          "id": "cisa-kev-CVE-2026-132224",
+          "title": "Optimizely Web Experimentation — CVE-2026-132224",
+          "observedAt": "2026-11-24",
+          "group": "global",
+          "severity": "Known exploited vulnerability",
+          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+          "officialAlert": false,
+          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
+        },
+        {
+          "id": "cisa-kev-CVE-2026-131914",
+          "title": "Idunno AntiCsrf — CVE-2026-131914",
+          "observedAt": "2026-11-24",
+          "group": "global",
+          "severity": "Known exploited vulnerability",
+          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+          "officialAlert": false,
+          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
+        },
+        {
+          "id": "cisa-kev-CVE-2026-132165",
+          "title": "Drupal Core — CVE-2026-132165",
+          "observedAt": "2026-11-24",
+          "group": "global",
+          "severity": "Known exploited vulnerability",
+          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+          "officialAlert": false,
+          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
+        },
         {
           "id": "cisa-kev-CVE-2026-133968",
           "title": "Project MONAI MONAI Label — CVE-2026-133968",
@@ -4838,36 +4888,6 @@
           "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
           "officialAlert": false,
           "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
-        },
-        {
-          "id": "cisa-kev-CVE-2026-123039",
-          "title": "Check Point Multiple Products — CVE-2026-123039",
-          "observedAt": "2026-11-13",
-          "group": "global",
-          "severity": "Known exploited vulnerability",
-          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-          "officialAlert": false,
-          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
-        },
-        {
-          "id": "cisa-kev-CVE-2026-124194",
-          "title": "Microsoft Office — CVE-2026-124194",
-          "observedAt": "2026-11-10",
-          "group": "global",
-          "severity": "Known exploited vulnerability",
-          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-          "officialAlert": false,
-          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
-        },
-        {
-          "id": "cisa-kev-CVE-2026-111793",
-          "title": "Openwave Messaging Limited Webtop Media Transcoder — CVE-2026-111793",
-          "observedAt": "2026-11-10",
-          "group": "global",
-          "severity": "Known exploited vulnerability",
-          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-          "officialAlert": false,
-          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
         }
       ]
     },
@@ -4878,9 +4898,9 @@
       "scope": "Planetary Kp observations; not localized outage evidence",
       "events": [
         {
-          "id": "noaa-kp-2026-11-24T06:00",
-          "title": "Observed planetary geomagnetic Kp 1.67",
-          "observedAt": "2026-11-24T06:00:00",
+          "id": "noaa-kp-2026-11-24T18:00",
+          "title": "Observed planetary geomagnetic Kp 1.33",
+          "observedAt": "2026-11-24T18:00:00",
           "group": "global",
           "severity": "Observed",
           "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
@@ -4896,102 +4916,278 @@
       "scope": "U.S. active severe/extreme advisories; bounded first 100 per severity; not complete coverage",
       "events": [
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-001-2",
-          "title": "Storm Watch — Waters from Oregon Inlet to Cape Hatteras NC from 20 to 60 NM; Waters from Cape Hatteras to Ocracoke",
-          "observedAt": "2026-11-24T04:22:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-1ef71d776482f37ece5daaf955b4d1ea69c8c9f7-002-3",
+          "title": "Coastal Flood Warning — Eastern Strait of Juan de Fuca; Western Strait of Juan de Fuca",
+          "observedAt": "2026-11-24T14:38:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.001.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1ef71d776482f37ece5daaf955b4d1ea69c8c9f7.002.3",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T16:30:00-05:00",
+          "expiresAt": "2026-11-24T22:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-adf49c99b250b13c97e6c9cc9a22861e314b3837-008-1",
-          "title": "Storm Watch — Waters from Currituck Beach Light to Oregon Inlet NC from 20 to 60 NM",
-          "observedAt": "2026-11-24T04:22:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-1ef71d776482f37ece5daaf955b4d1ea69c8c9f7-002-1",
+          "title": "Coastal Flood Warning — Eastern Strait of Juan de Fuca; Western Strait of Juan de Fuca",
+          "observedAt": "2026-11-24T14:38:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.adf49c99b250b13c97e6c9cc9a22861e314b3837.008.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1ef71d776482f37ece5daaf955b4d1ea69c8c9f7.002.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T16:30:00-05:00",
+          "expiresAt": "2026-11-24T22:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-2294f5dca893e321703cee0f5c17f66554bab301-001-1",
-          "title": "Flood Watch — Metro Palm Beach County; Metro Broward County; Metropolitan Miami Dade; Coastal Palm Beach County; C",
-          "observedAt": "2026-11-24T04:16:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-1ef71d776482f37ece5daaf955b4d1ea69c8c9f7-001-3",
+          "title": "Coastal Flood Warning — Northern Washington Coast; Grays Harbor County Coast",
+          "observedAt": "2026-11-24T14:38:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2294f5dca893e321703cee0f5c17f66554bab301.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1ef71d776482f37ece5daaf955b4d1ea69c8c9f7.001.3",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T15:15:00-05:00",
+          "expiresAt": "2026-11-24T22:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-d98eee56545923c0be192b6724fc27c07a566c8f-001-1",
-          "title": "Storm Warning — Coastal Waters From Cape Flattery To James Island 10 To 60 Nm; Waters From James Island To Point Gre",
-          "observedAt": "2026-11-24T00:54:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-1ef71d776482f37ece5daaf955b4d1ea69c8c9f7-001-1",
+          "title": "Coastal Flood Warning — Northern Washington Coast; Grays Harbor County Coast",
+          "observedAt": "2026-11-24T14:38:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d98eee56545923c0be192b6724fc27c07a566c8f.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1ef71d776482f37ece5daaf955b4d1ea69c8c9f7.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T09:00:00-08:00",
+          "expiresAt": "2026-11-24T22:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-a4be7fd9d844ec4eb1f80d433a24905e74d2051f-001-2",
-          "title": "Storm Warning — Waters from Florence to Cape Blanco OR from 10 to 60 nm; Waters from Cape Blanco OR to Pt. St. Georg",
-          "observedAt": "2026-11-24T00:46:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-1ef71d776482f37ece5daaf955b4d1ea69c8c9f7-004-1",
+          "title": "Coastal Flood Warning — San Juan County",
+          "observedAt": "2026-11-24T14:38:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a4be7fd9d844ec4eb1f80d433a24905e74d2051f.001.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1ef71d776482f37ece5daaf955b4d1ea69c8c9f7.004.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T14:00:00-08:00",
+          "expiresAt": "2026-11-24T22:45:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-002-1",
-          "title": "Coastal Flood Warning — Orange County Coastal",
-          "observedAt": "2026-11-24T00:44:00-08:00",
-          "group": "US",
-          "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.002.1",
-          "officialAlert": true,
-          "expiresAt": "2026-11-24T16:45:00-08:00",
-          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
-        },
-        {
-          "id": "nws-urn-oid-2-49-0-1-840-0-4159fc7a39a1e0bed7ce132ec249a7470005f2e0-001-1",
+          "id": "nws-urn-oid-2-49-0-1-840-0-748f6094321dc896dc7d481a2b775637abd41ad6-001-1",
           "title": "Coastal Flood Warning — San Diego County Coastal Areas",
-          "observedAt": "2026-11-24T00:44:00-08:00",
+          "observedAt": "2026-11-24T13:57:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4159fc7a39a1e0bed7ce132ec249a7470005f2e0.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.748f6094321dc896dc7d481a2b775637abd41ad6.001.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T16:45:00-08:00",
+          "expiresAt": "2026-11-24T22:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-004-1",
-          "title": "Storm Warning — Waters from Cape Foulweather to Florence OR from 10 to 60 nm",
-          "observedAt": "2026-11-24T00:34:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-748f6094321dc896dc7d481a2b775637abd41ad6-002-1",
+          "title": "Coastal Flood Warning — Orange County Coastal",
+          "observedAt": "2026-11-24T13:57:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.004.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.748f6094321dc896dc7d481a2b775637abd41ad6.002.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T17:00:00-08:00",
+          "expiresAt": "2026-11-24T22:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-4e98d7c9698378d30d3824d53f581307ffb49726-001-1",
-          "title": "Storm Warning — Waters from Cape Shoalwater WA to Cape Falcon OR from 10 to 60 nm; Waters from Cape Falcon to Cape F",
-          "observedAt": "2026-11-24T00:34:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed-001-2",
+          "title": "Coastal Flood Warning — Coastal North Bay Including Point Reyes National Seashore; San Francisco Peninsula Coast; Northern M",
+          "observedAt": "2026-11-24T13:42:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4e98d7c9698378d30d3824d53f581307ffb49726.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed.001.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-24T17:00:00-08:00",
+          "expiresAt": "2026-11-25T06:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed-003-1",
+          "title": "Coastal Flood Warning — North Bay Interior Valleys; San Francisco Bay Shoreline",
+          "observedAt": "2026-11-24T13:42:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed.003.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T06:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed-002-1",
+          "title": "Coastal Flood Warning — San Francisco",
+          "observedAt": "2026-11-24T13:42:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.032dba2fb0c0f2fbdcc7a33e4f4da70f42fa5eed.002.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T06:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-969da6a1315c09b70c3331941fcdf51f3ef4dd7a-001-1",
+          "title": "Flood Warning — Seminole, FL",
+          "observedAt": "2026-11-24T16:29:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.969da6a1315c09b70c3331941fcdf51f3ef4dd7a.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-24T23:00:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-2b4c9d5f0cef1d14dcc7d893b16813ac145de428-002-2",
+          "title": "Coastal Flood Warning — Northern Coastal Humboldt",
+          "observedAt": "2026-11-24T13:27:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2b4c9d5f0cef1d14dcc7d893b16813ac145de428.002.2",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T14:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-2b4c9d5f0cef1d14dcc7d893b16813ac145de428-001-2",
+          "title": "Coastal Flood Warning — Coastal Del Norte; Southwestern Humboldt; Coastal Mendocino",
+          "observedAt": "2026-11-24T13:27:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2b4c9d5f0cef1d14dcc7d893b16813ac145de428.001.2",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T14:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-104567b82b9185a2927547c0b0f317d7075bfe0e-001-1",
+          "title": "Flood Warning — Solano, CA",
+          "observedAt": "2026-11-24T13:24:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.104567b82b9185a2927547c0b0f317d7075bfe0e.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-26T16:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-cee96920d1dcda37c73ab19a0483606358d6333e-003-1",
+          "title": "High Wind Watch — Clatsop County Coast; Tillamook County Coast; South Washington Coast",
+          "observedAt": "2026-11-24T13:23:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.cee96920d1dcda37c73ab19a0483606358d6333e.003.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T01:30:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-e452d3cb74c57675c22f677661b66b8e45b8639c-002-1",
+          "title": "Storm Warning — Waters from Florence to Cape Blanco OR from 10 to 60 nm; Waters from Cape Blanco OR to Pt. St. Georg",
+          "observedAt": "2026-11-24T13:22:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e452d3cb74c57675c22f677661b66b8e45b8639c.002.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T02:30:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-e886c9108d8dd7001ae8600ed9510384d4b061b5-001-1",
+          "title": "Flood Warning — Sacramento, CA; San Joaquin, CA; Solano, CA; Yolo, CA",
+          "observedAt": "2026-11-24T13:20:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e886c9108d8dd7001ae8600ed9510384d4b061b5.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-26T16:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-ebcc157f2c7648e6e56e0dba86263946be25a4cc-004-3",
+          "title": "Storm Watch — Columbia River Bar",
+          "observedAt": "2026-11-24T13:15:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ebcc157f2c7648e6e56e0dba86263946be25a4cc.004.3",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T05:15:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-ebcc157f2c7648e6e56e0dba86263946be25a4cc-005-3",
+          "title": "Storm Watch — Coastal waters from Cape Shoalwater WA to Cape Falcon OR out 10 nm; Coastal waters from Cape Falcon ",
+          "observedAt": "2026-11-24T13:15:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ebcc157f2c7648e6e56e0dba86263946be25a4cc.005.3",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T05:15:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-ebcc157f2c7648e6e56e0dba86263946be25a4cc-002-4",
+          "title": "Storm Watch — Waters from Cape Shoalwater WA to Cape Falcon OR from 10 to 60 nm; Waters from Cape Falcon to Cape F",
+          "observedAt": "2026-11-24T13:15:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ebcc157f2c7648e6e56e0dba86263946be25a4cc.002.4",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T05:15:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-7511c2222f511824b12c2b3dbafd08aea2c58e1b-002-1",
+          "title": "Coastal Flood Warning — Hatteras Island",
+          "observedAt": "2026-11-24T16:14:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7511c2222f511824b12c2b3dbafd08aea2c58e1b.002.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T04:15:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-7511c2222f511824b12c2b3dbafd08aea2c58e1b-001-1",
+          "title": "Coastal Flood Warning — Northern Outer Banks",
+          "observedAt": "2026-11-24T16:14:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7511c2222f511824b12c2b3dbafd08aea2c58e1b.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T04:15:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-7511c2222f511824b12c2b3dbafd08aea2c58e1b-005-1",
+          "title": "Coastal Flood Warning — Beaufort; Pamlico; Southern Craven",
+          "observedAt": "2026-11-24T16:14:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7511c2222f511824b12c2b3dbafd08aea2c58e1b.005.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T04:15:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-7511c2222f511824b12c2b3dbafd08aea2c58e1b-003-1",
+          "title": "Coastal Flood Warning — East Carteret",
+          "observedAt": "2026-11-24T16:14:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7511c2222f511824b12c2b3dbafd08aea2c58e1b.003.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T04:15:00-05:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-7511c2222f511824b12c2b3dbafd08aea2c58e1b-004-1",
+          "title": "Coastal Flood Warning — Ocracoke Island",
+          "observedAt": "2026-11-24T16:14:00-05:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7511c2222f511824b12c2b3dbafd08aea2c58e1b.004.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-25T04:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         }
       ]
@@ -5003,8 +5199,8 @@
       "score": 8.7,
       "published": "2026-11-24",
       "previousScore": 8.7,
-      "previousCheckedAt": "2026-11-24T00:19:07Z",
-      "checkedAt": "2026-11-24T10:23:59Z",
+      "previousCheckedAt": "2026-11-24T10:23:59Z",
+      "checkedAt": "2026-11-24T22:44:35Z",
       "codeReview": 0,
       "signedReleases": 10,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/curl/curl",
@@ -5015,8 +5211,8 @@
       "score": 6.3,
       "published": "2026-11-09",
       "previousScore": 6.3,
-      "previousCheckedAt": "2026-11-24T00:19:07Z",
-      "checkedAt": "2026-11-24T10:23:59Z",
+      "previousCheckedAt": "2026-11-24T10:23:59Z",
+      "checkedAt": "2026-11-24T22:44:35Z",
       "codeReview": 0,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/openssl/openssl",
@@ -5027,8 +5223,8 @@
       "score": 7.5,
       "published": "2026-11-16",
       "previousScore": 7.5,
-      "previousCheckedAt": "2026-11-24T00:19:07Z",
-      "checkedAt": "2026-11-24T10:23:59Z",
+      "previousCheckedAt": "2026-11-24T10:23:59Z",
+      "checkedAt": "2026-11-24T22:44:35Z",
       "codeReview": 1,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/libexpat/libexpat",
@@ -5039,110 +5235,110 @@
     {
       "id": "sofr",
       "status": "ok",
-      "detail": "2 measurements; source period 2026-11-20",
-      "checkedAt": "2026-11-24T10:23:56Z"
+      "detail": "2 measurements; source period 2026-11-23",
+      "checkedAt": "2026-11-24T22:44:30Z"
     },
     {
       "id": "pink-sheet",
       "status": "ok",
       "detail": "11 measurements; source period 2026-10",
-      "checkedAt": "2026-11-24T10:23:57Z"
+      "checkedAt": "2026-11-24T22:44:31Z"
     },
     {
       "id": "fao-food",
       "status": "ok",
       "detail": "6 measurements; source period 2026-10",
-      "checkedAt": "2026-11-24T10:23:57Z"
+      "checkedAt": "2026-11-24T22:44:31Z"
     },
     {
       "id": "gps:world",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:57Z"
+      "checkedAt": "2026-11-24T22:44:31Z"
     },
     {
       "id": "gps:united-states",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:57Z"
+      "checkedAt": "2026-11-24T22:44:32Z"
     },
     {
       "id": "gps:taiwan-strait",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:57Z"
+      "checkedAt": "2026-11-24T22:44:32Z"
     },
     {
       "id": "gps:persian-gulf",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "checkedAt": "2026-11-24T22:44:32Z"
     },
     {
       "id": "gps:baltic-sea",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "checkedAt": "2026-11-24T22:44:32Z"
     },
     {
       "id": "gps:strait-of-hormuz",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "checkedAt": "2026-11-24T22:44:33Z"
     },
     {
       "id": "gps:eastern-mediterranean",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "checkedAt": "2026-11-24T22:44:33Z"
     },
     {
       "id": "gps:east-asia",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-23",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "checkedAt": "2026-11-24T22:44:33Z"
     },
     {
       "id": "usgs-significant",
       "status": "ok",
-      "detail": "7 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T10:23:58Z"
+      "detail": "9 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-24T22:44:33Z"
     },
     {
       "id": "cisa-kev",
       "status": "ok",
       "detail": "15 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "checkedAt": "2026-11-24T22:44:34Z"
     },
     {
       "id": "noaa-space-weather",
       "status": "ok",
       "detail": "1 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "checkedAt": "2026-11-24T22:44:34Z"
     },
     {
       "id": "nws-severe-1",
       "status": "ok",
-      "detail": "9 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "detail": "25 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-24T22:44:35Z"
     },
     {
       "id": "scorecard:curl/curl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-24; current score 8.7/10",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "checkedAt": "2026-11-24T22:44:35Z"
     },
     {
       "id": "scorecard:openssl/openssl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-09; current score 6.3/10",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "checkedAt": "2026-11-24T22:44:35Z"
     },
     {
       "id": "scorecard:libexpat/libexpat",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-16; current score 7.5/10",
-      "checkedAt": "2026-11-24T10:23:59Z"
+      "checkedAt": "2026-11-24T22:44:35Z"
     }
   ],
   "limitations": [
