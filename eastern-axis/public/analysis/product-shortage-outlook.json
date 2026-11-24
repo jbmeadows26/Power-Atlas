@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-24T00:19:38Z",
+  "generatedAt": "2026-11-24T09:43:27Z",
   "sourceCheckedAt": "2026-11-24T00:19:01Z",
   "status": "partial",
   "inventoryContext": {
-    "checkedAt": "2026-11-24T00:19:37Z",
+    "checkedAt": "2026-11-24T09:43:27Z",
     "directProducts": 1,
     "sectorRatios": [
       {
@@ -90,14 +90,12 @@
     "reviewGate": "A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
     "probabilityCalibration": "unavailable",
     "portwatch": "unavailable",
-    "status": "partial",
+    "status": "available",
     "model": "qwen2.5:1.5b",
-    "reviewed": 1,
+    "reviewed": 2,
     "eligibleForModel": 2,
     "screened": 14,
-    "errors": [
-      "fuel: ValueError"
-    ],
+    "errors": [],
     "note": "No AI rationale is used as standalone evidence or eligibility for Command Center."
   },
   "summary": {
@@ -109,7 +107,7 @@
     "inventoryFeeds": 5,
     "dataGaps": 2,
     "commandEligible": 0,
-    "modelReviewed": 1
+    "modelReviewed": 2
   },
   "forecasts": [
     {
@@ -123,7 +121,7 @@
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
       "coverage": "partial",
-      "modelReviewed": false,
+      "modelReviewed": true,
       "inventorySeriesAvailable": 1,
       "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
@@ -164,7 +162,15 @@
           "unit": "million barrels",
           "scope": "United States; wholesale motor gasoline inventories"
         }
-      ]
+      ],
+      "modelAssessment": {
+        "decision": "investigate",
+        "rationale": "The input-cost-watch signal suggests a potential input cost increase, which could indicate a price spike. The direct inventory data shows a 2.5% increase in stock, which is a significant change. These signals warrant further investigation to determine if there is a shortage of transport fuels.",
+        "sourceEvidenceIds": [
+          "https://www.worldbank.org/en/research/commodity-markets",
+          "https://www.eia.gov/petroleum/supply/weekly/"
+        ]
+      }
     },
     {
       "id": "sugar",
@@ -209,7 +215,7 @@
       ],
       "modelAssessment": {
         "decision": "investigate",
-        "rationale": "The input price of sugar-containing foods has increased by 6.7% in the past year, which could indicate a shortage or significant price pressure. This warrants further investigation into stock levels and potential supply chain issues.",
+        "rationale": "The input price change of 6.7% over the period of October 2026 suggests a potential price spike, which could indicate a shortage of sugar-containing foods. However, this is not a definitive indicator of a retail product shortage and should be monitored closely.",
         "sourceEvidenceIds": [
           "https://www.fao.org/worldfoodsituation/foodpricesindex"
         ]
@@ -807,5 +813,5 @@
     "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
     "Lack of evidence is not evidence of adequate stock."
   ],
-  "reviewedAt": "2026-11-24T00:21:05Z"
+  "reviewedAt": "2026-11-24T09:44:29Z"
 }
