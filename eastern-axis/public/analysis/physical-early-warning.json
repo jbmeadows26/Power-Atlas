@@ -1,15 +1,15 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-23T08:09:08Z",
+  "checkedAt": "2026-11-24T00:19:01Z",
   "status": "ok",
   "metrics": [
     {
       "id": "sofr-rate",
       "label": "US secured overnight financing rate",
-      "value": 3.91,
-      "previous": 3.9,
-      "period": "2026-11-19",
-      "previousPeriod": "2026-11-18",
+      "value": 3.92,
+      "previous": 3.91,
+      "period": "2026-11-20",
+      "previousPeriod": "2026-11-19",
       "interval": "daily",
       "unit": "% annualized",
       "group": "US",
@@ -19,10 +19,6 @@
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
       "history": [
-        {
-          "period": "2026-11-05",
-          "value": 3.92
-        },
         {
           "period": "2026-11-06",
           "value": 3.89
@@ -58,29 +54,29 @@
         {
           "period": "2026-11-19",
           "value": 3.91
+        },
+        {
+          "period": "2026-11-20",
+          "value": 3.92
         }
       ]
     },
     {
       "id": "sofr-volume",
       "label": "SOFR overnight repo transaction volume",
-      "value": 3161.0,
-      "previous": 3134.0,
-      "period": "2026-11-19",
-      "previousPeriod": "2026-11-18",
+      "value": 3141.0,
+      "previous": 3161.0,
+      "period": "2026-11-20",
+      "previousPeriod": "2026-11-19",
       "interval": "daily",
       "unit": "US$ billions",
       "group": "US",
       "compareMode": "percent",
-      "changePct": 0.862,
+      "changePct": -0.633,
       "changeBps": null,
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
       "history": [
-        {
-          "period": "2026-11-05",
-          "value": 3256.0
-        },
         {
           "period": "2026-11-06",
           "value": 3174.0
@@ -116,6 +112,10 @@
         {
           "period": "2026-11-19",
           "value": 3161.0
+        },
+        {
+          "period": "2026-11-20",
+          "value": 3141.0
         }
       ]
     },
@@ -3096,218 +3096,218 @@
     {
       "id": "gps-accuracy-united-states",
       "label": "United States aviation GNSS quality anomaly",
-      "value": 4.0,
-      "previous": 6.7,
+      "value": 3.7,
+      "previous": 5.7,
       "period": "2026-11-22",
       "previousPeriod": "2026-11-21",
       "interval": "daily",
       "unit": "% affected sampled hexagons",
       "group": "US",
       "compareMode": "percentage-points",
-      "changePct": -40.299,
-      "changePp": -2.7,
+      "changePct": -35.088,
+      "changePp": -2.0,
       "changeBps": null,
-      "sampleSize": 3581,
+      "sampleSize": 4418,
       "history": [
         {
           "period": "2026-10-14",
-          "value": 7.4,
-          "sampleSize": 3609
+          "value": 6.3,
+          "sampleSize": 4611
         },
         {
           "period": "2026-10-15",
-          "value": 8.1,
-          "sampleSize": 3612
+          "value": 6.9,
+          "sampleSize": 4649
         },
         {
           "period": "2026-10-16",
-          "value": 6.0,
-          "sampleSize": 3608
+          "value": 5.4,
+          "sampleSize": 4615
         },
         {
           "period": "2026-10-17",
-          "value": 7.3,
-          "sampleSize": 3603
+          "value": 6.9,
+          "sampleSize": 4620
         },
         {
           "period": "2026-10-18",
-          "value": 8.5,
-          "sampleSize": 3604
+          "value": 7.5,
+          "sampleSize": 4520
         },
         {
           "period": "2026-10-19",
-          "value": 9.7,
-          "sampleSize": 3611
+          "value": 8.1,
+          "sampleSize": 4562
         },
         {
           "period": "2026-10-20",
-          "value": 10.6,
-          "sampleSize": 3606
+          "value": 8.8,
+          "sampleSize": 4594
         },
         {
           "period": "2026-10-21",
-          "value": 11.1,
-          "sampleSize": 3612
+          "value": 9.3,
+          "sampleSize": 4537
         },
         {
           "period": "2026-10-22",
-          "value": 9.2,
-          "sampleSize": 3615
+          "value": 8.5,
+          "sampleSize": 4181
         },
         {
           "period": "2026-10-23",
-          "value": 9.0,
-          "sampleSize": 3616
+          "value": 8.4,
+          "sampleSize": 4135
         },
         {
           "period": "2026-10-24",
-          "value": 9.3,
-          "sampleSize": 3605
+          "value": 8.3,
+          "sampleSize": 4102
         },
         {
           "period": "2026-10-25",
-          "value": 9.3,
-          "sampleSize": 3606
+          "value": 8.4,
+          "sampleSize": 4105
         },
         {
           "period": "2026-10-26",
-          "value": 7.6,
-          "sampleSize": 3609
+          "value": 6.4,
+          "sampleSize": 4420
         },
         {
           "period": "2026-10-27",
-          "value": 9.5,
-          "sampleSize": 3604
+          "value": 8.4,
+          "sampleSize": 4346
         },
         {
           "period": "2026-10-28",
-          "value": 10.1,
-          "sampleSize": 3609
+          "value": 9.0,
+          "sampleSize": 4295
         },
         {
           "period": "2026-10-29",
-          "value": 8.9,
-          "sampleSize": 3604
+          "value": 7.8,
+          "sampleSize": 4301
         },
         {
           "period": "2026-10-30",
-          "value": 6.4,
-          "sampleSize": 3602
+          "value": 5.2,
+          "sampleSize": 4655
         },
         {
           "period": "2026-10-31",
-          "value": 5.7,
-          "sampleSize": 3605
+          "value": 4.8,
+          "sampleSize": 4575
         },
         {
           "period": "2026-11-01",
-          "value": 5.2,
-          "sampleSize": 3599
+          "value": 4.8,
+          "sampleSize": 4523
         },
         {
           "period": "2026-11-02",
-          "value": 5.4,
-          "sampleSize": 3610
+          "value": 4.7,
+          "sampleSize": 4645
         },
         {
           "period": "2026-11-03",
-          "value": 6.9,
-          "sampleSize": 3608
+          "value": 6.1,
+          "sampleSize": 4603
         },
         {
           "period": "2026-11-04",
-          "value": 8.0,
-          "sampleSize": 3605
+          "value": 6.9,
+          "sampleSize": 4525
         },
         {
           "period": "2026-11-05",
-          "value": 7.7,
-          "sampleSize": 3607
+          "value": 6.9,
+          "sampleSize": 4547
         },
         {
           "period": "2026-11-06",
-          "value": 6.9,
-          "sampleSize": 3576
+          "value": 6.1,
+          "sampleSize": 4533
         },
         {
           "period": "2026-11-07",
-          "value": 6.2,
-          "sampleSize": 3588
+          "value": 5.4,
+          "sampleSize": 4579
         },
         {
           "period": "2026-11-08",
-          "value": 5.5,
-          "sampleSize": 3570
+          "value": 4.8,
+          "sampleSize": 4517
         },
         {
           "period": "2026-11-09",
-          "value": 7.8,
-          "sampleSize": 3580
+          "value": 6.4,
+          "sampleSize": 4621
         },
         {
           "period": "2026-11-10",
-          "value": 9.2,
-          "sampleSize": 3580
+          "value": 7.8,
+          "sampleSize": 4554
         },
         {
           "period": "2026-11-11",
-          "value": 8.1,
-          "sampleSize": 3581
+          "value": 7.0,
+          "sampleSize": 4592
         },
         {
           "period": "2026-11-12",
-          "value": 7.5,
-          "sampleSize": 3618
+          "value": 6.4,
+          "sampleSize": 4608
         },
         {
           "period": "2026-11-13",
-          "value": 6.4,
-          "sampleSize": 3614
+          "value": 5.8,
+          "sampleSize": 4539
         },
         {
           "period": "2026-11-14",
-          "value": 6.5,
-          "sampleSize": 3604
+          "value": 5.4,
+          "sampleSize": 4652
         },
         {
           "period": "2026-11-15",
-          "value": 5.0,
-          "sampleSize": 3607
+          "value": 4.2,
+          "sampleSize": 4594
         },
         {
           "period": "2026-11-16",
-          "value": 6.8,
-          "sampleSize": 3613
+          "value": 5.6,
+          "sampleSize": 4595
         },
         {
           "period": "2026-11-17",
-          "value": 7.8,
-          "sampleSize": 3592
+          "value": 6.9,
+          "sampleSize": 4580
         },
         {
           "period": "2026-11-18",
-          "value": 8.5,
-          "sampleSize": 3582
+          "value": 7.1,
+          "sampleSize": 4530
         },
         {
           "period": "2026-11-19",
-          "value": 7.4,
-          "sampleSize": 3583
+          "value": 6.2,
+          "sampleSize": 4549
         },
         {
           "period": "2026-11-20",
-          "value": 8.7,
-          "sampleSize": 3592
+          "value": 7.4,
+          "sampleSize": 4599
         },
         {
           "period": "2026-11-21",
-          "value": 6.7,
-          "sampleSize": 3584
+          "value": 5.7,
+          "sampleSize": 4494
         },
         {
           "period": "2026-11-22",
-          "value": 4.0,
-          "sampleSize": 3581
+          "value": 3.7,
+          "sampleSize": 4418
         }
       ],
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
@@ -4710,16 +4710,6 @@
           "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tyw8",
           "officialAlert": false,
           "note": "USGS earthquake observation; not evidence of a deliberate act."
-        },
-        {
-          "id": "usgs-us7000tymu",
-          "title": "M 6.6 - 149 km WSW of Tual, Indonesia",
-          "observedAt": "2026-11-16T21:11:20Z",
-          "group": "global",
-          "severity": "Observed",
-          "sourceUrl": "https://earthquake.usgs.gov/earthquakes/eventpage/us7000tymu",
-          "officialAlert": false,
-          "note": "USGS earthquake observation; not evidence of a deliberate act."
         }
       ]
     },
@@ -4729,6 +4719,26 @@
       "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
       "scope": "Worldwide vulnerability context, not country incident attribution",
       "events": [
+        {
+          "id": "cisa-kev-CVE-2026-133968",
+          "title": "Project MONAI MONAI Label — CVE-2026-133968",
+          "observedAt": "2026-11-23",
+          "group": "global",
+          "severity": "Known exploited vulnerability",
+          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+          "officialAlert": false,
+          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
+        },
+        {
+          "id": "cisa-kev-CVE-2026-134624",
+          "title": "N-able MailAssure — CVE-2026-134624",
+          "observedAt": "2026-11-23",
+          "group": "global",
+          "severity": "Known exploited vulnerability",
+          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+          "officialAlert": false,
+          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
+        },
         {
           "id": "cisa-kev-CVE-2026-129448",
           "title": "Apache Roller — CVE-2026-129448",
@@ -4858,26 +4868,6 @@
           "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
           "officialAlert": false,
           "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
-        },
-        {
-          "id": "cisa-kev-CVE-2026-20320",
-          "title": "Cisco BroadWorks — CVE-2026-20320",
-          "observedAt": "2026-11-10",
-          "group": "global",
-          "severity": "Known exploited vulnerability",
-          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-          "officialAlert": false,
-          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
-        },
-        {
-          "id": "cisa-kev-CVE-2026-111560",
-          "title": "Barracuda Networks Multiple Products — CVE-2026-111560",
-          "observedAt": "2026-11-10",
-          "group": "global",
-          "severity": "Known exploited vulnerability",
-          "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-          "officialAlert": false,
-          "note": "CISA KEV listing confirms exploitation in the wild, not a breach of a particular organization."
         }
       ]
     },
@@ -4888,9 +4878,9 @@
       "scope": "Planetary Kp observations; not localized outage evidence",
       "events": [
         {
-          "id": "noaa-kp-2026-11-23T03:00",
-          "title": "Observed planetary geomagnetic Kp 0.33",
-          "observedAt": "2026-11-23T03:00:00",
+          "id": "noaa-kp-2026-11-23T21:00",
+          "title": "Observed planetary geomagnetic Kp 1.0",
+          "observedAt": "2026-11-23T21:00:00",
           "group": "global",
           "severity": "Observed",
           "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
@@ -4906,91 +4896,113 @@
       "scope": "U.S. active severe/extreme advisories; bounded first 100 per severity; not complete coverage",
       "events": [
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-a937ff90d074e4f662f685c952256457d09172d6-001-1",
-          "title": "Freeze Warning — Custer; Blaine; Kingfisher; Logan; Washita; Caddo; Canadian; Oklahoma; Grady; McClain; Cleveland; Ha",
-          "observedAt": "2026-11-23T01:30:00-06:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-005-2",
+          "title": "Storm Watch — Coastal waters from Parramore Island to Cape Charles Light VA out 20 NM; Coastal Waters from Cape Ch",
+          "observedAt": "2026-11-23T19:08:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a937ff90d074e4f662f685c952256457d09172d6.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.005.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T15:30:00-06:00",
+          "expiresAt": "2026-11-24T03:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-61912a87a8f607ca967cde8abf533b5866682c86-001-1",
-          "title": "Coastal Flood Warning — Northern Coastal Humboldt",
-          "observedAt": "2026-11-22T22:49:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-004-2",
+          "title": "Storm Watch — Coastal waters from Fenwick Island DE to Chincoteague VA out 20 NM; Coastal waters from Chincoteague",
+          "observedAt": "2026-11-23T19:08:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.61912a87a8f607ca967cde8abf533b5866682c86.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.004.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T12:00:00-08:00",
+          "expiresAt": "2026-11-24T03:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-3ae582945f1f2353264491f3bf2a438bac9f9854-001-1",
-          "title": "Coastal Flood Warning — Clatsop County Coast; Tillamook County Coast; Central Coast of Oregon; South Washington Coast",
-          "observedAt": "2026-11-22T22:48:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-009-1",
+          "title": "Storm Watch — Waters from Parramore Island VA to Cape Charles Light VA from 20 to 60 NM; Waters from Cape Charles ",
+          "observedAt": "2026-11-23T19:08:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3ae582945f1f2353264491f3bf2a438bac9f9854.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.009.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T13:00:00-08:00",
+          "expiresAt": "2026-11-24T03:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-856c61f9c5c2de6bcc4de66fca47cd9de0032d51-004-1",
-          "title": "High Wind Watch — Coastal Del Norte",
-          "observedAt": "2026-11-22T22:39:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-008-1",
+          "title": "Storm Watch — Waters from Fenwick Island DE to Chintoteague VA from 20 to 60 NM; Waters from Chincoteague VA to Pa",
+          "observedAt": "2026-11-23T19:08:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.856c61f9c5c2de6bcc4de66fca47cd9de0032d51.004.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.008.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T10:00:00-08:00",
+          "expiresAt": "2026-11-24T03:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-d2115dccfa6c4a6f7576fa0af08419ee89a80ee9-002-1",
-          "title": "Coastal Flood Warning — Inland Flagler; Eastern Putnam; Coastal Flagler",
-          "observedAt": "2026-11-23T01:23:00-05:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae-006-2",
+          "title": "Storm Watch — Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cap",
+          "observedAt": "2026-11-23T19:08:00-05:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.d2115dccfa6c4a6f7576fa0af08419ee89a80ee9.002.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.18bb628a3ff0ab9ac8b67c03e0e18217f817d1ae.006.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T14:30:00-05:00",
+          "expiresAt": "2026-11-24T03:15:00-05:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-55a0c57a5bb8a5dba35ca533b1f6dfbb25ba0ccb-003-2",
-          "title": "Storm Warning — Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm",
-          "observedAt": "2026-11-22T21:59:00-08:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-002-1",
+          "title": "Coastal Flood Warning — Ventura County Beaches",
+          "observedAt": "2026-11-23T16:04:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.55a0c57a5bb8a5dba35ca533b1f6dfbb25ba0ccb.003.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.002.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T06:00:00-08:00",
+          "expiresAt": "2026-11-24T14:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-55a0c57a5bb8a5dba35ca533b1f6dfbb25ba0ccb-004-2",
+          "id": "nws-urn-oid-2-49-0-1-840-0-db2ab5a30408e3cb6b893064cbfc7c906e197d24-001-1",
+          "title": "Coastal Flood Warning — San Luis Obispo County Beaches; Santa Barbara County Central Coast Beaches",
+          "observedAt": "2026-11-23T16:04:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.db2ab5a30408e3cb6b893064cbfc7c906e197d24.001.1",
+          "officialAlert": true,
+          "expiresAt": "2026-11-24T14:00:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-bec29d45cae6ee03e927bddf7552c5c47b6785f2-001-2",
+          "title": "Coastal Flood Warning — South Central Oregon Coast; Curry County Coast",
+          "observedAt": "2026-11-23T16:01:00-08:00",
+          "group": "US",
+          "severity": "Severe",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bec29d45cae6ee03e927bddf7552c5c47b6785f2.001.2",
+          "officialAlert": true,
+          "expiresAt": "2026-11-24T04:30:00-08:00",
+          "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
+        },
+        {
+          "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-004-1",
           "title": "Storm Warning — Waters from Pt. St. George to Cape Mendocino CA from 10 to 60 nm",
-          "observedAt": "2026-11-22T21:59:00-08:00",
+          "observedAt": "2026-11-23T15:50:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.55a0c57a5bb8a5dba35ca533b1f6dfbb25ba0ccb.004.2",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.004.1",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T06:00:00-08:00",
+          "expiresAt": "2026-11-24T00:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         },
         {
-          "id": "nws-urn-oid-2-49-0-1-840-0-42d7cbba34349486ce41001b3f2707ba343811b9-001-1",
-          "title": "Flash Flood Warning — Bayamon, PR; Catano, PR; Guaynabo, PR; San Juan, PR",
-          "observedAt": "2026-11-23T01:37:00-04:00",
+          "id": "nws-urn-oid-2-49-0-1-840-0-8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d-002-2",
+          "title": "Storm Warning — Coastal waters from Pt. St. George to Cape Mendocino CA out 10 nm",
+          "observedAt": "2026-11-23T15:50:00-08:00",
           "group": "US",
           "severity": "Severe",
-          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.42d7cbba34349486ce41001b3f2707ba343811b9.001.1",
+          "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8c98f1d5ee4b23775485b8ea0b3affbbfccadd1d.002.2",
           "officialAlert": true,
-          "expiresAt": "2026-11-23T04:30:00-04:00",
+          "expiresAt": "2026-11-24T00:00:00-08:00",
           "note": "Active NWS advisory with local area, expiry and direct official record; not global coverage."
         }
       ]
@@ -4999,11 +5011,11 @@
   "oss": [
     {
       "repository": "curl/curl",
-      "score": 9.1,
+      "score": 8.7,
       "published": "2026-11-23",
       "previousScore": 9.1,
-      "previousCheckedAt": "2026-11-22T19:57:40Z",
-      "checkedAt": "2026-11-23T08:09:12Z",
+      "previousCheckedAt": "2026-11-23T08:09:12Z",
+      "checkedAt": "2026-11-24T00:19:07Z",
       "codeReview": 0,
       "signedReleases": 10,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/curl/curl",
@@ -5014,8 +5026,8 @@
       "score": 6.3,
       "published": "2026-11-09",
       "previousScore": 6.3,
-      "previousCheckedAt": "2026-11-22T19:57:40Z",
-      "checkedAt": "2026-11-23T08:09:12Z",
+      "previousCheckedAt": "2026-11-23T08:09:12Z",
+      "checkedAt": "2026-11-24T00:19:07Z",
       "codeReview": 0,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/openssl/openssl",
@@ -5026,8 +5038,8 @@
       "score": 7.5,
       "published": "2026-11-16",
       "previousScore": 7.5,
-      "previousCheckedAt": "2026-11-22T19:57:40Z",
-      "checkedAt": "2026-11-23T08:09:12Z",
+      "previousCheckedAt": "2026-11-23T08:09:12Z",
+      "checkedAt": "2026-11-24T00:19:07Z",
       "codeReview": 1,
       "signedReleases": 8,
       "sourceUrl": "https://scorecard.dev/viewer/?uri=github.com/libexpat/libexpat",
@@ -5038,110 +5050,110 @@
     {
       "id": "sofr",
       "status": "ok",
-      "detail": "2 measurements; source period 2026-11-19",
-      "checkedAt": "2026-11-23T08:09:08Z"
+      "detail": "2 measurements; source period 2026-11-20",
+      "checkedAt": "2026-11-24T00:19:02Z"
     },
     {
       "id": "pink-sheet",
       "status": "ok",
       "detail": "11 measurements; source period 2026-10",
-      "checkedAt": "2026-11-23T08:09:09Z"
+      "checkedAt": "2026-11-24T00:19:02Z"
     },
     {
       "id": "fao-food",
       "status": "ok",
       "detail": "6 measurements; source period 2026-10",
-      "checkedAt": "2026-11-23T08:09:09Z"
+      "checkedAt": "2026-11-24T00:19:03Z"
     },
     {
       "id": "gps:world",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:09Z"
+      "checkedAt": "2026-11-24T00:19:03Z"
     },
     {
       "id": "gps:united-states",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:10Z"
+      "checkedAt": "2026-11-24T00:19:03Z"
     },
     {
       "id": "gps:taiwan-strait",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:10Z"
+      "checkedAt": "2026-11-24T00:19:04Z"
     },
     {
       "id": "gps:persian-gulf",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:10Z"
+      "checkedAt": "2026-11-24T00:19:04Z"
     },
     {
       "id": "gps:baltic-sea",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:10Z"
+      "checkedAt": "2026-11-24T00:19:05Z"
     },
     {
       "id": "gps:strait-of-hormuz",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:11Z"
+      "checkedAt": "2026-11-24T00:19:05Z"
     },
     {
       "id": "gps:eastern-mediterranean",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:11Z"
+      "checkedAt": "2026-11-24T00:19:06Z"
     },
     {
       "id": "gps:east-asia",
       "status": "ok",
       "detail": "1 measurements; source period 2026-11-22",
-      "checkedAt": "2026-11-23T08:09:11Z"
+      "checkedAt": "2026-11-24T00:19:06Z"
     },
     {
       "id": "usgs-significant",
       "status": "ok",
-      "detail": "8 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-23T08:09:11Z"
+      "detail": "7 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-24T00:19:06Z"
     },
     {
       "id": "cisa-kev",
       "status": "ok",
       "detail": "15 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "checkedAt": "2026-11-24T00:19:07Z"
     },
     {
       "id": "noaa-space-weather",
       "status": "ok",
       "detail": "1 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "checkedAt": "2026-11-24T00:19:07Z"
     },
     {
       "id": "nws-severe-1",
       "status": "ok",
-      "detail": "8 bounded source-linked event leads; not confirmed threats",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "detail": "10 bounded source-linked event leads; not confirmed threats",
+      "checkedAt": "2026-11-24T00:19:07Z"
     },
     {
       "id": "scorecard:curl/curl",
       "status": "ok",
-      "detail": "Published Scorecard 2026-11-23; current score 9.1/10",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "detail": "Published Scorecard 2026-11-23; current score 8.7/10",
+      "checkedAt": "2026-11-24T00:19:07Z"
     },
     {
       "id": "scorecard:openssl/openssl",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-09; current score 6.3/10",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "checkedAt": "2026-11-24T00:19:07Z"
     },
     {
       "id": "scorecard:libexpat/libexpat",
       "status": "ok",
       "detail": "Published Scorecard 2026-11-16; current score 7.5/10",
-      "checkedAt": "2026-11-23T08:09:12Z"
+      "checkedAt": "2026-11-24T00:19:07Z"
     }
   ],
   "limitations": [
