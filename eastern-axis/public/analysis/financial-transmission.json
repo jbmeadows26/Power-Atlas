@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-25T09:55:08Z",
+  "checkedAt": "2026-11-25T22:37:59Z",
   "status": "partial",
   "scope": "US household/lending indicators, AI issuers and publicly listed private-credit BDCs",
   "householdMetrics": [
@@ -57,7 +57,7 @@
           "value": 2.85
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "TDSP",
@@ -112,7 +112,7 @@
           "value": 11.11144
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "PSAVERT",
@@ -120,20 +120,16 @@
       "domain": "Households",
       "cadence": "monthly",
       "unit": "% disposable income",
-      "value": 3.8,
-      "period": "2026-09-01",
-      "previous": 4.0,
-      "previousPeriod": "2026-08-01",
-      "changePoints": -0.2,
+      "value": 4.1,
+      "period": "2026-10-01",
+      "previous": 3.6,
+      "previousPeriod": "2026-09-01",
+      "changePoints": 0.5,
       "status": "ok",
-      "periodAgeDays": 85,
+      "periodAgeDays": 55,
       "source": "FRED / Bureau of Economic Analysis",
       "sourceUrl": "https://fred.stlouisfed.org/series/PSAVERT",
       "history": [
-        {
-          "date": "2025-06-01",
-          "value": 5.5
-        },
         {
           "date": "2025-07-01",
           "value": 5.3
@@ -176,26 +172,30 @@
         },
         {
           "date": "2026-05-01",
-          "value": 4.4
+          "value": 4.3
         },
         {
           "date": "2026-06-01",
-          "value": 4.4
+          "value": 4.2
         },
         {
           "date": "2026-07-01",
-          "value": 4.5
+          "value": 4.4
         },
         {
           "date": "2026-08-01",
-          "value": 4.0
+          "value": 3.9
         },
         {
           "date": "2026-09-01",
-          "value": 3.8
+          "value": 3.6
+        },
+        {
+          "date": "2026-10-01",
+          "value": 4.1
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "UNRATE",
@@ -278,7 +278,7 @@
           "value": 4.1
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "ICSA",
@@ -286,20 +286,16 @@
       "domain": "Labor",
       "cadence": "weekly",
       "unit": "persons",
-      "value": 203000.0,
-      "period": "2026-11-14",
+      "value": 189000.0,
+      "period": "2026-11-21",
       "previous": 202000.0,
-      "previousPeriod": "2026-11-07",
-      "changePoints": 1000.0,
+      "previousPeriod": "2026-11-14",
+      "changePoints": -13000.0,
       "status": "ok",
-      "periodAgeDays": 11,
+      "periodAgeDays": 4,
       "source": "FRED / US Department of Labor",
       "sourceUrl": "https://fred.stlouisfed.org/series/ICSA",
       "history": [
-        {
-          "date": "2026-08-01",
-          "value": 200000.0
-        },
         {
           "date": "2026-08-08",
           "value": 212000.0
@@ -358,10 +354,14 @@
         },
         {
           "date": "2026-11-14",
-          "value": 203000.0
+          "value": 202000.0
+        },
+        {
+          "date": "2026-11-21",
+          "value": 189000.0
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "DRTSCILM",
@@ -424,7 +424,7 @@
           "value": 1.7
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "BAMLC0A0CM",
@@ -432,20 +432,16 @@
       "domain": "Credit",
       "cadence": "daily",
       "unit": "percentage points",
-      "value": 0.97,
-      "period": "2026-11-23",
-      "previous": 0.98,
-      "previousPeriod": "2026-11-20",
-      "changePoints": -0.01,
+      "value": 0.98,
+      "period": "2026-11-24",
+      "previous": 0.97,
+      "previousPeriod": "2026-11-23",
+      "changePoints": 0.01,
       "status": "ok",
-      "periodAgeDays": 2,
+      "periodAgeDays": 1,
       "source": "FRED / ICE Data Indices, LLC",
       "sourceUrl": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
       "history": [
-        {
-          "date": "2026-11-02",
-          "value": 0.94
-        },
         {
           "date": "2026-11-03",
           "value": 0.93
@@ -505,9 +501,13 @@
         {
           "date": "2026-11-23",
           "value": 0.97
+        },
+        {
+          "date": "2026-11-24",
+          "value": 0.98
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "DRBLACBS",
@@ -562,7 +562,7 @@
           "value": 1.27
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "QBPLNTLNNCUR",
@@ -621,7 +621,7 @@
           "value": 0.93442
         }
       ],
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     }
   ],
   "issuers": [
@@ -788,168 +788,168 @@
       "status": "ok",
       "detail": "Last observation period 2026-04-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/DRCCLACBS",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:TDSP",
       "status": "ok",
       "detail": "Last observation period 2026-04-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/TDSP",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:PSAVERT",
       "status": "ok",
-      "detail": "Last observation period 2026-09-01",
+      "detail": "Last observation period 2026-10-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/PSAVERT",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:UNRATE",
       "status": "ok",
       "detail": "Last observation period 2026-10-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/UNRATE",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:ICSA",
       "status": "ok",
-      "detail": "Last observation period 2026-11-14",
+      "detail": "Last observation period 2026-11-21",
       "sourceUrl": "https://fred.stlouisfed.org/series/ICSA",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:DRTSCILM",
       "status": "ok",
       "detail": "Last observation period 2026-10-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/DRTSCILM",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:BAMLC0A0CM",
       "status": "ok",
-      "detail": "Last observation period 2026-11-23",
+      "detail": "Last observation period 2026-11-24",
       "sourceUrl": "https://fred.stlouisfed.org/series/BAMLC0A0CM",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:DRBLACBS",
       "status": "ok",
       "detail": "Last observation period 2026-04-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/DRBLACBS",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "fred:QBPLNTLNNCUR",
       "status": "ok",
       "detail": "Last observation period 2026-07-01",
       "sourceUrl": "https://fred.stlouisfed.org/series/QBPLNTLNNCUR",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:tickers",
       "status": "error",
       "detail": "HTTP Error 403: Forbidden",
       "sourceUrl": "https://www.sec.gov/files/company_tickers.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:ANT",
       "status": "error",
       "detail": "HTTP 403 from SEC submissions API; collector paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0002130357.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:NVDA",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001045810.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:MSFT",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0000789019.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:GOOGL",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001652044.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:META",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001326801.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:AMZN",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001018724.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:ORCL",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001341439.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:AMD",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0000002488.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:AVGO",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001730168.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:CRWV",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001769628.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:ARCC",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001287750.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:OBDC",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001655888.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:BXSL",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001736035.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     },
     {
       "id": "sec:GBDC",
       "status": "error",
       "detail": "SEC rate/access restriction HTTP 403; further SEC requests paused",
       "sourceUrl": "https://data.sec.gov/submissions/CIK0001476765.json",
-      "checkedAt": "2026-11-25T09:55:08Z"
+      "checkedAt": "2026-11-25T22:37:59Z"
     }
   ],
   "intradayQuotes": {
