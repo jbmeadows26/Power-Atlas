@@ -182,8 +182,9 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(view==='Cyber resilience'){
    b=base('Systems and cyber-resilience monitor','Cyber resilience analyst','Worldwide infrastructure telemetry');
    const observations=a(resilience.observations),incidents=a(resilience.incidents);
-   b.metrics=[metric('Sampled observations',observations.length,'Collected telemetry, not all internet infrastructure'),
-              metric('Corroborated incidents',incidents.length,'Source-specific classification'),
+   const current=resilience.status!=='unavailable'&&observations.length>0&&Number.isFinite(Date.parse(s(resilience.checkedAt)))&&Date.now()-Date.parse(s(resilience.checkedAt))<=120*60000;
+   b.metrics=[metric('Sampled observations',current?observations.length:null,'Current telemetry; unavailable or stale is not zero'),
+              metric('Corroborated incidents',current?incidents.length:null,'Current source-specific classification'),
               metric('Collection capabilities',a(resilience.capabilities).length,'Availability is not active sampling')];
    b.finding=observations.length?observations.length+' published observations and '+incidents.length+' incident records are available.':'No current independently sampled resilience observations have been published.';
    b.direction='Network deterioration or recovery cannot be assessed without comparable fresh samples.';
@@ -191,7 +192,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b.beneficiaries='Attribution and beneficiary analysis require corroborated incident evidence not present in this aggregate.';
    b.watch='Check live collector health, failed regions, sample times and cross-network corroboration.';
    b.limitation='Sampling coverage is partial; a provider outage and a malicious attack are not equivalent.';
-   b.asOf=s(resilience.checkedAt)||'Not yet collected';b=exposure(b,observations);
+   b.asOf=s(resilience.checkedAt)||'Not yet collected';b=exposure(b,observations);if(!current){b.status='coverage-gap';b.finding='No usable current resilience telemetry; archived observations do not establish present network conditions.';}
  }else if(['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Macro indicators'].includes(key)){
    b=base(key==='Economic intelligence:risk'?'Systemic financial risk interpretation':key==='Economic intelligence:signals'?'Market anomalies & warning':'Macroeconomic change dashboard','Macroeconomic risk analyst',scope);
    const market=marketMetrics.find(x=>x.id==='SP500')||marketMetrics[0];
@@ -241,10 +242,11 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(view==='Corporate intelligence'){
    b=base('Corporate credit and balance-sheet coverage','Corporate exposure analyst','U.S. public issuer and lending benchmarks');
    const issuers=a(transmission.issuers),filings=a(transmission.filings);
+   const secUnavailable=issuers.length>0&&issuers.every(x=>x.status==='unavailable');
    b.metrics=[metric('Issuers indexed',issuers.length,'Coverage does not equal current SEC filings'),
-              metric('Retrieved filings',filings.length,'Original SEC documents'),
+              metric('Retrieved filings',secUnavailable?null:filings.length,'Original SEC documents; blocked access is not zero filings'),
               metric('Household credit metrics',households.length,'Dated official benchmarks')];
-   b.finding=issuers.length+' public issuers and '+households.length+' household credit series are indexed; '+filings.length+' source filings are currently retrieved.';
+   b.finding=issuers.length+' issuer references and '+households.length+' household credit series are indexed; '+(secUnavailable?'SEC issuer filings are unavailable.':filings.length+' source filings are currently retrieved.');
    b.direction='Balance-sheet deterioration or credit contagion cannot be confirmed without comparable filings and exposure dates.';
    b.implication='A missing SEC filing is a collection gap, not evidence of a clean or distressed company.';
    b.beneficiaries='Lender, borrower or hedge-fund gains and losses cannot be quantified without security-level exposure data.';
