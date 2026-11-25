@@ -105,7 +105,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(['Countries','World Factbook','Investigations'].includes(view)){
    b=base(view==='World Factbook'?'Country evidence & historical context':view==='Investigations'?'Documented investigations':'Country intelligence coverage','Geopolitical evidence analyst',scope);
    const docs=documents.filter(d=>{
-    if(country==='all')return true;
+    if(country==='all')return Array.isArray(d.countries)&&d.countries.length>0;
     return Array.isArray(d.countries)&&d.countries.includes(country);
    });
    const mentions=documents.filter(d=>Array.isArray(d.inferredCountries)&&d.inferredCountries.some((e:Obj)=>e.code===country));
@@ -146,7 +146,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b=exposure(b,assets);
  }else if(view==='Global conflict watch'){
    b=base('Armed-conflict deviation watch','Conflict anomaly analyst',scope);
-   const review=zones.filter(z=>z.status==='review'||z.modelReviewed);
+   const review=zones.filter(z=>z.status==='review'&&z.modelReviewed!==true);
    const promoted=zones.filter(z=>z.promoted===true);
    const comparable=zones.filter(z=>o(z.change).status==='assessable'&&n(o(z.change).robustZ)!==null&&n(o(z.change).changePct)!==null)
      .sort((x,y)=>Math.abs(n(o(y.change).robustZ)||0)-Math.abs(n(o(x.change).robustZ)||0));
@@ -182,7 +182,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  }else if(view==='Cyber resilience'){
    b=base('Systems and cyber-resilience monitor','Cyber resilience analyst','Worldwide infrastructure telemetry');
    const observations=a(resilience.observations),incidents=a(resilience.incidents);
-   const current=resilience.status!=='unavailable'&&observations.length>0&&Number.isFinite(Date.parse(s(resilience.checkedAt)))&&Date.now()-Date.parse(s(resilience.checkedAt))<=120*60000;
+   const current=!failures.includes('resilience')&&resilience.status!=='unavailable'&&observations.length>0&&Number.isFinite(Date.parse(s(resilience.checkedAt)))&&Date.now()-Date.parse(s(resilience.checkedAt))<=120*60000;
    b.metrics=[metric('Sampled observations',current?observations.length:null,'Current telemetry; unavailable or stale is not zero'),
               metric('Corroborated incidents',current?incidents.length:null,'Current source-specific classification'),
               metric('Collection capabilities',a(resilience.capabilities).length,'Availability is not active sampling')];
@@ -215,8 +215,8 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b.sources=sources([...marketMetrics,...reviews,...reported],4);
    b.coverage=marketMetrics.length+' market series · '+reviews.length+' warning reviews';
    b.status=b.sources.length?'monitoring':'coverage-gap';
-   if(market){const hist=a(market.history);const values=hist.map(x=>n(x.value)).filter((v):v is number=>v!==null).slice(-16);
-    if(values.length>=3)b.chart={label:s(market.label)+' · last '+values.length+' reported closes',values,dates:hist.slice(-values.length).map(x=>s(x.date))};}
+   if(market){const hist=a(market.history).filter(x=>n(x.value)!==null&&Number.isFinite(Date.parse(s(x.date)))).slice(-16);const values=hist.map(x=>n(x.value) as number);
+    if(values.length>=3)b.chart={label:s(market.label)+' · last '+values.length+' reported closes',values,dates:hist.map(x=>s(x.date))};}
  }else if(['Economic intelligence:supply','Economic intelligence:shortages','Trade indicators'].includes(key)){
    b=base(key==='Economic intelligence:shortages'?'Product shortage forecast audit':key==='Trade indicators'?'Trade dependence & exposure':'Supply chain pressure screen','Supply chain analyst',scope);
    const watch=count(forecasts,x=>x.status==='cross-source-watch');
@@ -311,14 +311,14 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  } as Record<string,string[]>;
  const missing=(needed[key]||[]).filter(x=>failures.includes(x)||!o(snapshots[x]).schemaVersion);
  if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
-  b.limitation+=' Required source channels unavailable: '+missing.join(', ')+'.';
-  if(!b.sources.length)b.status='coverage-gap';}
- if(missing.includes('source')&&['Overview','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology'].includes(view)){
+  b.limitation+=' Required source channels unavailable or refresh failed: '+missing.join(', ')+'. Last valid dated observations may remain visible as historical context.';
+  b.status='coverage-gap';}
+ if(!manifest.schemaVersion&&missing.includes('source')&&['Overview','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology'].includes(view)){
   const triageReady=Boolean(triage.schemaVersion);
   b.finding='Government publication coverage unavailable (not zero). '+
     (triageReady?count(reviews,r=>r.modelReviewed===true)+' analyst reviews remain source-dated.':'Signal review coverage is also unavailable.');
  }
- if(missing.includes('source')&&['Countries','World Factbook','Investigations'].includes(view)){
+ if(!manifest.schemaVersion&&missing.includes('source')&&['Countries','World Factbook','Investigations'].includes(view)){
   b.finding=localCases.length+' indexed legal cases remain visible; government source-publication coverage is unavailable, not zero.';
  }
  if((needed[key]||[]).length>0&&missing.length===(needed[key]||[]).length&&!b.sources.length){
@@ -353,7 +353,9 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
     : Boolean(o(snapshots[channel]).schemaVersion));
  b.metrics=b.metrics.map((m,index)=>{
    const channel=tileSources[key]?.[index];
-   return channel&&!available(channel)?{...m,value:'—',detail:'No source-verified observation; not zero'}:m;
+   if(channel&&!available(channel))return {...m,value:'—',detail:'No source-verified observation; not zero'};
+   if(channel&&failures.includes(channel))return {...m,detail:(m.detail?m.detail+' · ':'')+'Last valid snapshot; refresh failed'};
+   return m;
  });
  if(Object.keys(snapshots).length===0){
    b.status='coverage-gap';
