@@ -1,4 +1,5 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
+import ForecastCenter from './ForecastCenter';
 import IntakeDesk from './IntakeDesk';
 import CountryPicker from './CountryPicker';
 import BugReportDialog from './BugReportDialog';
@@ -125,7 +126,7 @@ type Brief = {
 };
 // All existing workspaces are retained; taxonomy only changes where they are reached.
 const sections = [
-  'Overview', 'Countries', 'World Factbook', 'Economic intelligence',
+  'Overview', 'Forecast intelligence', 'Forecast track record', 'Countries', 'World Factbook', 'Economic intelligence',
   'AI analyst', 'Defense intelligence', 'Global conflict watch', 'Military asset changes', 'Investigations', 'Collection desk',
   'Verification lab', 'Coverage audit', 'Source library', 'Methodology',
   'Macro indicators', 'Trade indicators', 'Corporate intelligence',
@@ -137,6 +138,8 @@ type DomainTab = { label:string; section:Section; focus?:EconomicFocus };
 const domains: { id:DomainId; title:string; short:string; Icon:typeof Activity; tabs:DomainTab[] }[] = [
   {id:'command',title:'Command & Situation Room',short:'Command',Icon:Activity,tabs:[
     {label:'Situation room',section:'Overview'},
+    {label:'Forecast intelligence',section:'Forecast intelligence'},
+    {label:'Forecast track record',section:'Forecast track record'},
     {label:'AI analyst',section:'AI analyst'},
     {label:'Collection desk',section:'Collection desk'},
     {label:'Verification lab',section:'Verification lab'},
@@ -819,6 +822,8 @@ function App() {
             <AnalystEvidenceCompact reading={analystReading}/>
             </>
           )}
+          {view === 'Forecast intelligence' && <ForecastCenter/>}
+          {view === 'Forecast track record' && <ForecastCenter track/>}
           {overview && view === 'Economic intelligence' && <EconomicIntelligence
             countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
             cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
