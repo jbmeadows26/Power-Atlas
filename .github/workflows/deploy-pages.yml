@@ -7,6 +7,7 @@ on:
       - 'eastern-axis/src/**'
       - 'eastern-axis/tests/**'
       - 'eastern-axis/index.html'
+      - 'eastern-axis/vite.config.ts'
       - 'eastern-axis/public/favicon.svg'
       - 'eastern-axis/public/analysis/**'
       - 'eastern-axis/public-api-origin.txt'
@@ -82,6 +83,8 @@ jobs:
           npx vite build --base ./
           test -s dist/index.html
           grep -q './assets/' dist/index.html
+          grep -q 'data-ea-dashboard-css="inline"' dist/index.html
+          grep -q "content=\"$GITHUB_SHA\"" dist/index.html
           if grep -R -E 'postgres(ql)?://' dist; then
             echo 'Unexpected database credential-like URI in frontend output' >&2
             exit 1
@@ -89,7 +92,7 @@ jobs:
       - name: Install browser regression tooling
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
-          "$RUNNER_TEMP/ea-pages-check/node_modules/.bin/playwright" install chromium
+          "$RUNNER_TEMP/ea-pages-check/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Verify mobile touch navigation at 320px and 390px, plus desktop
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
@@ -100,6 +103,11 @@ jobs:
           npx vite preview --host 127.0.0.1 --port 4174 --strictPort > /tmp/ea-pages-deploy-preview.log 2>&1 &
           for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4174/ >/dev/null && exit 0; sleep 1; done
           cat /tmp/ea-pages-deploy-preview.log; exit 1
+      - name: Verify iPhone WebKit layout even when external stylesheets are blocked
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+          EA_BROWSER_ORIGIN: http://127.0.0.1:4174
+        run: node eastern-axis/tests/stylesheet_integrity.cjs
       - name: Verify real intelligence content and country context on desktop/mobile
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
@@ -141,3 +149,40 @@ jobs:
       - name: Publish Power Atlas and Eastern Axis to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+  verify-production:
+    needs: deploy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify exact published HTML and embedded stylesheet
+        run: |
+          for i in $(seq 1 20); do
+            if curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/eastern-axis/?release=$GITHUB_SHA" -o /tmp/ea-published.html &&
+               grep -q 'data-ea-dashboard-css="inline"' /tmp/ea-published.html &&
+               grep -q "content=\"$GITHUB_SHA\"" /tmp/ea-published.html; then exit 0; fi
+            sleep 8
+          done
+          echo "Expected release or embedded stylesheet not served by Pages" >&2
+          exit 1
+      - name: Install WebKit production QA
+        run: |
+          npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/ea-pages-check/node_modules/.bin/playwright" install --with-deps webkit chromium
+      - name: Verify real published iPhone and desktop styling
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+          EA_BROWSER_ORIGIN: https://jbmeadows26.github.io/Power-Atlas/eastern-axis
+        run: node eastern-axis/tests/stylesheet_integrity.cjs
+      - name: Save production screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: eastern-axis-production-style-qa
+          path: audit-output/
+          if-no-files-found: warn
+          retention-days: 14
