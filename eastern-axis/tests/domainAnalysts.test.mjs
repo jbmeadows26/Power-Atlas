@@ -107,3 +107,48 @@ test('partial source outage is never summarized as zero publications',()=>{
 });
 
 test('forecast routes withhold unsupported probabilities',()=>{for(const route of ['Forecast intelligence','Forecast track record']){const b=build(route);assert.equal(b.status,'coverage-gap');assert.ok(b.metrics.every(m=>m.value==='—'));}});
+
+test('country baseline cards show the selected country data without waiting for unrelated snapshots',()=>{
+ const indicators=[
+  {code:'NY.GDP.MKTP.KD.ZG',value:4.9,year:'2025',sourceUrl:'https://example.org/gdp'},
+  {code:'FP.CPI.TOTL.ZG',value:0,year:'2025',sourceUrl:'https://example.org/cpi'},
+  {code:'SL.UEM.TOTL.ZS',value:4.6,year:'2025',sourceUrl:'https://example.org/labor'},
+  {code:'NE.TRD.GNFS.ZS',value:38,year:'2025',sourceUrl:'https://example.org/trade'},
+  {code:'BX.KLT.DINV.WD.GD.ZS',value:0.4,year:'2025',sourceUrl:'https://example.org/fdi'},
+  {code:'EG.ELC.ACCS.ZS',value:100,year:'2024',sourceUrl:'https://example.org/electricity'}
+ ];
+ const input={focus:'overview',country:'CN',countryName:'China',cases:[],snapshots:{},systems:{indicators},failures:['markets','shortage','early']};
+ const macro=buildDomainBrief({...input,view:'Macro indicators'});
+ assert.deepEqual(macro.metrics.map(m=>m.label),['GDP growth','Consumer inflation','Unemployment']);
+ assert.equal(macro.metrics[1].value,'0%','A measured zero must remain zero');
+ assert.equal(macro.status,'source-dated');
+ assert.equal(macro.sources.length,3);
+ const trade=buildDomainBrief({...input,view:'Trade indicators'});
+ assert.deepEqual(trade.metrics.map(m=>m.label),['Trade / GDP','FDI / GDP']);
+ assert.equal(trade.sources.length,2);
+ const energy=buildDomainBrief({...input,view:'Energy & resources'});
+ assert.equal(energy.metrics[0].value,'+100%');
+ assert.ok(energy.metrics.slice(1).every(m=>m.value==='—'));
+ assert.equal(energy.status,'coverage-gap');
+});
+test('worldwide tagged-record count excludes untagged documents',()=>{
+ const snap=minimal();snap.source.records.push({...source('untagged'),countries:[]});
+ const b=build('Countries','overview','all',snap);
+ assert.equal(b.metrics.find(x=>x.label==='Country-tagged reports')?.value,'1');
+});
+test('a failed refresh preserves last dated data but exposes the gap',()=>{
+ const b=buildDomainBrief({view:'Overview',focus:'overview',country:'all',cases:[],snapshots:minimal(),failures:['source']});
+ assert.equal(b.metrics[0].value,'1');assert.match(b.metrics[0].detail,/refresh failed/);
+ assert.equal(b.status,'coverage-gap');
+});
+test('stale cyber telemetry is not a current reading',()=>{
+ const snap=minimal();snap.resilience={schemaVersion:1,checkedAt:'2000-01-01',observations:[source('probe')],incidents:[],capabilities:[]};
+ const b=build('Cyber resilience','overview','all',snap);
+ assert.equal(b.metrics[0].value,'—');assert.equal(b.metrics[1].value,'—');
+ assert.equal(b.status,'coverage-gap');
+});
+test('blocked issuer collection is not a verified zero filing count',()=>{
+ const snap=minimal();snap.transmission.issuers=[{name:'Issuer',status:'unavailable',sourceUrl:'https://example.org/issuer'}];
+ const b=build('Corporate intelligence','overview','all',snap);
+ assert.equal(b.metrics[1].value,'—');assert.match(b.finding,/filings are unavailable/);
+});
