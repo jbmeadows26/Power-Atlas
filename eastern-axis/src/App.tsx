@@ -201,6 +201,23 @@ function Anchor({
     </a>
   );
 }
+// External link directory only. Do not ingest or score ISW material without written permission.
+function ISWReference() {
+  return (
+    <details className="metric-card" style={{marginBottom:12}} aria-label="Institute for the Study of War external research">
+      <summary style={{cursor:'pointer'}}><BookOpen size={15}/> Institute for the Study of War · External research · Reference only</summary>
+      <p className="metric-sub">Independent strategic research covering conflicts, military developments and adversary cooperation. Direct links only; automated ingestion and alert scoring are disabled pending written permission.</p>
+      <div style={{display:'flex',flexWrap:'wrap',gap:12}}>
+        <Anchor href="https://understandingwar.org/">ISW latest updates</Anchor>
+        <Anchor href="https://understandingwar.org/research/">Research library</Anchor>
+        <Anchor href="https://understandingwar.org/analysis/">Defense analysis</Anchor>
+        <Anchor href="https://understandingwar.org/newsroom/statement-on-isw-methodology/">Research methodology</Anchor>
+        <Anchor href="https://understandingwar.org/fair-use-and-attribution-policy/">Usage policy</Anchor>
+      </div>
+      <small className="metric-sub">Publisher: Institute for the Study of War. External assessments are not verified Eastern Axis observations, military inventory counts or elevated alerts.</small>
+    </details>
+  );
+}
 function MetricCard({
   label,
   value,
@@ -810,6 +827,7 @@ function App() {
           {overview && view === 'AI analyst' && <AgentDesk countryCode="all" />}
           {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode="all" cases={cases} /></>}
           {overview && view === 'Collection desk' && <IntakeDesk countryCode="all" />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode="all" />}
+          {overview && (view === 'Defense intelligence' || view === 'Global conflict watch' || view === 'Military asset changes' || view === 'Source library') && <ISWReference />}
           {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
           {overview && view === 'Global conflict watch' && <GlobalConflictWatch countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
           {overview && view === 'Military asset changes' && <MilitaryAssetChanges countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
