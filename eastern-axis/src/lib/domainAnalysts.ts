@@ -305,10 +305,31 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
   'Economic intelligence:overview':['markets','triage'],
   'Economic intelligence:signals':['markets','triage'],'Economic intelligence:risk':['markets','transmission'],
   'Economic intelligence:supply':['shortage'],'Economic intelligence:shortages':['shortage'],
-  'Macro indicators':['markets'],'Trade indicators':['shortage'],
-  'Corporate intelligence':['transmission'],'Energy & resources':['early'],
+  'Macro indicators':[],'Trade indicators':[],
+  'Corporate intelligence':['transmission'],'Energy & resources':[],
   'Demographics & biosecurity':['source']
  } as Record<string,string[]>;
+ // Baseline cards must describe the chosen country and category, not repeat U.S. market or worldwide shortage statistics.
+ const baselineCodes:Record<string,string[]>={
+  'Macro indicators':['NY.GDP.MKTP.KD.ZG','FP.CPI.TOTL.ZG','SL.UEM.TOTL.ZS'],
+  'Trade indicators':['NE.TRD.GNFS.ZS','BX.KLT.DINV.WD.GD.ZS'],
+  'Energy & resources':['EG.ELC.ACCS.ZS','EG.FEC.RNEW.ZS','EG.IMP.CONS.ZS','NY.GDP.TOTL.RT.ZS']
+ };
+ const baselineLabels:Record<string,string>={
+  'NY.GDP.MKTP.KD.ZG':'GDP growth','FP.CPI.TOTL.ZG':'Consumer inflation','SL.UEM.TOTL.ZS':'Unemployment',
+  'NE.TRD.GNFS.ZS':'Trade / GDP','BX.KLT.DINV.WD.GD.ZS':'FDI / GDP','EG.ELC.ACCS.ZS':'Electricity access',
+  'EG.FEC.RNEW.ZS':'Renewable consumption','EG.IMP.CONS.ZS':'Net energy imports','NY.GDP.TOTL.RT.ZS':'Resource rents'
+ };
+ if(baselineCodes[key]){
+  const ids=baselineCodes[key],rows=ids.map(id=>reported.find(x=>x.code===id));
+  b.metrics=ids.map((id,index)=>{const row=rows[index];return {label:baselineLabels[id],value:row?pct(n(row.value)):'—',detail:row?s(row.year)+' · '+(s(row.sourceName)||'Original source'):'No comparable country observation'};});
+  const present=rows.filter((row):row is Obj=>!!row);
+  b.sources=sources(present,4);b.coverage=present.length+'/'+ids.length+' country or world-aggregate baseline series';
+  b.asOf=s(system.checkedAt)||'Not reported';b.status=present.length===ids.length?'source-dated':'coverage-gap';
+  b.finding=present.length?scope+' has '+present.length+' of '+ids.length+' source-dated baseline indicators; each retains its original reporting year.':'Country baseline observations are currently unavailable, not zero.';
+  b.direction='Annual historical indicators cannot establish a current anomaly without comparable observations.';
+  b.chart=undefined;
+ }
  const missing=(needed[key]||[]).filter(x=>failures.includes(x)||!o(snapshots[x]).schemaVersion);
  if(missing.length){b.coverage+=' · Missing source channel: '+missing.join(', ');
   b.limitation+=' Required source channels unavailable or refresh failed: '+missing.join(', ')+'. Last valid dated observations may remain visible as historical context.';
@@ -340,12 +361,12 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
   'Economic intelligence:overview':['markets','triage','country'],
   'Economic intelligence:signals':['markets','triage','country'],
   'Economic intelligence:risk':['markets','triage','country'],
-  'Macro indicators':['markets','triage','country'],
+  'Macro indicators':['country','country','country'],
   'Economic intelligence:supply':['shortage','shortage','shortage'],
   'Economic intelligence:shortages':['shortage','shortage','shortage'],
-  'Trade indicators':['shortage','shortage','country'],
+  'Trade indicators':['country','country'],
   'Corporate intelligence':['transmission','transmission','transmission'],
-  'Energy & resources':['early','country','early'],
+  'Energy & resources':['country','country','country','country'],
   'Demographics & biosecurity':['country','country','country']
  };
  const available=(channel:string)=>channel==='cases'||(channel==='country'
@@ -357,7 +378,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    if(channel&&failures.includes(channel))return {...m,detail:(m.detail?m.detail+' · ':'')+'Last valid snapshot; refresh failed'};
    return m;
  });
- if(Object.keys(snapshots).length===0){
+ if(Object.keys(snapshots).length===0&&!baselineCodes[key]){
    b.status='coverage-gap';
    b.finding=failures.length?'No validated evidence snapshots are currently available for this view.':
      'Loading source-validated intelligence observations for this view.';
@@ -367,7 +388,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  if((input.horizon&&input.horizon!=='all')||(input.severity&&input.severity!=='all')){
    b.limitation+=' Time and threat controls filter the alert inbox; this assessment preserves full, dated source comparisons.';
  }
- if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Corporate intelligence','Cyber resilience'].includes(key)){
+ if(country!=='all'&&['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:supply','Economic intelligence:shortages','Corporate intelligence','Cyber resilience'].includes(key)){
    b.scope+=' · global or U.S. comparator (NOT country-attributed)';
  }
  return b;
