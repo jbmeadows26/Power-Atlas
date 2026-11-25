@@ -1,6 +1,6 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-11-24T17:39:28Z",
+  "generatedAt": "2026-11-25T17:10:52Z",
   "sourceStatus": "ok",
   "sourceHealth": {
     "officialPublications": "ok",
@@ -98,7 +98,7 @@
       "name": "OpenOSINT",
       "status": "ok",
       "detail": "Passive DNS check completed on configured Pages hostname; global GDELT: completed (lead-only; not published). No allegations published.",
-      "checkedAt": "2026-11-24T17:39:34Z"
+      "checkedAt": "2026-11-25T17:15:52Z"
     },
     {
       "id": "openaleph",
@@ -114,6 +114,180 @@
     }
   ],
   "records": [
+    {
+      "id": "un-security-b663b0425d6b1053",
+      "sourceId": "official-source-monitor",
+      "title": "Security Council LIVE: Can conflict resolution keep pace as AI and drones reshape war?",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168866",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:02.196Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "un-security-b565ed465e68d34f",
+      "sourceId": "official-source-monitor",
+      "title": "World News in Brief: Vaccine crisis in Yemen, aid for Ukraine, another UNRWA staffer killed",
+      "publisher": "UN News: Peace and Security",
+      "url": "https://news.un.org/feed/view/en/story/2026/11/1168871",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:02.196Z",
+      "countries": [
+        "UA",
+        "YE"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "humanitarian"
+      ],
+      "inferredCountries": [
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        },
+        {
+          "code": "YE",
+          "basis": "title-country-name",
+          "matchedText": "Yemen",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-1ecc55ffaf7ba35c",
+      "sourceId": "official-source-monitor",
+      "title": "Information for defence personnel about USA tax regulations",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/guidance/information-for-defence-personnel-about-usa-tax-regulations",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:01.991Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "US",
+          "basis": "title-country-name",
+          "matchedText": "USA",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-862b66b69b53de63",
+      "sourceId": "official-source-monitor",
+      "title": "CEOs from sensitive sectors receive briefings on Russia threats",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/ceos-from-sensitive-sectors-receive-briefings-on-russia-threats",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:01.991Z",
+      "countries": [
+        "RU"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "RU",
+          "basis": "title-country-name",
+          "matchedText": "Russia",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-b2ab1e1a3978d2cd",
+      "sourceId": "official-source-monitor",
+      "title": "First UK Defence Secretary to visit Kharkiv as UK ramps up support for Ukraine",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/first-uk-defence-secretary-to-visit-kharkiv-as-uk-ramps-up-support-for-ukraine",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:01.991Z",
+      "countries": [
+        "UA"
+      ],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "UK",
+          "confidence": "high"
+        },
+        {
+          "code": "UA",
+          "basis": "title-country-name",
+          "matchedText": "Ukraine",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-974bbf6218399832",
+      "sourceId": "official-source-monitor",
+      "title": "£142 million Navy investment strengthens UK security and British jobs",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/news/142-million-navy-investment-strengthens-uk-security-and-british-jobs",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:01.991Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "other"
+      ],
+      "inferredCountries": [
+        {
+          "code": "GB",
+          "basis": "title-country-name",
+          "matchedText": "British",
+          "confidence": "high"
+        }
+      ]
+    },
+    {
+      "id": "uk-mod-baed156483b14134",
+      "sourceId": "official-source-monitor",
+      "title": "Transparency data: Military court centres court listings",
+      "publisher": "UK Ministry of Defence publications",
+      "url": "https://www.gov.uk/government/publications/military-court-centres-court-listings",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:01.991Z",
+      "countries": [],
+      "changeType": "source-revised",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "us-defense-937ee34ded3dad8e",
+      "sourceId": "official-source-monitor",
+      "title": "Kearsarge Conducts Surface Warfare Advanced Tactical Training",
+      "publisher": "U.S. Department of Defense news",
+      "url": "https://www.war.gov/News/News-Stories/Article/Article/4659197/kearsarge-conducts-surface-warfare-advanced-tactical-training",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T05:32:00.803Z",
+      "countries": [],
+      "changeType": "new-publication",
+      "topics": [
+        "military"
+      ],
+      "inferredCountries": []
+    },
     {
       "id": "un-security-b96a70c0e26e2049",
       "sourceId": "official-source-monitor",
@@ -855,203 +1029,73 @@
       "inferredCountries": []
     },
     {
-      "id": "un-security-6b3d25b299acbb3f",
-      "sourceId": "official-source-monitor",
-      "title": "World News in Brief: Korea tensions mount, UN demands answers over staff death in Yemen, Guterres in Spain, Nepal alert ahead of COP31",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168750",
-      "date": "2026-11-05",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "YE"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": [
-        {
-          "code": "ES",
-          "basis": "title-country-name",
-          "matchedText": "Spain",
-          "confidence": "high"
-        },
-        {
-          "code": "NP",
-          "basis": "title-country-name",
-          "matchedText": "Nepal",
-          "confidence": "high"
-        },
-        {
-          "code": "YE",
-          "basis": "title-country-name",
-          "matchedText": "Yemen",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-643adc1628a54d97",
-      "sourceId": "official-source-monitor",
-      "title": "Security Council LIVE: Strikes on Ukraine’s power grid, as peace talks loom",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168761",
-      "date": "2026-11-09",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "RU",
-        "UA"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "military",
-        "power-energy"
-      ],
-      "inferredCountries": [
-        {
-          "code": "UA",
-          "basis": "title-country-name",
-          "matchedText": "Ukraine",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-6d3aea411fa53f6c",
-      "sourceId": "official-source-monitor",
-      "title": "World News in Brief: El Niño’s $11 trillion price tag, Mozambique and Yemen updates",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168768",
-      "date": "2026-11-09",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "YE"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": [
-        {
-          "code": "MZ",
-          "basis": "title-country-name",
-          "matchedText": "Mozambique",
-          "confidence": "high"
-        },
-        {
-          "code": "YE",
-          "basis": "title-country-name",
-          "matchedText": "Yemen",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-603897332ca7927a",
-      "sourceId": "official-source-monitor",
-      "title": "Sudan war: First ‘suicide’ drone attacks, now long-range strikes are the norm",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168771",
-      "date": "2026-11-10",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "SD"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "military"
-      ],
-      "inferredCountries": [
-        {
-          "code": "SD",
-          "basis": "title-country-name",
-          "matchedText": "Sudan",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-63389bec29a78dc1",
-      "sourceId": "official-source-monitor",
-      "title": "Security Council LIVE: South Sudan’s first elections loom amid rising violence",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168774",
-      "date": "2026-11-10",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "SD"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": [
-        {
-          "code": "SS",
-          "basis": "title-country-name",
-          "matchedText": "South Sudan",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-755b4a8417b67bf5",
-      "sourceId": "official-source-monitor",
-      "title": "Six killed in Israeli airstrike on Gaza’s Nasser Hospital",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168796",
-      "date": "2026-11-12",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "IL",
-        "PS"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "military",
-        "humanitarian"
-      ],
-      "inferredCountries": [
-        {
-          "code": "IL",
-          "basis": "title-country-name",
-          "matchedText": "Israeli",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "un-security-3871f4725b668fff",
-      "sourceId": "official-source-monitor",
-      "title": "Security Council LIVE: Fragile Gulf calm tested as threats to Hormuz shipping mount",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168804",
-      "date": "2026-11-13",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
-      "countries": [
-        "IL",
-        "IR"
-      ],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": []
-    },
-    {
-      "id": "un-security-ba74ffaff163aa8a",
-      "sourceId": "official-source-monitor",
-      "title": "Guterres calls for a legally binding instrument for ‘killer robots'",
-      "publisher": "UN News: Peace and Security",
-      "url": "https://news.un.org/feed/view/en/story/2026/11/1168810",
-      "date": "2026-11-16",
-      "detectedAt": "2026-11-17T11:56:47.384Z",
+      "id": "intake-cisa-CVE-2026-132165",
+      "sourceId": "cisa",
+      "title": "Drupal Core Remote Code Execution Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-132165",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T04:42:01.393Z",
       "countries": [],
       "changeType": "baseline",
       "topics": [
-        "other"
+        "cyber"
       ],
       "inferredCountries": []
+    },
+    {
+      "id": "intake-cisa-CVE-2026-131914",
+      "sourceId": "cisa",
+      "title": "Idunno AntiCsrf Deserialization of Untrusted Data Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-131914",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T04:42:01.393Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-cisa-CVE-2026-132224",
+      "sourceId": "cisa",
+      "title": "Optimizely Web Experimentation External Control of Critical State Data Vulnerability",
+      "publisher": "U.S. CISA",
+      "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-132224",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T04:42:01.393Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "cyber"
+      ],
+      "inferredCountries": []
+    },
+    {
+      "id": "intake-doj-9ac5f778-7e42-4693-aa5c-7b2bc10c6712",
+      "sourceId": "doj",
+      "title": "Russian National Pleads Guilty to Evading Economic Sanctions on Russia",
+      "publisher": "U.S. Department of Justice",
+      "url": "https://www.justice.gov/opa/pr/russian-national-pleads-guilty-evading-economic-sanctions-russia",
+      "date": "2026-11-24",
+      "detectedAt": "2026-11-25T04:22:03.918Z",
+      "countries": [
+        "RU"
+      ],
+      "changeType": "baseline",
+      "topics": [
+        "sanctions"
+      ],
+      "inferredCountries": [
+        {
+          "code": "RU",
+          "basis": "title-country-name",
+          "matchedText": "Russia",
+          "confidence": "high"
+        }
+      ]
     },
     {
       "id": "intake-cisa-CVE-2026-134624",
@@ -1142,6 +1186,21 @@
           "confidence": "high"
         }
       ]
+    },
+    {
+      "id": "intake-fara-7801",
+      "sourceId": "fara",
+      "title": "Fortson Blalock Turner & Germany",
+      "publisher": "DOJ Foreign Agents Registration Act",
+      "url": "https://efile.fara.gov/api/v1/Registrants/json/Active",
+      "date": "2026-11-20",
+      "detectedAt": "2026-11-25T04:32:01.514Z",
+      "countries": [],
+      "changeType": "baseline",
+      "topics": [
+        "foreign-influence"
+      ],
+      "inferredCountries": []
     },
     {
       "id": "intake-cisa-CVE-2026-76466",
@@ -1947,88 +2006,6 @@
       "inferredCountries": []
     },
     {
-      "id": "intake-ofac-11186",
-      "sourceId": "ofac",
-      "title": "CARVAJAL BARRIOS, Hugo Armando",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": []
-    },
-    {
-      "id": "intake-ofac-12111",
-      "sourceId": "ofac",
-      "title": "IRANIAN MINISTRY OF INTELLIGENCE AND SECURITY",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": [
-        {
-          "code": "IR",
-          "basis": "title-country-name",
-          "matchedText": "IRANIAN",
-          "confidence": "high"
-        }
-      ]
-    },
-    {
-      "id": "intake-ofac-12209",
-      "sourceId": "ofac",
-      "title": "OFFICE 39",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": []
-    },
-    {
-      "id": "intake-ofac-12210",
-      "sourceId": "ofac",
-      "title": "RECONNAISSANCE GENERAL BUREAU",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": []
-    },
-    {
-      "id": "intake-ofac-12211",
-      "sourceId": "ofac",
-      "title": "KIM, Yong Chol",
-      "publisher": "U.S. Treasury OFAC",
-      "url": "https://sanctionssearch.ofac.treas.gov",
-      "date": "",
-      "detectedAt": "2026-11-15T10:50:42.104Z",
-      "countries": [],
-      "changeType": "baseline",
-      "topics": [
-        "other"
-      ],
-      "inferredCountries": []
-    },
-    {
       "id": "allied-odni-2026",
       "sourceId": "allied-assessment",
       "title": "2026 Annual Threat Assessment",
@@ -2193,7 +2170,7 @@
       },
       {
         "code": "IL",
-        "sourceCount": 4,
+        "sourceCount": 2,
         "publisherCount": 1,
         "publishers": [
           "UN News: Peace and Security"
@@ -2201,16 +2178,13 @@
         "changedCount": 2,
         "topics": [
           "humanitarian",
-          "military",
           "other"
         ],
         "sourceIds": [
           "un-security-b263a9f6616b169f",
-          "un-security-496d9207ea6160ee",
-          "un-security-755b4a8417b67bf5",
-          "un-security-3871f4725b668fff"
+          "un-security-496d9207ea6160ee"
         ],
-        "statement": "4 indexed public-source records explicitly mention IL. This is coverage, not a threat or attribution score."
+        "statement": "2 indexed public-source records explicitly mention IL. This is coverage, not a threat or attribution score."
       },
       {
         "code": "IN",
@@ -2230,23 +2204,21 @@
       },
       {
         "code": "IR",
-        "sourceCount": 3,
-        "publisherCount": 3,
+        "sourceCount": 2,
+        "publisherCount": 2,
         "publishers": [
           "Canadian Security Intelligence Service",
-          "Office of the Director of National Intelligence",
-          "UN News: Peace and Security"
+          "Office of the Director of National Intelligence"
         ],
         "changedCount": 0,
         "topics": [
           "other"
         ],
         "sourceIds": [
-          "un-security-3871f4725b668fff",
           "allied-odni-2026",
           "allied-csis-2025"
         ],
-        "statement": "3 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
+        "statement": "2 indexed public-source records explicitly mention IR. This is coverage, not a threat or attribution score."
       },
       {
         "code": "KP",
@@ -2291,7 +2263,7 @@
       },
       {
         "code": "PS",
-        "sourceCount": 3,
+        "sourceCount": 2,
         "publisherCount": 1,
         "publishers": [
           "UN News: Peace and Security"
@@ -2299,19 +2271,17 @@
         "changedCount": 2,
         "topics": [
           "humanitarian",
-          "military",
           "other"
         ],
         "sourceIds": [
           "un-security-b263a9f6616b169f",
-          "un-security-496d9207ea6160ee",
-          "un-security-755b4a8417b67bf5"
+          "un-security-496d9207ea6160ee"
         ],
-        "statement": "3 indexed public-source records explicitly mention PS. This is coverage, not a threat or attribution score."
+        "statement": "2 indexed public-source records explicitly mention PS. This is coverage, not a threat or attribution score."
       },
       {
         "code": "RU",
-        "sourceCount": 12,
+        "sourceCount": 13,
         "publisherCount": 8,
         "publishers": [
           "Canadian Security Intelligence Service",
@@ -2323,19 +2293,21 @@
           "UK Ministry of Defence publications",
           "UN News: Peace and Security"
         ],
-        "changedCount": 3,
+        "changedCount": 4,
         "topics": [
           "foreign-influence",
           "humanitarian",
           "military",
           "other",
-          "power-energy"
+          "power-energy",
+          "sanctions"
         ],
         "sourceIds": [
+          "uk-mod-862b66b69b53de63",
           "un-security-b96a70c0e26e2049",
           "un-security-406d83dce36155e9",
           "uk-mod-9bbc9dee5b4bf6e4",
-          "un-security-643adc1628a54d97",
+          "intake-doj-9ac5f778-7e42-4693-aa5c-7b2bc10c6712",
           "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
           "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85",
@@ -2345,35 +2317,17 @@
           "allied-eeas-fimi-2026",
           "allied-japan-defense-2026"
         ],
-        "statement": "12 indexed public-source records explicitly mention RU. This is coverage, not a threat or attribution score."
-      },
-      {
-        "code": "SD",
-        "sourceCount": 2,
-        "publisherCount": 1,
-        "publishers": [
-          "UN News: Peace and Security"
-        ],
-        "changedCount": 0,
-        "topics": [
-          "military",
-          "other"
-        ],
-        "sourceIds": [
-          "un-security-603897332ca7927a",
-          "un-security-63389bec29a78dc1"
-        ],
-        "statement": "2 indexed public-source records explicitly mention SD. This is coverage, not a threat or attribution score."
+        "statement": "13 indexed public-source records explicitly mention RU. This is coverage, not a threat or attribution score."
       },
       {
         "code": "UA",
-        "sourceCount": 6,
+        "sourceCount": 7,
         "publisherCount": 2,
         "publishers": [
           "UK Ministry of Defence publications",
           "UN News: Peace and Security"
         ],
-        "changedCount": 5,
+        "changedCount": 7,
         "topics": [
           "humanitarian",
           "military",
@@ -2381,52 +2335,45 @@
           "power-energy"
         ],
         "sourceIds": [
+          "un-security-b565ed465e68d34f",
+          "uk-mod-b2ab1e1a3978d2cd",
           "un-security-b96a70c0e26e2049",
           "uk-mod-243265bfddf626ab",
           "un-security-b7682f03ec706e9e",
           "un-security-406d83dce36155e9",
-          "uk-mod-9bbc9dee5b4bf6e4",
-          "un-security-643adc1628a54d97"
+          "uk-mod-9bbc9dee5b4bf6e4"
         ],
-        "statement": "6 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
+        "statement": "7 indexed public-source records explicitly mention UA. This is coverage, not a threat or attribution score."
       },
       {
         "code": "YE",
-        "sourceCount": 4,
+        "sourceCount": 3,
         "publisherCount": 1,
         "publishers": [
           "UN News: Peace and Security"
         ],
-        "changedCount": 2,
+        "changedCount": 3,
         "topics": [
+          "humanitarian",
           "other"
         ],
         "sourceIds": [
+          "un-security-b565ed465e68d34f",
           "un-security-c16a7d58ea6e2ce1",
-          "un-security-4e6fd87de55f1a78",
-          "un-security-6b3d25b299acbb3f",
-          "un-security-6d3aea411fa53f6c"
+          "un-security-4e6fd87de55f1a78"
         ],
-        "statement": "4 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
+        "statement": "3 indexed public-source records explicitly mention YE. This is coverage, not a threat or attribution score."
       }
     ],
     "inferredCountryBriefs": [
       {
-        "code": "ES",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "changedCount": 0,
-        "sourceIds": [
-          "un-security-6b3d25b299acbb3f"
-        ],
-        "method": "Curated source-title country/place mention, not event attribution"
-      },
-      {
         "code": "GB",
-        "sourceCount": 8,
+        "sourceCount": 10,
         "publisherCount": 1,
-        "changedCount": 8,
+        "changedCount": 10,
         "sourceIds": [
+          "uk-mod-b2ab1e1a3978d2cd",
+          "uk-mod-974bbf6218399832",
           "uk-mod-6bc31a3d75923ea5",
           "uk-mod-cf466f652a9d2333",
           "uk-mod-243265bfddf626ab",
@@ -2449,42 +2396,12 @@
         "method": "Curated source-title country/place mention, not event attribution"
       },
       {
-        "code": "IR",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "changedCount": 0,
-        "sourceIds": [
-          "intake-ofac-12111"
-        ],
-        "method": "Curated source-title country/place mention, not event attribution"
-      },
-      {
         "code": "JP",
         "sourceCount": 1,
         "publisherCount": 1,
         "changedCount": 0,
         "sourceIds": [
           "allied-japan-defense-2026"
-        ],
-        "method": "Curated source-title country/place mention, not event attribution"
-      },
-      {
-        "code": "MZ",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "changedCount": 0,
-        "sourceIds": [
-          "un-security-6d3aea411fa53f6c"
-        ],
-        "method": "Curated source-title country/place mention, not event attribution"
-      },
-      {
-        "code": "NP",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "changedCount": 0,
-        "sourceIds": [
-          "un-security-6b3d25b299acbb3f"
         ],
         "method": "Curated source-title country/place mention, not event attribution"
       },
@@ -2499,21 +2416,12 @@
         "method": "Curated source-title country/place mention, not event attribution"
       },
       {
-        "code": "SS",
-        "sourceCount": 1,
-        "publisherCount": 1,
-        "changedCount": 0,
-        "sourceIds": [
-          "un-security-63389bec29a78dc1"
-        ],
-        "method": "Curated source-title country/place mention, not event attribution"
-      },
-      {
         "code": "US",
-        "sourceCount": 2,
-        "publisherCount": 1,
-        "changedCount": 0,
+        "sourceCount": 3,
+        "publisherCount": 2,
+        "changedCount": 1,
         "sourceIds": [
+          "uk-mod-1ecc55ffaf7ba35c",
           "intake-doj-a5f5acf3-9617-4ed3-8d69-b711db9412e9",
           "intake-doj-436fa07f-7069-46f1-b0d9-27c156815498"
         ],
@@ -2523,9 +2431,9 @@
     "themes": [
       {
         "topic": "other",
-        "sourceCount": 37,
+        "sourceCount": 29,
         "publisherCount": 9,
-        "changedCount": 20,
+        "changedCount": 22,
         "countries": [
           "CN",
           "IL",
@@ -2535,11 +2443,12 @@
           "PK",
           "PS",
           "RU",
-          "SD",
           "UA",
           "YE"
         ],
         "sourceIds": [
+          "uk-mod-862b66b69b53de63",
+          "uk-mod-974bbf6218399832",
           "un-security-b263a9f6616b169f",
           "uk-mod-93ffed192b65358d",
           "us-defense-e74d7c2e26ddf627",
@@ -2560,28 +2469,28 @@
           "un-security-4b6d952de8615dc8",
           "uk-mod-ea3f766b440a115c",
           "uk-mod-1e730e4652456e89",
-          "un-security-6b3d25b299acbb3f",
-          "un-security-6d3aea411fa53f6c",
-          "un-security-63389bec29a78dc1",
-          "un-security-3871f4725b668fff"
+          "intake-doj-4a07fbbd-c53f-4fc4-944b-c39d057d3c79",
+          "intake-doj-e38f899c-9724-4681-9744-8fb5a09a8e85"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "military",
-        "sourceCount": 22,
+        "sourceCount": 24,
         "publisherCount": 5,
-        "changedCount": 16,
+        "changedCount": 21,
         "countries": [
           "CN",
-          "IL",
           "KP",
-          "PS",
           "RU",
-          "SD",
           "UA"
         ],
         "sourceIds": [
+          "un-security-b663b0425d6b1053",
+          "uk-mod-1ecc55ffaf7ba35c",
+          "uk-mod-b2ab1e1a3978d2cd",
+          "uk-mod-baed156483b14134",
+          "us-defense-937ee34ded3dad8e",
           "uk-mod-6bc31a3d75923ea5",
           "uk-mod-cf466f652a9d2333",
           "uk-mod-16892862229e5f57",
@@ -2598,9 +2507,6 @@
           "uk-mod-6aba64ef91283e48",
           "uk-mod-9bbc9dee5b4bf6e4",
           "us-defense-b54636980867a96b",
-          "un-security-643adc1628a54d97",
-          "un-security-603897332ca7927a",
-          "un-security-755b4a8417b67bf5",
           "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
           "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "allied-japan-defense-2026"
@@ -2611,32 +2517,18 @@
         "topic": "humanitarian",
         "sourceCount": 3,
         "publisherCount": 1,
-        "changedCount": 2,
+        "changedCount": 3,
         "countries": [
           "IL",
           "PS",
           "RU",
-          "UA"
+          "UA",
+          "YE"
         ],
         "sourceIds": [
+          "un-security-b565ed465e68d34f",
           "un-security-496d9207ea6160ee",
-          "un-security-406d83dce36155e9",
-          "un-security-755b4a8417b67bf5"
-        ],
-        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
-      },
-      {
-        "topic": "power-energy",
-        "sourceCount": 2,
-        "publisherCount": 1,
-        "changedCount": 1,
-        "countries": [
-          "RU",
-          "UA"
-        ],
-        "sourceIds": [
-          "un-security-b96a70c0e26e2049",
-          "un-security-643adc1628a54d97"
+          "un-security-406d83dce36155e9"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -2648,6 +2540,20 @@
         "countries": [],
         "sourceIds": [
           "un-security-bb68354ff07074ea"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "power-energy",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 1,
+        "countries": [
+          "RU",
+          "UA"
+        ],
+        "sourceIds": [
+          "un-security-b96a70c0e26e2049"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
@@ -2664,13 +2570,16 @@
       },
       {
         "topic": "cyber",
-        "sourceCount": 32,
+        "sourceCount": 35,
         "publisherCount": 3,
         "changedCount": 0,
         "countries": [
           "KP"
         ],
         "sourceIds": [
+          "intake-cisa-CVE-2026-132165",
+          "intake-cisa-CVE-2026-131914",
+          "intake-cisa-CVE-2026-132224",
           "intake-cisa-CVE-2026-134624",
           "intake-cisa-CVE-2026-133968",
           "intake-doj-a5f5acf3-9617-4ed3-8d69-b711db9412e9",
@@ -2691,22 +2600,20 @@
           "intake-cisa-CVE-2026-116606",
           "intake-cisa-CVE-2026-124194",
           "intake-cisa-CVE-2026-125350",
-          "intake-cisa-CVE-2026-20320",
-          "intake-cisa-CVE-2026-102895",
-          "intake-cisa-CVE-2026-116779",
-          "intake-cisa-CVE-2026-123158"
+          "intake-cisa-CVE-2026-20320"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       },
       {
         "topic": "foreign-influence",
-        "sourceCount": 21,
+        "sourceCount": 22,
         "publisherCount": 2,
         "changedCount": 0,
         "countries": [
           "RU"
         ],
         "sourceIds": [
+          "intake-fara-7801",
           "intake-doj-33d1b650-2df5-4ebe-8764-74d7c85daa43",
           "intake-doj-d5b1cdf4-8264-4f24-8832-a7f9203c004a",
           "intake-fara-7796",
@@ -2730,6 +2637,19 @@
           "intake-fara-7773"
         ],
         "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
+      },
+      {
+        "topic": "sanctions",
+        "sourceCount": 1,
+        "publisherCount": 1,
+        "changedCount": 0,
+        "countries": [
+          "RU"
+        ],
+        "sourceIds": [
+          "intake-doj-9ac5f778-7e42-4693-aa5c-7b2bc10c6712"
+        ],
+        "note": "Keyword indexing of publication titles; no claim that underlying events are confirmed."
       }
     ],
     "relatedReports": [],
@@ -2739,13 +2659,13 @@
       "model": "sentence-transformers/all-MiniLM-L6-v2"
     },
     "quality": {
-      "sourceTitlesWithoutDates": 9,
-      "titlesOlderThan30Days": 10,
+      "sourceTitlesWithoutDates": 4,
+      "titlesOlderThan30Days": 11,
       "publisherCount": 13,
-      "countryTaggedCount": 27,
-      "titleAssociatedCount": 28,
-      "inferredOnlyCount": 8,
-      "unassignedCount": 79
+      "countryTaggedCount": 24,
+      "titleAssociatedCount": 27,
+      "inferredOnlyCount": 9,
+      "unassignedCount": 81
     },
     "limitations": [
       "No full-document validation or human-source intelligence",
