@@ -1,10 +1,13 @@
-const {chromium,webkit,devices}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
+const {chromium,webkit,devices,request:createRequest}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const assert=require('node:assert/strict');
 const fs=require('node:fs');
 const origin=(process.env.EA_BROWSER_ORIGIN||'http://127.0.0.1:4174').replace(/\/$/,'');
 const release=process.env.GITHUB_SHA;
+const api=fs.readFileSync('eastern-axis/public-api-origin.txt','utf8').trim().replace(/\/$/,'');
+const production=origin.startsWith('https://');
 (async()=>{
  fs.mkdirSync('audit-output',{recursive:true});
+ const req=await createRequest.newContext({extraHTTPHeaders:{Origin:'https://jbmeadows26.github.io'}});
  for(const [name,engine,options] of [
    ['iphone-webkit',webkit,{...devices['iPhone 13']}],
    ['desktop-chromium',chromium,{viewport:{width:1440,height:900}}]
@@ -13,14 +16,34 @@ const release=process.env.GITHUB_SHA;
    try{
      const context=await browser.newContext(options);
      // Simulate a missing fingerprinted CSS file and unavailable external fonts.
-     await context.route('**/*',route=>route.request().resourceType()==='stylesheet'?route.abort():route.continue());
+     await context.route('**/*',async route=>{
+       if(route.request().resourceType()==='stylesheet')return route.abort();
+       // The Neon API deliberately permits only the published origin. Candidate
+       // preview uses the same read-only request proxy as full browser QA.
+       if(!production&&route.request().url().startsWith(api+'/api/')){
+         const headers={'access-control-allow-origin':'*','content-type':'application/json','access-control-allow-methods':'GET, OPTIONS','access-control-allow-headers':'content-type, authorization'};
+         if(route.request().method()==='OPTIONS')return route.fulfill({status:204,headers,body:''});
+         if(route.request().method()!=='GET')return route.abort();
+         try{const response=await req.get(route.request().url(),{timeout:30000});
+           return route.fulfill({status:response.status(),headers,body:await response.body()});
+         }catch(error){return route.fulfill({status:503,headers,body:JSON.stringify({error:String(error)})});}
+       }
+       return route.continue();
+     });
      const page=await context.newPage();
      const errors=[];
+     const apiFailures=[];
+     page.on('response',response=>{if(response.url().startsWith(api+'/api/')&&response.status()>=400)apiFailures.push(response.url()+' HTTP '+response.status());});
      page.on('pageerror',e=>errors.push(e.message));
      for(const tab of ['Situation room','Forecast intelligence','Forecast track record']){
        const query=new URLSearchParams({ea_domain:'command',ea_tab:tab,ea_country:'all',ea_pane:'workspace',release:release||'qa'});
+       const overviewResponse=page.waitForResponse(response=>response.url()===api+'/api/overview',{timeout:45000});
        const response=await page.goto(origin+'/?'+query,{waitUntil:'domcontentloaded',timeout:30000});
        assert.equal(response.status(),200);
+       const overview=await overviewResponse;
+       assert.equal(overview.status(),200,'Country catalog API failed');
+       const catalog=await overview.json();
+       assert.ok(Array.isArray(catalog.countries)&&catalog.countries.length>=195,'Country catalog missing from real API');
        await page.locator('.ea-control-room').waitFor({state:'visible',timeout:20000});
        const style=await page.evaluate(()=>{
          const shell=document.querySelector('.ea-control-room'),nav=document.querySelector('.ea-mobile-primary');
@@ -44,6 +67,8 @@ const release=process.env.GITHUB_SHA;
        console.log('STYLE QA',name,tab,JSON.stringify(style));
      }
      assert.deepEqual(errors,[],'Uncaught browser exceptions');
+     assert.deepEqual(apiFailures,[],'API requests failed');
    } finally {await browser.close();}
  }
+ await req.dispose();
 })().catch(error=>{console.error(error);process.exitCode=1;});
