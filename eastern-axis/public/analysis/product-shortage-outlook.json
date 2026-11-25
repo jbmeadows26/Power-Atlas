@@ -1,10 +1,10 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T21:35:46Z",
-  "sourceCheckedAt": "2026-11-25T09:04:53Z",
+  "generatedAt": "2026-11-25T21:58:52Z",
+  "sourceCheckedAt": "2026-11-25T21:58:21Z",
   "status": "source-dated",
   "inventoryContext": {
-    "checkedAt": "2026-11-25T21:35:44Z",
+    "checkedAt": "2026-11-25T21:58:51Z",
     "directProducts": 1,
     "sectorRatios": [
       {
@@ -90,12 +90,13 @@
     "reviewGate": "A forecast cannot be promoted to Command Center without independently verified product-level inventories and human-approved evidence review",
     "probabilityCalibration": "unavailable",
     "portwatch": "observed",
-    "status": "partial",
-    "model": "qwen2.5:1.5b",
-    "reviewed": 1,
+    "status": "unavailable",
+    "model": null,
+    "reviewed": 0,
     "eligibleForModel": 2,
     "screened": 14,
     "errors": [
+      "fuel: ValueError",
       "sugar: ValueError"
     ],
     "note": "No AI rationale is used as standalone evidence or eligibility for Command Center."
@@ -109,7 +110,7 @@
     "inventoryFeeds": 5,
     "dataGaps": 2,
     "commandEligible": 0,
-    "modelReviewed": 1
+    "modelReviewed": 0
   },
   "forecasts": [
     {
@@ -123,7 +124,7 @@
       "horizonType": "planning-scenario-not-predicted-onset",
       "confidence": "limited",
       "coverage": "two-channel",
-      "modelReviewed": true,
+      "modelReviewed": false,
       "inventorySeriesAvailable": 1,
       "inventoryStockScreen": false,
       "countryScope": "global-input-proxy; destination markets unknown",
@@ -184,17 +185,7 @@
           "unit": "million barrels",
           "scope": "United States; wholesale motor gasoline inventories"
         }
-      ],
-      "modelAssessment": {
-        "decision": "investigate",
-        "rationale": "The evidence suggests a price spike and a significant decrease in vessels, which could indicate a potential shortage. The combination of input cost increases and reduced vessel availability is concerning and warrants further investigation into the inventory levels and potential stockouts.",
-        "sourceEvidenceIds": [
-          "https://www.worldbank.org/en/research/commodity-markets",
-          "https://portwatch.imf.org/",
-          "https://portwatch.imf.org/",
-          "https://www.eia.gov/petroleum/supply/weekly/"
-        ]
-      }
+      ]
     },
     {
       "id": "sugar",
@@ -1092,5 +1083,5 @@
     "No calibrated shortage probabilities, verified stockout data or country-specific product exposure are available.",
     "Lack of evidence is not evidence of adequate stock."
   ],
-  "reviewedAt": "2026-11-25T21:36:51Z"
+  "reviewedAt": "2026-11-25T22:00:13Z"
 }
