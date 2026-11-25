@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "checkedAt": "2026-11-24T23:05:01Z",
+  "checkedAt": "2026-11-25T09:55:06Z",
   "status": "ok",
   "scope": "US benchmark financial market conditions; not country-specific",
   "cadence": "Scheduled 6-hour collection; most series publish daily and the stress index weekly. Not intraday quotes.",
@@ -144,36 +144,24 @@
       "sourceUrl": "https://fred.stlouisfed.org/series/SP500",
       "provider": "S&P Dow Jones Indices",
       "cadence": "daily",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 1
+      "ageDays": 2
     },
     {
       "id": "NASDAQCOM",
       "label": "Nasdaq Composite",
       "group": "Equities",
       "unit": "index",
-      "value": 23879.2,
-      "period": "2026-11-19",
-      "previous": 24429.88,
-      "previousPeriod": "2026-11-18",
-      "change1Pct": -2.25,
-      "change5Pct": -5.86,
-      "change5Points": -1486.89,
-      "drawdown60Pct": -13.48,
+      "value": 23733.54,
+      "period": "2026-11-24",
+      "previous": 24089.56,
+      "previousPeriod": "2026-11-23",
+      "change1Pct": -1.48,
+      "change5Pct": -2.45,
+      "change5Points": -594.84,
+      "drawdown60Pct": -14.01,
       "history": [
-        {
-          "date": "2026-10-09",
-          "value": 27366.17
-        },
-        {
-          "date": "2026-10-12",
-          "value": 27245.9
-        },
-        {
-          "date": "2026-10-13",
-          "value": 27204.38
-        },
         {
           "date": "2026-10-14",
           "value": 26692.87
@@ -281,15 +269,27 @@
         {
           "date": "2026-11-19",
           "value": 23879.2
+        },
+        {
+          "date": "2026-11-20",
+          "value": 22617.73
+        },
+        {
+          "date": "2026-11-23",
+          "value": 24089.56
+        },
+        {
+          "date": "2026-11-24",
+          "value": 23733.54
         }
       ],
       "source": "FRED / Nasdaq, Inc.",
       "sourceUrl": "https://fred.stlouisfed.org/series/NASDAQCOM",
       "provider": "Nasdaq, Inc.",
       "cadence": "daily",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 5
+      "ageDays": 1
     },
     {
       "id": "VIXCLS",
@@ -430,9 +430,9 @@
       "sourceUrl": "https://fred.stlouisfed.org/series/VIXCLS",
       "provider": "Cboe",
       "cadence": "daily",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 1
+      "ageDays": 2
     },
     {
       "id": "BAMLH0A0HYM2",
@@ -573,9 +573,9 @@
       "sourceUrl": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
       "provider": "ICE Data Indices, LLC",
       "cadence": "daily",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 1
+      "ageDays": 2
     },
     {
       "id": "T10Y2Y",
@@ -716,9 +716,9 @@
       "sourceUrl": "https://fred.stlouisfed.org/series/T10Y2Y",
       "provider": "Federal Reserve Bank of St. Louis",
       "cadence": "daily",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 0
+      "ageDays": 1
     },
     {
       "id": "STLFSI4",
@@ -827,9 +827,9 @@
       "sourceUrl": "https://fred.stlouisfed.org/series/STLFSI4",
       "provider": "Federal Reserve Bank of St. Louis",
       "cadence": "weekly",
-      "checkedAt": "2026-11-24T23:05:01Z",
+      "checkedAt": "2026-11-25T09:55:06Z",
       "status": "ok",
-      "ageDays": 11
+      "ageDays": 12
     }
   ],
   "signals": [
@@ -852,42 +852,42 @@
       "status": "ok",
       "detail": "Latest observation 2026-11-23",
       "sourceUrl": "https://fred.stlouisfed.org/series/SP500",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     },
     {
       "id": "NASDAQCOM",
       "status": "ok",
-      "detail": "Latest observation 2026-11-19",
+      "detail": "Latest observation 2026-11-24",
       "sourceUrl": "https://fred.stlouisfed.org/series/NASDAQCOM",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     },
     {
       "id": "VIXCLS",
       "status": "ok",
       "detail": "Latest observation 2026-11-23",
       "sourceUrl": "https://fred.stlouisfed.org/series/VIXCLS",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     },
     {
       "id": "BAMLH0A0HYM2",
       "status": "ok",
       "detail": "Latest observation 2026-11-23",
       "sourceUrl": "https://fred.stlouisfed.org/series/BAMLH0A0HYM2",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     },
     {
       "id": "T10Y2Y",
       "status": "ok",
       "detail": "Latest observation 2026-11-24",
       "sourceUrl": "https://fred.stlouisfed.org/series/T10Y2Y",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     },
     {
       "id": "STLFSI4",
       "status": "ok",
       "detail": "Latest observation 2026-11-13",
       "sourceUrl": "https://fred.stlouisfed.org/series/STLFSI4",
-      "checkedAt": "2026-11-24T23:05:01Z"
+      "checkedAt": "2026-11-25T09:55:06Z"
     }
   ],
   "limitations": [
