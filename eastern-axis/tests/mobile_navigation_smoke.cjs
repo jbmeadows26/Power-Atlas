@@ -338,7 +338,7 @@ async function qa(page,width){
     await page.locator('.country-brief .brief-relationship').waitFor({state:'visible'});
     await openWorkspace(page,'Macroeconomics & Markets','Growth & labor');
     await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
-    await page.getByRole('heading',{name:'The systems behind global power.'}).waitFor({state:'visible'});
+    await page.getByRole('heading',{name:'Economy',exact:true}).waitFor({state:'visible'});
     await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
     assert.equal(await page.locator('#ea-country-scope').count(),1,'Country selector was unexpectedly unmounted: '+JSON.stringify(pageErrors));
     assert.match(await page.locator('#ea-country-scope').textContent(),/China/,'Country selection must persist between tabs');
@@ -355,6 +355,10 @@ async function qa(page,width){
     assert.equal(await sourceInventory.locator('.ip-sanction-source').count(),2,'UK and Canadian source snapshots must be preserved');
 
     assert.equal(await page.getByRole('region',{name:'Eight intelligence domains'}).count(),0,'Grid should close after domain choice');
+    await openWorkspace(page,'Command & Situation Room','Forecast intelligence');
+    await page.getByRole('heading',{name:'Forecast intelligence center',exact:true}).waitFor({state:'visible'});
+    await openWorkspace(page,'Command & Situation Room','Forecast track record');
+    await page.getByRole('heading',{name:'Forecast track record',exact:true}).waitFor({state:'visible'});
     await openWorkspace(page,'Command & Situation Room','Situation room');
     await page.getByRole('region',{name:'Evidence-gated command alerts'}).waitFor({state:'visible'});
     assert.equal(await page.locator('.mobile-brief:visible').count(),0,'Legacy oversized mobile hero still blocks the data first screen');
