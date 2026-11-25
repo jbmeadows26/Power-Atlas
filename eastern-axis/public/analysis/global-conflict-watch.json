@@ -1,13 +1,13 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-23T08:07:18Z",
+  "generatedAt": "2026-11-25T09:03:03Z",
   "status": "ok",
   "category": "Defense, Security & Cyber",
   "analyst": {
     "name": "Global Conflict & Hotspot Analyst",
     "model": null,
-    "modelStatus": "reviewed",
-    "reviewed": 2,
+    "modelStatus": "unavailable",
+    "reviewed": 0,
     "gate": "8 dated 28-day baselines + robust anomaly + fresh coded observations + 3 independent news publishers + bounded AI review",
     "commandEligible": 0,
     "methodology": "Strategic, delayed, civilian-focused. No verified battlefield positions."
@@ -56,7 +56,7 @@
         {
           "name": "Deutsche Welle",
           "status": "ok",
-          "articles": 10,
+          "articles": 11,
           "url": "https://rss.dw.com/xml/rss-en-world"
         },
         {
@@ -79,7 +79,7 @@
   "measurement": {
     "latestCodedEvent": "2026-10-31",
     "firstCodedEvent": "2026-01-01",
-    "dataAgeDays": 23,
+    "dataAgeDays": 25,
     "eventCount": 19027,
     "eventFresh": true,
     "worldwideCompleteness": "not asserted"
@@ -131,43 +131,52 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 4,
+        "articles": 7,
         "publishers": 3,
         "evidence": [
           {
-            "id": "rss-3",
-            "title": "Boy, 7, pulled alive from rubble hours after Russian strike on Ukraine, rescuers say",
-            "date": "2026-11-23",
+            "id": "rss-1",
+            "title": "Russia's own figures show almost 500,000 deaths in war in Ukraine",
+            "date": "2026-11-25",
             "publisher": "BBC World",
-            "url": "https://www.bbc.co.uk/news/articles/cqdr15l32d3go?at_medium=RSS&at_campaign=rss"
+            "url": "https://www.bbc.co.uk/news/articles/cmx27g533zwyo?at_medium=RSS&at_campaign=rss"
           },
           {
-            "id": "rss-13",
-            "title": "Russian strike on Zelenskyy's hometown in central Ukraine kills 2, wounds 60",
-            "date": "2026-11-21",
-            "publisher": "CBC World",
-            "url": "https://www.cbc.ca/news/world/russia-ukraine-zelenskyy-hometown-9.7431164?cmp=rss"
-          },
-          {
-            "id": "rss-8",
-            "title": "Shattered playgrounds and freezing classrooms: Inside Ukraine’s deadliest year for children",
-            "date": "2026-11-20",
+            "id": "rss-1",
+            "title": "World News in Brief: Vaccine crisis in Yemen, aid for Ukraine, another UNRWA staffer killed",
+            "date": "2026-11-24",
             "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168847"
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168871"
           },
           {
-            "id": "rss-21",
-            "title": "Ukraine: Civilian casualties in 2026 already far exceed previous years’ tolls",
-            "date": "2026-11-17",
+            "id": "rss-1",
+            "title": "Ukraine's bid for NATO membership and more air defense remains controversial",
+            "date": "2026-11-24",
+            "publisher": "Deutsche Welle",
+            "url": "https://www.dw.com/en/ukraine-s-bid-for-nato-membership-and-more-air-defense-remains-controversial/a-80029852?maca=en-rss-en-world-4025-xml-mrss"
+          },
+          {
+            "id": "rss-31",
+            "title": "My family died in Ukraine. My mum blamed Zelensky's troops - the truth is complicated",
+            "date": "2026-11-25",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/articles/cw24e17v9e51o?at_medium=RSS&at_campaign=rss"
+          },
+          {
+            "id": "rss-10",
+            "title": "Security Council LIVE: Winter attacks on Ukraine's power grid and Black Sea shipping threaten lives and global food supplies",
+            "date": "2026-11-23",
             "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168828"
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168859"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [
         "Government of Russia (Soviet Union)",
-        "Government of Ukraine"
+        "Government of Ukraine",
+        "IS",
+        "Black Spark"
       ],
       "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
       "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
@@ -219,36 +228,29 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 4,
+        "articles": 3,
         "publishers": 2,
         "evidence": [
           {
-            "id": "rss-9",
-            "title": "Israeli settler violence at unprecedented levels during Palestinian olive harvest",
-            "date": "2026-11-21",
-            "publisher": "CBC World",
-            "url": "https://www.cbc.ca/news/world/israeli-settler-violence-at-unprecedented-levels-during-palestinian-olive-harvest-9.7426808?cmp=rss"
+            "id": "rss-11",
+            "title": "Israeli air strike kills Hamas internal security chief in Gaza",
+            "date": "2026-11-24",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/articles/c6rrg7ggq190o?at_medium=RSS&at_campaign=rss"
           },
           {
-            "id": "rss-7",
+            "id": "rss-8",
+            "title": "Gaza war has undone 77 years of human development, UN warns",
+            "date": "2026-11-23",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168862"
+          },
+          {
+            "id": "rss-20",
             "title": "West Bank: Record settler attacks mar olive harvest as UN urges Israel to protect farmers",
             "date": "2026-11-20",
             "publisher": "UN News",
             "url": "https://news.un.org/feed/view/en/story/2026/11/1168849"
-          },
-          {
-            "id": "rss-14",
-            "title": "Israeli strike on vehicle in Gaza kills three, Gaza Health Ministry says",
-            "date": "2026-11-21",
-            "publisher": "CBC World",
-            "url": "https://www.cbc.ca/news/world/israel-strike-gaza-vehicle-9.7431224?cmp=rss"
-          },
-          {
-            "id": "rss-26",
-            "title": "Winter rains deepen Gaza crisis amid restricted access and aid cuts",
-            "date": "2026-11-17",
-            "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168821"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
@@ -374,7 +376,7 @@
         "publishers": 1,
         "evidence": [
           {
-            "id": "rss-17",
+            "id": "rss-30",
             "title": "World’s top court finds Myanmar guilty of genocide against Rohingya",
             "date": "2026-11-19",
             "publisher": "UN News",
@@ -439,15 +441,29 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
+        "articles": 3,
+        "publishers": 2,
         "evidence": [
           {
-            "id": "rss-22",
-            "title": "World News in Brief: Ebola cases double in DR Congo, chemical exposure starts before birth, Türk concern over EU-Rwanda transfer plan",
-            "date": "2026-11-17",
+            "id": "rss-5",
+            "title": "DR Congo: Concern for trapped Ebola workers as violence against women and girls deepens",
+            "date": "2026-11-24",
             "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168827"
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168865"
+          },
+          {
+            "id": "rss-20",
+            "title": "DR Congo says military aircraft missing as rebels claim to shoot down plane",
+            "date": "2026-11-24",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/articles/cwy7r5z8gg65o?at_medium=RSS&at_campaign=rss"
+          },
+          {
+            "id": "rss-11",
+            "title": "Heavy fighting in Ituri traps DR Congo Ebola responders: WHO",
+            "date": "2026-11-23",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168858"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
@@ -512,18 +528,18 @@
         "publishers": 1,
         "evidence": [
           {
-            "id": "rss-3",
+            "id": "rss-1",
+            "title": "World News in Brief: Vaccine crisis in Yemen, aid for Ukraine, another UNRWA staffer killed",
+            "date": "2026-11-24",
+            "publisher": "UN News",
+            "url": "https://news.un.org/feed/view/en/story/2026/11/1168871"
+          },
+          {
+            "id": "rss-16",
             "title": "‘We escaped with only our lives’: Fighting to give birth in war-torn Yemen",
             "date": "2026-11-21",
             "publisher": "UN News",
             "url": "https://news.un.org/feed/view/en/story/2026/11/1168851"
-          },
-          {
-            "id": "rss-20",
-            "title": "Dozens more children killed in Yemen amid escalating hostilities",
-            "date": "2026-11-18",
-            "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168830"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
@@ -578,15 +594,23 @@
       },
       "observationEnd": "2026-10-31",
       "measurementFresh": true,
-      "modelReviewed": true,
+      "modelReviewed": false,
       "promoted": false,
       "sourceQuality": "coded-events",
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 0,
-        "publishers": 0,
-        "evidence": [],
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-13",
+            "title": "Land mine casualties soar in Syria, two years after war",
+            "date": "2026-11-24",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/articles/c893rl37ywdgo?at_medium=RSS&at_campaign=rss"
+          }
+        ],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [
@@ -596,10 +620,10 @@
         "SDF",
         "National Guard"
       ],
-      "whoBenefits": "Analyst hypothesis, unverified: Government of Syria",
-      "globalRisks": "escalating violence, humanitarian crisis, regional instability",
-      "potentialUpside": "limited, but could lead to improved relations with SDF and reduced civilian casualties",
-      "reason": "Source dates or corroboration insufficient for publishing a fresh exception. historical data shows a worsening trend in conflict intensity, with no recent article sources indicating a shift in the balance of power or improved conditions",
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Coded violence outside this theater's 8-window baseline; needs independent review.",
       "evidence": [
         {
           "source": "UCDP Candidate",
@@ -762,23 +786,15 @@
       },
       "observationEnd": "2026-10-31",
       "measurementFresh": true,
-      "modelReviewed": true,
+      "modelReviewed": false,
       "promoted": false,
       "sourceQuality": "coded-events",
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
-        "evidence": [
-          {
-            "id": "rss-25",
-            "title": "‘Hunger should not be a concern’: WFP steps in for families in Kenya who fled Ethiopia violence",
-            "date": "2026-11-17",
-            "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168822"
-          }
-        ],
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [
@@ -788,10 +804,10 @@
         "TPF",
         "Civilians"
       ],
-      "whoBenefits": "Analyst hypothesis, unverified: EPFAS, Government of Ethiopia, Raya-Zeb, TPF",
-      "globalRisks": "Increased humanitarian crisis, potential for further displacement, economic instability",
-      "potentialUpside": "Reduced conflict, improved relations with neighboring countries",
-      "reason": "Source dates or corroboration insufficient for publishing a fresh exception. The recent increase in conflict events in Ethiopia is concerning and warrants continued monitoring. The article mentions that the United Nations World Food Programme (WFP",
+      "whoBenefits": "Not established. Named participants are not proof of battlefield advantage.",
+      "globalRisks": "Potential humanitarian, displacement, diplomatic and supply-chain spillovers; specific pathways require corroboration.",
+      "potentialUpside": "A verified durable de-escalation could reduce civilian harm and cross-border disruption; no outcome is predicted.",
+      "reason": "Coded violence outside this theater's 8-window baseline; needs independent review.",
       "evidence": [
         {
           "source": "UCDP Candidate",
@@ -899,11 +915,18 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
+        "articles": 2,
+        "publishers": 2,
         "evidence": [
           {
-            "id": "rss-11",
+            "id": "rss-24",
+            "title": "Moment Chinese space mission lifts off with first Pakistan astronaut aboard",
+            "date": "2026-11-25",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/videos/cmz74l0yzzvyo?at_medium=RSS&at_campaign=rss"
+          },
+          {
+            "id": "rss-24",
             "title": "Afghanistan restrictions prevent pregnant women from seeking medical help",
             "date": "2026-11-20",
             "publisher": "UN News",
@@ -968,22 +991,15 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 2,
+        "articles": 1,
         "publishers": 1,
         "evidence": [
           {
-            "id": "rss-4",
+            "id": "rss-17",
             "title": "Homes abandoned, harvests failing: Haiti’s farmers rebuild amid violence, hunger and El Niño",
             "date": "2026-11-21",
             "publisher": "UN News",
             "url": "https://news.un.org/feed/view/en/story/2026/11/1168834"
-          },
-          {
-            "id": "rss-24",
-            "title": "Haiti: ‘Atrocious abuses’ continue as UN warns anti-gang operations must priortise civilian protection",
-            "date": "2026-11-17",
-            "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168823"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
@@ -1105,17 +1121,9 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
-        "evidence": [
-          {
-            "id": "rss-29",
-            "title": "Lebanon leading the way in mental health support",
-            "date": "2026-11-16",
-            "publisher": "UN News",
-            "url": "https://news.un.org/feed/view/en/story/2026/11/1168818"
-          }
-        ],
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [
@@ -1236,9 +1244,17 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 0,
-        "publishers": 0,
-        "evidence": [],
+        "articles": 1,
+        "publishers": 1,
+        "evidence": [
+          {
+            "id": "rss-10",
+            "title": "Is China behind a wave of AI fake videos targeting Taiwan?",
+            "date": "2026-11-24",
+            "publisher": "BBC World",
+            "url": "https://www.bbc.co.uk/news/articles/cv702rw7dzx5o?at_medium=RSS&at_campaign=rss"
+          }
+        ],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [],
@@ -1293,17 +1309,9 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
-        "evidence": [
-          {
-            "id": "rss-1",
-            "title": "China, ASEAN countries struggle over South China Sea code of conduct",
-            "date": "2026-11-22",
-            "publisher": "Deutsche Welle",
-            "url": "https://www.dw.com/en/china-asean-countries-struggle-over-south-china-sea-code-of-conduct/a-80009799?maca=en-rss-en-world-4025-xml-mrss"
-          }
-        ],
+        "articles": 0,
+        "publishers": 0,
+        "evidence": [],
         "limitation": "Editorial news context, not event or death verification"
       },
       "actors": [
@@ -1363,15 +1371,22 @@
       "sourceCount": 1,
       "media": {
         "status": "ok",
-        "articles": 1,
-        "publishers": 1,
+        "articles": 2,
+        "publishers": 2,
         "evidence": [
           {
-            "id": "rss-9",
-            "title": "South Korea education minister resigns over exam cheating scandal",
-            "date": "2026-11-22",
-            "publisher": "BBC World",
-            "url": "https://www.bbc.co.uk/news/articles/cw3dgk29d37no?at_medium=RSS&at_campaign=rss"
+            "id": "rss-1",
+            "title": "Suspected North Korean computer programmers did contract work for B.C. government",
+            "date": "2026-11-25",
+            "publisher": "CBC World",
+            "url": "https://www.cbc.ca/news/canada/suspected-north-korean-computer-programmers-british-columbia-government-9.7433830?cmp=rss"
+          },
+          {
+            "id": "rss-4",
+            "title": "Is North Korea holding back on sending Russia more troops?",
+            "date": "2026-11-24",
+            "publisher": "Deutsche Welle",
+            "url": "https://www.dw.com/en/is-north-korea-holding-back-on-sending-russia-more-troops/a-80033025?maca=en-rss-en-world-4025-xml-mrss"
           }
         ],
         "limitation": "Editorial news context, not event or death verification"
