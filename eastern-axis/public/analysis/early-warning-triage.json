@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T09:13:00Z",
-  "sourceCheckedAt": "2026-11-25T09:04:53Z",
+  "generatedAt": "2026-11-25T22:07:18Z",
+  "sourceCheckedAt": "2026-11-25T21:58:21Z",
   "model": {
     "status": "partial",
     "name": null,
@@ -9,10 +9,10 @@
   },
   "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
-    "observed": 72,
-    "screened": 23,
-    "reviewed": 20,
-    "monitoring": 72,
+    "observed": 84,
+    "screened": 36,
+    "reviewed": 28,
+    "monitoring": 84,
     "elevated": 0,
     "historyReady": 27
   },
@@ -24,25 +24,25 @@
       "group": "US",
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
-      "observedAt": "2026-11-23",
-      "changePct": 0.0,
+      "observedAt": "2026-11-24",
+      "changePct": 0.51,
       "compareMode": "basis-points",
-      "changeBps": 0.0,
+      "changeBps": 2.0,
       "changePp": null,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 8,
-        "robustZ": -1.35,
-        "medianChange": 1.0,
+        "robustZ": 2.02,
+        "medianChange": 0.5,
         "medianAbsoluteDeviation": 0.5
       },
       "anomalous": false,
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": -1,
+      "direction": 1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -59,8 +59,8 @@
       "group": "US",
       "source": "Federal Reserve Bank of New York",
       "sourceUrl": "https://www.newyorkfed.org/markets/reference-rates/sofr",
-      "observedAt": "2026-11-23",
-      "changePct": 1.019,
+      "observedAt": "2026-11-24",
+      "changePct": -0.473,
       "compareMode": "percent",
       "changeBps": null,
       "changePp": null,
@@ -69,7 +69,7 @@
       "baseline": {
         "status": "assessable",
         "sampleSize": 8,
-        "robustZ": 0.83,
+        "robustZ": -0.13,
         "medianChange": -0.269,
         "medianAbsoluteDeviation": 1.045
       },
@@ -77,7 +77,7 @@
       "needsReview": false,
       "sector": null,
       "corroborated": false,
-      "direction": 1,
+      "direction": -1,
       "status": "monitor",
       "reason": "Movement below review threshold",
       "confidence": "unassessed",
@@ -760,18 +760,18 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": 7.5,
+      "changePct": 1.484,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 2.4,
+      "changePp": 0.5,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 0.28,
-        "medianChange": 0.15,
-        "medianAbsoluteDeviation": 5.45
+        "robustZ": 0.05,
+        "medianChange": 0.0,
+        "medianAbsoluteDeviation": 6.2
       },
       "anomalous": false,
       "needsReview": false,
@@ -795,18 +795,18 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": 24.444,
+      "changePct": 17.945,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 14.3,
+      "changePp": 11.7,
       "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 1.11,
-        "medianChange": 0.15,
-        "medianAbsoluteDeviation": 8.6
+        "robustZ": 0.98,
+        "medianChange": 0.7,
+        "medianAbsoluteDeviation": 7.6
       },
       "anomalous": false,
       "needsReview": true,
@@ -814,7 +814,7 @@
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "The GPSInterference.com report is based on ADS-B-derived estimates and not confirmed jamming. The robust Z-score of 1.11 and median change of 0.15 indicate a moderate anomaly, but the sample size of 38 is relatively small. The lack of corroboration and official alert suggests this is not a significant anomaly. The evidence is limited and the anomaly is not robust enough to warrant elevation.",
+      "reason": "The GPSInterference.com report on the Persian Gulf aviation GNSS quality anomaly is based on ADS-B-derived estimates and not confirmed jamming. While the robust Z-score of 0.98 indicates a significant anomaly, the small sample size and median change of 0.7 suggest limited evidence. The lack of corroboration and official alert further reduce the confidence in this anomaly. Therefore, it is recommended to monitor this observation closely.",
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
@@ -830,18 +830,18 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": -4.301,
+      "changePct": -5.226,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -1.2,
+      "changePp": -1.5,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -0.33,
-        "medianChange": -0.2,
-        "medianAbsoluteDeviation": 2.05
+        "robustZ": -0.45,
+        "medianChange": -0.05,
+        "medianAbsoluteDeviation": 2.15
       },
       "anomalous": false,
       "needsReview": false,
@@ -865,28 +865,28 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": 1.647,
+      "changePct": 5.882,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 1.4,
-      "screened": false,
+      "changePp": 5.0,
+      "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 0.42,
-        "medianChange": -4.3,
-        "medianAbsoluteDeviation": 9.2
+        "robustZ": 0.48,
+        "medianChange": -0.75,
+        "medianAbsoluteDeviation": 8.1
       },
       "anomalous": false,
-      "needsReview": false,
+      "needsReview": true,
       "sector": null,
       "corroborated": false,
       "direction": 1,
       "status": "monitor",
-      "reason": "Movement below review threshold",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The GPSInterference.com source provides an ADS-B-derived estimate of a GNSS quality anomaly in the Strait of Hormuz. While the robust Z score of 0.48 indicates a moderate anomaly, the small sample size (38 observations) and median change of -0.75 suggest that this is not a robustly confirmed event. The lack of corroboration and the official alert status further limit the evidence. The anomaly is not considered hostile in nature, and it is recommended to monitor the situation closely.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -900,18 +900,18 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": -46.835,
+      "changePct": -49.364,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": -18.5,
+      "changePp": -19.4,
       "screened": true,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": -3.51,
-        "medianChange": 0.25,
-        "medianAbsoluteDeviation": 3.6
+        "robustZ": -3.93,
+        "medianChange": 0.4,
+        "medianAbsoluteDeviation": 3.4
       },
       "anomalous": true,
       "needsReview": true,
@@ -919,9 +919,9 @@
       "corroborated": false,
       "direction": -1,
       "status": "monitor",
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
+      "reason": "The evidence provided is based on an ADS-B-derived estimate and not confirmed jamming, which limits its reliability. The anomaly is observed at a single point in time and does not have a consistent pattern or corroborating evidence.",
+      "confidence": "low",
+      "modelReviewed": true,
       "evidence": [
         "https://gpsinterference.com/"
       ],
@@ -935,18 +935,18 @@
       "source": "GPSInterference.com (ADS-B-derived estimate; not confirmed jamming)",
       "sourceUrl": "https://gpsinterference.com/",
       "observedAt": "2026-11-24",
-      "changePct": 1.825,
+      "changePct": 3.704,
       "compareMode": "percentage-points",
       "changeBps": null,
-      "changePp": 0.5,
+      "changePp": 1.0,
       "screened": false,
       "fresh": true,
       "baseline": {
         "status": "assessable",
         "sampleSize": 38,
-        "robustZ": 0.04,
-        "medianChange": 0.4,
-        "medianAbsoluteDeviation": 1.5
+        "robustZ": 0.33,
+        "medianChange": 0.25,
+        "medianAbsoluteDeviation": 1.55
       },
       "anomalous": false,
       "needsReview": false,
@@ -1203,6 +1203,306 @@
       "severity": "Observed"
     },
     {
+      "id": "cisa-kev-CVE-2026-103406",
+      "kind": "event",
+      "title": "Hewlett Packard Enterprise (HPE) Juniper Session Smart Conductor and Session Smart Router — CVE-2026-103406",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133469",
+      "kind": "event",
+      "title": "Vates Xen Orchestra — CVE-2026-133469",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2025-41450",
+      "kind": "event",
+      "title": "Danfoss AK-SM 800A Series — CVE-2025-41450",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2023-25914",
+      "kind": "event",
+      "title": "Danfoss AK-SM 800A Series — CVE-2023-25914",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2023-25915",
+      "kind": "event",
+      "title": "Danfoss AK-SM 800A Series — CVE-2023-25915",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133324",
+      "kind": "event",
+      "title": "Mitel MiCollab — CVE-2026-133324",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133275",
+      "kind": "event",
+      "title": "Mitel MiCollab — CVE-2026-133275",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133311",
+      "kind": "event",
+      "title": "Mitel MiCollab — CVE-2026-133311",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133303",
+      "kind": "event",
+      "title": "Mitel MiCollab — CVE-2026-133303",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
+      "id": "cisa-kev-CVE-2026-133323",
+      "kind": "event",
+      "title": "Mitel MiCollab — CVE-2026-133323",
+      "group": "global",
+      "source": "CISA Known Exploited Vulnerabilities",
+      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "observedAt": "2026-11-25",
+      "screened": false,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": false,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Official event lead; significance is not established",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": false,
+      "severity": "Known exploited vulnerability"
+    },
+    {
       "id": "cisa-kev-CVE-2026-132224",
       "kind": "event",
       "title": "Optimizely Web Experimentation — CVE-2026-132224",
@@ -1353,313 +1653,13 @@
       "severity": "Known exploited vulnerability"
     },
     {
-      "id": "cisa-kev-CVE-2026-129448",
+      "id": "noaa-kp-2026-11-25T18:00",
       "kind": "event",
-      "title": "Apache Roller — CVE-2026-129448",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-20",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-123890",
-      "kind": "event",
-      "title": "Broadcom VMware vCenter — CVE-2026-123890",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-20",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2025-42884",
-      "kind": "event",
-      "title": "SAP NetWeaver — CVE-2025-42884",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-20",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-76466",
-      "kind": "event",
-      "title": "Cisco Expressway Series — CVE-2026-76466",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-20",
-      "screened": false,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2024-10441",
-      "kind": "event",
-      "title": "Synology DiskStation Manager (DSM) — CVE-2024-10441",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-18",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-40217",
-      "kind": "event",
-      "title": "BerriAI LiteLLM — CVE-2026-40217",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-18",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-90817",
-      "kind": "event",
-      "title": "Vanderbilt University Research Electronic Data Capture (REDCap) — CVE-2026-90817",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-18",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-90436",
-      "kind": "event",
-      "title": "Apache Axis — CVE-2026-90436",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-18",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-115731",
-      "kind": "event",
-      "title": "Perforce Puppet Enterprise — CVE-2026-115731",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-17",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "cisa-kev-CVE-2026-114713",
-      "kind": "event",
-      "title": "UnrealIRCd UnrealIRCd — CVE-2026-114713",
-      "group": "global",
-      "source": "CISA Known Exploited Vulnerabilities",
-      "sourceUrl": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
-      "observedAt": "2026-11-13",
-      "screened": false,
-      "fresh": false,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": false,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Official event lead; significance is not established",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://www.cisa.gov/known-exploited-vulnerabilities-catalog"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": false,
-      "severity": "Known exploited vulnerability"
-    },
-    {
-      "id": "noaa-kp-2026-11-25T03:00",
-      "kind": "event",
-      "title": "Observed planetary geomagnetic Kp 2.33",
+      "title": "Observed planetary geomagnetic Kp 1.0",
       "group": "global",
       "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
-      "observedAt": "2026-11-25T03:00:00",
+      "observedAt": "2026-11-25T18:00:00",
       "screened": false,
       "fresh": true,
       "baseline": {
@@ -1683,13 +1683,13 @@
       "severity": "Observed"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-a84a786e15189224290bdc996a33a6cc3ae14394-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-93af67a6b48400767071393f670a25f948ba8ffc-003-1",
       "kind": "advisory",
-      "title": "Winter Storm Warning — Scott; Morgan",
+      "title": "Coastal Flood Warning — Anne Arundel",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a84a786e15189224290bdc996a33a6cc3ae14394.001.1",
-      "observedAt": "2026-11-25T02:55:00-06:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.003.1",
+      "observedAt": "2026-11-25T16:42:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1706,20 +1706,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a84a786e15189224290bdc996a33a6cc3ae14394.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.003.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-4c73121718683b8bb12d021ca5e39b077643ec10-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-93af67a6b48400767071393f670a25f948ba8ffc-001-1",
       "kind": "advisory",
-      "title": "Special Marine Warning — Straits of Florida from Craig Key to west end of Seven Mile Bridge out 20 NM; Straits of Florida fro",
+      "title": "Coastal Flood Warning — St. Marys",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4c73121718683b8bb12d021ca5e39b077643ec10.001.1",
-      "observedAt": "2026-11-25T03:47:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.001.1",
+      "observedAt": "2026-11-25T16:42:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1736,20 +1736,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4c73121718683b8bb12d021ca5e39b077643ec10.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-1bb360ab607f123c08228e094e1b85a5ffe516a0-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-93af67a6b48400767071393f670a25f948ba8ffc-002-1",
       "kind": "advisory",
-      "title": "Special Marine Warning — Straits of Florida from Ocean Reef to Craig Key 20 to 60 NM out",
+      "title": "Coastal Flood Warning — Calvert",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1bb360ab607f123c08228e094e1b85a5ffe516a0.001.1",
-      "observedAt": "2026-11-25T03:45:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.002.1",
+      "observedAt": "2026-11-25T16:42:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1766,20 +1766,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1bb360ab607f123c08228e094e1b85a5ffe516a0.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.002.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-22663c65fb6d144d9b3b42a741f410b18c4e8cb5-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-93af67a6b48400767071393f670a25f948ba8ffc-005-1",
       "kind": "advisory",
-      "title": "High Wind Warning — Hudson; Eastern Essex; Eastern Union; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Bro",
+      "title": "Coastal Flood Warning — Charles; King George",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.22663c65fb6d144d9b3b42a741f410b18c4e8cb5.001.1",
-      "observedAt": "2026-11-25T03:38:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.005.1",
+      "observedAt": "2026-11-25T16:42:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1796,20 +1796,140 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.22663c65fb6d144d9b3b42a741f410b18c4e8cb5.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.005.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc-004-4",
+      "id": "nws-urn-oid-2-49-0-1-840-0-93af67a6b48400767071393f670a25f948ba8ffc-004-1",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — District of Columbia; Arlington/Falls Church/Alexandria",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.004.1",
+      "observedAt": "2026-11-25T16:42:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.93af67a6b48400767071393f670a25f948ba8ffc.004.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-1a3490828d200d27196dedeb0c5302168441e652-002-2",
+      "kind": "advisory",
+      "title": "High Wind Warning — Dauphin",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.002.2",
+      "observedAt": "2026-11-25T16:17:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.002.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-1a3490828d200d27196dedeb0c5302168441e652-001-2",
+      "kind": "advisory",
+      "title": "High Wind Warning — Cambria; Somerset",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.001.2",
+      "observedAt": "2026-11-25T16:17:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-1a3490828d200d27196dedeb0c5302168441e652-003-1",
+      "kind": "advisory",
+      "title": "High Wind Warning — Schuylkill; Lebanon; Lancaster",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.003.1",
+      "observedAt": "2026-11-25T16:17:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1a3490828d200d27196dedeb0c5302168441e652.003.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-e84432fceba16c53e3bb8559b5c5edf967a5cfe6-004-2",
       "kind": "advisory",
       "title": "Storm Warning — Coastal waters from Cape Shoalwater WA to Cape Falcon OR out 10 nm; Coastal waters from Cape Falcon ",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc.004.4",
-      "observedAt": "2026-11-25T00:34:00-08:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e84432fceba16c53e3bb8559b5c5edf967a5cfe6.004.2",
+      "observedAt": "2026-11-25T13:15:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1826,20 +1946,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc.004.4"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e84432fceba16c53e3bb8559b5c5edf967a5cfe6.004.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-002-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b87422c8387cacdb27191764a8716c1238184ff4-001-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Middlesex; Western Monmouth; Eastern Monmouth",
+      "title": "Flood Warning — Yuma, AZ",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.002.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b87422c8387cacdb27191764a8716c1238184ff4.001.1",
+      "observedAt": "2026-11-25T14:07:00-07:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1856,20 +1976,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.002.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b87422c8387cacdb27191764a8716c1238184ff4.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-005-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-004-3",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Ocean; Coastal Ocean",
+      "title": "Coastal Flood Warning — Northeast Suffolk",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.004.3",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1886,20 +2006,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.004.3"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-003-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-006-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Inland Sussex; Delaware Beaches",
+      "title": "Coastal Flood Warning — Southwest Suffolk; Southern Nassau",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.003.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.006.1",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1916,170 +2036,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.003.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.006.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-006-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-002-3",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — New Castle; Salem",
+      "title": "Coastal Flood Warning — New York (Manhattan); Richmond (Staten Is.); Kings (Brooklyn)",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.006.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.006.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-004-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Kent; Cumberland",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.004.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.004.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-001-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Atlantic; Cape May; Atlantic Coastal Cape May; Coastal Atlantic; Southeastern Burlington",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.001.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-007-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Surry; James City; Newport News; Isle of Wight",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.007.1",
-      "observedAt": "2026-11-25T03:14:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.007.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-008-2",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Richmond; Lancaster; New Kent; Gloucester; Middlesex; Mathews; Eastern King William; Eastern King an",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.008.2",
-      "observedAt": "2026-11-25T03:14:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.008.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-001-2",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Westmoreland; Northumberland",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.001.2",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.002.3",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2096,20 +2066,20 @@
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.001.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.002.3"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-009-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-005-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Maryland Beaches; Accomack; Northampton",
+      "title": "Coastal Flood Warning — Southern Queens",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.009.2",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.005.1",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2126,20 +2096,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.009.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.005.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-004-3",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-003-3",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Eastern Currituck",
+      "title": "Coastal Flood Warning — Southern Fairfield; Southern New Haven; Southern Westchester; Bronx; Northwest Suffolk; Northern Que",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.004.3",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.003.3",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2156,20 +2126,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.004.3"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.003.3"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-005-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-001-3",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Virginia Beach",
+      "title": "Coastal Flood Warning — Hudson; Eastern Bergen; Eastern Essex; Eastern Union",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.005.2",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.001.3",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2186,20 +2156,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.005.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.001.3"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-006-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-b90723afe052311ba87bfcbd5d46e56539cb6a94-007-2",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Chesapeake; Hampton/Poquoson; Suffolk; Norfolk; Portsmouth",
+      "title": "Coastal Flood Warning — Southeast Suffolk",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.006.1",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.007.2",
+      "observedAt": "2026-11-25T16:06:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2216,20 +2186,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.006.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b90723afe052311ba87bfcbd5d46e56539cb6a94.007.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-002-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-91e3950cfd067de4528bf4049afbc8bb0b36c1db-001-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Dorchester; Wicomico; Somerset",
+      "title": "Flood Warning — Maricopa, AZ; Yuma, AZ",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.002.2",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.91e3950cfd067de4528bf4049afbc8bb0b36c1db.001.1",
+      "observedAt": "2026-11-25T14:02:00-07:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2246,20 +2216,110 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.002.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.91e3950cfd067de4528bf4049afbc8bb0b36c1db.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-003-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-0573f04b5a8861a7811c239ca867a5f56d9cc996-001-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Prince George; Charles City",
+      "title": "High Wind Warning — Southeast Nicholas; Southeast Webster; Northwest Pocahontas; Southeast Randolph",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.003.1",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0573f04b5a8861a7811c239ca867a5f56d9cc996.001.1",
+      "observedAt": "2026-11-25T15:50:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0573f04b5a8861a7811c239ca867a5f56d9cc996.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-5d401810a493b13078aa4b2fc76568d18a6ddc33-001-1",
+      "kind": "advisory",
+      "title": "Special Marine Warning — S of Cape Lookout NC to Surf City NC out to 20 NM; Waters from Ocracoke Inlet to Cape Lookout NC fro",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5d401810a493b13078aa4b2fc76568d18a6ddc33.001.1",
+      "observedAt": "2026-11-25T15:34:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5d401810a493b13078aa4b2fc76568d18a6ddc33.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-9c0462cfc0443ca07039faf4a49b54458cd3c80c-002-1",
+      "kind": "advisory",
+      "title": "High Wind Warning — Central Coast of Oregon",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c0462cfc0443ca07039faf4a49b54458cd3c80c.002.1",
+      "observedAt": "2026-11-25T12:28:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c0462cfc0443ca07039faf4a49b54458cd3c80c.002.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-9c0462cfc0443ca07039faf4a49b54458cd3c80c-001-2",
+      "kind": "advisory",
+      "title": "High Wind Warning — Clatsop County Coast; Tillamook County Coast; South Washington Coast",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c0462cfc0443ca07039faf4a49b54458cd3c80c.001.2",
+      "observedAt": "2026-11-25T12:28:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2276,20 +2336,20 @@
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.003.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9c0462cfc0443ca07039faf4a49b54458cd3c80c.001.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-9851f63573be3bd64e30050f1ff86fba4a1fd46a-010-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-009-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Inland Worcester",
+      "title": "Storm Warning — Waters from Fenwick Island DE to Chintoteague VA from 20 to 60 NM; Waters from Chincoteague VA to Pa",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.010.1",
-      "observedAt": "2026-11-25T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.009.1",
+      "observedAt": "2026-11-25T15:24:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2306,7 +2366,307 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.010.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.009.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-004-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cap",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.004.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.004.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-002-1",
+      "kind": "advisory",
+      "title": "Storm Warning — Waters from Parramore Island VA to Cape Charles Light VA from 20 to 60 NM; Waters from Cape Charles ",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.002.1",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.002.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-001-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Coastal waters from Parramore Island to Cape Charles Light VA out 20 NM; Coastal Waters from Cape Ch",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.001.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-008-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Currituck Sound",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.008.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.008.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-005-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Chesapeake Bay from Smith Point to Windmill Point VA; Chesapeake Bay from Windmill Point to New Poin",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.005.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.005.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-006-2",
+      "kind": "advisory",
+      "title": "Storm Warning — James River from JRB to HRBT, Including the Elizabeth River",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.006.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.006.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-003-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Coastal waters from Fenwick Island DE to Chincoteague VA out 20 NM; Coastal waters from Chincoteague",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.003.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.003.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ce47563942f848380beaa73b5fa1d85b650be1a5-007-2",
+      "kind": "advisory",
+      "title": "Storm Warning — Rappahannock River from Urbanna to Windmill Point; York River; James River from Jamestown to the Jam",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.007.2",
+      "observedAt": "2026-11-25T15:24:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ce47563942f848380beaa73b5fa1d85b650be1a5.007.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-bffc4da7b3ef8d76663be8837eb9d19e1e7e9f53-001-2",
+      "kind": "advisory",
+      "title": "High Wind Warning — Northern Washington Coast; Grays Harbor County Coast",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bffc4da7b3ef8d76663be8837eb9d19e1e7e9f53.001.2",
+      "observedAt": "2026-11-25T12:20:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.bffc4da7b3ef8d76663be8837eb9d19e1e7e9f53.001.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-c673a9907be498dacf95faec2d917a8c2fc1beb4-001-1",
+      "kind": "advisory",
+      "title": "Flood Watch — Metro Palm Beach County; Metro Broward County; Metropolitan Miami Dade; Coastal Palm Beach County; C",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c673a9907be498dacf95faec2d917a8c2fc1beb4.001.1",
+      "observedAt": "2026-11-25T14:49:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Awaiting a valid AI review; not escalated",
+      "confidence": "unassessed",
+      "modelReviewed": false,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c673a9907be498dacf95faec2d917a8c2fc1beb4.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
