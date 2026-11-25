@@ -57,7 +57,8 @@ export default function ResilienceWatch(){
       .finally(()=>{if(alive)setLoading(false);});
     return()=>{alive=false;};
   },[revision]);
-  const stale=snapshot ? Date.now()-Date.parse(snapshot.checkedAt)>120*60000 : false;
+  const stale=snapshot ? !Number.isFinite(Date.parse(snapshot.checkedAt))||Date.now()-Date.parse(snapshot.checkedAt)>120*60000 : false;
+  const noCurrentSample=!!snapshot&&(stale||snapshot.status==='unavailable'||snapshot.sampledCount===0);
   const groups=useMemo(()=>snapshot ? [...new Set(snapshot.observations.map(o=>o.category))] : [],[snapshot]);
   const observations=useMemo(()=>!snapshot?[]:snapshot.observations.filter(o=>filter==='all'||o.category===filter),[snapshot,filter]);
   const supported=snapshot?.capabilities.filter(c=>c.status==='sampled').length||0;
@@ -73,12 +74,12 @@ export default function ResilienceWatch(){
     {snapshot && <>
       <div className={'rw-overall '+(snapshot.status==='watch'?'rw-alert':'')}>
         <div className="rw-overall-main">{snapshot.status==='watch'?<ShieldAlert size={22}/>:<Clock3 size={22}/>}<div>
-          <strong>{stale?'STALE SNAPSHOT':snapshot.status==='watch'?'CORRELATED WATCH':snapshot.status==='screening'?'SCREENING SIGNALS — UNCONFIRMED':snapshot.status==='unavailable'?'DATA UNAVAILABLE':'NO CORRELATED ALERT IN SAMPLE'}</strong>
-          <p>{snapshot.summary}. {stale?'The latest published snapshot is over two hours old; do not use it to infer present conditions.':''}</p>
+          <strong>{stale?'STALE SNAPSHOT':snapshot.status==='watch'?'CORRELATED WATCH':snapshot.status==='screening'?'SCREENING SIGNALS — UNCONFIRMED':noCurrentSample?'DATA UNAVAILABLE':'NO CORRELATED ALERT IN SAMPLE'}</strong>
+          <p>{noCurrentSample?'No usable current sample. Present network conditions cannot be assessed.':snapshot.summary+'.'} {stale?'The latest snapshot is stale or undated; historical records remain available below.':''}</p>
         </div></div><span>{date(snapshot.checkedAt)} · {age(snapshot.checkedAt)}</span>
       </div>
-      <div className="rw-metrics"><div><span>Source observations</span><strong>{snapshot.sampledCount}</strong><small>Scope-specific checks, not services certified healthy</small></div>
-        <div><span>Correlated watches</span><strong>{snapshot.incidents.length}</strong><small>Screening signals, not attributed events</small></div>
+      <div className="rw-metrics"><div><span>Source observations</span><strong>{noCurrentSample?'—':snapshot.sampledCount}</strong><small>{noCurrentSample?'Current sample unavailable':'Scope-specific checks, not services certified healthy'}</small></div>
+        <div><span>Correlated watches</span><strong>{noCurrentSample?'—':snapshot.incidents.length}</strong><small>{noCurrentSample?'Current incident count unavailable':'Screening signals, not attributed events'}</small></div>
         <div><span>Connected capabilities</span><strong>{supported} / {snapshot.capabilities.length}</strong><small>{notConnected} not sampled or require access</small></div></div>
       {Array.isArray(snapshot.history)&&snapshot.history.length>1&&<div className="rw-history" aria-label="Independent probe history by publication snapshot">
         <div className="rw-history-head"><strong>Probe health over time</strong><span>Source snapshots, not a global service-outage timeline</span></div>
