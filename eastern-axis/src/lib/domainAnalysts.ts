@@ -18,7 +18,7 @@ export type BriefInput={
   snapshots:Record<string,unknown>;systems?:unknown;failures:string[];
 };
 export const ANALYST_ROUTE_KEYS=[
-  'Overview','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology',
+  'Overview','Forecast intelligence','Forecast track record','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology',
   'Countries','World Factbook','Investigations','Defense intelligence','Global conflict watch','Military asset changes',
   'Cyber resilience','Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk',
   'Economic intelligence:supply','Economic intelligence:shortages','Macro indicators','Trade indicators',
@@ -86,6 +86,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  const reported=historical.filter(x=>n(x.value)!==null);
  const localCases=country==='all'?cases:cases.filter(c=>c.code===country);
  let b:EvidenceBrief;
+ if(view==='Forecast intelligence'||view==='Forecast track record') return {...base(view,'Forecast verification analyst',scope),finding:'No validated point-in-time forecast cohort is published.',watch:'Validate historical observations and independently resolved outcomes before issuing probabilities.',metrics:[metric('Validated forecasts',null),metric('Brier score',null)],coverage:'Forecast evidence unavailable'};
  const recent=latest(s(triage.generatedAt),s(manifest.generatedAt));
  if(['Overview','AI analyst','Collection desk','Verification lab','Coverage audit','Source library','Methodology'].includes(view)){
    b=base(view==='Overview'?'Cross-domain intelligence status':view+' · evidence review','Cross-domain verification analyst','Worldwide source coverage');
