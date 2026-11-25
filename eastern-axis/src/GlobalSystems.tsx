@@ -126,21 +126,26 @@ export default function GlobalSystems({ mode, countryCode, countryName, groupFil
   }
 
   const observed = data?.indicators || [];
+  const scoped = groupFilter ? observed.filter(item=>item.category===groupFilter) : observed;
+  const requested = groupFilter ? (({ "Energy & resources":4,"Trade & finance":2,Economy:3,"People & climate":3 } as Record<string,number>)[groupFilter] ?? scoped.length) : (data?.requested ?? 12);
+  const covered = scoped.filter(item=>typeof item.value==='number'&&Number.isFinite(item.value)).length;
+  const checked = data?.checkedAt && Number.isFinite(Date.parse(data.checkedAt)) ? new Date(data.checkedAt).toLocaleString('en-US',{dateStyle:'medium',timeStyle:'short',timeZone:'UTC'})+' UTC' : null;
+  const warning = data?.warning?.replace(/^WDI cached observations retrieved [^;]+; recheck for fresh values\.\s*/,'Cached observations; recheck to request newer data. ');
   return <section className="gs-root">
-    <div className="gs-eyebrow"><Globe2 size={15}/> {mode === 'risk' ? 'EVIDENCE-BOUND RISK WATCH' : 'INTERNATIONAL POWER & RESOURCES'}</div>
-    <h1>{mode === 'risk' ? 'Pressure points. Not predictions.' : 'The systems behind global power.'}</h1>
+    <div className="gs-eyebrow"><Globe2 size={15}/> {mode === 'risk' ? 'EVIDENCE-BOUND RISK WATCH' : groupFilter ? 'SOURCE-DATED INDICATORS' : 'INTERNATIONAL POWER & RESOURCES'}</div>
+    <h1>{mode === 'risk' ? 'Pressure points. Not predictions.' : groupFilter || 'The systems behind global power.'}</h1>
     <p className="gs-lead">{mode === 'risk'
       ? 'Track observed economic, energy and societal pressures. These screening thresholds are disclosed rules, not geopolitical threat ratings or forecasts.'
-      : 'Explore economic forces, energy dependence, resources and trade for ' + target + '. Each reported figure remains tied to its originating dataset and year.'}</p>
-    <div className="gs-context"><div><Globe2 size={18}/><strong>{target}</strong><span>{data ? data.covered + ' of ' + data.requested + ' indicator series available' : 'World Bank data requested'}</span></div><button onClick={() => setRetry(v => v + 1)} disabled={pending}><RefreshCcw size={15}/> Recheck</button></div>
+      : groupFilter ? 'Reported observations for ' + target + '. Each figure includes its source and year.' : 'Explore economic forces, energy dependence, resources and trade for ' + target + '. Each reported figure remains tied to its originating dataset and year.'}</p>
+    <div className="gs-context"><div><Globe2 size={18}/><strong>{target}</strong><span>{data ? covered + ' of ' + requested + ' indicator series available' : pending ? 'Requesting indicators' : 'Coverage not yet verified'}</span>{checked&&<small className="gs-checked" title={data?.checkedAt}>Retrieved {checked}</small>}</div><button onClick={() => setRetry(v => v + 1)} disabled={pending}><RefreshCcw size={15}/> Recheck</button></div>
     {pending && <div className="gs-notice"><Activity size={18}/> Requesting official indicator observations…</div>}
     {(failure || data?.status === 'unavailable') && <div className="gs-notice gs-error"><AlertCircle size={18}/> The World Bank response is unavailable. No figures have been substituted. Retry or inspect the original source.</div>}
-    {data?.warning && data.status !== 'unavailable' && <div className="gs-notice"><CircleHelp size={18}/>{data.warning}</div>}
     {mode === 'systems' && <div className="gs-groups">{groups.filter(group=>!groupFilter||group.label===groupFilter).map(group => {
       const GroupIcon = icons[group.label] || Globe2;
       const items = observed.filter(indicator => indicator.category === group.label);
       return <section className="gs-group" key={group.label}>
-        <div className="gs-group-top"><GroupIcon size={19}/><div><h2>{group.label} <span className="gs-group-count">{items.filter(item=>item.value!==null).length}/{items.length} available</span></h2><p>{group.text}</p></div></div>
+        <div className="gs-group-top"><GroupIcon size={19}/><div><h2>{group.label} <span className="gs-group-count">{items.filter(item=>typeof item.value==='number'&&Number.isFinite(item.value)).length}/{groupFilter?requested:items.length} available</span></h2><p>{group.text}</p></div></div>
+        {!items.length&&<p className="gs-empty">{pending?'Loading source observations…':'No verified observations available for this group.'}</p>}
         <div className="gs-metric-grid">{items.map(item => <article className="gs-metric" key={item.code}>
           <div className="gs-metric-head"><strong>{item.label}</strong><a href={item.sourceUrl} target="_blank" rel="noopener noreferrer" aria-label={'View original source for '+item.label}><ArrowUpRight size={15}/></a></div>
           <div className="gs-value">{item.value === null ? 'Not reported' : number(item.value, item.unit)}</div>
@@ -151,6 +156,7 @@ export default function GlobalSystems({ mode, countryCode, countryName, groupFil
         </article>)}</div>
       </section>;
     })}</div>}
+    {warning && data?.status !== 'unavailable' && <div className="gs-notice"><CircleHelp size={18}/>{warning}</div>}
     {mode === 'systems' && <div className="gs-source-alternatives"><strong>Additional original datasets</strong><span>Values in these sources have different survey populations, measures or reporting years; they are not interchangeable without source labels.</span><div><a href="https://pip.worldbank.org/" target="_blank" rel="noopener noreferrer">World Bank PIP</a><a href="https://wid.world/" target="_blank" rel="noopener noreferrer">World Inequality Database</a><a href="https://www.wider.unu.edu/database/world-income-inequality-database-wiid" target="_blank" rel="noopener noreferrer">UNU-WIDER WIID</a><a href="https://www.oecd.org/en/data/datasets/income-and-wealth-distribution-database.html" target="_blank" rel="noopener noreferrer">OECD Income & Wealth Distribution</a><a href="https://ourworldindata.org/co2-and-greenhouse-gas-emissions" target="_blank" rel="noopener noreferrer">OWID CO₂</a><a href="https://edgar.jrc.ec.europa.eu/" target="_blank" rel="noopener noreferrer">EU EDGAR</a></div></div>}
     {mode === 'systems' && (!groupFilter || groupFilter==='Energy & resources') && <EnergySupply code={code==='WLD'?'all':code} />}
     {mode === 'risk' && <div className="gs-signal-grid">{signalDefinitions.map(signal => {

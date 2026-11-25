@@ -148,8 +148,10 @@ export function AnalystEvidenceCompact({reading}:{reading:EvidenceBrief}){
       <span className={'eai-state '+reading.status}>{reading.status==='coverage-gap'?'DATA GAP':reading.status==='monitoring'?'MONITORING':'DATED'}</span>
       <ChevronDown className={open?'eai-compact-chevron open':'eai-compact-chevron'} size={18}/>
     </button>
-    <p className="eai-compact-preview">{reading.direction}</p>
-    <div className="eai-compact-action">{open?'Detailed evidence is open':'Expand for metrics, sources, beneficiaries and limitations'}</div>
+    {!open&&<div className="eai-compact-action">
+      <div className="eai-compact-metrics">{reading.metrics.slice(0,2).map(m=><div className="eai-compact-metric" key={m.label}><strong>{m.value}</strong><span>{m.label}</span></div>)}</div>
+      <p className="eai-compact-preview">{reading.status==='coverage-gap'?'Evidence coverage is incomplete.':reading.status==='monitoring'?'Monitoring; abnormal change not necessarily confirmed.':'Source-dated evidence; open for assessment.'}</p>
+    </div>}
     <div id={detailsId} className="eai-compact-body" hidden={!open}>
       {open&&<AnalystEvidence reading={reading} placement="details"/>}
     </div>

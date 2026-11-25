@@ -555,12 +555,22 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
           return {height:rectangle.height,width:rectangle.width,viewport:window.innerWidth,
             previewHeight:element.querySelector('.eai-compact-preview')?.getBoundingClientRect().height||0};
         });
-        assert.ok(briefGeometry.height>50&&briefGeometry.height<180,
+        assert.ok(briefGeometry.height>45&&briefGeometry.height<220,
           sectionName+' has an oversized mobile analyst briefing: '+JSON.stringify(briefGeometry));
         assert.ok(briefGeometry.width<=briefGeometry.viewport,
           sectionName+' analyst briefing horizontally overflows: '+JSON.stringify(briefGeometry));
         assert.ok(briefGeometry.previewHeight<55,
-          sectionName+' analysis preview must remain no more than two concise lines');
+          sectionName+' analysis preview must remain concise');
+        const previewFits=await brief.locator('.eai-compact-preview').evaluate(el=>el.scrollHeight<=el.clientHeight+2);
+        assert.ok(previewFits,sectionName+' analyst preview is visually clipped');
+        if(domainName!=='Command & Situation Room'){
+          const pills=page.locator('.ea-mobile-filter-pills button');
+          assert.equal(await pills.count(),4,sectionName+' is missing a global filter');
+          for(const pill of await pills.all()){
+            const b=await pill.boundingBox();
+            assert.ok(b&&b.x>=-1&&b.x+b.width<=viewport.width+1,sectionName+' has an off-screen mobile filter');
+          }
+        }
 
         assert.ok((await brief.locator('.eai-compact-identity strong').innerText()).length>4,sectionName+' missing analyst title');
         assert.ok((await brief.locator('.eai-compact-preview').innerText()).length>25,sectionName+' missing analyst interpretation');
