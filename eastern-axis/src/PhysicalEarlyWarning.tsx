@@ -1,3 +1,4 @@
+import StrategicRiskWatch from './StrategicRiskWatch';
 import { useEffect, useMemo, useState } from 'react';
 import { Activity, ArrowRight, ArrowUpRight, AlertTriangle, Database, GitBranch, Globe2, Search, ShieldCheck, Ship } from 'lucide-react';
 import { earlyDomains, scenarios, type Coverage } from './earlyWarningCatalog';
@@ -124,6 +125,7 @@ export default function PhysicalEarlyWarning({countryCode,countryName,onOpenSupp
       {onOpenSupplyChain&&<button type="button" onClick={onOpenSupplyChain}>Existing freight data <ArrowRight size={15}/></button>}
     </div>
     <SignalReviewBoard mode="early" countryCode={countryCode}/>
+    <StrategicRiskWatch/>
     <div className="pew-summary">
       <div><span>MEASURED SERIES</span><strong>{metrics.length}</strong><small>With published comparison</small></div>
       <div><span>THRESHOLD SCREENS</span><strong>{signals.length}</strong><small>Screened observations, not confirmed risks</small></div>
