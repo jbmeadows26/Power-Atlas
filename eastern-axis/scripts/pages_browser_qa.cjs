@@ -532,6 +532,24 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
       }
       if(sectionName==='Growth & labor'||sectionName==='Trade baselines'||sectionName==='Energy & resources'||sectionName==='Population & climate'){
         await page.locator('.gs-root').waitFor({state:'visible',timeout:15000});
+        const country=new URL(page.url()).searchParams.get('ea_country');
+        assert.equal(country,'CN','Country card audit lost selected China scope');
+        const actual=await req.get(api+'/api/global-systems/'+country,{timeout:35000});
+        assert.equal(actual.status(),200,'Country card audit API unavailable');
+        const data=await actual.json();
+        const expected={
+          'Growth & labor':['NY.GDP.MKTP.KD.ZG','GDP growth'],
+          'Trade baselines':['NE.TRD.GNFS.ZS','Trade / GDP'],
+          'Energy & resources':['EG.ELC.ACCS.ZS','Electricity access'],
+          'Population & climate':['SP.DYN.LE00.IN','Life expectancy']
+        }[sectionName];
+        const observed=data.indicators.find(x=>x.code===expected[0]);
+        assert.ok(observed&&typeof observed.value==='number'&&Number.isFinite(observed.value),sectionName+' required country observation unavailable');
+        const card=page.locator(viewport.width>980?'.eai-rail .eai-kpi':'.eai-compact-metric').filter({hasText:expected[1]}).first();
+        const formatted=sectionName==='Population & climate'?observed.value.toLocaleString('en-US',{maximumFractionDigits:1})+' years':(observed.value>0?'+':'')+observed.value.toLocaleString('en-US',{maximumFractionDigits:1})+'%';
+        await card.waitFor({state:'visible',timeout:20000});
+        await page.waitForFunction(({selector,label,value})=>Array.from(document.querySelectorAll(selector)).some(el=>el.textContent.includes(label)&&el.querySelector('strong')?.textContent===value),{selector:viewport.width>980?'.eai-rail .eai-kpi':'.eai-compact-metric',label:expected[1],value:formatted},{timeout:30000});
+        console.log('CARD DATA MATCH',viewport.width,sectionName,country,expected[1],formatted,observed.year);
       }
       if(sectionName==='Supply chains')await page.locator('.sc-root').waitFor({state:'visible',timeout:15000});
       if(sectionName==='Product shortages'){
