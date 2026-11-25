@@ -387,6 +387,8 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
     // exactly one eight-domain sidebar, and source-linked panels must survive.
     const allSections=[
       ['Situation room','Command & Situation Room','Situation room'],
+      ['Forecast intelligence','Command & Situation Room','Forecast intelligence'],
+      ['Forecast track record','Command & Situation Room','Forecast track record'],
       ['AI analyst','Command & Situation Room','AI analyst'],
       ['Collection desk','Command & Situation Room','Collection desk'],
       ['Verification lab','Command & Situation Room','Verification lab'],
@@ -435,6 +437,28 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.equal(await page.locator('.dr-root').count(),0,sectionName+' must not show screening radar by default');
       else
         assert.equal(await page.locator('.pew-context-radar').getAttribute('open'),null,'Radar must remain collapsed until requested');
+      if(sectionName==='Forecast intelligence'){
+        const forecast=page.getByRole('region',{name:'Predictive intelligence dashboard'});
+        await forecast.waitFor({state:'visible'});
+        assert.equal(await forecast.locator('.fc-stat').count(),3,'Forecast summary metrics missing');
+        assert.equal(await forecast.locator('.fc-target').count(),6,'Forecast target cards missing');
+        await forecast.getByRole('button',{name:'0–72 hours',exact:true}).click();
+        assert.equal(await forecast.locator('.fc-target').count(),3,'Nowcast filter not applied');
+        await forecast.getByRole('button',{name:'All',exact:true}).click();
+        await forecast.locator('.fc-target summary').first().click();
+        assert.equal(await forecast.locator('.fc-target[open]').count(),1,'Forecast evidence disclosure failed');
+        await forecast.locator('.fc-target summary').first().click();
+        await forecast.locator('.fc-observation').first().waitFor({state:'visible',timeout:20000});
+        assert.ok(await forecast.locator('.fc-observation svg').count()>0,'Missing real indicator histories');
+        assert.ok(await forecast.locator('.fc-observation a[href^="https://"]').count()>0,'Missing forecast source provenance');
+      }
+      if(sectionName==='Forecast track record'){
+        const track=page.getByRole('region',{name:'Forecast performance dashboard'});
+        await track.waitFor({state:'visible'});
+        assert.equal(await track.locator('.fc-stat').count(),4,'Forecast scoring metrics missing');
+        await track.locator('.fc-calibration').waitFor({state:'visible'});
+        assert.equal(await track.locator('.fc-calibration circle').count(),0,'Unresolved model must not plot calibration points');
+      }
       if(sectionName==='World Factbook'||sectionName==='Source library'){
         const sources=page.getByRole('region',{name:'Official multilateral country data source coverage'});
         await sources.waitFor({state:'visible',timeout:15000});
@@ -541,7 +565,7 @@ if (origin.startsWith('https://') && !production) throw Error('Unexpected produc
         assert.ok((await readout.locator('.eai-finding').innerText()).length>35,sectionName+' missing evidence summary');
         assert.ok(await readout.locator('.eai-sources').count()>0,sectionName+' lost provenance');
       }else{
-        // Universal 24-screen mobile hygiene contract, not a single Situation Room smoke test.
+        // Universal 26-screen mobile hygiene contract, not a single Situation Room smoke test.
         assert.equal(await page.locator('.ea-handoff-actions:visible').count(),0,
           sectionName+' has redundant Save/Send-to-mobile controls above the dashboard');
         assert.equal(await page.locator('.eai-compact:visible').count(),1,
