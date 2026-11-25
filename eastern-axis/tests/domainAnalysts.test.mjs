@@ -38,7 +38,7 @@ test('every navigation subcategory has an evidence-backed analyst route',()=>{
  const regex=/\{label:'[^']+',section:'([^']+)'(?:,focus:'([^']+)')?\}/g;
  const found=new Set([...code.matchAll(regex)].map(match=>match[1]==='Economic intelligence'?
   'Economic intelligence:'+(match[2]||'overview'):match[1]));
- assert.equal(found.size,24,'Navigation taxonomy changed; update analyst coverage');
+ assert.equal(found.size,26,'Navigation taxonomy changed; update analyst coverage');
  for(const key of found)assert.ok(ANALYST_ROUTE_KEYS.includes(key),'Unmapped submenu: '+key);
  for(const key of ANALYST_ROUTE_KEYS)assert.ok(found.has(key),'Inactive analyst route: '+key);
 });
@@ -105,3 +105,5 @@ test('partial source outage is never summarized as zero publications',()=>{
  assert.match(brief.finding,/publication coverage unavailable/i);
  assert.doesNotMatch(brief.finding,/0 dated public-source records/);
 });
+
+test('forecast routes withhold unsupported probabilities',()=>{for(const route of ['Forecast intelligence','Forecast track record']){const b=build(route);assert.equal(b.status,'coverage-gap');assert.ok(b.metrics.every(m=>m.value==='—'));}});
