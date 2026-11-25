@@ -358,6 +358,8 @@ function App() {
   const [geospatialOpen,setGeospatialOpen]=useState(false);
   const [overview, setOverview] = useState<Overview | null>(null);
   const [loadError, setLoadError] = useState('');
+  const [cachedRoutes,setCachedRoutes]=useState<Record<string,string>>({});
+  useEffect(()=>{const handler=(event:Event)=>{const detail=(event as CustomEvent<{path:string;capturedAt?:string}>).detail;if(!detail?.path)return;setCachedRoutes(previous=>{const next={...previous};if(detail.capturedAt)next[detail.path]=detail.capturedAt;else delete next[detail.path];return next;});};window.addEventListener('ea-api-fallback',handler);return()=>window.removeEventListener('ea-api-fallback',handler);},[]);
   const [search, setSearch] = useState('');
   const [region, setRegion] = useState(startup.region);
   const [showTerritories, setShowTerritories] = useState(false);
@@ -407,8 +409,8 @@ function App() {
     setLoadError('');
     api
       .get('/api/overview')
-      .then(r => { const data = r.data as Overview; setOverview({ ...data, countries: data.countries.map(withSecurityContext) }); })
-      .catch(() => setLoadError('The catalog could not be loaded. Try again.'));
+      .then(r => { const data = r.data as Overview; if(!Array.isArray(data.countries)||!Array.isArray(data.cases)||!Array.isArray(data.sources)||!data.countries.length)throw Error('Invalid country catalog'); setOverview({ ...data, countries: data.countries.map(withSecurityContext) }); })
+      .catch(() => setLoadError('The country catalog could not be loaded. Independent data workspaces remain available.'));
   };
   useEffect(reload, []);
   useEffect(() => {
@@ -798,7 +800,8 @@ function App() {
           <div className="ea-original-workspace">
           <div className="ea-handoff-actions"><button type="button" onClick={saveCurrentWorkspace} title="Save filters and workspace in this browser"><Bookmark size={14}/> Save view</button>
             <button type="button" onClick={shareWorkspace} title="Copy or share a link that restores this workspace"><Copy size={14}/> Send to mobile</button></div>
-          {overview&&view!=='Overview'&&<AnalystEvidenceCompact reading={analystReading}/>}
+          {view!=='Overview'&&<AnalystEvidenceCompact reading={analystReading}/>}
+          {Object.keys(cachedRoutes).length>0&&<div className="error-panel" role="status"><CircleAlert size={17}/> Some public API requests failed. Dated release snapshots are in use for {Object.keys(cachedRoutes).length} endpoint(s); this is not live data. <button onClick={reload}>Retry catalog</button></div>}
           {loadError && (
             <div className="error-panel">
               <CircleAlert size={17} />
@@ -824,25 +827,25 @@ function App() {
           )}
           {view === 'Forecast intelligence' && <ForecastCenter/>}
           {view === 'Forecast track record' && <ForecastCenter track/>}
-          {overview && view === 'Economic intelligence' && <EconomicIntelligence
-            countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name}
+          {view === 'Economic intelligence' && <EconomicIntelligence
+            countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name}
             cases={cases} initialFocus={economicFocus} initialMeasurementFilter={warningFocus}
             onCountryMap={openGeospatial} onDefense={()=>switchView('Defense intelligence')}
             hideNavigation onFocusChange={onEconomicFocusChange} />}
-          {overview && view === 'AI analyst' && <AgentDesk countryCode="all" />}
-          {overview && view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode="all" cases={cases} /></>}
-          {overview && view === 'Collection desk' && <IntakeDesk countryCode="all" />}{overview && view === 'Verification lab' && <EvidenceWorkbench countryCode="all" />}
+          {view === 'AI analyst' && <AgentDesk countryCode="all" />}
+          {view === 'Coverage audit' && <><ConnectedSources/><OperationalAssurance/><GlobalSystems mode="coverage" countryCode="all" cases={cases} /></>}
+          {view === 'Collection desk' && <IntakeDesk countryCode="all" />}{view === 'Verification lab' && <EvidenceWorkbench countryCode="all" />}
           {overview && (view === 'Defense intelligence' || view === 'Global conflict watch' || view === 'Military asset changes' || view === 'Source library') && <ISWReference />}
-          {overview && view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
-          {overview && view === 'Global conflict watch' && <GlobalConflictWatch countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Military asset changes' && <MilitaryAssetChanges countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} />}
-          {overview && view === 'Cyber resilience' && <ResilienceWatch/>}
-          {overview && view === 'Macro indicators' && <GlobalSystems mode="systems" groupFilter="Economy" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
-          {overview && view === 'Trade indicators' && <GlobalSystems mode="systems" groupFilter="Trade & finance" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
-          {overview && view === 'Corporate intelligence' && <FinancialTransmission/>}
-          {overview && view === 'Energy & resources' && <GlobalSystems mode="systems" groupFilter="Energy & resources" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
-          {overview && view === 'Demographics & biosecurity' && <GlobalSystems mode="systems" groupFilter="People & climate" countryCode={countryScope} countryName={overview.countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
-          {overview && view === 'World Factbook' && <Factbook activeCountry={countryScope} onCountryChange={setCountryScope} />}
+          {view === 'Defense intelligence' && <DefenseIntel mode="global" code={countryScope==='all'?undefined:countryScope} />}
+          {view === 'Global conflict watch' && <GlobalConflictWatch countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} />}
+          {view === 'Military asset changes' && <MilitaryAssetChanges countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} />}
+          {view === 'Cyber resilience' && <ResilienceWatch/>}
+          {view === 'Macro indicators' && <GlobalSystems mode="systems" groupFilter="Economy" countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {view === 'Trade indicators' && <GlobalSystems mode="systems" groupFilter="Trade & finance" countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {view === 'Corporate intelligence' && <FinancialTransmission/>}
+          {view === 'Energy & resources' && <GlobalSystems mode="systems" groupFilter="Energy & resources" countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {view === 'Demographics & biosecurity' && <GlobalSystems mode="systems" groupFilter="People & climate" countryCode={countryScope} countryName={countries.find(c=>c.code===countryScope)?.name} cases={cases}/>}
+          {view === 'World Factbook' && <Factbook activeCountry={countryScope} onCountryChange={setCountryScope} />}
           {overview && view === 'Countries' && (
             <>
 
@@ -1463,7 +1466,7 @@ function App() {
           )}
           </div>
         </main>
-        {overview&&<ContextRail feed={intelligenceFeed} analysis={analystReading} domain={activeDomain.title} country={commandWorkspace?'all':countryScope}
+        {<ContextRail feed={intelligenceFeed} analysis={analystReading} domain={activeDomain.title} country={commandWorkspace?'all':countryScope}
           onOpenAlerts={()=>{if(window.matchMedia('(max-width: 980px)').matches)setMobilePane('alerts');else selectDomainTab('command',domains[0].tabs[1]);}}/>}
         </div>
         <footer className="footer">

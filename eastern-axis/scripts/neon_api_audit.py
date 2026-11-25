@@ -35,6 +35,9 @@ ROUTES = [
   ("/api/factbook/RU", ()),
 ]
 assert API.startswith("https://") and API.endswith(".neon.tech"), "Invalid public backend URL"
+MIRROR = os.environ.get("EA_PUBLIC_FALLBACK_DIR")
+MIRROR_ROUTES = {"/api/overview", *("/api/global-systems/" + c for c in ("WLD","US","CN","RU","IR"))}
+mirror_payloads = {}
 report = {"api": API, "checkedAtUtc": time.strftime("%Y-%m-%dT%H:%M:%SZ",time.gmtime()), "routes":[], "problems":[]}
 for route, keys in ROUTES:
     item = {"route":route}
@@ -87,6 +90,8 @@ for route, keys in ROUTES:
                 value=indicator.get("value")
                 if value is not None and (not indicator.get("year") or not indicator.get("sourceUrl")):
                     report["problems"].append(f"{route}: undated or unsourced {indicator.get('code')}")
+    if MIRROR and route in MIRROR_ROUTES and item["code"] == 200 and isinstance(payload,dict):
+        mirror_payloads[route] = {"path": route, "capturedAt": report["checkedAtUtc"], "data": payload}
     print(f"{route}: HTTP {item['code']} keys={item['keys'][:8]}",flush=True)
     report["routes"].append(item)
 # Negative security checks: public Pages traffic must not trigger ingestion.
@@ -118,4 +123,12 @@ if report["problems"]:
     print("Problems (may include explicit upstream source outages):")
     for problem in report["problems"]: print(" - " + problem)
     sys.exit(1)
+if MIRROR:
+    if set(mirror_payloads) != MIRROR_ROUTES:
+        raise RuntimeError("Incomplete public fallback snapshot")
+    out = Path(MIRROR)
+    out.mkdir(parents=True, exist_ok=True)
+    for route, payload in mirror_payloads.items():
+        name = route.removeprefix("/api/").replace("/", "-") + ".json"
+        (out / name).write_text(json.dumps(payload, ensure_ascii=False, allow_nan=False) + "\n", encoding="utf-8")
 print("All public Neon API contracts passed.")

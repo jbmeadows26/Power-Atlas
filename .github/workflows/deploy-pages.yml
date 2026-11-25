@@ -8,6 +8,8 @@ on:
       - 'eastern-axis/tests/**'
       - 'eastern-axis/index.html'
       - 'eastern-axis/vite.config.ts'
+      - 'eastern-axis/package.json'
+      - 'eastern-axis/package-lock.json'
       - 'eastern-axis/public/favicon.svg'
       - 'eastern-axis/public/analysis/**'
       - 'eastern-axis/public-api-origin.txt'
@@ -46,6 +48,8 @@ jobs:
           test -s site/index.html
           test ! -f site/.env
       - name: Validate the independent public Neon API before publishing
+        env:
+          EA_PUBLIC_FALLBACK_DIR: eastern-axis/public/api-fallback
         run: |
           test -s eastern-axis/public-api-origin.txt
           python3 eastern-axis/scripts/neon_api_audit.py
