@@ -27,7 +27,7 @@ const asObject=(value:unknown):Record<string,unknown>|null=>
 export function useAnalystEvidence({view,focus,country,countryName,horizon,severity,cases}:HookArgs):EvidenceBrief{
   const [snapshots,setSnapshots]=useState<Record<string,unknown>>({});
   const [failures,setFailures]=useState<string[]>([]);
-  const [systems,setSystems]=useState<unknown>(undefined);
+  const [systems,setSystems]=useState<{country:string;data:unknown}|undefined>(undefined);
   const [tick,setTick]=useState(0);
   useEffect(()=>{
     const interval=window.setInterval(()=>setTick(x=>x+1),10*60_000);
@@ -35,23 +35,32 @@ export function useAnalystEvidence({view,focus,country,countryName,horizon,sever
   },[]);
   useEffect(()=>{
     let live=true;
-    Promise.allSettled(keys.map(async ([key,path])=>{
-      const response=await fetch(String(import.meta.env.BASE_URL||'/')+path,{cache:'no-store'});
-      if(!response.ok)throw Error(key+' HTTP '+response.status);
-      const value:unknown=await response.json();
-      if(!asObject(value)||typeof asObject(value)?.schemaVersion!=='number')throw Error(key+' invalid schema');
-      return [key,value] as const;
-    })).then(results=>{
-      if(!live)return;
-      const available:Record<string,unknown>={},missing:string[]=[];
-      for(let i=0;i<results.length;i++){
-        const result=results[i];
-        if(result.status==='fulfilled')available[result.value[0]]=result.value[1];
-        else missing.push(keys[i][0]);
-      }
-      setSnapshots(available);setFailures(missing);
-    });
-    return()=>{live=false;};
+    const controllers:AbortController[]=[];
+    const load=async(key:string,path:string)=>{
+      const controller=new AbortController();controllers.push(controller);
+      const timer=window.setTimeout(()=>controller.abort(),12000);
+      try{
+        const base=String(import.meta.env.BASE_URL||'/');
+        // The static Pages telemetry is only a bootstrap placeholder.
+        const url=key==='resilience'?'https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/telemetry/eastern-axis-live/eastern-axis/public/telemetry/resilience.json':base+path;
+        const response=await fetch(url,{cache:'no-store',signal:controller.signal});
+        if(!response.ok)throw Error(key+' HTTP '+response.status);
+        const value:unknown=await response.json();
+        const record=asObject(value);
+        const primary:Record<string,string>={source:'records',triage:'reviews',markets:'metrics',transmission:'householdMetrics',conflict:'zones',inventory:'assets',changes:'assessments',shortage:'forecasts',early:'metrics',resilience:'observations'};
+        if(!record||typeof record.schemaVersion!=='number'||!Array.isArray(record[primary[key]]))throw Error(key+' invalid schema');
+        if(!live)return;
+        setSnapshots(previous=>({...previous,[key]:value}));
+        setFailures(previous=>previous.filter(x=>x!==key));
+      }catch{
+        if(!live)return;
+        // Preserve the last dated valid snapshot; downstream cards mark refresh failures.
+        setFailures(previous=>previous.includes(key)?previous:[...previous,key]);
+      }finally{window.clearTimeout(timer);}
+    };
+    // Publish successful channels independently; slow or failed feeds cannot block other cards.
+    keys.forEach(([key,path])=>{void load(key,path);});
+    return()=>{live=false;controllers.forEach(c=>c.abort());};
   },[tick]);
   useEffect(()=>{
     let live=true;
@@ -60,11 +69,11 @@ export function useAnalystEvidence({view,focus,country,countryName,horizon,sever
     const queryCountry=country==='all'?'WLD':country;
     api.get('/api/global-systems/'+encodeURIComponent(queryCountry)).then(response=>{
       const value:unknown=response.data;
-      if(live&&asObject(value)&&Array.isArray(asObject(value)?.indicators))setSystems(value);
+      if(live&&asObject(value)&&Array.isArray(asObject(value)?.indicators))setSystems({country,data:value});
     }).catch(()=>{if(live)setSystems(undefined);});
     return()=>{live=false;};
   },[country,tick]);
-  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures} as BriefInput),
+  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,horizon,severity,cases,snapshots,systems:systems?.country===country?systems.data:undefined,failures} as BriefInput),
     [view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures]);
 }
 
