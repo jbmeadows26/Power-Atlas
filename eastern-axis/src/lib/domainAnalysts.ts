@@ -192,7 +192,7 @@ export function buildDomainBrief(input:BriefInput):EvidenceBrief{
    b.beneficiaries='Attribution and beneficiary analysis require corroborated incident evidence not present in this aggregate.';
    b.watch='Check live collector health, failed regions, sample times and cross-network corroboration.';
    b.limitation='Sampling coverage is partial; a provider outage and a malicious attack are not equivalent.';
-   b.asOf=s(resilience.checkedAt)||'Not yet collected';b=exposure(b,observations);if(!current){b.status='coverage-gap';b.finding='No usable current resilience telemetry; archived observations do not establish present network conditions.';}
+   b.asOf=s(resilience.checkedAt)||'Not yet collected';b=exposure(b,observations);if(!current){b.status='coverage-gap';b.finding='No current independently sampled resilience telemetry is usable; archived observations do not establish present network conditions.';}
  }else if(['Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Macro indicators'].includes(key)){
    b=base(key==='Economic intelligence:risk'?'Systemic financial risk interpretation':key==='Economic intelligence:signals'?'Market anomalies & warning':'Macroeconomic change dashboard','Macroeconomic risk analyst',scope);
    const market=marketMetrics.find(x=>x.id==='SP500')||marketMetrics[0];
