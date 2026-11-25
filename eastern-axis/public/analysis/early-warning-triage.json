@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-25T08:35:54Z",
-  "sourceCheckedAt": "2026-11-25T08:25:34Z",
+  "generatedAt": "2026-11-25T09:13:00Z",
+  "sourceCheckedAt": "2026-11-25T09:04:53Z",
   "model": {
     "status": "partial",
     "name": null,
@@ -9,10 +9,10 @@
   },
   "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
-    "observed": 86,
-    "screened": 37,
-    "reviewed": 27,
-    "monitoring": 86,
+    "observed": 72,
+    "screened": 23,
+    "reviewed": 20,
+    "monitoring": 72,
     "elevated": 0,
     "historyReady": 27
   },
@@ -1683,13 +1683,13 @@
       "severity": "Observed"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-99a7c282dd074015acab00f6f56ff48545f0be2f-001-2",
+      "id": "nws-urn-oid-2-49-0-1-840-0-a84a786e15189224290bdc996a33a6cc3ae14394-001-1",
       "kind": "advisory",
-      "title": "High Wind Warning — Hudson; Eastern Essex; Eastern Union; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Bro",
+      "title": "Winter Storm Warning — Scott; Morgan",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.99a7c282dd074015acab00f6f56ff48545f0be2f.001.2",
-      "observedAt": "2026-11-25T03:22:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a84a786e15189224290bdc996a33a6cc3ae14394.001.1",
+      "observedAt": "2026-11-25T02:55:00-06:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1706,20 +1706,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.99a7c282dd074015acab00f6f56ff48545f0be2f.001.2"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.a84a786e15189224290bdc996a33a6cc3ae14394.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-005-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-4c73121718683b8bb12d021ca5e39b077643ec10-001-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Ocean; Coastal Ocean",
+      "title": "Special Marine Warning — Straits of Florida from Craig Key to west end of Seven Mile Bridge out 20 NM; Straits of Florida fro",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1",
-      "observedAt": "2026-11-25T03:20:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4c73121718683b8bb12d021ca5e39b077643ec10.001.1",
+      "observedAt": "2026-11-25T03:47:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1736,7 +1736,97 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4c73121718683b8bb12d021ca5e39b077643ec10.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-1bb360ab607f123c08228e094e1b85a5ffe516a0-001-1",
+      "kind": "advisory",
+      "title": "Special Marine Warning — Straits of Florida from Ocean Reef to Craig Key 20 to 60 NM out",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1bb360ab607f123c08228e094e1b85a5ffe516a0.001.1",
+      "observedAt": "2026-11-25T03:45:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.1bb360ab607f123c08228e094e1b85a5ffe516a0.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-22663c65fb6d144d9b3b42a741f410b18c4e8cb5-001-1",
+      "kind": "advisory",
+      "title": "High Wind Warning — Hudson; Eastern Essex; Eastern Union; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Bro",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.22663c65fb6d144d9b3b42a741f410b18c4e8cb5.001.1",
+      "observedAt": "2026-11-25T03:38:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.22663c65fb6d144d9b3b42a741f410b18c4e8cb5.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc-004-4",
+      "kind": "advisory",
+      "title": "Storm Warning — Coastal waters from Cape Shoalwater WA to Cape Falcon OR out 10 nm; Coastal waters from Cape Falcon ",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc.004.4",
+      "observedAt": "2026-11-25T00:34:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c46ab36f9bb15c6eefaf84ef6856b9247a3c0bdc.004.4"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
@@ -1767,6 +1857,36 @@
       "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.002.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-46a531ca0afb354ff137937d0f96e250bdce8e33-005-1",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Ocean; Coastal Ocean",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1",
+      "observedAt": "2026-11-25T03:20:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.46a531ca0afb354ff137937d0f96e250bdce8e33.005.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
@@ -2187,546 +2307,6 @@
       "modelReviewed": true,
       "evidence": [
         "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9851f63573be3bd64e30050f1ff86fba4a1fd46a.010.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-b9bc4a50f4022a1658b960ef88e1e5e11c10b6c5-002-1",
-      "kind": "advisory",
-      "title": "High Wind Watch — Clatsop County Coast; Tillamook County Coast; South Washington Coast",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b9bc4a50f4022a1658b960ef88e1e5e11c10b6c5.002.1",
-      "observedAt": "2026-11-24T23:27:00-08:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b9bc4a50f4022a1658b960ef88e1e5e11c10b6c5.002.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-001-3",
-      "kind": "advisory",
-      "title": "Storm Warning — James River from JRB to HRBT, Including the Elizabeth River",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.001.3",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.001.3"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-002-3",
-      "kind": "advisory",
-      "title": "Storm Warning — Rappahannock River from Urbanna to Windmill Point; York River; James River from Jamestown to the Jam",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.002.3",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.002.3"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-005-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Coastal waters from Parramore Island to Cape Charles Light VA out 20 NM; Coastal Waters from Cape Ch",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.005.2",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.005.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-004-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Coastal waters from Fenwick Island DE to Chincoteague VA out 20 NM; Coastal waters from Chincoteague",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.004.2",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.004.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-008-1",
-      "kind": "advisory",
-      "title": "Storm Warning — Waters from Fenwick Island DE to Chintoteague VA from 20 to 60 NM; Waters from Chincoteague VA to Pa",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.008.1",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.008.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-003-3",
-      "kind": "advisory",
-      "title": "Storm Warning — Currituck Sound",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.003.3",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.003.3"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-006-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Chesapeake Bay from New Point Comfort to Little Creek VA; Chesapeake Bay from Little Creek VA to Cap",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.006.2",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.006.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-009-1",
-      "kind": "advisory",
-      "title": "Storm Warning — Waters from Parramore Island VA to Cape Charles Light VA from 20 to 60 NM; Waters from Cape Charles ",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.009.1",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.009.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aac603b349f70ef7e3ea2d9d1f27c012a065559b-007-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Chesapeake Bay from Smith Point to Windmill Point VA; Chesapeake Bay from Windmill Point to New Poin",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.007.2",
-      "observedAt": "2026-11-25T02:09:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aac603b349f70ef7e3ea2d9d1f27c012a065559b.007.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-4ebcf94f4dd63a86f8326cecbac7f7a6168275cf-001-1",
-      "kind": "advisory",
-      "title": "High Wind Warning — Eastern Preston; Eastern Tucker",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4ebcf94f4dd63a86f8326cecbac7f7a6168275cf.001.1",
-      "observedAt": "2026-11-25T02:06:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.4ebcf94f4dd63a86f8326cecbac7f7a6168275cf.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-e78b4ef22ab18520b1c2a5ce9b1474089f337c1e-003-2",
-      "kind": "advisory",
-      "title": "Winter Storm Warning — Gasconade; Crawford; Reynolds",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.003.2",
-      "observedAt": "2026-11-25T01:03:00-06:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.003.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-e78b4ef22ab18520b1c2a5ce9b1474089f337c1e-004-1",
-      "kind": "advisory",
-      "title": "Winter Storm Warning — Greene; Randolph; Pike; Calhoun; Jersey; Monroe; Lincoln; St. Charles; St. Louis; St. Louis City; Je",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.004.1",
-      "observedAt": "2026-11-25T01:03:00-06:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.004.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-e78b4ef22ab18520b1c2a5ce9b1474089f337c1e-001-2",
-      "kind": "advisory",
-      "title": "Winter Storm Warning — Pike; Warren; Franklin; Washington; Iron; Madison",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.001.2",
-      "observedAt": "2026-11-25T01:03:00-06:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.e78b4ef22ab18520b1c2a5ce9b1474089f337c1e.001.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-0898c3c4473cf76d8105099c28127138ace26d0d-006-1",
-      "kind": "advisory",
-      "title": "Storm Warning — Waters from Cape May NJ to Fenwick Island DE from 20 to 60 NM",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.006.1",
-      "observedAt": "2026-11-25T02:02:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.006.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-0898c3c4473cf76d8105099c28127138ace26d0d-002-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Delaware Bay waters north of East Point NJ to Slaughter Beach DE",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.002.2",
-      "observedAt": "2026-11-25T02:02:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.002.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-0898c3c4473cf76d8105099c28127138ace26d0d-003-2",
-      "kind": "advisory",
-      "title": "Storm Warning — Delaware Bay waters south of East Point NJ to Slaughter Beach DE",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.003.2",
-      "observedAt": "2026-11-25T02:02:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.003.2"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-0898c3c4473cf76d8105099c28127138ace26d0d-007-1",
-      "kind": "advisory",
-      "title": "Storm Warning — Waters from Little Egg Inlet NJ to Great Egg Inlet NJ from 20 to 60 NM; Waters from Great Egg Inlet ",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.007.1",
-      "observedAt": "2026-11-25T02:02:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.0898c3c4473cf76d8105099c28127138ace26d0d.007.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
