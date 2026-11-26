@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "generatedAt": "2026-11-26T08:57:00Z",
-  "sourceCheckedAt": "2026-11-26T08:51:35Z",
+  "generatedAt": "2026-11-26T22:00:02Z",
+  "sourceCheckedAt": "2026-11-26T21:54:24Z",
   "model": {
     "status": "partial",
     "name": null,
@@ -9,10 +9,10 @@
   },
   "policy": "Command accepts only fresh, statistically exceptional same-scope metric movements corroborated by a separate publisher and reviewed by AI. Official local weather warnings stay in Early Warning regardless of headline severity. Other outliers remain monitored.",
   "summary": {
-    "observed": 77,
-    "screened": 28,
-    "reviewed": 23,
-    "monitoring": 77,
+    "observed": 67,
+    "screened": 18,
+    "reviewed": 17,
+    "monitoring": 67,
     "elevated": 0,
     "historyReady": 27
   },
@@ -1653,13 +1653,13 @@
       "severity": "Known exploited vulnerability"
     },
     {
-      "id": "noaa-kp-2026-11-26T03:00",
+      "id": "noaa-kp-2026-11-26T18:00",
       "kind": "event",
-      "title": "Observed planetary geomagnetic Kp 2.0",
+      "title": "Observed planetary geomagnetic Kp 0.67",
       "group": "global",
       "source": "NOAA Space Weather Prediction Center",
       "sourceUrl": "https://www.swpc.noaa.gov/products/planetary-k-index",
-      "observedAt": "2026-11-26T03:00:00",
+      "observedAt": "2026-11-26T18:00:00",
       "screened": false,
       "fresh": true,
       "baseline": {
@@ -1683,43 +1683,13 @@
       "severity": "Observed"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-404caa268444a8d96bd1cbc705bc51bc7ed5e1c2-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-3eea70474b9c089dcb8d1b01b99f4ae1059cc267-002-1",
       "kind": "advisory",
-      "title": "Flash Flood Warning — Chatham, NC; Durham, NC; Harnett, NC; Johnston, NC; Orange, NC; Wake, NC",
+      "title": "Coastal Flood Warning — Eastern Strait of Juan de Fuca; Western Strait of Juan de Fuca; Northern Washington Coast",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.404caa268444a8d96bd1cbc705bc51bc7ed5e1c2.001.1",
-      "observedAt": "2026-11-26T03:50:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.404caa268444a8d96bd1cbc705bc51bc7ed5e1c2.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-f75ee67500475be6b6afa2cdd01a1605f4716733-001-1",
-      "kind": "advisory",
-      "title": "High Wind Warning — Hudson; Eastern Essex; Eastern Union; New York (Manhattan); Bronx; Richmond (Staten Is.); Kings (Bro",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f75ee67500475be6b6afa2cdd01a1605f4716733.001.1",
-      "observedAt": "2026-11-26T03:32:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eea70474b9c089dcb8d1b01b99f4ae1059cc267.002.1",
+      "observedAt": "2026-11-26T13:49:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1736,20 +1706,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f75ee67500475be6b6afa2cdd01a1605f4716733.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eea70474b9c089dcb8d1b01b99f4ae1059cc267.002.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-c9dd9bd64427d566777e9f06ef1db616b5f7940a-004-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-3eea70474b9c089dcb8d1b01b99f4ae1059cc267-001-1",
       "kind": "advisory",
-      "title": "Storm Warning — Coastal waters from Cape Shoalwater WA to Cape Falcon OR out 10 nm; Coastal waters from Cape Falcon ",
+      "title": "Coastal Flood Warning — Grays Harbor County Coast",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c9dd9bd64427d566777e9f06ef1db616b5f7940a.004.1",
-      "observedAt": "2026-11-26T00:25:00-08:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eea70474b9c089dcb8d1b01b99f4ae1059cc267.001.1",
+      "observedAt": "2026-11-26T13:49:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1766,20 +1736,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.c9dd9bd64427d566777e9f06ef1db616b5f7940a.004.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.3eea70474b9c089dcb8d1b01b99f4ae1059cc267.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-7baf322aa79d386d69f4d53f18e442d73eab751d-001-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-8db40f6cc3f6de89b1d21e02ef8fb7c8b884a6b7-001-2",
       "kind": "advisory",
-      "title": "Lakeshore Flood Warning — Lucas; Ottawa; Sandusky; Erie",
+      "title": "Coastal Flood Warning — South Central Oregon Coast; Curry County Coast",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7baf322aa79d386d69f4d53f18e442d73eab751d.001.1",
-      "observedAt": "2026-11-26T03:14:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8db40f6cc3f6de89b1d21e02ef8fb7c8b884a6b7.001.2",
+      "observedAt": "2026-11-26T13:44:00-08:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1796,20 +1766,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7baf322aa79d386d69f4d53f18e442d73eab751d.001.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.8db40f6cc3f6de89b1d21e02ef8fb7c8b884a6b7.001.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-003-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-5759bc861fa7da5768b0c08b348961960abb6da6-002-1",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Northampton",
+      "title": "High Wind Warning — Southeast Webster; Northwest Pocahontas; Southeast Randolph",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.003.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5759bc861fa7da5768b0c08b348961960abb6da6.002.1",
+      "observedAt": "2026-11-26T15:59:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1826,20 +1796,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.003.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.5759bc861fa7da5768b0c08b348961960abb6da6.002.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-011-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-003-3",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Westmoreland; Northumberland",
+      "title": "Coastal Flood Warning — Southeast Suffolk",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.011.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.003.3",
+      "observedAt": "2026-11-26T15:48:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1856,20 +1826,20 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.011.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.003.3"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-004-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-006-2",
       "kind": "advisory",
-      "title": "Coastal Flood Warning — Prince George; Charles City; Surry; James City; Newport News; Isle of Wight",
+      "title": "Coastal Flood Warning — Southern Fairfield; Southern New Haven; Southern Westchester; Bronx; Northwest Suffolk; Northern Que",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.004.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.006.2",
+      "observedAt": "2026-11-26T15:48:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1886,20 +1856,260 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.004.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.006.2"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-010-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-001-3",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Southern Queens",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.001.3",
+      "observedAt": "2026-11-26T15:48:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.001.3"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-002-3",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Southwest Suffolk; Southern Nassau",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.002.3",
+      "observedAt": "2026-11-26T15:48:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.002.3"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-004-2",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Hudson; Eastern Bergen; Eastern Essex; Eastern Union",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.004.2",
+      "observedAt": "2026-11-26T15:48:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.004.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-005-2",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — New York (Manhattan); Richmond (Staten Is.); Kings (Brooklyn)",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.005.2",
+      "observedAt": "2026-11-26T15:48:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.005.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6-007-2",
+      "kind": "advisory",
+      "title": "Coastal Flood Warning — Northeast Suffolk",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.007.2",
+      "observedAt": "2026-11-26T15:48:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.7a9cfa569b08c0d5fb1fcc5f0d2a0d687290afa6.007.2"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-f7d6eeafdac4e9e37f81bc8b9c676576a3d91fb2-001-1",
+      "kind": "advisory",
+      "title": "Flood Warning — Jones, NC",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f7d6eeafdac4e9e37f81bc8b9c676576a3d91fb2.001.1",
+      "observedAt": "2026-11-26T15:35:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.f7d6eeafdac4e9e37f81bc8b9c676576a3d91fb2.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-9d8ffe56b7a5653fa125e5ae7f73891edc87a37c-001-1",
+      "kind": "advisory",
+      "title": "Flood Warning — Mason, WA",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9d8ffe56b7a5653fa125e5ae7f73891edc87a37c.001.1",
+      "observedAt": "2026-11-26T12:27:00-08:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.9d8ffe56b7a5653fa125e5ae7f73891edc87a37c.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-ba686d7d20b8778f91f7d97eea51ff4694c3fed4-001-1",
+      "kind": "advisory",
+      "title": "Flood Warning — Mecklenburg, VA",
+      "group": "US",
+      "source": "NOAA National Weather Service",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ba686d7d20b8778f91f7d97eea51ff4694c3fed4.001.1",
+      "observedAt": "2026-11-26T15:25:00-05:00",
+      "screened": true,
+      "fresh": true,
+      "baseline": {
+        "status": "not-applicable",
+        "sampleSize": 0,
+        "robustZ": null
+      },
+      "anomalous": false,
+      "needsReview": true,
+      "status": "monitor",
+      "sector": null,
+      "corroborated": false,
+      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
+      "confidence": "low",
+      "modelReviewed": true,
+      "evidence": [
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.ba686d7d20b8778f91f7d97eea51ff4694c3fed4.001.1"
+      ],
+      "gate": "official-advisory-only",
+      "officialAlert": true,
+      "severity": "Severe"
+    },
+    {
+      "id": "nws-urn-oid-2-49-0-1-840-0-652c3e26b3b5664b115d51921332a5872e3c7bb5-007-1",
       "kind": "advisory",
       "title": "Coastal Flood Warning — Richmond; Lancaster; New Kent; Gloucester; Middlesex; Mathews; Eastern King William; Eastern King an",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.010.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.652c3e26b3b5664b115d51921332a5872e3c7bb5.007.1",
+      "observedAt": "2026-11-26T15:19:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -1916,200 +2126,20 @@
       "confidence": "unassessed",
       "modelReviewed": false,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.010.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.652c3e26b3b5664b115d51921332a5872e3c7bb5.007.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
       "severity": "Severe"
     },
     {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-009-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Chesapeake; Hampton/Poquoson; Suffolk; Norfolk; Portsmouth",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.009.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.009.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-006-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Inland Worcester",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.006.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.006.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-001-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Maryland Beaches",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.001.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-008-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Virginia Beach",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.008.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.008.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-005-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Dorchester; Wicomico; Somerset",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.005.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.005.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-002-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Accomack",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.002.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.002.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-aae69de910963d115525583341a616da99ad81ab-007-1",
+      "id": "nws-urn-oid-2-49-0-1-840-0-652c3e26b3b5664b115d51921332a5872e3c7bb5-001-1",
       "kind": "advisory",
       "title": "Coastal Flood Warning — Eastern Currituck",
       "group": "US",
       "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.007.1",
-      "observedAt": "2026-11-26T03:05:00-05:00",
+      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.652c3e26b3b5664b115d51921332a5872e3c7bb5.001.1",
+      "observedAt": "2026-11-26T15:19:00-05:00",
       "screened": true,
       "fresh": true,
       "baseline": {
@@ -2126,337 +2156,7 @@
       "confidence": "low",
       "modelReviewed": true,
       "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.aae69de910963d115525583341a616da99ad81ab.007.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8-003-1",
-      "kind": "advisory",
-      "title": "High Wind Warning — Westmoreland; Richmond; Northumberland; Lancaster; Gloucester; Middlesex; Mathews; James City; Easte",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.003.1",
-      "observedAt": "2026-11-26T03:00:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.003.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8-001-1",
-      "kind": "advisory",
-      "title": "High Wind Warning — Dorchester; Wicomico; Somerset; Inland Worcester; Maryland Beaches; Accomack; Northampton",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.001.1",
-      "observedAt": "2026-11-26T03:00:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8-002-1",
-      "kind": "advisory",
-      "title": "High Wind Warning — Pasquotank; Camden; Western Currituck; Eastern Currituck; Surry; Chesapeake; Virginia Beach; Isle of",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.002.1",
-      "observedAt": "2026-11-26T03:00:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.66c0a7dc7dc2fc70bd27f9d62717d5d720b322a8.002.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-b95279b6cc613295db5af8e5ed73bf963fadf6c3-002-1",
-      "kind": "advisory",
-      "title": "Winter Storm Watch — Bighorn Mountains West; Bighorn Mountains Southeast",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b95279b6cc613295db5af8e5ed73bf963fadf6c3.002.1",
-      "observedAt": "2026-11-26T00:59:00-07:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Awaiting a valid AI review; not escalated",
-      "confidence": "unassessed",
-      "modelReviewed": false,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b95279b6cc613295db5af8e5ed73bf963fadf6c3.002.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-b95279b6cc613295db5af8e5ed73bf963fadf6c3-001-1",
-      "kind": "advisory",
-      "title": "Winter Storm Watch — Yellowstone National Park; Absaroka Mountains; Teton and Gros Ventre Mountains; Wind River Mountains",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b95279b6cc613295db5af8e5ed73bf963fadf6c3.001.1",
-      "observedAt": "2026-11-26T00:59:00-07:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.b95279b6cc613295db5af8e5ed73bf963fadf6c3.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-002-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Ocean; Coastal Ocean",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.002.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.002.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-005-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Kent; Cumberland",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.005.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.005.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-001-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Middlesex; Western Monmouth; Eastern Monmouth",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.001.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.001.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-004-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Inland Sussex; Delaware Beaches",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.004.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.004.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-006-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — New Castle; Salem",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.006.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.006.1"
-      ],
-      "gate": "official-advisory-only",
-      "officialAlert": true,
-      "severity": "Severe"
-    },
-    {
-      "id": "nws-urn-oid-2-49-0-1-840-0-2fbd7072619a3b3593b2468927a2e5b241dc6128-003-1",
-      "kind": "advisory",
-      "title": "Coastal Flood Warning — Atlantic; Cape May; Atlantic Coastal Cape May; Coastal Atlantic; Southeastern Burlington",
-      "group": "US",
-      "source": "NOAA National Weather Service",
-      "sourceUrl": "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.003.1",
-      "observedAt": "2026-11-26T02:57:00-05:00",
-      "screened": true,
-      "fresh": true,
-      "baseline": {
-        "status": "not-applicable",
-        "sampleSize": 0,
-        "robustZ": null
-      },
-      "anomalous": false,
-      "needsReview": true,
-      "status": "monitor",
-      "sector": null,
-      "corroborated": false,
-      "reason": "Active official local weather safety warning; the source severity does not demonstrate an abnormal systemic or geopolitical event. Monitored in Early Warning. Follow the original NWS link for safety instructions.",
-      "confidence": "low",
-      "modelReviewed": true,
-      "evidence": [
-        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.2fbd7072619a3b3593b2468927a2e5b241dc6128.003.1"
+        "https://api.weather.gov/alerts/urn:oid:2.49.0.1.840.0.652c3e26b3b5664b115d51921332a5872e3c7bb5.001.1"
       ],
       "gate": "official-advisory-only",
       "officialAlert": true,
