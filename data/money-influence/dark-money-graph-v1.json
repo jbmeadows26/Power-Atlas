@@ -4,7 +4,7 @@
   "scope": "Published organization/committee records only; not a census of dark money",
   "metrics": {
     "fecCommitteeCycleSnapshots": 135,
-    "distinctOrganizations": 406,
+    "distinctOrganizations": 401,
     "filedTransferEdges": 1200,
     "filedTransactionReceiptEdges": 1200,
     "potentialSequentialPaymentLeads": 26,
@@ -411,13 +411,6 @@
       "source": "https://www.fec.gov/data/committee/C00082925/"
     },
     {
-      "id": "fec:C00083535",
-      "name": "FEC C00083535",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00083535/"
-    },
-    {
       "id": "fec:C00083857",
       "name": "FEC C00083857",
       "entityType": "committee",
@@ -537,13 +530,6 @@
       "source": "https://www.fec.gov/data/committee/C00106146/"
     },
     {
-      "id": "fec:C00108209",
-      "name": "FEC C00108209",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00108209/"
-    },
-    {
       "id": "fec:C00109017",
       "name": "FEC C00109017",
       "entityType": "committee",
@@ -556,13 +542,6 @@
       "entityType": "committee",
       "jurisdiction": "federal",
       "source": "https://www.fec.gov/data/committee/C00109546/"
-    },
-    {
-      "id": "fec:C00109991",
-      "name": "FEC C00109991",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00109991/"
     },
     {
       "id": "fec:C00110338",
@@ -985,13 +964,6 @@
       "source": "https://www.fec.gov/data/committee/C00359539/"
     },
     {
-      "id": "fec:C00360669",
-      "name": "FEC C00360669",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00360669/"
-    },
-    {
       "id": "fec:C00362707",
       "name": "FEC C00362707",
       "entityType": "committee",
@@ -1020,13 +992,6 @@
       "source": "https://www.fec.gov/data/committee/C00368696/"
     },
     {
-      "id": "fec:C00370015",
-      "name": "FEC C00370015",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00370015/"
-    },
-    {
       "id": "fec:C00375048",
       "name": "FEC C00375048",
       "entityType": "committee",
@@ -1053,13 +1018,6 @@
       "entityType": "committee",
       "jurisdiction": "federal",
       "source": "https://www.fec.gov/data/committee/C00388827/"
-    },
-    {
-      "id": "fec:C00389429",
-      "name": "FEC C00389429",
-      "entityType": "committee",
-      "jurisdiction": "federal",
-      "source": "https://www.fec.gov/data/committee/C00389429/"
     },
     {
       "id": "fec:C00390583",
@@ -1179,6 +1137,13 @@
       "entityType": "committee",
       "jurisdiction": "federal",
       "source": "https://www.fec.gov/data/committee/C00411116/"
+    },
+    {
+      "id": "fec:C00416743",
+      "name": "FEC C00416743",
+      "entityType": "committee",
+      "jurisdiction": "federal",
+      "source": "https://www.fec.gov/data/committee/C00416743/"
     },
     {
       "id": "fec:C00417063",
@@ -7650,6 +7615,20 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
+      "id": "fec-oth-2026-1bb8427941bc30fe1ff5",
+      "from": "fec:C00548818",
+      "to": "fec:C00504522",
+      "amountUSD": 50023.0,
+      "date": "2026-09-02",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2024690",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00504522&two_year_transaction_period=2026&contributor_id=C00548818",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
       "id": "fec-oth-2026-1bb9496cc88bd32be914",
       "from": "fec:C00340943",
       "to": "fec:C00027466",
@@ -8994,6 +8973,20 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
+      "id": "fec-oth-2026-29a53e24d0d6b01ecb1a",
+      "from": "fec:C00573436",
+      "to": "fec:C00541862",
+      "amountUSD": 20072.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2027528",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00541862&two_year_transaction_period=2026&contributor_id=C00573436",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
       "id": "fec-oth-2026-29cc6f4c54c7f7781ebf",
       "from": "fec:C00362707",
       "to": "fec:C00027466",
@@ -9162,34 +9155,6 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
-      "id": "fec-oth-2026-2ab91bb353b270456ac7",
-      "from": "fec:C00083535",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2026-02-11",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "1955499",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00083535",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
-      "id": "fec-oth-2026-2aba29056510b6af043c",
-      "from": "fec:C00370015",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2026-08-19",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "2014360",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00370015",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
       "id": "fec-oth-2026-2adf313b9a982ee3837d",
       "from": "fec:C00572099",
       "to": "fec:C00027466",
@@ -9201,20 +9166,6 @@
       "transactionType": "18G",
       "filingId": "1912444",
       "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00572099",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
-      "id": "fec-oth-2026-2b0dc0f2b4cb901781f4",
-      "from": "fec:C00778159",
-      "to": "fec:C00075820",
-      "amountUSD": 15000.0,
-      "date": "2026-09-15",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "2033415",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00075820&two_year_transaction_period=2026&contributor_id=C00778159",
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
@@ -9260,20 +9211,6 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
-      "id": "fec-oth-2026-2bef0e0189bac6d0047c",
-      "from": "fec:C00109991",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2025-04-02",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "1893498",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00109991",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
       "id": "fec-oth-2026-2bf3218558daf04fac73",
       "from": "fec:C00896928",
       "to": "fec:C00027466",
@@ -9316,34 +9253,6 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
-      "id": "fec-oth-2026-2ca176c8ef26a6f9e183",
-      "from": "fec:C00360669",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2025-03-28",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "31K",
-      "filingId": "1889595",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00360669",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
-      "id": "fec-oth-2026-2cc746e4bf8813fbe783",
-      "from": "fec:C00389429",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2026-09-24",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "2032982",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00389429",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
       "id": "fec-oth-2026-2ce302bb7b2dd3ff7957",
       "from": "fec:C00078196",
       "to": "fec:C00027466",
@@ -9369,34 +9278,6 @@
       "transactionType": "18K",
       "filingId": "1912444",
       "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00901751",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
-      "id": "fec-oth-2026-2d1d19e42d6f85717216",
-      "from": "fec:C00108209",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2026-02-05",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "1955499",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00108209",
-      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
-    },
-    {
-      "id": "fec-oth-2026-2d473b7f2f3de6c9860f",
-      "from": "fec:C00492058",
-      "to": "fec:C00027466",
-      "amountUSD": 15000.0,
-      "date": "2025-10-28",
-      "jurisdiction": "federal",
-      "cycle": 2026,
-      "evidenceType": "official_fec_reported_receipt",
-      "transactionType": "18K",
-      "filingId": "1926357",
-      "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00492058",
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
@@ -10405,6 +10286,20 @@
       "transactionType": "32G",
       "filingId": "1955499",
       "source": "https://www.fec.gov/data/receipts/?committee_id=C00027466&two_year_transaction_period=2026&contributor_id=C00897918",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
+      "id": "fec-oth-2026-3cfb2c1c428ea8ddb47d",
+      "from": "fec:C00609255",
+      "to": "fec:C00570994",
+      "amountUSD": 57651.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2025647",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00570994&two_year_transaction_period=2026&contributor_id=C00609255",
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
@@ -14342,6 +14237,20 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
+      "id": "fec-oth-2026-8280356ac1eeeb72faa6",
+      "from": "fec:C00487207",
+      "to": "fec:C00416743",
+      "amountUSD": 45800.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2031414",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00416743&two_year_transaction_period=2026&contributor_id=C00487207",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
       "id": "fec-oth-2026-82d2adad4b892c65f3ea",
       "from": "fec:C00603019",
       "to": "fec:C00161810",
@@ -15994,6 +15903,20 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
+      "id": "fec-oth-2026-9f0023a4d2c372a8f18d",
+      "from": "fec:C00573436",
+      "to": "fec:C00541862",
+      "amountUSD": 28321.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2027528",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00541862&two_year_transaction_period=2026&contributor_id=C00573436",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
       "id": "fec-oth-2026-9f29ae289f400e9cf553",
       "from": "fec:C00368696",
       "to": "fec:C00027466",
@@ -17478,6 +17401,20 @@
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
+      "id": "fec-oth-2026-b4f0b1bce9466ee2cd28",
+      "from": "fec:C00573444",
+      "to": "fec:C00545749",
+      "amountUSD": 121155.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2025469",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00545749&two_year_transaction_period=2026&contributor_id=C00573444",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
       "id": "fec-oth-2026-b51ef86dc49de77bf9a4",
       "from": "fec:C00338087",
       "to": "fec:C00027466",
@@ -17545,6 +17482,20 @@
       "transactionType": "18G",
       "filingId": "1887792",
       "source": "https://www.fec.gov/data/receipts/?committee_id=C00545749&two_year_transaction_period=2026&contributor_id=C00573444",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
+      "id": "fec-oth-2026-b6bc28f1c39ce329b906",
+      "from": "fec:C00609255",
+      "to": "fec:C00570994",
+      "amountUSD": 33408.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2025647",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00570994&two_year_transaction_period=2026&contributor_id=C00609255",
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
@@ -19113,6 +19064,20 @@
       "transactionType": "18G",
       "filingId": "1933872",
       "source": "https://www.fec.gov/data/receipts/?committee_id=C00675348&two_year_transaction_period=2026&contributor_id=C00691576",
+      "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
+    },
+    {
+      "id": "fec-oth-2026-d064abd44a5d4c98603e",
+      "from": "fec:C00573444",
+      "to": "fec:C00545749",
+      "amountUSD": 175444.0,
+      "date": "2026-09-30",
+      "jurisdiction": "federal",
+      "cycle": 2026,
+      "evidenceType": "official_fec_reported_receipt",
+      "transactionType": "18G",
+      "filingId": "2025469",
+      "source": "https://www.fec.gov/data/receipts/?committee_id=C00545749&two_year_transaction_period=2026&contributor_id=C00573444",
       "reviewStatus": "fec_raw_receipt_not_filing_amendment_reconciled"
     },
     {
@@ -22089,13 +22054,13 @@
   ],
   "ingestion": {
     "fecOfficialItemizedReceipts": {
-      "scannedRows": 10117554,
-      "eligibleReceiptVersions": 3700,
+      "scannedRows": 10366059,
+      "eligibleReceiptVersions": 3713,
       "supersededVersions": 0,
       "selectedRows": 1200,
       "outputTruncated": true,
       "selectionFloorUSD": "2500.00",
-      "distinctEligibleReceiptItems": 3700
+      "distinctEligibleReceiptItems": 3713
     },
     "localOrStateReviewedRecords": 0
   }
