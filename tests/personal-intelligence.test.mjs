@@ -1,0 +1,13 @@
+import {test} from "node:test";
+import assert from "node:assert/strict";
+import {readFileSync} from "node:fs";
+import {paths,analyze,publicContext,safeLink} from "../site/personal-intelligence/engine.mjs";
+const feeds=Object.fromEntries(Object.entries(paths).map(([k,p])=>[k,JSON.parse(readFileSync(new URL("../"+p,import.meta.url),"utf8"))]));
+test("real repository records expose public context with observation dates",()=>{const rows=publicContext(feeds);assert.ok(rows.length>=3);for(const r of rows)assert.ok(r.date);});
+test("no personal assumptions or invented decisions",()=>{assert.deepEqual(analyze(feeds),[]);assert.deepEqual(analyze({},{}),[]);});
+test("geographic mismatch prevents affordability calculation",()=>{const s=feeds.affordability.scenarios[0];assert.ok(!analyze(feeds,{county:"other",household:s.id,gross:s.gross}).some(x=>x.key==="affordability"));});
+test("matching recorded benchmark uses actual entered value; zero is valid",()=>{const s=feeds.affordability.scenarios[0];const rows=analyze(feeds,{county:feeds.affordability.location.countyFips,household:s.id,gross:s.gross});assert.equal(rows.length,1);assert.match(rows[0].value,/\$0/);assert.equal(analyze(feeds,{net:0,expenses:0})[0].value,"$0 per month");});
+test("consumer and employment require matching user context",()=>{assert.ok(!analyze(feeds,{lines:1,employed:false}).some(x=>x.key==="telecom"||x.key==="finance"));});
+test("fuel watch must never become confirmed shortage",()=>{const rows=analyze(feeds,{drives:true}).filter(x=>x.key==="shortage");for(const row of rows)assert.match(row.status,/not confirmed shortage/);const x=structuredClone(feeds);const f=x.shortage.forecasts.find(y=>y.id==="fuel");if(f){f.confirmedShortage=true;assert.ok(!analyze(x,{drives:true}).some(y=>y.key==="shortage"));}});
+test("external links are HTTPS only",()=>{assert.equal(safeLink("javascript:alert(1)"),null);assert.equal(safeLink("http://example.com"),null);});
+test("backend policy is ownership based and anonymous access revoked",()=>{const s=readFileSync(new URL("../personal-intelligence/backend/profile-schema.sql",import.meta.url),"utf8");assert.match(s,/enable row level security/i);assert.match(s,/revoke all.*anon/i);assert.match(s,/for update.*using.*with check/i);assert.equal((s.match(/auth\.uid\(\)/g)||[]).length,5);});
