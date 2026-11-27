@@ -1,3 +1,5 @@
+import {setupDecisions} from "./decision-ui.mjs";
+import {validateDecisions} from "./decisions.mjs";
 import {setupDocuments} from "./documents.mjs";
 import {setupAdaptive} from "../private-workspace/adaptive-ui.mjs";
 import {setupSuppliers} from "./suppliers.mjs";
@@ -25,7 +27,9 @@ function invalidate(){applied=null;result=null;$("profile-status").textContent="
 function profile(){return validateProfile({type:$("business-type").value,marketTopic:$("market-topic").value,financing:$("financing").checked,usDemand:$("us-demand").checked,dependencies:[...$("dependencies").children].map(n=>{const d={id:n.dataset.id,provenance:n.provenance};for(const f of n.querySelectorAll("[data-field]")){if(!f.validity.valid)throw Error("Correct the invalid dependency input.");d[f.dataset.field]=f.dataset.field==="monthlyCost"?(f.value===""?null:Number(f.value)):f.value;}return d;})});}
 function route(){const h=location.hash.slice(1),id=["overview","profile","decisions","scenarios","procurement","suppliers","evidence"].includes(h)?h:"overview";for(const x of document.querySelectorAll("[data-screen]"))x.hidden=x.dataset.screen!==id;for(const a of document.querySelectorAll("nav a")){if(a.hash==="#"+id)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}if(id==="procurement"&&!procurementLoaded){procurementLoaded=true;procurement.load();}if(id==="suppliers"&&!suppliersLoaded){suppliersLoaded=true;suppliers.load();}scrollTo(0,0);}
 function proof(e){const p=el("p"),a=el("a",e.label+" · "+e.source+" · "+e.date);a.href=e.url;a.target="_blank";a.rel="noopener noreferrer";p.append(a);return p;}
-function finding(x){const box=el("details",undefined,"finding"),s=el("summary");s.append(el("small",x.domain+" · "+x.status,"tag"),el("h3",x.title));if(x.dependency)s.append(el("small",x.dependency));box.append(s,el("p",x.detail),el("h3","Management check"),el("p",x.action));for(const e of x.evidence)box.append(proof(e));return box;}
+const decisionMount=el("section",undefined,"panel");decisionMount.id="decision-journal";$("decisions").append(decisionMount);
+const decisionJournal=setupDecisions(decisionMount);
+function finding(x){const box=el("details",undefined,"finding"),s=el("summary");s.append(el("small",x.domain+" · "+x.status,"tag"),el("h3",x.title));if(x.dependency)s.append(el("small",x.dependency));box.append(s,el("p",x.detail),el("h3","Management check"),el("p",x.action));for(const e of x.evidence)box.append(proof(e));decisionJournal.attach(box,x);return box;}
 function render(){
  if(applied){try{result=analyze(data,applied);}catch{result=null;$("profile-status").textContent="Source format changed. Analysis unavailable; no findings inferred.";}}
  const items=result?.findings||[],gaps=result?.gaps||[];
@@ -45,7 +49,7 @@ async function refresh(){if(busy)return;busy=true;$("refresh").disabled=true;$("
 for(const t of marketTopics)option($("market-topic"),t,t);
 for(const id of ["business-type","market-topic","financing","us-demand"])$(id).addEventListener("input",invalidate);
 $("add").onclick=()=>dep();$("apply").onclick=()=>{try{applied=profile();$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
-$("clear").onclick=()=>{adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
+$("clear").onclick=()=>{decisionJournal.reset();adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);
 
@@ -56,7 +60,7 @@ function validateVaultBusiness(value){
  for(const d of value.dependencies){
   if(!d||typeof d.name!=="string"||typeof d.country!=="string"||typeof d.product!=="string"||typeof d.corridor!=="string"||!(d.monthlyCost===null||typeof d.monthlyCost==="number"))throw Error("Invalid business dependency in backup.");
  }
- return validateProfile(value);
+ return {...validateProfile(value),decisions:validateDecisions(value.decisions??[])};
 }
 function restoreVaultBusiness(p){
  $("clear").click();
@@ -65,10 +69,10 @@ function restoreVaultBusiness(p){
   dep(d);const row=$("dependencies").lastElementChild;
   for(const input of row.querySelectorAll("[data-field]"))input.value=d[input.dataset.field]??"";
  }
- applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
+ decisionJournal.restore(p.decisions??[]);applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
 }
 const vaultMount=el("section",undefined,"panel");vaultMount.id="business-vault";$("profile").append(vaultMount);
-const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:profile,validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
+const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=>({...profile(),decisions:decisionJournal.get()}),validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
 $("clear").addEventListener("click",()=>businessVault.reset());
 
 const documentMount=el("section",undefined,"panel");documentMount.id="business-documents";$("profile").append(documentMount);
