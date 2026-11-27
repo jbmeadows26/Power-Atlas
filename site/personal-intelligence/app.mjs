@@ -1,9 +1,11 @@
+import {setupImports} from "./import-ui.mjs";
 import {paths,sourcePath,analyze,publicContext,safeLink,money} from "./engine.mjs";
 const $=id=>document.getElementById(id), feed={}, errors={}; let refreshing=false, config=null, session=null;
 const fields=["county","household","gross","net","expenses","lines","drives","employed"];
 function profile(){let p={};for(const id of fields){const x=$(id).value;if(x===""||!$(id).validity.valid)continue;p[id]=["gross","net","expenses","lines"].includes(id)?Number(x):["drives","employed"].includes(id)?x==="yes":x;}return p;}
-function restore(p){$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
+function restore(p){imports.reset();$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
 let category="All",filter="Priority";
+const imports=setupImports({apply(patch){const conflicts=Object.keys(patch).filter(k=>$(k).value!==""&&Number($(k).value)!==patch[k]);if(conflicts.length&&!confirm("Replace the existing selected profile values?"))return false;for(const [k,v] of Object.entries(patch))$(k).value=String(v);return true;},onChange:()=>render()});
 const actual=n=>typeof n==="number"&&Number.isFinite(n)&&n>=0;
 const show=(id,value)=>{$(id).textContent=value;};
 function node(tag,cls,value){const el=document.createElement(tag);el.className=cls;if(value!==undefined)el.textContent=value;return el;}
@@ -17,26 +19,26 @@ function card(x){
  el.append(detail);article.append(el);return article;
 }
 function empty(id,message,profileLink=false){const el=node("div","empty",message);if(profileLink){const a=node("a","","Complete your profile ›");a.href="#profile";el.append(document.createElement("br"),a);}$(id).replaceChildren(el);}
-function route(){const requested=location.hash.slice(1);const current=["home","decisions","scenarios","profile","sources"].includes(requested)?requested:"home";for(const section of document.querySelectorAll("[data-screen]"))section.hidden=section.dataset.screen!==current;for(const a of document.querySelectorAll("nav a")){if(a.getAttribute("href")==="#"+current)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}window.scrollTo(0,0);}
+function route(){const requested=location.hash.slice(1);const current=["home","decisions","scenarios","profile","sources","imports"].includes(requested)?requested:"home";for(const section of document.querySelectorAll("[data-screen]"))section.hidden=section.dataset.screen!==current;for(const a of document.querySelectorAll("nav a")){if(a.getAttribute("href")==="#"+current)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}window.scrollTo(0,0);}
 function scenario(){const p=profile(),n=p.net,e=p.expenses,alt=$("alternative").value===""?null:Number($("alternative").value);
  show("scenario-income",actual(n)?money(n):"—");show("scenario-expenses",actual(e)?money(e):"—");const base=actual(n)&&actual(e),valid=base&&actual(alt);
  show("scenario-current",base?money(n-e):"—");show("scenario-new",valid?money(n-alt):"—");show("scenario-delta",valid?money(e-alt):"—");show("scenario-year",valid?money((e-alt)*12):"—");
  show("scenario-note",valid?"Conditional calculation using your entered amounts. Annualized assumes the same monthly difference for 12 months; no quote or savings has been independently verified.":"Awaiting actual inputs. A comparison is conditional, not a verified savings claim.");
 }
 function render(){
- const p=profile(),ctx=publicContext(feed),decisions=analyze(feed,p),hasCash=actual(p.net)&&actual(p.expenses),pct=hasCash&&p.net>0?(p.net-p.expenses)/p.net*100:null;
+ const p=profile(),ctx=publicContext(feed),decisions=[...analyze(feed,p),...imports.findings()],hasCash=actual(p.net)&&actual(p.expenses),pct=hasCash&&p.net>0?(p.net-p.expenses)/p.net*100:null;
  show("income-val",actual(p.net)?money(p.net):"—");show("expense-val",actual(p.expenses)?money(p.expenses):"—");show("cash-margin",pct===null?"—":Math.round(pct)+"%");
  const scale=Math.max(actual(p.net)?p.net:0,actual(p.expenses)?p.expenses:0,1);$("income-meter").value=actual(p.net)?100*p.net/scale:0;$("expense-meter").value=actual(p.expenses)?100*p.expenses/scale:0;
  const completeness=Math.round(Object.keys(p).length/fields.length*100);show("complete-val",completeness+"%");$("complete-meter").value=completeness;
  show("picture-note",hasCash?"Cash margin uses your entered income and expenses; not a credit or risk score.": "Add your actual income and expenses to calculate cash margin. No financial score has been inferred.");
- const elevated=ctx.find(x=>x.key==="warning");show("risks-val",elevated?elevated.value:"—");show("decisions-val",Object.keys(p).length?String(decisions.length):"—");show("updates-val",Object.keys(feed).length?String(ctx.length):"—");
+ const elevated=ctx.find(x=>x.key==="warning");show("risks-val",elevated?elevated.value:"—");show("decisions-val",Object.keys(p).length||decisions.length?String(decisions.length):"—");show("updates-val",Object.keys(feed).length?String(ctx.length):"—");
  $("context").replaceChildren(...ctx.map(card));if(!ctx.length)empty("context","No source-dated records available.");
  $("decisions-list").replaceChildren(...decisions.map(card));if(!decisions.length)empty("decisions-list","No supported personal finding yet. Add actual information or wait for a matching feed.",true);
- const keys={Finances:["profile","finance"],Household:["affordability","profile"],Shopping:["telecom"],Career:["finance"],Global:["shortage","warning"]};
+ const keys={Finances:["profile","finance","document"],Household:["affordability","profile","document"],Shopping:["telecom","document"],Career:["finance"],Global:["shortage","warning"]};
  const matches=x=>category==="All"||keys[category]?.includes(x.key);
  let rows=[],message="";
- if(filter==="Priority"){rows=decisions.filter(matches);if(!rows.length){rows=ctx.filter(matches).slice(0,4);message="No personalized finding yet. These are public developments, not personal recommendations.";}}
- else if(filter==="Updates")rows=ctx.filter(matches);
+ if(filter==="Priority"){rows=decisions.filter(x=>x.key!=="document").filter(matches);if(!rows.length){rows=ctx.filter(matches).slice(0,4);message="No personalized finding yet. These are public developments, not personal recommendations.";}}
+ else if(filter==="Updates")rows=[...imports.findings(),...ctx].filter(matches);
  else if(filter==="Risks"){rows=decisions.filter(x=>x.key==="shortage"||(x.key==="profile"&&hasCash&&p.expenses>p.net)).filter(matches);if(!rows.length)message="No supported personal risk finding for this selection. This is not an assurance that no risks exist.";}
  else message="No verified personal savings or opportunity amount is supported by the current data. Compare your actual quotes in Scenarios.";
  $("home-feed").replaceChildren();if(message){const item=node("div","empty",message);if(filter==="Priority"){const a=node("a","","Add your circumstances ›");a.href="#profile";item.append(document.createElement("br"),a);}if(filter==="Opportunities"){const a=node("a","","Compare actual costs ›");a.href="#scenarios";item.append(document.createElement("br"),a);}$("home-feed").append(item);}for(const row of rows)$("home-feed").append(card(row));if(!rows.length&&!message)empty("home-feed","No matching dated records available.");
