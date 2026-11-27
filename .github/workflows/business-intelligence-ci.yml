@@ -6,6 +6,7 @@ on:
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/business-documents*'
+      - 'tests/business-twin*'
       - 'tests/business-document-formats*'
       - 'tests/test_business_public_analyst.py'
       - 'tests/test_business_hts_reference.py'
@@ -26,7 +27,7 @@ jobs:
           node-version: '22'
       - run: |
           node --check site/business-intelligence/app.mjs
-          node --test tests/business-intelligence.test.mjs tests/business-intelligence-procurement.test.mjs tests/business-intelligence-suppliers.test.mjs tests/business-documents.test.mjs
+          node --test tests/business-intelligence.test.mjs tests/business-intelligence-procurement.test.mjs tests/business-intelligence-suppliers.test.mjs tests/business-documents.test.mjs tests/business-intelligence-twin.test.mjs tests/business-intelligence-decisions.test.mjs
           python3 -m unittest discover -s tests -p test_business_hts_reference.py -v
           python3 business-intelligence/collect_hts_reference.py --require-available
           python3 -m unittest discover -s tests -p test_business_ofac_reference.py -v
@@ -48,6 +49,7 @@ jobs:
           bash business-intelligence/prepare-document-assets.sh
           node tests/business-documents-browser.cjs
           node tests/business-document-formats-browser.cjs
+          node tests/business-twin-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
