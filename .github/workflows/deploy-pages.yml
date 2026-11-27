@@ -193,6 +193,9 @@ jobs:
           node tests/business-document-formats-browser.cjs
           node tests/business-twin-browser.cjs
           node tests/business-twin-editing-browser.cjs
+          node tests/business-document-twin-browser.cjs
+          node tests/business-command-browser.cjs
+          node tests/business-public-case-browser.cjs
       - name: Record content-addressed public release identity
         run: |
           python3 -m unittest discover -s tests -p test_pages_release_identity.py -v

@@ -4,7 +4,7 @@ on:
     paths:
       - 'site/business-intelligence/**'
       - 'business-intelligence/**'
-      - 'tests/business-intelligence*'
+      - 'tests/business-*'
       - 'tests/business-documents*'
       - 'tests/business-twin*'
       - 'tests/business-document-formats*'
@@ -56,6 +56,9 @@ jobs:
           node tests/business-document-entities-browser.cjs
           node tests/business-twin-browser.cjs
           node tests/business-twin-editing-browser.cjs
+          node tests/business-document-twin-browser.cjs
+          node tests/business-command-browser.cjs
+          node tests/business-public-case-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
