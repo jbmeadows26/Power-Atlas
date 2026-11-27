@@ -414,8 +414,11 @@ function App() {
   };
   useEffect(reload, []);
   useEffect(() => {
-    if (!selected) {
+    // Only the country dossier consumes this request. Global command and forecast
+    // workspaces must not prefetch an unrelated country or trigger a cross-origin race.
+    if (!selected || view !== 'Countries') {
       setBrief(null);
+      setBriefLoading(false);
       return;
     }
     let active = true;
@@ -442,7 +445,7 @@ function App() {
     return () => {
       active = false;
     };
-  }, [selected]);
+  }, [selected, view]);
   const countries = overview?.countries || [];
   const cases = overview?.cases || [];
   const sources = overview?.sources || [];
