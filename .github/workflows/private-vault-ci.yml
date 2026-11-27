@@ -3,6 +3,8 @@ on:
   pull_request:
     paths:
       - 'site/private-workspace/vault-core.mjs'
+      - 'site/private-workspace/vault-ui.mjs'
+      - 'site/business-intelligence/**'
       - 'tests/private-vault*'
       - '.github/workflows/private-vault-ci.yml'
   workflow_dispatch:
@@ -17,3 +19,14 @@ jobs:
         with:
           node-version: '22'
       - run: node --test tests/private-vault.test.mjs
+      - name: Install browser tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/vault-browser" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/vault-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Verify encrypted local storage lifecycle
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/vault-browser/node_modules/playwright
+        run: |
+          python3 -m http.server 4175 --directory site > /tmp/vault-browser.log 2>&1 &
+          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          node tests/private-vault-browser.cjs

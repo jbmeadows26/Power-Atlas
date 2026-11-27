@@ -47,3 +47,25 @@ $("add").onclick=dep;$("apply").onclick=()=>{try{applied=profile();$("profile-st
 $("clear").onclick=()=>{adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);
+
+
+import {setupVault} from "../private-workspace/vault-ui.mjs";
+function validateVaultBusiness(value){
+ if(!value||typeof value!=="object"||Array.isArray(value)||typeof value.type!=="string"||typeof value.marketTopic!=="string"||typeof value.financing!=="boolean"||typeof value.usDemand!=="boolean"||!Array.isArray(value.dependencies)||value.dependencies.length>30)throw Error("Invalid business profile backup.");
+ for(const d of value.dependencies){
+  if(!d||typeof d.name!=="string"||typeof d.country!=="string"||typeof d.product!=="string"||typeof d.corridor!=="string"||!(d.monthlyCost===null||typeof d.monthlyCost==="number"))throw Error("Invalid business dependency in backup.");
+ }
+ return validateProfile(value);
+}
+function restoreVaultBusiness(p){
+ $("clear").click();
+ $("business-type").value=p.type;$("market-topic").value=p.marketTopic;$("financing").checked=p.financing;$("us-demand").checked=p.usDemand;
+ for(const d of p.dependencies){
+  dep();const row=$("dependencies").lastElementChild;
+  for(const input of row.querySelectorAll("[data-field]"))input.value=d[input.dataset.field]??"";
+ }
+ applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
+}
+const vaultMount=el("section",undefined,"panel");vaultMount.id="business-vault";$("profile").append(vaultMount);
+const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:profile,validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
+$("clear").addEventListener("click",()=>businessVault.reset());
