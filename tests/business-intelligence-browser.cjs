@@ -1,0 +1,18 @@
+const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||"playwright");const assert=require("node:assert/strict");
+const fs=require("node:fs");const path=require("node:path");
+const root=path.resolve(__dirname,"..");
+(async()=>{for(const type of [chromium,webkit]){const browser=await type.launch();try{for(const width of [320,390,1280]){
+ const page=await browser.newPage({viewport:{width,height:844}}),errors=[],requests=[];
+ page.on("pageerror",e=>errors.push(String(e)));page.on("request",r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));
+ // Actual checked-out public snapshots, not invented production content. No third-party network dependency in UI regression.
+ await page.route("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/**",async route=>{const rel=route.request().url().split("/main/")[1];const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.abort();await route.fulfill({contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:fs.readFileSync(file)});});
+ await page.goto("http://127.0.0.1:4175/business-intelligence/");await page.waitForFunction(()=>document.querySelector("#feed-count").textContent==="8 / 8");
+ assert.equal(await page.locator("#finding-count").innerText(),"—");assert.equal(await page.locator("#dep-count").innerText(),"—");
+ await page.locator("nav a[href='#profile']").click();await page.locator("#business-type").selectOption("importer");await page.locator("#add").click();
+ await page.locator("[data-field=name]").fill("QA_PRIVATE_BUSINESS_DEP");await page.locator("[data-field=country]").fill("UA");await page.locator("[data-field=product]").selectOption("fuel");await page.locator("[data-field=corridor]").selectOption("Suez");await page.locator("[data-field=monthlyCost]").fill("10000");
+ await page.locator("#apply").click();await page.locator("#decisions").waitFor({state:"visible"});assert.match(await page.locator("#findings").innerText(),/Transport fuels/);assert.match(await page.locator("#findings").innerText(),/QA_PRIVATE_BUSINESS_DEP/);
+ await page.locator("nav a[href='#scenarios']").click();await page.locator("#scenario-dep").selectOption("1");await page.locator("#quote").fill("7");assert.equal(await page.locator("#monthly").innerText(),"$700.00");assert.equal(await page.locator("#annual").innerText(),"$8,400.00");
+ await page.locator("nav a[href='#profile']").click();await page.locator("#clear").click();await page.locator("nav a[href='#overview']").click();assert.equal(await page.locator("#dep-count").innerText(),"—");
+ assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);assert.ok(requests.every(r=>r.method==="GET"&&!r.body&&!r.url.includes("QA_PRIVATE_BUSINESS_DEP")));assert.deepEqual(errors,[]);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ fs.mkdirSync("audit-output/business-intelligence",{recursive:true});await page.screenshot({path:"audit-output/business-intelligence/"+type.name()+"-"+width+".png",fullPage:true});await page.close();
+ }}finally{await browser.close();}}})().catch(e=>{console.error(e);process.exit(1);});
