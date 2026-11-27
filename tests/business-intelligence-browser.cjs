@@ -6,7 +6,7 @@ const root=path.resolve(__dirname,"..");
  page.on("pageerror",e=>errors.push(String(e)));page.on("request",r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));
  // Actual checked-out public snapshots, not invented production content. No third-party network dependency in UI regression.
  await page.route("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/**",async route=>{const rel=route.request().url().split("/main/")[1];const file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.abort();await route.fulfill({contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:fs.readFileSync(file)});});
- await page.goto("http://127.0.0.1:4175/business-intelligence/");await page.waitForFunction(()=>document.querySelector("#feed-count").textContent==="8 / 8");
+ await page.goto(process.env.BUSINESS_TEST_URL||"http://127.0.0.1:4175/business-intelligence/");await page.waitForFunction(()=>document.querySelector("#feed-count").textContent==="8 / 8");
  assert.equal(await page.locator("#finding-count").innerText(),"—");assert.equal(await page.locator("#dep-count").innerText(),"—");
  await page.locator("nav a[href='#profile']").click();await page.locator("#business-type").selectOption("importer");await page.locator("#add").click();
  await page.locator("[data-field=name]").fill("QA_PRIVATE_BUSINESS_DEP");await page.locator("[data-field=country]").fill("UA");await page.locator("[data-field=product]").selectOption("fuel");await page.locator("[data-field=corridor]").selectOption("Suez");await page.locator("[data-field=monthlyCost]").fill("10000");

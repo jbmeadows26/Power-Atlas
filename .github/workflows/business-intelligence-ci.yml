@@ -38,10 +38,11 @@ jobs:
           "$RUNNER_TEMP/bi-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Validate business workspace on mobile and desktop
         env:
+          BUSINESS_TEST_URL: http://127.0.0.1:4175/business-intelligence/
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/bi-browser/node_modules/playwright
         run: |
           python3 -m http.server 4175 --directory site > /tmp/bi-browser.log 2>&1 &
-          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          for i in $(seq 1 15); do curl -fsS "$BUSINESS_TEST_URL" >/dev/null && break; sleep 1; done
           node tests/business-intelligence-browser.cjs
           node tests/business-documents-browser.cjs
       - if: always()

@@ -4,7 +4,7 @@ const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("n
  const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true}),page=await ctx.newPage(),requests=[],errors=[];
  page.on("request",r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));page.on("pageerror",e=>errors.push(String(e)));
  await page.route("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/**",async route=>{const rel=route.request().url().split("/main/")[1],file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.abort();await route.fulfill({contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:fs.readFileSync(file)});});
- await page.goto("http://127.0.0.1:4175/business-intelligence/#profile");
+ await page.goto((process.env.BUSINESS_TEST_URL||"http://127.0.0.1:4175/business-intelligence/")+"#profile");
  const vault=page.locator("#business-vault"),pass=page.locator("#business-vault-pass"),repeat=page.locator("#business-vault-confirm"),status=page.locator("#business-vault-status"),secret="QA_PRIVATE_VAULT_COMPANY",password="QA test passphrase 9841";
  await vault.waitFor({state:"visible"});
  await page.locator("#business-type").selectOption("importer");await page.locator("#add").click();await page.locator("[data-field=name]").fill(secret);await page.locator("[data-field=product]").selectOption("fuel");await page.locator("[data-field=monthlyCost]").fill("10000");
