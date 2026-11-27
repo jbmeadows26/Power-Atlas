@@ -63,6 +63,6 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: business-intelligence-ui-qa
-          path: audit-output/business-intelligence/
+          path: audit-output/
           if-no-files-found: warn
           retention-days: 7

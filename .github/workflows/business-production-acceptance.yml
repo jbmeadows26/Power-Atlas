@@ -80,7 +80,7 @@ jobs:
         run: |
           set -o pipefail
           date -u +%FT%TZ > audit-output/production/started-at.txt
-          for suite in business-documents-browser business-document-formats-browser business-document-review-browser business-document-twin-browser business-twin-editing-browser business-intelligence-browser private-vault-browser business-command-browser business-public-case-browser; do
+          for suite in business-documents-browser business-document-formats-browser business-document-review-browser business-document-entities-browser business-document-twin-browser business-twin-browser business-twin-editing-browser business-intelligence-browser private-vault-browser business-command-browser business-public-case-browser; do
             node "tests/$suite.cjs" 2>&1 | tee "audit-output/production/$suite.log"
           done
           date -u +%FT%TZ > audit-output/production/completed-at.txt
