@@ -100,6 +100,18 @@
       "stage": "production",
       "result": "passed",
       "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions."
+    },
+    {
+      "id": "production-decision-failure-df1e1a5b",
+      "executedAt": "2026-11-27T22:26:51.274998+00:00",
+      "commit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+      "deployedCommit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+      "artifact": "site/development-control/evidence/production-decision-failure-df1e1a5b.json",
+      "method": "Actual production browser: schedule valid input reassessment, explicitly Analyze, enter decision draft, wait600ms, assert draft unchanged.",
+      "scope": "production",
+      "stage": "production",
+      "result": "failed",
+      "limitations": "Deterministic diagnostic identifies pending reassessment draft loss. Does not imply unrelated command indicators or public case failed."
     }
   ],
   "releaseGates": [
@@ -1372,10 +1384,20 @@
         },
         {
           "id": "G02",
-          "state": "Pending",
-          "evidence": [],
+          "state": "Failed",
+          "evidence": [
+            "production-decision-failure-df1e1a5b"
+          ],
           "reason": "Applicability and execution evidence must be assessed before release.",
-          "description": "Execute the complete customer workflow for Prescriptive Decision Intelligence."
+          "description": "Execute the complete customer workflow for Prescriptive Decision Intelligence.",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": []
+            }
+          ],
+          "stage": "production",
+          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained."
         },
         {
           "id": "G03",
@@ -1765,10 +1787,20 @@
         },
         {
           "id": "G02",
-          "state": "Pending",
-          "evidence": [],
+          "state": "Failed",
+          "evidence": [
+            "production-decision-failure-df1e1a5b"
+          ],
           "reason": "Applicability and execution evidence must be assessed before release.",
-          "description": "Execute the complete customer workflow for Private decision and outcome tracking."
+          "description": "Execute the complete customer workflow for Private decision and outcome tracking.",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": []
+            }
+          ],
+          "stage": "production",
+          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained."
         },
         {
           "id": "G03",
