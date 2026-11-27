@@ -1,6 +1,6 @@
 // Computed local executive view. Missing profile/evidence is never a genuine zero.
 export const domains=[['Executive','All matched findings'],['Supply Chain','Supply','Logistics'],['Procurement','Cost','Opportunity'],['Product Shortage','Supply'],['Corporate','Market structure'],['Economic','Demand'],['Geopolitical','Geopolitics'],['Energy and Resources','Energy'],['Regulatory','Regulatory'],['Cybersecurity','Cybersecurity'],['Workforce','Workforce'],['Financial Risk','Finance']];
-export const elevated=f=>f.domain!=='Opportunity'&&/watch|pressure|risk/i.test(f.status||'');
+export const elevated=f=>f.kind?f.kind==='risk':f.domain!=='Opportunity'&&/watch|pressure|risk/i.test(f.status||'');
 export function commandState({result=null,dependencies=[],twin=null,decisions=[],now=Date.now()}){
  const findings=result?.findings||[],evidence=[...new Map(findings.flatMap(f=>f.evidence||[]).map(e=>[e.url+'|'+e.date,e])).values()];
  const dates=evidence.map(e=>Date.parse(e.date?.length===7?e.date+'-01':e.date)).filter(Number.isFinite);
