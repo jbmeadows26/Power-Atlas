@@ -28,5 +28,5 @@ try {
  document.querySelector('#filter').addEventListener('change',render);render();
  const evidence=document.querySelector('#evidence');
  if(!data.evidence.length)evidence.append(node('p','No acceptance attestations recorded. Existing test files and merged commits do not automatically establish production verification.'));
- for(const e of data.evidence){const p=node('p',`${e.id}: ${e.result}; ${e.stage||e.scope}; ${e.executedAt}; commit ${e.commit}. ${e.limitations||''} `);try{const url=new URL(e.artifact);if(url.protocol==='https:'&&url.hostname==='github.com'){const a=node('a','Execution evidence');a.href=url.href;a.rel='noopener noreferrer';p.append(a);}}catch{}evidence.append(p);}
+ for(const e of data.evidence){const p=node('p',`${e.id}: ${e.result}; ${e.stage||e.scope}; ${e.executedAt}; commit ${e.commit}. ${e.limitations||''} `);try{const local=e.artifact.startsWith('site/development-control/evidence/')&&!e.artifact.includes('..');const url=new URL(local?e.artifact.replace('site/development-control/','./'):e.artifact,location.href);if(local||(url.protocol==='https:'&&url.hostname==='github.com')){const a=node('a','Execution evidence');a.href=url.href;a.rel='noopener noreferrer';p.append(a);}}catch{}evidence.append(p);}
 }catch(error){summary.textContent='Acceptance registry unavailable or invalid. No readiness claim can be computed.';}

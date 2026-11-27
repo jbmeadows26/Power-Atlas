@@ -52,6 +52,30 @@
       "stage": "ci",
       "result": "passed",
       "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately."
+    },
+    {
+      "id": "production-identity-18ebf114",
+      "executedAt": "2026-11-27T20:46:45Z",
+      "commit": "18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+      "deployedCommit": "18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+      "artifact": "site/development-control/evidence/production-identity-18ebf114.json",
+      "method": "Independent published manifest and 27 asset SHA256 comparisons against repository source using pages_release_identity.py verify --commit 18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+      "scope": "production",
+      "stage": "production",
+      "result": "passed",
+      "limitations": "Identity covers business-intelligence, private-workspace and personal-intelligence assets only. Does not verify customer workflows, development-control or external forecast assets."
+    },
+    {
+      "id": "production-browser-18ebf114",
+      "executedAt": "2026-11-27T20:48:09Z",
+      "commit": "18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+      "deployedCommit": "18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+      "artifact": "site/development-control/evidence/production-browser-18ebf114.json",
+      "method": "Isolated production browser contexts with live public feeds: document and business suites Chromium/WebKit at320/390/1280; vault suite both engines at390. Recorded assertions and harness hashes.",
+      "scope": "production",
+      "stage": "production",
+      "result": "passed",
+      "limitations": "TXT document only; no PDF/XLSX acceptance, physical device test or real commercial outcomes. Bounded request isolation is not a universal security guarantee."
     }
   ],
   "releaseGates": [
@@ -438,12 +462,11 @@
           "id": "G05",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Inspect private-input network isolation for Private Business Document Intelligence.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G06",
@@ -456,30 +479,31 @@
           "id": "G07",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute desktop rendering and interactions for Private Business Document Intelligence.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G08",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute mobile rendering and interactions for Private Business Document Intelligence.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G09",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release.",
-          "description": "Verify deployed commit and asset identity for Private Business Document Intelligence."
+          "state": "Verified",
+          "evidence": [
+            "production-identity-18ebf114"
+          ],
+          "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
+          "description": "Verify deployed commit and asset identity for Private Business Document Intelligence.",
+          "stage": "production"
         },
         {
           "id": "G10",
@@ -549,23 +573,21 @@
           "id": "G05",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e",
-            "ci-vault-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Inspect private-input network isolation for Encrypted vault backup and recovery.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G06",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e",
-            "ci-vault-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Verify save, reload, encrypted recovery and deletion for Encrypted vault backup and recovery.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G07",
@@ -578,19 +600,21 @@
           "id": "G08",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e",
-            "ci-vault-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Execute mobile rendering and interactions for Encrypted vault backup and recovery.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G09",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release.",
-          "description": "Verify deployed commit and asset identity for Encrypted vault backup and recovery."
+          "state": "Verified",
+          "evidence": [
+            "production-identity-18ebf114"
+          ],
+          "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
+          "description": "Verify deployed commit and asset identity for Encrypted vault backup and recovery.",
+          "stage": "production"
         },
         {
           "id": "G10",
@@ -1740,12 +1764,11 @@
           "id": "G05",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Inspect private-input network isolation for Private decision and outcome tracking.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G06",
@@ -1758,30 +1781,31 @@
           "id": "G07",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute desktop rendering and interactions for Private decision and outcome tracking.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G08",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e",
-            "ci-business-16e4c453"
+            "production-browser-18ebf114"
           ],
-          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute mobile rendering and interactions for Private decision and outcome tracking.",
-          "stage": "ci"
+          "stage": "production"
         },
         {
           "id": "G09",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release.",
-          "description": "Verify deployed commit and asset identity for Private decision and outcome tracking."
+          "state": "Verified",
+          "evidence": [
+            "production-identity-18ebf114"
+          ],
+          "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
+          "description": "Verify deployed commit and asset identity for Private decision and outcome tracking.",
+          "stage": "production"
         },
         {
           "id": "G10",

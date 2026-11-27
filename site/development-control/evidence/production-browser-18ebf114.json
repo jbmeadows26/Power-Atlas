@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "commit": "18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
+  "url": "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/",
+  "startedAt": "2026-11-27T20:46:29Z",
+  "completedAt": "2026-11-27T20:48:09.995191+00:00",
+  "deploymentRun": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46065409334",
+  "scope": "Isolated browser test contexts against production; private synthetic inputs never published or used as public intelligence",
+  "publicFeedInterception": false,
+  "results": [
+    {
+      "suite": "documents",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed",
+      "checks": [
+        "Local TXT import",
+        "Explicit approval",
+        "Dependency count",
+        "Private document marker and filename absent from requests",
+        "No page errors",
+        "No horizontal overflow"
+      ]
+    },
+    {
+      "suite": "vault",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        390
+      ],
+      "result": "passed",
+      "checks": [
+        "Encrypted save",
+        "Reload",
+        "Lock",
+        "Wrong passphrase rejected",
+        "Restore",
+        "Encrypted backup export/import",
+        "Delete",
+        "Decision journal round trip",
+        "Private request isolation"
+      ]
+    },
+    {
+      "suite": "business",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed",
+      "checks": [
+        "Eight live public feeds loaded",
+        "Dependency finding",
+        "Decision and user-reported outcome",
+        "Journal export",
+        "Conditional scenario",
+        "Exact archived HTS lookup",
+        "OFAC candidate and no-clearance states",
+        "Private request isolation",
+        "No page errors",
+        "No horizontal overflow"
+      ]
+    }
+  ],
+  "environment": "Playwright1.56.1. Missing Debian libraries extracted into browser cache without root; host ldconfig preflight bypassed, actual browser launch and assertions executed unchanged. Public reference data fetched through page browser fetch because Node/direct API requests fail in proxy environment.",
+  "limitations": [
+    "Not physical device testing",
+    "No PDF/XLSX acceptance in initial release",
+    "No commercial participation/outcomes",
+    "No general privacy or security guarantee",
+    "Public feeds may change after observation"
+  ],
+  "logs": {
+    "business-documents-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nDocument approval and network inspection passed in chromium at 320\nDocument approval and network inspection passed in chromium at 390\nDocument approval and network inspection passed in chromium at 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nDocument approval and network inspection passed in webkit at 320\nDocument approval and network inspection passed in webkit at 390\nDocument approval and network inspection passed in webkit at 1280\n",
+    "private-vault-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy chromium\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy webkit\n",
+    "business-intelligence-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation chromium 320\nPASS business decisions, outcomes, export and private request isolation chromium 390\nPASS business decisions, outcomes, export and private request isolation chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation webkit 320\nPASS business decisions, outcomes, export and private request isolation webkit 390\nPASS business decisions, outcomes, export and private request isolation webkit 1280\n"
+  },
+  "harnessSha256": {
+    "private-vault-browser.cjs": "d5f572eb864db96042b53bd566b95e8c506d39e257ec0dfc32fbd9a52d556628",
+    "business-documents-browser.cjs": "79e735d52c4444ceab5b76a84db5c5745a00d244079d35d0922ce20a642025de",
+    "business-intelligence-browser.cjs": "902c0dcc0f31d5be613cfd945ea320c2447a402908224a76e2965a0c10ba1e9f"
+  }
+}

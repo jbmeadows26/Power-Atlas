@@ -77,10 +77,16 @@ def summarize(data):
                 stage_counts[stage] = stage_counts.get(stage, 0) + 1
         applicable = [r for r in criteria + gates if r['state'] != 'Not applicable']
         local_pass = bool(applicable) and all(r['state'] == 'Verified' for r in applicable)
-        results[requirement['id']] = {'acceptanceSatisfied': local_pass, 'continuous': requirement['continuous']}
+        # Unit/CI evidence plus deployed bytes does not prove deployed workflows.
+        production_records = criteria + [g for g in gates if g['id'] in {'G02', 'G05', 'G06', 'G07', 'G08', 'G09'}]
+        production_records = [r for r in production_records if r['state'] != 'Not applicable']
+        workflow_proven = all(r['state'] == 'Verified' and r.get('stage') in {'production', 'commercial'} for r in production_records)
+        production_commits = {evidence[ref].get('deployedCommit') for r in production_records for ref in r['evidence']}
+        same_release = bool(production_commits) and None not in production_commits and len(production_commits) == 1
+        results[requirement['id']] = {'acceptanceSatisfied': local_pass, 'productionWorkflowVerified': workflow_proven and same_release, 'continuous': requirement['continuous']}
     # A dependency cannot be hidden by an otherwise successful capability.
     def ready(identifier):
-        return results[identifier]['acceptanceSatisfied'] and all(ready(d) for d in by_id[identifier]['dependencies'])
+        return results[identifier]['acceptanceSatisfied'] and results[identifier]['productionWorkflowVerified'] and all(ready(d) for d in by_id[identifier]['dependencies'])
     for identifier in ids:
         results[identifier]['releaseReady'] = ready(identifier)
         results[identifier]['complete'] = ready(identifier) and not results[identifier]['continuous']
