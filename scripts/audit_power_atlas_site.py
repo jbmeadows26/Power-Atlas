@@ -101,7 +101,7 @@ def resolve_link(page: Path, raw: str, page_ids: dict[str, set[str]]) -> dict | 
 def has_bug_report(path: Path, page: PageParser) -> bool:
     # Preserve the original public-page requirement. Private workspaces instead
     # use the approved local-only reporter, with its required HTML mount.
-    if "bug-report.js" in page.scripts and (path.parent / "bug-report.js").is_file():
+    if any(src in {"bug-report.js", "../bug-report.js"} and (path.parent / src).resolve() == (ROOT / "site/bug-report.js").resolve() and (path.parent / src).is_file() for src in page.scripts) or ("bug-report.js" in page.scripts and (path.parent / "bug-report.js").is_file()):
         return True
     if rel(path) not in {"site/business-intelligence/index.html", "site/personal-intelligence/index.html"}:
         return False
