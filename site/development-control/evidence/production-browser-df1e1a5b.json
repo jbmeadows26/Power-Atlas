@@ -1,0 +1,98 @@
+{
+  "schema": "eastern-axis.production-browser-evidence.v1",
+  "commit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+  "deployedCommit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+  "stage": "production",
+  "result": "failed",
+  "startedAt": "2026-11-27T22:24:32Z",
+  "executedAt": "2026-11-27T22:29:02Z",
+  "productionURL": "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/",
+  "sourceInterception": false,
+  "identity": {
+    "status": "Verified",
+    "commit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+    "verifiedAssets": 50,
+    "scope": "Public release identity and asset integrity only; not workflow or commercial acceptance"
+  },
+  "suites": [
+    {
+      "name": "business-document-twin-browser",
+      "result": "failed",
+      "harnessSha256": "5fa0f6700394a0320379f38c77431e30190e0bcf72fe5c612556a12ce57b9add",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nchromium 390 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nchromium 1280 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nwebkit 390 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nlocator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#findings details').filter({ hasText: 'QA_PRIVATE_APPROVED_INVENTORY' }).first().getByRole('button', { name: 'Record decision', exact: true })\u001b[22m\n\n    at /workspace/scratch/cycle3-production-ui/business-document-twin-browser.cjs:25:71 {\n  name: 'TimeoutError'\n}\n"
+    },
+    {
+      "name": "business-command-browser",
+      "result": "passed",
+      "harnessSha256": "08a44299bf4d820571b4bd9407a34fbbfac0e3bfd20c03bdaaa86da18c047edc",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy chromium 320\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy chromium 390\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy webkit 320\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy webkit 390\nPASS command indicators, domain chart, navigation, public case, reassessment, privacy webkit 1280\n"
+    },
+    {
+      "name": "business-public-case-browser",
+      "result": "passed",
+      "harnessSha256": "07d3c959072663b14cbe7341350a6d3c8c7cb337e23bb8dca1e4c81b9d01e8da",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 public case options, isolation and18analyst entries passed\nchromium 390 public case options, isolation and18analyst entries passed\nchromium 1280 public case options, isolation and18analyst entries passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 public case options, isolation and18analyst entries passed\nwebkit 390 public case options, isolation and18analyst entries passed\nwebkit 1280 public case options, isolation and18analyst entries passed\n"
+    },
+    {
+      "name": "business-document-entities-browser",
+      "result": "passed",
+      "harnessSha256": "599825a53942a8c8e5b394a78bf399210de1af23ee6858be3211246fdba551a3",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 typed fact approval, explicit units/currency and encrypted entity payload passed\nchromium 390 typed fact approval, explicit units/currency and encrypted entity payload passed\nchromium 1280 typed fact approval, explicit units/currency and encrypted entity payload passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 typed fact approval, explicit units/currency and encrypted entity payload passed\nwebkit 390 typed fact approval, explicit units/currency and encrypted entity payload passed\nwebkit 1280 typed fact approval, explicit units/currency and encrypted entity payload passed\n"
+    },
+    {
+      "name": "business-document-review-browser",
+      "result": "passed",
+      "harnessSha256": "ea72dcf6052dde197ab71df64c92172e56e7ff533f541e8682728e47f349238c",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 fact correction/approval/rejection, encrypted provenance and cancellation passed\nchromium 390 fact correction/approval/rejection, encrypted provenance and cancellation passed\nchromium 1280 fact correction/approval/rejection, encrypted provenance and cancellation passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 fact correction/approval/rejection, encrypted provenance and cancellation passed\nwebkit 390 fact correction/approval/rejection, encrypted provenance and cancellation passed\nwebkit 1280 fact correction/approval/rejection, encrypted provenance and cancellation passed\n"
+    },
+    {
+      "name": "private-vault-browser",
+      "result": "passed",
+      "harnessSha256": "c8528440ab837213a2f186fe97b55fef32a72d89697cb433b5bf0abd0708680e",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy chromium\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy webkit\n"
+    },
+    {
+      "name": "private-model-policy-browser",
+      "result": "passed",
+      "harnessSha256": "1edfda091df6b0eede37c8665a9065d14eeebadd452cf2ed68eb4bce6abcea78",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 390 four honest device modes and no unconsented model/runtime download passed\nchromium 1280 four honest device modes and no unconsented model/runtime download passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 390 four honest device modes and no unconsented model/runtime download passed\nwebkit 1280 four honest device modes and no unconsented model/runtime download passed\n"
+    }
+  ],
+  "confirmedDefect": {
+    "description": "Pending 350ms automatic reassessment is not cancelled by explicit Analyze; it can replace an expanded finding and erase an unsaved decision draft. Integrated journey passed five combinations, failed WebKit1280; deterministic reproduction confirms empty draft after queued reassessment.",
+    "reproductionLog": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nAssertionError [ERR_ASSERTION]: Pending reassessment must not erase an explicit-analysis decision draft\n+ actual - expected\n\n+ ''\n- 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE'\n\n    at /workspace/scratch/cycle3-production-ui/reassessment-repro.cjs:25:36 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '',\n  expected: 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+    "harnessSha256": "b513cf42bcd76de5639169b8d745e5252350519c601dd6345028a7cbb4de6409"
+  },
+  "screenshots": [
+    "screenshots/command-chromium-1280.png",
+    "screenshots/command-chromium-320.png",
+    "screenshots/command-chromium-390.png",
+    "screenshots/command-webkit-320.png",
+    "screenshots/command-webkit-390.png",
+    "screenshots/public-case-chromium-1280.png",
+    "screenshots/public-case-chromium-320.png",
+    "screenshots/public-case-chromium-390.png",
+    "screenshots/public-case-webkit-1280.png",
+    "screenshots/public-case-webkit-320.png",
+    "screenshots/public-case-webkit-390.png",
+    "screenshots/twin-chromium-1280.png",
+    "screenshots/twin-chromium-320.png",
+    "screenshots/twin-chromium-390.png",
+    "screenshots/twin-webkit-320.png",
+    "screenshots/twin-webkit-390.png",
+    "audit-output/business-command/chromium-1280.png",
+    "audit-output/business-command/chromium-320.png",
+    "audit-output/business-command/chromium-390.png",
+    "audit-output/business-command/webkit-1280.png",
+    "audit-output/business-command/webkit-320.png",
+    "audit-output/business-command/webkit-390.png"
+  ],
+  "limitations": [
+    "Do not promote the complete decision workflow from this execution; one confirmed production defect remains.",
+    "Separate public-case/analyst and model-mode harnesses initially inspected asynchronous or collapsed content too early. Retried with actual readiness/expansion and original assertions, with initial logs retained.",
+    "Typed entity component suite mounts the deployed document component into isolated test DOM; integrated journey uses actual application controls.",
+    "No unconsented ONNX/WASM downloads observed; actual local model inference latency not remeasured in this bounded policy test.",
+    "WebKit host preflight bypass only; actual browser runtime assertions execute with extracted required libraries.",
+    "No commercial validation or physical-device performance claims."
+  ]
+}
