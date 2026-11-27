@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'adaptive-intelligence/**'
+      - 'tests/adaptive-intelligence*'
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/test_business_hts_reference.py'
@@ -161,6 +163,13 @@ jobs:
           node --test tests/business-intelligence-suppliers.test.mjs
           python3 -m unittest discover -s tests -p test_business_ofac_reference.py -v
           python3 business-intelligence/collect_ofac_reference.py
+      - name: Prepare and test Adaptive Intelligence local assets
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+        run: |
+          node --test tests/adaptive-intelligence.test.mjs
+          bash adaptive-intelligence/prepare-assets.sh
+          node tests/adaptive-intelligence-browser.cjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
@@ -206,6 +215,9 @@ jobs:
         run: |
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/?release=$GITHUB_SHA" | grep 'id="suppliers"'
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/data/ofac-organizations.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and set(d["sources"])=={"SDN","Consolidated"}; print({k:v["status"] for k,v in d["sources"].items()})'
+      - name: Verify published Adaptive Intelligence model manifest
+        run: |
+          curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/private-workspace/adaptive-assets/manifest.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and d["model"]=="Xenova/all-MiniLM-L6-v2" and d["bytes"]>20000000; print(d["runtime"],d["bytes"])'
       - name: Install WebKit production QA
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
