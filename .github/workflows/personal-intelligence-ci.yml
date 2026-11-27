@@ -21,6 +21,11 @@ jobs:
       - run: node --check site/personal-intelligence/app.mjs
       - run: node --check site/personal-intelligence/engine.mjs
       - run: node --test tests/personal-intelligence.test.mjs
+      - name: Verify import extraction and package local PDF reader
+        run: |
+          node --check site/personal-intelligence/import-ui.mjs
+          node --test tests/personal-intelligence-import.test.mjs
+          bash personal-intelligence/backend/prepare-local-reader.sh
       - name: Install mobile and desktop browser engines
         run: |
           npm install --prefix "$RUNNER_TEMP/pi-browser" --no-save playwright@1.56.1
@@ -32,6 +37,7 @@ jobs:
           python3 -m http.server 4175 --directory site > /tmp/pi-browser.log 2>&1 &
           for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
           node tests/personal-intelligence-browser.cjs
+          node tests/personal-intelligence-import-browser.cjs
       - name: Preserve rendered mobile and desktop screenshots
         if: always()
         uses: actions/upload-artifact@v4
