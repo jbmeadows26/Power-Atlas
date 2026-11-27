@@ -9,6 +9,7 @@ on:
       - 'tests/business-twin*'
       - 'tests/business-document-formats*'
       - 'tests/business-document-review*'
+      - 'tests/business-document-entities*'
       - 'tests/business-document-boundaries*'
       - 'tests/test_business_public_analyst.py'
       - 'tests/test_business_hts_reference.py'
@@ -52,6 +53,7 @@ jobs:
           node tests/business-documents-browser.cjs
           node tests/business-document-formats-browser.cjs
           node tests/business-document-review-browser.cjs
+          node tests/business-document-entities-browser.cjs
           node tests/business-twin-browser.cjs
           node tests/business-twin-editing-browser.cjs
       - if: always()
