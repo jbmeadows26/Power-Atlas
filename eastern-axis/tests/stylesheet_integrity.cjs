@@ -31,6 +31,8 @@ const production=origin.startsWith('https://');
        return route.continue();
      });
      const page=await context.newPage();
+     const unexpectedSystems=[];
+     page.on('request',req=>{if(/\/api\/global-systems\/|\/api-fallback\/global-systems-/.test(req.url()))unexpectedSystems.push(req.url());});
      const errors=[];
      const apiFailures=[];
      page.on('response',response=>{if(response.url().startsWith(api+'/api/')&&response.status()>=400)apiFailures.push(response.url()+' HTTP '+response.status());});
@@ -66,6 +68,7 @@ const production=origin.startsWith('https://');
        await page.screenshot({path:'audit-output/style-'+name+'-'+tab.toLowerCase().replaceAll(' ','-')+'.png'});
        console.log('STYLE QA',name,tab,JSON.stringify(style));
      }
+     assert.deepEqual(unexpectedSystems,[],'Command and forecast screens must not request unrelated Global Systems records');
      assert.deepEqual(errors,[],'Uncaught browser exceptions');
      assert.deepEqual(apiFailures,[],'API requests failed');
    } finally {await browser.close();}

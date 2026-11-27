@@ -55,14 +55,25 @@ jobs:
           test -s neon-release/index.mjs
           (cd neon-release && zip -q ../neon-function.zip index.mjs)
           test -s neon-function.zip
-      - name: Install free Chromium regression runner
+      - name: Install Chromium and WebKit regression runners
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-mobile-qa" --no-save playwright@1.56.1
-          "$RUNNER_TEMP/ea-mobile-qa/node_modules/.bin/playwright" install chromium
+          "$RUNNER_TEMP/ea-mobile-qa/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Verify 320px, 390px and desktop navigation
         env:
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-mobile-qa/node_modules/playwright
         run: node eastern-axis/tests/mobile_navigation_smoke.cjs
+      - name: Start built Pages preview
+        working-directory: eastern-axis
+        run: |
+          npx vite preview --host 127.0.0.1 --port 4174 --strictPort > /tmp/ea-preview.log 2>&1 &
+          for i in $(seq 1 30); do curl -fsS http://127.0.0.1:4174/ >/dev/null && exit 0; sleep 1; done
+          cat /tmp/ea-preview.log; exit 1
+      - name: Verify actual WebKit and Chromium release styling and request scope
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-mobile-qa/node_modules/playwright
+          EA_BROWSER_ORIGIN: http://127.0.0.1:4174
+        run: node eastern-axis/tests/stylesheet_integrity.cjs
       - name: Upload inspectable Pages build and Neon bundle
         uses: actions/upload-artifact@v4
         with:
