@@ -1,0 +1,37 @@
+name: Free model gateway
+description: Text inference with automatic free model discovery and isolated local fallback
+inputs:
+  prompt-file:
+    description: UTF-8 prompt path
+    required: true
+  output:
+    description: JSON response path
+    required: true
+  profile:
+    description: general, reasoning, coding, extraction
+    default: general
+  max-tokens:
+    description: Maximum output tokens
+    default: '512'
+  allow-hosted:
+    description: Explicitly permit sending public non-sensitive data to hosted APIs
+    default: 'false'
+  start-local:
+    description: Start temporary Ollama when needed
+    default: 'true'
+runs:
+  using: composite
+  steps:
+    - shell: bash
+      env:
+        PROMPT: ${{ inputs.prompt-file }}
+        OUTPUT: ${{ inputs.output }}
+        PROFILE: ${{ inputs.profile }}
+        TOKENS: ${{ inputs.max-tokens }}
+        HOSTED: ${{ inputs.allow-hosted }}
+        START: ${{ inputs.start-local }}
+      run: |
+        args=(--prompt-file "$PROMPT" --output "$OUTPUT" --profile "$PROFILE" --max-tokens "$TOKENS")
+        if [[ "$HOSTED" == true ]]; then args+=(--allow-hosted); fi
+        if [[ "$START" == true ]]; then args+=(--start-local); fi
+        python3 "$GITHUB_ACTION_PATH/gateway.py" "${args[@]}"
