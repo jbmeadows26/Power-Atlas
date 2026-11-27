@@ -71,6 +71,11 @@ const exposure=(b:EvidenceBrief,rows:Obj[])=>{
  if(rows.length)b.status='source-dated';
  return b;
 };
+/** Only analyst routes that consume WDI context may request it. */
+export function needsGlobalSystems(view:string,focus:string):boolean{
+ return ['Macro indicators','Trade indicators','Energy & resources','Demographics & biosecurity'].includes(view)
+   ||(view==='Economic intelligence'&&['overview','signals','risk','systems','supply','shortages'].includes(focus));
+}
 export function buildDomainBrief(input:BriefInput):EvidenceBrief{
  const {view,focus,country,countryName,cases,snapshots,systems,failures}=input;
  const key=view==='Economic intelligence'?(focus==='systems'?'Macro indicators':'Economic intelligence:'+focus):view;
