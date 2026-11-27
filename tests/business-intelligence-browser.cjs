@@ -11,7 +11,7 @@ const root=path.resolve(__dirname,"..");
  await page.locator("nav a[href='#profile']").click();await page.locator("#business-type").selectOption("importer");await page.locator("#add").click();
  await page.locator("[data-field=name]").fill("QA_PRIVATE_BUSINESS_DEP");await page.locator("[data-field=country]").fill("UA");await page.locator("[data-field=product]").selectOption("fuel");await page.locator("[data-field=corridor]").selectOption("Suez");await page.locator("[data-field=monthlyCost]").fill("10000");
  await page.locator("#apply").click();await page.locator("#decisions").waitFor({state:"visible"});assert.match(await page.locator("#findings").innerText(),/Transport fuels/);assert.match(await page.locator("#findings").innerText(),/QA_PRIVATE_BUSINESS_DEP/);
- await page.locator("nav a[href='#scenarios']").click();await page.locator("#scenario-dep").selectOption("1");await page.locator("#quote").fill("7");assert.equal(await page.locator("#monthly").innerText(),"$700.00");assert.equal(await page.locator("#annual").innerText(),"$8,400.00");
+ await page.locator("nav a[href='#scenarios']").click();await page.locator("#scenario-dep").selectOption({label:"QA_PRIVATE_BUSINESS_DEP"});await page.locator("#quote").fill("7");assert.equal(await page.locator("#monthly").innerText(),"$700.00");assert.equal(await page.locator("#annual").innerText(),"$8,400.00");
  await page.locator("nav a[href='#procurement']").click();
  await page.waitForFunction(()=>document.querySelector("#hts-status").textContent.includes("exact codes"));
  const actual=JSON.parse(fs.readFileSync(path.join(root,"site/business-intelligence/data/hts-index.json"),"utf8"));
