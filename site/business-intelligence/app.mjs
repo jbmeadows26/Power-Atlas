@@ -42,9 +42,9 @@ function preserveFindingDrafts(mount,draw){
  const previous=oldCards.filter(card=>[...card.querySelectorAll('textarea')].some(input=>input.value.trim())).map(card=>({card,key:context(card),occurrence:oldCards.filter(other=>context(other)===context(card)).indexOf(card)}));
  const focused=document.activeElement,selection=focused?.tagName==='TEXTAREA'?[focused.selectionStart,focused.selectionEnd]:null;
  draw();
- const freshCards=[...mount.querySelectorAll('[data-finding-key]')];
+ const freshCards=[...mount.querySelectorAll('[data-finding-key]')].map(next=>({next,key:context(next)}));
  for(const {card,key,occurrence} of previous){
-  const current=freshCards.filter(next=>context(next)===key)[occurrence];
+  const current=freshCards.filter(entry=>entry.key===key)[occurrence]?.next;
   const changed=!current||current.originalFindingSnapshot!==card.originalFindingSnapshot;
   if(changed&&!card.querySelector('[data-retained-evidence]')){const note=el('p','Draft retained with its original evidence and dependency snapshot. Current observations or profile may differ; recording this draft keeps the original snapshot. Clear the draft text to discard it.','note');note.dataset.retainedEvidence='true';card.insertBefore(note,card.children[1]||null);}
   if(current)current.replaceWith(card);else mount.append(card);
