@@ -12,13 +12,17 @@ export function zipEntryFilter(){let bytes=0,count=0;return entry=>{
  return /^(xl\/worksheets\/sheet\d+\.xml|xl\/sharedStrings\.xml|xl\/workbook\.xml|xl\/_rels\/workbook.xml.rels)$/.test(entry.name);
 };}
 export function validateDecodedEntries(entries){let bytes=0;for(const data of Object.values(entries)){if(!(data instanceof Uint8Array)||data.length>5*1024*1024||(bytes+=data.length)>20*1024*1024)throw Error('Decoded spreadsheet exceeds local limits.');}return entries;}
-export async function readBusinessDocument(file){
+export function decompressWorkbook(buffer,{signal,timeoutMs=15000}={}){
+ return new Promise((resolve,reject)=>{if(signal?.aborted){reject(Error('Document processing cancelled.'));return;}const worker=new Worker(new URL('./document-worker.mjs',import.meta.url),{type:'module'});let done=false;const finish=(error,value)=>{if(done)return;done=true;clearTimeout(timer);signal?.removeEventListener('abort',abort);worker.terminate();error?reject(error):resolve(value);};const abort=()=>finish(Error('Document processing cancelled.'));const timer=setTimeout(()=>finish(Error('Workbook processing timed out. Split the file locally.')),timeoutMs);signal?.addEventListener('abort',abort,{once:true});worker.onmessage=e=>e.data.error?finish(Error(e.data.error)):finish(null,e.data.entries);worker.onerror=()=>finish(Error('Local workbook worker unavailable. Export CSV or enter facts manually.'));worker.postMessage(buffer,[buffer]);});
+}
+export async function readBusinessDocument(file,{signal}={}){
  if(!file||file.size>MAX)throw Error('Document exceeds the 10 MB local processing limit.');
  const extension=file.name.split('.').pop().toLowerCase();
  if(['txt','csv'].includes(extension))return {text:bounded(await file.text()),locations:[],format:extension,status:'text-extracted'};
  if(extension==='pdf'){
   const pdfjs=await import(assets+'pdf.mjs');pdfjs.GlobalWorkerOptions.workerSrc=new URL(assets+'pdf.worker.mjs',import.meta.url).href;
   const task=pdfjs.getDocument({data:new Uint8Array(await file.arrayBuffer()),isEvalSupported:false,useSystemFonts:false,disableFontFace:true,stopAtErrors:true});
+  const cancel=()=>task.destroy();signal?.addEventListener('abort',cancel,{once:true});const deadline=setTimeout(cancel,20000);
   try{const pdf=await task.promise;if(pdf.numPages>100)throw Error('PDF exceeds 100 pages. Split the document locally.');
    const lines=[],locations=[];let chars=0;
    for(let page=1;page<=pdf.numPages;page++){const p=await pdf.getPage(page),content=await p.getTextContent();let line='',lastY=null;
@@ -26,19 +30,18 @@ export async function readBusinessDocument(file){
     for(const item of content.items){if(typeof item.str!=='string')continue;const y=item.transform?.[5];if(lastY!==null&&Math.abs(y-lastY)>2)flush();line+=(line?' ':'')+item.str;lastY=y;if(item.hasEOL)flush();}flush();p.cleanup();}
    if(!lines.length)return {text:'',locations:[],format:'pdf',status:'scanned-or-no-text-unsupported',limitation:'No embedded text found. Scanned PDF OCR is not supported locally; provide a text-based PDF or manually enter verified facts.'};
    return {text:bounded(lines.join('\n')),locations,format:'pdf',status:'text-extracted',limitation:'PDF reading order may differ from visual layout; verify each extracted fact against its source page.'};
-  }finally{await task.destroy();}
+  }finally{clearTimeout(deadline);signal?.removeEventListener('abort',cancel);await task.destroy();}
  }
  if(extension==='xlsx'){
-  const {unzipSync,strFromU8}=await import(assets+'fflate.mjs');
-  const entries=validateDecodedEntries(unzipSync(new Uint8Array(await file.arrayBuffer()),{filter:zipEntryFilter()}));
-  const read=name=>entries[name]?xml(strFromU8(entries[name])):null;
+  const entries=await decompressWorkbook(await file.arrayBuffer(),{signal});
+  const read=name=>entries[name]?xml(entries[name]):null;
   const shared=Array.from(read('xl/sharedStrings.xml')?.getElementsByTagName('si')||[],n=>Array.from(n.getElementsByTagName('t'),t=>t.textContent).join(''));
   const workbook=read('xl/workbook.xml'),rels=read('xl/_rels/workbook.xml.rels');if(!workbook||!rels)throw Error('Unsupported or malformed XLSX workbook.');
   const targets=new Map(Array.from(rels.getElementsByTagName('Relationship'),r=>[r.getAttribute('Id'),r.getAttribute('Target')]));
   const lines=[],locations=[];let cells=0;
   for(const sheet of workbook.getElementsByTagName('sheet')){const name=sheet.getAttribute('name'),target=targets.get(sheet.getAttribute('r:id'));if(!target||target.includes('..'))throw Error('Unsupported worksheet path.');const path=target.startsWith('/')?target.slice(1):'xl/'+target;const doc=read(path);if(!doc)throw Error('Worksheet unavailable or unsupported.');
    for(const row of doc.getElementsByTagName('row')){const values=[],refs=[];for(const cell of row.getElementsByTagName('c')){if(++cells>50000)throw Error('Spreadsheet exceeds 50,000 cells.');const ref=cell.getAttribute('r');if(cell.getElementsByTagName('f').length)continue;const raw=cell.getElementsByTagName('v')[0]?.textContent||'',type=cell.getAttribute('t');const value=type==='s'?shared[Number(raw)]??'':type==='inlineStr'?Array.from(cell.getElementsByTagName('t'),t=>t.textContent).join(''):raw;values.push(normalizeCell(value));refs.push(ref);}
-    if(values.some(Boolean)){lines.push(values.join(','));locations.push({sheet:name,cells:refs.join(':'),line:lines.length});bounded(lines.join('\n'));}}
+    if(values.some(Boolean)){lines.push(values.map(v=>/[",]/.test(v)?'"'+v.replaceAll('"','""')+'"':v).join(','));locations.push({sheet:name,cells:refs.join(':'),line:lines.length});bounded(lines.join('\n'));}}
   }
   return {text:lines.join('\n'),locations,format:'xlsx',status:'text-extracted',limitation:'Cell line breaks are normalized to spaces to preserve row locations. Formula cells are excluded and never executed. Dates and currency formatting are not inferred from numeric cells. Review source sheet and cell references.'};
  }

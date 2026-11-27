@@ -24,3 +24,10 @@ test('PDF page and XLSX cell provenance remain bounded and survive validation',(
  assert.equal(validateProvenance({...base,facts:[{...base.facts[0],location:{page:2,line:1}}]}).facts[0].location.page,2);
  assert.throws(()=>validateProvenance({...base,facts:[{...base.facts[0],location:{page:-1}}]}));
 });
+
+test('structured purchasing rows preserve each original value and conflicts without implicit approval',()=>{
+ const r=extractDocument('supplier,sku,quantity,unit price,currency\nACME,A1,4,12,USD\nACME,A2,7,15,USD','purchase.csv');assert.equal(r.facts.length,10);assert.equal(r.facts.find(f=>f.value==='A2').line,3);assert.ok(r.conflicts.includes('sku'));
+});
+test('individual reviews retain source and corrected values through provenance validation',async()=>{
+ const {validateProvenance}=await import('../site/business-intelligence/documents.mjs');const p=validateProvenance({kind:'document-reviewed',filename:'invoice.txt',approvedAt:new Date().toISOString(),facts:[],reviewedFacts:[{field:'quantity',originalValue:'4',value:'5',line:1,state:'approved',reviewedAt:new Date().toISOString()}]});assert.equal(p.reviewedFacts[0].originalValue,'4');assert.equal(p.reviewedFacts[0].value,'5');assert.throws(()=>validateProvenance({...p,reviewedFacts:[{...p.reviewedFacts[0],state:'pending'}]}));
+});

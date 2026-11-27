@@ -21,3 +21,9 @@ test('stored ZIP forged output size, invalid sizes and aggregate decoded sizes f
  const filter=zipEntryFilter();for(let i=0;i<4;i++)filter({...entry,size:5*1024*1024,originalSize:5*1024*1024});assert.throws(()=>filter({...entry,size:1,originalSize:1}),/limits/);
  assert.equal(zipEntryFilter()({...entry,size:10,originalSize:10}),true);
 });
+
+test('worker deadline and cancellation terminate unresponsive parsing without publishing results',async()=>{
+ const {decompressWorkbook}=await import('../site/business-intelligence/document-formats.mjs');const previous=globalThis.Worker;const workers=[];
+ globalThis.Worker=class{constructor(){workers.push(this);}postMessage(){this.started=true;}terminate(){this.terminated=true;}};
+ try{await assert.rejects(decompressWorkbook(new ArrayBuffer(1),{timeoutMs:1}),/timed out/);assert.equal(workers[0].terminated,true);const c=new AbortController();const pending=decompressWorkbook(new ArrayBuffer(1),{signal:c.signal});c.abort();await assert.rejects(pending,/cancelled/);assert.equal(workers[1].terminated,true);}finally{globalThis.Worker=previous;}
+});
