@@ -14,4 +14,10 @@ class TestReference(unittest.TestCase):
   for raw in [fixture(claimed=49),b"<!DOCTYPE x><x/>",b"<x/>"]:
    with self.assertRaises(ValueError):m.parse(raw,"Consolidated",dt.date(2026,11,27))
   with self.assertRaises(ValueError):m.parse(fixture(),"Consolidated",dt.date(2026,11,22))
+ def test_redirect_allowlist(self):
+  suffix="/Published/11111111-1111-1111-1111-111111111111/2026-11-20/22222222-2222-2222-2222-222222222222/SDN.XML"
+  good="https://"+m.PUBLISHED_HOST+suffix+"?X-Amz-Signature=synthetic-test"
+  self.assertTrue(m.permitted_redirect(good,"SDN.XML"))
+  for bad in [good.replace("https:","http:"),good.replace(m.PUBLISHED_HOST,"unrelated.s3.us-gov-west-1.amazonaws.com"),good.replace(m.PUBLISHED_HOST,m.PUBLISHED_HOST+".example.org"),good.replace(m.PUBLISHED_HOST,"example.org@"+m.PUBLISHED_HOST),good.replace(m.PUBLISHED_HOST,m.PUBLISHED_HOST+":443"),good.replace("SDN.XML","CONSOLIDATED.XML"),good.replace("/Published/","/Other/"),good.split("?")[0],good+"#fragment"]:
+   self.assertFalse(m.permitted_redirect(bad,"SDN.XML"))
 if __name__=="__main__":unittest.main()
