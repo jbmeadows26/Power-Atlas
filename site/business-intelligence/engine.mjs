@@ -24,7 +24,8 @@ export function observation(s,now=Date.now(),maxDays=90){
  if(s.length===10&&new Date(stamp).toISOString().slice(0,10)!==s)return "invalid";
  return now-stamp>maxDays*86400000?"stale":"dated";
 }
-export function validFeed(key,x){return !!(feeds[key]&&x&&typeof x==="object"&&Array.isArray(x[feeds[key].array]));}
+export function validFeed(key,x){return !!(Object.hasOwn(feeds,key)&&x&&typeof x==="object"&&Array.isArray(x[feeds[key].array])&&x[feeds[key].array].every(r=>r&&typeof r==="object"&&!Array.isArray(r)));}
+const rows=x=>Array.isArray(x)?x.filter(v=>v&&typeof v==="object"&&!Array.isArray(v)):[];
 const evidence=(label,source,date,url,now,maxDays=90)=>{
  const u=safeURL(url),vintage=observation(date,now,maxDays);return text(label)&&text(source)&&u&&vintage==="dated"?{label,source,date,url:u}:null;
 };
@@ -46,6 +47,7 @@ export function validateProfile(p){
 function finding(domain,dep,title,status,detail,action,items){return {domain,dependency:dep?.name||null,title,status,detail,action,evidence:items.filter(Boolean)};}
 export function analyze(data,profile,now=Date.now()){
  const p=validateProfile(profile),out=[],gaps=[];
+ data=Object.fromEntries(Object.entries(data||{}).filter(([k,v])=>validFeed(k,v)));
  const active=Object.keys(feeds).filter(k=>validFeed(k,data[k]));
  for(const d of p.dependencies){
   if(!d.product&&!d.country&&!d.corridor){gaps.push(d.name+": add product group, origin country or shipping corridor.");continue;}
@@ -53,12 +55,12 @@ export function analyze(data,profile,now=Date.now()){
    const r=data.shortage?.forecasts?.find(x=>x.id===d.product);
    if(!r){gaps.push(d.name+": no matching product outlook.");}
    else{
-    const ev=(Array.isArray(r.evidence)?r.evidence:[]).map(e=>evidence(e.title,e.publisher,e.period,e.url,now)).filter(Boolean);
+    const ev=rows(r.evidence).map(e=>evidence(e.title,e.publisher,e.period,e.url,now)).filter(Boolean);
     if(r.status==="data-gap"||!ev.length){gaps.push(d.name+": product-level evidence is missing or stale.");}
     else{
      const status=r.status==="input-cost-watch"?"Input-cost watch":r.status==="cross-source-watch"?"Cross-source watch":r.status==="transit-watch"?"Transit watch":r.status==="inventory-watch"?"Inventory watch":r.status==="baseline"?"Monitored":"Review source";
      out.push(finding("Supply",d,products[d.product],status,"Matched product dependency. "+(text(r.summary)?r.summary:"Review the underlying observations.")+" Product-specific supply, importer dependence and actual stockouts are not established by these proxy indicators.","Confirm supplier lead times, inventory and alternative quotes before changing purchase orders.",ev.slice(0,8)));
-     for(const e of r.evidence||[]){const proof=evidence(e.title,e.publisher,e.period,e.url,now);
+     for(const e of rows(r.evidence)){const proof=evidence(e.title,e.publisher,e.period,e.url,now);
       if(e.kind!=="input-price"||!proof||!number(e.changePct))continue;
       if(e.changePct<=-5)out.push(finding("Opportunity",d,e.title+" input-price decline","Quote review candidate","Published proxy change "+pct(e.changePct)+". No contractual pass-through or realized saving established.","Request an updated written supplier quote; compare landed cost and terms.",[proof]));
       if(e.changePct>=5)out.push(finding("Cost",d,e.title+" input-price increase","Cost pressure watch","Published proxy change "+pct(e.changePct)+". This is not the company's cost increase.","Review price-adjustment clauses, current quotes and alternate sources.",[proof]));
@@ -67,14 +69,14 @@ export function analyze(data,profile,now=Date.now()){
    }
   }
   if(d.corridor){
-   const matches=(data.shortage?.forecasts||[]).flatMap(r=>(r.evidence||[])).filter(e=>e.kind==="corridor-transit"&&e.title===d.corridor&&number(e.changePct)).map(e=>({e,proof:evidence(e.title,e.publisher,e.period,e.url,now,21)})).filter(x=>x.proof).sort((a,b)=>b.proof.date.localeCompare(a.proof.date));
+   const matches=(data.shortage?.forecasts||[]).flatMap(r=>rows(r.evidence)).filter(e=>e.kind==="corridor-transit"&&e.title===d.corridor&&number(e.changePct)).map(e=>({e,proof:evidence(e.title,e.publisher,e.period,e.url,now,21)})).filter(x=>x.proof).sort((a,b)=>b.proof.date.localeCompare(a.proof.date));
    const match=matches[0];if(!match)gaps.push(d.name+": no recent observation for declared corridor.");
    else out.push(finding("Logistics",d,d.corridor+" transit activity","Observed route context","Published transit change "+pct(match.e.changePct)+". Vessel counts are not cargo-specific delay, capacity or freight-price estimates.","Ask the carrier or forwarder for shipment-specific ETA, routing and current surcharge details.",[match.proof]));
   }
   if(d.country){
    const zones=(data.conflicts?.zones||[]).filter(z=>Array.isArray(z.countryCodes)&&z.countryCodes.includes(d.country));
    let matched=0;for(const z of zones){
-    const ev=(z.evidence||[]).map(e=>evidence(z.name,e.source,e.observedAt,e.url,now,90)).filter(Boolean);
+    const ev=rows(z.evidence).map(e=>evidence(z.name,e.source,e.observedAt,e.url,now,90)).filter(Boolean);
     if(!ev.length||z.measurementFresh!==true)continue;matched++;
     out.push(finding("Geopolitics",d,z.name,z.promoted===true?"Upstream elevated watch":"Country context","Country matches a published monitoring zone. Upstream direction: "+String(z.direction||"unassessed").slice(0,60)+". Country-wide exposure is not proof of supplier disruption.","Verify supplier site, transport paths and continuity arrangements; assess legal restrictions separately.",ev.slice(0,5)));
    }if(!matched)gaps.push(d.name+": no recent matched conflict-zone record; this is not an all-clear.");
@@ -99,11 +101,11 @@ export function analyze(data,profile,now=Date.now()){
 }
 export function scenario(cost,quoteChange){
  if(!number(cost)||cost<0||cost>1e10||!number(quoteChange)||quoteChange< -100||quoteChange>1000)return null;
- const delta=Math.round(cost*quoteChange)/100;return {monthly:delta,annual:Math.round(delta*1200)/100,alternative:Math.round((cost+delta)*100)/100};
+ const delta=Math.round((cost*quoteChange/100)*100)/100;return {monthly:delta,annual:Math.round(delta*1200)/100,alternative:Math.round((cost+delta)*100)/100};
 }
 export function publicContext(data,now=Date.now()){
  const items=[];
- for(const m of data.markets?.metrics||[]){const e=evidence(m.label,"FRED",m.period,m.sourceUrl,now,21);if(e&&number(m.value))items.push({title:m.label,value:String(m.value)+" "+m.unit,evidence:e});}
- const r=data.warning?.summary;if(r&&Number.isInteger(r.monitored)&&Number.isInteger(r.elevated))items.push({title:"Upstream early-warning screen",value:r.monitored+" monitored / "+r.elevated+" elevated",evidence:null});
+ for(const m of rows(data.markets?.metrics)){const e=evidence(m.label,"FRED",m.period,m.sourceUrl,now,21);if(e&&number(m.value))items.push({title:m.label,value:String(m.value)+" "+m.unit,evidence:e});}
+ const r=data.warning?.summary;if(r&&Number.isInteger(r.monitoring)&&Number.isInteger(r.elevated)&&observation(data.warning.generatedAt,now,2)==="dated")items.push({title:"Upstream early-warning screen",value:r.monitoring+" monitored / "+r.elevated+" elevated",evidence:null});
  return items;
 }
