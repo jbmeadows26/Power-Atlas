@@ -1,0 +1,1791 @@
+{
+  "schema": "eastern-axis.acceptance.v1",
+  "states": [
+    "Verified",
+    "Partial",
+    "Failed",
+    "Pending",
+    "Not applicable",
+    "Blocked"
+  ],
+  "evidence": [],
+  "releaseGates": [
+    {
+      "id": "G01",
+      "name": "Data"
+    },
+    {
+      "id": "G02",
+      "name": "Functionality"
+    },
+    {
+      "id": "G03",
+      "name": "Intelligence"
+    },
+    {
+      "id": "G04",
+      "name": "Forecasting"
+    },
+    {
+      "id": "G05",
+      "name": "Privacy"
+    },
+    {
+      "id": "G06",
+      "name": "Persistence"
+    },
+    {
+      "id": "G07",
+      "name": "Desktop"
+    },
+    {
+      "id": "G08",
+      "name": "Mobile"
+    },
+    {
+      "id": "G09",
+      "name": "Deployment"
+    },
+    {
+      "id": "G10",
+      "name": "Regression"
+    },
+    {
+      "id": "G11",
+      "name": "Commercial value"
+    }
+  ],
+  "requirements": [
+    {
+      "id": "EA-001",
+      "title": "Platform integrity and maturity reconciliation",
+      "priority": "P0",
+      "phase": "Foundation",
+      "dependencies": [],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-001-AC01",
+          "description": "Every material capability claim is supported by recorded acceptance evidence.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-002",
+      "title": "Observation freshness and source coverage",
+      "priority": "P0",
+      "phase": "Foundation",
+      "dependencies": [],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-002-AC01",
+          "description": "Every material indicator has provenance, observation vintage and freshness; feed retrieval is distinct from current observations and history is retained.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-003",
+      "title": "End-to-end Customer Exposure Engine",
+      "priority": "P0",
+      "phase": "Private Intelligence",
+      "dependencies": [
+        "EA-002",
+        "EA-006",
+        "EA-008"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-003-AC01",
+          "description": "A first-time visitor declares a real dependency and receives an evidence-supported finding or explained no-match within five minutes without private data leaving the device.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-004",
+      "title": "Private Business Document Intelligence",
+      "priority": "P0",
+      "phase": "Private Intelligence",
+      "dependencies": [],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-004-AC01",
+          "description": "An actual business document is parsed locally, reviewed and explicitly approved into usable dependencies with document-location provenance and manual fallback.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-005",
+      "title": "Encrypted vault backup and recovery",
+      "priority": "P0",
+      "phase": "Private Intelligence",
+      "dependencies": [],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-005-AC01",
+          "description": "Encrypted export, browser-data clearing and restore recover the approved profile; incorrect passphrase, malformed backup and corrupted data fail safely.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-006",
+      "title": "Persistent relational Business Digital Twin",
+      "priority": "P0",
+      "phase": "Business Digital Twin",
+      "dependencies": [
+        "EA-004",
+        "EA-005"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-006-AC01",
+          "description": "Approved business facts, stable relationships, history and provenance survive reload and encrypted backup restoration.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-007",
+      "title": "Progressive business profiling",
+      "priority": "P0",
+      "phase": "Business Digital Twin",
+      "dependencies": [
+        "EA-006"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-007-AC01",
+          "description": "Minimal onboarding delivers value and approved incremental information improves intelligence; declared, extracted, approved and inferred facts remain distinct.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-008",
+      "title": "Evidence and information-gap transparency",
+      "priority": "P0",
+      "phase": "Business Digital Twin",
+      "dependencies": [
+        "EA-002"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-008-AC01",
+          "description": "Every material finding is classified and traces evidence, dependency, known facts, uncertainty, unsupported conclusions and additional inputs; source reliability and information credibility remain separate.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-009",
+      "title": "Twelve-domain Business Intelligence coverage",
+      "priority": "P1",
+      "phase": "Business Digital Twin",
+      "dependencies": [
+        "EA-003",
+        "EA-008"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-009-AC01",
+          "description": "All twelve specified domains document coverage, operational status and customer decision relevance using shared observations and dependencies.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-010",
+      "title": "Validated forecasting engine",
+      "priority": "P1",
+      "phase": "Predictive Intelligence",
+      "dependencies": [
+        "EA-002",
+        "EA-008"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-010-AC01",
+          "description": "One real narrow forecast publishes target, horizon, historical walk-forward evaluation, baseline comparison, uncertainty, drivers, invalidation conditions and limitations without look-ahead bias.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-011",
+      "title": "Forecast accountability and withholding",
+      "priority": "P1",
+      "phase": "Predictive Intelligence",
+      "dependencies": [
+        "EA-010"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-011-AC01",
+          "description": "Append-only versioned forecasts retain failures, supporting observations, actual outcomes and evaluation; insufficient evidence explicitly withholds a forecast.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-012",
+      "title": "Evidence-led Opportunity Intelligence",
+      "priority": "P1",
+      "phase": "Decision Intelligence",
+      "dependencies": [
+        "EA-003",
+        "EA-008"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-012-AC01",
+          "description": "At least one independently evidence-supported real opportunity matches an actual business dependency; value is quantified only with sufficient approved inputs.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-013",
+      "title": "Prescriptive Decision Intelligence",
+      "priority": "P1",
+      "phase": "Decision Intelligence",
+      "dependencies": [
+        "EA-003",
+        "EA-008",
+        "EA-012"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-013-AC01",
+          "description": "Evidence-supported management options include alternatives, assumptions, uncertainty and change conditions; evidence and dependency are reachable within three interactions; conditional scenarios are not forecasts.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-014",
+      "title": "Executive Command Center and UX/UI",
+      "priority": "P1",
+      "phase": "Decision Intelligence",
+      "dependencies": [
+        "EA-003",
+        "EA-007",
+        "EA-013"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-014-AC01",
+          "description": "Actual desktop and mobile browser workflows verify calculated indicators, unavailable-vs-zero distinctions, expandable evidence and continued procurement and supplier access.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-015",
+      "title": "Specialized analyst coordination",
+      "priority": "P1",
+      "phase": "Decision Intelligence",
+      "dependencies": [
+        "EA-002",
+        "EA-008"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-015-AC01",
+          "description": "All specified analysts have responsibilities, inputs, methodology, schema, status, last successful execution, limitations and validation; operational claims trace actual validated execution.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-016",
+      "title": "Verified real-world business demonstration",
+      "priority": "P1",
+      "phase": "Decision Intelligence",
+      "dependencies": [
+        "EA-003",
+        "EA-013"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-016-AC01",
+          "description": "An isolated attributable public business case demonstrates dependency-to-intelligence-to-decision without inserting demonstration data into private records.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-017",
+      "title": "Private decision and outcome tracking",
+      "priority": "P2",
+      "phase": "Commercial Validation",
+      "dependencies": [
+        "EA-005",
+        "EA-013"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-017-AC01",
+          "description": "A pilot customer records and exports a user-reported outcome linked to a specific finding and decision locally, without shared-model training.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-018",
+      "title": "Commercial security and licensing",
+      "priority": "P2",
+      "phase": "Commercial Validation",
+      "dependencies": [
+        "EA-005"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-018-AC01",
+          "description": "Source/model/software rights, privacy, encryption, CSP, network requests, dependency integrity, quotas, hosting eligibility and operating costs are audited; commercial blockers resolved before launch claims.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-019",
+      "title": "Commercial pilot and pricing validation",
+      "priority": "P2",
+      "phase": "Commercial Validation",
+      "dependencies": [
+        "EA-003",
+        "EA-004",
+        "EA-005",
+        "EA-006",
+        "EA-012",
+        "EA-013",
+        "EA-014",
+        "EA-017",
+        "EA-018"
+      ],
+      "continuous": false,
+      "criteria": [
+        {
+          "id": "EA-019-AC01",
+          "description": "Five to ten actual businesses provide approved information, matched intelligence, material decision change, measurable outcomes where available, usability and willingness-to-pay feedback and operating costs; no invented participants.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    },
+    {
+      "id": "EA-020",
+      "title": "Continuous production acceptance",
+      "priority": "P0",
+      "phase": "Continuous",
+      "dependencies": [],
+      "continuous": true,
+      "criteria": [
+        {
+          "id": "EA-020-AC01",
+          "description": "Recurring unit, integration, desktop/mobile browser, privacy, provenance, freshness, forecast, navigation, deployment-identity and regression checks execute; source connections are audited on schedule.",
+          "state": "Pending",
+          "evidence": []
+        }
+      ],
+      "gates": [
+        {
+          "id": "G01",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G02",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G03",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G04",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G05",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G06",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G07",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G08",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G09",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G10",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        },
+        {
+          "id": "G11",
+          "state": "Pending",
+          "evidence": [],
+          "reason": "Applicability and execution evidence must be assessed before release."
+        }
+      ]
+    }
+  ]
+}

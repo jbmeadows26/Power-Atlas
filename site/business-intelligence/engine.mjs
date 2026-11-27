@@ -1,3 +1,4 @@
+import {validateProvenance} from "./documents.mjs";
 // External intelligence for importers, distributors and manufacturers.
 export const feeds={
  shortage:{title:"Product shortage outlook",path:"eastern-axis/public/analysis/product-shortage-outlook.json",array:"forecasts"},
@@ -39,8 +40,10 @@ export function validateProfile(p){
   if(d.product&&!Object.hasOwn(products,d.product))throw Error("Unknown product group.");
   if(d.corridor&&!corridors.includes(d.corridor))throw Error("Unknown transport corridor.");
   if(d.monthlyCost!==null&&(!number(d.monthlyCost)||d.monthlyCost<0||d.monthlyCost>1e10))throw Error("Invalid monthly cost.");
-  return {id:String(i+1),name,country,product:d.product||"",corridor:d.corridor||"",monthlyCost:d.monthlyCost};
+  const id=d.id==null?String(i+1):String(d.id);if(!/^[A-Za-z0-9-]{1,80}$/.test(id))throw Error("Invalid dependency ID.");
+  return {id,provenance:validateProvenance(d.provenance),name,country,product:d.product||"",corridor:d.corridor||"",monthlyCost:d.monthlyCost};
  });
+ if(new Set(dependencies.map(d=>d.id)).size!==dependencies.length)throw Error("Duplicate dependency IDs.");
  const topic=p.marketTopic||"";if(topic&&!marketTopics.includes(topic))throw Error("Unknown market topic.");
  return {type:p.type,dependencies,marketTopic:topic,financing:p.financing===true,usDemand:p.usDemand===true};
 }

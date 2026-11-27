@@ -26,9 +26,10 @@ jobs:
           "$RUNNER_TEMP/vault-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Verify encrypted local storage lifecycle
         env:
+          BUSINESS_TEST_URL: http://127.0.0.1:4175/business-intelligence/
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/vault-browser/node_modules/playwright
         run: |
           python3 -m http.server 4175 --directory site > /tmp/vault-browser.log 2>&1 &
-          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          for i in $(seq 1 15); do curl -fsS "$BUSINESS_TEST_URL" >/dev/null && break; sleep 1; done
           node tests/private-vault-browser.cjs
           node tests/private-vault-personal-browser.cjs

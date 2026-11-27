@@ -5,6 +5,7 @@ on:
       - 'site/business-intelligence/**'
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
+      - 'tests/business-documents*'
       - 'tests/test_business_public_analyst.py'
       - 'tests/test_business_hts_reference.py'
       - 'tests/test_business_ofac_reference.py'
@@ -24,7 +25,7 @@ jobs:
           node-version: '22'
       - run: |
           node --check site/business-intelligence/app.mjs
-          node --test tests/business-intelligence.test.mjs tests/business-intelligence-procurement.test.mjs tests/business-intelligence-suppliers.test.mjs
+          node --test tests/business-intelligence.test.mjs tests/business-intelligence-procurement.test.mjs tests/business-intelligence-suppliers.test.mjs tests/business-documents.test.mjs
           python3 -m unittest discover -s tests -p test_business_hts_reference.py -v
           python3 business-intelligence/collect_hts_reference.py --require-available
           python3 -m unittest discover -s tests -p test_business_ofac_reference.py -v
@@ -37,11 +38,13 @@ jobs:
           "$RUNNER_TEMP/bi-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
       - name: Validate business workspace on mobile and desktop
         env:
+          BUSINESS_TEST_URL: http://127.0.0.1:4175/business-intelligence/
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/bi-browser/node_modules/playwright
         run: |
           python3 -m http.server 4175 --directory site > /tmp/bi-browser.log 2>&1 &
-          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          for i in $(seq 1 15); do curl -fsS "$BUSINESS_TEST_URL" >/dev/null && break; sleep 1; done
           node tests/business-intelligence-browser.cjs
+          node tests/business-documents-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
