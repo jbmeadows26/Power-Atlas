@@ -1,10 +1,10 @@
 import {safeURL} from "./engine.mjs";
 // Public benchmark only: fixed same-origin fetch, never a customer-dependent URL.
-export async function mountForecast(mount){
+export async function mountForecast(mount,{getDependencies=()=>[]}={}){
  if(!mount)return;
  const panel=document.createElement('section');panel.id='benchmark-forecast';
  const add=(tag,text)=>{const n=document.createElement(tag);n.textContent=text;panel.append(n);return n;};
- add('h2','Fuel benchmark forecast');const status=add('p','Forecast withheld — insufficient evidence.');mount.append(panel);
+ add('h2','Fuel benchmark forecast');const relevance=add('p','');const refresh=()=>{const deps=getDependencies().filter(d=>d.product==='fuel');relevance.textContent=deps.length?'Relevant declared fuel dependencies: '+deps.map(d=>d.name).join(', ')+'. This benchmark does not predict your supplier price or company cost.':'No approved fuel dependency matched. Public benchmark only; no business-specific implication established.';};refresh();const status=add('p','Forecast withheld — insufficient evidence.');mount.append(panel);
  try{
   const response=await fetch('./data/brent-forecast.json',{credentials:'omit'});if(!response.ok)throw Error('Public forecast unavailable');const r=await response.json();
   status.textContent=r.forecastStatus;
@@ -16,6 +16,7 @@ export async function mountForecast(mount){
    add('p',`${r.targetPeriod} Brent benchmark: $${r.predicted.toFixed(2)}/bbl. Observation: ${r.observationPeriod}. Issued: ${r.createdAt}.`);
    add('p',`Descriptive historical error range: $${r.uncertainty.lower.toFixed(2)}–$${r.uncertainty.upper.toFixed(2)}/bbl. Not a calibrated probability interval.`);
   }
+  if(r.governance){const g=r.governance;add('p',g.status+' · '+g.prospectiveTargets+' prospective target outcomes scored.');for(const limitation of g.limitations||[])add('p',limitation);}
   if(r.evaluation){const e=r.evaluation;add('p',`${e.origins} chronological evaluation origins; mean absolute error $${e.mae.toFixed(2)}/bbl versus persistence $${e.persistenceMae.toFixed(2)}/bbl. ${e.beatsPersistence?'Lower historical error does not establish prospective skill.':'This model did not beat the simple persistence baseline.'}`);}
   if(r.source&&safeURL(r.source.url)){const a=add('a','World Bank source');a.href=safeURL(r.source.url);a.rel='noopener noreferrer';add('p',`Retrieved ${r.source.retrievedAt}; publisher publication date unavailable.`);}
   if(r.managementConsideration)add('p',r.managementConsideration);
@@ -23,4 +24,5 @@ export async function mountForecast(mount){
   for(const text of r.limitations||[]){const p=document.createElement('p');p.textContent=text;details.append(p);}
   const a=document.createElement('a');a.textContent='Evaluation and supporting observations';a.href='./data/brent-forecast.json';details.append(a);
  }catch{add('p','Public benchmark artifact unavailable. No private information was sent.');}
+ return {refresh};
 }

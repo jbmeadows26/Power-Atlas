@@ -8,3 +8,7 @@ Real Chromium and WebKit inference, consent rejection, offline ranking, source-I
 
 ## Shared persistence scope
 Encrypted local profile vaults are implemented separately for Business and Personal Intelligence. This does not persist model state or enable background inference when the browser is closed. Vault implementation and recovery tests are in `site/private-workspace/` and `tests/private-vault*`.
+
+## Device modes and measured selection
+
+The mode panel distinguishes Standard deterministic computation, optional Adaptive MiniLM q8, and unavailable Performance/Advanced tiers. Hardware detection alone never marks a generative model operational. Actual initialization and query latency are measured in the current browser session. A sub-5-second completed local query, compatible runtime and data-saver disabled can recommend Adaptive; this recommendation never downloads a model or changes modes automatically. Memory reports are device capacity, not free memory; runtime failure still returns to Standard. Performance and Advanced remain unavailable pending implementation, license/memory review and browser acceptance.

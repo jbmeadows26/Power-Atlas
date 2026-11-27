@@ -4,6 +4,8 @@ on:
     paths:
       - 'adaptive-intelligence/**'
       - 'site/private-workspace/adaptive*'
+      - 'site/private-workspace/device-policy.mjs'
+      - 'tests/device-policy.test.mjs'
       - 'site/business-intelligence/**'
       - 'site/personal-intelligence/**'
       - 'tests/adaptive-intelligence*'
@@ -24,7 +26,7 @@ jobs:
         run: |
           node --check site/private-workspace/adaptive-worker.mjs
           node --check site/private-workspace/adaptive-ui.mjs
-          node --test tests/adaptive-intelligence.test.mjs
+          node --test tests/adaptive-intelligence.test.mjs tests/device-policy.test.mjs
           bash adaptive-intelligence/prepare-assets.sh
       - name: Install test browsers
         run: |
