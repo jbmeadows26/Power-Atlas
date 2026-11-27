@@ -1,8 +1,8 @@
 import {paths,sourcePath,analyze,publicContext,safeLink,money} from "./engine.mjs";
 const $=id=>document.getElementById(id), feed={}, errors={}; let refreshing=false, config=null, session=null;
 const fields=["county","household","gross","net","expenses","lines","drives","employed"];
-function profile(){let p={};for(const id of fields){const x=$(id).value;if(x==="")continue;p[id]=["gross","net","expenses","lines"].includes(id)?Number(x):["drives","employed"].includes(id)?x==="yes":x;}return p;}
-function restore(p){for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
+function profile(){let p={};for(const id of fields){const x=$(id).value;if(x===""||!$(id).validity.valid)continue;p[id]=["gross","net","expenses","lines"].includes(id)?Number(x):["drives","employed"].includes(id)?x==="yes":x;}return p;}
+function restore(p){$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
 let category="All",filter="Priority";
 const actual=n=>typeof n==="number"&&Number.isFinite(n)&&n>=0;
 const show=(id,value)=>{$(id).textContent=value;};
