@@ -13,7 +13,7 @@ from urllib.request import Request, urlopen
 
 ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = 'release-identity.json'
-PREFIXES = ('business-intelligence', 'private-workspace', 'personal-intelligence')
+PREFIXES = ('business-intelligence', 'private-workspace', 'personal-intelligence', 'development-control')
 
 
 def digest(data):
@@ -57,7 +57,9 @@ def fetch(url):
 def verify(origin, expected=None):
     manifest = validate(json.loads(fetch(origin.rstrip('/') + '/' + MANIFEST)), expected)
     # Pin key source assets to the declared commit, including scheduled checks.
-    for name in ('business-intelligence/index.html', 'business-intelligence/app.mjs', 'private-workspace/vault-core.mjs'):
+    for name in ('business-intelligence/index.html', 'business-intelligence/app.mjs', 'private-workspace/vault-core.mjs', 'development-control/index.html', 'development-control/app.mjs', 'development-control/acceptance.json'):
+        if name not in manifest['files']:
+            continue
         original = subprocess.check_output(['git', 'show', manifest['commit'] + ':site/' + name], cwd=ROOT)
         if digest(original) != manifest['files'][name]:
             raise ValueError('Manifest disagrees with repository source: ' + name)

@@ -81,7 +81,7 @@ const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=
 $("clear").addEventListener("click",()=>businessVault.reset());
 
 const documentMount=el("section",undefined,"panel");documentMount.id="business-documents";$("profile").append(documentMount);
-const documents=setupDocuments({mount:documentMount,products,approve:d=>{if($("dependencies").children.length>=30)throw Error("Remove a dependency first; maximum 30.");dep(d);}});
+const documents=setupDocuments({mount:documentMount,products,getDependencies:()=>{try{return profile().dependencies;}catch{return [];}},approve:d=>{if($("dependencies").children.length>=30)throw Error("Remove a dependency first; maximum 30.");dep(d);}});
 $("clear").addEventListener("click",()=>documents.reset());
 
 mountForecast(document.querySelector("#overview"));
