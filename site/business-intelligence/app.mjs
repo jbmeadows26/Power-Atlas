@@ -1,3 +1,5 @@
+import {migrateTwin,includeDependencies} from "./twin.mjs";
+import {setupTwin} from "./twin-ui.mjs";
 import {setupDecisions} from "./decision-ui.mjs";
 import {validateDecisions} from "./decisions.mjs";
 import {setupDocuments} from "./documents.mjs";
@@ -48,7 +50,7 @@ function renderScenario(){const d=applied?.dependencies.find(x=>x.id===$("scenar
 async function refresh(){if(busy)return;busy=true;$("refresh").disabled=true;$("status").textContent="Retrieving public intelligence…";await Promise.all(Object.entries(feeds).map(async ([k,f])=>{try{const r=await fetch("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/"+f.path,{cache:"no-store",credentials:"omit",referrerPolicy:"no-referrer",signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error("Source unavailable");const x=await r.json();if(!validFeed(k,x))throw Error("Source format changed");data[k]=x;delete errors[k];}catch{delete data[k];errors[k]="Unavailable; no data inferred";}}));busy=false;$("refresh").disabled=false;$("status").textContent=Object.keys(data).length+" of "+Object.keys(feeds).length+" public feeds retrieved · "+new Date().toLocaleString()+". Not a guarantee of current observations.";render();}
 for(const t of marketTopics)option($("market-topic"),t,t);
 for(const id of ["business-type","market-topic","financing","us-demand"])$(id).addEventListener("input",invalidate);
-$("add").onclick=()=>dep();$("apply").onclick=()=>{try{applied=profile();$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
+$("add").onclick=()=>dep();$("apply").onclick=()=>{try{applied=profile();twinEditor.restore(includeDependencies(twinEditor.get(),applied.dependencies));$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
 $("clear").onclick=()=>{decisionJournal.reset();adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);
@@ -60,7 +62,7 @@ function validateVaultBusiness(value){
  for(const d of value.dependencies){
   if(!d||typeof d.name!=="string"||typeof d.country!=="string"||typeof d.product!=="string"||typeof d.corridor!=="string"||!(d.monthlyCost===null||typeof d.monthlyCost==="number"))throw Error("Invalid business dependency in backup.");
  }
- return {...validateProfile(value),decisions:validateDecisions(value.decisions??[])};
+ const validated=validateProfile(value);return {...validated,decisions:validateDecisions(value.decisions??[]),twin:migrateTwin({...value,dependencies:validated.dependencies})};
 }
 function restoreVaultBusiness(p){
  $("clear").click();
@@ -69,10 +71,12 @@ function restoreVaultBusiness(p){
   dep(d);const row=$("dependencies").lastElementChild;
   for(const input of row.querySelectorAll("[data-field]"))input.value=d[input.dataset.field]??"";
  }
- decisionJournal.restore(p.decisions??[]);applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
+ twinEditor.restore(p.twin);decisionJournal.restore(p.decisions??[]);applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
 }
+const twinMount=el("section",undefined,"panel");twinMount.id="business-twin";$("profile").append(twinMount);
+const twinEditor=setupTwin(twinMount);$("clear").addEventListener("click",()=>twinEditor.reset());
 const vaultMount=el("section",undefined,"panel");vaultMount.id="business-vault";$("profile").append(vaultMount);
-const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=>({...profile(),decisions:decisionJournal.get()}),validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
+const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=>{const p=profile();const twin=includeDependencies(twinEditor.get(),p.dependencies);twinEditor.restore(twin);return {...p,decisions:decisionJournal.get(),twin};},validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
 $("clear").addEventListener("click",()=>businessVault.reset());
 
 const documentMount=el("section",undefined,"panel");documentMount.id="business-documents";$("profile").append(documentMount);
