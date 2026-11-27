@@ -1,4 +1,4 @@
-import {migrateTwin,includeDependencies} from "./twin.mjs";
+import {migrateTwin,includeDependencies,exposureProjection} from "./twin.mjs";
 import {setupTwin} from "./twin-ui.mjs";
 import {setupDecisions} from "./decision-ui.mjs";
 import {validateDecisions} from "./decisions.mjs";
@@ -8,7 +8,7 @@ import {setupSuppliers} from "./suppliers.mjs";
 import {setupProcurement} from "./procurement.mjs";
 import {feeds,products,corridors,marketTopics,validFeed,validateProfile,analyze,publicContext,currency,scenario} from "./engine.mjs";
 const $=id=>document.getElementById(id),data={},errors={};
-let applied=null,result=null,busy=false,serial=0;
+let applied=null,result=null,busy=false,serial=0,graphProjection={dependencies:[],gaps:[]};
 const adaptive=setupAdaptive();
 const procurement=setupProcurement();let procurementLoaded=false;
 const suppliers=setupSuppliers();let suppliersLoaded=false;
@@ -33,10 +33,10 @@ const decisionMount=el("section",undefined,"panel");decisionMount.id="decision-j
 const decisionJournal=setupDecisions(decisionMount);
 function finding(x){const box=el("details",undefined,"finding"),s=el("summary");s.append(el("small",x.domain+" · "+x.status,"tag"),el("h3",x.title));if(x.dependency)s.append(el("small",x.dependency));box.append(s,el("p",x.detail),el("h3","Management check"),el("p",x.action));for(const e of x.evidence)box.append(proof(e));decisionJournal.attach(box,x);return box;}
 function render(){
- if(applied){try{result=analyze(data,applied);}catch{result=null;$("profile-status").textContent="Source format changed. Analysis unavailable; no findings inferred.";}}
+ if(applied){try{const combined=[...applied.dependencies,...graphProjection.dependencies];if(combined.length>30)throw Error("Too many mapped dependencies; maximum 30.");result=analyze(data,{...applied,dependencies:combined});result.gaps.push(...graphProjection.gaps);for(const f of result.findings){const d=graphProjection.dependencies.find(d=>d.name===f.dependency);if(d)f.detail+=" Declared relational path: "+d.twinPath.join(" → ")+". Relationships are customer declarations, not external verification.";}}catch{result=null;$("profile-status").textContent="Source format changed. Analysis unavailable; no findings inferred.";}}
  const items=result?.findings||[],gaps=result?.gaps||[];
  adaptive.setItems(items);
- $("feed-count").textContent=Object.keys(data).length+" / "+Object.keys(feeds).length;$("dep-count").textContent=applied?String(applied.dependencies.length):"—";$("finding-count").textContent=result?String(items.length):"—";$("gap-count").textContent=result?String(gaps.length):"—";
+ $("feed-count").textContent=Object.keys(data).length+" / "+Object.keys(feeds).length;$("dep-count").textContent=applied?String(applied.dependencies.length+graphProjection.dependencies.length):"—";$("finding-count").textContent=result?String(items.length):"—";$("gap-count").textContent=result?String(gaps.length):"—";
  const priority=$("priority");priority.replaceChildren();const actionable=items.filter(x=>x.status.includes("watch")||x.status.includes("candidate")||x.status==="Upstream elevated watch");
  if(actionable.length)for(const x of actionable.slice(0,8))priority.append(finding(x));else{const e=el("p",applied?"No matched watch or quote-review candidate in the retrieved evidence. This is not an all-clear.":"Declare actual business dependencies to receive matching intelligence.","empty"),a=el("a","Map exposures ›");a.href="#profile";e.append(document.createElement("br"),a);priority.append(e);}
  const context=$("context");context.replaceChildren();for(const x of publicContext(data)){const n=el("div",undefined,"source");n.append(el("small",x.title),el("h3",x.value));if(x.evidence)n.append(proof(x.evidence));context.append(n);}if(!context.children.length)context.append(el("p","Current public indicators unavailable.","empty"));
@@ -50,7 +50,7 @@ function renderScenario(){const d=applied?.dependencies.find(x=>x.id===$("scenar
 async function refresh(){if(busy)return;busy=true;$("refresh").disabled=true;$("status").textContent="Retrieving public intelligence…";await Promise.all(Object.entries(feeds).map(async ([k,f])=>{try{const r=await fetch("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/"+f.path,{cache:"no-store",credentials:"omit",referrerPolicy:"no-referrer",signal:AbortSignal.timeout(15000)});if(!r.ok)throw Error("Source unavailable");const x=await r.json();if(!validFeed(k,x))throw Error("Source format changed");data[k]=x;delete errors[k];}catch{delete data[k];errors[k]="Unavailable; no data inferred";}}));busy=false;$("refresh").disabled=false;$("status").textContent=Object.keys(data).length+" of "+Object.keys(feeds).length+" public feeds retrieved · "+new Date().toLocaleString()+". Not a guarantee of current observations.";render();}
 for(const t of marketTopics)option($("market-topic"),t,t);
 for(const id of ["business-type","market-topic","financing","us-demand"])$(id).addEventListener("input",invalidate);
-$("add").onclick=()=>dep();$("apply").onclick=()=>{try{applied=profile();twinEditor.restore(includeDependencies(twinEditor.get(),applied.dependencies));$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
+$("add").onclick=()=>dep();$("apply").onclick=()=>{try{applied=profile();twinEditor.restore(includeDependencies(twinEditor.get(),applied.dependencies));graphProjection=exposureProjection(twinEditor.get());$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
 $("clear").onclick=()=>{decisionJournal.reset();adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);
@@ -71,10 +71,10 @@ function restoreVaultBusiness(p){
   dep(d);const row=$("dependencies").lastElementChild;
   for(const input of row.querySelectorAll("[data-field]"))input.value=d[input.dataset.field]??"";
  }
- twinEditor.restore(p.twin);decisionJournal.restore(p.decisions??[]);applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
+ twinEditor.restore(p.twin);graphProjection=exposureProjection(p.twin);decisionJournal.restore(p.decisions??[]);applied=validateProfile(p);render();$("profile-status").textContent="Restored locally from an encrypted profile.";
 }
 const twinMount=el("section",undefined,"panel");twinMount.id="business-twin";$("profile").append(twinMount);
-const twinEditor=setupTwin(twinMount);$("clear").addEventListener("click",()=>twinEditor.reset());
+const twinEditor=setupTwin(twinMount,invalidate);$("clear").addEventListener("click",()=>{twinEditor.reset();graphProjection={dependencies:[],gaps:[]};});
 const vaultMount=el("section",undefined,"panel");vaultMount.id="business-vault";$("profile").append(vaultMount);
 const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=>{const p=profile();const twin=includeDependencies(twinEditor.get(),p.dependencies);twinEditor.restore(twin);return {...p,decisions:decisionJournal.get(),twin};},validate:validateVaultBusiness,restore:restoreVaultBusiness,clearProfile:()=>$("clear").click()});
 $("clear").addEventListener("click",()=>businessVault.reset());
