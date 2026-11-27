@@ -2,6 +2,8 @@ import importlib.util
 from pathlib import Path
 import tempfile
 import unittest
+import json
+from unittest.mock import patch
 
 spec = importlib.util.spec_from_file_location('identity', Path(__file__).resolve().parents[1] / 'scripts/pages_release_identity.py')
 m = importlib.util.module_from_spec(spec)
@@ -39,3 +41,17 @@ class ReleaseIdentityTests(unittest.TestCase):
             result = m.build(site, 'a' * 40)
             self.assertEqual(set(result['files'].values()), {m.digest(b'public source')})
             self.assertTrue((site / m.MANIFEST).exists())
+
+    def test_published_asset_corruption_fails(self):
+        data = self.manifest()
+        data['files'] = {name: m.digest(b'public source') for name in data['files']}
+        responses = [json.dumps(data).encode(), b'tampered asset']
+        with patch.object(m, 'fetch', side_effect=responses), patch.object(m.subprocess, 'check_output', return_value=b'public source'):
+            with self.assertRaisesRegex(ValueError, 'Published asset mismatch'):
+                m.verify('https://example.test', 'a' * 40)
+
+    def test_manifest_cannot_redefine_repository_source(self):
+        data = self.manifest()
+        with patch.object(m, 'fetch', return_value=json.dumps(data).encode()), patch.object(m.subprocess, 'check_output', return_value=b'actual repository source'):
+            with self.assertRaisesRegex(ValueError, 'Manifest disagrees'):
+                m.verify('https://example.test')
