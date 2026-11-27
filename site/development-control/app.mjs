@@ -1,4 +1,4 @@
-const root=document.querySelector('#requirements'), summary=document.querySelector('#summary');
+const root=document.querySelector('#requirements'), summary=document.querySelector('#acceptance-summary');
 const node=(tag,text)=>{const el=document.createElement(tag);el.textContent=text;return el;};
 try {
  const response=await fetch('./acceptance.json',{cache:'no-store'});

@@ -1,0 +1,125 @@
+{
+  "schemaVersion": 1,
+  "commit": "ac0a23c8ec43b12ecbeb7aa2d7143832eefaf050",
+  "url": "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/",
+  "startedAt": "2026-11-27T21:00:58Z",
+  "completedAt": "2026-11-27T21:02:51.314979+00:00",
+  "deploymentRun": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46067009082",
+  "scope": "Isolated browser contexts with private test fixtures; no public intelligence or actual business records fabricated",
+  "publicFeedInterception": false,
+  "results": [
+    {
+      "suite": "business-documents-browser",
+      "scope": "TXT review/approval and document request privacy",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed"
+    },
+    {
+      "suite": "business-document-formats-browser",
+      "scope": "PDF/XLSX extraction, page/sheet provenance, scanned unsupported state, formula exclusion, PDF approval and privacy",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed"
+    },
+    {
+      "suite": "business-twin-browser",
+      "scope": "Declared entities/relationships, clear, request privacy",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed"
+    },
+    {
+      "suite": "private-vault-browser",
+      "scope": "Encrypted save/reload/wrong passphrase/backup/delete/journal and declared facility recovery/privacy",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        390
+      ],
+      "result": "passed"
+    },
+    {
+      "suite": "business-intelligence-browser",
+      "scope": "Live feeds, findings, decisions/outcomes/export, scenarios, HTS, OFAC candidates and privacy",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed"
+    },
+    {
+      "suite": "forecast-control-browser",
+      "scope": "Forecast historical evaluation, baseline, source, limitations, supporting observations; acceptance rendering/filtering",
+      "browsers": [
+        "Chromium",
+        "WebKit"
+      ],
+      "widths": [
+        320,
+        390,
+        1280
+      ],
+      "result": "passed"
+    }
+  ],
+  "observedDefects": [
+    {
+      "component": "Development Control",
+      "description": "Shared bug reporter input and registry status paragraph both use id summary; generic strict locator fails. Scoped main status renders and filters correctly. Duplicate identifier remains an accessibility/DOM integrity defect.",
+      "resolution": "Not fixed by this verification; reported to parent."
+    }
+  ],
+  "environment": "Playwright1.56.1; Debian shared libraries extracted to browser cache without root. Host ldconfig preflight bypassed only; browser runtime tests executed. Public references fetched in browser due environment proxy.",
+  "limitations": [
+    "No physical device testing",
+    "Scanned documents remain unsupported",
+    "Not commercial validation",
+    "No prospective forecast skill established",
+    "Not a universal privacy/security guarantee"
+  ],
+  "logs": {
+    "business-documents-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nDocument approval and network inspection passed in chromium at 320\nDocument approval and network inspection passed in chromium at 390\nDocument approval and network inspection passed in chromium at 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nDocument approval and network inspection passed in webkit at 320\nDocument approval and network inspection passed in webkit at 390\nDocument approval and network inspection passed in webkit at 1280\n",
+    "business-document-formats-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 PDF/XLSX text/provenance/scanned/formula/privacy passed\nchromium 390 PDF/XLSX text/provenance/scanned/formula/privacy passed\nchromium 1280 PDF/XLSX text/provenance/scanned/formula/privacy passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 PDF/XLSX text/provenance/scanned/formula/privacy passed\nwebkit 390 PDF/XLSX text/provenance/scanned/formula/privacy passed\nwebkit 1280 PDF/XLSX text/provenance/scanned/formula/privacy passed\n",
+    "business-twin-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS twin relationships, clear and request isolation chromium 320\nPASS twin relationships, clear and request isolation chromium 390\nPASS twin relationships, clear and request isolation chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS twin relationships, clear and request isolation webkit 320\nPASS twin relationships, clear and request isolation webkit 390\nPASS twin relationships, clear and request isolation webkit 1280\n",
+    "private-vault-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy chromium\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy webkit\n",
+    "business-intelligence-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation chromium 320\nPASS business decisions, outcomes, export and private request isolation chromium 390\nPASS business decisions, outcomes, export and private request isolation chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation webkit 320\nPASS business decisions, outcomes, export and private request isolation webkit 390\nPASS business decisions, outcomes, export and private request isolation webkit 1280\n",
+    "forecast-control-browser.log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS forecast evaluation/provenance/limitations and control registry chromium 320\nPASS forecast evaluation/provenance/limitations and control registry chromium 390\nPASS forecast evaluation/provenance/limitations and control registry chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS forecast evaluation/provenance/limitations and control registry webkit 320\nPASS forecast evaluation/provenance/limitations and control registry webkit 390\nPASS forecast evaluation/provenance/limitations and control registry webkit 1280\n"
+  },
+  "harnessSha256": {
+    "private-vault-browser.cjs": "b22dafa87d11626936df9ddbbe2c9b724fc970c6ec53a46346e2b38e4e76cd10",
+    "business-documents-browser.cjs": "79e735d52c4444ceab5b76a84db5c5745a00d244079d35d0922ce20a642025de",
+    "business-intelligence-browser.cjs": "902c0dcc0f31d5be613cfd945ea320c2447a402908224a76e2965a0c10ba1e9f",
+    "business-twin-browser.cjs": "511d011aafe65e4b80263a1ce73c28eb04e3ae6d3fe1a221348b3ff24873f1a6",
+    "forecast-control-browser.cjs": "52ce506193420c6c057abab3d566e697afe5db12a91358e9d59d13b88989071f",
+    "business-document-formats-browser.cjs": "e9b83a8ba6f42de25f400bd892bc0cfa4852af36fc59df320afd52147e41efd0"
+  }
+}
