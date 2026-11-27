@@ -20,9 +20,18 @@ const overview={
   sources:[{id:'doj',name:'DOJ',category:'Government',mode:'Scheduled intake',cost:'Free',url:'https://www.justice.gov/',description:'Official source'}],
   snapshot:null,classificationAsOf:'2026-10-01',scopeDefinition:'Fixture only',classificationSources:[],
 };
+// The fixture must satisfy the same completeness gate as the production catalog.
+ // All added entries are test-only, with no case or security assertions.
+const fixtureCodes='AF AL DZ AD AO AG AR AM AU AT AZ BS BH BD BB BY BE BZ BJ BT BO BA BW BR BN BG BF BI CV KH CM CA CF TD CL CN CO KM CG CD CR CI HR CU CY CZ DK DJ DM DO EC EG SV GQ ER EE SZ ET FJ FI FR GA GM GE DE GH GR GD GT GN GW GY HT HN HU IS IN ID IR IQ IE IL IT JM JP JO KZ KE KI KP KR KW KG LA LV LB LS LR LY LI LT LU MG MW MY MV ML MT MH MR MU MX FM MD MC MN ME MA MZ MM NA NR NP NL NZ NI NE NG MK NO OM PK PW PS PA PG PY PE PH PL PT QA RO RU RW KN LC VC WS SM ST SA SN RS SC SL SG SK SI SB SO ZA SS ES LK SD SR SE CH SY TJ TZ TH TL TG TO TT TN TR TM TV UG UA AE GB US UY UZ VU VA VE VN YE ZM ZW'.split(' ');
+const fixtureNames=new Intl.DisplayNames(['en'],{type:'region'});
+for(const code of fixtureCodes)if(!overview.countries.some(c=>c.code===code))overview.countries.push({
+  code,name:fixtureNames.of(code),region:'Fixture only',scope:'state-or-observer',
+  relationship:'Fixture only — not a security assessment',isTreatyAlly:false,isMNNA:false,caseCount:0
+});
+assert.equal(overview.countries.length,195,'Complete fixture catalog required by the API gate');
 const globalData={
-  code:'WLD',checkedAt:'',status:'unavailable',covered:0,requested:0,
-  indicators:[],warning:null,source:'World Bank',sourceUrl:'https://data.worldbank.org/',method:'Fixture',
+  code:'WLD',checkedAt:'',status:'unavailable',covered:0,requested:12,
+  indicators:['EG.IMP.CONS.ZS','EG.USE.COMM.FO.ZS','EG.ELC.RNEW.ZS','NY.GDP.TOTL.RT.ZS','NE.TRD.GNFS.ZS','BX.KLT.DINV.WD.GD.ZS','FP.CPI.TOTL.ZG','SL.UEM.TOTL.ZS','NY.GDP.MKTP.KD.ZG','SP.POP.TOTL','SI.POV.GINI','EN.ATM.CO2E.PC'].map((code,i)=>({code,label:'Unavailable fixture series '+(i+1),category:['Energy & resources','Trade & finance','Economy','People & climate'][i<4?0:i<6?1:i<9?2:3],unit:'percent',meaning:'Test-only unavailable observation',value:null,year:null,observationStatus:'unavailable',sourceUrl:'https://data.worldbank.org/'})),warning:null,source:'World Bank',sourceUrl:'https://data.worldbank.org/',method:'Fixture',
 };
 async function waitForServer(){
   for(let attempt=0;attempt<80;attempt++){
@@ -73,7 +82,7 @@ async function qa(page,width){
     else if(path==='/api/intelligence')data={sources:[],records:[],sampled:0,resultsNote:'Fixture only',reviewPolicy:'Fixture only'};
     else if(path==='/api/source-monitor')data={feeds:[],records:[],mode:'fixture',explanation:'Test-only data',nextScan:''};
     else if(path.startsWith('/api/energy-supply/'))data={code:path.split('/').at(-1),status:'unavailable',indicators:[],warning:'Fixture: no observations',location:'Test-only',countryCount:0,checkedAt:null};
-    else if(path.startsWith('/api/global-systems/'))data=globalData;
+    else if(path.startsWith('/api/global-systems/'))data={...globalData,code:path.split('/').at(-1)};
     return route.fulfill({status:200,contentType:'application/json',body:JSON.stringify(data)});
   });
   // Independent resilience telemetry is fixture-backed: CI must not depend
