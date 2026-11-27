@@ -44,17 +44,18 @@ export function parseStatement(text,{account,mode,start,end}){
  if(!Number.isSafeInteger(amount)||amount===0){fail("Zero or invalid amount");continue;}
  const id=col.id<0?"":r[col.id].trim().slice(0,120),fingerprint=JSON.stringify([account,d,desc.toLowerCase().replace(/\s+/g," "),amount]),identity=id?JSON.stringify([account,id]):fingerprint;
  const duplicate=seen.has(identity)||seen.has(fingerprint);seen.set(identity,row);seen.set(fingerprint,row);
- transactions.push({row,date:d,description:desc,amount,identity,fingerprint,duplicate,suggestion:suggest(desc,amount),category:"Unclassified",reviewed:false});
+ transactions.push({row,date:d,description:desc,amount,identity,fingerprint,duplicate,suggestion:suggest(desc,amount),category:"Unclassified",exclusion:null,reviewed:false});
  }
  return {account,start,end,transactions,issues,rowCount:rows.length-1};
 }
 export function reviewRows(statement,prior=[]){
  const known=new Set(prior.flatMap(x=>[x.identity,x.fingerprint]));
- return statement.transactions.map(t=>({...t,duplicate:t.duplicate||known.has(t.identity)||known.has(t.fingerprint)}));
+ return statement.transactions.map(t=>{const overlap=known.has(t.identity)||known.has(t.fingerprint);return {...t,overlap,duplicate:t.duplicate||overlap};});
 }
+export function validReview(t){return t.reviewed&&allowedCategory(t.category,t.amount)&&t.category!=="Unclassified"&&(t.category!=="Exclude"||t.exclusion==="nonposted"||t.exclusion==="within"||(t.exclusion==="overlap"&&t.overlap===true));}
 export function summarize(rows){
  const totals={spend:0,refunds:0,income:0,otherInflow:0,transfer:0,excluded:0,unclassified:0,net:0,byCategory:{}};
- for(const t of rows){if(!t.reviewed||!allowedCategory(t.category,t.amount)||t.category==="Unclassified"){totals.unclassified++;continue;}
+ for(const t of rows){if(!validReview(t)){totals.unclassified++;continue;}
  if(t.category==="Exclude"){totals.excluded++;continue;}totals.net+=t.amount;
  if(t.category==="Transfer"){totals.transfer++;continue;}if(t.category==="Refund"){totals.refunds+=t.amount;continue;}if(t.category==="Income"){totals.income+=t.amount;continue;}if(t.category==="Other inflow"){totals.otherInflow+=t.amount;continue;}
  totals.spend-=t.amount;totals.byCategory[t.category]=(totals.byCategory[t.category]||0)-t.amount;}
@@ -62,14 +63,14 @@ export function summarize(rows){
 }
 export function reconcile(rows,opening,closing,invalidCount=0){
  if(opening===null||closing===null)return {status:"not provided",difference:null};
- if(invalidCount||rows.some(t=>!t.reviewed||t.category==="Unclassified"))return {status:"incomplete review",difference:null};
- // Excluded rows (duplicates or non-posted entries) are not counted; all posted transfers still affect balance.
- const movement=rows.filter(t=>t.category!=="Exclude").reduce((a,t)=>a+t.amount,0);
+ if(invalidCount||rows.some(t=>!validReview(t)))return {status:"incomplete review",difference:null};
+ // Overlap rows are excluded from aggregate spending but still posted in this statement.
+ const movement=rows.filter(t=>t.category!=="Exclude"||t.exclusion==="overlap").reduce((a,t)=>a+t.amount,0);
  const difference=closing-opening-movement;return {status:difference===0?"matched":"mismatch",difference};
 }
 export function recurring(rows){
  const groups=new Map();
- for(const t of rows){if(!t.reviewed||!outflows.has(t.category))continue;const merchant=t.description.toLowerCase().replace(/\s+/g," ").trim();const key=JSON.stringify([t.account,merchant,t.category]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(t);}
+ for(const t of rows){if(!validReview(t)||!outflows.has(t.category))continue;const merchant=t.description.toLowerCase().replace(/\s+/g," ").trim();const key=JSON.stringify([t.account,merchant,t.category]);if(!groups.has(key))groups.set(key,[]);groups.get(key).push(t);}
  const out=[];
  for(const group of groups.values()){group.sort((a,b)=>a.date.localeCompare(b.date));const dates=new Set(group.map(t=>t.date));if(group.length<3||dates.size!==group.length||new Set(group.map(t=>t.date.slice(0,7))).size!==group.length)continue;
  const amounts=group.map(t=>-t.amount),min=Math.min(...amounts),max=Math.max(...amounts);if(max-min>Math.max(100,min*.1))continue;
