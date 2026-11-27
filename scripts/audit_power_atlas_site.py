@@ -98,6 +98,23 @@ def resolve_link(page: Path, raw: str, page_ids: dict[str, set[str]]) -> dict | 
                 return {"kind": "missing_static_target_anchor", "target": raw}
     return None
 
+def has_bug_report(path: Path, page: PageParser) -> bool:
+    # Preserve the original public-page requirement. Private workspaces instead
+    # use the approved local-only reporter, with its required HTML mount.
+    if "bug-report.js" in page.scripts and (path.parent / "bug-report.js").is_file():
+        return True
+    if rel(path) not in {"site/business-intelligence/index.html", "site/personal-intelligence/index.html"}:
+        return False
+    approved = ROOT / "site/private-workspace/bug-report.js"
+    stylesheet = ROOT / "site/private-workspace/bug-report.css"
+    if "private-feedback" not in page.ids or not approved.is_file() or not stylesheet.is_file():
+        return False
+    return ("../private-workspace/bug-report.js" in page.scripts
+            and (path.parent / "../private-workspace/bug-report.js").resolve() == approved.resolve()
+            and any(raw == "../private-workspace/bug-report.css" and tag == "link"
+                    for _, raw, tag in page.links))
+
+
 def audit():
     all_html = sorted(path for p in ("platform/unified", "site", "research/voting-access")
                       for path in (ROOT / p).rglob("*.html"))
@@ -139,7 +156,8 @@ def audit():
                 failures.append({**failure, "page": name, "element": tag})
         if failures:
             broken.extend(failures)
-        if "bug-report.js" not in page.scripts:
+        bug_present = has_bug_report(path, page)
+        if not bug_present:
             missing_bug.append(name)
         pointers = set(resource_pat.findall(html))
         pointer_missing = []
@@ -157,7 +175,7 @@ def audit():
             "path": name, "localReferenceCount": local_assets,
             "allReferencesCount": len(page.links),
             "staticLinksBroken": len(failures),
-            "bugReportScriptPresent": "bug-report.js" in page.scripts,
+            "bugReportScriptPresent": bug_present,
             "dataReferences": sorted(pointers),
             "missingDataReferences": pointer_missing,
             "primaryHeaderPresent": 'id="pa-global-header"' in html,
