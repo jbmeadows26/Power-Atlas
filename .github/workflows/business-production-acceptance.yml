@@ -1,33 +1,103 @@
 name: Business production release integrity
 on:
-  schedule:
-    - cron: '37 6 * * *'
   workflow_dispatch:
   pull_request:
     paths:
       - 'scripts/pages_release_identity.py'
       - 'tests/test_pages_release_identity.py'
+      - 'tests/business-intelligence-browser.cjs'
+      - 'tests/private-vault-browser.cjs'
       - '.github/workflows/business-production-acceptance.yml'
+  schedule:
+    - cron: '37 6 * * *'
+  workflow_run:
+    workflows: ['Publish Power Atlas + Eastern Axis to GitHub Pages']
+    types: [completed]
 permissions:
   contents: read
+concurrency:
+  group: business-production-acceptance
+  cancel-in-progress: false
 jobs:
   identity:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: Test release identity fail-closed behavior
         run: python3 -m unittest discover -s tests -p test_pages_release_identity.py -v
-      - name: Verify deployed release against repository and asset hashes
-        if: github.event_name != 'pull_request'
-        run: |
-          mkdir -p audit-output
-          python3 scripts/pages_release_identity.py verify > audit-output/production-release-integrity.json
-      - uses: actions/upload-artifact@v4
-        if: always() && github.event_name != 'pull_request'
+      - uses: actions/setup-node@v4
         with:
-          name: production-release-integrity
-          path: audit-output/production-release-integrity.json
-          retention-days: 30
+          node-version: '24'
+      - name: Validate live browser harness syntax
+        run: |
+          node --check tests/business-intelligence-browser.cjs
+          node --check tests/private-vault-browser.cjs
+  verify-production:
+    needs: identity
+    if: github.event_name != 'pull_request' && (github.event_name != 'workflow_run' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.head_branch == 'main'))
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      BUSINESS_TEST_URL: https://jbmeadows26.github.io/Power-Atlas/business-intelligence/
+      BUSINESS_PRODUCTION_QA: '1'
+      EXPECTED_SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Select exact published repository revision
+        run: |
+          mkdir -p audit-output/production
+          python3 - <<'PY'
+          import json, os, re
+          from urllib.request import urlopen
+          from pathlib import Path
+          manifest=json.load(urlopen('https://jbmeadows26.github.io/Power-Atlas/release-identity.json',timeout=30))
+          sha=manifest['commit']
+          assert re.fullmatch(r'[0-9a-f]{40}',sha), 'Invalid published identity'
+          expected=os.environ.get('EXPECTED_SHA','')
+          assert not expected or sha==expected, 'Deployment superseded before QA; no acceptance evidence issued'
+          Path('audit-output/production/manifest-before.json').write_text(json.dumps(manifest,indent=2))
+          with open(os.environ['GITHUB_ENV'],'a') as f: f.write('TARGET_SHA='+sha+'\n')
+          PY
+          TARGET_SHA=$(python3 -c 'import json;print(json.load(open("audit-output/production/manifest-before.json"))["commit"])')
+          git merge-base --is-ancestor "$TARGET_SHA" origin/main
+          git checkout --detach "$TARGET_SHA"
+      - name: Verify production bytes before interactions
+        run: python3 scripts/pages_release_identity.py verify --commit "$TARGET_SHA" > audit-output/production/identity-before.json
+      - name: Install real browser engines
+        run: |
+          npm install --prefix "$RUNNER_TEMP/business-production" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/business-production/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Exercise live private workflows and public evidence
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/business-production/node_modules/playwright
+        run: |
+          set -o pipefail
+          date -u +%FT%TZ > audit-output/production/started-at.txt
+          for suite in business-documents-browser business-document-formats-browser business-document-review-browser business-document-twin-browser business-twin-editing-browser business-intelligence-browser private-vault-browser business-command-browser business-public-case-browser; do
+            node "tests/$suite.cjs" 2>&1 | tee "audit-output/production/$suite.log"
+          done
+          date -u +%FT%TZ > audit-output/production/completed-at.txt
+      - name: Require unchanged deployment and record bounded evidence
+        run: |
+          python3 scripts/pages_release_identity.py verify --commit "$TARGET_SHA" > audit-output/production/identity-after.json
+          python3 - <<'PY'
+          import json, os
+          from pathlib import Path
+          p=Path('audit-output/production')
+          evidence={'schema':'eastern-axis.production-acceptance.v1','stage':'production','commit':os.environ['TARGET_SHA'],'deployedCommit':os.environ['TARGET_SHA'],'result':'passed','executedAt':(p/'completed-at.txt').read_text().strip(),'runUrl':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",'scope':'Isolated private test contexts against live production, Chromium/WebKit desktop/mobile; no public feed interception. Does not establish real pilot participation or universal security.','identity':json.loads((p/'identity-after.json').read_text()),'suites':[f.stem for f in sorted(p.glob('*.log'))]}
+          (p/'acceptance-evidence.json').write_text(json.dumps(evidence,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: business-production-evidence-${{ github.run_id }}
+          path: audit-output/
+          retention-days: 14
+          if-no-files-found: warn
