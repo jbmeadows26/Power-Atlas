@@ -1,7 +1,7 @@
 import {useEffect,useId,useMemo,useState} from 'react';
 import {Activity,ArrowUpRight,BarChart3,BookOpenCheck,ChevronDown,Clock3,ShieldCheck,TriangleAlert} from 'lucide-react';
 import {api} from './lib/api';
-import {buildDomainBrief, SNAPSHOT_PATHS, type BriefInput, type EvidenceBrief} from './lib/domainAnalysts';
+import {buildDomainBrief, needsGlobalSystems, SNAPSHOT_PATHS, type BriefInput, type EvidenceBrief} from './lib/domainAnalysts';
 import './analystEvidence.css';
 
 type Case={code?:string;topic?:string;source?:string;title?:string};
@@ -62,9 +62,11 @@ export function useAnalystEvidence({view,focus,country,countryName,horizon,sever
     keys.forEach(([key,path])=>{void load(key,path);});
     return()=>{live=false;controllers.forEach(c=>c.abort());};
   },[tick]);
+  const needsSystems=needsGlobalSystems(view,focus);
   useEffect(()=>{
     let live=true;
     setSystems(undefined);
+    if(!needsSystems)return;
     // WLD is the World Bank's global aggregate; never substitute a country value.
     const queryCountry=country==='all'?'WLD':country;
     api.get('/api/global-systems/'+encodeURIComponent(queryCountry)).then(response=>{
@@ -72,9 +74,9 @@ export function useAnalystEvidence({view,focus,country,countryName,horizon,sever
       if(live&&asObject(value)&&Array.isArray(asObject(value)?.indicators))setSystems({country,data:value});
     }).catch(()=>{if(live)setSystems(undefined);});
     return()=>{live=false;};
-  },[country,tick]);
-  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,horizon,severity,cases,snapshots,systems:systems?.country===country?systems.data:undefined,failures} as BriefInput),
-    [view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures]);
+  },[country,tick,needsSystems]);
+  return useMemo(()=>buildDomainBrief({view,focus,country,countryName,horizon,severity,cases,snapshots,systems:needsSystems&&systems?.country===country?systems.data:undefined,failures} as BriefInput),
+    [view,focus,country,countryName,horizon,severity,cases,snapshots,systems,failures,needsSystems]);
 }
 
 function Sparkline({chart}:{chart:NonNullable<EvidenceBrief['chart']>}){
