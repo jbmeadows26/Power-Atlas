@@ -47,7 +47,7 @@ export function validateProfile(p){
  const topic=p.marketTopic||"";if(topic&&!marketTopics.includes(topic))throw Error("Unknown market topic.");
  return {type:p.type,dependencies,marketTopic:topic,financing:p.financing===true,usDemand:p.usDemand===true};
 }
-function finding(domain,dep,title,status,detail,action,items){return {domain,dependency:dep?.name||null,title,status,detail,action,evidence:items.filter(Boolean)};}
+function finding(domain,dep,title,status,detail,action,items){return {domain,dependencyId:dep?.id||null,dependency:dep?.name||null,title,status,detail,action,evidence:items.filter(Boolean)};}
 export function analyze(data,profile,now=Date.now()){
  const p=validateProfile(profile),out=[],gaps=[];
  data=Object.fromEntries(Object.entries(data||{}).filter(([k,v])=>validFeed(k,v)));
