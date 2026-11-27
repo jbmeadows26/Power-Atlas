@@ -1,0 +1,66 @@
+{
+  "schema": "eastern-axis.production-browser-evidence.v1",
+  "commit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+  "deployedCommit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+  "stage": "production",
+  "result": "passed",
+  "startedAt": "2026-11-27T22:16:42Z",
+  "executedAt": "2026-11-27T22:18:51Z",
+  "productionURL": "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/",
+  "sourceInterception": false,
+  "scope": "Document fact review/correction/rejection/cancellation and twin edit/archive/restore/removal/history/privacy plus business decisions/status/outcomes/export/scenario/procurement/OFAC and vault recovery. Both Chromium and WebKit; document/twin/business320/390/1280, vault390. Synthetic inputs exist only in isolated private browser contexts, never public feeds.",
+  "identity": {
+    "status": "Verified",
+    "commit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+    "verifiedAssets": 44,
+    "scope": "Public release identity and asset integrity only; not workflow or commercial acceptance"
+  },
+  "suites": [
+    {
+      "name": "business-document-review-browser",
+      "harnessSha256": "220d56f27b4fb535aa126010d9b8c777db89631d9b84dc1558fca8f2913ba699",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 fact correction/approval/rejection, encrypted provenance and cancellation passed\nchromium 390 fact correction/approval/rejection, encrypted provenance and cancellation passed\nchromium 1280 fact correction/approval/rejection, encrypted provenance and cancellation passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 fact correction/approval/rejection, encrypted provenance and cancellation passed\nwebkit 390 fact correction/approval/rejection, encrypted provenance and cancellation passed\nwebkit 1280 fact correction/approval/rejection, encrypted provenance and cancellation passed\n"
+    },
+    {
+      "name": "business-twin-editing-browser",
+      "harnessSha256": "27eee952f8612dfcf3d5359bc29df5a0e1fdae4eefa24b67c845af42f7de813b",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 twin edit/archive/restore/inspect/remove/history/privacy passed\nchromium 390 twin edit/archive/restore/inspect/remove/history/privacy passed\nchromium 1280 twin edit/archive/restore/inspect/remove/history/privacy passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 twin edit/archive/restore/inspect/remove/history/privacy passed\nwebkit 390 twin edit/archive/restore/inspect/remove/history/privacy passed\nwebkit 1280 twin edit/archive/restore/inspect/remove/history/privacy passed\n"
+    },
+    {
+      "name": "business-intelligence-browser",
+      "harnessSha256": "2703a17fa86a577a19452fdc3a8e3edec7db95c6aa906d869992fad5855cfe2e",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation chromium 320\nPASS business decisions, outcomes, export and private request isolation chromium 390\nPASS business decisions, outcomes, export and private request isolation chromium 1280\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS business decisions, outcomes, export and private request isolation webkit 320\nPASS business decisions, outcomes, export and private request isolation webkit 390\nPASS business decisions, outcomes, export and private request isolation webkit 1280\n"
+    },
+    {
+      "name": "private-vault-browser",
+      "harnessSha256": "c8528440ab837213a2f186fe97b55fef32a72d89697cb433b5bf0abd0708680e",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy chromium\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nPASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy webkit\n"
+    }
+  ],
+  "screenshots": [
+    "screenshots/business-document-review-browser-chromium-1280.png",
+    "screenshots/business-document-review-browser-chromium-320.png",
+    "screenshots/business-document-review-browser-chromium-390.png",
+    "screenshots/business-document-review-browser-webkit-1280.png",
+    "screenshots/business-document-review-browser-webkit-320.png",
+    "screenshots/business-document-review-browser-webkit-390.png",
+    "screenshots/business-twin-editing-browser-chromium-1280.png",
+    "screenshots/business-twin-editing-browser-chromium-320.png",
+    "screenshots/business-twin-editing-browser-chromium-390.png",
+    "screenshots/business-twin-editing-browser-webkit-1280.png",
+    "screenshots/business-twin-editing-browser-webkit-320.png",
+    "screenshots/business-twin-editing-browser-webkit-390.png",
+    "audit-output/business-intelligence/chromium-1280.png",
+    "audit-output/business-intelligence/chromium-320.png",
+    "audit-output/business-intelligence/chromium-390.png",
+    "audit-output/business-intelligence/webkit-1280.png",
+    "audit-output/business-intelligence/webkit-320.png",
+    "audit-output/business-intelligence/webkit-390.png"
+  ],
+  "limitations": [
+    "WebKit required locally extracted shared libraries; PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS bypassed host ldconfig preflight only. Actual WebKit assertions executed.",
+    "Initial APIRequestContext GET to public HTS failed ECONNREFUSED; retained failed attempt. Retry uses actual same-origin browser fetch, preserving assertions and live reference data.",
+    "No physical-device benchmark, full domain completeness or commercial validation established."
+  ],
+  "failedHarnessAttempt": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\napiRequestContext.get: connect ECONNREFUSED 185.199.109.153:443\nCall log:\n\u001b[2m  - \u2192 GET https://jbmeadows26.github.io/Power-Atlas/business-intelligence/data/hts-index.json\u001b[22m\n\u001b[2m    - user-agent: Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/141.0.7390.37 Safari/537.36\u001b[22m\n\u001b[2m    - accept: */*\u001b[22m\n\u001b[2m    - accept-encoding: gzip,deflate,br\u001b[22m\n\n    at /workspace/scratch/cycle3-production-core/business-intelligence-browser.cjs:20:41 {\n  name: 'Error'\n}\n"
+}

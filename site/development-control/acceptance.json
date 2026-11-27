@@ -76,6 +76,30 @@
       "stage": "production",
       "result": "passed",
       "limitations": "TXT document only; no PDF/XLSX acceptance, physical device test or real commercial outcomes. Bounded request isolation is not a universal security guarantee."
+    },
+    {
+      "id": "production-browser-8f9a2261",
+      "executedAt": "2026-11-27T22:18:51Z",
+      "commit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+      "deployedCommit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+      "artifact": "site/development-control/evidence/production-browser-8f9a2261.json",
+      "method": "Live document fact review, editable twin, business decision/status/outcome/export and vault workflows in Chromium/WebKit. Full logs and retained initial harness network failure are in the artifact.",
+      "scope": "production",
+      "stage": "production",
+      "result": "passed",
+      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions."
+    },
+    {
+      "id": "production-identity-8f9a2261",
+      "executedAt": "2026-11-27T22:18:51Z",
+      "commit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+      "deployedCommit": "8f9a22616d690fc07b9005ab2a0cbe9cf242cb3f",
+      "artifact": "site/development-control/evidence/production-identity-8f9a2261.json",
+      "method": "Independent deployed manifest and 44 published asset hashes verified against exact repository release, including development control.",
+      "scope": "production",
+      "stage": "production",
+      "result": "passed",
+      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions."
     }
   ],
   "releaseGates": [
