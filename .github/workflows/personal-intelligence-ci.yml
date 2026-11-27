@@ -24,7 +24,8 @@ jobs:
       - name: Verify import extraction and package local PDF reader
         run: |
           node --check site/personal-intelligence/import-ui.mjs
-          node --test tests/personal-intelligence-import.test.mjs
+          node --check site/personal-intelligence/transaction-ui.mjs
+          node --test tests/personal-intelligence-import.test.mjs tests/personal-intelligence-transactions.test.mjs
           bash personal-intelligence/backend/prepare-local-reader.sh
       - name: Install mobile and desktop browser engines
         run: |
@@ -38,6 +39,7 @@ jobs:
           for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
           node tests/personal-intelligence-browser.cjs
           node tests/personal-intelligence-import-browser.cjs
+          node tests/personal-intelligence-transactions-browser.cjs
       - name: Preserve rendered mobile and desktop screenshots
         if: always()
         uses: actions/upload-artifact@v4
