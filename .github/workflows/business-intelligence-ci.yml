@@ -1,0 +1,44 @@
+name: Business Intelligence pilot verification
+on:
+  pull_request:
+    paths:
+      - 'site/business-intelligence/**'
+      - 'business-intelligence/**'
+      - 'tests/business-intelligence*'
+      - 'tests/test_business_public_analyst.py'
+      - '.github/workflows/business-intelligence-ci.yml'
+      - '.github/workflows/business-public-analyst.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: |
+          node --check site/business-intelligence/app.mjs
+          node --test tests/business-intelligence.test.mjs
+          python3 -m unittest discover -s tests -p test_business_public_analyst.py -v
+      - name: Install browser regression tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/bi-browser" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/bi-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Validate business workspace on mobile and desktop
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/bi-browser/node_modules/playwright
+        run: |
+          python3 -m http.server 4175 --directory site > /tmp/bi-browser.log 2>&1 &
+          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          node tests/business-intelligence-browser.cjs
+      - if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: business-intelligence-ui-qa
+          path: audit-output/business-intelligence/
+          if-no-files-found: warn
+          retention-days: 7
