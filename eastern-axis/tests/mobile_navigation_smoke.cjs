@@ -63,6 +63,8 @@ async function openWorkspace(page,domain,tab){
   if(tab)await page.locator('.ea-domain-tabs').getByRole('button',{name:tab,exact:true}).click();
 }
 async function qa(page,width){
+  const systemsRequests=[];
+  page.on('request',req=>{if(new URL(req.url()).pathname.startsWith('/api/global-systems/'))systemsRequests.push(req.url());});
   await page.route('**/api/**',route=>{
     const path=new URL(route.request().url()).pathname;
     let data={};
@@ -193,6 +195,7 @@ async function qa(page,width){
   await page.goBack();
   await command.waitFor({state:'visible'});
   assert.equal(page.url(),situationUrl,'Second Back must return to Situation room');
+  assert.deepEqual(systemsRequests,[],'Command navigation must not fetch unused Global Systems data');
   // Switch across major domains using the actual mobile Domains menu or
   // desktop sidebar. Back should bypass the transient chooser.
   await openWorkspace(page,'Geopolitics & Intelligence','Country dossiers');
@@ -204,7 +207,9 @@ async function qa(page,width){
   await page.goBack();
   await page.getByRole('heading',{name:/Country intelligence/i}).waitFor({state:'visible'});
   assert.equal(page.url(),geopoliticsUrl,'Back must return to last domain, not the domain picker');
+  const systemsResponse=page.waitForResponse(r=>new URL(r.url()).pathname.startsWith('/api/global-systems/'),{timeout:20000});
   await openWorkspace(page,'Macroeconomics & Markets','Markets & early warning');
+  assert.equal((await systemsResponse).status(),200,'Economic workspace must retain baseline retrieval');
   const analyst=page.getByRole('region',{name:'AI analyst signal review'});
   await analyst.waitFor({state:'visible'});
   await analyst.locator('.sr-cover-row').first().waitFor({state:'visible',timeout:15000});
