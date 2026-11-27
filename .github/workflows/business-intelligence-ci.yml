@@ -6,6 +6,7 @@ on:
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/test_business_public_analyst.py'
+      - 'tests/test_business_hts_reference.py'
       - '.github/workflows/business-intelligence-ci.yml'
       - '.github/workflows/business-public-analyst.yml'
   workflow_dispatch:
@@ -22,7 +23,9 @@ jobs:
           node-version: '22'
       - run: |
           node --check site/business-intelligence/app.mjs
-          node --test tests/business-intelligence.test.mjs
+          node --test tests/business-intelligence.test.mjs tests/business-intelligence-procurement.test.mjs
+          python3 -m unittest discover -s tests -p test_business_hts_reference.py -v
+          python3 business-intelligence/collect_hts_reference.py --require-available
           python3 -m unittest discover -s tests -p test_business_public_analyst.py -v
       - name: Install browser regression tooling
         run: |
