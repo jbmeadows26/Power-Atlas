@@ -19,7 +19,10 @@ mkdir -p "$OCR/core" "$OCR/lang"
 cp "$TMP/node_modules/tesseract.js/dist/tesseract.min.js" "$TMP/node_modules/tesseract.js/dist/worker.min.js" "$OCR/"
 cp "$TMP/node_modules/tesseract.js-core"/tesseract-core*.wasm* "$OCR/core/"
 cp "$TMP/node_modules/@tesseract.js-data/eng/4.0.0_best_int/eng.traineddata.gz" "$OCR/lang/"
-cp "$TMP/node_modules/tesseract.js/LICENSE" "$OCR/LICENSE-tesseract"
-cp "$TMP/node_modules/tesseract.js-core/LICENSE" "$OCR/LICENSE-core"
+for pkg in tesseract.js tesseract.js-core @tesseract.js-data/eng; do
+  label="${pkg##*/}"
+  license="$(find "$TMP/node_modules/$pkg" -maxdepth 1 -type f -iname 'license*' -print -quit)"
+  if [ -n "$license" ]; then cp "$license" "$OCR/LICENSE-$label"; fi
+done
 test -s "$OCR/lang/eng.traineddata.gz"
 test -s "$OCR/core/tesseract-core-lstm.wasm.js"
