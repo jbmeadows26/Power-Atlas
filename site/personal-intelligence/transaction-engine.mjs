@@ -50,7 +50,8 @@ export function parseStatement(text,{account,mode,start,end}){
 }
 export function reviewRows(statement,prior=[]){
  const known=new Set(prior.flatMap(x=>[x.identity,x.fingerprint]));
- return statement.transactions.map(t=>{const overlap=known.has(t.identity)||known.has(t.fingerprint);return {...t,overlap,duplicate:t.duplicate||overlap};});
+ const posted=new Set(prior.filter(x=>validReview(x)&&x.category!=="Exclude").map(x=>x.fingerprint));
+ return statement.transactions.map(t=>{const overlap=posted.has(t.fingerprint);return {...t,overlap,duplicate:t.duplicate||known.has(t.identity)||known.has(t.fingerprint)};});
 }
 export function validReview(t){return t.reviewed&&allowedCategory(t.category,t.amount)&&t.category!=="Unclassified"&&(t.category!=="Exclude"||t.exclusion==="nonposted"||t.exclusion==="within"||(t.exclusion==="overlap"&&t.overlap===true));}
 export function summarize(rows){
