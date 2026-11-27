@@ -1,6 +1,6 @@
 import {mountPublicIntelligence} from "./public-intelligence.mjs";
 import {commandState,renderCommand,renderPortfolio,elevated} from "./command.mjs";
-import {migrateTwin,includeDependencies,exposureProjection} from "./twin.mjs";
+import {migrateTwin,includeDependencies,exposureProjection,addEntity} from "./twin.mjs";
 import {setupTwin} from "./twin-ui.mjs";
 import {mountForecast} from "./forecast-panel.mjs";
 import {setupDecisions} from "./decision-ui.mjs";
@@ -41,8 +41,6 @@ function render(){
  const items=result?.findings||[],gaps=result?.gaps||[];
  adaptive.setItems(items);
  $("feed-count").textContent=Object.keys(data).length+" / "+Object.keys(feeds).length;$("dep-count").textContent=applied?String(applied.dependencies.length+graphProjection.dependencies.length):"—";$("finding-count").textContent=result?String(items.length):"—";$("gap-count").textContent=result?String(gaps.length):"—";
- const priority=$("priority");priority.replaceChildren();const actionable=items.filter(x=>x.status.includes("watch")||x.status.includes("candidate")||x.status==="Upstream elevated watch");
- if(actionable.length)for(const x of actionable.slice(0,8))priority.append(finding(x));else{const e=el("p",applied?"No matched watch or quote-review candidate in the retrieved evidence. This is not an all-clear.":"Declare actual business dependencies to receive matching intelligence.","empty"),a=el("a","Map exposures ›");a.href="#profile";e.append(document.createElement("br"),a);priority.append(e);}
  const context=$("context");context.replaceChildren();for(const x of publicContext(data)){const n=el("div",undefined,"source");n.append(el("small",x.title),el("h3",x.value));if(x.evidence)n.append(proof(x.evidence));context.append(n);}if(!context.children.length)context.append(el("p","Current public indicators unavailable.","empty"));
  const domain=$("domain"),old=domain.value;domain.replaceChildren();option(domain,"","All domains");for(const x of [...new Set(items.map(r=>r.domain))])option(domain,x,x);domain.value=[...domain.options].some(o=>o.value===old)?old:"";
  const f=$("findings");f.replaceChildren();for(const x of items.filter(x=>!domain.value||x.domain===domain.value))f.append(finding(x));if(!f.children.length)f.append(el("p","No evidence-supported match for this selection.","empty"));
@@ -84,7 +82,7 @@ const businessVault=setupVault({mount:vaultMount,scope:"business",getProfile:()=
 $("clear").addEventListener("click",()=>businessVault.reset());
 
 const documentMount=el("section",undefined,"panel");documentMount.id="business-documents";$("profile").append(documentMount);
-const documents=setupDocuments({mount:documentMount,products,existingProvenance:()=>{try{return profile().dependencies;}catch{return [];}},approve:d=>{if($("dependencies").children.length>=30)throw Error("Remove a dependency first; maximum 30.");dep(d);}});
+const documents=setupDocuments({mount:documentMount,products,existingProvenance:()=>{try{return profile().dependencies;}catch{return [];}},approveEntity:entity=>{twinEditor.restore(addEntity(twinEditor.get(),entity));invalidate();},approve:d=>{if($("dependencies").children.length>=30)throw Error("Remove a dependency first; maximum 30.");dep(d);}});
 $("clear").addEventListener("click",()=>documents.reset());
 
 mountForecast(document.querySelector("#overview"),{getDependencies:()=>applied?[...applied.dependencies,...graphProjection.dependencies]:[]}).then(view=>{forecastView=view;});
