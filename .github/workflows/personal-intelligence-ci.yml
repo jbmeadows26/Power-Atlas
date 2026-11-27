@@ -1,0 +1,22 @@
+name: Personal Intelligence evidence and privacy checks
+on:
+  pull_request:
+    paths:
+      - 'site/personal-intelligence/**'
+      - 'personal-intelligence/**'
+      - 'tests/personal-intelligence.test.mjs'
+      - '.github/workflows/personal-intelligence-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: node --check site/personal-intelligence/app.mjs
+      - run: node --check site/personal-intelligence/engine.mjs
+      - run: node --test tests/personal-intelligence.test.mjs
