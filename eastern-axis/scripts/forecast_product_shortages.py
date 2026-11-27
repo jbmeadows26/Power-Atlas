@@ -13,6 +13,7 @@ import json
 from pathlib import Path
 import re
 from statistics import median
+from math import isfinite
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
 
@@ -103,16 +104,18 @@ def commodity_pressure(metric: dict, today: date) -> dict | None:
         return None
     three_month = (sum(recent)/len(recent)/ (sum(prev)/len(prev))-1)*100 if len(prev)==3 and sum(prev)>0 else 0.0
     annual_median = (value/base-1)*100
-    monthly = float(metric.get("changePct", 0)) if isinstance(metric.get("changePct"), (int, float)) else 0
+    raw_monthly = metric.get("changePct")
+    monthly = (float(raw_monthly) if isinstance(raw_monthly, (int, float))
+               and not isinstance(raw_monthly, bool) and isfinite(raw_monthly) else None)
     # A price change is a SCREEN of possible pressure, never proof of scarcity.
     score = min(40,
         (18 if annual_median >= 20 else 9 if annual_median >= 10 else 0)
         + (16 if three_month >= 12 else 8 if three_month >= 6 else 0)
-        + (6 if monthly >= 8 else 0))
+        + (6 if monthly is not None and monthly >= 8 else 0))
     return {"id":metric.get("id"),"title":metric.get("label"),"publisher":metric.get("source"),
             "url":metric["sourceUrl"],"period":metric["period"],"value":value,
             "unit":metric.get("unit"),"medianPremiumPct":round(annual_median,1),
-            "threeMonthMomentumPct":round(three_month,1),"monthChangePct":round(monthly,1),
+            "threeMonthMomentumPct":round(three_month,1),"monthChangePct":round(monthly,1) if monthly is not None else None,
             "pressureScore":score,"ageDays":age}
 
 
@@ -281,7 +284,14 @@ def forecast(data: dict, portwatch: dict | None = None, *, now: datetime | None 
         else:
             interpretation = "Insufficient product-specific evidence for a directional shortage assessment."
         results.append({"id":product_id,"product":title,"category":category,
-                        "status":status,"screenScore":score,"scoreType":"uncalibrated-triage-not-probability",
+                        "status":status,
+                        "intelligenceClassification":"Scenario",
+                        "forecastStatus":"withheld",
+                        "forecastMessage":"Forecast withheld — insufficient evidence.",
+                        "forecastWithheldReason":"No validated product-level prediction target, historical outcome evaluation or calibrated uncertainty is available; this output is a conditional pressure screen.",
+                        "methodologyVersion":"shortage-pressure-screen-v1",
+                        "predictedOutcome":None,"uncertainty":None,
+                        "screenScore":score,"scoreType":"uncalibrated-triage-not-probability",
                         "planningWindow":horizon,"horizonType":"planning-scenario-not-predicted-onset",
                         "confidence":"limited","coverage":coverage,"modelReviewed":False,
                         "inventorySeriesAvailable":int(stock is not None),

@@ -32,6 +32,24 @@ def data(metrics):
     return {"schemaVersion":1,"checkedAt":"2026-11-21T19:00:00Z","metrics":metrics}
 
 class ShortageSafetyTests(unittest.TestCase):
+    def test_every_screen_explicitly_withholds_unvalidated_forecast(self):
+        result = mod.forecast(data([metric()]), now=NOW)
+        for row in result["forecasts"]:
+            self.assertEqual(row["intelligenceClassification"], "Scenario")
+            self.assertEqual(row["forecastStatus"], "withheld")
+            self.assertEqual(row["forecastMessage"], "Forecast withheld — insufficient evidence.")
+            self.assertIsNone(row["predictedOutcome"])
+            self.assertIsNone(row["uncertainty"])
+
+    def test_missing_invalid_monthly_change_is_not_zero(self):
+        for value in (None, True, float("nan"), float("inf"), "unknown"):
+            observation = metric()
+            observation["changePct"] = value
+            pressure = mod.commodity_pressure(observation, NOW.date())
+            self.assertIsNone(pressure["monthChangePct"])
+        observation["changePct"] = 0
+        self.assertEqual(mod.commodity_pressure(observation, NOW.date())["monthChangePct"], 0)
+
     def test_price_is_not_shortage_or_command_escalation(self):
         result=mod.forecast(data([metric()]),now=NOW)
         fuel=next(r for r in result["forecasts"] if r["id"]=="fuel")
