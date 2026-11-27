@@ -18,3 +18,9 @@ test('approved dependency identity and document provenance survive encrypted rec
  assert.throws(()=>validateProfile({...p,dependencies:[...p.dependencies,...p.dependencies]}),/Duplicate/);
  assert.throws(()=>validateProvenance({...provenance,facts:[{field:'supplier',value:'x',line:0}]}));
 });
+test('PDF page and XLSX cell provenance remain bounded and survive validation',()=>{
+ const base={kind:'document-reviewed',filename:'fixture.xlsx',approvedAt:'2026-11-27T12:00:00Z',facts:[{field:'supplier',value:'Fixture',line:1,location:{sheet:'Purchasing',cells:'A1:B1',line:1}}]};
+ assert.deepEqual(validateProvenance(base).facts[0].location,base.facts[0].location);
+ assert.equal(validateProvenance({...base,facts:[{...base.facts[0],location:{page:2,line:1}}]}).facts[0].location.page,2);
+ assert.throws(()=>validateProvenance({...base,facts:[{...base.facts[0],location:{page:-1}}]}));
+});

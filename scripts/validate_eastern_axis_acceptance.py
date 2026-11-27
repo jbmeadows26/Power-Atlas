@@ -39,6 +39,9 @@ def summarize(data):
         visit(identifier, set())
     counts = {state: 0 for state in STATES}
     results = {}
+    stage_counts = {}
+    criterion_counts = {state: 0 for state in STATES}
+    gate_counts = {state: 0 for state in STATES}
     for requirement in requirements:
         gates = requirement['gates']
         require(len(gates) == 11 and {g['id'] for g in gates} == set(gate_ids), 'Missing or duplicate gate')
@@ -49,6 +52,7 @@ def summarize(data):
             state = record['state']
             require(state in STATES, 'Unknown acceptance state')
             counts[state] += 1
+            (criterion_counts if record in criteria else gate_counts)[state] += 1
             if state == 'Not applicable':
                 require(bool(record.get('reason', '').strip()), 'Inapplicable gate requires rationale')
                 require(record['id'] not in {'G01', 'G09'}, 'Data and deployment gates are mandatory')
@@ -61,18 +65,32 @@ def summarize(data):
                     require(all(e.get(k) for k in ('executedAt', 'commit', 'artifact', 'method', 'scope', 'result')), 'Incomplete evidence')
                     require(e['result'] == 'passed', 'Failed or unexecuted evidence cannot verify')
                     require(len(e['commit']) == 40 and all(c in '0123456789abcdef' for c in e['commit']), 'Evidence needs full commit SHA')
+                    stage = e.get('stage', e['scope'])
+                    require(stage in {'source', 'implemented', 'local', 'ci', 'deployed', 'production', 'commercial'}, 'Unknown evidence stage')
+                    if record.get('stage') == 'production':
+                        require(stage == 'production' and e.get('deployedCommit') == e['commit'], 'Production stage requires deployed evidence')
                     if record['id'] == 'G09':
                         require(e['scope'] == 'production' and e.get('deployedCommit') == e['commit'], 'Deployment requires production SHA match')
+        for record in criteria + gates:
+            if record['state'] == 'Verified':
+                stage = record.get('stage', 'unspecified')
+                stage_counts[stage] = stage_counts.get(stage, 0) + 1
         applicable = [r for r in criteria + gates if r['state'] != 'Not applicable']
         local_pass = bool(applicable) and all(r['state'] == 'Verified' for r in applicable)
-        results[requirement['id']] = {'acceptanceSatisfied': local_pass, 'continuous': requirement['continuous']}
+        # Unit/CI evidence plus deployed bytes does not prove deployed workflows.
+        production_records = criteria + [g for g in gates if g['id'] in {'G02', 'G05', 'G06', 'G07', 'G08', 'G09'}]
+        production_records = [r for r in production_records if r['state'] != 'Not applicable']
+        workflow_proven = all(r['state'] == 'Verified' and r.get('stage') in {'production', 'commercial'} for r in production_records)
+        production_commits = {evidence[ref].get('deployedCommit') for r in production_records for ref in r['evidence']}
+        same_release = bool(production_commits) and None not in production_commits and len(production_commits) == 1
+        results[requirement['id']] = {'acceptanceSatisfied': local_pass, 'productionWorkflowVerified': workflow_proven and same_release, 'continuous': requirement['continuous']}
     # A dependency cannot be hidden by an otherwise successful capability.
     def ready(identifier):
-        return results[identifier]['acceptanceSatisfied'] and all(ready(d) for d in by_id[identifier]['dependencies'])
+        return results[identifier]['acceptanceSatisfied'] and results[identifier]['productionWorkflowVerified'] and all(ready(d) for d in by_id[identifier]['dependencies'])
     for identifier in ids:
         results[identifier]['releaseReady'] = ready(identifier)
         results[identifier]['complete'] = ready(identifier) and not results[identifier]['continuous']
-    return {'states': counts, 'verifiedAcceptanceRecords': counts['Verified'],
+    return {'states': counts, 'criterionStates': criterion_counts, 'gateStates': gate_counts, 'verifiedByStage': stage_counts, 'verifiedAcceptanceRecords': counts['Verified'],
             'applicableAcceptanceRecords': sum(counts.values()) - counts['Not applicable'],
             'notApplicableRecords': counts['Not applicable'], 'requirements': results}
 

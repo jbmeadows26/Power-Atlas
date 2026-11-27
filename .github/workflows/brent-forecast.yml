@@ -1,0 +1,43 @@
+name: Brent benchmark forecast accountability
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '17 8 * * *'
+  pull_request:
+    paths:
+      - 'eastern-axis/scripts/forecast_brent.py'
+      - 'tests/test_brent_forecast.py'
+      - 'site/business-intelligence/forecast-panel.mjs'
+      - '.github/workflows/brent-forecast.yml'
+permissions:
+  contents: write
+concurrency:
+  group: brent-forecast-ledger
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install openpyxl==3.1.5
+      - run: python -m unittest discover -s tests -p test_brent_forecast.py -v
+      - run: python eastern-axis/scripts/forecast_brent.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: brent-evaluation-and-accountability
+          path: |
+            site/business-intelligence/data/brent-forecast.json
+            eastern-axis/public/analysis/brent-forecast-ledger.jsonl
+      - name: Preserve new public accountability events
+        if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+        run: |
+          git add -f site/business-intelligence/data/brent-forecast.json
+          if test -f eastern-axis/public/analysis/brent-forecast-ledger.jsonl; then git add eastern-axis/public/analysis/brent-forecast-ledger.jsonl; fi
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'data: preserve Brent forecast issuance and outcomes'
+          git push origin HEAD:main
