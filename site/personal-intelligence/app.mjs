@@ -1,11 +1,13 @@
+import {setupVault} from "../private-workspace/vault-ui.mjs";
 import {setupAdaptive} from "../private-workspace/adaptive-ui.mjs";
 import {setupImports} from "./import-ui.mjs";
 import {paths,sourcePath,analyze,publicContext,safeLink,money} from "./engine.mjs";
 const $=id=>document.getElementById(id), feed={}, errors={}; let refreshing=false, config=null, session=null;
 const adaptive=setupAdaptive();
+let personalVault=null;
 const fields=["county","household","gross","net","expenses","lines","drives","employed"];
 function profile(){let p={};for(const id of fields){const x=$(id).value;if(x===""||!$(id).validity.valid)continue;p[id]=["gross","net","expenses","lines"].includes(id)?Number(x):["drives","employed"].includes(id)?x==="yes":x;}return p;}
-function restore(p){adaptive.reset();imports.reset();$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
+function restore(p){personalVault?.reset();adaptive.reset();imports.reset();$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
 let category="All",filter="Priority";
 const imports=setupImports({apply(patch){const conflicts=Object.keys(patch).filter(k=>$(k).value!==""&&Number($(k).value)!==patch[k]);if(conflicts.length&&!confirm("Replace the existing selected profile values?"))return false;for(const [k,v] of Object.entries(patch))$(k).value=String(v);return true;},onChange:()=>render()});
 const actual=n=>typeof n==="number"&&Number.isFinite(n)&&n>=0;
@@ -84,3 +86,26 @@ $("watch-refresh").onclick=refreshWatch;
 $("stop-monitor").onclick=async()=>{if(!session)return;try{await api("/rest/v1/pi_profiles?user_id=eq."+encodeURIComponent(session.user.id),{method:"PATCH",headers:{Prefer:"return=minimal"},body:JSON.stringify({monitoring:false})});$("monitoring").checked=false;resetWatch("Monitoring stopped. Previous results are no longer accessible.");status("Monitoring consent withdrawn.");}catch(e){status(e.message);}};
 async function configure(){try{const r=await fetch("./auth-config.json",{cache:"no-store"});if(!r.ok)return;const c=await r.json();if(/^https:\/\/[a-z0-9]+\.supabase\.co$/.test(c.url)&&typeof c.publishableKey==="string"&&c.publishableKey.startsWith("sb_publishable_")){config=c;status("Account service configured. Sign in or create an account.");authUI();}}catch{}}
 render();authUI();refresh();configure();setInterval(()=>{if(document.visibilityState==="visible"){refresh();if(session)refreshWatch();}},300000);
+
+function validateVaultPersonal(value){
+ if(!value||typeof value!=="object"||Array.isArray(value)||Object.getPrototypeOf(value)!==Object.prototype)throw Error("Invalid personal profile backup.");
+ const p={};
+ for(const [key,v] of Object.entries(value)){
+  if(!fields.includes(key))throw Error("Unsupported personal profile field.");
+  if(["gross","net","expenses","lines"].includes(key)){
+   if(typeof v!=="number"||!Number.isFinite(v)||v<0||v>1e12||(key==="lines"&&(!Number.isSafeInteger(v)||v<1)))throw Error("Invalid numeric personal profile value.");
+  }else if(["drives","employed"].includes(key)){
+   if(typeof v!=="boolean")throw Error("Invalid personal profile choice.");
+  }else if(typeof v!=="string"||!v||![...$(key).options].some(o=>o.value===v))throw Error("Invalid personal profile choice.");
+  p[key]=v;
+ }
+ return p;
+}
+function localVaultProfile(){
+ if(!$("profile-form").checkValidity())throw Error("Correct invalid profile inputs before saving.");
+ return profile();
+}
+const vaultMount=node("section","panel");vaultMount.id="personal-vault";
+vaultMount.append(node("p","muted","Local-only profile storage: saves the eight entered household fields, not source documents, reviewed document records, scenario inputs, account credentials or model queries. This is separate from any optional account service and does not start or stop server monitoring. Only explicit account actions send profile data to the private backend."));
+$("profile-screen").querySelector(".profile-grid").after(vaultMount);
+personalVault=setupVault({mount:vaultMount,scope:"personal",getProfile:localVaultProfile,validate:validateVaultPersonal,restore,clearProfile:()=>restore({})});

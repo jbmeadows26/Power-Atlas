@@ -1,0 +1,32 @@
+const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||"playwright");
+const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),root=path.resolve(__dirname,"..");
+(async()=>{for(const type of [chromium,webkit]){const browser=await type.launch();try{
+ const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true}),page=await ctx.newPage(),requests=[],errors=[];
+ page.on("request",r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));page.on("pageerror",e=>errors.push(String(e)));
+ await page.route("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/**",async route=>{const rel=route.request().url().split("/main/")[1],file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.abort();await route.fulfill({contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:fs.readFileSync(file)});});
+ await page.goto("http://127.0.0.1:4175/personal-intelligence/#profile");
+ const vault=page.locator("#personal-vault"),pass=page.locator("#personal-vault-pass"),repeat=page.locator("#personal-vault-confirm"),status=page.locator("#personal-vault-status"),password="QA local household passphrase 7349";
+ const wait=async phrase=>{await page.waitForFunction(s=>document.querySelector("#personal-vault-status").textContent.includes(s),phrase);};
+ const click=async(name,accept=false)=>{if(accept)page.once("dialog",d=>d.accept());await vault.getByRole("button",{name,exact:true}).click();};
+ const stored=async scope=>page.evaluate(async s=>{const {readVault}=await import("../private-workspace/vault-core.mjs");return readVault(s);},scope);
+ await vault.waitFor({state:"visible"});
+ await page.locator("#county").selectOption("34003");await page.locator("#household").selectOption("one-adult-0");await page.locator("#gross").fill("98765");await page.locator("#net").fill("4321");await page.locator("#expenses").fill("0");await page.locator("#lines").fill("2");await page.locator("#drives").selectOption("no");await page.locator("#employed").selectOption("yes");
+ await pass.fill(password);await repeat.fill("wrong");await click("Save encrypted profile");await wait("Passphrases do not match");assert.equal(await stored("personal"),null);
+ await pass.fill(password);await repeat.fill(password);await click("Save encrypted profile",true);await wait("Encrypted profile saved");assert.equal(await pass.inputValue(),"");assert.equal(await repeat.inputValue(),"");
+ const envelope=await stored("personal");assert.ok(envelope.ciphertext);assert.equal(await stored("business"),null);assert.ok(!JSON.stringify(envelope).includes(password));
+ const downloadPromise=page.waitForEvent("download");await click("Export encrypted backup");const download=await downloadPromise;const backup=fs.readFileSync(await download.path(),"utf8");assert.deepEqual(JSON.parse(backup),envelope);
+ await click("Lock and clear open profile",true);await wait("Open profile cleared");assert.equal(await page.locator("#gross").inputValue(),"");assert.equal(await page.locator("#drives").inputValue(),"");assert.deepEqual(await stored("personal"),envelope);
+ await page.reload();await vault.waitFor({state:"visible"});assert.equal(await page.locator("#gross").inputValue(),"");
+ await pass.fill("incorrect test password");await click("Restore saved profile");await wait("Could not unlock vault");assert.equal(await page.locator("#gross").inputValue(),"");
+ await pass.fill(password);await click("Restore saved profile",true);await wait("Saved profile restored");assert.equal(await page.locator("#gross").inputValue(),"98765");assert.equal(await page.locator("#net").inputValue(),"4321");assert.equal(await page.locator("#expenses").inputValue(),"0");assert.equal(await page.locator("#drives").inputValue(),"no");assert.equal(await page.locator("#employed").inputValue(),"yes");
+ await click("Delete saved encrypted profile",true);await wait("Saved encrypted profile deleted");assert.equal(await stored("personal"),null);assert.equal(await page.locator("#net").inputValue(),"4321");
+ await page.locator("#clear").click();await pass.fill(password);await page.locator("#personal-vault-file").setInputFiles({name:"encrypted-profile.json",mimeType:"application/json",buffer:Buffer.from(backup)});await click("Restore encrypted backup",true);await wait("Backup restored in this tab");assert.equal(await page.locator("#gross").inputValue(),"98765");assert.equal(await stored("personal"),null);
+ // Encrypted but schema-invalid payloads and cross-workspace envelopes must not restore.
+ const invalid=await page.evaluate(async p=>{const {seal}=await import("../private-workspace/vault-core.mjs");return seal("personal",{gross:123,unknown:"not accepted"},p);},password);
+ await pass.fill(password);await page.locator("#personal-vault-file").setInputFiles({name:"invalid.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(invalid))});await click("Restore encrypted backup");await wait("Unsupported personal profile field");assert.equal(await page.locator("#gross").inputValue(),"98765");
+ const wrongScope=await page.evaluate(async p=>{const {seal}=await import("../private-workspace/vault-core.mjs");return seal("business",{type:"importer"},p);},password);
+ await pass.fill(password);await page.locator("#personal-vault-file").setInputFiles({name:"wrong-scope.json",mimeType:"application/json",buffer:Buffer.from(JSON.stringify(wrongScope))});await click("Restore encrypted backup");await wait("Unsupported vault or wrong workspace");assert.equal(await page.locator("#gross").inputValue(),"98765");
+ assert.ok(requests.every(x=>x.method==="GET"&&!x.body&&!x.url.includes(password)&&!x.url.includes("98765")));assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);assert.deepEqual(errors,[]);assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));
+ console.log("PASS personal local profile encryption, backup, reload, zero/false restore, schema rejection and scope isolation",type.name());
+ await ctx.close();
+ }finally{await browser.close();}}})().catch(e=>{console.error(e);process.exit(1);});

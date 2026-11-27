@@ -6,6 +6,7 @@ on:
       - 'site/**'
       - 'adaptive-intelligence/**'
       - 'tests/adaptive-intelligence*'
+      - 'tests/private-vault*'
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/test_business_hts_reference.py'
@@ -170,6 +171,13 @@ jobs:
           node --test tests/adaptive-intelligence.test.mjs
           bash adaptive-intelligence/prepare-assets.sh
           node tests/adaptive-intelligence-browser.cjs
+      - name: Verify encrypted local profile storage before publishing
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+        run: |
+          node --test tests/private-vault.test.mjs
+          node tests/private-vault-browser.cjs
+          node tests/private-vault-personal-browser.cjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
@@ -218,6 +226,12 @@ jobs:
       - name: Verify published Adaptive Intelligence model manifest
         run: |
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/private-workspace/adaptive-assets/manifest.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and d["model"]=="Xenova/all-MiniLM-L6-v2" and d["bytes"]>20000000; print(d["runtime"],d["bytes"])'
+      - name: Verify published local vault modules
+        run: |
+          for file in private-workspace/vault-core.mjs private-workspace/vault-ui.mjs business-intelligence/app.mjs personal-intelligence/app.mjs; do
+            curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/$file?release=$GITHUB_SHA" -o /tmp/published-vault-module.mjs
+            cmp "/tmp/published-vault-module.mjs" "site/$file"
+          done
       - name: Install WebKit production QA
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1

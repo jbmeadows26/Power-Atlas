@@ -5,6 +5,7 @@ on:
       - 'site/private-workspace/vault-core.mjs'
       - 'site/private-workspace/vault-ui.mjs'
       - 'site/business-intelligence/**'
+      - 'site/personal-intelligence/**'
       - 'tests/private-vault*'
       - '.github/workflows/private-vault-ci.yml'
   workflow_dispatch:
@@ -30,3 +31,4 @@ jobs:
           python3 -m http.server 4175 --directory site > /tmp/vault-browser.log 2>&1 &
           for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
           node tests/private-vault-browser.cjs
+          node tests/private-vault-personal-browser.cjs
