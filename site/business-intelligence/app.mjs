@@ -1,5 +1,6 @@
 import {migrateTwin,includeDependencies,exposureProjection} from "./twin.mjs";
 import {setupTwin} from "./twin-ui.mjs";
+import {mountForecast} from "./forecast-panel.mjs";
 import {setupDecisions} from "./decision-ui.mjs";
 import {validateDecisions} from "./decisions.mjs";
 import {setupDocuments} from "./documents.mjs";
@@ -82,3 +83,5 @@ $("clear").addEventListener("click",()=>businessVault.reset());
 const documentMount=el("section",undefined,"panel");documentMount.id="business-documents";$("profile").append(documentMount);
 const documents=setupDocuments({mount:documentMount,products,approve:d=>{if($("dependencies").children.length>=30)throw Error("Remove a dependency first; maximum 30.");dep(d);}});
 $("clear").addEventListener("click",()=>documents.reset());
+
+mountForecast(document.querySelector("#overview"));
