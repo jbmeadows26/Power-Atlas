@@ -66,6 +66,8 @@ export function setupImports({apply,onChange}){
    discard();status("Selected facts applied. Raw source discarded. Review your decisions.");list();onChange();
   }catch(e){status(e.message);}
  };
+ // Editing a source invalidates any earlier extraction or in-flight result.
+ for(const id of ["import-file","import-text","import-kind","import-label"]){$(id).addEventListener("input",()=>{generation++;candidates=[];meta=null;review();$("import-extract").disabled=false;status("Source changed. Extract facts again before confirming.");});}
  $("import-discard").onclick=discard;
  $("import-clear").onclick=()=>{records=[];discard();list();onChange();};
  list();
