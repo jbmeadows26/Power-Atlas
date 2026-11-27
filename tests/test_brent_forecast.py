@@ -8,12 +8,12 @@ ROOT=Path(__file__).resolve().parents[1]
 spec=importlib.util.spec_from_file_location('brent',ROOT/'eastern-axis/scripts/forecast_brent.py');m=importlib.util.module_from_spec(spec);spec.loader.exec_module(m)
 class BrentTests(unittest.TestCase):
  def setUp(self):
-  self.source=json.loads((ROOT/'eastern-axis/public/analysis/physical-early-warning.json').read_text())
-  self.source['checkedAt']='2026-11-27T00:00:00Z'
-  self.history=next(x for x in self.source['metrics'] if x['id']=='worldbank-brent')['history']
+  # Synthetic sequence is isolated to automated tests, never a published observation.
+  self.history=[{'period':m.month_name(m.month_index('2023-11')+i),'value':50.0+i+(i%4)} for i in range(36)]
+  self.source={'checkedAt':'2026-11-27T00:00:00Z','metrics':[{'id':'worldbank-brent','source':'World Bank Pink Sheet','sourceUrl':m.SOURCE,'unit':'$/bbl','period':'2026-10','value':self.history[-1]['value'],'history':self.history}]}
   self.proof={'historyHash':m.digest(self.history),'sha256':'fixture-only'}
  def report(self):return m.build(self.source,'2026-11-27T12:00:00Z',self.proof)
- def test_actual_retained_history_evaluation_and_no_superiority_claim(self):
+ def test_chronological_evaluation_and_baseline_comparison(self):
   r=self.report();self.assertEqual(r['targetPeriod'],'2026-12');self.assertEqual(r['evaluation']['origins'],23)
   self.assertEqual(r['evaluation']['beatsPersistence'],r['evaluation']['mae']<r['evaluation']['persistenceMae'])
  def test_no_lookahead(self):
@@ -31,11 +31,11 @@ class BrentTests(unittest.TestCase):
   with tempfile.TemporaryDirectory() as tmp:
    path=Path(tmp)/'events.jsonl';r=self.report();self.assertEqual(m.append_events(path,r,self.source),1)
    old=path.read_bytes();self.assertEqual(m.append_events(path,r,self.source),0);self.assertEqual(path.read_bytes(),old)
-   path.write_text(path.read_text().replace('110.9','999.9'))
+   tampered=json.loads(path.read_text());tampered['forecast']['predicted']=999.9;path.write_text(json.dumps(tampered)+'\n')
    with self.assertRaises(ValueError):m.append_events(path,r,self.source)
  def test_outcomes_append_without_changing_issued_forecast(self):
   with tempfile.TemporaryDirectory() as tmp:
    path=Path(tmp)/'events.jsonl';r=self.report();m.append_events(path,r,self.source);old=path.read_bytes()
    later=deepcopy(r);later['forecastId']='test-next-issue';later['supportingObservations'].append({'period':'2026-12','value':150});later['createdAt']='2027-01-20T00:00:00Z'
    self.assertEqual(m.append_events(path,later,self.source),2);self.assertTrue(path.read_bytes().startswith(old))
-   event=json.loads(path.read_text().splitlines()[1]);self.assertEqual(event['kind'],'outcome');self.assertAlmostEqual(event['absoluteError'],39.1)
+   event=json.loads(path.read_text().splitlines()[1]);self.assertEqual(event['kind'],'outcome');self.assertAlmostEqual(event['absoluteError'],abs(150-r['predicted']))
