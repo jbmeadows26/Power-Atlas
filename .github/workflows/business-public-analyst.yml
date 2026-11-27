@@ -1,0 +1,35 @@
+name: Business intelligence public analyst gateway pilot
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'business-intelligence/public_analyst.py'
+      - '.github/workflows/business-public-analyst.yml'
+permissions:
+  contents: read
+concurrency:
+  group: business-public-analyst
+  cancel-in-progress: true
+jobs:
+  local-review:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 -m unittest discover -s tests -p test_business_public_analyst.py -v
+      - run: python3 business-intelligence/public_analyst.py prepare --directory "$RUNNER_TEMP/business-public-review"
+      - uses: ./.github/actions/free-model
+        with:
+          prompt-file: ${{ runner.temp }}/business-public-review/prompt.txt
+          output: ${{ runner.temp }}/business-public-review/gateway.json
+          profile: extraction
+          max-tokens: '256'
+          allow-hosted: 'false'
+      - run: python3 business-intelligence/public_analyst.py validate --directory "$RUNNER_TEMP/business-public-review"
+      - if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: business-public-evidence-review
+          path: ${{ runner.temp }}/business-public-review/review.json
+          retention-days: 7
