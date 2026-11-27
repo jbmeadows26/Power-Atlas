@@ -2,7 +2,7 @@
 Not compliance clearance; identity must be independently verified.
 Public source data only; supplier inputs are never used for retrieval.
 """
-import datetime as dt, hashlib, json, re, urllib.request, xml.etree.ElementTree as ET
+import datetime as dt, hashlib, json, re, urllib.request, urllib.error, urllib.parse, xml.etree.ElementTree as ET
 from pathlib import Path
 BASE="https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/"
 SOURCES={"SDN":BASE+"SDN.XML","Consolidated":BASE+"CONSOLIDATED.XML"}
@@ -11,13 +11,42 @@ MAX_BYTES=120*1024*1024
 NS="{https://sanctionslistservice.ofac.treas.gov/api/PublicationPreview/exports/XML}"
 def get(node,name):
     return (node.findtext(NS+name) or "").strip()
+# Observed on both official PublicationPreview XML endpoints. Never accept
+# arbitrary Amazon buckets or replay previously issued signed URLs.
+PUBLISHED_HOST="wc2h-sls-prod-public-published.s3.us-gov-west-1.amazonaws.com"
+class NoRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self,*args,**kwargs): return None
+def permitted_redirect(target,filename):
+    try:
+        u=urllib.parse.urlsplit(target)
+        if u.scheme!="https" or u.netloc!=PUBLISHED_HOST or u.fragment or not u.query: return False
+        guid=r"[0-9a-fA-F]{8}-(?:[0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}"
+        return bool(re.fullmatch(r"/Published/"+guid+r"/\d{4}-\d{2}-\d{2}/"+guid+"/"+re.escape(filename),u.path))
+    except ValueError: return False
 def read(url):
-    req=urllib.request.Request(url,headers={"User-Agent":"Eastern Axis business research pilot/1.0","Accept":"application/xml"})
-    with urllib.request.urlopen(req,timeout=70) as r:
-        if not r.geturl().startswith(BASE): raise ValueError("Unexpected source redirect")
-        raw=r.read(MAX_BYTES+1)
-    if len(raw)>MAX_BYTES: raise ValueError("Source too large")
-    return raw
+    if url not in SOURCES.values(): raise ValueError("Unapproved source")
+    filename=url.rsplit("/",1)[-1]
+    headers={"User-Agent":"Eastern Axis business research pilot/1.0","Accept":"application/xml"}
+    opener=urllib.request.build_opener(NoRedirect())
+    def download(response):
+        with response:
+            raw=response.read(MAX_BYTES+1)
+        if len(raw)>MAX_BYTES: raise ValueError("Source too large")
+        return raw
+    try:
+        return download(opener.open(urllib.request.Request(url,headers=headers),timeout=70))
+    except urllib.error.HTTPError as e:
+        code=e.code;target=e.headers.get("Location","");e.close()
+        if code not in (301,302,303,307,308): raise ValueError("Official source HTTP "+str(code)) from None
+        if not permitted_redirect(target,filename): raise ValueError("Unapproved OFAC publication redirect") from None
+    # Only a freshly issued HTTPS URL from the official endpoint, exact observed
+    # publication bucket/path and requested filename. No subsequent redirects.
+    try:
+        return download(opener.open(urllib.request.Request(target,headers=headers),timeout=70))
+    except urllib.error.HTTPError as e:
+        code=e.code;e.close();raise ValueError("Publication download HTTP "+str(code)) from None
+    except (urllib.error.URLError,TimeoutError,ValueError):
+        raise ValueError("Publication download unavailable") from None
 def parse(raw,kind,now):
     if re.search(br"<!DOCTYPE|<!ENTITY",raw,re.I): raise ValueError("DTD prohibited")
     root=ET.fromstring(raw)
@@ -59,7 +88,7 @@ def collect(directory):
         except Exception as e:
             data["sources"][kind]={"status":"unavailable","source":url,"error":type(e).__name__}
             # Public source diagnostics only; no payload, private query, or credentials.
-            print(kind, "collection error:", type(e).__name__, str(e)[:180])
+            print(kind, "collection error:", type(e).__name__, str(e)[:180] if type(e) is ValueError else "source request or parsing failed")
         print(kind,data["sources"][kind]["status"],data["sources"][kind].get("organizationEntries"))
     (directory/"ofac-organizations.json").write_text(json.dumps(data,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
     return data

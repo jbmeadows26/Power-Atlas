@@ -2,7 +2,7 @@
 from pathlib import Path
 import json
 import unittest
-from scripts.audit_power_atlas_site import audit, resolve_link, PageParser, ROOT
+from scripts.audit_power_atlas_site import audit, resolve_link, has_bug_report, PageParser, ROOT
 
 CATALOG = ROOT / "data/health/sitewide-missing-sources-v1.json"
 EXPECTED = {"housing", "groceries", "energy", "health", "work", "schools",
@@ -74,6 +74,27 @@ class SitewideAuditTests(unittest.TestCase):
         self.assertTrue(local)
         self.assertTrue(all(r["usdByBedroom"]["1"] > 0 and r["usdByBedroom"]["2"] > 0 for r in local))
         self.assertEqual(self.report["sourceIntegrity"]["unresolvedGapCount"], 55)
+
+    def test_private_reporter_requires_approved_assets_and_mount(self):
+        for name in ("business-intelligence", "personal-intelligence"):
+            path = ROOT / "site" / name / "index.html"
+            page = PageParser()
+            page.feed(path.read_text(encoding="utf-8"))
+            self.assertTrue(has_bug_report(path, page))
+            page.ids.discard("private-feedback")
+            self.assertFalse(has_bug_report(path, page))
+            page.ids.add("private-feedback")
+            page.scripts = ["https://example.org/bug-report.js"]
+            self.assertFalse(has_bug_report(path, page))
+            page.scripts = ["../private-workspace/bug-report.js"]
+            page.links = []
+            self.assertFalse(has_bug_report(path, page))
+        public = ROOT / "site/index.html"
+        page = PageParser()
+        page.feed(public.read_text(encoding="utf-8"))
+        self.assertTrue(has_bug_report(public, page))
+        page.scripts = ["../private-workspace/bug-report.js"]
+        self.assertFalse(has_bug_report(public, page))
 
     def test_static_url_resolution(self):
         p = ROOT / "platform/unified/my-life.html"
