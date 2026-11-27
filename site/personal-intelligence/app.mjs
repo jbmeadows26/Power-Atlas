@@ -1,9 +1,11 @@
+import {setupAdaptive} from "../private-workspace/adaptive-ui.mjs";
 import {setupImports} from "./import-ui.mjs";
 import {paths,sourcePath,analyze,publicContext,safeLink,money} from "./engine.mjs";
 const $=id=>document.getElementById(id), feed={}, errors={}; let refreshing=false, config=null, session=null;
+const adaptive=setupAdaptive();
 const fields=["county","household","gross","net","expenses","lines","drives","employed"];
 function profile(){let p={};for(const id of fields){const x=$(id).value;if(x===""||!$(id).validity.valid)continue;p[id]=["gross","net","expenses","lines"].includes(id)?Number(x):["drives","employed"].includes(id)?x==="yes":x;}return p;}
-function restore(p){imports.reset();$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
+function restore(p){adaptive.reset();imports.reset();$("alternative").value="";$("alternative-source").value="";for(const id of fields){const x=p?.[id];$(id).value=x===true?"yes":x===false?"no":x??"";}render();}
 let category="All",filter="Priority";
 const imports=setupImports({apply(patch){const conflicts=Object.keys(patch).filter(k=>$(k).value!==""&&Number($(k).value)!==patch[k]);if(conflicts.length&&!confirm("Replace the existing selected profile values?"))return false;for(const [k,v] of Object.entries(patch))$(k).value=String(v);return true;},onChange:()=>render()});
 const actual=n=>typeof n==="number"&&Number.isFinite(n)&&n>=0;
@@ -27,6 +29,7 @@ function scenario(){const p=profile(),n=p.net,e=p.expenses,alt=$("alternative").
 }
 function render(){
  const p=profile(),ctx=publicContext(feed),decisions=[...analyze(feed,p),...imports.findings()],hasCash=actual(p.net)&&actual(p.expenses),pct=hasCash&&p.net>0?(p.net-p.expenses)/p.net*100:null;
+ adaptive.setItems([...decisions,...ctx]);
  show("income-val",actual(p.net)?money(p.net):"—");show("expense-val",actual(p.expenses)?money(p.expenses):"—");show("cash-margin",pct===null?"—":Math.round(pct)+"%");
  const scale=Math.max(actual(p.net)?p.net:0,actual(p.expenses)?p.expenses:0,1);$("income-meter").value=actual(p.net)?100*p.net/scale:0;$("expense-meter").value=actual(p.expenses)?100*p.expenses/scale:0;
  const completeness=Math.round(Object.keys(p).length/fields.length*100);show("complete-val",completeness+"%");$("complete-meter").value=completeness;

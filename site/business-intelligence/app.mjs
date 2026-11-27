@@ -1,8 +1,10 @@
+import {setupAdaptive} from "../private-workspace/adaptive-ui.mjs";
 import {setupSuppliers} from "./suppliers.mjs";
 import {setupProcurement} from "./procurement.mjs";
 import {feeds,products,corridors,marketTopics,validFeed,validateProfile,analyze,publicContext,currency,scenario} from "./engine.mjs";
 const $=id=>document.getElementById(id),data={},errors={};
 let applied=null,result=null,busy=false,serial=0;
+const adaptive=setupAdaptive();
 const procurement=setupProcurement();let procurementLoaded=false;
 const suppliers=setupSuppliers();let suppliersLoaded=false;
 function el(tag,value,cls){const n=document.createElement(tag);if(value!==undefined)n.textContent=value;if(cls)n.className=cls;return n;}
@@ -26,6 +28,7 @@ function finding(x){const box=el("details",undefined,"finding"),s=el("summary");
 function render(){
  if(applied){try{result=analyze(data,applied);}catch{result=null;$("profile-status").textContent="Source format changed. Analysis unavailable; no findings inferred.";}}
  const items=result?.findings||[],gaps=result?.gaps||[];
+ adaptive.setItems(items);
  $("feed-count").textContent=Object.keys(data).length+" / "+Object.keys(feeds).length;$("dep-count").textContent=applied?String(applied.dependencies.length):"—";$("finding-count").textContent=result?String(items.length):"—";$("gap-count").textContent=result?String(gaps.length):"—";
  const priority=$("priority");priority.replaceChildren();const actionable=items.filter(x=>x.status.includes("watch")||x.status.includes("candidate")||x.status==="Upstream elevated watch");
  if(actionable.length)for(const x of actionable.slice(0,8))priority.append(finding(x));else{const e=el("p",applied?"No matched watch or quote-review candidate in the retrieved evidence. This is not an all-clear.":"Declare actual business dependencies to receive matching intelligence.","empty"),a=el("a","Map exposures ›");a.href="#profile";e.append(document.createElement("br"),a);priority.append(e);}
@@ -41,6 +44,6 @@ async function refresh(){if(busy)return;busy=true;$("refresh").disabled=true;$("
 for(const t of marketTopics)option($("market-topic"),t,t);
 for(const id of ["business-type","market-topic","financing","us-demand"])$(id).addEventListener("input",invalidate);
 $("add").onclick=dep;$("apply").onclick=()=>{try{applied=profile();$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
-$("clear").onclick=()=>{procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
+$("clear").onclick=()=>{adaptive.reset();procurement.reset();suppliers.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);

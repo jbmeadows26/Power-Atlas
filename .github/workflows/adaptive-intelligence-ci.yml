@@ -1,0 +1,39 @@
+name: Adaptive Intelligence on-device verification
+on:
+  pull_request:
+    paths:
+      - 'adaptive-intelligence/**'
+      - 'site/private-workspace/adaptive*'
+      - 'site/business-intelligence/**'
+      - 'site/personal-intelligence/**'
+      - 'tests/adaptive-intelligence*'
+      - '.github/workflows/adaptive-intelligence-ci.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify bounded local ranking and install pinned model
+        run: |
+          node --check site/private-workspace/adaptive-worker.mjs
+          node --check site/private-workspace/adaptive-ui.mjs
+          node --test tests/adaptive-intelligence.test.mjs
+          bash adaptive-intelligence/prepare-assets.sh
+      - name: Install test browsers
+        run: |
+          npm install --prefix "$RUNNER_TEMP/adaptive-browser" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/adaptive-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Verify real local inference without network and explicit consent
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/adaptive-browser/node_modules/playwright
+        run: |
+          python3 -m http.server 4175 --directory site > /tmp/adaptive-browser.log 2>&1 &
+          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/business-intelligence/ >/dev/null && break; sleep 1; done
+          node tests/adaptive-intelligence-browser.cjs
