@@ -58,6 +58,8 @@ def collect(directory):
             data["sources"][kind]={"status":"available",**parse(read(url),kind,checked.date())}
         except Exception as e:
             data["sources"][kind]={"status":"unavailable","source":url,"error":type(e).__name__}
+            # Public source diagnostics only; no payload, private query, or credentials.
+            print(kind, "collection error:", type(e).__name__, str(e)[:180])
         print(kind,data["sources"][kind]["status"],data["sources"][kind].get("organizationEntries"))
     (directory/"ofac-organizations.json").write_text(json.dumps(data,ensure_ascii=False,separators=(",",":")),encoding="utf-8")
     return data
