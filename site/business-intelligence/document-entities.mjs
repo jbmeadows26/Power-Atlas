@@ -1,0 +1,16 @@
+// Explicit user mapping of approved facts. No source relationships are inferred.
+import {validateProvenance,validateReviewedFacts} from './documents.mjs';
+const types=['supplier','product','inventory','contract','logistics','financial'];
+const mappings={supplier:{country:'location'},product:{'unit price':'unitPrice',price:'unitPrice'},inventory:{quantity:'quantity','inventory quantity':'quantity','reorder point':'reorderPoint','unit price':'unitPrice'},contract:{'renewal date':'renewalDate','delivery date':'deliveryDate','contract obligation':'obligation','renewal condition':'obligation'},logistics:{carrier:'carrier',port:'port','delivery date':'deliveryDate'},financial:{'monthly cost':'monthlyCost'}};
+export function buildApprovedEntity({type,name,unit='',currency='',provenance},now=new Date().toISOString(),id=crypto.randomUUID()){
+ if(!types.includes(type)||typeof name!=='string'||!name.trim()||name.trim().length>160)throw Error('Choose an entity type and a name under 160 characters.');
+ const facts=validateReviewedFacts(provenance?.reviewedFacts||[]).filter(f=>f.state==='approved');if(!facts.length)throw Error('Approve relevant individual facts before creating an entity.');
+ const attributes={},sources={};
+ for(const fact of facts){const key=mappings[type][fact.field];if(!key)continue;let value=fact.value.trim();if(['quantity','reorderPoint','unitPrice','monthlyCost'].includes(key)){if(!/^(?:0|[1-9]\d*)(?:\.\d+)?$/.test(value)||!Number.isFinite(Number(value))||Number(value)>1e12)throw Error('Ambiguous numeric '+fact.field+': approve a plain nonnegative decimal without separators or symbols.');value=Number(value);}if(['renewalDate','deliveryDate'].includes(key)&&(!/^\d{4}-\d{2}-\d{2}$/.test(value)||!Number.isFinite(Date.parse(value))||new Date(value).toISOString().slice(0,10)!==value))throw Error('Approve '+fact.field+' as an unambiguous YYYY-MM-DD date.');if(attributes[key]!==undefined&&attributes[key]!==value)throw Error('Conflicting approved '+key+' values. Reject or correct alternatives before mapping this entity.');attributes[key]=value;(sources[key]??=[]).push({field:fact.field,line:fact.line});}
+ const identity=type==='supplier'?facts.some(f=>['supplier','vendor'].includes(f.field)):type==='product'?facts.some(f=>['product','sku','material'].includes(f.field)):false;
+ if(!Object.keys(attributes).length&&!identity)throw Error('No approved facts map to this entity type. Choose a supported type or enter a declared record in My Business.');
+ if(attributes.quantity!==undefined||attributes.reorderPoint!==undefined){if(typeof unit!=='string'||!unit.trim()||unit.length>80)throw Error('Declare the quantity unit explicitly before mapping inventory.');attributes.unit=unit.trim();}
+ if(attributes.unitPrice!==undefined||attributes.monthlyCost!==undefined){if(typeof currency!=='string'||! /^[A-Z]{3}$/.test(currency))throw Error('Declare a three-letter uppercase currency before mapping costs.');attributes.currency=currency;}
+ const p=validateProvenance(provenance);p.entityMapping={type,name:name.trim(),unit:attributes.unit||null,currency:attributes.currency||null,approvedAt:now,attributeSources:sources,classification:'explicit-user-approved-mapping'};
+ return {id,type,name:name.trim(),origin:'approved-document',provenance:p,attributes,exposure:{country:'',product:'',corridor:''}};
+}

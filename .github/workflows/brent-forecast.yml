@@ -6,6 +6,8 @@ on:
   pull_request:
     paths:
       - 'eastern-axis/scripts/forecast_brent.py'
+      - 'eastern-axis/scripts/forecast_governance.py'
+      - 'tests/test_forecast_governance.py'
       - 'tests/test_brent_forecast.py'
       - 'site/business-intelligence/forecast-panel.mjs'
       - '.github/workflows/brent-forecast.yml'
@@ -24,6 +26,7 @@ jobs:
           python-version: '3.12'
       - run: pip install openpyxl==3.1.5
       - run: python -m unittest discover -s tests -p test_brent_forecast.py -v
+      - run: python -m unittest discover -s tests -p test_forecast_governance.py -v
       - run: python eastern-axis/scripts/forecast_brent.py
       - uses: actions/upload-artifact@v4
         with:

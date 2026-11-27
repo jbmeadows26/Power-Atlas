@@ -411,5 +411,25 @@
     "radius": 26.96666666666667,
     "upper": 137.86666666666667
   },
-  "unit": "$/bbl"
+  "unit": "$/bbl",
+  "governance": {
+    "policy": {
+      "version": "brent-prospective-review-v1",
+      "registeredAt": "2026-11-27T22:01:34+00:00",
+      "minimumDistinctTargets": 12,
+      "minimumBaselineImprovement": 0.1,
+      "automaticPromotion": false
+    },
+    "status": "Experimental \u2014 not decision-grade",
+    "prospectiveTargets": 0,
+    "prospectiveMAE": null,
+    "persistenceMAE": null,
+    "baselineImprovement": null,
+    "eligibleForIndependentReview": false,
+    "limitations": [
+      "At least 12 distinct prospective monthly targets and 10% lower MAE than persistence are required for independent review; these are fixed before qualifying outcomes.",
+      "No automatic promotion: release-lag, uncertainty and source-vintage validation plus documented independent methodological review remain required.",
+      "Past failed forecasts and historical baseline underperformance remain in the ledger."
+    ]
+  }
 }

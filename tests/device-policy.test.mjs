@@ -1,0 +1,4 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {deviceModes} from '../site/private-workspace/device-policy.mjs';
+const caps={secure:true,wasm:true,worker:true,memory:8,gpu:true,saveData:false};
+test('hardware detection never asserts unimplemented tiers or automatic selection',()=>{const p=deviceModes(caps,{manifestAvailable:true});assert.equal(p.recommended,'Standard');assert.equal(p.modes[2].available,false);assert.equal(p.modes[3].available,false);assert.equal(p.selected,'Standard');});
+test('recommendation needs actual bounded latency and respects data saver',()=>{assert.equal(deviceModes(caps,{manifestAvailable:true,lastInferenceMs:150}).recommended,'Adaptive');assert.equal(deviceModes({...caps,saveData:true},{manifestAvailable:true,lastInferenceMs:150}).recommended,'Standard');assert.equal(deviceModes({...caps,memory:1},{manifestAvailable:true}).modes[1].available,false);});

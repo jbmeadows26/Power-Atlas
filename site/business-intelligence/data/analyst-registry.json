@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "method": "Statuses derive from retained public outputs and explicitly inspected workflow receipts. No analyst is operational merely because code exists.",
+  "analysts": [
+    {
+      "id": "analyst-01",
+      "name": "Early Warning Analyst",
+      "responsibilities": "Dated physical indicators and source-specific thresholds",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/physical-early-warning.json"
+      ],
+      "methodology": "Dated physical indicators and source-specific thresholds",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": "2026-11-27T21:37:50Z",
+      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071438411",
+      "latestExecution": {
+        "conclusion": "success",
+        "headSha": "df29dbe875129ee487444968e9e118b54a674321",
+        "updatedAt": "2026-11-27T21:37:50Z",
+        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071438411",
+        "workflowName": "Eastern Axis physical early warning"
+      },
+      "outputGeneratedAt": "2026-11-27T21:37:40Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-02",
+      "name": "Global Conflict Analyst",
+      "responsibilities": "Geographic source corroboration; no unsupported attribution",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/global-conflict-watch.json"
+      ],
+      "methodology": "Geographic source corroboration; no unsupported attribution",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "failed",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": {
+        "conclusion": "failure",
+        "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+        "updatedAt": "2026-11-27T21:38:00Z",
+        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454",
+        "workflowName": "Eastern Axis global conflict analyst"
+      },
+      "outputGeneratedAt": "2026-11-25T09:03:03Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-03",
+      "name": "Military Asset Analyst",
+      "responsibilities": "Dated official inventory observations and change comparison",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/military-asset-changes.json"
+      ],
+      "methodology": "Dated official inventory observations and change comparison",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T10:55:45Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-04",
+      "name": "Product Shortage Analyst",
+      "responsibilities": "Independent supply proxies; no confirmed stockout from price alone",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/product-shortage-outlook.json"
+      ],
+      "methodology": "Independent supply proxies; no confirmed stockout from price alone",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": "2026-11-27T21:39:32Z",
+      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554449",
+      "latestExecution": {
+        "conclusion": "success",
+        "headSha": "feadc5000ec8550cf7747004378db11069081f17",
+        "updatedAt": "2026-11-27T21:39:32Z",
+        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554449",
+        "workflowName": "Eastern Axis product shortage intelligence"
+      },
+      "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-05",
+      "name": "Supply Chain Analyst",
+      "responsibilities": "Declared route matching against dated physical observations",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/physical-early-warning.json"
+      ],
+      "methodology": "Declared route matching against dated physical observations",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T21:37:40Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-06",
+      "name": "Procurement Analyst",
+      "responsibilities": "Input-price changes and exact tariff reference; legal applicability withheld",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/product-shortage-outlook.json"
+      ],
+      "methodology": "Input-price changes and exact tariff reference; legal applicability withheld",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-07",
+      "name": "Corporate Analyst",
+      "responsibilities": "Official issuer filing evidence; missing coverage is unavailable",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/financial-transmission.json"
+      ],
+      "methodology": "Official issuer filing evidence; missing coverage is unavailable",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T09:44:40Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-08",
+      "name": "Economic Analyst",
+      "responsibilities": "Published macro/market observations and explicit date checks",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/financial-markets.json"
+      ],
+      "methodology": "Published macro/market observations and explicit date checks",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T09:44:37Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-09",
+      "name": "Financial Contagion Analyst",
+      "responsibilities": "Financial transmission indicators; correlation is not causation",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/financial-transmission.json"
+      ],
+      "methodology": "Financial transmission indicators; correlation is not causation",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T09:44:40Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-10",
+      "name": "Energy Analyst",
+      "responsibilities": "Original energy observations and benchmark scope",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/product-shortage-outlook.json"
+      ],
+      "methodology": "Original energy observations and benchmark scope",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-11",
+      "name": "Regulatory Analyst",
+      "responsibilities": "Original legal notices with jurisdiction and effective date",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [],
+      "methodology": "Original legal notices with jurisdiction and effective date",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "planned",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "No validated shared output registered.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-12",
+      "name": "Cyber Analyst",
+      "responsibilities": "Original advisory plus approved vendor/version applicability",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [],
+      "methodology": "Original advisory plus approved vendor/version applicability",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "planned",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "No validated shared output registered.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-13",
+      "name": "Workforce Analyst",
+      "responsibilities": "Original labor observations plus declared workforce dependency",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [],
+      "methodology": "Original labor observations plus declared workforce dependency",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "planned",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "No validated shared output registered.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-14",
+      "name": "Opportunity Analyst",
+      "responsibilities": "Independent falling-input-price evidence; no invented savings",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/product-shortage-outlook.json"
+      ],
+      "methodology": "Independent falling-input-price evidence; no invented savings",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-15",
+      "name": "Business Strategy Analyst",
+      "responsibilities": "Approved dependency and validated finding to bounded options",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [],
+      "methodology": "Approved dependency and validated finding to bounded options",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "planned",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "No validated shared output registered.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-16",
+      "name": "Personal Intelligence Analyst",
+      "responsibilities": "Separate private household matching; never business profile transfer",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [],
+      "methodology": "Separate private household matching; never business profile transfer",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "planned",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "No validated shared output registered.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-17",
+      "name": "Evidence Validation Analyst",
+      "responsibilities": "Evidence ID validation, freshness and unsupported-claim suppression",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/early-warning-triage.json"
+      ],
+      "methodology": "Evidence ID validation, freshness and unsupported-claim suppression",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": "2026-11-27T21:44:31Z",
+      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554447",
+      "latestExecution": {
+        "conclusion": "success",
+        "headSha": "feadc5000ec8550cf7747004378db11069081f17",
+        "updatedAt": "2026-11-27T21:44:31Z",
+        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554447",
+        "workflowName": "Eastern Axis signal analyst"
+      },
+      "outputGeneratedAt": "2026-11-27T21:44:24Z",
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    },
+    {
+      "id": "analyst-18",
+      "name": "Forecast Performance Analyst",
+      "responsibilities": "Chronological baseline error comparison; retain unsuccessful forecasts",
+      "intelligenceRequirements": [
+        "Original attributable observations",
+        "Explicit observation period",
+        "Declared customer dependency before private relevance claim"
+      ],
+      "inputSources": [
+        "eastern-axis/public/analysis/brent-forecast-ledger.jsonl"
+      ],
+      "methodology": "Chronological baseline error comparison; retain unsuccessful forecasts",
+      "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
+      "operationalStatus": "partial",
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "latestExecution": null,
+      "outputGeneratedAt": null,
+      "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
+      "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
+      "coverageLimitations": [
+        "Partial artifact coverage does not establish an operational analyst across its full remit.",
+        "No continuous private monitoring when browser is closed."
+      ]
+    }
+  ]
+}

@@ -140,4 +140,7 @@ if __name__=='__main__':
     if 'forecastId' in report and args.ledger.exists():
         issued=[json.loads(line) for line in args.ledger.read_text().splitlines() if line]
         report=next(e['forecast'] for e in issued if e['kind']=='issued' and e['forecastId']==report['forecastId'])
+    from forecast_governance import assess
+    events=[json.loads(line) for line in args.ledger.read_text().splitlines() if line] if args.ledger.exists() else []
+    report={**report,'governance':assess(events)}
     args.output.parent.mkdir(parents=True,exist_ok=True);args.output.write_text(json.dumps(report,indent=2,allow_nan=False)+'\n');print(report['forecastStatus'])

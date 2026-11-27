@@ -105,7 +105,7 @@ export function analyze(data,profile,now=Date.now()){
 }
 export function scenario(cost,quoteChange){
  if(!number(cost)||cost<0||cost>1e10||!number(quoteChange)||quoteChange< -100||quoteChange>1000)return null;
- const delta=Math.round((cost*quoteChange/100)*100)/100;return {monthly:delta,annual:Math.round(delta*1200)/100,alternative:Math.round((cost+delta)*100)/100};
+ const delta=Math.round((cost*quoteChange/100)*100)/100||0;return {monthly:delta,annual:Math.round(delta*1200)/100,alternative:Math.round((cost+delta)*100)/100};
 }
 export function publicContext(data,now=Date.now()){
  const items=[];
@@ -133,4 +133,26 @@ export function enrichFinding(f,now=Date.now()){
   informationGaps,managementOptions:options,
   invalidationConditions:['Observation corrected or stale','Dependency or approved relationship changes','Supplier-specific evidence contradicts the proxy'],
   forecast:{state:'withheld',label:'Forecast withheld — insufficient evidence.'}};
+}
+
+// Explicit sensitivity inputs only: a public proxy percentage is never an agreed price change.
+export function conditionalFinancialImplication(dependency,assumption){
+ if(!dependency||!assumption||dependency.currency!=='USD'||!['declared','approved-document','legacy-declared','declared-correction'].includes(dependency.amountOrigin)||assumption.reviewed!==true||!['supplier-quote','scenario-assumption'].includes(assumption.basis))return null;
+ const result=scenario(dependency.monthlyCost,assumption.changePct);if(!result)return null;
+ return {classification:'Scenario',currency:'USD',baselineMonthly:dependency.monthlyCost,changePct:assumption.changePct,...result,
+  basis:assumption.basis,verification:'Conditional calculation; not independently verified saving or loss.',
+  assumptions:['The entered percentage applies to the full declared monthly cost.','Quantity, currency and operating mix remain unchanged.','Annual illustration assumes the same monthly effect for twelve months.'],
+  managementConsideration:'Confirm the written quote, applicable quantity, freight, duties and contract terms before changing procurement.',
+  invalidationConditions:['Quote expires or differs from the assumption','Volume, landed-cost components or contract pass-through changes']};
+}
+export function inventoryAssessment(entity){
+ if(!entity||entity.type!=='inventory'||entity.archived||!['declared','approved-document','legacy-declared'].includes(entity.origin))return null;
+ const a=entity.attributes||{},q=a.quantity,r=a.reorderPoint;
+ if(!number(q)||q<0||q>1e12||!number(r)||r<0||r>1e12||typeof a.unit!=='string'||!a.unit.trim()||a.unit.length>1000)return null;
+ return {classification:'Analytical assessment',verification:'Based only on reviewed customer records; not externally verified inventory.',dependencyId:entity.id,
+  quantity:q,reorderPoint:r,unit:a.unit,reviewRequired:q<=r,unitsToThreshold:Math.max(0,r-q),
+  implication:q<=r?'Recorded quantity is at or below the customer-defined reorder point.':'Recorded quantity is above the customer-defined reorder point.',
+  managementConsideration:'Reconcile physical stock and open orders, then check supplier lead time before placing an order.',
+  limitations:['No stockout or future shortage established.','Demand rate, inbound orders, reserved stock and lead time are not supplied by this threshold comparison.'],
+  invalidationConditions:['Physical count differs from recorded quantity','Reorder policy, reservations or inbound orders change']};
 }

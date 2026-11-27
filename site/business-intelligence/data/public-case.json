@@ -1,0 +1,61 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-zhengzhou-2022",
+  "title": "Apple: a publicly disclosed assembly dependency",
+  "caseType": "Historical public case study \u2014 not a current alert",
+  "source": {
+    "publisher": "Apple",
+    "url": "https://www.apple.com/newsroom/2022/11/update-on-supply-of-iphone-14-pro-and-iphone-14-pro-max/",
+    "publicationDate": "2022-11-06",
+    "observationPeriod": "2022-11-06 company statement",
+    "retrievedAt": "2026-11-27T22:01:16.781730+00:00",
+    "retrievedHtmlSha256": "e2d8ac1b8a2c2120bddb85f45b4dbe311d48f4aa0f31070fa349a9a5d44e1fd8",
+    "reliability": "Original company statement about its operations",
+    "credibility": "Attributable company report; not independent capacity measurement"
+  },
+  "dependency": {
+    "company": "Apple",
+    "products": [
+      "iPhone 14 Pro",
+      "iPhone 14 Pro Max"
+    ],
+    "facility": "Primary assembly facility in Zhengzhou, China",
+    "basis": "Apple explicitly identified this facility and these products in the dated statement."
+  },
+  "observation": "Apple reported temporary COVID-19 restrictions and significantly reduced capacity at the facility.",
+  "implication": "Apple expected lower shipments than previously anticipated and longer customer wait times. This was a company forward-looking statement, not a verified eventual outcome.",
+  "classification": "Confirmed observation of an attributable company statement; operational claim company-reported",
+  "options": [
+    {
+      "id": "delivery",
+      "label": "Review delivery commitments",
+      "consideration": "Compare customer commitments with written supplier delivery updates before promising dates.",
+      "inputs": [
+        "Actual order dates",
+        "Supplier-confirmed lead times",
+        "Contractual delivery obligations"
+      ],
+      "tradeoff": "Changing promises may affect customers; no cost or benefit quantified."
+    },
+    {
+      "id": "inventory",
+      "label": "Review inventory exposure",
+      "consideration": "Check available stock and substitute-product suitability against actual customer requirements.",
+      "inputs": [
+        "Approved inventory quantities",
+        "Demand and substitution constraints",
+        "Current quotes"
+      ],
+      "tradeoff": "Holding or sourcing stock can tie up cash; no alternative supplier or saving is asserted."
+    }
+  ],
+  "limitations": [
+    "Historical event; cannot be promoted as current risk.",
+    "No supplier identity beyond the named facility is inferred.",
+    "No confidential stock, contract, financial or customer facts are assumed.",
+    "Management options are analytical considerations, not documented Apple decisions.",
+    "No independent opportunity is established by this source.",
+    "Forecast withheld \u2014 insufficient evidence."
+  ],
+  "isolation": "Read-only public case. Never inserted into the private twin or decision journal."
+}
