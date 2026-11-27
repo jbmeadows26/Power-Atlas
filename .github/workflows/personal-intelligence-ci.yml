@@ -4,7 +4,8 @@ on:
     paths:
       - 'site/personal-intelligence/**'
       - 'personal-intelligence/**'
-      - 'tests/personal-intelligence.test.mjs'
+      - 'tests/personal-intelligence*.mjs'
+      - 'tests/personal-intelligence*.cjs'
       - '.github/workflows/personal-intelligence-ci.yml'
   workflow_dispatch:
 permissions:
@@ -20,3 +21,14 @@ jobs:
       - run: node --check site/personal-intelligence/app.mjs
       - run: node --check site/personal-intelligence/engine.mjs
       - run: node --test tests/personal-intelligence.test.mjs
+      - name: Install mobile and desktop browser engines
+        run: |
+          npm install --prefix "$RUNNER_TEMP/pi-browser" --no-save playwright@1.56.1
+          "$RUNNER_TEMP/pi-browser/node_modules/.bin/playwright" install --with-deps chromium webkit
+      - name: Verify live data, mobile rendering and personal calculations
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/pi-browser/node_modules/playwright
+        run: |
+          python3 -m http.server 4175 --directory site > /tmp/pi-browser.log 2>&1 &
+          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
+          node tests/personal-intelligence-browser.cjs
