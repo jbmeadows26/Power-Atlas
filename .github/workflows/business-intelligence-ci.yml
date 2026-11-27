@@ -53,6 +53,7 @@ jobs:
           node tests/business-document-formats-browser.cjs
           node tests/business-document-review-browser.cjs
           node tests/business-twin-browser.cjs
+          node tests/business-twin-editing-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
