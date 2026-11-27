@@ -187,8 +187,9 @@ jobs:
           BUSINESS_TEST_URL: http://127.0.0.1:4175/business-intelligence/
           PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
         run: |
-          node --test tests/business-documents.test.mjs tests/business-intelligence-twin.test.mjs tests/business-intelligence-decisions.test.mjs
+          node --test tests/business-*.test.mjs
           node tests/business-documents-browser.cjs
+          node tests/business-document-review-browser.cjs
           node tests/business-document-formats-browser.cjs
           node tests/business-twin-browser.cjs
       - name: Record content-addressed public release identity
