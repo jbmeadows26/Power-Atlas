@@ -158,6 +158,8 @@ jobs:
           python3 -m http.server 4175 --directory site > /tmp/pi-import-preview.log 2>&1 &
           for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
           node tests/personal-intelligence-import-browser.cjs
+      - name: Prepare local document parsers
+        run: bash business-intelligence/prepare-document-assets.sh
       - name: Build business procurement reference
         run: |
           node --test tests/business-intelligence-procurement.test.mjs

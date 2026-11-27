@@ -6,6 +6,7 @@ on:
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/business-documents*'
+      - 'tests/business-document-formats*'
       - 'tests/test_business_public_analyst.py'
       - 'tests/test_business_hts_reference.py'
       - 'tests/test_business_ofac_reference.py'
@@ -44,7 +45,9 @@ jobs:
           python3 -m http.server 4175 --directory site > /tmp/bi-browser.log 2>&1 &
           for i in $(seq 1 15); do curl -fsS "$BUSINESS_TEST_URL" >/dev/null && break; sleep 1; done
           node tests/business-intelligence-browser.cjs
+          bash business-intelligence/prepare-document-assets.sh
           node tests/business-documents-browser.cjs
+          node tests/business-document-formats-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:

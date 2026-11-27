@@ -1,0 +1,7 @@
+# Local document runtime
+
+PDF.js 4.10.38 (Apache-2.0) extracts embedded PDF text. fflate 0.8.2 (MIT) decompresses bounded XLSX XML; platform code extracts literal cells, ignores formulas, and records sheet/cell locators. Both are pinned in package-lock.json; `npm ci --ignore-scripts` builds only fixed public assets. License files ship alongside runtime modules. No inference/model, cloud document parsing, external worksheet relationship loading, or OCR is used. Runtime modules load only after selecting PDF/XLSX. Documents never become fetch URLs.
+
+Limits: 10 MB input, 100 PDF pages, 200 KB extracted text; XLSX 20 MB total expanded data, 5 MB per entry, 2,000 ZIP entries and 50,000 cells. PDF text order may differ from visual layout. XLSX formulas are omitted, numeric date/currency formatting is not inferred, and only ordinary worksheet XML relationships are supported. Unrecognized layouts require manual mapping. Source text is unapproved transcription; only the user-reviewed dependency mapping enters approved profile data. Source locators survive existing encrypted profile validation.
+
+Build: `bash business-intelligence/prepare-document-assets.sh`. Browser tests generate isolated synthetic PDF/XLSX bytes, parse and approve a PDF dependency, verify formula exclusion/scanned states and inspect requests at 320/390/1280 in Chromium and WebKit by default. Production intelligence is never populated with these fixtures.
