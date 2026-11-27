@@ -55,3 +55,14 @@ class ReleaseIdentityTests(unittest.TestCase):
         with patch.object(m, 'fetch', return_value=json.dumps(data).encode()), patch.object(m.subprocess, 'check_output', return_value=b'actual repository source'):
             with self.assertRaisesRegex(ValueError, 'Manifest disagrees'):
                 m.verify('https://example.test')
+
+    def test_build_includes_control_registry_and_evidence(self):
+        with tempfile.TemporaryDirectory() as folder:
+            site = Path(folder)
+            for name in list(self.manifest()['files']) + ['development-control/acceptance.json', 'development-control/evidence/release.json']:
+                file = site / name
+                file.parent.mkdir(parents=True, exist_ok=True)
+                file.write_bytes(b'{}')
+            manifest = m.build(site, 'a' * 40)
+            self.assertIn('development-control/acceptance.json', manifest['files'])
+            self.assertIn('development-control/evidence/release.json', manifest['files'])
