@@ -1,4 +1,4 @@
-import {parseStatement,reviewRows,allowedCategory,categories,cents,summarize,reconcile,recurring} from "./transaction-engine.mjs";
+import {parseStatement,reviewRows,allowedCategory,validReview,categories,cents,summarize,reconcile,recurring} from "./transaction-engine.mjs";
 import {MAX_BYTES} from "./import-engine.mjs";
 const $=id=>document.getElementById(id);
 const el=(tag,text,cls)=>{const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e;};
@@ -9,7 +9,7 @@ export function setupTransactions({onChange}){
  const status=s=>$("tx-status").textContent=s;
  const allRows=()=>statements.flatMap(s=>s.rows);
  function reviewState(){
-  const rows=draft?.rows||[],pending=rows.filter(r=>!r.reviewed||r.category==="Unclassified").length,invalid=draft?.issues.length||0;
+  const rows=draft?.rows||[],pending=rows.filter(r=>!validReview(r)).length,invalid=draft?.issues.length||0;
   const rec=draft?reconcile(rows,draft.opening,draft.closing,invalid):null;
   $("tx-review-status").textContent=draft?pending+" of "+rows.length+" rows awaiting confirmation; "+invalid+" invalid. Balance check: "+rec.status+(rec.difference===null?"":" ("+dollars(rec.difference)+" difference)")+".":"";
   $("tx-approve").disabled=!draft||!rows.some(r=>!r.reviewed&&!r.duplicate&&r.suggestion!=="Unclassified"&&r.suggestion!=="Transfer"&&r.suggestion!=="Refund");
@@ -25,10 +25,12 @@ export function setupTransactions({onChange}){
    const select=el("select");select.setAttribute("aria-label","Category for row "+t.row);
    for(const cat of categories.filter(c=>allowedCategory(c,t.amount))){const option=el("option",cat);option.value=cat;select.append(option);}
    select.value=t.category;
-   const label=el("label",undefined,"consent"),check=el("input");check.type="checkbox";check.checked=t.reviewed;check.disabled=t.category==="Unclassified";label.append(check,el("span","Confirm row "+t.row));
-   select.onchange=()=>{t.category=select.value;t.reviewed=false;check.checked=false;check.disabled=t.category==="Unclassified";reviewState();};
+   const reason=el("select");reason.setAttribute("aria-label","Exclusion reason for row "+t.row);for(const [value,label] of [["","Select exclusion reason"],["nonposted","Not a posted transaction"],["within","Duplicate row within this export"],...(t.overlap?[["overlap","Already included in another reviewed statement"]]:[])]){const o=el("option",label);o.value=value;reason.append(o);}reason.value=t.exclusion||"";reason.hidden=t.category!=="Exclude";
+   const label=el("label",undefined,"consent"),check=el("input");check.type="checkbox";check.checked=t.reviewed;check.disabled=t.category==="Unclassified"||(t.category==="Exclude"&&!t.exclusion);label.append(check,el("span","Confirm row "+t.row));
+   select.onchange=()=>{t.category=select.value;t.exclusion=null;reason.value="";reason.hidden=t.category!=="Exclude";t.reviewed=false;check.checked=false;check.disabled=t.category==="Unclassified"||t.category==="Exclude";reviewState();};
+   reason.onchange=()=>{t.exclusion=reason.value||null;t.reviewed=false;check.checked=false;check.disabled=!t.exclusion;reviewState();};
    check.onchange=()=>{t.reviewed=check.checked&&t.category!=="Unclassified";reviewState();};
-   row.append(select,label);box.append(row);
+   row.append(select,reason,label);box.append(row);
   }
   reviewState();
  }
@@ -42,7 +44,7 @@ export function setupTransactions({onChange}){
   const cats=$("tx-categories");cats.replaceChildren();for(const [cat,amount] of Object.entries(s.byCategory).sort((a,b)=>b[1]-a[1])){const line=el("div",undefined,"measure"),heading=el("div");heading.append(el("span",cat),el("strong",dollars(amount)));const bar=el("progress");bar.max=s.spend||1;bar.value=amount;bar.setAttribute("aria-label",cat);line.append(heading,bar);cats.append(line);}
   if(statements.length)cats.append(el("p",s.transfer+" reviewed transfer(s); "+s.excluded+" excluded row(s).","tx-note"));
   const list=$("tx-statements");list.replaceChildren();if(!statements.length)list.append(el("p","No statements reviewed.","muted"));
-  statements.forEach((x,i)=>{const card=el("div",undefined,"tx-row");card.append(el("h3",x.account),el("p",periods[i]+" · "+x.rows.length+" rows"),el("small","Balance check: "+x.balance.status+(x.balance.difference===null?"":" · difference "+dollars(x.balance.difference)),"muted"));const b=el("button","Remove statement","secondary");b.type="button";b.onclick=()=>{statements.splice(i,1);invalidate();renderSummary();onChange();};card.append(b);list.append(card);});
+  statements.forEach((x,i)=>{const card=el("div",undefined,"tx-row");card.append(el("h3",x.account),el("p",periods[i]+" · "+x.rows.length+" rows"),el("small","Balance check: "+x.balance.status+(x.balance.difference===null?"":" · difference "+dollars(x.balance.difference)),"muted"));const b=el("button","Remove statement","secondary");b.type="button";b.onclick=()=>{const keys=new Set(x.rows.filter(r=>r.category!=="Exclude").map(r=>r.fingerprint));if(statements.some((other,j)=>j!==i&&other.rows.some(r=>r.exclusion==="overlap"&&keys.has(r.fingerprint)))){status("Remove the later overlapping statement first, or clear all statements.");return;}statements.splice(i,1);invalidate();renderSummary();onChange();};card.append(b);list.append(card);});
   const rec=$("tx-recurring");rec.replaceChildren();const candidates=recurring(rows);if(!candidates.length)rec.append(el("p","No reviewed recurring candidates yet.","muted"));for(const x of candidates){const card=el("div",undefined,"tx-row");card.append(el("h3",x.description),el("p",dollars(x.amount)+" latest observed · "+x.count+" charges"),el("small",x.account+" · "+x.category+" · last "+x.latest,"muted"));rec.append(card);}
  }
  for(const id of inputIds)$(id).addEventListener("input",()=>{invalidate();status("Source changed. Review again.");});
