@@ -4,6 +4,8 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'personal-intelligence/**'
+      - 'tests/personal-intelligence*'
       - 'eastern-axis/src/**'
       - 'eastern-axis/tests/**'
       - 'eastern-axis/index.html'
@@ -43,6 +45,10 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '24'
+      - name: Prepare and validate Personal Intelligence local import reader
+        run: |
+          node --test tests/personal-intelligence-import.test.mjs
+          bash personal-intelligence/backend/prepare-local-reader.sh
       - name: Preserve the existing Power Atlas site
         run: |
           test -s site/index.html
@@ -136,6 +142,13 @@ jobs:
           test -d site/eastern-axis/assets
           test ! -f site/eastern-axis/.env
           echo 'Power Atlas remains the root; Eastern Axis is at /Power-Atlas/eastern-axis/.'
+      - name: Verify Personal Intelligence import in both browser engines
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/ea-pages-check/node_modules/playwright
+        run: |
+          python3 -m http.server 4175 --directory site > /tmp/pi-import-preview.log 2>&1 &
+          for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
+          node tests/personal-intelligence-import-browser.cjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
