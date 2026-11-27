@@ -1,6 +1,8 @@
+import {setupProcurement} from "./procurement.mjs";
 import {feeds,products,corridors,marketTopics,validFeed,validateProfile,analyze,publicContext,currency,scenario} from "./engine.mjs";
 const $=id=>document.getElementById(id),data={},errors={};
 let applied=null,result=null,busy=false,serial=0;
+const procurement=setupProcurement();let procurementLoaded=false;
 function el(tag,value,cls){const n=document.createElement(tag);if(value!==undefined)n.textContent=value;if(cls)n.className=cls;return n;}
 function option(select,value,label){const n=el("option",label);n.value=value;select.append(n);}
 function label(parent,caption,input){const n=el("label",caption);n.append(input);parent.append(n);}
@@ -16,7 +18,7 @@ function dep(){
 }
 function invalidate(){applied=null;result=null;$("profile-status").textContent="Profile changed. Analyze again to use the current inputs.";render();}
 function profile(){return validateProfile({type:$("business-type").value,marketTopic:$("market-topic").value,financing:$("financing").checked,usDemand:$("us-demand").checked,dependencies:[...$("dependencies").children].map(n=>{const d={};for(const f of n.querySelectorAll("[data-field]")){if(!f.validity.valid)throw Error("Correct the invalid dependency input.");d[f.dataset.field]=f.dataset.field==="monthlyCost"?(f.value===""?null:Number(f.value)):f.value;}return d;})});}
-function route(){const h=location.hash.slice(1),id=["overview","profile","decisions","scenarios","evidence"].includes(h)?h:"overview";for(const x of document.querySelectorAll("[data-screen]"))x.hidden=x.dataset.screen!==id;for(const a of document.querySelectorAll("nav a")){if(a.hash==="#"+id)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}scrollTo(0,0);}
+function route(){const h=location.hash.slice(1),id=["overview","profile","decisions","scenarios","procurement","evidence"].includes(h)?h:"overview";for(const x of document.querySelectorAll("[data-screen]"))x.hidden=x.dataset.screen!==id;for(const a of document.querySelectorAll("nav a")){if(a.hash==="#"+id)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current");}if(id==="procurement"&&!procurementLoaded){procurementLoaded=true;procurement.load();}scrollTo(0,0);}
 function proof(e){const p=el("p"),a=el("a",e.label+" · "+e.source+" · "+e.date);a.href=e.url;a.target="_blank";a.rel="noopener noreferrer";p.append(a);return p;}
 function finding(x){const box=el("details",undefined,"finding"),s=el("summary");s.append(el("small",x.domain+" · "+x.status,"tag"),el("h3",x.title));if(x.dependency)s.append(el("small",x.dependency));box.append(s,el("p",x.detail),el("h3","Management check"),el("p",x.action));for(const e of x.evidence)box.append(proof(e));return box;}
 function render(){
@@ -37,6 +39,6 @@ async function refresh(){if(busy)return;busy=true;$("refresh").disabled=true;$("
 for(const t of marketTopics)option($("market-topic"),t,t);
 for(const id of ["business-type","market-topic","financing","us-demand"])$(id).addEventListener("input",invalidate);
 $("add").onclick=dep;$("apply").onclick=()=>{try{applied=profile();$("profile-status").textContent="Exposure evaluated in this tab.";render();location.hash="decisions";}catch(e){$("profile-status").textContent=e.message;}};
-$("clear").onclick=()=>{for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
+$("clear").onclick=()=>{procurement.reset();for(const id of ["business-type","market-topic","quote"])$(id).value="";for(const id of ["financing","us-demand"])$(id).checked=false;$("dependencies").replaceChildren();serial=0;invalidate();$("profile-status").textContent="Private inputs cleared.";};
 $("domain").onchange=render;$("quote").oninput=renderScenario;$("scenario-dep").onchange=renderScenario;$("refresh").onclick=refresh;
 addEventListener("hashchange",route);route();render();refresh();setInterval(()=>{if(document.visibilityState==="visible")refresh();},300000);
