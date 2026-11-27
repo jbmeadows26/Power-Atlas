@@ -40,14 +40,15 @@ export function validateProfile(p){
   if(d.product&&!Object.hasOwn(products,d.product))throw Error("Unknown product group.");
   if(d.corridor&&!corridors.includes(d.corridor))throw Error("Unknown transport corridor.");
   if(d.monthlyCost!==null&&(!number(d.monthlyCost)||d.monthlyCost<0||d.monthlyCost>1e10))throw Error("Invalid monthly cost.");
-  const id=d.id==null?String(i+1):String(d.id);if(!/^[A-Za-z0-9-]{1,80}$/.test(id))throw Error("Invalid dependency ID.");
-  return {id,provenance:validateProvenance(d.provenance),name,country,product:d.product||"",corridor:d.corridor||"",monthlyCost:d.monthlyCost};
+  const id=d.id==null?String(i+1):String(d.id);if(!/^[A-Za-z0-9:-]{1,100}$/.test(id))throw Error("Invalid dependency ID.");
+  const twinPath=d.twinPath??[];if(!Array.isArray(twinPath)||twinPath.length>500||twinPath.some(id=>typeof id!=="string"||!/^[A-Za-z0-9:-]{1,100}$/.test(id)))throw Error("Invalid relationship path.");
+  return {id,twinPath,provenance:validateProvenance(d.provenance),name,country,product:d.product||"",corridor:d.corridor||"",monthlyCost:d.monthlyCost};
  });
  if(new Set(dependencies.map(d=>d.id)).size!==dependencies.length)throw Error("Duplicate dependency IDs.");
  const topic=p.marketTopic||"";if(topic&&!marketTopics.includes(topic))throw Error("Unknown market topic.");
  return {type:p.type,dependencies,marketTopic:topic,financing:p.financing===true,usDemand:p.usDemand===true};
 }
-function finding(domain,dep,title,status,detail,action,items){return {domain,dependencyId:dep?.id||null,dependency:dep?.name||null,title,status,detail,action,evidence:items.filter(Boolean)};}
+function finding(domain,dep,title,status,detail,action,items){return {domain,dependencyId:dep?.id||null,dependency:dep?.name||null,relationshipPath:dep?.twinPath||[],title,status,detail,action,evidence:items.filter(Boolean)};}
 export function analyze(data,profile,now=Date.now()){
  const p=validateProfile(profile),out=[],gaps=[];
  data=Object.fromEntries(Object.entries(data||{}).filter(([k,v])=>validFeed(k,v)));
@@ -99,8 +100,8 @@ export function analyze(data,profile,now=Date.now()){
    out.push(finding("Market structure",null,r.name,"Historical research · "+String(r.kind||"context"),String(r.scope||"Scope unavailable")+". "+String(r.mechanism||"Review source.").slice(0,500),"Evaluate actual alternatives and contract terms; research does not establish your supplier's conduct.",[{label:r.name,source:r.sourceLabel||"Power Atlas source",date:r.period,url:safeURL(r.source)}]));
   }
  }
- const unique=new Map();for(const x of out)unique.set(JSON.stringify([x.domain,x.dependency,x.title,x.status,x.evidence.map(e=>e.date)]),x);
- return {findings:[...unique.values()],gaps:[...new Set(gaps)],active};
+ const unique=new Map();for(const x of out)unique.set(JSON.stringify([x.domain,x.dependencyId,x.title,x.status,x.evidence.map(e=>[e.url,e.date])]),x);
+ return {findings:[...unique.values()].map(f=>enrichFinding(f,now)).sort((a,b)=>b.priority-a.priority),gaps:[...new Set(gaps)],active};
 }
 export function scenario(cost,quoteChange){
  if(!number(cost)||cost<0||cost>1e10||!number(quoteChange)||quoteChange< -100||quoteChange>1000)return null;
@@ -111,4 +112,25 @@ export function publicContext(data,now=Date.now()){
  for(const m of rows(data.markets?.metrics)){const e=evidence(m.label,"FRED",m.period,m.sourceUrl,now,21);if(e&&number(m.value))items.push({title:m.label,value:String(m.value)+" "+m.unit,evidence:e});}
  const r=data.warning?.summary;if(r&&Number.isInteger(r.monitoring)&&Number.isInteger(r.elevated)&&observation(data.warning.generatedAt,now,2)==="dated")items.push({title:"Upstream early-warning screen",value:r.monitoring+" monitored / "+r.elevated+" elevated",evidence:null});
  return items;
+}
+
+// Deterministic interpretation metadata; public observations never become private facts.
+export function enrichFinding(f,now=Date.now()){
+ const historical=f.status.startsWith('Historical research');
+ const elevated=['Cost pressure watch','Upstream elevated watch','Cross-source watch','Input-cost watch','Inventory watch','Transit watch'].includes(f.status);
+ const kind=f.domain==='Opportunity'?'opportunity':elevated?'risk':'context';
+ const gapsByDomain={Finance:['Floating-rate balance and loan spread','Reference-rate repricing dates and hedging terms'],Demand:['Company orders, cancellations and sales pipeline','Customer and geographic revenue exposure'],Geopolitics:['Actual supplier site and shipment routes','Continuity arrangements and applicable legal restrictions'],Logistics:['Shipment-specific route and current carrier ETA','Inventory cover and contractual delivery deadlines'],'Market structure':['Actual supplier alternatives and contract terms','Company purchasing exposure and switching constraints']};
+ const informationGaps=gapsByDomain[f.domain]||['Current supplier quote and contractual pass-through','Affected quantity, inventory cover and delivery commitments','Alternative supplier availability and switching constraints'];
+ const options=[{action:f.action,basis:f.evidence.map(e=>e.url),cost:null,benefit:null,tradeOff:'Requires supplier or internal verification; no saving or avoided loss is established.'},{action:'Retain current arrangements while collecting the missing business inputs.',basis:f.evidence.map(e=>e.url),cost:null,benefit:null,tradeOff:'Avoids an unsupported change but leaves the documented exposure unresolved.'}];
+ return {...f,kind,classification:'Analytical assessment',priority:kind==='risk'?2:kind==='opportunity'?1:0,
+  whatChanged:f.title,implication:f.detail,
+  relationshipBasis:f.relationshipPath?.length?'Declared dependency path; no external verification of private relationships.':f.dependency?'Customer-declared dependency match.':'Explicitly enabled business context.',
+  observationFreshness:f.evidence.map(e=>({url:e.url,observationDate:e.date,state:historical?'historical':observation(e.date,now)})),
+  sourceReliability:'Attributable published source; source authority does not establish customer impact.',
+  informationCredibility:'Public observation retained; customer relevance is a deterministic assessment, not corroborated company impact.',
+  materiality:{state:'unquantified',amount:null,reason:'Approved quantities, pass-through terms and operational sensitivity are insufficient for an impact estimate.'},
+  unsupportedConclusions:['No confirmed supplier failure, stockout, legal applicability, realized saving or company-specific forecast.'],
+  informationGaps,managementOptions:options,
+  invalidationConditions:['Observation corrected or stale','Dependency or approved relationship changes','Supplier-specific evidence contradicts the proxy'],
+  forecast:{state:'withheld',label:'Forecast withheld — insufficient evidence.'}};
 }
