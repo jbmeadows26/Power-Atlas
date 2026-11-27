@@ -1,0 +1,11 @@
+# Personal Intelligence — evidence-first release candidate
+Separate static frontend: site/personal-intelligence/. The existing Pages workflow publishes site/**; no modification to either existing application or collection job is required.
+ 
+## Data and analysis
+Reads five allowlisted public JSON records from the default branch of the existing repository. Refresh on load, manually, and every five minutes while the tab is visible. Public requests contain no profile data. Dates are observation dates; no claim of independent source verification or current quote. Failed requests remove that feed from calculations and display unavailable. No arbitrary priority, savings, forecast or risk score. Current analyst logic is deterministic, not model-based. No background per-user analyst exists yet.
+
+## Private account activation
+A dedicated Supabase project is required. Apply backend/profile-schema.sql to the dedicated project after provisioning, enable email/password auth with email confirmation, and ensure REST Data API grants are effective. Configure email delivery, sign-up abuse prevention, recovery, session lifetime, and account deletion policy. Add site/personal-intelligence/auth-config.json containing only the dedicated project HTTPS origin in url and a public sb_publishable_ key in publishableKey. Never commit an elevated key. Do not enable configuration before testing two unrelated accounts and an anonymous client; verify select, insert, update and delete cannot cross account boundaries, expired sessions fail, and no private record is stored in public artifacts. Sessions remain in browser memory and require sign-in after reload. Guest profile is tab-only; export downloads user-entered data, save is opt-in. Deleting profile is not deleting account. Full account deletion and password recovery require further implementation.
+
+## Production gates
+Run node --test tests/personal-intelligence.test.mjs; verify mobile and desktop actual rendering and CORS; ensure existing Pages workflow passes. Authentication is disabled until provisioning and end-to-end security checks pass. Model-backed specialists, secure background processing, additional data integrations and independent upstream validation remain outside this candidate. Do not claim they are running. No bank or health integrations in this release.
