@@ -1,5 +1,6 @@
 export const MAX_ITEMS=24,MAX_QUERY=400,MAX_TEXT=1000;
-const words=s=>new Set(String(s).toLowerCase().normalize("NFKC").match(/[\p{L}\p{N}]+/gu)||[]);
+const token=w=>/^[a-z]{5,}$/.test(w)&&w.endsWith("s")&&!/(ss|us|is)$/.test(w)?w.slice(0,-1):w;
+const words=s=>new Set((String(s).toLowerCase().normalize("NFKC").match(/[\p{L}\p{N}]+/gu)||[]).map(token));
 export function prepareItems(items){
  if(!Array.isArray(items))return [];
  return items.filter(x=>x&&typeof x.title==="string"&&x.title.trim()).slice(0,MAX_ITEMS).map((x,i)=>({id:i,title:x.title.slice(0,200),text:[x.title,x.detail,x.action,x.status,x.value].filter(v=>typeof v==="string").join(" ").slice(0,MAX_TEXT),status:String(x.status||"Existing finding").slice(0,100)}));
