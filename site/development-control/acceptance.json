@@ -30,6 +30,28 @@
       "stage": "ci",
       "result": "passed",
       "limitations": "Historical CI execution only. Does not establish current-head or production acceptance."
+    },
+    {
+      "id": "ci-vault-16e4c453",
+      "executedAt": "2026-11-27T20:41:33Z",
+      "commit": "16e4c4532c3717fbfc15689668d5ba66c7bf922f",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46065161250",
+      "method": "Private local vault cryptographic verification: unit checks and encrypted storage lifecycle browser suite",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "passed",
+      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately."
+    },
+    {
+      "id": "ci-business-16e4c453",
+      "executedAt": "2026-11-27T20:41:54Z",
+      "commit": "16e4c4532c3717fbfc15689668d5ba66c7bf922f",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46065161272",
+      "method": "Business Intelligence pilot verification: business and document suites in Chromium/WebKit at 320, 390 and 1280 pixels",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "passed",
+      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately."
     }
   ],
   "releaseGates": [
@@ -416,7 +438,8 @@
           "id": "G05",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Inspect private-input network isolation for Private Business Document Intelligence.",
@@ -433,7 +456,8 @@
           "id": "G07",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Execute desktop rendering and interactions for Private Business Document Intelligence.",
@@ -443,7 +467,8 @@
           "id": "G08",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Execute mobile rendering and interactions for Private Business Document Intelligence.",
@@ -460,7 +485,8 @@
           "id": "G10",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Run affected and existing regression suites for Private Business Document Intelligence.",
@@ -523,7 +549,8 @@
           "id": "G05",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e"
+            "ci-vault-59830a7e",
+            "ci-vault-16e4c453"
           ],
           "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
           "description": "Inspect private-input network isolation for Encrypted vault backup and recovery.",
@@ -533,7 +560,8 @@
           "id": "G06",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e"
+            "ci-vault-59830a7e",
+            "ci-vault-16e4c453"
           ],
           "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
           "description": "Verify save, reload, encrypted recovery and deletion for Encrypted vault backup and recovery.",
@@ -550,7 +578,8 @@
           "id": "G08",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e"
+            "ci-vault-59830a7e",
+            "ci-vault-16e4c453"
           ],
           "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
           "description": "Execute mobile rendering and interactions for Encrypted vault backup and recovery.",
@@ -567,7 +596,8 @@
           "id": "G10",
           "state": "Verified",
           "evidence": [
-            "ci-vault-59830a7e"
+            "ci-vault-59830a7e",
+            "ci-vault-16e4c453"
           ],
           "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
           "description": "Run affected and existing regression suites for Encrypted vault backup and recovery.",
@@ -1710,7 +1740,8 @@
           "id": "G05",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Inspect private-input network isolation for Private decision and outcome tracking.",
@@ -1727,7 +1758,8 @@
           "id": "G07",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Execute desktop rendering and interactions for Private decision and outcome tracking.",
@@ -1737,7 +1769,8 @@
           "id": "G08",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Execute mobile rendering and interactions for Private decision and outcome tracking.",
@@ -1754,7 +1787,8 @@
           "id": "G10",
           "state": "Partial",
           "evidence": [
-            "ci-business-59830a7e"
+            "ci-business-59830a7e",
+            "ci-business-16e4c453"
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Run affected and existing regression suites for Private decision and outcome tracking.",
