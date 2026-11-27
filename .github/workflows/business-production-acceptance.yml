@@ -1,0 +1,33 @@
+name: Business production release integrity
+on:
+  schedule:
+    - cron: '37 6 * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - 'scripts/pages_release_identity.py'
+      - 'tests/test_pages_release_identity.py'
+      - '.github/workflows/business-production-acceptance.yml'
+permissions:
+  contents: read
+jobs:
+  identity:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Test release identity fail-closed behavior
+        run: python3 -m unittest discover -s tests -p test_pages_release_identity.py -v
+      - name: Verify deployed release against repository and asset hashes
+        if: github.event_name != 'pull_request'
+        run: |
+          mkdir -p audit-output
+          python3 scripts/pages_release_identity.py verify > audit-output/production-release-integrity.json
+      - uses: actions/upload-artifact@v4
+        if: always() && github.event_name != 'pull_request'
+        with:
+          name: production-release-integrity
+          path: audit-output/production-release-integrity.json
+          retention-days: 30

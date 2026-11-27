@@ -27,6 +27,8 @@ on:
       - 'eastern-axis/scripts/collect_military_inventory.py'
       - 'eastern-axis/scripts/collect_military_equipment.py'
       - '.github/workflows/deploy-pages.yml'
+      - 'scripts/pages_release_identity.py'
+      - 'tests/test_pages_release_identity.py'
   workflow_dispatch:
   workflow_run:
     workflows: ['Eastern Axis intelligence analyst', 'Eastern Axis physical early warning', 'Eastern Axis signal analyst', 'Eastern Axis market contagion watch', 'Eastern Axis product shortage intelligence', 'Eastern Axis global conflict analyst', 'Eastern Axis military asset change analyst']
@@ -178,6 +180,10 @@ jobs:
           node --test tests/private-vault.test.mjs
           node tests/private-vault-browser.cjs
           node tests/private-vault-personal-browser.cjs
+      - name: Record content-addressed public release identity
+        run: |
+          python3 -m unittest discover -s tests -p test_pages_release_identity.py -v
+          python3 scripts/pages_release_identity.py build
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
@@ -215,6 +221,8 @@ jobs:
           done
           echo "Expected release or embedded stylesheet not served by Pages" >&2
           exit 1
+      - name: Verify exact business release and public asset integrity
+        run: python3 scripts/pages_release_identity.py verify --commit "$GITHUB_SHA"
       - name: Verify published Business Intelligence and procurement reference status
         run: |
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/?release=$GITHUB_SHA" | grep 'id="procurement"'
