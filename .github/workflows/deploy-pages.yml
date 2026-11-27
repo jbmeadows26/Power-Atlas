@@ -7,6 +7,7 @@ on:
       - 'business-intelligence/**'
       - 'tests/business-intelligence*'
       - 'tests/test_business_hts_reference.py'
+      - 'tests/test_business_ofac_reference.py'
       - 'personal-intelligence/**'
       - 'tests/personal-intelligence*'
       - 'eastern-axis/src/**'
@@ -157,6 +158,9 @@ jobs:
           node --test tests/business-intelligence-procurement.test.mjs
           python3 -m unittest discover -s tests -p test_business_hts_reference.py -v
           python3 business-intelligence/collect_hts_reference.py
+          node --test tests/business-intelligence-suppliers.test.mjs
+          python3 -m unittest discover -s tests -p test_business_ofac_reference.py -v
+          python3 business-intelligence/collect_ofac_reference.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
@@ -198,6 +202,10 @@ jobs:
         run: |
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/?release=$GITHUB_SHA" | grep 'id="procurement"'
           curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/data/hts-manifest.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and d["status"] in ("available","unavailable"); print("HTS reference status:",d["status"],d["release"])'
+      - name: Verify published supplier reference status
+        run: |
+          curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/?release=$GITHUB_SHA" | grep 'id="suppliers"'
+          curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/data/ofac-organizations.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and set(d["sources"])=={"SDN","Consolidated"}; print({k:v["status"] for k,v in d["sources"].items()})'
       - name: Install WebKit production QA
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
