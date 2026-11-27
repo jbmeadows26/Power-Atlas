@@ -1,0 +1,27 @@
+const {chromium,webkit}=require(process.env.PLAYWRIGHT_MODULE||"playwright");
+const assert=require("node:assert/strict"),fs=require("node:fs"),path=require("node:path"),root=path.resolve(__dirname,"..");
+(async()=>{for(const type of [chromium,webkit]){const browser=await type.launch();try{
+ const ctx=await browser.newContext({viewport:{width:390,height:844},acceptDownloads:true}),page=await ctx.newPage(),requests=[],errors=[];
+ page.on("request",r=>requests.push({url:r.url(),method:r.method(),body:r.postData()}));page.on("pageerror",e=>errors.push(String(e)));
+ await page.route("https://raw.githubusercontent.com/jbmeadows26/Power-Atlas/main/**",async route=>{const rel=route.request().url().split("/main/")[1],file=path.resolve(root,rel);if(!file.startsWith(root+path.sep)||!fs.existsSync(file))return route.abort();await route.fulfill({contentType:"application/json",headers:{"access-control-allow-origin":"*"},body:fs.readFileSync(file)});});
+ await page.goto("http://127.0.0.1:4175/business-intelligence/#profile");
+ const vault=page.locator("#business-vault"),pass=page.locator("#business-vault-pass"),repeat=page.locator("#business-vault-confirm"),status=page.locator("#business-vault-status"),secret="QA_PRIVATE_VAULT_COMPANY",password="QA test passphrase 9841";
+ await vault.waitFor({state:"visible"});
+ await page.locator("#business-type").selectOption("importer");await page.locator("#add").click();await page.locator("[data-field=name]").fill(secret);await page.locator("[data-field=product]").selectOption("fuel");await page.locator("[data-field=monthlyCost]").fill("10000");
+ await pass.fill(password);await repeat.fill(password);page.once("dialog",d=>d.accept());await vault.getByRole("button",{name:"Save encrypted profile",exact:true}).click();await status.getByText("Encrypted profile saved on this browser.",{exact:true}).count();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent==="Encrypted profile saved on this browser.");
+ assert.equal(await pass.inputValue(),"");assert.equal(await repeat.inputValue(),"");
+ const envelope=await page.evaluate(async()=>{const {readVault}=await import("../private-workspace/vault-core.mjs");return readVault("business");});
+ assert.ok(envelope.ciphertext);assert.ok(!JSON.stringify(envelope).includes(secret));assert.ok(!JSON.stringify(envelope).includes(password));
+ const downloadPromise=page.waitForEvent("download");await vault.getByRole("button",{name:"Export encrypted backup",exact:true}).click();const download=await downloadPromise;const backup=fs.readFileSync(await download.path(),"utf8");assert.ok(!backup.includes(secret));assert.deepEqual(JSON.parse(backup),envelope);
+ page.once("dialog",d=>d.accept());await vault.getByRole("button",{name:"Lock and clear open profile",exact:true}).click();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent.includes("Open profile cleared"));assert.equal(await page.locator("[data-field=name]").count(),0);
+ await page.reload();await vault.waitFor({state:"visible"});assert.equal(await page.locator("[data-field=name]").count(),0);
+ await pass.fill("incorrect test password");await vault.getByRole("button",{name:"Restore saved profile",exact:true}).click();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent.includes("Could not unlock vault"));assert.equal(await page.locator("[data-field=name]").count(),0);
+ await pass.fill(password);page.once("dialog",d=>d.accept());await vault.getByRole("button",{name:"Restore saved profile",exact:true}).click();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent.includes("Saved profile restored"));assert.equal(await page.locator("[data-field=name]").inputValue(),secret);assert.equal(await page.locator("[data-field=monthlyCost]").inputValue(),"10000");
+ page.once("dialog",d=>d.accept());await vault.getByRole("button",{name:"Delete saved encrypted profile",exact:true}).click();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent.includes("Saved encrypted profile deleted"));
+ assert.equal(await page.evaluate(async()=>{const {readVault}=await import("../private-workspace/vault-core.mjs");return readVault("business");}),null);
+ await page.locator("#clear").click();await pass.fill(password);await page.locator("#business-vault-file").setInputFiles({name:"encrypted-profile.json",mimeType:"application/json",buffer:Buffer.from(backup)});page.once("dialog",d=>d.accept());await vault.getByRole("button",{name:"Restore encrypted backup",exact:true}).click();await page.waitForFunction(()=>document.querySelector("#business-vault-status").textContent.includes("Backup restored in this tab"));
+ assert.equal(await page.locator("[data-field=name]").inputValue(),secret);assert.equal(await page.evaluate(async()=>{const {readVault}=await import("../private-workspace/vault-core.mjs");return readVault("business");}),null);
+ assert.ok(requests.every(x=>x.method==="GET"&&!x.body&&!x.url.includes(secret)&&!x.url.includes("9841")));assert.equal(await page.evaluate(()=>localStorage.length+sessionStorage.length),0);assert.deepEqual(errors,[]);
+ assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth));console.log("PASS encrypted save, reload, lock, wrong password, restore, backup, delete and privacy",type.name());
+ await ctx.close();
+ }finally{await browser.close();}}})().catch(e=>{console.error(e);process.exit(1);});
