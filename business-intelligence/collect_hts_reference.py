@@ -19,7 +19,7 @@ def read_url(url,limit):
     return data
 def index_rows(rows):
     if not isinstance(rows,list): raise ValueError("Expected array")
-    out={}
+    out={}; ambiguous=set()
     for row in rows:
         if not isinstance(row,dict): raise ValueError("Invalid tariff row")
         code=row.get("htsno")
@@ -34,9 +34,11 @@ def index_rows(rows):
             fields[target]=v.strip() if v and v.strip() else None
         fields["footnotesPresent"]=bool(row.get("footnotes"))
         fields["additionalDutiesPresent"]=bool(row.get("additionalDuties") or row.get("addiitionalDuties"))
-        if key in out and out[key]!=fields: raise ValueError("Conflicting exact code "+key)
+        if key in ambiguous: continue
+        if key in out and out[key]!=fields:
+            ambiguous.add(key); del out[key]; continue
         out[key]=fields
-    return out
+    return out, sorted(ambiguous)
 def manifest(status,checked,**fields):
     return {"schemaVersion":1,"status":status,"checkedAt":checked,"release":RELEASE,"releaseDate":RELEASE_DATE,"source":RELEASE_PAGE,"download":SOURCE,"currentSource":CURRENT_PAGE,**fields}
 def collect(directory):
@@ -45,7 +47,7 @@ def collect(directory):
     for path in directory.glob("hts-*.json"): path.unlink()
     try:
         raw=read_url(SOURCE,MAX_BYTES)
-        records=index_rows(json.loads(raw))
+        records,ambiguous=index_rows(json.loads(raw))
         chapters=sorted(set(k[:2] for k in records))
         if len(records)<15000 or len(chapters)<90 or "99" not in chapters:
             raise ValueError("Incomplete archive coverage")
@@ -56,9 +58,8 @@ def collect(directory):
             if matches:
                 current="matches-listed-revision" if matches[0]==RELEASE else "different-listed-revision"
         except Exception: pass
-        for ch in chapters:
-            (directory/("hts-"+ch+".json")).write_text(json.dumps({k:v for k,v in records.items() if k.startswith(ch)},separators=(",",":")),encoding="utf-8")
-        m=manifest("available",checked,recordCount=len(records),chapters=chapters,sha256=hashlib.sha256(raw).hexdigest(),currentCheck=current)
+        (directory/"hts-index.json").write_text(json.dumps({"records":records,"ambiguous":ambiguous},separators=(",",":")),encoding="utf-8")
+        m=manifest("available",checked,recordCount=len(records),ambiguousCount=len(ambiguous),chapters=chapters,sha256=hashlib.sha256(raw).hexdigest(),currentCheck=current)
     except Exception as exc:
         for path in directory.glob("hts-*.json"): path.unlink()
         m=manifest("unavailable",checked,recordCount=None,chapters=[],currentCheck="unverified",error=type(exc).__name__)
