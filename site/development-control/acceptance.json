@@ -8,7 +8,30 @@
     "Not applicable",
     "Blocked"
   ],
-  "evidence": [],
+  "evidence": [
+    {
+      "id": "ci-vault-59830a7e",
+      "executedAt": "2026-11-27T17:29:48Z",
+      "commit": "59830a7e237c8322f9076d00c0d37104ccf8d9ab",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46042085693",
+      "method": "Private local vault cryptographic verification: unit checks and encrypted storage lifecycle browser suite",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "passed",
+      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance."
+    },
+    {
+      "id": "ci-business-59830a7e",
+      "executedAt": "2026-11-27T17:29:34Z",
+      "commit": "59830a7e237c8322f9076d00c0d37104ccf8d9ab",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46042085869",
+      "method": "Business Intelligence pilot verification: regression and document browser suites",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "passed",
+      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance."
+    }
+  ],
   "releaseGates": [
     {
       "id": "G01",
@@ -76,67 +99,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Platform integrity and maturity reconciliation."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Platform integrity and maturity reconciliation."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Platform integrity and maturity reconciliation."
         }
       ]
     },
@@ -160,67 +194,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Observation freshness and source coverage."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Observation freshness and source coverage."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Observation freshness and source coverage."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Observation freshness and source coverage."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Observation freshness and source coverage."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Observation freshness and source coverage."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Observation freshness and source coverage."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Observation freshness and source coverage."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Observation freshness and source coverage."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Observation freshness and source coverage."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Observation freshness and source coverage."
         }
       ]
     },
@@ -248,67 +293,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by End-to-end Customer Exposure Engine."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for End-to-end Customer Exposure Engine."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for End-to-end Customer Exposure Engine."
         }
       ]
     },
@@ -332,67 +388,90 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Private Business Document Intelligence."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Private Business Document Intelligence."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Private Business Document Intelligence."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Private Business Document Intelligence."
         },
         {
           "id": "G05",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Inspect private-input network isolation for Private Business Document Intelligence.",
+          "stage": "ci"
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Private Business Document Intelligence."
         },
         {
           "id": "G07",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Execute desktop rendering and interactions for Private Business Document Intelligence.",
+          "stage": "ci"
         },
         {
           "id": "G08",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Execute mobile rendering and interactions for Private Business Document Intelligence.",
+          "stage": "ci"
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Private Business Document Intelligence."
         },
         {
           "id": "G10",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Run affected and existing regression suites for Private Business Document Intelligence.",
+          "stage": "ci"
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Private Business Document Intelligence."
         }
       ]
     },
@@ -416,67 +495,90 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Encrypted vault backup and recovery."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Encrypted vault backup and recovery."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Encrypted vault backup and recovery."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Encrypted vault backup and recovery."
         },
         {
           "id": "G05",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Verified",
+          "evidence": [
+            "ci-vault-59830a7e"
+          ],
+          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "description": "Inspect private-input network isolation for Encrypted vault backup and recovery.",
+          "stage": "ci"
         },
         {
           "id": "G06",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Verified",
+          "evidence": [
+            "ci-vault-59830a7e"
+          ],
+          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Encrypted vault backup and recovery.",
+          "stage": "ci"
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Encrypted vault backup and recovery."
         },
         {
           "id": "G08",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Verified",
+          "evidence": [
+            "ci-vault-59830a7e"
+          ],
+          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "description": "Execute mobile rendering and interactions for Encrypted vault backup and recovery.",
+          "stage": "ci"
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Encrypted vault backup and recovery."
         },
         {
           "id": "G10",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Verified",
+          "evidence": [
+            "ci-vault-59830a7e"
+          ],
+          "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
+          "description": "Run affected and existing regression suites for Encrypted vault backup and recovery.",
+          "stage": "ci"
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Encrypted vault backup and recovery."
         }
       ]
     },
@@ -503,67 +605,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Persistent relational Business Digital Twin."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Persistent relational Business Digital Twin."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Persistent relational Business Digital Twin."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Persistent relational Business Digital Twin."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Persistent relational Business Digital Twin."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Persistent relational Business Digital Twin."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Persistent relational Business Digital Twin."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Persistent relational Business Digital Twin."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Persistent relational Business Digital Twin."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Persistent relational Business Digital Twin."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Persistent relational Business Digital Twin."
         }
       ]
     },
@@ -589,67 +702,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Progressive business profiling."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Progressive business profiling."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Progressive business profiling."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Progressive business profiling."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Progressive business profiling."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Progressive business profiling."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Progressive business profiling."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Progressive business profiling."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Progressive business profiling."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Progressive business profiling."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Progressive business profiling."
         }
       ]
     },
@@ -675,67 +799,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Evidence and information-gap transparency."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Evidence and information-gap transparency."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Evidence and information-gap transparency."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Evidence and information-gap transparency."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Evidence and information-gap transparency."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Evidence and information-gap transparency."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Evidence and information-gap transparency."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Evidence and information-gap transparency."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Evidence and information-gap transparency."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Evidence and information-gap transparency."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Evidence and information-gap transparency."
         }
       ]
     },
@@ -762,67 +897,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Twelve-domain Business Intelligence coverage."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Twelve-domain Business Intelligence coverage."
         }
       ]
     },
@@ -849,67 +995,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Validated forecasting engine."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Validated forecasting engine."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Validated forecasting engine."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Validated forecasting engine."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Validated forecasting engine."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Validated forecasting engine."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Validated forecasting engine."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Validated forecasting engine."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Validated forecasting engine."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Validated forecasting engine."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Validated forecasting engine."
         }
       ]
     },
@@ -935,67 +1092,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Forecast accountability and withholding."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Forecast accountability and withholding."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Forecast accountability and withholding."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Forecast accountability and withholding."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Forecast accountability and withholding."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Forecast accountability and withholding."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Forecast accountability and withholding."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Forecast accountability and withholding."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Forecast accountability and withholding."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Forecast accountability and withholding."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Forecast accountability and withholding."
         }
       ]
     },
@@ -1022,67 +1190,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Evidence-led Opportunity Intelligence."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Evidence-led Opportunity Intelligence."
         }
       ]
     },
@@ -1110,67 +1289,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Prescriptive Decision Intelligence."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Prescriptive Decision Intelligence."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Prescriptive Decision Intelligence."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Prescriptive Decision Intelligence."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Prescriptive Decision Intelligence."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Prescriptive Decision Intelligence."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Prescriptive Decision Intelligence."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Prescriptive Decision Intelligence."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Prescriptive Decision Intelligence."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Prescriptive Decision Intelligence."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Prescriptive Decision Intelligence."
         }
       ]
     },
@@ -1198,67 +1388,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Executive Command Center and UX/UI."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Executive Command Center and UX/UI."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Executive Command Center and UX/UI."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Executive Command Center and UX/UI."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Executive Command Center and UX/UI."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Executive Command Center and UX/UI."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Executive Command Center and UX/UI."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Executive Command Center and UX/UI."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Executive Command Center and UX/UI."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Executive Command Center and UX/UI."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Executive Command Center and UX/UI."
         }
       ]
     },
@@ -1285,67 +1486,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Specialized analyst coordination."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Specialized analyst coordination."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Specialized analyst coordination."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Specialized analyst coordination."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Specialized analyst coordination."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Specialized analyst coordination."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Specialized analyst coordination."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Specialized analyst coordination."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Specialized analyst coordination."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Specialized analyst coordination."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Specialized analyst coordination."
         }
       ]
     },
@@ -1372,67 +1584,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Verified real-world business demonstration."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Verified real-world business demonstration."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Verified real-world business demonstration."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Verified real-world business demonstration."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Verified real-world business demonstration."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Verified real-world business demonstration."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Verified real-world business demonstration."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Verified real-world business demonstration."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Verified real-world business demonstration."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Verified real-world business demonstration."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Verified real-world business demonstration."
         }
       ]
     },
@@ -1459,67 +1682,90 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Private decision and outcome tracking."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Private decision and outcome tracking."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Private decision and outcome tracking."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Private decision and outcome tracking."
         },
         {
           "id": "G05",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Inspect private-input network isolation for Private decision and outcome tracking.",
+          "stage": "ci"
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Private decision and outcome tracking."
         },
         {
           "id": "G07",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Execute desktop rendering and interactions for Private decision and outcome tracking.",
+          "stage": "ci"
         },
         {
           "id": "G08",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Execute mobile rendering and interactions for Private decision and outcome tracking.",
+          "stage": "ci"
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Private decision and outcome tracking."
         },
         {
           "id": "G10",
-          "state": "Pending",
-          "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "state": "Partial",
+          "evidence": [
+            "ci-business-59830a7e"
+          ],
+          "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
+          "description": "Run affected and existing regression suites for Private decision and outcome tracking.",
+          "stage": "ci"
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Private decision and outcome tracking."
         }
       ]
     },
@@ -1545,67 +1791,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Commercial security and licensing."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Commercial security and licensing."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Commercial security and licensing."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Commercial security and licensing."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Commercial security and licensing."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Commercial security and licensing."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Commercial security and licensing."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Commercial security and licensing."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Commercial security and licensing."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Commercial security and licensing."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Commercial security and licensing."
         }
       ]
     },
@@ -1639,67 +1896,78 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Commercial pilot and pricing validation."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Commercial pilot and pricing validation."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Commercial pilot and pricing validation."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Commercial pilot and pricing validation."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Commercial pilot and pricing validation."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Commercial pilot and pricing validation."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Commercial pilot and pricing validation."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Commercial pilot and pricing validation."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Commercial pilot and pricing validation."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Commercial pilot and pricing validation."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Commercial pilot and pricing validation."
         }
       ]
     },
@@ -1723,69 +1991,93 @@
           "id": "G01",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify provenance and freshness of data used by Continuous production acceptance."
         },
         {
           "id": "G02",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute the complete customer workflow for Continuous production acceptance."
         },
         {
           "id": "G03",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify conclusions and information gaps for Continuous production acceptance."
         },
         {
           "id": "G04",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify forecast methodology or explicit withholding for Continuous production acceptance."
         },
         {
           "id": "G05",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Inspect private-input network isolation for Continuous production acceptance."
         },
         {
           "id": "G06",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify save, reload, encrypted recovery and deletion for Continuous production acceptance."
         },
         {
           "id": "G07",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute desktop rendering and interactions for Continuous production acceptance."
         },
         {
           "id": "G08",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Execute mobile rendering and interactions for Continuous production acceptance."
         },
         {
           "id": "G09",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Verify deployed commit and asset identity for Continuous production acceptance."
         },
         {
           "id": "G10",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Run affected and existing regression suites for Continuous production acceptance."
         },
         {
           "id": "G11",
           "state": "Pending",
           "evidence": [],
-          "reason": "Applicability and execution evidence must be assessed before release."
+          "reason": "Applicability and execution evidence must be assessed before release.",
+          "description": "Document demonstrated customer benefit and unvalidated hypotheses for Continuous production acceptance."
         }
       ]
     }
-  ]
+  ],
+  "measurementPolicy": {
+    "criteria": "Customer acceptance outcomes; counted separately from capability-specific release gates.",
+    "gates": "Eleven per capability are release assessments, not additional customer features. Shared execution evidence may support multiple assessments only when scope matches.",
+    "stages": [
+      "implemented",
+      "local",
+      "ci",
+      "deployed",
+      "production",
+      "commercial"
+    ],
+    "productionRule": "CI and local verification do not establish production verification. Every evidence record is bound to its tested commit; later releases require re-verification."
+  }
 }

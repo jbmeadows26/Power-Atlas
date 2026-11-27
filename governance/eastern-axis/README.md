@@ -46,3 +46,8 @@ This mapping follows the user's 18-section execution directive. It does not pret
 | 16 Pilot MVP acceptance | EA-003 through EA-008, EA-010 through EA-014, EA-017 |
 | 17 Final reporting | EA-001, EA-020 |
 | 18 Execution instruction | All requirements |
+
+## Acceptance-count audit and execution stages
+The original 240 records consist of 20 customer acceptance outcomes and 220 capability-specific release assessments. They are not 240 independent product features. The control center now reports these denominators separately, and every release assessment names its capability-specific check. The eleven gate definitions remain canonical; shared execution evidence can be referenced across relevant capabilities without inventing independent test runs. Gates are retained because the directive requires applicable gates per capability; applicability changes require explicit reasons.
+
+Evidence stages distinguish implemented/source, local, CI, deployed, production and commercial execution. A CI-Verified gate is bounded to its recorded commit and is not production verification. Production-stage evidence requires matching deployed SHA. No complete requirement is inferred from a subset of passing gates. Recorded historical CI for commit 59830a7e covers bounded Business and vault tests; full document formats and overall Pilot acceptance remain incomplete. New release heads require fresh verification.

@@ -16,7 +16,7 @@ class AcceptanceTests(unittest.TestCase):
 
     def test_pending_is_not_completed(self):
         report = module.summarize(self.data)
-        self.assertEqual(report['verifiedAcceptanceRecords'], 0)
+        self.assertEqual(report['verifiedAcceptanceRecords'], 4)
         self.assertEqual(report['applicableAcceptanceRecords'], 240)
         self.assertFalse(any(r['complete'] for r in report['requirements'].values()))
 
@@ -35,7 +35,7 @@ class AcceptanceTests(unittest.TestCase):
         report = module.summarize(self.data)
         self.assertEqual(report['applicableAcceptanceRecords'], 239)
         self.assertEqual(report['notApplicableRecords'], 1)
-        self.assertEqual(report['verifiedAcceptanceRecords'], 0)
+        self.assertEqual(report['verifiedAcceptanceRecords'], 4)
 
     def test_data_cannot_be_waived(self):
         self.data['requirements'][0]['gates'][0]['state'] = 'Not applicable'
@@ -58,3 +58,18 @@ class AcceptanceTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+class StageSafetyTests(unittest.TestCase):
+    def test_ci_is_not_production(self):
+        data = json.loads((ROOT / 'site/development-control/acceptance.json').read_text())
+        record = data['requirements'][4]['gates'][5]
+        record['stage'] = 'production'
+        with self.assertRaisesRegex(ValueError, 'Production stage'):
+            module.summarize(data)
+
+    def test_gate_and_customer_counts_are_separate(self):
+        data = json.loads((ROOT / 'site/development-control/acceptance.json').read_text())
+        report = module.summarize(data)
+        self.assertEqual(sum(report['criterionStates'].values()), 20)
+        self.assertEqual(sum(report['gateStates'].values()), 220)
+        self.assertEqual(report['verifiedByStage'], {'ci': 4})
