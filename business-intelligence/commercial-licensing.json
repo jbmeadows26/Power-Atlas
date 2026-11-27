@@ -1,0 +1,15 @@
+{
+ "schemaVersion":1,
+ "commercialLaunch":"blocked-pending-review",
+ "sourceRegistry":"business-intelligence/source-rights.json",
+ "entries":[
+  {"id":"pdfjs","kind":"software","version":"4.10.38","license":"Apache-2.0","evidence":"business-intelligence/document-runtime/package-lock.json","status":"license-declared; transitive and commercial review pending"},
+  {"id":"fflate","kind":"software","version":"0.8.2","license":"MIT","evidence":"business-intelligence/document-runtime/package-lock.json","status":"license-declared; commercial review pending"},
+  {"id":"minilm","kind":"model","version":"cb3d680149bf9a3209564e1b27ab3bb355b65707","license":"Apache-2.0 model-card declaration","evidence":"https://huggingface.co/Xenova/all-MiniLM-L6-v2","status":"redistribution and transitive runtime review pending"},
+  {"id":"apple-case","kind":"public-source","license":"copyright; no blanket redistribution license asserted","evidence":"https://www.apple.com/newsroom/2022/11/update-on-supply-of-iphone-14-pro-and-iphone-14-pro-max/","status":"linked factual paraphrase; commercial legal review pending; no full article redistribution"},
+  {"id":"github-pages","kind":"hosting","license":"service terms","evidence":"https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits","status":"future paid SaaS eligibility unverified; do not treat development hosting as commercial clearance"},
+  {"id":"github-actions","kind":"automation","license":"service terms and quotas","evidence":"https://docs.github.com/en/billing/managing-billing-for-your-products/managing-billing-for-github-actions/about-billing-for-github-actions","status":"measure execution and storage; no paid quota authorized"}
+ ],
+ "securityLimitations":["Browser compromise can expose an unlocked private profile","No server recovery of forgotten vault passphrase","No OCR enabled","XLSX execution bounds require worker/timeout verification","No independent penetration-test certification"],
+ "reviewedCommercialClearance":false
+}
