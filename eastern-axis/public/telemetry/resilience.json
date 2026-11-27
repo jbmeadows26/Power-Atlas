@@ -121,7 +121,7 @@
       "title": "Threat-actor claims / underground corroboration"
     }
   ],
-  "checkedAt": "2026-11-27T00:34:32.197570Z",
+  "checkedAt": "2026-11-27T09:06:06.416090Z",
   "history": [
     {
       "alerts": 0,
@@ -618,6 +618,25 @@
         "ripe-google.bgpUpdateCount": 3.0
       },
       "screenings": 1
+    },
+    {
+      "alerts": 0,
+      "checkedAt": "2026-11-27T09:06:06.416090Z",
+      "errors": 0,
+      "observed": 13,
+      "samples": {
+        "cloudflare-edge.dnsMs": 16.5,
+        "cloudflare-edge.handshakeMs": 22.7,
+        "github-web.dnsMs": 4.5,
+        "github-web.handshakeMs": 65.7,
+        "google-identity.dnsMs": 30.6,
+        "google-identity.handshakeMs": 40.8,
+        "microsoft-identity.dnsMs": 43.1,
+        "microsoft-identity.handshakeMs": 38.6,
+        "ripe-cloudflare.bgpUpdateCount": 44.0,
+        "ripe-google.bgpUpdateCount": 5.0
+      },
+      "screenings": 1
     }
   ],
   "incidents": [],
@@ -636,10 +655,10 @@
   "observations": [
     {
       "category": "dns_tls",
-      "certDaysRemaining": 59.0,
-      "checkedAt": "2026-11-27T00:34:19.758963Z",
-      "dnsMs": 37.7,
-      "handshakeMs": 25.8,
+      "certDaysRemaining": 57.6,
+      "checkedAt": "2026-11-27T09:05:52.193719Z",
+      "dnsMs": 43.1,
+      "handshakeMs": 38.6,
       "id": "microsoft-identity",
       "provider": "microsoft",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -650,10 +669,10 @@
     },
     {
       "category": "dns_tls",
-      "certDaysRemaining": 60.3,
-      "checkedAt": "2026-11-27T00:34:19.857935Z",
-      "dnsMs": 1.4,
-      "handshakeMs": 21.4,
+      "certDaysRemaining": 60.0,
+      "checkedAt": "2026-11-27T09:05:52.291656Z",
+      "dnsMs": 30.6,
+      "handshakeMs": 40.8,
       "id": "google-identity",
       "provider": "google",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -664,10 +683,10 @@
     },
     {
       "category": "dns_tls",
-      "certDaysRemaining": 79.7,
-      "checkedAt": "2026-11-27T00:34:19.881280Z",
-      "dnsMs": 1.2,
-      "handshakeMs": 20.3,
+      "certDaysRemaining": 79.4,
+      "checkedAt": "2026-11-27T09:05:52.363397Z",
+      "dnsMs": 16.5,
+      "handshakeMs": 22.7,
       "id": "cloudflare-edge",
       "provider": "cloudflare",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -678,10 +697,10 @@
     },
     {
       "category": "dns_tls",
-      "certDaysRemaining": 62.0,
-      "checkedAt": "2026-11-27T00:34:19.903138Z",
-      "dnsMs": 0.8,
-      "handshakeMs": 17.8,
+      "certDaysRemaining": 61.6,
+      "checkedAt": "2026-11-27T09:05:52.402893Z",
+      "dnsMs": 4.5,
+      "handshakeMs": 65.7,
       "id": "github-web",
       "provider": "github",
       "scope": "one GitHub-hosted runner, not worldwide",
@@ -692,7 +711,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-27T00:34:19.922015Z",
+      "checkedAt": "2026-11-27T09:05:52.473293Z",
       "failedRegions": 0,
       "id": "globalping-microsoft",
       "provider": "microsoft",
@@ -701,7 +720,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 200,
-          "latencyMs": 534,
+          "latencyMs": 112,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -709,15 +728,15 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 200,
-          "latencyMs": 136,
+          "latencyMs": 91,
           "probeStatus": "finished",
           "state": "reachable"
         },
         {
-          "asn": 59253,
+          "asn": 31898,
           "country": "SG",
           "httpStatus": 200,
-          "latencyMs": 95,
+          "latencyMs": 280,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -725,7 +744,7 @@
           "asn": 31898,
           "country": "BR",
           "httpStatus": 200,
-          "latencyMs": 196,
+          "latencyMs": 194,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -733,7 +752,7 @@
           "asn": 37153,
           "country": "ZA",
           "httpStatus": 200,
-          "latencyMs": 738,
+          "latencyMs": 727,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -741,7 +760,7 @@
           "asn": 31898,
           "country": "AU",
           "httpStatus": 200,
-          "latencyMs": 92,
+          "latencyMs": 31,
           "probeStatus": "finished",
           "state": "reachable"
         }
@@ -754,7 +773,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-27T00:34:22.486358Z",
+      "checkedAt": "2026-11-27T09:05:55.296733Z",
       "failedRegions": 0,
       "id": "globalping-google",
       "provider": "google",
@@ -763,7 +782,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 302,
-          "latencyMs": 488,
+          "latencyMs": 122,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -771,23 +790,23 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 302,
-          "latencyMs": 57,
+          "latencyMs": 55,
           "probeStatus": "finished",
           "state": "reachable"
         },
         {
-          "asn": 59253,
+          "asn": 31898,
           "country": "SG",
           "httpStatus": 302,
-          "latencyMs": 131,
+          "latencyMs": 22,
           "probeStatus": "finished",
           "state": "reachable"
         },
         {
-          "asn": 20473,
+          "asn": 31898,
           "country": "BR",
           "httpStatus": 302,
-          "latencyMs": 327,
+          "latencyMs": 1122,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -795,7 +814,7 @@
           "asn": 37153,
           "country": "ZA",
           "httpStatus": 302,
-          "latencyMs": 512,
+          "latencyMs": 525,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -803,7 +822,7 @@
           "asn": 31898,
           "country": "AU",
           "httpStatus": 302,
-          "latencyMs": 296,
+          "latencyMs": 303,
           "probeStatus": "finished",
           "state": "reachable"
         }
@@ -816,7 +835,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-27T00:34:24.774571Z",
+      "checkedAt": "2026-11-27T09:05:57.579097Z",
       "failedRegions": 0,
       "id": "globalping-cloudflare",
       "provider": "cloudflare",
@@ -825,7 +844,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 200,
-          "latencyMs": 147,
+          "latencyMs": 156,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -833,15 +852,15 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 200,
-          "latencyMs": 81,
+          "latencyMs": 82,
           "probeStatus": "finished",
           "state": "reachable"
         },
         {
-          "asn": 59253,
+          "asn": 8888,
           "country": "SG",
           "httpStatus": 200,
-          "latencyMs": 271,
+          "latencyMs": 287,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -849,7 +868,7 @@
           "asn": 31898,
           "country": "BR",
           "httpStatus": 200,
-          "latencyMs": 167,
+          "latencyMs": 162,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -857,7 +876,7 @@
           "asn": 37153,
           "country": "ZA",
           "httpStatus": 200,
-          "latencyMs": 306,
+          "latencyMs": 300,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -865,7 +884,7 @@
           "asn": 31898,
           "country": "AU",
           "httpStatus": 200,
-          "latencyMs": 265,
+          "latencyMs": 245,
           "probeStatus": "finished",
           "state": "reachable"
         }
@@ -878,7 +897,7 @@
     },
     {
       "category": "regional_http",
-      "checkedAt": "2026-11-27T00:34:27.540078Z",
+      "checkedAt": "2026-11-27T09:05:59.849357Z",
       "failedRegions": 0,
       "id": "globalping-github",
       "provider": "github",
@@ -887,7 +906,7 @@
           "asn": 36352,
           "country": "US",
           "httpStatus": 200,
-          "latencyMs": 101,
+          "latencyMs": 244,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -895,7 +914,7 @@
           "asn": 24940,
           "country": "DE",
           "httpStatus": 200,
-          "latencyMs": 30,
+          "latencyMs": 33,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -903,7 +922,7 @@
           "asn": 59253,
           "country": "SG",
           "httpStatus": 200,
-          "latencyMs": 472,
+          "latencyMs": 18,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -911,7 +930,7 @@
           "asn": 31898,
           "country": "BR",
           "httpStatus": 200,
-          "latencyMs": 20,
+          "latencyMs": 31,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -919,7 +938,7 @@
           "asn": 37153,
           "country": "ZA",
           "httpStatus": 200,
-          "latencyMs": 54,
+          "latencyMs": 18,
           "probeStatus": "finished",
           "state": "reachable"
         },
@@ -927,7 +946,7 @@
           "asn": 31898,
           "country": "AU",
           "httpStatus": 200,
-          "latencyMs": 18,
+          "latencyMs": 17,
           "probeStatus": "finished",
           "state": "reachable"
         }
@@ -939,10 +958,10 @@
       "title": "github.com external HTTP reachability"
     },
     {
-      "bgpUpdateCount": 36,
+      "bgpUpdateCount": 44,
       "bgpWindowHours": 1,
       "category": "bgp_rpki",
-      "checkedAt": "2026-11-27T00:34:30.319925Z",
+      "checkedAt": "2026-11-27T09:06:02.376225Z",
       "expectedOrigin": "AS13335",
       "id": "ripe-cloudflare",
       "prefix": "1.1.1.0/24",
@@ -955,10 +974,10 @@
       "title": "cloudflare BGP/RPKI sample"
     },
     {
-      "bgpUpdateCount": 3,
+      "bgpUpdateCount": 5,
       "bgpWindowHours": 1,
       "category": "bgp_rpki",
-      "checkedAt": "2026-11-27T00:34:31.009678Z",
+      "checkedAt": "2026-11-27T09:06:03.476531Z",
       "expectedOrigin": "AS15169",
       "id": "ripe-google",
       "prefix": "8.8.8.0/24",
@@ -972,7 +991,7 @@
     },
     {
       "category": "traffic",
-      "checkedAt": "2026-11-27T00:34:31.671618Z",
+      "checkedAt": "2026-11-27T09:06:05.608219Z",
       "id": "radar-traffic",
       "provider": "cloudflare",
       "scope": "Radar observational coverage, not global exhaustive coverage",
@@ -983,17 +1002,17 @@
     },
     {
       "category": "grid_frequency",
-      "checkedAt": "2026-11-27T00:34:31.671650Z",
-      "deviationHz": 0.047,
+      "checkedAt": "2026-11-27T09:06:05.608251Z",
+      "deviationHz": -0.023,
       "expectedHz": 50.0,
-      "frequencyHz": 50.047,
+      "frequencyHz": 49.977,
       "id": "elexon-gb-frequency",
       "provider": "elexon",
-      "sampleAgeSeconds": 47,
-      "sampleCount": 77,
+      "sampleAgeSeconds": 141,
+      "sampleCount": 71,
       "scope": "Great Britain only. Frequency is not UPS availability, load shedding or worldwide grid state.",
       "source": "Elexon BMRS / National Energy System Operator",
-      "sourceTime": "2026-11-27T00:33:45Z",
+      "sourceTime": "2026-11-27T09:03:45Z",
       "sourceUrl": "https://bmrs.elexon.co.uk/rolling-system-frequency",
       "status": "observed",
       "title": "Great Britain transmission grid frequency",
@@ -1001,7 +1020,7 @@
     },
     {
       "category": "ixp_directory",
-      "checkedAt": "2026-11-27T00:34:32.001834Z",
+      "checkedAt": "2026-11-27T09:06:06.167842Z",
       "exchange": "AMS-IX",
       "exchangeId": 26,
       "id": "peeringdb-amsix",
@@ -1014,10 +1033,10 @@
     },
     {
       "category": "pki_transport",
-      "checkedAt": "2026-11-27T00:34:32.153107Z",
+      "checkedAt": "2026-11-27T09:06:06.352363Z",
       "httpStatus": 200,
       "id": "gts-crl-transport",
-      "latencyMs": 44.2,
+      "latencyMs": 63.4,
       "provider": "google-trust-services",
       "requestMethod": "HEAD",
       "scope": "HTTP HEAD to a pinned official root CRL distribution point. No OCSP query, signature validation, revocation decision, or CA request-volume monitoring.",
@@ -1031,14 +1050,14 @@
   "schemaVersion": 1,
   "screeningSignals": [
     {
-      "baselineMedian": 2.0,
+      "baselineMedian": 2.5,
       "detail": "Large change against at least six previously sampled windows; screening only, not incident confirmation.",
       "evidenceIds": [
         "ripe-cloudflare"
       ],
       "id": "spike-ripe-cloudflare-bgpUpdateCount",
       "kind": "deviation-from-rolling-baseline",
-      "observed": 36,
+      "observed": 44,
       "title": "cloudflare BGP/RPKI sample — bgpUpdateCount spike"
     }
   ],
