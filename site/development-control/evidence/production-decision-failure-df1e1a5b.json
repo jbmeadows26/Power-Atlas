@@ -1,0 +1,14 @@
+{
+  "schema": "eastern-axis.production-failure.v1",
+  "commit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+  "deployedCommit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+  "stage": "production",
+  "result": "failed",
+  "executedAt": "2026-11-27T22:26:51.274998+00:00",
+  "timestampBasis": "Diagnostic log last-write time",
+  "method": "Actual production browser: schedule valid input reassessment, explicitly Analyze, enter decision draft, wait600ms, assert draft unchanged.",
+  "scope": "Decision draft preservation after explicit analysis",
+  "harnessSha256": "b513cf42bcd76de5639169b8d745e5252350519c601dd6345028a7cbb4de6409",
+  "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nAssertionError [ERR_ASSERTION]: Pending reassessment must not erase an explicit-analysis decision draft\n+ actual - expected\n\n+ ''\n- 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE'\n\n    at /workspace/scratch/cycle3-production-ui/reassessment-repro.cjs:25:36 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '',\n  expected: 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+  "limitations": "Deterministic diagnostic identifies pending reassessment draft loss. Does not imply unrelated command indicators or public case failed."
+}

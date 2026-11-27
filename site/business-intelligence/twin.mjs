@@ -59,3 +59,15 @@ export function removeRelationship(t,id,now=new Date().toISOString()){
 export function twinGaps(t){return validateTwin(t).entities.filter(e=>!e.archived).flatMap(e=>{const out=[];if(!Object.values(e.exposure).some(Boolean))out.push(e.name+': no supported exposure mapping');if(e.type==='inventory'&&e.attributes.quantity==null)out.push(e.name+': inventory quantity unavailable');if(e.type==='contract'&&!e.attributes.renewalDate)out.push(e.name+': renewal date unavailable');return out;});}
 
 export function twinCompleteness(t){const active=validateTwin(t).entities.filter(e=>!e.archived);const relevant={inventory:['quantity','unit','reorderPoint'],contract:['renewalDate','obligation'],supplier:['location'],facility:['location'],financial:['monthlyCost','currency'],logistics:['carrier','port']};let known=0,applicable=0;for(const e of active)for(const field of relevant[e.type]||[]){applicable++;if(e.attributes[field]!==undefined&&e.attributes[field]!==null&&e.attributes[field]!=='')known++;}return {known,applicable,ratio:applicable?known/applicable:null};}
+
+// A projection's IDs are a reachable set, not an ordered chain. Describe only
+// actual active dependency edges; rendering their iteration order as A→B→C
+// would invent links when the graph branches or contains a cycle.
+export function describeExposureRelationships(t,reachableIds){
+ const twin=validateTwin(t);
+ if(!Array.isArray(reachableIds)||reachableIds.length>500||reachableIds.some(id=>!bounded(id,100)))throw Error('Invalid exposure relationship IDs.');
+ const requested=new Set(reachableIds),active=new Map(twin.entities.filter(e=>!e.archived).map(e=>[e.id,e]));
+ const nodes=[...requested].filter(id=>active.has(id)).map(id=>{const e=active.get(id);return {id:e.id,name:e.name,type:e.type};});
+ const edges=twin.relationships.filter(r=>r.relation==='depends-on'&&requested.has(r.from)&&requested.has(r.to)&&active.has(r.from)&&active.has(r.to)).map(r=>({id:r.id,from:r.from,fromName:active.get(r.from).name,to:r.to,toName:active.get(r.to).name,relation:r.relation,label:active.get(r.from).name+' depends on '+active.get(r.to).name}));
+ return {nodes,edges,unavailableIds:[...requested].filter(id=>!active.has(id)),basis:'Customer-declared active dependency relationships; edges are not an ordered chain.'};
+}

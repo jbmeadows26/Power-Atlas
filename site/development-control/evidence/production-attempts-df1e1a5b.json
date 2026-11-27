@@ -1,0 +1,31 @@
+{
+  "schema": "eastern-axis.qa-failed-attempts.v1",
+  "commit": "df1e1a5b6c08dbbfdfd1b2387b46738ab2c417d9",
+  "recordedAt": "2026-11-27T22:30:05.218000+00:00",
+  "attempts": [
+    {
+      "path": "business-document-twin-browser.initial-reassessment-race.log",
+      "sha256": "2093149573d69fbede124c53e611ea6a14b54b284e542fbeee1feba34a03fc1a",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nchromium 320 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nchromium 390 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nchromium 1280 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nSkipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nwebkit 320 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nwebkit 390 approved document facts -> twin -> evidenced finding -> decision -> encrypted reload, backup deletion/import, provenance and relationships passed\nlocator.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('#findings details').filter({ hasText: 'QA_PRIVATE_APPROVED_INVENTORY' }).first().getByRole('button', { name: 'Record decision', exact: true })\u001b[22m\n\n    at /workspace/scratch/cycle3-production-ui/business-document-twin-browser.cjs:25:71 {\n  name: 'TimeoutError'\n}\n",
+      "classification": "confirmed production draft-loss defect"
+    },
+    {
+      "path": "reassessment-repro.log",
+      "sha256": "c010cd03cc27200450785f7ceebadc74587c100806babd3f1be9f51aeef66547",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nAssertionError [ERR_ASSERTION]: Pending reassessment must not erase an explicit-analysis decision draft\n+ actual - expected\n\n+ ''\n- 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE'\n\n    at /workspace/scratch/cycle3-production-ui/reassessment-repro.cjs:25:36 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: '',\n  expected: 'QA_PRIVATE_REVIEW_SUPPLIER_QUOTE',\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+      "classification": "confirmed production draft-loss defect"
+    },
+    {
+      "path": "business-public-case-browser.initial-readiness-failure.log",
+      "sha256": "338f47b86a4becb11ac12a21f244f81def5ac1fb57cf9f7039b72c65e8c10e09",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nAssertionError [ERR_ASSERTION]: Expected values to be strictly equal:\n\n0 !== 18\n\n    at /workspace/scratch/cycle3-production-ui/business-public-case-browser.cjs:3:566 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: 0,\n  expected: 18,\n  operator: 'strictEqual',\n  diff: 'simple'\n}\n",
+      "classification": "test readiness or collapsed-panel inspection; corrected harness retained original assertions"
+    },
+    {
+      "path": "private-model-policy-browser.initial-readiness-failure.log",
+      "sha256": "d24a9445cb2e86cbc49b13deecbe5dc7f08272064f4361f0f55e031e6531456f",
+      "log": "Skipping host requirements validation logic because `PLAYWRIGHT_SKIP_VALIDATE_HOST_REQUIREMENTS` env variable is set.\nAssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(text.includes(label))\n\n    at /workspace/scratch/cycle3-production-ui/private-model-policy-browser.cjs:2:512 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '==',\n  diff: 'simple'\n}\n",
+      "classification": "test readiness or collapsed-panel inspection; corrected harness retained original assertions"
+    }
+  ]
+}

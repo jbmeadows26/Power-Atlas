@@ -7,6 +7,9 @@ on:
       - 'site/business-intelligence/**'
       - 'site/personal-intelligence/**'
       - 'tests/private-vault*'
+      - 'tests/private-model-policy-browser.cjs'
+      - 'site/private-workspace/device-policy.mjs'
+      - 'site/private-workspace/adaptive-ui.mjs'
       - '.github/workflows/private-vault-ci.yml'
   workflow_dispatch:
 permissions:
@@ -33,3 +36,4 @@ jobs:
           for i in $(seq 1 15); do curl -fsS "$BUSINESS_TEST_URL" >/dev/null && break; sleep 1; done
           node tests/private-vault-browser.cjs
           node tests/private-vault-personal-browser.cjs
+          node tests/private-model-policy-browser.cjs

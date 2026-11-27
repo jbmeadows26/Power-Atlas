@@ -57,12 +57,13 @@ jobs:
           node tests/business-twin-browser.cjs
           node tests/business-twin-editing-browser.cjs
           node tests/business-document-twin-browser.cjs
+          node tests/business-decision-draft-browser.cjs
           node tests/business-command-browser.cjs
           node tests/business-public-case-browser.cjs
       - if: always()
         uses: actions/upload-artifact@v4
         with:
           name: business-intelligence-ui-qa
-          path: audit-output/business-intelligence/
+          path: audit-output/
           if-no-files-found: warn
           retention-days: 7
