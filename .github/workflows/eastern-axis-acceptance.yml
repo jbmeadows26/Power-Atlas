@@ -1,0 +1,33 @@
+name: Eastern Axis acceptance registry
+on:
+  pull_request:
+    paths:
+      - 'site/development-control/**'
+      - 'governance/eastern-axis/**'
+      - 'scripts/validate_eastern_axis_acceptance.py'
+      - 'tests/test_eastern_axis_acceptance.py'
+      - '.github/workflows/eastern-axis-acceptance.yml'
+  push:
+    branches: [main]
+    paths:
+      - 'site/development-control/**'
+      - 'scripts/validate_eastern_axis_acceptance.py'
+      - 'tests/test_eastern_axis_acceptance.py'
+      - '.github/workflows/eastern-axis-acceptance.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  registry-integrity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m unittest discover -s tests -p test_eastern_axis_acceptance.py
+      - run: python scripts/validate_eastern_axis_acceptance.py > acceptance-summary.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: acceptance-summary
+          path: acceptance-summary.json
