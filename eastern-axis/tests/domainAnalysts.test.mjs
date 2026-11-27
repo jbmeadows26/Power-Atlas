@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {buildDomainBrief,ANALYST_ROUTE_KEYS,SNAPSHOT_PATHS} from '../src/lib/domainAnalysts.ts';
+import {buildDomainBrief,needsGlobalSystems,ANALYST_ROUTE_KEYS,SNAPSHOT_PATHS} from '../src/lib/domainAnalysts.ts';
 
 const source=(id,code='CN')=>({id,code,title:id,sourceUrl:'https://example.org/'+id,publisher:'Official reference',published:'2026-11-21'});
 const minimal=()=>({
@@ -151,4 +151,10 @@ test('blocked issuer collection is not a verified zero filing count',()=>{
  const snap=minimal();snap.transmission.issuers=[{name:'Issuer',status:'unavailable',sourceUrl:'https://example.org/issuer'}];
  const b=build('Corporate intelligence','overview','all',snap);
  assert.equal(b.metrics[1].value,'—');assert.match(b.finding,/filings are unavailable/);
+});
+
+test('Global Systems data is requested only by consuming analyst workspaces',()=>{
+ const expected=new Set(['Macro indicators','Trade indicators','Energy & resources','Demographics & biosecurity','Economic intelligence:overview','Economic intelligence:signals','Economic intelligence:risk','Economic intelligence:systems','Economic intelligence:supply','Economic intelligence:shortages']);
+ for(const route of ANALYST_ROUTE_KEYS){const [view,focus='overview']=route.split(':');assert.equal(needsGlobalSystems(view,focus),expected.has(route),route);}
+ for(const route of ['Overview','Forecast intelligence','Forecast track record','Countries','AI analyst'])assert.equal(needsGlobalSystems(route,'systems'),false,route);
 });
