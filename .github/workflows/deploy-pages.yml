@@ -4,6 +4,9 @@ on:
     branches: [main]
     paths:
       - 'site/**'
+      - 'business-intelligence/**'
+      - 'tests/business-intelligence*'
+      - 'tests/test_business_hts_reference.py'
       - 'personal-intelligence/**'
       - 'tests/personal-intelligence*'
       - 'eastern-axis/src/**'
@@ -149,6 +152,11 @@ jobs:
           python3 -m http.server 4175 --directory site > /tmp/pi-import-preview.log 2>&1 &
           for i in $(seq 1 15); do curl -fsS http://127.0.0.1:4175/personal-intelligence/ >/dev/null && break; sleep 1; done
           node tests/personal-intelligence-import-browser.cjs
+      - name: Build business procurement reference
+        run: |
+          node --test tests/business-intelligence-procurement.test.mjs
+          python3 -m unittest discover -s tests -p test_business_hts_reference.py -v
+          python3 business-intelligence/collect_hts_reference.py
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
       - name: Upload one Pages artifact containing both sites
@@ -186,6 +194,10 @@ jobs:
           done
           echo "Expected release or embedded stylesheet not served by Pages" >&2
           exit 1
+      - name: Verify published Business Intelligence and procurement reference status
+        run: |
+          curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/?release=$GITHUB_SHA" | grep 'id="procurement"'
+          curl -fsSL "https://jbmeadows26.github.io/Power-Atlas/business-intelligence/data/hts-manifest.json?release=$GITHUB_SHA" | python3 -c 'import json,sys; d=json.load(sys.stdin); assert d["schemaVersion"]==1 and d["status"] in ("available","unavailable"); print("HTS reference status:",d["status"],d["release"])'
       - name: Install WebKit production QA
         run: |
           npm install --prefix "$RUNNER_TEMP/ea-pages-check" --no-save playwright@1.56.1
