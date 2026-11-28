@@ -78,11 +78,10 @@ class ReleaseIdentityTests(unittest.TestCase):
             context = m.acceptance_context(registry, 'c' * 40)
         self.assertEqual(context['carryForwardEvidence'], ['unchanged'])
 
-    def test_manifest_rejects_missing_or_forged_acceptance_context(self):
+    def test_manifest_treats_missing_context_as_legacy_and_rejects_forgery(self):
         data = self.manifest()
         data['files']['development-control/acceptance.json'] = 'b' * 64
-        with self.assertRaisesRegex(ValueError, 'release context'):
-            m.validate(data)
+        self.assertNotIn('acceptanceContext', m.validate(data))
         data['acceptanceContext'] = {
             'schema': m.CONTEXT_SCHEMA,
             'status': 'Verified',
