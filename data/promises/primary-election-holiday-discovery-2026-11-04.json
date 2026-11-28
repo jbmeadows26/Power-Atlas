@@ -1,0 +1,63 @@
+{
+  "schema": "power-atlas.campaign-election-holiday-discovery.v1",
+  "asOf": "2026-11-04",
+  "status": "provisional_unadjudicated_discovery",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "independentHumanReviewCount": 0,
+  "sourceDocuments": [
+    {
+      "id": "US20-DEM-PLATFORM",
+      "alreadyIndexed": true,
+      "published": "2020-08-17",
+      "issuer": "Democratic Party",
+      "url": "https://democrats.org/wp-content/uploads/sites/2/2020/08/2020-Democratic-Party-Platform.pdf",
+      "locator": "Restoring and Strengthening Our Democracy > Protecting and Enforcing Voting Rights; paragraph beginning 'Democrats believe Election Day'",
+      "rights": "party_copyright_link_and_paraphrase_only"
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-ELECTION-DAY-HOLIDAY-DISCOVERY-20261104",
+      "documentId": "US20-DEM-PLATFORM",
+      "maker": "Democratic Party",
+      "paraphrase": "Make Election Day a national holiday.",
+      "criterion": "A federal statute establishing a nationwide Election Day holiday; distinguish federal employee holiday from mandatory leave for private-sector workers and state election administration.",
+      "linkedOfficialEventIds": [
+        "US21-HR1-117TH-REPORTED-TEXT"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "duplicateStatus": "requires_cross_ledger_review_before_denominator_inclusion",
+      "uncertainty": "Platform language expresses support for a national holiday; whether it qualifies as an explicit action pledge under the protocol requires independent review. No passage-based assertion that the bill was enacted.",
+      "competingExplanations": [
+        "Congressional agenda control and bicameral procedure",
+        "Existing state holidays and different definitions of national holiday"
+      ]
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US21-HR1-117TH-REPORTED-TEXT",
+      "kind": "official_legislative_text_not_enactment",
+      "document": "For the People Act of 2021, H.R.1, 117th Congress",
+      "url": "https://www.congress.gov/117/bills/hr1/BILLS-117hr1rds.pdf",
+      "locator": "Division A, voting; holiday provisions; confirm exact section and chamber passage before adjudication",
+      "date": "2022-02-08",
+      "dateMeaning": "PDF print/metadata date, NOT bill introduction or passage date",
+      "uncertainty": "This version contains election-access proposals. Exact holiday provision and legislative action chronology require section-level confirmation; do not treat as implementation."
+    }
+  ],
+  "fiscalObservations": [],
+  "reviewRequirements": [
+    "Cross-ledger duplicate search across all candidate files",
+    "Two independent human coders for eligibility and outcome",
+    "Freeze pre-election source universe and record excluded clauses",
+    "Check original party source version and reuse rights",
+    "Confirm H.R.1 precise provision and legislative action dates before adjudication"
+  ],
+  "coverage": "Purposefully selected single passage, not complete census; no statistical inference.",
+  "separation": "Additive evidence file only; no redistricting, fiscal model, or frontend changes."
+}
