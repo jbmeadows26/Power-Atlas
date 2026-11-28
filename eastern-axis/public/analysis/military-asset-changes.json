@@ -2,15 +2,15 @@
   "schemaVersion": 1,
   "category": "Defense, Security & Cyber",
   "analystName": "Military Asset Change Analyst",
-  "generatedAt": "2026-11-27T22:44:05Z",
+  "generatedAt": "2026-11-28T10:30:41Z",
   "status": "ok",
   "mode": "annual-public-source-surveillance",
   "method": "Eight uninterrupted historical annual country-specific observations; robust median/MAD screen; latest publication age; original provenance; optional AI review.",
   "summary": {
     "countries": 183,
     "series": 434,
-    "reviewCandidates": 16,
-    "assessedExceptions": 0,
+    "reviewCandidates": 15,
+    "assessedExceptions": 1,
     "historical": 246,
     "monitoring": 86,
     "dataGaps": 86,
@@ -19,9 +19,9 @@
     "inventoryReferenceCountries": 181
   },
   "ai": {
-    "status": "unavailable",
-    "reviewed": 0,
-    "model": null,
+    "status": "reviewed",
+    "reviewed": 1,
+    "model": "qwen2.5:1.5b",
     "role": "Advisory over measured historical anomalies; no inference of physical inventory without national holdings"
   },
   "sources": [
@@ -7807,18 +7807,19 @@
         "changePct": 1085.2,
         "direction": "expanding"
       },
-      "status": "review",
+      "status": "assessed",
       "anomalous": true,
-      "modelReviewed": false,
-      "modelDecision": null,
-      "reviewedException": false,
+      "modelReviewed": true,
+      "modelDecision": "investigate",
+      "reviewedException": true,
       "source": "SIPRI via World Bank WDI",
       "sourceUrl": "https://data.worldbank.org/indicator/MS.MIL.MPRT.KD?locations=PL",
       "sourceDate": "2025",
       "evidenceClass": "transfers-not-inventory",
       "notInventoryChange": true,
-      "confidence": "screen-only",
-      "reason": "Statistically unusual annual arms-delivery volume; equipment holdings, readiness and location are not established."
+      "confidence": "reviewed-historical-exception-not-threat",
+      "reason": "Statistically unusual annual arms-delivery volume; equipment holdings, readiness and location are not established.",
+      "analystRationale": "Local AI recommendation: investigate. The 2025 SIPRI arms-transfer volume was 2,169,000,000; the median of the eight preceding calendar-year observations was 183,000,000 (robust Z 10.8). This comparison alone does not establish new operational equipment, readiness or intent."
     },
     {
       "id": "MS-MIL-MPRT-KD-PS",
