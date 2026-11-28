@@ -9,7 +9,7 @@ STORIES = ROOT / "data/place-impact/life-issues-v1.json"
 MAP = ROOT / "data/place-impact/deep-resource-map-v1.json"
 INDEX = ROOT / "data/research/atlas-inventory-v1.json"
 PAGE = ROOT / "platform/unified/my-life.html"
-HOME = ROOT / "platform/unified/index.html"
+HOME = ROOT / "platform/unified/dashboard.html"
 
 
 class PlaceImpactTests(unittest.TestCase):
@@ -122,7 +122,7 @@ class PlaceImpactTests(unittest.TestCase):
         self.assertIn("What has not been established?", txt)
         self.assertIn("A tag indicates research relevance, not a proven local effect.", txt)
         self.assertIn("my-life.html", home)
-        self.assertIn("What shapes <em>your everyday life?</em>", home)
+        self.assertIn("See what shapes", home)
         self.assertEqual(len(re.findall(r"<script\s*>", txt)), 1)
 
 

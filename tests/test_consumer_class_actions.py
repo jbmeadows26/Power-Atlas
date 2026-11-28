@@ -72,7 +72,8 @@ class ConsumerClassActionsTests(unittest.TestCase):
         self.assertNotIn("sendBeacon", self.page)
 
     def test_category_is_linked_from_two_surfaces_and_daily_life(self):
-        for path in ("index.html", "consumer-practices.html", "my-life.html"):
+        self.assertIn('href:"class-actions.html"', (UNIFIED / "dashboard.js").read_text(encoding="utf-8"))
+        for path in ("consumer-practices.html", "my-life.html"):
             self.assertIn('href="class-actions.html"', (UNIFIED / path).read_text(encoding="utf-8"), path)
         for path in ("index.html", "consumer-practices.html"):
             self.assertIn("power-atlas-unified.vercel.app/class-actions.html",

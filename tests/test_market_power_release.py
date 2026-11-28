@@ -73,9 +73,14 @@ class MarketPowerReleaseTests(unittest.TestCase):
             self.assertIn("supportingSources", market)
             self.assertIn('fetch("./market-power.json"', market)
             self.assertIn('fetch("money-scale.json"', money)
-            home = (root / "index.html").read_text(encoding="utf-8")
-            self.assertIn('href="market-power.html"', home)
-            self.assertIn("atlas-visual-system.js", home)
+            if root == UNIFIED:
+                home = (root / "dashboard.js").read_text(encoding="utf-8")
+                self.assertIn('href:"market-power.html"', home)
+                self.assertIn('src="dashboard.js', (root / "dashboard.html").read_text(encoding="utf-8"))
+            else:
+                home = (root / "index.html").read_text(encoding="utf-8")
+                self.assertIn('href="market-power.html"', home)
+                self.assertIn("atlas-visual-system.js", home)
             consumer = (root / "consumer-practices.html").read_text(encoding="utf-8")
             self.assertIn('href="market-power.html"', consumer)
             # Public navigation is authoritative; the optional redesign proof page may not yet ship.

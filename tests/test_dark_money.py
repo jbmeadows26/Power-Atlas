@@ -71,7 +71,7 @@ class DarkMoneyTests(unittest.TestCase):
         self.assertIn("irsGrants",ui)
         self.assertIn("irs-schedule-i-grants-v1.json",ui)
         self.assertIn("showIRSGrants",ui)
-        home = (ROOT/"platform/unified/index.html").read_text()
+        home = (ROOT/"platform/unified/dashboard.js").read_text()
         self.assertIn("dark-money.html", home)
 
 if __name__ == "__main__":

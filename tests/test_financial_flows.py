@@ -73,7 +73,8 @@ class FinancialFlowIntegrityTests(unittest.TestCase):
         self.assertNotIn("proved corruption",self.html.lower())
 
     def test_integrated_links_are_real(self):
-        for path in ["platform/unified/index.html","platform/unified/my-life.html",
+        self.assertIn('href:"financial-flows.html"',(ROOT/"platform/unified/dashboard.js").read_text(encoding="utf-8"))
+        for path in ["platform/unified/my-life.html",
                      "platform/unified/donor-intelligence.html","platform/unified/public-trading.html",
                      "platform/unified/business-influence.html","platform/unified/corporate-ownership.html"]:
             self.assertIn('href="financial-flows.html"',(ROOT/path).read_text(encoding="utf-8"))

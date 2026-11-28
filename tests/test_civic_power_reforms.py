@@ -6,7 +6,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG = ROOT / "data/money-influence/civic-power-reforms-v1.json"
 PAGE = ROOT / "platform/unified/reform-lab.html"
-HOME = ROOT / "platform/unified/index.html"
+HOME = ROOT / "platform/unified/dashboard.js"
 DARK = ROOT / "platform/unified/dark-money.html"
 
 class CivicPowerReformTests(unittest.TestCase):
@@ -63,7 +63,7 @@ class CivicPowerReformTests(unittest.TestCase):
         self.assertIn("Most nonprofit donor Schedule B identities are not public", self.html)
 
     def test_home_and_dark_money_navigation(self):
-        self.assertIn('href="reform-lab.html"', HOME.read_text(encoding="utf-8"))
+        self.assertIn('href:"reform-lab.html"', HOME.read_text(encoding="utf-8"))
         self.assertIn('href="reform-lab.html"', DARK.read_text(encoding="utf-8"))
         self.assertIn('href="dark-money.html"', self.html)
         self.assertIn("civic-power-reforms-v1.json", self.html)

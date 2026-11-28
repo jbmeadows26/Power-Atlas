@@ -15,7 +15,7 @@ ROOT=Path(__file__).resolve().parents[1]
 UNIFIED=ROOT/"platform"/"unified"
 RESEARCH=ROOT/"site"
 SITES=(UNIFIED,RESEARCH)
-PAGES_UNIFIED=("index.html","my-life.html","corporate-ownership.html",
+PAGES_UNIFIED=("my-life.html","corporate-ownership.html",
                "consumer-practices.html","dark-money.html","source-audit.html",
                "reform-lab.html","class-actions.html","election-money.html",
                "money-sources.html","donor-intelligence.html","compare.html",
@@ -40,6 +40,14 @@ class ProductionVisualAtlasTests(unittest.TestCase):
                     self.assertIn('atlas-visual-system.css',html)
                     self.assertIn('atlas-visual-system.js',html)
                     self.assertIn("</html>",html.lower())
+
+    def test_canonical_dashboard_has_own_isolated_assets(self):
+        redirect=(UNIFIED/"index.html").read_text(encoding="utf-8")
+        html=(UNIFIED/"dashboard.html").read_text(encoding="utf-8")
+        self.assertIn('location.replace("dashboard.html"',redirect)
+        self.assertIn('src="dashboard.js',html)
+        self.assertIn('href="dashboard.css',html)
+        self.assertIn('href="take-action.html#find"',html)
 
     def test_shared_design_assets_identical(self):
         for name in ("atlas-visual-system.js","atlas-visual-system.css"):
@@ -146,6 +154,11 @@ class ProductionVisualAtlasTests(unittest.TestCase):
             for path in sorted(folder.glob("*.html")):
                 with self.subTest(page=str(path.relative_to(ROOT))):
                     html=path.read_text(encoding="utf-8")
+                    if folder==UNIFIED and path.name in ("index.html","dashboard.html"):
+                        # Canonical redirect and intentionally independent consolidated shell.
+                        self.assertIn("dashboard.html", html)
+                        self.assertLessEqual(html.count("<header"),1)
+                        continue
                     self.assertLessEqual(html.count('id="pa-global-header"'),1)
                     self.assertIn("atlas-visual-system.js",html)
                     for old in ('class="navlinks"', 'class="cw-mobile-home"',
