@@ -37,18 +37,21 @@ def validate(manifest, expected=None):
             raise ValueError('Invalid asset digest')
     if 'development-control/acceptance.json' in files:
         context = manifest.get('acceptanceContext')
-        if not isinstance(context, dict) or context != {
+        # Legacy manifests predate DS-001. Their assets remain verifiable, but
+        # absence of this context must make current acceptance unavailable.
+        if context is not None and (not isinstance(context, dict) or context != {
             'schema': CONTEXT_SCHEMA,
             'status': 'Verified',
             'deployedCommit': manifest['commit'],
             'source': 'content-addressed-pages-release-identity',
             'artifact': MANIFEST,
             'carryForwardEvidence': context.get('carryForwardEvidence') if isinstance(context, dict) else None,
-        }:
+        }):
             raise ValueError('Invalid acceptance release context')
-        carry = context['carryForwardEvidence']
-        if not isinstance(carry, list) or len(carry) != len(set(carry)) or not all(isinstance(item, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,119}', item) for item in carry):
-            raise ValueError('Invalid acceptance carry-forward evidence')
+        if context is not None:
+            carry = context['carryForwardEvidence']
+            if not isinstance(carry, list) or len(carry) != len(set(carry)) or not all(isinstance(item, str) and re.fullmatch(r'[A-Za-z0-9][A-Za-z0-9._:-]{0,119}', item) for item in carry):
+                raise ValueError('Invalid acceptance carry-forward evidence')
     return manifest
 
 
