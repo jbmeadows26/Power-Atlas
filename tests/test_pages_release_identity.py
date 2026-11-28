@@ -62,7 +62,40 @@ class ReleaseIdentityTests(unittest.TestCase):
             for name in list(self.manifest()['files']) + ['development-control/acceptance.json', 'development-control/evidence/release.json']:
                 file = site / name
                 file.parent.mkdir(parents=True, exist_ok=True)
-                file.write_bytes(b'{}')
+                file.write_bytes((Path(__file__).resolve().parents[1] / 'site/development-control/acceptance.json').read_bytes() if name == 'development-control/acceptance.json' else b'{}')
             manifest = m.build(site, 'a' * 40)
             self.assertIn('development-control/acceptance.json', manifest['files'])
             self.assertIn('development-control/evidence/release.json', manifest['files'])
+            self.assertEqual(manifest['acceptanceContext']['deployedCommit'], 'a' * 40)
+
+    def test_acceptance_context_carries_only_mechanically_unchanged_scopes(self):
+        registry = {'schema': 'eastern-axis.acceptance.v2', 'evidence': [
+            {'id': 'unchanged', 'commit': 'a' * 40, 'releaseScope': {'policy': 'unchanged-assets', 'paths': ['site/business-intelligence/app.mjs']}},
+            {'id': 'changed', 'commit': 'b' * 40, 'releaseScope': {'policy': 'unchanged-assets', 'paths': ['site/business-intelligence/engine.mjs']}},
+        ]}
+        completed = [m.subprocess.CompletedProcess([], 0), m.subprocess.CompletedProcess([], 1)]
+        with patch.object(m.subprocess, 'run', side_effect=completed):
+            context = m.acceptance_context(registry, 'c' * 40)
+        self.assertEqual(context['carryForwardEvidence'], ['unchanged'])
+
+    def test_manifest_rejects_missing_or_forged_acceptance_context(self):
+        data = self.manifest()
+        data['files']['development-control/acceptance.json'] = 'b' * 64
+        with self.assertRaisesRegex(ValueError, 'release context'):
+            m.validate(data)
+        data['acceptanceContext'] = {
+            'schema': m.CONTEXT_SCHEMA,
+            'status': 'Verified',
+            'deployedCommit': data['commit'],
+            'source': 'content-addressed-pages-release-identity',
+            'artifact': m.MANIFEST,
+            'carryForwardEvidence': ['duplicate', 'duplicate'],
+        }
+        with self.assertRaisesRegex(ValueError, 'carry-forward'):
+            m.validate(data)
+
+    def test_acceptance_context_rejects_unsafe_or_self_referential_scope(self):
+        for path in ('../secret', '/site/business-intelligence/app.mjs', 'site/development-control/acceptance.json'):
+            registry = {'schema': 'eastern-axis.acceptance.v2', 'evidence': [{'id': 'unsafe', 'commit': 'a' * 40, 'stage': 'production', 'releaseScope': {'policy': 'unchanged-assets', 'paths': [path]}}]}
+            with self.assertRaisesRegex(ValueError, 'scope|carry itself'):
+                m.acceptance_context(registry, 'b' * 40)

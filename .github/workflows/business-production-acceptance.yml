@@ -4,7 +4,11 @@ on:
   pull_request:
     paths:
       - 'scripts/pages_release_identity.py'
+      - 'scripts/validate_eastern_axis_acceptance.py'
+      - 'site/development-control/acceptance-rules.mjs'
+      - 'site/development-control/acceptance.json'
       - 'tests/test_pages_release_identity.py'
+      - 'tests/test_eastern_axis_acceptance.py'
       - 'tests/business-intelligence-browser.cjs'
       - 'tests/private-vault-browser.cjs'
       - '.github/workflows/business-production-acceptance.yml'
@@ -87,6 +91,7 @@ jobs:
       - name: Require unchanged deployment and record bounded evidence
         run: |
           python3 scripts/pages_release_identity.py verify --commit "$TARGET_SHA" > audit-output/production/identity-after.json
+          python3 scripts/validate_eastern_axis_acceptance.py --release-context audit-output/production/identity-after.json > audit-output/production/current-acceptance-summary.json
           python3 - <<'PY'
           import json, os
           from pathlib import Path
