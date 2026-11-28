@@ -1,0 +1,56 @@
+{
+  "schema": "power-atlas.campaign-legislative-followup.v1",
+  "asOf": "2026-11-05",
+  "status": "provisional_unadjudicated",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "independentHumanReviewCount": 0,
+  "preElectionPledgeReference": {
+    "id": "US20-DEM-ELECTION-DAY-HOLIDAY-DISCOVERY-20261104",
+    "location": "PR #33; not yet on main",
+    "maker": "Democratic Party",
+    "election": "2020-11-03",
+    "source": "https://democrats.org/wp-content/uploads/sites/2/2020/08/2020-Democratic-Party-Platform.pdf",
+    "copyright": "link and paraphrase only; no reproduction",
+    "denominatorInclusion": "pending eligibility and duplicate review"
+  },
+  "officialLegislativeDocuments": [
+    {
+      "id": "US23-HR11-SEC1011",
+      "date": "2023-08-23",
+      "dateType": "printed introduced-bill text timestamp; not enactment",
+      "title": "H.R. 11 (118th Congress), introduced text",
+      "source": "https://www.congress.gov/118/bills/hr11/BILLS-118hr11ih.pdf",
+      "locator": "Section 1011(a), page 50",
+      "observation": "Proposes amending 5 USC 6103(a) to add Election Day in even-numbered years as a legal public holiday.",
+      "stage": "proposal_only",
+      "notProofOf": "passage, enactment, implementation, or 2020 pledge fulfillment"
+    },
+    {
+      "id": "US25-HR154-SEC2",
+      "date": "2025-01-03",
+      "dateType": "introduction date printed on official bill",
+      "title": "Election Day Act, H.R. 154 (119th Congress)",
+      "source": "https://www.congress.gov/119/bills/hr154/BILLS-119hr154ih.pdf",
+      "locator": "Cover page and Section 2",
+      "observation": "Introduced by Representatives Fitzpatrick and Dingell; proposes adding Election Day to 5 USC 6103(a).",
+      "stage": "introduced_only",
+      "notProofOf": "passage, enactment, implementation, or attribution to 2020 party platform"
+    }
+  ],
+  "fiscalActualObservations": [],
+  "methodology": {
+    "counting": "Two distinct official legislative documents, zero new pledge candidates; do not double count earlier H.R.1 proposal.",
+    "uncertainty": "No complete legislative action history or current legal status audit performed. Verify action histories and provision equivalence before outcome coding.",
+    "competingExplanations": [
+      "Bicameral legislative procedure and agenda control can prevent enactment without establishing motive.",
+      "The federal legal holiday under 5 USC 6103 does not itself mandate paid leave for all private-sector workers.",
+      "Later bipartisan proposals do not establish responsibility or fulfillment for the 2020 Democratic Party platform."
+    ],
+    "independentReview": "Two independent human reviewers needed for pledge eligibility, mapping and outcome; reconcile disagreements.",
+    "rights": "Official government bill text linked by URL and paraphrased; no copyrighted campaign document reproduced.",
+    "sourceUniverse": "Not exhaustive; 2020 candidate/platform corpus and cross-country fiscal cohorts remain incomplete.",
+    "causalClaim": null
+  }
+}
