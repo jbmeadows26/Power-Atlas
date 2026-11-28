@@ -1,5 +1,5 @@
 {
-  "schema": "eastern-axis.acceptance.v1",
+  "schema": "eastern-axis.acceptance.v2",
   "states": [
     "Verified",
     "Partial",
@@ -18,7 +18,10 @@
       "scope": "ci",
       "stage": "ci",
       "result": "passed",
-      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance."
+      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "ci-business-59830a7e",
@@ -29,7 +32,10 @@
       "scope": "ci",
       "stage": "ci",
       "result": "passed",
-      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance."
+      "limitations": "Historical CI execution only. Does not establish current-head or production acceptance.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "ci-vault-16e4c453",
@@ -40,7 +46,10 @@
       "scope": "ci",
       "stage": "ci",
       "result": "passed",
-      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately."
+      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "ci-business-16e4c453",
@@ -51,7 +60,10 @@
       "scope": "ci",
       "stage": "ci",
       "result": "passed",
-      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately."
+      "limitations": "Exact approved PR head CI execution. Does not establish production verification; merge commit and published assets are verified separately.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "production-identity-18ebf114",
@@ -61,9 +73,12 @@
       "artifact": "site/development-control/evidence/production-identity-18ebf114.json",
       "method": "Independent published manifest and 27 asset SHA256 comparisons against repository source using pages_release_identity.py verify --commit 18ebf114fb905a12e06ad1dcbf0c5c3e3d6bd05a",
       "scope": "production",
-      "stage": "production",
+      "stage": "deployed",
       "result": "passed",
-      "limitations": "Identity covers business-intelligence, private-workspace and personal-intelligence assets only. Does not verify customer workflows, development-control or external forecast assets."
+      "limitations": "Identity covers business-intelligence, private-workspace and personal-intelligence assets only. Does not verify customer workflows, development-control or external forecast assets.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "production-browser-18ebf114",
@@ -75,7 +90,10 @@
       "scope": "production",
       "stage": "production",
       "result": "passed",
-      "limitations": "TXT document only; no PDF/XLSX acceptance, physical device test or real commercial outcomes. Bounded request isolation is not a universal security guarantee."
+      "limitations": "TXT document only; no PDF/XLSX acceptance, physical device test or real commercial outcomes. Bounded request isolation is not a universal security guarantee.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "production-browser-8f9a2261",
@@ -87,7 +105,11 @@
       "scope": "production",
       "stage": "production",
       "result": "passed",
-      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions."
+      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions.",
+      "disposition": {
+        "class": "release",
+        "reason": "Retained release-level or historical execution evidence; not attributed to an individual current assessment without a matching analytical scope."
+      }
     },
     {
       "id": "production-identity-8f9a2261",
@@ -97,9 +119,13 @@
       "artifact": "site/development-control/evidence/production-identity-8f9a2261.json",
       "method": "Independent deployed manifest and 44 published asset hashes verified against exact repository release, including development control.",
       "scope": "production",
-      "stage": "production",
+      "stage": "deployed",
       "result": "passed",
-      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions."
+      "limitations": "Core release evidence only; not automatically attributed to the subsequent Command Center release. Isolated private test inputs do not establish real pilot participation. Initial APIRequestContext harness failure is retained, followed by browser-context live reference fetch and unchanged assertions.",
+      "disposition": {
+        "class": "release",
+        "reason": "Retained release-level or historical execution evidence; not attributed to an individual current assessment without a matching analytical scope."
+      }
     },
     {
       "id": "production-decision-failure-df1e1a5b",
@@ -111,7 +137,10 @@
       "scope": "production",
       "stage": "production",
       "result": "failed",
-      "limitations": "Deterministic diagnostic identifies pending reassessment draft loss. Does not imply unrelated command indicators or public case failed."
+      "limitations": "Deterministic diagnostic identifies pending reassessment draft loss. Does not imply unrelated command indicators or public case failed.",
+      "disposition": {
+        "class": "assessment"
+      }
     },
     {
       "id": "production-browser-df1e1a5b",
@@ -126,7 +155,11 @@
       "limitations": "Failed integrated decision workflow prevents blanket functionality promotion; independent passing subsets are preserved without claiming whole release acceptance.",
       "supplementalArtifacts": [
         "site/development-control/evidence/production-attempts-df1e1a5b.json"
-      ]
+      ],
+      "disposition": {
+        "class": "release",
+        "reason": "Retained release-level or historical execution evidence; not attributed to an individual current assessment without a matching analytical scope."
+      }
     },
     {
       "id": "production-identity-df1e1a5b",
@@ -136,9 +169,13 @@
       "artifact": "site/development-control/evidence/production-identity-df1e1a5b.json",
       "method": "Production UI suite and independent deployed asset identity. Per-suite coverage, attempt history and actual reproduced draft-loss failure retained in artifact.",
       "scope": "production",
-      "stage": "production",
+      "stage": "deployed",
       "result": "passed",
-      "limitations": "Failed integrated decision workflow prevents blanket functionality promotion; independent passing subsets are preserved without claiming whole release acceptance."
+      "limitations": "Failed integrated decision workflow prevents blanket functionality promotion; independent passing subsets are preserved without claiming whole release acceptance.",
+      "disposition": {
+        "class": "release",
+        "reason": "Retained release-level or historical execution evidence; not attributed to an individual current assessment without a matching analytical scope."
+      }
     }
   ],
   "releaseGates": [
@@ -529,7 +566,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Inspect private-input network isolation for Private Business Document Intelligence.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G06",
@@ -546,7 +592,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute desktop rendering and interactions for Private Business Document Intelligence.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G08",
@@ -556,7 +611,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute mobile rendering and interactions for Private Business Document Intelligence.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G09",
@@ -566,7 +630,16 @@
           ],
           "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
           "description": "Verify deployed commit and asset identity for Private Business Document Intelligence.",
-          "stage": "production"
+          "stage": "deployed",
+          "assessedAt": "2026-11-27T20:46:45Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G10",
@@ -577,7 +650,16 @@
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Run affected and existing regression suites for Private Business Document Intelligence.",
-          "stage": "ci"
+          "stage": "ci",
+          "assessedAt": "2026-11-27T20:41:54Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G11",
@@ -640,7 +722,16 @@
           ],
           "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Inspect private-input network isolation for Encrypted vault backup and recovery.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G06",
@@ -650,7 +741,16 @@
           ],
           "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Verify save, reload, encrypted recovery and deletion for Encrypted vault backup and recovery.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G07",
@@ -667,7 +767,16 @@
           ],
           "reason": "Shared encrypted vault lifecycle and bounded private-request isolation passed in deployed Chromium/WebKit at390px; exact methods and limitations in evidence.",
           "description": "Execute mobile rendering and interactions for Encrypted vault backup and recovery.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G09",
@@ -677,7 +786,16 @@
           ],
           "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
           "description": "Verify deployed commit and asset identity for Encrypted vault backup and recovery.",
-          "stage": "production"
+          "stage": "deployed",
+          "assessedAt": "2026-11-27T20:46:45Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G10",
@@ -688,7 +806,16 @@
           ],
           "reason": "Bounded shared vault checks passed at recorded commit; production and current-head re-verification outstanding.",
           "description": "Run affected and existing regression suites for Encrypted vault backup and recovery.",
-          "stage": "ci"
+          "stage": "ci",
+          "assessedAt": "2026-11-27T20:41:33Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G11",
@@ -1415,16 +1542,19 @@
           "evidence": [
             "production-decision-failure-df1e1a5b"
           ],
-          "reason": "Applicability and execution evidence must be assessed before release.",
+          "reason": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained.",
           "description": "Execute the complete customer workflow for Prescriptive Decision Intelligence.",
           "assessmentHistory": [
             {
               "state": "Pending",
-              "evidence": []
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
             }
           ],
           "stage": "production",
-          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained."
+          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained.",
+          "assessedAt": "2026-11-27T22:26:51.274998+00:00"
         },
         {
           "id": "G03",
@@ -1818,16 +1948,19 @@
           "evidence": [
             "production-decision-failure-df1e1a5b"
           ],
-          "reason": "Applicability and execution evidence must be assessed before release.",
+          "reason": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained.",
           "description": "Execute the complete customer workflow for Private decision and outcome tracking.",
           "assessmentHistory": [
             {
               "state": "Pending",
-              "evidence": []
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
             }
           ],
           "stage": "production",
-          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained."
+          "notes": "Pending local reassessment erased an in-progress decision draft after explicit Analyze. Correction and production rerun required; failed diagnostic retained.",
+          "assessedAt": "2026-11-27T22:26:51.274998+00:00"
         },
         {
           "id": "G03",
@@ -1851,7 +1984,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Inspect private-input network isolation for Private decision and outcome tracking.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G06",
@@ -1868,7 +2010,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute desktop rendering and interactions for Private decision and outcome tracking.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G08",
@@ -1878,7 +2029,16 @@
           ],
           "reason": "Bounded initial-release document/decision workflow passed in deployed Chromium/WebKit320/390/1280. Expanded formats and full requirement acceptance remain outstanding; no real customer outcome claimed.",
           "description": "Execute mobile rendering and interactions for Private decision and outcome tracking.",
-          "stage": "production"
+          "stage": "production",
+          "assessedAt": "2026-11-27T20:48:09Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G09",
@@ -1888,7 +2048,16 @@
           ],
           "reason": "Published business and vault assets matched the exact merged release. Functional scope remains governed by separate gates.",
           "description": "Verify deployed commit and asset identity for Private decision and outcome tracking.",
-          "stage": "production"
+          "stage": "deployed",
+          "assessedAt": "2026-11-27T20:46:45Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G10",
@@ -1899,7 +2068,16 @@
           ],
           "reason": "Bounded TXT/CSV approval and decision workflow verified in CI; full requirement scope and production verification remain outstanding.",
           "description": "Run affected and existing regression suites for Private decision and outcome tracking.",
-          "stage": "ci"
+          "stage": "ci",
+          "assessedAt": "2026-11-27T20:41:54Z",
+          "assessmentHistory": [
+            {
+              "state": "Pending",
+              "evidence": [],
+              "reason": "Initial unassessed state before recorded execution evidence.",
+              "assessedAt": "2026-11-27T17:00:00Z"
+            }
+          ]
         },
         {
           "id": "G11",
@@ -2212,13 +2390,22 @@
     "criteria": "Customer acceptance outcomes; counted separately from capability-specific release gates.",
     "gates": "Eleven per capability are release assessments, not additional customer features. Shared execution evidence may support multiple assessments only when scope matches.",
     "stages": [
-      "implemented",
+      "source",
       "local",
       "ci",
       "deployed",
       "production",
       "commercial"
     ],
-    "productionRule": "CI and local verification do not establish production verification. Every evidence record is bound to its tested commit; later releases require re-verification."
+    "productionRule": "Current production verification requires independently supplied mechanical release identity. Historical evidence remains preserved but becomes stale when its release differs, unless the release verifier proves an explicit unchanged asset scope.",
+    "evidenceOnlyReleaseRule": "G09 current identity is derived from external mechanical release context. Functional evidence may carry forward only through an explicit releaseScope whose paths are mechanically unchanged; acceptance.json cannot carry itself forward."
+  },
+  "mandatoryGatePolicy": {
+    "schema": "eastern-axis.mandatory-gates.v1",
+    "gateIds": [
+      "G01",
+      "G09"
+    ],
+    "nonWaivable": true
   }
 }

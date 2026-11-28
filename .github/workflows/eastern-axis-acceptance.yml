@@ -5,14 +5,18 @@ on:
       - 'site/development-control/**'
       - 'governance/eastern-axis/**'
       - 'scripts/validate_eastern_axis_acceptance.py'
+      - 'scripts/pages_release_identity.py'
       - 'tests/test_eastern_axis_acceptance.py'
+      - 'tests/test_pages_release_identity.py'
       - '.github/workflows/eastern-axis-acceptance.yml'
   push:
     branches: [main]
     paths:
       - 'site/development-control/**'
       - 'scripts/validate_eastern_axis_acceptance.py'
+      - 'scripts/pages_release_identity.py'
       - 'tests/test_eastern_axis_acceptance.py'
+      - 'tests/test_pages_release_identity.py'
       - '.github/workflows/eastern-axis-acceptance.yml'
   workflow_dispatch:
 permissions:
@@ -25,7 +29,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
-      - run: python -m unittest discover -s tests -p test_eastern_axis_acceptance.py
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - run: python -m py_compile scripts/validate_eastern_axis_acceptance.py scripts/pages_release_identity.py
+      - run: python -m unittest discover -s tests -p test_eastern_axis_acceptance.py -v
+      - run: |
+          node --check site/development-control/app.mjs
+          node --test tests/development-control.test.mjs
       - run: python scripts/validate_eastern_axis_acceptance.py > acceptance-summary.json
       - uses: actions/upload-artifact@v4
         with:
