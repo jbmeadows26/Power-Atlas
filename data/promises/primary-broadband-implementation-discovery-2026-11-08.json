@@ -1,0 +1,75 @@
+{
+  "schema": "power-atlas.campaign-primary-broadband-discovery.v1",
+  "asOf": "2026-11-08",
+  "status": "provisional_unadjudicated_additive",
+  "protocol": "research/campaign-promises/protocol.md",
+  "denominatorFrozen": false,
+  "eligiblePopulationCount": null,
+  "fulfillmentRate": null,
+  "causalEffect": null,
+  "independentHumanReviewCount": 0,
+  "sourceScopeComplete": false,
+  "sourceDocuments": [
+    {
+      "id": "US20-DEM-PLATFORM",
+      "electionDate": "2020-11-03",
+      "published": "2020-08-17",
+      "issuer": "Democratic Party",
+      "url": "https://www.presidency.ucsb.edu/documents/2020-democratic-party-platform",
+      "locator": "Protecting Workers and Families and Creating Millions of Jobs Across America; broadband passage; also infrastructure passage",
+      "alreadyIndexed": true,
+      "rights": "archival_transcription_paraphrase_only_no_bulk_republication"
+    }
+  ],
+  "candidatePledges": [
+    {
+      "id": "US20-DEM-BROADBAND-INVEST-20261108",
+      "documentId": "US20-DEM-PLATFORM",
+      "maker": "Democratic Party",
+      "paraphrase": "Increase public investment in broadband infrastructure in rural, urban and Tribal communities.",
+      "locator": "2020 Democratic platform, broadband paragraph beginning 'As millions of Americans have stayed at home'",
+      "criterion": "Document incremental federal broadband investment authority and distinguish authorized, appropriated, obligated, expended and actual household access.",
+      "linkedOfficialEventIds": [
+        "US21-PL11758-BROADBAND"
+      ],
+      "outcome": null,
+      "independentReviewers": 0,
+      "denominatorStatus": "candidate_pending_corpus_census_deduplication",
+      "uncertainty": "Broad pledge lacks numerical amount or deadline; law alone cannot demonstrate completed buildout or affordability.",
+      "competingExplanations": [
+        "Pandemic-era remote-work and education needs independently increased bipartisan broadband investment demand.",
+        "Congressional compromise and state grant implementation affect scope and delivery."
+      ]
+    }
+  ],
+  "officialEvents": [
+    {
+      "id": "US21-PL11758-BROADBAND",
+      "country": "US",
+      "date": "2021-11-15",
+      "kind": "enacted_statute_broadband_programs",
+      "url": "https://www.govinfo.gov/content/pkg/PLAW-117publ58/html/PLAW-117publ58.htm",
+      "locator": "Public Law 117-58, Division F (Broadband); Division J appropriations; corroboration CRS R46967",
+      "corroboration": "https://www.congress.gov/crs_external_products/R/PDF/R46967/R46967.3.pdf",
+      "fact": "Infrastructure Investment and Jobs Act established or modified broadband grant programs and provided appropriations; signed November 15, 2021.",
+      "notProofOf": "actual_expenditure_household_coverage_affordability_or_fulfillment"
+    }
+  ],
+  "fiscalActualObservations": [],
+  "coverageAndRights": {
+    "retrievedOn": "2026-11-08",
+    "rights": "Only short paraphrases and source locators; official statutory text linked, not republished; archived party platform reuse not cleared.",
+    "crossLedgerDuplicateAuditComplete": false,
+    "sourceHashes": null,
+    "sourceRevisions": null
+  },
+  "reviewRequired": {
+    "independentHumanCoders": 2,
+    "denominatorInventoryComplete": false,
+    "exclusionLogComplete": false,
+    "implementationAndSpendingEvidenceRequired": true,
+    "attributionUnresolved": true,
+    "fulfillmentVerdicts": 0
+  },
+  "redistrictingFilesModified": false
+}
