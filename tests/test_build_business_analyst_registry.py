@@ -53,13 +53,16 @@ class ReceiptValidationTests(unittest.TestCase):
 
 
 class OrderingAndStageTests(unittest.TestCase):
-    def test_canonical_original_failure_has_step_evidence_without_promotion(self):
+    def test_canonical_failure_is_preserved_after_successful_publication_without_production_promotion(self):
         root = Path(__file__).resolve().parents[1]
         receipts = json.loads((root / 'business-intelligence/analyst-execution-receipts.json').read_text())
         item = analyst(build(receipts))
         self.assertEqual(item['analyticalStatus'], 'success')
         self.assertEqual(item['validationStatus'], 'success')
-        self.assertEqual(item['publicationStatus'], 'failed')
+        self.assertEqual(item['publicationStatus'], 'success')
+        publication_history = item['executionStages']['publication']['history']
+        self.assertEqual([record['status'] for record in publication_history[:2]], ['success', 'failed'])
+        self.assertEqual(publication_history[1]['failureClassification'], 'combined-checkout-publication-failure-unresolved')
         self.assertEqual(item['productionVerificationStatus'], 'unavailable')
         self.assertNotEqual(item['operationalStatus'], 'operational')
 

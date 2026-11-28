@@ -1,0 +1,42 @@
+{
+  "schema": "eastern-axis.external-service-diagnostic.v1",
+  "observedAt": "2026-11-28T07:27:31Z",
+  "repositoryCommit": "01be7249b19ff5fdcc9395362e48da6815a07b0a",
+  "service": {
+    "provider": "Neon",
+    "projectId": "long-moon-55587048",
+    "projectName": "Eastern Axis Intelligence",
+    "branchId": "br-icy-recipe-bbq0sogp",
+    "functionSlug": "eapublicapi",
+    "activeDeployment": 3,
+    "activeDeploymentCreatedAt": "2026-11-18T07:00:54.333125Z"
+  },
+  "quota": {
+    "publicNetworkTransferBytesUsed": 3034107856,
+    "publicNetworkTransferBytesLimit": 3000000000,
+    "resetAt": "2026-12-01T00:00:00Z"
+  },
+  "failedChecks": [
+    {
+      "path": "/api/allied-sanctions/RU",
+      "publicStatus": 503,
+      "upstreamClassification": "NeonDbError HTTP 402 quota exceeded"
+    },
+    {
+      "path": "/api/energy-supply/RU",
+      "publicStatus": 503,
+      "upstreamClassification": "NeonDbError HTTP 402 quota exceeded"
+    },
+    {
+      "path": "/api/source-monitor",
+      "publicStatus": 503,
+      "upstreamClassification": "NeonDbError HTTP 402 quota exceeded"
+    }
+  ],
+  "evidenceSources": [
+    "Neon project metadata and branch consumption returned by the authenticated Neon management API.",
+    "Neon function application logs for eapublicapi between 2026-11-28T07:21:00Z and 2026-11-28T07:27:31Z.",
+    "GitHub Pages audit run https://github.com/jbmeadows26/Power-Atlas/actions/runs/46121166573."
+  ],
+  "policy": "The deployment gate remains failed. This diagnostic does not convert unavailable data to a successful response and does not authorize paid infrastructure."
+}

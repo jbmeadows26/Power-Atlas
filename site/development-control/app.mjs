@@ -3,7 +3,7 @@ import {summarizeAcceptance} from './acceptance-rules.mjs';
 const root=document.querySelector('#requirements'),summary=document.querySelector('#acceptance-summary');
 const node=(tag,text)=>{const element=document.createElement(tag);if(text!==undefined)element.textContent=text;return element;};
 try {
- const [registryResponse,identityResponse]=await Promise.all([fetch('./acceptance.json',{cache:'no-store'}),fetch('../release-identity.json',{cache:'no-store'}).catch(()=>null)]);
+ const [registryResponse,identityResponse,analystResponse]=await Promise.all([fetch('./acceptance.json',{cache:'no-store'}),fetch('../release-identity.json',{cache:'no-store'}).catch(()=>null),fetch('../business-intelligence/data/analyst-registry.json',{cache:'no-store'}).catch(()=>null)]);
  if(!registryResponse.ok)throw new Error('Registry unavailable');
  const data=await registryResponse.json();
  let releaseContext=null;
@@ -39,4 +39,18 @@ try {
   try{const local=evidence.artifact.startsWith('site/development-control/evidence/')&&!evidence.artifact.includes('..'),url=new URL(local?evidence.artifact.replace('site/development-control/','./'):evidence.artifact,location.href);if(local||(url.protocol==='https:'&&url.hostname==='github.com')){const link=node('a','Execution evidence');link.href=url.href;link.rel='noopener noreferrer';paragraph.append(link);}}catch{}
   evidenceMount.append(paragraph);
  }
+ const analystMount=document.querySelector('#analysts');
+ if(analystResponse?.ok){
+  const registry=await analystResponse.json();
+  if(registry.schemaVersion!==2||!Array.isArray(registry.analysts)||registry.analysts.length!==18)throw new Error('Analyst registry invalid');
+  analystMount.append(node('p',`${registry.method} Current-release context: ${registry.releaseContextStatus}.`));
+  for(const analyst of registry.analysts){
+   const details=node('details'),summaryLine=node('summary',`${analyst.name} · analysis ${analyst.analyticalStatus} · validation ${analyst.validationStatus} · publication ${analyst.publicationStatus} · production ${analyst.productionVerificationStatus}`);
+   details.append(summaryLine,node('p',analyst.responsibilities));
+   const history=analyst.executionStages?.publication?.history||[];
+   if(history.length)details.append(node('p',`Publication history: ${history.map(item=>`${item.status} at ${item.recordedAt}`).join('; ')}. Historical failures remain visible after later success.`));
+   details.append(node('p',`Retained output generated: ${analyst.outputGeneratedAt||'Unavailable'}. ${analyst.outputGeneratedAtMeaning}`));
+   analystMount.append(details);
+  }
+ }else analystMount.append(node('p','Analyst execution registry is unavailable. No operational or production status is inferred.'));
 }catch(error){summary.textContent='Acceptance registry or current-release context is invalid. No readiness claim can be computed.';}
