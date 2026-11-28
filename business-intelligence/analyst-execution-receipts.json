@@ -1,6 +1,49 @@
 [
   {
     "conclusion": "success",
+    "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+    "updatedAt": "2026-11-28T07:25:42Z",
+    "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520",
+    "workflowName": "Eastern Axis global conflict analyst",
+    "stageEvidence": {
+      "analysis": {
+        "status": "success",
+        "recordedAt": "2026-11-28T07:25:24Z",
+        "evidence": [
+          "Job 140905234353 steps 4-8 succeeded: offline tests, official-source collection, anomaly screening and fail-closed local review path."
+        ]
+      },
+      "validation": {
+        "status": "success",
+        "recordedAt": "2026-11-28T07:25:24Z",
+        "evidence": [
+          "Job 140905234353 steps 9-12 succeeded: output assertions, preserved frontend build and publication-module validation."
+        ]
+      },
+      "publication": {
+        "status": "success",
+        "recordedAt": "2026-11-28T07:25:41Z",
+        "evidence": [
+          "Job 140905693729 published the allowlisted snapshot by a one-attempt fast-forward from base 19a35b484ee66330fda5e68960c3c0223454f474 to commit 01be7249b19ff5fdcc9395362e48da6815a07b0a."
+        ]
+      },
+      "production": {
+        "status": "unavailable",
+        "recordedAt": "2026-11-28T07:25:42Z",
+        "evidence": [
+          "Snapshot publication is not production workflow verification. GitHub Pages deployment remains blocked by the independently enforced public API gate."
+        ]
+      }
+    },
+    "snapshotIdentity": {
+      "path": "eastern-axis/public/analysis/global-conflict-watch.json",
+      "sha256": "41888b9013729a3a4df2aa3db52942d622b30d0cea3ae2ca9735be6dac4e75c3",
+      "generatedAt": "2026-11-28T07:23:40Z",
+      "publishedCommit": "01be7249b19ff5fdcc9395362e48da6815a07b0a"
+    }
+  },
+  {
+    "conclusion": "success",
     "headSha": "2e5a7e448b3725ead623f370ccbec79586335654",
     "updatedAt": "2026-11-27T21:56:37Z",
     "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46072248546",

@@ -27,3 +27,12 @@ class PublicRegistryTests(unittest.TestCase):
   js=(ROOT/'site/business-intelligence/public-intelligence.mjs').read_text()
   for phrase in ('analysis ${a.analyticalStatus}','publication ${a.publicationStatus}','production ${a.productionVerificationStatus}','Retained artifact generated'):
    self.assertIn(phrase,js)
+ def test_control_center_uses_canonical_analyst_registry_and_preserves_failure_history(self):
+  html=(ROOT/'site/development-control/index.html').read_text()
+  js=(ROOT/'site/development-control/app.mjs').read_text()
+  self.assertIn('id="analysts"',html)
+  self.assertIn("business-intelligence/data/analyst-registry.json",js)
+  self.assertIn('analysis ${analyst.analyticalStatus}',js)
+  self.assertIn('production ${analyst.productionVerificationStatus}',js)
+  self.assertIn('Historical failures remain visible after later success.',js)
+  self.assertNotIn("operationalStatus==='operational'",js)

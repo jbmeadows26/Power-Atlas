@@ -79,10 +79,10 @@
       ],
       "methodology": "Geographic source corroboration; no unsupported attribution",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
-      "operationalStatus": "failed",
+      "operationalStatus": "partial",
       "analyticalStatus": "success",
       "validationStatus": "success",
-      "publicationStatus": "failed",
+      "publicationStatus": "success",
       "productionVerificationStatus": "unavailable",
       "executionStages": {
         "analysis": {
@@ -90,17 +90,30 @@
           "lastSuccessful": {
             "status": "success",
             "recordedStatus": "success",
-            "recordedAt": "2026-11-27T21:38:00Z",
-            "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+            "recordedAt": "2026-11-28T07:25:24Z",
+            "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
             "evidence": [
-              "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+              "Job 140905234353 steps 4-8 succeeded: offline tests, official-source collection, anomaly screening and fail-closed local review path."
             ],
             "failureClassification": null,
             "reason": null,
             "releaseCommit": null,
-            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
           },
           "history": [
+            {
+              "status": "success",
+              "recordedStatus": "success",
+              "recordedAt": "2026-11-28T07:25:24Z",
+              "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+              "evidence": [
+                "Job 140905234353 steps 4-8 succeeded: offline tests, official-source collection, anomaly screening and fail-closed local review path."
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+            },
             {
               "status": "success",
               "recordedStatus": "success",
@@ -121,17 +134,30 @@
           "lastSuccessful": {
             "status": "success",
             "recordedStatus": "success",
-            "recordedAt": "2026-11-27T21:38:00Z",
-            "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+            "recordedAt": "2026-11-28T07:25:24Z",
+            "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
             "evidence": [
-              "Job 140748728216 steps 9-11 succeeded: fail-closed output assertions and preserved frontend build"
+              "Job 140905234353 steps 9-12 succeeded: output assertions, preserved frontend build and publication-module validation."
             ],
             "failureClassification": null,
             "reason": null,
             "releaseCommit": null,
-            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
           },
           "history": [
+            {
+              "status": "success",
+              "recordedStatus": "success",
+              "recordedAt": "2026-11-28T07:25:24Z",
+              "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+              "evidence": [
+                "Job 140905234353 steps 9-12 succeeded: output assertions, preserved frontend build and publication-module validation."
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+            },
             {
               "status": "success",
               "recordedStatus": "success",
@@ -148,9 +174,34 @@
           ]
         },
         "publication": {
-          "status": "failed",
-          "lastSuccessful": null,
+          "status": "success",
+          "lastSuccessful": {
+            "status": "success",
+            "recordedStatus": "success",
+            "recordedAt": "2026-11-28T07:25:41Z",
+            "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+            "evidence": [
+              "Job 140905693729 published the allowlisted snapshot by a one-attempt fast-forward from base 19a35b484ee66330fda5e68960c3c0223454f474 to commit 01be7249b19ff5fdcc9395362e48da6815a07b0a."
+            ],
+            "failureClassification": null,
+            "reason": null,
+            "releaseCommit": null,
+            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+          },
           "history": [
+            {
+              "status": "success",
+              "recordedStatus": "success",
+              "recordedAt": "2026-11-28T07:25:41Z",
+              "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+              "evidence": [
+                "Job 140905693729 published the allowlisted snapshot by a one-attempt fast-forward from base 19a35b484ee66330fda5e68960c3c0223454f474 to commit 01be7249b19ff5fdcc9395362e48da6815a07b0a."
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+            },
             {
               "status": "failed",
               "recordedStatus": "failed",
@@ -173,6 +224,19 @@
             {
               "status": "unavailable",
               "recordedStatus": "unavailable",
+              "recordedAt": "2026-11-28T07:25:42Z",
+              "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+              "evidence": [
+                "Snapshot publication is not production workflow verification. GitHub Pages deployment remains blocked by the independently enforced public API gate."
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+            },
+            {
+              "status": "unavailable",
+              "recordedStatus": "unavailable",
               "recordedAt": "2026-11-27T21:38:00Z",
               "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
               "evidence": [
@@ -186,63 +250,79 @@
           ]
         }
       },
-      "lastSuccessfulExecution": "2026-11-27T21:38:00Z",
-      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454",
+      "lastSuccessfulExecution": "2026-11-28T07:25:24Z",
+      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520",
       "lastSuccessfulAnalysis": {
         "status": "success",
         "recordedStatus": "success",
-        "recordedAt": "2026-11-27T21:38:00Z",
-        "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+        "recordedAt": "2026-11-28T07:25:24Z",
+        "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
         "evidence": [
-          "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+          "Job 140905234353 steps 4-8 succeeded: offline tests, official-source collection, anomaly screening and fail-closed local review path."
         ],
         "failureClassification": null,
         "reason": null,
         "releaseCommit": null,
-        "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+        "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
       },
-      "lastSuccessfulPublication": null,
+      "lastSuccessfulPublication": {
+        "status": "success",
+        "recordedStatus": "success",
+        "recordedAt": "2026-11-28T07:25:41Z",
+        "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+        "evidence": [
+          "Job 140905693729 published the allowlisted snapshot by a one-attempt fast-forward from base 19a35b484ee66330fda5e68960c3c0223454f474 to commit 01be7249b19ff5fdcc9395362e48da6815a07b0a."
+        ],
+        "failureClassification": null,
+        "reason": null,
+        "releaseCommit": null,
+        "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520"
+      },
       "lastProductionVerification": null,
       "latestExecution": {
-        "conclusion": "failure",
-        "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
-        "updatedAt": "2026-11-27T21:38:00Z",
-        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454",
+        "conclusion": "success",
+        "headSha": "19a35b484ee66330fda5e68960c3c0223454f474",
+        "updatedAt": "2026-11-28T07:25:42Z",
+        "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520",
         "workflowName": "Eastern Axis global conflict analyst",
         "stageEvidence": {
           "analysis": {
             "status": "success",
-            "recordedAt": "2026-11-27T21:38:00Z",
+            "recordedAt": "2026-11-28T07:25:24Z",
             "evidence": [
-              "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+              "Job 140905234353 steps 4-8 succeeded: offline tests, official-source collection, anomaly screening and fail-closed local review path."
             ]
           },
           "validation": {
             "status": "success",
-            "recordedAt": "2026-11-27T21:38:00Z",
+            "recordedAt": "2026-11-28T07:25:24Z",
             "evidence": [
-              "Job 140748728216 steps 9-11 succeeded: fail-closed output assertions and preserved frontend build"
+              "Job 140905234353 steps 9-12 succeeded: output assertions, preserved frontend build and publication-module validation."
             ]
           },
           "publication": {
-            "status": "failed",
-            "recordedAt": "2026-11-27T21:38:00Z",
-            "failureClassification": "combined-checkout-publication-failure-unresolved",
-            "reason": "Commit/push step 12 failed after analytical and validation work succeeded. Historical evidence does not establish dirty paths or a genuine content conflict.",
+            "status": "success",
+            "recordedAt": "2026-11-28T07:25:41Z",
             "evidence": [
-              "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454/job/140748728216"
+              "Job 140905693729 published the allowlisted snapshot by a one-attempt fast-forward from base 19a35b484ee66330fda5e68960c3c0223454f474 to commit 01be7249b19ff5fdcc9395362e48da6815a07b0a."
             ]
           },
           "production": {
             "status": "unavailable",
-            "recordedAt": "2026-11-27T21:38:00Z",
+            "recordedAt": "2026-11-28T07:25:42Z",
             "evidence": [
-              "Publication failed; no release identity or production workflow verification was created."
+              "Snapshot publication is not production workflow verification. GitHub Pages deployment remains blocked by the independently enforced public API gate."
             ]
           }
+        },
+        "snapshotIdentity": {
+          "path": "eastern-axis/public/analysis/global-conflict-watch.json",
+          "sha256": "41888b9013729a3a4df2aa3db52942d622b30d0cea3ae2ca9735be6dac4e75c3",
+          "generatedAt": "2026-11-28T07:23:40Z",
+          "publishedCommit": "01be7249b19ff5fdcc9395362e48da6815a07b0a"
         }
       },
-      "outputGeneratedAt": "2026-11-25T09:03:03Z",
+      "outputGeneratedAt": "2026-11-28T07:23:40Z",
       "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",

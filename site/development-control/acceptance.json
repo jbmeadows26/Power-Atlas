@@ -10,6 +10,39 @@
   ],
   "evidence": [
     {
+      "id": "ci-global-conflict-19a35b48",
+      "executedAt": "2026-11-28T07:25:42Z",
+      "commit": "19a35b484ee66330fda5e68960c3c0223454f474",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46120992520",
+      "method": "Global Conflict Analyst analysis and validation passed; guarded publisher installed the single allowlisted snapshot by fast-forward as commit 01be7249b19ff5fdcc9395362e48da6815a07b0a with matching SHA-256.",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "passed",
+      "limitations": "Stage-specific analyst and publication evidence only. It does not establish production deployment, full analyst remit, customer exposure matching or EA-015 acceptance.",
+      "disposition": {
+        "class": "release",
+        "reason": "Retained integrated workflow evidence; not attributed to an individual EA assessment because the full acceptance scope was not executed."
+      }
+    },
+    {
+      "id": "ci-pages-api-failure-01be7249",
+      "executedAt": "2026-11-28T07:26:06Z",
+      "commit": "01be7249b19ff5fdcc9395362e48da6815a07b0a",
+      "artifact": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46121166573",
+      "method": "GitHub Pages build failed closed at the independent public Neon API audit before asset build, upload or deployment.",
+      "scope": "ci",
+      "stage": "ci",
+      "result": "failed",
+      "limitations": "Neon function logs identify project data-transfer quota exhaustion (HTTP 402) behind the three audited 503 responses. No production assets from this commit were deployed.",
+      "supplementalArtifacts": [
+        "site/development-control/evidence/neon-api-quota-01be7249.json"
+      ],
+      "disposition": {
+        "class": "release",
+        "reason": "Retained release-level deployment failure; it must remain visible but is not artificially associated with an unrelated requirement assessment."
+      }
+    },
+    {
       "id": "ci-vault-59830a7e",
       "executedAt": "2026-11-27T17:29:48Z",
       "commit": "59830a7e237c8322f9076d00c0d37104ccf8d9ab",
