@@ -10,6 +10,8 @@ on:
       - 'eastern-axis/tests/test_global_conflict_analyst.py'
       - 'eastern-axis/src/GlobalConflictWatch.tsx'
       - 'eastern-axis/src/globalConflictWatch.css'
+      - 'scripts/guarded_snapshot_publish.py'
+      - 'tests/test_global_conflict_publish.py'
       - '.github/workflows/eastern-axis-global-conflict-analyst.yml'
   pull_request:
     paths:
@@ -18,20 +20,24 @@ on:
       - 'eastern-axis/src/GlobalConflictWatch.tsx'
       - 'eastern-axis/src/globalConflictWatch.css'
       - 'eastern-axis/src/App.tsx'
+      - 'scripts/guarded_snapshot_publish.py'
+      - 'tests/test_global_conflict_publish.py'
       - '.github/workflows/eastern-axis-global-conflict-analyst.yml'
 permissions:
-  contents: write
+  contents: read
 concurrency:
   group: ea-global-conflict-analyst
   cancel-in-progress: false
 jobs:
   global-conflict:
+    permissions:
+      contents: read
     runs-on: ubuntu-24.04
     timeout-minutes: 55
     steps:
       - uses: actions/checkout@v4
         with:
-          persist-credentials: true
+          persist-credentials: false
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
@@ -97,25 +103,106 @@ jobs:
         run: |
           npm install --no-audit --no-fund
           npm run build
-      - name: Commit source-attributed snapshot (GitHub Pages deployment picks it up)
-        if: success() && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+      - name: Validate publication module and candidate again before handoff
         run: |
-          git add eastern-axis/public/analysis/global-conflict-watch.json
-          if git diff --cached --quiet; then
-            echo 'No changes to the published conflict-watch snapshot.'
-            exit 0
-          fi
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "data(eastern-axis): publish guarded global conflict analysis [skip ci]"
-          for attempt in 1 2 3; do
-            if git push origin HEAD:main; then exit 0; fi
-            git fetch origin main
-            if ! git rebase origin/main; then
-              git rebase --abort || true
-              echo 'Snapshot conflict: refusing to overwrite a newer record.' >&2
-              exit 1
-            fi
-            sleep $((attempt * 3))
-          done
+          python -m unittest discover -s tests -p 'test_global_conflict_publish.py' -v
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          from scripts.guarded_snapshot_publish import validate_global_conflict_snapshot
+          path=Path('eastern-axis/public/analysis/global-conflict-watch.json')
+          snapshot=validate_global_conflict_snapshot(path.read_bytes())
+          receipt={
+            'schema':'eastern-axis.analyst-stage-receipt.v1',
+            'workflowName':'Eastern Axis global conflict analyst',
+            'runId':os.environ['GITHUB_RUN_ID'],
+            'runAttempt':int(os.environ['GITHUB_RUN_ATTEMPT']),
+            'runUrl':f"https://github.com/{os.environ['GITHUB_REPOSITORY']}/actions/runs/{os.environ['GITHUB_RUN_ID']}",
+            'headSha':os.environ['GITHUB_SHA'],
+            'eventName':os.environ['GITHUB_EVENT_NAME'],
+            'recordedAt':datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z'),
+            'analysis':{'status':'success','evidence':['offline tests','source collection','anomaly screen','bounded local review path']},
+            'validation':{'status':'success','evidence':['fail-closed output assertions','frontend build','publication-module regression tests']},
+            'snapshotIdentity':{'path':str(path),'sha256':snapshot.digest,'generatedAt':snapshot.generated_at_text},
+          }
+          handoff=Path(os.environ['RUNNER_TEMP'])/'global-conflict-handoff'
+          handoff.mkdir()
+          output=handoff/'global-conflict-analysis-receipt.json'
+          output.write_text(json.dumps(receipt,indent=2)+'\n')
+          (handoff/'global-conflict-watch.json').write_bytes(path.read_bytes())
+          PY
+      - name: Upload the sole publication inputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-conflict-publication-input-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/global-conflict-handoff/
+          if-no-files-found: error
+          retention-days: 14
+  publish-snapshot:
+    if: needs.global-conflict.result == 'success' && github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+    needs: global-conflict
+    permissions:
+      contents: write
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - name: Download the validated publication inputs outside the checkout
+        uses: actions/download-artifact@v4
+        with:
+          name: global-conflict-publication-input-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/global-conflict-publication-input
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: true
+      - name: Publish from a fresh exact-head worktree with bounded retries
+        id: publish
+        continue-on-error: true
+        run: |
+          python scripts/guarded_snapshot_publish.py \
+            "$RUNNER_TEMP/global-conflict-publication-input/global-conflict-watch.json" \
+            --repository "$GITHUB_WORKSPACE" --remote origin --branch main \
+            --max-attempts 4 --deadline-seconds 180 --backoff-seconds 5 \
+            --report "$RUNNER_TEMP/global-conflict-publication-report.json"
+      - name: Assemble stage-specific execution receipt
+        if: always()
+        run: |
+          python - <<'PY'
+          import json, os
+          from datetime import datetime, timezone
+          from pathlib import Path
+          root=Path(os.environ['RUNNER_TEMP'])
+          analysis=json.loads((root/'global-conflict-publication-input/global-conflict-analysis-receipt.json').read_text())
+          report_path=root/'global-conflict-publication-report.json'
+          report=json.loads(report_path.read_text()) if report_path.exists() else {
+            'status':'failed','classification':'publisher-did-not-produce-report',
+            'message':'Publication process ended before producing a report.'}
+          published=report.get('status') in {'published','no-op'}
+          analysis['publication']={
+            'status':'success' if published else 'failed',
+            'classification':report.get('classification'),
+            'evidence':report,
+          }
+          analysis['production']={
+            'status':'unavailable',
+            'reason':'Publication is not production functionality or release-identity verification.'}
+          analysis['recordedAt']=datetime.now(timezone.utc).isoformat(timespec='seconds').replace('+00:00','Z')
+          (root/'global-conflict-execution-receipt.json').write_text(json.dumps(analysis,indent=2)+'\n')
+          PY
+      - name: Preserve analysis and publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: global-conflict-execution-receipt-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/global-conflict-publication-input/global-conflict-analysis-receipt.json
+            ${{ runner.temp }}/global-conflict-publication-report.json
+            ${{ runner.temp }}/global-conflict-execution-receipt.json
+          if-no-files-found: warn
+          retention-days: 30
+      - name: Enforce publication outcome
+        if: steps.publish.outcome == 'failure'
+        run: |
+          echo 'Guarded snapshot publication failed; see the classified publication report.' >&2
           exit 1

@@ -1,6 +1,7 @@
 {
-  "schemaVersion": 1,
-  "method": "Statuses derive from retained public outputs and explicitly inspected workflow receipts. No analyst is operational merely because code exists.",
+  "schemaVersion": 2,
+  "method": "Analysis, validation, publication and current-production verification are independent. Run conclusions and artifact presence never establish a stage.",
+  "releaseContextStatus": "unavailable",
   "analysts": [
     {
       "id": "analyst-01",
@@ -17,8 +18,37 @@
       "methodology": "Dated physical indicators and source-specific thresholds",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
-      "lastSuccessfulExecution": "2026-11-27T21:37:50Z",
-      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071438411",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": {
         "conclusion": "success",
         "headSha": "df29dbe875129ee487444968e9e118b54a674321",
@@ -27,6 +57,7 @@
         "workflowName": "Eastern Axis physical early warning"
       },
       "outputGeneratedAt": "2026-11-27T21:37:40Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -49,16 +80,170 @@
       "methodology": "Geographic source corroboration; no unsupported attribution",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "failed",
-      "lastSuccessfulExecution": null,
-      "executionEvidence": null,
+      "analyticalStatus": "success",
+      "validationStatus": "success",
+      "publicationStatus": "failed",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "success",
+          "lastSuccessful": {
+            "status": "success",
+            "recordedStatus": "success",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+            "evidence": [
+              "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+            ],
+            "failureClassification": null,
+            "reason": null,
+            "releaseCommit": null,
+            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+          },
+          "history": [
+            {
+              "status": "success",
+              "recordedStatus": "success",
+              "recordedAt": "2026-11-27T21:38:00Z",
+              "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+              "evidence": [
+                "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            }
+          ]
+        },
+        "validation": {
+          "status": "success",
+          "lastSuccessful": {
+            "status": "success",
+            "recordedStatus": "success",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+            "evidence": [
+              "Job 140748728216 steps 9-11 succeeded: fail-closed output assertions and preserved frontend build"
+            ],
+            "failureClassification": null,
+            "reason": null,
+            "releaseCommit": null,
+            "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+          },
+          "history": [
+            {
+              "status": "success",
+              "recordedStatus": "success",
+              "recordedAt": "2026-11-27T21:38:00Z",
+              "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+              "evidence": [
+                "Job 140748728216 steps 9-11 succeeded: fail-closed output assertions and preserved frontend build"
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            }
+          ]
+        },
+        "publication": {
+          "status": "failed",
+          "lastSuccessful": null,
+          "history": [
+            {
+              "status": "failed",
+              "recordedStatus": "failed",
+              "recordedAt": "2026-11-27T21:38:00Z",
+              "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+              "evidence": [
+                "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454/job/140748728216"
+              ],
+              "failureClassification": "combined-checkout-publication-failure-unresolved",
+              "reason": "Commit/push step 12 failed after analytical and validation work succeeded. Historical evidence does not establish dirty paths or a genuine content conflict.",
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            }
+          ]
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": [
+            {
+              "status": "unavailable",
+              "recordedStatus": "unavailable",
+              "recordedAt": "2026-11-27T21:38:00Z",
+              "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+              "evidence": [
+                "Publication failed; no release identity or production workflow verification was created."
+              ],
+              "failureClassification": null,
+              "reason": null,
+              "releaseCommit": null,
+              "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+            }
+          ]
+        }
+      },
+      "lastSuccessfulExecution": "2026-11-27T21:38:00Z",
+      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454",
+      "lastSuccessfulAnalysis": {
+        "status": "success",
+        "recordedStatus": "success",
+        "recordedAt": "2026-11-27T21:38:00Z",
+        "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
+        "evidence": [
+          "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+        ],
+        "failureClassification": null,
+        "reason": null,
+        "releaseCommit": null,
+        "runUrl": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454"
+      },
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": {
         "conclusion": "failure",
         "headSha": "dbceb6d038405c4177c01d58f0df7bb4977bae5a",
         "updatedAt": "2026-11-27T21:38:00Z",
         "url": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454",
-        "workflowName": "Eastern Axis global conflict analyst"
+        "workflowName": "Eastern Axis global conflict analyst",
+        "stageEvidence": {
+          "analysis": {
+            "status": "success",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "evidence": [
+              "Job 140748728216 steps 4-8 succeeded: offline tests, source collection, anomaly screening, local review path"
+            ]
+          },
+          "validation": {
+            "status": "success",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "evidence": [
+              "Job 140748728216 steps 9-11 succeeded: fail-closed output assertions and preserved frontend build"
+            ]
+          },
+          "publication": {
+            "status": "failed",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "failureClassification": "combined-checkout-publication-failure-unresolved",
+            "reason": "Commit/push step 12 failed after analytical and validation work succeeded. Historical evidence does not establish dirty paths or a genuine content conflict.",
+            "evidence": [
+              "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071339454/job/140748728216"
+            ]
+          },
+          "production": {
+            "status": "unavailable",
+            "recordedAt": "2026-11-27T21:38:00Z",
+            "evidence": [
+              "Publication failed; no release identity or production workflow verification was created."
+            ]
+          }
+        }
       },
       "outputGeneratedAt": "2026-11-25T09:03:03Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -81,10 +266,40 @@
       "methodology": "Dated official inventory observations and change comparison",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
-      "outputGeneratedAt": "2026-11-27T10:55:45Z",
+      "outputGeneratedAt": "2026-11-27T22:44:05Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -107,8 +322,37 @@
       "methodology": "Independent supply proxies; no confirmed stockout from price alone",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
-      "lastSuccessfulExecution": "2026-11-27T21:39:32Z",
-      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554449",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": {
         "conclusion": "success",
         "headSha": "feadc5000ec8550cf7747004378db11069081f17",
@@ -117,6 +361,7 @@
         "workflowName": "Eastern Axis product shortage intelligence"
       },
       "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -139,10 +384,40 @@
       "methodology": "Declared route matching against dated physical observations",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": "2026-11-27T21:37:40Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -165,10 +440,40 @@
       "methodology": "Input-price changes and exact tariff reference; legal applicability withheld",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -191,10 +496,40 @@
       "methodology": "Official issuer filing evidence; missing coverage is unavailable",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
-      "outputGeneratedAt": "2026-11-27T09:44:40Z",
+      "outputGeneratedAt": "2026-11-27T22:04:53Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -217,10 +552,40 @@
       "methodology": "Published macro/market observations and explicit date checks",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
-      "outputGeneratedAt": "2026-11-27T09:44:37Z",
+      "outputGeneratedAt": "2026-11-27T22:04:50Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -243,10 +608,40 @@
       "methodology": "Financial transmission indicators; correlation is not causation",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
-      "outputGeneratedAt": "2026-11-27T09:44:40Z",
+      "outputGeneratedAt": "2026-11-27T22:04:53Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -269,10 +664,40 @@
       "methodology": "Original energy observations and benchmark scope",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -293,10 +718,40 @@
       "methodology": "Original legal notices with jurisdiction and effective date",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "planned",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "No validated shared output registered.",
       "coverageLimitations": [
@@ -317,10 +772,40 @@
       "methodology": "Original advisory plus approved vendor/version applicability",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "planned",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "No validated shared output registered.",
       "coverageLimitations": [
@@ -341,10 +826,40 @@
       "methodology": "Original labor observations plus declared workforce dependency",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "planned",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "No validated shared output registered.",
       "coverageLimitations": [
@@ -367,10 +882,40 @@
       "methodology": "Independent falling-input-price evidence; no invented savings",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": "2026-11-27T21:38:07Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -391,10 +936,40 @@
       "methodology": "Approved dependency and validated finding to bounded options",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "planned",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "No validated shared output registered.",
       "coverageLimitations": [
@@ -415,10 +990,40 @@
       "methodology": "Separate private household matching; never business profile transfer",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "planned",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "No validated shared output registered.",
       "coverageLimitations": [
@@ -441,8 +1046,37 @@
       "methodology": "Evidence ID validation, freshness and unsupported-claim suppression",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
-      "lastSuccessfulExecution": "2026-11-27T21:44:31Z",
-      "executionEvidence": "https://github.com/jbmeadows26/Power-Atlas/actions/runs/46071554447",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
+      "lastSuccessfulExecution": null,
+      "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": {
         "conclusion": "success",
         "headSha": "feadc5000ec8550cf7747004378db11069081f17",
@@ -451,6 +1085,7 @@
         "workflowName": "Eastern Axis signal analyst"
       },
       "outputGeneratedAt": "2026-11-27T21:44:24Z",
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
@@ -473,10 +1108,40 @@
       "methodology": "Chronological baseline error comparison; retain unsuccessful forecasts",
       "outputSchema": "eastern-axis.finding.v1: dependencyId, classification, observations, source, observationDate, freshness, implications, limitations, options",
       "operationalStatus": "partial",
+      "analyticalStatus": "unavailable",
+      "validationStatus": "unavailable",
+      "publicationStatus": "unavailable",
+      "productionVerificationStatus": "unavailable",
+      "executionStages": {
+        "analysis": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "validation": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "publication": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        },
+        "production": {
+          "status": "unavailable",
+          "lastSuccessful": null,
+          "history": []
+        }
+      },
       "lastSuccessfulExecution": null,
       "executionEvidence": null,
+      "lastSuccessfulAnalysis": null,
+      "lastSuccessfulPublication": null,
+      "lastProductionVerification": null,
       "latestExecution": null,
       "outputGeneratedAt": null,
+      "outputGeneratedAtMeaning": "Generation time of the retained artifact; not the latest analytical attempt or underlying observation freshness.",
       "dataFreshness": "Must assess each underlying observation; output generation is not observation freshness.",
       "outputValidation": "Retained artifact exists; complete analyst responsibilities and production acceptance remain unverified.",
       "coverageLimitations": [
